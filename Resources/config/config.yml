@@ -1,0 +1,11 @@
+parameters:
+    api.class:   SkrenHouseFactory\v3Bundle\Api\Manager
+    api.format:  json
+    api.base:    http://api.myskreen.com/api/1
+
+services:
+    api:
+        class:        %api.class%
+        arguments:    [%api.base%, %api.format%]
+        #calls:
+        #    - [ init, [ %api.base%,  ] ]
