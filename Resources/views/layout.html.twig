@@ -1,0 +1,57 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>mySkreen | v3</title>
+	<meta name="description" content="...">
+	<meta name="author" content="mySkreen">
+
+	<meta name="viewport" content="width=device-width">
+
+	<link rel="stylesheet/less" href="{{ asset('bundles/skreenhousefactoryv3bundle/initializr/less/style.less') }}">
+	<script src="{{ asset('bundles/skreenhousefactoryv3bundle/initializr/js/libs/less-1.3.0.min.js') }}"></script>
+	
+	<!-- Use SimpLESS (Win/Linux/Mac) or LESS.app (Mac) to compile your .less files
+	to style.css, and replace the 2 lines above by this one:
+
+	<link rel="stylesheet" href="{{ asset('bundles/skreenhousefactoryv3bundle/initializr/less/style.css') }}">
+	 -->
+
+	<script src="{{ asset('bundles/skreenhousefactoryv3bundle/initializr/js/libs/modernizr-2.5.3-respond-1.1.0.min.js') }}"></script>
+</head>
+<body>
+<!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
+
+    <div class="container">
+      {% include 'SkreenHouseFactoryV3Bundle:Header:_header.html.twig' %}
+      {% block content %}
+      {% endblock %}
+
+      <hr>
+
+      <footer>
+        <p>&copy; Company 2012</p>
+      </footer>
+
+    </div> <!-- /container -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{ asset('bundles/skreenhousefactoryv3bundle/initializr/js/libs/jquery-1.7.2.min.js') }}"><\/script>')</script>
+
+<script src="{{ asset('bundles/skreenhousefactoryv3bundle/initializr/js/libs/bootstrap/bootstrap.min.js') }}"></script>
+
+<script src="{{ asset('bundles/skreenhousefactoryv3bundle/js/api.js') }}"></script>
+<script src="{{ asset('bundles/skreenhousefactoryv3bundle/js/session.js') }}"></script>
+<script>
+	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+	s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
