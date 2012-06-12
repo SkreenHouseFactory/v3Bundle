@@ -27,16 +27,29 @@
 <body>
 <!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
 
+    <div class="modal hide" id="skModal">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>{{ 'loading'|trans }}</h3>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">{{ 'close'|trans }}</a>
+      </div>
+    </div>
+
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' %}
+    {% block content %}
+    {% endblock %}
     <div class="container">
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' %}
-      {% block content %}
-      {% endblock %}
 
-      <hr>
-
+    {#
       <footer>
+        <hr />
         <p>&copy; The Skreen House Factory 2012</p>
       </footer>
+    #}
 
     </div> <!-- /container -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -44,6 +57,7 @@
 
 <script src="{{ asset('bundles/skreenhousefactoryv3/initializr/js/libs/bootstrap/bootstrap.min.js') }}"></script>
 
+<script src="{{ asset('bundles/skreenhousefactoryv3/js/vendors/easyXDM.min.js') }}"></script>
 <script src="{{ asset('bundles/skreenhousefactoryv3/js/api.js') }}"></script>
 <script src="{{ asset('bundles/skreenhousefactoryv3/js/session.js') }}"></script>
 <script>

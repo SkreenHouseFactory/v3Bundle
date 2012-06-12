@@ -1,19 +1,66 @@
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <a class="brand" href="#">mySkreen</a>
-      <div class="nav-collapse">
-        <ul class="nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
+<div class="container" id="top-bar">
+<ul class="pull-right nav">
+  <li id="signin" class="active"><a href="#">Connexion</a></li>
+  <li><a data-toggle="collapse" data-target="#top-playlist" href="#">{{ 'playlist.trigger'|trans }} <span class="caret"></span></a></li>
+</ul>
+<a href="" title="mySkreen"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" /></a>
+</div>
+
+<div id="top-playlist" class="collapse in">
+  <div class="container">
+    <h2>{{ 'playlist.title'|trans }}</h2>
+    <ul id="playlist" data-update-url="">
+      <li class="all">
+        <span class="label">{{ 'playlist.all'|trans }}</span><br/>
+        <span class="badge badge-info">1</span>
+      </li>
+      <li class="cine">
+        <span class="label">{{ 'playlist.cine'|trans }} </span><br/>
+        <span class="badge badge-info">1</span>
+      </li>
+      <li class="tv">
+        <span class="label">{{ 'playlist.tv'|trans }}</span><br/>
+        <span class="badge badge-important">2</span>
+      </li>
+      <li class="replay">
+        <span class="label">{{ 'playlist.replay'|trans }}</span><br/>
+        <span class="badge">1</span>
+      </li>
+      <li class="web">
+        <span class="label">{{ 'playlist.web'|trans }}</span><br/>
+        <span class="badge">0</span>
+      </li>
+      <li class="vod">
+        <span class="label">{{ 'playlist.vod'|trans }}</span><br/>
+        <span class="badge badge-important">2</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div id="top-nav">
+  <div class="subnav subnav-fixed">
+  <div class="container">
+    <ul class="nav">
+      <li class="active"><a data-toggle="collapse" data-target="#nav-toggle .suggestions" href="#">{{ 'nav.suggestions'|trans }}</a></li>
+      <li><a data-toggle="collapse" data-target="#nav-toggle .tv" href="#">{{ 'nav.tv'|trans }}</a></li>
+      <li><a data-toggle="collapse" data-target="#nav-toggle .cine" href="#">{{ 'nav.cine'|trans }}</a></li>
+    </ul>
+  </div>
+  </div>
+  <div class="container">
+    <ul id="nav-toggle" class="nav nav-pills">
+      <li class="suggestions active"><a href="#">Films</a></li>
+      <li class="suggestions"><a href="#">Emissions</a></li>
+      <li class="suggestions"><a href="#">Séries</a></li>
+      <li class="suggestions"><a href="#">Documentaires</a></li>
+      <li class="suggestions"><a href="#">Spectacles</a></li>
+      <li class="tv collapse active"><a href="#">Programme TV</a></li>
+      <li class="tv collapse"><a href="#">Live</a></li>
+      <li class="cine collapse active"><a href="#">Sorties ciné</a></li>
+      <li class="cine collapse"><a href="#">A venir</a></li>
+      <li class="cine collapse"><a href="#">Vos salles de cinéma préférées</a></li>
+    </ul>
+  </div>
   </div>
 </div>

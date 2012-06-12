@@ -1,10 +1,39 @@
+// -- popin
+var skXdmSocket = { postMessage: function(){} };
+function skPaymentPopinResize () {
+}
+
+
 // -- API
 var API;
 API = {
+  base: 'http://benoit.myskreen.typhon.net/api/1/', 
+  popin: 'https://benoit.myskreen.typhon.net/popin/',
+  dataType: 'json',
+  currentModalUrl: null,
+  quickLaunchModal: function(action) {
+    this.launchModal(this.popin+action);
+  },
+  launchModal: function(url) {
+    var self = this;
+    if (url != this.currentModalUrl) {
+      this.query('GET', url + '?proxy=v3', null, function(json){
+        if (typeof json.redirect != "undefined") {
+          self.launchModal(json.redirect);
+        } else if (json.html) {
+          $('#skModal .modal-body').html(json.html);
+          //transfer h1 : $('#skModal .modal-header h3').html($('#part-header h1', $(json.html));
+        }
+      });
+    }
+    $('#skModal').modal();
+    this.currentModalUrl = url;
+  },
   query: function(method, url, data, callback, cache) {
-    var root = this.root;
+    
+    console.log('API.query', method, url, data);
+    
     var post = {};
-
     // Currently, proxy POST requests
     if (method == "POST" || method == "DELETE") {
       url = url.match(/^http\:\/\//) ? url: "http://"+root +"api/1/"+ url;
@@ -13,30 +42,35 @@ API = {
       var dataType = "jsonp";
       if (data && typeof data==='object'){
         url += '?';
-        _.each(data, function (valeur, clef){
-          url += clef+'='+valeur+'&';
-        });
+        for (var key in data) {
+           url += key+'='+data[key]+'&';
+        }
         url+='&fromWebsite=1';
         data=null;
       }
-      if(url.match(/^https\:\/\//)) url.match(/^https\:\/\//) ? url: "https://"+root +"api/1/"+ url;
-      else url = url.match(/^http\:\/\//) ? url: "http://"+root +"api/1/"+ url;
+      if (url.match(/^https\:\/\//)) {
+        console.log('API.query', 'https', 'is popin:' + url.match(/^https\:\/\//), url);
+      } else {
+        console.log('API.query', 'http', url);
+        var url  = this.base + url;
+        url = url.match(/^http\:\/\//) ? url: "http://"+root +"api/1/"+ url;
+      }
     }
-
-    console.log('query called -->',method, url, data);
     
     //Permet de benchmarker le temps d'execution des pages
     var tooLong = setTimeout(function(){
       console.warn('!! Too long request to API', url, (new Date()));
     },2000);
 
-    var req = API.datasource.request({
+    var req = $.ajax({
       url: url,
-      dataType: dataType,
+      dataType: this.dataType,
       cache: false, //Attention mémoire nodejs
       data: data,
       type: method,
       jsonp: "callback",
+      async: true,
+      crossDomain: true,
       error: function(retour, code) {
         clearTimeout(tooLong); 
         console.warn('error getting query',retour, url, data, code);
@@ -45,13 +79,13 @@ API = {
         }
 
         retour.context = { method:method, url:url, data:data };
-        console.log('## retourn', retour);
+        console.log('return', retour);
         if(typeof(callback) != 'undefined') callback(retour, null);
       },
       success: function(json) {     
-        clearTimeout(tooLong);      
-        var datas = JSON.parse(JSON.stringify(json));
-        callback(null, datas);
+        clearTimeout(tooLong);    
+        var datas = JSON.parse(JSON.stringify(json));  
+        callback(datas);
       }
     });
     return req;
