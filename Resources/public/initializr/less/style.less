@@ -12,7 +12,8 @@
 @bgPlaylist:     "../../images/header/bg-playlist.jpeg";
 @vignetteWidth:   150px;
 @vignetteHeight:   200px;
-@vignetteBorderWidth:  2px dashed #AAAAAA;
+@vignetteBorder:  2px dashed transparent;
+@vignetteBorderEmpty:  2px dashed #BBBBBB;
 @vignetteMargin:  0 10px;
 
 
@@ -23,50 +24,125 @@ body {
 }
 
 #top-bar {
-  padding: 0px;
+  padding: 5px 0 0 0;
   box-shadow: 5px 5px 0px black;
 
   img {
-    height: 40px;
+    height: 50px;
+  }
+  
+  form {
+    margin-top: 12px;
+    margin-left: 12%;
+    width: 50%;
+    font-size: 1.2em;
+    
+    input.search-query {
+      width: 75%;
+      padding: 5px 10px;
+    }
+    input.validate {
+      width: 20%;
+    }
+  }
+
+  .nav {
+    margin-top: 8px;
+    margin-bottom: 0px;
+    text-align: right;
+
+    li a {
+      color: white;
+    }
+    li#signin a {
+      color: #AAAAAA;
+      /*padding-right: 20px;*/
+    }
   }
 }
 
 #top-playlist {
   background: url("@{bgPlaylist}");
+  box-shadow: inset 0px 3px 3px #999;
   
   .container {
-    padding-bottom: 10px;
+    padding-bottom: 20px;
+    position: relative;
 
     h2 {
       text-align: center;
       font-size: 0.9em;
     }
+    
+    .back-selector {
+      position: absolute;
+      left: 35px;
+      top: 3px;
+    }
 
-    ul#playlist li {
+    ul#selector.items {
+       li.empty {
+        border: @vignetteBorderEmpty;
+       }
+
+       li {
+        border: @vignetteBorder;
+
+        span.label {
+          margin-top: 0px;
+          border-top-right-radius: 0px;
+          border-top-left-radius: 0px;
+          padding: 3px 5px 5px 5px;
+          font-size: 1.0em;
+          position: relative;
+          display: inline-block;
+        }
+      }
+    }
+    ul#playlist.items li {
+      box-shadow: 1px 1px 4px #999;
+    }
+    ul.items li {
+      position: relative;
       font-family: Helvetica, Arial;
       width: @vignetteWidth;
       height: @vignetteHeight;
       display: block;
       float: left;
-      border: @vignetteBorderWidth;
+      border: @vignetteBorder;
       margin: @vignetteMargin;
       background: #DEDEDE;
       list-style: none;
       text-align: center;
-      
+
+
+      a.btn {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+      }
       span {
         color: white;
-      }
-      span.label {
-        border-top-right-radius: 0px;
-        border-top-left-radius: 0px;
-        padding: 3px 5px 5px 5px;
-        font-size: 1.0em;
       }
       span.badge {
         display: inline-block;
         margin-top: 5px;
-        font-size: 1.0em;
+        font-size: 1.2em;
+        padding: 4px 10px;
+        border: 2px solid white;
+      }
+      span.opacity {
+        opacity: 0.5;
+      }
+      span.label {
+        font-weight: normal;
+      }
+      span.title {
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        text-shadow: 0px 0px 4px black;
+        text-align: left;
       }
     }
   }

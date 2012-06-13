@@ -20,9 +20,14 @@ class SessionController extends Controller
     /**
     *
     */
-    public function initAction(Request $request)
+    public function playlistAction(Request $request)
     {
-      
-      return new Response('{"success":1,"gmap_steps":'.$request->get('gmap_steps').'}');
+      if ($request->get('type') == 'selector') {
+        return $this->render('SkreenHouseFactoryV3Bundle:Main:_selector.html.twig');
+      } else {
+        return $this->render('SkreenHouseFactoryV3Bundle:Main:_playlist.html.twig', array(
+          'type' => 'playlist.'.$request->get('type')
+        ));
+      }
     }
 }

@@ -1,40 +1,25 @@
 <div class="container" id="top-bar">
 <ul class="pull-right nav">
-  <li id="signin" class="active"><a href="#">Connexion</a></li>
-  <li><a data-toggle="collapse" data-target="#top-playlist" href="#">{{ 'playlist.trigger'|trans }} <span class="caret"></span></a></li>
+  <li id="signin" class="active"><a href="#">{{ 'signin'|trans }} - {{ 'signup'|trans }}</a></li>
+  <li>
+    <a data-toggle="collapse" data-target="#top-playlist" href="#">
+      <big>{{ 'playlist.trigger'|trans }}</big> <i class="icon-chevron-down icon-white"></i>
+    </a>
+  </li>
 </ul>
-<a href="" title="mySkreen"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" /></a>
+
+<a class="pull-left" href="" title="mySkreen"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-v3.png') }}" alt="mySkreen" /></a>
+
+<form class="navbar-search btn-group pull-left">
+<input type="text" class="search-query pull-left" placeholder="{{ 'search.pitch'|trans }}">
+<input type="submit" class="btn" value="{{ 'search.launch'|trans }}">
+</form>
+
 </div>
 
-<div id="top-playlist" class="collapse in">
+<div id="top-playlist" class="collapse in" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: '%session.uid%'}) }}">
   <div class="container">
-    <h2>{{ 'playlist.title'|trans }}</h2>
-    <ul id="playlist" data-update-url="">
-      <li class="all">
-        <span class="label">{{ 'playlist.all'|trans }}</span><br/>
-        <span class="badge badge-info">1</span>
-      </li>
-      <li class="cine">
-        <span class="label">{{ 'playlist.cine'|trans }} </span><br/>
-        <span class="badge badge-info">1</span>
-      </li>
-      <li class="tv">
-        <span class="label">{{ 'playlist.tv'|trans }}</span><br/>
-        <span class="badge badge-important">2</span>
-      </li>
-      <li class="replay">
-        <span class="label">{{ 'playlist.replay'|trans }}</span><br/>
-        <span class="badge">1</span>
-      </li>
-      <li class="web">
-        <span class="label">{{ 'playlist.web'|trans }}</span><br/>
-        <span class="badge">0</span>
-      </li>
-      <li class="vod">
-        <span class="label">{{ 'playlist.vod'|trans }}</span><br/>
-        <span class="badge badge-important">2</span>
-      </li>
-    </ul>
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
   </div>
 </div>
 
@@ -55,11 +40,11 @@
       <li class="suggestions"><a href="#">Séries</a></li>
       <li class="suggestions"><a href="#">Documentaires</a></li>
       <li class="suggestions"><a href="#">Spectacles</a></li>
-      <li class="tv collapse active"><a href="#">Programme TV</a></li>
-      <li class="tv collapse"><a href="#">Live</a></li>
-      <li class="cine collapse active"><a href="#">Sorties ciné</a></li>
-      <li class="cine collapse"><a href="#">A venir</a></li>
-      <li class="cine collapse"><a href="#">Vos salles de cinéma préférées</a></li>
+      <li class="tv hide active"><a href="#">Programme TV</a></li>
+      <li class="tv hide"><a href="#">Live</a></li>
+      <li class="cine hide active"><a href="#">Sorties ciné</a></li>
+      <li class="cine hide"><a href="#">A venir</a></li>
+      <li class="cine hide"><a href="#">Vos salles de cinéma préférées</a></li>
     </ul>
   </div>
   </div>

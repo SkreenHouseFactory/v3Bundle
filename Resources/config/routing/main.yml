@@ -1,9 +1,17 @@
 #main
-homepage:
-    pattern:  /
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home }
 homepage_locale:
     pattern:  /{_locale}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home }
+    requirements:
+        _locale: en|fr
+homepage:
+    pattern:  /
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home }
+
+
+#playlist
+playlist_load:
+    pattern:  /{_locale}/playlist/{session_uid}/{type}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Session:playlist }
     requirements:
         _locale: en|fr

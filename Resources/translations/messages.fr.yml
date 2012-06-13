@@ -6,16 +6,17 @@ page:
     title:
         cgvu: __page.title.cgvu
 playlist:
-    trigger: 'Voir ma chaîne personnalisée'
-    title: 'Ma chaîne personnalisée'
-    all: 'Tous mes programmes'
-    cine: Cinéma
-    tv: TV
-    replay: Replay
-    web: 'Sur le web'
-    vod: 'En VOD'
+    trigger: 'Mes programmes'
+    title: 'Ne ratez plus aucun programme : ajoutez-les à vos favoris !'
+    all: 'Tout'
+    cine: Au cinéma
+    tv: A la télé
+    replay: En Replay
+    web: 'En ligne'
+    friends: 'Vos amis regardent'
+    add.programs: Rechercher un programme
 nav:
-    suggestions: Suggestions
+    suggestions: En ligne
     tv: 'A la télé'
     cine: 'Au cinéma'
 date.month:
@@ -31,3 +32,12 @@ date.month:
     oct: Octobre
     nov: Novembre
     dec: Décembre
+
+
+back: Retour
+close: Fermer
+signin: Se connecter
+signup: Ouvrir un compte
+search:
+    pitch: Un programme, une chaîne, un acteur, une salle de cinéma
+    launch: Go

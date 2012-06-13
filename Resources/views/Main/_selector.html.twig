@@ -1,0 +1,29 @@
+<h2>{{ 'playlist.title'|trans }}</h2>
+<ul id="selector" class="items">
+  <li class="all" data-load-url="{{ path('playlist_load', {type:'all', session_uid: '%session.uid%'}) }}" style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de4350000/4348916/the-divide.jpg) no-repeat;">
+    <span class="label label-inverse">{{ 'playlist.all'|trans }}</span><br/>
+    <span class="badge badge-info">1</span>
+  </li>
+  <li class="cine empty" data-load-url="{{ path('playlist_load', {type:'cine', session_uid: '%session.uid%'}) }}">
+    <span class="label opacity">{{ 'playlist.cine'|trans }} </span><br/>
+    <span class="badge opacity">?</span>
+    <a class="btn" href="">{{ 'playlist.add.programs'|trans }}</a>
+  </li>
+  <li class="tv" data-load-url="{{ path('playlist_load', {type:'tv', session_uid: '%session.uid%'}) }}" style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de4380000/4356824/histoires-en-serie.jpg) no-repeat;">
+    <span class="label label-inverse">{{ 'playlist.tv'|trans }}</span><br/>
+    <span class="badge badge-important">2</span>
+  </li>
+  <li class="replay" data-load-url="{{ path('playlist_load', {type:'replay', session_uid: '%session.uid%'}) }}" style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de4380000/4356824/histoires-en-serie.jpg) no-repeat;">
+    <span class="label label-inverse">{{ 'playlist.replay'|trans }}</span><br/>
+    <span class="badge badge-inverse">1</span>
+  </li>
+  <li class="web empty" data-load-url="{{ path('playlist_load', {type:'web', session_uid: '%session.uid%'}) }}">
+    <span class="label opacity">{{ 'playlist.web'|trans }}</span><br/>
+    <span class="badge opacity">?</span>
+    <a class="btn" href="">{{ 'playlist.add.programs'|trans }}</a>
+  </li>
+  <li class="vod" data-load-url="{{ path('playlist_load', {type:'vod', session_uid: '%session.uid%'}) }}" style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de4350000/4348916/the-divide.jpg) no-repeat;">
+    <span class="label label-warning">{{ 'playlist.friends'|trans }}</span><br/>
+    <span class="badge badge-important">2</span>
+  </li>
+</ul>
