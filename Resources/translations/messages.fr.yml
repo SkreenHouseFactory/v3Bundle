@@ -12,13 +12,13 @@ playlist:
     cine: Au cinéma
     tv: A la télé
     replay: En Replay
-    web: 'En ligne'
+    web: 'En VOD'
     friends: 'Vos amis regardent'
     add.programs: Rechercher un programme
 nav:
-    suggestions: En ligne
+    suggestions: A la demande
     tv: 'A la télé'
-    cine: 'Au cinéma'
+    cine: 'Dans les salles'
 date.month:
     jan: Janvier
     feb: Février
@@ -37,7 +37,8 @@ date.month:
 back: Retour
 close: Fermer
 signin: Se connecter
+signout: Se déconnecter
 signup: Ouvrir un compte
 search:
     pitch: Un programme, une chaîne, un acteur, une salle de cinéma
-    launch: Go
+    launch: Rechercher

@@ -32,14 +32,17 @@ body {
   }
   
   form {
-    margin-top: 12px;
-    margin-left: 12%;
+    margin-top: 5px;
+    margin-left: 8%;
     width: 50%;
     font-size: 1.2em;
-    
+    * {
+      font-family: Belleza, Helvetica;
+    }
     input.search-query {
       width: 75%;
-      padding: 5px 10px;
+      padding: 9px 10px;
+      font-size: 1.0em;
     }
     input.validate {
       width: 20%;
@@ -50,13 +53,18 @@ body {
     margin-top: 8px;
     margin-bottom: 0px;
     text-align: right;
+    padding: 4px;
 
     li a {
       color: white;
+      padding: 0 4px;
+      border-radius: 4px;
+    }
+    li a:hover {
+      background: #555;
     }
     li#signin a {
       color: #AAAAAA;
-      /*padding-right: 20px;*/
     }
   }
 }
@@ -70,15 +78,20 @@ body {
     position: relative;
 
     h2 {
-      text-align: center;
+      padding: 5px 0 5px 40%;
       font-size: 0.9em;
+      
+      a {
+        margin:5px 0;
+      }
+      
+      .back-selector {
+        /*position: absolute;
+        left: 35px;
+        top: 3px;*/
+      }
     }
     
-    .back-selector {
-      position: absolute;
-      left: 35px;
-      top: 3px;
-    }
 
     ul#selector.items {
        li.empty {
@@ -99,10 +112,21 @@ body {
         }
       }
     }
-    ul#playlist.items li {
-      box-shadow: 1px 1px 4px #999;
+    ul#playlist.items {
+      li {
+        box-shadow: 1px 1px 4px #999;
+      }
+      li.empty {
+        border: @vignetteBorderEmpty;
+        box-shadow: none;
+      }
+    }
+    
+    ul.items.to_animate li {
+      width: 0;
     }
     ul.items li {
+      cursor: pointer;
       position: relative;
       font-family: Helvetica, Arial;
       width: @vignetteWidth;
@@ -248,9 +272,45 @@ body {
   .navbar .container {
     width: 1170px;
   }
+  
+  ul#nav-toggle li a:hover {
+    color: #08C;
+  }
+  ul#nav-toggle li a, ul#nav-toggle li a.active:hover {
+    color: white;
+  }
+  
 }
 
 
+/* slider */
+
+.slider {
+  height: @vignetteHeight;
+  width: 100%;
+  overflow: hidden;
+  clear: both;
+  z-index: 1;
+
+  .prev, .next {
+    visibility: hidden;
+    position: absolute;
+    top: 45%;
+    font-size: 2em;
+    font-weight: bold;
+    padding: 10px 10px 15px 10px;
+  }
+  .prev {
+    left: 0px;
+  }
+  .next {
+    right: 0px;
+  }
+  .slider-container {
+    height: 100%;
+    position: absolute;
+  }
+}
 
 
 

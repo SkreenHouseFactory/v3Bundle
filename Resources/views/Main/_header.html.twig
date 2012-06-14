@@ -1,23 +1,27 @@
 <div class="container" id="top-bar">
-<ul class="pull-right nav">
-  <li id="signin" class="active"><a href="#">{{ 'signin'|trans }} - {{ 'signup'|trans }}</a></li>
-  <li>
-    <a data-toggle="collapse" data-target="#top-playlist" href="#">
-      <big>{{ 'playlist.trigger'|trans }}</big> <i class="icon-chevron-down icon-white"></i>
-    </a>
-  </li>
-</ul>
-
-<a class="pull-left" href="" title="mySkreen"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-v3.png') }}" alt="mySkreen" /></a>
-
-<form class="navbar-search btn-group pull-left">
-<input type="text" class="search-query pull-left" placeholder="{{ 'search.pitch'|trans }}">
-<input type="submit" class="btn" value="{{ 'search.launch'|trans }}">
-</form>
-
+  <ul class="pull-right nav">
+    <li id="signin" class="active">
+      <a href="#">{{ 'signin'|trans }} - {{ 'signup'|trans }}</a>
+    </li>
+    <li id="signed-in" class="active hide">
+      <a href="#"><span></span> - {{ 'signout'|trans }}</a>
+    </li>
+    <li>
+      <a data-toggle="collapse" data-target="#top-playlist" href="#">
+        <big>{{ 'playlist.trigger'|trans }}</big> <i class="icon-chevron-down icon-white"></i>
+      </a>
+    </li>
+  </ul>
+  
+  <a class="pull-left" href="/" title="mySkreen"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-v3.png') }}" alt="mySkreen" /></a>
+  
+  <form class="navbar-search btn-group pull-left">
+  <input type="text" class="search-query btn-large pull-left" placeholder="{{ 'search.pitch'|trans }}" data-provide="typeahead">
+  <input type="submit" class="btn btn-large btn-inverse" value="{{ 'search.launch'|trans }}">
+  </form>
 </div>
 
-<div id="top-playlist" class="collapse in" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: '%session.uid%'}) }}">
+<div id="top-playlist" class="collapse in" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
   <div class="container">
     {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
   </div>
@@ -35,16 +39,17 @@
   </div>
   <div class="container">
     <ul id="nav-toggle" class="nav nav-pills">
-      <li class="suggestions active"><a href="#">Films</a></li>
-      <li class="suggestions"><a href="#">Emissions</a></li>
-      <li class="suggestions"><a href="#">Séries</a></li>
-      <li class="suggestions"><a href="#">Documentaires</a></li>
-      <li class="suggestions"><a href="#">Spectacles</a></li>
-      <li class="tv hide active"><a href="#">Programme TV</a></li>
+      <li id="history-back" class="hide"><a onClick="Session.postMessage(['javascript', 'history.back()'])" href="#">&laquo; Retour</a></li>
+      <li class="suggestions active"><a onClick="API.linkV2('/films')" href="#">Films</a></li>
+      <li class="suggestions"><a onClick="API.linkV2('/emissions')" href="#">Emissions</a></li>
+      <li class="suggestions"><a onClick="API.linkV2('/series')" href="#">Séries</a></li>
+      <li class="suggestions"><a onClick="API.linkV2('/documentaires')" href="#">Documentaires</a></li>
+      <li class="suggestions"><a onClick="API.linkV2('/spectacles')" href="#">Spectacles</a></li>
+      <li class="tv hide active"><a onClick="API.linkV2('/programme-tv')" href="#">Programme TV</a></li>
       <li class="tv hide"><a href="#">Live</a></li>
-      <li class="cine hide active"><a href="#">Sorties ciné</a></li>
-      <li class="cine hide"><a href="#">A venir</a></li>
-      <li class="cine hide"><a href="#">Vos salles de cinéma préférées</a></li>
+      <li class="cine hide active"><a onClick="API.linkV2('/selection/3520923-a-voir-au-cinema')" href="#">Sorties ciné</a></li>
+      <li class="cine hide"><a onClick="API.linkV2('/selection/4588325-prochainement-dans-les-salles')" href="#">A venir</a></li>
+      <li class="cine hide"><a onClick="API.linkV2('/sur-toutes-les-chaines/cinema')" href="#">Vos salles de cinéma préférées</a></li>
     </ul>
   </div>
   </div>

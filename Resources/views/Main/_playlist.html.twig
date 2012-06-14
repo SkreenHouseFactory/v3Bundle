@@ -1,14 +1,22 @@
-<a class="btn back-selector" href="#">&laquo; {{ 'back'|trans }}</a>
-<h2>{{ type|trans }}</h2>
-<ul id="playlist" class="items" data-update-url="">
-  <li style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de4350000/4348916/the-divide.jpg) no-repeat;">
-    <span class="title">The Divide<br/><span class="label label-info">sur mySkreen</span></span>
-  </li>
-  <li style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de1320000/1303115/city-of-crime.jpg) no-repeat;">
-    <span class="title">City of crime<br/><span class="label label-warning">au cinéma</span></span>
-  </li>
-  <li style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de4380000/4356824/histoires-en-serie.jpg) no-repeat;">
-    <span class="title">Prêtes à tout pour leurs enfants<br/><span class="label label-important">en direct</span></span>
+<h2 class="btn-group"><a class="btn back-selector" href="#">&laquo; {{ 'back'|trans }}</a><a class="btn btn-primary">{{ type|trans }}</a></h2>
+<div class="slider">
+  <a class="next badge badge-inverse">&raquo;</a>
+  <a class="prev badge badge-inverse">&laquo</a>
+  <div class="slider-container">
+  <ul id="playlist" class="items{% if addClass is defined %} {{ addClass }}{% endif %}">
+    <li onClick="API.linkV2('/film/4348916-the-divide');" style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de4350000/4348916/the-divide.jpg) no-repeat;">
+      <span class="title">The Divide<br/><span class="label label-info">sur mySkreen</span></span>
+    </li>
+    <li onClick="API.linkV2('/film/1303115-city-of-crime')" style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de1320000/1303115/city-of-crime.jpg) no-repeat;">
+      <span class="title">City of crime<br/><span class="label label-warning">au cinéma</span></span>
+    </li>
+    <li onClick="API.linkV2('/film/4356824-histoires-en-serie')" style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de4380000/4356824/histoires-en-serie.jpg) no-repeat;">
+      <span class="title">Prêtes à tout pour leurs enfants<br/><span class="label label-important">en direct</span></span>
+    </li>
+    <li class="empty">
+      add
+    </li>
     
-  </li>
-</ul>
+  </ul>
+  </div>
+</div>

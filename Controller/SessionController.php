@@ -23,10 +23,13 @@ class SessionController extends Controller
     public function playlistAction(Request $request)
     {
       if ($request->get('type') == 'selector') {
-        return $this->render('SkreenHouseFactoryV3Bundle:Main:_selector.html.twig');
+        return $this->render('SkreenHouseFactoryV3Bundle:Main:_selector.html.twig', array(
+          'addClass' => 'to_animate'
+        ));
       } else {
         return $this->render('SkreenHouseFactoryV3Bundle:Main:_playlist.html.twig', array(
-          'type' => 'playlist.'.$request->get('type')
+          'type' => 'playlist.'.$request->get('type'),
+          'addClass' => 'to_animate'
         ));
       }
     }

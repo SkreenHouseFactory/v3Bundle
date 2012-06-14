@@ -7,6 +7,7 @@ function skPaymentPopinResize () {
 // -- API
 var API;
 API = {
+  site_url: 'http://beta.benoit.myskreen.typhon.net:40011',
   base: 'http://benoit.myskreen.typhon.net/api/1/', 
   popin: 'https://benoit.myskreen.typhon.net/popin/',
   dataType: 'json',
@@ -28,6 +29,13 @@ API = {
     }
     $('#skModal').modal();
     this.currentModalUrl = url;
+  },
+  typeahead: function(keywords) {
+    var url = this.base + 'search/autocomplete/' + keywords;
+    var args = {advanced:1, session_uid:Session.uid};
+    this.query('GET', url, args, function(json){
+      return json;
+    });
   },
   query: function(method, url, data, callback, cache) {
     
@@ -59,7 +67,7 @@ API = {
     
     //Permet de benchmarker le temps d'execution des pages
     var tooLong = setTimeout(function(){
-      console.warn('!! Too long request to API', url, (new Date()));
+      console.warn('!! API.query : too long request', url, (new Date()));
     },2000);
 
     var req = $.ajax({
@@ -89,5 +97,12 @@ API = {
       }
     });
     return req;
+  },
+  linkV2: function(url) {
+    if (Session.context == 'v2') {
+      Session.postMessage(["link", url]);
+    } else {
+      document.location = url;
+    }
   }
 }

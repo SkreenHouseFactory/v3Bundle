@@ -18,12 +18,19 @@ Session = {
     var self = this;
 
     this.context = 'v2';
-    
     this.skXdmSocket = new easyXDM.Socket({
       onMessage:function(message, origin) {
         message = JSON.parse(message);
-        if (message) {
-          console.log('msg v2', message);
+        console.log('msg v2', message);
+        if (message[0] == "sessionData") {
+          self.signin(message[1]);
+
+        } else if (message[0] == "history.back") {
+          if (message[1] == "add") {
+            $('#history-back').show(); //UI.addHistoryBack();
+          } else {
+            $('#history-back').hide(); //UI.removeHistoryBack();
+          }
         }
       }
     });
@@ -63,9 +70,29 @@ Session = {
       });
     }
   },
+  signin: function(sessionData) {
+    if (sessionData.email) {
+      console.log('Session.signin', sessionData);
+      this.loadUser(sessionData.email);
+      this.loadPlaylist(sessionData.queue);
+    }
+  },
+  signout: function() {
+    this.unloadUser();
+  },
   loadPlaylist: function(ids) {
     console.log('load playlist', ids);
     $('#playlist').html('load : ' + ids);
     //$('#playlist').load($('#playlist').data('update-url'));
+  },
+  loadUser: function(email) {
+      $('#signin').hide();
+      $('#signed-in span').html(email);
+      $('#signed-in').fadeIn();
+  },
+  unloadUser: function() {
+      $('#signed-in span').empty();
+      $('#signed-in').hide();
+      $('#signin').fadeIn();
   }
 }
