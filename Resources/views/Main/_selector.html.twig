@@ -1,29 +1,43 @@
+<div id="selector-back" class="btn-group pull-right hide">
+  <a class="btn" href="#">&laquo; {{ 'back'|trans }}</a><a class="btn btn-primary"></a>
+</div>
 <h2>{{ 'playlist.title'|trans }}</h2>
-<ul id="selector" class="items{% if addClass is defined %} {{ addClass }}{% endif %}">
-  <li class="all" data-load-url="{{ path('playlist_load', {type:'all', session_uid: 'session.uid'}) }}" style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de4350000/4348916/the-divide.jpg) no-repeat;">
-    <span class="label label-inverse">{{ 'playlist.all'|trans }}</span><br/>
-    <span class="badge badge-info">1</span>
-  </li>
-  <li class="cine empty" data-load-url="{{ path('playlist_load', {type:'cine', session_uid: 'session.uid'}) }}">
-    <span class="label opacity">{{ 'playlist.cine'|trans }} </span><br/>
-    <span class="badge opacity">?</span>
-    <a class="btn" href="">{{ 'playlist.add.programs'|trans }}</a>
-  </li>
-  <li class="tv" data-load-url="{{ path('playlist_load', {type:'tv', session_uid: 'session.uid'}) }}" style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de4380000/4356824/histoires-en-serie.jpg) no-repeat;">
-    <span class="label label-inverse">{{ 'playlist.tv'|trans }}</span><br/>
-    <span class="badge badge-important">2</span>
-  </li>
-  <li class="replay" data-load-url="{{ path('playlist_load', {type:'replay', session_uid: 'session.uid'}) }}" style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de4380000/4356824/histoires-en-serie.jpg) no-repeat;">
-    <span class="label label-inverse">{{ 'playlist.replay'|trans }}</span><br/>
-    <span class="badge badge-info">1</span>
-  </li>
-  <li class="web empty" data-load-url="{{ path('playlist_load', {type:'web', session_uid: 'session.uid'}) }}">
-    <span class="label opacity">{{ 'playlist.web'|trans }}</span><br/>
-    <span class="badge opacity">?</span>
-    <a class="btn" href="">{{ 'playlist.add.programs'|trans }}</a>
-  </li>
-  <li class="vod" data-load-url="{{ path('playlist_load', {type:'vod', session_uid: 'session.uid'}) }}" style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de4350000/4348916/the-divide.jpg) no-repeat;">
-    <span class="label label-warning">{{ 'playlist.friends'|trans }}</span><br/>
-    <span class="badge badge-important">2</span>
-  </li>
-</ul>
+<div class="slider">
+  <a class="next badge badge-inverse">&raquo;</a>
+  <a class="prev badge badge-inverse">&laquo</a>
+  <div class="slider-container">
+  <ul id="playlist" class="items{% if addClass is defined %} {{ addClass }}{% endif %}" data-load-url="{{ path('playlist_load', {type:'group.name', session_uid: 'session.uid'}) }}">
+    <li id="all" class="selector" data-load-url="{{ path('playlist_load', {type:'all', session_uid: 'session.uid'}) }}" style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de4350000/4348916/the-divide.jpg) no-repeat;" data-name="name.all">
+      <span class="label label-inverse">{{ 'playlist.all'|trans }}</span><br/>
+      <span class="badge badge-info">1</span>
+    </li>
+    <li id="cine" class="selector empty" data-name="name.cine">
+      <span class="label opacity">{{ 'playlist.cine'|trans }} </span><br/>
+      <span class="badge opacity">?</span>
+      <a class="btn" href="API.linkV2('/selection/3772198-a-voir-au-cinema')">{{ 'playlist.add.programs.cine'|trans }}</a>
+    </li>
+    <li id="tv" class="selector empty" data-name="name.tv">
+      <span class="label opacity">{{ 'playlist.tv'|trans }}</span><br/>
+      <span class="badge opacity">?</span>
+      <a class="btn" href="API.linkV2('/programme-tv')">{{ 'playlist.add.programs.tv'|trans }}</a>
+    </li>
+    <li id="replay" class="selector empty" data-name="name.replay">
+      <span class="label opacity">{{ 'playlist.replay'|trans }}</span><br/>
+      <span class="badge opacity">?</span>
+      <a class="btn" href="API.linkV2('/selection/3772173-les-meilleures-audiences-tele-d-hier')">{{ 'playlist.add.programs.replay'|trans }}</a>
+    </li>
+    <li id="vod" class="selector empty" data-name="name.vod">
+      <span class="label opacity">{{ 'playlist.web'|trans }}</span><br/>
+      <span class="badge opacity">?</span>
+      <a class="btn" href="#" onClick="API.linkV2('/selection/2344698-les-nouveautes-vod')">{{ 'playlist.add.programs.vod'|trans }}</a>
+    </li>
+    <li id="friends" class="selector empty" data-name="name.friends">
+      <span class="label label-warning">{{ 'playlist.friends'|trans }}</span><br/>
+      <span class="badge badge-important">?</span>
+    </li>
+    <li id="item" onClick="API.linkV2('%url%');" style="background:url(%img%) no-repeat;">
+    <span class="title">%title%<br/><span class="label %label_class%">%label_name%</span></span>
+    </li>
+  </ul>
+  </div>
+</div>

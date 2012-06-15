@@ -4,6 +4,7 @@ $(document).ready(function(){
   Session.init(function(sessionData){
     console.log('context', Session.context);
     Session.signin(sessionData);
+    Session.initPlaylist(top.location);
   });
 
   // -- user
@@ -44,31 +45,19 @@ $(document).ready(function(){
   UI.typeahead('.search-query');
 
   // -- playlist
-  var original_width = $('#top-playlist ul li').css('width');
-  $('#selector li').live('click', function(e){
-    $.get($(this).data('load-url').replace('session.uid', Session.uid), 
-          {}, 
-          function(data){
-            $('#selector li').animate({width:0}, 500, function() {
-              $('#top-playlist .container').html(data); 
-              $('#top-playlist ul li').animate({width:original_width}, 500);
-              UI.slider($('#top-playlist .slider'));
-            });
-          },
-          'html');
-    
+  var original_width = $('ul#playlist li').css('width');
+  var playlist = $('ul#playlist');
+  $('li.selector', playlist).live('click', function(){
+    Session.loadPlaylist(this.id);
   });
-  $('#top-playlist .back-selector').live('click', function(e){
+  $('#top-playlist #selector-back a.btn:first').live('click', function(e){
     console.log('original_width', original_width);
-    $.get($('#top-playlist').data('selector-url').replace('session.uid', Session.uid), 
-          {}, 
-          function(data){
-            $('#top-playlist ul li').animate({width:0}, 500, function() {
-              $('#top-playlist .container').html(data);
-              $('#top-playlist ul li').animate({width:original_width}, 500);
-            });
-          },
-          'html');
+    $(this).parent().hide();
+    $('li:not(.selector, #item)', playlist).animate({width:0}, 500, function() {
+      $(this).hide();
+      $('li.selector', playlist).show().animate({width:original_width}, 500);
+      UI.unloadSlider($('#top-playlist .slider'));
+    });
   });
 
 });

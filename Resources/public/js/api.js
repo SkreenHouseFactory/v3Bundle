@@ -101,8 +101,14 @@ API = {
   linkV2: function(url) {
     if (Session.context == 'v2') {
       Session.postMessage(["link", url]);
+      Session.initPlaylist(url);
     } else {
       document.location = url;
+    }
+  },
+  javascriptV2: function(script) {
+    if (Session.context == 'v2') {
+      Session.postMessage(["javascript", script]);
     }
   }
 }

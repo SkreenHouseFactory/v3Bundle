@@ -14,7 +14,10 @@ playlist:
     replay: En Replay
     web: 'En VOD'
     friends: 'Vos amis regardent'
-    add.programs: Rechercher un programme
+    add.programs.cine: Les sorties cinés
+    add.programs.tv: Le programme TV
+    add.programs.vod: Les nouveautés VOD
+    add.programs.replay: Hier soir à la TV
 nav:
     suggestions: A la demande
     tv: 'A la télé'

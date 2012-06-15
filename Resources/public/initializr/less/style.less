@@ -23,6 +23,10 @@ body {
   background: @bgBody;
 }
 
+.typeahead {
+  width: 457px;
+}
+
 #top-bar {
   padding: 5px 0 0 0;
   box-shadow: 5px 5px 0px black;
@@ -93,13 +97,66 @@ body {
     }
     
 
-    ul#selector.items {
-       li.empty {
-        border: @vignetteBorderEmpty;
-       }
+    ul#playlist {
 
-       li {
+      li {
+        cursor: pointer;
+        position: relative;
+        font-family: Helvetica, Arial;
+        width: @vignetteWidth;
+        height: @vignetteHeight;
+        display: block;
+        float: left;
         border: @vignetteBorder;
+        margin: @vignetteMargin;
+        background: #DEDEDE;
+        list-style: none;
+        text-align: center;
+        box-shadow: 1px 1px 4px #999;
+  
+        a.btn {
+          position: absolute;
+          bottom: 0px;
+          left: 0px;
+        }
+        span {
+          color: white;
+        }
+        span.badge {
+          display: inline-block;
+          margin-top: 5px;
+          font-size: 1.2em;
+          padding: 4px 10px;
+          border: 2px solid white;
+        }
+        span.opacity {
+          opacity: 0.5;
+        }
+        span.label {
+          font-weight: normal;
+        }
+        span.title {
+          position: absolute;
+          bottom: 5px;
+          left: 5px;
+          text-shadow: 1px 1px 0px black;
+          text-align: left;
+          line-height: 1.1em;
+        }
+      }
+      li#item {
+        display: none;
+      }
+      li.empty {
+        border: @vignetteBorderEmpty;
+        box-shadow: none;
+      }
+      li.empty.selector {
+        border: @vignetteBorderEmpty;
+      }
+      li.selector {
+        border: @vignetteBorder;
+        box-shadow: none;
 
         span.label {
           margin-top: 0px;
@@ -112,62 +169,9 @@ body {
         }
       }
     }
-    ul#playlist.items {
-      li {
-        box-shadow: 1px 1px 4px #999;
-      }
-      li.empty {
-        border: @vignetteBorderEmpty;
-        box-shadow: none;
-      }
-    }
     
-    ul.items.to_animate li {
+    li.to_animate {
       width: 0;
-    }
-    ul.items li {
-      cursor: pointer;
-      position: relative;
-      font-family: Helvetica, Arial;
-      width: @vignetteWidth;
-      height: @vignetteHeight;
-      display: block;
-      float: left;
-      border: @vignetteBorder;
-      margin: @vignetteMargin;
-      background: #DEDEDE;
-      list-style: none;
-      text-align: center;
-
-
-      a.btn {
-        position: absolute;
-        bottom: 0px;
-        left: 0px;
-      }
-      span {
-        color: white;
-      }
-      span.badge {
-        display: inline-block;
-        margin-top: 5px;
-        font-size: 1.2em;
-        padding: 4px 10px;
-        border: 2px solid white;
-      }
-      span.opacity {
-        opacity: 0.5;
-      }
-      span.label {
-        font-weight: normal;
-      }
-      span.title {
-        position: absolute;
-        bottom: 5px;
-        left: 5px;
-        text-shadow: 0px 0px 4px black;
-        text-align: left;
-      }
     }
   }
 }
@@ -284,7 +288,6 @@ body {
 
 
 /* slider */
-
 .slider {
   height: @vignetteHeight;
   width: 100%;
@@ -295,6 +298,7 @@ body {
   .prev, .next {
     visibility: hidden;
     position: absolute;
+    z-index: 2;
     top: 45%;
     font-size: 2em;
     font-weight: bold;
@@ -308,8 +312,19 @@ body {
   }
   .slider-container {
     height: 100%;
+    margin: 0 50px;
+    position: relative;
+    overflow-x: hidden;
+  }
+  
+  ul {
     position: absolute;
   }
+}
+#selector-back {
+  position: absolute;
+  right: 60px;
+  top: 10px;
 }
 
 
