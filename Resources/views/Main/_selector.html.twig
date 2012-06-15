@@ -35,7 +35,11 @@
       <span class="label label-warning">{{ 'playlist.friends'|trans }}</span><br/>
       <span class="badge badge-important">?</span>
     </li>
-    <li id="item" onClick="API.linkV2('%url%');" style="background:url(%img%) no-repeat;">
+    <li id="item" onClick="API.linkV2($(this).data('url'));" data-url="%url%" style="background:url(%img%) no-repeat;">
+    <div class="actions">
+      <a class="btn fav" href="#"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
+      <a class="btn play" href="#"><i class="icon-play"></i> {{ 'action.play'|trans }}</a>
+    </div>
     <span class="title">%title%<br/><span class="label %label_class%">%label_name%</span></span>
     </li>
   </ul>

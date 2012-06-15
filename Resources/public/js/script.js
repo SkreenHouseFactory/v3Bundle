@@ -45,19 +45,11 @@ $(document).ready(function(){
   UI.typeahead('.search-query');
 
   // -- playlist
-  var original_width = $('ul#playlist li').css('width');
-  var playlist = $('ul#playlist');
-  $('li.selector', playlist).live('click', function(){
+  $('li.selector', Session.playlist).live('click', function(){
     Session.loadPlaylist(this.id);
   });
   $('#top-playlist #selector-back a.btn:first').live('click', function(e){
-    console.log('original_width', original_width);
-    $(this).parent().hide();
-    $('li:not(.selector, #item)', playlist).animate({width:0}, 500, function() {
-      $(this).hide();
-      $('li.selector', playlist).show().animate({width:original_width}, 500);
-      UI.unloadSlider($('#top-playlist .slider'));
-    });
+    Session.unloadPlaylist(this.id);
   });
 
 });

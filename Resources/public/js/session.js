@@ -5,11 +5,14 @@ Session = {
   datas: null,
   context: 'v3',
   skXdmSocket: null,
+  playlist: null,
+  playlist_item_width: null,
   init: function(callback) {
 
     this.uid = '07296dbbafab0bba22e0ebc14928247c';//$.cookie('myskreen_uid');
     this.syncSession(callback);
-    
+    this.playlist = $('ul#playlist');
+
     //v2
     if (window.parent != window) {
       this.syncV2();
@@ -84,11 +87,10 @@ Session = {
     this.unloadUser();
   },
   loadSelector: function() {
-    var playlist = $('#playlist');
     var groups = Session.datas.queue_selector;
     for (key in groups) {
       var group = groups[key];
-      var li = $('li#' + key, playlist);
+      var li = $('li#' + key, this.playlist);
 
       li.removeClass('empty');
       li.find('.label').removeClass('opacity').addClass('label-inverse');
@@ -98,26 +100,35 @@ Session = {
     }
   },
   loadPlaylist: function(id, access){
-    var playlist = $('ul#playlist');
-    var name = $('li#'+id, playlist).data('name');
-    $.get(playlist.data('load-url').replace('session.uid', this.uid).replace('group.name', id), 
+    this.playlist_item_width = $('ul#playlist li').css('width');
+    console.log('original_width', this.playlist_item_width);
+    var name = $('li#'+id, this.playlist).data('name');
+    $.get(this.playlist.data('load-url').replace('session.uid', this.uid).replace('group.name', id), 
           {}, 
           function(programs){
-            $('li:not(.selector, #item)', playlist).remove(); 
+            $('li:not(.selector, #item)', Session.playlist).remove(); 
             for (key in programs) {
               var program = programs[key];
               var item = $('<div>').append($('#playlist li#item').clone().attr('id','').addClass('to_animate')).html();
-    
-              playlist.append(item.replace('%title%',program.title).replace('%img%',program.picture).replace('%url%',program.seo_url));
+              var title = program.format != 'Film' ? program.title : '';
+              Session.playlist.append(item.replace('%title%',title).replace('%img%',program.picture).replace('%url%',program.seo_url));
             }
-            $('li.selector', playlist).animate({width:0}, 500, function() {
+            $('li.selector', Session.playlist).animate({width:0}, 500, function() {
               $(this).hide();
-              $('li.to_animate', playlist).animate({width:original_width}, 500);
+              $('li.to_animate', Session.playlist).animate({width:Session.playlist_item_width}, 500);
             });
             $('#selector-back').show().find('a:last').html(name);
             UI.loadSlider($('#top-playlist .slider'));
           },
           'json');
+  },
+  unloadPlaylist: function() {
+    $(this).parent().hide();
+    $('li:not(.selector, #item)', this.playlist).animate({width:0}, 500, function() {
+      $(this).hide();
+      $('li.selector', Session.playlist).show().animate({width:Session.playlist_item_width}, 500);
+      UI.unloadSlider($('#top-playlist .slider'));
+    });
   },
   initPlaylist: function(url) {
     switch (url) { 

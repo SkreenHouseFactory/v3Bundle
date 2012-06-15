@@ -113,11 +113,16 @@ body {
         list-style: none;
         text-align: center;
         box-shadow: 1px 1px 4px #999;
-  
-        a.btn {
+
+        div.actions {
+          display: none;
           position: absolute;
-          bottom: 0px;
+          bottom: 60px;
           left: 0px;
+          
+          a.btn {
+            position: relative;
+          }
         }
         span {
           color: white;
@@ -144,6 +149,9 @@ body {
           line-height: 1.1em;
         }
       }
+      li:hover div.actions {
+        display: block;
+      }
       li#item {
         display: none;
       }
@@ -157,6 +165,12 @@ body {
       li.selector {
         border: @vignetteBorder;
         box-shadow: none;
+
+        a.btn {
+          position: absolute;
+          bottom: 0px;
+          left: 0px;
+        }
 
         span.label {
           margin-top: 0px;
@@ -277,13 +291,16 @@ body {
     width: 1170px;
   }
   
-  ul#nav-toggle li a:hover {
-    color: #08C;
+  ul#nav-toggle {
+    margin-bottom: 0;
+
+    li a:hover {
+      color: #08C;
+    }
+    li a, li a.active:hover {
+      color: white;
+    }
   }
-  ul#nav-toggle li a, ul#nav-toggle li a.active:hover {
-    color: white;
-  }
-  
 }
 
 
@@ -314,7 +331,7 @@ body {
     height: 100%;
     margin: 0 50px;
     position: relative;
-    overflow-x: hidden;
+    overflow: hidden;
   }
   
   ul {
