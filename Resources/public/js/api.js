@@ -16,14 +16,20 @@ API = {
     this.launchModal(this.popin+action);
   },
   launchModal: function(url, callback) {
-    var self = this;
     if (url != this.currentModalUrl) {
-      this.query('GET', url + '?proxy=v3', null, function(json){
+      console.log('API.launchModal', url, url.indexOf('proxy=v3'));
+      //var url = url.indexOf('proxy=v3') == -1 ? url + '?proxy=v3' : url;
+      this.query('GET', url+'?proxy=v3', null, function(json){
+        console.log('API.launchModal', 'callback', json);
         if (typeof json.redirect != "undefined") {
-          self.launchModal(json.redirect);
+          console.log('API.launchModal', 'redirect');
+          API.launchModal(json.redirect, callback);
         } else if (json.html) {
           $('#skModal .modal-body').html(json.html);
-          //transfer h1 : $('#skModal .modal-header h3').html($('#part-header h1', $(json.html));
+          API.catchFormModal();
+
+          //transfer h1 :
+          $('#skModal .modal-header h3').html($('#part-header h1', $(json.html)));
         }
       });
     }
@@ -31,6 +37,22 @@ API = {
     $('#myModal').on('hidden', callback);
     
     this.currentModalUrl = url;
+  },
+  catchFormModal: function() {
+    console.log('API.catchFormModal', 'catch form');
+    $('#skModal form').submit(function(){
+      var args = $(this).serializeArray();
+      API.query('POST', $(this).attr('action'), args, function(json){   
+        if (typeof json.redirect != "undefined") {
+          console.log('API.launchModal', 'redirect');
+          API.launchModal(json.redirect, callback);
+        } else {
+          $('#skModal .modal-body').html(json.html);
+          API.catchFormModal();
+        }
+      });
+      return false;
+    });
   },
   typeahead: function(keywords) {
     var url = this.base + 'search/autocomplete/' + keywords;
@@ -75,12 +97,18 @@ API = {
   },
   query: function(method, url, data, callback, cache) {
     
+    if (url.match(/^https\:\/\//)) {
+      console.log('API.query', 'https', 'is popin', url);
+    } else {
+      console.log('API.query', 'http', 'is api', url);
+      var url  = this.base + url;
+    }
+
     console.log('API.query', method, url, data);
-    
+
     var post = {};
     // Currently, proxy POST requests
     if (method == "POST" || method == "DELETE") {
-      url = url.match(/^http\:\/\//) ? url: "http://"+root +"api/1/"+ url;
       var dataType = "text json";
     } else {
       var dataType = "jsonp";
@@ -91,13 +119,6 @@ API = {
         }
         url+='&fromWebsite=1';
         data=null;
-      }
-      if (url.match(/^https\:\/\//)) {
-        console.log('API.query', 'https', 'is popin:' + url.match(/^https\:\/\//), url);
-      } else {
-        console.log('API.query', 'http', url);
-        var url  = this.base + url;
-        url = url.match(/^http\:\/\//) ? url: "http://"+root +"api/1/"+ url;
       }
     }
     
