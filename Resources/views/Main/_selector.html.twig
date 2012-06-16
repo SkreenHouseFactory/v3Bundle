@@ -2,12 +2,12 @@
   <a class="btn" href="#">&laquo; {{ 'back'|trans }}</a><a class="btn btn-primary"></a>
 </div>
 <h2>{{ 'playlist.title'|trans }}</h2>
-<div class="slider">
+<div id="playlist" class="slider" data-pager-url="{{ path('playlist_load', {type:'group.name', session_uid: 'session.uid'}) }}">
   <a class="next badge badge-inverse">&raquo;</a>
   <a class="prev badge badge-inverse">&laquo</a>
   <div class="slider-container">
-  <ul id="playlist" class="items{% if addClass is defined %} {{ addClass }}{% endif %}" data-load-url="{{ path('playlist_load', {type:'group.name', session_uid: 'session.uid'}) }}">
-    <li id="all" class="selector" data-load-url="{{ path('playlist_load', {type:'all', session_uid: 'session.uid'}) }}" style="background:url(http://mskstatic.com/150/200/medias/photos/programmes/moins_de4350000/4348916/the-divide.jpg) no-repeat;" data-name="name.all">
+  <ul class="items{% if addClass is defined %} {{ addClass }}{% endif %}">
+    <li id="all" class="selector" data-name="name.all">
       <span class="label label-inverse">{{ 'playlist.all'|trans }}</span><br/>
       <span class="badge badge-info">1</span>
     </li>
@@ -33,14 +33,14 @@
     </li>
     <li id="friends" class="selector empty" data-name="name.friends">
       <span class="label label-warning">{{ 'playlist.friends'|trans }}</span><br/>
-      <span class="badge badge-important">?</span>
+      <span class="badge">?</span>
     </li>
-    <li id="item" onClick="API.linkV2($(this).data('url'));" data-url="%url%" style="background:url(%img%) no-repeat;">
-    <div class="actions">
-      <a class="btn fav" href="#"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
-      <a class="btn play" href="#"><i class="icon-play"></i> {{ 'action.play'|trans }}</a>
-    </div>
-    <span class="title">%title%<br/><span class="label %label_class%">%label_name%</span></span>
+    <li id="item" data-player="%player%" data-id="%id%" data-url="%url%" style="background:url(%img%) no-repeat;">
+      <div class="actions">
+        <a class="btn btn-primary fav" title="{{ 'seo.title.add'|trans }}<br/><small>%seo_add_title%</small>" href="#"><i class="icon-ok-sign icon-white"></i> {{ 'action.in.favorites'|trans }}</a>
+        <a class="btn play" title="%seo_play_title% {{ 'seo.title.play'|trans }}" href="#"><i class="icon-play"></i> {{ 'action.play'|trans }}<span>{{ 'action.deporte'|trans }}</span></a>
+      </div>
+      <span class="title">%title%</span>
     </li>
   </ul>
   </div>

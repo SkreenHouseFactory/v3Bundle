@@ -95,98 +95,6 @@ body {
         top: 3px;*/
       }
     }
-    
-
-    ul#playlist {
-
-      li {
-        cursor: pointer;
-        position: relative;
-        font-family: Helvetica, Arial;
-        width: @vignetteWidth;
-        height: @vignetteHeight;
-        display: block;
-        float: left;
-        border: @vignetteBorder;
-        margin: @vignetteMargin;
-        background: #DEDEDE;
-        list-style: none;
-        text-align: center;
-        box-shadow: 1px 1px 4px #999;
-
-        div.actions {
-          display: none;
-          position: absolute;
-          bottom: 60px;
-          left: 0px;
-          
-          a.btn {
-            position: relative;
-          }
-        }
-        span {
-          color: white;
-        }
-        span.badge {
-          display: inline-block;
-          margin-top: 5px;
-          font-size: 1.2em;
-          padding: 4px 10px;
-          border: 2px solid white;
-        }
-        span.opacity {
-          opacity: 0.5;
-        }
-        span.label {
-          font-weight: normal;
-        }
-        span.title {
-          position: absolute;
-          bottom: 5px;
-          left: 5px;
-          text-shadow: 1px 1px 0px black;
-          text-align: left;
-          line-height: 1.1em;
-        }
-      }
-      li:hover div.actions {
-        display: block;
-      }
-      li#item {
-        display: none;
-      }
-      li.empty {
-        border: @vignetteBorderEmpty;
-        box-shadow: none;
-      }
-      li.empty.selector {
-        border: @vignetteBorderEmpty;
-      }
-      li.selector {
-        border: @vignetteBorder;
-        box-shadow: none;
-
-        a.btn {
-          position: absolute;
-          bottom: 0px;
-          left: 0px;
-        }
-
-        span.label {
-          margin-top: 0px;
-          border-top-right-radius: 0px;
-          border-top-left-radius: 0px;
-          padding: 3px 5px 5px 5px;
-          font-size: 1.0em;
-          position: relative;
-          display: inline-block;
-        }
-      }
-    }
-    
-    li.to_animate {
-      width: 0;
-    }
   }
 }
 
@@ -304,6 +212,21 @@ body {
 }
 
 
+/* player */
+#top-player {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: black;
+  
+  iframe {
+    height: 100%;
+    width: 100%;
+    border: 0;
+    overflow: hidden;
+  }
+}
+
 /* slider */
 .slider {
   height: @vignetteHeight;
@@ -336,8 +259,109 @@ body {
   
   ul {
     position: absolute;
+
+    li {
+      cursor: pointer;
+      position: relative;
+      font-family: Helvetica, Arial;
+      width: @vignetteWidth;
+      height: @vignetteHeight;
+      display: block;
+      float: left;
+      border: @vignetteBorder;
+      margin: @vignetteMargin;
+      background: #DEDEDE;
+      list-style: none;
+      text-align: center;
+      box-shadow: 1px 1px 4px #999;
+
+      div.actions {
+        display: none;
+        position: absolute;
+        bottom: 70px;
+        left: 0px;
+        
+        a.btn {
+          position: relative;
+          text-align: left;
+          margin-bottom:5px;
+          line-height: 14px;
+          
+          span {
+            display: none;
+            padding-left: 20px;
+            color: black;
+          }
+        }
+      }
+      span {
+        color: white;
+      }
+      span.badge {
+        display: inline-block;
+        margin-top: 5px;
+        font-size: 1.2em;
+        padding: 4px 10px;
+        border: 2px solid white;
+      }
+      span.opacity {
+        opacity: 0.5;
+      }
+      span.label {
+        font-weight: normal;
+      }
+      span.title {
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        text-shadow: 1px 1px 0px black;
+        text-align: left;
+        line-height: 1.1em;
+      }
+    }
+    li:hover div.actions {
+      display: block;
+    }
+    li.deporte div.actions a.btn span {
+      display: block;
+    }
+    li#item {
+      display: none;
+    }
+    li.empty {
+      border: @vignetteBorderEmpty;
+      box-shadow: none;
+      cursor: default;
+    }
+    li.empty.selector {
+      border: @vignetteBorderEmpty;
+    }
+    li.selector {
+      border: @vignetteBorder;
+      box-shadow: none;
+
+      a.btn {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+      }
+
+      span.label {
+        margin-top: 0px;
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+        padding: 3px 5px 5px 5px;
+        font-size: 1.0em;
+        position: relative;
+        display: inline-block;
+      }
+    }
+    li.to_animate {
+      width: 0;
+    }
   }
 }
+
 #selector-back {
   position: absolute;
   right: 60px;

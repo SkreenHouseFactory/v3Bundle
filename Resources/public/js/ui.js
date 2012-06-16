@@ -1,27 +1,7 @@
 // -- UI
 var UI;
 UI = {
-  //slider
-  loadSlider: function(slider) {
-    if ($('ul li', slider).length <= 5) {
-      return;
-    }
-    var container = $('.slider-container ul', slider);
-    console.log('UI.slider', slider);
-    $('.next, .prev', slider).css({'visibility':'visible'});
-    $('.next', slider).bind('click', function(){
-      console.log('next', container.css('left'), slider.css('width'));
-      if (parseInt(container.css('left')) < 2000 || container.css('left') == 'auto') {
-        container.animate({left: '+=-'+parseInt(slider.css('width'))});
-      }
-    });
-    $('.prev', slider).bind('click', function(){
-      console.log('prev', container.css('left'), slider.css('width'));
-      if (parseInt(container.css('left')) > -2000) {
-        container.animate({left: '+='+parseInt(slider.css('width'))});
-      }
-    });
-  },
+  player: null,
   //typeahead
   typeahead: function(searchbox){
     console.log('UI.typeahead', searchbox);
@@ -36,8 +16,27 @@ UI = {
       }*/
     });
   },
-  unloadSlider: function(slider) {
-    $('.next, .prev', slider).css({'visibility':'hidden'});
-    $('.next, .prev', slider).unbind('click');
+  //player
+  loadPlayer: function(trigger) {
+    var url = trigger.data('url');
+    var embed = trigger.data('embed');
+    this.player = $('#top-player');
+    if (embed) {
+      switch(embed.type) {
+        case 'html5':
+          this.player.html('loading embed html5 ...'+embed.url);
+        break;
+        case 'swf':
+          this.player.html('loading embed swf …'+embed.url);
+        break;
+        case 'iframe':
+          this.player.html('<iframe src="'+embed.url+'" frameborder="0"></iframe>');
+        break;
+      }
+    } else if (trigger.data('url')) {
+      this.player.html('<iframe src="'+url+'" frameborder="0"></iframe>');
+    }
+    
+    this.player.collapse('show');
   }
 }

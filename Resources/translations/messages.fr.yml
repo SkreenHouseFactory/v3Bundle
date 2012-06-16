@@ -45,3 +45,13 @@ signup: Ouvrir un compte
 search:
     pitch: Un programme, une chaîne, un acteur, une salle de cinéma
     launch: Rechercher
+
+action:
+    in.favorites: Dans vos favoris
+    add.favorites: Suivre / voir + tard
+    play: Voir maintenant
+    deporte: sur mySkreen
+seo:
+  title:
+    add: Ajout à vos favoris
+    play: en streaming

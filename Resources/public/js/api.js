@@ -12,10 +12,10 @@ API = {
   popin: 'https://benoit.myskreen.typhon.net/popin/',
   dataType: 'json',
   currentModalUrl: null,
-  quickLaunchModal: function(action) {
+  quickLaunchModal: function(action, callback) {
     this.launchModal(this.popin+action);
   },
-  launchModal: function(url) {
+  launchModal: function(url, callback) {
     var self = this;
     if (url != this.currentModalUrl) {
       this.query('GET', url + '?proxy=v3', null, function(json){
@@ -28,6 +28,8 @@ API = {
       });
     }
     $('#skModal').modal();
+    $('#myModal').on('hidden', callback);
+    
     this.currentModalUrl = url;
   },
   typeahead: function(keywords) {
@@ -36,6 +38,40 @@ API = {
     this.query('GET', url, args, function(json){
       return json;
     });
+  },
+  addPreference: function(parameter, value, callback) {
+      this.query('POST', this.base + 'preference/flag/'+Session.uid, {parameter:parameter, value:value}, function(json){
+        if (json.success) {
+          callback();
+        }
+      });
+  },
+  removePreference: function(parameter, value, callback) {
+      this.query('POST', this.base + 'preference/unflag/'+Session.uid, {parameter:parameter, value:value}, function(json){
+        if (json.success) {
+          callback();
+        }
+      });
+  },
+  togglePreference: function(parameter, value, trigger){
+    console.log('API.togglePreference', parameter, value, trigger);
+    if ($.inArray(value, Session.datas.queue)) {
+      API.removePreference(parameter, value, function() {
+        switch(parameter) {
+          case 'like':
+            trigger.html('<i class="icon-plus-sign"></i> Suivre / voir + tard').removeClass('btn-primary');
+          break;
+        }
+      });
+    } else {
+      API.addPreference(parameter, value, function() {
+        switch(parameter) {
+          case 'like':
+            trigger.html('<i class="icon-ok-sign"></i> Dans vos favoris').addClass('btn-primary');
+          break;
+        }
+      });
+    }
   },
   query: function(method, url, data, callback, cache) {
     

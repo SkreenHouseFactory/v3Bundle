@@ -2,16 +2,15 @@
 var Session;
 Session = {
   uid: null,
-  datas: null,
+  datas: {},
   context: 'v3',
   skXdmSocket: null,
   playlist: null,
-  playlist_item_width: null,
   init: function(callback) {
 
     this.uid = '07296dbbafab0bba22e0ebc14928247c';//$.cookie('myskreen_uid');
     this.syncSession(callback);
-    this.playlist = $('ul#playlist');
+    this.playlist = $('#playlist');
 
     //v2
     if (window.parent != window) {
@@ -85,6 +84,8 @@ Session = {
   },
   signout: function() {
     this.unloadUser();
+    this.unloadSelector();
+    this.unloadPlaylist();
   },
   loadSelector: function() {
     var groups = Session.datas.queue_selector;
@@ -94,40 +95,34 @@ Session = {
 
       li.removeClass('empty');
       li.find('.label').removeClass('opacity').addClass('label-inverse');
-      li.css('background', 'url('+group.img+') no-repeat');
+      li.css('background-image', 'url('+group.img+')').css('background-repeat', 'no-repeat');
       li.find('.badge').removeClass('opacity').addClass('badge-info').html(group.count);
-      li.find('a').remove();
+      li.find('a').hide();
     }
   },
+  unloadSelector: function() {
+    var lis = $('li.selector', this.playlist);
+    lis.addClass('empty').css('background', 'none');
+    lis.find('a').hide();
+    lis.find('.label').addClass('opacity').removeClass('label-inverse')
+    lis.find('.badge').addClass('opacity').removeClass('badge-info').html('?');
+  },
   loadPlaylist: function(id, access){
-    this.playlist_item_width = $('ul#playlist li').css('width');
-    console.log('original_width', this.playlist_item_width);
     var name = $('li#'+id, this.playlist).data('name');
-    $.get(this.playlist.data('load-url').replace('session.uid', this.uid).replace('group.name', id), 
-          {}, 
-          function(programs){
-            $('li:not(.selector, #item)', Session.playlist).remove(); 
-            for (key in programs) {
-              var program = programs[key];
-              var item = $('<div>').append($('#playlist li#item').clone().attr('id','').addClass('to_animate')).html();
-              var title = program.format != 'Film' ? program.title : '';
-              Session.playlist.append(item.replace('%title%',title).replace('%img%',program.picture).replace('%url%',program.seo_url));
-            }
-            $('li.selector', Session.playlist).animate({width:0}, 500, function() {
-              $(this).hide();
-              $('li.to_animate', Session.playlist).animate({width:Session.playlist_item_width}, 500);
-            });
-            $('#selector-back').show().find('a:last').html(name);
-            UI.loadSlider($('#top-playlist .slider'));
-          },
-          'json');
+    Slider.load(this.playlist, 
+                this.playlist.data('pager-url').replace('session.uid', this.uid).replace('group.name', id),
+                function(){
+                  $('#selector-back').show().find('a:last').html(name);
+                  $('li.selector', Session.playlist).animate({width:0}, 500, function() {
+                    $(this).hide();
+                  });
+                });
   },
   unloadPlaylist: function() {
-    $(this).parent().hide();
     $('li:not(.selector, #item)', this.playlist).animate({width:0}, 500, function() {
       $(this).hide();
-      $('li.selector', Session.playlist).show().animate({width:Session.playlist_item_width}, 500);
-      UI.unloadSlider($('#top-playlist .slider'));
+      $('li.selector', Session.playlist).show().animate({width:Slider.item_width}, 500);
+      Slider.remove(Session.playlist);
     });
   },
   initPlaylist: function(url) {

@@ -22,7 +22,11 @@ class MainController extends Controller
     */
     public function homeAction(Request $request)
     {
+
+      //return $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig');
       
-      return $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig');
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig');
+      $response->headers->set('Access-Control-Allow-Origin', 'http://benoit.myskreen.typhon.net');
+      return $response;
     }
 }

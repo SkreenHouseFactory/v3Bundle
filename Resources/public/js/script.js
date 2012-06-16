@@ -45,11 +45,48 @@ $(document).ready(function(){
   UI.typeahead('.search-query');
 
   // -- playlist
-  $('li.selector', Session.playlist).live('click', function(){
+  $('li.selector:not(.empty)', Session.playlist).live('click', function(){
     Session.loadPlaylist(this.id);
   });
   $('#top-playlist #selector-back a.btn:first').live('click', function(e){
+    $(this).parent().hide();
     Session.unloadPlaylist(this.id);
   });
 
+  // -- favorite
+  $('.actions .fav').live('click', function(){
+    var trigger = $(this);
+    var value = trigger.data('id');
+    if (Session.datas.email) {
+      API.togglePreference('like', value, trigger);
+    } else {
+      API.quickLaunchModal('signin', function(){
+        if (Session.datas.email){
+          API.togglePreference('like', value, trigger);
+        }
+      });
+    }
+  });
+
+  // -- url
+  $('a[data="url"]').live('click', function(e){
+    e.event.preventDefault();
+    API.linkV2($(this).data('url'));
+  });
+
+  // -- player
+  $('a[data="player"]').live('click', function(e){
+    e.event.preventDefault();
+    UI.loadPlayer($(this).data('player'));
+  });
+
+  // -- popover favorites
+  //if (!Session.datas.email) {
+    $('.actions .fav:not(.btn-primary)').live('mouseover', function() {
+      $(this).popover({placement: 'top',
+                       title:	function() { return 'Ajouter à vos favoris'},
+                       content: 'Pour voir ce programme plus tard, pour être averti dès qu\'un épisode est disponible en Replay, etc.'})
+             .popover('show');
+    });
+  //}
 });
