@@ -54,7 +54,7 @@ Session = {
 
     if (this.uid != null) {
       if( !args ) {
-        var args = { with_selector:1, short:1, img_width: 150, img_height: 200 };
+        var args = { with_notifications:1, with_selector:1, short:1 };
       }
 
       API.query("GET", "session/" + this.uid + ".json", args, function(sessionData) {
@@ -87,30 +87,39 @@ Session = {
     this.unloadSelector();
     this.unloadPlaylist();
   },
+  notify: function(notifications) {
+    console.log('Session.notify', notifications);
+    for (key in notifications) {
+      if (notifications[key].new > 0) {
+        if (key == 'programs') {
+          $('.subnav-toggle ul li:first a').prepend('<span class="badge badge-info">'+notifications[key].new+'</span>');
+        } else {
+          $('#nav-toggle .badge-'+key+' a').prepend('<span class="badge badge-info">'+notifications[key].new+'</span>');
+        }
+      }
+    }
+  },
   loadSelector: function() {
     var groups = Session.datas.queue_selector;
     for (key in groups) {
       var group = groups[key];
       var li = $('li#' + key, this.playlist);
-
       li.removeClass('empty');
-      li.find('.label').removeClass('opacity').addClass('label-inverse');
       li.css('background-image', 'url('+group.img+')').css('background-repeat', 'no-repeat');
-      li.find('.badge').removeClass('opacity').addClass('badge-info').html(group.count);
+      li.find('.label').removeClass('opacity').addClass('label-inverse').find('span').html(group.count);
       li.find('a').hide();
     }
   },
   unloadSelector: function() {
     var lis = $('li.selector', this.playlist);
     lis.addClass('empty').css('background', 'none');
-    lis.find('a').hide();
-    lis.find('.label').addClass('opacity').removeClass('label-inverse')
-    lis.find('.badge').addClass('opacity').removeClass('badge-info').html('?');
+    lis.find('.label').addClass('opacity').removeClass('label-inverse').find('span').html('?');
+    lis.find('a').show();
   },
   loadPlaylist: function(id, access){
     var name = $('li#'+id, this.playlist).data('name');
     Slider.load(this.playlist, 
-                this.playlist.data('pager-url').replace('session.uid', this.uid).replace('group.name', id),
+                this.playlist.data('pager-url').replace('session.uid', this.uid).replace('group.name', id).replace('app_dev.php/', ''),
                 function(){
                   $('#selector-back').show().find('a:last').html(name);
                   $('li.selector', Session.playlist).animate({width:0}, 500, function() {

@@ -2,6 +2,7 @@
 var Slider;
 Slider = {
   item_width: 150,
+  item_height: 200,
   pager_nb_results: 10,
   //init
   init: function(slider) {
@@ -73,34 +74,39 @@ Slider = {
     slider.removeClass('initialized');
   },
   load: function(slider, url, callback) {
-    $.get(url, 
-          {}, 
-          function(programs){
-            $('li:not(.selector, #item)', slider).remove(); 
-            for (key in programs) {
-              var program = programs[key];
-              var item = $('<div>').append($('li#item', slider).clone()
-                                                                 .attr('id','')
-                                                                 .addClass('to_animate')
-                                                                 .addClass(program.deporte?'deporte':'')).html();
-              var title = program.format != 'Film' ? program.title : '';
-              var pere  = program.episodeof ? program.episodeof : program;
-              $('ul', slider).append(item.replace('%seo_add_title%',pere.title + ', ' + program.format + ' - ' + program.year)
-                                         .replace('%seo_play_title%',program.title)
-                                         .replace('%title%',title)
-                                         .replace('%img%',program.picture)
-                                         .replace('%url%',program.seo_url)
-                                         .replace('%id%',program.id)
-                                         .replace('%player%',program.player));
-            }
-
-            Slider.init(slider);
-            if (typeof callback != 'undefined'){
-              callback();
-            }
-            
-            $('li.to_animate', slider).animate({width:Slider.item_width}, 500).removeClass('to_animate');
-          },
-          'json');
+    API.query('GET', 
+              url, 
+              {},
+              function(programs){
+                $('li:not(.selector, #item)', slider).remove(); 
+                for (key in programs) {
+                  var program = programs[key];
+                  var popular_channel = program.popular_channel ? '<img alt="'+program.popular_channel.name+' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';
+                  var item = $('<div>').append($('li#item', slider).clone()
+                                                                   .attr('id','')
+                                                                   .addClass('to_animate')
+                                                                   .addClass(program.deporte?'deporte':'')).html();
+                  var title = program.format != 'Film' ? program.title : '';
+                  var pere  = program.episodeof ? program.episodeof : program;
+                  var item = $('ul', slider).append(item.replace('%seo_add_title%',pere.title + ', ' + program.format + ' - ' + program.year)
+                                             .replace('%seo_play_title%',program.title)
+                                             .replace('%seo_play_title%',program.title)
+                                             .replace('%title%',title)
+                                             .replace('%img%',program.picture)
+                                             .replace('%url%',program.seo_url)
+                                             .replace('%url%',program.seo_url)
+                                             .replace('%id%',program.id)
+                                             .replace('%player%',program.player)
+                                             .replace('%popular_channel%',popular_channel));
+                  console.log('Slider.load', 'added', item);
+                }
+                
+                Slider.init(slider);
+                if (typeof callback != 'undefined'){
+                  callback();
+                }
+                
+                $('li.to_animate', slider).animate({width:Slider.item_width}, 500).removeClass('to_animate');
+              });
   }
 }

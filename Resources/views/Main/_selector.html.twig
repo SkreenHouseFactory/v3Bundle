@@ -8,39 +8,35 @@
   <div class="slider-container">
   <ul class="items{% if addClass is defined %} {{ addClass }}{% endif %}">
     <li id="all" class="selector" data-name="name.all">
-      <span class="label label-inverse">{{ 'playlist.all'|trans }}</span><br/>
-      <span class="badge badge-info">1</span>
-    </li>
-    <li id="cine" class="selector empty" data-name="name.cine">
-      <span class="label opacity">{{ 'playlist.cine'|trans }} </span><br/>
-      <span class="badge opacity">?</span>
-      <a class="btn" href="API.linkV2('/selection/3772198-a-voir-au-cinema')">{{ 'playlist.add.programs.cine'|trans }}</a>
+      <span class="label label-inverse">{{ 'playlist.all'|trans }}<br/><span>?</span></span>
     </li>
     <li id="tv" class="selector empty" data-name="name.tv">
-      <span class="label opacity">{{ 'playlist.tv'|trans }}</span><br/>
-      <span class="badge opacity">?</span>
-      <a class="btn" href="API.linkV2('/programme-tv')">{{ 'playlist.add.programs.tv'|trans }}</a>
+      <span class="label opacity">{{ 'playlist.tv'|trans }}<br/><span>?</span></span>
+      <a data-original-title="Ajouter à vos favoris<br/><small>{{ 'playlist.tv'|trans }}</small>" data-content="{{ 'playlist.popover.tv'|trans }}" data-placement="top" class="btn" href="API.linkV2('/programme-tv')">&raquo; {{ 'playlist.add.programs.tv'|trans }}</a>
     </li>
     <li id="replay" class="selector empty" data-name="name.replay">
-      <span class="label opacity">{{ 'playlist.replay'|trans }}</span><br/>
-      <span class="badge opacity">?</span>
-      <a class="btn" href="API.linkV2('/selection/3772173-les-meilleures-audiences-tele-d-hier')">{{ 'playlist.add.programs.replay'|trans }}</a>
+      <span class="label opacity">{{ 'playlist.replay'|trans }}<br/><span>?</span></span>
+      <a data-original-title="Ajouter à vos favoris<br/><small>{{ 'playlist.replay'|trans }}</small>" data-content="{{ 'playlist.popover.replay'|trans }}" data-placement="top" class="btn" href="API.linkV2('/selection/3772173-les-meilleures-audiences-tele-d-hier')">&raquo; {{ 'playlist.add.programs.replay'|trans }}</a>
     </li>
     <li id="vod" class="selector empty" data-name="name.vod">
-      <span class="label opacity">{{ 'playlist.web'|trans }}</span><br/>
-      <span class="badge opacity">?</span>
-      <a class="btn" href="#" onClick="API.linkV2('/selection/2344698-les-nouveautes-vod')">{{ 'playlist.add.programs.vod'|trans }}</a>
+      <span class="label opacity">{{ 'playlist.web'|trans }}<br/><span>?</span></span>
+      <a data-original-title="Ajouter à vos favoris<br/><small>{{ 'playlist.web'|trans }}</small>" data-content="{{ 'playlist.popover.vod'|trans }}" data-placement="top" class="btn" href="#" onClick="API.linkV2('/selection/2344698-les-nouveautes-vod')">&raquo; {{ 'playlist.add.programs.vod'|trans }}</a>
+    </li>
+    <li id="cine" class="selector empty" data-name="name.cine">
+      <span class="label opacity">{{ 'playlist.cine'|trans }}<br/><span>?</span></span>
+      <a data-original-title="Ajouter à vos favoris<br/><small>{{ 'playlist.cine'|trans }}</small>" data-content="{{ 'playlist.popover.cine'|trans }}" data-placement="top" class="btn" href="API.linkV2('/selection/3772198-a-voir-au-cinema')">&raquo; {{ 'playlist.add.programs.cine'|trans }}</a>
     </li>
     <li id="friends" class="selector empty" data-name="name.friends">
-      <span class="label label-warning">{{ 'playlist.friends'|trans }}</span><br/>
-      <span class="badge">?</span>
+      <span class="label label-warning">{{ 'playlist.friends'|trans }}<br/><span>?</span></span>
+      <a data-original-title="Ajouter à vos favoris<br/><small>{{ 'playlist.friends'|trans }}</small>" data-content="{{ 'playlist.popover.friends'|trans }}" data-placement="top" class="btn" href="#">&raquo; {{ 'playlist.add.friends'|trans }}</a>
     </li>
-    <li id="item" data-player="%player%" data-id="%id%" data-url="%url%" style="background:url(%img%) no-repeat;">
+    <li id="item" data-player="%player%" data-id="%id%" style="background:url(%img%) no-repeat;">
+      %popular_channel%
       <div class="actions">
         <a class="btn btn-primary fav" title="{{ 'seo.title.add'|trans }}<br/><small>%seo_add_title%</small>" href="#"><i class="icon-ok-sign icon-white"></i> {{ 'action.in.favorites'|trans }}</a>
-        <a class="btn play" title="%seo_play_title% {{ 'seo.title.play'|trans }}" href="#"><i class="icon-play"></i> {{ 'action.play'|trans }}<span>{{ 'action.deporte'|trans }}</span></a>
+        <a class="btn play" title="%seo_play_title% {{ 'seo.title.play'|trans }}" href="%url%"><i class="icon-play"></i> {{ 'action.play'|trans }}<span>{{ 'action.deporte'|trans }}</span></a>
       </div>
-      <span class="title">%title%</span>
+      <a href="%url%" title="%seo_play_title% {{ 'seo.title.play'|trans }}" class="title">%title%</a>
     </li>
   </ul>
   </div>

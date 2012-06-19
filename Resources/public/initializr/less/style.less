@@ -2,14 +2,47 @@
 @import "bootstrap/responsive.less";
 
 
-/* ===== Primary Styles ========================================================
+
+/* ===== v2 compliance ======================================================
+   Author: Benoît Bergstörm
+   ========================================================================== */
+.paymentPopin {
+  form {
+    ul {
+      margin: 0;
+      padding: 5px;
+
+      li {
+        list-style: none;
+      }
+    }
+    table {
+      th {
+        width: 180px;
+        padding-right: 10px;
+        text-align: right;
+      }
+      tr.actions .btn {
+        margin-top: 10px;
+      }
+    }
+    input[type="radio"], input[type="checkbox"] {
+      float: left;
+      margin-right: 10px;
+    }
+  }
+}
+
+
+/* ===== v3 =================================================================
    Author: Benoît Bergstörm
    ========================================================================== */
 
-@import url(http://fonts.googleapis.com/css?family=Belleza);
+/*@import url(http://fonts.googleapis.com/css?family=Belleza);*/
 
 @bgBody:     #000000; /*"url(../../images/header/bg.png)";*/
 @bgPlaylist:     "../../images/header/bg-playlist.jpeg";
+@sliderHeight:   210px;
 @vignetteWidth:   150px;
 @vignetteHeight:   200px;
 @vignetteBorder:  2px dashed transparent;
@@ -99,7 +132,28 @@ body {
 }
 
 #top-nav {
-    /*background-color: #000000;*/
+  
+  li.with_badge {
+    position: relative;
+    padding-right: 15px;
+
+    a span.badge {
+        position: absolute;
+        right: 3px;
+        top: 3px;
+    }
+  }
+
+  ul#nav-toggle {
+    margin-bottom: 0;
+
+    li a:hover {
+      color: #08C;
+    }
+    li a, li a.active:hover {
+      color: white;
+    }
+  }
 
   /* Subnav */
   .subnav {
@@ -194,21 +248,6 @@ body {
       }
     }
   }
-
-  .navbar .container {
-    width: 1170px;
-  }
-  
-  ul#nav-toggle {
-    margin-bottom: 0;
-
-    li a:hover {
-      color: #08C;
-    }
-    li a, li a.active:hover {
-      color: white;
-    }
-  }
 }
 
 
@@ -229,7 +268,7 @@ body {
 
 /* slider */
 .slider {
-  height: @vignetteHeight;
+  height: @sliderHeight;
   width: 100%;
   overflow: hidden;
   clear: both;
@@ -274,6 +313,13 @@ body {
       list-style: none;
       text-align: center;
       box-shadow: 1px 1px 4px #999;
+      overflow: hidden;
+
+      img.channel {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+      }
 
       div.actions {
         display: none;
@@ -310,7 +356,9 @@ body {
       span.label {
         font-weight: normal;
       }
-      span.title {
+      a.title {
+        text-decoration:none;
+        color:white;
         position: absolute;
         bottom: 5px;
         left: 5px;
@@ -344,6 +392,7 @@ body {
         position: absolute;
         bottom: 0px;
         left: 0px;
+        width:86%;
       }
 
       span.label {

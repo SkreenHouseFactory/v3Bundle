@@ -11,7 +11,9 @@ homepage:
 
 #playlist
 playlist_load:
-    pattern:  /{_locale}/playlist/{session_uid}/{type}
+    #pattern:  /{_locale}/playlist/{session_uid}/{type}
+    pattern:  /www/slider/queue/{session_uid}/access/{type}.json
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Session:playlist }
     requirements:
         _locale: en|fr
+        type: .*

@@ -4,6 +4,7 @@ $(document).ready(function(){
   Session.init(function(sessionData){
     console.log('context', Session.context);
     Session.signin(sessionData);
+    Session.notify(sessionData.notifications);
     Session.initPlaylist(top.location);
   });
 
@@ -53,21 +54,6 @@ $(document).ready(function(){
     Session.unloadPlaylist(this.id);
   });
 
-  // -- favorite
-  $('.actions .fav').live('click', function(){
-    var trigger = $(this);
-    var value = trigger.data('id');
-    if (Session.datas.email) {
-      API.togglePreference('like', value, trigger);
-    } else {
-      API.quickLaunchModal('signin', function(){
-        if (Session.datas.email){
-          API.togglePreference('like', value, trigger);
-        }
-      });
-    }
-  });
-
   // -- url
   $('a[data="url"]').live('click', function(e){
     e.event.preventDefault();
@@ -80,6 +66,34 @@ $(document).ready(function(){
     UI.loadPlayer($(this).data('player'));
   });
 
+
+  // -- actions : favorite & play
+  $('.actions .fav').live('click', function(e){
+    e.preventDefault();
+    var trigger = $(this);
+    var value = trigger.data('id');
+    if (Session.datas.email) {
+      API.togglePreference('like', value, trigger, function(){
+        $('#playlist li[data-id="'+trigger.data('id')+'"]').animate({width:0}).remove();
+      });
+    } else {
+      API.quickLaunchModal('signin', function(){
+        if (Session.datas.email){
+          API.togglePreference('like', value, trigger);
+        }
+      });
+    }
+  });
+  $('.actions .play').live('click', function(e){
+    e.preventDefault();
+    API.linkV2($(this).attr('href'));
+    return false;
+  });
+  $('.slider li').live('click', function(){
+    API.linkV2($('.actions .play', this).attr('href'));
+    return false;
+  });
+
   // -- popover favorites
   //if (!Session.datas.email) {
     $('.actions .fav:not(.btn-primary)').live('mouseover', function() {
@@ -89,4 +103,8 @@ $(document).ready(function(){
              .popover('show');
     });
   //}
+
+  // -- popover selector
+  $('li.selector a').popover();
+  
 });

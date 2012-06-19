@@ -17,9 +17,11 @@ API = {
   },
   launchModal: function(url, callback) {
     if (url != this.currentModalUrl) {
-      console.log('API.launchModal', url, url.indexOf('proxy=v3'));
-      //var url = url.indexOf('proxy=v3') == -1 ? url + '?proxy=v3' : url;
-      this.query('GET', url+'?proxy=v3', null, function(json){
+      var url = url.indexOf('proxy=v3') == -1 ? url + '?proxy=v3' : url;
+      console.log('API.launchModal', url);
+      $('#skModal .modal-body').empty();
+      
+      this.query('GET', url, null, function(json){
         console.log('API.launchModal', 'callback', json);
         if (typeof json.redirect != "undefined") {
           console.log('API.launchModal', 'redirect');
@@ -29,12 +31,13 @@ API = {
           API.catchFormModal();
 
           //transfer h1 :
-          $('#skModal .modal-header h3').html($('#part-header h1', $(json.html)));
+          $('#skModal .modal-header h3').html($('#part-header h1', $(json.html)).html());
         }
       });
     }
+    $('#skModal .modal-footer').hide();
     $('#skModal').modal();
-    $('#myModal').on('hidden', callback);
+    $('#skModal').on('hidden', callback);
     
     this.currentModalUrl = url;
   },
@@ -75,8 +78,8 @@ API = {
         }
       });
   },
-  togglePreference: function(parameter, value, trigger){
-    console.log('API.togglePreference', parameter, value, trigger);
+  togglePreference: function(parameter, value, trigger, callback){
+    console.log('API.togglePreference', parameter, value, trigger, callback);
     if ($.inArray(value, Session.datas.queue)) {
       API.removePreference(parameter, value, function() {
         switch(parameter) {
@@ -84,7 +87,7 @@ API = {
             trigger.html('<i class="icon-plus-sign"></i> Suivre / voir + tard').removeClass('btn-primary');
           break;
         }
-      });
+      }, callback);
     } else {
       API.addPreference(parameter, value, function() {
         switch(parameter) {
@@ -92,7 +95,7 @@ API = {
             trigger.html('<i class="icon-ok-sign"></i> Dans vos favoris').addClass('btn-primary');
           break;
         }
-      });
+      }, callback);
     }
   },
   query: function(method, url, data, callback, cache) {
@@ -104,7 +107,8 @@ API = {
       var url  = this.base + url;
     }
 
-    console.log('API.query', method, url, data);
+    $.extend(data, {img_height: Slider.item_height, img_width: Slider.item_width});
+
 
     var post = {};
     // Currently, proxy POST requests
@@ -121,11 +125,13 @@ API = {
         data=null;
       }
     }
+
+    console.log('API.query', method, url, data);
     
     //Permet de benchmarker le temps d'execution des pages
     var tooLong = setTimeout(function(){
       console.warn('!! API.query : too long request', url, (new Date()));
-    },2000);
+    }, 1000);
 
     var req = $.ajax({
       url: url,
