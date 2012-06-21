@@ -3,9 +3,8 @@ var Session;
 Session = {
   uid: null,
   datas: {},
-  context: 'v3',
-  skXdmSocket: null,
   playlist: null,
+  onglet: null,
   init: function(callback) {
 
     this.uid = '07296dbbafab0bba22e0ebc14928247c';//$.cookie('myskreen_uid');
@@ -14,39 +13,8 @@ Session = {
 
     //v2
     if (window.parent != window) {
-      this.syncV2();
+      API.syncV2();
     }
-
-  },
-  syncV2: function() {
-    var self = this;
-
-    this.context = 'v2';
-    this.skXdmSocket = new easyXDM.Socket({
-      onMessage:function(message, origin) {
-        message = JSON.parse(message);
-        console.log('msg v2', message);
-        if (message[0] == "sessionData") {
-          self.signin(message[1]);
-
-        } else if (message[0] == "history.back") {
-          if (message[1] == "add") {
-            $('#history-back').show(); //UI.addHistoryBack();
-          } else {
-            $('#history-back').hide(); //UI.removeHistoryBack();
-          }
-        }
-      }
-    });
-    this.postMessage(["sync"]);
-
-    //height header
-    $('a[data-target="#top-playlist"]').click(function (e) {
-      self.postMessage(["header", $('#top-playlist').hasClass('in') ? "remove_playlist": "add_playlist"]);
-    });
-  },
-  postMessage: function(message) {
-    this.skXdmSocket.postMessage(JSON.stringify(message));
   },
   syncSession: function(callback, args) {
     var self = this;
@@ -79,7 +47,6 @@ Session = {
       console.log('Session.signin', sessionData);
       this.loadUser(sessionData.email);
       this.datas = sessionData;
-      this.initPlaylist(top.location);
     }
   },
   signout: function() {
@@ -92,28 +59,64 @@ Session = {
     for (key in notifications) {
       if (notifications[key].new > 0) {
         if (key == 'programs') {
-          $('.subnav-toggle ul li:first a').prepend('<span class="badge badge-info">'+notifications[key].new+'</span>');
+          $('.subnav-toggle ul li:first a').prepend(UI.badge_notification.replace('%count%', notifications[key].new));
         } else {
-          $('#nav-toggle .badge-'+key+' a').prepend('<span class="badge badge-info">'+notifications[key].new+'</span>');
+          $('#nav-toggle .badge-'+key+' a').prepend(UI.badge_notification.replace('%count%', notifications[key].new));
         }
       }
     }
   },
-  loadSelector: function() {
-    var groups = Session.datas.queue_selector;
-    for (key in groups) {
-      var group = groups[key];
+  loadSelector: function(onglet) {
+    console.log('Session.loadSelector', this.onglet, onglet);
+    var self = this;
+    
+    //gestions des différents formats
+    if (this.onglet != onglet) {
+      this.onglet = onglet;
+      if (this.onglet && this.onglet != "undefined") {
+        API.query('GET', 
+                  'www/slider/selector/' + this.uid + '.json', 
+                  {onglet: this.onglet, with_count_favoris: true}, 
+                  function(queue_selector) {
+                    console.log('Session.loadSelector', 'reload', queue_selector);
+                    self.unloadSelector();
+                    self.updateSelector(queue_selector);
+                  });
+      } else {
+      this.unloadSelector();
+        this.updateSelector(this.playlist.data('selector'));
+      }
+    } else {
+      this.unloadSelector();
+      this.updateSelector(Session.datas.queue_selector);
+    }
+  },
+  updateSelector: function(datas) {
+    for (key in datas) {
+      var group = datas[key];
+      console.log('Session.updateSelector', key, group);
       var li = $('li#' + key, this.playlist);
       li.removeClass('empty');
       li.css('background-image', 'url('+group.img+')').css('background-repeat', 'no-repeat');
-      li.find('.label').removeClass('opacity').addClass('label-inverse').find('span').html(group.count);
+      li.find('.label').removeClass('opacity').addClass('label-inverse');
+      li.find('span.badge').remove();
+      if (key == 'all') {
+        li.find('.label span').html(group.count);
+      } else {
+        if (group.nb_notifs > 0){
+          li.prepend(UI.badge_notification.replace('%count%', group.nb_notifs));
+        }
+      }
       li.find('a').hide();
     }
+    this.playlist.data('queue_selector', datas);
   },
   unloadSelector: function() {
     var lis = $('li.selector', this.playlist);
     lis.addClass('empty').css('background', 'none');
-    lis.find('.label').addClass('opacity').removeClass('label-inverse').find('span').html('?');
+    lis.find('.label').addClass('opacity').removeClass('label-inverse');
+    lis.find('span.badge').remove();
+    lis.prepend($(UI.badge_notification.replace('%count%', '0')).removeClass('badge-info'));
     lis.find('a').show();
   },
   loadPlaylist: function(id, access){
@@ -135,6 +138,7 @@ Session = {
     });
   },
   initPlaylist: function(url) {
+    console.log('Session.initPlaylist', url);
     switch (url) { 
     //load vod 
     case '/selection-...': 
@@ -151,6 +155,14 @@ Session = {
     //load cinema 
     case '/selection-...': 
       this.loadPlaylist('cine');
+    break; 
+    //load selector onglet
+    case '/films': 
+    case '/documentaires': 
+    case '/series': 
+    case '/emissions': 
+    case '/spectacles': 
+      this.loadSelector(url.replace('/', ''));
     break; 
     //load selector
     default: 

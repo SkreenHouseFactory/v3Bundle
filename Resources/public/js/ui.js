@@ -2,6 +2,22 @@
 var UI;
 UI = {
   player: null,
+  badge_notification: '<span class="badge badge-info">%count%</span>',
+  //toggle favorite
+  toggleFavorite: function(trigger){
+    var value = trigger.data('id');
+    if (Session.datas.email) {
+      API.togglePreference('like', value, trigger, function(){
+        $('#playlist li[data-id="'+trigger.data('id')+'"]').animate({width:0}).remove();
+      });
+    } else {
+      API.quickLaunchModal('signin', function(){
+        if (Session.datas.email){
+          API.togglePreference('like', value, trigger);
+        }
+      });
+    }
+  },
   //typeahead
   typeahead: function(searchbox){
     console.log('UI.typeahead', searchbox);

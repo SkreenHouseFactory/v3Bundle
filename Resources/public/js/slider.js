@@ -3,44 +3,51 @@ var Slider;
 Slider = {
   item_width: 150,
   item_height: 200,
+  item_sample_selector: '[data-id="%id%"]',
   pager_nb_results: 10,
   //init
   init: function(slider) {
     console.log('Slider.init', slider);
+    var self = this;
     var container = $('.slider-container', slider);
+    var next = $('.next', slider);
+    var prev = $('.prev', slider);
     var items = $('ul', container);
     items.css('width', parseInt(this.item_width) * items.children().length);
     console.log('Slider.init', 'width', items.css('width'));
 
     if (slider.hasClass('initialized')) {
+      next.css({'visibility':'visible'});
       console.log('Slider.init', 'already initialized');
       return;
     }
 
-    var next = $('.next', slider);
-    var prev = $('.prev', slider);
-
-    if (items.children().filter(':not(.selector, #item)').length <= 5) {
-      console.log('Slider.init', 'count', items.children().filter(':not(.selector, #item)').length, items);
+    if (items.children().filter(':not(.selector, '+this.item_sample_selector+')').length <= 5) {
+      console.log('Slider.init', 'count', items.children().filter(':not(.selector, '+this.item_sample_selector+')').length, items);
       return;
     }
 
     next.bind('click', function(){
       //console.log('next', container.css('left'), container.css('width'));
-      if (parseInt(items.css('left')) < 2000 || items.css('left') == 'auto') {
+      if (parseInt(items.css('left')) < container.css('width') || items.css('left') == 'auto') {
         items.animate({left: '+=-'+parseInt(container.css('width'))}, 500, function() {
           console.log('pager', parseInt(items.css('left')) + parseInt(container.css('width')), items.css('width'));
           if (parseInt(items.css('left')) + parseInt(container.css('width')) == 0) {
             next.css({'visibility':'hidden'});
             //pager
             if (slider.data('pager-url')) {
-              var loader = $('<div>').append($('#playlist li#item').clone()
-                                                                   .attr('id','')
-                                                                   .addClass('loader')).html();
+              var offset = Slider.pager_nb_results + parseInt(slider.data('pager-offset'));
+              var loader = $('<div>').append($('#playlist li'+self.item_sample_selector)
+                                        .clone()
+                                        .data('id','loader')).html();
               items.append(loader);
 
-              Slider.load(slider, slider.data('pager-url'));
-              slider.data('pager-offset', Slider.pager_nb_results + parseInt(slider.data('pager-offset')));
+              Slider.load(slider, 
+                          slider.data('pager-url').replace('session.uid', Session.uid)
+                                                  .replace('group.name', 'cine')+'?offset='+offset,
+                          function(){},
+                          true);
+              slider.data('pager-offset', offset);
             }
           }
           if (prev.css('visibility') == 'hidden') {
@@ -73,32 +80,42 @@ Slider = {
     $('ul', slider).css('left', '0px');
     slider.removeClass('initialized');
   },
-  load: function(slider, url, callback) {
+  load: function(slider, url, callback, keep) {
+    var self = this;
     API.query('GET', 
               url, 
               {},
               function(programs){
-                $('li:not(.selector, #item)', slider).remove(); 
+                if (typeof keep == 'undifined') {
+                  $('li:not(.selector, '+self.item_sample_selector+')', slider).remove();
+                }
                 for (key in programs) {
                   var program = programs[key];
                   var popular_channel = program.popular_channel ? '<img alt="'+program.popular_channel.name+' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';
-                  var item = $('<div>').append($('li#item', slider).clone()
-                                                                   .attr('id','')
+                  var item = $('li'+self.item_sample_selector, slider).clone()
                                                                    .addClass('to_animate')
-                                                                   .addClass(program.deporte?'deporte':'')).html();
+                                                                   .addClass(program.deporte?'deporte':'');
+                  if (Session.datas.email &&
+                      $.inArray(program.id, Session.datas.notifications.programs.new)) {
+                    $(li).prepend(UI.badge_notification.replace('%count%', 1));
+                  }
+                                                                   
                   var title = program.format != 'Film' ? program.title : '';
                   var pere  = program.episodeof ? program.episodeof : program;
-                  var item = $('ul', slider).append(item.replace('%seo_add_title%',pere.title + ', ' + program.format + ' - ' + program.year)
-                                             .replace('%seo_play_title%',program.title)
-                                             .replace('%seo_play_title%',program.title)
-                                             .replace('%title%',title)
-                                             .replace('%img%',program.picture)
-                                             .replace('%url%',program.seo_url)
-                                             .replace('%url%',program.seo_url)
-                                             .replace('%id%',program.id)
-                                             .replace('%player%',program.player)
-                                             .replace('%popular_channel%',popular_channel));
-                  console.log('Slider.load', 'added', item);
+                  var li    = $('<div>').append(item).html()
+                                  .replace('%seo_add_title%',pere.title + ', ' + program.format + ' - ' + program.year)
+                                  .replace('%seo_play_title%',program.title)
+                                  .replace('%seo_play_title%',program.title)
+                                  .replace('%title%',title)
+                                  .replace('%img%',program.picture)
+                                  .replace('%url%',program.seo_url)
+                                  .replace('%url%',program.seo_url)
+                                  .replace('%id%',program.id)
+                                  .replace('%player%', typeof program.player != 'undefined' ? program.player : '')
+                                  .replace('%popular_channel%',popular_channel)
+
+                  $(li).appendTo($('ul', slider));
+                  //console.log('Slider.load', 'added', $(li), program);
                 }
                 
                 Slider.init(slider);

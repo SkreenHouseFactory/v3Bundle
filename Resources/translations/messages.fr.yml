@@ -5,10 +5,17 @@ service:
 page:
     title:
         cgvu: __page.title.cgvu
+name:
+    all: 'Tout'
+    cine: En salle
+    tv: A la télé
+    replay: Replay & Web
+    web: VOD
+    friends: Vos amis regardent
 playlist:
     trigger: 'Mes programmes'
     title: 'Ne ratez plus aucun programme : ajoutez-les à vos favoris !'
-    all: 'Tout'
+    all: Favoris
     cine: En salle
     tv: A la télé
     replay: Replay & Web
@@ -25,10 +32,29 @@ playlist:
     popover.replay: Ajoutez vos émissions et séres préférées à vos favoris pour ne rater aucun épisode
     popover.friends: Inviter vos proches pour partager vos programmes favoris avec eux.
 nav:
+    subnav:
+        suggestions: A la demande
+        tv: 'A la télé'
+        cine: 'Dans les salles'
+    tv:
+      live: Les chaînes en direct
+      grid: La grille TV
+      selection:
+          lastweek: 7 derniers jours
+          yesterday: hier soir
+          now:  en ce moment
+          tonight: ce soir
+          tommorrow: demain
+          thisweek: 7 prochains jours
+    theaters:
+        release: Les sorties de la semaine
+        coming: Les sorties à venir
     playlist: Mes programmes
-    suggestions: A la demande
-    tv: 'A la télé'
-    cine: 'Dans les salles'
+    films: Films
+    emissions: Emissions et sport
+    series: Séries
+    documentaires: Documentaires
+    spectacles: Spectacles
 date.month:
     jan: Janvier
     feb: Février
@@ -43,6 +69,9 @@ date.month:
     nov: Novembre
     dec: Décembre
 
+past: passé
+today: aujourd'hui
+coming: à venir
 
 back: Retour
 close: Fermer

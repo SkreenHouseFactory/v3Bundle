@@ -1,4 +1,4 @@
-<div class="container" id="top-bar">
+<div id="top-bar" class="container">
   <ul class="pull-right nav">
     <li id="signin" class="active">
       <a href="#">{{ 'signin'|trans }} - {{ 'signup'|trans }}</a>
@@ -25,9 +25,9 @@
   <div class="subnav subnav-fixed">
   <div class="container">
     <ul class="nav">
-      <li class="with_badge active"><a data-toggle="collapse" data-target="#nav-toggle .suggestions" href="#">{{ 'nav.suggestions'|trans }}</a></li>
-      <li><a data-toggle="collapse" data-target="#nav-toggle .tv" href="#">{{ 'nav.tv'|trans }}</a></li>
-      <li><a data-toggle="collapse" data-target="#nav-toggle .cine" href="#">{{ 'nav.cine'|trans }}</a></li>
+      <li class="with_badge active"><a data-toggle="collapse" data-target="#nav-toggle .suggestions" href="#">{{ 'nav.subnav.suggestions'|trans }}</a></li>
+      <li><a data-toggle="collapse" data-target="#nav-toggle .tv" href="#">{{ 'nav.subnav.tv'|trans }}</a></li>
+      <li><a data-toggle="collapse" data-target="#nav-toggle .cine" href="#">{{ 'nav.subnav.cine'|trans }}</a></li>
     </ul>
   </div>
   </div>
@@ -39,15 +39,30 @@
       <li class="with_badge badge-series suggestions"><a onClick="API.linkV2('/series')" href="#">{{ 'nav.series'|trans }}</a></li>
       <li class="with_badge badge-documentaires suggestions"><a onClick="API.linkV2('/documentaires')" href="#">{{ 'nav.documentaires'|trans }}</a></li>
       <li class="with_badge badge-spectacles suggestions"><a onClick="API.linkV2('/spectacles')" href="#">{{ 'nav.spectacles'|trans }}</a></li>
-      <li class="tv hide"><a href="#">Le direct des chaînes</a></li>
-      <li class="tv hide"><a onClick="API.linkV2('/programme-tv')" href="#">Programme TV</a></li>
-      <li class="tv hide"><a onClick="API.linkV2('/programme-tv/films')" href="#">&raquo; les films</a></li>
-      <li class="tv hide"><a onClick="API.linkV2('/programme-tv/emissions')" href="#">&raquo; les émissions</a></li>
-      <li class="tv hide"><a onClick="API.linkV2('/programme-tv/series')" href="#">&raquo; les séries</a></li>
-      <li class="tv hide"><a onClick="API.linkV2('/programme-tv/documentaires')" href="#">&raquo; les documentaires</a></li>
-      <li class="tv hide"><a onClick="API.linkV2('/programme-tv/spectacles')" href="#">&raquo; les spectacles</a></li>
-      <li class="cine hide"><a onClick="API.linkV2('/selection/3520923-a-voir-au-cinema')" href="#">Sorties de la semaine</a></li>
-      <li class="cine hide"><a onClick="API.linkV2('/selection/4588325-prochainement-dans-les-salles')" href="#">Sorties à venir venir</a></li>
+      <li class="tv hide"><a href="#">{{ 'nav.tv.live'|trans }}</a></li>
+      <li class="tv hide dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ 'nav.tv.grid'|trans }} <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li class="nav-header">{{ 'past'|trans }}</li>
+          <li><a href="#">{{ 'nav.tv.selection.lastweek'|trans }}</a></li>
+          <li><a href="#">{{ 'nav.tv.selection.yesterday'|trans }}</a></li>
+          <li class="divider"></li>
+          <li class="nav-header">{{ 'today'|trans }}</li>
+          <li><a href="#">{{ 'nav.tv.selection.now'|trans }}</a></li>
+          <li><a href="#">{{ 'nav.tv.selection.tonight'|trans }}</a></li>
+          <li class="divider"></li>
+          <li class="nav-header">{{ 'coming'|trans }}</li>
+          <li><a href="#">{{ 'nav.tv.selection.tommorrow'|trans }}</a></li>
+          <li><a href="#">{{ 'nav.tv.selection.thisweek'|trans }}</a></li>
+        </ul>
+      </li>
+      <li class="tv hide"><a onClick="API.linkV2('/programme-tv/films')" href="#">{{ 'nav.films'|trans }}</a></li>
+      <li class="tv hide"><a onClick="API.linkV2('/programme-tv/emissions')" href="#">{{ 'nav.emissions'|trans }}</a></li>
+      <li class="tv hide"><a onClick="API.linkV2('/programme-tv/series')" href="#">{{ 'nav.series'|trans }}</a></li>
+      <li class="tv hide"><a onClick="API.linkV2('/programme-tv/documentaires')" href="#">{{ 'nav.documentaires'|trans }}</a></li>
+      <li class="tv hide"><a onClick="API.linkV2('/programme-tv/spectacles')" href="#">{{ 'nav.spectacles'|trans }}</a></li>
+      <li class="cine hide"><a onClick="API.linkV2('/selection/3520923-a-voir-au-cinema')" href="#">{{ 'nav.theaters.release'|trans }}</a></li>
+      <li class="cine hide"><a onClick="API.linkV2('/selection/4588325-prochainement-dans-les-salles')" href="#">{{ 'nav.theaters.coming'|trans }}</a></li>
     </ul>
   </div>
   </div>

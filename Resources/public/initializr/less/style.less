@@ -47,7 +47,7 @@
 @vignetteHeight:   200px;
 @vignetteBorder:  2px dashed transparent;
 @vignetteBorderEmpty:  2px dashed #BBBBBB;
-@vignetteMargin:  0 10px;
+@vignetteMargin:  0 8px;
 
 
 body {
@@ -114,6 +114,14 @@ body {
     padding-bottom: 20px;
     position: relative;
 
+    h2.favoris {
+      color: #017FD5;
+      font-weight: normal;
+      text-shadow: #C3C8E8 1px 1px 3px;
+      padding-left: 85px;
+      font-size: 1.4em;
+    }
+
     h2 {
       padding: 5px 0 5px 40%;
       font-size: 0.9em;
@@ -122,35 +130,30 @@ body {
         margin:5px 0;
       }
       
-      .back-selector {
-        /*position: absolute;
-        left: 35px;
-        top: 3px;*/
-      }
     }
   }
 }
 
 #top-nav {
-  
+
   li.with_badge {
     position: relative;
     padding-right: 15px;
 
     a span.badge {
         position: absolute;
-        right: 3px;
-        top: 3px;
+        right: 2px;
+        top: 9px;
     }
   }
 
   ul#nav-toggle {
     margin-bottom: 0;
 
-    li a:hover {
+    > li > a:hover {
       color: #08C;
     }
-    li a, li a.active:hover {
+    > li > a, li > a.active:hover {
       color: white;
     }
   }
@@ -344,11 +347,10 @@ body {
         color: white;
       }
       span.badge {
-        display: inline-block;
-        margin-top: 5px;
-        font-size: 1.2em;
-        padding: 4px 10px;
-        border: 2px solid white;
+        position: absolute;
+        z-index: 1;
+        top: 25px;
+        right: 40%;
       }
       span.opacity {
         opacity: 0.5;
@@ -373,7 +375,7 @@ body {
     li.deporte div.actions a.btn span {
       display: block;
     }
-    li#item {
+    li[data-id="%id%"] {
       display: none;
     }
     li.empty {
@@ -399,8 +401,8 @@ body {
         margin-top: 0px;
         border-top-right-radius: 0px;
         border-top-left-radius: 0px;
-        padding: 3px 5px 5px 5px;
-        font-size: 1.0em;
+        padding: 10px;
+        font-size: 1.1em;
         position: relative;
         display: inline-block;
       }

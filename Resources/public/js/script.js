@@ -5,10 +5,12 @@ $(document).ready(function(){
     console.log('context', Session.context);
     Session.signin(sessionData);
     Session.notify(sessionData.notifications);
-    Session.initPlaylist(top.location);
+    Session.initPlaylist(top.location.pathname);
+    
+    $('#top-playlist h2').addClass('favoris').html('Vos favoris');
   });
 
-  // -- user
+  // -- ui user
   $('#signin a').click(function(){
     if (Session.context == 'v2') {
       Session.postMessage(["signin"]);
@@ -23,78 +25,81 @@ $(document).ready(function(){
     Session.signout();
   });
 
-  // -- nav
+  // -- ui nav
   $('.subnav .nav li').hover(function(e){
       e.preventDefault();
 
       $('.subnav .nav li').removeClass('active');
       $(this).addClass('active');
-      
-      $('#nav-toggle li').hide();
+
+      $('#nav-toggle > li').hide();
       $($('a', this).data('target')).fadeIn();
     },function(){    
   });
+  $('#nav-toggle > li > a').click(function(){
+    $('#nav-toggle > li').removeClass('active');
+    $(this).parent().addClass('active');
+  });
 
-  // -- form
+  // -- ui form
   $('#top-bar form.navbar-search').submit(function(){
-    console.log('search', '/programmes/' + $('.search-query', this).value());
-    API.linkV2('/programmes/' + $('.search-query', this).value());
+    var q = $('.search-query', this).val();
+    console.log('search', '/programmes/' + q);
+    if (q) {
+      API.linkV2('/programmes/' + q);
+    }
     return false;
   });
 
-  // -- typeahead
+  // -- ui typeahead
   UI.typeahead('.search-query');
 
-  // -- playlist
+  // -- ui playlist
   $('li.selector:not(.empty)', Session.playlist).live('click', function(){
     Session.loadPlaylist(this.id);
   });
-  $('#top-playlist #selector-back a.btn:first').live('click', function(e){
+  $('#top-playlist #selector-back a.btn:first').live('click', function(){
     $(this).parent().hide();
     Session.unloadPlaylist(this.id);
   });
+  $('li.selector.empty a').popover();
 
-  // -- url
+  // -- ui link/url
   $('a[data="url"]').live('click', function(e){
-    e.event.preventDefault();
+    e.preventDefault();
+    console.log('ui link/url', 'a[data="url"]');
     API.linkV2($(this).data('url'));
   });
+  $('a.linkV2').live('click', function(e){
+    console.log('ui link/url', 'linkV2');
+    e.preventDefault();
+    API.linkV2($(this).attr('href'));
+  });
 
-  // -- player
+  // -- ui player
   $('a[data="player"]').live('click', function(e){
-    e.event.preventDefault();
+    e.preventDefault();
     UI.loadPlayer($(this).data('player'));
   });
 
 
-  // -- actions : favorite & play
+  // -- ui actions : favorite & play
+  $('.slider li:not(.selector)').live('click', function(){
+    API.linkV2($('.actions .play', this).attr('href'));
+    return false;
+  });
   $('.actions .fav').live('click', function(e){
     e.preventDefault();
-    var trigger = $(this);
-    var value = trigger.data('id');
-    if (Session.datas.email) {
-      API.togglePreference('like', value, trigger, function(){
-        $('#playlist li[data-id="'+trigger.data('id')+'"]').animate({width:0}).remove();
-      });
-    } else {
-      API.quickLaunchModal('signin', function(){
-        if (Session.datas.email){
-          API.togglePreference('like', value, trigger);
-        }
-      });
-    }
+    UI.toggleFavorite($(this));
+    return false;
   });
   $('.actions .play').live('click', function(e){
     e.preventDefault();
     API.linkV2($(this).attr('href'));
     return false;
   });
-  $('.slider li').live('click', function(){
-    API.linkV2($('.actions .play', this).attr('href'));
-    return false;
-  });
 
-  // -- popover favorites
+  // -- ui popover favorites
   //if (!Session.datas.email) {
     $('.actions .fav:not(.btn-primary)').live('mouseover', function() {
       $(this).popover({placement: 'top',
@@ -104,7 +109,4 @@ $(document).ready(function(){
     });
   //}
 
-  // -- popover selector
-  $('li.selector a').popover();
-  
 });

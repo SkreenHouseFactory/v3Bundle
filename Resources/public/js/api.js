@@ -7,6 +7,8 @@ function skPaymentPopinResize () {
 // -- API
 var API;
 API = {
+  context: 'v3',
+  skXdmSocket: null,
   site_url: 'http://beta.benoit.myskreen.typhon.net:40011',
   base: 'http://benoit.myskreen.typhon.net/api/1/', 
   popin: 'https://benoit.myskreen.typhon.net/popin/',
@@ -21,19 +23,22 @@ API = {
       console.log('API.launchModal', url);
       $('#skModal .modal-body').empty();
       
-      this.query('GET', url, null, function(json){
-        console.log('API.launchModal', 'callback', json);
-        if (typeof json.redirect != "undefined") {
-          console.log('API.launchModal', 'redirect');
-          API.launchModal(json.redirect, callback);
-        } else if (json.html) {
-          $('#skModal .modal-body').html(json.html);
-          API.catchFormModal();
-
-          //transfer h1 :
-          $('#skModal .modal-header h3').html($('#part-header h1', $(json.html)).html());
-        }
-      });
+      this.query('GET', 
+                 url, 
+                 null, 
+                 function(json){
+                  console.log('API.launchModal', 'callback', json);
+                  if (typeof json.redirect != "undefined") {
+                    console.log('API.launchModal', 'redirect');
+                    API.launchModal(json.redirect, callback);
+                  } else if (json.html) {
+                    $('#skModal .modal-body').html(json.html);
+                    API.catchFormModal();
+          
+                    //transfer h1 :
+                    $('#skModal .modal-header h3').html($('#part-header h1', $(json.html)).html());
+                  }
+                });
     }
     $('#skModal .modal-footer').hide();
     $('#skModal').modal();
@@ -107,8 +112,9 @@ API = {
       var url  = this.base + url;
     }
 
-    $.extend(data, {img_height: Slider.item_height, img_width: Slider.item_width});
+    url = url.replace('/app_dev.php', ''); //developpment environment
 
+    $.extend(data, {img_height: Slider.item_height, img_width: Slider.item_width, fromWebsite: true});
 
     var post = {};
     // Currently, proxy POST requests
@@ -117,11 +123,11 @@ API = {
     } else {
       var dataType = "jsonp";
       if (data && typeof data==='object'){
-        url += '?';
+        //console.log('url.indexOf', url.indexOf('?'));
+        url += url.indexOf('?') == -1 ? '?' : '&';
         for (var key in data) {
            url += key+'='+data[key]+'&';
         }
-        url+='&fromWebsite=1';
         data=null;
       }
     }
@@ -130,7 +136,7 @@ API = {
     
     //Permet de benchmarker le temps d'execution des pages
     var tooLong = setTimeout(function(){
-      console.warn('!! API.query : too long request', url, (new Date()));
+      console.warn('!! API.query : too long request', (new Date()), url);
     }, 1000);
 
     var req = $.ajax({
@@ -162,16 +168,47 @@ API = {
     return req;
   },
   linkV2: function(url) {
-    if (Session.context == 'v2') {
-      Session.postMessage(["link", url]);
+    console.log('API.linkV2', url, this.context);
+    if (this.context == 'v2') {
+      this.postMessage(["link", url]);
       Session.initPlaylist(url);
     } else {
-      document.location = url;
+      document.location = this.site_url + url;
     }
   },
   javascriptV2: function(script) {
-    if (Session.context == 'v2') {
-      Session.postMessage(["javascript", script]);
+    if (this.context == 'v2') {
+      this.postMessage(["javascript", script]);
     }
+  },
+  syncV2: function() {
+    var self = this;
+
+    this.context = 'v2';
+    this.skXdmSocket = new easyXDM.Socket({
+      onMessage:function(message, origin) {
+        message = JSON.parse(message);
+        console.log('msg v2', message);
+        if (message[0] == "sessionData") {
+          Session.signin(message[1]);
+
+        } else if (message[0] == "history.back") {
+          if (message[1] == "add") {
+            $('#history-back').show(); //UI.addHistoryBack();
+          } else {
+            $('#history-back').hide(); //UI.removeHistoryBack();
+          }
+        }
+      }
+    });
+    this.postMessage(["sync"]);
+
+    //height header
+    $('a[data-target="#top-playlist"]').click(function (e) {
+      self.postMessage(["header", $('#top-playlist').hasClass('in') ? "remove_playlist": "add_playlist"]);
+    });
+  },
+  postMessage: function(message) {
+    this.skXdmSocket.postMessage(JSON.stringify(message));
   }
 }
