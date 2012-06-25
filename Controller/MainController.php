@@ -15,6 +15,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use SkreenHouseFactory\v3Bundle\Api\ApiManager;
+
 class MainController extends Controller
 {
     /**
@@ -24,8 +26,14 @@ class MainController extends Controller
     {
 
       //return $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig');
-      
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig');
+
+      //menus
+      $api = new ApiManager('http://benoit.myskreen.typhon.net/api/1/');
+      $menus = $api->fetch('www/menu', array('without_footer' => true));
+
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig', array(
+        'menus' => (array)$menus->menu
+      ));
       $response->headers->set('Access-Control-Allow-Origin', 'http://benoit.myskreen.typhon.net');
       return $response;
     }

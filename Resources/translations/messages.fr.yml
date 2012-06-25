@@ -10,27 +10,39 @@ name:
     cine: En salle
     tv: A la télé
     replay: Replay & Web
-    web: VOD
+    vod: VOD
     friends: Vos amis regardent
 playlist:
+    yours: Vos favoris
     trigger: 'Mes programmes'
     title: 'Ne ratez plus aucun programme : ajoutez-les à vos favoris !'
     all: Favoris
     cine: En salle
     tv: A la télé
     replay: Replay & Web
-    web: VOD
+    vod: VOD
     friends: 'Vos amis regardent'
-    add.programs.cine: Films en salle
-    add.programs.tv: Programme TV
-    add.programs.vod: Films en VOD
-    add.programs.replay: Emissions Replay
-    add.friends: Inviter vos proches
-    popover.cine: Trouvez les sorties de la semaine et toute la programmation. Ajoutez vos films préférés à vos favoris pour être alerté des disponibilité VOD et des diffusions TV
-    popover.tv: Ajoutez des programmes à vos favoris et soyez alerté lorsqu'il passent à la TV
-    popover.vod: Ajoutez vos films et documentaires préférés pour les voir plus tard et/ou pour être alerté de leur diffusion aussi bien en VOD qu'à la TV ou au cinéma
-    popover.replay: Ajoutez vos émissions et séres préférées à vos favoris pour ne rater aucun épisode
-    popover.friends: Inviter vos proches pour partager vos programmes favoris avec eux.
+    add:
+        friends: Inviter vos proches
+        programs:
+            cine: Films en salle
+            tv: Programme TV
+            vod: Films en VOD
+            replay: Emissions Replay
+    teaser:
+        nb:
+          all: 970 000
+          vod: 16 000
+          replay: 19 000
+        all: films et programmes référencés
+        vod: films et docus accessibles avec votre compte mySkreen
+        replay: émissions TV immédiatement disponibles
+    popover:
+        cine: Trouvez les sorties de la semaine et toute la programmation. Ajoutez vos films préférés à vos favoris pour être alerté des disponibilité VOD et des diffusions TV
+        tv: Ajoutez des programmes à vos favoris et soyez alerté lorsqu'il passent à la TV
+        vod: Ajoutez vos films et documentaires préférés pour les voir plus tard et/ou pour être alerté de leur diffusion aussi bien en VOD qu'à la TV ou au cinéma
+        replay: Ajoutez vos émissions et séres préférées à vos favoris pour ne rater aucun épisode
+        friends: Inviter vos proches pour partager vos programmes favoris avec eux.
 nav:
     subnav:
         suggestions: A la demande

@@ -1,40 +1,35 @@
 // -- Session
 var Session;
 Session = {
-  uid: null,
+  uid: '',
   datas: {},
   playlist: null,
   onglet: null,
+  access: null,
   init: function(callback) {
-
-    this.uid = '07296dbbafab0bba22e0ebc14928247c';//$.cookie('myskreen_uid');
-    this.syncSession(callback);
     this.playlist = $('#playlist');
 
-    //v2
-    if (window.parent != window) {
-      API.syncV2();
-    }
+    //session
+    this.uid = $.cookie('myskreen_uid');
+    this.sync(callback);
   },
-  syncSession: function(callback, args) {
+  sync: function(callback, args) {
     var self = this;
-    console.warn("syncSession", this.uid);
+    console.warn('Session.sync', this.uid, 'cookie:'+$.cookie('myskreen_uid'));
 
-    if (this.uid != null) {
-      if( !args ) {
-        var args = { with_notifications:1, with_selector:1, short:1 };
-      }
-
+    if (this.uid) {
+      $.extend(args, { with_notifications:1, with_selector:1, short:1 });
       API.query("GET", "session/" + this.uid + ".json", args, function(sessionData) {
-        if (typeof sessionData != "object") {
-          console.error('!! Error by getting session object. Session restart...', sessionData);
+        Session.signin(sessionData);
 
-          //Erase cookie
-          if( typeof window != 'undefined' ) {
-            $.cookie('myskreen_uid', null);
-            self.uid = null;
-          }
+        if (callback) {
+          callback(sessionData);
         }
+      });
+    } else {
+      $.extend(args, { short:1 });
+      API.query("POST", "session.json", args, function(sessionData) {
+        Session.signin(sessionData);
 
         if (callback) {
           callback(sessionData);
@@ -43,16 +38,23 @@ Session = {
     }
   },
   signin: function(sessionData) {
+    console.log('Session.signin', sessionData);
+    this.datas = sessionData;
+    this.uid = this.datas.uid;
     if (sessionData.email) {
-      console.log('Session.signin', sessionData);
-      this.loadUser(sessionData.email);
-      this.datas = sessionData;
+
+      UI.loadUser();
+      Session.notify(this.datas.notifications);
+      Session.initPlaylist(top.location.pathname);
     }
+    $.cookie('myskreen_uid', this.uid);
   },
   signout: function() {
-    this.unloadUser();
-    this.unloadSelector();
-    this.unloadPlaylist();
+    this.datas = '';
+    this.uid = '';
+    UI.loadUser();
+    UI.unloadSelector();
+    UI.unloadPlaylist();
   },
   notify: function(notifications) {
     console.log('Session.notify', notifications);
@@ -66,80 +68,81 @@ Session = {
       }
     }
   },
-  loadSelector: function(onglet) {
-    console.log('Session.loadSelector', this.onglet, onglet);
-    var self = this;
-    
-    //gestions des différents formats
-    if (this.onglet != onglet) {
-      this.onglet = onglet;
-      if (this.onglet && this.onglet != "undefined") {
+  loadSocial: function(onglet, offset) {
+    if (Session.datas.fb_uid) {
+      var offset = offset != 'undefined' ? offset : 0;
+      var cookie_name = 'myskreen_social_'+onglet+'_'+offset;
+      var cookie = $.cookie(cookie_name);
+      if (cookie) {
+        var json = JSON.parse(cookie);
+        UI.loadFriends(json);
+        Session.datas.friends = json.friends;
+      } else {
+        UI.appendLoader($('li#friends'));
         API.query('GET', 
-                  'www/slider/selector/' + this.uid + '.json', 
-                  {onglet: this.onglet, with_count_favoris: true}, 
-                  function(queue_selector) {
-                    console.log('Session.loadSelector', 'reload', queue_selector);
-                    self.unloadSelector();
-                    self.updateSelector(queue_selector);
+                  'www/slider/social/' + this.uid + '.json', 
+                  {onglet: this.onglet, nb_results: 1}, 
+                  function(json) {
+                    console.log('Session.loadSocial', 'offset:'+offset, json);
+                    $.cookie(cookie_name, JSON.stringify(json), { expires: 1 });
+                    Session.datas.friends = json.friends;
+                    UI.removeLoader($('li#friends'));
+                    UI.loadFriends(json);
                   });
-      } else {
-      this.unloadSelector();
-        this.updateSelector(this.playlist.data('selector'));
       }
-    } else {
-      this.unloadSelector();
-      this.updateSelector(Session.datas.queue_selector);
     }
   },
-  updateSelector: function(datas) {
-    for (key in datas) {
-      var group = datas[key];
-      console.log('Session.updateSelector', key, group);
-      var li = $('li#' + key, this.playlist);
-      li.removeClass('empty');
-      li.css('background-image', 'url('+group.img+')').css('background-repeat', 'no-repeat');
-      li.find('.label').removeClass('opacity').addClass('label-inverse');
-      li.find('span.badge').remove();
-      if (key == 'all') {
-        li.find('.label span').html(group.count);
-      } else {
-        if (group.nb_notifs > 0){
-          li.prepend(UI.badge_notification.replace('%count%', group.nb_notifs));
-        }
-      }
-      li.find('a').hide();
+  loadSelector: function(onglet, reload) {
+    console.log('Session.loadSelector', this.onglet, onglet, 'reload:'+reload);
+    var self = this;
+
+    //already loaded
+    //if (this.onglet == onglet) {
+    //  console.log('Session.loadSelector', 'already loaded');
+    //  return;
+    //}
+
+    //chargement initial avec data dans session
+    if (this.onglet == null && onglet == 'undefined') {
+      console.log('Session.loadSelector', 'this.datas.queue_selector', this.datas.queue_selector);
+      UI.loadSelector(this.datas.queue_selector);
+
+    //requete
+    } else if (typeof reload == 'undefined') {
+      console.log('Session.loadSelector', 'remote', 'www/slider/selector/' + this.uid + '.json');
+      this.onglet = onglet;
+      API.query('GET', 
+                'www/slider/selector/' + this.uid + '.json', 
+                {onglet: this.onglet, with_count_favoris: true}, 
+                function(json) {
+                  console.log('Session.loadSelector', 'reload', json);
+                  UI.loadSelector(json, true);
+                });
+
+      console.log('Session.loadSelector', 'loadSocial');
+      this.loadSocial();
     }
-    this.playlist.data('queue_selector', datas);
   },
-  unloadSelector: function() {
-    var lis = $('li.selector', this.playlist);
-    lis.addClass('empty').css('background', 'none');
-    lis.find('.label').addClass('opacity').removeClass('label-inverse');
-    lis.find('span.badge').remove();
-    lis.prepend($(UI.badge_notification.replace('%count%', '0')).removeClass('badge-info'));
-    lis.find('a').show();
-  },
-  loadPlaylist: function(id, access){
-    var name = $('li#'+id, this.playlist).data('name');
+  loadPlaylist: function(access){
+    this.access = access;
+    var name = $('li#'+this.access, this.playlist).data('name');
+    var url = this.playlist.data('pager-url').replace('session.uid', this.uid)
+                                             .replace('group.name', this.access)
+                                             .replace('app_dev.php/', '');
+    url = this.onglet ? url + '?onglet=' + this.onglet : url;
+    console.log('Session.loadPlaylist', url);
     Slider.load(this.playlist, 
-                this.playlist.data('pager-url').replace('session.uid', this.uid).replace('group.name', id).replace('app_dev.php/', ''),
+                url,
                 function(){
-                  $('#selector-back').show().find('a:last').html(name);
+                  $('#top-playlist h2 small:last').html('» ' + name);
                   $('li.selector', Session.playlist).animate({width:0}, 500, function() {
                     $(this).hide();
                   });
                 });
   },
-  unloadPlaylist: function() {
-    $('li:not(.selector, #item)', this.playlist).animate({width:0}, 500, function() {
-      $(this).hide();
-      $('li.selector', Session.playlist).show().animate({width:Slider.item_width}, 500);
-      Slider.remove(Session.playlist);
-    });
-  },
   initPlaylist: function(url) {
     console.log('Session.initPlaylist', url);
-    switch (url) { 
+    switch (url) {
     //load vod 
     case '/selection-...': 
       this.loadPlaylist('vod', 'films');
@@ -169,15 +172,5 @@ Session = {
       this.loadSelector();
     break; 
     }
-  },
-  loadUser: function(email) {
-      $('#signin').hide();
-      $('#signed-in span').html(email);
-      $('#signed-in').fadeIn();
-  },
-  unloadUser: function() {
-      $('#signed-in span').empty();
-      $('#signed-in').hide();
-      $('#signin').fadeIn();
   }
 }

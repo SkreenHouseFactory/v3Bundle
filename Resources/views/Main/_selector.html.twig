@@ -1,42 +1,42 @@
-<div id="selector-back" class="btn-group pull-right hide">
-  <a class="btn" href="#">&laquo; {{ 'back'|trans }}</a><a class="btn btn-primary"></a>
-</div>
-<h2>{{ 'playlist.title'|trans }}</h2>
-<div id="playlist" class="slider" data-selector="" data-pager-offset="0" data-pager-url="{{ path('playlist_load', {type:'group.name', session_uid: 'session.uid'}) }}">
+<h2>{{ 'playlist.yours'|trans }} <small></small> <small></small></h2>
+<div id="playlist" class="slider" data-queue-selector="" data-pager-offset="0" data-pager-url="{{ path('playlist_load', {type:'group.name', session_uid: 'session.uid'}) }}">
   <a class="next badge badge-inverse">&raquo;</a>
   <a class="prev badge badge-inverse">&laquo</a>
   <div class="slider-container">
   <ul class="items{% if addClass is defined %} {{ addClass }}{% endif %}">
-    <li id="all" class="selector" data-name="{{ 'name.all'|trans }}">
-      <span class="label label-inverse"><span></span> {{ 'playlist.all'|trans }}</span>
-    </li>
-    <li id="tv" class="selector empty" data-name="{{ 'name.tv'|trans }}">
-      <span class="label opacity">{{ 'playlist.tv'|trans }}</span>
-      <a data-original-title="Vos favoris<br/><small>{{ 'playlist.tv'|trans }}</small>" data-content="{{ 'playlist.popover.tv'|trans }}" data-placement="top" class="btn linkV2" href="/programme-tv">&raquo; {{ 'playlist.add.programs.tv'|trans }}</a>
-    </li>
-    <li id="replay" class="selector empty" data-name="{{ 'name.replay'|trans }}">
-      <span class="label opacity">{{ 'playlist.replay'|trans }}</span>
-      <a data-original-title="Vos favoris<br/><small>{{ 'playlist.replay'|trans }}</small>" data-content="{{ 'playlist.popover.replay'|trans }}" data-placement="top" class="btn linkV2" href="/selection/3772173-les-meilleures-audiences-tele-d-hier">&raquo; {{ 'playlist.add.programs.replay'|trans }}</a>
-    </li>
-    <li id="vod" class="selector empty" data-name="{{ 'name.web'|trans }}">
-      <span class="label opacity">{{ 'playlist.web'|trans }}</span>
-      <a data-original-title="Vos favoris<br/><small>{{ 'playlist.web'|trans }}</small>" data-content="{{ 'playlist.popover.vod'|trans }}" data-placement="top" class="btn linkV2" href="#" onClick="/selection/2344698-les-nouveautes-vod">&raquo; {{ 'playlist.add.programs.vod'|trans }}</a>
-    </li>
-    <li id="cine" class="selector empty" data-name="{{ 'name.cine'|trans }}">
-      <span class="label opacity">{{ 'playlist.cine'|trans }}</span>
-      <a data-original-title="Vos favoris<br/><small>{{ 'playlist.cine'|trans }}</small>" data-content="{{ 'playlist.popover.cine'|trans }}" data-placement="top" class="btn linkV2" href="/selection/3772198-a-voir-au-cinema">&raquo; {{ 'playlist.add.programs.cine'|trans }}</a>
-    </li>
-    <li id="friends" class="selector empty" data-name="{{ 'name.friends'|trans }}">
-      <span class="label label-warning">{{ 'playlist.friends'|trans }}</span>
-      <a data-original-title="{{ 'playlist.friends'|trans }}" data-content="{{ 'playlist.popover.friends'|trans }}" data-placement="top" class="btn" href="#">&raquo; {{ 'playlist.add.friends'|trans }}</a>
-    </li>
-    <li data-player="%player%" data-id="%id%" style="background:url(%img%) no-repeat;">
+    <li data-player="%player%" data-id="%id%" style="background:url(http://img/) no-repeat;">
       %popular_channel%
       <div class="actions">
         <a class="btn btn-primary fav" title="{{ 'seo.title.add'|trans }}<br/><small>%seo_add_title%</small>" href="#"><i class="icon-ok-sign icon-white"></i> {{ 'action.in.favorites'|trans }}</a>
         <a class="btn play" title="%seo_play_title% {{ 'seo.title.play'|trans }}" href="%url%"><i class="icon-play"></i> {{ 'action.play'|trans }}<span>{{ 'action.deporte'|trans }}</span></a>
       </div>
       <a href="%url%" title="%seo_play_title% {{ 'seo.title.play'|trans }}" class="title">%title%</a>
+    </li>
+    <li id="all" class="selector" data-name="{{ 'name.all'|trans }}">
+      <span class="label label-inverse"><span></span> {{ 'playlist.all'|trans|lower }}</span>
+      <h6 class="teaser"><b>{{ 'playlist.teaser.nb.all'|trans }}</b> {{ 'playlist.teaser.all'|trans }}</h6>
+    </li>
+    <li id="tv" class="selector empty" data-name="{{ 'name.tv'|trans }}">
+      <span class="label opacity"><span></span> {{ 'playlist.tv'|trans|lower }}</span>
+      <a data-original-title="{{ 'playlist.yours'|trans }}<br/><small></small>" data-content="{{ 'playlist.popover.tv'|trans }}" data-placement="top" class="btn linkV2" href="/programme-tv">&raquo; {{ 'playlist.add.programs.tv'|trans }}</a>
+    </li>
+    <li id="replay" class="selector empty" data-name="{{ 'name.replay'|trans }}">
+      <span class="label opacity"><span></span> {{ 'playlist.replay'|trans|lower }}</span>
+      <h6 class="teaser"><b>{{ 'playlist.teaser.nb.replay'|trans }}</b> {{ 'playlist.teaser.replay'|trans }}</h6>
+      <a data-original-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.replay'|trans }}</small>" data-content="{{ 'playlist.popover.replay'|trans }}" data-placement="top" class="btn linkV2" href="/selection/3772173-les-meilleures-audiences-tele-d-hier">&raquo; {{ 'playlist.add.programs.replay'|trans }}</a>
+    </li>
+    <li id="vod" class="selector empty" data-name="{{ 'name.vod'|trans }}">
+      <span class="label opacity"><span></span> {{ 'playlist.vod'|trans|lower }}</span>
+      <h6 class="teaser"><b>{{ 'playlist.teaser.nb.vod'|trans }}</b> {{ 'playlist.teaser.vod'|trans }}</h6>
+      <a data-original-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.vos'|trans }}</small>" data-content="{{ 'playlist.popover.vod'|trans }}" data-placement="top" class="btn linkV2" href="#" onClick="/selection/2344698-les-nouveautes-vod">&raquo; {{ 'playlist.add.programs.vod'|trans }}</a>
+    </li>
+    <li id="cine" class="selector empty" data-name="{{ 'name.cine'|trans }}">
+      <span class="label opacity"><span></span> {{ 'playlist.cine'|trans|lower }}</span>
+      <a data-original-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.cine'|trans }}</small>" data-content="{{ 'playlist.popover.cine'|trans }}" data-placement="top" class="btn linkV2" href="/selection/3772198-a-voir-au-cinema">&raquo; {{ 'playlist.add.programs.cine'|trans }}</a>
+    </li>
+    <li id="friends" class="selector empty" data-name="{{ 'name.friends'|trans }}">
+      <span class="label label-warning"><span></span> {{ 'playlist.friends'|trans|lower }}</span>
+      <a data-original-title="{{ 'playlist.friends'|trans }}" data-content="{{ 'playlist.popover.friends'|trans }}" data-placement="top" class="btn" href="#">&raquo; {{ 'playlist.add.friends'|trans }}</a>
     </li>
   </ul>
   </div>

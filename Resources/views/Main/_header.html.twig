@@ -25,7 +25,7 @@
   <div class="subnav subnav-fixed">
   <div class="container">
     <ul class="nav">
-      <li class="with_badge active"><a data-toggle="collapse" data-target="#nav-toggle .suggestions" href="#">{{ 'nav.subnav.suggestions'|trans }}</a></li>
+      <li class="with_badge active"><a data-toggle="collapse" data-target="#nav-toggle .suggestions" onClick="API.linkV2('/')">{{ 'nav.subnav.suggestions'|trans }}</a></li>
       <li><a data-toggle="collapse" data-target="#nav-toggle .tv" href="#">{{ 'nav.subnav.tv'|trans }}</a></li>
       <li><a data-toggle="collapse" data-target="#nav-toggle .cine" href="#">{{ 'nav.subnav.cine'|trans }}</a></li>
     </ul>
@@ -68,10 +68,21 @@
   </div>
 </div>
 
+<div id="top-player" class="collapse">PLAYER</div>
+
+<h6 id="top-baseline">{{ 'playlist.title'|trans }}</h6>
 <div id="top-playlist" class="collapse in" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
   <div class="container">
     {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
   </div>
 </div>
 
-<div id="top-player" class="collapse">PLAYER</div>
+<div id="top-links">
+{% for key,m in menus %}
+  <ul>{{  key }}
+  {% for l in m %}
+    <li><a href="linkV2('{{ l.seo_url }}');" title="{{ l.name }} {{ 'seo.streaming'|trans }}">{{ l.name }}</a></li>
+  {% endfor %}
+  </ul>
+{% endfor %}
+</div>

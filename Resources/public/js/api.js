@@ -2,6 +2,9 @@
 var skXdmSocket = { postMessage: function(){} };
 function skPaymentPopinResize () {
 }
+function skPaymentPopinEnd () {
+  $('#skModal').modal('hide');
+}
 
 
 // -- API
@@ -15,25 +18,24 @@ API = {
   dataType: 'json',
   currentModalUrl: null,
   quickLaunchModal: function(action, callback) {
-    this.launchModal(this.popin+action);
+    this.launchModal(this.popin+action, callback);
   },
   launchModal: function(url, callback) {
     if (url != this.currentModalUrl) {
       var url = url.indexOf('proxy=v3') == -1 ? url + '?proxy=v3' : url;
-      console.log('API.launchModal', url);
+      //console.log('API.launchModal', url);
       $('#skModal .modal-body').empty();
-      
+
       this.query('GET', 
                  url, 
                  null, 
                  function(json){
-                  console.log('API.launchModal', 'callback', json);
+                  console.log('API.launchModal', 'redirect:'+json.redirect, callback, json);
                   if (typeof json.redirect != "undefined") {
-                    console.log('API.launchModal', 'redirect');
                     API.launchModal(json.redirect, callback);
                   } else if (json.html) {
                     $('#skModal .modal-body').html(json.html);
-                    API.catchFormModal();
+                    API.catchFormModal(callback);
           
                     //transfer h1 :
                     $('#skModal .modal-header h3').html($('#part-header h1', $(json.html)).html());
@@ -42,42 +44,42 @@ API = {
     }
     $('#skModal .modal-footer').hide();
     $('#skModal').modal();
-    $('#skModal').on('hidden', callback);
+    $('#skModal').on('hidden', function(){ console.log("on('hidden')");callback(); });
     
     this.currentModalUrl = url;
   },
-  catchFormModal: function() {
-    console.log('API.catchFormModal', 'catch form');
+  catchFormModal: function(callback) {
+    //console.log('API.catchFormModal', 'catch form', callback);
     $('#skModal form').submit(function(){
       var args = $(this).serializeArray();
       API.query('POST', $(this).attr('action'), args, function(json){   
         if (typeof json.redirect != "undefined") {
-          console.log('API.launchModal', 'redirect');
+          //console.log('API.launchModal', 'redirect');
           API.launchModal(json.redirect, callback);
         } else {
           $('#skModal .modal-body').html(json.html);
-          API.catchFormModal();
+          API.catchFormModal(callback);
         }
       });
       return false;
     });
   },
   typeahead: function(keywords) {
-    var url = this.base + 'search/autocomplete/' + keywords;
+    var url = 'search/autocomplete/' + keywords;
     var args = {advanced:1, session_uid:Session.uid};
     this.query('GET', url, args, function(json){
       return json;
     });
   },
   addPreference: function(parameter, value, callback) {
-      this.query('POST', this.base + 'preference/flag/'+Session.uid, {parameter:parameter, value:value}, function(json){
+      this.query('POST', 'preference/flag/'+Session.uid, {parameter:parameter, value:value}, function(json){
         if (json.success) {
           callback();
         }
       });
   },
   removePreference: function(parameter, value, callback) {
-      this.query('POST', this.base + 'preference/unflag/'+Session.uid, {parameter:parameter, value:value}, function(json){
+      this.query('POST', 'preference/unflag/'+Session.uid, {parameter:parameter, value:value}, function(json){
         if (json.success) {
           callback();
         }
@@ -106,9 +108,9 @@ API = {
   query: function(method, url, data, callback, cache) {
     
     if (url.match(/^https\:\/\//)) {
-      console.log('API.query', 'https', 'is popin', url);
+      //console.log('API.query', 'https', 'is popin', url);
     } else {
-      console.log('API.query', 'http', 'is api', url);
+      //console.log('API.query', 'http', 'is api', url);
       var url  = this.base + url;
     }
 
@@ -190,7 +192,8 @@ API = {
         message = JSON.parse(message);
         console.log('msg v2', message);
         if (message[0] == "sessionData") {
-          Session.signin(message[1]);
+          Session.uid = message[1].uid;
+          Session.sync();
 
         } else if (message[0] == "history.back") {
           if (message[1] == "add") {
@@ -198,6 +201,8 @@ API = {
           } else {
             $('#history-back').hide(); //UI.removeHistoryBack();
           }
+        } else if (message[0] == "favorite") {
+          self.togglePreference(message[1]);
         }
       }
     });

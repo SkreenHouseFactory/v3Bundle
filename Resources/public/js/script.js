@@ -1,26 +1,28 @@
 $(document).ready(function(){
-  
+
+  //v2
+  if (top.location.href != document.location.href) {
+    API.syncV2();
+  }
+
   // -- session
   Session.init(function(sessionData){
-    console.log('context', Session.context);
-    Session.signin(sessionData);
-    Session.notify(sessionData.notifications);
-    Session.initPlaylist(top.location.pathname);
-    
-    $('#top-playlist h2').addClass('favoris').html('Vos favoris');
+    console.log('context', API.context);
   });
 
   // -- ui user
   $('#signin a').click(function(){
-    if (Session.context == 'v2') {
-      Session.postMessage(["signin"]);
+    if (API.context == 'v2') {
+      API.postMessage(["signin"]);
     } else {
-      API.quickLaunchModal('signin');
+      API.quickLaunchModal('signin', function (){
+        Session.sync();
+      });
     }
   });
   $('#signed-in a').click(function(){
-    if (Session.context == 'v2') {
-      Session.postMessage(["signout"]);
+    if (API.context == 'v2') {
+      API.postMessage(["signout"]);
     }
     Session.signout();
   });
@@ -58,9 +60,9 @@ $(document).ready(function(){
   $('li.selector:not(.empty)', Session.playlist).live('click', function(){
     Session.loadPlaylist(this.id);
   });
-  $('#top-playlist #selector-back a.btn:first').live('click', function(){
+  $('#top-playlist h2 small:first').live('click', function(){
     $(this).parent().hide();
-    Session.unloadPlaylist(this.id);
+    UI.unloadPlaylist(this.id);
   });
   $('li.selector.empty a').popover();
 
