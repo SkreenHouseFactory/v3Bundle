@@ -2,7 +2,7 @@
 var Player;
 Player = {
   player: null,
-  redirect: null,
+  frame: null,
   //player
   load: function(trigger) {
     console.log('Player.load', trigger);
@@ -17,13 +17,13 @@ Player = {
     console.log('Player.load', 'collapse');
   },
   redirect: function(url) {
-    this.redirect = $('#top-redirect');
-    this.redirect.empty();
-    UI.appendLoader(this.redirect);
+    this.frame = $('#top-redirect');
+    this.frame.empty();
+    UI.appendLoader(this.frame);
     $('#top-playlist').collapse('hide');
-    this.redirect.slideDown();
+    this.frame.slideDown();
 
-    this.redirect.html('<iframe src="'+url+'" frameborder="0"></iframe>');
+    this.frame.html('<iframe src="'+url+'" frameborder="0"></iframe>');
   },
   play: function(embed) {
     this.player = $('#top-player');
