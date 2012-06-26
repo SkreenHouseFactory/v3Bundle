@@ -15,6 +15,7 @@ Session = {
   },
   sync: function(callback, args) {
     var self = this;
+    var args = typeof args == 'undefined' ? new Array() : args;
     console.warn('Session.sync', this.uid, 'cookie:'+$.cookie('myskreen_uid'));
 
     if (this.uid) {

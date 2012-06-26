@@ -15,9 +15,7 @@ $(document).ready(function(){
     if (API.context == 'v2') {
       API.postMessage(["signin"]);
     } else {
-      API.quickLaunchModal('signin', function (){
-        Session.sync();
-      });
+      API.quickLaunchModal('signin');
     }
   });
   $('#signed-in a').click(function(){
@@ -44,6 +42,10 @@ $(document).ready(function(){
   });
 
   // -- ui form
+  $('#top-bar form.navbar-search a').click(function(){
+    $(this).parent().submit();
+    return false;
+  });
   $('#top-bar form.navbar-search').submit(function(){
     var q = $('.search-query', this).val();
     console.log('search', '/programmes/' + q);
@@ -60,8 +62,7 @@ $(document).ready(function(){
   $('li.selector:not(.empty)', Session.playlist).live('click', function(){
     Session.loadPlaylist(this.id);
   });
-  $('#top-playlist h2 small:first').live('click', function(){
-    $(this).parent().hide();
+  $('#top-playlist h2').live('click', function(){
     UI.unloadPlaylist(this.id);
   });
   $('li.selector.empty a').popover();
@@ -111,4 +112,11 @@ $(document).ready(function(){
     });
   //}
 
+  // -- ui player
+  $('a.player').click(function(e){
+    e.preventDefault();
+    Player.load($(this));
+    return false;
+  });
+  
 });

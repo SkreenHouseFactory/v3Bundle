@@ -52,7 +52,7 @@ UI = {
     if (datas.programs) {
       var program = datas.programs.pop();
       var friends = datas.friends;
-  
+
       //console.log('UI.loadSelector', key, group);
       var li = $('li#friends', Session.playlist);
       li.removeClass('empty');
@@ -100,31 +100,9 @@ UI = {
       Slider.remove(Session.playlist);
     });
   },
-  //player
-  loadPlayer: function(trigger) {
-    var url = trigger.data('url');
-    var embed = trigger.data('embed');
-    this.player = $('#top-player');
-    if (embed) {
-      switch(embed.type) {
-        case 'html5':
-          this.player.html('loading embed html5 ...'+embed.url);
-        break;
-        case 'swf':
-          this.player.html('loading embed swf …'+embed.url);
-        break;
-        case 'iframe':
-          this.player.html('<iframe src="'+embed.url+'" frameborder="0"></iframe>');
-        break;
-      }
-    } else if (trigger.data('url')) {
-      this.player.html('<iframe src="'+url+'" frameborder="0"></iframe>');
-    }
-    
-    this.player.collapse('show');
-  },
   //insert loader
   appendLoader: function(elmt) {
+    $('.progress', elmt).remove();
     elmt.append(this.loader);
     $('.progress .bar', elmt).animate({width: '100%'}, 5000);
   },

@@ -12,8 +12,8 @@
       </div>
       <a href="%url%" title="%seo_play_title% {{ 'seo.title.play'|trans }}" class="title">%title%</a>
     </li>
-    <li id="all" class="selector" data-name="{{ 'name.all'|trans }}">
-      <span class="label label-inverse"><span></span> {{ 'playlist.all'|trans|lower }}</span>
+    <li id="all" class="selector empty" data-name="{{ 'name.all'|trans }}">
+      <span class="label label-inverse opacity"><span></span> {{ 'playlist.all'|trans|lower }}</span>
       <h6 class="teaser"><b>{{ 'playlist.teaser.nb.all'|trans }}</b> {{ 'playlist.teaser.all'|trans }}</h6>
     </li>
     <li id="tv" class="selector empty" data-name="{{ 'name.tv'|trans }}">
@@ -28,15 +28,15 @@
     <li id="vod" class="selector empty" data-name="{{ 'name.vod'|trans }}">
       <span class="label opacity"><span></span> {{ 'playlist.vod'|trans|lower }}</span>
       <h6 class="teaser"><b>{{ 'playlist.teaser.nb.vod'|trans }}</b> {{ 'playlist.teaser.vod'|trans }}</h6>
-      <a data-original-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.vos'|trans }}</small>" data-content="{{ 'playlist.popover.vod'|trans }}" data-placement="top" class="btn linkV2" href="#" onClick="/selection/2344698-les-nouveautes-vod">&raquo; {{ 'playlist.add.programs.vod'|trans }}</a>
+      <a data-original-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.vod'|trans }}</small>" data-content="{{ 'playlist.popover.vod'|trans }}" data-placement="top" class="btn linkV2" href="#" onClick="/selection/2344698-les-nouveautes-vod">&raquo; {{ 'playlist.add.programs.vod'|trans }}</a>
     </li>
     <li id="cine" class="selector empty" data-name="{{ 'name.cine'|trans }}">
       <span class="label opacity"><span></span> {{ 'playlist.cine'|trans|lower }}</span>
       <a data-original-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.cine'|trans }}</small>" data-content="{{ 'playlist.popover.cine'|trans }}" data-placement="top" class="btn linkV2" href="/selection/3772198-a-voir-au-cinema">&raquo; {{ 'playlist.add.programs.cine'|trans }}</a>
     </li>
     <li id="friends" class="selector empty" data-name="{{ 'name.friends'|trans }}">
-      <span class="label label-warning"><span></span> {{ 'playlist.friends'|trans|lower }}</span>
-      <a data-original-title="{{ 'playlist.friends'|trans }}" data-content="{{ 'playlist.popover.friends'|trans }}" data-placement="top" class="btn" href="#">&raquo; {{ 'playlist.add.friends'|trans }}</a>
+      <span class="label label-warning opacity"><span></span> {{ 'playlist.friends'|trans|lower }}</span>
+      <a data-original-title="{{ 'playlist.friends'|trans }}" data-content="{{ 'playlist.popover.friends'|trans }}" data-placement="top" class="btn" href="#" onClick="API.quickLaunchModal('signin');">&raquo; {{ 'playlist.add.friends'|trans }}</a>
     </li>
   </ul>
   </div>

@@ -6,18 +6,18 @@
     <li id="signed-in" class="active hide">
       <a href="#"><span></span> - {{ 'signout'|trans }}</a>
     </li>
-    {#<li>
+    <li>
       <a data-toggle="collapse" data-target="#top-playlist" href="#">
         <big>{{ 'playlist.trigger'|trans }}</big> <i class="icon-chevron-down icon-white"></i>
       </a>
-  </li>#}
+  </li>
   </ul>
 
   <a class="pull-left" href="/" title="mySkreen"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-v3.png') }}" alt="mySkreen" /></a>
 
   <form class="navbar-search btn-group pull-left">
   <input type="text" class="search-query btn-large pull-left" placeholder="{{ 'search.pitch'|trans }}">
-  <input type="submit" class="btn btn-large btn-inverse" value="{{ 'search.launch'|trans }}">
+  <a class="btn btn-large btn-inverse"><i class="icon-search icon-white"></i></a>
   </form>
 </div>
 
@@ -25,15 +25,16 @@
   <div class="subnav subnav-fixed">
   <div class="container">
     <ul class="nav">
-      <li class="with_badge active"><a data-toggle="collapse" data-target="#nav-toggle .suggestions" onClick="API.linkV2('/')">{{ 'nav.subnav.suggestions'|trans }}</a></li>
-      <li><a data-toggle="collapse" data-target="#nav-toggle .tv" href="#">{{ 'nav.subnav.tv'|trans }}</a></li>
-      <li><a data-toggle="collapse" data-target="#nav-toggle .cine" href="#">{{ 'nav.subnav.cine'|trans }}</a></li>
+      <li class="with_badge active"><a data-target="#nav-toggle .suggestions" onClick="API.linkV2('/')">{{ 'nav.subnav.suggestions'|trans }}</a></li>
+      <li><a data-target="#nav-toggle .tv" href="#">{{ 'nav.subnav.tv'|trans }}</a></li>
+      <li><a data-target="#nav-toggle .cine" href="#">{{ 'nav.subnav.cine'|trans }}</a></li>
     </ul>
   </div>
   </div>
   <div class="container">
     <ul id="nav-toggle" class="nav nav-pills">
       <li id="history-back" class="hide"><a onClick="Session.postMessage(['javascript', 'history.back()'])" href="#">&laquo; Retour</a></li>
+      <li class="with_badge badge-films suggestions"><a class="player" href="http://yahoo.fr">yahoo</a></li>
       <li class="with_badge badge-films suggestions"><a onClick="API.linkV2('/films')" href="#">{{ 'nav.films'|trans }}</a></li>
       <li class="with_badge badge-emissions suggestions"><a onClick="API.linkV2('/emissions')" href="#">{{ 'nav.emissions'|trans }}</a></li>
       <li class="with_badge badge-series suggestions"><a onClick="API.linkV2('/series')" href="#">{{ 'nav.series'|trans }}</a></li>
@@ -70,18 +71,20 @@
 
 <div id="top-player" class="collapse">PLAYER</div>
 
-<h6 id="top-baseline">{{ 'playlist.title'|trans }}</h6>
 <div id="top-playlist" class="collapse in" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
+  <h6 id="top-baseline">{{ 'playlist.title'|trans }}</h6>
   <div class="container">
     {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
   </div>
 </div>
 
+<div id="top-redirect" class="collapse">PLAYER</div>
+
 <div id="top-links">
 {% for key,m in menus %}
-  <ul>{{  key }}
+  <ul>{{  'all.the.format'|trans({'%format%': key|lower}) }} : 
   {% for l in m %}
-    <li><a href="linkV2('{{ l.seo_url }}');" title="{{ l.name }} {{ 'seo.streaming'|trans }}">{{ l.name }}</a></li>
+    <li><a href="linkV2('{{ l.seo_url }}');" title="{{ l.name }} {{  key }} {{ 'access.streaming'|trans }}">{{ l.name }}</a></li>
   {% endfor %}
   </ul>
 {% endfor %}

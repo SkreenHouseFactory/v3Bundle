@@ -14,7 +14,7 @@ name:
     friends: Vos amis regardent
 playlist:
     yours: Vos favoris
-    trigger: 'Mes programmes'
+    trigger: 'Vos favoris'
     title: 'Ne ratez plus aucun programme : ajoutez-les à vos favoris !'
     all: Favoris
     cine: En salle
@@ -81,10 +81,17 @@ date.month:
     nov: Novembre
     dec: Décembre
 
+access:
+    streaming: en streaming
+all:
+    the:
+        format: Tous les %format%
+
 past: passé
 today: aujourd'hui
 coming: à venir
 
+loading: Chargement
 back: Retour
 close: Fermer
 signin: Se connecter

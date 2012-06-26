@@ -36,16 +36,18 @@ API = {
                   } else if (json.html) {
                     $('#skModal .modal-body').html(json.html);
                     API.catchFormModal(callback);
-          
-                    //transfer h1 :
-                    $('#skModal .modal-header h3').html($('#part-header h1', $(json.html)).html());
                   }
                 });
     }
-    $('#skModal .modal-footer').hide();
+
     $('#skModal').modal();
-    $('#skModal').on('hidden', function(){ console.log("on('hidden')");callback(); });
-    
+    $('#skModal').on('hidden', function(){ 
+      console.log("on('hidden')");
+      if (typeof callback != 'undefined') {
+        callback();
+      }
+    });
+
     this.currentModalUrl = url;
   },
   catchFormModal: function(callback) {
@@ -62,6 +64,20 @@ API = {
         }
       });
       return false;
+    });
+    
+    this.transfertModal($('#skModal'))
+  },
+  transfertModal: function(modal) {
+    //console.log('API.transfertModal', modal);
+    //h1 :
+    $('.modal-header h3', modal).html($('#part-header h1', modal).html());
+    //submit
+    $(".modal-footer", modal).html($('form input[type="submit"]', modal));
+    $('.modal-footer input[type="submit"]', modal).attr('onClick','').click(function(e){
+      e.preventDefault();
+      $('.modal-body form', modal).submit();
+      $(this).attr('value', 'chargement . . .').attr('disabled', 'disabled');
     });
   },
   typeahead: function(keywords) {
@@ -125,7 +141,7 @@ API = {
     } else {
       var dataType = "jsonp";
       if (data && typeof data==='object'){
-        //console.log('url.indexOf', url.indexOf('?'));
+        //console.log(data, 'url.indexOf', url.indexOf('?'));
         url += url.indexOf('?') == -1 ? '?' : '&';
         for (var key in data) {
            url += key+'='+data[key]+'&';
@@ -203,6 +219,8 @@ API = {
           }
         } else if (message[0] == "favorite") {
           self.togglePreference(message[1]);
+        } else if (message[0] == "redirect") {
+          Player.redirect(message[1]);
         }
       }
     });
