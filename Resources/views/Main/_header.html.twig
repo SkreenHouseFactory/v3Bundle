@@ -40,7 +40,7 @@
       <li class="with_badge badge-series suggestions"><a onClick="API.linkV2('/series')" href="#">{{ 'nav.series'|trans }}</a></li>
       <li class="with_badge badge-documentaires suggestions"><a onClick="API.linkV2('/documentaires')" href="#">{{ 'nav.documentaires'|trans }}</a></li>
       <li class="with_badge badge-spectacles suggestions"><a onClick="API.linkV2('/spectacles')" href="#">{{ 'nav.spectacles'|trans }}</a></li>
-      <li class="tv hide"><a href="#">{{ 'nav.tv.live'|trans }}</a></li>
+      <li class="tv hide"><a href="{{ path('player_live') }}" target="_parent">{{ 'nav.tv.live'|trans }}</a></li>
       <li class="tv hide dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ 'nav.tv.grid'|trans }} <b class="caret"></b></a>
         <ul class="dropdown-menu">

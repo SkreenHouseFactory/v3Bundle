@@ -35,7 +35,8 @@ class PlayerController extends Controller
     {
 
       return $this->render('SkreenHouseFactoryV3Bundle:Player:live.html.twig', array(
-        'channelId' => $request->get('channel_id')
+        'channelId' => $request->get('channel_id'),
+        'menus' => array()
       ));
     }
 

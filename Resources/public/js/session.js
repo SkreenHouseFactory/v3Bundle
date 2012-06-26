@@ -153,6 +153,7 @@ Session = {
       this.loadPlaylist('replay', 'emissions');
     break; 
     //load tv 
+    case '/les-chaines-en-direct':
     case '/programme-tv':
       this.loadPlaylist('tv');
     break; 
