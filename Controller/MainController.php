@@ -35,6 +35,7 @@ class MainController extends Controller
         'menus' => (array)$menus->menu
       ));
       $response->headers->set('Access-Control-Allow-Origin', 'http://benoit.myskreen.typhon.net');
+      $response->headers->set('Access-Control-Allow-Methods', 'POST, GET');
       return $response;
     }
 }

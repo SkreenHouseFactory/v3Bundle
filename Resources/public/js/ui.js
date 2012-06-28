@@ -34,18 +34,12 @@ UI = {
   //user infos
   loadUser: function() {
     if (Session.datas.email) {
-      $('#signin').hide();
       $('#signed-in span').html(Session.datas.email);
-      $('#signed-in').fadeIn();
-      $('#top-playlist h2').css({visibility: 'visible'});
-      $('#top-baseline').hide();
     } else {
       $('#signed-in span').empty();
-      $('#signed-in').hide();
-      $('#signin').fadeIn();
-      $('#top-playlist h2').css({visibility: 'hidden'});
-      $('#top-baseline').show();
+      $('#nav-toggle li a span').remove();
     }
+    $('.user-off, .user-on').toggle();
   },
   //update friends
   loadFriends: function(datas) {
@@ -88,7 +82,7 @@ UI = {
   unloadSelector: function() {
     var lis = $('li.selector', Session.playlist);
     lis.addClass('empty').css('background', 'none');
-    lis.find('.label').addClass('opacity').removeClass('label-inverse').find('span').empty();
+    lis.find('.label').addClass('opacity').find('span').empty();
     lis.find('span.badge').remove();
     lis.prepend($(this.badge_notification.replace('%count%', '0')).removeClass('badge-info'));
     lis.find('a, h6').show();

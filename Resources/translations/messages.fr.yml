@@ -13,22 +13,22 @@ name:
     vod: VOD
     friends: Vos amis regardent
 playlist:
-    yours: Vos favoris
-    trigger: 'Vos favoris'
-    title: 'Ne ratez plus aucun programme : ajoutez-les à vos favoris !'
-    all: Favoris
+    yours: Vos playlists
+    trigger: 'Vos playlists'
+    title: 'Ne ratez plus aucun programme : ajoutez-les à vos playlists !'
+    all: programmes
     cine: En salle
     tv: A la télé
     replay: Replay & Web
     vod: VOD
     friends: 'Vos amis regardent'
     add:
-        friends: Inviter vos proches
+        friends: Inviter
         programs:
-            cine: Films en salle
-            tv: Programme TV
-            vod: Films en VOD
-            replay: Emissions Replay
+            cine: Ajouter
+            tv: Ajouter
+            vod: Ajouter
+            replay: Ajouter
     teaser:
         nb:
           all: 970 000
@@ -38,12 +38,15 @@ playlist:
         vod: films et docus accessibles avec votre compte mySkreen
         replay: émissions TV immédiatement disponibles
     popover:
-        cine: Trouvez les sorties de la semaine et toute la programmation. Ajoutez vos films préférés à vos favoris pour être alerté des disponibilité VOD et des diffusions TV
-        tv: Ajoutez des programmes à vos favoris et soyez alerté lorsqu'il passent à la TV
+        cine: Trouvez les sorties de la semaine et toute la programmation. Ajoutez vos films préférés à vos playlists pour être alerté des disponibilité VOD et des diffusions TV
+        tv: Ajoutez des programmes à vos playlists et soyez alerté lorsqu'il passent à la TV
         vod: Ajoutez vos films et documentaires préférés pour les voir plus tard et/ou pour être alerté de leur diffusion aussi bien en VOD qu'à la TV ou au cinéma
-        replay: Ajoutez vos émissions et séres préférées à vos favoris pour ne rater aucun épisode
-        friends: Inviter vos proches pour partager vos programmes favoris avec eux.
+        replay: Ajoutez vos émissions et séres préférées à vos playlists pour ne rater aucun épisode
+        friends: Inviter vos proches pour partager vos playlists avec eux.
 nav:
+    menu:
+        account: Vos playlists
+        tv: Allumer la TV
     subnav:
         suggestions: A la demande
         tv: 'A la télé'
@@ -102,11 +105,11 @@ search:
     launch: Rechercher
 
 action:
-    in.favorites: Dans vos favoris
+    in.favorites: Dans vos playlists
     add.favorites: Suivre / voir + tard
     play: Voir en streaming
     deporte: sur mySkreen
 seo:
   title:
-    add: Ajout à vos favoris
+    add: Ajout à vos playlists
     play: en streaming

@@ -138,8 +138,10 @@ Slider = {
     var friend_uids = friend_uids.split(',');
     for (key in friend_uids) {
       if (typeof Session.datas.friends[friend_uids[key]]) {
-        var friend = Session.datas.friends[friend_uids[key]];
-        div.append('<a rel="tooltip" title="'+friend.name+'" href="#"><img src="'+friend.pic_square+'" alt="'+friend.name+'" /></a>'); 
+        if (typeof Session.datas.friends[friend_uids[key]] != "undefined") {
+          var friend = Session.datas.friends[friend_uids[key]];
+          div.append('<a rel="tooltip" title="'+friend.name+'" href="#"><img src="'+friend.pic_square+'" alt="'+friend.name+'" /></a>');
+        }
       }
     }
 

@@ -56,6 +56,8 @@ Session = {
     UI.loadUser();
     UI.unloadSelector();
     UI.unloadPlaylist();
+
+    API.postMessage(["signout"]);
   },
   notify: function(notifications) {
     console.log('Session.notify', notifications);

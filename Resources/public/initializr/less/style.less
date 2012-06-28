@@ -88,7 +88,7 @@ body {
   form {
     margin-top: 5px;
     margin-left: 10%;
-    width: 50%;
+    width: 40%;
     font-size: 1.2em;
     * {
       font-family: Belleza, Helvetica;
@@ -96,7 +96,7 @@ body {
     input.search-query {
       width: 75%;
       padding: 9px 10px;
-      font-size: 1.0em;
+      font-size: 0.9em;
     }
     input.validate {
       width: 20%;
@@ -104,21 +104,13 @@ body {
   }
 
   .nav {
-    margin-top: 8px;
-    margin-bottom: 0px;
+    margin: 0px;
     text-align: right;
     padding: 4px;
-
-    li a {
-      color: white;
-      padding: 0 4px;
-      border-radius: 4px;
-    }
-    li a:hover {
-      background: #555;
-    }
-    li#signin a {
-      color: #AAAAAA;
+    margin-right: 100px;
+    
+    li a.hide {
+      display: none;
     }
   }
 }
@@ -127,10 +119,8 @@ body {
   position: absolute;
   z-index: 1;
   padding: 12px 0 5px 35%;
-
-  a {
-    margin:5px 0;
-  }
+  font-size: 1.1em;
+  text-shadow: 1px 1px 0px white;
 }
 
 #top-playlist {
@@ -166,20 +156,21 @@ body {
     }
   }
 
-  ul#nav-toggle {
-    margin-bottom: 0;
+  #nav-toggle {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    padding: 4px 50px;
 
-    > li > a:hover {
-      color: #08C;
-    }
-    > li > a, li > a.active:hover {
-      color: white;
+    > ul {
+      background: url("@{bgPlaylist}");
+      margin-bottom: 0;
     }
   }
 
   /* Subnav */
   .subnav {
-    font-size: 1.1em;
+    font-size: 1.2em;
     width: 100%;
     height: 36px;
     background-color: #eeeeee; /* Old browsers */
