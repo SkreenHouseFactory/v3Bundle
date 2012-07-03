@@ -2,6 +2,6 @@
 
 {% block title %}{{ 'service.name'|trans }} - {{ 'page.title.redirect'|trans }}{% endblock %}
 
-{% block content %}
-
+{% block redirect %}
+<iframe src="{{ url }}" frameborder="0"></iframe>
 {% endblock %}

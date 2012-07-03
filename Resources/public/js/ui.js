@@ -1,8 +1,9 @@
 // -- UI
 var UI;
 UI = {
+  user: '',
   player: null,
-  badge_notification: '<span class="badge badge-info">%count%</span>',
+  badge_notification: '<span class="badge badge-important">%count%</span>',
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
   //toggle favorite
   toggleFavorite: function(trigger){
@@ -33,13 +34,40 @@ UI = {
   },
   //user infos
   loadUser: function() {
+    console.log('UI.loadUser', Session.datas.email, this.user);
+    if (this.user) {
+      if (this.user == Session.datas.email) {
+        return;
+      } else {
+        //TODO : unload user !
+      }
+    }
+
+    this.user = Session.datas.email;
     if (Session.datas.email) {
-      $('#signed-in span').html(Session.datas.email);
+      $('.user span').html(Session.datas.email);
     } else {
-      $('#signed-in span').empty();
-      $('#nav-toggle li a span').remove();
+      $('.user span').empty();
     }
     $('.user-off, .user-on').toggle();
+
+    this.notifyUser(Session.datas.notifications);
+  },
+  //notify
+  notifyUser: function(notifications) {
+    console.log('UI.notifyUser', notifications);
+    for (key in notifications) {
+      console.log('UI.notifyUser', 'programs', $('#top-bar .user'), key, notifications[key].new);
+      if (key == 'programs') {
+        if (notifications[key].new.length > 0) {
+          $('#top-bar .user').addClass('with-badge').append($(this.badge_notification).html(notifications[key].new.length));
+        }
+      } else {
+        if (notifications[key].new > 0) {
+          $('#top-bar .dropdown-menu li a.' + key).addClass('with-badge').append($(this.badge_notification).html(notifications[key].new));
+        }
+      }
+    }
   },
   //update friends
   loadFriends: function(datas) {
@@ -73,7 +101,7 @@ UI = {
       li.find('span.badge').remove();
       if (key != 'all' && 
           group.nb_notifs > 0){
-        li.prepend(this.badge_notification.replace('%count%', group.nb_notifs));
+        li.prepend(this.badge_notification.replace('%count%', group.nb_notifs + ' nouveaux')); //group.nb_notifs));
       }
       li.find('a, h6').hide();
     }
@@ -81,18 +109,33 @@ UI = {
   },
   unloadSelector: function() {
     var lis = $('li.selector', Session.playlist);
-    lis.addClass('empty').css('background', 'none');
+    lis.addClass('empty').css('background-image', '');
     lis.find('.label').addClass('opacity').find('span').empty();
     lis.find('span.badge').remove();
-    lis.prepend($(this.badge_notification.replace('%count%', '0')).removeClass('badge-info'));
     lis.find('a, h6').show();
   },
-  unloadPlaylist: function() {
+  unloadPlaylist: function(onglet) {
+    console.log('UI.unloadPlaylist', onglet, Session.onglet);
+    if (typeof onglet != "undefined" && onglet != Session.onglet) {
+      Session.initPlaylist('/' + onglet);
+    }
+    $('#top-playlist h2 small').empty();
     $('li:not(.selector, #item)', Session.playlist).animate({width:0}, 500, function() {
       $(this).hide();
       $('li.selector', Session.playlist).show().animate({width:Slider.item_width}, 500);
       Slider.remove(Session.playlist);
     });
+  },
+  loadPlayer: function() {
+  },
+  loadRedirect: function(url) {
+    var player = $('#top-redirect');
+    if (typeof url != "undefined") {
+      player.append('<iframe src="' + url + '"></iframe>')
+    }
+    
+    player.show().css('height', ($(window).height() - 100) + 'px');
+    $('#top-playlist').collapse('hide');
   },
   //insert loader
   appendLoader: function(elmt) {
@@ -103,5 +146,12 @@ UI = {
   //remove loader
   removeLoader: function(elmt) {
     elmt.find('.progress').remove();
-  } 
+  },
+  loadFilters: function(filters) {
+    console.log('UI.loadFilters', filters);
+    $('#top-nav .subnav ul li').removeClass('active');
+    $('#top-nav .subnav ul li.' + filters).addClass('active');
+    $('#top-filters > ul > li').hide();
+    $('#top-filters > ul > li.' + filters).slideDown();
+  }
 }

@@ -27,6 +27,8 @@ Slider = {
       return;
     }
 
+    slider.addClass('slider-navigate');
+
     next.bind('click', function(){
       console.log('next', container.css('left'), container.css('width'));
       if (parseInt(container.css('left')) < container.css('width') || container.css('left') == 'auto') {
@@ -78,7 +80,7 @@ Slider = {
     $('.next, .prev', slider).css({'visibility':'hidden'});
     $('.next, .prev', slider).unbind('click');
     $('ul', slider).css('left', '0px');
-    slider.removeClass('initialized');
+    slider.removeClass('initialized slider-navigate');
   },
   load: function(slider, url, callback, keep) {
     var self = this;
@@ -119,7 +121,7 @@ Slider = {
       //console.log('Slider.load', 'added', li, this.sample);
       if (Session.datas.notifications &&
           $.inArray(''+pere.id, Session.datas.notifications.programs.new) != -1) {
-        li.prepend(UI.badge_notification.replace('%count%', 'nouvelle vidéo'));
+        li.prepend(UI.badge_notification.replace('%count%', 'nouveau'));
       }
       if (program.deporte) {
         li.addClass('deporte');

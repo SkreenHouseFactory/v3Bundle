@@ -22,15 +22,14 @@ API = {
   },
   launchModal: function(url, callback) {
     if (url != this.currentModalUrl) {
-      var url = url.indexOf('proxy=v3') == -1 ? url + '?proxy=v3' : url;
       //console.log('API.launchModal', url);
       $('#skModal .modal-body').empty();
-
       this.query('GET', 
                  url, 
-                 null, 
+                 {session_uid: Session.uid,
+                  proxy: 'v3'}, 
                  function(json){
-                  console.log('API.launchModal', 'redirect:'+json.redirect, callback, json);
+                  //console.log('API.launchModal', 'redirect:'+json.redirect, callback, json);
                   if (typeof json.redirect != "undefined") {
                     API.launchModal(json.redirect, callback);
                   } else if (json.html) {
@@ -41,8 +40,8 @@ API = {
     }
 
     $('#skModal').modal();
-    $('#skModal').on('hidden', function(){ 
-      console.log("on('hidden')");
+    $('#skModal').on('hide', function(){ 
+      console.log("on('hide')", callback);
       if (typeof callback != 'undefined') {
         callback();
       }
@@ -206,7 +205,7 @@ API = {
     this.skXdmSocket = new easyXDM.Socket({
       onMessage:function(message, origin) {
         message = JSON.parse(message);
-        console.log('msg v2', message);
+        console.log('API.syncV2', 'onMessage', message);
         if (message[0] == "sessionData") {
           Session.uid = message[1].uid;
           Session.sync();
@@ -217,10 +216,23 @@ API = {
           } else {
             $('#history-back').hide(); //UI.removeHistoryBack();
           }
-        } else if (message[0] == "favorite") {
-          self.togglePreference(message[1]);
+
+        } else if (message[0] == "header") {
+          if (message[1] == "collapsed") {
+            $('#top-playlist').collapse('hide');
+          } else {
+            $('#top-playlist').collapse('show');
+          }
+
+        } else if (message[0] == "preference") {
+          self.togglePreference(message[1], message[2]);
+
         } else if (message[0] == "redirect") {
-          Player.redirect(message[1]);
+          window.open('/redirect?target=' + escape(message[1]));
+          //Player.redirect(message[1]);
+
+        } else if (message[0] == "pathname") {
+          Session.initPlaylist(message[1]);
         }
       }
     });

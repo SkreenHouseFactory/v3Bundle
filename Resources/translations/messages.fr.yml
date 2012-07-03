@@ -44,8 +44,12 @@ playlist:
         replay: Ajoutez vos émissions et séres préférées à vos playlists pour ne rater aucun épisode
         friends: Inviter vos proches pour partager vos playlists avec eux.
 nav:
+    all: Tout
+    filter: Filtrer vos playlist
     menu:
-        account: Vos playlists
+        account:
+            on: Vos playlists
+            off: Votre compte / connexion
         tv: Allumer la TV
     subnav:
         suggestions: A la demande

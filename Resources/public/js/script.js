@@ -6,44 +6,45 @@ $(document).ready(function(){
   }
 
   // -- session
+  $('.user-on').hide();
   Session.init(function(sessionData){
     console.log('context', API.context);
   });
 
   // -- ui user
-  $('#signin a').click(function(){
+  $('a.signin').click(function(){
     if (API.context == 'v2') {
       API.postMessage(["signin"]);
     } else {
-      API.quickLaunchModal('signin');
+      API.quickLaunchModal('signin', function() {
+        Session.sync();
+      });
     }
   });
-  $('#signed-in a').click(function(){
+  $('a.signout').click(function(){
     if (API.context == 'v2') {
       API.postMessage(["signout"]);
     }
     Session.signout();
   });
+  $('.user-on .dropdown-toggle').click(function(){
+    if (!$('#top-playlist').hasClass('in')) {
+      $('#top-playlist').collapse('show');
+      API.postMessage(["header","add_playlist"]);
+    }
+  });
 
   // -- ui nav
-  $('.subnav .nav li').hover(function(e){
-      e.preventDefault();
-
-      $('.subnav .nav li').removeClass('active');
-      $(this).addClass('active');
-
-      $('#nav-toggle').slideDown();
-      $('#nav-toggle > ul > li').hide();
-      $($('a', this).data('target')).show();
-    },function(){
+  $('.subnav .nav li').click(function(){
+    $('.subnav .nav li.active').removeClass('active');
+    UI.loadFilters(this.className);
+    $(this).addClass('active');
   });
-  $('#top-playlist').hover(function(e){
-      $('#nav-toggle').slideUp();
-    },function(){
-  });
-  $('#nav-toggle > li > a').click(function(){
-    $('#nav-toggle > li').removeClass('active');
-    $(this).parent().addClass('active');
+  $('#top-filters > ul > li.grid').click(function(){
+    var onglet = $('a', this).removeClass('dropdown-toggle').attr('class');
+    API.javascriptV2("mskapp.currentView.showByType('" + onglet + "');$('#sliders .item." + onglet + "').show();$('#sliders .item:not(." + onglet + ")').hide();");
+    Session.onglet = onglet;
+    Session.loadPlaylist('tv');
   });
 
   // -- ui form
@@ -83,13 +84,21 @@ $(document).ready(function(){
     e.preventDefault();
     API.linkV2($(this).attr('href'));
   });
+  $('a.javascript-v2').live('click', function(e){
+    console.log('ui link/url', 'javascriptV2');
+    e.preventDefault();
+    API.javascriptV2($(this).attr('href').replace('javascript://',''));
+  });
 
   // -- ui player
   $('a[data="player"]').live('click', function(e){
     e.preventDefault();
     UI.loadPlayer($(this).data('player'));
   });
-
+  if ($('#top-redirect iframe').length > 0) {
+    console.log('UI.loadRedirect()', $('#top-redirect iframe').length);
+    UI.loadRedirect();
+  }
 
   // -- ui actions : favorite & play
   $('.slider li:not(.selector)').live('click', function(){
@@ -112,7 +121,7 @@ $(document).ready(function(){
     $('.actions .fav:not(.btn-primary)').live('mouseover', function() {
       $(this).popover({placement: 'top',
                        title:	function() { return 'Ajouter à vos favoris'},
-                       content: 'Pour voir ce programme plus tard, pour être averti dès qu\'un épisode est disponible en Replay, etc.'})
+                       content: '<hr/><b>Ne ratez plus vos programmes !</b><br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD. Vous serez averti dès qu\'un épisode est disponible.'})
              .popover('show');
     });
   //}

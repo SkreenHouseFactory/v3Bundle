@@ -43,11 +43,9 @@ Session = {
     this.datas = sessionData;
     this.uid = this.datas.uid;
     if (sessionData.email) {
-
       UI.loadUser();
-      Session.notify(this.datas.notifications);
-      Session.initPlaylist(top.location.pathname);
     }
+    Session.initPlaylist(top.location.pathname);
     $.cookie('myskreen_uid', this.uid);
   },
   signout: function() {
@@ -58,18 +56,6 @@ Session = {
     UI.unloadPlaylist();
 
     API.postMessage(["signout"]);
-  },
-  notify: function(notifications) {
-    console.log('Session.notify', notifications);
-    for (key in notifications) {
-      if (notifications[key].new > 0) {
-        if (key == 'programs') {
-          $('.subnav-toggle ul li:first a').prepend(UI.badge_notification.replace('%count%', notifications[key].new));
-        } else {
-          $('#nav-toggle .badge-'+key+' a').prepend(UI.badge_notification.replace('%count%', notifications[key].new));
-        }
-      }
-    }
   },
   loadSocial: function(onglet, offset) {
     if (Session.datas.fb_uid) {
@@ -111,7 +97,7 @@ Session = {
       UI.loadSelector(this.datas.queue_selector);
 
     //requete
-    } else if (typeof reload == 'undefined') {
+    } else if (typeof reload == 'undefined' && this.uid) {
       console.log('Session.loadSelector', 'remote', 'www/slider/selector/' + this.uid + '.json');
       this.onglet = onglet;
       API.query('GET', 
@@ -127,54 +113,61 @@ Session = {
     }
   },
   loadPlaylist: function(access){
-    this.access = access;
-    var name = $('li#'+this.access, this.playlist).data('name');
-    var url = this.playlist.data('pager-url').replace('session.uid', this.uid)
-                                             .replace('group.name', this.access)
-                                             .replace('app_dev.php/', '');
-    url = this.onglet ? url + '?onglet=' + this.onglet : url;
-    console.log('Session.loadPlaylist', url);
-    Slider.load(this.playlist, 
-                url,
-                function(){
-                  $('#top-playlist h2 small:last').html('» ' + name);
-                  $('li.selector', Session.playlist).animate({width:0}, 500, function() {
-                    $(this).hide();
+    if (this.datas.email) {
+      this.access = access;
+      var name = $('li#'+this.access, this.playlist).data('name');
+      var url = this.playlist.data('pager-url').replace('session.uid', this.uid)
+                                               .replace('group.name', this.access)
+                                               .replace('app_dev.php/', '');
+      url = this.onglet ? url + '?onglet=' + this.onglet : url;
+      console.log('Session.loadPlaylist', url);
+      Slider.load(this.playlist, 
+                  url,
+                  function(){
+                    $('#top-playlist h2 small:last').html('» ' + name);
+                    $('li.selector', Session.playlist).animate({width:0}, 500, function() {
+                      $(this).hide();
+                    });
                   });
-                });
+    }
   },
   initPlaylist: function(url) {
-    console.log('Session.initPlaylist', url);
+    console.log('Session.initPlaylist', 'url:' + url);
     switch (url) {
-    //load vod 
-    case '/selection-...': 
-      this.loadPlaylist('vod', 'films');
-    break; 
-    //load replay
-    case '':  
-      this.loadPlaylist('replay', 'emissions');
-    break; 
-    //load tv 
-    case '/les-chaines-en-direct':
-    case '/programme-tv':
-      this.loadPlaylist('tv');
-    break; 
-    //load cinema 
-    case '/selection-...': 
-      this.loadPlaylist('cine');
-    break; 
-    //load selector onglet
-    case '/films': 
-    case '/documentaires': 
-    case '/series': 
-    case '/emissions': 
-    case '/spectacles': 
-      this.loadSelector(url.replace('/', ''));
-    break; 
-    //load selector
-    default: 
-      this.loadSelector();
-    break; 
+     //load vod 
+     case '/selection-...': 
+       this.loadPlaylist('vod', 'films');
+     break; 
+     //load replay
+     case '':  
+       this.loadPlaylist('replay', 'emissions');
+     break; 
+     //load tv 
+     case '/les-chaines-en-direct':
+     case '/programme-tv':
+       this.loadPlaylist('tv');
+       UI.loadFilters('tv');
+     break; 
+     //load cinema 
+     case '/selection/3520923-a-voir-au-cinema':
+     case '/selection/4588325-prochainement-dans-les-salles': 
+       this.loadPlaylist('cine');
+       UI.loadFilters('cine');
+     break; 
+     //load selector onglet
+     case '/films': 
+     case '/documentaires': 
+     case '/series': 
+     case '/emissions': 
+     case '/spectacles': 
+       this.loadSelector(url.replace('/', ''));
+       UI.loadFilters('vod');
+     break; 
+     //load selector
+     default: 
+       this.loadSelector();
+     break; 
     }
+    //UI.loadFilters('vod');
   }
 }

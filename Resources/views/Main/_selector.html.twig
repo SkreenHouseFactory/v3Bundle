@@ -1,7 +1,7 @@
 <h2 class="user-on">{{ 'playlist.yours'|trans }} <small></small> <small></small></h2>
 <div id="playlist" class="slider" data-queue-selector="" data-pager-offset="0" data-pager-url="{{ path('playlist_load', {type:'group.name', session_uid: 'session.uid'}) }}">
-  <a class="next badge badge-inverse"><i class="icon-plus-sign"></i></a>
-  <a class="prev badge badge-inverse">&laquo</a>
+  <a class="next badge badge-inverse"><i class="icon-chevron-right icon-white"></i></a>
+  <a class="prev badge badge-inverse"><i class="icon-chevron-left icon-white"></i></a>
   <div class="slider-container">
   <ul class="items{% if addClass is defined %} {{ addClass }}{% endif %}">
     <li data-player="%player%" data-id="%id%" style="background:url(http://img/) no-repeat;">
@@ -18,7 +18,7 @@
     </li>
     <li id="tv" class="selector empty" data-name="{{ 'name.tv'|trans }}">
       <span class="label label-inverse opacity"><span></span> {{ 'playlist.tv'|trans|lower }}</span>
-      <a data-original-title="{{ 'playlist.yours'|trans }}<br/><small></small>" data-content="{{ 'playlist.popover.tv'|trans }}" data-placement="top" class="btn btn-large link-v2" href="/programme-tv"><i class="icon-plus-sign"></i> {{ 'playlist.add.programs.tv'|trans }}</a>
+      <a data-original-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.tv'|trans }}</small>" data-content="{{ 'playlist.popover.tv'|trans }}" data-placement="top" class="btn btn-large link-v2" href="/programme-tv"><i class="icon-plus-sign"></i> {{ 'playlist.add.programs.tv'|trans }}</a>
     </li>
     <li id="replay" class="selector empty" data-name="{{ 'name.replay'|trans }}">
       <span class="label label-inverse opacity"><span></span> {{ 'playlist.replay'|trans|lower }}</span>

@@ -41,6 +41,22 @@
     {% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' with {'menus': menus} %}
     {% block content %}
     {% endblock %}
+
+    <div id="top-redirect" class="collapse in">
+    {% block redirect %}
+    {% endblock %}
+    </div>
+    
+    <div id="top-links">
+    {% for key,m in menus %}
+      <ul>{{  'all.the.format'|trans({'%format%': key|lower}) }} : 
+      {% for l in m %}
+        <li><a href="link-v2('{{ l.seo_url }}');" title="{{ l.name }} {{  key }} {{ 'access.streaming'|trans }}">{{ l.name }}</a></li>
+      {% endfor %}
+      </ul>
+    {% endfor %}
+    </div>
+
     <div class="container">
 
     {#

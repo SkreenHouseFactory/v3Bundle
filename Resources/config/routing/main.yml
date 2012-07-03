@@ -1,19 +1,14 @@
 #main
-homepage_locale:
-    pattern:  /{_locale}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home }
-    requirements:
-        _locale: en|fr
 homepage:
     pattern:  /
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home }
 
 #player
 player_live:
-    pattern:  /{_locale}/les-chaines-en-direct
+    pattern:  /les-chaines-en-direct
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:live }
 player_redirect:
-    pattern:  /{_locale}/replay-vod-redirect/{url}
+    pattern:  /redirect
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect }
 player:
     pattern:  /{_locale}/player
@@ -21,9 +16,8 @@ player:
 
 #playlist
 playlist_load:
-    #pattern:  /{_locale}/playlist/{session_uid}/{type}
+    #pattern:  /playlist/{session_uid}/{type}
     pattern:  /www/slider/queue/{session_uid}/access/{type}.json
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Session:playlist }
     requirements:
-        _locale: en|fr
         type: .*
