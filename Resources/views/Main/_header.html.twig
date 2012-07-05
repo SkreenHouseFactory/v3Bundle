@@ -23,7 +23,7 @@
       </ul>
     </li>
   </ul>
-  <a class="pull-left link-v2" href="/" title="mySkreen"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-v3.png') }}" alt="mySkreen" /></a>
+  <a class="pull-left link-v2" href="/" title="mySkreen"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" /></a>
   <form class="navbar-search btn-group pull-left">
   <input type="text" class="search-query btn-large pull-left" placeholder="{{ 'search.pitch'|trans }}">
   <a class="btn btn-large btn-inverse"><i class="icon-search icon-white"></i></a>
@@ -40,14 +40,16 @@
       </ul>
     </div>
   </div>
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_header-filters.html.twig' %}
+  <div id="top-filters">
+    <h6 id="top-baseline" class="user-off" data-toggle="collapse" data-target="#top-playlist">{{ 'playlist.title'|trans }}</h6>
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_header-filters.html.twig' %}
+  </div>
 </div>
 
 
 <div id="top-player" class="collapse"></div>
 
 <div id="top-playlist" class="collapse in" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
-  <h6 id="top-baseline" class="user-off">{{ 'playlist.title'|trans }}</h6>
   <div class="container">
     {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
   </div>

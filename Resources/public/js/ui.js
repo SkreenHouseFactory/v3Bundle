@@ -82,7 +82,7 @@ UI = {
       li.find('.label').removeClass('opacity');
       li.find('span.badge').remove();
       li.find('.label span').html(friends.length);
-      li.find('a').hide();
+      li.find('a, h6').hide();
     }
   },
   //update selector
@@ -135,7 +135,7 @@ UI = {
     }
     
     player.show().css('height', ($(window).height() - 100) + 'px');
-    $('#top-playlist').collapse('hide');
+    $('#top-playlist, #top-nav').collapse('hide');
   },
   //insert loader
   appendLoader: function(elmt) {
@@ -152,6 +152,6 @@ UI = {
     $('#top-nav .subnav ul li').removeClass('active');
     $('#top-nav .subnav ul li.' + filters).addClass('active');
     $('#top-filters > ul > li').hide();
-    $('#top-filters > ul > li.' + filters).slideDown();
+    $('#top-filters > ul > li.' + filters).slideToggle();
   }
 }

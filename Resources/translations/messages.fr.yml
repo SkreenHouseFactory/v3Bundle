@@ -49,7 +49,7 @@ nav:
     menu:
         account:
             on: Vos playlists
-            off: Votre compte / connexion
+            off: Se connecter
         tv: Allumer la TV
     subnav:
         suggestions: A la demande

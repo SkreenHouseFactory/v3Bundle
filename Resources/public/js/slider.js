@@ -52,8 +52,8 @@ Slider = {
                         true);
             }
           }
-          if (prev.css('visibility') == 'hidden') {
-            prev.css({'visibility':'visible'});
+          if (!slider.hasClass('slider-back')) {
+            slider.addClass('slider-back');
           }
         });
       }
@@ -65,7 +65,7 @@ Slider = {
         items.animate({left: '+=' + parseInt(container.css('width'))}, 500, function() {
           console.log('pager', items.css('left'), items.css('width'));
           if (parseInt(items.css('left')) == 0) {
-            prev.css({'visibility':'hidden'});
+            slider.removeClass('slider-back');
             if (next.css('visibility') == 'hidden') {
               next.css({'visibility':'visible'});
             }
@@ -77,10 +77,10 @@ Slider = {
     slider.addClass('initialized')
   },
   remove: function(slider) {
-    $('.next, .prev', slider).css({'visibility':'hidden'});
+    $('.next', slider).css({'visibility':'hidden'});
     $('.next, .prev', slider).unbind('click');
     $('ul', slider).css('left', '0px');
-    slider.removeClass('initialized slider-navigate');
+    slider.removeClass('initialized slider-navigate slider-back');
   },
   load: function(slider, url, callback, keep) {
     var self = this;

@@ -36,6 +36,7 @@ $(document).ready(function(){
 
   // -- ui nav
   $('.subnav .nav li').click(function(){
+    $('#top-baseline').hide();
     $('.subnav .nav li.active').removeClass('active');
     UI.loadFilters(this.className);
     $(this).addClass('active');
@@ -90,16 +91,6 @@ $(document).ready(function(){
     API.javascriptV2($(this).attr('href').replace('javascript://',''));
   });
 
-  // -- ui player
-  $('a[data="player"]').live('click', function(e){
-    e.preventDefault();
-    UI.loadPlayer($(this).data('player'));
-  });
-  if ($('#top-redirect iframe').length > 0) {
-    console.log('UI.loadRedirect()', $('#top-redirect iframe').length);
-    UI.loadRedirect();
-  }
-
   // -- ui actions : favorite & play
   $('.slider li:not(.selector)').live('click', function(){
     API.linkV2($('.actions .play', this).attr('href'));
@@ -127,10 +118,13 @@ $(document).ready(function(){
   //}
 
   // -- ui player
-  $('a.player').click(function(e){
+  $('a[data="player"]').live('click', function(e){
     e.preventDefault();
-    Player.load($(this));
-    return false;
+    UI.loadPlayer($(this).data('player'));
   });
+  if ($('#top-redirect iframe').length > 0) {
+    console.log('UI.loadRedirect()', $('#top-redirect iframe').length);
+    UI.loadRedirect();
+  }
   
 });

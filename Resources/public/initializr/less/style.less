@@ -64,13 +64,17 @@
 @vignetteBorder:  2px dashed transparent;
 @selectorBorder:  2px solid #BBBBBB;
 @vignetteBorderEmpty:  2px dashed #BBBBBB;
-@vignetteMargin:  0 8px;
+@vignetteMargin:  0 7px;
 
 
 body {
   font-family: Belleza, Helvetica;
   padding: 0px;
   background: @bgBody;
+}
+
+.container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+  width: 1010px;
 }
 
 .typeahead {
@@ -82,12 +86,13 @@ body {
   box-shadow: 5px 5px 0px black;
 
   img {
-    height: 50px;
+    height: 55px;
   }
   
   form {
-    margin-top: 5px;
-    margin-left: 10%;
+    margin-top: 15px;
+    margin-left: 5%;
+    float: right;
     width: 40%;
     font-size: 1.2em;
     * {
@@ -97,14 +102,19 @@ body {
       width: 75%;
       padding: 9px 10px;
       font-size: 0.9em;
+      background-color: #EFEFEF;
     }
     input.validate {
       width: 20%;
     }
   }
 
+  > a {
+    padding: 7px 0;
+  }
+
   > .nav {
-    margin: 0px;
+    margin: 10px 0 0 0;
     padding: 4px;
     
     > li > a:hover {
@@ -129,22 +139,24 @@ body {
 }
 
 #top-baseline {
-  padding: 12px 0 5px 35%;
+  padding: 12px 0 5px 30%;
+  font-size: 1.0em;
+  text-shadow: 1px 1px 0px white;
 }
 
 #top-playlist {
   background: url("@{bgPlaylist}");
+  padding-bottom: 20px;
   /*box-shadow: inset 0px 1px 4px #999;*/
   
   .container {
-    padding: 5px 0 10px 0;
     position: relative;
 
     h2 {
       color: #017FD5;
       font-weight: normal;
       text-shadow: #C3C8E8 1px 1px 3px;
-      padding-left: 85px;
+      padding-left: 5px;
       font-size: 1.4em;
       cursor: pointer;
     }
@@ -289,16 +301,18 @@ body {
   }
 }
 
-/* playlist */
-#top-playlist > h6 {
-  font-size: 1.1em;
-  text-shadow: 1px 1px 0px white;
-}
-
 /* slider */
 .slider.slider-navigate {
   .slider-container {
     border-right: 1px solid black;
+  }
+}
+.slider.slider-back {
+  .prev {
+    visibility: visible;
+  }
+  .slider-container {
+    border-left: 1px solid black;
   }
 }
 .slider {
@@ -312,26 +326,32 @@ body {
     visibility: hidden;
     position: absolute;
     z-index: 2;
-    top: 45%;
+    top: 50%;
     font-size: 2em;
     font-weight: bold;
-    padding: 10px 10px 3px 10px;
   }
   .prev {
-    left: 0px;
+    left: -25px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    padding: 10px 5px 3px 6px;
   }
   .next {
-    right: 0px;
+    right: -25px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    padding: 10px 6px 3px 5px;
   }
   .slider-container {
     height: 100%;
-    margin: 0 50px;
+    margin: 0;
     position: relative;
     overflow: hidden;
   }
   
-  ul {
+  ul.items {
     position: absolute;
+    margin: 0;
 
     li {
       cursor: pointer;
@@ -480,15 +500,13 @@ body {
       }
 
       span.badge {
-        left: 30%;
-        top: 40px;
+        left: 25%;
+        top: 50px;
         box-shadow: 0px 0px 20px white;
       }
 
       span.label {
-        margin-top: 0px;
-        border-top-right-radius: 0px;
-        border-top-left-radius: 0px;
+        margin-top: 5px;
         padding: 10px;
         font-size: 1.1em;
         position: relative;

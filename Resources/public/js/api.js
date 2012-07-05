@@ -12,9 +12,9 @@ var API;
 API = {
   context: 'v3',
   skXdmSocket: null,
-  site_url: 'http://beta.benoit.myskreen.typhon.net:40011',
-  base: 'http://benoit.myskreen.typhon.net/api/1/', 
-  popin: 'https://benoit.myskreen.typhon.net/popin/',
+  site_url: 'http://preprod.beta.myskreen.com',
+  base: 'http://preprod.myskreen.com/api/1/', 
+  popin: 'https://preprod.myskreen.com/popin/',
   dataType: 'json',
   currentModalUrl: null,
   quickLaunchModal: function(action, callback) {
