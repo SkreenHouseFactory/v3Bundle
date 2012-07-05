@@ -34,8 +34,11 @@ class MainController extends Controller
       $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig', array(
         'menus' => (array)$menus->menu
       ));
-      $response->headers->set('Access-Control-Allow-Origin', 'http://benoit.myskreen.typhon.net');
-      $response->headers->set('Access-Control-Allow-Methods', 'POST, GET');
+      $response->headers->set('Access-Control-Allow-Origin', '*');
+      $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+      $response->headers->set('Access-Control-Allow-Headers', 'X-Requested-With');
+      $response->headers->set('Access-Control-Max-Age', '1728000');
+
       return $response;
     }
 }

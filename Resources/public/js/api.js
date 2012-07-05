@@ -106,7 +106,9 @@ API = {
       API.removePreference(parameter, value, function() {
         switch(parameter) {
           case 'like':
-            trigger.html('<i class="icon-plus-sign"></i> Suivre / voir + tard').removeClass('btn-primary');
+            if (typeof trigger != "undefined") {
+              trigger.html('<i class="icon-plus-sign"></i> Suivre / voir + tard').removeClass('btn-primary');
+            }
           break;
         }
       }, callback);
@@ -114,7 +116,9 @@ API = {
       API.addPreference(parameter, value, function() {
         switch(parameter) {
           case 'like':
-            trigger.html('<i class="icon-ok-sign"></i> Dans vos favoris').addClass('btn-primary');
+            if (typeof trigger != "undefined") {
+              trigger.html('<i class="icon-ok-sign"></i> Dans vos favoris').addClass('btn-primary');
+            }
           break;
         }
       }, callback);
