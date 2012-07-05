@@ -1,33 +1,31 @@
-<div id="top-filters">
-  <ul class="container nav nav-pills">
-    <li class="vod active"><a class="link-v2" href="/films" href="#">{{ 'nav.films'|trans }}</a></li>
-    <li class="vod"><a class="link-v2" href="/documentaires" href="#">{{ 'nav.documentaires'|trans }}</a></li>
-    <li class="vod"><a class="link-v2" href="/emissions" href="#">{{ 'nav.emissions'|trans }}</a></li>
-    <li class="vod"><a class="link-v2" href="/series" href="#">{{ 'nav.series'|trans }}</a></li>
-    <li class="vod"><a class="link-v2" href="/spectacles" href="#">{{ 'nav.spectacles'|trans }}</a></li>
-    <li class="tv"><a href="{{ path('player_live') }}" target="_parent">{{ 'nav.tv.live'|trans }}</a></li>
-    <li class="tv grid active dropdown">
-      <a class="all dropdown-toggle" data-toggle="dropdown" href="#">{{ 'nav.tv.grid'|trans }} <b class="caret"></b></a>
-      <ul class="dropdown-menu">
-        <li class="nav-header">{{ 'past'|trans }}</li>
-        <li><a href="#">{{ 'nav.tv.selection.lastweek'|trans }}</a></li>
-        <li><a href="#">{{ 'nav.tv.selection.yesterday'|trans }}</a></li>
-        <li class="divider"></li>
-        <li class="nav-header">{{ 'today'|trans }}</li>
-        <li><a href="#">{{ 'nav.tv.selection.now'|trans }}</a></li>
-        <li><a href="#">{{ 'nav.tv.selection.tonight'|trans }}</a></li>
-        <li class="divider"></li>
-        <li class="nav-header">{{ 'coming'|trans }}</li>
-        <li><a href="#">{{ 'nav.tv.selection.tommorrow'|trans }}</a></li>
-        <li><a href="#">{{ 'nav.tv.selection.thisweek'|trans }}</a></li>
-      </ul>
-    </li>
-    <li class="tv grid"><a class="films" href="#">{{ 'nav.films'|trans }}</a></li>
-    <li class="tv grid"><a class="emissions" href="#">{{ 'nav.emissions'|trans }}</a></li>
-    <li class="tv grid"><a class="series" href="#">{{ 'nav.series'|trans }}</a></li>
-    <li class="tv grid"><a class="documentaires" href="#">{{ 'nav.documentaires'|trans }}</a></li>
-    <li class="tv grid"><a class="spectacles" href="#">{{ 'nav.spectacles'|trans }}</a></li>
-    <li class="cine active"><a class="link-v2" href="/selection/3520923-a-voir-au-cinema" href="#">{{ 'nav.theaters.release'|trans }}</a></li>
-    <li class="cine"><a class="link-v2" href="/selection/4588325-prochainement-dans-les-salles" href="#">{{ 'nav.theaters.coming'|trans }}</a></li>
-  </ul>
-</div>
+<ul class="container nav nav-pills">
+  <li class="vod active"><a class="link-v2" href="/films" href="#">{{ 'nav.films'|trans }}</a></li>
+  <li class="vod"><a class="link-v2" href="/documentaires" href="#">{{ 'nav.documentaires'|trans }}</a></li>
+  <li class="vod"><a class="link-v2" href="/emissions" href="#">{{ 'nav.emissions'|trans }}</a></li>
+  <li class="vod"><a class="link-v2" href="/series" href="#">{{ 'nav.series'|trans }}</a></li>
+  <li class="vod"><a class="link-v2" href="/spectacles" href="#">{{ 'nav.spectacles'|trans }}</a></li>
+  <li class="tv"><a href="{{ path('player_live') }}" target="_parent">{{ 'nav.tv.live'|trans }}</a></li>
+  <li class="tv grid active dropdown">
+    <a class="all dropdown-toggle" data-toggle="dropdown" href="#">{{ 'nav.tv.grid'|trans }} <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      <li class="nav-header">{{ 'past'|trans }}</li>
+      <li><a href="#">{{ 'nav.tv.selection.lastweek'|trans }}</a></li>
+      <li><a href="#">{{ 'nav.tv.selection.yesterday'|trans }}</a></li>
+      <li class="divider"></li>
+      <li class="nav-header">{{ 'today'|trans }}</li>
+      <li><a href="#">{{ 'nav.tv.selection.now'|trans }}</a></li>
+      <li><a href="#">{{ 'nav.tv.selection.tonight'|trans }}</a></li>
+      <li class="divider"></li>
+      <li class="nav-header">{{ 'coming'|trans }}</li>
+      <li><a href="#">{{ 'nav.tv.selection.tommorrow'|trans }}</a></li>
+      <li><a href="#">{{ 'nav.tv.selection.thisweek'|trans }}</a></li>
+    </ul>
+  </li>
+  <li class="tv grid"><a class="films" href="#">{{ 'nav.films'|trans }}</a></li>
+  <li class="tv grid"><a class="emissions" href="#">{{ 'nav.emissions'|trans }}</a></li>
+  <li class="tv grid"><a class="series" href="#">{{ 'nav.series'|trans }}</a></li>
+  <li class="tv grid"><a class="documentaires" href="#">{{ 'nav.documentaires'|trans }}</a></li>
+  <li class="tv grid"><a class="spectacles" href="#">{{ 'nav.spectacles'|trans }}</a></li>
+  <li class="cine active"><a class="link-v2" href="/selection/3520923-a-voir-au-cinema" href="#">{{ 'nav.theaters.release'|trans }}</a></li>
+  <li class="cine"><a class="link-v2" href="/selection/4588325-prochainement-dans-les-salles" href="#">{{ 'nav.theaters.coming'|trans }}</a></li>
+</ul>
