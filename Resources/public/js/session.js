@@ -98,18 +98,18 @@ Session = {
 
     //chargement initial avec data dans session
     if (this.onglet == null && onglet == 'undefined') {
-      console.log('Session.initSelector', 'this.datas.queue_selector', this.datas.queue_selector);
+      //console.log('Session.initSelector', 'this.datas.queue_selector', this.datas.queue_selector);
       UI.loadSelector(this.datas.queue_selector);
 
     //requete
     } else if (typeof reload == 'undefined' && this.uid) {
-      console.log('Session.initSelector', 'remote', 'www/slider/selector/' + this.uid + '.json');
+      //console.log('Session.initSelector', 'remote', 'www/slider/selector/' + this.uid + '.json');
       this.onglet = onglet;
       API.query('GET', 
                 'www/slider/selector/' + this.uid + '.json', 
                 {onglet: this.onglet, with_count_favoris: true}, 
                 function(json) {
-                  console.log('Session.initSelector', 'reload', json);
+                  //console.log('Session.initSelector', 'reload', json);
                   UI.loadSelector(json, true);
                 });
 
@@ -133,7 +133,6 @@ Session = {
        UI.loadPlaylist('tv');
        UI.loadFilters('tv');
        console.log('Session.initPlaylist', 'add header tv');
-       $('#top-playlist').collapse('show');
        API.postMessage(['header', 'add_playlist']);
      break; 
      //load cinema 

@@ -28,7 +28,7 @@ Slider = {
       return;
     }
 
-    slider.addClass('slider-navigate');
+    slider.addClass('navigate');
 
     next.bind('click', function(){
       console.log('next', container.css('left'), container.css('width'));
@@ -53,14 +53,14 @@ Slider = {
                             next.css('visibility','hidden');
                           }
                           if (nb_programs < self.pager_nb_results) {
-                            slider.data('pager-url', ''); //le slider ne pagine plus
+                            slider.addClass('loaded'); //le slider ne pagine plus
                           }
                         },
                         true);
             }
           }
-          if (!slider.hasClass('slider-back')) {
-            slider.addClass('slider-back');
+          if (!slider.hasClass('back')) {
+            slider.addClass('back');
           }
         });
       }
@@ -73,7 +73,7 @@ Slider = {
           console.log('pager', parseInt(items.css('left')), parseInt(items.css('width')));
           console.log('pager =>', $('li:not(.selector)', items).length * (self.item_width+self.item_margin*2) - parseInt(container.css('width')),  parseInt(items.css('left')), slider.data('pager-offset'));
           if (parseInt(items.css('left')) >= -1) {
-            slider.removeClass('slider-back');
+            slider.removeClass('back');
           }
           if (next.css('visibility') == 'hidden') {
             next.css({'visibility':'visible'});
@@ -89,7 +89,7 @@ Slider = {
     $('.next', slider).css({'visibility':'hidden'});
     $('.next, .prev', slider).unbind('click');
     $('ul', slider).css('left', '0px');
-    slider.removeClass('initialized slider-navigate slider-back');
+    slider.removeClass('initialized navigate back loaded');
   },
   addLoader: function(slider) {
     var loader = $(this.sample).addClass('loader').empty().css('width', this.item_width + 'px').show();

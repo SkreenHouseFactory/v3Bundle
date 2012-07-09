@@ -110,7 +110,7 @@ API = {
             }
           break;
         }
-        if (callback != 'undefined') {
+        if (typeof callback != 'undefined') {
           callback(value);
         }
       });
@@ -123,7 +123,7 @@ API = {
             }
           break;
         }
-        if (callback != 'undefined') {
+        if (typeof callback != 'undefined') {
           callback(value);
         }
       });
@@ -183,7 +183,9 @@ API = {
 
         retour.context = { method:method, url:url, data:data };
         console.log('return', retour);
-        if(typeof(callback) != 'undefined') callback(retour, null);
+        if(typeof callback != 'undefined') {
+          callback(retour, null);
+        }
       },
       success: function(json) {     
         clearTimeout(tooLong);    
