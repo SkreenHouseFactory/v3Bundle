@@ -27,6 +27,11 @@ $(document).ready(function(){
     }
     Session.signout();
   });
+  $('a.account').click(function(e){
+    if (API.context == 'v2') {
+      API.postMessage(["account"]);
+    }
+  });
   $('.user-on .dropdown-toggle').click(function(){
     if (!$('#top-playlist').hasClass('in')) {
       $('#top-playlist').collapse('show');
@@ -36,16 +41,23 @@ $(document).ready(function(){
 
   // -- ui nav
   $('.subnav .nav li').click(function(){
-    $('#top-baseline').hide();
+    if ($('#top-filters #top-baseline').css('display') == 'block') {
+      $('#top-filters #top-baseline, #top-filters .nav-pills').toggle();
+    }
     $('.subnav .nav li.active').removeClass('active');
     UI.loadFilters(this.className);
     $(this).addClass('active');
+    API.postMessage(['header','collapse']);
   });
-  $('#top-filters > ul > li.grid').click(function(){
-    var onglet = $('a', this).removeClass('dropdown-toggle').attr('class');
-    API.javascriptV2("mskapp.currentView.showByType('" + onglet + "');$('#sliders .item." + onglet + "').show();$('#sliders .item:not(." + onglet + ")').hide();");
-    Session.onglet = onglet;
-    Session.loadPlaylist('tv');
+  $('#top-filters > ul > li').click(function(){
+    $('#top-filters > ul > li').removeClass('active');
+    $(this).addClass('active');
+    if ($(this).hasClass('grid')) {
+      var onglet = $('a', this).removeClass('dropdown-toggle').attr('class');
+      API.javascriptV2("mskapp.currentView.showByType('" + onglet + "');$('#sliders .item." + onglet + "').show();$('#sliders .item:not(." + onglet + ")').hide();");
+      Session.onglet = onglet;
+      Session.loadPlaylist('tv');
+    }
   });
 
   // -- ui form

@@ -2,15 +2,17 @@
   <ul class="pull-right nav">
     <li class="active user-off btn-group">
       <a class="btn btn-inverse btn-large signin" href="#"><i class="icon-user icon-white"></i> {{ 'nav.menu.account.off'|trans }}</a>
-      <a  data-toggle="collapse" data-target="#top-playlist" class="btn btn-inverse btn-large user" href="#"><i class="icon-resize-vertical icon-white"></i></a>
-      <!--<a class="btn btn-inverse btn-large" href="#"><i class="icon-off icon-white"></i> {{ 'nav.menu.tv'|trans }}</a>-->
+      <a  data-toggle="collapse" data-target="#top-playlist" class="btn btn-inverse btn-large" href="#"><i class="icon-resize-vertical icon-white"></i></a>
+      {#<a class="btn btn-inverse btn-large" href="#"><i class="icon-off icon-white"></i> {{ 'nav.menu.tv'|trans }}</a>#}
     </li>
     <li class="hide user-on btn-group dropdown">
-      <a class="btn btn-inverse btn-large signout" href="#"><i class="icon-ban-circle icon-white"></i></a>
+      {#<a class="btn btn-inverse btn-large signout" href="#"><i class="icon-ban-circle icon-white"></i></a>#}
       <a  data-toggle="collapse" data-target="#top-playlist" class="btn btn-inverse btn-large" href="#"><i class="icon-resize-vertical icon-white"></i></a>
       <a data-toggle="dropdown" class="dropdown-toggle btn btn-inverse btn-large user" href="#"><i class="icon-th-list icon-white"></i> <span></span></a>
       <ul class="dropdown-menu">
-        <li class="nav-header">{{ 'nav.filter'|trans }}</li>
+        <li><a class="link-v2 account" href="#"><i class="icon-cog"></i> {{ 'nav.account'|trans }}</a></li>
+        <li><a class="link-v2 signout" href="#"><i class="icon-remove"></i> {{ 'signout'|trans }}</a></li>
+        {#<li class="nav-header">{{ 'nav.filter'|trans }}</li>
         <li><a class="link-v2 films" href="/films">{{ 'nav.films'|trans }}</a></li>
         <li><a class="link-v2 documentaires" href="/documentaires">{{ 'nav.documentaires'|trans }}</a></li>
         <li><a class="link-v2 emissions" href="/emissions">{{ 'nav.emissions'|trans }}</a></li>
@@ -19,7 +21,7 @@
         <li class="divider"></li>
         <li><a class="link-v2 films" href="/films">Ce soir à la TV</a></li>
         <li class="divider"></li>
-        <li><a class="link-v2 films" href="/films">Dans vos cinémas préférés</a></li>
+        <li><a class="link-v2 films" href="/films">Dans vos cinémas préférés</a></li>#}
       </ul>
     </li>
   </ul>
@@ -34,18 +36,17 @@
   <div class="subnav subnav-fixed">
     <div class="container">
       <ul class="nav">
-        <li class="vod"><a class="link-v2" href="/">{{ 'nav.subnav.suggestions'|trans }}</a></li>
+        <li class="vod"><a class="link-v2" href="/">{{ 'nav.subnav.vod'|trans }}</a></li>
         <li class="tv"><a class="link-v2" href="/programme-tv">{{ 'nav.subnav.tv'|trans }}</a></li>
         <li class="cine"><a class="link-v2" href="/selection/3520923-a-voir-au-cinema">{{ 'nav.subnav.cine'|trans }}</a></li>
       </ul>
     </div>
   </div>
   <div id="top-filters">
-    <h6 id="top-baseline" class="user-off" data-toggle="collapse" data-target="#top-playlist">{{ 'playlist.title'|trans }}</h6>
+    <h6 id="top-baseline" data-toggle="collapse" data-target="#top-playlist">{{ 'playlist.title'|trans }}</h6>
     {% include 'SkreenHouseFactoryV3Bundle:Main:_header-filters.html.twig' %}
   </div>
 </div>
-
 
 <div id="top-player" class="collapse"></div>
 

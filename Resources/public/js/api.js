@@ -12,13 +12,12 @@ var API;
 API = {
   context: 'v3',
   skXdmSocket: null,
-  site_url: 'http://preprod.beta.myskreen.com',
-  base: 'http://preprod.myskreen.com/api/1/', 
-  popin: 'https://preprod.myskreen.com/popin/',
+  conf: {site_url: 'http://beta.benoit.myskreen.typhon.net:40011', base: 'http://benoit.myskreen.typhon.net/api/1/',  popin: 'https://benoit.myskreen.typhon.net/popin/'},
+  //conf: {site_url: 'http://preprod.beta.myskreen.com', base: 'http://preprod.myskreen.com/api/1/',  popin: 'https://preprod.myskreen.com/popin/'},
   dataType: 'json',
   currentModalUrl: null,
   quickLaunchModal: function(action, callback) {
-    this.launchModal(this.popin+action, callback);
+    this.launchModal(this.conf.popin + action, callback);
   },
   launchModal: function(url, callback) {
     if (url != this.currentModalUrl) {
@@ -130,10 +129,10 @@ API = {
       //console.log('API.query', 'https', 'is popin', url);
     } else {
       //console.log('API.query', 'http', 'is api', url);
-      var url  = this.base + url;
+      var url  = this.conf.base + url;
     }
 
-    url = url.replace('/app_dev.php', ''); //developpment environment
+    url = url.replace('/app_dev.php', '').replace('/app.php', ''); //developpment environment
 
     $.extend(data, {img_height: Slider.item_height, img_width: Slider.item_width, fromWebsite: true});
 
@@ -194,7 +193,7 @@ API = {
       this.postMessage(["link", url]);
       Session.initPlaylist(url);
     } else {
-      document.location = this.site_url + url;
+      document.location = this.conf.site_url + url;
     }
   },
   javascriptV2: function(script) {
@@ -219,6 +218,11 @@ API = {
             $('#history-back').show(); //UI.addHistoryBack();
           } else {
             $('#history-back').hide(); //UI.removeHistoryBack();
+          }
+
+        } else if (message[0] == "nav") {
+          if (message[1] == "reset") {
+            $('.subnav .nav li.active').removeClass('active');
           }
 
         } else if (message[0] == "header") {

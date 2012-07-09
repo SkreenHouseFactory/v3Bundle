@@ -3,6 +3,7 @@ var UI;
 UI = {
   user: '',
   player: null,
+  playlist: null,
   badge_notification: '<span class="badge badge-important">%count%</span>',
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
   //toggle favorite
@@ -47,7 +48,7 @@ UI = {
     if (Session.datas.email) {
       $('.user span').html(Session.datas.email);
     } else {
-      $('.user span').empty();
+      $('.user span').remove();
     }
     $('.user-off, .user-on').toggle();
 
@@ -76,7 +77,7 @@ UI = {
       var friends = datas.friends;
 
       //console.log('UI.loadSelector', key, group);
-      var li = $('li#friends', Session.playlist);
+      var li = $('li#friends', this.playlist);
       li.removeClass('empty');
       li.css('background-image', 'url('+program.picture+')').css('background-repeat', 'no-repeat');
       li.find('.label').removeClass('opacity');
@@ -93,7 +94,7 @@ UI = {
     for (key in datas) {
       var group = datas[key];
       //console.log('UI.loadSelector', key, group);
-      var li = $('li#' + key, Session.playlist);
+      var li = $('li#' + key, this.playlist);
       li.removeClass('empty');
       li.css('background-image', 'url('+group.img+')').css('background-repeat', 'no-repeat');
       li.find('.label').removeClass('opacity').addClass('label-inverse');
@@ -101,14 +102,14 @@ UI = {
       li.find('span.badge').remove();
       if (key != 'all' && 
           group.nb_notifs > 0){
-        li.prepend(this.badge_notification.replace('%count%', group.nb_notifs + ' nouveaux')); //group.nb_notifs));
+        li.prepend(this.badge_notification.replace('%count%', 'nouveaux')); //group.nb_notifs));
       }
       li.find('a, h6').hide();
     }
-    //Session.playlist.data('queue-selector', JSON.stringify(datas));
+    //this.playlist.data('queue-selector', JSON.stringify(datas));
   },
   unloadSelector: function() {
-    var lis = $('li.selector', Session.playlist);
+    var lis = $('li.selector', this.playlist);
     lis.addClass('empty').css('background-image', '');
     lis.find('.label').addClass('opacity').find('span').empty();
     lis.find('span.badge').remove();
@@ -120,10 +121,10 @@ UI = {
       Session.initPlaylist('/' + onglet);
     }
     $('#top-playlist h2 small').empty();
-    $('li:not(.selector, #item)', Session.playlist).animate({width:0}, 500, function() {
+    $('li:not(.selector, #item)', this.playlist).animate({width:0}, 500, function() {
       $(this).hide();
-      $('li.selector', Session.playlist).show().animate({width:Slider.item_width}, 500);
-      Slider.remove(Session.playlist);
+      $('li.selector', this.playlist).show().animate({width:Slider.item_width}, 500);
+      Slider.remove(this.playlist);
     });
   },
   loadPlayer: function() {
@@ -152,6 +153,6 @@ UI = {
     $('#top-nav .subnav ul li').removeClass('active');
     $('#top-nav .subnav ul li.' + filters).addClass('active');
     $('#top-filters > ul > li').hide();
-    $('#top-filters > ul > li.' + filters).slideToggle();
+    $('#top-filters > ul > li.' + filters).toggle();
   }
 }

@@ -3,6 +3,7 @@ var Slider;
 Slider = {
   item_width: 150,
   item_height: 200,
+  item_margin: 7,
   pager_nb_results: 10,
   sample: '',
   //init
@@ -33,21 +34,29 @@ Slider = {
       console.log('next', container.css('left'), container.css('width'));
       if (parseInt(container.css('left')) < container.css('width') || container.css('left') == 'auto') {
         items.animate({left: '+=-'+parseInt(container.css('width'))}, 500, function() {
-          console.log('pager', parseInt(items.css('left')) + parseInt(container.css('width')), items.css('width'));
-          if (parseInt(items.css('left')) + parseInt(container.css('width')) == 0) {
+          //console.log('pager', parseInt(items.css('left')),  parseInt(container.css('width')), items.css('width'), slider.data('pager-offset'));
+          console.log('pager', $('li:not(.selector)', items).length * (self.item_width+self.item_margin*2) - parseInt(container.css('width')),  parseInt(items.css('left')), slider.data('pager-offset'));
+          if ($('li:not(.selector)', items).length * (self.item_width+self.item_margin*2) - parseInt(container.css('width')) < -parseInt(items.css('left'))) {
             next.css({'visibility':'hidden'});
             //pager
             if (slider.data('pager-url')) {
               var offset = self.pager_nb_results + parseInt(slider.data('pager-offset'));
               slider.data('pager-offset', offset);
+              console.log('pager-offset', 'set', offset, slider, slider.data('pager-offset'));
               var loader = $(this.sample).addClass('loader');
               UI.appendLoader(loader);
               items.append(loader);
               self.load(slider, 
                         slider.data('pager-url').replace('session.uid', Session.uid)
                                                  .replace('group.name', Session.access) + '?offset=' + offset,
-                        function(){
+                        function(nb_programs){
                           items.find('.loader').remove();
+                          if (nb_programs < 5) {
+                            next.css('visibility','hidden');
+                          }
+                          if (nb_programs < self.pager_nb_results) {
+                            slider.data('pager-url', ''); //le slider ne pagine plus
+                          }
                         },
                         true);
             }
@@ -59,16 +68,17 @@ Slider = {
       }
     }).css({'visibility':'visible'});
 
-    $('.prev', slider).bind('click', function(){
-      console.log('prev', container.css('left'), container.css('width'));
+    prev.bind('click', function(){
+      console.log('prev', parseInt(container.css('left')), parseInt(container.css('width')));
       if (-parseInt(items.css('left')) < parseInt(items.css('width'))) {
         items.animate({left: '+=' + parseInt(container.css('width'))}, 500, function() {
-          console.log('pager', items.css('left'), items.css('width'));
-          if (parseInt(items.css('left')) == 0) {
+          console.log('pager', parseInt(items.css('left')), parseInt(items.css('width')));
+          console.log('pager =>', $('li:not(.selector)', items).length * (self.item_width+self.item_margin*2) - parseInt(container.css('width')),  parseInt(items.css('left')), slider.data('pager-offset'));
+          if (parseInt(items.css('left')) >= -1) {
             slider.removeClass('slider-back');
-            if (next.css('visibility') == 'hidden') {
-              next.css({'visibility':'visible'});
-            }
+          }
+          if (next.css('visibility') == 'hidden') {
+            next.css({'visibility':'visible'});
           }
         });
       }
@@ -97,9 +107,10 @@ Slider = {
                 self.insertProgram(slider, programs);
                 self.init(slider);
                 if (typeof callback != 'undefined'){
-                  callback();
+                  callback(programs.length);
                 }
                 $('li.to_animate', slider).animate({width:Slider.item_width}, 500).removeClass('to_animate');
+                console.log('Slider.load', programs.length);
               });
   },
   insertProgram: function(slider, programs){

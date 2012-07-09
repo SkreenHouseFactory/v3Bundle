@@ -3,11 +3,10 @@ var Session;
 Session = {
   uid: '',
   datas: {},
-  playlist: null,
   onglet: null,
   access: null,
   init: function(callback) {
-    this.playlist = $('#playlist');
+    UI.playlist = $('#playlist');
 
     //session
     this.uid = $.cookie('myskreen_uid');
@@ -115,13 +114,13 @@ Session = {
   loadPlaylist: function(access){
     if (this.datas.email) {
       this.access = access;
-      var name = $('li#'+this.access, this.playlist).data('name');
-      var url = this.playlist.data('pager-url').replace('session.uid', this.uid)
+      var name = $('li#'+this.access, UI.playlist).data('name');
+      var url = UI.playlist.data('pager-url').replace('session.uid', this.uid)
                                                .replace('group.name', this.access)
                                                .replace('app_dev.php/', '');
       url = this.onglet ? url + '?onglet=' + this.onglet : url;
       console.log('Session.loadPlaylist', url);
-      Slider.load(this.playlist, 
+      Slider.load(UI.playlist, 
                   url,
                   function(){
                     $('#top-playlist h2 small:last').html('» ' + name);
@@ -147,6 +146,9 @@ Session = {
      case '/programme-tv':
        this.loadPlaylist('tv');
        UI.loadFilters('tv');
+       console.log('Session.initPlaylist', 'add header tv');
+       $('#top-playlist').collapse('show');
+       API.postMessage(['header', 'add_playlist']);
      break; 
      //load cinema 
      case '/selection/3520923-a-voir-au-cinema':
