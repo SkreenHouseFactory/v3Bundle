@@ -8,10 +8,13 @@ UI = {
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
   //toggle favorite
   toggleFavorite: function(trigger){
-    var value = trigger.data('id');
+    var value = trigger.parent().data('id');
     if (Session.datas.email) {
-      API.togglePreference('like', value, trigger, function(){
-        $('#playlist li[data-id="'+trigger.data('id')+'"]').animate({width:0}).remove();
+      API.togglePreference('like', value, trigger, function(value){
+        console.log('UI.toggleFavorite', 'callback', value);
+        $('#playlist li[data-id="' + value + '"]').animate({width:0}, 500, function(){
+          $(this).remove();
+        });
       });
     } else {
       API.quickLaunchModal('signin', function(){
@@ -56,6 +59,7 @@ UI = {
   },
   //notify
   notifyUser: function(notifications) {
+    return;
     console.log('UI.notifyUser', notifications);
     for (key in notifications) {
       console.log('UI.notifyUser', 'programs', $('#top-bar .user'), key, notifications[key].new);
@@ -115,7 +119,32 @@ UI = {
     lis.find('span.badge').remove();
     lis.find('a, h6').show();
   },
+  loadPlaylist: function(access){
+    var self = this;
+    if (Session.datas.email) {
+      Session.access = access;
+      var name = $('li#'+Session.access, this.playlist).data('name');
+      var url = this.playlist.data('pager-url').replace('session.uid', Session.uid)
+                                               .replace('group.name', Session.access)
+                                               .replace('app_dev.php/', '');
+      url = Session.onglet ? url + '?onglet=' + Session.onglet : url;
+      console.log('UI.loadPlaylist', url);
+      Slider.load(this.playlist, 
+                  url,
+                  function(){
+                    $('#top-playlist h2 small:last').html('» ' + name);
+                    $('li.selector', self.playlist).hide();
+                    Slider.removeLoader(self.playlist);
+                  });
+      console.log('UI.loadPlaylist', 'animate');
+      $('li.selector', this.playlist).animate({width:0}, 500, function() {
+        $(this).hide();
+      });
+      Slider.addLoader(this.playlist);
+    }
+  },
   unloadPlaylist: function(onglet) {
+    var self = this;
     console.log('UI.unloadPlaylist', onglet, Session.onglet);
     if (typeof onglet != "undefined" && onglet != Session.onglet) {
       Session.initPlaylist('/' + onglet);
@@ -124,7 +153,7 @@ UI = {
     $('li:not(.selector, #item)', this.playlist).animate({width:0}, 500, function() {
       $(this).hide();
       $('li.selector', this.playlist).show().animate({width:Slider.item_width}, 500);
-      Slider.remove(this.playlist);
+      Slider.remove(self.playlist);
     });
   },
   loadPlayer: function() {

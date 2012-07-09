@@ -15,7 +15,7 @@ Slider = {
     var prev = $('.prev', slider);
     var items = $('ul', container);
     items.css('width', parseInt(this.item_width) * items.children().length);
-    console.log('Slider.init', 'width', items.css('width'));
+    //console.log('Slider.init', 'width', items.css('width'));
 
     if (slider.hasClass('initialized')) {
       next.css({'visibility':'visible'});
@@ -24,7 +24,7 @@ Slider = {
     }
 
     if (items.children().filter(':not(.selector, :first)').length <= 5) {
-      console.log('Slider.init', 'count', items.children().filter(':not(.selector, :last)').length, items);
+      console.log('Slider.init', 'not initialized', 'count:' + items.children().filter(':not(.selector, :last)').length, items);
       return;
     }
 
@@ -42,15 +42,13 @@ Slider = {
             if (slider.data('pager-url')) {
               var offset = self.pager_nb_results + parseInt(slider.data('pager-offset'));
               slider.data('pager-offset', offset);
-              console.log('pager-offset', 'set', offset, slider, slider.data('pager-offset'));
-              var loader = $(this.sample).addClass('loader');
-              UI.appendLoader(loader);
-              items.append(loader);
+              //console.log('pager-offset', 'set', offset, slider, slider.data('pager-offset'));
+              self.addLoader(slider);
               self.load(slider, 
                         slider.data('pager-url').replace('session.uid', Session.uid)
                                                  .replace('group.name', Session.access) + '?offset=' + offset,
                         function(nb_programs){
-                          items.find('.loader').remove();
+                          self.removeLoader(slider);
                           if (nb_programs < 5) {
                             next.css('visibility','hidden');
                           }
@@ -87,15 +85,26 @@ Slider = {
     slider.addClass('initialized')
   },
   remove: function(slider) {
+    //console.log('Slider.remove', slider);
     $('.next', slider).css({'visibility':'hidden'});
     $('.next, .prev', slider).unbind('click');
     $('ul', slider).css('left', '0px');
     slider.removeClass('initialized slider-navigate slider-back');
   },
+  addLoader: function(slider) {
+    var loader = $(this.sample).addClass('loader').empty().css('width', this.item_width + 'px').show();
+    loader.append('Chargement ...')
+    UI.appendLoader(loader);
+    console.log('Sliser.addLoader', loader);
+    $('ul', slider).append(loader);
+  },
+  removeLoader: function(slider) {
+    $('.loader', slider).remove();
+  },
   load: function(slider, url, callback, keep) {
     var self = this;
     if (!this.sample) {
-      this.sample = $('<div>').append($('#playlist li:first')).html();
+      this.sample = $('<div>').append($('#playlist li:first').clone()).html();
     }
     API.query('GET', 
               url, 
@@ -123,12 +132,13 @@ Slider = {
                                .replace('%seo_play_title%', program.title)
                                .replace('%seo_play_title%', program.title)
                                .replace('%title%',title)
-                               .replace('http://img/', program.picture)
                                .replace('%url%', program.seo_url)
                                .replace('%url%', program.seo_url)
                                .replace('%id%', program.id)
                                .replace('%player%', typeof program.player != 'undefined' ? program.player : '')
                                .replace('%popular_channel%', popular_channel));
+      li.css('background-image', 'url(' + program.picture + ')');
+      $('.actions', li).data('id', program.id);
       //console.log('Slider.load', 'added', li, this.sample);
       if (Session.datas.notifications &&
           $.inArray(''+pere.id, Session.datas.notifications.programs.new) != -1) {
@@ -146,7 +156,7 @@ Slider = {
     }
   },
   addFriends: function(li, friend_uids){
-    console.log('Slider.addFriends', friend_uids, Session.datas.friends);
+    //console.log('Slider.addFriends', friend_uids, Session.datas.friends);
     var div = $('<div class="friends"></div>');
     var friend_uids = friend_uids.split(',');
     for (key in friend_uids) {

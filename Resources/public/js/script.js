@@ -56,7 +56,7 @@ $(document).ready(function(){
       var onglet = $('a', this).removeClass('dropdown-toggle').attr('class');
       API.javascriptV2("mskapp.currentView.showByType('" + onglet + "');$('#sliders .item." + onglet + "').show();$('#sliders .item:not(." + onglet + ")').hide();");
       Session.onglet = onglet;
-      Session.loadPlaylist('tv');
+      UI.loadPlaylist('tv');
     }
   });
 
@@ -79,7 +79,7 @@ $(document).ready(function(){
 
   // -- ui playlist
   $('li.selector:not(.empty)', Session.playlist).live('click', function(){
-    Session.loadPlaylist(this.id);
+    UI.loadPlaylist(this.id);
   });
   $('#top-playlist h2').live('click', function(){
     UI.unloadPlaylist(this.id);

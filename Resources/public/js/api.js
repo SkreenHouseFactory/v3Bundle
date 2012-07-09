@@ -86,41 +86,47 @@ API = {
     });
   },
   addPreference: function(parameter, value, callback) {
-      this.query('POST', 'preference/flag/'+Session.uid, {parameter:parameter, value:value}, function(json){
+      this.query('POST', 'preference/flag.json', {session_uid: Session.uid, type:parameter, value:value}, function(json){
         if (json.success) {
-          callback();
+          callback(value);
         }
       });
   },
   removePreference: function(parameter, value, callback) {
-      this.query('POST', 'preference/unflag/'+Session.uid, {parameter:parameter, value:value}, function(json){
+      this.query('POST', 'preference/unflag.json', {session_uid: Session.uid, type:parameter, value:value}, function(json){
         if (json.success) {
-          callback();
+          callback(value);
         }
       });
   },
   togglePreference: function(parameter, value, trigger, callback){
-    console.log('API.togglePreference', parameter, value, trigger, callback);
+    console.log('API.togglePreference', parameter, value, trigger);
     if ($.inArray(value, Session.datas.queue)) {
       API.removePreference(parameter, value, function() {
         switch(parameter) {
           case 'like':
-            if (typeof trigger != "undefined") {
+            if (typeof trigger != 'undefined') {
               trigger.html('<i class="icon-plus-sign"></i> Suivre / voir + tard').removeClass('btn-primary');
             }
           break;
         }
-      }, callback);
+        if (callback != 'undefined') {
+          callback(value);
+        }
+      });
     } else {
       API.addPreference(parameter, value, function() {
         switch(parameter) {
           case 'like':
-            if (typeof trigger != "undefined") {
+            if (typeof trigger != 'undefined') {
               trigger.html('<i class="icon-ok-sign"></i> Dans vos favoris').addClass('btn-primary');
             }
           break;
         }
-      }, callback);
+        if (callback != 'undefined') {
+          callback(value);
+        }
+      });
     }
   },
   query: function(method, url, data, callback, cache) {
@@ -152,17 +158,17 @@ API = {
       }
     }
 
-    console.log('API.query', method, url, data);
+    console.log('API.query', method, this.dataType, url, data, new Date());
     
     //Permet de benchmarker le temps d'execution des pages
     var tooLong = setTimeout(function(){
-      console.warn('!! API.query : too long request', (new Date()), url);
+      console.warn('API.query', 'too long request', new Date(), url);
     }, 1000);
 
     var req = $.ajax({
       url: url,
       dataType: this.dataType,
-      cache: false, //Attention mémoire nodejs
+      cache: cache != undefined ? cache : false,
       data: data,
       type: method,
       jsonp: "callback",
