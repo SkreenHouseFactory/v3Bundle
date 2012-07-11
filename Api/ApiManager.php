@@ -7,11 +7,13 @@ use Guzzle\Http\Client;
 
 class ApiManager
 {
-  protected $api_base = null;
+  protected $api_base = 'http://benoit.myskreen.typhon.net/api/1/';
   protected $api_format = null;
 
-  public function __construct($api_base, $api_format = 'json') {
-    $this->api_base   = $api_base;
+  public function __construct($api_base = null, $api_format = 'json') {
+    if ($api_base) {
+      $this->api_base = $api_base;
+    }
     $this->api_format = $api_format;
   }
 

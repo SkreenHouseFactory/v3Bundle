@@ -105,6 +105,9 @@ API = {
       API.removePreference(parameter, value, function() {
         switch(parameter) {
           case 'like':
+            Session.sync(function(){
+              Session.initSelector();
+            });
             if (typeof trigger != 'undefined') {
               trigger.html('<i class="icon-plus-sign"></i> Suivre / voir + tard').removeClass('btn-primary');
             }
@@ -118,6 +121,9 @@ API = {
       API.addPreference(parameter, value, function() {
         switch(parameter) {
           case 'like':
+            Session.sync(function(){
+              Session.initSelector();
+            });
             if (typeof trigger != 'undefined') {
               trigger.html('<i class="icon-ok-sign"></i> Dans vos favoris').addClass('btn-primary');
             }
@@ -139,8 +145,10 @@ API = {
     }
 
     url = url.replace('/app_dev.php', '').replace('/app.php', ''); //developpment environment
-
-    $.extend(data, {img_height: Slider.item_height, img_width: Slider.item_width, fromWebsite: true});
+    if (typeof data.img_width == 'undefined' && typeof data.item_height == 'undefined') {
+      $.extend(data, {img_height: Slider.item_height, img_width: Slider.item_width});
+    }
+    $.extend(data, {fromWebsite: 'v3'});
 
     var post = {};
     // Currently, proxy POST requests
@@ -260,6 +268,8 @@ API = {
     });
   },
   postMessage: function(message) {
-    this.skXdmSocket.postMessage(JSON.stringify(message));
+    if (this.context == 'v2') {
+      this.skXdmSocket.postMessage(JSON.stringify(message));
+    }
   }
 }

@@ -15,6 +15,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use SkreenHouseFactory\v3Bundle\Api\ApiManager;
+
 class PlayerController extends Controller
 {
     /**
@@ -35,8 +37,11 @@ class PlayerController extends Controller
     */
     public function liveAction(Request $request)
     {
+      $api = new ApiManager();
+      $channels = $api->fetch('channel', array('type' => 'broadcast', 'with_live' => true));
 
       return $this->render('SkreenHouseFactoryV3Bundle:Player:live.html.twig', array(
+        'channels' => $channels,
         'channelId' => $request->get('channel_id'),
         'menus' => array()
       ));

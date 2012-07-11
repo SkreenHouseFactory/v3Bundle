@@ -26,14 +26,105 @@ UI = {
   typeahead: function(searchbox){
     console.log('UI.typeahead', searchbox);
     $(searchbox).typeahead({
-      items: 10,
-      source: ["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
-      /*source: function (typeahead, query) {
-        console.log('UI.typeahead', 'query:'+query);
-        return API.query('GET', API.base + 'search/autsuggest/' +query, null, function(data){
-          //return typeahead.process(data);
-         });
-      }*/
+      items: 5,
+/*      source: ["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]*/
+      source: function (typeahead, query) {
+        return API.query('GET', 
+                         'search/autosuggest/' +query + '.json', 
+                         {session_uid: Session.uid, img_width: 30, img_height: 30, advanced: 1, with_unvailable: 1}, 
+                         function(data){
+                            console.log('UI.typeahead', query, data);
+                            //if (data.search) {
+                            //  return typeahead.process(data.search.split(';'));
+                            //}
+
+                            if (data.search || data.queue || data.channels || data.theaters) {
+                              var lis = new Array;
+                              var titles = new Array;
+                              typeahead.query = typeahead.$element.val()
+                              typeahead.$menu.empty()
+                        
+                              if (!typeahead.query) {
+                                return typeahead.shown ? typeahead.hide() : typeahead
+                              }
+
+                              for (key in data) {
+                                switch (key) {
+                                  case 'queue':
+                                    var items = data[key][0].programs;
+                                    titles[key] = 'Dans vos playlists';
+                                  break;
+                                  case 'channels':
+                                    var items = data[key];
+                                    titles[key] = 'Chaînes';
+                                  break;
+                                  case 'theaters':
+                                    var items = data[key];
+                                    titles[key] = 'Salles de cinéma';
+                                  break;
+                                  case 'search':
+                                    var items = data[key].split(';');
+                                  break;
+                                }
+                                items = items.slice(0, typeahead.options.items)
+                                //console.log('UI.typeahead', 'data', key, items);
+                                lis[key] = $(items).map(function (i, item) {
+                                  i = $(typeahead.options.item).attr('data-value', JSON.stringify(item))
+                                  switch (key) {
+                                    case 'queue':
+                                      i.addClass('playlist')
+                                       .find('a')
+                                       .html('<img src="' + item.picture + '" /> ' + typeahead.highlighter(item.title))
+                                    break;
+                                    case 'theaters':
+                                      i.addClass('theater')
+                                       .find('a')
+                                       .html(typeahead.highlighter(item.name + ' (' + item.ville + ')'))
+                                    break;
+                                    case 'channels':
+                                      i.addClass('channel')
+                                       .find('a')
+                                       .html('<img src="' + item.icon + '" /> ' + typeahead.highlighter(item.name))
+                                    break;
+                                    case 'search':
+                                      i.addClass('search')
+                                       .find('a')
+                                       .html(typeahead.highlighter(item))
+                                    break;
+                                  }
+                                  console.log('UI.typeahead', 'add item', key,  i);
+                                  return i[0]
+                                })
+                              }
+
+                              //data.first().addClass('active')
+                              var sort = Array('search','queue','channels','theaters');
+                              for (key in sort) {
+                                if (lis[sort[key]]) {
+                                  //console.log('UI.typeahead', key, data[key], typeahead.$menu);
+                                  if (typeof titles[sort[key]] != 'undefined') {
+                                    typeahead.$menu.append('<li class="nav-header">' + titles[sort[key]] + '</li>')
+                                  }
+                                  typeahead.$menu.append(lis[sort[key]])
+                                }
+                              }
+                              $('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
+
+                              API.postMessage(['header', 'add_playlist']);
+                              typeahead.show();
+                            } else {
+                              return typeahead.shown ? typeahead.hide() : typeahead
+                            }
+                           });
+      },
+      onselect: function(obj) {
+        console.log('UI.typeahead', 'onselect', obj);
+        if (typeof obj.seo_url != 'undefined') {
+          API.linkV2(obj.seo_url);
+          //go to seo_url
+          //typeahead.$element.attr('value', obj.name)
+        }
+      }
     });
   },
   //user infos

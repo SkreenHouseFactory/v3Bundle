@@ -28,7 +28,7 @@ class MainController extends Controller
       //return $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig');
 
       //menus
-      $api = new ApiManager('http://benoit.myskreen.typhon.net/api/1/');
+      $api = new ApiManager();
       $menus = $api->fetch('www/menu', array('without_footer' => true));
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig', array(

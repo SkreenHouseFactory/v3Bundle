@@ -128,9 +128,22 @@ Slider = {
       var popular_channel = program.popular_channel ? '<img alt="'+program.popular_channel.name+' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
       var title = program.format != 'Film' ? program.title : '';
       var pere  = program.episodeof ? program.episodeof : program;
+      if (program.has_vod == 4) { //cine
+        var seo_play_title = 'Voir au cinéma';
+      } else if (program.has_vod == 3) { //dvd
+        var seo_play_title = 'Voir en dvd';
+      } else if (program.has_vod == 5) { //tv
+        var seo_play_title = 'Voir à la télé';
+      } else if (program.has_vod == 6) { //commande replay
+        var seo_play_title = 'Bientôt en replay';
+      } else if (program.has_vod == 7 || program.has_vod == 8) {
+        var seo_play_title = 'Voir en replay';
+      } else {
+        var seo_play_title = 'Voir en streaming';
+      }
       var li    = $(this.sample.replace('%seo_add_title%', pere.title + ', ' + program.format + ' - ' + program.year)
-                               .replace('%seo_play_title%', program.title)
-                               .replace('%seo_play_title%', program.title)
+                               .replace('%seo_play_title%', seo_play_title)
+                               .replace('%seo_play_title%', seo_play_title)
                                .replace('%title%',title)
                                .replace('%url%', program.seo_url)
                                .replace('%url%', program.seo_url)
