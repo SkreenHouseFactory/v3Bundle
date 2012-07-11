@@ -8,13 +8,14 @@ function skPaymentPopinEnd () {
 
 
 // -- API
+$.support.cors = true;
 var API;
 API = {
   context: 'v3',
   skXdmSocket: null,
   conf: {site_url: 'http://beta.benoit.myskreen.typhon.net:40011', base: 'http://benoit.myskreen.typhon.net/api/1/',  popin: 'https://benoit.myskreen.typhon.net/popin/'},
   //conf: {site_url: 'http://preprod.beta.myskreen.com', base: 'http://preprod.myskreen.com/api/1/',  popin: 'https://preprod.myskreen.com/popin/'},
-  dataType: 'json',
+  dataType: 'jsonp',
   currentModalUrl: null,
   quickLaunchModal: function(action, callback) {
     this.launchModal(this.conf.popin + action, callback);
@@ -169,34 +170,28 @@ API = {
     console.log('API.query', method, this.dataType, url, data, new Date());
     
     //Permet de benchmarker le temps d'execution des pages
-    var tooLong = setTimeout(function(){
-      console.warn('API.query', 'too long request', new Date(), url);
+    var tooLongQuery = setTimeout(function(){
+      console.warn('API.query', 'too long query', new Date(), url);
     }, 1000);
 
     var req = $.ajax({
       url: url,
       dataType: this.dataType,
-      cache: cache != undefined ? cache : false,
+      cache: cache != 'undefined' ? cache : false,
       data: data,
       type: method,
-      jsonp: "callback",
+      jsonp: 'callback',
       async: true,
       crossDomain: true,
       error: function(retour, code) {
-        clearTimeout(tooLong); 
-        console.warn('error getting query',retour, url, data, code);
+        clearTimeout(tooLongQuery); 
+        console.error('error getting query', retour, url, data, code, retour.statusText);
         if(retour.statusText == 'abort'){
           return false;
         }
-
-        retour.context = { method:method, url:url, data:data };
-        console.log('return', retour);
-        if(typeof callback != 'undefined') {
-          callback(retour, null);
-        }
       },
       success: function(json) {     
-        clearTimeout(tooLong);    
+        clearTimeout(tooLongQuery);    
         var datas = JSON.parse(JSON.stringify(json));  
         callback(datas);
       }

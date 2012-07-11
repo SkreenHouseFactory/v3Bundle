@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
   //v2
-  if (top.location.href != document.location.href) {
+  if (top.location != self.document.location) {
     API.syncV2();
   }
 
