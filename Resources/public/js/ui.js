@@ -272,7 +272,7 @@ UI = {
     console.log('UI.loadFilters', filters);
     $('#top-nav .subnav ul li').removeClass('active');
     $('#top-nav .subnav ul li.' + filters).addClass('active');
-    $('#top-filters > ul > li').hide();
-    $('#top-filters > ul > li.' + filters).toggle();
+    $('#top-filters > ul > li, #top-filters h6').hide();
+    $('#top-filters ul li.' + filters).toggle();
   }
 }

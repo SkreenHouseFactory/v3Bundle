@@ -44,7 +44,7 @@ Session = {
     if (sessionData.email) {
       UI.loadUser();
     }
-    Session.initPlaylist(top.location.pathname);
+    Session.initPlaylist();
     $.cookie('myskreen_uid', this.uid);
   },
   signout: function() {
@@ -118,6 +118,11 @@ Session = {
   },
   initPlaylist: function(url) {
     console.log('Session.initPlaylist', 'url:' + url);
+    
+    if (typeof url == 'undefined') {
+      url = API.context == 'v2' ? API.currentUrl : top.location.pathname;
+    }
+    
     switch (url) {
      //load vod 
      case '/selection-...': 

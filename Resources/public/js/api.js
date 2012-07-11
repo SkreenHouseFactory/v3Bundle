@@ -17,6 +17,7 @@ API = {
   //conf: {site_url: 'http://preprod.beta.myskreen.com', base: 'http://preprod.myskreen.com/api/1/',  popin: 'https://preprod.myskreen.com/popin/'},
   dataType: 'jsonp',
   currentModalUrl: null,
+  currentUrl: null,
   quickLaunchModal: function(action, callback) {
     this.launchModal(this.conf.popin + action, callback);
   },
@@ -155,6 +156,12 @@ API = {
     // Currently, proxy POST requests
     if (method == "POST" || method == "DELETE") {
       var dataType = "text json";
+      var post = {};
+      post["url"] = url;
+      post["data"] = data;
+      data = post;
+      url = '/post';
+     
     } else {
       var dataType = "jsonp";
       if (data && typeof data==='object'){
@@ -251,6 +258,7 @@ API = {
           //Player.redirect(message[1]);
 
         } else if (message[0] == "pathname") {
+          self.currentUrl = message[1];
           Session.initPlaylist(message[1]);
         }
       }

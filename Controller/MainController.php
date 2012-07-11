@@ -41,4 +41,18 @@ class MainController extends Controller
 
       return $response;
     }
+
+    /**
+    *
+    */
+    public function postAction(Request $request)
+    {
+      
+      if ($request->getMethod() == 'POST') {
+        $api = new ApiManager();
+        $response = $this->fetch($request->request->get('url'), $request->request->get('params'), 'POST');
+
+        return new Response($response);
+      }
+    }
 }
