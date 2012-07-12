@@ -38,11 +38,19 @@
       </div>
     </div>
 
+    <div id="header">
     {% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' with {'menus': menus} %}
+    </div>
+
     {% block content %}
     {% endblock %}
 
-    <div id="top-redirect" class="collapse in">
+    <div id="player">
+      <div class="metas player-overlay"><span class="title"></span><br/><span class="subtitle"></span></div>
+      <div class="embed"></div>
+    </div>
+
+    <div id="redirect" class="collapse in">
     {% block redirect %}
     {% endblock %}
     </div>

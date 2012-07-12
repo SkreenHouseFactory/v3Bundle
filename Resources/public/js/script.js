@@ -91,16 +91,19 @@ $(document).ready(function(){
     e.preventDefault();
     console.log('ui link/url', 'a[data="url"]');
     API.linkV2($(this).data('url'));
+    return false;
   });
   $('a.link-v2').live('click', function(e){
     console.log('ui link/url', 'linkV2');
     e.preventDefault();
     API.linkV2($(this).attr('href'));
+    return false;
   });
   $('a.javascript-v2').live('click', function(e){
     console.log('ui link/url', 'javascriptV2');
     e.preventDefault();
     API.javascriptV2($(this).attr('href').replace('javascript://',''));
+    return false;
   });
 
   // -- ui actions : favorite & play
@@ -120,23 +123,28 @@ $(document).ready(function(){
   });
 
   // -- ui popover favorites
-  //if (!Session.datas.email) {
-    $('.actions .fav:not(.btn-primary)').live('mouseover', function() {
-      $(this).popover({placement: 'top',
-                       title:	function() { return 'Ajouter à vos favoris'},
-                       content: '<hr/><b>Ne ratez plus vos programmes !</b><br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD. Vous serez averti dès qu\'un épisode est disponible.'})
-             .popover('show');
-    });
-  //}
+  $('.actions .fav:not(.btn-primary)').live('mouseover', function() {
+    $(this).popover({placement: 'top',
+                      title:	function() { return 'Ajouter à vos favoris'},
+                      content: '<hr/><b>Ne ratez plus vos programmes !</b><br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD. Vous serez averti dès qu\'un épisode est disponible.'})
+            .popover('show');
+  });
 
   // -- ui player
-  $('a[data="player"]').live('click', function(e){
+  $('a.player').live('click', function(e){
     e.preventDefault();
-    UI.loadPlayer($(this).data('player'));
+    UI.loadPlayer($(this));
+    return false;
   });
-  if ($('#top-redirect iframe').length > 0) {
-    console.log('UI.loadRedirect()', $('#top-redirect iframe').length);
+  $('a[data-player-autoplay="1"]').each(function(){
+    console.log('script', 'player autoplay', $(this));
+    UI.loadPlayer($(this));
+    return false;
+  });
+  
+  // -- ui redirect
+  if ($('#redirect iframe').length > 0) {
+    console.log('UI.loadRedirect()', $('#redirect iframe').length);
     UI.loadRedirect();
   }
-  
 });

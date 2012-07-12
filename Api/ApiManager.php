@@ -23,10 +23,10 @@ class ApiManager
 
     switch ($method) {
       case 'POST':
-        $response = $client->post($url.'.'.$this->api_format)->send();
+        $response = $client->post($url . '.' . $this->api_format)->send();
       break;
       case 'GET':
-        $response = $client->get($url.'.'.$this->api_format)->send();
+        $response = $client->get($url . '.' . $this->api_format . '?' . http_build_query($params))->send();
       break;
     }
     

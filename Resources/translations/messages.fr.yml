@@ -12,6 +12,10 @@ name:
     replay: Replay & Web
     vod: VOD
     friends: Vos amis regardent
+player:
+    live:
+      deporte: Sur mySkreen
+      external: Sur d'autres sites
 playlist:
     yours: Vos playlists
     trigger: 'Vos playlists'

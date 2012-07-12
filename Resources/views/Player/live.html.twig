@@ -3,5 +3,19 @@
 {% block title %}{{ 'service.name'|trans }} - {{ 'page.title.live'|trans }}{% endblock %}
 
 {% block content %}
-<script src="http://service.myskreen.com/player/live.js" type="text/javascript"></script>
+{#<script src="http://service.myskreen.com/player/live.js" type="text/javascript"></script>#}
+<ul id="player-channels" class="well nav nav-list player-overlay">
+<li class="nav-header"><i class="icon-play"></i> {{ 'player.live.deporte'|trans }}</li>
+{% for key,c in channels %}
+  {% if c.live.player is defined %}
+    <li><a class="player" href="#" {% if c.name == 'KTO' %}data-player-autoplay="1"{% endif %} data-player-icon="{{ c.img }}" data-player-title="{{ c.name }}" data-player-subtitle="{{ 'live'|trans }}" data-player-embed="{{ c.live.player }}" title="{{ c.name }} {{ 'live'|trans }}">{{ c.name }}</a></li>
+  {% endif %}
+{% endfor %}
+<li class="nav-header"><i class="icon-share"></i> {{ 'player.live.external'|trans }}</li>
+{% for key,c in channels %}
+  {% if c.live.url is defined %}
+    <li><a class="player" href="{{ c.live.url }}" title="{{ c.name }} {{ 'live'|trans }}">{{ c.name }}</a></li>
+  {% endif %}
+{% endfor %}
+</ul>
 {% endblock %}

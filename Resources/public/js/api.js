@@ -206,10 +206,13 @@ API = {
     return req;
   },
   linkV2: function(url) {
-    console.log('API.linkV2', url, this.context);
+    console.log('API.linkV2', this.context, url, this.currentUrl);
+
     if (this.context == 'v2') {
-      this.postMessage(["link", url]);
-      Session.initPlaylist(url);
+      if (url != this.currentUrl) {
+        this.postMessage(["link", url]);
+        Session.initPlaylist(url);
+      }
     } else {
       document.location = this.conf.site_url + url;
     }

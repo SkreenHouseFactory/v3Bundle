@@ -10,7 +10,9 @@ Session = {
 
     //session
     this.uid = $.cookie('myskreen_uid');
-    this.sync(callback);
+    if (API.context == 'v3') {
+      this.sync(callback);
+    }
   },
   sync: function(callback, args) {
     var self = this;
@@ -20,7 +22,7 @@ Session = {
     if (this.uid) {
       $.extend(args, { with_notifications:1, with_selector:1, short:1 });
       API.query("GET", "session/" + this.uid + ".json", args, function(sessionData) {
-        Session.signin(sessionData);
+        self.signin(sessionData);
 
         if (callback) {
           callback(sessionData);
@@ -29,7 +31,7 @@ Session = {
     } else {
       $.extend(args, { short:1 });
       API.query("POST", "session.json", args, function(sessionData) {
-        Session.signin(sessionData);
+        self.signin(sessionData);
 
         if (callback) {
           callback(sessionData);
@@ -41,10 +43,12 @@ Session = {
     console.log('Session.signin', sessionData);
     this.datas = sessionData;
     this.uid = this.datas.uid;
-    if (sessionData.email) {
+    if (this.datas.email) {
       UI.loadUser();
     }
-    Session.initPlaylist();
+    if (this.datas.email || API.context == 'v3') {
+      this.initPlaylist();
+    }
     $.cookie('myskreen_uid', this.uid);
   },
   signout: function() {
@@ -57,21 +61,22 @@ Session = {
     API.postMessage(["signout"]);
   },
   initSocial: function(onglet, offset, force_remote) {
-    if (Session.datas.fb_uid) {
+    var self = this;
+    if (this.datas.fb_uid) {
       var offset = offset != 'undefined' ? offset : 0;
       var cookie_name = 'myskreen_social_'+onglet+'_'+offset;
       var cookie = $.cookie(cookie_name);
       if (cookie && force_remote == 'undefined') {
         var json = JSON.parse(cookie);
-        console.log('Session.initSocial', Session.datas.fb_uid, 'cookie', json);
+        console.log('Session.initSocial', this.datas.fb_uid, 'cookie', json);
         if (json.statusText == 'error') {
-          console.warn('Session.initSocial', Session.datas.fb_uid, 'cookie error');
+          console.warn('Session.initSocial', this.datas.fb_uid, 'cookie error');
           return this.initSocial(onglet, offset, true);
         }
         UI.loadFriends(json);
         Session.datas.friends = json.friends;
       } else {
-        console.log('Session.initSocial', Session.datas.fb_uid, 'API');
+        console.log('Session.initSocial', this.datas.fb_uid, 'API');
         UI.appendLoader($('li#friends'));
         API.query('GET', 
                   'www/slider/social/' + this.uid + '.json', 
@@ -79,7 +84,7 @@ Session = {
                   function(json) {
                     console.log('Session.initSocial', 'offset:'+offset, json);
                     $.cookie(cookie_name, JSON.stringify(json), { expires: 1 });
-                    Session.datas.friends = json.friends;
+                    self.datas.friends = json.friends;
                     UI.removeLoader($('li#friends'));
                     UI.loadFriends(json);
                   });

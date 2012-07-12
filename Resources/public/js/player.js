@@ -2,34 +2,56 @@
 var Player;
 Player = {
   player: null,
-  frame: null,
+  timeout: null,
+  timeoutdelay: 5000,
   //player
   load: function(trigger) {
+    var self = this;
     console.log('Player.load', trigger);
-    var url     = trigger.attr('href');
-    var embed   = trigger.data('embed');
-    if (embed) {
+    this.player = $('#player');
+
+    var url      = trigger.attr('href');
+    var embed    = trigger.data('player-embed');
+    var title    = trigger.data('player-title');
+    var subtitle = trigger.data('player-subtitle');
+    var icon     = trigger.data('player-icon') ? '<img src="' + trigger.data('player-icon') + '"/> ' : '';
+    $('.title', this.player).html(icon + title);
+    $('.subtitle', this.player).html(subtitle);
+
+    if (embed) { //embed
       this.play(embed);
-    } else if (url) {
+      $(document).keyup(function(e) {
+        if (e.keyCode == 27) { self.minify(); }
+      });
+      self.timeout = setTimeout(function(){
+        $('.player-overlay').fadeOut('slow');
+      }, self.timeoutdelay);
+      $('#player').mousemove(function(e) {
+        $('.player-overlay').fadeIn();
+        self.timeout = setTimeout(function(){
+          $('.player-overlay').fadeOut('slow');
+        }, self.timeoutdelay);
+      });
+      
+    } else if (url) { //player
+      this.remove();
       this.redirect(url);
     }
 
-    console.log('Player.load', 'collapse');
   },
   redirect: function(url) {
-    this.frame = $('#top-redirect');
-    this.frame.empty();
-    UI.appendLoader(this.frame);
-    $('#top-playlist').collapse('hide');
-    this.frame.slideDown();
-
-    this.frame.html('<iframe src="'+url+'" frameborder="0"></iframe>');
+    var iframe = $('#redirect');
+    if (typeof url != "undefined") {
+      iframe.append('<iframe src="' + url + '"></iframe>')
+    }
+    iframe.show().css('height', ($(window).height() - 100) + 'px');
+    $('#top-playlist, #top-nav').collapse('hide');
   },
   play: function(embed) {
-    this.player = $('#top-player');
-    this.player.empty();
-    UI.appendLoader(this.player);
-    this.player.slideDown();
+    $('.embed', this.player).html(embed);
+    $('#player').addClass('on');
+    $('#header').collapse('hide');
+    //UI.appendLoader(this.player);
 
     switch(embed.type) {
       case 'html5':
@@ -42,5 +64,15 @@ Player = {
         this.player.html('<iframe src="'+embed.url+'" frameborder="0"></iframe>');
       break;
     }
+  },
+  minify: function() {
+    $('#header').collapse('show');
+    $('#top-playlist').collapse('hide');
+  },
+  remove: function() {
+    this.timeout = null;
+    $('#player .title, #player .subtitle, #player .embed').empty();
+    $('#player').removeClass('on');
+    $('#header').collapse('show');
   }
 }

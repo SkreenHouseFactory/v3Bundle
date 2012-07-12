@@ -38,7 +38,11 @@ class PlayerController extends Controller
     public function liveAction(Request $request)
     {
       $api = new ApiManager();
-      $channels = $api->fetch('channel', array('type' => 'broadcast', 'with_live' => true));
+      $channels = $api->fetch('channel', array('type' => 'broadcast', 
+                                               'with_live' => true, 
+                                               'player' => 'flash',
+                                               'player_width' => '99%',
+                                               'player_height' => '99%'));
 
       return $this->render('SkreenHouseFactoryV3Bundle:Player:live.html.twig', array(
         'channels' => $channels,
