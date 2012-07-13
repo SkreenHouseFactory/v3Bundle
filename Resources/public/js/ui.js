@@ -148,16 +148,17 @@ UI = {
   loadRedirect: function(url) {
     Player.redirect(url);
   },
-  //insert loader
+  // -- insert loader
   appendLoader: function(elmt) {
     $('.progress', elmt).remove();
     elmt.append(this.loader);
     $('.progress .bar', elmt).animate({width: '100%'}, 5000);
   },
-  //remove loader
+  // -- remove loader
   removeLoader: function(elmt) {
     elmt.find('.progress').remove();
   },
+  // -- load filters
   loadFilters: function(filters) {
     console.log('UI.loadFilters', filters);
     $('#top-nav .subnav ul li').removeClass('active');
@@ -166,7 +167,7 @@ UI = {
     $('#top-filters > ul > li, #top-filters h6').hide();
     $('#top-filters ul li.' + filters).toggle();
   },
-  //typeahead
+  // -- typeahead
   typeahead: function(searchbox){
     console.log('UI.typeahead', searchbox);
     $(searchbox).typeahead({

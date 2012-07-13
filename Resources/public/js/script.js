@@ -147,4 +147,7 @@ $(document).ready(function(){
     console.log('UI.loadRedirect()', $('#redirect iframe').length);
     UI.loadRedirect();
   }
+  
+  // -- popover
+  $('*[data-content]').popover();
 });
