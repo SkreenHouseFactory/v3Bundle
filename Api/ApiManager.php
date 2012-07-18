@@ -7,29 +7,36 @@ use Guzzle\Http\Client;
 
 class ApiManager
 {
-  protected $api_base = 'http://benoit.myskreen.typhon.net/api/1/';
+  protected $api_base = null;
   protected $api_format = null;
 
-  public function __construct($api_base = null, $api_format = 'json') {
-    if ($api_base) {
-      $this->api_base = $api_base;
-    }
+  public function __construct($env = 'prod', $api_format = 'json') {
+    $this->api_base = $this->getApiBase($env);
     $this->api_format = $api_format;
   }
 
-  public function fetch($url, $params = array(), $method = 'GET') {
-    
-    $client = new Client($this->api_base, $params);
+  protected function getApiBase($env) {
+    if ($env == 'dev') {
+      return 'http://benoit.myskreen.typhon.net/api/1/';
+    } else {
+      return 'http://api.myskreen.com/api/1/';
+    }
+  } 
 
+  public function fetch($url, $params = array(), $method = 'GET') {
+
+    $client = new Client($this->api_base);
     switch ($method) {
       case 'POST':
-        $response = $client->post($url . '.' . $this->api_format)->send();
+        $response = $client->post($url . '.' . $this->api_format, 
+                                  array('accept' => 'application/json'), 
+                                  $params)->send();
       break;
       case 'GET':
         $response = $client->get($url . '.' . $this->api_format . '?' . http_build_query($params))->send();
       break;
     }
-    
+
     $json = json_decode($response->getBody(true));
 
     return $json;

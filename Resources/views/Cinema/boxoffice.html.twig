@@ -1,0 +1,25 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}{{ 'page.title.cinema.boxoffice'|trans }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>{{ 'cinema.boxoffice.h1'|trans }}</h1>
+  
+  <div class="pagination">
+    <ul>
+      {% for l in alpha %}
+        <li{% if app.request.get('alpha') == l %} class="active"{% endif %}><a title="{{ 'cinema.alpha'|trans({alpha: l}) }}" href="{{ path('cinema_boxoffice', {alpha: l}) }}">{{ l }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  
+  <div id="user-programs" class="slider slider-list">
+    <ul class="items">
+    {% for p in programs %}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p} %}
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

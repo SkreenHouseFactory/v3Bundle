@@ -13,8 +13,8 @@ var API;
 API = {
   context: 'v3',
   skXdmSocket: null,
-  conf: {site_url: 'http://beta.benoit.myskreen.typhon.net:40011', base: 'http://benoit.myskreen.typhon.net/api/1/',  popin: 'https://benoit.myskreen.typhon.net/popin/'},
-  //conf: {site_url: 'http://preprod.beta.myskreen.com', base: 'http://preprod.myskreen.com/api/1/',  popin: 'https://preprod.myskreen.com/popin/'},
+  //conf: {site_url: 'http://beta.benoit.myskreen.typhon.net:40011', base: 'http://benoit.myskreen.typhon.net/api/1/',  popin: 'https://benoit.myskreen.typhon.net/popin/'},
+  conf: {site_url: 'http://preprod.beta.myskreen.com', base: 'http://preprod.myskreen.com/api/1/',  popin: 'https://preprod.myskreen.com/popin/'},
   dataType: 'jsonp',
   currentModalUrl: null,
   currentUrl: null,
@@ -103,7 +103,8 @@ API = {
   },
   togglePreference: function(parameter, value, trigger, callback){
     console.log('API.togglePreference', parameter, value, trigger);
-    if ($.inArray(value, Session.datas.queue)) {
+    console.log('API.togglePreference', 'inArray', $.inArray('' + value, Session.datas.queue));
+    if ($.inArray('' + value, Session.datas.queue) != -1) {
       API.removePreference(parameter, value, function() {
         switch(parameter) {
           case 'like':
@@ -157,10 +158,10 @@ API = {
     if (method == "POST" || method == "DELETE") {
       var dataType = "text json";
       var post = {};
-      post["url"] = url;
+      post["url"] = url.replace('.json','');
       post["data"] = data;
       data = post;
-      url = '/post';
+      url = '/app_dev.php/post';
      
     } else {
       var dataType = "jsonp";
@@ -189,7 +190,7 @@ API = {
       type: method,
       jsonp: 'callback',
       async: true,
-      crossDomain: true,
+      //crossDomain: true,
       error: function(retour, code) {
         clearTimeout(tooLongQuery); 
         console.error('error getting query', retour, url, data, code, retour.statusText);
@@ -216,6 +217,8 @@ API = {
     } else {
       document.location = this.conf.site_url + url;
     }
+
+    this.currentUrl = url;
   },
   javascriptV2: function(script) {
     if (this.context == 'v2') {
