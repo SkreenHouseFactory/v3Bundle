@@ -6,7 +6,6 @@ function skPaymentPopinEnd () {
   $('#skModal').modal('hide');
 }
 
-
 // -- API
 $.support.cors = true;
 var API;
