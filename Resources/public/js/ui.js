@@ -77,9 +77,11 @@ UI = {
   },
   //update selector
   loadSelector: function(datas) {
+    console.log('UI.loadSelector', datas, Session.onglet);
     this.unloadPlaylist();
     this.unloadSelector();
     $('#top-playlist h2 small:first').html(Session.onglet != null ? '» ' + $('#nav-toggle .badge-' + Session.onglet + ' a').html() : '');
+    $('#top-playlist h2 span').html(' parmi ' + Session.datas.queue.length + ' programmes');
     for (key in datas) {
       var group = datas[key];
       //console.log('UI.loadSelector', key, group);
@@ -131,6 +133,9 @@ UI = {
   unloadPlaylist: function(onglet) {
     var self = this;
     console.log('UI.unloadPlaylist', onglet, Session.onglet);
+    if ($('#top-playlist').css('height') == 0) {
+      $('#top-playlist').collapse('show');
+    }
     if (typeof onglet != "undefined" && onglet != Session.onglet) {
       Session.initPlaylist('/' + onglet);
     }
@@ -159,13 +164,16 @@ UI = {
     elmt.find('.progress').remove();
   },
   // -- load filters
-  loadFilters: function(filters) {
-    console.log('UI.loadFilters', filters);
+  loadFilters: function(filters, filter_selected) {
+    console.log('UI.loadFilters', filters, filter_selected);
     $('#top-nav .subnav ul li').removeClass('active');
     $('#top-nav .subnav ul li.' + filters).addClass('active');
     $('#top-filters ul').show();
     $('#top-filters > ul > li, #top-filters h6').hide();
     $('#top-filters ul li.' + filters).toggle();
+    if (typeof filter_selected != 'undefined') {
+      $('#top-filters ul li.' + filters + '-' + filter_selected).addClass('active');
+    }
   },
   // -- typeahead
   typeahead: function(searchbox){
@@ -252,7 +260,7 @@ UI = {
                                   typeahead.$menu.append(lis[sort[key]])
                                 }
                               }
-                              $('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
+                              //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
 
                               API.postMessage(['header', 'add_playlist']);
                               typeahead.show();

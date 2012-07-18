@@ -24,11 +24,8 @@ class MainController extends Controller
     */
     public function homeAction(Request $request)
     {
-
-      //return $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig');
-
       //menus
-      $api = new ApiManager();
+      $api = new ApiManager($this->container->getParameter('kernel.environment'));
       $menus = $api->fetch('www/menu', array('without_footer' => true));
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig', array(
@@ -47,12 +44,12 @@ class MainController extends Controller
     */
     public function postAction(Request $request)
     {
-      
+      $response = null;
       if ($request->getMethod() == 'POST') {
-        $api = new ApiManager();
-        $response = $this->fetch($request->request->get('url'), $request->request->get('params'), 'POST');
-
-        return new Response($response);
+        $api = new ApiManager($this->getApiBase());
+        $response = $api->fetch($request->request->get('url'), $request->request->get('data'), 'POST');
       }
+
+      return new Response(json_encode($response));
     }
 }

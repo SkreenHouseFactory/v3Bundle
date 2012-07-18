@@ -56,8 +56,7 @@
 
 /*@import url(http://fonts.googleapis.com/css?family=Belleza);*/
 
-@bgBody:     #000000; /*"url(../../images/header/bg.png)";*/
-@bgPlaylist:     "../../images/header/bg-playlist.jpeg";
+@bgBody:   url("../../images/header/bg-playlist.jpeg");
 @sliderHeight:   210px;
 @vignetteWidth:   150px;
 @vignetteHeight:   200px;
@@ -75,6 +74,28 @@ body {
 
 .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
   width: 1010px;
+
+  .pagination {
+    text-align: center;
+    a {
+      padding: 0 10px;
+    }
+  }
+}
+
+
+/* sprite */
+[class^="sprite-"], [class*=" sprite-"] {
+  display: inline-block;
+  vertical-align: text-top;
+  background-repeat: no-repeat;
+  background-image: url("/bundles/skreenhousefactoryv3/images/sprite.png");
+}
+.sprite-user {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  background-position: 0 0;
 }
 
 .typeahead {
@@ -92,9 +113,14 @@ body {
   }
 }
 
+#header {
+  background: black;
+}
+
 #top-bar {
   padding: 5px 0 0 0;
   box-shadow: 5px 5px 0px black;
+  height: 67px;
 
   img {
     height: 55px;
@@ -122,7 +148,7 @@ body {
   }
 
   > a {
-    padding: 7px 0;
+    padding: 0 0 7px 0;
   }
 
   > .nav {
@@ -132,6 +158,14 @@ body {
     > li > a:hover {
       background-color: inherit;
     }
+    li.btn-group > a.btn-last {
+      -webkit-border-top-right-radius: 4px;
+      -moz-border-radius-topright: 4px;
+      border-top-right-radius: 4px;
+      -webkit-border-bottom-right-radius: 4px;
+      -moz-border-radius-bottomright: 4px;
+      border-bottom-right-radius: 4px;
+    }
     li {
       a.hide {
         display: none;
@@ -140,10 +174,18 @@ body {
       .badge {
         margin-left: 10px;
       }
-      
-      .dropdown-menu {
-        right: 0;
-        left: auto;
+
+      a.signin {
+        padding: 5px 14px;
+      }
+
+      a.dropdown-toggle {
+        -webkit-border-top-right-radius: 0px;
+        -moz-border-radius-topright: 0px;
+        border-top-right-radius: 0px;
+        -webkit-border-bottom-right-radius: 0px;
+        -moz-border-radius-bottomright: 0px;
+        border-bottom-right-radius: 0px;
       }
     }
 
@@ -151,13 +193,20 @@ body {
 }
 
 #top-baseline {
-  padding: 12px 0 5px 30%;
+  padding-top: 0px;
   font-size: 1.0em;
   text-shadow: 1px 1px 0px white;
+  padding: 2px 0 5px;
+  text-align: center;
+
+  small {
+    font-size: 0.9em;
+    font-weight: normal;
+  }
 }
 
 #top-playlist {
-  background: url("@{bgPlaylist}");
+  background: @bgBody;
   /*box-shadow: inset 0px 1px 4px #999;*/
   
   .container {
@@ -265,7 +314,7 @@ body {
 }
 
 #top-filters {
-  background: #E9E9E9; /*url("@{bgPlaylist}");*/
+  background: #E9E9E9;
   font-size: 1.1em;
   height: 37px;
   > ul {
@@ -391,6 +440,13 @@ body {
   }
   .slider-container {
     border-left: 1px solid black;
+  }
+}
+.slider.slider-list {
+  ul.items {
+    li {
+      margin-bottom: 15px;
+    }
   }
 }
 .slider {
@@ -570,6 +626,8 @@ body {
     li.selector {
       border: @selectorBorder;
       box-shadow: none;
+      margin: 0 24px;
+      box-shadow: 1px 1px 5px black;
 
       a.btn {
         background: transparent;

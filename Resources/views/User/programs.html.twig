@@ -1,0 +1,25 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}{{ 'service.name'|trans }} - {{ 'page.title.user.programs'|trans }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>{{ 'user.programs'|trans }}</h1>
+  <br/>
+  <ul class="nav nav-pills">
+    {% for o in onglets %}
+      <li{% if app.request.get('onglet') == o %} class="active"{% endif %}>
+        <a href="{{ path('user_programs', {onglet: o}) }}">{{ o }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  
+  <div id="user-programs" class="slider slider-list">
+    <ul class="items">
+    {% for p in programs %}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p} %}
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

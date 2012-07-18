@@ -1,4 +1,4 @@
-<h2>{{ 'playlist.yours'|trans }} <small></small> <small></small></h2>
+<h2>{{ 'playlist.yours'|trans }} <span>{{ 'playlist.pitch'|trans }}</span> <small></small> <small></small></h2>
 <div id="playlist" class="slider" data-pager-offset="0" data-pager-url="{{ path('playlist_load', {type:'group.name', session_uid: 'session.uid'}) }}">
   <a class="next badge badge-inverse"><i class="icon-chevron-right icon-white"></i></a>
   <a class="prev badge badge-inverse"><i class="icon-chevron-left icon-white"></i></a>
@@ -11,10 +11,6 @@
         <a class="btn play" title="%seo_play_title% {{ 'seo.title.play'|trans }}" href="%url%"><i class="icon-play"></i> {{ 'action.play'|trans }}<span>{{ 'action.deporte'|trans }}</span></a>
       </div>
       <a href="%url%" title="%seo_play_title% {{ 'seo.title.play'|trans }}" class="title">%title%</a>
-    </li>
-    <li id="all" class="selector empty" data-name="{{ 'name.all'|trans }}">
-      <span class="label label-inverse opacity"><span></span> {{ 'playlist.all'|trans|lower }}</span>
-      <h6 class="teaser"><b>{{ 'playlist.teaser.nb.all'|trans }}</b> {{ 'playlist.teaser.all'|trans }}</h6>
     </li>
     <li id="vod" class="selector empty" data-name="{{ 'name.vod'|trans }}">
       <span class="label label-inverse opacity"><span></span> {{ 'playlist.vod'|trans|lower }}</span>
@@ -36,6 +32,7 @@
     </li>
     <li id="friends" class="selector empty" data-name="{{ 'name.friends'|trans }}">
       <span class="label label-warning opacity"><span></span> {{ 'playlist.friends'|trans|lower }}</span>
+      <h6 class="teaser">{{ 'playlist.teaser.friends'|trans }}</h6>
       <a data-original-title="{{ 'playlist.friends'|trans }}" data-content="{{ 'playlist.popover.friends'|trans }}" data-placement="top" class="btn btn-large" href="#" onClick="API.quickLaunchModal('signin');"><i class="icon-plus-sign"></i> {{ 'playlist.add.friends'|trans }}</a>
     </li>
   </ul>

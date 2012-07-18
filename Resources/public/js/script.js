@@ -121,12 +121,23 @@ $(document).ready(function(){
     API.linkV2($(this).attr('href'));
     return false;
   });
+  $('.actions .fav.btn-primary').hover(function(){
+    $(this).removeClass('btn-primary').addClass('btn-danger').html('<i class="icon-remove-sign icon-white"></i> Retirer');
+  },function(){
+    $(this).addClass('btn-primary').removeClass('btn-danger').html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists');
+  });
 
   // -- ui popover favorites
   $('.actions .fav:not(.btn-primary)').live('mouseover', function() {
+    if ($(this).parent().data('onglet') == 'emissions' || $(this).parent().data('onglet') == 'series') {
+      var content = '<b>Ne ratez plus vos programmes !</b><br/>En ajoutant ce programme à vos playlists vous serez averti dès qu\'un épisode est disponible !';
+    } else {
+      var content = '<b>Ne ratez plus vos programmes !</b><br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD.';
+    }
+    
     $(this).popover({placement: 'top',
-                      title:	function() { return 'Ajouter à vos favoris'},
-                      content: '<hr/><b>Ne ratez plus vos programmes !</b><br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD. Vous serez averti dès qu\'un épisode est disponible.'})
+                      title:	function() { return 'Ajout à vos playlists'},
+                      content: content})
             .popover('show');
   });
 
@@ -147,7 +158,7 @@ $(document).ready(function(){
     console.log('UI.loadRedirect()', $('#redirect iframe').length);
     UI.loadRedirect();
   }
-  
+
   // -- popover
   $('*[data-content]').popover();
 });

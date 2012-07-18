@@ -6,6 +6,18 @@ postproxy:
     pattern:  /post
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:post }
 
+#user
+user_programs:
+    pattern:  /mes-programmes/{onglet}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:programs }
+
+#cinema
+cinema_boxoffice:
+    pattern:  /cinema/box-office/{alpha}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cinema:boxoffice }
+    requirements:
+        alpha: .*
+
 #player
 player_live:
     pattern:  /les-chaines-en-direct
@@ -14,12 +26,11 @@ player_redirect:
     pattern:  /redirect
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect }
 player:
-    pattern:  /{_locale}/player
+    pattern:  /player
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:player }
 
-#playlist
+#api
 playlist_load:
-    #pattern:  /playlist/{session_uid}/{type}
     pattern:  /www/slider/queue/{session_uid}/access/{type}.json
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Session:playlist }
     requirements:

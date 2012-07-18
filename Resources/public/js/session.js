@@ -3,7 +3,7 @@ var Session;
 Session = {
   uid: '',
   datas: {},
-  onglet: null,
+  onglet: '',
   access: null,
   init: function(callback) {
     UI.playlist = $('#playlist');
@@ -143,9 +143,14 @@ Session = {
        UI.loadPlaylist('tv');
        UI.loadFilters('tv');
        console.log('Session.initPlaylist', 'add header tv');
-       API.postMessage(['header', 'add_playlist']);
+       if (this.datas.email) {
+        API.postMessage(['header', 'add_playlist']);
+       } else {
+        API.postMessage(['header', 'remove_playlist']);
+       }
      break; 
      //load cinema 
+     case '/cinema/box-office/a':
      case '/selection/3520923-a-voir-au-cinema':
      case '/selection/4588325-prochainement-dans-les-salles': 
        UI.loadPlaylist('cine');
@@ -158,7 +163,7 @@ Session = {
      case '/emissions': 
      case '/spectacles': 
        this.initSelector(url.replace('/', ''));
-       UI.loadFilters('vod');
+       UI.loadFilters('vod', url.replace('/',''));
      break; 
      //load selector
      default: 
