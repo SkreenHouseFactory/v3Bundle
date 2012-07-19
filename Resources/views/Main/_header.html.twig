@@ -9,9 +9,9 @@
       {#<a class="btn btn-inverse btn-large signout" href="#"><i class="icon-ban-circle icon-white"></i></a>#}
       {#<a  data-toggle="collapse" data-target="#top-playlist" class="btn btn-inverse btn-large" href="#"><i class="icon-resize-vertical icon-white"></i></a>#}
       <a data-toggle="dropdown" class="dropdown-toggle btn btn-inverse btn-large user" href="#"><span></span></a>
-      <a data-toggle="collapse" data-target="#top-playlist" class="btn btn-inverse btn-large btn-last" href="#"><i class="icon-th-list icon-white"></i> {{ 'playlist.yours'|trans }}<span></span></a>
+      <a data-toggle="collapse" data-target="#top-playlist" class="btn btn-inverse btn-large btn-last notifications" href="#"><i class="icon-th-list icon-white"></i> {{ 'playlist.yours'|trans }}<span></span></a>
       <ul class="dropdown-menu">
-        <li><a class="favoris" href="/mes-programmes" target="_parent"><i class="icon-remove-sign"></i> {{ 'nav.favoris'|trans }}</a></li>
+        <li><a class="favoris" href="{{ path('user_programs') }}" target="_parent"><i class="icon-list-alt"></i> {{ 'nav.favoris'|trans }}</a></li>
         <li><a class="link-v2 account" href="#"><i class="icon-cog"></i> {{ 'nav.account'|trans }}</a></li>
         <li><a class="link-v2 signout" href="#"><i class="icon-remove"></i> {{ 'signout'|trans }}</a></li>
         {#<li class="nav-header">{{ 'nav.filter'|trans }}</li>
@@ -45,10 +45,8 @@
     </div>
   </div>
   <div id="top-filters">
-    <h6 id="top-baseline" data-toggle="collapse" data-target="#top-playlist">
-      {{ 'playlist.title'|trans }}
-      <br/>
-      <small>{{ 'playlist.teaser.nb.all'|trans }} {{ 'playlist.teaser.all'|trans }}</small>
+    <h6 id="top-baseline" class="user-off" data-toggle="collapse" data-target="#top-playlist">
+      {{ 'playlist.baseline'|trans }}
     </h6>
     {% include 'SkreenHouseFactoryV3Bundle:Main:_header-filters.html.twig' %}
   </div>

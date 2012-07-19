@@ -19,7 +19,7 @@ class ApiManager
     if ($env == 'dev') {
       return 'http://benoit.myskreen.typhon.net/api/1/';
     } else {
-      return 'http://api.myskreen.com/api/1/';
+      return 'http://preprod.api.myskreen.com/api/1/';
     }
   } 
 

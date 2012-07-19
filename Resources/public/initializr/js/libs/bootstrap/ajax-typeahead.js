@@ -40,7 +40,8 @@
     constructor: Typeahead
 
   , select: function () {
-      var val = JSON.parse(this.$menu.find('.active').attr('data-value'))
+      console.log('>>>>>>>>>', this.$menu.find('.active'));
+      var val = this.$menu.find('.active').length > 0 ? JSON.parse(this.$menu.find('.active').attr('data-value')) : this.$element.val()
         , text
 
       if (!this.strings) text = val[this.options.property]

@@ -12,8 +12,8 @@ var API;
 API = {
   context: 'v3',
   skXdmSocket: null,
-  //conf: {site_url: 'http://beta.benoit.myskreen.typhon.net:40011', base: 'http://benoit.myskreen.typhon.net/api/1/',  popin: 'https://benoit.myskreen.typhon.net/popin/'},
-  conf: {site_url: 'http://preprod.beta.myskreen.com', base: 'http://preprod.myskreen.com/api/1/',  popin: 'https://preprod.myskreen.com/popin/'},
+  conf: {site_url: 'http://beta.benoit.myskreen.typhon.net:40011', base: 'http://benoit.myskreen.typhon.net/api/1/',  popin: 'https://benoit.myskreen.typhon.net/popin/'},
+  //conf: {site_url: 'http://preprod.beta.myskreen.com', base: 'http://preprod.myskreen.com/api/1/',  popin: 'https://preprod.myskreen.com/popin/'},
   dataType: 'jsonp',
   currentModalUrl: null,
   currentUrl: null,
@@ -86,23 +86,23 @@ API = {
       return json;
     });
   },
-  addPreference: function(parameter, value, callback) {
-      this.query('POST', 'preference/flag.json', {session_uid: Session.uid, type:parameter, value:value}, function(json){
+  addPreference: function(parameter, value, callback, parcours) {
+      this.query('POST', 'preference/flag.json', {session_uid: Session.uid, type:parameter, value:value, parcours:parcours}, function(json){
         if (json.success) {
           callback(value);
         }
       });
   },
   removePreference: function(parameter, value, callback) {
-      this.query('POST', 'preference/unflag.json', {session_uid: Session.uid, type:parameter, value:value}, function(json){
+      this.query('POST', 'preference/unflag.json', {session_uid: Session.uid, type:parameter, value:value, parcours:parcours}, function(json){
         if (json.success) {
           callback(value);
         }
       });
   },
-  togglePreference: function(parameter, value, trigger, callback){
+  togglePreference: function(parameter, value, trigger, callback, parcours){
     console.log('API.togglePreference', parameter, value, trigger);
-    console.log('API.togglePreference', 'inArray', $.inArray('' + value, Session.datas.queue));
+    //console.log('API.togglePreference', 'inArray', $.inArray('' + value, Session.datas.queue));
     if ($.inArray('' + value, Session.datas.queue) != -1) {
       API.removePreference(parameter, value, function() {
         switch(parameter) {
@@ -127,14 +127,14 @@ API = {
               Session.initSelector();
             });
             if (typeof trigger != 'undefined') {
-              trigger.html('<i class="icon-ok-sign"></i> Dans vos favoris').addClass('btn-primary');
+              UI.loadUserPrograms(new Array(value));
             }
           break;
         }
         if (typeof callback != 'undefined') {
           callback(value);
         }
-      });
+      }, parcours);
     }
   },
   query: function(method, url, data, callback, cache) {
@@ -256,7 +256,7 @@ API = {
           }
 
         } else if (message[0] == "preference") {
-          self.togglePreference(message[1], message[2]);
+          self.togglePreference(message[1], message[2], message[3]);
 
         } else if (message[0] == "redirect") {
           window.open('/redirect?target=' + escape(message[1]));
