@@ -53,8 +53,13 @@ $(document).ready(function(){
     $('#top-filters > ul > li').removeClass('active');
     $(this).addClass('active');
     if ($(this).hasClass('grid')) {
-      var onglet = $('a', this).removeClass('dropdown-toggle').attr('class');
-      API.javascriptV2("mskapp.currentView.showByType('" + onglet + "');$('#sliders .item." + onglet + "').show();$('#sliders .item:not(." + onglet + ")').hide();");
+      var onglet = $('a', this).removeClass('dropdown-toggle').attr('class').replace('all','');
+      console.log('script', 'li.grid', onglet);
+      if (!onglet) {
+        API.javascriptV2("$('#facetType').val('all');mskapp.currentView.filterByType('#facetType');$('#sliders .item').show();");
+      } else {
+        API.javascriptV2("$('#facetType').val('" + onglet + "');mskapp.currentView.filterByType('#facetType');$('#sliders .item." + onglet + "').show();$('#sliders .item:not(." + onglet + ")').hide();");
+      }
       Session.onglet = onglet;
       UI.loadPlaylist('tv');
     }
@@ -85,6 +90,9 @@ $(document).ready(function(){
     UI.unloadPlaylist(this.id);
   });
   $('li.selector.empty a').popover();
+  $('li.selector h6', Session.playlist).live('click', function(){
+    $('a', $(this).parent()).click();
+  });
 
   // -- ui link/url
   $('a[data="url"]').live('click', function(e){
@@ -121,11 +129,14 @@ $(document).ready(function(){
     API.linkV2($(this).attr('href'));
     return false;
   });
-  $('.actions .fav.btn-primary').hover(function(){
-    $(this).removeClass('btn-primary').addClass('btn-danger').html('<i class="icon-remove-sign icon-white"></i> Retirer');
-  },function(){
-    $(this).addClass('btn-primary').removeClass('btn-danger').html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists');
-  });
+  $('.actions .fav.btn-primary').live({
+      mouseenter: function(){
+        $(this).removeClass('btn-primary').addClass('btn-danger').html('<i class="icon-remove-sign icon-white"></i> Retirer');
+      },
+      mouseout: function(){
+        $(this).addClass('btn-primary').removeClass('btn-danger').html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists');
+      }
+    });
 
   // -- ui popover favorites
   $('.actions .fav:not(.btn-primary)').live('mouseover', function() {
@@ -158,6 +169,19 @@ $(document).ready(function(){
     console.log('UI.loadRedirect()', $('#redirect iframe').length);
     UI.loadRedirect();
   }
+  
+  // -- nav-alpha-client
+  $('.pagination-client-alpha li').click(function(){
+    console.log('script', 'nav-alpha-client', '[data-alpha="' + $('a', this).html() + '"]', $('[data-alpha="' + $('a', this).html() + '"]'));
+    if ($('a', this).html().length > 1) {
+      $('[data-alpha]').show();
+    } else {
+      $('[data-alpha]').hide();
+      $('[data-alpha="' + $('a', this).html() + '"]').show();
+    }
+    $('.pagination-client-alpha li').removeClass('active');
+    $(this).addClass('active');
+  });
 
   // -- popover
   $('*[data-content]').popover();

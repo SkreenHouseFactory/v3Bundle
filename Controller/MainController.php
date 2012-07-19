@@ -46,7 +46,7 @@ class MainController extends Controller
     {
       $response = null;
       if ($request->getMethod() == 'POST') {
-        $api = new ApiManager($this->getApiBase());
+        $api = new ApiManager($this->container->getParameter('kernel.environment'));
         $response = $api->fetch($request->request->get('url'), $request->request->get('data'), 'POST');
       }
 

@@ -25,7 +25,7 @@ class UserController extends Controller
     public function programsAction(Request $request)
     {
       $session_uid = $request->cookies->get('myskreen_session_uid');
-      $onglet      = $request->get('onglet', 'films');
+      $onglet      = $request->get('onglet');
       
       //programs
       $api = new ApiManager($this->container->getParameter('kernel.environment'));
@@ -35,11 +35,19 @@ class UserController extends Controller
                                      'offset'     => 0,
                                      'nb_results' => 200,
                                      'onglet'     => $onglet));
+      $alpha_available = array();
+      foreach ($programs as $key => $p) {
+        $programs[$key]->alpha = strtolower(substr($p->title, 0, 1));
+        $alpha_available[] = $programs[$key]->alpha;
+      }
 
       //print_r(array($session_uid, $programs));
       return $this->render('SkreenHouseFactoryV3Bundle:User:programs.html.twig', array(
         'menus'    => null,
         'onglets'  => array('films', 'documentaires', 'series', 'emissions', 'spectacles'),
+        'alpha'    => array(1,2,3,4,5,6,7,8,9,
+                            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'),
+        'alpha_available' => $alpha_available,
         'programs' => $programs
       ));
     }

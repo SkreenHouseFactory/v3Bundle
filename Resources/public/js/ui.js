@@ -35,22 +35,31 @@ UI = {
     this.user = Session.datas.email;
     if (Session.datas.email) {
       $('.user span').html(Session.datas.email);
+      $('.user-on-visibility').css('visibility','visible');
     } else {
       $('.user span').remove();
+      $('.user-on-visibility').css('visibility','hidden');
     }
     $('.user-off, .user-on').toggle();
 
+    this.loadUserProgams(Session.datas.queue);
     this.notifyUser(Session.datas.notifications);
+  },
+  //toggle btn
+  loadUserProgams: function(ids) {
+    for (id in ids) {
+      $('.actions[data-id="' + ids[id] + '"] a.fav').html('<i class="icon-ok-sign"></i> Dans vos favoris').addClass('btn-primary');
+    }
   },
   //notify
   notifyUser: function(notifications) {
-    return;
+    //return;
     console.log('UI.notifyUser', notifications);
     for (key in notifications) {
       console.log('UI.notifyUser', 'programs', $('#top-bar .user'), key, notifications[key].new);
       if (key == 'programs') {
         if (notifications[key].new.length > 0) {
-          $('#top-bar .user').addClass('with-badge').append($(this.badge_notification).html(notifications[key].new.length));
+          $('#top-bar .notifications').addClass('with-badge').find('span').append($(this.badge_notification).html(notifications[key].new.length));
         }
       } else {
         if (notifications[key].new > 0) {
@@ -80,8 +89,11 @@ UI = {
     console.log('UI.loadSelector', datas, Session.onglet);
     this.unloadPlaylist();
     this.unloadSelector();
-    $('#top-playlist h2 small:first').html(Session.onglet != null ? '» ' + $('#nav-toggle .badge-' + Session.onglet + ' a').html() : '');
-    $('#top-playlist h2 span').html(' parmi ' + Session.datas.queue.length + ' programmes');
+    $('#top-playlist h2 small').empty();
+    if (Session.onglet) {
+      $('#top-playlist h2 small:last').html('» ' + $('#top-filters .' + Session.onglet).html());
+    }
+
     for (key in datas) {
       var group = datas[key];
       //console.log('UI.loadSelector', key, group);
@@ -91,8 +103,7 @@ UI = {
       li.find('.label').removeClass('opacity').addClass('label-inverse');
       li.find('.label span').html(group.nb_programs);
       li.find('span.badge').remove();
-      if (key != 'all' && 
-          group.nb_notifs > 0){
+      if (group.nb_notifs > 0){
         li.prepend(this.badge_notification.replace('%count%', 'nouveaux')); //group.nb_notifs));
       }
       li.find('a, h6').hide();
@@ -110,20 +121,29 @@ UI = {
     var self = this;
     if (Session.datas.email) {
       Session.access = access;
-      var name = $('li#'+Session.access, this.playlist).data('name');
+
       var url = this.playlist.data('pager-url').replace('session.uid', Session.uid)
                                                .replace('group.name', Session.access)
                                                .replace('app_dev.php/', '');
-      url = Session.onglet ? url + '?onglet=' + Session.onglet : url;
-      console.log('UI.loadPlaylist', url);
+      if (Session.onglet) {
+        url = url + '?onglet=' + Session.onglet;
+        $('#top-playlist h2 small:last').html('» ' + $('#top-filters .' + Session.onglet).html());
+      } else {
+        $('#top-playlist h2 small:last').empty();
+      }
+
+      console.log('UI.loadPlaylist', url, access, Session.onglet);
       Slider.load(this.playlist, 
                   url,
                   function(){
-                    $('#top-playlist h2 small:last').html('» ' + name);
+                    if (Session.access) {
+                      var name = $('li#' + Session.access, self.playlist).data('name');
+                      $('#top-playlist h2 small:first').html('» ' + name);
+                    }
                     $('li.selector', self.playlist).hide();
                     Slider.removeLoader(self.playlist);
                   });
-      console.log('UI.loadPlaylist', 'animate');
+      //console.log('UI.loadPlaylist', 'animate');
       $('li.selector', this.playlist).animate({width:0}, 500, function() {
         $(this).hide();
       });
@@ -165,7 +185,7 @@ UI = {
   },
   // -- load filters
   loadFilters: function(filters, filter_selected) {
-    console.log('UI.loadFilters', filters, filter_selected);
+    console.log('UI.loadFilters', filters, filter_selected, $('#top-filters ul li.' + filters + ':first-child'));
     $('#top-nav .subnav ul li').removeClass('active');
     $('#top-nav .subnav ul li.' + filters).addClass('active');
     $('#top-filters ul').show();
@@ -173,7 +193,15 @@ UI = {
     $('#top-filters ul li.' + filters).toggle();
     if (typeof filter_selected != 'undefined') {
       $('#top-filters ul li.' + filters + '-' + filter_selected).addClass('active');
+    } else {
+      $('#top-filters ul li.' + filters + ':first-child').addClass('active');
     }
+  },
+  // -- unload filters
+  unloadFilters: function() {
+    console.log('UI.unloadFilters');
+    $('.subnav li.active').removeClass('active');
+    $('#top-filters ul li').removeClass('active').hide();
   },
   // -- typeahead
   typeahead: function(searchbox){

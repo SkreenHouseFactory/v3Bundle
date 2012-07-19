@@ -4,7 +4,7 @@ Session = {
   uid: '',
   datas: {},
   onglet: '',
-  access: null,
+  access: '',
   init: function(callback) {
     UI.playlist = $('#playlist');
 
@@ -63,12 +63,14 @@ Session = {
   initSocial: function(onglet, offset, force_remote) {
     var self = this;
     if (this.datas.fb_uid) {
-      var offset = offset != 'undefined' ? offset : 0;
-      var cookie_name = 'myskreen_social_'+onglet+'_'+offset;
+      var offset = typeof offset != 'undefined' ? offset : 0;
+      var onglet = typeof onglet != 'undefined' ? onglet : null;
+      var cookie_name = 'myskreen_social_' + onglet + '_' + offset;
       var cookie = $.cookie(cookie_name);
-      if (cookie && force_remote == 'undefined') {
+      console.log('Session.initSocial', this.datas.fb_uid, cookie_name, cookie, 'force_remote:' + force_remote);
+      if (cookie && typeof force_remote == 'undefined') {
         var json = JSON.parse(cookie);
-        console.log('Session.initSocial', this.datas.fb_uid, 'cookie', json);
+        console.log('Session.initSocial', this.datas.fb_uid, 'cookie');
         if (json.statusText == 'error') {
           console.warn('Session.initSocial', this.datas.fb_uid, 'cookie error');
           return this.initSocial(onglet, offset, true);
@@ -76,14 +78,13 @@ Session = {
         UI.loadFriends(json);
         Session.datas.friends = json.friends;
       } else {
-        console.log('Session.initSocial', this.datas.fb_uid, 'API');
         UI.appendLoader($('li#friends'));
         API.query('GET', 
                   'www/slider/social/' + this.uid + '.json', 
                   {onglet: this.onglet, nb_results: 1}, 
                   function(json) {
-                    console.log('Session.initSocial', 'offset:'+offset, json);
-                    $.cookie(cookie_name, JSON.stringify(json), { expires: 1 });
+                    console.log('Session.initSocial', 'offset:' + offset);
+                    $.cookie(cookie_name, JSON.stringify(json));
                     self.datas.friends = json.friends;
                     UI.removeLoader($('li#friends'));
                     UI.loadFriends(json);
@@ -123,20 +124,20 @@ Session = {
   },
   initPlaylist: function(url) {
     console.log('Session.initPlaylist', 'url:' + url);
-    
+
     if (typeof url == 'undefined') {
       url = API.context == 'v2' ? API.currentUrl : top.location.pathname;
     }
-    
+
     switch (url) {
      //load vod 
-     case '/selection-...': 
+     case '/selection-...':
        UI.loadPlaylist('vod', 'films');
      break; 
      //load replay
-     case '':  
+     case '':
        UI.loadPlaylist('replay', 'emissions');
-     break; 
+     break;
      //load tv 
      case '/les-chaines-en-direct':
      case '/programme-tv':
@@ -148,27 +149,31 @@ Session = {
        } else {
         API.postMessage(['header', 'remove_playlist']);
        }
-     break; 
+     break;
      //load cinema 
      case '/cinema/box-office/a':
      case '/selection/3520923-a-voir-au-cinema':
      case '/selection/4588325-prochainement-dans-les-salles': 
        UI.loadPlaylist('cine');
        UI.loadFilters('cine');
-     break; 
+     break;
      //load selector onglet
-     case '/films': 
-     case '/documentaires': 
-     case '/series': 
-     case '/emissions': 
-     case '/spectacles': 
+     case '/films':
+     case '/documentaires':
+     case '/series':
+     case '/emissions':
+     case '/spectacles':
        this.initSelector(url.replace('/', ''));
        UI.loadFilters('vod', url.replace('/',''));
-     break; 
+     break;
      //load selector
-     default: 
+     case '/':
+       UI.unloadFilters();
        this.initSelector();
-     break; 
+     break;
+     default:
+       this.initSelector();
+     break;
     }
     //UI.loadFilters('vod');
   }
