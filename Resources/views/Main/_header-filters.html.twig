@@ -6,7 +6,8 @@
   <li class="vod vod-series"><a class="link-v2" href="/series" href="#">{{ 'nav.series'|trans }}</a></li>
   <li class="vod vod-spectacles"><a class="link-v2" href="/spectacles" href="#">{{ 'nav.spectacles'|trans }}</a></li>
   {#<li class="tv"><a href="{{ path('player_live') }}" target="_parent">{{ 'nav.tv.live'|trans }}</a></li>#}
-  <li class="tv grid active dropdown">
+  <li class="tv grid active"><a class="link-v2" href="tv">{{ 'nav.all'|trans }}</a></li>
+  <li class="tv grid dropdown">
     <a class="all dropdown-toggle" data-toggle="dropdown" href="#">{{ 'nav.tv.grid'|trans }} {#<b class="caret"></b>#}</a>
     {#<ul class="dropdown-menu">
       <li class="nav-header">{{ 'past'|trans }}</li>
@@ -27,7 +28,8 @@
   <li class="tv grid"><a class="series" href="#">{{ 'nav.series'|trans }}</a></li>
   <li class="tv grid"><a class="documentaires" href="#">{{ 'nav.documentaires'|trans }}</a></li>
   <li class="tv grid"><a class="spectacles" href="#">{{ 'nav.spectacles'|trans }}</a></li>
-  <li class="cine active"><a class="link-v2" href="/selection/3520923-a-voir-au-cinema" href="#">{{ 'nav.theaters.release'|trans }}</a></li>
+  <li class="cine active"><a class="link-v2" href="/cine">{{ 'nav.all'|trans }}</a></li>
+  <li class="cine"><a class="link-v2" href="/selection/3520923-a-voir-au-cinema" href="#">{{ 'nav.theaters.release'|trans }}</a></li>
   <li class="cine cine-box-office"><a target="_parent" href="{{ path('cinema_boxoffice', {alpha: 'a'}) }}" href="#">{{ 'nav.theaters.boxoffice'|trans }}</a></li>
   <li class="cine"><a class="link-v2" href="/selection/4588325-prochainement-dans-les-salles" href="#">{{ 'nav.theaters.coming'|trans }}</a></li>
 </ul>

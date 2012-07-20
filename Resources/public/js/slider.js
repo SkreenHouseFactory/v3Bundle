@@ -46,7 +46,7 @@ Slider = {
               self.addLoader(slider);
               self.load(slider, 
                         slider.data('pager-url').replace('session.uid', Session.uid)
-                                                 .replace('group.name', Session.access) + '?offset=' + offset,
+                                                .replace('group.name', Session.access) + '?offset=' + offset,
                         function(nb_programs){
                           self.removeLoader(slider);
                           if (nb_programs < 5) {
@@ -123,11 +123,13 @@ Slider = {
               });
   },
   insertProgram: function(slider, programs){
+    console.log('Slider.insertProgram', slider, programs);
     for (key in programs) {
       var program = programs[key];
       var popular_channel = program.popular_channel ? '<img alt="'+program.popular_channel.name+' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
       var title = program.format != 'Film' ? program.title : '';
       var pere  = program.episodeof ? program.episodeof : program;
+      var seo_url = program.seo_url + (slider.attr('id') == 'playlist' ? program.seo_url + '?keepPlaylist' : '');
       if (program.has_vod == 4) { //cine
         var seo_play_title = 'Voir au cinéma';
       } else if (program.has_vod == 3) { //dvd
@@ -145,8 +147,8 @@ Slider = {
                                .replace('%seo_play_title%', seo_play_title)
                                .replace('%seo_play_title%', seo_play_title)
                                .replace('%title%',title)
-                               .replace('%url%', program.seo_url)
-                               .replace('%url%', program.seo_url)
+                               .replace('%url%', seo_url)
+                               .replace('%url%', seo_url)
                                .replace('%id%', program.id)
                                .replace('%player%', typeof program.player != 'undefined' ? program.player : '')
                                .replace('%popular_channel%', popular_channel));

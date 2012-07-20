@@ -124,6 +124,10 @@ Session = {
   },
   initPlaylist: function(url) {
 
+    if (url.indexOf('keepPlaylist') != -1) {
+      return;
+    }
+
     if (typeof url == 'undefined') {
       url = API.context == 'v2' ? API.currentUrl : top.location.pathname;
     }
@@ -140,6 +144,7 @@ Session = {
        UI.loadPlaylist('replay', 'emissions');
      break;
      //load tv 
+     case '/tv':
      case '/les-chaines-en-direct':
      case '/programme-tv':
        UI.loadPlaylist('tv');
@@ -155,6 +160,7 @@ Session = {
      case '/cinema/box-office/a':
        UI.loadFilters('cine', 'box-office');
      break;
+     case '/cine':
      case '/selection/3520923-a-voir-au-cinema':
      case '/selection/4588325-prochainement-dans-les-salles': 
        UI.loadPlaylist('cine');
