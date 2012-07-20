@@ -130,7 +130,7 @@ $(document).ready(function(){
     return false;
   });
   $('.actions .fav.btn-primary').live({
-      mouseenter: function(){
+      mouseover: function(){
         $(this).removeClass('btn-primary').addClass('btn-danger').html('<i class="icon-remove-sign icon-white"></i> Retirer');
       },
       mouseout: function(){
@@ -139,7 +139,7 @@ $(document).ready(function(){
     });
 
   // -- ui popover favorites
-  $('.actions .fav:not(.btn-primary)').live('mouseover', function() {
+  $('.actions .fav:not(.btn-primary, .btn-danger)').live('mouseover', function() {
     if ($(this).parent().data('onglet') == 'emissions' || $(this).parent().data('onglet') == 'series') {
       var content = '<b>Ne ratez plus vos programmes !</b><br/>En ajoutant ce programme à vos playlists vous serez averti dès qu\'un épisode est disponible !';
     } else {

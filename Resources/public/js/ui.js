@@ -90,9 +90,9 @@ UI = {
     this.unloadPlaylist();
     this.unloadSelector();
     $('#top-playlist h2 small').empty();
-    if (Session.onglet) {
-      $('#top-playlist h2 small:last').html('» ' + $('#top-filters .' + Session.onglet).html());
-    }
+    //if (Session.onglet) {
+    //  $('#top-playlist h2 small:last').html('» ' + $('#top-filters .' + Session.onglet).html());
+    //}
 
     for (key in datas) {
       var group = datas[key];
@@ -125,12 +125,12 @@ UI = {
       var url = this.playlist.data('pager-url').replace('session.uid', Session.uid)
                                                .replace('group.name', Session.access)
                                                .replace('app_dev.php/', '');
-      if (Session.onglet) {
-        url = url + '?onglet=' + Session.onglet;
-        $('#top-playlist h2 small:last').html('» ' + $('#top-filters .' + Session.onglet).html());
-      } else {
+      //if (Session.onglet) {
+      //  url = url + '?onglet=' + Session.onglet;
+      //  $('#top-playlist h2 small:last').html('» ' + $('#top-filters .' + Session.onglet).html());
+      //} else {
         $('#top-playlist h2 small:last').empty();
-      }
+      //}
 
       console.log('UI.loadPlaylist', url, access, Session.onglet);
       Slider.load(this.playlist, 
@@ -305,6 +305,7 @@ UI = {
           $(searchbox).attr('value', '')
           API.linkV2(obj.seo_url);
         }
+        $(searchbox).typeahead().hide();
         API.postMessage(['header', 'remove_playlist']);
       }
     });

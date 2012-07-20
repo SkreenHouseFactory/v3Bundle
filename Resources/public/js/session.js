@@ -144,11 +144,11 @@ Session = {
        UI.loadPlaylist('tv');
        UI.loadFilters('tv');
        console.log('Session.initPlaylist', 'add header tv');
-       if (this.datas.email) {
-        API.postMessage(['header', 'add_playlist']);
-       } else {
+       //if (this.datas.email) {
+       // API.postMessage(['header', 'add_playlist']);
+       //} else {
         API.postMessage(['header', 'remove_playlist']);
-       }
+       //}
      break;
      //load cinema 
      case '/cinema/box-office/a':
@@ -175,6 +175,6 @@ Session = {
        this.initSelector();
      break;
     }
-    //UI.loadFilters('vod');
+
   }
 }
