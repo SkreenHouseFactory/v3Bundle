@@ -53,9 +53,9 @@ $(document).ready(function(){
     $('#top-filters > ul > li').removeClass('active');
     $(this).addClass('active');
     if ($(this).hasClass('grid')) {
-      var onglet = $('a', this).removeClass('dropdown-toggle').attr('class').replace('all','');
+      var onglet = $('a', this).data('filter');
       console.log('script', 'li.grid', onglet);
-      if (!onglet) {
+      if (onglet == 'all') {
         API.javascriptV2("$('#facetType').val('all');mskapp.currentView.filterByType('#facetType');$('#sliders .item').show();");
       } else {
         API.javascriptV2("$('#facetType').val('" + onglet + "');mskapp.currentView.filterByType('#facetType');$('#sliders .item." + onglet + "').show();$('#sliders .item:not(." + onglet + ")').hide();");
