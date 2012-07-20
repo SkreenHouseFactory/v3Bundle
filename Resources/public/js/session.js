@@ -123,11 +123,12 @@ Session = {
     }
   },
   initPlaylist: function(url) {
-    console.log('Session.initPlaylist', 'url:' + url);
 
     if (typeof url == 'undefined') {
       url = API.context == 'v2' ? API.currentUrl : top.location.pathname;
     }
+    url = url.replace('/app_dev.php','').replace('/app.php','');
+    console.log('Session.initPlaylist', 'url:' + url);
 
     switch (url) {
      //load vod 
@@ -152,12 +153,15 @@ Session = {
      break;
      //load cinema 
      case '/cinema/box-office/a':
+       UI.loadFilters('cine', 'box-office');
+     break;
      case '/selection/3520923-a-voir-au-cinema':
      case '/selection/4588325-prochainement-dans-les-salles': 
        UI.loadPlaylist('cine');
        UI.loadFilters('cine');
      break;
      //load selector onglet
+     case '/vod':
      case '/films':
      case '/documentaires':
      case '/series':
