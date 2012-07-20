@@ -206,12 +206,12 @@ API = {
     });
     return req;
   },
-  linkV2: function(url) {
-    console.log('API.linkV2', this.context, url, this.currentUrl);
+  linkV2: function(url, force) {
+    console.log('API.linkV2', this.context, url, this.currentUrl, force);
 
     if (this.context == 'v2') {
       if (url != this.currentUrl || url == '\\') {
-        this.postMessage(["link", url]);
+        this.postMessage(["link", url, force]);
         Session.initPlaylist(url);
       }
     } else {
