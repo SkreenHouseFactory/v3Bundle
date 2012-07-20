@@ -94,7 +94,7 @@ API = {
       });
   },
   removePreference: function(parameter, value, callback) {
-      this.query('POST', 'preference/unflag.json', {session_uid: Session.uid, type:parameter, value:value, parcours:parcours}, function(json){
+      this.query('POST', 'preference/unflag.json', {session_uid: Session.uid, type:parameter, value:value}, function(json){
         if (json.success) {
           callback(value);
         }
@@ -209,7 +209,7 @@ API = {
     console.log('API.linkV2', this.context, url, this.currentUrl);
 
     if (this.context == 'v2') {
-      if (url != this.currentUrl) {
+      if (url != this.currentUrl || url == '\\') {
         this.postMessage(["link", url]);
         Session.initPlaylist(url);
       }
