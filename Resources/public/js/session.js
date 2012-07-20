@@ -124,7 +124,8 @@ Session = {
   },
   initPlaylist: function(url) {
 
-    if (url.indexOf('keepPlaylist') != -1) {
+    if (typeof url != "undefined" && 
+        url.indexOf('keepPlaylist') != -1) {
       return;
     }
 

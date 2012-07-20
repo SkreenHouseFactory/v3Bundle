@@ -212,6 +212,7 @@ API = {
 
     if (this.context == 'v2' && force != true) {
       if (url != this.currentUrl || url == '\\') {
+
         this.postMessage(["link", url]);
         if (document.location.href.indexOf('fromPlaylist') == -1) {
           Session.initPlaylist(url);
