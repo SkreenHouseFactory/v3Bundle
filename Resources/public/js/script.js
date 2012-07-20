@@ -104,7 +104,7 @@ $(document).ready(function(){
   $('a.link-v2').live('click', function(e){
     console.log('ui link/url', 'linkV2');
     e.preventDefault();
-    API.linkV2($(this).attr('href'));
+    API.linkV2($(this).attr('href'), $(this).hasClass('link-force'));
     return false;
   });
   $('a.javascript-v2').live('click', function(e){

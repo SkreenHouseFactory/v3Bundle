@@ -39,6 +39,7 @@ UI = {
     } else {
       $('.user span').remove();
       $('.user-on-visibility').css('visibility','hidden');
+      this.unloadFilters();
     }
     $('.user-off, .user-on').toggle();
 
