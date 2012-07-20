@@ -188,13 +188,14 @@ UI = {
     console.log('UI.loadFilters', filters, filter_selected, $('#top-filters ul li.' + filters + ':first-child'));
     $('#top-nav .subnav ul li').removeClass('active');
     $('#top-nav .subnav ul li.' + filters).addClass('active');
-    $('#top-filters ul').show();
+    $('#top-filters > ul').show();
     $('#top-filters > ul > li, #top-filters h6').hide();
-    $('#top-filters ul li.' + filters).toggle();
+    $('#top-filters > ul > li.' + filters).toggle();
     if (typeof filter_selected != 'undefined') {
-      $('#top-filters ul li.' + filters + '-' + filter_selected).addClass('active');
+      $('#top-filters > ul > li.' + filters + '.active').removeClass('active');
+      $('#top-filters > ul > li.' + filters + '-' + filter_selected).addClass('active');
     } else {
-      $('#top-filters ul li.' + filters + ':first-child').addClass('active');
+      $('#top-filters > ul > li.' + filters + ':first-child').addClass('active');
     }
   },
   // -- unload filters
@@ -305,7 +306,7 @@ UI = {
           $(searchbox).attr('value', '')
           API.linkV2(obj.seo_url);
         }
-        $(searchbox).typeahead().hide();
+        
         API.postMessage(['header', 'remove_playlist']);
       }
     });
