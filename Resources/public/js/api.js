@@ -6,15 +6,14 @@ function skPaymentPopinEnd () {
   $('#skModal').modal('hide');
 }
 
-
 // -- API
 $.support.cors = true;
 var API;
 API = {
   context: 'v3',
   skXdmSocket: null,
-  conf: {site_url: 'http://beta.benoit.myskreen.typhon.net:40011', base: 'http://benoit.myskreen.typhon.net/api/1/',  popin: 'https://benoit.myskreen.typhon.net/popin/'},
-  //conf: {site_url: 'http://preprod.beta.myskreen.com', base: 'http://preprod.myskreen.com/api/1/',  popin: 'https://preprod.myskreen.com/popin/'},
+  //conf: {site_url: 'http://beta.benoit.myskreen.typhon.net:40011', base: 'http://benoit.myskreen.typhon.net/api/1/',  popin: 'https://benoit.myskreen.typhon.net/popin/'},
+  conf: {site_url: 'http://preprod.beta.myskreen.com', base: 'http://preprod.myskreen.com/api/1/',  popin: 'https://preprod.myskreen.com/popin/'},
   dataType: 'jsonp',
   currentModalUrl: null,
   currentUrl: null,
@@ -207,12 +206,17 @@ API = {
     return req;
   },
   linkV2: function(url, force) {
-    console.log('API.linkV2', this.context, url, this.currentUrl, force);
+    console.log('API.linkV2', this.context, url, this.currentUrl);
+    //reset onglet
+    Session.onglet = '';
 
-    if (this.context == 'v2') {
+    if (this.context == 'v2' && force != true) {
       if (url != this.currentUrl || url == '\\') {
-        this.postMessage(["link", url, force]);
-        Session.initPlaylist(url);
+
+        this.postMessage(["link", url]);
+        if (document.location.href.indexOf('fromPlaylist') == -1) {
+          Session.initPlaylist(url);
+        }
       }
     } else {
       document.location = this.conf.site_url + url;
@@ -237,13 +241,13 @@ API = {
           Session.uid = message[1].uid;
           Session.sync();
 
-        } else if (message[0] == "history.back") {
+        /*} else if (message[0] == "history.back") {
           if (message[1] == "add") {
             $('#history-back').show(); //UI.addHistoryBack();
           } else {
             $('#history-back').hide(); //UI.removeHistoryBack();
           }
-
+        */
         } else if (message[0] == "nav") {
           if (message[1] == "reset") {
             $('.subnav .nav li.active').removeClass('active');
