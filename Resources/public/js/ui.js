@@ -41,6 +41,7 @@ UI = {
       this.notifyUser(Session.datas.notifications);
     } else {
       $('.user span').empty();
+      $('.notifications span').remove();
       $('.user-on-visibility').css('visibility','hidden');
       this.unloadFilters();
     }
@@ -61,7 +62,7 @@ UI = {
       console.log('UI.notifyUser', 'programs', $('#top-bar .user'), key, notifications[key].new);
       if (key == 'programs') {
         if (notifications[key].new.length > 0) {
-          $('#top-bar .notifications').addClass('with-badge').find('span').append($(this.badge_notification).html(notifications[key].new.length));
+          $('#top-bar .notifications').addClass('with-badge').append($(this.badge_notification).html(notifications[key].new.length));
         }
       } else {
         if (notifications[key].new > 0) {
