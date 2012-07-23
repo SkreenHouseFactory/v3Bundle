@@ -23,14 +23,14 @@ API = {
   },
   launchModal: function(url, callback) {
     if (url != this.currentModalUrl) {
-      //console.log('API.launchModal', url);
+      console.log('API.launchModal', url);
       $('#skModal .modal-body').empty();
       this.query('GET', 
-                 url, 
+                 url,
                  {session_uid: Session.uid,
                   proxy: 'v3'}, 
                  function(json){
-                  //console.log('API.launchModal', 'redirect:'+json.redirect, callback, json);
+                  console.log('API.launchModal', 'redirect:'+json.redirect, callback, json);
                   if (typeof json.redirect != "undefined") {
                     API.launchModal(json.redirect, callback);
                   } else if (json.html) {
@@ -41,12 +41,13 @@ API = {
     }
 
     $('#skModal').modal();
-    $('#skModal').on('hide', function(){ 
+    /*$('#skModal').on('hide', function(e){
+      e.preventDefault();
       console.log("on('hide')", callback);
       if (typeof callback != 'undefined') {
         callback();
       }
-    });
+    });*/
 
     this.currentModalUrl = url;
   },
@@ -109,7 +110,7 @@ API = {
         switch(parameter) {
           case 'like':
             Session.sync(function(){
-              Session.initSelector();
+              Session.initPlaylist();
             });
             if (typeof trigger != 'undefined') {
               trigger.html('<i class="icon-plus-sign"></i> Suivre / voir + tard').removeClass('btn-primary');
@@ -125,7 +126,7 @@ API = {
         switch(parameter) {
           case 'like':
             Session.sync(function(){
-              Session.initSelector();
+              Session.initPlaylist();
             });
             if (typeof trigger != 'undefined') {
               UI.loadUserPrograms(new Array(value));
@@ -212,7 +213,9 @@ API = {
     if (this.context == 'v2') {
       if (url != this.currentUrl || url == '\\') {
         this.postMessage(["link", url, force]);
-        Session.initPlaylist(url);
+        if (force != true) {
+          Session.initPlaylist(url);
+        }
       }
     } else {
       document.location = this.conf.site_url + url;
@@ -265,7 +268,7 @@ API = {
 
         } else if (message[0] == "pathname") {
           self.currentUrl = message[1];
-          Session.initPlaylist(message[1]);
+          //Session.initPlaylist(message[1]);
         }
       }
     });

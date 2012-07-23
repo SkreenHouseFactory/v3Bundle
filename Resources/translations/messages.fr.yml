@@ -52,6 +52,8 @@ nav:
     account: Votre compte
     all: Tout
     filter: Filtrer vos playlist
+    filters:
+      all: Notre sélection
     menu:
         account:
             on: Vos playlists

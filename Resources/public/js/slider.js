@@ -49,7 +49,7 @@ Slider = {
                                                 .replace('group.name', Session.access) + '?offset=' + offset,
                         function(nb_programs){
                           self.removeLoader(slider);
-                          if (nb_programs < 5) {
+                          if (nb_programs < 3) {
                             next.css('visibility','hidden');
                           }
                           if (nb_programs < self.pager_nb_results) {
@@ -89,6 +89,7 @@ Slider = {
     $('.next', slider).css({'visibility':'hidden'});
     $('.next, .prev', slider).unbind('click');
     $('ul', slider).css('left', '0px');
+    slider.data('pager-offset', 0);
     slider.removeClass('initialized navigate back loaded');
   },
   addLoader: function(slider) {

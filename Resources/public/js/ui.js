@@ -26,6 +26,7 @@ UI = {
     console.log('UI.loadUser', Session.datas.email, this.user);
     if (this.user) {
       if (this.user == Session.datas.email) {
+        console.warn('UI.loadUser', 'already loaded');
         return;
       } else {
         //TODO : unload user !
@@ -36,15 +37,15 @@ UI = {
     if (Session.datas.email) {
       $('.user span').html(Session.datas.email);
       $('.user-on-visibility').css('visibility','visible');
+      this.loadUserProgams(Session.datas.queue);
+      this.notifyUser(Session.datas.notifications);
     } else {
-      $('.user span').remove();
+      $('.user span').empty();
       $('.user-on-visibility').css('visibility','hidden');
       this.unloadFilters();
     }
     $('.user-off, .user-on').toggle();
 
-    this.loadUserProgams(Session.datas.queue);
-    this.notifyUser(Session.datas.notifications);
   },
   //toggle btn
   loadUserProgams: function(ids) {
@@ -300,7 +301,8 @@ UI = {
                            });
       },
       onselect: function(obj) {
-        console.log('UI.typeahead', 'onselect', obj, typeof obj);
+        console.log('UI.typeahead', 'onselect', obj, typeof obj, 'blur:' + $(searchbox));
+
         if (typeof obj != 'object') { //typeahead
           API.linkV2('/programmes/' + obj);
         } else if (typeof obj.seo_url != 'undefined') { //advanced

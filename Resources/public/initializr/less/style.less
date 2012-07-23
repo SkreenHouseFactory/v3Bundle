@@ -331,6 +331,32 @@ body {
         color: #777;
       }
     }
+
+    > li.grid-filter, > li.grid-main {
+      > a {
+        padding-top: 6px;
+        border-top: 1px solid #08C;
+        border-bottom: 1px solid #08C;
+        margin-right: 0px;
+        border-radius: 0;
+        font-size: 0.9em;
+      }
+    }
+    > li.grid-filter-first {
+      margin-right: -6px;
+      
+    }
+    > li.grid-filter-last > a {
+      border-right: 1px solid #08C;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+    > li.grid.grid-main > a {
+      border-left: 1px solid #08C;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      font-size: 1.0em;
+    }
     > li.active {
       > a {
         text-shadow: 0px 1px 1px blue;
@@ -537,6 +563,10 @@ body {
         }
       }
 
+      div.progress {
+          margin: 10px;
+      }
+
       div.actions {
         display: none;
         position: absolute;
@@ -614,23 +644,9 @@ body {
       background: transparent;
       box-shadow: none;
       padding-top: 30px;
-      
-      div.progress {
-        margin: 10px;
-      }
-    }
-    li.selector div.progress {
-        margin: 10px;
-    }
-    li.empty {
-      border: @vignetteBorderEmpty;
-      box-shadow: none;
-      cursor: default;
-    }
-    li.empty.selector {
-      border: @vignetteBorderEmpty;
     }
     li.selector {
+      cursor: pointer;
       border: @selectorBorder;
       box-shadow: none;
       margin: 0 24px;
@@ -658,6 +674,11 @@ body {
         position: relative;
         display: inline-block;
       }
+    }
+
+    li.empty.selector {
+      border: @vignetteBorderEmpty;
+      box-shadow: none;
     }
 
     li.to_animate {

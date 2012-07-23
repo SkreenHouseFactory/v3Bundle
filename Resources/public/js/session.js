@@ -21,7 +21,7 @@ Session = {
 
     if (this.uid) {
       $.extend(args, { with_notifications:1, with_selector:1, short:1 });
-      API.query("GET", "session/" + this.uid + ".json", args, function(sessionData) {
+      API.query('GET', 'session/' + this.uid + '.json', args, function(sessionData) {
         self.signin(sessionData);
 
         if (callback) {
@@ -30,7 +30,7 @@ Session = {
       });
     } else {
       $.extend(args, { short:1 });
-      API.query("POST", "session.json", args, function(sessionData) {
+      API.query('POST', 'session.json', args, function(sessionData) {
         self.signin(sessionData);
 
         if (callback) {
@@ -52,13 +52,19 @@ Session = {
     $.cookie('myskreen_uid', this.uid);
   },
   signout: function() {
+    if (API.context == 'v2') {
+      API.postMessage(["signout"]);
+    } else {
+      API.query('POST', 'session/signout.json', {session_uid: this.uid});
+    }
+
     this.datas = '';
     this.uid = '';
     UI.loadUser();
     UI.unloadSelector();
     UI.unloadPlaylist();
 
-    API.postMessage(["signout"]);
+    $.cookie('myskreen_uid', '');
   },
   initSocial: function(onglet, offset, force_remote) {
     var self = this;
@@ -93,7 +99,7 @@ Session = {
     }
   },
   initSelector: function(onglet, reload) {
-    console.log('Session.initSelector', this.onglet, onglet, 'reload:'+reload);
+    console.log('Session.initSelector', this.datas.email, this.onglet, onglet, 'reload:' + reload);
     var self = this;
 
     //already loaded
@@ -104,18 +110,18 @@ Session = {
 
     //chargement initial avec data dans session
     if (this.onglet == null && onglet == 'undefined') {
-      //console.log('Session.initSelector', 'this.datas.queue_selector', this.datas.queue_selector);
+      console.log('Session.initSelector', 'this.datas.queue_selector', this.datas.queue_selector);
       UI.loadSelector(this.datas.queue_selector);
 
     //requete
     } else if (typeof reload == 'undefined' && this.uid) {
-      //console.log('Session.initSelector', 'remote', 'www/slider/selector/' + this.uid + '.json');
+      console.log('Session.initSelector', 'remote', 'www/slider/selector/' + this.uid + '.json');
       this.onglet = onglet;
       API.query('GET', 
                 'www/slider/selector/' + this.uid + '.json', 
                 {onglet: this.onglet, with_count_favoris: true}, 
                 function(json) {
-                  //console.log('Session.initSelector', 'reload', json);
+                  console.log('Session.initSelector', 'remote', 'reload', json);
                   UI.loadSelector(json, true);
                 });
 

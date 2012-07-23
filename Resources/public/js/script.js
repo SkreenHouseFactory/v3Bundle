@@ -20,17 +20,17 @@ $(document).ready(function(){
         Session.sync();
       });
     }
+    return false;
   });
   $('a.signout').click(function(){
-    if (API.context == 'v2') {
-      API.postMessage(["signout"]);
-    }
     Session.signout();
+    return false;
   });
-  $('a.account').click(function(e){
+  $('a.account').click(function(){
     if (API.context == 'v2') {
       API.postMessage(["account"]);
     }
+    return false;
   });
   $('.user-on .dropdown-toggle').click(function(){
     if (!$('#top-playlist').hasClass('in')) {
@@ -40,7 +40,8 @@ $(document).ready(function(){
   });
 
   // -- ui nav
-  $('.subnav .nav li').click(function(){
+  /** link-force
+    $('.subnav .nav li').click(function(){
     if ($('#top-filters #top-baseline').css('display') == 'block') {
       $('#top-filters #top-baseline, #top-filters .nav-pills').toggle();
     }
@@ -48,7 +49,7 @@ $(document).ready(function(){
     UI.loadFilters(this.className);
     $(this).addClass('active');
     API.postMessage(['header','collapse']);
-  });
+  });*/
   $('#top-filters > ul > li').click(function(){
     $('#top-filters > ul > li').removeClass('active');
     $(this).addClass('active');
@@ -81,17 +82,21 @@ $(document).ready(function(){
 
   // -- ui typeahead
   UI.typeahead('.search-query');
+  $('.navbar-search').submit(function(){
+    console.log('script', 'searchbox blur', $('.search-query', $(this)));
+    $('.search-query', $(this)).blur();
+  });
 
   // -- ui playlist
-  $('li.selector:not(.empty)', Session.playlist).live('click', function(){
-    UI.loadPlaylist(this.id);
+  $('li.selector', Session.playlist).live('click', function(){
+    if ($(this).hasClass('empty')) {
+    $('a', $(this)).click();
+    } else {
+      UI.loadPlaylist(this.id);
+    }
   });
   $('#top-playlist h2').live('click', function(){
     UI.unloadPlaylist(this.id);
-  });
-  $('li.selector.empty a').popover();
-  $('li.selector h6', Session.playlist).live('click', function(){
-    $('a', $(this).parent()).click();
   });
 
   // -- ui link/url
@@ -112,6 +117,9 @@ $(document).ready(function(){
     e.preventDefault();
     API.javascriptV2($(this).attr('href').replace('javascript://',''));
     return false;
+  });
+  $('a[data-modal]').live('click', function(){
+    API.quickLaunchModal($(this).data('modal'));
   });
 
   // -- ui actions : favorite & play
