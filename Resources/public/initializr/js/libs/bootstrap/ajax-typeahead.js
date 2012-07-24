@@ -189,6 +189,7 @@
     }
 
   , listen: function () {
+    console.log('HACK', 'BLUR', 'listen');
       this.$element
         .on('blur',     $.proxy(this.blur, this))
         .on('keypress', $.proxy(this.keypress, this))
@@ -214,6 +215,10 @@
 
         case 9: // tab
         case 13: // enter
+          if (typeof API.xhr['typeahead'] != 'undefined') {
+            API.xhr['typeahead'].abort();
+            console.log('typeahead.keyup', 'abort previous call');
+          }
           if (!this.shown) return
           this.select()
           break
@@ -252,9 +257,10 @@
     }
 
   , blur: function (e) {
+      console.log('HACK', 'BLUR', 'FUNCTION');
       var that = this
-      e.stopPropagation()
-      e.preventDefault()
+      //e.stopPropagation()
+      //e.preventDefault()
       setTimeout(function () { that.hide() }, 150)
     }
 

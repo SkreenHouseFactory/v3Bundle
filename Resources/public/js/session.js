@@ -43,13 +43,12 @@ Session = {
     console.log('Session.signin', sessionData);
     this.datas = sessionData;
     this.uid = this.datas.uid;
+    $.cookie('myskreen_uid', this.uid);
     if (this.datas.email) {
       UI.loadUser();
     }
-    if (this.datas.email || API.context == 'v3') {
-      this.initPlaylist();
-    }
-    $.cookie('myskreen_uid', this.uid);
+
+    this.initPlaylist();
   },
   signout: function() {
     if (API.context == 'v2') {
@@ -99,6 +98,10 @@ Session = {
     }
   },
   initSelector: function(onglet, reload) {
+    if (!this.datas.email) {
+      return null;
+    }
+
     console.log('Session.initSelector', this.datas.email, this.onglet, onglet, 'reload:' + reload);
     var self = this;
 
@@ -142,26 +145,12 @@ Session = {
     console.log('Session.initPlaylist', 'url:' + url);
 
     switch (url) {
-     //load vod 
-     case '/selection-...':
-       UI.loadPlaylist('vod', 'films');
-     break; 
-     //load replay
-     case '':
-       UI.loadPlaylist('replay', 'emissions');
-     break;
      //load tv 
      case '/tv':
      case '/les-chaines-en-direct':
      case '/programme-tv':
        UI.loadPlaylist('tv');
        UI.loadFilters('tv');
-       console.log('Session.initPlaylist', 'add header tv');
-       //if (this.datas.email) {
-       // API.postMessage(['header', 'add_playlist']);
-       //} else {
-        API.postMessage(['header', 'remove_playlist']);
-       //}
      break;
      //load cinema 
      case '/cinema/box-office/a':
@@ -174,19 +163,20 @@ Session = {
        UI.loadFilters('cine');
      break;
      //load selector onglet
-     case '/vod':
+     case '/replay-vod':
      case '/films':
      case '/documentaires':
      case '/series':
      case '/emissions':
      case '/spectacles':
-       this.initSelector(url.replace('/', ''));
-       UI.loadFilters('vod', url.replace('/',''));
+       this.initSelector(url.replace('/', '').replace('replay-vod', 'vod'));
+       UI.loadFilters('vod', url.replace('/', '').replace('replay-vod', ''));
      break;
      //load selector
      case '/':
        UI.unloadFilters();
        this.initSelector();
+       API.postMessage(['header', 'add_playlist']);
      break;
      default:
        this.initSelector();

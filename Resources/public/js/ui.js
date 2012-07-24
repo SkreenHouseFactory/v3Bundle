@@ -36,11 +36,12 @@ UI = {
     this.user = Session.datas.email;
     if (Session.datas.email) {
       $('.user span').html(Session.datas.email);
+      $('.favoris span').html('(' + Session.datas.queue.length + ')');
       $('.user-on-visibility').css('visibility','visible');
       this.loadUserProgams(Session.datas.queue);
       this.notifyUser(Session.datas.notifications);
     } else {
-      $('.user span').empty();
+      $('.user span, .favoris span').empty();
       $('.notifications span').remove();
       $('.user-on-visibility').css('visibility','hidden');
       this.unloadFilters();
@@ -188,18 +189,19 @@ UI = {
   },
   // -- load filters
   loadFilters: function(filters, filter_selected) {
-    console.log('UI.loadFilters', filters, filter_selected, $('#top-filters ul li.' + filters + ':first-child'));
+    console.log('UI.loadFilters', filters, filter_selected);
     $('#top-nav .subnav ul li').removeClass('active');
     $('#top-nav .subnav ul li.' + filters).addClass('active');
     $('#top-filters > ul').show();
     $('#top-filters > ul > li, #top-filters h6').hide();
     $('#top-filters > ul > li.' + filters).toggle();
-    if (typeof filter_selected != 'undefined') {
+    if (typeof filter_selected != 'undefined' && filter_selected != '') {
       $('#top-filters > ul > li.' + filters + '.active').removeClass('active');
       $('#top-filters > ul > li.' + filters + '-' + filter_selected).addClass('active');
     } else {
       $('#top-filters > ul > li.' + filters + ':first-child').addClass('active');
     }
+    API.postMessage(['header', 'remove_playlist']);
   },
   // -- unload filters
   unloadFilters: function() {
@@ -213,7 +215,11 @@ UI = {
     $(searchbox).typeahead({
       items: 5,
       source: function (typeahead, query) {
-        return API.query('GET', 
+        if (typeof API.xhr['typeahead'] != 'undefined') {
+          API.xhr['typeahead'].abort();
+          console.log('UI.typeahead', 'abort previous call');
+        }
+        API.xhr['typeahead'] = API.query('GET', 
                          'search/autosuggest/' +query + '.json', 
                          {session_uid: Session.uid, img_width: 30, img_height: 30, advanced: 1, with_unvailable: 1}, 
                          function(data){

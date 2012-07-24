@@ -2,7 +2,9 @@ $(document).ready(function(){
 
   //v2
   if (top.location != self.document.location) {
-    API.syncV2();
+    API.syncV2(function(){
+      //callback sync
+    });
   }
 
   // -- session
@@ -35,7 +37,6 @@ $(document).ready(function(){
   $('.user-on .dropdown-toggle').click(function(){
     if (!$('#top-playlist').hasClass('in')) {
       $('#top-playlist').collapse('show');
-      API.postMessage(["header","add_playlist"]);
     }
   });
 
@@ -88,12 +89,25 @@ $(document).ready(function(){
   });
 
   // -- ui playlist
+  //height header      
+  $('#top-playlist').on('show', function () {
+    API.postMessage(['header', 'add_playlist'])
+  });
+  $('#top-playlist').on('hide', function () {
+    API.postMessage(['header', 'remove_playlist'])
+  });
   $('li.selector', Session.playlist).live('click', function(){
+    console.log('script', 'li.selector', 'click');
     if ($(this).hasClass('empty')) {
-    $('a', $(this)).click();
+      if ($('a', $(this)).data('modal')) {
+        API.launchModal($('a', $(this)).data('modal'));
+      } else {
+        $('a', $(this)).click();
+      }
     } else {
       UI.loadPlaylist(this.id);
     }
+    return false;
   });
   $('#top-playlist h2').live('click', function(){
     UI.unloadPlaylist(this.id);
@@ -119,7 +133,9 @@ $(document).ready(function(){
     return false;
   });
   $('a[data-modal]').live('click', function(){
+    console.log('script', 'a[data-modal]', 'click');
     API.quickLaunchModal($(this).data('modal'));
+    return;
   });
 
   // -- ui actions : favorite & play

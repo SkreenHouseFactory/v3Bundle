@@ -2,16 +2,16 @@
   <ul class="pull-right nav">
     <li class="active user-off btn-group">
       <a class="btn btn-inverse btn-large signin" href="#"><i class="sprite-user"></i> {{ 'nav.menu.account.off'|trans }}</a>
-      {#<a  data-toggle="collapse" data-target="#top-playlist" class="btn btn-inverse btn-large" href="#"><i class="icon-resize-vertical icon-white"></i></a>#}
+      <a data-toggle="collapse" data-target="#top-playlist" class="btn btn-inverse btn-large btn-last notifications" href="#">{{ 'playlist.discover'|trans }} <i class="icon-chevron-down icon-white"></i></a>
       {#<a class="btn btn-inverse btn-large" href="#"><i class="icon-off icon-white"></i> {{ 'nav.menu.tv'|trans }}</a>#}
     </li>
     <li class="hide user-on btn-group dropdown">
       {#<a class="btn btn-inverse btn-large signout" href="#"><i class="icon-ban-circle icon-white"></i></a>#}
       {#<a  data-toggle="collapse" data-target="#top-playlist" class="btn btn-inverse btn-large" href="#"><i class="icon-resize-vertical icon-white"></i></a>#}
       <a data-toggle="dropdown" class="dropdown-toggle btn btn-inverse btn-large user" href="#"><span></span></a>
-      <a data-toggle="collapse" data-target="#top-playlist" class="btn btn-inverse btn-large btn-last notifications" href="#"><i class="icon-th-list icon-white"></i> {{ 'playlist.yours'|trans }}<span></span></a>
+      <a data-toggle="collapse" data-target="#top-playlist" class="btn btn-inverse btn-large btn-last notifications" href="#">{{ 'playlist.yours'|trans }} <i class="icon-chevron-down icon-white"></i></a>
       <ul class="dropdown-menu">
-        <li><a class="favoris" href="{{ path('user_programs') }}" target="_parent"><i class="icon-list-alt"></i> {{ 'nav.favoris'|trans }}</a></li>
+        <li><a class="favoris" href="{{ path('user_programs') }}" target="_parent"><i class="icon-list-alt"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
         <li><a class="account" href="#"><i class="icon-cog"></i> {{ 'nav.account'|trans }}</a></li>
         <li><a class="signout" href="#"><i class="icon-remove"></i> {{ 'signout'|trans }}</a></li>
         {#<li class="nav-header">{{ 'nav.filter'|trans }}</li>
@@ -38,7 +38,7 @@
   <div class="subnav subnav-fixed">
     <div class="container">
       <ul class="nav">
-        <li class="vod"><a class="link-v2 link-force" href="/vod">{{ 'nav.subnav.vod'|trans }}</a></li>
+        <li class="vod"><a class="link-v2 link-force" href="/replay-vod">{{ 'nav.subnav.vod'|trans }}</a></li>
         <li class="tv"><a class="link-v2 link-force" href="/tv">{{ 'nav.subnav.tv'|trans }}</a></li>
         <li class="cine"><a class="link-v2 link-force" href="/cine">{{ 'nav.subnav.cine'|trans }}</a></li>
       </ul>
@@ -52,7 +52,7 @@
   </div>
 </div>
 
-<div id="top-playlist" class="collapse in" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
+<div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
   <div class="container">
     {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
   </div>

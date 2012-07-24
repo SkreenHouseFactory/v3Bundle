@@ -11,6 +11,7 @@ function skPaymentPopinEnd () {
 $.support.cors = true;
 var API;
 API = {
+  xhr: new Array(),
   context: 'v3',
   skXdmSocket: null,
   conf: {site_url: 'http://beta.benoit.myskreen.typhon.net:40011', base: 'http://benoit.myskreen.typhon.net/api/1/',  popin: 'https://benoit.myskreen.typhon.net/popin/'},
@@ -22,8 +23,13 @@ API = {
     this.launchModal(this.conf.popin + action, callback);
   },
   launchModal: function(url, callback) {
+    console.log('API.launchModal', url, callback);
+    if (this.context == 'v2') {
+      this.postMessage(['modal', url, callback]);
+      return;
+    }
+
     if (url != this.currentModalUrl) {
-      console.log('API.launchModal', url);
       $('#skModal .modal-body').empty();
       this.query('GET', 
                  url,
@@ -163,7 +169,7 @@ API = {
       post["data"] = data;
       data = post;
       url = '/app_dev.php/post';
-     
+
     } else {
       var dataType = "jsonp";
       if (data && typeof data==='object'){
@@ -228,7 +234,7 @@ API = {
       this.postMessage(["javascript", script]);
     }
   },
-  syncV2: function() {
+  syncV2: function(callback) {
     var self = this;
 
     this.context = 'v2';
@@ -269,15 +275,20 @@ API = {
         } else if (message[0] == "pathname") {
           self.currentUrl = message[1];
           //Session.initPlaylist(message[1]);
+        } else if (message[0] == "typeahead") {
+          if (message[1] == 'blur') {
+            console.log('API.syncV2', 'typeahead', 'blur', 'hide playlist');
+            $('.search-query').blur();
+            $('#top-playlist').collapse('hide');
+          }
         }
       }
     });
     this.postMessage(["sync"]);
+    if (typeof callback != 'undefined') {
+      callback();
+    }
 
-    //height header
-    $('a[data-target="#top-playlist"]').click(function (e) {
-      self.postMessage(["header", $('#top-playlist').hasClass('in') ? "remove_playlist": "add_playlist"]);
-    });
   },
   postMessage: function(message) {
     if (this.context == 'v2') {

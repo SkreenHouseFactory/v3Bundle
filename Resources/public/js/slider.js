@@ -90,7 +90,7 @@ Slider = {
     $('.next, .prev', slider).unbind('click');
     $('ul', slider).css('left', '0px');
     slider.data('pager-offset', 0);
-    slider.removeClass('initialized navigate back loaded');
+    slider.removeClass('initialized navigate back loaded empty');
   },
   addLoader: function(slider) {
     var loader = $(this.sample).addClass('loader').empty().css('width', this.item_width + 'px').show();
@@ -107,15 +107,20 @@ Slider = {
     if (!this.sample) {
       this.sample = $('<div>').append($('#playlist li:first').clone()).html();
     }
-    API.query('GET', 
+    API.query('GET',
               url, 
               {},
               function(programs){
                 if (typeof keep == 'undefined') {
                   $('li:not(.selector, :first)', slider).remove();
                 }
-                self.insertProgram(slider, programs);
-                self.init(slider);
+                if (programs.length > 0) {
+                  self.insertProgram(slider, programs);
+                  self.init(slider);
+                  $('#top-playlist').collapse('show');
+                } else {
+                  slider.addClass('empty');
+                }
                 if (typeof callback != 'undefined'){
                   callback(programs.length);
                 }
