@@ -6,6 +6,25 @@ function skPaymentPopinEnd () {
   $('#skModal').modal('hide');
 }
 
+// -- ENV
+var ENV;
+ENV = {
+  dev: {
+        site_url: 'http://beta.benoit.myskreen.typhon.net:40011',
+        base: 'http://benoit.myskreen.typhon.net/api/1/',
+        popin: 'https://benoit.myskreen.typhon.net/popin/'
+  },
+  preprod: {
+        site_url: 'http://preprod.beta.myskreen.com',
+        base: 'http://preprod.api.myskreen.com/api/1/',
+        popin: 'https://preprod.api.myskreen.com/popin/'
+  },
+  prod: {
+        site_url: 'http://beta.myskreen.com',
+        base: 'http://api.myskreen.com/api/1/',
+        popin: 'https://api.myskreen.com/popin/'
+  }
+}
 
 // -- API
 $.support.cors = true;
@@ -14,13 +33,17 @@ API = {
   xhr: new Array(),
   context: 'v3',
   skXdmSocket: null,
-  conf: {site_url: 'http://beta.benoit.myskreen.typhon.net:40011', base: 'http://benoit.myskreen.typhon.net/api/1/',  popin: 'https://benoit.myskreen.typhon.net/popin/'},
-  //conf: {site_url: 'http://preprod.beta.myskreen.com', base: 'http://preprod.myskreen.com/api/1/',  popin: 'https://preprod.myskreen.com/popin/'},
+  config: null,
   dataType: 'jsonp',
   currentModalUrl: null,
   currentUrl: null,
+  init: function() {
+    var href = document.location.href;
+    API.config = href.indexOf('.net') != -1 ? ENV.dev : href.indexOf('preprod.') != -1 ? ENV.preprod : ENV.prod;
+    API.config.player = $('html').hasClass('video') ? 'html5' : 'flash';
+  },
   quickLaunchModal: function(action, callback) {
-    this.launchModal(this.conf.popin + action, callback);
+    this.launchModal(this.config.popin + action, callback);
   },
   launchModal: function(url, callback) {
     console.log('API.launchModal', url, callback);
@@ -109,10 +132,11 @@ API = {
       });
   },
   togglePreference: function(parameter, value, trigger, callback, parcours){
+    var self = this;
     console.log('API.togglePreference', parameter, value, trigger);
     //console.log('API.togglePreference', 'inArray', $.inArray('' + value, Session.datas.queue));
-    if ($.inArray('' + value, Session.datas.queue) != -1) {
-      API.removePreference(parameter, value, function() {
+    if ($.inArray(value, Session.datas.queue) != -1) {
+      self.removePreference(parameter, value, function() {
         switch(parameter) {
           case 'like':
             Session.sync(function(){
@@ -128,7 +152,7 @@ API = {
         }
       });
     } else {
-      API.addPreference(parameter, value, function() {
+      self.addPreference(parameter, value, function() {
         switch(parameter) {
           case 'like':
             Session.sync(function(){
@@ -151,7 +175,7 @@ API = {
       //console.log('API.query', 'https', 'is popin', url);
     } else {
       //console.log('API.query', 'http', 'is api', url);
-      var url  = this.conf.base + url;
+      var url  = this.config.base + url;
     }
 
     url = url.replace('/app_dev.php', '').replace('/app.php', ''); //developpment environment
@@ -200,8 +224,8 @@ API = {
       //crossDomain: true,
       error: function(retour, code) {
         clearTimeout(tooLongQuery); 
-        console.error('error getting query', retour, url, data, code, retour.statusText);
-        if(retour.statusText == 'abort'){
+        if(retour.readyState != 4){
+          console.error('error getting query', retour, url, data, code, retour.statusText);
           return false;
         }
       },
@@ -224,7 +248,7 @@ API = {
         }
       }
     } else {
-      document.location = this.conf.site_url + url;
+      document.location = this.config.site_url + url;
     }
 
     this.currentUrl = url;
@@ -261,12 +285,10 @@ API = {
         } else if (message[0] == "header") {
           if (message[1] == "collapsed") {
             $('#top-playlist').collapse('hide');
-          } else {
-            $('#top-playlist').collapse('show');
           }
 
         } else if (message[0] == "preference") {
-          self.togglePreference(message[1], message[2], message[3]);
+          self.togglePreference(message[1], message[2], null, function(){}, message[3]);
 
         } else if (message[0] == "redirect") {
           window.open('/redirect?target=' + escape(message[1]));
@@ -274,7 +296,7 @@ API = {
 
         } else if (message[0] == "pathname") {
           self.currentUrl = message[1];
-          //Session.initPlaylist(message[1]);
+
         } else if (message[0] == "typeahead") {
           if (message[1] == 'blur') {
             console.log('API.syncV2', 'typeahead', 'blur', 'hide playlist');

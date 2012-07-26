@@ -24,8 +24,13 @@ class PlayerController extends Controller
     */
     public function redirectAction(Request $request)
     {
-      list($tmp, $url) = explode('/redirection/', $request->get('target'));
-      list($url, $tmp) = explode('?', $url);
+      if (strstr('/redirection/', $request->get('target'))) {
+        @list($tmp, $url) = explode('/redirection/', $request->get('target'));
+        @list($url, $tmp) = explode('?', $url);
+      } else {
+        $url = $request->get('target');
+      }
+
       return $this->render('SkreenHouseFactoryV3Bundle:Player:redirect.html.twig', array(
         'url' => urldecode($url),
         'menus' => array()

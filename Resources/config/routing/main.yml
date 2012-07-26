@@ -23,8 +23,10 @@ player_live:
     pattern:  /les-chaines-en-direct
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:live }
 player_redirect:
-    pattern:  /redirect
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect }
+    pattern:  /redirection/{target}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, "target" = null }
+    requirements:
+        target: .*
 player:
     pattern:  /player
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:player }

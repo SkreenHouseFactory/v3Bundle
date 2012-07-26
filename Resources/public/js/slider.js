@@ -102,30 +102,31 @@ Slider = {
   removeLoader: function(slider) {
     $('.loader', slider).remove();
   },
-  load: function(slider, url, callback, keep) {
+  load: function(slider, url, callback, keep, args) {
     var self = this;
     if (!this.sample) {
       this.sample = $('<div>').append($('#playlist li:first').clone()).html();
     }
+    var args = typeof args != 'undefined' ? args : {};
     API.query('GET',
               url, 
-              {},
+              args,
               function(programs){
-                if (typeof keep == 'undefined') {
+                console.log('Slider.load', programs.length, programs);
+                
+                if (typeof keep == 'undefined' && keep == null) {
                   $('li:not(.selector, :first)', slider).remove();
                 }
-                if (programs.length > 0) {
+                if (programs.length > 0 || typeof programs[0] != 'undefined') {
                   self.insertProgram(slider, programs);
                   self.init(slider);
-                  $('#top-playlist').collapse('show');
-                } else {
+                } else if ($('li', slider).length == 0) {
                   slider.addClass('empty');
                 }
                 if (typeof callback != 'undefined'){
                   callback(programs.length);
                 }
                 $('li.to_animate', slider).animate({width:Slider.item_width}, 500).removeClass('to_animate');
-                console.log('Slider.load', programs.length);
               });
   },
   insertProgram: function(slider, programs){
@@ -156,10 +157,10 @@ Slider = {
                                .replace('%url%', seo_url)
                                .replace('%url%', seo_url)
                                .replace('%id%', program.id)
-                               .replace('%player%', typeof program.player != 'undefined' ? program.player : '')
                                .replace('%popular_channel%', popular_channel));
       li.css('background-image', 'url(' + program.picture + ')');
       $('.actions', li).data('id', program.id);
+      
       //console.log('Slider.load', 'added', li, this.sample);
       if (Session.datas.notifications &&
           $.inArray(''+pere.id, Session.datas.notifications.programs.new) != -1) {
@@ -169,14 +170,33 @@ Slider = {
         li.addClass('deporte');
       }
       if (program.friend_uids) {
-        this.addFriends(li, program.friend_uids);
+        this.addProgramFriends(li, program.friend_uids);
       }
+      this.addProgramBestOffer(li, program);
       li.addClass('to_animate').show();
       li.appendTo($('ul', slider));
+      
       //console.log('Slider.load', 'added', li, program);
     }
   },
-  addFriends: function(li, friend_uids){
+  addProgramBestOffer: function(li, program) {
+    var o = program.best_offer;
+    if (typeof o != 'undefined') {
+      var btn = $('.actions .play', li);
+      btn.html(o.dispo);
+      if (o.player) {
+        console.log('Slider.addBestOffer', 'add player', o.player);
+        btn.attr('href', btn.attr('href') + '&action=louer');
+        //btn.attr('data-player', o.player);
+      } else if (o.url) {
+        console.log('Slider.addBestOffer', 'add url', o.url);
+        btn.attr('data-redirect', 1).attr('href', o.url);
+      } else {
+        btn.attr('href', btn.attr('href') + '&action=louer');
+      }
+    }
+  },
+  addProgramFriends: function(li, friend_uids){
     //console.log('Slider.addFriends', friend_uids, Session.datas.friends);
     var div = $('<div class="friends"></div>');
     var friend_uids = friend_uids.split(',');

@@ -38,12 +38,14 @@ UI = {
       $('.user span').html(Session.datas.email);
       $('.favoris span').html('(' + Session.datas.queue.length + ')');
       $('.user-on-visibility').css('visibility','visible');
+      $('li.selector:not(.empty)').popover('disable').popover("hide");
       this.loadUserProgams(Session.datas.queue);
       this.notifyUser(Session.datas.notifications);
     } else {
       $('.user span, .favoris span').empty();
       $('.notifications span').remove();
       $('.user-on-visibility').css('visibility','hidden');
+      $('li.selector').popover('enable');
       this.unloadFilters();
     }
     $('.user-off, .user-on').toggle();
@@ -73,7 +75,7 @@ UI = {
     }
   },
   //update friends
-  loadFriends: function(datas) {
+  loadSocialSelector: function(datas) {
     if (datas.programs) {
       var program = datas.programs.pop();
       var friends = datas.friends;
@@ -86,6 +88,7 @@ UI = {
       li.find('span.badge').remove();
       li.find('.label span').html(friends.length);
       li.find('a, h6').hide();
+      li.popover('disable');
     }
   },
   //update selector
@@ -100,7 +103,7 @@ UI = {
 
     for (key in datas) {
       var group = datas[key];
-      //console.log('UI.loadSelector', key, group);
+      console.log('UI.loadSelector', key, group);
       var li = $('li#' + key, this.playlist);
       li.removeClass('empty');
       li.css('background-image', 'url('+group.img+')').css('background-repeat', 'no-repeat');
@@ -111,7 +114,14 @@ UI = {
         li.prepend(this.badge_notification.replace('%count%', 'nouveaux')); //group.nb_notifs));
       }
       li.find('a, h6').hide();
+      li.popover('disable');
+
+      if (group.nb_programs > 0 && !$('#top-playlist').hasClass('in')) {
+        $('#top-playlist').collapse('show');
+      }
     }
+
+    Session.initSocial();
     //this.playlist.data('queue-selector', JSON.stringify(datas));
   },
   unloadSelector: function() {
@@ -120,8 +130,10 @@ UI = {
     lis.find('.label').addClass('opacity').find('span').empty();
     lis.find('span.badge').remove();
     lis.find('a, h6').show();
+    lis.popover('enable');
+
   },
-  loadPlaylist: function(access){
+  loadPlaylist: function(access, onglet){
     var self = this;
     if (Session.datas.email) {
       Session.access = access;
@@ -129,24 +141,30 @@ UI = {
       var url = this.playlist.data('pager-url').replace('session.uid', Session.uid)
                                                .replace('group.name', Session.access)
                                                .replace('app_dev.php/', '');
-      //if (Session.onglet) {
-      //  url = url + '?onglet=' + Session.onglet;
-      //  $('#top-playlist h2 small:last').html('» ' + $('#top-filters .' + Session.onglet).html());
-      //} else {
+      var args = {with_best_offer: 1, with_player: 1, player: API.config.player};
+      if (typeof onglet != 'undefined') {
+        url = url + '&onglet=' + onglet;
+        $('#top-playlist h2 small:last').html($('#top-filters li.' + access + ' a[data-filter="' + onglet + '"]').html());
+      } else {
         $('#top-playlist h2 small:last').empty();
-      //}
+      }
 
       console.log('UI.loadPlaylist', url, access, Session.onglet);
-      Slider.load(this.playlist, 
+      Slider.load(this.playlist,
                   url,
-                  function(){
+                  function(nb_programs){
                     if (Session.access) {
                       var name = $('li#' + Session.access, self.playlist).data('name');
-                      $('#top-playlist h2 small:first').html('» ' + name);
+                      if (typeof name != 'undefined') {
+                        $('#top-playlist h2 small:first').html('» ' + name);
+                      }
                     }
                     $('li.selector', self.playlist).hide();
                     Slider.removeLoader(self.playlist);
-                  });
+                    if (nb_programs > 0) {
+                      $('#top-playlist').collapse('show');
+                    }
+                  }, null, args);
       //console.log('UI.loadPlaylist', 'animate');
       $('li.selector', this.playlist).animate({width:0}, 500, function() {
         $(this).hide();
@@ -157,9 +175,7 @@ UI = {
   unloadPlaylist: function(onglet) {
     var self = this;
     console.log('UI.unloadPlaylist', onglet, Session.onglet);
-    if ($('#top-playlist').css('height') == 0) {
-      $('#top-playlist').collapse('show');
-    }
+
     if (typeof onglet != "undefined" && onglet != Session.onglet) {
       Session.initPlaylist('/' + onglet);
     }
@@ -175,7 +191,12 @@ UI = {
     Player.load(trigger);
   },
   loadRedirect: function(url) {
-    Player.redirect(url);
+    console.log('UI.loadRedirect', API.context, url);
+    if (API.context == 'v2') {
+      API.linkV2(url, true);
+    } else {
+      Player.redirect(url);
+    }
   },
   // -- insert loader
   appendLoader: function(elmt) {
@@ -194,14 +215,16 @@ UI = {
     $('#top-nav .subnav ul li.' + filters).addClass('active');
     $('#top-filters > ul').show();
     $('#top-filters > ul > li, #top-filters h6').hide();
-    $('#top-filters > ul > li.' + filters).toggle();
+    $('#top-filters > ul > li.' + filters+':not(.hide)').toggle();
     if (typeof filter_selected != 'undefined' && filter_selected != '') {
       $('#top-filters > ul > li.' + filters + '.active').removeClass('active');
       $('#top-filters > ul > li.' + filters + '-' + filter_selected).addClass('active');
     } else {
       $('#top-filters > ul > li.' + filters + ':first-child').addClass('active');
     }
-    API.postMessage(['header', 'remove_playlist']);
+    if (!$('#top-playlist').hasClass('in')) {
+      API.postMessage(['header', 'remove_playlist']);
+    }
   },
   // -- unload filters
   unloadFilters: function() {
@@ -300,7 +323,7 @@ UI = {
                               }
                               //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
 
-                              API.postMessage(['header', 'add_playlist']);
+                              $('#top-playlist').collapse('show');
                               typeahead.show();
                             } else {
                               return typeahead.shown ? typeahead.hide() : typeahead
@@ -317,7 +340,7 @@ UI = {
           API.linkV2(obj.seo_url);
         }
         
-        API.postMessage(['header', 'remove_playlist']);
+        $('#top-playlist').collapse('hide');
       }
     });
   }

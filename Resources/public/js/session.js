@@ -80,7 +80,7 @@ Session = {
           console.warn('Session.initSocial', this.datas.fb_uid, 'cookie error');
           return this.initSocial(onglet, offset, true);
         }
-        UI.loadFriends(json);
+        UI.loadSocialSelector(json);
         Session.datas.friends = json.friends;
       } else {
         UI.appendLoader($('li#friends'));
@@ -88,11 +88,13 @@ Session = {
                   'www/slider/social/' + this.uid + '.json', 
                   {onglet: this.onglet, nb_results: 1}, 
                   function(json) {
-                    console.log('Session.initSocial', 'offset:' + offset);
-                    $.cookie(cookie_name, JSON.stringify(json));
-                    self.datas.friends = json.friends;
-                    UI.removeLoader($('li#friends'));
-                    UI.loadFriends(json);
+                    console.log('Session.initSocial', 'offset:' + offset, 'error:' + json.error);
+                    if (typeof json.error == 'undefined') {
+                      $.cookie(cookie_name, JSON.stringify(json));
+                      self.datas.friends = json.friends;
+                      UI.removeLoader($('li#friends'));
+                      UI.loadSocialSelector(json);
+                    }
                   });
       }
     }
@@ -128,7 +130,6 @@ Session = {
                   UI.loadSelector(json, true);
                 });
 
-      this.initSocial();
     }
   },
   initPlaylist: function(url) {
@@ -148,9 +149,13 @@ Session = {
      //load tv 
      case '/tv':
      case '/les-chaines-en-direct':
-     case '/programme-tv':
        UI.loadPlaylist('tv');
        UI.loadFilters('tv');
+     break;
+     case '/programme-tv':
+       UI.loadPlaylist('tv');
+       UI.loadFilters('tv', 'grid-main');
+       $('.tv-grid-filter').show();
      break;
      //load cinema 
      case '/cinema/box-office/a':
@@ -158,30 +163,31 @@ Session = {
      break;
      case '/cine':
      case '/selection/3520923-a-voir-au-cinema':
-     case '/selection/4588325-prochainement-dans-les-salles': 
+     case '/selection/4588325-prochainement-dans-les-salles':
        UI.loadPlaylist('cine');
        UI.loadFilters('cine');
      break;
      //load selector onglet
      case '/replay-vod':
+       UI.loadPlaylist('replay-vod');
+       UI.loadFilters('vod', url.replace('/', '').replace('replay-vod', ''));
+     break;
      case '/films':
      case '/documentaires':
      case '/series':
      case '/emissions':
      case '/spectacles':
-       this.initSelector(url.replace('/', '').replace('replay-vod', 'vod'));
+       UI.loadPlaylist('vod');
        UI.loadFilters('vod', url.replace('/', '').replace('replay-vod', ''));
      break;
      //load selector
      case '/':
        UI.unloadFilters();
        this.initSelector();
-       API.postMessage(['header', 'add_playlist']);
      break;
      default:
        this.initSelector();
      break;
     }
-
   }
 }

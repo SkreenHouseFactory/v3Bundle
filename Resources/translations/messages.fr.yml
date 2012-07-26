@@ -1,10 +1,10 @@
 service:
-    name: __service.name
+    name: mySkreen
     description: 'mySkreen description'
     url: 'http://www.myskreen.com'
 page:
     title:
-        cgvu: __page.title.cgvu
+        home: Trouver, voir et revoir
 player:
     live:
       deporte: Sur mySkreen
@@ -14,7 +14,7 @@ user:
 playlist:
     name:
         cine: Les dernières sorties en salle
-        tv: Les prochaines diffusion TV
+        tv: Les prochaines diffusions TV
         replay: Les dernières mise en ligne Replay & Web
         vod: Les dernières mise en ligne VOD
         friends: Vos amis regardent
@@ -65,7 +65,7 @@ nav:
     subnav:
         vod: Replay & Vod
         tv: 'A la télé'
-        cine: 'Dans les salles'
+        cine: 'En salles'
     tv:
       live: Les chaînes en direct
       grid: La grille TV
