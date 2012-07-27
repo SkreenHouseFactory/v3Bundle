@@ -10,16 +10,19 @@ function skPaymentPopinEnd () {
 var ENV;
 ENV = {
   dev: {
+        env: 'dev',
         site_url: 'http://beta.benoit.myskreen.typhon.net:40011',
         base: 'http://benoit.myskreen.typhon.net/api/1/',
         popin: 'https://benoit.myskreen.typhon.net/popin/'
   },
   preprod: {
+        env: 'preprod',
         site_url: 'http://preprod.beta.myskreen.com',
         base: 'http://preprod.api.myskreen.com/api/1/',
         popin: 'https://preprod.api.myskreen.com/popin/'
   },
   prod: {
+        env: 'prod',
         site_url: 'http://beta.myskreen.com',
         base: 'http://api.myskreen.com/api/1/',
         popin: 'https://api.myskreen.com/popin/'

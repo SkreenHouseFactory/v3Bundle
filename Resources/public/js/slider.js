@@ -193,10 +193,11 @@ Slider = {
         console.log('Slider.addBestOffer', 'add url', o.url);
         //si context = v3
         if (API.context == 'v3') {
-          var url = unescape(o.url.match(/\/redirection\/.+\?/g)[0].replace('/redirection/','').replace('?',''));
-          btn.attr('data-redirect', 1).attr('href', url);
+          btn.attr('data-redirect', 1).attr('href', o.url);
         } else {
-          btn.attr('data-redirect', 1).attr('href', o.url + '&access=' + Session.access);
+          var host = 'http://' + document.location.host + (API.config.env == 'dev' ? '/app_dev.php' : '/app.php');
+          var url =  host + '/redirection/' + escape(o.url) + '?access=' + Session.access;
+          btn.attr('data-redirect', 1).attr('href', url);
         }
       } else {
         btn.attr('href', btn.attr('href') + '&action=louer');
