@@ -80,8 +80,8 @@ Session = {
           console.warn('Session.initSocial', this.datas.fb_uid, 'cookie error');
           return this.initSocial(onglet, offset, true);
         }
-        UI.loadSocialSelector(json);
         Session.datas.friends = json.friends;
+        UI.loadSocialSelector(json);
       } else {
         UI.appendLoader($('li#friends'));
         API.query('GET', 
@@ -134,17 +134,29 @@ Session = {
   },
   initPlaylist: function(url) {
 
-    if (typeof url != "undefined" && 
-        url.indexOf('keepPlaylist') != -1) {
-      return;
-    }
-
     if (typeof url == 'undefined') {
       url = API.context == 'v2' ? API.currentUrl : top.location.pathname;
     }
     url = url.replace('/app_dev.php','').replace('/app.php','');
     console.log('Session.initPlaylist', 'url:' + url);
 
+    // -- keep
+    console.log('Session.initPlaylist', 'keep', url.match(/keepPlaylist=1/));
+    if (url.match(/keepPlaylist=1/)) {
+      return;
+    }
+
+    // -- autoload
+    console.log('Session.initPlaylist', 'autoload', document.location.href.match(/access=.+/));
+    if (API.context == 'v3') {
+      var access = document.location.href.match(/access=.+/g);
+      if (typeof access[0] != 'undefined') {
+        UI.loadPlaylist(access[0].replace('access=', ''));
+        return;
+      }
+    }
+
+    // -- default
     switch (url) {
      //load tv 
      case '/tv':

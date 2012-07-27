@@ -224,4 +224,5 @@ $(document).ready(function(){
 
   // -- popover
   $('*[data-content]').popover();
+
 });

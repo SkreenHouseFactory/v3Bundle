@@ -78,17 +78,15 @@ UI = {
   loadSocialSelector: function(datas) {
     if (datas.programs) {
       var program = datas.programs.pop();
-      var friends = datas.friends;
-
-      //console.log('UI.loadSelector', key, group);
       var li = $('li#friends', this.playlist);
       li.removeClass('empty');
       li.css('background-image', 'url('+program.picture+')').css('background-repeat', 'no-repeat');
       li.find('.label').removeClass('opacity');
       li.find('span.badge').remove();
-      li.find('.label span').html(friends.length);
+      li.find('.label span').html(Session.datas.friends.length);
       li.find('a, h6').hide();
       li.popover('disable');
+      //this.addFriends(li, datas.friend_uids.split(','));
     }
   },
   //update selector
@@ -141,11 +139,11 @@ UI = {
       var url = this.playlist.data('pager-url').replace('session.uid', Session.uid)
                                                .replace('group.name', Session.access)
                                                .replace('app_dev.php/', '');
-      var args = {with_best_offer: 1, with_player: 1, player: API.config.player};
       if (typeof onglet != 'undefined') {
-        url = url + '&onglet=' + onglet;
+        var args = {onglet: onglet, with_best_offer: 1, with_player: 1, player: API.config.player};
         $('#top-playlist h2 small:last').html($('#top-filters li.' + access + ' a[data-filter="' + onglet + '"]').html());
       } else {
+        var args = {with_best_offer: 1, with_player: 1, player: API.config.player};
         $('#top-playlist h2 small:last').empty();
       }
 
@@ -197,6 +195,10 @@ UI = {
     } else {
       Player.redirect(url);
     }
+    //window.onbeforeunload = API.quickLaunchModal('signin', function() {
+    //  alert('leave');
+    //  window.onbeforeunload = null;
+    //});
   },
   // -- insert loader
   appendLoader: function(elmt) {
@@ -231,6 +233,20 @@ UI = {
     console.log('UI.unloadFilters');
     $('.subnav li.active').removeClass('active');
     $('#top-filters ul li').removeClass('active').hide();
+  },
+  // -- add friends
+  addFriends: function(li, friend_uids){
+    //console.log('Slider.addFriends', friend_uids, li);
+    var div = $('<div class="friends"></div>');
+    for (key in friend_uids) {
+      if (typeof Session.datas.friends[friend_uids[key]]) {
+        if (typeof Session.datas.friends[friend_uids[key]] != "undefined") {
+          var friend = Session.datas.friends[friend_uids[key]];
+          div.append('<a rel="tooltip" title="'+friend.name+' suit ce programme" href="#"><img src="'+friend.pic_square+'" alt="'+friend.name+'" /></a>');
+        }
+      }
+    }
+    div.prependTo(li);
   },
   // -- typeahead
   typeahead: function(searchbox){

@@ -170,7 +170,7 @@ Slider = {
         li.addClass('deporte');
       }
       if (program.friend_uids) {
-        this.addProgramFriends(li, program.friend_uids);
+        UI.addFriends(li, program.friend_uids.split(','));
       }
       this.addProgramBestOffer(li, program);
       li.addClass('to_animate').show();
@@ -178,6 +178,7 @@ Slider = {
       
       //console.log('Slider.load', 'added', li, program);
     }
+    $('a[rel="tooltip"]', slider).tooltip();
   },
   addProgramBestOffer: function(li, program) {
     var o = program.best_offer;
@@ -190,25 +191,16 @@ Slider = {
         //btn.attr('data-player', o.player);
       } else if (o.url) {
         console.log('Slider.addBestOffer', 'add url', o.url);
-        btn.attr('data-redirect', 1).attr('href', o.url);
+        //si context = v3
+        if (API.context == 'v3') {
+          var url = unescape(o.url.match(/\/redirection\/.+\?/g)[0].replace('/redirection/','').replace('?',''));
+          btn.attr('data-redirect', 1).attr('href', url);
+        } else {
+          btn.attr('data-redirect', 1).attr('href', o.url + '&access=' + Session.access);
+        }
       } else {
         btn.attr('href', btn.attr('href') + '&action=louer');
       }
     }
-  },
-  addProgramFriends: function(li, friend_uids){
-    //console.log('Slider.addFriends', friend_uids, Session.datas.friends);
-    var div = $('<div class="friends"></div>');
-    var friend_uids = friend_uids.split(',');
-    for (key in friend_uids) {
-      if (typeof Session.datas.friends[friend_uids[key]]) {
-        if (typeof Session.datas.friends[friend_uids[key]] != "undefined") {
-          var friend = Session.datas.friends[friend_uids[key]];
-          div.append('<a rel="tooltip" title="'+friend.name+'" href="#"><img src="'+friend.pic_square+'" alt="'+friend.name+'" /></a>');
-        }
-      }
-    }
-
-    div.prependTo(li);
   }
 }
