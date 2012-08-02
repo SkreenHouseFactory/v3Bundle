@@ -31,7 +31,7 @@ class PlayerController extends Controller
         $url = $request->get('target');
       }
 
-      return $this->render('SkreenHouseFactoryV3Bundle:Player:redirect.html.twig', array(
+      return $this->render('SkreenHouseFactoryV3Bundle:Player:' . $request->get('template') . '.html.twig', array(
         'url' => urldecode($url),
         'menus' => array()
       ));

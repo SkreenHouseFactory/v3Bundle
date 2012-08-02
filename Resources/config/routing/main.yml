@@ -24,7 +24,12 @@ player_live:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:live }
 player_redirect:
     pattern:  /redirection/{target}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, "target" = null }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, target: null, template: redirect }
+    requirements:
+        target: .*
+player_exit:
+    pattern:  /exit/{target}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }
     requirements:
         target: .*
 player:

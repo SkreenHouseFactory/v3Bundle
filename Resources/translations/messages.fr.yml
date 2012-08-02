@@ -5,10 +5,14 @@ service:
 page:
     title:
         home: Trouver, voir et revoir
+        redirect: Redirection en cours ...
 player:
     live:
       deporte: Sur mySkreen
       external: Sur d'autres sites
+redirection:
+    h1: Patientez quelques secondes
+    message: mySkreen vous redirige vers votre vidéo
 user:
     programs: Vos programmes
 playlist:
@@ -63,12 +67,19 @@ nav:
             off: Se connecter
         tv: Allumer la TV
     subnav:
-        vod: Replay & Vod
+        vod: Replay & VOD
         tv: 'A la télé'
         cine: 'En salles'
     tv:
       live: Les chaînes en direct
       grid: La grille TV
+      title:
+        all: Tout le programme TV
+        films: Les films à la télé
+        emissions: Les émissions à la télé
+        series: Les séries à la télé
+        documentaires: Les documentaires à la télé
+        spectacles: Les spectacles à la télé
       selection:
           lastweek: 7 derniers jours
           yesterday: hier soir
@@ -81,6 +92,7 @@ nav:
         coming: Les sorties à venir
         boxoffice: Tous les films en salle
     playlist: Mes programmes
+    replay.channels: Replay par chaîne
     films: Films
     emissions: Emissions et sport
     series: Séries

@@ -6,14 +6,15 @@ UI = {
   badge_notification: '<span class="badge badge-important">%count%</span>',
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
   //toggle favorite
-  toggleFavorite: function(trigger){
+  togglePlaylistProgram: function(trigger){
     var value = trigger.parent().data('id');
     if (Session.datas.email) {
       API.togglePreference('like', value, trigger, function(value){
-        console.log('UI.toggleFavorite', 'callback', value);
-        $('#playlist li[data-id="' + value + '"]').animate({width:0}, 500, function(){
+        console.log('UI.togglePlaylistProgram', 'callback', value);
+        $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({width:0}, 500, function(){
           $(this).remove();
         });
+        Session.initPlaylist();
       });
     } else {
       API.quickLaunchModal('signin', function(){
@@ -39,7 +40,7 @@ UI = {
       $('.favoris span').html('(' + Session.datas.queue.length + ')');
       $('.user-on-visibility').css('visibility','visible');
       $('li.selector:not(.empty)').popover('disable').popover("hide");
-      this.loadUserProgams(Session.datas.queue);
+      this.loadUserPrograms();
       this.notifyUser(Session.datas.notifications);
     } else {
       $('.user span, .favoris span').empty();
@@ -49,12 +50,22 @@ UI = {
       this.unloadFilters();
     }
     $('.user-off, .user-on').toggle();
-
   },
   //toggle btn
-  loadUserProgams: function(ids) {
+  loadUserPrograms: function(elmt) {
+    var ids = Session.datas.queue;
+    var elmt = typeof elmt != 'undefined' ? elmt : $('body');
     for (id in ids) {
-      $('.actions[data-id="' + ids[id] + '"] a.fav').html('<i class="icon-ok-sign"></i> Dans vos favoris').addClass('btn-primary');
+      $('.actions[data-id="' + ids[id] + '"] a.fav:not(.btn-primary)', elmt).html('<i class="icon-ok-sign icon-white"></i> Dans vos favoris')
+                                                                            .addClass('btn-primary');
+    }
+  },
+  unloadUserPrograms: function(elmt) {
+    var ids = Session.datas.queue;
+    var elmt = typeof elmt != 'undefined' ? elmt : $('body');
+    for (id in ids) {
+      $('.actions[data-id="' + ids[id] + '"] a.fav.btn-primary', elmt).html('<i class="icon-plus-sign"></i> Suivre / voir + tard')
+                                                                      .removeClass('btn-primary');
     }
   },
   //notify
@@ -94,6 +105,7 @@ UI = {
     console.log('UI.loadSelector', datas, Session.onglet);
     this.unloadPlaylist();
     this.unloadSelector();
+    $('#top-playlist li.selector').show();
     $('#top-playlist h2 small').empty();
     //if (Session.onglet) {
     //  $('#top-playlist h2 small:last').html('» ' + $('#top-filters .' + Session.onglet).html());
@@ -101,7 +113,7 @@ UI = {
 
     for (key in datas) {
       var group = datas[key];
-      console.log('UI.loadSelector', key, group);
+      //console.log('UI.loadSelector', key, group);
       var li = $('li#' + key, this.playlist);
       li.removeClass('empty');
       li.css('background-image', 'url('+group.img+')').css('background-repeat', 'no-repeat');
@@ -132,6 +144,7 @@ UI = {
 
   },
   loadPlaylist: function(access, onglet){
+
     var self = this;
     if (Session.datas.email) {
       Session.access = access;
@@ -140,17 +153,21 @@ UI = {
                                                .replace('group.name', Session.access)
                                                .replace('app_dev.php/', '');
       if (typeof onglet != 'undefined') {
-        var args = {onglet: onglet, with_best_offer: 1, with_player: 1, player: API.config.player};
+        var args = {onglet: onglet, with_best_offer: 1, with_player: 1, player: API.config.player, time: new Date().getTime()};
         $('#top-playlist h2 small:last').html($('#top-filters li.' + access + ' a[data-filter="' + onglet + '"]').html());
       } else {
-        var args = {with_best_offer: 1, with_player: 1, player: API.config.player};
+        var args = {with_best_offer: 1, with_player: 1, player: API.config.player, time: new Date().getTime()};
         $('#top-playlist h2 small:last').empty();
       }
 
       console.log('UI.loadPlaylist', url, access, Session.onglet);
       Slider.load(this.playlist,
                   url,
-                  function(nb_programs){
+                  function(slider){
+                    //if (Session.access == 'friends') {
+                    //  slider.addClass('social');
+                    //}
+                    var nb_programs = slider.data('nb-programs');
                     if (Session.access) {
                       var name = $('li#' + Session.access, self.playlist).data('name');
                       if (typeof name != 'undefined') {
@@ -159,7 +176,9 @@ UI = {
                     }
                     $('li.selector', self.playlist).hide();
                     Slider.removeLoader(self.playlist);
-                    if (nb_programs > 0) {
+                    console.log('UI.loadPlaylist', 'collapse', access, 'nb_programs:' + nb_programs, 'cookie:' + API.cookie('playlist_collapsed'), 'isHome:' + API.isHome());
+                    if ((access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
+                        API.isHome() == true) {
                       $('#top-playlist').collapse('show');
                     }
                   }, null, args);

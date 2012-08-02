@@ -12,7 +12,7 @@ $(document).ready(function(){
 
   // -- session
   $('.user-on').hide();
-  Session.init(function(sessionData){
+  Session.init(function(){
     console.log('context', API.context);
   });
 
@@ -54,10 +54,19 @@ $(document).ready(function(){
     $(this).addClass('active');
     API.postMessage(['header','collapse']);
   });*/
-  $('#top-filters > ul > li').click(function(){
+  $('#top-filters > ul > li').click(function(e){
     $('#top-filters > ul > li').removeClass('active');
     $(this).addClass('active');
+    //programme TV
     if ($(this).hasClass('tv-grid')) {
+      
+      //load subnav
+      if ($(this).hasClass('tv-grid-main')) {
+        $('.tv-grid-filter').show();
+        $(this).addClass('tv-grid-filter');
+      }
+
+      //trigger grid
       var onglet = $('a', this).data('filter');
       console.log('script', 'li.tv-grid', onglet);
       if (onglet == 'all') {
@@ -65,8 +74,12 @@ $(document).ready(function(){
       } else {
         API.javascriptV2("$('#facetType').val('" + onglet + "');mskapp.currentView.filterByType('#facetType');$('#sliders .item." + onglet + "').show();$('#sliders .item:not(." + onglet + ")').hide();");
       }
-      //Session.onglet = onglet;
       UI.loadPlaylist('tv', onglet);
+    }
+    //replay par chaine
+    if ($(this).hasClass('vod-replay')) {
+      API.postMessage(['header-links', 'emissions']);
+      return false;
     }
   });
 
@@ -144,13 +157,14 @@ $(document).ready(function(){
   });
 
   // -- ui actions : favorite & play
-  $('.slider li:not(.selector)').live('click', function(){
-    API.linkV2($('.actions .play', this).attr('href'));
+  $('.slider li:not(.selector), .slider li').live('click', function(e){
+    e.preventDefault();
+    API.linkV2($('a.title', this).attr('href'), false, function(){});
     return false;
   });
   $('.actions .fav').live('click', function(e){
     e.preventDefault();
-    UI.toggleFavorite($(this));
+    UI.togglePlaylistProgram($(this));
     return false;
   });
   $('.actions .play').live('click', function(e){
@@ -181,7 +195,6 @@ $(document).ready(function(){
       }
     }
   });
-
   // -- ui popover favorites
   $('.actions .fav:not(.btn-primary, .btn-danger)').live('mouseover', function() {
     if ($(this).parent().data('onglet') == 'emissions' || $(this).parent().data('onglet') == 'series') {

@@ -39,6 +39,7 @@ Slider = {
           if ($('li:not(.selector)', items).length * (self.item_width+self.item_margin*2) - parseInt(container.css('width')) < -parseInt(items.css('left'))) {
             next.css({'visibility':'hidden'});
             //pager
+            console.log('Slider.init', 'pager-url', slider.data('pager-url'));
             if (slider.data('pager-url')) {
               var offset = self.pager_nb_results + parseInt(slider.data('pager-offset'));
               slider.data('pager-offset', offset);
@@ -85,12 +86,13 @@ Slider = {
     slider.addClass('initialized')
   },
   remove: function(slider) {
-    //console.log('Slider.remove', slider);
+    console.log('Slider.remove', slider);
     $('.next', slider).css({'visibility':'hidden'});
     $('.next, .prev', slider).unbind('click');
     $('ul', slider).css('left', '0px');
     slider.data('pager-offset', 0);
-    slider.removeClass('initialized navigate back loaded empty');
+    slider.data('nb-programs', 0);
+    slider.removeClass('initialized navigate back loaded empty');// social');
   },
   addLoader: function(slider) {
     var loader = $(this.sample).addClass('loader').empty().css('width', this.item_width + 'px').show();
@@ -107,6 +109,11 @@ Slider = {
     if (!this.sample) {
       this.sample = $('<div>').append($('#playlist li:first').clone()).html();
     }
+
+    if (slider.data('pager-offset') == 0) {
+      $('li:not(.selector)', slider).remove();
+    }
+
     var args = typeof args != 'undefined' ? args : {};
     API.query('GET',
               url, 
@@ -118,25 +125,25 @@ Slider = {
                   $('li:not(.selector, :first)', slider).remove();
                 }
                 if (programs.length > 0 || typeof programs[0] != 'undefined') {
-                  self.insertProgram(slider, programs);
+                  self.insertPrograms(slider, programs);
                   self.init(slider);
+                  slider.data('nb-programs', programs.length);
                 } else if ($('li', slider).length == 0) {
                   slider.addClass('empty');
                 }
                 if (typeof callback != 'undefined'){
-                  callback(programs.length);
+                  callback(slider);
                 }
                 $('li.to_animate', slider).animate({width:Slider.item_width}, 500).removeClass('to_animate');
               });
   },
-  insertProgram: function(slider, programs){
-    console.log('Slider.insertProgram', slider, programs);
+  insertPrograms: function(slider, programs){
+    console.log('Slider.insertPrograms', slider, programs);
     for (key in programs) {
       var program = programs[key];
       var popular_channel = program.popular_channel ? '<img alt="'+program.popular_channel.name+' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
-      var title = program.format != 'Film' ? program.title : '';
       var pere  = program.episodeof ? program.episodeof : program;
-      var seo_url = program.seo_url + (slider.attr('id') == 'playlist' ? program.seo_url + '?keepPlaylist' : '');
+      var seo_url = API.config.site_url + program.seo_url + (slider.attr('id') == 'playlist' ? '?keepPlaylist' : '');
       if (program.has_vod == 4) { //cine
         var seo_play_title = 'Voir au cinéma';
       } else if (program.has_vod == 3) { //dvd
@@ -151,12 +158,11 @@ Slider = {
         var seo_play_title = 'Voir en streaming';
       }
       var li    = $(this.sample.replace('%seo_add_title%', pere.title + ', ' + program.format + ' - ' + program.year)
-                               .replace('%seo_play_title%', seo_play_title)
-                               .replace('%seo_play_title%', seo_play_title)
-                               .replace('%title%',title)
-                               .replace('%url%', seo_url)
-                               .replace('%url%', seo_url)
-                               .replace('%id%', program.id)
+                               .replace('%seo_play_title%', seo_play_title).replace('%seo_play_title%', seo_play_title)
+                               .replace('%title%', program.title)
+                               .replace('%url%', seo_url).replace('%url%', seo_url)
+                               .replace('%id%', pere.id).replace('%id%', pere.id)
+                               .replace('%onglet%', program.onglet.toLowerCase())
                                .replace('%popular_channel%', popular_channel));
       li.css('background-image', 'url(' + program.picture + ')');
       $('.actions', li).data('id', program.id);
@@ -168,6 +174,9 @@ Slider = {
       }
       if (program.deporte) {
         li.addClass('deporte');
+        $('.title', li).each(function(){
+          $(this).prepend('<i class="icon-th icon-white"></i> ');
+        });
       }
       if (program.friend_uids) {
         UI.addFriends(li, program.friend_uids.split(','));
@@ -179,6 +188,7 @@ Slider = {
       //console.log('Slider.load', 'added', li, program);
     }
     $('a[rel="tooltip"]', slider).tooltip();
+    UI.loadUserPrograms(slider);
   },
   addProgramBestOffer: function(li, program) {
     var o = program.best_offer;
@@ -187,7 +197,7 @@ Slider = {
       btn.html(o.dispo);
       if (o.player) {
         console.log('Slider.addBestOffer', 'add player', o.player);
-        btn.attr('href', btn.attr('href') + '&action=louer');
+        btn.attr('href', btn.attr('href') + '?action=louer');
         //btn.attr('data-player', o.player);
       } else if (o.url) {
         console.log('Slider.addBestOffer', 'add url', o.url);

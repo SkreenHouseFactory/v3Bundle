@@ -1,0 +1,15 @@
+{% extends 'SkreenHouseFactoryV3Bundle::exit.html.twig' %}
+
+{% block title %}{{ 'page.title.redirect'|trans }}{% endblock %}
+
+{% block content %}
+  <div class="well">
+    <h1>{{ 'redirection.h1'|trans }}</h1>
+    <h6>{{ 'redirection.message'|trans }}</h6>
+  </div>
+  <script>
+  setTimeout(function() {
+    document.location= '{{ url }}';
+  }, 3000)
+  </script>
+{% endblock %}

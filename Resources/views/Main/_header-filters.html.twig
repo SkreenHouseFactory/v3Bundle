@@ -1,5 +1,6 @@
 <ul class="container nav nav-pills hide">
   <li class="vod vod-all"><a class="link-v2" href="/vod" href="#">{{ 'nav.filters.all'|trans }}</a></li>
+  <li class="vod vod-replay"><a href="#">{{ 'nav.replay.channels'|trans }}</a></li>
   <li class="vod vod-films"><a class="link-v2" href="/films" href="#">{{ 'nav.films'|trans }}</a></li>
   <li class="vod vod-documentaires"><a class="link-v2" href="/documentaires" href="#">{{ 'nav.documentaires'|trans }}</a></li>
   <li class="vod vod-emissions"><a class="link-v2" href="/emissions" href="#">{{ 'nav.emissions'|trans }}</a></li>
@@ -23,13 +24,14 @@
       <li><a href="#">{{ 'nav.tv.selection.thisweek'|trans }}</a></li>
     </ul>#}
   </li>
-  <li class="tv tv-grid tv-grid-filter tv-grid-filter-first hide"><a class="link-v2" data-filter="films" href="/programme-tv">&raquo; {{ 'nav.films'|trans }}</a></li>
-  <li class="tv tv-grid tv-grid-filter hide"><a class="link-v2" data-filter="emissions" href="/programme-tv">&raquo; {{ 'nav.emissions'|trans }}</a></li>
-  <li class="tv tv-grid tv-grid-filter hide"><a class="link-v2" data-filter="series" href="/programme-tv">&raquo; {{ 'nav.series'|trans }}</a></li>
-  <li class="tv tv-grid tv-grid-filter hide"><a class="link-v2" data-filter="documentaires" href="/programme-tv">&raquo; {{ 'nav.documentaires'|trans }}</a></li>
-  <li class="tv tv-grid tv-grid-filter tv-grid-filter-last hide"><a class="link-v2" data-filter="spectacles" href="/programme-tv">&raquo; {{ 'nav.spectacles'|trans }}</a></li>
+  <li class="tv tv-grid tv-grid-filter tv-grid-filter-first hide"><a class="link-v2" data-filter="all" href="/programme-tv" title="{{ 'nav.tv.title.all' }}">&raquo; {{ 'nav.all'|trans }}</a></li>
+  <li class="tv tv-grid tv-grid-filter hide"><a class="link-v2" data-filter="films" href="/programme-tv" title="{{ 'nav.tv.title.films' }}">&raquo; {{ 'nav.films'|trans }}</a></li>
+  <li class="tv tv-grid tv-grid-filter hide"><a class="link-v2" data-filter="emissions" href="/programme-tv" title="{{ 'nav.tv.title.emissions' }}">&raquo; {{ 'nav.emissions'|trans }}</a></li>
+  <li class="tv tv-grid tv-grid-filter hide"><a class="link-v2" data-filter="series" href="/programme-tv" title="{{ 'nav.tv.title.series' }}">&raquo; {{ 'nav.series'|trans }}</a></li>
+  <li class="tv tv-grid tv-grid-filter hide"><a class="link-v2" data-filter="documentaires" href="/programme-tv" title="{{ 'nav.tv.title.documentaires' }}">&raquo; {{ 'nav.documentaires'|trans }}</a></li>
+  <li class="tv tv-grid tv-grid-filter tv-grid-filter-last hide"><a class="link-v2" data-filter="spectacles" href="/programme-tv" title="{{ 'nav.tv.title.spectacles' }}">&raquo; {{ 'nav.spectacles'|trans }}</a></li>
   <li class="cine active"><a class="link-v2" href="/cine">{{ 'nav.filters.all'|trans }}</a></li>
-  <li class="cine"><a class="link-v2" href="/selection/3520923-a-voir-au-cinema" href="#">{{ 'nav.theaters.release'|trans }}</a></li>
+  <li class="cine"><a class="link-v2" href="/selection/7845147-a-voir-au-cinema" href="#">{{ 'nav.theaters.release'|trans }}</a></li>
   <li class="cine cine-box-office"><a target="_parent" href="{{ path('cinema_boxoffice', {alpha: 'a'}) }}" href="#">{{ 'nav.theaters.boxoffice'|trans }}</a></li>
-  <li class="cine"><a class="link-v2" href="/selection/4588325-prochainement-dans-les-salles" href="#">{{ 'nav.theaters.coming'|trans }}</a></li>
+  <li class="cine"><a class="link-v2" href="/selection/7845150-prochainement-dans-les-salles" href="#">{{ 'nav.theaters.coming'|trans }}</a></li>
 </ul>

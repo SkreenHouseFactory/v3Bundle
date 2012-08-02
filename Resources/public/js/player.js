@@ -70,7 +70,7 @@ Player = {
   redirect: function(url) {
     var iframe = $('#redirect');
     if (typeof url != 'undefined') {
-      iframe.append('<iframe src="' + url + '"></iframe>')
+      iframe.html('<iframe src="' + url + '"></iframe>')
     }
     iframe.show().css('height', ($(window).height() - 100) + 'px');
     $('#top-playlist, #top-nav').collapse('hide');

@@ -1,0 +1,39 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="fr"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="fr"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="fr"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>{% block title endblock %} | {{ 'service.name'|trans }}</title>
+	<meta name="description" content="{% block description %}{% endblock %}">
+	<meta name="author" content="mySkreen">
+	<meta name="language" content="fr-FR" />
+
+	<meta name="viewport" content="width=device-width">
+	<meta name="robots" content="noindex,nofollow">
+
+	<link rel="stylesheet/less" href="{{ asset('bundles/skreenhousefactoryv3/initializr/less/style.less') }}">
+	<script src="{{ asset('bundles/skreenhousefactoryv3/initializr/js/libs/less-1.3.0.min.js') }}"></script>
+</head>
+<body class="exit">
+
+{% block content %}
+{% endblock %}
+
+<footer>
+  <hr />
+  <p>&copy; The Skreen House Factory 2012</p>
+</footer>
+
+<script>
+	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+	s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>

@@ -120,65 +120,50 @@ API = {
       return json;
     });
   },
-  addPreference: function(parameter, value, callback, parcours) {
-      this.query('POST', 'preference/flag.json', {session_uid: Session.uid, type:parameter, value:value, parcours:parcours}, function(json){
-        if (json.success) {
+  addPreference: function(parameter, value, trigger, callback, parcours) {
+    this.query('POST', 'preference/flag.json', {session_uid: Session.uid, type:parameter, value:value, parcours:parcours}, function(json){
+      console.log('API.addPreference', 'callback', parameter, value, json);
+      if (json.success) {
+        Session.datas.queue.push('' + value);
+        if (typeof trigger != 'undefined' && trigger != null) {
+          UI.loadUserPrograms(new Array(value));
+        }
+        if (typeof callback != 'undefined') {
           callback(value);
         }
-      });
+      }
+    });
   },
-  removePreference: function(parameter, value, callback) {
-      this.query('POST', 'preference/unflag.json', {session_uid: Session.uid, type:parameter, value:value}, function(json){
-        if (json.success) {
+  removePreference: function(parameter, value, trigger, callback) {
+    this.query('POST', 'preference/unflag.json', {session_uid: Session.uid, type:parameter, value:value}, function(json){
+      console.log('API.removePreference', 'callback', parameter, value, json);
+      if (json.success) {
+        delete Session.datas.queue[value];
+        if (typeof trigger != 'undefined' && trigger != null) {
+          UI.unloadUserPrograms(new Array(value));
+        }
+        if (typeof callback != 'undefined') {
           callback(value);
         }
-      });
+      }
+    });
   },
   togglePreference: function(parameter, value, trigger, callback, parcours){
     var self = this;
     console.log('API.togglePreference', parameter, value, trigger);
-    //console.log('API.togglePreference', 'inArray', $.inArray('' + value, Session.datas.queue));
-    if ($.inArray(value, Session.datas.queue) != -1) {
-      self.removePreference(parameter, value, function() {
-        switch(parameter) {
-          case 'like':
-            Session.sync(function(){
-              Session.initPlaylist();
-            });
-            if (typeof trigger != 'undefined') {
-              trigger.html('<i class="icon-plus-sign"></i> Suivre / voir + tard').removeClass('btn-primary');
-            }
-          break;
-        }
-        if (typeof callback != 'undefined') {
-          callback(value);
-        }
-      });
+    if ($.inArray('' + value, Session.datas.queue) != -1) {
+      self.removePreference(parameter, value, trigger, callback);
     } else {
-      self.addPreference(parameter, value, function() {
-        switch(parameter) {
-          case 'like':
-            Session.sync(function(){
-              Session.initPlaylist();
-            });
-            if (typeof trigger != 'undefined') {
-              UI.loadUserPrograms(new Array(value));
-            }
-          break;
-        }
-        if (typeof callback != 'undefined') {
-          callback(value);
-        }
-      }, parcours);
+      self.addPreference(parameter, value, trigger, callback, parcours);
     }
   },
   query: function(method, url, data, callback, cache) {
-    
+
     if (url.match(/^https\:\/\//)) {
       //console.log('API.query', 'https', 'is popin', url);
     } else {
       //console.log('API.query', 'http', 'is api', url);
-      var url  = this.config.base + url;
+      var url  = this.config.base + url; //.replace('//', '/');
     }
 
     url = url.replace('/app_dev.php', '').replace('/app.php', ''); //developpment environment
@@ -219,7 +204,7 @@ API = {
     var req = $.ajax({
       url: url,
       dataType: this.dataType,
-      cache: cache != 'undefined' ? cache : false,
+      cache: typeof cache != 'undefined' ? cache : false,
       data: data,
       type: method,
       jsonp: 'callback',
@@ -227,7 +212,9 @@ API = {
       //crossDomain: true,
       error: function(retour, code) {
         clearTimeout(tooLongQuery); 
-        if(retour.readyState != 4){
+        if(retour.readyState == 4){
+          callback(retour);
+        } else {
           console.error('error getting query', retour, url, data, code, retour.statusText);
           return false;
         }
@@ -240,14 +227,51 @@ API = {
     });
     return req;
   },
-  linkV2: function(url, force) {
-    console.log('API.linkV2', this.context, url, this.currentUrl, force);
+  cookie: function(name, value){
+    if (typeof value == 'undefined') {
+      return $.cookie('myskreen_' + name);
+    } else {
+      console.log('API.cookie', 'set', 'myskreen_' + name, '=' ,value);
+      $.cookie('myskreen_' + name, value);
+    }
+  },
+  isHome: function(url) {
+    var url = typeof url == 'undefined' ? this.currentUrl : url;
+    switch (url) {
+      case '/tv':
+      case '/cine':
+      case '/replay-vod':
+      case '/':
+      case '/films':
+      case '/documentaires':
+      case '/series':
+      case '/spectacles':
+      case '/emissions':
+        return true;
+      break;
+      default:
+        return false;
+      break;
+    }
+  },
+  linkV2: function(url, force, callback) {
+    console.log('API.linkV2', this.context, url, this.currentUrl, 'force:' + force, callback);
+
+    if (typeof url == 'undefined') {
+      console.warn('API.linkV2', 'url undefined');
+      return;
+    }
+
 
     if (this.context == 'v2') {
       if (url != this.currentUrl || url == '\\') {
         this.postMessage(["link", url, force]);
         if (force != true) {
-          Session.initPlaylist(url);
+          if (typeof callback == 'undefined') {
+            Session.initPlaylist(url);
+          } else {
+            callback();
+          }
         }
       }
     } else {
@@ -258,7 +282,7 @@ API = {
   },
   javascriptV2: function(script) {
     if (this.context == 'v2') {
-      this.postMessage(["javascript", script]);
+      this.postMessage(['javascript', script]);
     }
   },
   syncV2: function(callback) {
@@ -273,43 +297,57 @@ API = {
           Session.uid = message[1].uid;
           Session.sync();
 
-        } else if (message[0] == "history.back") {
-          if (message[1] == "add") {
+        } else if (message[0] == 'history.back') {
+          if (message[1] == 'add') {
             $('#history-back').show(); //UI.addHistoryBack();
           } else {
             $('#history-back').hide(); //UI.removeHistoryBack();
           }
 
-        } else if (message[0] == "nav") {
-          if (message[1] == "reset") {
+        } else if (message[0] == 'nav') {
+          if (message[1] == 'reset' && !Session.datas.email) {
             $('.subnav .nav li.active').removeClass('active');
           }
 
-        } else if (message[0] == "header") {
-          if (message[1] == "collapsed") {
+        } else if (message[0] == 'header') {
+          if (message[1] == 'collapsed') {
             $('#top-playlist').collapse('hide');
+            if (Session.datas.email) {
+              API.cookie('playlist_collapsed', 1);
+            }
+          } else {
+            API.cookie('playlist_collapsed', '');
           }
 
         } else if (message[0] == "preference") {
-          self.togglePreference(message[1], message[2], null, function(){}, message[3]);
+          self.togglePreference(message[1],
+                                message[2], 
+                                null, function(){
+                                  Session.initPlaylist();
+                                }, 
+                                message[3]);
 
-        } else if (message[0] == "redirect") {
+        } else if (message[0] == 'redirect') {
           window.open('/redirect?target=' + escape(message[1]));
           //Player.redirect(message[1]);
 
-        } else if (message[0] == "pathname") {
+        } else if (message[0] == 'pathname') {
           self.currentUrl = message[1];
 
-        } else if (message[0] == "typeahead") {
+        } else if (message[0] == 'program_notified') {
+          $('li[data-id="' + message[1] + '"] .badge').remove();
+          $('.notifications .badge').html(parseInt($('.notifications .badge').html())-1);
+
+        } else if (message[0] == 'typeahead') {
           if (message[1] == 'blur') {
-            console.log('API.syncV2', 'typeahead', 'blur', 'hide playlist');
+            //console.log('API.syncV2', 'typeahead', 'blur', 'hide playlist');
             $('.search-query').blur();
             $('#top-playlist').collapse('hide');
           }
         }
       }
     });
-    this.postMessage(["sync"]);
+    this.postMessage(['sync']);
     if (typeof callback != 'undefined') {
       callback();
     }

@@ -3,7 +3,7 @@
     <img src="{{ p.popular_channel.ico_path }}" />
   {% endif %#}
   <div class="actions" data-id="{{ p.id }}" data-onglet="{{ p.onglet }}">
-    <a class="btn fav" title="{{ 'seo.title.add'|trans }}<br/><small>{{ p.title }}, {{ p.format }} - {{ p.year }}</small>" href="#"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
+    <a class="btn fav" title="{{ 'seo.title.add'|trans }}" href="#"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
     <a class="btn play" title="{{ p.title }} {{ 'seo.title.play'|trans }}" href="{{ p.seo_url }}"><i class="icon-play"></i> 
     {% if p.has_vod == 4 %}{{ 'action.play.cine'|trans }}
     {% elseif p.has_vod == 3 %}{{ 'action.play.dvd'|trans }}

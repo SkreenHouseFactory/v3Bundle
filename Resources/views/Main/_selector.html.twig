@@ -4,13 +4,13 @@
   <a class="prev badge badge-inverse"><i class="icon-chevron-left icon-white"></i></a>
   <div class="slider-container">
   <ul class="items{% if addClass is defined %} {{ addClass }}{% endif %}">
-    <li data-id="%id%">
+    <li data-id="%id%" class="%onglet%">
       %popular_channel%
-      <div class="actions">
-        <a class="btn btn-primary fav" title="{{ 'seo.title.add'|trans }}<br/><small>%seo_add_title%</small>" href="#"><i class="icon-ok-sign icon-white"></i> {{ 'action.in.favorites'|trans }}</a>
+      <div data-id="%id%" class="actions">
+        <a class="btn fav" title="{{ 'seo.title.add'|trans }}" href="#"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
         <a class="btn play" title="%seo_play_title% {{ 'seo.title.play'|trans }}" href="%url%"><i class="icon-play"></i> {{ 'action.play.streaming'|trans }}<span>{{ 'action.deporte'|trans }}</span></a>
       </div>
-      <a href="%url%" title="%seo_play_title% {{ 'seo.title.play'|trans }}" class="title">%title%</a>
+      <a href="%url%" title="%seo_play_title% {{ 'seo.title.play'|trans }}" class="title"><span>%title%</span></a>
     </li>
     <li id="replay" class="selector empty" data-name="{{ 'playlist.name.replay'|trans }}" data-original-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.replay'|trans }}</small>" data-content="{{ 'playlist.popover.replay'|trans }}" data-placement="top">
       <span class="label label-inverse opacity"><span></span> {{ 'playlist.replay'|trans|lower }}</span>
