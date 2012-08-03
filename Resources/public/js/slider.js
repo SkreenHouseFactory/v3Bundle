@@ -197,7 +197,7 @@ Slider = {
       btn.html(o.dispo);
       if (o.player) {
         console.log('Slider.addBestOffer', 'add player', o.player);
-        btn.attr('href', btn.attr('href') + '?action=louer');
+        btn.attr('href', btn.attr('href') + '?onglet=' + Session.access);
         //btn.attr('data-player', o.player);
       } else if (o.url) {
         console.log('Slider.addBestOffer', 'add url', o.url);
@@ -210,7 +210,7 @@ Slider = {
           btn.attr('data-redirect', 1).attr('href', url);
         }
       } else {
-        btn.attr('href', btn.attr('href') + '&action=louer');
+        btn.attr('href', btn.attr('href') + '?access=' + Session.access);
       }
     }
   }

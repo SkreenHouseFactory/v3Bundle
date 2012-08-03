@@ -127,6 +127,7 @@ UI = {
       li.popover('disable');
 
       if (group.nb_programs > 0 && !$('#top-playlist').hasClass('in')) {
+        console.log('UI.loadSelector', 'collapse', 'show');
         $('#top-playlist').collapse('show');
       }
     }
@@ -203,6 +204,15 @@ UI = {
       Slider.remove(self.playlist);
     });
   },
+  markAsRed: function(id) {
+    $('li[data-id="' + id + '"] .badge').remove();
+    var remaining = parseInt($('.notifications .badge').html())-1;
+    if (remaining == 0) {
+      $('.notifications .badge').remove();
+    } else {
+      $('.notifications .badge').html(parseInt($('.notifications .badge').html())-1);
+    }
+  },
   loadPlayer: function(trigger) {
     var self = this;
     Player.load(trigger);
@@ -213,6 +223,9 @@ UI = {
       API.linkV2(url, true);
     } else {
       Player.redirect(url);
+    }
+    if ($('#top-playlist').hasClass('in')) {
+      $('#top-playlist').collapse('hide');
     }
     //window.onbeforeunload = API.quickLaunchModal('signin', function() {
     //  alert('leave');

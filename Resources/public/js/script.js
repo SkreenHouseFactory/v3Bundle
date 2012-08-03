@@ -105,7 +105,7 @@ $(document).ready(function(){
   });
 
   // -- ui playlist
-  //height header      
+  //height header
   $('#top-playlist').on('show', function () {
     console.log('script', '#top-playlist on show');
     API.postMessage(['header', 'add_playlist'])
@@ -181,6 +181,11 @@ $(document).ready(function(){
     } else {
       API.linkV2($(this).attr('href'));
     }
+    
+    if ($(this).parent().parent().find('.badge')) {
+      API.markAsRed($(this).parent().data('id'));
+    }
+    
     return false;
   });
   $('.actions .fav.btn-primary, .actions .fav.btn-danger').live('hover', function(e) {

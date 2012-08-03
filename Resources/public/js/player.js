@@ -73,7 +73,7 @@ Player = {
       iframe.html('<iframe src="' + url + '"></iframe>')
     }
     iframe.show().css('height', ($(window).height() - 100) + 'px');
-    $('#top-playlist, #top-nav').collapse('hide');
+    $('#top-nav').collapse('hide');
   },
   play: function(embed) {
     $('.embed', this.player).html(embed);

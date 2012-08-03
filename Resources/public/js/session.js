@@ -161,7 +161,7 @@ Session = {
     // -- default
     switch (url) {
      //load tv 
-     case '/tv':
+     case '/tv-replay':
      case '/les-chaines-en-direct':
        UI.loadPlaylist('tv');
        UI.loadFilters('tv');
@@ -186,7 +186,7 @@ Session = {
        UI.loadFilters('cine');
      break;
      //load selector onglet
-     case '/replay-vod':
+     case '/vod':
        UI.loadPlaylist('replay-vod');
        UI.loadFilters('vod', url.replace('/', '').replace('replay-vod', ''));
      break;

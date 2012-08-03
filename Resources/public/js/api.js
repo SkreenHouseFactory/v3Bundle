@@ -157,6 +157,11 @@ API = {
       self.addPreference(parameter, value, trigger, callback, parcours);
     }
   },
+  markAsRed: function(id){
+    this.query('POST', '/user/markasred', {program_id: id}, function() {
+      UI.markAsRed(id);
+    });
+  },
   query: function(method, url, data, callback, cache) {
 
     if (url.match(/^https\:\/\//)) {
@@ -262,7 +267,6 @@ API = {
       return;
     }
 
-
     if (this.context == 'v2') {
       if (url != this.currentUrl || url == '\\') {
         this.postMessage(["link", url, force]);
@@ -310,8 +314,11 @@ API = {
           }
 
         } else if (message[0] == 'header') {
+
           if (message[1] == 'collapsed') {
-            $('#top-playlist').collapse('hide');
+            if ($('#top-playlist').hasClass('in')) {
+              $('#top-playlist').collapse('hide');
+            }
             if (Session.datas.email) {
               API.cookie('playlist_collapsed', 1);
             }
@@ -335,8 +342,7 @@ API = {
           self.currentUrl = message[1];
 
         } else if (message[0] == 'program_notified') {
-          $('li[data-id="' + message[1] + '"] .badge').remove();
-          $('.notifications .badge').html(parseInt($('.notifications .badge').html())-1);
+          UI.markAsRed(message[1]);
 
         } else if (message[0] == 'typeahead') {
           if (message[1] == 'blur') {
