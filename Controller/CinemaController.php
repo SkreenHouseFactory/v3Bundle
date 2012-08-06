@@ -36,11 +36,17 @@ class CinemaController extends Controller
                                      'alpha'      => $alpha));
 
       //print_r(array($session_uid, $programs));
-      return $this->render('SkreenHouseFactoryV3Bundle:Cinema:boxoffice.html.twig', array(
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:boxoffice.html.twig', array(
         'menus'    => null,
         'alpha'    => array(1,2,3,4,5,6,7,8,9,
                             'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'),
         'programs' => $programs
       ));
+
+      $response->setPublic();
+      $response->setMaxAge(24*3600);
+      $response->headers->addCacheControlDirective('must-revalidate', true);
+
+      return $response;
     }
 }

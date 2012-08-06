@@ -188,7 +188,7 @@ Slider = {
       //console.log('Slider.load', 'added', li, program);
     }
     $('a[rel="tooltip"]', slider).tooltip();
-    UI.loadUserPrograms(slider);
+    UI.loadUserPrograms(Session.datas.queue, slider);
   },
   addProgramBestOffer: function(li, program) {
     var o = program.best_offer;

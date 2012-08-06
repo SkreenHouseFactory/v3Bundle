@@ -188,30 +188,35 @@ $(document).ready(function(){
     
     return false;
   });
-  $('.actions .fav.btn-primary, .actions .fav.btn-danger').live('hover', function(e) {
+  // -- .fav : retirer / popover
+  $('.actions .fav').live('hover', function(e) {
     //console.log('script', '.fav:hover', event.type);
-    if (event.type == "mouseover") {
+    if (event.type == 'mouseover') {
+      // retirer
       if ($(this).hasClass('btn-primary')) {
-        $(this).removeClass('btn-primary').addClass('btn-danger').html('<i class="icon-remove-sign icon-white"></i> Retirer');
+        $(this).removeClass('btn-primary')
+               .addClass('btn-danger')
+               .html('<i class="icon-remove-sign icon-white"></i> Retirer');
+      //popover
+      } else if (!$(this).hasClass('btn-danger')) {
+        if ($(this).parent().data('onglet') == 'emissions' || $(this).parent().data('onglet') == 'series') {
+          var content = '<b>Ne ratez plus vos programmes !</b>' +
+                        '<br/>En ajoutant ce programme à vos playlists vous serez averti dès qu\'un épisode est disponible !';
+        } else {
+          var content = '<b>Ne ratez plus vos programmes !</b>' + 
+                        '<br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD.';
+        }
+
+        $(this).popover({placement: 'top',
+                         title:	function() { return 'Ajout à vos playlists'},
+                         content: content})
+               .popover('show');
       }
-    } else if (event.type == "mouseout") {
+    } else if (event.type == 'mouseout') {
       if ($(this).hasClass('btn-danger')) {
         $(this).removeClass('btn-danger').addClass('btn-primary').html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists');
       }
     }
-  });
-  // -- ui popover favorites
-  $('.actions .fav:not(.btn-primary, .btn-danger)').live('mouseover', function() {
-    if ($(this).parent().data('onglet') == 'emissions' || $(this).parent().data('onglet') == 'series') {
-      var content = '<b>Ne ratez plus vos programmes !</b><br/>En ajoutant ce programme à vos playlists vous serez averti dès qu\'un épisode est disponible !';
-    } else {
-      var content = '<b>Ne ratez plus vos programmes !</b><br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD.';
-    }
-    
-    $(this).popover({placement: 'top',
-                      title:	function() { return 'Ajout à vos playlists'},
-                      content: content})
-            .popover('show');
   });
 
   // -- ui player autoplay

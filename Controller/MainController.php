@@ -24,6 +24,8 @@ class MainController extends Controller
     */
     public function homeAction(Request $request)
     {
+
+      
       //menus
       $api = new ApiManager($this->container->getParameter('kernel.environment'));
       $menus = $api->fetch('www/menu', array('without_footer' => true));
@@ -34,7 +36,10 @@ class MainController extends Controller
       $response->headers->set('Access-Control-Allow-Origin', '*');
       $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
       $response->headers->set('Access-Control-Allow-Headers', 'X-Requested-With');
-      $response->headers->set('Access-Control-Max-Age', '1728000');
+
+      $response->setPublic();
+      $response->setMaxAge(3600);
+      $response->headers->addCacheControlDirective('must-revalidate', true);
 
       return $response;
     }

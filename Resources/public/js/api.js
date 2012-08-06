@@ -125,9 +125,7 @@ API = {
       console.log('API.addPreference', 'callback', parameter, value, json);
       if (json.success) {
         Session.datas.queue.push('' + value);
-        if (typeof trigger != 'undefined' && trigger != null) {
-          UI.loadUserPrograms(new Array(value));
-        }
+        UI.loadUserPrograms(new Array(value));
         if (typeof callback != 'undefined') {
           callback(value);
         }
@@ -136,12 +134,10 @@ API = {
   },
   removePreference: function(parameter, value, trigger, callback) {
     this.query('POST', 'preference/unflag.json', {session_uid: Session.uid, type:parameter, value:value}, function(json){
-      console.log('API.removePreference', 'callback', parameter, value, json);
+      console.log('API.removePreference', 'success:' + json.success, 'callback:' + callback, parameter, value, json);
       if (json.success) {
         delete Session.datas.queue[value];
-        if (typeof trigger != 'undefined' && trigger != null) {
-          UI.unloadUserPrograms(new Array(value));
-        }
+        UI.unloadUserPrograms(new Array(value));
         if (typeof callback != 'undefined') {
           callback(value);
         }

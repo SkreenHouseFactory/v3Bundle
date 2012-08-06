@@ -14,7 +14,6 @@ UI = {
         $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({width:0}, 500, function(){
           $(this).remove();
         });
-        Session.initPlaylist();
       });
     } else {
       API.quickLaunchModal('signin', function(){
@@ -52,17 +51,18 @@ UI = {
     $('.user-off, .user-on').toggle();
   },
   //toggle btn
-  loadUserPrograms: function(elmt) {
-    var ids = Session.datas.queue;
+  loadUserPrograms: function(ids, elmt) {
+    var ids  = typeof ids  != 'undefined' ? ids  : Session.datas.queue;
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
+    console.log('UI.loadUserPrograms', ids, elmt);
     for (id in ids) {
       $('.actions[data-id="' + ids[id] + '"] a.fav:not(.btn-primary)', elmt).html('<i class="icon-ok-sign icon-white"></i> Dans vos favoris')
                                                                             .addClass('btn-primary');
     }
   },
-  unloadUserPrograms: function(elmt) {
-    var ids = Session.datas.queue;
+  unloadUserPrograms: function(ids, elmt) {
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
+    console.log('UI.unloadUserPrograms', ids, elmt);
     for (id in ids) {
       $('.actions[data-id="' + ids[id] + '"] a.fav.btn-primary', elmt).html('<i class="icon-plus-sign"></i> Suivre / voir + tard')
                                                                       .removeClass('btn-primary');
@@ -70,7 +70,6 @@ UI = {
   },
   //notify
   notifyUser: function(notifications) {
-    //return;
     console.log('UI.notifyUser', notifications);
     for (key in notifications) {
       console.log('UI.notifyUser', 'programs', $('#top-bar .user'), key, notifications[key].new);
