@@ -77,7 +77,7 @@ $(document).ready(function(){
       UI.loadPlaylist('tv', onglet);
     }
     //replay par chaine
-    if ($(this).hasClass('vod-replay')) {
+    if ($(this).hasClass('tv-replay')) {
       API.postMessage(['header-links', 'emissions']);
       return false;
     }

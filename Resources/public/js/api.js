@@ -125,7 +125,9 @@ API = {
       console.log('API.addPreference', 'callback', parameter, value, json);
       if (json.success) {
         Session.datas.queue.push('' + value);
-        UI.loadUserPrograms(new Array(value));
+        var added = new Array();
+        added.push(value);
+        UI.loadUserPrograms(added);
         if (typeof callback != 'undefined') {
           callback(value);
         }
@@ -137,7 +139,9 @@ API = {
       console.log('API.removePreference', 'success:' + json.success, 'callback:' + callback, parameter, value, json);
       if (json.success) {
         delete Session.datas.queue[value];
-        UI.unloadUserPrograms(new Array(value));
+        var removed = new Array();
+        removed.push(value);
+        UI.unloadUserPrograms(removed);
         if (typeof callback != 'undefined') {
           callback(value);
         }
@@ -169,7 +173,7 @@ API = {
 
     url = url.replace('/app_dev.php', '').replace('/app.php', ''); //developpment environment
     if (typeof data.img_width == 'undefined' && typeof data.item_height == 'undefined') {
-      $.extend(data, {img_height: Slider.item_height, img_width: Slider.item_width});
+      $.extend(data, {'img_height': Slider.item_height, 'img_width': Slider.item_width});
     }
     $.extend(data, {fromWebsite: 'v3'});
 

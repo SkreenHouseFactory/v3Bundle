@@ -1,3 +1,4 @@
+
 // -- UI
 var UI;
 UI = {
@@ -8,12 +9,15 @@ UI = {
   //toggle favorite
   togglePlaylistProgram: function(trigger){
     var value = trigger.parent().data('id');
+    var remove = trigger.hasClass('btn-primary') || trigger.hasClass('btn-danger') ? true : false;
     if (Session.datas.email) {
       API.togglePreference('like', value, trigger, function(value){
-        console.log('UI.togglePlaylistProgram', 'callback', value);
-        $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({width:0}, 500, function(){
-          $(this).remove();
-        });
+        console.log('UI.togglePlaylistProgram', 'callback', value, trigger);
+        if (remove && $('.friends', trigger.parent().parent()).length == 0) { //pas pour le slider social
+          $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
+            $(this).remove();
+          });
+        }
       });
     } else {
       API.quickLaunchModal('signin', function(){
@@ -55,16 +59,18 @@ UI = {
     var ids  = typeof ids  != 'undefined' ? ids  : Session.datas.queue;
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
     console.log('UI.loadUserPrograms', ids, elmt);
-    for (id in ids) {
-      $('.actions[data-id="' + ids[id] + '"] a.fav:not(.btn-primary)', elmt).html('<i class="icon-ok-sign icon-white"></i> Dans vos favoris')
+    for (key in ids) {
+      console.log('UI.loadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.btn-primary)');
+      $('.actions[data-id="' + ids[key] + '"] a.fav:not(.btn-primary)', elmt).html('<i class="icon-ok-sign icon-white"></i> Dans vos favoris')
                                                                             .addClass('btn-primary');
     }
   },
   unloadUserPrograms: function(ids, elmt) {
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
     console.log('UI.unloadUserPrograms', ids, elmt);
-    for (id in ids) {
-      $('.actions[data-id="' + ids[id] + '"] a.fav.btn-primary', elmt).html('<i class="icon-plus-sign"></i> Suivre / voir + tard')
+    for (key in ids) {
+      console.log('UI.loadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.btn-primary)');
+      $('.actions[data-id="' + ids[key] + '"] a.fav.btn-primary, .actions[data-id="' + ids[key] + '"] a.fav.btn-danger', elmt).html('<i class="icon-plus-sign"></i> Suivre / voir + tard')
                                                                       .removeClass('btn-primary');
     }
   },
@@ -72,14 +78,14 @@ UI = {
   notifyUser: function(notifications) {
     console.log('UI.notifyUser', notifications);
     for (key in notifications) {
-      console.log('UI.notifyUser', 'programs', $('#top-bar .user'), key, notifications[key].new);
+      console.log('UI.notifyUser', 'programs', $('#top-bar .user'), key, notifications[key]['new']);
       if (key == 'programs') {
-        if (notifications[key].new.length > 0) {
-          $('#top-bar .notifications').addClass('with-badge').append($(this.badge_notification).html(notifications[key].new.length));
+        if (notifications[key]['new'].length > 0) {
+          $('#top-bar .notifications').addClass('with-badge').append($(this.badge_notification).html(notifications[key]['new'].length));
         }
       } else {
-        if (notifications[key].new > 0) {
-          $('#top-bar .dropdown-menu li a.' + key).addClass('with-badge').append($(this.badge_notification).html(notifications[key].new));
+        if (notifications[key]['new'] > 0) {
+          $('#top-bar .dropdown-menu li a.' + key).addClass('with-badge').append($(this.badge_notification).html(notifications[key]['new']));
         }
       }
     }
@@ -183,7 +189,7 @@ UI = {
                     }
                   }, null, args);
       //console.log('UI.loadPlaylist', 'animate');
-      $('li.selector', this.playlist).animate({width:0}, 500, function() {
+      $('li.selector', this.playlist).animate({'width':0}, 500, function() {
         $(this).hide();
       });
       Slider.addLoader(this.playlist);
@@ -197,9 +203,9 @@ UI = {
       Session.initPlaylist('/' + onglet);
     }
     $('#top-playlist h2 small').empty();
-    $('li:not(.selector, #item)', this.playlist).animate({width:0}, 500, function() {
+    $('li:not(.selector, #item)', this.playlist).animate({'width':0}, 500, function() {
       $(this).hide();
-      $('li.selector', this.playlist).show().animate({width:Slider.item_width}, 500);
+      $('li.selector', this.playlist).show().animate({'width':Slider.item_width}, 500);
       Slider.remove(self.playlist);
     });
   },
@@ -235,7 +241,7 @@ UI = {
   appendLoader: function(elmt) {
     $('.progress', elmt).remove();
     elmt.append(this.loader);
-    $('.progress .bar', elmt).animate({width: '100%'}, 5000);
+    $('.progress .bar', elmt).animate({'width': '100%'}, 5000);
   },
   // -- remove loader
   removeLoader: function(elmt) {

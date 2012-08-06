@@ -33,7 +33,7 @@ Slider = {
     next.bind('click', function(){
       console.log('next', container.css('left'), container.css('width'));
       if (parseInt(container.css('left')) < container.css('width') || container.css('left') == 'auto') {
-        items.animate({left: '+=-'+parseInt(container.css('width'))}, 500, function() {
+        items.animate({'left': '+=-'+parseInt(container.css('width'))}, 500, function() {
           //console.log('pager', parseInt(items.css('left')),  parseInt(container.css('width')), items.css('width'), slider.data('pager-offset'));
           console.log('pager', $('li:not(.selector)', items).length * (self.item_width+self.item_margin*2) - parseInt(container.css('width')),  parseInt(items.css('left')), slider.data('pager-offset'));
           if ($('li:not(.selector)', items).length * (self.item_width+self.item_margin*2) - parseInt(container.css('width')) < -parseInt(items.css('left'))) {
@@ -70,7 +70,7 @@ Slider = {
     prev.bind('click', function(){
       console.log('prev', parseInt(container.css('left')), parseInt(container.css('width')));
       if (-parseInt(items.css('left')) < parseInt(items.css('width'))) {
-        items.animate({left: '+=' + parseInt(container.css('width'))}, 500, function() {
+        items.animate({'left': '+=' + parseInt(container.css('width'))}, 500, function() {
           console.log('pager', parseInt(items.css('left')), parseInt(items.css('width')));
           console.log('pager =>', $('li:not(.selector)', items).length * (self.item_width+self.item_margin*2) - parseInt(container.css('width')),  parseInt(items.css('left')), slider.data('pager-offset'));
           if (parseInt(items.css('left')) >= -1) {
@@ -134,7 +134,7 @@ Slider = {
                 if (typeof callback != 'undefined'){
                   callback(slider);
                 }
-                $('li.to_animate', slider).animate({width:Slider.item_width}, 500).removeClass('to_animate');
+                $('li.to_animate', slider).animate({'width':Slider.item_width}, 500).removeClass('to_animate');
               });
   },
   insertPrograms: function(slider, programs){
@@ -169,7 +169,7 @@ Slider = {
       
       //console.log('Slider.load', 'added', li, this.sample);
       if (Session.datas.notifications &&
-          $.inArray(''+pere.id, Session.datas.notifications.programs.new) != -1) {
+          $.inArray(pere.id, Session.datas.notifications.programs['new']) != -1) { //'' + pere.id
         li.prepend(UI.badge_notification.replace('%count%', 'nouveau'));
       }
       if (program.deporte) {
