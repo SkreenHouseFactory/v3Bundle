@@ -272,7 +272,7 @@ API = {
         this.postMessage(["link", url, force]);
         if (force != true) {
           if (typeof callback == 'undefined') {
-            Session.initPlaylist(url);
+            Session.initPlaylist(('/' + url).replace('//','/'));
           } else {
             callback();
           }

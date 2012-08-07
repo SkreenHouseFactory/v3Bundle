@@ -166,12 +166,20 @@ Session = {
      case '/les-chaines-en-direct':
        UI.loadPlaylist('tv');
        UI.loadFilters('tv');
+       //remove grid filters
+       if ($('#top-filters .tv-grid-main').hasClass('tv-grid-filter')) {
+         $('#top-filters .tv-grid-main').removeClass('tv-grid-filter');
+         $('#top-filters .tv-grid-filter:not(.tv-grid-main)').hide();
+         $('#top-filters .tv:not(.tv-selection, .tv-grid-filter)').show();
+       }
      break;
      case '/programme-tv':
        UI.loadPlaylist('tv');
        UI.loadFilters('tv', 'grid-main');
-       $('.tv-grid-filter').show();
-       $('.tv-grid-main').addClass('tv-grid-filter');
+       //add grid filters
+       $('#top-filters .tv-grid-filter').show();
+       $('#top-filters .tv-grid-main').addClass('tv-grid-filter');
+       $('#top-filters .tv:not(.tv-selection, .tv-grid-filter)').hide();
        $('#top-playlist').collapse('hide');
      break;
      //load cinema 
@@ -188,15 +196,16 @@ Session = {
      break;
      //load selector onglet
      case '/vod':
-       UI.loadPlaylist('replay-vod');
-       UI.loadFilters('vod', url.replace('/', '').replace('replay-vod', ''));
+       UI.loadPlaylist('vod');
+       UI.loadFilters('vod');
      break;
      case '/films':
      case '/documentaires':
      case '/series':
      case '/spectacles':
+     case '/jeunesse':
        UI.loadPlaylist('vod');
-       UI.loadFilters('vod', url.replace('/', '').replace('replay-vod', ''));
+       UI.loadFilters('vod', url.replace('/', ''));
      break;
      //load selector
      case '/':

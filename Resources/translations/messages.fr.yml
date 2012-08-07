@@ -11,7 +11,7 @@ player:
       deporte: Sur mySkreen
       external: Sur d'autres sites
 redirection:
-    h1: Patientez quelques secondes
+    h1: Patientez quelques secondes ...
     message: mySkreen vous redirige vers votre vidéo
 user:
     programs: Vos programmes
