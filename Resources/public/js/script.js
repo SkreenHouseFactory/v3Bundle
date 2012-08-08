@@ -5,13 +5,12 @@ $(document).ready(function(){
   
     // -- console
     if( API.config.console != true ) {
-      var console = {
+      console = {
           log: function() {},
           warn: function() {},
           error: function() {}
       };
     }
-  
   });
 
   // -- sync v2
