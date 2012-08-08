@@ -176,23 +176,30 @@ Session = {
      case '/programme-tv':
        UI.loadPlaylist('tv');
        UI.loadFilters('tv', 'grid-main');
+       console.log('Session.initPlaylist', 'hasClass', $('#top-filters .tv-grid-main').hasClass('tv-grid-filter'));
        //add grid filters
-       $('#top-filters .tv-grid-filter').show();
-       $('#top-filters .tv-grid-main').addClass('tv-grid-filter');
-       $('#top-filters .tv:not(.tv-selection, .tv-grid-filter)').hide();
-       $('#top-playlist').collapse('hide');
+       if (!$('#top-filters .tv-grid-main').hasClass('tv-grid-filter')) {
+         console.log('Session.initPlaylist', $('#top-filters .tv:not(.tv-selection, .tv-grid-filter)'));
+         $('#top-filters .tv-grid-filter').show();
+         $('#top-filters .tv-grid-main').addClass('tv-grid-filter');
+         $('#top-filters .tv:not(.tv-selection, .tv-grid-filter)').hide();
+         $('#top-playlist').collapse('hide');
+       }
      break;
      //load cinema 
      case '/cinema/box-office/a':
        UI.loadFilters('cine', 'box-office');
      break;
      case '/cine':
-     case '/selection/7845147-a-voir-au-cinema':
        UI.loadPlaylist('cine');
        UI.loadFilters('cine');
      break;
+     case '/selection/7845147-a-voir-au-cinema':
+       UI.loadPlaylist('cine');
+       UI.loadFilters('cine', 'new');
+     break;
      case '/selection/7845150-prochainement-dans-les-salles':
-       UI.loadFilters('cine');
+       UI.loadFilters('cine', 'coming');
      break;
      //load selector onglet
      case '/vod':

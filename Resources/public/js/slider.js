@@ -32,7 +32,7 @@ Slider = {
 
     next.bind('click', function(){
       console.log('next', container.css('left'), container.css('width'));
-      if (parseInt(container.css('left')) < container.css('width') || container.css('left') == 'auto') {
+      if (parseInt(container.css('left')) < parseInt(container.css('width')) || container.css('left') == 'auto') {
         items.animate({'left': '+=-'+parseInt(container.css('width'))}, 500, function() {
           //console.log('pager', parseInt(items.css('left')),  parseInt(container.css('width')), items.css('width'), slider.data('pager-offset'));
           console.log('pager', $('li:not(.selector)', items).length * (self.item_width+self.item_margin*2) - parseInt(container.css('width')),  parseInt(items.css('left')), slider.data('pager-offset'));
@@ -47,7 +47,7 @@ Slider = {
               self.addLoader(slider);
               self.load(slider, 
                         slider.data('pager-url').replace('session.uid', Session.uid)
-                                                .replace('group.name', Session.access) + '?offset=' + offset,
+                                                .replace('group.name', Session.access) + '?with_best_offer=1&offset=' + offset,
                         function(nb_programs){
                           self.removeLoader(slider);
                           if (nb_programs < 3) {
@@ -138,10 +138,10 @@ Slider = {
               });
   },
   insertPrograms: function(slider, programs){
-    console.log('Slider.insertPrograms', slider, programs);
+    console.log('Slider.insertPrograms', slider, programs, Session.datas.notifications.programs['new']);
     for (key in programs) {
       var program = programs[key];
-      var popular_channel = program.popular_channel ? '<img alt="'+program.popular_channel.name+' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
+      var popular_channel = program.popular_channel ? '<img alt="' + program.popular_channel.name + ' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
       var pere  = program.episodeof ? program.episodeof : program;
       var seo_url = API.config.site_url + program.seo_url + (slider.attr('id') == 'playlist' ? '?keepPlaylist' : '');
       if (program.has_vod == 4) { //cine
@@ -169,7 +169,7 @@ Slider = {
       
       //console.log('Slider.load', 'added', li, this.sample);
       if (Session.datas.notifications &&
-          $.inArray(pere.id, Session.datas.notifications.programs['new']) != -1) { //'' + pere.id
+          $.inArray('' + pere.id, Session.datas.notifications.programs['new']) != -1) { //'' + pere.id
         li.prepend(UI.badge_notification.replace('%count%', 'nouveau'));
       }
       if (program.deporte) {

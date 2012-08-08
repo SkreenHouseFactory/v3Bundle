@@ -7,7 +7,7 @@
   <h1>{{ 'user.programs'|trans }}</h1>
   <br/>
 
-  <ul class="nav nav-pills nav-alpha-client">
+  <ul class="nav nav-pills nav-alpha-client uppercase">
     <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
       <a href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
     </li>

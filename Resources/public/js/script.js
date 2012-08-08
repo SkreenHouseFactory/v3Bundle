@@ -1,9 +1,20 @@
 $(document).ready(function(){
 
-  //init
-  API.init();
+  // -- init
+  API.init(function(){
+  
+    // -- console
+    if( API.config.console != true ) {
+      var console = {
+          log: function() {},
+          warn: function() {},
+          error: function() {}
+      };
+    }
+  
+  });
 
-  //v2
+  // -- sync v2
   if (top.location != self.document.location) {
     API.syncV2(function(){
       //callback sync
@@ -59,12 +70,6 @@ $(document).ready(function(){
     $(this).addClass('active');
     //programme TV
     if ($(this).hasClass('tv-grid')) {
-      
-      //load subnav
-      if ($(this).hasClass('tv-grid-main')) {
-        $('.tv-grid-filter').show();
-        $(this).addClass('tv-grid-filter');
-      }
 
       //trigger grid
       var onglet = $('a', this).data('filter');
@@ -128,7 +133,8 @@ $(document).ready(function(){
     return false;
   });
   $('#top-playlist h2').live('click', function(){
-    UI.unloadPlaylist(this.id);
+    //UI.unloadPlaylist(this.id);
+    Session.initSelector();
   });
 
   // -- ui link/url
@@ -189,9 +195,9 @@ $(document).ready(function(){
     return false;
   });
   // -- .fav : retirer / popover
-  $('.actions .fav').live('hover', function(e) {
+  $('.actions .fav').live('hover', function(event) {
     //console.log('script', '.fav:hover', event.type);
-    if (event.type == 'mouseover') {
+    if (event.type == 'mouseover' || event.type == 'mouseenter') {
       // retirer
       if ($(this).hasClass('btn-primary')) {
         $(this).removeClass('btn-primary')
@@ -212,7 +218,7 @@ $(document).ready(function(){
                          content: content})
                .popover('show');
       }
-    } else if (event.type == 'mouseout') {
+    } else if (event.type == 'mouseout' || event.type == 'mouseleave') {
       if ($(this).hasClass('btn-danger')) {
         $(this).removeClass('btn-danger').addClass('btn-primary').html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists');
       }

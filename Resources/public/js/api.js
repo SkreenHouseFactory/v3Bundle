@@ -13,19 +13,22 @@ ENV = {
         env: 'dev',
         site_url: 'http://beta.benoit.myskreen.typhon.net:40011',
         base: 'http://benoit.myskreen.typhon.net/api/1/',
-        popin: 'https://benoit.myskreen.typhon.net/popin/'
+        popin: 'https://benoit.myskreen.typhon.net/popin/',
+        console: true
   },
   preprod: {
         env: 'preprod',
         site_url: 'http://preprod.beta.myskreen.com',
         base: 'http://preprod.api.myskreen.com/api/1/',
-        popin: 'https://preprod.api.myskreen.com/popin/'
+        popin: 'https://preprod.api.myskreen.com/popin/',
+        console: true
   },
   prod: {
         env: 'prod',
         site_url: 'http://beta.myskreen.com',
-        base: 'http://api.myskreen.com/api/1/',
-        popin: 'https://api.myskreen.com/popin/'
+        base: 'http://preprod.api.myskreen.com/api/1/',
+        popin: 'https://preprod.api.myskreen.com/popin/',
+        console: false
   }
 }
 
@@ -40,10 +43,13 @@ API = {
   dataType: 'jsonp',
   currentModalUrl: null,
   currentUrl: null,
-  init: function() {
+  init: function(callback) {
     var href = document.location.href;
     API.config = href.indexOf('.net') != -1 ? ENV.dev : href.indexOf('preprod.') != -1 ? ENV.preprod : ENV.prod;
     API.config.player = $('html').hasClass('video') ? 'html5' : 'flash';
+    if (typeof callback != 'undefined') {
+      callback();
+    }
   },
   quickLaunchModal: function(action, callback) {
     this.launchModal(this.config.popin + action, callback);
