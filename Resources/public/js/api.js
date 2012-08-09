@@ -26,8 +26,8 @@ ENV = {
   prod: {
         env: 'prod',
         site_url: 'http://beta.myskreen.com',
-        base: 'http://preprod.api.myskreen.com/api/1/',
-        popin: 'https://preprod.api.myskreen.com/popin/',
+        base: 'http://api.myskreen.com/api/1/',
+        popin: 'https://api.myskreen.com/popin/',
         console: false
   }
 }
@@ -317,7 +317,7 @@ API = {
         } else if (message[0] == 'nav') {
           if (message[1] == 'reset' && !Session.datas.email) {
             $('.subnav .nav li.active').removeClass('active');
-            $('.subnav .nav li').hide();
+            $('#top-filters li').hide();
           }
 
         } else if (message[0] == 'header') {
