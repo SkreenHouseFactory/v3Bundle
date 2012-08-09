@@ -31,10 +31,16 @@ class PlayerController extends Controller
         $url = $request->get('target');
       }
 
-      return $this->render('SkreenHouseFactoryV3Bundle:Player:' . $request->get('template') . '.html.twig', array(
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Player:' . $request->get('template') . '.html.twig', array(
         'url' => urldecode($url),
         'menus' => array()
       ));
+
+      $response->setPublic();
+      $response->setMaxAge(3600);
+      $response->headers->addCacheControlDirective('must-revalidate', true);
+
+      return $response;
     }
 
     /**

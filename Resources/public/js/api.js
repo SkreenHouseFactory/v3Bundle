@@ -25,7 +25,7 @@ ENV = {
   },
   prod: {
         env: 'prod',
-        site_url: 'http://beta.myskreen.com',
+        site_url: 'http://www.myskreen.com',
         base: 'http://api.myskreen.com/api/1/',
         popin: 'https://api.myskreen.com/popin/',
         console: false
@@ -191,7 +191,7 @@ API = {
       post["url"] = url.replace('.json','');
       post["data"] = data;
       data = post;
-      url = '/app_dev.php/post';
+      url = '/app.php/post';
 
     } else {
       var dataType = "jsonp";

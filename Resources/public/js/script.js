@@ -190,7 +190,7 @@ $(document).ready(function(){
     if ($(this).parent().parent().find('.badge')) {
       API.markAsRed($(this).parent().data('id'));
     }
-    
+
     return false;
   });
   // -- .fav : retirer / popover
