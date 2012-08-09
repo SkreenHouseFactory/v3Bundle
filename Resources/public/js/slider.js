@@ -106,7 +106,7 @@ Slider = {
   },
   load: function(slider, url, callback, keep, args) {
     //prevent multiple loadings
-    if (this.playlist.hasClass('loading')) {
+    if (UI.playlist.hasClass('loading')) {
       console.warn('Slider.load', 'already loading');
       return;
     }

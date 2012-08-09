@@ -138,6 +138,7 @@ Session = {
                 function(json) {
                   console.log('Session.initSelector', 'remote', 'reload', json);
                   UI.loadSelector(json, true);
+                  UI.playlist.removeClass('loading');
                 });
 
     }
