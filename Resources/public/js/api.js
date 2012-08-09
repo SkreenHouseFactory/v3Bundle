@@ -317,6 +317,7 @@ API = {
         } else if (message[0] == 'nav') {
           if (message[1] == 'reset' && !Session.datas.email) {
             $('.subnav .nav li.active').removeClass('active');
+            $('.subnav .nav li').hide();
           }
 
         } else if (message[0] == 'header') {

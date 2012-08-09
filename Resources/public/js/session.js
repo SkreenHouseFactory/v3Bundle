@@ -102,6 +102,14 @@ Session = {
     }
   },
   initSelector: function(onglet, reload) {
+    //prevent multiple loadings
+    if (UI.playlist.hasClass('loading')) {
+      console.warn('Session.initSelector', 'already loading');
+      return;
+    }
+    UI.playlist.addClass('loading');
+
+    //require authenticated user
     if (!this.datas.email) {
       return null;
     }

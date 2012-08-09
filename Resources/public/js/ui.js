@@ -43,6 +43,7 @@ UI = {
       $('.favoris span').html('(' + Session.datas.queue.length + ')');
       $('.user-on-visibility').css('visibility','visible');
       $('li.selector:not(.empty)').popover('disable').popover("hide");
+      $('#top-baseline').hide();
       this.loadUserPrograms();
       this.notifyUser(Session.datas.notifications);
     } else {
@@ -107,6 +108,7 @@ UI = {
   },
   //update selector
   loadSelector: function(datas) {
+
     console.log('UI.loadSelector', datas, Session.onglet);
     this.unloadPlaylist();
     this.unloadSelector();

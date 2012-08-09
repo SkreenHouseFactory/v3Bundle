@@ -105,6 +105,13 @@ Slider = {
     $('.loader', slider).remove();
   },
   load: function(slider, url, callback, keep, args) {
+    //prevent multiple loadings
+    if (this.playlist.hasClass('loading')) {
+      console.warn('Slider.load', 'already loading');
+      return;
+    }
+    slider.addClass('loading');
+
     var self = this;
     if (!this.sample) {
       this.sample = $('<div>').append($('#playlist li:first').clone()).html();
@@ -135,6 +142,7 @@ Slider = {
                   callback(slider);
                 }
                 $('li.to_animate', slider).animate({'width':Slider.item_width}, 500).removeClass('to_animate');
+                slider.removeClass('loading');
               });
   },
   insertPrograms: function(slider, programs){
