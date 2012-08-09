@@ -285,7 +285,7 @@ API = {
         }
       }
     } else {
-      document.location = this.config.site_url + url;
+      document.location = url.substr(0,1) == '/' ?  this.config.site_url + url : url;
     }
 
     this.currentUrl = url;
