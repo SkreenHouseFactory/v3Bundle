@@ -10,7 +10,7 @@ UI = {
   togglePlaylistProgram: function(trigger){
     var value = trigger.parent().data('id');
     var remove = trigger.hasClass('btn-primary') || trigger.hasClass('btn-danger') ? true : false;
-    if (Session.datas.email) {
+    if (Skhf.session.datas.email) {
       API.togglePreference('like', value, trigger, function(value){
         console.log('UI.togglePlaylistProgram', 'callback', value, trigger);
         if (remove && $('.friends', trigger.parent().parent()).length == 0) { //pas pour le slider social
@@ -21,15 +21,15 @@ UI = {
       });
     } else {
       API.quickLaunchModal('signin', function(){
-        Session.sync();
+        Skhf.session.sync();
       });
     }
   },
   //user infos
   loadUser: function() {
-    console.log('UI.loadUser', Session.datas.email, this.user);
+    console.log('UI.loadUser', Skhf.session.datas.email, this.user);
     if (this.user) {
-      if (this.user == Session.datas.email) {
+      if (this.user == Skhf.session.datas.email) {
         console.warn('UI.loadUser', 'already loaded');
         return;
       } else {
@@ -37,15 +37,15 @@ UI = {
       }
     }
 
-    this.user = Session.datas.email;
-    if (Session.datas.email) {
-      $('.user span').html(Session.datas.email);
-      $('.favoris span').html('(' + Session.datas.queue.length + ')');
+    this.user = Skhf.session.datas.email;
+    if (Skhf.session.datas.email) {
+      $('.user span').html(Skhf.session.datas.email);
+      $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
       $('.user-on-visibility').css('visibility','visible');
       $('li.selector:not(.empty)').popover('disable').popover("hide");
       $('#top-baseline').hide();
       this.loadUserPrograms();
-      this.notifyUser(Session.datas.notifications);
+      this.notifyUser(Skhf.session.datas.notifications);
     } else {
       $('.user span, .favoris span').empty();
       $('.notifications span').remove();
@@ -57,7 +57,7 @@ UI = {
   },
   //toggle btn
   loadUserPrograms: function(ids, elmt) {
-    var ids  = typeof ids  != 'undefined' ? ids  : Session.datas.queue;
+    var ids  = typeof ids  != 'undefined' ? ids  : Skhf.session.datas.queue;
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
     console.log('UI.loadUserPrograms', ids, elmt);
     for (key in ids) {
@@ -100,7 +100,7 @@ UI = {
       li.css('background-image', 'url('+program.picture+')').css('background-repeat', 'no-repeat');
       li.find('.label').removeClass('opacity');
       li.find('span.badge').remove();
-      li.find('.label span').html(Session.datas.friends.length);
+      li.find('.label span').html(Skhf.session.datas.friends.length);
       li.find('a, h6').hide();
       li.popover('disable');
       //this.addFriends(li, datas.friend_uids.split(','));
@@ -109,13 +109,13 @@ UI = {
   //update selector
   loadSelector: function(datas) {
 
-    console.log('UI.loadSelector', datas, Session.onglet);
+    console.log('UI.loadSelector', datas, Skhf.session.onglet);
     this.unloadPlaylist();
     this.unloadSelector();
     $('#top-playlist li.selector').show();
     $('#top-playlist h2 small').empty();
-    //if (Session.onglet) {
-    //  $('#top-playlist h2 small:last').html('» ' + $('#top-filters .' + Session.onglet).html());
+    //if (Skhf.session.onglet) {
+    //  $('#top-playlist h2 small:last').html('» ' + $('#top-filters .' + Skhf.session.onglet).html());
     //}
 
     for (key in datas) {
@@ -139,7 +139,7 @@ UI = {
       }
     }
 
-    Session.initSocial();
+    Skhf.session.initSocial();
     //this.playlist.data('queue-selector', JSON.stringify(datas));
   },
   unloadSelector: function() {
@@ -154,11 +154,11 @@ UI = {
   loadPlaylist: function(access, onglet){
 
     var self = this;
-    if (Session.datas.email) {
-      Session.access = access;
+    if (Skhf.session.datas.email) {
+      Skhf.session.access = access;
 
-      var url = this.playlist.data('pager-url').replace('session.uid', Session.uid)
-                                               .replace('group.name', Session.access)
+      var url = this.playlist.data('pager-url').replace('Skhf.session.uid', Skhf.session.uid)
+                                               .replace('group.name', Skhf.session.access)
                                                .replace('app_dev.php/', '');
       if (typeof onglet != 'undefined') {
         var args = {onglet: onglet, with_best_offer: 1, with_player: 1, player: API.config.player, time: new Date().getTime()};
@@ -168,16 +168,16 @@ UI = {
         $('#top-playlist h2 small:last').empty();
       }
 
-      console.log('UI.loadPlaylist', url, access, Session.onglet);
+      console.log('UI.loadPlaylist', url, access, Skhf.session.onglet);
       Slider.load(this.playlist,
                   url,
                   function(slider){
-                    //if (Session.access == 'friends') {
+                    //if (Skhf.session.access == 'friends') {
                     //  slider.addClass('social');
                     //}
                     var nb_programs = slider.data('nb-programs');
-                    if (Session.access) {
-                      var name = $('li#' + Session.access, self.playlist).data('name');
+                    if (Skhf.session.access) {
+                      var name = $('li#' + Skhf.session.access, self.playlist).data('name');
                       if (typeof name != 'undefined') {
                         $('#top-playlist h2 small:first').html('» ' + name);
                       }
@@ -199,10 +199,10 @@ UI = {
   },
   unloadPlaylist: function(onglet) {
     var self = this;
-    console.log('UI.unloadPlaylist', onglet, Session.onglet);
+    console.log('UI.unloadPlaylist', onglet, Skhf.session.onglet);
 
-    if (typeof onglet != "undefined" && onglet != Session.onglet) {
-      Session.initPlaylist('/' + onglet);
+    if (typeof onglet != "undefined" && onglet != Skhf.session.onglet) {
+      Skhf.session.initPlaylist('/' + onglet);
     }
     $('#top-playlist h2 small').empty();
     $('li:not(.selector, #item)', this.playlist).animate({'width':0}, 500, function() {
@@ -278,9 +278,9 @@ UI = {
     //console.log('Slider.addFriends', friend_uids, li);
     var div = $('<div class="friends"></div>');
     for (key in friend_uids) {
-      if (typeof Session.datas.friends[friend_uids[key]]) {
-        if (typeof Session.datas.friends[friend_uids[key]] != "undefined") {
-          var friend = Session.datas.friends[friend_uids[key]];
+      if (typeof Skhf.session.datas.friends[friend_uids[key]]) {
+        if (typeof Skhf.session.datas.friends[friend_uids[key]] != "undefined") {
+          var friend = Skhf.session.datas.friends[friend_uids[key]];
           div.append('<a rel="tooltip" title="'+friend.name+' suit ce programme" href="#"><img src="'+friend.pic_square+'" alt="'+friend.name+'" /></a>');
         }
       }
@@ -299,7 +299,7 @@ UI = {
         }
         API.xhr['typeahead'] = API.query('GET', 
                          'search/autosuggest/' +query + '.json', 
-                         {session_uid: Session.uid, img_width: 30, img_height: 30, advanced: 1, with_unvailable: 1}, 
+                         {session_uid: Skhf.session.uid, img_width: 30, img_height: 30, advanced: 1, with_unvailable: 1}, 
                          function(data){
                             console.log('UI.typeahead', query, data);
                             //if (data.search) {

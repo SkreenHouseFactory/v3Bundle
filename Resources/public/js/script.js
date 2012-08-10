@@ -1,4 +1,7 @@
 $(document).ready(function(){
+  var Skhf = {
+    session: null
+  }
 
   // -- init
   API.init(function(){
@@ -22,8 +25,10 @@ $(document).ready(function(){
 
   // -- session
   $('.user-on').hide();
-  Session.init(function(){
-    console.log('context', API.context);
+  UI.playlist = $('#playlist');
+  Skhf.session = new Session(function(){
+    console.log('script', 'context', API.context);
+    UI.loadUserPrograms();
   });
 
   // -- ui user

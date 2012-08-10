@@ -9,7 +9,7 @@
 
 	<title>{% block title endblock %} | {{ 'service.name'|trans }}</title>
 	<meta name="description" content="{% block description %}{% endblock %}">
-	<meta name="author" content="mySkreen">
+	<meta name="author" content="SkreenHouseFactory">
 	<meta name="language" content="fr-FR" />
 	<meta name="viewport" content="width=device-width">
 	<meta name="robots" content="noindex,nofollow">
@@ -22,22 +22,11 @@
         %}
       <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
-
-	<script src="{{ asset('bundles/skreenhousefactoryv3/initializr/js/libs/modernizr-2.5.3-respond-1.1.0.min.js') }}"></script>
 </head>
 <body>
 <!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
 
-    <div class="modal hide" id="skModal">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <h3>{{ 'loading'|trans }} ...</h3>
-      </div>
-      <div class="modal-body">
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
 
     <div id="header">
     {% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' with {'menus': menus} %}
@@ -67,22 +56,13 @@
     {% endfor %}
     </div>
 
-    <div class="container">
-
-    {#
-      <footer>
-        <hr />
-        <p>&copy; The Skreen House Factory 2012</p>
-      </footer>
-    #}
-
-    </div> <!-- /container -->
-
 {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/initializr/js/libs/modernizr-2.5.3-respond-1.1.0.min.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/initializr/js/libs/jquery-1.7.2.min.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/initializr/js/libs/bootstrap/first/*'
     '@SkreenHouseFactoryV3Bundle/Resources/public/initializr/js/libs/bootstrap/last/*'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/*'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*' 
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/*' 
     filter='?yui_js' 
     output='js/compiled/script.js'  %}

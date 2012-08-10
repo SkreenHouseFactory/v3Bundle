@@ -46,8 +46,8 @@ Slider = {
               //console.log('pager-offset', 'set', offset, slider, slider.data('pager-offset'));
               self.addLoader(slider);
               self.load(slider, 
-                        slider.data('pager-url').replace('session.uid', Session.uid)
-                                                .replace('group.name', Session.access) + '?with_best_offer=1&offset=' + offset,
+                        slider.data('pager-url').replace('session.uid', Skhf.session.uid)
+                                                .replace('group.name', Skhf.session.access) + '?with_best_offer=1&offset=' + offset,
                         function(nb_programs){
                           self.removeLoader(slider);
                           if (nb_programs < 3) {
@@ -146,7 +146,7 @@ Slider = {
               });
   },
   insertPrograms: function(slider, programs){
-    console.log('Slider.insertPrograms', slider, programs, Session.datas.notifications.programs['new']);
+    console.log('Slider.insertPrograms', slider, programs, Skhf.session.datas.notifications.programs['new']);
     for (key in programs) {
       var program = programs[key];
       var popular_channel = program.popular_channel ? '<img alt="' + program.popular_channel.name + ' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
@@ -176,8 +176,8 @@ Slider = {
       $('.actions', li).data('id', program.id);
       
       //console.log('Slider.load', 'added', li, this.sample);
-      if (Session.datas.notifications &&
-          $.inArray('' + pere.id, Session.datas.notifications.programs['new']) != -1) { //'' + pere.id
+      if (Skhf.session.datas.notifications &&
+          $.inArray('' + pere.id, Skhf.session.datas.notifications.programs['new']) != -1) { //'' + pere.id
         li.prepend(UI.badge_notification.replace('%count%', 'nouveau'));
       }
       if (program.deporte) {
@@ -196,7 +196,7 @@ Slider = {
       //console.log('Slider.load', 'added', li, program);
     }
     $('a[rel="tooltip"]', slider).tooltip();
-    UI.loadUserPrograms(Session.datas.queue, slider);
+    UI.loadUserPrograms(Skhf.session.datas.queue, slider);
   },
   addProgramBestOffer: function(li, program) {
     var o = program.best_offer;
@@ -205,7 +205,7 @@ Slider = {
       btn.html(o.dispo);
       if (o.player) {
         console.log('Slider.addBestOffer', 'add player', o.player);
-        btn.attr('href', btn.attr('href') + '?onglet=' + Session.access);
+        btn.attr('href', btn.attr('href') + '?onglet=' + Skhf.session.access);
         //btn.attr('data-player', o.player);
       } else if (o.url) {
         console.log('Slider.addBestOffer', 'add url', o.url);
@@ -214,11 +214,11 @@ Slider = {
           btn.attr('data-redirect', 1).attr('href', o.url);
         } else {
           var host = 'http://' + document.location.host + (API.config.env == 'dev' ? '/app_dev.php' : '/app.php');
-          var url =  host + '/redirection/' + escape(o.url) + '?access=' + Session.access;
+          var url =  host + '/redirection/' + escape(o.url) + '?access=' + Skhf.session.access;
           btn.attr('data-redirect', 1).attr('href', url);
         }
       } else {
-        btn.attr('href', btn.attr('href') + '?access=' + Session.access);
+        btn.attr('href', btn.attr('href') + '?access=' + Skhf.session.access);
       }
     }
   }
