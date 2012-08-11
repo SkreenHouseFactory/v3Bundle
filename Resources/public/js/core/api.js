@@ -12,21 +12,21 @@ ENV = {
   dev: {
         env: 'dev',
         site_url: 'http://beta.benoit.myskreen.typhon.net:40011',
-        base: 'http://benoit.myskreen.typhon.net/api/1/',
+        base: 'http://benoit.myskreen.typhon.net/api/',
         popin: 'https://benoit.myskreen.typhon.net/popin/',
         console: true
   },
   preprod: {
         env: 'preprod',
         site_url: 'http://preprod.beta.myskreen.com',
-        base: 'http://preprod.api.myskreen.com/api/1/',
+        base: 'http://preprod.api.myskreen.com/api/',
         popin: 'https://preprod.api.myskreen.com/popin/',
         console: true
   },
   prod: {
         env: 'prod',
         site_url: 'http://www.myskreen.com',
-        base: 'http://api.myskreen.com/api/1/',
+        base: 'http://api.myskreen.com/api/',
         popin: 'https://api.myskreen.com/popin/',
         console: false
   }
@@ -168,13 +168,13 @@ API = {
       UI.markAsRed(id);
     });
   },
-  query: function(method, url, data, callback, cache) {
-
+  query: function(method, url, data, callback, cache, version) {
     if (url.match(/^https\:\/\//)) {
       //console.log('API.query', 'https', 'is popin', url);
     } else {
       //console.log('API.query', 'http', 'is api', url);
-      var url  = this.config.base + url; //.replace('//', '/');
+      var version = typeof version == 'undefined' ? '1' : version;
+      var url  = this.config.base + version + '/' + url; //.replace('//', '/');
     }
 
     url = url.replace('/app_dev.php', '').replace('/app.php', ''); //developpment environment
