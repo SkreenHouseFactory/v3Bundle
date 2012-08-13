@@ -12,9 +12,11 @@ var BaseSlider = Class.extend({
     console.log('Slider.init', params, callback);
     this.elmt = this.getTemplate(params);
     this.params = $.extend(this.params, params);
-    if (this.params.type == 'scroll') {
+    if (this.params.scroll != 'no') {
       this.elmt.append('<a class="next badge badge-inverse"><i class="icon-chevron-right icon-white"></i></a>');
       this.elmt.append('<a class="prev badge badge-inverse"><i class="icon-chevron-left icon-white"></i></a>');
+    } else {
+      this.elmt.addClass('no-scroll');
     }
 
     //li sample
@@ -23,7 +25,7 @@ var BaseSlider = Class.extend({
     }
 
     //programs
-    if (typeof params.programs != 'undefined' && params.programs.length > 0) {
+    if (typeof params.programs != 'undefined') {
       console.log('Slider.init', 'insertPrograms');
       this.insertPrograms(params.programs, callback);
     } else {
@@ -175,7 +177,7 @@ var BaseSlider = Class.extend({
                + '?programs_only=1&with_best_offer=1&offset=' + offset;
   },
   insertPrograms: function(programs, callback){
-    console.log('Slider.insertPrograms', programs, Skhf.session.datas);
+    console.log('BaseSlider.insertPrograms', programs, Skhf.session.datas);
     for (key in programs) {
       var program = programs[key];
       var popular_channel = program.popular_channel ? '<img alt="' + program.popular_channel.name + ' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
@@ -196,8 +198,8 @@ var BaseSlider = Class.extend({
       }
       var li    = $(this.sample.replace('%seo_add_title%', pere.title + ', ' + program.format + ' - ' + program.year)
                                .replace('%seo_play_title%', seo_play_title).replace('%seo_play_title%', seo_play_title)
-                               .replace('%title%', program.title)
-                               .replace('%url%', seo_url).replace('%url%', seo_url)
+                               .replace('%title%', program.title).replace('%title%', program.title).replace('%title%', program.title)
+                               .replace('%seo_url%', seo_url).replace('%seo_url%', seo_url)
                                .replace('%id%', pere.id).replace('%id%', pere.id)
                                .replace('%onglet%', program.onglet.toLowerCase())
                                .replace('%popular_channel%', popular_channel));
@@ -227,7 +229,8 @@ var BaseSlider = Class.extend({
 
     //ui
     $('a[rel="tooltip"]', this.elmt).tooltip();
-    $('li.to_animate', self.elmt).animate({'width':this.params.img_width}, 500).removeClass('to_animate');
+    $('li.to_animate', this.elmt).animate({'width':this.params.img_width}, 500).removeClass('to_animate');
+    console.log('BaseSlider.load', 'insertPrograms', 'to_animate', this.elmt);
     //UI.loadUserPrograms(Skhf.session.datas.queue, this.elmt);
 
     if (typeof callback != 'undefined'){
@@ -261,7 +264,7 @@ var BaseSlider = Class.extend({
   },
   getTemplate: function(params) {
     var title = typeof params.title != 'undefined' ? '<h2>' + params.title + '</h2>' : '';
-    var html = $('<div class="slider item-row"' + (typeof params.data_id != 'undefined' ? ' data-id="' + params.data_id + '"' : '') + '>' + title + '<div class="slider-container"><ul class="items"></ul></div></div>');
+    var html = $('<div class="slider"' + (typeof params.data_id != 'undefined' ? ' data-id="' + params.data_id + '"' : '') + '>' + title + '<div class="slider-container"><ul class="items item-row"></ul></div></div>');
 
     console.log('Slider.getTemplate', params, html);
     return html;

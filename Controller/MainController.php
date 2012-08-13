@@ -31,7 +31,8 @@ class MainController extends Controller
       $menus = $api->fetch('www/menu', array('without_footer' => true));
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig', array(
-        'menus' => (array)$menus->menu
+        'menus' => (array)$menus->menu,
+        'nostat' => true
       ));
       $response->headers->set('Access-Control-Allow-Origin', '*');
       $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
