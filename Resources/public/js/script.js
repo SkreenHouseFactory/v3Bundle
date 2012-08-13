@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  var Skhf = {
+  Skhf = {
     session: null
   }
 
@@ -37,13 +37,13 @@ $(document).ready(function(){
       API.postMessage(["signin"]);
     } else {
       API.quickLaunchModal('signin', function() {
-        Session.sync();
+        Skhf.session.sync();
       });
     }
     return false;
   });
   $('a.signout').click(function(){
-    Session.signout();
+    Skhf.session.signout();
     return false;
   });
   $('a.account').click(function(){
@@ -123,7 +123,7 @@ $(document).ready(function(){
     console.log('script', '#top-playlist on hide');
     API.postMessage(['header', 'remove_playlist'])
   });
-  $('li.selector', Session.playlist).live('click', function(){
+  $('li.selector', Skhf.session.playlist).live('click', function(){
     console.log('script', 'li.selector', 'click');
     if ($(this).hasClass('empty')) {
       if ($('a', $(this)).data('modal')) {
@@ -138,7 +138,7 @@ $(document).ready(function(){
   });
   $('#top-playlist h2').live('click', function(){
     //UI.unloadPlaylist(this.id);
-    Session.initSelector();
+    Skhf.session.initSelector();
   });
 
   // -- ui link/url

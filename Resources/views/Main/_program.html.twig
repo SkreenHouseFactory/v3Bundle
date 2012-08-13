@@ -1,4 +1,8 @@
-<li data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" style="background-image:url({{ p.picture }})"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
+{% if p is not defined %}
+{% set p = {title:'%title%',id:'%id%',picture:'%picture%',onglet:'%onglet%',seo_url:'%seo_url%',has_vod:'%has_vod%'} %}
+{% endif %}
+<li class="slider-sample item-parent" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" style="background-image:url({{ p.picture }})"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
+  <div class="item">
   {#% if p.popular_channel %}
     <img src="{{ p.popular_channel.ico_path }}" />
   {% endif %#}
@@ -14,4 +18,5 @@
     <span>{{ 'action.deporte'|trans }}</span></a>
   </div>
   <a href="{{ p.seo_url }}" title="{{ p.title }} {{ 'seo.title.play'|trans }}" class="title">{{ p.title }}</a>
+  </div>
 </li>

@@ -1,0 +1,273 @@
+/* ===== v3 =================================================================
+   Author: Benoît Bergstörm
+   ========================================================================== */
+
+@bgBody:   url("/bundles/skreenhousefactoryv3/images/header/bg-playlist.jpeg");
+@sliderHeight:   210px;
+@vignetteWidth:   150px;
+@vignetteHeight:   200px;
+@vignetteBorder:  2px dashed transparent;
+@selectorBorder:  2px solid #BBBBBB;
+@vignetteBorderEmpty:  2px dashed #BBBBBB;
+@vignetteMargin:  0 7px;
+
+/* slider */
+.slider.navigate {
+  .slider-container {
+    border-right: 1px solid black;
+  }
+}
+.slider.back {
+  .prev {
+    visibility: visible;
+  }
+  .slider-container {
+    border-left: 1px solid black;
+  }
+}
+.slider.slider-list {
+  ul.items {
+    li {
+      margin-bottom: 15px;
+    }
+  }
+}
+.slider.empty {
+  background: url("/bundles/skreenhousefactoryv3/images/slider-empty-bg.png") no-repeat;
+}
+.slider {
+  height: @sliderHeight;
+  width: 100%;
+  overflow: hidden;
+  clear: both;
+  z-index: 1;
+
+  .prev, .next {
+    visibility: hidden;
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    font-size: 2em;
+    font-weight: bold;
+  }
+  .prev {
+    left: -25px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    padding: 10px 5px 3px 6px;
+  }
+  .next {
+    right: -25px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    padding: 10px 6px 3px 5px;
+  }
+  .slider-container {
+    height: 100%;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  ul.items {
+    position: absolute;
+    margin: 0;
+
+    li {
+      cursor: pointer;
+      position: relative;
+      font-family: Helvetica, Arial;
+      width: @vignetteWidth;
+      height: @vignetteHeight;
+      display: block;
+      float: left;
+      border: @vignetteBorder;
+      margin: @vignetteMargin;
+      background-color: #EEE;
+      background-repeat: no-repeat;
+      list-style: none;
+      text-align: center;
+      box-shadow: 1px 1px 4px #999;
+      overflow: hidden;
+      
+      .item {
+        height: 100%;
+        width: 100%;
+      }
+
+      img.channel {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+      }
+
+      h6 {
+        position: absolute;
+        left: 0;
+        top: 35%;
+        font-weight: normal;
+        text-shadow: 1px 1px 2px white;
+        padding: 10px;
+        
+        b {
+          font-size: 1.3em;
+        }
+      }
+
+      div.friends {
+        position: absolute;
+        z-index: 2;
+        
+        img {
+          margin: 3px;
+          box-shadow: 1px 1px 4px white;
+        }
+      }
+
+      div.progress {
+          margin: 10px;
+      }
+
+      div.actions {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        bottom: 60px;
+        left: 0px;
+
+        a.btn {
+          position: relative;
+          text-align: left;
+          margin-bottom:5px;
+          line-height: 14px;
+
+          span {
+            display: none;
+            padding-left: 20px;
+            color: black;
+          }
+        }
+      }
+      span {
+        color: white;
+      }
+      span.badge {
+        position: absolute;
+        z-index: 1;
+        top: 25px;
+        box-shadow: 0px 0px 20px white;
+      }
+      span.opacity {
+        opacity: 0.5;
+        box-shadow: 0;
+        border: 0;
+      }
+      span.label {
+        font-weight: normal;
+        box-shadow: 0px 2px 3px #555;
+        border: 1px solid #AAA;
+        border-top: 0;
+      }
+      a.title {
+        text-decoration:none;
+        color:white;
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        text-shadow: 1px 1px 0px black;
+        text-align: left;
+        line-height: 1.1em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        height: 11px;
+        background: #333;
+        margin: 4px;
+        padding: 3px;
+        border-radius: 4px;
+      }
+    }
+    li:hover {
+      div.actions {
+        display: block;
+      }
+      a.title { 
+        height: auto;
+      }
+    }
+    li.deporte {
+      div.actions a.btn span {
+        display: block;
+      }
+    }
+    li.deporte:hover {
+      a.title {
+        background: #333;
+      }
+    }
+    li.films {
+      a.title {
+        background: transparent;
+
+        span {
+          display: none;
+        }
+      }
+    }
+    li.films:hover {
+      a.title {
+        span {
+          background: #333;
+          display: inline;
+        }
+      }
+    }
+    li[data-id="%id%"] {
+      display: none;
+    }
+    li.loader {
+      display: block;
+      background: transparent;
+      box-shadow: none;
+      padding-top: 30px;
+    }
+    li.selector {
+      cursor: pointer;
+      border: @selectorBorder;
+      box-shadow: none;
+      margin: 0 24px;
+      box-shadow: 1px 1px 5px black;
+
+      a.btn {
+        background: transparent;
+        border: none;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        width:80%;
+      }
+
+      span.badge {
+        left: 25%;
+        top: 50px;
+        box-shadow: 0px 0px 20px white;
+      }
+
+      span.label {
+        margin-top: 5px;
+        padding: 10px;
+        font-size: 1.1em;
+        position: relative;
+        display: inline-block;
+      }
+    }
+
+    li.empty.selector {
+      border: @vignetteBorderEmpty;
+      box-shadow: none;
+    }
+
+    li.to_animate {
+      width: 0;
+    }
+  }
+}

@@ -193,11 +193,11 @@ API = {
       post["url"] = url.replace('.json','');
       post["data"] = data;
       data = post;
-      url = '/app.php/post';
+      url = this.config.env == 'dev' ? '/app_dev.php/post' : '/post';
 
     } else {
       var dataType = "jsonp";
-      if (data && typeof data==='object'){
+      if (data && typeof data === 'object'){
         //console.log(data, 'url.indexOf', url.indexOf('?'));
         url += url.indexOf('?') == -1 ? '?' : '&';
         for (var key in data) {

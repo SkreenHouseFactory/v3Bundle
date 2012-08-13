@@ -16,7 +16,7 @@
 	{% block meta %}{% endblock %}
 
   {% stylesheets
-      '@SkreenHouseFactoryV3Bundle/Resources/public/initializr/less/style.less'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/initializr/less/*'
         filter='less,?yui_css'
         output='css/style.css'
         %}
@@ -68,13 +68,6 @@
     output='js/compiled/script.js'  %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
-
-<script>
-	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-	s.parentNode.insertBefore(g,s)}(document,'script'));
-</script>
 
 </body>
 </html>

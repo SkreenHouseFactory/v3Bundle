@@ -100,7 +100,9 @@ UI = {
       li.css('background-image', 'url('+program.picture+')').css('background-repeat', 'no-repeat');
       li.find('.label').removeClass('opacity');
       li.find('span.badge').remove();
-      li.find('.label span').html(Skhf.session.datas.friends.length);
+      if (Skhf.session.datas.friends != null) {
+        li.find('.label span').html(Skhf.session.datas.friends.length);
+      }
       li.find('a, h6').hide();
       li.popover('disable');
       //this.addFriends(li, datas.friend_uids.split(','));
@@ -152,12 +154,13 @@ UI = {
 
   },
   loadPlaylist: function(access, onglet){
+    //console.log('UI.loadPlaylist', access, onglet, Skhf.session);
 
     var self = this;
     if (Skhf.session.datas.email) {
       Skhf.session.access = access;
 
-      var url = this.playlist.data('pager-url').replace('Skhf.session.uid', Skhf.session.uid)
+      var url = this.playlist.data('pager-url').replace('session.uid', Skhf.session.uid)
                                                .replace('group.name', Skhf.session.access)
                                                .replace('app_dev.php/', '');
       if (typeof onglet != 'undefined') {

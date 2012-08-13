@@ -73,7 +73,7 @@ var BaseSession = Class.extend({
           console.warn('BaseSession.initSocial', this.datas.fb_uid, 'cookie error');
           return this.initSocial(onglet, offset, true);
         }
-        Session.datas.friends = json.friends;
+        self.datas.friends = json.friends;
         if (typeof callback != 'undefined') {
           callback(json);
         }
