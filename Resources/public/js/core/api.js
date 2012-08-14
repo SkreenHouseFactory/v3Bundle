@@ -68,8 +68,8 @@ API = {
                  {session_uid: Skhf.session.uid,
                   proxy: 'v3'}, 
                  function(json){
-                  console.log('API.launchModal', 'redirect:'+json.redirect, callback, json);
-                  if (typeof json.redirect != "undefined") {
+                  console.log('API.launchModal', 'redirect:' + json.redirect, callback, json);
+                  if (typeof json.redirect != 'undefined') {
                     API.launchModal(json.redirect, callback);
                   } else if (json.html) {
                     $('#skModal .modal-body').html(json.html);
@@ -109,8 +109,15 @@ API = {
   },
   transfertModal: function(modal) {
     //console.log('API.transfertModal', modal);
-    //h1 :
-    $('.modal-header h3', modal).html($('#part-header h1', modal).html());
+    //header
+    var headerv3 = $('#part-header-v3', modal);
+    if (headerv3.length > 0) {
+      $('.modal-header h3', modal).replaceWith(headerv3);
+    } else {
+      $('.modal-header h3', modal).html($('#part-header h1', modal).html());
+    }
+    //focus
+    $('.modal-body form input:first-child', modal).focus();
     //submit
     $(".modal-footer", modal).html($('form input[type="submit"]', modal));
     $('.modal-footer input[type="submit"]', modal).attr('onClick','').click(function(e){

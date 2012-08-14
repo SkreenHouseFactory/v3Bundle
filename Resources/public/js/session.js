@@ -18,29 +18,20 @@ var Session = BaseSession.extend({
     UI.unloadPlaylist();
   },
   initSocial: function(onglet, offset, force_remote) {
-    var self = this;
-    if (this.datas.fb_uid) {
-      if (cookie && typeof force_remote == 'undefined') {
-        this.__base(onglet, offset, force_remote, function(json) {
-          UI.loadSocialSelector(json);
-        });
-      } else {
-        UI.appendLoader($('li#friends'));
+    UI.appendLoader($('li#friends'));
 
-        this.__base(onglet, offset, force_remote, function(json) {
-          UI.removeLoader($('li#friends'));
-          UI.loadSocialSelector(json);
-        });
-      }
-    }
+    this.__base(onglet, offset, force_remote, function(json) {
+      UI.removeLoader($('li#friends'));
+      UI.loadSocialSelector(json);
+    });
   },
   initSelector: function(onglet, reload) {
     //prevent multiple loadings
-    if (UI.playlist.hasClass('loading')) {
-      console.warn('Session.initSelector', 'already loading');
-      return;
-    }
-    UI.playlist.addClass('loading');
+    //if (UI.playlist.hasClass('loading')) {
+    //  console.warn('Session.initSelector', 'already loading');
+    //  return;
+    //}
+    //UI.playlist.addClass('loading');
 
     //require authenticated user
     if (!this.datas.email) {

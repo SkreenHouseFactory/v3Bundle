@@ -52,6 +52,7 @@ UI = {
       $('.user-on-visibility').css('visibility','hidden');
       $('li.selector').popover('enable');
       this.unloadFilters();
+      this.playlist.removeClass('loading');
     }
     $('.user-off, .user-on').toggle();
   },

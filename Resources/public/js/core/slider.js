@@ -9,7 +9,7 @@ var BaseSlider = Class.extend({
            type: 'scroll'},
   //init
   init: function(params, callback) {
-    console.log('Slider.init', params, callback);
+    //console.log('Slider.init', params, callback);
     this.elmt = this.getTemplate(params);
     this.params = $.extend(this.params, params);
     if (this.params.scroll != 'no') {
@@ -26,10 +26,10 @@ var BaseSlider = Class.extend({
 
     //programs
     if (typeof params.programs != 'undefined') {
-      console.log('Slider.init', 'insertPrograms');
+      //console.log('Slider.init', 'insertPrograms');
       this.insertPrograms(params.programs, callback);
     } else {
-      console.log('Slider.init', 'loadRemotePrograms');
+      //console.log('Slider.init', 'loadRemotePrograms');
       this.loadRemotePrograms(0, callback);
     }
   },
@@ -44,7 +44,7 @@ var BaseSlider = Class.extend({
     var next = $('.next', this.elmt);
     var prev = $('.prev', this.elmt);
     var items = $('ul', container);
-    items.css('width', parseInt(this.params.img_width) * items.children().length);
+    items.css('width', (parseInt(this.params.img_width) + parseInt(this.params.item_margin)*2  + 5) * items.children().length);
     //console.log('Slider.ui', 'width', items.css('width'));
 
     if (this.elmt.hasClass('initialized')) {
@@ -133,7 +133,7 @@ var BaseSlider = Class.extend({
     $('.loader', this.elmt).remove();
   },
   loadRemotePrograms: function(offset, callback, keep) {
-    console.log('Slider.loadRemotePrograms', offset, callback, keep);
+    //console.log('Slider.loadRemotePrograms', offset, callback, keep);
     //prevent multiple loadings
     if (this.elmt.hasClass('loading')) {
       console.warn('Slider.loadRemotePrograms', 'already loading');
@@ -152,7 +152,7 @@ var BaseSlider = Class.extend({
               url, 
               this.params,
               function(programs){
-                console.log('Slider.loadRemotePrograms', programs.length, programs, 'callback:' + callback);
+                //console.log('Slider.loadRemotePrograms', programs.length, programs, 'callback:' + callback);
                 if (typeof keep == 'undefined' || keep != true) {
                   $('li:not(.selector, :first)', self.elmt).remove();
                 }
@@ -177,9 +177,9 @@ var BaseSlider = Class.extend({
                + '?programs_only=1&with_best_offer=1&offset=' + offset;
   },
   insertPrograms: function(programs, callback){
-    console.log('BaseSlider.insertPrograms', programs, Skhf.session.datas);
-    for (key in programs) {
-      var program = programs[key];
+    //console.log('BaseSlider.insertPrograms', programs, Skhf.session.datas);
+    for (k in programs) {
+      var program = programs[k];
       var popular_channel = program.popular_channel ? '<img alt="' + program.popular_channel.name + ' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
       var pere  = program.episodeof ? program.episodeof : program;
       var seo_url = API.config.site_url + program.seo_url + (this.elmt.attr('id') == 'playlist' ? '?keepPlaylist' : '');
@@ -205,6 +205,7 @@ var BaseSlider = Class.extend({
                                .replace('%popular_channel%', popular_channel));
       li.css('background-image', 'url(' + program.picture + ')');
       $('.actions', li).data('id', program.id);
+      li.attr('data-position', k);
 
       //console.log('Slider.insertPrograms', 'added', li, this.sample);
       if (Skhf.session.datas.notifications &&
@@ -224,13 +225,13 @@ var BaseSlider = Class.extend({
       li.addClass('to_animate').show();
       li.appendTo($('ul', this.elmt));
       
-      //console.log('Slider.load', 'added', li, program);
+      console.log('Slider.load', 'added', li, program, k);
     }
 
     //ui
     $('a[rel="tooltip"]', this.elmt).tooltip();
     $('li.to_animate', this.elmt).animate({'width':this.params.img_width}, 500).removeClass('to_animate');
-    console.log('BaseSlider.load', 'insertPrograms', 'to_animate', this.elmt);
+    //console.log('BaseSlider.load', 'insertPrograms', 'to_animate', this.elmt);
     //UI.loadUserPrograms(Skhf.session.datas.queue, this.elmt);
 
     if (typeof callback != 'undefined'){
@@ -264,7 +265,7 @@ var BaseSlider = Class.extend({
   },
   getTemplate: function(params) {
     var title = typeof params.title != 'undefined' ? '<h2>' + params.title + '</h2>' : '';
-    var html = $('<div class="slider"' + (typeof params.data_id != 'undefined' ? ' data-id="' + params.data_id + '"' : '') + '>' + title + '<div class="slider-container"><ul class="items item-row"></ul></div></div>');
+    var html = $('<div class="slider tv-container-horizontal"' + (typeof params.data_id != 'undefined' ? ' data-id="' + params.data_id + '"' : '') + '>' + title + '<div class="slider-container"><ul class="items"></ul></div></div>');
 
     console.log('Slider.getTemplate', params, html);
     return html;

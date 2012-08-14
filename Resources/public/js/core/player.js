@@ -1,7 +1,7 @@
 // -- Player
 var Player;
 Player = {
-  player: null,
+  elmt: null,
   timeout: null,
   timeoutdelay: 5000,
   //player
@@ -16,10 +16,10 @@ Player = {
     var icon     = trigger.data('player-icon') ? '<img src="' + trigger.data('player-icon') + '"/> ' : '';
     var program  = trigger.data('player-program');
 
-    this.player = $('#player');
-    this.player.css('height', window.height)
-    $('.title', this.player).html(icon + title);
-    $('.subtitle', this.player).html(subtitle);
+    this.elmt = $('#player');
+    this.elmt.css('height', window.height)
+    $('.title', this.elmt).html(icon + title);
+    $('.subtitle', this.elmt).html(subtitle);
     if (program) {
       this.loadMetaProgram(program);
     }
@@ -47,7 +47,7 @@ Player = {
       $(document).keyup(function(e) {
         if (e.keyCode == 27) { self.minify(); }
       });
-      $('> i.icon-white', this.player).unbind().bind('click', function(){
+      $('> i.icon-white', this.elmt).unbind().bind('click', function(){
         if ($(this).hasClass('icon-resize-full')) {
           $(this).removeClass('icon-resize-full').addClass('icon-resize-small');
           self.expand();
@@ -58,7 +58,7 @@ Player = {
       });
 
       //insert playlist
-      $('.player-playlist').prependTo(this.player);
+      $('.player-playlist').prependTo(this.elmt);
 
     // -- redirect
     } else if (url) {
@@ -76,20 +76,20 @@ Player = {
     $('#top-nav').collapse('hide');
   },
   play: function(embed) {
-    $('.embed', this.player).html(embed);
+    $('.embed', this.elmt).html(embed);
     $('#player').addClass('on');
     $('#header').collapse('hide');
-    //UI.appendLoader(this.player);
+    //UI.appendLoader(this.elmt);
 
     switch(embed.type) {
       case 'html5':
-        this.player.html('loading embed html5 ...'+embed.url);
+        this.elmt.html('loading embed html5 ...'+embed.url);
       break;
       case 'swf':
-        this.player.html('loading embed swf …'+embed.url);
+        this.elmt.html('loading embed swf …'+embed.url);
       break;
       case 'iframe':
-        this.player.html('<iframe src="'+embed.url+'" frameborder="0"></iframe>');
+        this.elmt.html('<iframe src="'+embed.url+'" frameborder="0"></iframe>');
       break;
     }
   },
@@ -98,16 +98,18 @@ Player = {
                           'player/program/' + id + '.json',
                           {player_width: '100%', 
                            player_height: '100%',
+                           control: 'disabled',
                            //player: 'flowplayer'
                            },
                           function(media){
                             console.log('Player.playProgram', media.player, elmt);
                             elmt.html(media.player);
+                            elmt.data('playing-id', id)
                           }, 
                           true);
   },
   loadMetaProgram: function(p) {
-    var el = $('.actions', this.player);
+    var el = $('.actions', this.elmt);
     el.data('id', p.id);
     el.data('title', 'Ajout à vos playlists<br/><small>' + p.title + ', ' + p.format + ' - ' + p.year + '</small>');
     el.html('<b>' + p.title + '</b></span><br/><a class="btn btn-large fav">Suivre / voir plus tard</a><span>');
