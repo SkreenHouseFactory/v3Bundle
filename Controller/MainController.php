@@ -52,8 +52,23 @@ class MainController extends Controller
     {
       $response = null;
       if ($request->getMethod() == 'POST') {
-        $api = new ApiManager($this->container->getParameter('kernel.environment'));
-        $response = $api->fetch($request->request->get('url'), $request->request->get('data'), 'POST');
+        $datas = $request->request->get('data');
+        if (isset($datas[count($datas)-1]) &&
+            $datas[count($datas)-1]['name'] == 'fromSerializeArray') {
+          $tmp = array();
+          foreach ($datas as $k => $v) {
+            $tmp[$v['name']] = $v['value'];
+          }
+          $datas = $tmp;
+        }
+        
+        //print_r($datas);
+        $api   = new ApiManager($this->container->getParameter('kernel.environment'));
+        $response = $api->fetch($request->request->get('url'), 
+                                $datas, 
+                                'POST', 
+                                array('curl.CURLOPT_SSL_VERIFYHOST' => 0, 
+                                      'curl.CURLOPT_SSL_VERIFYPEER' => 0));
       }
 
       return new Response(json_encode($response));

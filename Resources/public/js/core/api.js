@@ -3,7 +3,7 @@ var skXdmSocket = { postMessage: function(){} };
 function skPaymentPopinResize () {
 }
 function skPaymentPopinEnd () {
-  $('#skModal').modal('hide');
+  $('.modal').modal('hide');
 }
 
 // -- ENV
@@ -55,31 +55,31 @@ API = {
     this.launchModal(this.config.popin + action, callback);
   },
   launchModal: function(url, callback) {
-    console.log('API.launchModal', url, callback);
+    console.log('API.launchModal', url);
     if (this.context == 'v2') {
       this.postMessage(['modal', url, callback]);
       return;
     }
 
     if (url != this.currentModalUrl) {
-      $('#skModal .modal-body').empty();
+      $('.modal .modal-body').empty();
       this.query('GET', 
                  url,
                  {session_uid: Skhf.session.uid,
                   proxy: 'v3'}, 
                  function(json){
-                  console.log('API.launchModal', 'redirect:' + json.redirect, callback, json);
+                  //console.log('API.launchModal', 'redirect:' + json.redirect);
                   if (typeof json.redirect != 'undefined') {
                     API.launchModal(json.redirect, callback);
                   } else if (json.html) {
-                    $('#skModal .modal-body').html(json.html);
+                    $('.modal .modal-body').html(json.html);
                     API.catchFormModal(callback);
                   }
                 });
     }
 
-    $('#skModal').modal();
-    /*$('#skModal').on('hide', function(e){
+    $('.modal').modal();
+    /*$('.modal').on('hide', function(e){
       e.preventDefault();
       console.log("on('hide')", callback);
       if (typeof callback != 'undefined') {
@@ -90,25 +90,33 @@ API = {
     this.currentModalUrl = url;
   },
   catchFormModal: function(callback) {
-    //console.log('API.catchFormModal', 'catch form', callback);
-    $('#skModal form').submit(function(){
-      var args = $(this).serializeArray();
-      API.query('POST', $(this).attr('action'), args, function(json){   
+    var self = this;
+    var modal = $('.modal');
+    console.log('API.catchFormModal', 'catch form');
+  
+    //form
+    $('.modal-body form input:first', modal).focus();
+    $('.modal-footer', modal).html($('form input[type="submit"]', modal).attr('onclick','').addClass('btn-large btn-primary'));
+    $('.modal-footer', modal).append(' <a href="#" class="close">Fermer</a>');
+    $('.modal-footer input[type="submit"]', modal).click(function(e){
+      e.preventDefault();
+      console.warn('API.catchFormModal', 'submit 1');
+      
+      $(this).attr('value', 'chargement . . .').attr('disabled', 'disabled');
+      var form = $('.modal form:first')
+      form.append('<input name="fromSerializeArray" value="1" />');
+      var args = form.serializeArray();
+      self.query('POST', form.attr('action') + '&fromSerializeArray=1', args, function(json){
+        console.log('API.catchFormModal', 'callback', json);
         if (typeof json.redirect != "undefined") {
-          //console.log('API.launchModal', 'redirect');
-          API.launchModal(json.redirect, callback);
+          self.launchModal(json.redirect, callback);
         } else {
-          $('#skModal .modal-body').html(json.html);
-          API.catchFormModal(callback);
+          $('.modal .modal-body').empty().html(json.html);
+          self.catchFormModal(callback);
         }
       });
       return false;
     });
-    
-    this.transfertModal($('#skModal'))
-  },
-  transfertModal: function(modal) {
-    //console.log('API.transfertModal', modal);
     //header
     var headerv3 = $('#part-header-v3', modal);
     if (headerv3.length > 0) {
@@ -116,15 +124,9 @@ API = {
     } else {
       $('.modal-header h3', modal).html($('#part-header h1', modal).html());
     }
-    //focus
-    $('.modal-body form input:first-child', modal).focus();
-    //submit
-    $(".modal-footer", modal).html($('form input[type="submit"]', modal));
-    $('.modal-footer input[type="submit"]', modal).attr('onClick','').click(function(e){
-      e.preventDefault();
-      $('.modal-body form', modal).submit();
-      $(this).attr('value', 'chargement . . .').attr('disabled', 'disabled');
-    });
+    
+    $('.error_list').addClass('alert alert-error').removeClass('error_list');
+
   },
   typeahead: function(keywords) {
     var url = 'search/autocomplete/' + keywords;
@@ -233,7 +235,7 @@ API = {
       error: function(retour, code) {
         clearTimeout(tooLongQuery); 
         if(retour.readyState == 4){
-          callback(retour);
+          callback(JSON.parse(retour.responseText));
         } else {
           console.error('error getting query', retour, url, data, code, retour.statusText);
           return false;

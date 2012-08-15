@@ -225,7 +225,7 @@ var BaseSlider = Class.extend({
       li.addClass('to_animate').show();
       li.appendTo($('ul', this.elmt));
       
-      console.log('Slider.load', 'added', li, program, k);
+      //console.log('Slider.load', 'added', li, program, k);
     }
 
     //ui
@@ -245,11 +245,11 @@ var BaseSlider = Class.extend({
       var btn = $('.actions .play', li);
       btn.html(o.dispo);
       if (o.player) {
-        console.log('Slider.addBestOffer', 'add player', o.player);
+        //console.log('Slider.addBestOffer', 'add player', o.player);
         btn.attr('href', btn.attr('href') + '?onglet=' + Skhf.session.access);
         //btn.attr('data-player', o.player);
       } else if (o.url) {
-        console.log('Slider.addBestOffer', 'add url', o.url);
+        //console.log('Slider.addBestOffer', 'add url', o.url);
         //si context = v3
         if (API.context == 'v3') {
           btn.attr('data-redirect', 1).attr('href', o.url);

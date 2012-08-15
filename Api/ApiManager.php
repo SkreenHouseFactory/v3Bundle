@@ -23,9 +23,9 @@ class ApiManager
     }
   } 
 
-  public function fetch($url, $params = array(), $method = 'GET') {
+  public function fetch($url, $params = array(), $method = 'GET', $options = array()) {
 
-    $client = new Client($this->api_base);
+    $client = new Client($this->api_base, $options);
     switch ($method) {
       case 'POST':
         $response = $client->post($url . '.' . $this->api_format, 
