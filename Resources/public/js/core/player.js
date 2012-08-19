@@ -104,6 +104,11 @@ Player = {
       Webview.postMessage(['player', 'play']);
     }
   },
+  stop: function(player) {
+    if (this.type == 'android') {
+      Webview.postMessage(['player', 'stop']);
+    }
+  },
   playProgram: function(id, elmt) {
     var self = this;
     return API.query('GET',
