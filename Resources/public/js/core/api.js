@@ -51,45 +51,48 @@ API = {
       callback();
     }
   },
-  quickLaunchModal: function(action, callback) {
-    this.launchModal(this.config.popin + action, callback);
+  quickLaunchModal: function(action, callbackOnHide, callbackOnLoad) {
+    this.launchModal(this.config.popin + action, callbackOnHide);
   },
-  launchModal: function(url, callback) {
+  launchModal: function(url, callbackOnHide, callbackOnLoad) {
     console.log('API.launchModal', url);
     if (this.context == 'v2') {
-      this.postMessage(['modal', url, callback]);
+      this.postMessage(['modal', url, callbackOnHide]);
       return;
     }
 
     if (url != this.currentModalUrl) {
       $('.modal .modal-body').empty();
-      this.query('GET', 
+      this.query('GET_PROXY', 
                  url,
                  {session_uid: Skhf.session.uid,
                   proxy: 'v3'}, 
                  function(json){
                   //console.log('API.launchModal', 'redirect:' + json.redirect);
                   if (typeof json.redirect != 'undefined') {
-                    API.launchModal(json.redirect, callback);
+                    API.launchModal(json.redirect, callbackOnHide, callbackOnLoad);
                   } else if (json.html) {
                     $('.modal .modal-body').html(json.html);
-                    API.catchFormModal(callback);
+                    API.catchFormModal(callbackOnHide);
+                    if (typeof callbackOnLoad != 'undefined') {
+                      callbackOnLoad();
+                    }
                   }
                 });
     }
 
     $('.modal').modal();
-    /*$('.modal').on('hide', function(e){
-      e.preventDefault();
-      console.log("on('hide')", callback);
-      if (typeof callback != 'undefined') {
-        callback();
+    $('.modal').on('hide', function(e){
+      //e.preventDefault();
+      console.log("on('hide')", callbackOnHide);
+      if (typeof callbackOnHide != 'undefined') {
+        callbackOnHide();
       }
-    });*/
+    });
 
     this.currentModalUrl = url;
   },
-  catchFormModal: function(callback) {
+  catchFormModal: function(callbackOnHide) {
     var self = this;
     var modal = $('.modal');
     console.log('API.catchFormModal', 'catch form');
@@ -101,26 +104,27 @@ API = {
     $('.modal-footer input[type="submit"]', modal).click(function(e){
       e.preventDefault();
       console.warn('API.catchFormModal', 'submit 1');
-      
+
       $(this).attr('value', 'chargement . . .').attr('disabled', 'disabled');
       var form = $('.modal form:first')
-      form.append('<input name="fromSerializeArray" value="1" />');
+      form.append('<input type="hidden" name="fromSerializeArray" value="1" />');
       var args = form.serializeArray();
-      self.query('POST', form.attr('action') + '&fromSerializeArray=1', args, function(json){
-        console.log('API.catchFormModal', 'callback', json);
-        if (typeof json.redirect != "undefined") {
-          self.launchModal(json.redirect, callback);
+      self.query('POST', form.attr('action'), args, function(json){
+        console.log('API.catchFormModal', 'callbackOnHide', json);
+        if (typeof json.redirect != 'undefined') {
+          self.launchModal(json.redirect, callbackOnHide);
         } else {
           $('.modal .modal-body').empty().html(json.html);
-          self.catchFormModal(callback);
+          self.catchFormModal(callbackOnHide);
         }
       });
       return false;
     });
     //header
-    var headerv3 = $('#part-header-v3', modal);
+    var headerv3 = $('.modal-body #part-header-v3', modal);
+    console.log('API.catchFormModal', 'headerv3', headerv3);
     if (headerv3.length > 0) {
-      $('.modal-header h3', modal).replaceWith(headerv3);
+      $('.modal-header', modal).empty().append(headerv3);
     } else {
       $('.modal-header h3', modal).html($('#part-header h1', modal).html());
     }
@@ -178,6 +182,7 @@ API = {
     });
   },
   query: function(method, url, data, callback, cache, version) {
+
     if (url.match(/^https\:\/\//)) {
       //console.log('API.query', 'https', 'is popin', url);
     } else {
@@ -196,16 +201,17 @@ API = {
 
     var post = {};
     // Currently, proxy POST requests
-    if (method == "POST" || method == "DELETE") {
+    if (method == 'POST' || method == 'DELETE' || method == 'GET_PROXY') {
+      method = method.replace('_PROXY', ''); //hack GET_PROXY
       var dataType = "text json";
       var post = {};
       post["url"] = url.replace('.json','');
       post["data"] = data;
       data = post;
-      url = this.config.env == 'dev' ? '/app_dev.php/post' : '/post';
+      url = this.config.env == 'dev' ? '/app_dev.php/proxy' : '/proxy';
 
     } else {
-      var dataType = "jsonp";
+      var dataType = 'jsonp';
       if (data && typeof data === 'object'){
         //console.log(data, 'url.indexOf', url.indexOf('?'));
         url += url.indexOf('?') == -1 ? '?' : '&';
@@ -233,8 +239,9 @@ API = {
       async: true,
       //crossDomain: true,
       error: function(retour, code) {
+        console.log('API.query', 'error getting query', code, retour);
         clearTimeout(tooLongQuery); 
-        if(retour.readyState == 4){
+        if (retour.readyState == 4){
           callback(JSON.parse(retour.responseText));
         } else {
           console.error('error getting query', retour, url, data, code, retour.statusText);
@@ -242,9 +249,12 @@ API = {
         }
       },
       success: function(json) {     
-        clearTimeout(tooLongQuery);    
-        var datas = JSON.parse(JSON.stringify(json));  
-        callback(datas);
+        //console.log(['API.query', 'succes', json]);
+        clearTimeout(tooLongQuery);
+        if (typeof callback != 'undefined') {
+          var datas = JSON.parse(JSON.stringify(json));
+          callback(datas);
+        }
       }
     });
     return req;

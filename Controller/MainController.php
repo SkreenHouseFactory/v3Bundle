@@ -48,28 +48,35 @@ class MainController extends Controller
     /**
     *
     */
-    public function postAction(Request $request)
+    public function proxyAction(Request $request)
     {
       $response = null;
-      if ($request->getMethod() == 'POST') {
-        $datas = $request->request->get('data');
-        if (isset($datas[count($datas)-1]) &&
-            $datas[count($datas)-1]['name'] == 'fromSerializeArray') {
-          $tmp = array();
-          foreach ($datas as $k => $v) {
-            $tmp[$v['name']] = $v['value'];
-          }
-          $datas = $tmp;
-        }
-        
-        //print_r($datas);
-        $api   = new ApiManager($this->container->getParameter('kernel.environment'));
-        $response = $api->fetch($request->request->get('url'), 
-                                $datas, 
-                                'POST', 
-                                array('curl.CURLOPT_SSL_VERIFYHOST' => 0, 
-                                      'curl.CURLOPT_SSL_VERIFYPEER' => 0));
+      $method = $request->getMethod();
+      $datas = $method == 'POST' ? $request->request->get('data') : $request->get('data');
+      $url = $method == 'POST' ? $request->request->get('url') : $request->get('url');
+      $format = $method == 'POST' ? '.json' : '';
+
+      //hack get
+      if ($method == 'GET') {
+        return  new Response(file_get_contents($url . '?' . http_build_query($datas)));
       }
+
+      if (isset($datas[count($datas)-1]) &&
+          $datas[count($datas)-1]['name'] == 'fromSerializeArray') {
+        $tmp = array();
+        foreach ($datas as $k => $v) {
+          $tmp[$v['name']] = $v['value'];
+        }
+        $datas = $tmp;
+      }
+
+      //print_r(array($url, $datas, $method));
+      $api   = new ApiManager($this->container->getParameter('kernel.environment'), $format);
+      $response = $api->fetch($url, 
+                              $datas, 
+                              $method, 
+                              array('curl.CURLOPT_SSL_VERIFYHOST' => 0, 
+                                    'curl.CURLOPT_SSL_VERIFYPEER' => 0));
 
       return new Response(json_encode($response));
     }

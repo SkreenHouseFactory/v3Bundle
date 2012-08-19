@@ -28,6 +28,10 @@ var BaseSlider = Class.extend({
     if (typeof params.programs != 'undefined') {
       //console.log('Slider.init', 'insertPrograms');
       this.insertPrograms(params.programs, callback);
+    } else if (typeof params.url != 'undefined') {
+      //console.log('Slider.init', 'insertPrograms');
+      this.elmt.data('url', params.url);
+      this.loadRemotePrograms(0, callback);
     } else {
       //console.log('Slider.init', 'loadRemotePrograms');
       this.loadRemotePrograms(0, callback);
@@ -44,8 +48,10 @@ var BaseSlider = Class.extend({
     var next = $('.next', this.elmt);
     var prev = $('.prev', this.elmt);
     var items = $('ul', container);
-    items.css('width', (parseInt(this.params.img_width) + parseInt(this.params.item_margin)*2  + 5) * items.children().length);
-    //console.log('Slider.ui', 'width', items.css('width'));
+    if (!this.elmt.hasClass('couchmode')) {
+      //items.css('width', (parseInt(this.params.img_width) + parseInt(this.params.item_margin)*2  + 5) * items.children().length);
+      //console.log('Slider.ui', 'width', items.css('width'));
+    }
 
     if (this.elmt.hasClass('initialized')) {
       next.css({'visibility':'visible'});
@@ -174,7 +180,8 @@ var BaseSlider = Class.extend({
     var url = this.elmt.data('id') ? 'www/slider/pack/' + this.elmt.data('id') + '.json'  : this.elmt.data('url');
     return url .replace('session.uid', Skhf.session.uid)
                .replace('group.name', Skhf.session.access)
-               + '?programs_only=1&with_best_offer=1&offset=' + offset;
+               + (url.indexOf('?') == -1 ? '?' : '&')
+               + 'programs_only=1&with_best_offer=1&offset=' + offset;
   },
   insertPrograms: function(programs, callback){
     //console.log('BaseSlider.insertPrograms', programs, Skhf.session.datas);
@@ -230,7 +237,9 @@ var BaseSlider = Class.extend({
 
     //ui
     $('a[rel="tooltip"]', this.elmt).tooltip();
-    $('li.to_animate', this.elmt).animate({'width':this.params.img_width}, 500).removeClass('to_animate');
+    if (this.elmt.data('animate') == 'width') {
+      $('li.to_animate', this.elmt).animate({'width':this.params.img_width}, 500).removeClass('to_animate');
+    }
     //console.log('BaseSlider.load', 'insertPrograms', 'to_animate', this.elmt);
     //UI.loadUserPrograms(Skhf.session.datas.queue, this.elmt);
 
@@ -265,7 +274,7 @@ var BaseSlider = Class.extend({
   },
   getTemplate: function(params) {
     var title = typeof params.title != 'undefined' ? '<h2>' + params.title + '</h2>' : '';
-    var html = $('<div class="slider tv-container-horizontal"' + (typeof params.data_id != 'undefined' ? ' data-id="' + params.data_id + '"' : '') + '>' + title + '<div class="slider-container"><ul class="items"></ul></div></div>');
+    var html = $('<div class="slider tv-container-horizontal containers-scrollable containers-indexed"' + (typeof params.data_id != 'undefined' ? ' data-id="' + params.data_id + '"' : '') + '>' + title + '<div class="slider-container tv-container-start-scroll"><ul class="items" data-current-position="0"></ul></div></div>');
 
     console.log('Slider.getTemplate', params, html);
     return html;

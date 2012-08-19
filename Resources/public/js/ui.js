@@ -244,10 +244,10 @@ UI = {
     //});
   },
   // -- insert loader
-  appendLoader: function(elmt) {
+  appendLoader: function(elmt, timer) {
     $('.progress', elmt).remove();
     elmt.append(this.loader);
-    $('.progress .bar', elmt).animate({'width': '100%'}, 5000);
+    $('.progress .bar', elmt).animate({'width': '100%'}, typeof timer != 'undefined' ? timer : 5000);
   },
   // -- remove loader
   removeLoader: function(elmt) {

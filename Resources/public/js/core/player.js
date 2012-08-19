@@ -4,6 +4,7 @@ Player = {
   elmt: null,
   timeout: null,
   timeoutdelay: 5000,
+  type: 'flash',
   //player
   load: function(trigger) {
     var self = this;
@@ -27,7 +28,7 @@ Player = {
     // -- embed
     if (embed) {
       this.play(embed);
-      
+
       //overlay
       self.timeout = setTimeout(function(){
         $('.player-overlay').fadeOut('slow');
@@ -75,38 +76,56 @@ Player = {
     iframe.show().css('height', ($(window).height() - 100) + 'px');
     $('#top-nav').collapse('hide');
   },
-  play: function(embed) {
-    $('.embed', this.elmt).html(embed);
-    $('#player').addClass('on');
-    $('#header').collapse('hide');
-    //UI.appendLoader(this.elmt);
-
-    switch(embed.type) {
-      case 'html5':
-        this.elmt.html('loading embed html5 ...'+embed.url);
+  play: function(player) {
+    switch(this.type) {
+      case 'flash':
+        this.elmt.html(player);
       break;
-      case 'swf':
-        this.elmt.html('loading embed swf …'+embed.url);
+      case 'android':
+        //Webview.postMessage(['player', 'launch', 'rtsp://v5.cache1.c.youtube.com/CjYLENy73wIaLQnhycnrJQ8qmRMYESARFEIJbXYtZ29vZ2xlSARSBXdhdGNoYPj_hYjnq6uUTQw=/0/0/0/video.3gp']);
+        //Webview.postMessage(['player', 'launch', 'http://benoit.myskreen.typhon.net/48316914.mp4']);
+        Webview.postMessage(['player', 'launch', player.url]);
+      break;
+      case 'html5':
+        this.elmt.html('loading embed html5 ...' + embed.url);
       break;
       case 'iframe':
-        this.elmt.html('<iframe src="'+embed.url+'" frameborder="0"></iframe>');
+        this.elmt.html('<iframe src="' + embed.url + '" frameborder="0"></iframe>');
       break;
     }
   },
+  pause: function(player) {
+    if (this.type == 'android') {
+      Webview.postMessage(['player', 'pause']);
+    }
+  },
+  resume: function(player) {
+    if (this.type == 'android') {
+      Webview.postMessage(['player', 'play']);
+    }
+  },
   playProgram: function(id, elmt) {
-    var media = API.query('GET',
-                          'player/program/' + id + '.json',
-                          {player_width: '100%', 
-                           player_height: '100%',
-                           control: 'disabled',
-                           //player: 'flowplayer'
-                           },
-                          function(media){
-                            console.log('Player.playProgram', media.player, elmt);
-                            elmt.html(media.player);
-                            elmt.data('playing-id', id)
-                          }, 
-                          true);
+    var self = this;
+    return API.query('GET',
+                     'player/program/' + id + '.json',
+                     {
+                      player_width: '100%', 
+                      player_height: '100%',
+                      control: 'disabled',
+                      player: this.type
+                     },
+                     function(media){
+                      console.log('Player.playProgram', media.player, elmt);
+                      //elmt.html(media.player);
+                      if (!media.player || typeof media.player == 'undefined') {
+                        return false;
+                      }
+                      self.play(media.player);
+                      elmt.data('playing-id', id)
+                      return true;
+                        
+                     }, 
+                     true);
   },
   loadMetaProgram: function(p) {
     var el = $('.actions', this.elmt);
@@ -127,5 +146,8 @@ Player = {
     $('#player').removeClass('on');
     $('#header').collapse('show');
     $('#redirect').empty().collapse('hide');
+  },
+  setType: function(type) {
+    this.type = type;
   }
 }

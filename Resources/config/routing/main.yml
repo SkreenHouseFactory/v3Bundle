@@ -3,8 +3,8 @@ homepage:
     pattern:  /
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home }
 postproxy:
-    pattern:  /post
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:post }
+    pattern:  /proxy
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:proxy }
 
 #user
 user_programs:

@@ -45,11 +45,11 @@ var BaseSession = Class.extend({
       UI.loadUser();
     }
   },
-  signout: function() {
+  signout: function(callback) {
     if (API.context == 'v2') {
       API.postMessage(["signout"]);
     } else {
-      API.query('POST', 'session/signout.json', {session_uid: this.uid});
+      API.query('POST', 'session/signout.json', {session_uid: this.uid}, callback);
     }
 
     this.datas = '';
