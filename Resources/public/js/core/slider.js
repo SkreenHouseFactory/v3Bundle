@@ -274,7 +274,7 @@ var BaseSlider = Class.extend({
   },
   getTemplate: function(params) {
     var title = typeof params.title != 'undefined' ? '<h2>' + params.title + '</h2>' : '';
-    var html = $('<div class="slider tv-container-horizontal containers-scrollable containers-indexed"' + (typeof params.data_id != 'undefined' ? ' data-id="' + params.data_id + '"' : '') + '>' + title + '<div class="slider-container tv-container-start-scroll"><ul class="items" data-current-position="0"></ul></div></div>');
+    var html = $('<div class="slider tv-container"' + (typeof params.data_id != 'undefined' ? ' data-id="' + params.data_id + '"' : '') + '>' + title + '<div class="slider-container"><ul class="items" data-current-position="0"></ul></div></div>');
 
     console.log('Slider.getTemplate', params, html);
     return html;

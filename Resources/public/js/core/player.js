@@ -117,7 +117,8 @@ Player = {
                       player_width: '100%', 
                       player_height: '100%',
                       control: 'disabled',
-                      player: this.type
+                      player: this.type,
+                      fullHD: true
                      },
                      function(media){
                       console.log('Player.playProgram', media.player, elmt);

@@ -98,7 +98,7 @@ API = {
     console.log('API.catchFormModal', 'catch form');
   
     //form
-    $('.modal-body form input:first', modal).focus();
+    //$('.modal-body form input:first', modal).focus();
     $('.modal-footer', modal).html($('form input[type="submit"]', modal).attr('onclick','').addClass('btn-large btn-primary'));
     $('.modal-footer', modal).append(' <a href="#" class="close">Fermer</a>');
     $('.modal-footer input[type="submit"]', modal).click(function(e){
