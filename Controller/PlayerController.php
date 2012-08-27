@@ -41,7 +41,7 @@ class PlayerController extends Controller
 
       $response->setPublic();
       $response->setMaxAge(3600);
-      $response->headers->addCacheControlDirective('must-revalidate', true);
+      //$response->headers->addCacheControlDirective('must-revalidate', true);
 
       return $response;
     }

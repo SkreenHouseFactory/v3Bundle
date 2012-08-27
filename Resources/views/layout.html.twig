@@ -16,7 +16,9 @@
 	{% block meta %}{% endblock %}
 
   {% stylesheets
-      '@SkreenHouseFactoryV3Bundle/Resources/public/initializr/less/*'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/less/slider.less'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/less/modal.less'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/less/style.less'
         filter='less,?yui_css'
         output='css/style.css'
         %}
@@ -57,11 +59,11 @@
     </div>
 
 {% javascripts
-    '@SkreenHouseFactoryV3Bundle/Resources/public/initializr/js/libs/modernizr-2.5.3-respond-1.1.0.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/initializr/js/libs/jquery-1.7.2.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/initializr/js/libs/bootstrap/first/*'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/initializr/js/libs/bootstrap/last/*'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/*'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.0.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/easyXDM.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*' 
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/*' 
     filter='?yui_js' 

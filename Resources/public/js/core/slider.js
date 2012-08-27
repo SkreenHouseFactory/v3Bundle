@@ -8,9 +8,9 @@ var BaseSlider = Class.extend({
            pager_nb_results: 10,
            type: 'scroll'},
   //init
-  init: function(params, callback) {
+  init: function(params, callback, elmt) {
     //console.log('Slider.init', params, callback);
-    this.elmt = this.getTemplate(params);
+    this.elmt = typeof elmt != 'undefined' ? elmt : this.getTemplate(params);
     this.params = $.extend(this.params, params);
     if (this.params.scroll != 'no') {
       this.elmt.append('<a class="next badge badge-inverse"><i class="icon-chevron-right icon-white"></i></a>');
@@ -21,7 +21,8 @@ var BaseSlider = Class.extend({
 
     //li sample
     if (this.sample == null) {
-      this.sample = $('<div>').append($('.slider-sample').clone().removeClass('slider-sample')).html();
+      console.log('BaseSlider.init', 'this.sample', $('li:first', this.elmt));
+      this.sample = $('<div>').append($('li:first', this.elmt).clone()).html();
     }
 
     //programs
@@ -36,6 +37,8 @@ var BaseSlider = Class.extend({
       //console.log('Slider.init', 'loadRemotePrograms');
       this.loadRemotePrograms(0, callback);
     }
+    
+    return this;
   },
   render: function() {
     return this.elmt;
@@ -59,8 +62,8 @@ var BaseSlider = Class.extend({
       return;
     }
 
-    if (items.children().filter(':not(.selector, :first)').length <= 5) {
-      console.log('Slider.ui', 'not initialized', 'count:' + items.children().filter(':not(.selector, :last)').length, items);
+    if (items.children().filter(':not(.selector)').length <= 5) {
+      console.log('Slider.ui', 'not initialized', 'count:' + items.children().filter(':not(.selector)').length, items);
       return;
     }
 
@@ -91,6 +94,7 @@ var BaseSlider = Class.extend({
                                           self.elmt.addClass('loaded'); //le slider ne pagine plus
                                         }
                                       },
+                                      {},
                                       true);
             }
           }
@@ -138,7 +142,7 @@ var BaseSlider = Class.extend({
   removeLoader: function() {
     $('.loader', this.elmt).remove();
   },
-  loadRemotePrograms: function(offset, callback, keep) {
+  loadRemotePrograms: function(offset, callback, args, keep) {
     //console.log('Slider.loadRemotePrograms', offset, callback, keep);
     //prevent multiple loadings
     if (this.elmt.hasClass('loading')) {
@@ -153,14 +157,15 @@ var BaseSlider = Class.extend({
       $('li:not(.selector)', this.elmt).remove();
     }
 
-    var url = this.getUrl(0);
+    var args = $.extend(args, this.params);
+    var url = this.getUrl(typeof offset != 'undefined' ? offset : 0);
     API.query('GET',
               url, 
-              this.params,
+              args,
               function(programs){
                 //console.log('Slider.loadRemotePrograms', programs.length, programs, 'callback:' + callback);
                 if (typeof keep == 'undefined' || keep != true) {
-                  $('li:not(.selector, :first)', self.elmt).remove();
+                  $('li:not(.selector)', self.elmt).remove();
                 }
 
                 if (programs.length > 0 || typeof programs[0] != 'undefined') {
@@ -179,7 +184,7 @@ var BaseSlider = Class.extend({
   getUrl: function(offset){
     var url = this.elmt.data('id') ? 'www/slider/pack/' + this.elmt.data('id') + '.json'  : this.elmt.data('url');
     return url .replace('session.uid', Skhf.session.uid)
-               .replace('group.name', Skhf.session.access)
+               .replace('access.name', Skhf.session.access ? Skhf.session.access : 'undefined')
                + (url.indexOf('?') == -1 ? '?' : '&')
                + 'programs_only=1&with_best_offer=1&offset=' + offset;
   },
@@ -214,7 +219,6 @@ var BaseSlider = Class.extend({
       $('.actions', li).data('id', program.id);
       li.attr('data-position', k);
 
-      //console.log('Slider.insertPrograms', 'added', li, this.sample);
       if (Skhf.session.datas.notifications &&
           $.inArray('' + pere.id, Skhf.session.datas.notifications.programs['new']) != -1) { //'' + pere.id
         li.prepend(UI.badge_notification.replace('%count%', 'nouveau'));
@@ -230,7 +234,8 @@ var BaseSlider = Class.extend({
       }
       this.addProgramBestOffer(li, program);
       li.addClass('to_animate').show();
-      li.appendTo($('ul', this.elmt));
+      li.appendTo($('ul.items', this.elmt));
+      //console.log('Slider.insertPrograms', 'added', li);
       
       //console.log('Slider.load', 'added', li, program, k);
     }

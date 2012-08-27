@@ -24,11 +24,11 @@ $(document).ready(function(){
   }
 
   // -- session
-  $('.user-on').hide();
-  UI.playlist = $('#playlist');
   Skhf.session = new Session(function(){
     console.log('script', 'context', API.context);
-    UI.loadUserPrograms();
+    UI.init(function(){
+              console.log('UI.init', 'callback');
+            });
   });
 
   // -- ui user
@@ -123,7 +123,11 @@ $(document).ready(function(){
     console.log('script', '#top-playlist on hide');
     API.postMessage(['header', 'remove_playlist'])
   });
-  $('li.selector', Skhf.session.playlist).live('click', function(){
+  $('#top-playlist h2').live('click', function(){
+    //UI.unloadPlaylist(this.id);
+    Skhf.session.initSelector();
+  });
+  $('#top-playlist li.selector').live('click', function(){
     console.log('script', 'li.selector', 'click');
     if ($(this).hasClass('empty')) {
       if ($('a', $(this)).data('modal')) {
@@ -135,10 +139,6 @@ $(document).ready(function(){
       UI.loadPlaylist(this.id);
     }
     return false;
-  });
-  $('#top-playlist h2').live('click', function(){
-    //UI.unloadPlaylist(this.id);
-    Skhf.session.initSelector();
   });
 
   // -- ui link/url
@@ -219,7 +219,9 @@ $(document).ready(function(){
 
         $(this).popover({placement: 'top',
                          title:	function() { return 'Ajout à vos playlists'},
-                         content: content})
+                         content: content,
+                         show: 500, 
+                         hide: 100})
                .popover('show');
       }
     } else if (event.type == 'mouseout' || event.type == 'mouseleave') {
@@ -256,6 +258,6 @@ $(document).ready(function(){
   });
 
   // -- popover
-  $('*[data-content]').popover();
+  $('*[data-content]').popover({show: 500, hide: 100});
 
 });

@@ -59,40 +59,40 @@ var BaseSession = Class.extend({
     API.cookie('playlist_collapsed', '');
   },
   initSocial: function(onglet, offset, force_remote, callback) {
+    console.log('BaseSession.initSocial', 'fb_uid', this.datas.fb_uid)
     var self = this;
-    if (this.datas.fb_uid) {
-      var offset = typeof offset != 'undefined' ? offset : 0;
-      var onglet = typeof onglet != 'undefined' ? onglet : null;
-      var cookie_name = 'social_' + onglet + '_' + offset;
-      var cookie = API.cookie(cookie_name);
-      console.log('BaseSession.initSocial', this.datas.fb_uid, cookie_name, cookie, 'force_remote:' + force_remote);
-      if (cookie && typeof force_remote == 'undefined') {
-        var json = JSON.parse(cookie);
-        console.log('BaseSession.initSocial', this.datas.fb_uid, 'cookie');
-        if (json.statusText == 'error') {
-          console.warn('BaseSession.initSocial', this.datas.fb_uid, 'cookie error');
-          return this.initSocial(onglet, offset, true);
-        }
-        self.datas.friends = json.friends;
-        if (typeof callback != 'undefined') {
-          callback(json);
-        }
-      } else {
 
-        API.query('GET', 
-                  'www/slider/social/' + this.uid + '.json', 
-                  {onglet: this.onglet, nb_results: 1}, 
-                  function(json) {
-                    console.log('BaseSession.initSocial', 'offset:' + offset, 'error:' + json.error);
-                    if (typeof json.error == 'undefined') {
-                      API.cookie(cookie_name, JSON.stringify(json));
-                      self.datas.friends = json.friends;
-                      if (typeof callback != 'undefined') {
-                        callback(json);
-                      }
-                    }
-                  });
+    var offset = typeof offset != 'undefined' ? offset : 0;
+    var onglet = typeof onglet != 'undefined' ? onglet : null;
+    var cookie_name = 'social_' + onglet + '_' + offset;
+    var cookie = API.cookie(cookie_name);
+    console.log('BaseSession.initSocial', cookie_name, cookie, 'force_remote:' + force_remote);
+    if (cookie && typeof force_remote == 'undefined') {
+      var json = JSON.parse(cookie);
+      console.log('BaseSession.initSocial', 'cookie');
+      if (json.statusText == 'error') {
+        console.warn('BaseSession.initSocial', 'cookie error');
+        return this.initSocial(onglet, offset, true);
       }
+      self.datas.friends = json.friends;
+      if (typeof callback != 'undefined') {
+        callback(json);
+      }
+    } else {
+
+      API.query('GET', 
+                'www/slider/social/' + this.uid + '.json', 
+                {onglet: this.onglet, nb_results: 1}, 
+                function(json) {
+                  console.log('BaseSession.initSocial', 'offset:' + offset, 'error:' + json.error);
+                  if (typeof json.error == 'undefined') {
+                    API.cookie(cookie_name, JSON.stringify(json));
+                    self.datas.friends = json.friends;
+                    if (typeof callback != 'undefined') {
+                      callback(json);
+                    }
+                  }
+                });
     }
   }
 });

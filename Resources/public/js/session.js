@@ -18,12 +18,13 @@ var Session = BaseSession.extend({
     UI.unloadPlaylist();
   },
   initSocial: function(onglet, offset, force_remote) {
-    UI.appendLoader($('li#friends'));
-
-    this.__base(onglet, offset, force_remote, function(json) {
-      UI.removeLoader($('li#friends'));
-      UI.loadSocialSelector(json);
-    });
+    if (this.datas.fb_uid) {
+      UI.appendLoader($('li#friends'));
+      this.__base(onglet, offset, force_remote, function(json){
+        UI.removeLoader($('li#friends'));
+        UI.loadSocialSelector(json);
+      });
+    }
   },
   initSelector: function(onglet, reload) {
     //prevent multiple loadings
@@ -62,7 +63,7 @@ var Session = BaseSession.extend({
                 function(json) {
                   console.log('Session.initSelector', 'remote', 'reload', json);
                   UI.loadSelector(json, true);
-                  UI.playlist.removeClass('loading');
+                  UI.playlist.elmt.removeClass('loading');
                 });
 
     }

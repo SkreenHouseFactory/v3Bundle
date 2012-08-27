@@ -6,6 +6,20 @@ UI = {
   playlist: null,
   badge_notification: '<span class="badge badge-important">%count%</span>',
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
+  init: function(callback) {
+    var self = this;
+    $('.user-on').hide();
+    this.playlist = new BaseSlider({
+                                    programs: []
+                                   },
+                                   function() {
+                                    self.loadUserPrograms();
+                                    if (typeof callback != 'undefined') {
+                                      callback();
+                                    }
+                                   }, $('#playlist'));
+    console.log('UI.init', 'this.playlist', this.playlist);
+  },
   //toggle favorite
   togglePlaylistProgram: function(trigger){
     var value = trigger.parent().data('id');
@@ -52,26 +66,26 @@ UI = {
       $('.user-on-visibility').css('visibility','hidden');
       $('li.selector').popover('enable');
       this.unloadFilters();
-      this.playlist.removeClass('loading');
+      this.playlist.elmt.removeClass('loading');
     }
-    $('.user-off, .user-on').toggle();
+    $('.user-off, .user-on').toggleClass('hide');
   },
   //toggle btn
   loadUserPrograms: function(ids, elmt) {
     var ids  = typeof ids  != 'undefined' ? ids  : Skhf.session.datas.queue;
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
-    console.log('UI.loadUserPrograms', ids, elmt);
+    //console.log('UI.loadUserPrograms', ids, elmt);
     for (key in ids) {
-      console.log('UI.loadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.btn-primary)');
+      //console.log('UI.loadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.btn-primary)');
       $('.actions[data-id="' + ids[key] + '"] a.fav:not(.btn-primary)', elmt).html('<i class="icon-ok-sign icon-white"></i> Dans vos favoris')
                                                                             .addClass('btn-primary');
     }
   },
   unloadUserPrograms: function(ids, elmt) {
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
-    console.log('UI.unloadUserPrograms', ids, elmt);
+    //console.log('UI.unloadUserPrograms', ids, elmt);
     for (key in ids) {
-      console.log('UI.loadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.btn-primary)');
+      //console.log('UI.unloadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.btn-primary)');
       $('.actions[data-id="' + ids[key] + '"] a.fav.btn-primary, .actions[data-id="' + ids[key] + '"] a.fav.btn-danger', elmt).html('<i class="icon-plus-sign"></i> Suivre / voir + tard')
                                                                       .removeClass('btn-primary');
     }
@@ -96,7 +110,7 @@ UI = {
   loadSocialSelector: function(datas) {
     if (datas.programs) {
       var program = datas.programs.pop();
-      var li = $('li#friends', this.playlist);
+      var li = $('li#friends', this.playlist.elmt);
       li.removeClass('empty');
       li.css('background-image', 'url('+program.picture+')').css('background-repeat', 'no-repeat');
       li.find('.label').removeClass('opacity');
@@ -124,7 +138,7 @@ UI = {
     for (key in datas) {
       var group = datas[key];
       //console.log('UI.loadSelector', key, group);
-      var li = $('li#' + key, this.playlist);
+      var li = $('li#' + key, this.playlist.elmt);
       li.removeClass('empty');
       li.css('background-image', 'url('+group.img+')').css('background-repeat', 'no-repeat');
       li.find('.label').removeClass('opacity').addClass('label-inverse');
@@ -146,7 +160,7 @@ UI = {
     //this.playlist.data('queue-selector', JSON.stringify(datas));
   },
   unloadSelector: function() {
-    var lis = $('li.selector', this.playlist);
+    var lis = $('li.selector', this.playlist.elmt);
     lis.addClass('empty').css('background-image', '');
     lis.find('.label').addClass('opacity').find('span').empty();
     lis.find('span.badge').remove();
@@ -155,15 +169,19 @@ UI = {
 
   },
   loadPlaylist: function(access, onglet){
-    //console.log('UI.loadPlaylist', access, onglet, Skhf.session);
+    console.log('UI.loadPlaylist', access, onglet, Skhf.session);
 
     var self = this;
     if (Skhf.session.datas.email) {
+      //hide selector
+      $('li.selector', this.playlist.elmt).animate({'width':0}, 500, function() {
+        $(this).hide();
+      });
+      Slider.addLoader(this.playlist.elmt);
+
+      //load playlist
       Skhf.session.access = access;
 
-      var url = this.playlist.data('pager-url').replace('session.uid', Skhf.session.uid)
-                                               .replace('group.name', Skhf.session.access)
-                                               .replace('app_dev.php/', '');
       if (typeof onglet != 'undefined') {
         var args = {onglet: onglet, with_best_offer: 1, with_player: 1, player: API.config.player, time: new Date().getTime()};
         $('#top-playlist h2 small:last').html($('#top-filters li.' + access + ' a[data-filter="' + onglet + '"]').html());
@@ -172,33 +190,68 @@ UI = {
         $('#top-playlist h2 small:last').empty();
       }
 
-      console.log('UI.loadPlaylist', url, access, Skhf.session.onglet);
-      Slider.load(this.playlist,
-                  url,
-                  function(slider){
-                    //if (Skhf.session.access == 'friends') {
-                    //  slider.addClass('social');
-                    //}
-                    var nb_programs = slider.data('nb-programs');
-                    if (Skhf.session.access) {
-                      var name = $('li#' + Skhf.session.access, self.playlist).data('name');
-                      if (typeof name != 'undefined') {
-                        $('#top-playlist h2 small:first').html('» ' + name);
+      this.playlist.loadRemotePrograms(0,
+                                       function(slider){
+                                        
+                                          var nb_programs = slider.data('nb-programs');
+                                          if (Skhf.session.access) {
+                                            var name = $('li#' + Skhf.session.access, slider.elmt).data('name');
+                                            if (typeof name != 'undefined') {
+                                              $('#top-playlist h2 small:first').html('» ' + name);
+                                            }
+                                          }
+                                          $('li.selector', slider.elmt).hide();
+                                          Slider.removeLoader(slider.elmt);
+                                          console.log('UI.loadPlaylist', 'collapse', access, 'nb_programs:' + nb_programs, 'cookie:' + API.cookie('playlist_collapsed'), 'isHome:' + API.isHome());
+                                          if ((access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
+                                              API.isHome() == true) {
+                                            $('#top-playlist').collapse('show');
+                                          }
+
+                                        
+                                       },
+                                       args)
+
+      /*
+        var url = this.playlist.data('pager-url').replace('session.uid', Skhf.session.uid)
+                                                 .replace('group.name', Skhf.session.access)
+                                                 .replace('app_dev.php/', '');
+        if (typeof onglet != 'undefined') {
+          var args = {onglet: onglet, with_best_offer: 1, with_player: 1, player: API.config.player, time: new Date().getTime()};
+          $('#top-playlist h2 small:last').html($('#top-filters li.' + access + ' a[data-filter="' + onglet + '"]').html());
+        } else {
+          var args = {with_best_offer: 1, with_player: 1, player: API.config.player, time: new Date().getTime()};
+          $('#top-playlist h2 small:last').empty();
+        }
+  
+        console.log('UI.loadPlaylist', url, access, Skhf.session.onglet);
+        Slider.load(this.playlist,
+                    url,
+                    function(slider){
+                      //if (Skhf.session.access == 'friends') {
+                      //  slider.addClass('social');
+                      //}
+                      var nb_programs = slider.data('nb-programs');
+                      if (Skhf.session.access) {
+                        var name = $('li#' + Skhf.session.access, self.playlist).data('name');
+                        if (typeof name != 'undefined') {
+                          $('#top-playlist h2 small:first').html('» ' + name);
+                        }
                       }
-                    }
-                    $('li.selector', self.playlist).hide();
-                    Slider.removeLoader(self.playlist);
-                    console.log('UI.loadPlaylist', 'collapse', access, 'nb_programs:' + nb_programs, 'cookie:' + API.cookie('playlist_collapsed'), 'isHome:' + API.isHome());
-                    if ((access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
-                        API.isHome() == true) {
-                      $('#top-playlist').collapse('show');
-                    }
-                  }, null, args);
-      //console.log('UI.loadPlaylist', 'animate');
-      $('li.selector', this.playlist).animate({'width':0}, 500, function() {
-        $(this).hide();
-      });
-      Slider.addLoader(this.playlist);
+                      $('li.selector', self.playlist).hide();
+                      Slider.removeLoader(self.playlist);
+                      console.log('UI.loadPlaylist', 'collapse', access, 'nb_programs:' + nb_programs, 'cookie:' + API.cookie('playlist_collapsed'), 'isHome:' + API.isHome());
+                      if ((access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
+                          API.isHome() == true) {
+                        $('#top-playlist').collapse('show');
+                      }
+                    }, null, args);
+        //console.log('UI.loadPlaylist', 'animate');
+        $('li.selector', this.playlist).animate({'width':0}, 500, function() {
+          $(this).hide();
+        });
+        Slider.addLoader(this.playlist);
+      */
     }
   },
   unloadPlaylist: function(onglet) {
@@ -209,10 +262,10 @@ UI = {
       Skhf.session.initPlaylist('/' + onglet);
     }
     $('#top-playlist h2 small').empty();
-    $('li:not(.selector, #item)', this.playlist).animate({'width':0}, 500, function() {
+    $('li:not(.selector)', this.playlist.elmt).animate({'width':0}, 500, function() {
       $(this).hide();
-      $('li.selector', this.playlist).show().animate({'width':Slider.item_width}, 500);
-      Slider.remove(self.playlist);
+      $('li.selector', self.playlist.elmt).show().animate({'width':Slider.item_width}, 500);
+      //TODO : Slider.remove(self.playlist);
     });
   },
   markAsRed: function(id) {
@@ -293,6 +346,119 @@ UI = {
   },
   // -- typeahead
   typeahead: function(searchbox){
+    console.log('UI.typeahead', searchbox);
+    $(searchbox).typeahead({
+      items: 5,
+      minLength: 2,
+      source: function (query, process) {
+        var self = this;
+        console.log('UI.typeahead', 'source', query, this);
+        if (typeof API.xhr['typeahead'] != 'undefined') {
+          API.xhr['typeahead'].abort();
+          console.log('UI.typeahead', 'abort previous call');
+        }
+        API.xhr['typeahead'] = API.query('GET', 
+                         'search/autosuggest/' + query + '.json', 
+                         {session_uid: Skhf.session.uid, img_width: 30, img_height: 30, advanced: 1, with_unvailable: 1}, 
+                         function(data){
+                            console.log('UI.typeahead', query, data);
+                            //if (data.search) {
+                            //  return typeahead.process(data.search.split(';'));
+                            //}
+
+                            if (data.search || data.queue || data.channels || data.theaters) {
+                              var lis = new Array;
+                              var titles = new Array;
+                              self.$menu.empty()
+
+                              for (key in data) {
+                                switch (key) {
+                                  case 'queue':
+                                    var items = data[key][0].programs;
+                                    titles[key] = 'Dans vos playlists';
+                                  break;
+                                  case 'channels':
+                                    var items = data[key];
+                                    titles[key] = 'Chaînes';
+                                  break;
+                                  case 'theaters':
+                                    var items = data[key];
+                                    titles[key] = 'Salles de cinéma';
+                                  break;
+                                  case 'search':
+                                    var items = data[key].split(';');
+                                  break;
+                                }
+                                items = items.slice(0, self.options.items)
+                                //console.log('UI.typeahead', 'data', key, items);
+                                lis[key] = $(items).map(function (i, item) {
+                                  i = $(self.options.item).attr('data-value', JSON.stringify(item))
+                                  switch (key) {
+                                    case 'queue':
+                                      i.addClass('playlist')
+                                       .find('a')
+                                       .html('<img src="' + item.picture + '" /> ' + self.highlighter(item.title))
+                                    break;
+                                    case 'theaters':
+                                      i.addClass('theater')
+                                       .find('a')
+                                       .html(self.highlighter(item.name + ' (' + item.ville + ')'))
+                                    break;
+                                    case 'channels':
+                                      i.addClass('channel')
+                                       .find('a')
+                                       .html('<img src="' + item.icon + '" /> ' + self.highlighter(item.name))
+                                    break;
+                                    case 'search':
+                                      i.addClass('search')
+                                       .find('a')
+                                       .html(self.highlighter(item))
+                                    break;
+                                  }
+                                  console.log('UI.typeahead', 'add item', key,  i);
+                                  return i[0]
+                                })
+                              }
+
+                              //data.first().addClass('active')
+                              var sort = Array('search','queue','channels','theaters');
+                              for (key in sort) {
+                                if (lis[sort[key]]) {
+                                  //console.log('UI.typeahead', key, data[key], self.$menu);
+                                  if (typeof titles[sort[key]] != 'undefined') {
+                                    self.$menu.append('<li class="nav-header">' + titles[sort[key]] + '</li>')
+                                  }
+                                  self.$menu.append(lis[sort[key]])
+                                }
+                              }
+                              //$('li:first-child:not(.nav-header)', self.$menu).addClass('active');
+
+                              $('#top-playlist').collapse('show');
+                              self.show();
+                            } else {
+                              return self.shown ? self.hide() : self
+                            }
+                            
+                            self.render(self.$menu);
+                           });
+
+      },
+      select: function(obj) {
+
+        console.log('UI.typeahead', 'onselect', obj, typeof obj, 'blur:' + this.$element);
+
+        if (typeof obj != 'object') { //typeahead
+          API.linkV2('/programmes/' + obj);
+        } else if (typeof obj.seo_url != 'undefined') { //advanced
+          this.$element.attr('value', '')
+          API.linkV2(obj.seo_url);
+        }
+
+        $('#top-playlist').collapse('hide');
+      }
+    });
+  },
+  typeahead_bak: function(searchbox){
     console.log('UI.typeahead', searchbox);
     $(searchbox).typeahead({
       items: 5,

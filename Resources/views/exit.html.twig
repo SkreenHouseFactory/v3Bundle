@@ -15,8 +15,13 @@
 	<meta name="viewport" content="width=device-width">
 	<meta name="robots" content="noindex,nofollow">
 
-	<link rel="stylesheet/less" href="{{ asset('bundles/skreenhousefactoryv3/initializr/less/style.less') }}">
-	<script src="{{ asset('bundles/skreenhousefactoryv3/initializr/js/libs/less-1.3.0.min.js') }}"></script>
+  {% stylesheets
+      '@SkreenHouseFactoryV3Bundle/Resources/public/less/style.less'
+        filter='less,?yui_css'
+        output='css/style.css'
+        %}
+      <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
 </head>
 <body class="exit">
 
@@ -28,5 +33,16 @@
   <p>&copy; The Skreen House Factory 2012</p>
 </footer>
 
+{# analitycs #}
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-6151896-8']);
+  _gaq.push(['_trackPageview']);
+  (function() { 
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.id = 'scriptAnalytics';
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; 
+    var s = document.body.appendChild(ga); 
+    })(); 
+</script>
 </body>
 </html>
