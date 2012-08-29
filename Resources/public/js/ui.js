@@ -8,7 +8,6 @@ UI = {
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
   init: function(callback) {
     var self = this;
-    $('.user-on').hide();
     this.playlist = new BaseSlider({
                                     programs: []
                                    },
@@ -18,7 +17,7 @@ UI = {
                                       callback();
                                     }
                                    }, $('#playlist'));
-    console.log('UI.init', 'this.playlist', this.playlist);
+    //console.log('UI.init', 'this.playlist', this.playlist);
   },
   //toggle favorite
   togglePlaylistProgram: function(trigger){
@@ -56,7 +55,7 @@ UI = {
       $('.user span').html(Skhf.session.datas.email);
       $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
       $('.user-on-visibility').css('visibility','visible');
-      $('li.selector:not(.empty)').popover('disable').popover("hide");
+      $('li.selector:not(.empty)').popover('disable').popover('hide');
       $('#top-baseline').hide();
       this.loadUserPrograms();
       this.notifyUser(Skhf.session.datas.notifications);
@@ -166,18 +165,20 @@ UI = {
     lis.find('span.badge').remove();
     lis.find('a, h6').show();
     lis.popover('enable');
-
+    //show selector
+    lis.animate({'width': this.playlist.params.img_width}, 500, function() {
+    });
   },
   loadPlaylist: function(access, onglet){
+    var self = this;
     console.log('UI.loadPlaylist', access, onglet, Skhf.session);
 
-    var self = this;
     if (Skhf.session.datas.email) {
       //hide selector
       $('li.selector', this.playlist.elmt).animate({'width':0}, 500, function() {
         $(this).hide();
       });
-      Slider.addLoader(this.playlist.elmt);
+      this.playlist.addLoader(this.playlist.elmt);
 
       //load playlist
       Skhf.session.access = access;
@@ -192,8 +193,9 @@ UI = {
 
       this.playlist.loadRemotePrograms(0,
                                        function(slider){
-                                        
                                           var nb_programs = slider.data('nb-programs');
+                                          console.log('UI.loadPlaylist', 'callback', Skhf.session.access, 'cookie:' + API.cookie('playlist_collapsed'), 'isHome:' + API.isHome(), slider);
+                                        
                                           if (Skhf.session.access) {
                                             var name = $('li#' + Skhf.session.access, slider.elmt).data('name');
                                             if (typeof name != 'undefined') {
@@ -201,57 +203,13 @@ UI = {
                                             }
                                           }
                                           $('li.selector', slider.elmt).hide();
-                                          Slider.removeLoader(slider.elmt);
-                                          console.log('UI.loadPlaylist', 'collapse', access, 'nb_programs:' + nb_programs, 'cookie:' + API.cookie('playlist_collapsed'), 'isHome:' + API.isHome());
-                                          if ((access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
+                                          self.playlist.removeLoader();
+                                          if ((Skhf.session.access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
                                               API.isHome() == true) {
                                             $('#top-playlist').collapse('show');
                                           }
-
-                                        
                                        },
-                                       args)
-
-      /*
-        var url = this.playlist.data('pager-url').replace('session.uid', Skhf.session.uid)
-                                                 .replace('group.name', Skhf.session.access)
-                                                 .replace('app_dev.php/', '');
-        if (typeof onglet != 'undefined') {
-          var args = {onglet: onglet, with_best_offer: 1, with_player: 1, player: API.config.player, time: new Date().getTime()};
-          $('#top-playlist h2 small:last').html($('#top-filters li.' + access + ' a[data-filter="' + onglet + '"]').html());
-        } else {
-          var args = {with_best_offer: 1, with_player: 1, player: API.config.player, time: new Date().getTime()};
-          $('#top-playlist h2 small:last').empty();
-        }
-  
-        console.log('UI.loadPlaylist', url, access, Skhf.session.onglet);
-        Slider.load(this.playlist,
-                    url,
-                    function(slider){
-                      //if (Skhf.session.access == 'friends') {
-                      //  slider.addClass('social');
-                      //}
-                      var nb_programs = slider.data('nb-programs');
-                      if (Skhf.session.access) {
-                        var name = $('li#' + Skhf.session.access, self.playlist).data('name');
-                        if (typeof name != 'undefined') {
-                          $('#top-playlist h2 small:first').html('» ' + name);
-                        }
-                      }
-                      $('li.selector', self.playlist).hide();
-                      Slider.removeLoader(self.playlist);
-                      console.log('UI.loadPlaylist', 'collapse', access, 'nb_programs:' + nb_programs, 'cookie:' + API.cookie('playlist_collapsed'), 'isHome:' + API.isHome());
-                      if ((access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
-                          API.isHome() == true) {
-                        $('#top-playlist').collapse('show');
-                      }
-                    }, null, args);
-        //console.log('UI.loadPlaylist', 'animate');
-        $('li.selector', this.playlist).animate({'width':0}, 500, function() {
-          $(this).hide();
-        });
-        Slider.addLoader(this.playlist);
-      */
+                                       args);
     }
   },
   unloadPlaylist: function(onglet) {
@@ -263,9 +221,8 @@ UI = {
     }
     $('#top-playlist h2 small').empty();
     $('li:not(.selector)', this.playlist.elmt).animate({'width':0}, 500, function() {
-      $(this).hide();
-      $('li.selector', self.playlist.elmt).show().animate({'width':Slider.item_width}, 500);
-      //TODO : Slider.remove(self.playlist);
+      //$('li.selector', self.playlist.elmt).show().animate({'width': self.playlist.item_width}, 500);
+      self.playlist.remove();
     });
   },
   markAsRed: function(id) {
@@ -332,7 +289,7 @@ UI = {
   },
   // -- add friends
   addFriends: function(li, friend_uids){
-    //console.log('Slider.addFriends', friend_uids, li);
+    //console.log('BaseSlider.addFriends', friend_uids, li);
     var div = $('<div class="friends"></div>');
     for (key in friend_uids) {
       if (typeof Skhf.session.datas.friends[friend_uids[key]]) {
@@ -346,120 +303,7 @@ UI = {
   },
   // -- typeahead
   typeahead: function(searchbox){
-    console.log('UI.typeahead', searchbox);
-    $(searchbox).typeahead({
-      items: 5,
-      minLength: 2,
-      source: function (query, process) {
-        var self = this;
-        console.log('UI.typeahead', 'source', query, this);
-        if (typeof API.xhr['typeahead'] != 'undefined') {
-          API.xhr['typeahead'].abort();
-          console.log('UI.typeahead', 'abort previous call');
-        }
-        API.xhr['typeahead'] = API.query('GET', 
-                         'search/autosuggest/' + query + '.json', 
-                         {session_uid: Skhf.session.uid, img_width: 30, img_height: 30, advanced: 1, with_unvailable: 1}, 
-                         function(data){
-                            console.log('UI.typeahead', query, data);
-                            //if (data.search) {
-                            //  return typeahead.process(data.search.split(';'));
-                            //}
-
-                            if (data.search || data.queue || data.channels || data.theaters) {
-                              var lis = new Array;
-                              var titles = new Array;
-                              self.$menu.empty()
-
-                              for (key in data) {
-                                switch (key) {
-                                  case 'queue':
-                                    var items = data[key][0].programs;
-                                    titles[key] = 'Dans vos playlists';
-                                  break;
-                                  case 'channels':
-                                    var items = data[key];
-                                    titles[key] = 'Chaînes';
-                                  break;
-                                  case 'theaters':
-                                    var items = data[key];
-                                    titles[key] = 'Salles de cinéma';
-                                  break;
-                                  case 'search':
-                                    var items = data[key].split(';');
-                                  break;
-                                }
-                                items = items.slice(0, self.options.items)
-                                //console.log('UI.typeahead', 'data', key, items);
-                                lis[key] = $(items).map(function (i, item) {
-                                  i = $(self.options.item).attr('data-value', JSON.stringify(item))
-                                  switch (key) {
-                                    case 'queue':
-                                      i.addClass('playlist')
-                                       .find('a')
-                                       .html('<img src="' + item.picture + '" /> ' + self.highlighter(item.title))
-                                    break;
-                                    case 'theaters':
-                                      i.addClass('theater')
-                                       .find('a')
-                                       .html(self.highlighter(item.name + ' (' + item.ville + ')'))
-                                    break;
-                                    case 'channels':
-                                      i.addClass('channel')
-                                       .find('a')
-                                       .html('<img src="' + item.icon + '" /> ' + self.highlighter(item.name))
-                                    break;
-                                    case 'search':
-                                      i.addClass('search')
-                                       .find('a')
-                                       .html(self.highlighter(item))
-                                    break;
-                                  }
-                                  console.log('UI.typeahead', 'add item', key,  i);
-                                  return i[0]
-                                })
-                              }
-
-                              //data.first().addClass('active')
-                              var sort = Array('search','queue','channels','theaters');
-                              for (key in sort) {
-                                if (lis[sort[key]]) {
-                                  //console.log('UI.typeahead', key, data[key], self.$menu);
-                                  if (typeof titles[sort[key]] != 'undefined') {
-                                    self.$menu.append('<li class="nav-header">' + titles[sort[key]] + '</li>')
-                                  }
-                                  self.$menu.append(lis[sort[key]])
-                                }
-                              }
-                              //$('li:first-child:not(.nav-header)', self.$menu).addClass('active');
-
-                              $('#top-playlist').collapse('show');
-                              self.show();
-                            } else {
-                              return self.shown ? self.hide() : self
-                            }
-                            
-                            self.render(self.$menu);
-                           });
-
-      },
-      select: function(obj) {
-
-        console.log('UI.typeahead', 'onselect', obj, typeof obj, 'blur:' + this.$element);
-
-        if (typeof obj != 'object') { //typeahead
-          API.linkV2('/programmes/' + obj);
-        } else if (typeof obj.seo_url != 'undefined') { //advanced
-          this.$element.attr('value', '')
-          API.linkV2(obj.seo_url);
-        }
-
-        $('#top-playlist').collapse('hide');
-      }
-    });
-  },
-  typeahead_bak: function(searchbox){
-    console.log('UI.typeahead', searchbox);
+    //console.log('UI.typeahead', searchbox);
     $(searchbox).typeahead({
       items: 5,
       source: function (typeahead, query) {
@@ -568,5 +412,132 @@ UI = {
         $('#top-playlist').collapse('hide');
       }
     });
+  },
+  /*
+  typeahead_v21: function(searchbox){
+    console.log('UI.typeahead bootstrap v2.1', searchbox);
+    $(searchbox).typeahead({
+      items: 5,
+      minLength: 2,
+      source: function (query, process) {
+        var self = this;
+        console.log('UI.typeahead', 'source', query, this);
+        if (typeof API.xhr['typeahead'] != 'undefined') {
+          API.xhr['typeahead'].abort();
+          console.log('UI.typeahead', 'abort previous call');
+        }
+        API.xhr['typeahead'] = API.query('GET', 
+                         'search/autosuggest/' + query + '.json', 
+                         {session_uid: Skhf.session.uid, img_width: 30, img_height: 30, advanced: 1, with_unvailable: 1}, 
+                         function(data){
+                            console.log('UI.typeahead', query, data);
+                            //if (data.search) {
+                            //  return typeahead.process(data.search.split(';'));
+                            //}
+
+                            if (data.search || data.queue || data.channels || data.theaters) {
+                              var lis = new Array;
+                              var titles = new Array;
+                              self.$menu.empty()
+
+                              for (key in data) {
+                                switch (key) {
+                                  case 'queue':
+                                    var items = data[key][0].programs;
+                                    titles[key] = 'Dans vos playlists';
+                                  break;
+                                  case 'channels':
+                                    var items = data[key];
+                                    titles[key] = 'Chaînes';
+                                  break;
+                                  case 'theaters':
+                                    var items = data[key];
+                                    titles[key] = 'Salles de cinéma';
+                                  break;
+                                  case 'search':
+                                    var items = data[key].split(';');
+                                  break;
+                                }
+                                items = items.slice(0, self.options.items)
+                                //console.log('UI.typeahead', 'data', key, items);
+                                lis[key] = $(items).map(function (i, item) {
+                                  i = $(self.options.item).attr('data-value', JSON.stringify(item))
+                                  switch (key) {
+                                    case 'queue':
+                                      i.addClass('playlist')
+                                       .find('a')
+                                       .html('<img src="' + item.picture + '" /> ' + self.highlighter(item.title))
+                                    break;
+                                    case 'theaters':
+                                      i.addClass('theater')
+                                       .find('a')
+                                       .html(self.highlighter(item.name + ' (' + item.ville + ')'))
+                                    break;
+                                    case 'channels':
+                                      i.addClass('channel')
+                                       .find('a')
+                                       .html('<img src="' + item.icon + '" /> ' + self.highlighter(item.name))
+                                    break;
+                                    case 'search':
+                                      i.addClass('search')
+                                       .find('a')
+                                       .html(self.highlighter(item))
+                                    break;
+                                  }
+                                  console.log('UI.typeahead', 'add item', key,  i);
+                                  return i[0]
+                                })
+                              }
+
+                              //data.first().addClass('active')
+                              var sort = Array('search','queue','channels','theaters');
+                              for (key in sort) {
+                                if (lis[sort[key]]) {
+                                  //console.log('UI.typeahead', key, data[key], self.$menu);
+                                  if (typeof titles[sort[key]] != 'undefined') {
+                                    self.$menu.append('<li class="nav-header">' + titles[sort[key]] + '</li>')
+                                  }
+                                  self.$menu.append(lis[sort[key]])
+                                }
+                              }
+                              //$('li:first-child:not(.nav-header)', self.$menu).addClass('active');
+
+                              $('#top-playlist').collapse('show');
+                              self.show();
+                            } else {
+                              return self.shown ? self.hide() : self
+                            }
+                            
+                            //self.render(self.$menu);
+                            //self.listen();
+                              var items = $(self.$menu).map(function (i, item) {
+                                i = $(self.options.item).attr('data-value', item)
+                                if (i.find('a')) {
+                                  i.find('a').html(self.highlighter(item))
+                                  return i[0]
+                                }
+                              })
+                        
+                              items.first().addClass('active')
+                              self.$menu.html(items)
+                            
+                           });
+
+      },
+      select: function(obj) {
+
+        console.log('UI.typeahead', 'onselect', obj, typeof obj, 'blur:' + this.$element);
+
+        if (typeof obj != 'object') { //typeahead
+          API.linkV2('/programmes/' + obj);
+        } else if (typeof obj.seo_url != 'undefined') { //advanced
+          this.$element.attr('value', '')
+          API.linkV2(obj.seo_url);
+        }
+
+        $('#top-playlist').collapse('hide');
+      }
+    });
   }
+  */
 }

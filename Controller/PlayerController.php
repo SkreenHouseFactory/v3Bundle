@@ -24,7 +24,6 @@ class PlayerController extends Controller
     */
     public function redirectAction(Request $request)
     {
-      
       if ($request->get('url')) {
         $url = $request->get('url');
       } elseif (strstr('/redirection/', $request->get('target'))) {

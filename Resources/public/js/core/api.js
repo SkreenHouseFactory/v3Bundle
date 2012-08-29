@@ -263,7 +263,7 @@ API = {
     if (typeof value == 'undefined') {
       return $.cookie('myskreen_' + name);
     } else {
-      console.log('API.cookie', 'set', 'myskreen_' + name, '=' ,value);
+      //console.log('API.cookie', 'set', 'myskreen_' + name, '=' ,value);
       $.cookie('myskreen_' + name, value);
     }
   },

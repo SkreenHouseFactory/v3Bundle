@@ -5,7 +5,12 @@ Player = {
   timeout: null,
   timeoutdelay: 5000,
   type: 'flash',
+  is_playing: false,
   //player
+  init: function(elmt) {
+    this.elmt = elmt;
+    this.elmt.empty();
+  },
   load: function(trigger) {
     var self = this;
     console.log('Player.load', trigger);
@@ -77,6 +82,12 @@ Player = {
     $('#top-nav').collapse('hide');
   },
   play: function(player) {
+    this.is_playing = true;
+    
+    if (this.elmt.data('playing-id')) {
+      this.elmt.data('playing-id', '');
+    }
+
     switch(this.type) {
       case 'flash':
         this.elmt.html(player);
@@ -84,7 +95,9 @@ Player = {
       case 'android':
         //Webview.postMessage(['player', 'launch', 'rtsp://v5.cache1.c.youtube.com/CjYLENy73wIaLQnhycnrJQ8qmRMYESARFEIJbXYtZ29vZ2xlSARSBXdhdGNoYPj_hYjnq6uUTQw=/0/0/0/video.3gp']);
         //Webview.postMessage(['player', 'launch', 'http://benoit.myskreen.typhon.net/48316914.mp4']);
-        Webview.postMessage(['player', 'launch', player.url]);
+        if (typeof Webview != 'undefined') {
+          Webview.postMessage(['player', 'launch', player.url]);
+        }
       break;
       case 'html5':
         this.elmt.html('loading embed html5 ...' + embed.url);
@@ -95,21 +108,26 @@ Player = {
     }
   },
   pause: function(player) {
-    if (this.type == 'android') {
+    if (this.type == 'android' && typeof Webview != 'undefined') {
       Webview.postMessage(['player', 'pause']);
     }
   },
   resume: function(player) {
-    if (this.type == 'android') {
+    if (this.type == 'android' && typeof Webview != 'undefined') {
       Webview.postMessage(['player', 'play']);
     }
   },
   stop: function(player) {
-    if (this.type == 'android') {
+    this.is_playing = false;
+    if (this.type == 'android' && typeof Webview != 'undefined') {
       Webview.postMessage(['player', 'stop']);
     }
+
+    if (this.elmt.data('playing-id')) {
+      this.elmt.data('playing-id', '');
+    }
   },
-  playProgram: function(id, elmt) {
+  playProgram: function(id) {
     var self = this;
     return API.query('GET',
                      'player/program/' + id + '.json',
@@ -121,13 +139,12 @@ Player = {
                       fullHD: true
                      },
                      function(media){
-                      console.log('Player.playProgram', media.player, elmt);
-                      //elmt.html(media.player);
+                      console.log('Player.playProgram', media.player);
+
                       if (!media.player || typeof media.player == 'undefined') {
                         return false;
                       }
                       self.play(media.player);
-                      elmt.data('playing-id', id)
                       return true;
                         
                      }, 

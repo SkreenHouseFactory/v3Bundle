@@ -27,7 +27,7 @@ $(document).ready(function(){
   Skhf.session = new Session(function(){
     console.log('script', 'context', API.context);
     UI.init(function(){
-              console.log('UI.init', 'callback');
+              //console.log('UI.init', 'callback');
             });
   });
 
@@ -210,10 +210,10 @@ $(document).ready(function(){
       //popover
       } else if (!$(this).hasClass('btn-danger')) {
         if ($(this).parent().data('onglet') == 'emissions' || $(this).parent().data('onglet') == 'series') {
-          var content = '<b>Ne ratez plus vos programmes !</b>' +
+          var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' +
                         '<br/>En ajoutant ce programme à vos playlists vous serez averti dès qu\'un épisode est disponible !';
         } else {
-          var content = '<b>Ne ratez plus vos programmes !</b>' + 
+          var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' + 
                         '<br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD.';
         }
 
@@ -225,6 +225,7 @@ $(document).ready(function(){
                .popover('show');
       }
     } else if (event.type == 'mouseout' || event.type == 'mouseleave') {
+      $(this).popover('hide');
       if ($(this).hasClass('btn-danger')) {
         $(this).removeClass('btn-danger').addClass('btn-primary').html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists');
       }

@@ -1,5 +1,5 @@
 // -- Session
-console.log('BASESESSION', BaseSession.prototype);
+//console.log('BASESESSION', BaseSession.prototype);
 var Session = BaseSession.extend({
   uid: '',
   datas: {},
@@ -84,7 +84,7 @@ var Session = BaseSession.extend({
 
     // -- autoload
     if (API.context == 'v3') {
-      console.log('Session.initPlaylist', 'autoload', document.location.href.match(/access=.+/));
+      //console.log('Session.initPlaylist', 'autoload', document.location.href.match(/access=.+/));
       var access = document.location.href.match(/access=.+/g);
       if (access != null && typeof access[0] != 'undefined') {
         UI.loadPlaylist(access[0].replace('access=', ''));
@@ -159,4 +159,4 @@ var Session = BaseSession.extend({
     }
   }
 });
-console.log('SESSION', Session.prototype);
+//console.log('SESSION', Session.prototype);

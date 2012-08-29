@@ -9,7 +9,7 @@ var BaseSlider = Class.extend({
            type: 'scroll'},
   //init
   init: function(params, callback, elmt) {
-    //console.log('Slider.init', params, callback);
+    //console.log('BaseSlider.init', params, callback);
     this.elmt = typeof elmt != 'undefined' ? elmt : this.getTemplate(params);
     this.params = $.extend(this.params, params);
     if (this.params.scroll != 'no') {
@@ -21,20 +21,20 @@ var BaseSlider = Class.extend({
 
     //li sample
     if (this.sample == null) {
-      console.log('BaseSlider.init', 'this.sample', $('li:first', this.elmt));
-      this.sample = $('<div>').append($('li:first', this.elmt).clone()).html();
+      //console.log('BaseSlider.init', 'this.sample', $('li:first', this.elmt));
+      this.sample = $('<div>').append($('li.slider-sample').clone().removeClass('slider-sample')).html();
     }
 
     //programs
     if (typeof params.programs != 'undefined') {
-      //console.log('Slider.init', 'insertPrograms');
+      //console.log('BaseSlider.init', 'insertPrograms');
       this.insertPrograms(params.programs, callback);
     } else if (typeof params.url != 'undefined') {
-      //console.log('Slider.init', 'insertPrograms');
+      //console.log('BaseSlider.init', 'insertPrograms');
       this.elmt.data('url', params.url);
       this.loadRemotePrograms(0, callback);
     } else {
-      //console.log('Slider.init', 'loadRemotePrograms');
+      //console.log('BaseSlider.init', 'loadRemotePrograms');
       this.loadRemotePrograms(0, callback);
     }
     
@@ -44,7 +44,7 @@ var BaseSlider = Class.extend({
     return this.elmt;
   },
   ui: function(callback) {
-    console.log('Slider.ui', callback);
+    console.log('BaseSlider.ui', callback);
     var self = this;
 
     var container = $('.slider-container', this.elmt);
@@ -53,17 +53,17 @@ var BaseSlider = Class.extend({
     var items = $('ul', container);
     if (!this.elmt.hasClass('couchmode')) {
       //items.css('width', (parseInt(this.params.img_width) + parseInt(this.params.item_margin)*2  + 5) * items.children().length);
-      //console.log('Slider.ui', 'width', items.css('width'));
+      //console.log('BaseSlider.ui', 'width', items.css('width'));
     }
 
     if (this.elmt.hasClass('initialized')) {
       next.css({'visibility':'visible'});
-      console.log('Slider.ui', 'already initialized');
+      console.log('BaseSlider.ui', 'already initialized');
       return;
     }
 
     if (items.children().filter(':not(.selector)').length <= 5) {
-      console.log('Slider.ui', 'not initialized', 'count:' + items.children().filter(':not(.selector)').length, items);
+      console.log('BaseSlider.ui', 'not initialized', 'count:' + items.children().filter(':not(.selector)').length, items);
       return;
     }
 
@@ -78,8 +78,8 @@ var BaseSlider = Class.extend({
           if ($('li:not(.selector)', items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(container.css('width')) < -parseInt(items.css('left'))) {
             next.css({'visibility':'hidden'});
             //pager
-            console.log('Slider.ui', 'pager-url', self.elmt.data('pager-url'));
-            if (self.elmt.data('pager-url')) {
+            console.log('BaseSlider.ui', 'url', self.elmt.data('url'));
+            if (self.elmt.data('url')) {
               var offset = self.params.pager_nb_results + parseInt(self.elmt.data('pager-offset'));
               self.elmt.data('pager-offset', offset);
               //console.log('pager-offset', 'set', offset, self.elmt, self.elmt.data('pager-offset'));
@@ -111,7 +111,7 @@ var BaseSlider = Class.extend({
         items.animate({'left': '+=' + parseInt(container.css('width'))}, 500, function() {
           console.log('pager', parseInt(items.css('left')), parseInt(items.css('width')));
           console.log('pager =>', $('li:not(.selector)', items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(container.css('width')),  parseInt(items.css('left')), self.elmt.data('pager-offset'));
-          if (parseInt(items.css('left')) >= -1) {
+          if (parseInt(items.css('left')) >= -5) {
             self.elmt.removeClass('back');
           }
           if (next.css('visibility') == 'hidden') {
@@ -124,29 +124,28 @@ var BaseSlider = Class.extend({
     this.elmt.addClass('initialized')
   },
   remove: function() {
-    console.log('Slider.remove', this.elmt);
+    console.log('BaseSlider.remove', this.elmt);
     $('.next', this.elmt).css({'visibility':'hidden'});
     $('.next, .prev', this.elmt).unbind('click');
-    $('ul', this.elmt).css('left', '0px');
+    $('ul', this.elmt).css('left', '0px').find('li:not(.selector)').empty();
     this.elmt.data('pager-offset', 0);
     this.elmt.data('nb-programs', 0);
     this.elmt.removeClass('initialized navigate back loaded empty');// social');
   },
   addLoader: function() {
-    var loader = $(this.sample).addClass('loader').empty().css('width', this.params.img_width + 'px').show();
-    loader.append('Chargement ...')
+    var loader = $('<li class="loader">Chargement ...</li>').css('width', this.params.img_width + 'px');
     UI.appendLoader(loader);
-    console.log('Sliser.addLoader', loader);
+    console.log('BaseSlider.addLoader', loader);
     $('ul', this.elmt).append(loader);
   },
   removeLoader: function() {
     $('.loader', this.elmt).remove();
   },
   loadRemotePrograms: function(offset, callback, args, keep) {
-    //console.log('Slider.loadRemotePrograms', offset, callback, keep);
+    //console.log('BaseSlider.loadRemotePrograms', offset, callback, keep);
     //prevent multiple loadings
     if (this.elmt.hasClass('loading')) {
-      console.warn('Slider.loadRemotePrograms', 'already loading');
+      console.warn('BaseSlider.loadRemotePrograms', 'already loading');
       return;
     }
     this.elmt.addClass('loading');
@@ -163,7 +162,7 @@ var BaseSlider = Class.extend({
               url, 
               args,
               function(programs){
-                //console.log('Slider.loadRemotePrograms', programs.length, programs, 'callback:' + callback);
+                //console.log('BaseSlider.loadRemotePrograms', programs.length, programs, 'callback:' + callback);
                 if (typeof keep == 'undefined' || keep != true) {
                   $('li:not(.selector)', self.elmt).remove();
                 }
@@ -235,9 +234,9 @@ var BaseSlider = Class.extend({
       this.addProgramBestOffer(li, program);
       li.addClass('to_animate').show();
       li.appendTo($('ul.items', this.elmt));
-      //console.log('Slider.insertPrograms', 'added', li);
+      //console.log('BaseSlider.insertPrograms', 'added', li);
       
-      //console.log('Slider.load', 'added', li, program, k);
+      //console.log('BaseSlider.load', 'added', li, program, k);
     }
 
     //ui
@@ -259,11 +258,11 @@ var BaseSlider = Class.extend({
       var btn = $('.actions .play', li);
       btn.html(o.dispo);
       if (o.player) {
-        //console.log('Slider.addBestOffer', 'add player', o.player);
+        //console.log('BaseSlider.addBestOffer', 'add player', o.player);
         btn.attr('href', btn.attr('href') + '?onglet=' + Skhf.session.access);
         //btn.attr('data-player', o.player);
       } else if (o.url) {
-        //console.log('Slider.addBestOffer', 'add url', o.url);
+        //console.log('BaseSlider.addBestOffer', 'add url', o.url);
         //si context = v3
         if (API.context == 'v3') {
           btn.attr('data-redirect', 1).attr('href', o.url);
@@ -281,7 +280,7 @@ var BaseSlider = Class.extend({
     var title = typeof params.title != 'undefined' ? '<h2>' + params.title + '</h2>' : '';
     var html = $('<div class="slider tv-container"' + (typeof params.data_id != 'undefined' ? ' data-id="' + params.data_id + '"' : '') + '>' + title + '<div class="slider-container"><ul class="items" data-current-position="0"></ul></div></div>');
 
-    console.log('Slider.getTemplate', params, html);
+    console.log('BaseSlider.getTemplate', params, html);
     return html;
   }
 });
