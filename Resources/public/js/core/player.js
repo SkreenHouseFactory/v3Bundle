@@ -83,10 +83,6 @@ Player = {
   },
   play: function(player) {
     this.is_playing = true;
-    
-    if (this.elmt.data('playing-id')) {
-      this.elmt.data('playing-id', '');
-    }
 
     switch(this.type) {
       case 'flash':
@@ -145,8 +141,9 @@ Player = {
                         return false;
                       }
                       self.play(media.player);
+                      self.elmt.data('playing-id', id);
+                      
                       return true;
-                        
                      }, 
                      true);
   },
