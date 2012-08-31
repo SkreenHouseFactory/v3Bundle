@@ -43,6 +43,13 @@
     position: relative !important;
   }
 }
+.slider.loading {
+  ul.items {
+    li.loader {
+      display: block !important;
+    }
+  }
+}
 .slider {
   height: @sliderHeight;
   width: 100%;
@@ -229,10 +236,13 @@
       display: none;
     }
     li.loader {
-      display: block;
+      display: none;
       background: transparent;
       box-shadow: none;
       padding-top: 30px;
+    }
+    li.loader.loader-pager {
+      display: block;
     }
     li.selector {
       cursor: pointer;

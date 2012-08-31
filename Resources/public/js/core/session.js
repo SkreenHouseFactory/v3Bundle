@@ -17,7 +17,7 @@ var BaseSession = Class.extend({
     console.warn('BaseSession.sync', this.uid, 'cookie:' + API.cookie('uid'));
 
     if (this.uid) {
-      $.extend(args, { 'with_notifications':1, 'with_selector':1, 'short':1 });
+      $.extend(args, { 'with_notifications':1, 'short':1 }); //, 'with_selector':1
       API.query('GET', 'session/' + this.uid + '.json', args, function(sessionData) {
         self.signin(sessionData);
 

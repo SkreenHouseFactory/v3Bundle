@@ -1,7 +1,10 @@
 // -- BaseSlider
 var BaseSlider = Class.extend({
   elmt: null,
+  container: null,
+  items: null,
   sample: null,
+  loader: null,
   params: {img_width: 150,
            img_height: 200,
            item_margin: 7,
@@ -10,8 +13,15 @@ var BaseSlider = Class.extend({
   //init
   init: function(params, callback, elmt) {
     //console.log('BaseSlider.init', params, callback);
-    this.elmt = typeof elmt != 'undefined' ? elmt : this.getTemplate(params);
-    this.params = $.extend(this.params, params);
+    this.params    = $.extend(this.params, params);
+    this.elmt      = typeof elmt != 'undefined' ? elmt : this.getTemplate(params);
+    this.items     = $('ul', this.elmt);
+    this.container = $('.slider-container', this.elmt);
+    this.loader    = $('.loader', this.items).css('width', this.params.img_width + 'px');
+    UI.appendLoader(this.loader);
+    console.log('BaseSlider.init', this.loader, this.items);
+
+    //scroll ?
     if (this.params.scroll != 'no') {
       this.elmt.append('<a class="next badge badge-inverse"><i class="icon-chevron-right icon-white"></i></a>');
       this.elmt.append('<a class="prev badge badge-inverse"><i class="icon-chevron-left icon-white"></i></a>');
@@ -37,23 +47,21 @@ var BaseSlider = Class.extend({
       //console.log('BaseSlider.init', 'loadRemotePrograms');
       this.loadRemotePrograms(0, callback);
     }
-    
+
     return this;
   },
   render: function() {
     return this.elmt;
   },
   ui: function(callback) {
-    console.log('BaseSlider.ui', callback);
+    console.log('BaseSlider.ui', this);
     var self = this;
 
-    var container = $('.slider-container', this.elmt);
     var next = $('.next', this.elmt);
     var prev = $('.prev', this.elmt);
-    var items = $('ul', container);
     if (!this.elmt.hasClass('couchmode')) {
-      //items.css('width', (parseInt(this.params.img_width) + parseInt(this.params.item_margin)*2  + 5) * items.children().length);
-      //console.log('BaseSlider.ui', 'width', items.css('width'));
+      //this.items.css('width', (parseInt(this.params.img_width) + parseInt(this.params.item_margin)*2  + 5) * this.items.children().length);
+      //console.log('BaseSlider.ui', 'width', this.items.css('width'));
     }
 
     if (this.elmt.hasClass('initialized')) {
@@ -62,31 +70,31 @@ var BaseSlider = Class.extend({
       return;
     }
 
-    if (items.children().filter(':not(.selector)').length <= 5) {
-      console.log('BaseSlider.ui', 'not initialized', 'count:' + items.children().filter(':not(.selector)').length, items);
+    if (this.items.children().filter(':not(.static)').length <= 5) {
+      console.log('BaseSlider.ui', 'not initialized', 'count:' + this.items.children().filter(':not(.static)').length, this.items);
       return;
     }
 
     this.elmt.addClass('navigate');
 
     next.bind('click', function(){
-      console.log('next', container.css('left'), container.css('width'));
-      if (parseInt(container.css('left')) < parseInt(container.css('width')) || container.css('left') == 'auto') {
-        items.animate({'left': '+=-'+parseInt(container.css('width'))}, 500, function() {
-          //console.log('pager', parseInt(items.css('left')),  parseInt(container.css('width')), items.css('width'), self.elmt.data('pager-offset'));
-          console.log('pager', $('li:not(.selector)', items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(container.css('width')),  parseInt(items.css('left')), self.elmt.data('pager-offset'));
-          if ($('li:not(.selector)', items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(container.css('width')) < -parseInt(items.css('left'))) {
+      console.log('next', self.container.css('left'), self.container.css('width'));
+      if (parseInt(self.container.css('left')) < parseInt(self.container.css('width')) || self.container.css('left') == 'auto') {
+        self.items.animate({'left': '+=-'+parseInt(self.container.css('width'))}, 500, function() {
+          //console.log('pager', parseInt(self.items.css('left')),  parseInt(self.container.css('width')), self.items.css('width'), self.elmt.data('pager-offset'));
+          console.log('pager', $('li:not(.static)', self.items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(self.container.css('width')),  parseInt(self.items.css('left')), self.elmt.data('pager-offset'));
+          if ($('li:not(.static)', self.items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(self.container.css('width')) < -parseInt(self.items.css('left'))) {
             next.css({'visibility':'hidden'});
             //pager
             console.log('BaseSlider.ui', 'url', self.elmt.data('url'));
             if (self.elmt.data('url')) {
               var offset = self.params.pager_nb_results + parseInt(self.elmt.data('pager-offset'));
               self.elmt.data('pager-offset', offset);
+              self.items.append(self.loader.addClass('loader-pager'));
               //console.log('pager-offset', 'set', offset, self.elmt, self.elmt.data('pager-offset'));
-              self.addLoader();
               self.loadRemotePrograms(self.getUrl(offset),
                                       function(nb_programs){
-                                        self.removeLoader();
+                                        self.items.find('.loader-pager').remove();
                                         if (nb_programs < 3) {
                                           next.css('visibility','hidden');
                                         }
@@ -106,12 +114,12 @@ var BaseSlider = Class.extend({
     }).css({'visibility':'visible'});
 
     prev.bind('click', function(){
-      console.log('prev', parseInt(container.css('left')), parseInt(container.css('width')));
-      if (-parseInt(items.css('left')) < parseInt(items.css('width'))) {
-        items.animate({'left': '+=' + parseInt(container.css('width'))}, 500, function() {
-          console.log('pager', parseInt(items.css('left')), parseInt(items.css('width')));
-          console.log('pager =>', $('li:not(.selector)', items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(container.css('width')),  parseInt(items.css('left')), self.elmt.data('pager-offset'));
-          if (parseInt(items.css('left')) >= -5) {
+      console.log('prev', parseInt(self.container.css('left')), parseInt(self.container.css('width')));
+      if (-parseInt(self.items.css('left')) < parseInt(self.items.css('width'))) {
+        self.items.animate({'left': '+=' + parseInt(self.container.css('width'))}, 500, function() {
+          console.log('pager', parseInt(self.items.css('left')), parseInt(self.items.css('width')));
+          console.log('pager =>', $('li:not(.static)', self.items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(self.container.css('width')),  parseInt(self.items.css('left')), self.elmt.data('pager-offset'));
+          if (parseInt(self.items.css('left')) >= -5) {
             self.elmt.removeClass('back');
           }
           if (next.css('visibility') == 'hidden') {
@@ -127,19 +135,10 @@ var BaseSlider = Class.extend({
     console.log('BaseSlider.remove', this.elmt);
     $('.next', this.elmt).css({'visibility':'hidden'});
     $('.next, .prev', this.elmt).unbind('click');
-    $('ul', this.elmt).css('left', '0px').find('li:not(.selector)').empty();
+    $('ul', this.elmt).css('left', '0px').find('li:not(.static)').remove();
     this.elmt.data('pager-offset', 0);
     this.elmt.data('nb-programs', 0);
-    this.elmt.removeClass('initialized navigate back loaded empty');// social');
-  },
-  addLoader: function() {
-    var loader = $('<li class="loader">Chargement ...</li>').css('width', this.params.img_width + 'px');
-    UI.appendLoader(loader);
-    console.log('BaseSlider.addLoader', loader);
-    $('ul', this.elmt).append(loader);
-  },
-  removeLoader: function() {
-    $('.loader', this.elmt).remove();
+    this.elmt.removeClass('initialized navigate back loading loaded empty');// social');
   },
   loadRemotePrograms: function(offset, callback, args, keep) {
     //console.log('BaseSlider.loadRemotePrograms', offset, callback, keep);
@@ -148,12 +147,11 @@ var BaseSlider = Class.extend({
       console.warn('BaseSlider.loadRemotePrograms', 'already loading');
       return;
     }
-    this.elmt.addClass('loading');
 
     var self = this;
 
     if (this.elmt.data('pager-offset') == 0) {
-      $('li:not(.selector)', this.elmt).remove();
+      $('li:not(.static)', this.elmt).remove();
     }
 
     var args = $.extend(args, this.params);
@@ -164,7 +162,7 @@ var BaseSlider = Class.extend({
               function(programs){
                 //console.log('BaseSlider.loadRemotePrograms', programs.length, programs, 'callback:' + callback);
                 if (typeof keep == 'undefined' || keep != true) {
-                  $('li:not(.selector)', self.elmt).remove();
+                  $('li:not(.static)', self.elmt).remove();
                 }
 
                 if (programs.length > 0 || typeof programs[0] != 'undefined') {
@@ -177,7 +175,6 @@ var BaseSlider = Class.extend({
                 if (typeof callback != 'undefined'){
                   callback(self.elmt);
                 }
-                self.elmt.removeClass('loading');
               });
   },
   getUrl: function(offset){
@@ -241,6 +238,7 @@ var BaseSlider = Class.extend({
 
     //ui
     $('a[rel="tooltip"]', this.elmt).tooltip();
+    this.elmt.removeClass('loading');
     if (this.elmt.data('animate') == 'width') {
       $('li.to_animate', this.elmt).animate({'width':this.params.img_width}, 500).removeClass('to_animate');
     }
@@ -278,7 +276,7 @@ var BaseSlider = Class.extend({
   },
   getTemplate: function(params) {
     var title = typeof params.title != 'undefined' ? '<h2>' + params.title + '</h2>' : '';
-    var html = $('<div class="slider tv-container"' + (typeof params.data_id != 'undefined' ? ' data-id="' + params.data_id + '"' : '') + '>' + title + '<div class="slider-container"><ul class="items" data-current-position="0"></ul></div></div>');
+    var html = $('<div class="slider tv-container"' + (typeof params.data_id != 'undefined' ? ' data-id="' + params.data_id + '"' : '') + '>' + title + '<div class="slider-container"><ul class="items" data-current-position="0"><li class="loader static">Chargement ...</li></ul></div></div>');
 
     console.log('BaseSlider.getTemplate', params, html);
     return html;

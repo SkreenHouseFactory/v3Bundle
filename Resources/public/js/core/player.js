@@ -142,7 +142,7 @@ Player = {
                       }
                       self.play(media.player);
                       self.elmt.data('playing-id', id);
-                      
+
                       return true;
                      }, 
                      true);

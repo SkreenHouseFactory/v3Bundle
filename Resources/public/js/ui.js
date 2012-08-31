@@ -12,12 +12,11 @@ UI = {
                                     programs: []
                                    },
                                    function() {
-                                    self.loadUserPrograms();
-                                    if (typeof callback != 'undefined') {
-                                      callback();
-                                    }
                                    }, $('#playlist'));
-    //console.log('UI.init', 'this.playlist', this.playlist);
+    console.log('UI.init', 'this.playlist', this.playlist);
+    if (typeof callback != 'undefined') {
+      callback();
+    }
   },
   //toggle favorite
   togglePlaylistProgram: function(trigger){
@@ -65,7 +64,7 @@ UI = {
       $('.user-on-visibility').css('visibility','hidden');
       $('li.selector').popover('enable');
       this.unloadFilters();
-      this.playlist.elmt.removeClass('loading');
+      this.playlist.remove();
     }
     $('.user-off, .user-on').toggleClass('hide');
   },
@@ -124,12 +123,10 @@ UI = {
   },
   //update selector
   loadSelector: function(datas) {
-
+    var self = this;
     console.log('UI.loadSelector', datas, Skhf.session.onglet);
-    this.unloadPlaylist();
+
     this.unloadSelector();
-    $('#top-playlist li.selector').show();
-    $('#top-playlist h2 small').empty();
     //if (Skhf.session.onglet) {
     //  $('#top-playlist h2 small:last').html('» ' + $('#top-filters .' + Skhf.session.onglet).html());
     //}
@@ -155,6 +152,13 @@ UI = {
       }
     }
 
+    //show selector
+    self.playlist.elmt.addClass('loading');
+    this.unloadPlaylist(Skhf.session.onglet, function() {
+      self.playlist.elmt.removeClass('loading');
+      $('#top-playlist li.selector').show().animate({'width': self.playlist.params.img_width}, 500);
+    });
+
     Skhf.session.initSocial();
     //this.playlist.data('queue-selector', JSON.stringify(datas));
   },
@@ -164,10 +168,8 @@ UI = {
     lis.find('.label').addClass('opacity').find('span').empty();
     lis.find('span.badge').remove();
     lis.find('a, h6').show();
+    $('#top-playlist h2 small').empty();
     lis.popover('enable');
-    //show selector
-    lis.animate({'width': this.playlist.params.img_width}, 500, function() {
-    });
   },
   loadPlaylist: function(access, onglet){
     var self = this;
@@ -177,8 +179,8 @@ UI = {
       //hide selector
       $('li.selector', this.playlist.elmt).animate({'width':0}, 500, function() {
         $(this).hide();
+        self.playlist.elmt.addClass('loading');
       });
-      this.playlist.addLoader(this.playlist.elmt);
 
       //load playlist
       Skhf.session.access = access;
@@ -203,7 +205,6 @@ UI = {
                                             }
                                           }
                                           $('li.selector', slider.elmt).hide();
-                                          self.playlist.removeLoader();
                                           if ((Skhf.session.access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
                                               API.isHome() == true) {
                                             $('#top-playlist').collapse('show');
@@ -212,7 +213,7 @@ UI = {
                                        args);
     }
   },
-  unloadPlaylist: function(onglet) {
+  unloadPlaylist: function(onglet, callback) {
     var self = this;
     console.log('UI.unloadPlaylist', onglet, Skhf.session.onglet);
 
@@ -220,9 +221,12 @@ UI = {
       Skhf.session.initPlaylist('/' + onglet);
     }
     $('#top-playlist h2 small').empty();
-    $('li:not(.selector)', this.playlist.elmt).animate({'width':0}, 500, function() {
-      //$('li.selector', self.playlist.elmt).show().animate({'width': self.playlist.item_width}, 500);
+    $('li:not(.static)', this.playlist.elmt).animate({'width':0}, 500, function() {
+      //$('li.static', self.playlist.elmt).show().animate({'width': self.playlist.item_width}, 500);
       self.playlist.remove();
+      if (typeof callback != 'undefined') {
+        callback();
+      }
     });
   },
   markAsRed: function(id) {

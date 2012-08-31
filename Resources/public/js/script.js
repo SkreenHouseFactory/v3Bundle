@@ -5,8 +5,9 @@ $(document).ready(function(){
 
   // -- init
   API.init(function(){
-  
-    // -- console
+    console.log('script', 'API.init');
+
+    // console
     if( API.config.console != true ) {
       console = {
           log: function() {},
@@ -14,21 +15,25 @@ $(document).ready(function(){
           error: function() {}
       };
     }
-  });
 
-  // -- sync v2
-  if (top.location != self.document.location) {
-    API.syncV2(function(){
-      //callback sync
-    });
-  }
+    // sync v2
+    if (top.location != self.document.location) {
+      API.syncV2(function(){
+        //callback sync
+      });
+    }
 
-  // -- session
-  Skhf.session = new Session(function(){
-    console.log('script', 'context', API.context);
+    // ui
     UI.init(function(){
-              //console.log('UI.init', 'callback');
-            });
+      console.log('script', 'UI.init', 'callback');
+    });
+
+    // -- session
+    Skhf.session = new Session(function(){
+      console.log('script', 'context', API.context);
+      UI.loadUserPrograms();
+      Skhf.session.initPlaylist();    
+    });
   });
 
   // -- ui user
