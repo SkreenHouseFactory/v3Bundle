@@ -38,7 +38,9 @@ var BaseSlider = Class.extend({
     //programs
     if (typeof params.programs != 'undefined') {
       //console.log('BaseSlider.init', 'insertPrograms');
-      this.insertPrograms(params.programs, callback);
+      if (params.programs.length > 0) {
+        this.insertPrograms(params.programs, callback);
+      }
     } else if (typeof params.url != 'undefined') {
       //console.log('BaseSlider.init', 'insertPrograms');
       this.elmt.data('url', params.url);
@@ -231,7 +233,6 @@ var BaseSlider = Class.extend({
       this.addProgramBestOffer(li, program);
       li.addClass('to_animate').show();
       li.appendTo($('ul.items', this.elmt));
-      //console.log('BaseSlider.insertPrograms', 'added', li);
       
       //console.log('BaseSlider.load', 'added', li, program, k);
     }
@@ -243,12 +244,11 @@ var BaseSlider = Class.extend({
       $('li.to_animate', this.elmt).animate({'width':this.params.img_width}, 500).removeClass('to_animate');
     }
     //console.log('BaseSlider.load', 'insertPrograms', 'to_animate', this.elmt);
-    //UI.loadUserPrograms(Skhf.session.datas.queue, this.elmt);
+    UI.loadUserPrograms(Skhf.session.datas.queue, this.elmt);
 
     if (typeof callback != 'undefined'){
       callback(this.elmt);
     }
-
   },
   addProgramBestOffer: function(li, program) {
     var o = program.best_offer;
@@ -260,7 +260,7 @@ var BaseSlider = Class.extend({
         btn.attr('href', btn.attr('href') + '?onglet=' + Skhf.session.access);
         //btn.attr('data-player', o.player);
       } else if (o.url) {
-        //console.log('BaseSlider.addBestOffer', 'add url', o.url);
+        console.log('BaseSlider.addBestOffer', 'add url', o.url);
         //si context = v3
         if (API.context == 'v3') {
           btn.attr('data-redirect', 1).attr('href', o.url);
