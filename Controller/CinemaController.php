@@ -45,7 +45,7 @@ class CinemaController extends Controller
 
       $response->setPublic();
       $response->setMaxAge(24*3600);
-      $response->headers->addCacheControlDirective('must-revalidate', true);
+      //$response->headers->addCacheControlDirective('must-revalidate', true);
 
       return $response;
     }

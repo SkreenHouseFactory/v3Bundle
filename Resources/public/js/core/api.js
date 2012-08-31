@@ -7,13 +7,15 @@ function skPaymentPopinEnd () {
 }
 
 // -- ENV
+var DEV = 'benoit';
 var ENV;
 ENV = {
   dev: {
         env: 'dev',
-        site_url: 'http://beta.benoit.myskreen.typhon.net:40011',
-        base: 'http://benoit.myskreen.typhon.net/api/',
-        popin: 'https://benoit.myskreen.typhon.net/popin/',
+        site_url: 'http://beta.' + DEV + '.myskreen.typhon.net:40011',
+        base: 'http://' + DEV + '.myskreen.typhon.net/api/',
+        popin: 'https://' + DEV + '.myskreen.typhon.net/popin/',
+        domain: DEV + '.myskreen.typhon.net',
         console: true
   },
   preprod: {
@@ -21,6 +23,7 @@ ENV = {
         site_url: 'http://preprod.beta.myskreen.com',
         base: 'http://preprod.api.myskreen.com/api/',
         popin: 'https://preprod.api.myskreen.com/popin/',
+        domain: 'preprod.beta.myskreen.com',
         console: true
   },
   prod: {
@@ -28,6 +31,7 @@ ENV = {
         site_url: 'http://www.myskreen.com',
         base: 'http://api.myskreen.com/api/',
         popin: 'https://api.myskreen.com/popin/',
+        domain: 'www.myskreen.com',
         console: false
   }
 }
@@ -242,7 +246,9 @@ API = {
         console.log('API.query', 'error getting query', code, retour);
         clearTimeout(tooLongQuery); 
         if (retour.readyState == 4){
-          callback(JSON.parse(retour.responseText));
+          if (typeof callback != 'undefined') {
+            callback(JSON.parse(retour.responseText));
+          }
         } else {
           console.error('error getting query', retour, url, data, code, retour.statusText);
           return false;
@@ -264,7 +270,7 @@ API = {
       return $.cookie('myskreen_' + name);
     } else {
       //console.log('API.cookie', 'set', 'myskreen_' + name, '=' ,value);
-      $.cookie('myskreen_' + name, value);
+      $.cookie('myskreen_' + name, value, { path: '/', expires: 30, domain: API.config.domain});
     }
   },
   isHome: function(url) {

@@ -14,7 +14,10 @@ var BaseSession = Class.extend({
   sync: function(callback, args) {
     var self = this;
     var args = typeof args == 'undefined' ? new Array() : args;
-    console.warn('BaseSession.sync', this.uid, 'cookie:' + API.cookie('uid'));
+    console.warn('BaseSession.sync', this.uid, 'cookie:' + API.cookie('session_uid'));
+    if (this.uid == null) {
+      this.uid = API.cookie('session_uid');
+    }
 
     if (this.uid) {
       $.extend(args, { 'with_notifications':1, 'short':1 }); //, 'with_selector':1
@@ -40,7 +43,7 @@ var BaseSession = Class.extend({
     console.log('BaseSession.signin', sessionData);
     this.datas = sessionData;
     this.uid = this.datas.uid;
-    API.cookie('uid', this.uid);
+    API.cookie('session_uid', this.uid);
     if (this.datas.email) {
       UI.loadUser();
     }
@@ -55,8 +58,8 @@ var BaseSession = Class.extend({
     this.datas = '';
     this.uid = '';
 
-    API.cookie('uid', '');
-    API.cookie('playlist_collapsed', '');
+    API.cookie('session_uid', null);
+    API.cookie('playlist_collapsed', null);
   },
   initSocial: function(onglet, offset, force_remote, callback) {
     console.log('BaseSession.initSocial', 'fb_uid', this.datas.fb_uid)

@@ -156,7 +156,7 @@ UI = {
     self.playlist.elmt.addClass('loading');
     this.unloadPlaylist(Skhf.session.onglet, function() {
       self.playlist.elmt.removeClass('loading');
-      $('#top-playlist li.selector').show().animate({'width': self.playlist.params.img_width}, 500);
+      $('#top-playlist li.selector').animate({'width': self.playlist.params.img_width}, 500);
     });
 
     Skhf.session.initSocial();
@@ -170,6 +170,7 @@ UI = {
     lis.find('a, h6').show();
     $('#top-playlist h2 small').empty();
     lis.popover('enable');
+    $('#top-playlist li.selector').show()
   },
   loadPlaylist: function(access, onglet){
     var self = this;

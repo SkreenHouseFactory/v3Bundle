@@ -31,7 +31,6 @@ $(document).ready(function(){
     // -- session
     Skhf.session = new Session(function(){
       console.log('script', 'context', API.context);
-      UI.loadUserPrograms();
       Skhf.session.initPlaylist();    
     });
   });
@@ -264,6 +263,5 @@ $(document).ready(function(){
   });
 
   // -- popover
-  $('*[data-content]').popover({show: 500, hide: 100});
-
+  $('[data-content]').popover();
 });
