@@ -59,13 +59,16 @@ var Session = BaseSession.extend({
       this.onglet = onglet;
       API.query('GET', 
                 'www/slider/selector/' + this.uid + '.json', 
-                {onglet: this.onglet, with_count_favoris: true}, 
+                {onglet: this.onglet, 
+                 with_count_favoris: true,
+                 img_width: UI.playlist.params.img_width,
+                 img_height: UI.playlist.params.img_height
+                },
                 function(json) {
                   console.log('Session.initSelector', 'remote', 'reload', json);
                   UI.loadSelector(json, true);
                   UI.playlist.elmt.removeClass('loading');
                 });
-
     }
   },
   initPlaylist: function(url) {
@@ -113,11 +116,11 @@ var Session = BaseSession.extend({
        console.log('Session.initPlaylist', 'hasClass', $('#top-filters .tv-grid-main').hasClass('tv-grid-filter'));
        //add grid filters
        if (!$('#top-filters .tv-grid-main').hasClass('tv-grid-filter')) {
-         console.log('Session.initPlaylist', $('#top-filters .tv:not(.tv-selection, .tv-grid-filter)'));
+         //console.log('Session.initPlaylist', $('#top-filters .tv:not(.tv-selection, .tv-grid-filter)'));
          $('#top-filters .tv-grid-filter').show();
          $('#top-filters .tv-grid-main').addClass('tv-grid-filter');
          $('#top-filters .tv:not(.tv-selection, .tv-grid-filter)').hide();
-         $('#top-playlist').collapse('hide');
+         //$('#top-playlist').collapse('hide');
        }
      break;
      //load cinema 

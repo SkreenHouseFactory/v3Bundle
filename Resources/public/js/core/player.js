@@ -89,6 +89,7 @@ Player = {
     $('#top-nav').collapse('hide');
   },
   play: function(player, callback) {
+    console.log('Player.play', player);
     this.is_playing = true;
 
     switch(this.type) {
@@ -132,11 +133,11 @@ Player = {
         };
 
         if (this.type == 'html5') {
-          console.warn('Player.flowplayer', 'iOs/noflash', player, flowArgs);
+          console.warn(['Player.flowplayer', 'iOs/noflash', player, flowArgs]);
           Player.elmt.css('height', document.body.clientHeight);
           $f(this.elmt.attr('id'), flashArgs, flowArgs).ipad({simulateiDevice: true, controls: false});
         } else {
-          console.warn('Player.flowplayer', 'flash:v' + flashversion, player, flowArgs);
+          console.warn(['Player.flowplayer', 'flash', player, flowArgs]);
           $f(this.elmt.attr('id'), flashArgs, flowArgs);
         }
       break;
