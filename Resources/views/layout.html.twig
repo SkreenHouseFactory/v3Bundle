@@ -31,7 +31,7 @@
     {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
 
     <div id="header">
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' with {'menus': menus} %}
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' %}
     </div>
 
     {% block content %}
@@ -47,16 +47,6 @@
     {% block redirect %}
     {% endblock %}
     </div>
-    
-    <div id="top-links">
-    {% for key,m in menus %}
-      <ul>{{  'all.the.format'|trans({'%format%': key|lower}) }} : 
-      {% for l in m %}
-        <li><a href="link-v2('{{ l.seo_url }}');" title="{{ l.name }} {{  key }} {{ 'access.streaming'|trans }}">{{ l.name }}</a></li>
-      {% endfor %}
-      </ul>
-    {% endfor %}
-    </div>
 
 {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.0.min.js'
@@ -66,7 +56,10 @@
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/easyXDM.min.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*' 
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/*' 
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/script.js'
+    
     filter='?yui_js' 
     output='js/compiled/v3.js'  %}
     <script src="{{ asset_url }}"></script>

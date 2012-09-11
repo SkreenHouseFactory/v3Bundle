@@ -77,61 +77,98 @@ var BaseSlider = Class.extend({
       return;
     }
 
-    this.elmt.addClass('navigate');
-
+    //triggers
     next.bind('click', function(){
-      console.log('next', self.container.css('left'), self.container.css('width'));
-      if (parseInt(self.container.css('left')) < parseInt(self.container.css('width')) || self.container.css('left') == 'auto') {
-        self.items.animate({'left': '+=-'+parseInt(self.container.css('width'))}, 500, function() {
-          //console.log('pager', parseInt(self.items.css('left')),  parseInt(self.container.css('width')), self.items.css('width'), self.elmt.data('pager-offset'));
-          console.log('pager', $('li:not(.static)', self.items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(self.container.css('width')),  parseInt(self.items.css('left')), self.elmt.data('pager-offset'));
-          if ($('li:not(.static)', self.items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(self.container.css('width')) < -parseInt(self.items.css('left'))) {
-            next.css({'visibility':'hidden'});
-            //pager
-            console.log('BaseSlider.ui', 'url', self.elmt.data('url'));
-            if (self.elmt.data('url')) {
-              var offset = self.params.pager_nb_results + parseInt(self.elmt.data('pager-offset'));
-              self.elmt.data('pager-offset', offset);
-              self.items.append(self.loader.addClass('loader-pager'));
-              //console.log('pager-offset', 'set', offset, self.elmt, self.elmt.data('pager-offset'));
-              self.loadRemotePrograms(self.getUrl(offset),
-                                      function(nb_programs){
-                                        self.items.find('.loader-pager').remove();
-                                        if (nb_programs < 3) {
-                                          next.css('visibility','hidden');
-                                        }
-                                        if (nb_programs < self.params.pager_nb_results) {
-                                          self.elmt.addClass('loaded'); //le slider ne pagine plus
-                                        }
-                                      },
-                                      {},
-                                      true);
-            }
-          }
-          if (!self.elmt.hasClass('back')) {
-            self.elmt.addClass('back');
-          }
-        });
-      }
+      self.next($(this));
     }).css({'visibility':'visible'});
 
     prev.bind('click', function(){
-      console.log('prev', parseInt(self.container.css('left')), parseInt(self.container.css('width')));
-      if (-parseInt(self.items.css('left')) < parseInt(self.items.css('width'))) {
-        self.items.animate({'left': '+=' + parseInt(self.container.css('width'))}, 500, function() {
-          console.log('pager', parseInt(self.items.css('left')), parseInt(self.items.css('width')));
-          console.log('pager =>', $('li:not(.static)', self.items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(self.container.css('width')),  parseInt(self.items.css('left')), self.elmt.data('pager-offset'));
-          if (parseInt(self.items.css('left')) >= -5) {
-            self.elmt.removeClass('back');
-          }
-          if (next.css('visibility') == 'hidden') {
-            next.css({'visibility':'visible'});
-          }
-        });
-      }
+      self.prev($(this));
     });
 
-    this.elmt.addClass('initialized')
+    //swipe
+    if (UI.touch == true) {
+      this.elmt.touchwipe({
+           wipeLeft: function() {
+            //alert('wipeLeft');
+            self.next();
+           },
+           wipeRight: function() {
+            //alert('wipeRight');
+            self.prev();
+           },
+           wipeUp: function() {
+            //alert('wipeUp:'+self.elmt.hasClass('slide-v'));
+            if (self.elmt.hasClass('slide-v') && typeof UI.slideV != 'undefined') {
+              UI.slideV(self.elmt, 'down');
+            }
+           },
+           wipeDown: function() {
+            //alert('wipeDown:'+self.elmt.hasClass('slide-v'));
+            if (self.elmt.hasClass('slide-v') && typeof UI.slideV != 'undefined') {
+              UI.slideV(self.elmt, 'up');
+            }
+           },
+           min_move_x: 20,
+           min_move_y: 20,
+           //preventDefaultEvents: true
+      });
+    }
+
+    this.elmt.addClass('navigate initialized')
+  },
+  next: function(trigger) {
+    var self = this;
+    console.log('next', this.container.css('left'), this.container.css('width'));
+    if (parseInt(this.container.css('left')) < parseInt(this.container.css('width')) || this.container.css('left') == 'auto') {
+      self.items.animate({'left': '+=-'+parseInt(this.container.css('width'))}, 500, function() {
+        //console.log('pager', parseInt(self.items.css('left')),  parseInt(self.container.css('width')), self.items.css('width'), self.elmt.data('pager-offset'));
+        console.log('pager', $('li:not(.static)', self.items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(self.container.css('width')),  parseInt(self.items.css('left')), self.elmt.data('pager-offset'));
+        if ($('li:not(.static)', self.items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(self.container.css('width')) < -parseInt(self.items.css('left'))) {
+          trigger.css({'visibility':'hidden'});
+          //pager
+          console.log('BaseSlider.ui', 'url', self.elmt.data('url'));
+          if (self.elmt.data('url')) {
+            var offset = self.params.pager_nb_results + parseInt(self.elmt.data('pager-offset'));
+            self.elmt.data('pager-offset', offset);
+            self.items.append(self.loader.addClass('loader-pager'));
+            //console.log('pager-offset', 'set', offset, self.elmt, self.elmt.data('pager-offset'));
+            self.loadRemotePrograms(self.getUrl(offset),
+                                    function(nb_programs){
+                                      self.items.find('.loader-pager').remove();
+                                      if (nb_programs < 3) {
+                                        trigger.css('visibility','hidden');
+                                      }
+                                      if (nb_programs < self.params.pager_nb_results) {
+                                        self.elmt.addClass('loaded'); //le slider ne pagine plus
+                                      }
+                                    },
+                                    {},
+                                    true);
+          }
+        }
+        if (!self.elmt.hasClass('back')) {
+          self.elmt.addClass('back');
+        }
+      });
+    }
+  },
+  prev: function(trigger) {
+    var self = this;
+    var next = $('.next', this.elmt);
+    console.log('prev', parseInt(this.container.css('left')), parseInt(this.container.css('width')));
+    if (-parseInt(this.items.css('left')) < parseInt(this.items.css('width'))) {
+      self.items.animate({'left': '+=' + parseInt(this.container.css('width'))}, 500, function() {
+        console.log('pager', parseInt(self.items.css('left')), parseInt(self.items.css('width')));
+        console.log('pager =>', $('li:not(.static)', self.items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(self.container.css('width')),  parseInt(self.items.css('left')), self.elmt.data('pager-offset'));
+        if (parseInt(self.items.css('left')) >= -5) {
+          self.elmt.removeClass('back');
+        }
+        if (next.css('visibility') == 'hidden') {
+          next.css({'visibility':'visible'});
+        }
+      });
+    }
   },
   remove: function() {
     console.log('BaseSlider.remove', this.elmt);
@@ -169,7 +206,6 @@ var BaseSlider = Class.extend({
 
                 if (programs.length > 0 || typeof programs[0] != 'undefined') {
                   self.insertPrograms(programs);
-                  self.ui();
                   self.elmt.data('nb-programs', programs.length);
                 } else if ($('li', self.elmt).length == 0) {
                   self.elmt.addClass('empty');
@@ -238,6 +274,9 @@ var BaseSlider = Class.extend({
     }
 
     //ui
+    if (!this.elmt.hasClass('initialized')) {
+      this.ui();
+    }
     $('a[rel="tooltip"]', this.elmt).tooltip();
     this.elmt.removeClass('loading');
     if (this.elmt.data('animate') == 'width') {

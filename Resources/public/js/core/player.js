@@ -11,10 +11,9 @@ Player = {
     this.elmt = elmt;
     this.elmt.empty();
 
-    var idevice = /ip(hone|ad|od)/i.test(navigator.userAgent);
     var flashversion = flashembed.getVersion()[0];
-    if (idevice || !flashversion) {
-      this.type = 'html5';
+    if (UI.ios || !flashversion) {
+      //this.type = 'html5';
     }
 
   },
@@ -89,7 +88,7 @@ Player = {
     $('#top-nav').collapse('hide');
   },
   play: function(player, callback) {
-    console.log('Player.play', player);
+    console.log('Player.play', player, this.type);
     this.is_playing = true;
 
     switch(this.type) {
@@ -133,9 +132,15 @@ Player = {
         };
 
         if (this.type == 'html5') {
-          console.warn(['Player.flowplayer', 'iOs/noflash', player, flowArgs]);
-          Player.elmt.css('height', document.body.clientHeight);
-          $f(this.elmt.attr('id'), flashArgs, flowArgs).ipad({simulateiDevice: true, controls: false});
+          console.warn(['Player.flowplayer', 'iOs/noflash', player.url]);
+          Player.elmt.css('height', document.body.clientHeight/2);
+          $f(this.elmt.attr('id'), flashArgs, flowArgs).ipad({simulateiDevice: true, controls: false, ipadUrl: player.url, validExtensions: null});
+          /*this.elmt.html('<video width="' + flashArgs.width + '" height="' + flashArgs.height + '" tabindex="0" x-webkit-airplay="allow" controls="false" autoplay="true" id="PlayerHtml5">' + 
+                         '<source type="video/mp4" src="' + player.url + '"></source>' +
+                         '</video>');
+          this.elmt.find('video:first').play();*/
+          console.warn(['Player.flowplayer', 'html', Player.elmt.html()]);
+          
         } else {
           console.warn(['Player.flowplayer', 'flash', player, flowArgs]);
           $f(this.elmt.attr('id'), flashArgs, flowArgs);
@@ -146,6 +151,7 @@ Player = {
       break;
       case 'android':
         if (typeof Webview != 'undefined') {
+          //player.url = 'http://www.pocketjourney.com/downloads/pj/video/famous.3gp';
           Webview.postMessage(['player', 'launch', player.url]);
         }
       break;
@@ -242,6 +248,7 @@ Player = {
     $('#redirect').empty().collapse('hide');
   },
   setType: function(type) {
+    console.warn(['Player.setType', type]);
     this.type = type;
   }
 }

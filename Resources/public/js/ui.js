@@ -106,7 +106,7 @@ UI = {
   },
   //update friends
   loadSocialSelector: function(datas) {
-    if (datas.programs) {
+    if (datas.programs.length > 0) {
       var program = datas.programs.pop();
       var li = $('li#friends', this.playlist.elmt);
       li.removeClass('empty');
