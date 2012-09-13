@@ -112,16 +112,8 @@ var Session = BaseSession.extend({
      break;
      case '/programme-tv':
        UI.loadPlaylist('tv');
-       UI.loadFilters('tv', 'grid-main');
-       console.log('Session.initPlaylist', 'hasClass', $('#top-filters .tv-grid-main').hasClass('tv-grid-filter'));
+       UI.loadFilters('tv', 'grid');
        //add grid filters
-       if (!$('#top-filters .tv-grid-main').hasClass('tv-grid-filter')) {
-         //console.log('Session.initPlaylist', $('#top-filters .tv:not(.tv-selection, .tv-grid-filter)'));
-         $('#top-filters .tv-grid-filter').show();
-         $('#top-filters .tv-grid-main').addClass('tv-grid-filter');
-         $('#top-filters .tv:not(.tv-selection, .tv-grid-filter)').hide();
-         //$('#top-playlist').collapse('hide');
-       }
      break;
      //load cinema 
      case '/cinema/box-office/a':

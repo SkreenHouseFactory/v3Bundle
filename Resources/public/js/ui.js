@@ -276,7 +276,7 @@ UI = {
     $('#top-filters > ul').show();
     $('#top-filters > ul > li, #top-filters h6').hide();
     $('#top-filters > ul > li.' + filters+':not(.hide)').toggle();
-    if (typeof filter_selected != 'undefined' && filter_selected != '') {
+    if (typeof filter_selected != 'undefined' && filter_selected) {
       $('#top-filters > ul > li.' + filters + '.active').removeClass('active');
       $('#top-filters > ul > li.' + filters + '-' + filter_selected).addClass('active');
     } else {

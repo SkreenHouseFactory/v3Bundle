@@ -76,19 +76,6 @@ $(document).ready(function(){
   $('#top-filters > ul > li').click(function(e){
     $('#top-filters > ul > li').removeClass('active');
     $(this).addClass('active');
-    //programme TV
-    if ($(this).hasClass('tv-grid')) {
-
-      //trigger grid
-      var onglet = $('a', this).data('filter');
-      console.log('script', 'li.tv-grid', onglet);
-      if (onglet == 'all') {
-        API.javascriptV2("$('#facetType').val('all');mskapp.currentView.filterByType('#facetType');$('#sliders .item').show();");
-      } else {
-        API.javascriptV2("$('#facetType').val('" + onglet + "');mskapp.currentView.filterByType('#facetType');$('#sliders .item." + onglet + "').show();$('#sliders .item:not(." + onglet + ")').hide();");
-      }
-      UI.loadPlaylist('tv', onglet);
-    }
     //replay par chaine
     if ($(this).hasClass('tv-replay')) {
       API.postMessage(['header-links', 'emissions']);
