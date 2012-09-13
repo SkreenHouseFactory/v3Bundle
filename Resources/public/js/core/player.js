@@ -5,7 +5,7 @@ Player = {
   timeout: null,
   timeoutdelay: 5000,
   type: 'flowplayer',
-  is_playing: false,
+  state: 'stopped',
   //player
   init: function(elmt) {
     this.elmt = elmt;
@@ -88,11 +88,10 @@ Player = {
     $('#top-nav').collapse('hide');
   },
   play: function(player, callback) {
-    console.log('Player.play', player, this.type);
-    this.is_playing = true;
+    console.log('Player.play', player, this.type, callback);
+    this.state = 'playing';
 
     switch(this.type) {
-
       /*
         http://flowplayer.org/documentation/api/player.html
         
@@ -128,13 +127,20 @@ Player = {
           }
         }
         flowArgs.onError = function(errorCode,errorMessage) {
-          console.error('Player.flowplayer', player, errorCode, errorMessage);
+          UI.error('Erreur de lecture !');
+          if (typeof callback != 'undefined') {
+            callback();
+          }
+          //console.error('Player.flowplayer', player, errorCode, errorMessage);
         };
 
         if (this.type == 'html5') {
           console.warn(['Player.flowplayer', 'iOs/noflash', player.url]);
           Player.elmt.css('height', document.body.clientHeight/2);
-          $f(this.elmt.attr('id'), flashArgs, flowArgs).ipad({simulateiDevice: true, controls: false, ipadUrl: player.url, validExtensions: null});
+          $f(this.elmt.attr('id'), flashArgs, flowArgs).ipad({simulateiDevice: true, 
+                                                              controls: false, 
+                                                              ipadUrl: player.url, 
+                                                              validExtensions: null});
           /*this.elmt.html('<video width="' + flashArgs.width + '" height="' + flashArgs.height + '" tabindex="0" x-webkit-airplay="allow" controls="false" autoplay="true" id="PlayerHtml5">' + 
                          '<source type="video/mp4" src="' + player.url + '"></source>' +
                          '</video>');
@@ -152,6 +158,8 @@ Player = {
       case 'android':
         if (typeof Webview != 'undefined') {
           //player.url = 'http://www.pocketjourney.com/downloads/pj/video/famous.3gp';
+          //player.url = 'rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov';
+          //player.url = 'rtsp://a2047.v1411b.c1411.g.vq.akamaistream.net/5/2047/1411/1_h264_650/1a1a1ae454c430950065de4cbb2f94c226950c7ae655b61a48a91475e243acda3dac194879adde0f/080690210abcn_2a_650.mov';
           Webview.postMessage(['player', 'launch', player.url]);
         }
       break;
@@ -160,7 +168,8 @@ Player = {
       break;
     }
   },
-  pause: function(player) {
+  pause: function() {
+    this.state = 'paused';
     switch(this.type) {
       case 'android':
         if (typeof Webview != 'undefined') {
@@ -173,7 +182,8 @@ Player = {
       break;
     }
   },
-  resume: function(player) {
+  resume: function() {
+    this.state = 'playing';
     switch(this.type) {
       case 'android':
         if (typeof Webview != 'undefined') {
@@ -186,7 +196,8 @@ Player = {
       break;
     }
   },
-  stop: function(player) {
+  stop: function() {
+    this.state = 'stopped';
     switch(this.type) {
       case 'android':
         if (typeof Webview != 'undefined') {
@@ -218,6 +229,8 @@ Player = {
                       console.log('Player.playProgram', media.player);
 
                       if (!media.player || typeof media.player == 'undefined') {
+                        //TODO handle errors
+                        UI.error('Erreur : lecture impossible !');
                         return false;
                       }
                       self.play(media.player, callback);

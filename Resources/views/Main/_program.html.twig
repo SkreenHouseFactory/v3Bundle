@@ -1,7 +1,7 @@
 {% if p is not defined %}
 {% set p = {title:'%title%',id:'%id%',picture:'',onglet:'%onglet%',seo_url:'%seo_url%',has_vod:'%has_vod%',popular_channel:'%popular_channel%'} %}
 {% endif %}
-<li class="slider-sample tv-component %onglet%" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
+<li class="slider-sample tv-component %onglet%" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
   {% if p.popular_channel.ico is defined %}
     {{ p.popular_channel.ico }}
   {% endif %}
