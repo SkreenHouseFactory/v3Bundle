@@ -245,7 +245,8 @@ API = {
       error: function(retour, code) {
         console.log('API.query', 'error getting query', code, retour);
         clearTimeout(tooLongQuery); 
-        if (retour.readyState == 4){
+        if (retour.readyState == 4 && 
+            retour.statusText != 'Internal Server Error'){
           if (typeof callback != 'undefined') {
             callback(JSON.parse(retour.responseText));
           }

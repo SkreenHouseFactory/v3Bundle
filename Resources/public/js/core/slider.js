@@ -40,6 +40,8 @@ var BaseSlider = Class.extend({
       //console.log('BaseSlider.init', 'insertPrograms');
       if (params.programs.length > 0) {
         this.insertPrograms(params.programs, callback);
+      } else {
+        callback(this.elmt);
       }
     } else if (typeof params.url != 'undefined') {
       //console.log('BaseSlider.init', 'insertPrograms');
