@@ -302,6 +302,7 @@ API = {
     }
 
     if (this.context == 'v2') {
+      var url = url.replace('http://www.myskreen.com',''); //hack
       if (url != this.currentUrl || url == '\\') {
         this.postMessage(["link", url, force]);
         if (force != true) {

@@ -40,17 +40,17 @@
   <div class="subnav subnav-fixed">
     <div class="container">
       <ul class="nav">
-        <li class="tv"><a class="link-v2 link-force" href="/tv-replay">{{ 'nav.subnav.tv'|trans }}</a></li>
-        <li class="vod"><a class="link-v2 link-force" href="/vod">{{ 'nav.subnav.vod'|trans }}</a></li>
-        <li class="cine"><a class="link-v2 link-force" href="/cine">{{ 'nav.subnav.cine'|trans }}</a></li>
+        <li class="tv"><a class="link-v2 link-force" href="http://www.myskreen.com/tv-replay">{{ 'nav.subnav.tv'|trans }}</a></li>
+        <li class="vod"><a class="link-v2 link-force" href="http://www.myskreen.com/vod">{{ 'nav.subnav.vod'|trans }}</a></li>
+        <li class="cine"><a class="link-v2 link-force" href="http://www.myskreen.com/cine">{{ 'nav.subnav.cine'|trans }}</a></li>
       </ul>
     </div>
   </div>
   <div id="top-filters">
-    <h6 id="top-baseline" class="user-off" data-toggle="collapse" data-target="#top-playlist">
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_header-filters.html.twig' %}
+    <h6 id="top-baseline" class="user-off hide" data-toggle="collapse" data-target="#top-playlist">
       {{ 'playlist.baseline'|trans }}
     </h6>
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_header-filters.html.twig' %}
   </div>
 </div>
 

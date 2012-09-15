@@ -76,11 +76,6 @@ $(document).ready(function(){
   $('#top-filters > ul > li').click(function(e){
     $('#top-filters > ul > li').removeClass('active');
     $(this).addClass('active');
-    //replay par chaine
-    if ($(this).hasClass('tv-replay')) {
-      API.postMessage(['header-links', 'emissions']);
-      return false;
-    }
   });
 
   // -- ui form

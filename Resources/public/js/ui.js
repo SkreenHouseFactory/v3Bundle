@@ -291,6 +291,7 @@ UI = {
     console.log('UI.unloadFilters');
     $('.subnav li.active').removeClass('active');
     $('#top-filters ul li').removeClass('active').hide();
+    $('#top-baseline').removeClass('hide');
   },
   // -- add friends
   addFriends: function(li, friend_uids){
