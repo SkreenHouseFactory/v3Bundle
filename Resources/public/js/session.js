@@ -145,11 +145,13 @@ var Session = BaseSession.extend({
      break;
      //load selector
      case '/':
+     case '':
        //UI.unloadFilters();
        UI.loadFilters('home');
        this.initSelector();
      break;
      default:
+       //UI.loadFilters('home');
        this.initSelector();
      break;
     }
