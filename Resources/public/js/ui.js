@@ -271,7 +271,7 @@ UI = {
   // -- load filters
   loadFilters: function(filters, filter_selected) {
     console.log('UI.loadFilters', filters, filter_selected);
-    $('#top-nav .subnav ul li').removeClass('active');
+    $('#top-nav .subnav ul li').removeClass('active selected');
     $('#top-nav .subnav ul li.' + filters).addClass('active');
     $('#top-filters > ul').show();
     $('#top-filters > ul > li, #top-filters h6').hide();
@@ -280,7 +280,8 @@ UI = {
       $('#top-filters > ul > li.' + filters + '.active').removeClass('active');
       $('#top-filters > ul > li.' + filters + '-' + filter_selected).addClass('active');
     } else {
-      $('#top-filters > ul > li.' + filters + ':first-child').addClass('active');
+      $('#top-nav .subnav ul li.' + filters).addClass('selected');
+      //$('#top-filters > ul > li.' + filters + ':first-child').addClass('active');
     }
     if (!$('#top-playlist').hasClass('in')) {
       API.postMessage(['header', 'remove_playlist']);

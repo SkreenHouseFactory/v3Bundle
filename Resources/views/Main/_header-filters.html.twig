@@ -5,7 +5,7 @@
   <li class="vod vod-spectacles"><a class="link-v2" href="/spectacles" href="#">{{ 'nav.spectacles'|trans }}</a></li>
   <li class="vod vod-jeunesse"><a class="link-v2" href="/jeunesse" href="#">{{ 'nav.jeunesse'|trans }}</a></li>
   {#<li class="tv"><a href="{{ path('player_live') }}" target="_parent">{{ 'nav.tv.live'|trans }}</a></li>#}
-  <li class="tv tv-grid dropdown">
+  <li class="home tv tv-grid dropdown">
     <a class="link-v2 dropdown-toggle" data-filter="all" data-toggle="dropdown" href="/programme-tv">{{ 'nav.tv.grid'|trans }} {#<b class="caret"></b>#}</a>
     {#<ul class="dropdown-menu">
       <li class="nav-header">{{ 'past'|trans }}</li>
@@ -21,26 +21,26 @@
       <li><a href="#">{{ 'nav.tv.selection.thisweek'|trans }}</a></li>
     </ul>#}
   </li>
-  <li class="tv tv-series"><a class="link-v2" href="/series" href="#">{{ 'nav.series'|trans }}</a></li>
-  <li class="tv tv-emissions"><a class="link-v2" href="/emissions" href="#">{{ 'nav.emissions'|trans }}</a></li>
+  <li class="home tv tv-series"><a class="link-v2" href="/series" href="#">{{ 'nav.series'|trans }}</a></li>
+  <li class="home tv tv-emissions"><a class="link-v2" href="/emissions" href="#">{{ 'nav.emissions'|trans }}</a></li>
 
-  <li class="tv tv-channel separator"><a class="link-v2" href="/sur-tf1" title="TF1 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/tf1_medium.png" alt="TF1 Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-france-2" title="FRANCE 2 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/france-2_medium.png" alt="FRANCE 2 Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-france-3" title="FRANCE 3 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/france-3_medium.png" alt="FRANCE 3 Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-canal-+" title="CANAL + Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/canal-%2B_medium.png" alt="CANAL + Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-france-5" title="FRANCE 5 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/france-5_medium.png" alt="FRANCE 5 Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-france-4" title="FRANCE 4 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/france-4_medium.png" alt="FRANCE 4 Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-france-o" title="FRANCE Ô Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/france-o_medium.png" alt="FRANCE Ô Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-arte" title="ARTE Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/arte_medium.png" alt="ARTE Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-m6" title="M6 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/m6_medium.png" alt="M6 Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-direct-8" title="DIRECT 8 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/direct-8_medium.png" alt="DIRECT 8 Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-direct-star" title="DIRECT STAR Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/direct-star_medium.png" alt="DIRECT STAR Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-w9" title="W9 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/w9_medium.png" alt="W9 Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-tmc" title="TMC Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/tmc_medium.png" alt="TMC Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-nt1" title="NT1 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/nt1_medium.png" alt="NT1 Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-nrj-12" title="NRJ 12 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/nrj-12_medium.png" alt="NRJ 12 Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-gulli" title="GULLI Replay"><img src="http://mskstatic.com/x/30/medias/ico/chaines/gulli_medium.png" alt="GULLI Replay"/></a></li>
-  <li class="tv tv-channel"><a class="link-v2" href="/sur-france-24" title="FRANCE 24 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/france-24_medium.png" alt="FRANCE 24 Replay"/></a></li>
+  <li class="home tv tv-channel separator"><a class="link-v2" href="/sur-tf1" title="TF1 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/tf1_medium.png" alt="TF1 Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-france-2" title="FRANCE 2 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/france-2_medium.png" alt="FRANCE 2 Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-france-3" title="FRANCE 3 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/france-3_medium.png" alt="FRANCE 3 Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-canal-+" title="CANAL + Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/canal-%2B_medium.png" alt="CANAL + Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-france-5" title="FRANCE 5 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/france-5_medium.png" alt="FRANCE 5 Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-france-4" title="FRANCE 4 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/france-4_medium.png" alt="FRANCE 4 Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-france-o" title="FRANCE Ô Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/france-o_medium.png" alt="FRANCE Ô Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-arte" title="ARTE Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/arte_medium.png" alt="ARTE Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-m6" title="M6 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/m6_medium.png" alt="M6 Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-direct-8" title="DIRECT 8 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/direct-8_medium.png" alt="DIRECT 8 Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-direct-star" title="DIRECT STAR Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/direct-star_medium.png" alt="DIRECT STAR Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-w9" title="W9 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/w9_medium.png" alt="W9 Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-tmc" title="TMC Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/tmc_medium.png" alt="TMC Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-nt1" title="NT1 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/nt1_medium.png" alt="NT1 Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-nrj-12" title="NRJ 12 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/nrj-12_medium.png" alt="NRJ 12 Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-gulli" title="GULLI Replay"><img src="http://mskstatic.com/x/30/medias/ico/chaines/gulli_medium.png" alt="GULLI Replay"/></a></li>
+  <li class="home tv tv-channel"><a class="link-v2" href="/sur-france-24" title="FRANCE 24 Replay"><img src="http://mskstatic.com/37/30/medias/ico/chaines/france-24_medium.png" alt="FRANCE 24 Replay"/></a></li>
 
   <li class="cine cine-new"><a class="link-v2" href="/selection/7845147-a-voir-au-cinema" href="#">{{ 'nav.theaters.release'|trans }}</a></li>
   <li class="cine cine-coming"><a class="link-v2" href="/selection/7845150-prochainement-dans-les-salles" href="#">{{ 'nav.theaters.coming'|trans }}</a></li>

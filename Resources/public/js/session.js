@@ -145,7 +145,8 @@ var Session = BaseSession.extend({
      break;
      //load selector
      case '/':
-       UI.unloadFilters();
+       //UI.unloadFilters();
+       UI.loadFilters('home');
        this.initSelector();
      break;
      default:
