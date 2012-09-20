@@ -99,16 +99,13 @@ var Session = BaseSession.extend({
     switch (url) {
      //load tv 
      case '/tv-replay':
-     case '/emissions':
      case '/les-chaines-en-direct':
        UI.loadPlaylist('tv');
        UI.loadFilters('tv');
-       //remove grid filters
-       if ($('#top-filters .tv-grid-main').hasClass('tv-grid-filter')) {
-         $('#top-filters .tv-grid-main').removeClass('tv-grid-filter');
-         $('#top-filters .tv-grid-filter:not(.tv-grid-main)').hide();
-         $('#top-filters .tv:not(.tv-selection, .tv-grid-filter)').show();
-       }
+     break;
+     case '/emissions':
+       UI.loadPlaylist('tv');
+       UI.loadFilters('tv'); //??
      break;
      case '/programme-tv':
        UI.loadPlaylist('tv');
