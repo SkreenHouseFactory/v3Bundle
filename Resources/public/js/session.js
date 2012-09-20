@@ -154,7 +154,7 @@ var Session = BaseSession.extend({
        }
      break;
      default:
-       //UI.loadFilters('home');
+       UI.loadFilters('home');
        this.initSelector();
      break;
     }

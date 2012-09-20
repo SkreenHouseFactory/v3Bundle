@@ -206,10 +206,10 @@ UI = {
                                             }
                                           }
                                           $('li.selector', slider.elmt).hide();
-                                          if ((Skhf.session.access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
-                                              API.isHome() == true) {
-                                            $('#top-playlist').collapse('show');
-                                          }
+                                          //if ((Skhf.session.access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
+                                          //    API.isHome() == true) {
+                                          //  $('#top-playlist').collapse('show');
+                                          //}
                                        },
                                        args);
     }
