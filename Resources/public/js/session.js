@@ -149,6 +149,9 @@ var Session = BaseSession.extend({
        //UI.unloadFilters();
        UI.loadFilters('home');
        this.initSelector();
+       if (API.context == 'v3') {
+        document.location = 'http://www.myskreen.com';
+       }
      break;
      default:
        //UI.loadFilters('home');

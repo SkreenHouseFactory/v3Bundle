@@ -345,7 +345,7 @@ API = {
 
         } else if (message[0] == 'nav') {
           if (message[1] == 'reset' && !Skhf.session.datas.email) {
-            $('.subnav .nav li.active').removeClass('active');
+            $('.subnav .nav li.active').removeClass('active selected');
             $('#top-filters li').hide();
           }
 
