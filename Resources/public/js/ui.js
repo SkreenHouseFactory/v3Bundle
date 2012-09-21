@@ -146,10 +146,10 @@ UI = {
       li.find('a, h6').hide();
       li.popover('disable');
 
-      if (group.nb_programs > 0 && !$('#top-playlist').hasClass('in')) {
-        console.log('UI.loadSelector', 'collapse', 'show');
-        $('#top-playlist').collapse('show');
-      }
+      //if (group.nb_programs > 0 && !$('#top-playlist').hasClass('in')) {
+      //  console.log('UI.loadSelector', 'collapse', 'show');
+      //  $('#top-playlist').collapse('show');
+      //}
     }
 
     //show selector
