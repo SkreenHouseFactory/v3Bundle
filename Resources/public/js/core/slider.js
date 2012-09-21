@@ -140,6 +140,8 @@ var BaseSlider = Class.extend({
                                       self.items.find('.loader-pager').remove();
                                       if (nb_programs < 3) {
                                         trigger.css('visibility','hidden');
+                                      } else {
+                                        trigger.css('visibility','visible');
                                       }
                                       if (nb_programs < self.params.pager_nb_results) {
                                         self.elmt.addClass('loaded'); //le slider ne pagine plus
