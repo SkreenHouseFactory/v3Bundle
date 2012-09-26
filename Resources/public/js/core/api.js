@@ -83,6 +83,8 @@ API = {
                     }
                   }
                 });
+    } else {
+      callbackOnLoad();
     }
 
     $('.modal').modal();

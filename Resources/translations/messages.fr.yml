@@ -6,6 +6,7 @@ page:
     title:
         home: Trouver, voir et revoir
         redirect: Redirection en cours ...
+        cinema.boxoffice: Cinéma, tous les films en salle commençant par %alpha%
 player:
     live:
       deporte: Sur mySkreen

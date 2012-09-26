@@ -77,6 +77,22 @@
     border-top-left-radius: 0;
     padding: 10px 6px 3px 5px;
   }
+  
+  h2 {
+    span.pull-right {
+      margin-right: 10px;
+      color: #999;
+    }
+  }
+
+  &.current {
+    h2 {
+      span.pull-right {
+        display: none;
+      }
+    }
+  }
+  
   .slider-container {
     height: 100%;
     margin: 0;
@@ -98,17 +114,37 @@
       float: left;
       border: @vignetteBorder;
       margin: @vignetteMargin;
-      background-color: #EEE;
       background-repeat: no-repeat;
       list-style: none;
       text-align: center;
       box-shadow: 1px 1px 4px #999;
       overflow: hidden;
 
-      img.channel {
+      .channel {
         position: absolute;
-        right: 5px;
-        top: 5px;
+        right: 0px;
+        top: 0px;
+        border-bottom-left-radius: 5px;
+        background: #EEE;
+        opacity: 0.9;
+        
+        img {
+          margin: 3px 0;
+        }
+
+        .diff {
+          display: block;
+          background: black;
+          color: white;
+          font-size: 0.9em;
+          padding: 2px;
+          line-height: 1.1em;
+          border-bottom-left-radius: 5px;
+          
+          &.hide {
+            display: none;
+          }
+        }
       }
 
       h6 {
@@ -157,6 +193,15 @@
             padding-left: 20px;
             color: black;
           }
+          
+          &.play {
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+
+        a.btn-danger {
+          padding-right: 15%;
         }
       }
       span {
@@ -165,7 +210,8 @@
       span.badge {
         position: absolute;
         z-index: 1;
-        top: 25px;
+        top: 1px;
+        right: 0px;
         box-shadow: 0px 0px 20px white;
       }
       span.opacity {
@@ -177,7 +223,7 @@
         font-weight: normal;
         box-shadow: 0px 2px 3px #555;
         border: 1px solid #AAA;
-        border-top: 0;
+        border-top: 1px solid #555;
       }
       a.title {
         text-decoration:none;
@@ -196,8 +242,55 @@
         padding: 3px;
         border-radius: 4px;
       }
+
+      &.selector {
+        cursor: pointer;
+        border: @selectorBorder;
+        box-shadow: none;
+        margin: 0 24px;
+        box-shadow: 1px 1px 5px black;
+        background-color: #EEE;
+  
+        h6 {
+          text-transform: uppercase;
+          color: #999;
+          font-size: 0.8em;
+          margin: 0;
+        }
+  
+        a.btn {
+          background: transparent;
+          border: none;
+          position: absolute;
+          bottom: 0px;
+          left: 0px;
+          width:80%;
+        }
+  
+        span.badge {
+          left: 25%;
+          top: 50px;
+          right: auto;
+          box-shadow: 0px 0px 20px white;
+        }
+  
+        span.label {
+          margin-top: 5px;
+          padding: 10px;
+          font-size: 1.1em;
+          position: relative;
+          display: inline-block;
+        }
+  
+        &.empty {
+          border: @vignetteBorderEmpty;
+          box-shadow: none;
+        }
+      }
+
+
     }
-    li:hover {
+    li:hover, li.tv-component-focused {
       div.actions {
         display: block;
       }
@@ -210,7 +303,7 @@
         display: block;
       }
     }
-    li.deporte:hover {
+    li.deporte:hover, li.tv-component-focused.deporte {
       a.title {
         background: #333;
       }
@@ -218,17 +311,12 @@
     li.films {
       a.title {
         background: transparent;
-
-        span {
-          display: none;
-        }
+        font-size: 0;
       }
-    }
-    li.films:hover {
-      a.title {
-        span {
+      &:hover, &.tv-component-focused {
+        a.title {
+          font-size: 1.0em !important;
           background: #333;
-          display: inline;
         }
       }
     }
@@ -236,55 +324,13 @@
       display: none;
     }
     li.loader {
-      display: none;
-      background: transparent;
-      box-shadow: none;
+      display: none !important;
+      background: transparent !important;
+      box-shadow: none !important;
       padding-top: 30px;
     }
     li.loader.loader-pager {
       display: block;
-    }
-    li.selector {
-      cursor: pointer;
-      border: @selectorBorder;
-      box-shadow: none;
-      margin: 0 24px;
-      box-shadow: 1px 1px 5px black;
-
-      h6 {
-        text-transform: uppercase;
-        color: #999;
-        font-size: 0.8em;
-        margin: 0;
-      }
-
-      a.btn {
-        background: transparent;
-        border: none;
-        position: absolute;
-        bottom: 0px;
-        left: 0px;
-        width:80%;
-      }
-
-      span.badge {
-        left: 25%;
-        top: 50px;
-        box-shadow: 0px 0px 20px white;
-      }
-
-      span.label {
-        margin-top: 5px;
-        padding: 10px;
-        font-size: 1.1em;
-        position: relative;
-        display: inline-block;
-      }
-    }
-
-    li.empty.selector {
-      border: @vignetteBorderEmpty;
-      box-shadow: none;
     }
 
     li.to_animate {

@@ -110,7 +110,6 @@ $(document).ready(function(){
     API.postMessage(['header', 'remove_playlist'])
   });
   $('#top-playlist h2').live('click', function(){
-    //UI.unloadPlaylist(this.id);
     Skhf.session.initSelector();
   });
   $('#top-playlist li.selector').live('click', function(){

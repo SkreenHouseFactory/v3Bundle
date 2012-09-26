@@ -31,8 +31,8 @@ var BaseSlider = Class.extend({
 
     //li sample
     if (this.sample == null) {
-      //console.log('BaseSlider.init', 'this.sample', $('li:first', this.elmt));
       this.sample = $('<div>').append($('li.slider-sample').clone().removeClass('slider-sample')).html();
+      //console.log('BaseSlider.init', 'this.sample', this.sample);
     }
 
     //programs
@@ -137,7 +137,7 @@ var BaseSlider = Class.extend({
             //console.log('pager-offset', 'set', offset, self.elmt, self.elmt.data('pager-offset'));
             self.loadRemotePrograms(self.getUrl(offset),
                                     function(nb_programs){
-                                      self.items.find('.loader-pager').remove();
+                                      //self.items.find('.loader-pager').remove();
                                       if (nb_programs < 3) {
                                         trigger.css('visibility','hidden');
                                       } else {
@@ -250,13 +250,14 @@ var BaseSlider = Class.extend({
                                .replace('%seo_play_title%', seo_play_title).replace('%seo_play_title%', seo_play_title)
                                .replace('%title%', program.title).replace('%title%', program.title).replace('%title%', program.title)
                                .replace('%seo_url%', seo_url).replace('%seo_url%', seo_url)
-                               .replace('%id%', pere.id).replace('%id%', pere.id)
-                               .replace('%onglet%', program.onglet.toLowerCase())
+                               .replace('%id%', pere.id).replace('%id%', pere.id).replace('%id%', pere.id)
+                               .replace('%onglet%', program.onglet.toLowerCase()).replace('%onglet%', program.onglet.toLowerCase())
                                .replace('%popular_channel%', popular_channel));
       li.css('background-image', 'url(' + program.picture + ')');
       $('.actions', li).data('id', program.id);
       li.attr('data-position', k);
 
+      //notif
       if (Skhf.session.datas.notifications &&
           $.inArray('' + pere.id, Skhf.session.datas.notifications.programs['new']) != -1) { //'' + pere.id
         li.prepend(UI.badge_notification.replace('%count%', 'nouveau'));
@@ -286,7 +287,7 @@ var BaseSlider = Class.extend({
     if (this.elmt.data('animate') == 'width') {
       $('li.to_animate', this.elmt).animate({'width':this.params.img_width}, 500).removeClass('to_animate');
     }
-    //console.log('BaseSlider.load', 'insertPrograms', 'to_animate', this.elmt);
+    console.log('BaseSlider.load', 'insertPrograms', 'done');
     UI.loadUserPrograms(Skhf.session.datas.queue, this.elmt);
 
     if (typeof callback != 'undefined'){
@@ -294,8 +295,9 @@ var BaseSlider = Class.extend({
     }
   },
   addProgramBestOffer: function(li, program) {
+    //console.log('BaseSlider.addBestOffer', li, program);
     var o = program.best_offer;
-    if (typeof o != 'undefined') {
+    if (typeof o != 'undefined' && o.dispo) {
       var btn = $('.actions .play', li);
       btn.html(o.dispo);
       if (o.player) {
@@ -303,7 +305,7 @@ var BaseSlider = Class.extend({
         btn.attr('href', btn.attr('href') + '?onglet=' + Skhf.session.access);
         //btn.attr('data-player', o.player);
       } else if (o.url) {
-        console.log('BaseSlider.addBestOffer', 'add url', o.url);
+        //console.log('BaseSlider.addBestOffer', 'add url', o.url);
         //si context = v3
         if (API.context == 'v3') {
           btn.attr('data-redirect', 1).attr('href', o.url);
@@ -313,7 +315,21 @@ var BaseSlider = Class.extend({
           btn.attr('data-redirect', 1).attr('href', url);
         }
       } else {
+        //console.log('BaseSlider.addBestOffer', 'default', o, li);
         btn.attr('href', btn.attr('href') + '?access=' + Skhf.session.access);
+      }
+
+      //channel & diff
+      if (typeof o.channel_name != 'undefined') {
+        if ($('.channel img', li).length > 0) {
+          $('.channel img', li).attr('src', o.channel_img).attr('title', o.channel_name);
+        } else {
+          $('.channel', li).prepend('<img src="' + o.channel_img + '" alt="' + o.channel_name + '" />');
+        }
+        if (o.broadcastdate) {
+          $('.channel .diff', li).html(o.broadcastdate.replace(' à ', '<br/>')).removeClass('hide');
+        }
+        $('.channel', li).removeClass('hide');
       }
     }
   },

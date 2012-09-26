@@ -1,6 +1,6 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
-{% block title %}{{ 'page.title.cinema.boxoffice'|trans }}{% endblock %}
+{% block title %}{{ 'page.title.cinema.boxoffice'|trans({'%alpha%': app.request.get('alpha')}) }}{% endblock %}
 
 {% block content %}
 <div class="container">

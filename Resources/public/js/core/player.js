@@ -230,7 +230,7 @@ Player = {
 
                       if (!media.player || typeof media.player == 'undefined') {
                         //TODO handle errors
-                        UI.error('Erreur : lecture impossible !');
+                        UI.error('Oups : vidéo indisponible !');
                         return false;
                       }
                       self.play(media.player, callback);

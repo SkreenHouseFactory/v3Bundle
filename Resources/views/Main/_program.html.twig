@@ -1,10 +1,17 @@
 {% if p is not defined %}
 {% set p = {title:'%title%',id:'%id%',picture:'',onglet:'%onglet%',seo_url:'%seo_url%',has_vod:'%has_vod%',popular_channel:'%popular_channel%'} %}
 {% endif %}
-<li class="slider-sample tv-component %onglet%" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
-  {% if p.popular_channel.ico is defined %}
-    {{ p.popular_channel.ico }}
-  {% endif %}
+<li class="{% if p.id == '%id%' %}slider-sample {% endif %}tv-component %onglet%" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
+    {% if p.popular_channel.img is defined %}
+    <div class="channel">
+      <a href="{{ p.popular_channel.seo_url }}" title="{{ p.popular_channel.name }}">
+        <img src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" />
+      </a>
+    {% else %}
+    <div class="channel hide">
+    {% endif %}
+      <span class="diff hide"></span>
+    </div>
   <div class="actions" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-onglet="{{ p.onglet }}">
     <a class="btn fav" title="{{ 'seo.title.add'|trans }}" href="#"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
     <a class="btn play" title="{{ p.title }} {{ 'seo.title.play'|trans }}" href="{{ p.seo_url }}"><i class="icon-play"></i> 
@@ -13,7 +20,7 @@
     {% elseif p.has_vod == 5 %}{{ 'action.play.tv'|trans }}
     {% elseif p.has_vod == 6 %}{{ 'action.play.rec'|trans }}
     {% elseif p.has_vod == 7 or p.has_vod == 8 %}{{ 'action.play.replay'|trans }}
-    {% else %}{{ 'action.play.streaming'|trans }}{% endif %}
+    {% elseif p.has_vod > 0 %}{{ 'action.play.streaming'|trans }}{% endif %}
     <span>{{ 'action.deporte'|trans }}</span></a>
   </div>
   <a href="{{ p.seo_url }}" title="{{ p.title }} {{ 'seo.title.play'|trans }}" class="title">{{ p.title }}</a>

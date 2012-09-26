@@ -35,7 +35,7 @@ class UserController extends Controller
                                      'offset'     => 0,
                                      'nb_results' => 200,
                                      'onglet'     => $onglet));
-
+      //print_r($programs);
       //not connected ?
       if (isset($programs->error) && $programs->error) {
         return $this->redirect('http://www.myskreen.com');

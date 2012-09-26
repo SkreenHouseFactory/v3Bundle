@@ -126,10 +126,11 @@ UI = {
     var self = this;
     console.log('UI.loadSelector', datas, Skhf.session.onglet);
 
-    this.unloadSelector();
     //if (Skhf.session.onglet) {
     //  $('#top-playlist h2 small:last').html('» ' + $('#top-filters .' + Skhf.session.onglet).html());
     //}
+
+    this.unloadSelector();
 
     for (key in datas) {
       var group = datas[key];
@@ -153,10 +154,11 @@ UI = {
     }
 
     //show selector
-    self.playlist.elmt.addClass('loading');
     this.unloadPlaylist(Skhf.session.onglet, function() {
-      self.playlist.elmt.removeClass('loading');
-      $('#top-playlist li.selector').animate({'width': self.playlist.params.img_width}, 500);
+      self.playlist.elmt.addClass('loading');
+      $('#top-playlist li.selector').animate({'width': self.playlist.params.img_width}, 500, function(){
+        self.playlist.elmt.removeClass('loading');
+      });
     });
 
     Skhf.session.initSocial();
@@ -218,7 +220,7 @@ UI = {
     var self = this;
     console.log('UI.unloadPlaylist', onglet, Skhf.session.onglet);
 
-    if (typeof onglet != "undefined" && onglet != Skhf.session.onglet) {
+    if (typeof onglet != 'undefined' && onglet != Skhf.session.onglet) {
       Skhf.session.initPlaylist('/' + onglet);
     }
     $('#top-playlist h2 small').empty();
