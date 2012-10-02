@@ -90,6 +90,9 @@ Player = {
   play: function(player, callback) {
     console.log('Player.play', player, this.type, callback);
     this.state = 'playing';
+    if (typeof player.format != 'undefined') {
+      this.type = player.format;
+    }
 
     switch(this.type) {
       /*
@@ -106,6 +109,13 @@ Player = {
       */
       case 'html5':
       case 'flowplayer':
+
+        //non compatible
+        if (player.format == 'flash') {
+          this.type = 'flash';
+          this.elmt.html(player.embed);
+          return;
+        }
 
         var flashArgs = {
               "src": player.swf || "http://releases.flowplayer.org/swf/flowplayer-3.2.7.swf",

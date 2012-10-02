@@ -188,11 +188,11 @@ UI = {
       //load playlist
       Skhf.session.access = access;
 
-      if (typeof onglet != 'undefined') {
-        var args = {onglet: onglet, with_best_offer: 1, with_player: 1, player: API.config.player, time: new Date().getTime()};
+      if (typeof onglet != 'undefined') { //, with_player: 1, player: API.config.player
+        var args = {onglet: onglet, with_best_offer: 1, time: new Date().getTime()};
         $('#top-playlist h2 small:last').html($('#top-filters li.' + access + ' a[data-filter="' + onglet + '"]').html());
       } else {
-        var args = {with_best_offer: 1, with_player: 1, player: API.config.player, time: new Date().getTime()};
+        var args = {with_best_offer: 1, time: new Date().getTime()};
         $('#top-playlist h2 small:last').empty();
       }
 
