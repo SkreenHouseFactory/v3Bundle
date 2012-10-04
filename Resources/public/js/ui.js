@@ -314,12 +314,13 @@ UI = {
   add: function() {
     if (!API.cookie('skadd')){
       console.warn('UI.add', 'display and add cookie');
-      API.postMessage(['javascript', 'if (!has_adulte && !withoutBeead) { $(\'body\').append(\'<script type="text/javascript" src="http://beead.fr/scripts/api/beead_apiV3.js"></script><script type="text/javascript">BeeadAds.init({pid:2751, home:"http://www.myskreen.com/"}).screenLayer();</script>\'); }']);
+      API.postMessage(['javascript', 'if (!$(\'body\').hasClass(\'has_adulte\') && $(\'body\').hasClass(\'withoutBeead\')) { $(\'body\').append(\'<script type="text/javascript">BeeadAds.init({pid:2751, home:"http://www.myskreen.com/"}).screenLayer();</script>\'); $(\'#footer\').append(\'<p style="color:#CCC;clear:both;">add : display</p>\'); }']);
       var date = new Date();
       date.setTime(date.getTime() + (12 * 3600 * 1000));
       API.cookie('skadd', true,  date);
     } else {
       console.warn('UI.add', 'has cookie');
+      API.postMessage(['javascript', 'if (!$(\'body\').hasClass(\'has_adulte\') && $(\'body\').hasClass(\'withoutBeead\')) { $(\'#footer\').append(\'<p style="color:#CCC;clear:both;">add : has cookie</p>\'); }']);
     }
   },
   // -- typeahead
