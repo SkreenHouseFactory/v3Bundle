@@ -297,7 +297,7 @@ var BaseSlider = Class.extend({
   addProgramBestOffer: function(li, program) {
     //console.log('BaseSlider.addBestOffer', li, program);
     var o = program.best_offer;
-    if (typeof o != 'undefined' && o.dispo) {
+    if (typeof o != 'undefined' && o != null && o.dispo) {
       var btn = $('.actions .play', li);
       btn.html(o.dispo);
       if (o.player) {
