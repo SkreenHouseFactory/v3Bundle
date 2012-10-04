@@ -328,7 +328,7 @@ var BaseSlider = Class.extend({
         }
         if (o.broadcastdate) {
           $('.channel .diff', li).html(o.broadcastdate.replace(' à ', '<br/>')).removeClass('hide');
-        } else if (o.deporte) {
+        } else if (program.deporte) {
           $('.channel .diff', li).html('sur mySkreen').removeClass('hide');
         }
         $('.channel', li).removeClass('hide');
