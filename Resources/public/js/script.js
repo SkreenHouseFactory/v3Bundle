@@ -247,5 +247,5 @@ $(document).ready(function(){
   $('[data-content]').popover();
 
   // -- add caping
-  UI.add();
+  UI.ad();
 });

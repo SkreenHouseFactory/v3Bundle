@@ -273,8 +273,8 @@ API = {
       return $.cookie('myskreen_' + name);
     } else {
       var expires = typeof expires != 'undefined' ? expires : 30;
-      //console.log('API.cookie', 'set', 'myskreen_' + name, '=' ,value);
-      $.cookie('myskreen_' + name, value, { path: '/', expires: expires, domain: API.config.domain});
+      console.log('API.cookie', 'set', 'myskreen_' + name, '=' ,value, { path: '/', expires: expires, domain: API.config.domain});
+      $.cookie('myskreen_' + name, value, { path: '/', expires: expires }); //, domain: API.config.domain});
     }
   },
   isHome: function(url) {
