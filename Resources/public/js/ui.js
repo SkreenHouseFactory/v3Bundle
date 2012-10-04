@@ -310,6 +310,18 @@ UI = {
     }
     div.prependTo(li);
   },
+  // -- add manager
+  add: function() {
+    if (!API.cookie('skadd')){
+      console.warn('UI.add', 'display and add cookie');
+      API.postMessage(['javascript', 'if (!has_adulte && !withoutBeead) { $(\'body\').append(\'<script type="text/javascript" src="http://beead.fr/scripts/api/beead_apiV3.js"></script><script type="text/javascript">BeeadAds.init({pid:2751, home:"http://www.myskreen.com/"}).screenLayer();</script>\'); }']);
+      var date = new Date();
+      date.setTime(date.getTime() + (12 * 3600 * 1000));
+      API.cookie('skadd', true,  date);
+    } else {
+      console.warn('UI.add', 'has cookie');
+    }
+  },
   // -- typeahead
   typeahead: function(searchbox){
     //console.log('UI.typeahead', searchbox);

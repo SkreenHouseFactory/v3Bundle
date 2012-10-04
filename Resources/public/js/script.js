@@ -245,4 +245,7 @@ $(document).ready(function(){
 
   // -- popover
   $('[data-content]').popover();
+
+  // -- add caping
+  UI.add();
 });

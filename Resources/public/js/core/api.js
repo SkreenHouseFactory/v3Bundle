@@ -268,12 +268,13 @@ API = {
     });
     return req;
   },
-  cookie: function(name, value){
+  cookie: function(name, value, expires){
     if (typeof value == 'undefined') {
       return $.cookie('myskreen_' + name);
     } else {
+      var expires = typeof expires != 'undefined' ? expires : 30;
       //console.log('API.cookie', 'set', 'myskreen_' + name, '=' ,value);
-      $.cookie('myskreen_' + name, value, { path: '/', expires: 30, domain: API.config.domain});
+      $.cookie('myskreen_' + name, value, { path: '/', expires: expires, domain: API.config.domain});
     }
   },
   isHome: function(url) {
