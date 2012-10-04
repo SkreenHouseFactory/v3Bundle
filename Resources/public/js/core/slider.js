@@ -237,6 +237,8 @@ var BaseSlider = Class.extend({
         var seo_play_title = 'Voir au cinéma';
       } else if (program.has_vod == 3) { //dvd
         var seo_play_title = 'Voir en dvd';
+      } else if (program.has_vod == 11) { //box
+        var seo_play_title = 'Voir sur votre box';
       } else if (program.has_vod == 5) { //tv
         var seo_play_title = 'Voir à la télé';
       } else if (program.has_vod == 6) { //commande replay
@@ -246,9 +248,10 @@ var BaseSlider = Class.extend({
       } else {
         var seo_play_title = 'Voir en streaming';
       }
+      var icon_title = program.deporte ? '<i class="icon-th icon-white"></i> ' : '';
       var li    = $(this.sample.replace('%seo_add_title%', pere.title + ', ' + program.format + ' - ' + program.year)
                                .replace('%seo_play_title%', seo_play_title).replace('%seo_play_title%', seo_play_title)
-                               .replace('%title%', program.title).replace('%title%', program.title).replace('%title%', program.title)
+                               .replace('%title%', program.title).replace('%title%', program.title).replace('%title%', icon_title + program.title)
                                .replace('%seo_url%', seo_url).replace('%seo_url%', seo_url)
                                .replace('%id%', pere.id).replace('%id%', pere.id).replace('%id%', pere.id)
                                .replace('%onglet%', program.onglet.toLowerCase()).replace('%onglet%', program.onglet.toLowerCase())
@@ -295,17 +298,18 @@ var BaseSlider = Class.extend({
     }
   },
   addProgramBestOffer: function(li, program) {
-    //console.log('BaseSlider.addBestOffer', li, program);
+    //console.log('BaseSlider.addProgramBestOffer', li, program);
     var o = program.best_offer;
     if (typeof o != 'undefined' && o != null && o.dispo) {
       var btn = $('.actions .play', li);
+      //console.log('BaseSlider.addProgramBestOffer', 'btn', btn, o.dispo);
       btn.html(o.dispo);
       if (o.player) {
-        //console.log('BaseSlider.addBestOffer', 'add player', o.player);
+        //console.log('BaseSlider.addProgramBestOffer', 'add player', o.player);
         btn.attr('href', btn.attr('href') + '?onglet=' + Skhf.session.access);
         //btn.attr('data-player', o.player);
       } else if (o.url) {
-        //console.log('BaseSlider.addBestOffer', 'add url', o.url);
+        //console.log('BaseSlider.addProgramBestOffer', 'add url', o.url);
         //si context = v3
         if (API.context == 'v3') {
           btn.attr('data-redirect', 1).attr('href', o.url);
@@ -315,7 +319,7 @@ var BaseSlider = Class.extend({
           btn.attr('data-redirect', 1).attr('href', url);
         }
       } else {
-        //console.log('BaseSlider.addBestOffer', 'default', o, li);
+        //console.log('BaseSlider.addProgramBestOffer', 'default', o, li);
         btn.attr('href', btn.attr('href') + '?access=' + Skhf.session.access);
       }
 

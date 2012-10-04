@@ -1,5 +1,5 @@
 {% if p is not defined %}
-{% set p = {title:'%title%',id:'%id%',picture:'',onglet:'%onglet%',seo_url:'%seo_url%',has_vod:'%has_vod%',popular_channel:'%popular_channel%'} %}
+{% set p = {title:'%title%',id:'%id%',picture:'',onglet:'%onglet%',seo_url:'%seo_url%',has_vod:'%has_vod%',popular_channel:'%popular_channel%',deporte:'%deporte%'} %}
 {% endif %}
 <li class="{% if p.id == '%id%' %}slider-sample {% endif %}tv-component %onglet%" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
     {% if p.popular_channel.img is defined %}
@@ -20,8 +20,8 @@
     {% elseif p.has_vod == 5 %}{{ 'action.play.tv'|trans }}
     {% elseif p.has_vod == 6 %}{{ 'action.play.rec'|trans }}
     {% elseif p.has_vod == 7 or p.has_vod == 8 %}{{ 'action.play.replay'|trans }}
-    {% elseif p.has_vod > 0 %}{{ 'action.play.streaming'|trans }}{% endif %}
-    <span>{{ 'action.deporte'|trans }}</span></a>
+    {% elseif p.has_vod %}{{ 'action.play.streaming'|trans }}{% endif %}
+    </a>
   </div>
   <a href="{{ p.seo_url }}" title="{{ p.title }} {{ 'seo.title.play'|trans }}" class="title">{{ p.title }}</a>
 </li>
