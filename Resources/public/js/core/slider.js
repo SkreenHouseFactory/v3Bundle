@@ -248,10 +248,10 @@ var BaseSlider = Class.extend({
       } else {
         var seo_play_title = 'Voir en streaming';
       }
-      var icon_title = program.deporte ? '<i class="icon-th icon-white"></i> ' : '';
+      //var icon_title = program.deporte ? '<i class="icon-th icon-white"></i> ' : '';
       var li    = $(this.sample.replace('%seo_add_title%', pere.title + ', ' + program.format + ' - ' + program.year)
                                .replace('%seo_play_title%', seo_play_title).replace('%seo_play_title%', seo_play_title)
-                               .replace('%title%', program.title).replace('%title%', program.title).replace('%title%', icon_title + program.title)
+                               .replace('%title%', program.title).replace('%title%', program.title).replace('%title%', program.title)
                                .replace('%seo_url%', seo_url).replace('%seo_url%', seo_url)
                                .replace('%id%', pere.id).replace('%id%', pere.id).replace('%id%', pere.id)
                                .replace('%onglet%', program.onglet.toLowerCase()).replace('%onglet%', program.onglet.toLowerCase())

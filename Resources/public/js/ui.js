@@ -319,9 +319,12 @@ UI = {
       date.setTime(date.getTime() + (12 * 3600 * 1000));
       API.cookie('ad', 'displayed',  date);
       API.postMessage(['javascript', 'if (!$(\'body\').hasClass(\'has_adulte\') && $(\'body\').hasClass(\'withoutBeead\')) { $(\'body\').append(\'<script type="text/javascript">BeeadAds.init({pid:2751, home:"http://www.myskreen.com/"}).screenLayer();</script>\'); $(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : display</p>\'); }']);
+
+      API.trackEvent('beead', 'displayed', document.location.pathname);
     } else {
       //console.log('UI.ad', 'has cookie');
       API.postMessage(['javascript', 'if (!$(\'body\').hasClass(\'has_adulte\') && $(\'body\').hasClass(\'withoutBeead\')) { $(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : has cookie</p>\'); }']);
+      API.trackEvent('beead', 'has-cookie', document.location.pathname);
     }
   },
   // -- typeahead
