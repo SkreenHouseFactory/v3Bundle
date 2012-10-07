@@ -20,6 +20,9 @@ $(document).ready(function(){
     if (top.location != self.document.location) {
       API.syncV2(function(){
         //callback sync
+        
+        // -- ad caping
+        UI.ad();
       });
     }
 
@@ -246,6 +249,4 @@ $(document).ready(function(){
   // -- popover
   $('[data-content]').popover();
 
-  // -- add caping
-  UI.ad();
 });
