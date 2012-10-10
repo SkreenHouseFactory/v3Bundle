@@ -61,7 +61,7 @@ class MainController extends Controller
         return  new Response(file_get_contents($url . '?' . http_build_query($datas)));
       }
 
-      /* DEPRECATED
+      /* HACK : should try to find a better way */
       if (isset($datas[count($datas)-1]) &&
           $datas[count($datas)-1]['name'] == 'fromSerializeArray') {
         $tmp = array();
@@ -70,7 +70,6 @@ class MainController extends Controller
         }
         $datas = $tmp;
       }
-      */
 
       //print_r(array($url, $datas, $method));
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), $format);

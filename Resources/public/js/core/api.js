@@ -112,11 +112,13 @@ API = {
       console.warn('API.catchFormModal', 'submit 1');
 
       $(this).attr('value', 'chargement . . .').attr('disabled', 'disabled');
-      var form = $('.modal form:first');
-      var args = {};
-      jQuery.map(form.serializeArray(), function(n, i){
-        args[n['name']] = n['value'];
-      });
+      var form = $('.modal form:first')
+      form.append('<input type="hidden" name="fromSerializeArray" value="1" />');
+      var args = form.serializeArray();
+      //var args = {};
+      //jQuery.map(form.serializeArray(), function(n, i){
+      //  args[n['name']] = n['value'];
+      //});
       self.query('POST', form.attr('action'), args, function(json){
         console.log('API.catchFormModal', 'callbackOnHide', json);
         if (typeof json.redirect != 'undefined') {
