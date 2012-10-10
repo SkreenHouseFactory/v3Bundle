@@ -51,16 +51,17 @@ class MainController extends Controller
     public function proxyAction(Request $request)
     {
       $response = null;
-      $method = $request->getMethod();
-      $datas = $method == 'POST' ? $request->request->get('data') : $request->get('data');
-      $url = $method == 'POST' ? $request->request->get('url') : $request->get('url');
-      $format = $method == 'POST' ? '.json' : '';
+      $method   = $request->getMethod();
+      $datas    = $method == 'POST' ? $request->request->get('data') : $request->get('data');
+      $url      = $method == 'POST' ? $request->request->get('url') : $request->get('url');
+      $format   = $method == 'POST' ? '.json' : '';
 
       //hack get
       if ($method == 'GET') {
         return  new Response(file_get_contents($url . '?' . http_build_query($datas)));
       }
 
+      /* DEPRECATED
       if (isset($datas[count($datas)-1]) &&
           $datas[count($datas)-1]['name'] == 'fromSerializeArray') {
         $tmp = array();
@@ -69,6 +70,7 @@ class MainController extends Controller
         }
         $datas = $tmp;
       }
+      */
 
       //print_r(array($url, $datas, $method));
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), $format);

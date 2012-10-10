@@ -102,7 +102,7 @@ API = {
     var self = this;
     var modal = $('.modal');
     console.log('API.catchFormModal', 'catch form');
-  
+
     //form
     //$('.modal-body form input:first', modal).focus();
     $('.modal-footer', modal).html($('form input[type="submit"]', modal).attr('onclick','').addClass('btn-large btn-primary'));
@@ -112,9 +112,11 @@ API = {
       console.warn('API.catchFormModal', 'submit 1');
 
       $(this).attr('value', 'chargement . . .').attr('disabled', 'disabled');
-      var form = $('.modal form:first')
-      form.append('<input type="hidden" name="fromSerializeArray" value="1" />');
-      var args = form.serializeArray();
+      var form = $('.modal form:first');
+      var args = {};
+      jQuery.map(form.serializeArray(), function(n, i){
+        args[n['name']] = n['value'];
+      });
       self.query('POST', form.attr('action'), args, function(json){
         console.log('API.catchFormModal', 'callbackOnHide', json);
         if (typeof json.redirect != 'undefined') {
@@ -190,7 +192,7 @@ API = {
   query: function(method, url, data, callback, cache, version) {
 
     if (url.match(/^https\:\/\//)) {
-      //console.log('API.query', 'https', 'is popin', url);
+      //console.log('API.query', 'http(s|)://', 'is popin', url);
     } else {
       //console.log('API.query', 'http', 'is api', url);
       var version = typeof version == 'undefined' ? '1' : version;
