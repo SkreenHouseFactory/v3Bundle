@@ -20,9 +20,6 @@ $(document).ready(function(){
     if (top.location != self.document.location) {
       API.syncV2(function(){
         //callback sync
-        
-        // -- ad caping
-        UI.ad();
       });
     }
 
@@ -36,6 +33,13 @@ $(document).ready(function(){
       console.log('script', 'context', API.context);
       Skhf.session.initPlaylist();    
     });
+    
+    
+    // -- ad caping
+    setTimeout(function(){
+                 UI.ad();
+               }, 
+               500);
   });
 
   // -- ui user
