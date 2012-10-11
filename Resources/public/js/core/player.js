@@ -163,7 +163,7 @@ Player = {
         }
       break;
       case 'flash':
-        this.elmt.html(player);
+        this.elmt.html(player.embed != 'undefined' ? player.embed : player);
       break;
       case 'android':
         if (typeof Webview != 'undefined') {
