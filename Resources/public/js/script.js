@@ -7,7 +7,7 @@ $(document).ready(function(){
   API.init(function(){
 
     // console
-    if( API.config.console != true || typeof console == 'undefined') {
+    if( API.config.console != true || typeof console == 'undefined' || typeof console.log === 'undefined') {
       console = {
           log: function() {},
           warn: function() {},
