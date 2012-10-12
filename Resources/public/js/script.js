@@ -5,16 +5,18 @@ $(document).ready(function(){
 
   // -- init
   API.init(function(){
-    console.log('script', 'API.init');
 
     // console
-    if( API.config.console != true ) {
+    if( API.config.console != true || typeof console == 'undefined') {
       console = {
           log: function() {},
           warn: function() {},
           error: function() {}
       };
     }
+
+    //tjs après ci-dessus : pas de console sur ie
+    console.log('script', 'API.init');
 
     // sync v2
     if (top.location != self.document.location) {
