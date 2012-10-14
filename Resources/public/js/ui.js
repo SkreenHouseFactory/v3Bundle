@@ -310,7 +310,7 @@ UI = {
     }
     div.prependTo(li);
   },
-  // -- add manager
+  // -- ad manager
   ad: function() {
       console.warn('UI.ad', 'cookie:' + API.cookie('ad'));
     if (API.cookie('ad') != 'displayed'){
@@ -318,7 +318,7 @@ UI = {
       var date = new Date();
       date.setTime(date.getTime() + (12 * 3600 * 1000));
       API.cookie('ad', 'displayed',  date);
-      API.postMessage(['javascript', 'if (!$(\'body\').hasClass(\'has_adulte\') && !$(\'body\').hasClass(\'withoutBeead\')) { $(\'body\').append(\'<script type="text/javascript">BeeadAds.init({pid:2751, home:"http://www.myskreen.com/"}).screenLayer();</script>\'); $(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : display</p>\'); }']);
+      API.postMessage(['javascript', 'if (!$(\'body\').hasClass(\'has_adulte\') && !$(\'body\').hasClass(\'withoutBeead\')) { $(\'body\').append(\'<script type="text/javascript">function beead_noAds(){  _gaq.push([\'_trackEvent\', \'beead\', \'ploof\', document.location.pathname]); } BeeadAds.init({pid:2751, home:"http://www.myskreen.com/"}).screenLayer();</script>\'); $(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : display</p>\'); }']);
 
       API.trackEvent('beead', 'displayed', document.location.pathname);
     } else {
