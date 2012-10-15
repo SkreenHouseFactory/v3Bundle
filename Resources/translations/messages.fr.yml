@@ -74,6 +74,7 @@ nav:
     tv:
       live: Les chaînes en direct
       grid: La grille TV
+      channels: Le Replay par chaîne
       title:
         all: Tout le programme TV
         films: Les films à la télé

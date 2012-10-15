@@ -355,22 +355,30 @@ h6 {
         text-shadow: 0px 0px 4px white;
         color: #777;
       }
-    }
-
-    > li.separator {
-      margin-left: 35px;
-    }
-    > li.tv-channel {
-      padding: 0 0 0 6px;
-
-      .link-v2 {
-        padding: 0;
+  
+      &.separator {
+        margin-left: 35px;
       }
-    }
-    > li.active {
-      > a {
-        text-shadow: 0px 1px 1px blue;
-        color: white;
+      &.home {
+        padding: 0px;
+        
+        .tv-channel {
+          padding: 0 8px;
+        }
+        .link-v2 {
+          display: inline-block;
+          margin: 0;
+
+          &.link-channel {
+            padding: 0px 1px;
+          }
+        }
+      }
+      &.active {
+        > a {
+          text-shadow: 0px 1px 1px blue;
+          color: white;
+        }
       }
     }
   }
