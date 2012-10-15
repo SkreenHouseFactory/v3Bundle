@@ -33,9 +33,12 @@ class PlayerController extends Controller
         $url = $request->get('target');
       }
 
+      //referer partenaire
+      $is_partenaire = strstr($request->server->get('HTTP_REFERER'), 'myskreen') ? false : true;
+
       $response = $this->render('SkreenHouseFactoryV3Bundle:Player:' . $request->get('template') . '.html.twig', array(
         'url' => urldecode($url),
-        'menus' => array()
+        'is_partenaire' => $is_partenaire
       ));
 
       $response->setPublic();
