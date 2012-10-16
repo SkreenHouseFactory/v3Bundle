@@ -4,7 +4,7 @@
 
 {% block content %}
   <div class="well">
-    {% if is_partenaire %}
+    {% if is_partenaire is null %}
     <div id="ad">
       <script src="http://ad.himediadx.com/ttj?id=971095&size=300x250"></script>
     </div>
@@ -19,6 +19,6 @@
   <script>
   setTimeout(function() {
     document.location= '{{ url }}';
-  }, 6000)
+  }, 4000)
   </script>
 {% endblock %}
