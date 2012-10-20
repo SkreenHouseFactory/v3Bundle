@@ -311,7 +311,7 @@ UI = {
   },
   // -- ad manager
   ad: function() {
-      console.warn('UI.ad', 'cookie:' + API.cookie('ad'));
+    console.warn('UI.ad', 'cookie:' + API.cookie('ad'));
     if (API.cookie('ad') != 'displayed'){
       //console.log('UI.ad', 'display and ad cookie');
       var date = new Date();
