@@ -15,8 +15,17 @@ redirection:
     h1: Patientez quelques secondes ...
     message: mySkreen vous redirige vers votre vidéo
 user:
-    programs: Vos programmes
+    programs: Votre playlist
 playlist:
+    publish:
+        private:
+          link: Privée
+          popover.title: Playlist privée
+          popover.content: Votre playlist n'est pas partagée. Vous êtes le seul à pouvoir y accéder
+        public:
+          link: Publique
+          popover.title: Playlist publique
+          popover.content: Votre playlist est publique. Les autres utilisateurs peuvent y accéder et s'y abonner.
     name:
         cine: Les dernières sorties en salle
         tv: Les prochaines diffusions TV

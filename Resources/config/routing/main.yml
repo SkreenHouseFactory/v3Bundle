@@ -9,7 +9,10 @@ postproxy:
 #user
 user_programs:
     pattern:  /mes-programmes/{onglet}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:programs, "onglet" = null }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:programs, onglet: null }
+user_playlist:
+    pattern:  /playlist/{username}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:playlist, }
 
 #cinema
 cinema_boxoffice:

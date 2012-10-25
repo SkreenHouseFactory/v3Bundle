@@ -8,14 +8,6 @@
 @iconWhiteSpritePath:     "/bundles/skreenhousefactoryv3/bootstrap/img/glyphicons-halflings-white.png";
 
 
-.icon-white, .nav > .active > a > [class^="icon-"], .nav > .active > a > [class*=" icon-"], .dropdown-menu > li > a:hover > [class^="icon-"], .dropdown-menu > li > a:hover > [class*=" icon-"], .dropdown-menu > .active > a > [class^="icon-"], .dropdown-menu > .active > a > [class*=" icon-"] {
-background-image: url("/bundles/skreenhousefactoryv3/bootstrap/img/glyphicons-halflings-white.png") !important;
-}
-[class^="icon-"], [class*=" icon-"] {
-background-image: url("/bundles/skreenhousefactoryv3/bootstrap/img/glyphicons-halflings.png") !important;
-}
-
-
 /* ===== v3 =================================================================
    Author: Benoît Bergstörm
    ========================================================================== */
@@ -34,9 +26,9 @@ body {
   width: 1010px;
 
   .pagination {
-    text-align: center;
+    text-align: left;
     a {
-      padding: 0 9px;
+      padding: 0 10px 0 9px;
       background-color: white;
     }
     li.active a {
@@ -376,11 +368,13 @@ h6 {
         padding: 0px;
         
         &.no-link {
-          padding: 6px;
+          padding: 7px;
+          color: #555;
         }
       }
       &.tv-channel {
         padding: 0 0 0 2px;
+        border-left: 0;
   
         .link-v2 {
           padding: 0;

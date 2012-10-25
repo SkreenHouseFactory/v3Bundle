@@ -4,9 +4,15 @@
 
 {% block content %}
 <div class="container">
-  <h1>{{ 'user.programs'|trans }}</h1>
-  <br/>
 
+  {# TODO : PUBLISH PLAYLISTS
+  <div class="btn-group pull-right" data-toggle="buttons-radio" style="margin:20px;">
+    <a href="#" class="btn btn-primary" data-placement="bottom" data-title="{{ 'playlist.publish.private.popover.title'|trans }}" data-content="{{ 'playlist.publish.private.popover.content'|trans }}" data-trigger="hover">{{ 'playlist.publish.private.link'|trans }}</a>
+    <a href="#" class="btn" data-placement="bottom" data-title="{{ 'playlist.publish.public.popover.title'|trans }}" data-content="{{ 'playlist.publish.public.popover.content'|trans }}" data-trigger="hover">{{ 'playlist.publish.public.link'|trans }}</a>
+  </div>
+  #}
+
+  <h1>{{ 'user.programs'|trans }}</h1>
   <ul class="nav nav-pills nav-alpha-client uppercase">
     <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
       <a href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
