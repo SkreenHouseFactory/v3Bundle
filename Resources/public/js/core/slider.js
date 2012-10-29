@@ -260,11 +260,11 @@ var BaseSlider = Class.extend({
       $('.actions', li).data('id', program.id);
       li.attr('data-position', k);
 
-      //notif
-      if (Skhf.session.datas.notifications &&
-          $.inArray('' + pere.id, Skhf.session.datas.notifications.programs['new']) != -1) { //'' + pere.id
-        li.prepend(UI.badge_notification.replace('%count%', 'nouveau'));
-      }
+      //notif : FIX
+      //if (Skhf.session.datas.notifications &&
+      //    $.inArray('' + pere.id, Skhf.session.datas.notifications.programs['new']) != -1) { //'' + pere.id
+      //  li.prepend(UI.badge_notification.replace('%count%', 'nouveau'));
+      //}
       if (program.deporte) {
         li.addClass('deporte');
         $('.title', li).each(function(){
