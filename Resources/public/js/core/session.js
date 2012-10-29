@@ -50,7 +50,7 @@ var BaseSession = Class.extend({
   },
   signout: function(callback) {
     if (API.context == 'v2') {
-      API.postMessage(["signout"]);
+      API.postMessage(['signout']);
     } else {
       API.query('POST', 'session/signout.json', {session_uid: this.uid}, callback);
     }
@@ -74,10 +74,10 @@ var BaseSession = Class.extend({
     }
 
     var args = {
-      session_uid: this.uid,
-      id: id,
-      delete : 1
-    }
+                'session_uid': this.uid,
+                'id': id,
+                'delete': 1
+               };
 
     API.query('POST', 'notify.json', args, function(resp){
       console.log('BaseSession.deleteNotification', resp, args);
