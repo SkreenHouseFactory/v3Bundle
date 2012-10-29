@@ -1,19 +1,36 @@
-<div id="top-bar" class="container">
+<div id="top-bar" class="navbar navbar-inverse">
+<div class="navbar-inner">
+<div class="container">
+<div class="nav-collapse">
   <ul class="pull-right nav">
-    <li class="active user-off btn-group">
-      <a class="btn btn-inverse btn-large signin" href="#"><i class="sprite-user"></i> {{ 'nav.menu.account.off'|trans }}</a>
-      <a data-toggle="collapse" data-target="#top-playlist" class="btn btn-inverse btn-large btn-last notifications" href="#">{{ 'playlist.discover'|trans }} <i class="icon-chevron-down icon-white"></i></a>
-      {#<a class="btn btn-inverse btn-large" href="#"><i class="icon-off icon-white"></i> {{ 'nav.menu.tv'|trans }}</a>#}
+    <li class="divider-vertical"></li>
+    <li class="user-off">
+      <a class="signin" href="#"><i class="sprite-user"></i> {{ 'nav.menu.account.off'|trans }}</a>
     </li>
-    <li class="hide user-on btn-group dropdown">
-      {#<a class="btn btn-inverse btn-large signout" href="#"><i class="icon-ban-circle icon-white"></i></a>#}
-      {#<a  data-toggle="collapse" data-target="#top-playlist" class="btn btn-inverse btn-large" href="#"><i class="icon-resize-vertical icon-white"></i></a>#}
-      <a data-toggle="dropdown" class="dropdown-toggle btn btn-inverse btn-large user" href="#"><span></span></a>
-      <a data-toggle="collapse" data-target="#top-playlist" class="btn btn-inverse btn-large btn-last notifications" href="#">{{ 'playlist.yours'|trans }} <i class="icon-chevron-down icon-white"></i></a>
+    <li class="divider-vertical user-off"></li>
+    <li class="user-off">
+      <a data-toggle="collapse" data-target="#top-playlist" class="btn-last notifications" href="#">{{ 'playlist.discover'|trans }} <i class="icon-chevron-down icon-white"></i></a>
+      {#<a class="" href="#"><i class="icon-off icon-white"></i> {{ 'nav.menu.tv'|trans }}</a>#}
+    </li>
+    <li class="hide user-on dropdown">
+      {#<a class="signout" href="#"><i class="icon-ban-circle icon-white"></i></a>#}
+      {#<a  data-toggle="collapse" data-target="#top-playlist" class="" href="#"><i class="icon-resize-vertical icon-white"></i></a>#}
+      <a data-toggle="dropdown" class="dropdown-toggle user" href="#"><span></span></a>
       <ul class="dropdown-menu">
         <li><a class="favoris" href="{{ path('user_programs') }}" target="_parent"><i class="icon-list-alt"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
         <li><a class="account" href="#"><i class="icon-cog"></i> {{ 'nav.account'|trans }}</a></li>
         <li><a class="signout" href="#"><i class="icon-remove"></i> {{ 'signout'|trans }}</a></li>
+      </ul>
+    </li>
+    <li class="divider-vertical hide user-on"></li>
+    <li class="hide user-on dropdown">
+      <a data-toggle="collapse" data-target="#top-playlist" class="" href="#">{{ 'playlist.yours'|trans }} <i class="icon-chevron-down icon-white"></i></a>
+    </li>
+    <li class="divider-vertical hide user-on"></li>
+    <li class="hide user-on dropdown notifications">
+      <a data-toggle="dropdown" class="dropdown-toggle btn-last notifications-count" href="#"></a>
+      <ul class="dropdown-menu">
+        <div><li>{{ 'notifications.empty'|trans }}</li></div>
         {#
         <li class="nav-header">{{ 'nav.filter'|trans }}</li>
         <li><a class="link-v2 films" href="/films">{{ 'nav.films'|trans }}</a></li>
@@ -28,12 +45,16 @@
         #}
       </ul>
     </li>
+    <li class="divider-vertical"></li>
   </ul>
-  <a class="pull-left link-v2 link-force" href="/" title="{{ 'service.name'|trans }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="{{ 'service.name'|trans }}" /></a>
+  <a id="logo" class="pull-left link-v2 link-force" href="/" title="{{ 'service.name'|trans }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="{{ 'service.name'|trans }}" /></a>
   <form class="navbar-search btn-group pull-left">
   <input type="text" class="search-query btn-large pull-left" placeholder="{{ 'search.pitch'|trans }}">
   <a class="btn btn-large btn-inverse"><i class="icon-search icon-white"></i></a>
   </form>
+</div>
+</div>
+</div>
 </div>
 
 <div id="top-nav">

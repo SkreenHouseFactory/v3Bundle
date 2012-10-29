@@ -69,6 +69,11 @@ $(document).ready(function(){
     if (!$('#top-playlist').hasClass('in')) {
       $('#top-playlist').collapse('show');
     }
+    if ($(this).hasClass('notifications-count') && $(this).find('.badge-important')) {
+      Skhf.session.readNotifications();
+      var current = $('#top-bar .notifications li:not(.divider, .empty)').length;
+      $('#top-bar .notifications-count span.badge').removeClass('badge-important').html(current);
+    }
   });
 
   // -- ui nav

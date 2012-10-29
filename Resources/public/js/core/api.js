@@ -350,12 +350,8 @@ API = {
           Skhf.session.uid = message[1].uid;
           Skhf.session.sync();
 
-        } else if (message[0] == 'history.back') {
-          if (message[1] == 'add') {
-            $('#history-back').show(); //UI.addHistoryBack();
-          } else {
-            $('#history-back').hide(); //UI.removeHistoryBack();
-          }
+        } else if (message[0] == 'ajax-nav') {
+          UI.ad();
 
         } else if (message[0] == 'nav') {
           if (message[1] == 'reset' && !Skhf.session.datas.email) {

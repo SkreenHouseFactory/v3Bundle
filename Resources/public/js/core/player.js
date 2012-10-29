@@ -85,7 +85,7 @@ Player = {
       iframe.html('<iframe src="' + url + '"></iframe>')
     }
     iframe.show().css('height', ($(window).height() - 100) + 'px');
-    $('#top-nav').collapse('hide');
+    //$('#top-nav').collapse('hide');
   },
   play: function(player, callback) {
     console.log('Player.play', player, this.type, callback);
@@ -257,11 +257,11 @@ Player = {
     el.html('<b>' + p.title + '</b></span><br/><a class="btn btn-large fav">Suivre / voir plus tard</a><span>');
   },
   minify: function() {
-    $('#header, #top-nav').collapse('show');
+    $('#header').collapse('show');
     $('#top-playlist').collapse('hide');
   },
   expand: function() {
-    $('#header, #top-nav, #top-playlist').collapse('hide');
+    $('#header, #top-playlist').collapse('hide');
   },
   remove: function() {
     this.timeout = null;

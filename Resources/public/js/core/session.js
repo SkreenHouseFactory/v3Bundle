@@ -61,6 +61,28 @@ var BaseSession = Class.extend({
     API.cookie('session_uid', null);
     API.cookie('playlist_collapsed', null);
   },
+  readNotifications: function(){
+
+    API.query('POST', 'notify/' + this.uid + '.json', {}, function(resp){
+      console.log('BaseSession.readNotification', resp);
+    });
+  },
+  deleteNotification: function(id){
+    if (!this.uid){
+      console.error('Not connected yet', this.uid);
+      return false;
+    }
+
+    var args = {
+      session_uid: this.uid,
+      id: id,
+      delete : 1
+    }
+
+    API.query('POST', 'notify.json', args, function(resp){
+      console.log('BaseSession.deleteNotification', resp, args);
+    });
+  },
   initSocial: function(onglet, offset, force_remote, callback) {
     console.log('BaseSession.initSocial', 'fb_uid', this.datas.fb_uid)
     var self = this;

@@ -3,7 +3,7 @@ var UI;
 UI = {
   user: '',
   playlist: null,
-  badge_notification: '<span class="badge badge-important">%count%</span>',
+  badge_notification: '<span class="badge">%count%</span>',
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
   init: function(callback) {
     var self = this;
@@ -56,10 +56,12 @@ UI = {
       $('li.selector:not(.empty)').popover('disable').popover('hide');
       $('#top-baseline').hide();
       this.loadUserPrograms();
-      this.notifyUser(Skhf.session.datas.notifications);
+      this.loadNotifications(Skhf.session.datas.notifications);
     } else {
       $('.user span, .favoris span').empty();
-      $('.notifications span').remove();
+      $('.notifications-count').empty();
+      $('.notifications li:not(.empty)').remove();
+      $('.notifications li.empty').show();
       $('.user-on-visibility').css('visibility','hidden');
       $('li.selector').popover('enable');
       this.unloadFilters();
@@ -75,7 +77,7 @@ UI = {
     for (key in ids) {
       //console.log('UI.loadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.btn-primary)');
       $('.actions[data-id="' + ids[key] + '"] a.fav:not(.btn-primary)', elmt).html('<i class="icon-ok-sign icon-white"></i> Dans vos favoris')
-                                                                            .addClass('btn-primary');
+                                                                             .addClass('btn-primary');
     }
   },
   unloadUserPrograms: function(ids, elmt) {
@@ -83,24 +85,48 @@ UI = {
     //console.log('UI.unloadUserPrograms', ids, elmt);
     for (key in ids) {
       //console.log('UI.unloadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.btn-primary)');
-      $('.actions[data-id="' + ids[key] + '"] a.fav.btn-primary, .actions[data-id="' + ids[key] + '"] a.fav.btn-danger', elmt).html('<i class="icon-plus-sign"></i> Suivre / voir + tard')
-                                                                      .removeClass('btn-primary');
+      $('.actions[data-id="' + ids[key] + '"] a.fav.btn-primary, .actions[data-id="' + ids[key] + '"] a.fav.btn-danger', elmt).html('<i class="icon-plus-sign"></i> Suivre / voir + tard').removeClass('btn-primary');
     }
   },
   //notify
-  notifyUser: function(notifications) {
-    console.log('UI.notifyUser', notifications);
-    for (key in notifications) {
-      console.log('UI.notifyUser', 'programs', $('#top-bar .user'), key, notifications[key]['new']);
-      if (key == 'programs') {
-        if (notifications[key]['new'].length > 0) {
-          $('#top-bar .notifications').addClass('with-badge').append($(this.badge_notification).html(notifications[key]['new'].length));
+  loadNotifications: function(notifications) {
+    console.log('UI.loadNotifications', notifications);
+    $('#top-bar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(notifications.length));
+    if (notifications.length == 0) {
+        $('#top-bar .notifications-count .badge-important').removeClass('badge-important');
+    } else {
+      var list = $('#top-bar .notifications ul div');
+      list.find('li.empty').hide();
+      list.find('li:not(.empty)').remove();
+      var nb_new = 0;
+      for (k in notifications){
+        if (notifications[k].new) {
+          nb_new++;
         }
-      } else {
-        if (notifications[key]['new'] > 0) {
-          $('#top-bar .dropdown-menu li a.' + key).addClass('with-badge').append($(this.badge_notification).html(notifications[key]['new']));
-        }
+        list.append('<li style="clear:both;overflow:hidden"><a data-id="' + notifications[k].id + '" rel="tooltip" title="Supprimer la notification" class="close">&times;</a>' + (notifications[k].new ? '<span class="pull-right badge badge-important">Nouveau</span>' : '') + '<a target="_top" href="' + notifications[k].link + '" class="link"><img src="' + notifications[k].channel_ico + '" class="channel pull-left" /><img src="' + notifications[k].ico + '" class="ico pull-left" /><span class="title">' + notifications[k].title + '</span><span class="subtitle">' + notifications[k].title_episode + '</span><span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</a></li><li class="divider"></li>');
       }
+      //new
+      if (nb_new > 0) {
+        console.log('UI.loadNotifications', 'new', nb_new);
+        $('#top-bar .notifications-count .badge').html(nb_new).addClass('badge-important');
+      }
+      $('#top-bar .notifications-count').data('count-new', nb_new);
+      $('[rel="tooltip"]', list).tooltip({placement: 'bottom'});
+      $('.close', list).click(function(e){
+        e.preventDefault();
+        Skhf.session.deleteNotification($(this).data('id'));
+        
+        //dom
+        $(this).tooltip('destroy');
+        $(this).parent().next().remove();
+        $(this).parent().slideUp('slow').remove();
+        
+        //count
+        var current = parseInt($('#top-bar .notifications-count .badge').html());
+        $('#top-bar .notifications-count .badge').html(current-1);
+
+        return false;
+      })
     }
   },
   //update friends
@@ -311,19 +337,26 @@ UI = {
   },
   // -- ad manager
   ad: function() {
-    console.warn('UI.ad', 'cookie:' + API.cookie('ad'));
-    if (API.cookie('ad') != 'displayed'){
+    var cookie = API.cookie('ad');
+    console.warn('UI.ad', 'cookie:' + cookie);
+    //unknown : mark as todisplay
+    if (cookie == null){
+      API.cookie('ad', 'todisplay');
+      API.postMessage(['javascript', 'if (!$(\'body\').hasClass(\'has_adulte\') && !$(\'body\').hasClass(\'withoutBeead\')) { $(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : to-display</p>\'); }']);
+    //todisplay
+    } else if (cookie == 'todisplay'){
       //console.log('UI.ad', 'display and ad cookie');
       var date = new Date();
       date.setTime(date.getTime() + (12 * 3600 * 1000));
-      API.cookie('ad', 'displayed',  date);
+      API.cookie('ad', 'hascookie',  date);
       API.postMessage(['javascript', 'if (!$(\'body\').hasClass(\'has_adulte\') && !$(\'body\').hasClass(\'withoutBeead\')) { $(\'body\').append(\'<script type="text/javascript">BeeadAds.init({pid:2751, home:"http://www.myskreen.com/"}).screenLayer();</script>\'); $(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : display</p>\'); }']);
 
+
       API.trackEvent('beead', 'displayed', document.location.pathname);
+    //hold
     } else {
-      //console.log('UI.ad', 'has cookie');
-      API.postMessage(['javascript', 'if (!$(\'body\').hasClass(\'has_adulte\') && !$(\'body\').hasClass(\'withoutBeead\')) { $(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : has cookie</p>\'); }']);
-      API.trackEvent('beead', 'has-cookie', document.location.pathname);
+      API.postMessage(['javascript', 'if (!$(\'body\').hasClass(\'has_adulte\') && !$(\'body\').hasClass(\'withoutBeead\')) { $(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : has-cookie</p>\'); }']);
+      API.trackEvent('beead', 'hold-cookie', document.location.pathname);
     }
   },
   // -- typeahead
