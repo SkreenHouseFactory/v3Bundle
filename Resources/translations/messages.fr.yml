@@ -16,6 +16,10 @@ redirection:
     message: mySkreen vous redirige vers votre vidéo
 user:
     programs: Votre playlist
+notifications:
+    empty: 
+        title: Vous n'avez pas de notifications !
+        text: Ajoutez vos émissions et films préférés à vos playlists pour recevoir une notification lorsqu'ils sont disponibles aussi bien à la TV qu'au Cinéma en Streaming ou Dvd.
 playlist:
     publish:
         private:

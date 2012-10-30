@@ -30,7 +30,7 @@
     <li class="hide user-on dropdown notifications">
       <a data-toggle="dropdown" class="dropdown-toggle btn-last notifications-count" href="#"></a>
       <ul class="dropdown-menu">
-        <div><li>{{ 'notifications.empty'|trans }}</li></div>
+        <div><li class="empty"><h6>{{ 'notifications.empty.title'|trans }}<small>{{ 'notifications.empty.text'|trans }}</small></h6></li></div>
         {#
         <li class="nav-header">{{ 'nav.filter'|trans }}</li>
         <li><a class="link-v2 films" href="/films">{{ 'nav.films'|trans }}</a></li>
@@ -47,10 +47,10 @@
     </li>
     <li class="divider-vertical"></li>
   </ul>
-  <a id="logo" class="pull-left link-v2 link-force" href="/" title="{{ 'service.name'|trans }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="{{ 'service.name'|trans }}" /></a>
-  <form class="navbar-search btn-group pull-left">
-  <input type="text" class="search-query btn-large pull-left" placeholder="{{ 'search.pitch'|trans }}">
-  <a class="btn btn-large btn-inverse"><i class="icon-search icon-white"></i></a>
+  <a class="pull-left link-v2 link-force" href="/" title="{{ 'service.name'|trans }}"><img id="logo" src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="{{ 'service.name'|trans }}" /></a>
+  <form class="navbar-search pull-left">
+  <i class="icon-search"></i>
+  <input type="text" class="search-query pull-left" placeholder="{{ 'search.pitch'|trans }}">
   </form>
 </div>
 </div>

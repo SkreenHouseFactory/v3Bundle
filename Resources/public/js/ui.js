@@ -123,8 +123,11 @@ UI = {
         $(this).parent().slideUp('slow').remove();
         
         //count
-        var current = parseInt($('#top-bar .notifications-count .badge').html());
-        $('#top-bar .notifications-count .badge').html(current-1);
+        var current = parseInt($('#top-bar .notifications-count .badge').html()) -1;
+        $('#top-bar .notifications-count .badge').html(current);
+        if (current == 0) {
+          $('#top-bar .notifications li.empty').show();
+        }
 
         return false;
       })
