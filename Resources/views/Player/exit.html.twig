@@ -17,8 +17,19 @@
   </div>
 
   <script>
-  setTimeout(function() {
-    document.location= '{{ url }}';
-  }, 4000)
+  //setTimeout(function() {
+  //  document.location= '{{ url }}';
+  //}, 4000)
   </script>
+
+  {# beead #}
+  <script src="http://www.beead.fr/scripts/api/beead_apiV4.js"></script>
+  <script>
+    function beeadCallbackSuccess() {
+      document.location = '{{ url }}';
+    }
+    function beeadCallbackEmpty(){
+      beeadCallbackSuccess();
+    }    BeeadAds.init({pid:2751, jsCallback: "beeadCallbackSuccess", noPubCallback: "beeadCallbackEmpty", onCloseCallback: "beeadCallbackSuccess"});
+  </script>
 {% endblock %}

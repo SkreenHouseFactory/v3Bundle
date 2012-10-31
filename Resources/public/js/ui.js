@@ -124,7 +124,7 @@ UI = {
         
         //count
         var current = parseInt($('#top-bar .notifications-count .badge').html()) -1;
-        $('#top-bar .notifications-count .badge').html(current);
+        $('#top-bar .notifications-count .badge').html(current >= 0 ? current : 0);
         if (current == 0) {
           $('#top-bar .notifications li.empty').show();
         }
@@ -342,9 +342,9 @@ UI = {
   // -- ad manager
   ad: function() {
     var cookie = API.cookie('ad');
-    console.warn('UI.ad', 'cookie:' + cookie);
+    console.log('UI.ad', 'cookie:' + cookie);
     //unknown : mark as todisplay
-    if (cookie == null){
+    /*if (cookie == null || !cookie){
       API.cookie('ad', 'todisplay');
       API.postMessage(['javascript', 'if (!$(\'body\').hasClass(\'has_adulte\') && !$(\'body\').hasClass(\'withoutBeead\')) { $(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : to-display</p>\'); }']);
     //todisplay
@@ -353,15 +353,17 @@ UI = {
       var date = new Date();
       date.setTime(date.getTime() + (12 * 3600 * 1000));
       API.cookie('ad', 'hascookie',  date);
-      API.postMessage(['javascript', 'if (!$(\'body\').hasClass(\'has_adulte\') && !$(\'body\').hasClass(\'withoutBeead\')) { $(\'body\').append(\'<script type="text/javascript">BeeadAds.init({pid:2751, home:"http://www.myskreen.com/"}).screenLayer();</script>\'); $(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : display</p>\'); }']);
+      BeeadAds.gateway();
+      API.postMessage(['javascript', '$(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : display</p>\');']);
 
 
       API.trackEvent('beead', 'displayed', document.location.pathname);
     //hold
     } else {
-      API.postMessage(['javascript', 'if (!$(\'body\').hasClass(\'has_adulte\') && !$(\'body\').hasClass(\'withoutBeead\')) { $(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : has-cookie</p>\'); }']);
+      API.postMessage(['javascript', '$(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : has-cookie</p>\');']);
       API.trackEvent('beead', 'hold-cookie', document.location.pathname);
     }
+    */
   },
   // -- typeahead
   typeahead: function(searchbox){

@@ -23,7 +23,7 @@
       <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
 </head>
-<body class="exit">
+<body class="exit" onload="if (typeof BeeadAds != 'undefined') {BeeadAds.gateway();}">
 
 {% block content %}
 {% endblock %}

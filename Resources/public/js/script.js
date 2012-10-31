@@ -1,4 +1,7 @@
 $(document).ready(function(){
+  
+  //Modernizr.load();
+  
   Skhf = {
     session: null
   }
@@ -35,13 +38,9 @@ $(document).ready(function(){
       console.log('script', 'context', API.context);
       Skhf.session.initPlaylist();    
     });
-    
-    
+
     // -- ad caping
-    setTimeout(function(){
-                 UI.ad();
-               }, 
-               500);
+    //setTimeout(function(){ UI.ad(); }, 500);
   });
 
   // -- ui user
