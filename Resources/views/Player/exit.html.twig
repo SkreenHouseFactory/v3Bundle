@@ -32,7 +32,7 @@
       function beeadCallbackSuccess() {
         _gaq.push(['_trackEvent', 
                   'beead', 
-                  'beead-completed', 
+                  'beead-redirect-completed', 
                   document.location.pathname]);
         setTimeout(function() {
           document.location= '{{ url }}';
@@ -41,14 +41,14 @@
       function beeadCallbackEmpty(){
         _gaq.push(['_trackEvent', 
             'beead', 
-            'beead-ploof', 
+            'beead-redirect-ploof', 
             document.location.pathname]);
         beeadCallbackSuccess();
       }      BeeadAds.init({pid:2751, jsCallback: "beeadCallbackSuccess", noPubCallback: "beeadCallbackEmpty", onCloseCallback: "beeadCallbackSuccess"});
   
       _gaq.push(['_trackEvent', 
                 'beead', 
-                'beead-called', 
+                'beead-redirect-displayed', 
                 document.location.pathname]);
     }  </script>
 {% endblock %}
