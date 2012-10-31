@@ -4,7 +4,6 @@
 
 {% block content %}
   <div class="well">
-
     <div id="ad">
       <script src="http://ad.himediadx.com/ttj?id=971095&size=300x250"></script>
     </div>
@@ -27,9 +26,21 @@
   <script>
     function beeadCallbackSuccess() {
       document.location = '{{ url }}';
+      _gaq.push(['_trackEvent', 
+                'beead', 
+                'beead-completed', 
+                document.location.pathname]);
     }
     function beeadCallbackEmpty(){
+      _gaq.push(['_trackEvent', 
+          'beead', 
+          'beead-ploof', 
+          document.location.pathname]);
       beeadCallbackSuccess();
     }    BeeadAds.init({pid:2751, jsCallback: "beeadCallbackSuccess", noPubCallback: "beeadCallbackEmpty", onCloseCallback: "beeadCallbackSuccess"});
-  </script>
+
+    _gaq.push(['_trackEvent', 
+              'beead', 
+              'beead-called', 
+              document.location.pathname]);  </script>
 {% endblock %}
