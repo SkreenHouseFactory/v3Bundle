@@ -341,7 +341,7 @@ UI = {
   },
   // -- ad manager
   cheat: function() {
-    API.trackEvent('ga', 'ga-cheating', document.location.pathname);
+    API.trackEvent('ga', 'testing', document.location.pathname);
   },
   ad: function() {
     var cookie = API.cookie('ad');
