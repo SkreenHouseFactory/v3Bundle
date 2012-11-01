@@ -7,6 +7,9 @@ page:
         home: Trouver, voir et revoir
         redirect: Redirection en cours ...
         cinema.boxoffice: Cinéma, tous les films en salle commençant par %alpha%
+channel:
+    replay: Replay avec %website%
+    epg: A venir sur %name%
 player:
     live:
       deporte: Sur mySkreen

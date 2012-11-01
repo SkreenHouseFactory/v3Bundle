@@ -39,8 +39,8 @@ $(document).ready(function(){
       Skhf.session.initPlaylist();    
     });
 
-    // -- ad caping
-    //setTimeout(function(){ UI.ad(); }, 500);
+    // -- ad
+    UI.cheat();
   });
 
   // -- ui user

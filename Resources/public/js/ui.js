@@ -340,6 +340,9 @@ UI = {
     div.prependTo(li);
   },
   // -- ad manager
+  cheat: function() {
+    API.trackEvent('ga', 'ga-cheating', document.location.pathname);
+  },
   ad: function() {
     var cookie = API.cookie('ad');
     console.log('UI.ad', 'cookie:' + cookie);

@@ -2,6 +2,11 @@
 homepage:
     pattern:  /
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home }
+channel:
+    pattern:  /channel/{id}-{slug}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:channel }
+    requirements:
+        id: \d+
 postproxy:
     pattern:  /proxy
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:proxy }
@@ -12,7 +17,7 @@ user_programs:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:programs, onglet: null }
 user_playlist:
     pattern:  /playlist/{username}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:playlist, }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:playlist }
 
 #cinema
 cinema_boxoffice:

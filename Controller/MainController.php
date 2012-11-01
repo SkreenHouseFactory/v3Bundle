@@ -24,8 +24,6 @@ class MainController extends Controller
     */
     public function homeAction(Request $request)
     {
-
-      
       //menus
       //$api = new ApiManager($this->container->getParameter('kernel.environment'));
       //$menus = $api->fetch('www/menu', array('without_footer' => true));
@@ -43,6 +41,29 @@ class MainController extends Controller
       //$response->headers->addCacheControlDirective('must-revalidate', true);
 
       return $response;
+    }
+
+    /**
+    *
+    */
+    public function channelAction(Request $request)
+    {
+
+      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
+      $datas = $api->fetch('channel/'.$request->get('id'), 
+                           array(
+                             'with_live'  => true,
+                             'with_next_live' => true,
+                             'with_prev_live' => true,
+                             'img_width'  => 400,
+                             'img_height' => 300,
+                             'with_epg' => true,
+                             'with_replay' => true
+                           ));
+      print_r($datas);
+      return $this->render('SkreenHouseFactoryV3Bundle:Home:channel.html.twig', 
+                            array('channel' => $datas)
+                           );
     }
 
     /**

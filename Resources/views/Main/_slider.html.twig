@@ -1,0 +1,11 @@
+<h2 class="user-on-visibility">{{ slider.title }}</h2>
+<div class="slider" data-pager-offset="0" data-animate="width">
+  <div class="slider-container">
+    <ul class="items{% if addClass is defined %} {{ addClass }}{% endif %}">
+      <li class="loader static">Chargement ...</li>
+      {% for program in slider.programs %}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
