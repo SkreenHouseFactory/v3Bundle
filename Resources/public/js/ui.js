@@ -3,6 +3,7 @@ var UI;
 UI = {
   user: '',
   playlist: null,
+  sliders: [],
   badge_notification: '<span class="badge">%count%</span>',
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
   init: function(callback) {
@@ -13,13 +14,13 @@ UI = {
                                    function() {},
                                    $('#playlist'));
     console.log('UI.init', 'this.playlist', this.playlist);
+
     //autoload sliders
     $('.slider[data-autoload="1"]').each(function(){
-      new BaseSlider({},
-                     function() {}, 
-                     $(this));
+      self.sliders[this.id] = new BaseSlider({}, function(){}, $(this));
       console.log('UI.init', 'autoload sliders', $(this));
     });
+    //callback
     if (typeof callback != 'undefined') {
       callback();
     }

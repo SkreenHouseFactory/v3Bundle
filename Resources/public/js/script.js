@@ -250,4 +250,20 @@ $(document).ready(function(){
   // -- popover
   $('[data-content]').popover();
 
+
+  /* PAGES */
+
+  // -- channel
+  $('#onglet button').click(function(){
+    var params = {
+                  date: 'Hier',
+                  onglet: $(this).data('onglet'),
+                  access: $('access').find('.active').data('access')
+                  }
+    console.log('view', 'reset onglet', params);
+    var url = 'http://benoit.myskreen.typhon.net/api/1/recommend/from_channel/52.json?with_method=epg&programs_only=1' + $.param(params);
+    UI.sliders['channel-replay'].reset(url);
+    var url = 'http://benoit.myskreen.typhon.net/api/1/recommend/from_channel/52.json?with_method=epg&programs_only=1' + $.param(params);
+    UI.sliders['channel-epg'].reset(url);
+  });
 });

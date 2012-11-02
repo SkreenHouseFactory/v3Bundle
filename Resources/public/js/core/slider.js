@@ -36,9 +36,9 @@ var BaseSlider = Class.extend({
     }
 
     //programs
-    if (this.items.children().length > 0) {
-    console.log('BaseSlider.init', 'Programs found in DOM');
-    this.ui();
+    if ($('li:not(.static)', this.items).length > 0) {
+      console.log('BaseSlider.init', 'Programs found in DOM');
+      this.ui();
     } else if (typeof params.programs != 'undefined') {
       console.log('BaseSlider.init', 'insertPrograms');
       if (params.programs.length > 0) {
@@ -176,6 +176,11 @@ var BaseSlider = Class.extend({
         }
       });
     }
+  },
+  reset: function(url) {
+    this.remove();
+    this.elmt.data('url', url);
+    this.init({url: url}, function(){}, this.elmt);
   },
   remove: function() {
     console.log('BaseSlider.remove', this.elmt);
@@ -344,7 +349,7 @@ var BaseSlider = Class.extend({
   },
   getTemplate: function(params) {
     var title = typeof params.title != 'undefined' ? '<h2>' + params.title + '</h2>' : '';
-    var html = $('<div class="slider tv-container"' + (typeof params.data_id != 'undefined' ? ' data-id="' + params.data_id + '"' : '') + '>' + title + '<div class="slider-container"><ul class="items" data-current-position="0"><li class="loader static">Chargement ...</li></ul></div></div>');
+    var html = $('<div' + (typeof params.id != 'undefined' ? ' id="' + params.id + '"' : '') + ' class="slider tv-container"' + (typeof params.data_id != 'undefined' ? ' data-id="' + params.data_id + '"' : '') + '>' + title + '<div class="slider-container"><ul class="items" data-current-position="0"><li class="loader static">Chargement ...</li></ul></div></div>');
 
     console.log('BaseSlider.getTemplate', params, html);
     return html;
