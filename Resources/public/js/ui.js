@@ -10,9 +10,16 @@ UI = {
     this.playlist = new BaseSlider({
                                     programs: []
                                    },
-                                   function() {
-                                   }, $('#playlist'));
+                                   function() {},
+                                   $('#playlist'));
     console.log('UI.init', 'this.playlist', this.playlist);
+    //autoload sliders
+    $('.slider[data-autoload="1"]').each(function(){
+      new BaseSlider({},
+                     function() {}, 
+                     $(this));
+      console.log('UI.init', 'autoload sliders', $(this));
+    });
     if (typeof callback != 'undefined') {
       callback();
     }

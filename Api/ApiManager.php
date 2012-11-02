@@ -7,12 +7,13 @@ use Guzzle\Http\Client;
 
 class ApiManager
 {
-  protected $api_base = null;
-  protected $api_format = null;
+  protected $base = null;
+  protected $format = null;
+  public $url = null;
 
-  public function __construct($env = 'prod', $api_format = '.json') {
-    $this->api_base = $this->getApiBase($env);
-    $this->api_format = $api_format;
+  public function __construct($env = 'prod', $format = '.json') {
+    $this->base = $this->getApiBase($env);
+    $this->format = $format;
   }
 
   protected function getApiBase($env) {
@@ -25,15 +26,16 @@ class ApiManager
 
   public function fetch($url, $params = array(), $method = 'GET', $options = array()) {
 
-    $client = new Client($this->api_base, $options);
+    $client = new Client($this->base, $options);
     switch ($method) {
       case 'POST':
-        $response = $client->post($url . $this->api_format, 
+        $response = $client->post($url . $this->format, 
                                   array('accept' => 'application/json'), 
                                   $params)->send();
       break;
       case 'GET':
-        $response = $client->get($url . $this->api_format . '?' . http_build_query($params))->send();
+        $this->url = $url . $this->format . '?' . http_build_query($params);
+        $response = $client->get($this->url)->send();
       break;
     }
 

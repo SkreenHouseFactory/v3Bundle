@@ -36,19 +36,22 @@ var BaseSlider = Class.extend({
     }
 
     //programs
-    if (typeof params.programs != 'undefined') {
-      //console.log('BaseSlider.init', 'insertPrograms');
+    if (this.items.children().length > 0) {
+    console.log('BaseSlider.init', 'Programs found in DOM');
+    this.ui();
+    } else if (typeof params.programs != 'undefined') {
+      console.log('BaseSlider.init', 'insertPrograms');
       if (params.programs.length > 0) {
         this.insertPrograms(params.programs, callback);
       } else {
         callback(this.elmt);
       }
     } else if (typeof params.url != 'undefined') {
-      //console.log('BaseSlider.init', 'insertPrograms');
+      console.log('BaseSlider.init', 'insertPrograms');
       this.elmt.data('url', params.url);
       this.loadRemotePrograms(0, callback);
     } else {
-      //console.log('BaseSlider.init', 'loadRemotePrograms');
+      console.log('BaseSlider.init', 'loadRemotePrograms');
       this.loadRemotePrograms(0, callback);
     }
 

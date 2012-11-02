@@ -55,12 +55,14 @@ class MainController extends Controller
                              'with_live'  => true,
                              'with_next_live' => true,
                              'with_prev_live' => true,
-                             'img_width'  => 400,
+                             'img_width'  => 450,
                              'img_height' => 300,
                              'with_epg' => true,
-                             'with_replay' => true
+                             'with_replay' => true,
+                             'with_best_offer' => true
                            ));
-      print_r($datas);
+      //print_r($datas);
+      echo $api->url;
       return $this->render('SkreenHouseFactoryV3Bundle:Home:channel.html.twig', 
                             array('channel' => $datas)
                            );

@@ -6,7 +6,7 @@
 @sliderHeight:   210px;
 @vignetteWidth:   150px;
 @vignetteHeight:   200px;
-@vignetteBorder:  2px dashed transparent;
+@vignetteBorder:  1px solid white;
 @selectorBorder:  2px solid #BBBBBB;
 @vignetteBorderEmpty:  2px dashed #BBBBBB;
 @vignetteMargin:  0 7px 14px;
@@ -51,9 +51,10 @@
   }
 }
 .slider {
+  position: relative;
   height: @sliderHeight;
   width: 100%;
-  overflow: hidden;
+  /*overflow: hidden;*/
   clear: both;
   z-index: 1;
 
@@ -140,6 +141,7 @@
           padding: 2px;
           line-height: 1.1em;
           border-bottom-left-radius: 5px;
+          width: 65px;
           
           &.hide {
             display: none;

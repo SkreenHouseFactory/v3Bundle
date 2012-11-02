@@ -14,41 +14,4 @@
     <h2>{{ 'redirection.h1'|trans }}</h2>
     <h6>{{ 'redirection.message'|trans }}</h6>
   </div>
-
-  <script>
-
-  </script>
-
-  {# beead #}
-  <script src="http://www.beead.fr/scripts/api/beead_apiV4.js"></script>
-  <script>
-
-    if (document.referrer.match(/myskreen/) == null) {
-      setTimeout(function() {
-        document.location= '{{ url }}';
-      }, 4000);
-    
-    } else {
-      function beeadCallbackSuccess() {
-        _gaq.push(['_trackEvent', 
-                  'beead', 
-                  'beead-redirect-completed', 
-                  document.location.pathname]);
-        setTimeout(function() {
-          document.location= '{{ url }}';
-        }, 4000);
-      }
-      function beeadCallbackEmpty(){
-        _gaq.push(['_trackEvent', 
-            'beead', 
-            'beead-redirect-ploof', 
-            document.location.pathname]);
-        beeadCallbackSuccess();
-      }      BeeadAds.init({pid:2751, jsCallback: "beeadCallbackSuccess", noPubCallback: "beeadCallbackEmpty", onCloseCallback: "beeadCallbackSuccess"});
-  
-      _gaq.push(['_trackEvent', 
-                'beead', 
-                'beead-redirect-displayed', 
-                document.location.pathname]);
-    }  </script>
 {% endblock %}

@@ -9,15 +9,6 @@ $(document).ready(function(){
   // -- init
   API.init(function(){
 
-    // console
-    if( API.config.console != true || typeof console == 'undefined' || typeof console.log === 'undefined') {
-      console = {
-          log: function() {},
-          warn: function() {},
-          error: function() {}
-      };
-    }
-
     //tjs après ci-dessus : pas de console sur ie
     console.log('script', 'API.init');
 

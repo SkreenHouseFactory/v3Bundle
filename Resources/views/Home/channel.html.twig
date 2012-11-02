@@ -5,27 +5,37 @@
 
 {% block content %}
 <div class="container">
-  <p class="pull-right"><img src="{{ channel.img }}" /></p>
+  <img class="pull-left" src="{{ channel.img }}" />
   <h1>{{ channel.name }}</h2>
   
   {% if channel.live %}
-  <div class="well">
-  
-  
-  {% if channel.prev_live %}
-  <h2>Juste avant : {{ channel.prev_live.program.title }}</h2>
-  <img src="{{ channel.prev_live.program.picture }}" />
-  {% endif %}
-  
-  <h2>En ce moment : {{ channel.live.program.title }}</h2>
-  <img src="{{ channel.live.program.picture }}" />
-  
-  {% if channel.next_live %}
-  <div class="well">
-  <h2>juste après : {{ channel.next_live.program.title }}</h2>
-  <img src="{{ channel.next_live.program.picture }}" />
-  </div>
-  {% endif %}
+  <div id="lives" class="well">
+
+    <div id="prevlive">
+    {% if channel.prev_live %}
+    <h6><small>Juste avant</small><br/>{{ channel.prev_live.program.title }}</h6>
+    <img src="{{ channel.prev_live.program.picture }}" width="250" />
+    {% endif %}
+    </div>
+    
+    <div id="live">
+    {% if channel.live and channel.live.program is defined %}
+    <h2><small>En ce moment</small><br/>{{ channel.live.program.title }}</h2>
+    {#% if channel.live.player %}
+    <img src="" alt="{{ channel.live.program.title }} {{ channel.live.program.live }}" />
+    {% else if channel.live.url %}
+    <img src="" alt="{{ channel.live.program.title }} {{ channel.live.program.live }}" />
+    {% endif %#}
+    <img src="{{ channel.live.program.picture }}" />
+    {% endif %}
+    </div>
+    
+    <div id="nextlive">
+    {% if channel.next_live %}
+    <h6><small>juste après</small><br/>{{ channel.next_live.program.title }}</h6>
+    <img src="{{ channel.next_live.program.picture }}" width="250" />
+    {% endif %}
+    </div>
   
   </div>
   {% endif %}

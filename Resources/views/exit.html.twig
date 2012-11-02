@@ -23,7 +23,7 @@
       <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
 </head>
-<body class="exit" onload="if (typeof BeeadAds != 'undefined') {BeeadAds.gateway();}">
+<body class="exit" onload="ad(function(){ BeeadAds.gateway(); });">
 
 {% block content %}
 {% endblock %}
@@ -44,5 +44,62 @@
     var s = document.body.appendChild(ga); 
     })(); 
 </script>
+
+{# beead #}
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.0.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*' 
+    filter='?yui_js' 
+    output='js/compiled/v3-redirect.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+<script src="http://www.beead.fr/scripts/api/beead_apiV4.js"></script>
+<script>
+API.init();
+function ad(callback) {
+  var cookie = API.cookie('ad');
+  if ((document.referrer && document.referrer.match(/myskreen/) == null) || (cookie && cookie != null)) {
+    console.log('BeeAd', 'disabled');
+    setTimeout(function() {
+      document.location= '{{ url }}';
+    }, 4000);
+  
+  } else {
+    console.log('BeeAd', 'enabled');
+
+    var date = new Date();
+    date.setTime(date.getTime() + (12 * 3600 * 1000));
+    API.cookie('ad', 'hascookie',  date);
+    console.log('setCookie', date);
+
+    function beeadCallbackSuccess() {
+      _gaq.push(['_trackEvent', 
+                'beead', 
+                'beead-redirect-completed', 
+                document.location.pathname]);
+      setTimeout(function() {
+        document.location= '{{ url }}';
+      }, 4000);
+    }
+    function beeadCallbackEmpty(){
+      _gaq.push(['_trackEvent', 
+          'beead', 
+          'beead-redirect-ploof', 
+          document.location.pathname]);
+      beeadCallbackSuccess();
+    }    BeeadAds.init({pid:2751,
+                   jsCallback: "beeadCallbackSuccess", 
+                   noPubCallback: "beeadCallbackEmpty", 
+                   onCloseCallback: "beeadCallbackSuccess"});
+    setTimeout(callback, 500);
+    _gaq.push(['_trackEvent', 
+              'beead', 
+              'beead-redirect-displayed', 
+              document.location.pathname]);
+  }
+}</script>
+
 </body>
 </html>
