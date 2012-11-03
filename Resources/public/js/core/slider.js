@@ -198,6 +198,10 @@ var BaseSlider = Class.extend({
       console.warn('BaseSlider.loadRemotePrograms', 'already loading');
       return;
     }
+    
+    if (!this.elmt.hasClass('loading')) {
+      this.elmt.addClass('loading');
+    }
 
     var self = this;
 
@@ -205,7 +209,7 @@ var BaseSlider = Class.extend({
       $('li:not(.static)', this.elmt).remove();
     }
 
-    var args = $.extend(args, this.params);
+    var args = $.extend(args, this.params, {url: ''}); //overwrite url params
     var url = this.getUrl(typeof offset != 'undefined' ? offset : 0);
     API.query('GET',
               url, 
@@ -228,7 +232,7 @@ var BaseSlider = Class.extend({
               });
   },
   getUrl: function(offset){
-    var url = this.elmt.data('id') ? 'www/slider/pack/' + this.elmt.data('id') + '.json'  : this.elmt.data('url');
+    var url = !isNaN(this.elmt.data('id')) ? 'www/slider/pack/' + this.elmt.data('id') + '.json'  : this.elmt.data('url');
     return url .replace('session.uid', Skhf.session.uid)
                .replace('access.name', Skhf.session.access ? Skhf.session.access : 'undefined')
                + (url.indexOf('?') == -1 ? '?' : '&')

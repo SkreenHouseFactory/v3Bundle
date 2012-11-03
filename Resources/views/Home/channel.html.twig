@@ -21,11 +21,11 @@
     <div id="live">
     {% if channel.live and channel.live.program is defined %}
     <h2><small>En ce moment</small><br/>{{ channel.live.program.title }}</h2>
-    {#% if channel.live.player %}
-    <img src="" alt="{{ channel.live.program.title }} {{ channel.live.program.live }}" />
-    {% else if channel.live.url %}
-    <img src="" alt="{{ channel.live.program.title }} {{ channel.live.program.live }}" />
-    {% endif %#}
+    {% if channel.live.player is defined %}
+    <img src="" alt="{{ 'channel.live.program.title'|trans }} {{ 'channel.live.program.live'|trans }}" /> {{ channel.live.player }}
+    {% elseif channel.live.url is defined %}
+    <img src="" alt="{{ 'channel.live.program.title'|trans }} {{ 'channel.live.program.live'|trans }}" /> {{ channel.live.url }}
+    {% endif %}
     <img src="{{ channel.live.program.picture }}" />
     {% endif %}
     </div>
@@ -39,39 +39,32 @@
   
   </div>
   {% endif %}
-
-
-  <ul class="nav nav-pills">
-    <li class="dropdown active">
-      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Choisir une date <b class="caret"></b></a>
-      <ul class="dropdown-menu">
-        <li><a href="#">Il y a plus d'une semaine</a></li>
-        <li><a href="#">La semaine dernière</a></li>
-        <li><a href="#">Hier</a></li>
-        <li class="divider"></li>
-        <li><a href="#">Demain</a></li>
-        <li><a href="#">La semaine prochaine</a></li>
-        <li><a href="#">Dans plus d'une semaine</a></li>
-      </ul>
-    </li>
-    <li><a href="#">Hier soir</a></li>
-    <li><a href="#">Ce soir</a></li>
-  </ul>
   
-  <div id="access" class="btn-group pull-right" data-toggle="buttons-radio">
-    <button data-onglet="" type="button" class="btn btn-primary active">Tout</button>
-    <button data-onglet="deporte" type="button" class="btn">Sur mySkreen</button>
-    <button data-onglet="ios" type="button" class="btn">Sur iOS</button>
+  {#<div id="access" class="btn-group" data-toggle="buttons-radio" style="z-index: 10;">
+    <button data-access="" type="button" class="trigger-channel btn btn-primary active">Tout</button>
+    <button data-access="deporte" type="button" class="trigger-channel btn">Sur mySkreen</button>
+    <button data-access="ios" type="button" class="trigger-channel btn">Sur iOS</button>
+  </div>#}
+  <div id="onglet" class="pull-right btn-group" data-toggle="buttons-radio">
+    <button data-onglet="" type="button" class="trigger-channel btn btn-primary active">Tout</button>
+    <button data-onglet="films" type="button" class="trigger-channel btn">Films</button>
+    <button data-onglet="emissions" type="button" class="trigger-channel btn">Emissions</button>
+    <button data-onglet="series" type="button" class="trigger-channel btn">Séries</button>
+    <button data-onglet="documentaires" type="button" class="trigger-channel btn">Documentaires</button>
+    <button data-onglet="sports" type="button" class="trigger-channel btn">Sports</button>
+    <button data-onglet="spectacles" type="button" class="trigger-channel btn">Spectacles</button>
   </div>
-  <div id="onglet" class="btn-group" data-toggle="buttons-radio">
-    <button data-onglet="" type="button" class="btn btn-primary active">Tout</button>
-    <button data-onglet="films" type="button" class="btn">Films</button>
-    <button data-onglet="emissions" type="button" class="btn">Emissions</button>
-    <button data-onglet="series" type="button" class="btn">Séries</button>
-    <button data-onglet="documentaires" type="button" class="btn">Documentaires</button>
-    <button data-onglet="sports" type="button" class="btn">Sports</button>
-    <button data-onglet="spectacles" type="button" class="btn">Spectacles</button>
-  </div>
+
+  <select id="date" class="trigger-channel-date">
+    <option></option>
+    <option data-hide="epg">Il y a plus d'une semaine</option>
+    <option data-hide="epg">La semaine dernière</option>
+    <option data-hide="epg">Hier</option>
+    <option data-hide="replay">Aujourd'hui</option>
+    <option data-hide="replay">Demain</option>
+    <option data-hide="replay">La semaine prochaine</option>
+    <option data-hide="replay">Dans plus d'une semaine</option>
+  </select>
   
   {% if channel.has_replay %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {title: 'channel.replay'|trans({'%website%': channel.has_replay}), 
