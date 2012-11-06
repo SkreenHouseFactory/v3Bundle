@@ -10,6 +10,7 @@ page:
 channel:
     replay: Replay avec %website%
     epg: A venir sur %name%
+    live: Voir le direct
 player:
     live:
       deporte: Sur mySkreen

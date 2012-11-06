@@ -1,8 +1,13 @@
-<div id="top-bar" class="navbar navbar-inverse">
+<div id="top-bar" class="navbar navbar-inverse couchmode-overlay">
 <div class="navbar-inner">
 <div class="container">
 <div class="nav-collapse">
-  <ul class="pull-right nav">
+  <ul class="pull-right nav hide couchmode-on">
+    <li class="divider-vertical"></li>
+    <li><a href="#" class="couchmode-close"><i class="icon-remove icon-white"></i> Eteindre ma télé</a></li>
+    <li class="divider-vertical"></li>
+  </ul>
+  <ul class="pull-right nav couchmode-off">
     <li class="divider-vertical"></li>
     <li class="user-off">
       <a class="signin" href="#"><i class="sprite-user"></i> {{ 'nav.menu.account.off'|trans }}</a>
@@ -57,7 +62,7 @@
 </div>
 </div>
 
-<div id="top-nav">
+<div id="top-nav" class="couchmode-off">
   <div class="subnav subnav-fixed">
     <div class="container">
       <ul id="shortcuts" class="pull-right">

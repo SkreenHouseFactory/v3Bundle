@@ -23,7 +23,7 @@
       <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
 </head>
-<body class="exit" onload="ad(function(){ BeeadAds.gateway(); });">
+<body class="exit" onload="ad();">
 
 {% block content %}
 {% endblock %}
@@ -57,13 +57,39 @@
 {% endjavascripts %}
 <script src="http://www.beead.fr/scripts/api/beead_apiV4.js"></script>
 <script>
+BeeadAds.init({pid:2751,
+                jsCallback: "beeadCallbackSuccess", 
+                noPubCallback: "beeadCallbackEmpty", 
+                onCloseCallback: "beeadCallbackSuccess"});
+
 API.init();
+
+function beeadCallbackSuccess(completed) {
+  _gaq.push(['_trackEvent', 
+            'beead', 
+            'beead-redirect-completed', 
+            document.location.pathname]);
+  setTimeout(function() {
+    //document.location= '{{ url }}';
+  }, 4000);
+}
+function beeadCallbackEmpty(){
+  _gaq.push(['_trackEvent', 
+      'beead', 
+      'beead-redirect-ploof', 
+      document.location.pathname]);
+  setTimeout(function() {
+    //document.location= '{{ url }}';
+  }, 4000)
+}
+
 function ad(callback) {
   var cookie = API.cookie('ad');
-  if ((document.referrer && document.referrer.match(/myskreen/) == null) || (cookie && cookie != null)) {
+  if ((document.referrer && document.referrer.match(/myskreen/) == null) || 
+      (cookie && cookie != null)) {
     console.log('BeeAd', 'disabled');
     setTimeout(function() {
-      document.location= '{{ url }}';
+      //document.location= '{{ url }}';
     }, 4000);
   
   } else {
@@ -73,27 +99,7 @@ function ad(callback) {
     date.setTime(date.getTime() + (12 * 3600 * 1000));
     API.cookie('ad', 'hascookie',  date);
     console.log('setCookie', date);
-
-    function beeadCallbackSuccess() {
-      _gaq.push(['_trackEvent', 
-                'beead', 
-                'beead-redirect-completed', 
-                document.location.pathname]);
-      setTimeout(function() {
-        document.location= '{{ url }}';
-      }, 4000);
-    }
-    function beeadCallbackEmpty(){
-      _gaq.push(['_trackEvent', 
-          'beead', 
-          'beead-redirect-ploof', 
-          document.location.pathname]);
-      beeadCallbackSuccess();
-    }    BeeadAds.init({pid:2751,
-                   jsCallback: "beeadCallbackSuccess", 
-                   noPubCallback: "beeadCallbackEmpty", 
-                   onCloseCallback: "beeadCallbackSuccess"});
-    setTimeout(callback, 1000);
+    BeeadAds.gateway();
     _gaq.push(['_trackEvent', 
               'beead', 
               'beead-redirect-displayed', 

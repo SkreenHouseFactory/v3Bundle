@@ -4,48 +4,56 @@
 {% block title %}{{ 'page.channel.home'|trans({'%name%': channel.name}) }}{% endblock %}
 
 {% block content %}
-<div class="container">
-  <img class="pull-left" src="{{ channel.img }}" />
+<div id="view-channel" class="container">
+  <img class="channel-logo pull-left" src="{{ channel.img }}" />
   <h1>{{ channel.name }}</h2>
   
+  
+  <h2>En ce moment</h2>
+
   {% if channel.live %}
   <div id="lives" class="well">
 
-    <div id="prevlive">
+    <div class="relatedlive" id="prevlive">
     {% if channel.prev_live %}
-    <h6><small>Juste avant</small><br/>{{ channel.prev_live.program.title }}</h6>
+    <h5><small>Juste avant - {{ channel.prev_live.broadcast.broadcast_begin|date('H:i') }}</small><br/>{{ channel.prev_live.program.title }}</h5>
     <img src="{{ channel.prev_live.program.picture }}" width="250" />
     {% endif %}
     </div>
     
-    <div id="live">
+    
     {% if channel.live and channel.live.program is defined %}
-    <h2><small>En ce moment</small><br/>{{ channel.live.program.title }}</h2>
+    <div id="live" style="background-image:url({{ channel.live.program.picture }});">
+    <h2><small>En ce moment - {{ channel.live.broadcast.broadcast_begin|date('H:i') }}</small><br/>{{ channel.live.program.title }}</h2>
     {% if channel.live.player is defined %}
-    <img src="" alt="{{ 'channel.live.program.title'|trans }} {{ 'channel.live.program.live'|trans }}" /> {{ channel.live.player }}
+      <a class="btn btn-large btn-primary" href="#" title="{{ channel.name }} direct" data-couchmode="{{ {'type': 'channel', 'id': channel.id}|json_encode }}"><i class="icon-play icon-white"></i> &nbsp; {{ 'channel.live'|trans }}</a>
     {% elseif channel.live.url is defined %}
-    <img src="" alt="{{ 'channel.live.program.title'|trans }} {{ 'channel.live.program.live'|trans }}" /> {{ channel.live.url }}
+      <a class="btn btn-large btn-primary" href="/exit/live/{{ channel.name }}/{{ channel.live.program.title }}?url={{ channel.live.url|url_encode }}" title="{{ channel.name }} direct"><i class="icon-share icon-white"></i> &nbsp; {{ 'channel.live'|trans }}</a>
     {% endif %}
-    <img src="{{ channel.live.program.picture }}" />
+    {% else %}
+    <div id="live">
+    <p class="alert">Pas de direct</p>
     {% endif %}
     </div>
     
-    <div id="nextlive">
+    <div class="relatedlive" id="nextlive">
     {% if channel.next_live %}
-    <h6><small>juste après</small><br/>{{ channel.next_live.program.title }}</h6>
+    <h5><small>à venir - {{ channel.next_live.broadcast.broadcast_begin|date('H:i') }}</small><br/>{{ channel.next_live.program.title }}</h5>
     <img src="{{ channel.next_live.program.picture }}" width="250" />
     {% endif %}
     </div>
   
   </div>
   {% endif %}
+  <br/>
   
-  {#<div id="access" class="btn-group" data-toggle="buttons-radio" style="z-index: 10;">
+  
+  {#<div data-channel-id="{{ channel.id }}" id="access" class="btn-group" data-toggle="buttons-radio" style="z-index: 10;">
     <button data-access="" type="button" class="trigger-channel btn btn-primary active">Tout</button>
     <button data-access="deporte" type="button" class="trigger-channel btn">Sur mySkreen</button>
     <button data-access="ios" type="button" class="trigger-channel btn">Sur iOS</button>
   </div>#}
-  <div id="onglet" class="pull-right btn-group" data-toggle="buttons-radio">
+  <div data-channel-id="{{ channel.id }}" id="onglet" class="pull-right btn-group" data-toggle="buttons-radio">
     <button data-onglet="" type="button" class="trigger-channel btn btn-primary active">Tout</button>
     <button data-onglet="films" type="button" class="trigger-channel btn">Films</button>
     <button data-onglet="emissions" type="button" class="trigger-channel btn">Emissions</button>
@@ -55,15 +63,15 @@
     <button data-onglet="spectacles" type="button" class="trigger-channel btn">Spectacles</button>
   </div>
 
-  <select id="date" class="trigger-channel-date">
-    <option></option>
-    <option data-hide="epg">Il y a plus d'une semaine</option>
-    <option data-hide="epg">La semaine dernière</option>
-    <option data-hide="epg">Hier</option>
-    <option data-hide="replay">Aujourd'hui</option>
-    <option data-hide="replay">Demain</option>
-    <option data-hide="replay">La semaine prochaine</option>
-    <option data-hide="replay">Dans plus d'une semaine</option>
+  <select data-channel-id="{{ channel.id }}" id="date" class="trigger-channel-date">
+    <option>Quand ?</option>
+    <option data-show="replay">Plus d'une semaine</option>
+    <option data-show="replay">La semaine dernière</option>
+    <option data-show="replay">Hier</option>
+    <option data-show="epg">Aujourd'hui</option>
+    <option data-show="epg">Demain</option>
+    <option data-show="epg">Cette semaine</option>
+    <option data-show="epg">Au delà</option>
   </select>
   
   {% if channel.has_replay %}
@@ -79,5 +87,9 @@
                                                                                 id: 'channel-epg', 
                                                                                 url: '/recommend/from_channel/' ~ channel.name ~ '.json?with_method=epg'}} %}
   {% endif %}
+
+  <br/>
+  <hr/>
+  <br/>
 </div>
 {% endblock %}

@@ -1,23 +1,57 @@
 /* channel page */
-
-#lives {
-  position: relative;
-}
-#prevlive {
-position: absolute;
-left: 10px;
-top: 100px;
-width: 250px;
-}
-#live {
-box-shadow: 1px 2px 5px #555;
-z-index: 2;
-margin: 0 250px;
-padding: 10px;
-}
-#nextlive {
-position: absolute;
-right: 10px;
-top: 100px;
-width: 250px;
+#view-channel {
+  img.channel-logo {
+    margin-right: 10px;
+    vertical-align: top;
+    margin-top: 5px;
+  }
+  
+  #lives {
+    position: relative;
+  
+    .relatedlive {
+      position: absolute;
+      top: 20px;
+      width: 220px;
+      height: 250px;
+      overflow: hidden;
+    
+      &#prevlive {
+        left: 10px;
+       }
+      &#nextlive {
+        right: 10px;
+       }
+    }
+    
+  
+    #live {
+      text-align: center;
+      box-shadow: 1px 2px 5px #555;
+      z-index: 5;
+      margin: 0 260px;
+      height: 320px;
+      color: whiteSmoke;
+      position: relative;
+      background-color: #222;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: hidden;
+  
+      h2 {
+        opacity: 0.9;
+        text-align: left;
+        margin: 0;
+        position: absolute;
+        bottom: 0;
+        background: #222;
+        font-weight: normal;
+        padding: 7px;
+        width: 100%;
+      }
+      a {
+        margin-top: 20%;
+      }
+    }
+  }
 }

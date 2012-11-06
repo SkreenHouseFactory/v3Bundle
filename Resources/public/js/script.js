@@ -173,6 +173,7 @@ $(document).ready(function(){
       console.log('script', 'player redirect', $(this));
       UI.loadRedirect($(this).attr('href'));
 
+    //player
     } else if ($(this).data('player')) {
       console.log('script', 'player embed', $(this));
       UI.loadPlayer($(this));
@@ -187,6 +188,13 @@ $(document).ready(function(){
 
     return false;
   });
+  //couchmode
+  $('[data-couchmode]').click(function(){
+      var args = $.extend({session_uid: Skhf.session.uid}, $(this).data('couchmode'));
+      console.log('script', 'data-couchmode', args);
+      Couchmode.init(args);
+  });
+      
   // -- .fav : retirer / popover
   $('.actions .fav').live('hover', function(event) {
     //console.log('script', '.fav:hover', event.type);
@@ -251,7 +259,7 @@ $(document).ready(function(){
   $('[data-content]').popover();
 
   // -- btn-radio
-  $('.btn-radio button').click(function(){
+  $('[data-toggle="buttons-radio"] button').click(function(){
     $('button', $(this).parent()).removeClass('active btn-primary');
     $(this).addClass('active btn-primary');
   });
@@ -261,9 +269,9 @@ $(document).ready(function(){
 
   // -- channel
   $('.trigger-channel').click(function(){
-    UI.refreshChannel();
+    UI.refreshChannel($(this).parent().data('channel-id'));
   });
   $('.trigger-channel-date').change(function(){
-    UI.refreshChannel();
+    UI.refreshChannel($(this).data('channel-id'));
   });
 });

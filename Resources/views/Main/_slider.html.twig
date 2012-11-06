@@ -1,4 +1,4 @@
-<h2 class="user-on-visibility">{{ slider.title }}</h2>
+<h2{% if slider.id is defined %} id="{{ slider.id }}-title"{% endif %} class="user-on-visibility">{{ slider.title }}</h2>
 <div{% if slider.id is defined %} id="{{ slider.id }}"{% endif %}{% if slider.url is defined %} url="{{ slider.url }}"{% endif %} class="slider" data-autoload="1" data-pager-offset="0" data-animate="width">
   <div class="slider-container">
     <ul class="items{% if addClass is defined %} {{ addClass }}{% endif %}">

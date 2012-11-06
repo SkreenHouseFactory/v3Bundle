@@ -488,31 +488,49 @@ UI = {
       }
     });
   },
-  refreshChannel: function(){
+  keynav: function(){
+  },
+  focus: function(){
+  },
+  error: function(){
+  },
+  refreshChannel: function(channel_id){
     
-    var args = {date: $('#date').val(),
+    var args = {
                 onglet: $('#onglet button.active').data('onglet'),
-                access: $('#access button.active').data('access'),
-                url: null};
-    var option = $('#date').find(':selected');
-    //option.data('hide') == 'replay' / 'epg'
+                //access: $('#access button.active').data('access'),
+                url: null
+               };
+
+    var option = $('.trigger-channel-date').find(':selected');
+    var show   = option.data('show');
+    switch (show) {
+      case 'epg':
+        $('#channel-epg, #channel-epg-title').show();
+        $('#channel-replay, #channel-replay-title').hide();
+      break;
+      case 'replay':
+        $('#channel-epg, #channel-epg-title').hide();
+        $('#channel-replay, #channel-replay-title').show();
+        console.log($('#channel-replay, #channel-replay-title'));
+      break;
+      default:
+        $('#channel-epg, #channel-epg-title, #channel-replay, #channel-replay-title').show();
+      break;
+    }
 
     console.log('view channel', 'reset', args);
 
-    if (option.data('hide') != 'replay') {
-      args.date = 'Replay';
-      var url = 'recommend/from_channel/52.json?with_method=epg&' + $.param(args);
+    if (!show || show == 'replay') {
+      args.date = !show ? 'Replay' : option.val();
+      var url = 'recommend/from_channel/' + channel_id + '.json?with_method=epg&' + $.param(args);
       UI.sliders['channel-replay'].reset(url);
-    } else {
-      UI.sliders['channel-replay'].elmt.hide();
     }
 
-    if (option.data('hide') != 'epg') {
-      args.date = 'Epg';
-      var url = 'recommend/from_channel/52.json?with_method=epg&' + $.param(args);
+    if (!show || show == 'epg') {
+      args.date = !show ? 'Epg' : option.val();
+      var url = 'recommend/from_channel/' + channel_id + '.json?with_method=epg&' + $.param(args);
       UI.sliders['channel-epg'].reset(url);
-    } else {
-      UI.sliders['channel-replay'].elmt.hide();
     }
   }
 }

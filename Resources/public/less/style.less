@@ -5,8 +5,11 @@
 @import "../bootstrap/less/responsive.less";
 @import "modal.less";
 
+@import "/bundles/skreenhousefactorytv/less/couchmode.less";
+
 /* ===== v3 =================================================================
    ========================================================================== */
+
 
 /* vars */
 
@@ -153,46 +156,48 @@ h6 {
       .nav-collapse {
         
         > ul.nav {
+          &.hide {
+            display: none;
+          }
   
           > li {
             line-height: 45px;
-  
+
             > a {
               color: #EFEFEF;
               padding: 10px;
-  
-              &.hide {
-                display: none;
-              }
+
               &.signin {
                 padding: 8px 14px 4px;
               }
-    
+
               &.user {
                 max-width: 160px;
                 text-overflow: ellipsis;
                 overflow: hidden;
               }
-              
+
               .badge {
                 margin-right: 5px;
               }
             }
-  
-  
-            
+
+            &.hide {
+              display: none;
+            }
+
             &.divider-vertical {
               height: 65px;
               margin: 0px;
             }
-            
+
             &.notifications {
               ul {
                 > div {
                   height: 315px;
                   overflow-y: auto;
                   overflow-x: hidden;
-  
+
                   li {
                     width: 400px;
                     font-size: 0.9em;
