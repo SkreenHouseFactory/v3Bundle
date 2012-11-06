@@ -23,15 +23,17 @@ var BaseSlider = Class.extend({
 
     //scroll ?
     if (this.params.scroll != 'no') {
-      this.elmt.append('<a class="next badge badge-inverse"><i class="icon-chevron-right icon-white"></i></a>');
-      this.elmt.append('<a class="prev badge badge-inverse"><i class="icon-chevron-left icon-white"></i></a>');
+      if (this.elmt.find('.prev, .next').length == 0) {
+        this.elmt.append('<a class="next badge badge-inverse"><i class="icon-chevron-right icon-white"></i></a>');
+        this.elmt.append('<a class="prev badge badge-inverse"><i class="icon-chevron-left icon-white"></i></a>');
+      }
     } else {
       this.elmt.addClass('no-scroll');
     }
 
     //li sample
     if (this.sample == null) {
-      this.sample = $('<div>').append($('li.slider-sample').clone().removeClass('slider-sample')).html();
+      this.sample = $('<div>').append($('li.slider-sample:first').clone().removeClass('slider-sample')).html();
       //console.log('BaseSlider.init', 'this.sample', this.sample);
     }
 

@@ -84,10 +84,20 @@ function beeadCallbackEmpty(){
 }
 
 function ad(callback) {
+
+  _gaq.push(['_trackEvent', 
+            'beead', 
+            'beead-called', 
+            document.location.pathname]);
+
   var cookie = API.cookie('ad');
   if ((document.referrer && document.referrer.match(/myskreen/) == null) || 
       (cookie && cookie != null)) {
     console.log('BeeAd', 'disabled');
+    _gaq.push(['_trackEvent', 
+              'beead', 
+              'beead-has-cookie', 
+              document.location.pathname]);
     setTimeout(function() {
       document.location= '{{ url }}';
     }, 4000);
