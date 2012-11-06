@@ -70,7 +70,7 @@ function beeadCallbackSuccess(completed) {
             'beead-redirect-completed', 
             document.location.pathname]);
   setTimeout(function() {
-    //document.location= '{{ url }}';
+    document.location= '{{ url }}';
   }, 4000);
 }
 function beeadCallbackEmpty(){
@@ -79,7 +79,7 @@ function beeadCallbackEmpty(){
       'beead-redirect-ploof', 
       document.location.pathname]);
   setTimeout(function() {
-    //document.location= '{{ url }}';
+    document.location= '{{ url }}';
   }, 4000)
 }
 
@@ -89,7 +89,7 @@ function ad(callback) {
       (cookie && cookie != null)) {
     console.log('BeeAd', 'disabled');
     setTimeout(function() {
-      //document.location= '{{ url }}';
+      document.location= '{{ url }}';
     }, 4000);
   
   } else {
