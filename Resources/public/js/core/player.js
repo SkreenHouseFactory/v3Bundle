@@ -16,6 +16,7 @@ Player = {
       //this.type = 'html5';
     }
 
+    return this;
   },
   load: function(trigger) {
     var self = this;
@@ -216,39 +217,43 @@ Player = {
       break;
       case 'html5':
       case 'flowplayer':
-        $f(this.elmt.attr('id')).stop();
+        if (player = $f(this.elmt.attr('id'))) {
+          player.stop();
+        }
       break;
     }
 
     if (this.elmt.data('playing-id')) {
       this.elmt.data('playing-id', '');
     }
+    this.elmt.empty();
   },
   playProgram: function(id, callback) {
     var self = this;
-    return API.query('GET',
-                     'player/program/' + id + '.json',
-                     {
-                      player_width: '100%', 
-                      player_height: '100%',
-                      control: 'disabled',
-                      player: this.type,
-                      fullHD: true
-                     },
-                     function(media){
-                      console.log('Player.playProgram', media.player);
+    API.query('GET',
+              'player/program/' + id + '.json',
+              {
+              player_width: '100%', 
+              player_height: '100%',
+              control: 'disabled',
+              player: this.type,
+              fullHD: true
+              },
+              function(media){
+              console.log('Player.playProgram', media.player);
 
-                      if (!media.player || typeof media.player == 'undefined') {
-                        //TODO handle errors
-                        UI.error('Oups : vidéo indisponible !');
-                        return false;
-                      }
-                      self.play(media.player, callback);
-                      self.elmt.data('playing-id', id);
+              if (!media.player || typeof media.player == 'undefined') {
+                //TODO handle errors
+                callback('unvailable');
+                //UI.error('Oups : vidéo indisponible !');
+                return false;
+              }
+              self.play(media.player, callback);
+              self.elmt.data('playing-id', id);
 
-                      return true;
-                     }, 
-                     true);
+              return true;
+              }, 
+              true);
   },
   loadMetaProgram: function(p) {
     var el = $('.actions', this.elmt);

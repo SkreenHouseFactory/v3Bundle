@@ -1,10 +1,6 @@
 $(document).ready(function(){
   
   //Modernizr.load();
-  
-  Skhf = {
-    session: null
-  }
 
   // -- init
   API.init(function(){
@@ -274,4 +270,7 @@ $(document).ready(function(){
   $('.trigger-channel-date').change(function(){
     UI.refreshChannel($(this).data('channel-id'));
   });
+  if (channel_name = $('#view-channel h1').html()) {
+    $('[title="'+channel_name+' Replay"]').parent().addClass('active');
+  }
 });

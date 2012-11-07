@@ -60,7 +60,12 @@ API = {
           error: function() {}
       };
     }
-    
+
+    //session
+    Skhf = {
+      session: null
+    }
+
     //callback
     if (typeof callback != 'undefined') {
       callback();

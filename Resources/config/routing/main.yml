@@ -2,11 +2,12 @@
 homepage:
     pattern:  /
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home }
-channel:
-    pattern:  /channel/{id}-{slug}
+channel_replay:
+    pattern:  /replay/{id}-{slug}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:channel }
     requirements:
         id: \d+
+        slug: .*
 postproxy:
     pattern:  /proxy
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:proxy }
@@ -33,6 +34,11 @@ player_live:
 player_redirect:
     pattern:  /redirection/{target}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, target: null, template: redirect }
+    requirements:
+        target: .*
+player_exit_with_infos:
+    pattern:  /exit/{type}/{name}/{title}?url={url}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }
     requirements:
         target: .*
 player_exit:

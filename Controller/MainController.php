@@ -48,7 +48,6 @@ class MainController extends Controller
     */
     public function channelAction(Request $request)
     {
-
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
       $datas = $api->fetch('channel/'.$request->get('id'), 
                            array(
@@ -57,7 +56,7 @@ class MainController extends Controller
                              'with_prev_live' => true,
                              'img_width' => 150,
                              'img_height' => 200,
-                             'live_img_width' => 500,
+                             'live_img_width' => 300,
                              'live_img_height' => 300,
                              'with_epg' => true,
                              'with_replay' => true,
@@ -65,6 +64,12 @@ class MainController extends Controller
                            ));
       //print_r($datas);
       //echo $api->url;
+      //echo $datas->seo_url.' = '.$request->get('slug');
+      
+      if (str_replace('/sur-', '', $datas->seo_url) != $request->get('slug')) {
+        throw $this->createNotFoundException('La chaîne n\'existe pas');
+      }
+      
       return $this->render('SkreenHouseFactoryV3Bundle:Home:channel.html.twig', 
                             array('channel' => $datas)
                            );

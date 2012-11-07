@@ -277,6 +277,7 @@ var BaseSlider = Class.extend({
       li.css('background-image', 'url(' + program.picture + ')');
       $('.actions', li).data('id', program.id);
       li.attr('data-position', k);
+      li.data('player-program', JSON.stringify(program));
 
       //notif : FIX
       //if (Skhf.session.datas.notifications &&

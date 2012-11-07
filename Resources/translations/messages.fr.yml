@@ -7,6 +7,7 @@ page:
         home: Trouver, voir et revoir
         redirect: Redirection en cours ...
         cinema.boxoffice: Cinéma, tous les films en salle commençant par %alpha%
+        channel: %name%
 channel:
     replay: Replay avec %website%
     epg: A venir sur %name%
@@ -83,7 +84,9 @@ nav:
         account:
             on: Vos playlists
             off: Se connecter
-        tv: Allumer la TV
+        tv: 
+            on: Allumer la TV
+            off: Eteindre la TV
     subnav:
         vod: VOD
         tv: TV & Replay
@@ -163,8 +166,8 @@ action:
         streaming: Voir en streaming
         cine: Voir en salle
         dvd: Voir en dvd
-        replay: Bientôt en replay
-        rec: Voir en replay
+        replay: Voir en replay
+        rec: Bientôt en replay
         tv: A la télé
 seo:
   title:

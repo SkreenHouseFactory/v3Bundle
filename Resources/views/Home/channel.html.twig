@@ -1,15 +1,13 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
 
-{% block title %}{{ 'page.channel.home'|trans({'%name%': channel.name}) }}{% endblock %}
+{% block title %}{{ 'page.title.channel'|trans({'%name%': channel.name}) }}{% endblock %}
 
 {% block content %}
 <div id="view-channel" class="container">
+  <br/>
   <img class="channel-logo pull-left" src="{{ channel.img }}" />
   <h1>{{ channel.name }}</h2>
-  
-  
-  <h2>En ce moment</h2>
 
   {% if channel.live %}
   <div id="lives" class="well">
@@ -20,15 +18,14 @@
     <img src="{{ channel.prev_live.program.picture }}" width="250" />
     {% endif %}
     </div>
-    
-    
+
     {% if channel.live and channel.live.program is defined %}
     <div id="live" style="background-image:url({{ channel.live.program.picture }});">
     <h2><small>En ce moment - {{ channel.live.broadcast.broadcast_begin|date('H:i') }}</small><br/>{{ channel.live.program.title }}</h2>
     {% if channel.live.player is defined %}
-      <a class="btn btn-large btn-primary" href="#" title="{{ channel.name }} direct" data-couchmode="{{ {'type': 'channel', 'id': channel.id}|json_encode }}"><i class="icon-play icon-white"></i> &nbsp; {{ 'channel.live'|trans }}</a>
+      <a class="btn btn-large btn-primary link-v2" href="{{ channel.live.program.seo_url }}" title="{{ channel.name }} direct" disabled-data-couchmode="{{ {'type': 'channel', 'id': channel.id}|json_encode }}"><i class="icon-play icon-white"></i> &nbsp; {{ 'channel.live'|trans }}</a>
     {% elseif channel.live.url is defined %}
-      <a class="btn btn-large btn-primary" href="/exit/live/{{ channel.name }}/{{ channel.live.program.title }}?url={{ channel.live.url|url_encode }}" title="{{ channel.name }} direct"><i class="icon-share icon-white"></i> &nbsp; {{ 'channel.live'|trans }}</a>
+      <a class="btn btn-large btn-primary" target="_blank" href="{{ path('player_exit_with_infos', {type: 'live', name: channel.name, title: channel.live.program.title, url: channel.live.url|url_encode }) }}" title="{{ channel.name }} direct"><i class="icon-share icon-white"></i> &nbsp; {{ 'channel.live'|trans }}</a>
     {% endif %}
     {% else %}
     <div id="live">
