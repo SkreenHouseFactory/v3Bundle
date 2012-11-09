@@ -4,11 +4,11 @@ var BaseSession = Class.extend({
   datas: {},
   onglet: '',
   access: '',
-  init: function(callback) {
+  init: function(callback, args) {
     //session
     this.uid = API.cookie('uid');
     if (API.context == 'v3') {
-      this.sync(callback);
+      this.sync(callback, args);
     }
   },
   sync: function(callback, args) {
@@ -45,6 +45,7 @@ var BaseSession = Class.extend({
     this.uid = this.datas.uid;
     API.cookie('session_uid', this.uid);
     if (this.datas.email) {
+      this.user = this.datas.email;
       UI.loadUser();
     }
   },
@@ -57,6 +58,7 @@ var BaseSession = Class.extend({
 
     this.datas = '';
     this.uid = '';
+    this.user = '';
 
     API.cookie('session_uid', null);
     API.cookie('playlist_collapsed', null);

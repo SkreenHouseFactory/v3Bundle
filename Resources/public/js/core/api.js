@@ -71,13 +71,13 @@ API = {
       callback();
     }
   },
-  quickLaunchModal: function(action, callbackOnHide, callbackOnLoad) {
-    this.launchModal(this.config.popin + action, callbackOnHide);
+  quickLaunchModal: function(action, callbackOnLoad) {
+    this.launchModal(this.config.popin + action, callbackOnLoad);
   },
-  launchModal: function(url, callbackOnHide, callbackOnLoad) {
-    console.log('API.launchModal', url);
+  launchModal: function(url, callbackOnLoad) {
+    console.log('API.launchModal enter', url, callbackOnLoad);
     if (this.context == 'v2') {
-      this.postMessage(['modal', url, callbackOnHide]);
+      this.postMessage(['modal', url]);
       return;
     }
 
@@ -88,15 +88,12 @@ API = {
                  {session_uid: Skhf.session.uid,
                   proxy: 'v3'}, 
                  function(json){
-                  //console.log('API.launchModal', 'redirect:' + json.redirect);
+                  console.log('API.launchModal', 'redirect:' + json.redirect, 'callbackOnLoad', callbackOnLoad);
                   if (typeof json.redirect != 'undefined') {
-                    API.launchModal(json.redirect, callbackOnHide, callbackOnLoad);
+                    API.launchModal(json.redirect, callbackOnLoad);
                   } else if (json.html) {
                     $('.modal .modal-body').html(json.html);
-                    API.catchFormModal(callbackOnHide);
-                    if (typeof callbackOnLoad != 'undefined') {
-                      callbackOnLoad();
-                    }
+                    API.catchFormModal(callbackOnLoad);
                   }
                 });
     } else {
@@ -104,23 +101,15 @@ API = {
     }
 
     $('.modal').modal();
-    $('.modal').on('hide', function(e){
-      //e.preventDefault();
-      console.log("on('hide')", callbackOnHide);
-      if (typeof callbackOnHide != 'undefined') {
-        callbackOnHide();
-      }
-    });
 
     this.currentModalUrl = url;
   },
-  catchFormModal: function(callbackOnHide) {
+  catchFormModal: function(callbackOnLoad) {
     var self = this;
     var modal = $('.modal');
     console.log('API.catchFormModal', 'catch form');
 
     //form
-    //$('.modal-body form input:first', modal).focus();
     $('.modal-footer', modal).html($('form input[type="submit"]', modal).attr('onclick','').addClass('btn-large btn-primary'));
     $('.modal-footer', modal).append(' <a href="#" class="close">Fermer</a>');
     $('.modal-footer input[type="submit"]', modal).click(function(e){
@@ -136,12 +125,12 @@ API = {
       //  args[n['name']] = n['value'];
       //});
       self.query('POST', form.attr('action'), args, function(json){
-        console.log('API.catchFormModal', 'callbackOnHide', json);
+        console.log('API.catchFormModal', json);
         if (typeof json.redirect != 'undefined') {
-          self.launchModal(json.redirect, callbackOnHide);
+          self.launchModal(json.redirect, callbackOnLoad);
         } else {
           $('.modal .modal-body').empty().html(json.html);
-          self.catchFormModal(callbackOnHide);
+          self.catchFormModal(callbackOnLoad);
         }
       });
       return false;
@@ -154,8 +143,17 @@ API = {
     } else {
       $('.modal-header h3', modal).html($('#part-header h1', modal).html());
     }
+    //input dpad
+    $('input:visible:not(.tv-component)', modal).addClass('tv-component tv-component-input');
+    $('.btn:visible:not(.tv-component)', modal).addClass('tv-component');
+    $('input[type="text"], input[type="email"], input[type="password"]', modal).attr('autocomplete', 'off');
     
+    //error
     $('.error_list').addClass('alert alert-error').removeClass('error_list');
+
+    if (typeof callbackOnLoad != 'undefined') {
+      callbackOnLoad();
+    }
 
   },
   typeahead: function(keywords) {
@@ -165,7 +163,7 @@ API = {
       return json;
     });
   },
-  addPreference: function(parameter, value, trigger, callback, parcours) {
+  addPreference: function(parameter, value, callback, parcours) {
     this.query('POST', 'preference/flag.json', {session_uid:Skhf.session.uid, type:parameter, value:value, parcours:parcours}, function(json){
       console.log('API.addPreference', 'callback', parameter, value, json);
       if (json.success) {
@@ -179,7 +177,7 @@ API = {
       }
     });
   },
-  removePreference: function(parameter, value, trigger, callback) {
+  removePreference: function(parameter, value, callback) {
     this.query('POST', 'preference/unflag.json', {session_uid: Skhf.session.uid, type:parameter, value:value}, function(json){
       console.log('API.removePreference', 'success:' + json.success, 'callback:' + callback, parameter, value, json);
       if (json.success) {
@@ -193,13 +191,13 @@ API = {
       }
     });
   },
-  togglePreference: function(parameter, value, trigger, callback, parcours){
+  togglePreference: function(parameter, value, callback, parcours){
     var self = this;
-    console.log('API.togglePreference', parameter, value, trigger);
+    console.log('API.togglePreference', parameter, value);
     if ($.inArray('' + value, Skhf.session.datas.queue) != -1) {
-      self.removePreference(parameter, value, trigger, callback);
+      self.removePreference(parameter, value, callback);
     } else {
-      self.addPreference(parameter, value, trigger, callback, parcours);
+      self.addPreference(parameter, value, callback, parcours);
     }
   },
   markAsRed: function(id){

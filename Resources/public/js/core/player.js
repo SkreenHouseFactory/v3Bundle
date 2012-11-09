@@ -217,16 +217,20 @@ Player = {
       break;
       case 'html5':
       case 'flowplayer':
-        if (player = $f(this.elmt.attr('id'))) {
-          player.stop();
+        if (this.elmt != null) {
+          if (player = $f(this.elmt.attr('id'))) {
+            player.stop();
+          }
         }
       break;
     }
 
-    if (this.elmt.data('playing-id')) {
-      this.elmt.data('playing-id', '');
+    if (this.elmt != null) {
+      if (this.elmt.data('playing-id')) {
+        this.elmt.data('playing-id', '');
+      }
+      this.elmt.empty();
     }
-    this.elmt.empty();
   },
   playProgram: function(id, callback) {
     var self = this;

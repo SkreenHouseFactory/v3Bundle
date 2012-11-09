@@ -30,7 +30,7 @@ UI = {
     var value = trigger.parent().data('id');
     var remove = trigger.hasClass('btn-primary') || trigger.hasClass('btn-danger') ? true : false;
     if (Skhf.session.datas.email) {
-      API.togglePreference('like', value, trigger, function(value){
+      API.togglePreference('like', value, function(value){
         console.log('UI.togglePlaylistProgram', 'callback', value, trigger);
         if (remove && $('.friends', trigger.parent().parent()).length == 0) { //pas pour le slider social
           $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
