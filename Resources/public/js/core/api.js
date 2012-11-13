@@ -13,6 +13,7 @@ ENV = {
   dev: {
         env: 'dev',
         site_url: 'http://beta.' + DEV + '.myskreen.typhon.net:40011',
+        v3_root: '/app_dev.php/',
         base: 'http://' + DEV + '.myskreen.typhon.net/api/',
         popin: 'https://' + DEV + '.myskreen.typhon.net/popin/',
         domain: DEV + '.myskreen.typhon.net',
@@ -21,6 +22,7 @@ ENV = {
   preprod: {
         env: 'preprod',
         site_url: 'http://preprod.beta.myskreen.com',
+        v3_root: '/app.php/',
         base: 'http://preprod.api.myskreen.com/api/',
         popin: 'https://preprod.api.myskreen.com/popin/',
         domain: 'preprod.beta.myskreen.com',
@@ -29,6 +31,7 @@ ENV = {
   prod: {
         env: 'prod',
         site_url: 'http://www.myskreen.com',
+        v3_root: '/',
         base: 'http://api.myskreen.com/api/',
         popin: 'https://api.myskreen.com/popin/',
         domain: 'www.myskreen.com',
