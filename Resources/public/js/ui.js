@@ -59,6 +59,17 @@ UI = {
     this.user = Skhf.session.datas.email;
     if (Skhf.session.datas.email) {
       $('.user span').html(Skhf.session.datas.email);
+      if (Skhf.session.datas.fb_uid) {
+        $('.share btn-group').html(Skhf.session.datas.email);
+        $('.share .share-on').show();
+        $('.share .share-off').hide();
+        if (Skhf.session.datas.disallow_notify) {
+          $('.share [data-notify="disallow"]').trigger('click');
+        }
+      } else {
+        $('.share .share-on').hide();
+        $('.share .share-off').show();
+      }
       $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
       $('.user-on-visibility').css('visibility','visible');
       $('li.selector:not(.empty)').popover('disable').popover('hide');

@@ -19,7 +19,17 @@
     <li class="hide user-on dropdown">
       {#<a class="signout" href="#"><i class="icon-ban-circle icon-white"></i></a>#}
       {#<a  data-toggle="collapse" data-target="#top-playlist" class="" href="#"><i class="icon-resize-vertical icon-white"></i></a>#}
-      <a data-toggle="dropdown" class="dropdown-toggle user" href="#"><span></span></a>
+      <span class="share">
+        <a href="#" class="text share-off">Activez le partage facebook &raquo;</a>
+        <span class="text share-on">Partage Facebook</span>
+        <span class="btn-group share-on" data-toggle="buttons-radio">
+          <a class="btn btn-small btn-primary" data-notify="allow">on</a>
+          <a class="btn btn-small" data-notify="disallow">off</a>
+        </span>
+      </span>
+      <a data-toggle="dropdown" class="dropdown-toggle user" href="#">
+        <span class="username"></span>
+      </a>
       <ul class="dropdown-menu">
         <li><a class="favoris" href="{{ path('user_programs') }}" target="_parent"><i class="icon-list-alt"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
         <li><a class="account" href="#"><i class="icon-cog"></i> {{ 'nav.account'|trans }}</a></li>

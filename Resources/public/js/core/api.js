@@ -224,7 +224,10 @@ API = {
         typeof Slider != 'undefined') {
       $.extend(data, {'img_height': Slider.item_height, 'img_width': Slider.item_width});
     }
-    $.extend(data, {fromWebsite: 'v3'});
+    
+    if (typeof data.fromWebsite == 'undefined') {
+      $.extend(data, {fromWebsite: 'v3'});
+    }
 
     var post = {};
     // Currently, proxy POST requests
@@ -243,7 +246,7 @@ API = {
         //console.log(data, 'url.indexOf', url.indexOf('?'));
         url += url.indexOf('?') == -1 ? '?' : '&';
         for (var key in data) {
-           url += key+'='+data[key]+'&';
+           url += key+'='+escape(data[key])+'&';
         }
         data=null;
       }

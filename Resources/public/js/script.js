@@ -8,18 +8,17 @@ $(document).ready(function(){
     //tjs après ci-dessus : pas de console sur ie
     console.log('script', 'API.init');
 
+    // ui
+    UI.init(function(){
+      console.log('script', 'UI.init', 'callback');
+    });
+
     // sync v2
     if (top.location != self.document.location) {
       API.syncV2(function(){
         //callback sync
       });
     }
-
-    // ui
-    UI.init(function(){
-      console.log('script', 'UI.init', 'callback');
-    });
-
     // -- session
     Skhf.session = new Session(function(){
       console.log('script', 'context', API.context);
@@ -60,6 +59,20 @@ $(document).ready(function(){
       var current = $('#top-bar .notifications li:not(.divider, .empty)').length;
       $('#top-bar .notifications-count span.badge').removeClass('badge-important').html(current);
     }
+  });
+  $('.share .btn').click(function(){
+    if ($(this).data('notify') == 'disallow') {
+      API.addPreference('disallow_notify', 1, function(){});
+    } else {
+      API.removePreference('disallow_notify', 1, function(){});
+    }
+  });
+  
+  $('.share a.share-off').click(function(){
+    if (API.context == 'v2') {
+      API.postMessage(["modal", "facebook"]);
+    }
+    return false;
   });
 
   // -- ui nav
@@ -254,9 +267,12 @@ $(document).ready(function(){
   // -- popover
   $('[data-content]').popover();
 
+  // -- tooltip
+  $('[rel="tooltip"]').tooltip();
+
   // -- btn-radio
-  $('[data-toggle="buttons-radio"] button').click(function(){
-    $('button', $(this).parent()).removeClass('active btn-primary');
+  $('[data-toggle="buttons-radio"] > *').click(function(){
+    $('> *', $(this).parent()).removeClass('active btn-primary');
     $(this).addClass('active btn-primary');
   });
   

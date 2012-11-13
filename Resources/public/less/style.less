@@ -161,12 +161,38 @@ h6 {
           > li {
             line-height: 45px;
 
+            .share {
+              opacity: 0.8;
+              position: absolute;
+              top: -14px;
+              right: 10px;
+              .text {
+                position: absolute;
+                line-height: 15px;
+                font-size: 0.8em;
+                width: 150px;
+                top: 17px;
+                right: 0px;
+                text-align: right;
+                color: #EFEFEF;
+                
+                &.share-on {
+                  right: 45px;
+                }
+              }
+              .btn-small {
+                padding: 0 2px;
+              }
+            }
+
             > a {
               color: #EFEFEF;
-              padding: 10px;
+              padding: 13px 10px 7px;
 
               &.signin {
                 padding: 8px 14px 4px;
+                vertical-align: top;
+                margin-top: 2px;
               }
 
               &.user {
@@ -445,7 +471,7 @@ h6 {
         }
       }
       &.tv-channel {
-        padding: 2px 0 0 3px;
+        padding: 2px 0 0 4px;
         border-left: 0;
   
         a {

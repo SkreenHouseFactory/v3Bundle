@@ -65,11 +65,11 @@ class MainController extends Controller
       //print_r($datas);
       //echo $api->url;
       //echo $datas->seo_url.' = '.$request->get('slug');
-      
-      if (str_replace('/sur-', '', $datas->seo_url) != $request->get('slug')) {
+
+      if ($datas->seo_url != '/replay/'.$request->get('id').'-'.$request->get('slug')) {
         throw $this->createNotFoundException('La chaîne n\'existe pas');
       }
-      
+
       return $this->render('SkreenHouseFactoryV3Bundle:Home:channel.html.twig', 
                             array('channel' => $datas)
                            );

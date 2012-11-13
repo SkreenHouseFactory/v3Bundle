@@ -6,10 +6,11 @@ Player = {
   timeoutdelay: 5000,
   type: 'flowplayer',
   state: 'stopped',
+  elmt_meta: '<div id="player-meta" class="actions couchmode-overlay"></div>',
   //player
   init: function(elmt) {
     this.elmt = elmt;
-    this.elmt.empty();
+    this.reset();
 
     var flashversion = flashembed.getVersion()[0];
     if (UI.ios || !flashversion) {
@@ -17,6 +18,9 @@ Player = {
     }
 
     return this;
+  },
+  reset: function() {
+    this.elmt.html(this.elmt_meta);
   },
   load: function(trigger) {
     var self = this;
@@ -229,41 +233,45 @@ Player = {
       if (this.elmt.data('playing-id')) {
         this.elmt.data('playing-id', '');
       }
-      this.elmt.empty();
+      this.reset();
     }
   },
-  playProgram: function(id, callback) {
+  playProgram: function(id, callback, args) {
     var self = this;
+    var args = $.extend(true,
+                        {
+                          player_width: '100%', 
+                          player_height: '100%',
+                          control: 'disabled',
+                          player: this.type,
+                          fullHD: true
+                        }, 
+                        typeof args != 'undefined' ? args : {});
     API.query('GET',
               'player/program/' + id + '.json',
-              {
-              player_width: '100%', 
-              player_height: '100%',
-              control: 'disabled',
-              player: this.type,
-              fullHD: true
-              },
+              args,
               function(media){
-              console.log('Player.playProgram', media.player);
+                console.log('Player.playProgram', media.player, args);
 
-              if (!media.player || typeof media.player == 'undefined') {
-                //TODO handle errors
-                callback('unvailable');
-                //UI.error('Oups : vidéo indisponible !');
-                return false;
-              }
-              self.play(media.player, callback);
-              self.elmt.data('playing-id', id);
-
-              return true;
+                if (!media.player || typeof media.player == 'undefined') {
+                  //TODO handle errors
+                  callback('unvailable');
+                  //UI.error('Oups : vidéo indisponible !');
+                  return false;
+                }
+                self.play(media.player, callback);
+                self.elmt.data('playing-id', id);
+  
+                return true;
               }, 
               true);
   },
   loadMetaProgram: function(p) {
     var el = $('.actions', this.elmt);
+    console.log('Player.loadMetaProgram', this.elmt, el, p);
     el.data('id', p.id);
     el.data('title', 'Ajout à vos playlists<br/><small>' + p.title + ', ' + p.format + ' - ' + p.year + '</small>');
-    el.html('<b>' + p.title + '</b></span><br/><a class="btn btn-large fav">Suivre / voir plus tard</a><span>');
+    el.html('<h4>' + p.title + '<br/><small>' + p.format + ' - ' + p.year + '</small></h4>');//<br/><a class="btn btn-large fav">Suivre / voir plus tard</a><span>');
   },
   minify: function() {
     $('#header').collapse('show');
