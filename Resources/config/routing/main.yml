@@ -19,6 +19,9 @@ user_programs:
 user_playlist:
     pattern:  /playlist/{username}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:playlist }
+user_blacklist:
+    pattern:  /newsletter/unsubscribe
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:blacklist }
 
 #cinema
 cinema_boxoffice:

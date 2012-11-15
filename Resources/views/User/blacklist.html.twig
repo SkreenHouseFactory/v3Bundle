@@ -1,0 +1,26 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}Newsletter : désinscription{% endblock %}
+
+{% block content %}
+<br/>
+<br/>
+<div class="container well">
+  <h3>Ne plus recevoir de mail de mySkreen</h3>
+  <br/>
+  {% if error %}
+  <p class="alert alert-error">{{ error }}</p>
+  {% endif %}
+  {% if unsubscribed %}
+  <p class="alert alert-success">{{ unsubscribed }}</p>
+  {% endif %}
+  <form class="form-horizontal" method="post">
+  <div class="control-group">
+    <label class="control-label" for="inputEmail">Indiquez votre email</label>
+    <div class="controls">
+      <input type="text" name="email" id="inputEmail" placeholder="Email" value="{{ app.request.request.get('email') }}"> <input type="submit" value="Se désinscrire" class="btn" />
+    </div>
+  </div>
+  </form>
+</div>
+{% endblock %}

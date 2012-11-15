@@ -14,11 +14,39 @@ namespace SkreenHouseFactory\v3Bundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\Email;
 
 use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 
 class UserController extends Controller
 {
+    /**
+    *
+    */
+    public function blacklistAction(Request $request)
+    {
+      $unsubscribed = null;
+      $error = null;
+      if ($request->request->get('email')) {
+        $emailConstraint = new Email();
+        $errorList = $this->get('validator')->validateValue($request->request->get('email'), $emailConstraint);
+        
+        if (count($errorList) == 0) {
+          $api = new ApiManager($this->container->getParameter('kernel.environment'));
+          $unsubscribed = $api->fetch('user/blacklist',
+                                      array('email' => $request->request->get('email')),
+                                      'POST');
+        } else {
+          $error = 'Email invalide';
+        }
+      }
+      //print_r($unsubscribed);
+      return $this->render('SkreenHouseFactoryV3Bundle:User:blacklist.html.twig', array(
+        'unsubscribed' => $unsubscribed->success,
+        'error' => $error
+      ));
+    }
+  
     /**
     *
     */

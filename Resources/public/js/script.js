@@ -1,17 +1,13 @@
 $(document).ready(function(){
   
   //Modernizr.load();
+  UI.loadFilters('home');
 
   // -- init
   API.init(function(){
 
     //tjs après ci-dessus : pas de console sur ie
     console.log('script', 'API.init');
-
-    // ui
-    UI.init(function(){
-      console.log('script', 'UI.init', 'callback');
-    });
 
     // sync v2
     if (top.location != self.document.location) {
@@ -27,6 +23,11 @@ $(document).ready(function(){
 
     // -- ad
     UI.cheat();
+  });
+
+  // ui
+  UI.init(function(){
+    console.log('script', 'UI.init', 'callback');
   });
 
   // -- ui user
@@ -76,16 +77,6 @@ $(document).ready(function(){
   });
 
   // -- ui nav
-  /** link-force
-    $('.subnav .nav li').click(function(){
-    if ($('#top-filters #top-baseline').css('display') == 'block') {
-      $('#top-filters #top-baseline, #top-filters .nav-pills').toggle();
-    }
-    $('.subnav .nav li.active').removeClass('active');
-    UI.loadFilters(this.className);
-    $(this).addClass('active');
-    API.postMessage(['header','collapse']);
-  });*/
   $('#top-filters > ul > li').click(function(e){
     $('#top-filters > ul > li').removeClass('active');
     $(this).addClass('active');
