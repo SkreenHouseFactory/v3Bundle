@@ -23,7 +23,7 @@
       <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
 </head>
-<body class="exit" data-onload="ad();">
+<body class="exit" onload="ad();">
 
 {% block content %}
 {% endblock %}
@@ -84,6 +84,12 @@ function beeadCallbackEmpty(){
 }
 
 function ad() {
+  
+    setTimeout(function() {
+      document.location= '{{ url }}';
+    }, 4000);
+    return false;
+  
 
   _gaq.push(['_trackEvent', 
             'beead', 
