@@ -43,7 +43,7 @@ class UserController extends Controller
       }
       //print_r($unsubscribed);
       return $this->render('SkreenHouseFactoryV3Bundle:User:blacklist.html.twig', array(
-        'unsubscribed' => $unsubscribed->success,
+        'unsubscribed' => is_object($unsubscribed) ? $unsubscribed->success : null,
         'error' => $error
       ));
     }
