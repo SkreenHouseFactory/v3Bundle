@@ -34,7 +34,8 @@ class UserController extends Controller
         if (count($errorList) == 0) {
           $api = new ApiManager($this->container->getParameter('kernel.environment'));
           $unsubscribed = $api->fetch('user/blacklist',
-                                      array('email' => $request->request->get('email')),
+                                      array('email' => $request->request->get('email'),
+                                            'notifications' => $request->get('notifications')),
                                       'POST');
         } else {
           $error = 'Email invalide';

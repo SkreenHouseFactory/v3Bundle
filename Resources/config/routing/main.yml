@@ -22,6 +22,9 @@ user_playlist:
 user_blacklist:
     pattern:  /newsletter/unsubscribe
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:blacklist }
+user_blacklist_notifications:
+    pattern:  /notifications/unsubscribe
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:blacklist, notifications: 1 }
 
 #cinema
 cinema_boxoffice:
