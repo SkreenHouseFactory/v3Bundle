@@ -6,7 +6,7 @@
 <br/>
 <br/>
 <div class="container well">
-  <h3>Ne plus recevoir de mail de mySkreen</h3>
+  <h3>Ne plus recevoir {% if app.request.get('notifications') %}le TV Guide personnalisé{% else %}la Newsletter{% endif%} de mySkreen</h3>
   <br/>
   {% if error %}
   <p class="alert alert-error">{{ error }}</p>
