@@ -20,7 +20,8 @@ Player = {
     return this;
   },
   reset: function() {
-    this.elmt.html(this.elmt_meta);
+    $(this.elmt_meta).remove();
+    $(this.elmt_meta).insertBefore(this.elmt);
   },
   load: function(trigger) {
     var self = this;
@@ -163,7 +164,7 @@ Player = {
           console.warn(['Player.flowplayer', 'html', Player.elmt.html()]);
           
         } else {
-          console.warn(['Player.flowplayer', 'flash', player, flowArgs]);
+          console.warn(['Player.flowplayer', 'flash', flowArgs, flowArgs]);
           $f(this.elmt.attr('id'), flashArgs, flowArgs);
         }
       break;
@@ -267,7 +268,7 @@ Player = {
               true);
   },
   loadMetaProgram: function(p) {
-    var el = $('.actions', this.elmt);
+    var el = $('#player-meta');
     console.log('Player.loadMetaProgram', this.elmt, el, p);
     el.data('id', p.id);
     el.data('title', 'Ajout à vos playlists<br/><small>' + p.title + ', ' + p.format + ' - ' + p.year + '</small>');
