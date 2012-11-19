@@ -9,6 +9,11 @@ $(document).ready(function(){
     //tjs après ci-dessus : pas de console sur ie
     console.log('script', 'API.init');
 
+    // ui
+    UI.init(function(){
+      console.log('script', 'UI.init', 'callback');
+    });
+
     // sync v2
     if (top.location != self.document.location) {
       API.syncV2(function(){
@@ -23,11 +28,6 @@ $(document).ready(function(){
 
     // -- ad
     UI.cheat();
-  });
-
-  // ui
-  UI.init(function(){
-    console.log('script', 'UI.init', 'callback');
   });
 
   // -- ui user
