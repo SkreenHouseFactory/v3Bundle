@@ -1,7 +1,4 @@
 $(document).ready(function(){
-  
-  //Modernizr.load();
-  UI.loadFilters('home');
 
   // -- init
   API.init(function(){
@@ -9,10 +6,8 @@ $(document).ready(function(){
     //tjs après ci-dessus : pas de console sur ie
     console.log('script', 'API.init');
 
-    // ui
-    UI.init(function(){
-      console.log('script', 'UI.init', 'callback');
-    });
+    //Modernizr.load();
+    UI.loadFilters('home');
 
     // sync v2
     if (top.location != self.document.location) {
@@ -28,6 +23,11 @@ $(document).ready(function(){
 
     // -- ad
     UI.cheat();
+  });
+
+  // ui
+  UI.init(function(){
+    console.log('script', 'UI.init', 'callback');
   });
 
   // -- ui user
