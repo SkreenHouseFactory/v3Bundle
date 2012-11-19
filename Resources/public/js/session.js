@@ -34,12 +34,13 @@ var Session = BaseSession.extend({
     //}
     //UI.playlist.addClass('loading');
 
+    console.log('Session.initSelector', this.datas.email, this.onglet, onglet, 'reload:' + reload);
+
     //require authenticated user
     if (!this.datas.email) {
+      UI.loadSelector();
       return null;
     }
-
-    console.log('Session.initSelector', this.datas.email, this.onglet, onglet, 'reload:' + reload);
     var self = this;
 
     //already loaded

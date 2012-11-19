@@ -322,10 +322,12 @@ API = {
   },
   trackEvent: function(var1, var2, var3) {
     //return; //hack test visites ga
-    _gaq.push(['_trackEvent', 
-                var1, 
-                var1 + '-' + var2, 
-                var3]);
+    if (typeof _gaq != 'undefined') {
+      _gaq.push(['_trackEvent', 
+                  var1, 
+                  var1 + '-' + var2, 
+                  var3]);
+    }
   },
   linkV2: function(url, force, callback) {
     console.log('API.linkV2', this.context, url, this.currentUrl, 'force:' + force, callback);

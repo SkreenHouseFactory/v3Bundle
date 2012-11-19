@@ -27,7 +27,7 @@
           <a class="btn btn-small" data-notify="disallow">off</a>
         </span>
       </span>
-      <a data-toggle="dropdown" class="dropdown-toggle user" href="#">
+      <a data-toggle="dropdown" class="dropdown-toggle tv-component user" href="#">
         <span class="username"></span>
       </a>
       <ul class="dropdown-menu">
@@ -38,25 +38,13 @@
     </li>
     <li class="divider-vertical hide user-on"></li>
     <li class="hide user-on dropdown">
-      <a data-toggle="collapse" data-target="#top-playlist" class="" href="#">{{ 'playlist.yours'|trans }} <i class="icon-chevron-down icon-white"></i></a>
+      <a data-toggle="collapse" data-target="#top-playlist" class="tv-component" href="#">{{ 'playlist.yours'|trans }} <i class="icon-chevron-down icon-white"></i></a>
     </li>
     <li class="divider-vertical hide user-on"></li>
     <li class="hide user-on dropdown notifications">
-      <a data-toggle="dropdown" class="dropdown-toggle btn-last notifications-count" href="#"></a>
+      <a data-toggle="dropdown" class="dropdown-toggle tv-component btn-last notifications-count" href="#"></a>
       <ul class="dropdown-menu">
         <div><li class="empty"><h6>{{ 'notifications.empty.title'|trans }}<small>{{ 'notifications.empty.text'|trans }}</small></h6></li></div>
-        {#
-        <li class="nav-header">{{ 'nav.filter'|trans }}</li>
-        <li><a class="link-v2 films" href="/films">{{ 'nav.films'|trans }}</a></li>
-        <li><a class="link-v2 documentaires" href="/documentaires">{{ 'nav.documentaires'|trans }}</a></li>
-        <li><a class="link-v2 emissions" href="/emissions">{{ 'nav.emissions'|trans }}</a></li>
-        <li><a class="link-v2 series" href="/series">{{ 'nav.series'|trans }}</a></li>
-        <li><a class="link-v2 spectacles" href="/spectacles">{{ 'nav.spectacles'|trans }}</a></li>
-        <li class="divider"></li>
-        <li><a class="link-v2 films" href="/films">Ce soir à la TV</a></li>
-        <li class="divider"></li>
-        <li><a class="link-v2 films" href="/films">Dans vos cinémas préférés</a></li>
-        #}
       </ul>
     </li>
     <li class="divider-vertical"></li>

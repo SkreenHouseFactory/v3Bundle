@@ -52,6 +52,7 @@ $(document).ready(function(){
     return false;
   });
   $('.user-on .dropdown-toggle').click(function(){
+
     if (!$('#top-playlist').hasClass('in')) {
       $('#top-playlist').collapse('show');
     }
@@ -194,7 +195,7 @@ $(document).ready(function(){
       console.log('script', 'data-couchmode', args);
       Couchmode.init(args);
   });
-      
+
   // -- .fav : retirer / popover
   $('.actions .fav').live('hover', function(event) {
     //console.log('script', '.fav:hover', event.type);
@@ -235,13 +236,13 @@ $(document).ready(function(){
     UI.loadPlayer($(this));
     return false;
   });
-  
+
   // -- ui redirect autoload
   if ($('#redirect iframe').length > 0) {
     console.log('UI.loadRedirect()', $('#redirect iframe').length);
     UI.loadRedirect();
   }
-  
+
   // -- nav-alpha-client
   $('.pagination-client-alpha li').click(function(){
     console.log('script', 'nav-alpha-client', '[data-alpha="' + $('a', this).html() + '"]', $('[data-alpha="' + $('a', this).html() + '"]'));
@@ -266,8 +267,7 @@ $(document).ready(function(){
     $('> *', $(this).parent()).removeClass('active btn-primary');
     $(this).addClass('active btn-primary');
   });
-  
-  
+
   /* PAGES */
 
   // -- channel
@@ -279,5 +279,16 @@ $(document).ready(function(){
   });
   if (channel_name = $('#view-channel h1').html()) {
     $('[title="'+channel_name+' Replay"]').parent().addClass('active');
+  }
+  
+  /* TOUCH */
+  if ($('html').hasClass('touch')) {
+    $('html.touch .tv-component, html.touch .tv-component *').live('touchstart', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+
+      $(this).trigger('click');
+      return false;
+    });
   }
 });
