@@ -142,8 +142,8 @@ UI = {
         $(this).parent().slideUp('slow').remove();
         
         //count
-        var current = parseInt($('#top-bar .notifications-count .badge').html()) -1;
-        $('#top-bar .notifications-count .badge').html(current >= 0 ? current : 0);
+        var current = parseInt($('#top-bar .notifications-count .badge').html()) - 1;
+        $('#top-bar .notifications-count .badge').html(parseInt(current) > 0 ? current : 0);
         if (current == 0) {
           $('#top-bar .notifications li.empty').show();
         }
