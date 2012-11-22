@@ -168,13 +168,17 @@ API = {
   },
   addPreference: function(parameter, value, callback, parcours) {
     this.query('POST', 'preference/flag.json', {session_uid:Skhf.session.uid, type:parameter, value:value, parcours:parcours}, function(json){
-      console.log('API.addPreference', 'callback', parameter, value, json);
+      console.log('API.addPreference', 'callback', parameter, value, json, callback);
       if (json.success) {
-        Skhf.session.datas.queue.push('' + value);
+        if (Skhf.session.datas.queue == null) {
+          Skhf.session.datas.queue = [value];
+        } else {
+          Skhf.session.datas.queue.push('' + value);
+        }
         var added = new Array();
         added.push(value);
         UI.loadUserPrograms(added);
-        if (typeof callback != 'undefined') {
+        if (typeof callback != 'undefined' && callback != null) {
           callback(value);
         }
       }
