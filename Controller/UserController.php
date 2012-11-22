@@ -77,7 +77,7 @@ class UserController extends Controller
       }
 
       //print_r(array($session_uid, $programs));
-      return $this->render('SkreenHouseFactoryV3Bundle:User:programs.html.twig', array(
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:programs.html.twig', array(
         'menus'    => null,
         'onglets'  => array('films', 'documentaires', 'series', 'emissions', 'spectacles'),
         'alpha'    => array(1,2,3,4,5,6,7,8,9,
@@ -85,5 +85,11 @@ class UserController extends Controller
         'alpha_available' => $alpha_available,
         'programs' => $programs
       ));
+
+      $response->setPrivate();
+      $response->setMaxAge(0);
+      $response->headers->addCacheControlDirective('no-cache');
+
+      return $response;
     }
 }

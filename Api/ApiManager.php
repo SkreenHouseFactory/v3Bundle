@@ -11,16 +11,16 @@ class ApiManager
   protected $format = null;
   public $url = null;
 
-  public function __construct($env = 'prod', $format = '.json') {
-    $this->base = $this->getApiBase($env);
+  public function __construct($env = 'prod', $format = '.json', $version = 1) {
+    $this->base = $this->getApiBase($env, $version);
     $this->format = $format;
   }
 
-  protected function getApiBase($env) {
+  protected function getApiBase($env, $version) {
     if ($env == 'dev') {
-      return 'http://benoit.myskreen.typhon.net/api/1/';
+      return 'http://benoit.myskreen.typhon.net/api/' . $version . '/';
     } else {
-      return 'http://api.myskreen.com/api/1/';
+      return 'http://api.myskreen.com/api/' . $version . '/';
     }
   } 
 
