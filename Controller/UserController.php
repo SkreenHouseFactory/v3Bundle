@@ -55,7 +55,12 @@ class UserController extends Controller
     {
       $session_uid = $request->cookies->get('myskreen_session_uid');
       $onglet      = $request->get('onglet');
-      
+
+
+      if (!$session_uid) {
+        return $this->redirect('http://www.myskreen.com');
+      }
+
       //programs
       $api = new ApiManager($this->container->getParameter('kernel.environment'));
       $programs = $api->fetch('www/slider/queue/' . $session_uid, 
