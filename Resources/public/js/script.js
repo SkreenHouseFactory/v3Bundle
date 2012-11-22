@@ -89,7 +89,7 @@ $(document).ready(function(){
     return false;
   });
   $('#top-bar form.navbar-search').submit(function(){
-    var q = $('.search-query', this).val());
+    var q = encodeURIComponent($('.search-query', this).val());
     console.log('search', '/programmes/' + q);
     if (q) {
       API.linkV2('/programmes/' + q);
