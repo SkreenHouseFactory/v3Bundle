@@ -66,7 +66,8 @@ class UserController extends Controller
                                      'onglet'     => $onglet));
       //print_r($programs);
       //not connected ?
-      if (isset($programs->error) && $programs->error) {
+      if (isset($programs->error) && 
+          $programs->error) {
         return $this->redirect('http://www.myskreen.com');
       }
 
@@ -89,6 +90,7 @@ class UserController extends Controller
       $response->setPrivate();
       $response->setMaxAge(0);
       $response->headers->addCacheControlDirective('no-cache');
+      $response->headers->addCacheControlDirective('must-revalidate');
 
       return $response;
     }
