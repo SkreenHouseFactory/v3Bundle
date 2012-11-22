@@ -284,12 +284,10 @@ UI = {
     });
   },
   markAsRed: function(id) {
-    $('li[data-id="' + id + '"] .badge').remove();
-    var remaining = parseInt($('.notifications .badge').html())-1;
-    if (remaining == 0) {
-      $('.notifications .badge').remove();
-    } else {
-      $('.notifications .badge').html(parseInt($('.notifications .badge').html())-1);
+    $('.notifications ul li[data-id="' + id + '"] .badge').remove();
+    var remaining = parseInt($('.notifications-count .badge').html())-1;
+    if (remaining > 0) {
+      $('.notifications-count .badge').html(remaining);
     }
   },
   loadPlayer: function(trigger) {
