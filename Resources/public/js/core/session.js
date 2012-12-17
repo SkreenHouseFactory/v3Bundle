@@ -107,9 +107,9 @@ var BaseSession = Class.extend({
       }
     } else {
 
-      API.query('GET', 
+      API.query('GET',
                 'www/slider/social/' + this.uid + '.json', 
-                {onglet: this.onglet, nb_results: 1}, 
+                {onglet: this.onglet, nb_results: 1, img_width: BaseSlider.img_width, img_height: BaseSlider.img_height}, 
                 function(json) {
                   console.log('BaseSession.initSocial', 'offset:' + offset, 'error:' + json.error);
                   if (typeof json.error == 'undefined') {

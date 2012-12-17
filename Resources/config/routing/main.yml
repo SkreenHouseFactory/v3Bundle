@@ -47,6 +47,7 @@ player_exit_with_infos:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }
     requirements:
         target: .*
+        title: .*
 player_exit:
     pattern:  /exit/{target}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }

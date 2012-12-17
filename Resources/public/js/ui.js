@@ -367,7 +367,8 @@ UI = {
     var cookie = API.cookie('ad');
     console.log('UI.ad', 'cookie:' + cookie);
     //unknown : mark as todisplay
-    /*if (cookie == null || !cookie){
+    /*
+    if (cookie == null || !cookie){
       API.cookie('ad', 'todisplay');
       API.postMessage(['javascript', 'if (!$(\'body\').hasClass(\'has_adulte\') && !$(\'body\').hasClass(\'withoutBeead\')) { $(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : to-display</p>\'); }']);
     //todisplay
