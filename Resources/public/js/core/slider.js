@@ -330,7 +330,7 @@ var BaseSlider = Class.extend({
       } else if (o.url) {
         //console.log('BaseSlider.addProgramBestOffer', 'add url', o.url);
         //si context = v3
-        if (API.context == 'v3') {
+        if (API.context == 'v3' || o.url.match(/\/redirection\//)) {
           btn.attr('data-redirect', 1).attr('href', o.url);
         } else {
           var host = 'http://' + document.location.host;
