@@ -109,6 +109,7 @@ class MainController extends Controller
                               array('curl.CURLOPT_SSL_VERIFYHOST' => 0, 
                                     'curl.CURLOPT_SSL_VERIFYPEER' => 0));
 
+      //echo 'HERE';exit();
       return new Response(json_encode($response));
     }
 }

@@ -178,6 +178,8 @@ API = {
         var added = new Array();
         added.push(value);
         UI.loadUserPrograms(added);
+        
+        Skhf.session.sync();
         if (typeof callback != 'undefined' && callback != null) {
           callback(value);
         }
@@ -192,6 +194,8 @@ API = {
         var removed = new Array();
         removed.push(value);
         UI.unloadUserPrograms(removed);
+        
+        Skhf.session.sync();
         if (typeof callback != 'undefined') {
           callback(value);
         }

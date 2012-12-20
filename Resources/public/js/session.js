@@ -5,6 +5,13 @@ var Session = BaseSession.extend({
   datas: {},
   onglet: '',
   access: '',
+  sync: function(callback, args) {
+    this.__base(callback, args);
+    
+    if (API.context == 'v2') {
+      API.postMessage(['sync']);
+    }
+  },
   signin: function(sessionData) {
     this.__base(sessionData)
 
