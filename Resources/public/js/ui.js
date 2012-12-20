@@ -63,8 +63,8 @@ UI = {
         $('.share btn-group').html(Skhf.session.datas.email);
         $('.share .share-on').show();
         $('.share .share-off').hide();
-        if (Skhf.session.datas.disallow_notify) {
-          $('.share [data-notify="disallow"]').trigger('click');
+        if (Skhf.session.datas.disallow_share) {
+          $('.share [data-share="disallow"]').trigger('click');
         }
       } else {
         $('.share .share-on').hide();
