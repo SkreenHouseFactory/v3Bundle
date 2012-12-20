@@ -88,7 +88,11 @@ Player = {
   redirect: function(url) {
     var iframe = $('#redirect');
     if (typeof url != 'undefined') {
-      iframe.html('<iframe src="' + url + '"></iframe>')
+      if (url.match(/\/redirection\//)) {
+        document.location = url;
+      } else {
+        iframe.html('<iframe src="' + url + '"></iframe>');
+      }
     }
     iframe.show().css('height', ($(window).height() - 100) + 'px');
     //$('#top-nav').collapse('hide');
