@@ -64,9 +64,9 @@ $(document).ready(function(){
   });
   $('.share .btn').click(function(){
     if ($(this).data('notify') == 'disallow') {
-      API.addPreference('disallow_notify', 1, function(){});
+      API.addPreference('disallow_share', 1, function(){});
     } else {
-      API.removePreference('disallow_notify', 1, function(){});
+      API.removePreference('disallow_share', 1, function(){});
     }
   });
   
