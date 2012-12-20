@@ -494,7 +494,11 @@ UI = {
           API.linkV2('/programmes/' + obj);
         } else if (typeof obj.seo_url != 'undefined') { //advanced
           $(searchbox).attr('value', '')
-          API.linkV2(obj.seo_url);
+          if (obj.seo_url.match(/^http:\/\//)) {
+            top.location = obj.seo_url;
+          } else {
+            API.linkV2(obj.seo_url);
+          }
         }
         
         $('#top-playlist').collapse('hide');
