@@ -63,7 +63,7 @@ $(document).ready(function(){
     }
   });
   $('.share .btn').click(function(){
-    if ($(this).data('notify') == 'disallow') {
+    if ($(this).data('share') == 'disallow') {
       API.addPreference('disallow_share', 1, function(){});
     } else {
       API.removePreference('disallow_share', 1, function(){});
