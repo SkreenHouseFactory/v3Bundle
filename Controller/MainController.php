@@ -66,7 +66,7 @@ class MainController extends Controller
       //echo $api->url;
       //echo $datas->seo_url.' = '.$request->get('slug');
 
-      if ($datas->seo_url != '/replay/'.$request->get('id').'-'.$request->get('slug')) {
+      if ($datas->seo_url != 'http://v3.myskreen.com/replay/'.$request->get('id').'-'.$request->get('slug')) {
         throw $this->createNotFoundException('La chaîne n\'existe pas');
       }
 
