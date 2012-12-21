@@ -1,6 +1,7 @@
 {% extends 'SkreenHouseFactoryV3Bundle::cocon.html.twig' %}
 
 {% block title %}{{ article.name }}{% endblock %}
+{% block description %}{{ article.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
 {% block content %}
 <div class="row">

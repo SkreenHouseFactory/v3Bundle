@@ -25,9 +25,12 @@ class CmsController extends Controller
     public function coconAction(Request $request)
     {
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
-      $datas = $api->fetch('article/'.$this->getArticleId($request->get('name')), 
+      $datas = $api->fetch('article/'.$request->get('name'), 
                            array(
+                            'type_id' => 8,
+                            'url' => $request->getUri()
                            ));
+      //echo 'uri:'.$request->getUri();
       //echo $api->url;print_r($datas);
       return $this->render('SkreenHouseFactoryV3Bundle:Cms:cocon.html.twig', array(
         'article' => $datas
@@ -41,39 +44,5 @@ class CmsController extends Controller
       //$response->headers->addCacheControlDirective('must-revalidate', true);
 
       return $response;
-    }
-    
-    
-    public function getArticleId($name)
-    {
-      switch ($name) {
-        case 'replay':
-          return 9803151;
-        break;
-        case 'film':
-          return 9804351;
-        break;
-        case 'emission':
-          return 9804247;
-        break;
-        case 'documentaire':
-          return 9804179;
-        break;
-        case 'dessins-animes':
-          return ;
-        break;
-        case 'series':
-          return ;
-        break;
-        case 'spectacle':
-          return ;
-        break;
-        case 'sport':
-          return ;
-        break;
-        case 'telerealite':
-          return ;
-        break;
-      }
     }
 }
