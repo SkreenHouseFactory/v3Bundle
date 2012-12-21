@@ -31,7 +31,7 @@
         <span class="username"></span>
       </a>
       <ul class="dropdown-menu">
-        <li><a class="favoris" href="{{ path('user_programs') }}" target="_parent"><i class="icon-list-alt"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
+        <li><a class="favoris" href="{{ path('user_programs') }}" target="_top"><i class="icon-list-alt"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
         <li><a class="account" href="#"><i class="icon-cog"></i> {{ 'nav.account'|trans }}</a></li>
         <li><a class="signout" href="#"><i class="icon-remove"></i> {{ 'signout'|trans }}</a></li>
       </ul>
@@ -49,7 +49,7 @@
     </li>
     <li class="divider-vertical"></li>
   </ul>
-  <a class="pull-left link-v2 link-force" href="/" title="{{ 'service.name'|trans }}"><img id="logo" src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="{{ 'service.name'|trans }}" /></a>
+  <a class="pull-left" href="http://www.myskreen.com" target="_top" title="{{ 'service.name'|trans }}"><img id="logo" src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="{{ 'service.name'|trans }}" /></a>
   <form class="navbar-search pull-left">
   <i class="icon-search"></i>
   <input type="text" class="search-query pull-left" placeholder="{{ 'search.pitch'|trans }}">
@@ -63,16 +63,16 @@
   <div class="subnav subnav-fixed">
     <div class="container">
       <ul id="shortcuts" class="pull-right">
-        <li class="shortcut-spectacles"><a class="link-v2" href="/spectacles" href="#">{{ 'nav.spectacles'|trans }}</a></li>
-        <li class="shortcut-series"><a class="link-v2" href="/series" href="#">{{ 'nav.series'|trans }}</a></li>
-        <li class="shortcut-documentaires"><a class="link-v2" href="/documentaires" href="#">{{ 'nav.documentaires'|trans }}</a></li>
-        <li class="shortcut-emissions"><a class="link-v2" href="/emissions" href="#">{{ 'nav.emissions'|trans }}</a></li>
-        <li class="shortcut-films"><a class="link-v2" href="/films" href="#">{{ 'nav.films'|trans }}</a></li>
+        <li class="shortcut-spectacles"><a href="http://www.myskreen.com/spectacles" target="_top">{{ 'nav.spectacles'|trans }}</a></li>
+        <li class="shortcut-series"><a href="http://www.myskreen.com/series" target="_top">{{ 'nav.series'|trans }}</a></li>
+        <li class="shortcut-documentaires"><a href="http://www.myskreen.com/documentaires" target="_top">{{ 'nav.documentaires'|trans }}</a></li>
+        <li class="shortcut-emissions"><a href="http://www.myskreen.com/emissions" target="_top">{{ 'nav.emissions'|trans }}</a></li>
+        <li class="shortcut-films"><a href="http://www.myskreen.com/films" target="_top">{{ 'nav.films'|trans }}</a></li>
       </ul>
       <ul class="nav">
-        <li class="tv"><a class="link-v2 link-force" href="http://www.myskreen.com/tv-replay">{{ 'nav.subnav.tv'|trans }}</a></li>
-        <li class="vod"><a class="link-v2 link-force" href="http://www.myskreen.com/vod">{{ 'nav.subnav.vod'|trans }}</a></li>
-        <li class="cine"><a class="link-v2 link-force" href="http://www.myskreen.com/cine">{{ 'nav.subnav.cine'|trans }}</a></li>
+        <li class="tv"><a href="http://www.myskreen.com/tv-replay" target="_top">{{ 'nav.subnav.tv'|trans }}</a></li>
+        <li class="vod"><a href="http://www.myskreen.com/vod" target="_top">{{ 'nav.subnav.vod'|trans }}</a></li>
+        <li class="cine"><a href="http://www.myskreen.com/cine" target="_top">{{ 'nav.subnav.cine'|trans }}</a></li>
       </ul>
     </div>
   </div>

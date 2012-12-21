@@ -12,6 +12,13 @@ postproxy:
     pattern:  /proxy
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:proxy }
 
+#cms
+cocon_replay:
+    pattern:  /replay/cocon/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon }
+    #requirements:
+    #    domain: tv.myskreen.com
+
 #user
 user_programs:
     pattern:  /mes-programmes/{onglet}

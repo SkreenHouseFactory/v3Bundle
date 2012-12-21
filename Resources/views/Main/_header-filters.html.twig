@@ -1,27 +1,10 @@
 <ul class="container nav nav-pills hide btn-group">
-  <li class="vod vod-films"><a class="link-v2" href="/films" href="#">{{ 'nav.films'|trans }}</a></li>
-  <li class="vod vod-documentaires"><a class="link-v2" href="/documentaires" href="#">{{ 'nav.documentaires'|trans }}</a></li>
-  <li class="vod vod-series"><a class="link-v2" href="/series" href="#">{{ 'nav.series'|trans }}</a></li>
-  <li class="vod vod-spectacles"><a class="link-v2" href="/spectacles" href="#">{{ 'nav.spectacles'|trans }}</a></li>
-  <li class="vod vod-jeunesse"><a class="link-v2" href="/jeunesse" href="#">{{ 'nav.jeunesse'|trans }}</a></li>
-  {#<li class="tv"><a href="{{ path('player_live') }}" target="_parent">{{ 'nav.tv.live'|trans }}</a></li>#}
-  {#<li class="btn home tv tv-grid dropdown">
-    <a class="link-v2 dropdown-toggle" data-filter="all" data-toggle="dropdown" href="/programme-tv">{{ 'nav.tv.grid'|trans }} <b class="caret"></b></a>
-    <ul class="dropdown-menu">
-      <li class="nav-header">{{ 'past'|trans }}</li>
-      <li><a href="#">{{ 'nav.tv.selection.lastweek'|trans }}</a></li>
-      <li><a href="#">{{ 'nav.tv.selection.yesterday'|trans }}</a></li>
-      <li class="divider"></li>
-      <li class="nav-header">{{ 'today'|trans }}</li>
-      <li><a href="#">{{ 'nav.tv.selection.now'|trans }}</a></li>
-      <li><a href="#">{{ 'nav.tv.selection.tonight'|trans }}</a></li>
-      <li class="divider"></li>
-      <li class="nav-header">{{ 'coming'|trans }}</li>
-      <li><a href="#">{{ 'nav.tv.selection.tommorrow'|trans }}</a></li>
-      <li><a href="#">{{ 'nav.tv.selection.thisweek'|trans }}</a></li>
-    </ul>
-  </li>#}
-  <li class="btn home tv tv-grid"><a class="link-v2" href="/programme-tv">La grille TV </a></li>
+  <li class="vod vod-films"><a href="http://www.myskreen.com/films" target="_top">{{ 'nav.films'|trans }}</a></li>
+  <li class="vod vod-documentaires"><a href="http://www.myskreen.com/documentaires" target="_top">{{ 'nav.documentaires'|trans }}</a></li>
+  <li class="vod vod-series"><a href="http://www.myskreen.com/series" target="_top">{{ 'nav.series'|trans }}</a></li>
+  <li class="vod vod-spectacles"><a href="http://www.myskreen.com/spectacles" target="_top">{{ 'nav.spectacles'|trans }}</a></li>
+  <li class="vod vod-jeunesse"><a href="http://www.myskreen.com/jeunesse" target="_top">{{ 'nav.jeunesse'|trans }}</a></li>
+  <li class="btn home tv tv-grid"><a href="http://www.myskreen.com/programme-tv" target="_top">La grille TV </a></li>
   <li class="btn home tv no-link">Les chaînes &raquo</li>
   <li class="btn home tv tv-channel"><a target="_top" href="{{ path('channel_replay', {id: 102, slug: 'tf1'}) }}" title="TF1 Replay"><img src="http://mskstatic.com/34/28/medias/ico/chaines/tf1_medium.png" alt="TF1 Replay"></a></li>
   <li class="btn home tv tv-channel"><a target="_top" href="{{ path('channel_replay', {id: 50, slug: 'france-2'}) }}" title="FRANCE 2 Replay"><img src="http://mskstatic.com/34/28/medias/ico/chaines/france-2_medium.png" alt="FRANCE 2 Replay"></a></li>
@@ -45,7 +28,7 @@
   <li class="btn home tv tv-channel"><a target="_top" href="{{ path('channel_replay', {id: 89, slug: 'public-senat'}) }}" title="Public Sénat Replay"><img src="http://mskstatic.com/34/28/medias/ico/chaines/public-senat_medium.png" alt="Public Sénat Replay"></a></li>
 
   
-  <li class="cine cine-new"><a class="link-v2" href="/selection/7845147-a-voir-au-cinema" href="#">{{ 'nav.theaters.release'|trans }}</a></li>
-  <li class="cine cine-coming"><a class="link-v2" href="/selection/7845150-prochainement-dans-les-salles" href="#">{{ 'nav.theaters.coming'|trans }}</a></li>
-  <li class="cine cine-box-office"><a target="_parent" href="{{ path('cinema_boxoffice', {alpha: 'a'}) }}" href="#">{{ 'nav.theaters.boxoffice'|trans }}</a></li>
+  <li class="cine cine-new"><a href="http://www.myskreen.com/selection/7845147-a-voir-au-cinema" target="_top">{{ 'nav.theaters.release'|trans }}</a></li>
+  <li class="cine cine-coming"><a href="http://www.myskreen.com/selection/7845150-prochainement-dans-les-salles" target="_top">{{ 'nav.theaters.coming'|trans }}</a></li>
+  <li class="cine cine-box-office"><a target="_top" href="{{ path('cinema_boxoffice', {alpha: 'a'}) }}">{{ 'nav.theaters.boxoffice'|trans }}</a></li>
 </ul>

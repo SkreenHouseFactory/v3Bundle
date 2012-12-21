@@ -1,0 +1,16 @@
+{% extends 'SkreenHouseFactoryV3Bundle::cocon.html.twig' %}
+
+{% block title %}{{ article.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+<div id="cms" class="span7">
+  {{ article.description|raw }}
+</div>
+<div id="menu" class="span3">
+<br/>
+<br/>
+{% include 'SkreenHouseFactoryV3Bundle:Cms:_menu.html.twig' with {folder: article.folder} %}
+</div>
+</div>
+{% endblock %}

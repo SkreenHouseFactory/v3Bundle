@@ -1,0 +1,113 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="fr"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="fr"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="fr"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>{% block title endblock %} | {{ 'service.name'|trans }}</title>
+	<meta name="description" content="{% block description %}{% endblock %}">
+	<meta name="author" content="SkreenHouseFactory">
+	<meta name="language" content="fr-FR" />
+	<meta name="viewport" content="width=device-width">
+	{% if app.environment == 'prod' %}
+	<meta name="robots" content="noindex,nofollow">
+	{% else %}
+	<meta name="robots" content="noindex,nofollow">
+	{% endif %}
+	{% block meta %}{% endblock %}
+
+  {% stylesheets
+      '@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/less/slider.less'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/less/modal.less'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/less/style.less'
+        filter='less,?yui_css'
+        output='css/v3.css'
+        %}
+      <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
+</head>
+<body>
+<!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
+
+    <div id="header" style="height:150px">
+    <iframe scrolling="no" width="100%" height="150px" frameborder="0" src="{{ path('homepage') }}"></iframe>
+    </div><div id="content" class="container">
+    {% block content %}
+    {% endblock %}
+    </div>
+    
+    <div class="container">
+      <hr/>
+      <img src="http://www.myskreen.com/images/skhv2/img/logo-footer.jpg" alt="myskreen">
+      <br>
+      <br>
+      <b>
+      <ul class="nav">
+        <li>
+          <a title="A propos de mySkreen" href="/about">A propos</a>
+        </li>
+        <li>
+          <a title="CGV mySkreen" class="external" href="http://medias.myskreen.com/pdf/cguv.pdf">CGUV</a>
+        </li>
+        <li>
+          <a title="FAQ mySkreen" id="faqPage" class="colorbox">F.A.Q.</a>
+        </li>
+        <li>
+          <a title="Press mySkreen" href="/press">Presse</a>
+        </li>
+        <li>
+          <a title="Contacter mySkreen" id="writeus" class="colorbox">Nous écrire </a>
+        </li>
+        <li>
+          <a href="http://www.facebook.com/myskreen" title="mySkreen sur Facebook" id="fb" class="colorbox">Facebook</a>
+        </li>
+        <li>
+          <a href="http://www.twitter.com/myskreen" title="mySkreen sur Twitter" id="tw" class="colorbox">Twitter</a>
+        </li>
+        <li>
+          <a href="https://plus.google.com/106555719800030017985/posts">Google+</a>
+        </li>
+      </ul>
+      </b>
+    </div>
+
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.0.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap-ajax-typeahead.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/modernizr.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/easyXDM.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer-3.2.11.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.ipad-3.2.11.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*' 
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
+    '@SkreenHouseFactoryTvBundle/Resources/public/js/couchmode.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/script.js'
+    
+    filter='?yui_js' 
+    output='js/compiled/v3.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-6151896-8']);
+  {% if nostat is not defined %}
+    _gaq.push(['_trackPageview']);
+  {% endif %}
+  (function() { 
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.id = 'scriptAnalytics';
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; 
+    var s = document.body.appendChild(ga); 
+    })(); 
+</script>
+
+</body>
+</html>
