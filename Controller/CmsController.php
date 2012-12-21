@@ -28,7 +28,7 @@ class CmsController extends Controller
       $datas = $api->fetch('article/'.$request->get('name'), 
                            array(
                             'type_id' => 8,
-                            'url' => $request->getUri()
+                            'url' => str_replace(':81', '', $request->getUri())
                            ));
       //echo 'uri:'.$request->getUri();
       //echo $api->url;print_r($datas);

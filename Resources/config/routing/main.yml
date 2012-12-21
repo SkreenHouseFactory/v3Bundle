@@ -18,8 +18,6 @@ cocon_m6:
 cocon_replay:
     pattern:  /video/{name}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon, cocon: replay, domain: tv }
-    #requirements:
-    #    domain: tv.myskreen.com
 
 #user
 user_programs:
