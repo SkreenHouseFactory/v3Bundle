@@ -25,7 +25,7 @@ class CmsController extends Controller
     public function coconAction(Request $request)
     {
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
-      $datas = $api->fetch('article/9798711', 
+      $datas = $api->fetch('article/'.$request->get('load'), 
                            array(
                            ));
 
