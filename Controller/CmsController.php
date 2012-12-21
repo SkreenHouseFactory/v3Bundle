@@ -25,7 +25,7 @@ class CmsController extends Controller
     public function coconAction(Request $request)
     {
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
-      $datas = $api->fetch('article/'.$request->get('name'), 
+      $datas = $api->fetch('article/cocon', 
                            array(
                             'type_id' => 8,
                             'url' => str_replace(':81', '', $request->getUri())
