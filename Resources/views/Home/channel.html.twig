@@ -2,6 +2,10 @@
 
 
 {% block title %}{{ 'page.title.channel'|trans({'%name%': channel.name}) }}{% endblock %}
+{% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+{% block meta %}
+{% if channel.programs.epg is empty and channel.programs.replay is empty %}<meta name="robots" content="noindex,follow">{% endif %}
+{% endblock %}
 
 {% block content %}
 <div id="view-channel" class="container">

@@ -54,6 +54,7 @@ class MainController extends Controller
                              'with_live'  => true,
                              'with_next_live' => true,
                              'with_prev_live' => true,
+                             'with_description'  => true,
                              'img_width' => 150,
                              'img_height' => 200,
                              'live_img_width' => 300,

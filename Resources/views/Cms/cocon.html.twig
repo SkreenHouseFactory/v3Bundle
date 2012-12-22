@@ -2,6 +2,10 @@
 
 {% block title %}{{ article.name }}{% endblock %}
 {% block description %}{{ article.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+{% block meta %}
+{% if article.description is empty %}<meta name="robots" content="noindex,follow">{% endif %}
+{% endblock %}
+
 
 {% block content %}
 <div class="row">
