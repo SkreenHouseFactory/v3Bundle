@@ -60,6 +60,11 @@ player_exit:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }
     requirements:
         target: .*
+player_exit_get_url:
+    pattern:  /exit
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }
+    requirements:
+        target: .*
 player:
     pattern:  /player
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:player }
