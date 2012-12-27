@@ -11,7 +11,8 @@
 <div id="view-channel" class="container">
   <br/>
   <img class="channel-logo pull-left" src="{{ channel.img }}" />
-  <h1>{{ channel.name }}</h2>
+  <h1>{{ channel.name }}</h1>
+  <p class="alert channel-description">{{ channel.description }}</p>
 
   {% if channel.live %}
   <div id="lives" class="well">
