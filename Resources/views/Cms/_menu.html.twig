@@ -2,10 +2,22 @@
 {% if app.request.get('cocon') == 'replay' %}
 <li><a href="/video/replay/">Tv en Replay</a></li><li><a href="/video/film/">Films en Replay</a></li><li><a href="/video/emission/">Emissions en Replay</a></li><li><a href="/video/documentaire/">Documentaires en Replay</a></li>{# REPLAY
 <li><a href="/video/dessins-animes/">Dessins animés en Replay</a></li><li><a href="/video/series/">Séries en Replay</a></li><li><a href="/video/spectacle/">Spectacles en Replay</a></li><li><a href="/video/sport/">Sports en Replay</a></li><li><a href="/video/telerealite/">Télé réalité en Replay</a></li>
-#}
-{% endif %}
+#}>
 
-{% if app.request.get('cocon') == 'm6' %}
+
+{% elseif app.request.get('cocon') == 'tf1' %}
+<li><a href="/tf1/tv-a-la-demande/">TV à la demande</a></li><li><a href="/tf1/secret-story/">Secret Story</a></li><li><a href="/tf1/les-experts/">Les Experts</a></li><li><a href="/tf1/mentalist/">Mentalist</a></li><li><a href="/tf1/esprit-criminel/">Esprit criminel</a></li><li><a href="/tf1/koh-lanta/">Koh Lanta</a></li><li><a href="/tf1/qui-veut-epouser-mon-fils/">Qui veut épouser mon fils ?</a></li><li><a href="/tf1/le-juste-prix/">Le juste prox</a></li><li><a href="/tf1/une-famille-en-or/">Une famille en or</a></li><li><a href="/tf1/telefoot/">Téléfoot</a></li><li><a href="/tf1/auto-moto/">Auto-moto</a></li><li><a href="/tf1/les-feux-de-lamour/">Les feux de l'amour</a></li>
+
+{% elseif app.request.get('cocon') == 'france2' %}
+<li><a href="/france-2/tv-a-la-demande/">TV à la demande</a></li><li><a href="/france-2/fais-pas-ci-fais-pas-ca/">Fais pas ci, fais pas ça</a></li><li><a href="/france-2/envoye-special/">Envoyé spécial</a></li><li><a href="/france-2/ford-boyard/">Fort Boyard</a></li><li><a href="/france-2/cold-case/">Cold case</a></li><li><a href="/france-2/castle/">Castle</a></li><li><a href="/france-2/inquisitio/">Inquisitio</a></li><li><a href="/france-2/amour-gloire-et-beaute/">Amour, gloire et beauté</a></li><li><a href="/france-2/mots-croises/">Mots croisés</a></li><li><a href="/france-2/infrarouge/">Infrarouge</a></li><li><a href="/france-2/maison-a-vendre/">Maison à vendre</a></li><li><a href="/france-2/cest-au-programme/">C'est au programme</a></li><li><a href="/france-2/des-mots-de-minuit/">Des mots de minuit</a></li>
+
+{% elseif app.request.get('cocon') == 'france3' %}
+<li><a href="/france-3/tv-a-la-demande/">TV à la demande</a></li><li><a href="/france-3/plus-belle-la-vie/">Plus belle la vie</a></li><li><a href="/france-3/strip-tease/">Strip Tease</a></li><li><a href="/france-3/30-millions-amis/">30 millions d'amis</a></li><li><a href="/france-3/cest-pas-sorcier/">C'est pas sorcier</a></li><li><a href="/france-3/thalassa/">Thalassa</a></li><li><a href="/france-3/ludo/">Ludo</a></li><li><a href="/france-3/ce-soir-ou-jamais/">Ce soir ou jamais</a></li>
+
+{% elseif app.request.get('cocon') == 'm6' %}
 <li><a href="/m6/tv-a-la-demande/">TV à la demande</a></li><li><a href="/m6/top-tendance/">Top tendance</a></li><li><a href="/m6/le-meilleur-patissier/">Le meilleur patissier</a></li><li><a href="/m6/scene-de-menage/">Scène de ménage</a></li><li><a href="/m6/capital/">Capital</a></li><li><a href="/m6/deco/">D&co</a></li><li><a href="/m6/ncis/">NCIS</a></li><li><a href="/m6/incroyable-talent/">Incroyable Talent</a></li><li><a href="/m6/19h45/">19h45</a></li><li><a href="/m6/enquetes-exclusives/">Enquete exclusive</a></li><li><a href="/m6/maison-a-vendre/">Maison à vendre</a></li><li><a href="/m6/pekin-express/">Pékin express</a></li><li><a href="/m6/belle-toute-nue/">Belle toute nue</a></li>
+
+{% elseif app.request.get('cocon') == 'w9' %}
+<li><a href="/w9/tv-a-la-demande/">TV à la demande</a></li><li><a href="/w9/soda/">Soda</a></li><li><a href="/w9/les-marseillais-miami/">Les marseillais à Miami</a></li><li><a href="/w9/les-chtis-ibiza/">Les Ch'tis à Ibiza</a></li><li><a href="/w9/les-chtis-mikonos/">Les Ch'tis à Mikonos</a></li><li><a href="/w9/les-chtis-las-vegas/">Les Ch'tis à Las Vegas</a></li><li><a href="/w9/les-simpson/">Les Simpson</a></li><li><a href="/w9/charmed/">Charmed</a></li><li><a href="/w9/generation-top-50/">Génération Top 50</a></li>
 {% endif %}
 </ul>
