@@ -86,24 +86,32 @@ class MainController extends Controller
       $method   = $request->getMethod();
       $datas    = $method == 'POST' ? $request->request->get('data') : $request->get('data');
       $url      = $method == 'POST' ? $request->request->get('url') : $request->get('url');
-      $format   = $method == 'POST' ? '.json' : '';
+      $format   = $method == 'POST' ? '.json' : null;
 
-      //hack get
+      if (!is_array($datas)) {
+        $datas = array();
+      }
+
+      // HACK get
       if ($method == 'GET') {
         return  new Response(file_get_contents($url . '?' . http_build_query($datas)));
       }
 
-      /* HACK : should try to find a better way */
-      if (isset($datas[count($datas)-1]) &&
-          $datas[count($datas)-1]['name'] == 'fromSerializeArray') {
-        $tmp = array();
-        foreach ($datas as $k => $v) {
-          $tmp[$v['name']] = $v['value'];
+      //print_r($datas);exit();
+      // HACK jquery serialize form
+      foreach ($datas as $key => $value) {
+        if (preg_match('/^(.*)\[(.*)\]\[(.*)$/', $key, $matches)) {
+          //print_r($matches);
+          $datas[$matches[1]][$matches[2]][$matches[3]] = $value;
+          unset($datas[$key]);
+        } elseif (preg_match('/^(.*)\[(.*)$/', $key, $matches)) {
+          //print_r($matches);
+          $datas[$matches[1]][$matches[2]] = $value;
+          unset($datas[$key]);
         }
-        $datas = $tmp;
       }
+//      print_r($datas);
 
-      //print_r(array($url, $datas, $method));
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), $format);
       $response = $api->fetch($url, 
                               $datas, 

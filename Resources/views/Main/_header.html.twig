@@ -10,8 +10,7 @@
   <ul class="pull-right nav couchmode-off">
     <li class="divider-vertical"></li>
     <li class="user-off">
-      {#<a data-toggle="modal" href="{{ path('popin_auth') }}" data-target="#skModal">modal</a>#}
-      <a class="signin" href="#"><i class="sprite-user"></i> {{ 'nav.menu.account.off'|trans }}</a>
+      <a class="auth" href="#"><i class="sprite-user"></i> {{ 'nav.menu.account.off'|trans }}</a>
     </li>
     <li class="divider-vertical user-off"></li>
     <li class="user-off">
@@ -52,7 +51,7 @@
   </ul>
   <a class="pull-left" href="http://www.myskreen.com" target="_top" title="{{ 'service.name'|trans }}"><img id="logo" src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="{{ 'service.name'|trans }}" /></a>
   <form class="navbar-search pull-left">
-  <i class="icon-search"></i>
+  <i class="icon-search icon-white"></i>
   <input type="text" class="search-query pull-left" placeholder="{{ 'search.pitch'|trans }}">
   </form>
 </div>
@@ -82,11 +81,5 @@
     <h6 id="top-baseline" class="user-off hide" data-toggle="collapse" data-target="#top-playlist">
       {{ 'playlist.baseline'|trans }}
     </h6>
-  </div>
-</div>
-
-<div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
-  <div class="container">
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
   </div>
 </div>

@@ -30,7 +30,13 @@ class ApiManager
     switch ($method) {
       case 'POST':
         $response = $client->post($url . $this->format, 
-                                  array('accept' => 'application/json'), 
+                                  array('accept' => 'application/json',
+                                        'curl.options' => array(
+                                            'CURLOPT_SSL_VERIFYHOST'   => false,
+                                            'CURLOPT_SSL_VERIFYPEER' => false,
+                                            'CURLOPT_CERTINFO' => false
+                                        ),
+                                        'ssl.certificate_authority' => false), 
                                   $params)->send();
       break;
       case 'GET':

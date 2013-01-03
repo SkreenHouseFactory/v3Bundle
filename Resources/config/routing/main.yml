@@ -27,7 +27,7 @@ programtheater:
         id: \d+
 channel_replay:
     pattern:  /replay/{id}-{slug}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:channel }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
     requirements:
         id: \d+
         slug: .*

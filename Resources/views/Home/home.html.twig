@@ -1,7 +1,14 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
 
-{% block meta %}<meta name="robots" content="noindex,nofollow" />{% endblock %}
+{% block meta %}
+<meta name="robots" content="noindex,nofollow" />
+<meta property="og:title" content="The New TV Guide | mySkreen.com" />
+<meta property="og:description" content="Le guide personnalisé de vos programmes. Retrouvez dans une même playlist : Vidéo à la demande (VOD) et Replay TV (télévision de rattrapage), programmes Télé, DVD, box et télé connectée." />
+<meta property="og:image" content="http://medias.myskreen.com/logo.png" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://www.myskreen.com" />
+{% endblock %}
 {% block title %}{{ 'page.title.home'|trans }}{% endblock %}
 
 {% block content %}

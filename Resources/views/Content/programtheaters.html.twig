@@ -1,0 +1,39 @@
+{% if app.request.get('q') %}
+  <a href="#" id="trigger-theaters-geoloc">Trouver une séance près d'ici</a>
+  <br/>
+  <br/>
+  <h3>Recherche : {{ app.request.get('q') }}</h3>
+{% else %}
+  <br/>
+  <br/>
+  {% if app.request.get('cinema_id') is null %}
+  <h3>Séances près d'ici</h3>
+  {% endif %}
+{% endif %}
+
+{% if cinemas|length == 0 %}
+  <p class="alert">
+    {% if app.request.get('q') %}
+      {{ 'program.theaters.noprogram.search'|trans }}
+    {% else %}
+      {{ 'program.theaters.noprogram.geoloc'|trans }}
+    {% endif %}
+  </p>
+{% else %}
+  <ul>
+  {% for cinema in cinemas %}
+    {% if cinema.adress is defined %}
+      <li>
+        <small>{{ cinema.adress }} {{ cinema.city }} {{ cinema.zip_code }}</small>
+        {{ cinema.name }}
+      </li>
+      {% for day in days if attribute(cinema.schedules[0].horaires, day) is defined %}
+        <li>
+          <small>{{ attribute(cinema.schedules[0].horaires, day)|replace({',': ', '}) }}</small>
+          {{ day }}
+        </li>
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+  </ul>
+{% endif %}

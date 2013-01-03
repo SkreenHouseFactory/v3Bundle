@@ -159,17 +159,36 @@ search:
 
 action:
     in.favorites: Dans vos playlists
-    add.favorites: Suivre / voir + tard
+    add.favorites: S'abonner, voir plus tard
     remove.favorites: Retirer
     deporte: sur mySkreen
     play:
-        streaming: Voir en streaming
-        cine: Voir en salle
-        dvd: Voir en dvd
-        replay: Voir en replay
+        streaming: En streaming
+        cine: Au cinéma
+        dvd: En dvd
+        replay: En replay
         rec: Bientôt en replay
-        tv: A la télé
+        tv: A la TV
 seo:
   title:
     add: Ajout à vos playlists
     play: en streaming
+program:
+    infos: Tout sur ce programme
+    related: A voir aussi
+    teaser: Bande annonce
+    tv.on: Allumer la TV
+    desc.read: Lire la suite
+    theaters:
+        search:
+            submit: Rechercher une salle
+            placeholder: Marseille, 75014, Alésia, …
+        noprogram:
+            search: Aucun cinéma trouvé.
+            geoloc: Aucun cinéma trouvé dans les environs.
+    unvailable: non disponible sur mySkreen
+free: Gratuit
+watch: Voir maintenant
+editors: Production
+actors: Acteurs
+directed.by: Réalisateur

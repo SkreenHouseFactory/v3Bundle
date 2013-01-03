@@ -39,10 +39,28 @@ UI = {
         }
       });
     } else {
-      API.quickLaunchModal('signin', function(){
-        Skhf.session.sync();
-      });
+      this.auth();
     }
+  },
+  //auth
+  auth: function(callback) {
+    API.quickLaunchModal('signin', function() {
+      Skhf.session.sync(function(){
+        if (typeof callback != 'undefined') {
+          callback();
+        }
+      });
+    },{parcours: 'anonyme_favoris'});
+  },
+  //paywall
+  paywall: function(id, callback) {
+    console.log('UI.paywall', id);
+
+    API.quickLaunchModal('signin', function() {
+      if (typeof callback != 'undefined') {
+        callback();
+      }
+    },{parcours: 'anonyme_favoris', occurrence_id: id});
   },
   //user infos
   loadUser: function() {
@@ -76,6 +94,9 @@ UI = {
       $('#top-baseline').hide();
       this.loadUserPrograms();
       this.loadNotifications(Skhf.session.datas.notifications);
+      if ($('#view-program').length) {
+        this.loadProgramUsersDatas($('#view-program').data('id'));
+      }
     } else {
       $('.user span, .favoris span').empty();
       $('.notifications-count').empty();
@@ -85,6 +106,9 @@ UI = {
       $('li.selector').popover('enable');
       this.unloadFilters();
       this.playlist.remove();
+      //if ($('#view-program').length) {
+      //  this.unloadProgramUsersDatas();
+      //}
     }
     $('.user-off, .user-on').toggleClass('hide');
   },
@@ -152,9 +176,60 @@ UI = {
       })
     }
   },
+  //load user program's infos
+  loadProgramUsersDatas: function(id) {
+    var self = this;
+
+    // friends
+    var container_friends = $('#program-friends .user-on');
+    container_friends.removeClass('hide');
+    this.appendLoader(container_friends);
+    API.query('GET', 
+              'program/' + id + '.json', 
+              {
+                with_notifications: 1,
+                with_friends: 1,
+                session_uid: Skhf.session.uid
+              }, 
+              function(datas){
+                console.log('UI.loadProgramUsersDatas', 'callback', datas);
+                //bought ?
+                if (typeof datas.purchased != 'undefined' &&
+                    datas.purchased) {
+                  for (k in datas.purchased) {
+                    console.log('UI.loadProgramUsersDatas', 'purchased', '#offers [data-id="' + k + '"] td:last-child', $('#offers [data-id="' + k + '"] td:last-child'), k, API.formatTimestamp(datas.purchased[k]));
+                    $('#offers [data-id="' + k + '"] td:last-child .btn').append('<span class="btn-block badge badge-warning">Loué le ' + API.formatTimestamp(datas.purchased[k]) + '</span>');
+                  }
+                }
+                //friends
+                if( typeof datas.friends != 'undefined' && 
+                    datas.friends && 
+                    datas.friends.length > 0)
+                { 
+                  container_friends.removeClass('hide'); //HACK : TODO appel après connexion
+                  self.removeLoader(container_friends);
+                  self.addFriends(container_friends, datas.friends)
+                }
+                //notifs
+                if( typeof datas.boutons_notifications != 'undefined' && 
+                    datas.boutons_notifications &&
+                    datas.boutons_notifications['new'].count > 0 ) {
+                  for ( k in datas.boutons_notifications['new']) {
+                    var offers = datas.boutons_notifications['new'][k];
+                    if(offers.length > 0 && k != 'count' ) {
+                      $('#trigger-' + index).append('<span class="badge badge-important">' + offers.length + '</span>');                  
+                      for(k in offers){
+                        $('#offers [data-id="' + offers[k] + '"] td:nth-child(2)').prepend('<span class="badge badge-important">nouveau</span>');
+                      };
+                    }
+                  };
+                }
+    });
+  },
   //update friends
   loadSocialSelector: function(datas) {
     if (datas.programs.length > 0) {
+      console.log('UI.loadSocialSelector', datas);
       var program = datas.programs.pop();
       var li = $('li#friends', this.playlist.elmt);
       li.removeClass('empty');
@@ -175,7 +250,7 @@ UI = {
     console.log('UI.loadSelector', datas, Skhf.session.onglet);
 
     //if (Skhf.session.onglet) {
-    //  $('#top-playlist h2 small:last').html('» ' + $('#top-filters .' + Skhf.session.onglet).html());
+    //  $('#top-playlist .breadcrumb li:last').html($('#top-filters .' + Skhf.session.onglet).html());
     //}
 
     this.unloadSelector();
@@ -203,9 +278,7 @@ UI = {
 
     //show selector
     this.unloadPlaylist(Skhf.session.onglet, function() {
-      self.playlist.elmt.addClass('loading');
       $('#top-playlist li.selector').animate({'width': self.playlist.params.img_width}, 500, function(){
-        self.playlist.elmt.removeClass('loading');
       });
     });
 
@@ -219,7 +292,7 @@ UI = {
     lis.find('.label').addClass('opacity').find('span').empty();
     lis.find('span.badge').remove();
     lis.find('a, h6').show();
-    $('#top-playlist h2 small').empty();
+    $('#top-playlist .breadcrumb li:not(:first)').empty();
     lis.popover('enable');
     $('#top-playlist li.selector').show()
                                   .animate({'width': self.playlist.params.img_width}, 500, function(){});
@@ -233,7 +306,7 @@ UI = {
       //hide selector
       $('li.selector', this.playlist.elmt).animate({'width':0}, 500, function() {
         $(this).hide();
-        self.playlist.elmt.addClass('loading');
+        //self.playlist.elmt.addClass('loading');
       });
 
       //load playlist
@@ -241,10 +314,10 @@ UI = {
 
       if (typeof onglet != 'undefined') { //, with_player: 1, player: API.config.player
         var args = {onglet: onglet, with_best_offer: 1, time: new Date().getTime()};
-        $('#top-playlist h2 small:last').html($('#top-filters li.' + access + ' a[data-filter="' + onglet + '"]').html());
+        $('#top-playlist .breadcrumb li:last').html($('#top-filters li.' + access + ' a[data-filter="' + onglet + '"]').html());
       } else {
         var args = {with_best_offer: 1, time: new Date().getTime()};
-        $('#top-playlist h2 small:last').empty();
+        $('#top-playlist .breadcrumb li:last').empty();
       }
 
       this.playlist.loadRemotePrograms(0,
@@ -255,7 +328,7 @@ UI = {
                                           if (Skhf.session.access) {
                                             var name = $('li#' + Skhf.session.access, slider.elmt).data('name');
                                             if (typeof name != 'undefined') {
-                                              $('#top-playlist h2 small:first').html('» ' + name);
+                                              $('#top-playlist .breadcrumb li:nth-child(2)').html(name);
                                             }
                                           }
                                           $('li.selector', slider.elmt).hide();
@@ -271,10 +344,11 @@ UI = {
     var self = this;
     console.log('UI.unloadPlaylist', onglet, Skhf.session.onglet);
 
-    if (typeof onglet != 'undefined' && onglet != Skhf.session.onglet) {
-      Skhf.session.initPlaylist('/' + onglet);
-    }
-    $('#top-playlist h2 small').empty();
+    //if (typeof onglet != 'undefined' && 
+    //    onglet != Skhf.session.onglet) {
+    //  Skhf.session.initPlaylist('/' + onglet);
+    //}
+    $('#top-playlist .breadcrumb li:not(:first)').empty();
     $('li:not(.static)', this.playlist.elmt).animate({'width':0}, 500, function() {
       //$('li.static', self.playlist.elmt).show().animate({'width': self.playlist.item_width}, 500);
       self.playlist.remove();
@@ -346,18 +420,38 @@ UI = {
     $('#top-baseline').removeClass('hide');
   },
   // -- add friends
-  addFriends: function(li, friend_uids){
-    //console.log('BaseSlider.addFriends', friend_uids, li);
+  addFriends: function(container, friend_uids){
+    var self = this;
+
+    console.log('UI.addFriends', friend_uids, Skhf.session.datas, container);
+    if (typeof Skhf.session.datas.friends == 'undefined') {
+      console.warn('UI.addFriends', 'no friends in session');
+      return;
+    }
+
     var div = $('<div class="friends"></div>');
     for (key in friend_uids) {
-      if (typeof Skhf.session.datas.friends[friend_uids[key]]) {
-        if (typeof Skhf.session.datas.friends[friend_uids[key]] != "undefined") {
-          var friend = Skhf.session.datas.friends[friend_uids[key]];
-          div.append('<a rel="tooltip" title="'+friend.name+' suit ce programme" href="#"><img src="'+friend.pic_square+'" alt="'+friend.name+'" /></a>');
-        }
+      console.log('UI.addFriends', friend_uids[key], Skhf.session.datas.friends[friend_uids[key]]);
+      if (typeof Skhf.session.datas.friends[friend_uids[key]] != 'undefined') {
+        var friend = Skhf.session.datas.friends[friend_uids[key]];
+        div.append('<a rel="tooltip" title="' + friend.name + ' suit ce programme" href="#"><img src="' + friend.pic_square + '" alt="' + friend.name + '" /></a>');
       }
     }
-    div.prependTo(li);
+    $('a[rel="tooltip"]', div).tooltip();
+    div.appendTo(container);
+  },
+  addFriendsPlaylists: function(){
+    Skhf.session.loadFriendsPlaylists(function(friends_playlists){
+      console.log('UI.addFriendsPlaylists', friends_playlists);
+      for (k in friends_playlists) {
+        var li = $('li[data-id="' + k + '"]');
+        if (li.length > 0) {
+          console.log('UI.addFriendsPlaylists', 'add ' + friends_playlists[k].length + ' friends to program ' + k);
+          UI.addFriends(li, friends_playlists[k]);
+        }
+      }
+    });
+
   },
   // -- ad manager
   cheat: function() {

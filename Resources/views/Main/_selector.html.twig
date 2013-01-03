@@ -1,8 +1,12 @@
-<h2 class="user-on-visibility">{{ 'playlist.yours'|trans }} <small></small> <small></small></h2>
+<ul class="breadcrumb user-on-visibility">
+  <li><a href="#">{{ 'playlist.yours'|trans }}</a> <span class="divider">/</span></li>
+  <li><a href="#">dddd</a> <span class="divider">/</span></li>
+  <li class="active">dddd</li>
+</ul>
 <div id="playlist" class="slider" data-pager-offset="0" data-animate="width" data-url="{{ path('playlist_load', {type:'access.name', session_uid: 'session.uid'}) }}">
   <div class="slider-container">
   <ul class="items{% if addClass is defined %} {{ addClass }}{% endif %}">
-    <li class="loader static">Chargement ...</li>
+    <li class="loader static"><p class="alert alert-info">Chargement …</p></li>
     {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' %}
     <li id="tv" class="selector static empty" data-name="{{ 'playlist.name.tv'|trans }}" data-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.tv'|trans }}</small>" data-content="{{ 'playlist.popover.tv'|trans }}" data-placement="top" data-trigger="hover">
       <span class="label label-inverse opacity"><span></span> {{ 'playlist.tv'|trans|lower }}</span>

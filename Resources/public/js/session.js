@@ -6,11 +6,13 @@ var Session = BaseSession.extend({
   onglet: '',
   access: '',
   sync: function(callback, args) {
+    var args = $.extend(args, {with_friends: 1});
     this.__base(callback, args);
     
     if (API.context == 'v2') {
       API.postMessage(['sync']);
     }
+
   },
   signin: function(sessionData) {
     this.__base(sessionData)
@@ -58,19 +60,19 @@ var Session = BaseSession.extend({
 
     //chargement initial avec data dans session
     if (false && this.onglet == null && onglet == 'undefined') {
-      console.log('Session.initSelector', 'this.datas.queue_selector', this.datas.queue_selector);
+      //console.log('Session.initSelector', 'this.datas.queue_selector', this.datas.queue_selector);
       UI.loadSelector(this.datas.queue_selector);
 
     //requete
     } else if (typeof reload == 'undefined' && this.uid) {
-      console.log('Session.initSelector', 'remote', 'www/slider/selector/' + this.uid + '.json');
+      //console.log('Session.initSelector', 'remote', 'www/slider/selector/' + this.uid + '.json');
       this.onglet = onglet;
       API.query('GET', 
                 'www/slider/selector/' + this.uid + '.json', 
                 {onglet: this.onglet, 
                  with_count_favoris: true,
-                 img_width: UI.playlist.params.img_width,
-                 img_height: UI.playlist.params.img_height
+                 img_width: API.config.slider.width,
+                 img_height: API.config.slider.height
                 },
                 function(json) {
                   console.log('Session.initSelector', 'remote', 'reload', json);

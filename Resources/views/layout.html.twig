@@ -4,24 +4,41 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="fr"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
 	<title>{% block title endblock %} | {{ 'service.name'|trans }}</title>
 	<meta name="description" content="{% block description %}{% endblock %}">
 	<meta name="author" content="SkreenHouseFactory">
-	<meta name="language" content="fr-FR" />
 	<meta name="viewport" content="width=device-width">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="language" content="fr-FR" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="revisit-after" content="2 days" />
+  <meta property="og:locale:alternate" content="fr_FR" />
+  <meta property="og:site_name" content="mySkreen.com" />
+  <meta property="fb:admins" content="672700878" />
+  <meta property="fb:app_id" content="101348563248431" /><!-- 193945860617344 -->
+  <meta name="object_type" content="website" />
+  <meta name="msvalidate.01" content="578206D7F79F12C1D7F845473C11F955" />
+  <meta name="verify-a" value="e548aa1414e42be0692f">
+  <meta name="google-site-verification" content="XrGdiUEwEtqEFnxru9FgykHR9mmSCX6O1hky_g9gTDU" />
 	{% if app.environment != 'prod' %}
 	<meta name="robots" content="noindex,nofollow">
 	{% else %}
-	{% block meta %}{% endblock %}
+	{% block meta endblock %}
 	{% endif %}
+  <link rel="image_src" href="http://medias.myskreen.com/logo.png" />
+  <link rel="author" href="https://plus.google.com/106555719800030017985" />
+  <link rel="apple-touch-icon-precomposed" media="screen and (resolution: 326dpi)" href="/images/.../ico_home_iphone4.png" />
+  <link rel="apple-touch-icon-precomposed" media="screen and (resolution: 163dpi)" href="/images/.../ico_home_iphone.png" />
+  <link rel="apple-touch-icon-precomposed" media="screen and (resolution: 132dpi)" href="/images/.../ico_home_ipad.png" />
+  <link rel="apple-touch-startup-image" href="/images/.../splash-ipad.png" />
 
   {% stylesheets
       '@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
       '@SkreenHouseFactoryV3Bundle/Resources/public/less/slider.less'
       '@SkreenHouseFactoryV3Bundle/Resources/public/less/modal.less'
+      '@SkreenHouseFactoryPopinBundle/Resources/public/less/popin.less'
       '@SkreenHouseFactoryV3Bundle/Resources/public/less/style.less'
         filter='less,?yui_css'
         output='css/v3.css'
@@ -32,10 +49,13 @@
 <body>
 <!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
 
+  {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
+  <div id="main">
     {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
-
-    <div id="header">
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' %}
+    <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
+      <div class="container">
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
+      </div>
     </div>
 
     <div id="content" class="couchmode-off">
@@ -43,15 +63,17 @@
     {% endblock %}
     </div>
 
-    {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
-
     <div id="redirect" class="collapse in">
     {% block redirect %}
     {% endblock %}
     </div>
+  </div>
+  <div id="header">
+  {% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' %}
+  </div>
 
 {% javascripts
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.0.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.3.min.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap-ajax-typeahead.js'
@@ -59,6 +81,7 @@
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/easyXDM.min.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer-3.2.11.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.controls-3.2.10.min.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.ipad-3.2.11.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*' 
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
@@ -70,6 +93,32 @@
     output='js/compiled/v3.js'  %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
+
+<div id="fb-root"></div>
+<script>
+  // Additional JS functions here
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '101348563248431', // App ID
+      //channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel File
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+    });
+  
+    // Additional init code here
+ 
+  };
+  
+  // Load the SDK Asynchronously
+  (function(d){
+      var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement('script'); js.id = id; js.async = true;
+      js.src = "//connect.facebook.net/fr_FR/all.js";
+      ref.parentNode.insertBefore(js, ref);
+    }(document));
+</script>
 
 <script>
   var _gaq = _gaq || [];
@@ -84,5 +133,23 @@
     })(); 
 </script>
 
+<script type="text/javascript">
+  var _sf_async_config = { uid: 40056, domain: 'myskreen.com' };
+  (function() {
+    function loadChartbeat() {
+      window._sf_endpt = (new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src',
+        (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
+        "js/chartbeat.js");
+      document.body.appendChild(e);
+    };
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+      loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+</script>
 </body>
 </html>

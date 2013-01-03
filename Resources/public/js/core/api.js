@@ -1,9 +1,23 @@
 // -- popin
-var skXdmSocket = { postMessage: function(){} };
-function skPaymentPopinResize () {
+var skXdmSocket = {postMessage: function(){
+}};
+function skPaymentPopinResize() {
 }
-function skPaymentPopinEnd () {
+function skPaymentPopinEnd(action, player, occurrence_id) {
+  console.log('skPaymentPopinEnd', action, player, occurrence_id);
+  if (typeof action != 'undefined' && 
+      action == 'play') {
+    Couchmode.init({type: 'occurrence', id: occurrence_id});
+  }
+  
   $('.modal').modal('hide');
+}
+function skPaymentPopinRefreshSession () {
+}
+function onRentClicked() {
+  var current_program_id = Player.elmt.data('playing-id');
+  console.warn('onRentClicked playing', current_program_id);
+  document.location.hash = 'program-offers';
 }
 
 // -- ENV
@@ -11,31 +25,37 @@ var DEV = 'benoit';
 var ENV;
 ENV = {
   dev: {
-        env: 'dev',
-        site_url: 'http://beta.' + DEV + '.myskreen.typhon.net:40011',
-        v3_root: '/app_dev.php/',
-        base: 'http://' + DEV + '.myskreen.typhon.net/api/',
-        popin: 'https://' + DEV + '.myskreen.typhon.net/popin/',
-        domain: DEV + '.myskreen.typhon.net',
-        console: true
+    env: 'dev',
+    site_url: 'http://beta.' + DEV + '.myskreen.typhon.net:40011',
+    v3_root: '/app_dev.php/',
+    base: 'http://' + DEV + '.myskreen.typhon.net/api/',
+    popin: 'http://' + DEV + '.myskreen.typhon.net/popin/',
+    domain: DEV + '.myskreen.typhon.net',
+    console: true
   },
   preprod: {
-        env: 'preprod',
-        site_url: 'http://preprod.beta.myskreen.com',
-        v3_root: '/app.php/',
-        base: 'http://preprod.api.myskreen.com/api/',
-        popin: 'https://preprod.api.myskreen.com/popin/',
-        domain: 'preprod.beta.myskreen.com',
-        console: true
+    env: 'preprod',
+    site_url: 'http://preprod.beta.myskreen.com',
+    v3_root: '/app.php/',
+    base: 'http://preprod.api.myskreen.com/api/',
+    popin: 'https://preprod.api.myskreen.com/popin/',
+    domain: 'preprod.beta.myskreen.com',
+    console: true
   },
   prod: {
-        env: 'prod',
-        site_url: 'http://www.myskreen.com',
-        v3_root: '/',
-        base: 'http://api.myskreen.com/api/',
-        popin: 'https://api.myskreen.com/popin/',
-        domain: 'www.myskreen.com',
-        console: false
+    env: 'prod',
+    site_url: 'http://www.myskreen.com',
+    v3_root: '/',
+    base: 'http://api.myskreen.com/api/',
+    popin: 'https://api.myskreen.com/popin/',
+    domain: 'www.myskreen.com',
+    console: false
+  },
+  all: {
+    slider: {
+      width: 150,
+      height: 200
+    }
   }
 }
 
@@ -50,9 +70,10 @@ API = {
   dataType: 'jsonp',
   currentModalUrl: null,
   currentUrl: null,
+  geolocation_id: null,
   init: function(callback) {
     var href = document.location.href;
-    API.config = href.indexOf('.net') != -1 ? ENV.dev : href.indexOf('preprod.') != -1 ? ENV.preprod : ENV.prod;
+    API.config = $.extend(ENV.all, href.indexOf('.net') != -1 ? ENV.dev : href.indexOf('preprod.') != -1 ? ENV.preprod : ENV.prod);
     API.config.player = $('html').hasClass('video') ? 'html5' : 'flash';
 
     // console
@@ -74,10 +95,10 @@ API = {
       callback();
     }
   },
-  quickLaunchModal: function(action, callbackOnLoad) {
-    this.launchModal(this.config.popin + action, callbackOnLoad);
+  quickLaunchModal: function(action, callbackOnLoad, args) {
+    this.launchModal(this.config.popin + action, callbackOnLoad, args);
   },
-  launchModal: function(url, callbackOnLoad) {
+  launchModal: function(url, callbackOnLoad, args) {
     console.log('API.launchModal enter', url, callbackOnLoad);
     if (this.context == 'v2') {
       this.postMessage(['modal', url]);
@@ -85,17 +106,24 @@ API = {
     }
 
     if (url != this.currentModalUrl) {
-      $('.modal .modal-body').empty();
+      var body = $('.modal .modal-body');
+      body.empty();
+      UI.appendLoader(body);
+
+      var args = $.extend(typeof args != 'undefined' ? args : {}, {session_uid: Skhf.session.uid, proxy: 'v3'});
+
       this.query('GET_PROXY', 
                  url,
-                 {session_uid: Skhf.session.uid,
-                  proxy: 'v3'}, 
+                 args, 
                  function(json){
                   console.log('API.launchModal', 'redirect:' + json.redirect, 'callbackOnLoad', callbackOnLoad);
                   if (typeof json.redirect != 'undefined') {
                     API.launchModal(json.redirect, callbackOnLoad);
                   } else if (json.html) {
-                    $('.modal .modal-body').html(json.html);
+                    if (typeof json.title != 'undefined' && json.title) {
+                      $('.modal .modal-header h3').html(json.title);
+                    }
+                    body.html(json.html);
                     API.catchFormModal(callbackOnLoad);
                   }
                 });
@@ -113,51 +141,73 @@ API = {
     console.log('API.catchFormModal', 'catch form');
 
     //form
-    $('.modal-footer', modal).html($('form input[type="submit"]', modal).attr('onclick','').addClass('btn-large btn-primary'));
-    $('.modal-footer', modal).append(' <a href="#" class="close">Fermer</a>');
-    $('.modal-footer input[type="submit"]', modal).click(function(e){
+    $('[type="submit"]', modal).click(function(e){
       e.preventDefault();
-      console.warn('API.catchFormModal', 'submit 1');
-
-      $(this).attr('value', 'chargement . . .').attr('disabled', 'disabled');
-      var form = $('.modal form:first')
-      form.append('<input type="hidden" name="fromSerializeArray" value="1" />');
-      var args = form.serializeArray();
-      //var args = {};
-      //jQuery.map(form.serializeArray(), function(n, i){
-      //  args[n['name']] = n['value'];
-      //});
+      console.warn('API.catchFormModal', 'submit');
+      //$(this).attr('disabled', 'disabled');
+      var form = $(this).parents('form:first');
+      var o = {};
+      var a = form.serializeArray();
+      $.each(a, function() {
+          if (o[this.name] !== undefined) {
+              if (!o[this.name].push) {
+                  o[this.name] = [o[this.name]];
+              }
+              o[this.name].push(this.value || '');
+          } else {
+              o[this.name] = this.value || '';
+          }
+      });
+      var args = $.extend(o, {session_uid: Skhf.session.uid});
       self.query('POST', form.attr('action'), args, function(json){
-        console.log('API.catchFormModal', json);
-        if (typeof json.redirect != 'undefined') {
+        console.log('API.catchFormModal', 'API.query callback', args, json);
+        //onError
+        if (typeof json.error != 'undefined') {
+          $('.modal #form-errors').html(json.error).fadeIn();
+        //onSuccess
+        } else if (typeof json.success != 'undefined' && json.success) {
+          Skhf.session.sync(function(){
+            $('#skModal').modal('hide');
+          });
+        //redirect
+        } else if (typeof json.redirect != 'undefined') {
           self.launchModal(json.redirect, callbackOnLoad);
-        } else {
+        //reload html
+        } else if (typeof json.html != 'undefined') {
           $('.modal .modal-body').empty().html(json.html);
           self.catchFormModal(callbackOnLoad);
         }
       });
       return false;
     });
-    //header
-    var headerv3 = $('.modal-body #part-header-v3', modal);
-    console.log('API.catchFormModal', 'headerv3', headerv3);
-    if (headerv3.length > 0) {
-      $('.modal-header', modal).empty().append(headerv3);
-    } else {
-      $('.modal-header h3', modal).html($('#part-header h1', modal).html());
-    }
+
     //input dpad
     $('input:visible:not(.tv-component)', modal).addClass('tv-component tv-component-input');
     $('.btn:visible:not(.tv-component)', modal).addClass('tv-component');
     $('input[type="text"], input[type="email"], input[type="password"]', modal).attr('autocomplete', 'off');
+
     
-    //error
-    $('.error_list').addClass('alert alert-error').removeClass('error_list');
+    //v2
+    this.v2Modal(modal);
 
     if (typeof callbackOnLoad != 'undefined') {
       callbackOnLoad();
     }
 
+  },
+  v2Modal: function(modal) {
+    console.log('API.v2Modal', 'enter', modal);
+    //header
+    if ($('#part-header h1', modal)) {
+      $('.modal-header h3', modal).html($('#part-header h1', modal).html());
+      $('#part-header', modal).remove();
+    }
+    //error
+    $('.error_list', modal).addClass('alert alert-error').removeClass('error_list');
+    //input
+    $('.modal-footer', modal).append(' <a href="#" class="close">Fermer</a>');
+    $('form input[type="submit"]', modal).addClass('btn-large btn-primary').removeClass('primary');
+    console.log('API.v2Modal', 'exit', modal);
   },
   typeahead: function(keywords) {
     var url = 'search/autocomplete/' + keywords;
@@ -216,9 +266,37 @@ API = {
       UI.markAsRed(id);
     });
   },
+  play: function(id){
+    var self = this;
+    this.query('GET', '/player/' + id + '/' + Skhf.session.uid + '.json', {}, function(datas) {
+      console.log('API.play', 'callback API.query', datas);
+      switch (datas.error) {
+        case 'DISCONNECTED':
+          UI.auth(function(){
+            console.log('API.play', 'callback UI.auth', Skhf.session.datas);
+            if (Skhf.session.datas.email) {
+              self.play(id);
+            } else {
+              console.error('API.play', 'callback UI.auth', Skhf.session.datas);
+            }
+          });
+        break;
+        case 'NO_RIGHTS':
+          UI.paywall(id, function(){
+            //self.play(id);
+          });
+        break;
+        default:
+          console.log('script', 'data-couchmode', $(this).data('couchmode'), args);
+          var args = {type: 'occurrence', id: id, session_uid: Skhf.session.uid};
+          Couchmode.init(args);
+        break;
+      }
+    });
+  },
   query: function(method, url, data, callback, cache, version) {
 
-    if (url.match(/^https\:\/\//)) {
+    if (url.match(/^http(s|)\:\/\//)) {
       //console.log('API.query', 'http(s|)://', 'is popin', url);
     } else {
       //console.log('API.query', 'http', 'is api', url);
@@ -305,9 +383,84 @@ API = {
       return $.cookie('myskreen_' + name);
     } else {
       var expires = typeof expires != 'undefined' ? expires : 30;
-      console.log('API.cookie', 'set', 'myskreen_' + name, '=' ,value, { path: '/', expires: expires, domain: API.config.domain});
+      //console.log('API.cookie', 'myskreen_' + name, '=' ,value, { path: '/', expires: expires, domain: API.config.domain});
       $.cookie('myskreen_' + name, value, { path: '/', expires: expires }); //, domain: API.config.domain});
     }
+  },
+  trackEvent: function(var1, var2, var3) {
+    //return; //hack test visites ga
+    if (typeof _gaq != 'undefined') {
+      _gaq.push(['_trackEvent', 
+                  var1, 
+                  var1 + '-' + var2, 
+                  var3]);
+    }
+  },
+  geolocation: function(customSuccessCallback, customErrorCallback){
+    //browser capability
+    if (!navigator.geolocation) {
+      if (typeof customSuccessCallback != 'undefined') {
+        customErrorCallback('Votre navigateur ne prend pas en compte la géolocalisation', 'navigator.geolocation');
+      }
+      return null;
+    }
+
+    function successCallback(position){
+      var date = new Date();
+      date.setTime(date.getTime() + (30 * 60 * 1000));
+      API.cookie('latlng', position.coords.latitude + ',' + position.coords.longitude, date);
+      console.log('API.geolocation', 
+                  'successCallback', 
+                  'Latitude : ' + position.coords.latitude + ', longitude : ' + position.coords.longitude);
+      if (typeof customSuccessCallback != 'undefined') {
+        customSuccessCallback(position.coords.latitude + ',' + position.coords.longitude);
+      }
+    }
+    function errorCallback(error){
+      console.log('API.geolocation', 'errorCallback', error);
+      var msg = null;
+      switch(error.code){
+        case error.PERMISSION_DENIED:
+          msg = 'Vous n\'avez pas autorisé l\'accès à votre position géographique.';
+          break;      
+        case error.POSITION_UNAVAILABLE:
+          msg = 'Votre emplacement géographique n\'a pas pu être déterminé.';
+          break;
+        case error.TIMEOUT:
+          msg = 'Le service n\'a pas répondu à temps.';
+          break;
+      }
+      if (typeof customSuccessCallback != 'undefined') {
+        customErrorCallback(msg, error.code);
+      }
+    }
+    this.geolocation_id = navigator.geolocation.watchPosition(successCallback, 
+                                                              errorCallback, 
+                                                              {enableHighAccuracy:true});
+  },
+  formatTimestamp: function(timestamp) {
+    var time = new Date(timestamp),
+    y = time.getFullYear(), 
+    d = time.getDay(),
+    h = time.getHours(), // 0-24 format
+    mn = time.getMinutes();
+    switch (time.getMonth()) {
+      case 0: m = 'Janvier'; break;
+      case 1: m = 'Février'; break;
+      case 2: m = 'Mars'; break;
+      case 3: m = 'Avril'; break;
+      case 4: m = 'Mai'; break;
+      case 5: m = 'Juin'; break;
+      case 6: m = 'Juillet'; break;
+      case 7: m = 'Août'; break;
+      case 8: m = 'Septembre'; break;
+      case 9: m = 'Octobre'; break;
+      case 10: m = 'Novembre'; break;
+      case 11: m = 'Décembre'; break;
+      default: m = ''; break;
+    }
+
+    return d + ' ' + m + ' ' + y + ' à ' + h + ':' + (parseInt(mn) > 9 ? mn : '0' + mn);
   },
   isHome: function(url) {
     var url = typeof url == 'undefined' ? this.currentUrl : url;
@@ -326,15 +479,6 @@ API = {
       default:
         return false;
       break;
-    }
-  },
-  trackEvent: function(var1, var2, var3) {
-    //return; //hack test visites ga
-    if (typeof _gaq != 'undefined') {
-      _gaq.push(['_trackEvent', 
-                  var1, 
-                  var1 + '-' + var2, 
-                  var3]);
     }
   },
   linkV2: function(url, force, callback) {

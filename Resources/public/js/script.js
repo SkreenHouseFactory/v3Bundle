@@ -18,7 +18,7 @@ $(document).ready(function(){
     // -- session
     Skhf.session = new Session(function(){
       console.log('script', 'context', API.context);
-      Skhf.session.initPlaylist();    
+      //Skhf.session.initPlaylist(); //2 appels : deconnecté/connecté. TO DO : passer à 1 seul
     });
 
     // -- ad
@@ -31,14 +31,8 @@ $(document).ready(function(){
   });
 
   // -- ui user
-  $('a.signin').click(function(){
-    if (API.context == 'v2') {
-      API.postMessage(["signin"]);
-    } else {
-      API.quickLaunchModal('signin', function() {
-        Skhf.session.sync();
-      });
-    }
+  $('a.auth').click(function(){
+    UI.auth();
     return false;
   });
   $('a.signout').click(function(){
@@ -72,7 +66,7 @@ $(document).ready(function(){
   
   $('.share a.share-off').click(function(){
     if (API.context == 'v2') {
-      API.postMessage(["modal", "facebook"]);
+      API.postMessage(['modal', 'facebook']);
     }
     return false;
   });
@@ -84,8 +78,13 @@ $(document).ready(function(){
   });
 
   // -- ui form
-  $('#top-bar form.navbar-search a').click(function(){
-    $(this).parent().submit();
+  $('#top-bar form.navbar-search').hover(function(){
+    $('i.icon-search', this).removeClass('icon-white');
+  },function(){
+    $('i.icon-search', this).addClass('icon-white');
+  });
+  $('#top-bar form.navbar-search i.icon-search').click(function(){
+    $('#top-bar form.navbar-search').submit();
     return false;
   });
   $('#top-bar form.navbar-search').submit(function(){
@@ -98,7 +97,7 @@ $(document).ready(function(){
   });
 
   // -- ui typeahead
-  UI.typeahead('.search-query');
+  UI.typeahead('.navbar-search .search-query');
   $('.navbar-search').submit(function(){
     console.log('script', 'searchbox blur', $('.search-query', $(this)));
     $('.search-query', $(this)).blur();
@@ -114,7 +113,7 @@ $(document).ready(function(){
     console.log('script', '#top-playlist on hide');
     API.postMessage(['header', 'remove_playlist'])
   });
-  $('#top-playlist h2').live('click', function(){
+  $('#top-playlist .breadcrumb li:first').live('click', function(){
     Skhf.session.initSelector();
   });
   $('#top-playlist li.selector').live('click', function(){
@@ -156,6 +155,12 @@ $(document).ready(function(){
     return;
   });
 
+  
+  // -- ui modal
+  $('.modal').on('show', function(){
+    Player.pause();
+  });
+
   // -- ui actions : favorite & play
   $('.slider li:not(.selector), .slider li').live('click', function(e){
     e.preventDefault();
@@ -167,6 +172,7 @@ $(document).ready(function(){
     UI.togglePlaylistProgram($(this));
     return false;
   });
+  /*
   $('.actions .play').live('click', function(e){
     e.preventDefault();
 
@@ -189,11 +195,53 @@ $(document).ready(function(){
 
     return false;
   });
-  //couchmode
-  $('[data-couchmode]').click(function(){
+  */
+
+
+  // -- play deporte
+  $('[data-play]').live('click', function(){
+    console.log('script', 'data-play', $(this));
+    API.play($(this).data('play'));
+    return false;
+  });
+
+  // -- ui redirect autoload
+  if ($('#redirect iframe').length > 0) {
+    console.log('UI.loadRedirect()', $('#redirect iframe').length);
+    UI.loadRedirect();
+  }
+  $('[data-redirect]').live('click', function(){
+      console.log('script', 'player redirect', $(this));
+      UI.loadRedirect($(this).data('redirect'));
+  });
+
+  // -- couchmode
+  $('[data-couchmode]').live('click', function(){
       var args = $.extend({session_uid: Skhf.session.uid}, $(this).data('couchmode'));
-      console.log('script', 'data-couchmode', args);
+      console.log('script', 'data-couchmode', $(this).data('couchmode'), args);
       Couchmode.init(args);
+  });
+
+  // -- couchmode autoplay
+  $('a[data-couchmode-autoplay="1"]').each(function(){
+    console.log('script', 'couchmode autoplay', $(this));
+    $(this).trigger('click');
+    return false;
+  });
+
+  // -- player autoload
+  $('[data-player-autoload]').each(function(){
+    var trigger = $(this);
+    console.log('script', 'player autoload', trigger.data('player-autoload'), trigger);
+    Player.init(trigger);
+    var args = trigger.data('player-jscontrolbar') ? {control: 'disabled'} : {};
+    Player.playOccurrence(trigger.data('player-autoload'), function(){
+      if (trigger.data('player-muted')) {
+        Player.mute();
+      }
+    }, args);
+    
+    $(this).data('player-loaded', 1);
   });
 
   // -- .fav : retirer / popover
@@ -204,7 +252,7 @@ $(document).ready(function(){
       if ($(this).hasClass('btn-primary')) {
         $(this).removeClass('btn-primary')
                .addClass('btn-danger')
-               .html('<i class="icon-remove-sign icon-white"></i> Retirer');
+               .html('<i class="icon-remove-sign icon-white"></i> Retirer des playlists');
       //popover
       } else if (!$(this).hasClass('btn-danger')) {
         if ($(this).parent().data('onglet') == 'emissions' || $(this).parent().data('onglet') == 'series') {
@@ -229,19 +277,6 @@ $(document).ready(function(){
       }
     }
   });
-
-  // -- ui player autoplay
-  $('a[data-player-autoplay="1"]').each(function(){
-    console.log('script', 'player autoplay', $(this));
-    UI.loadPlayer($(this));
-    return false;
-  });
-
-  // -- ui redirect autoload
-  if ($('#redirect iframe').length > 0) {
-    console.log('UI.loadRedirect()', $('#redirect iframe').length);
-    UI.loadRedirect();
-  }
 
   // -- nav-alpha-client
   $('.pagination-client-alpha li').click(function(){
@@ -271,16 +306,74 @@ $(document).ready(function(){
   /* PAGES */
 
   // -- channel
-  $('.trigger-channel').click(function(){
-    UI.refreshChannel($(this).parent().data('channel-id'));
-  });
-  $('.trigger-channel-date').change(function(){
-    UI.refreshChannel($(this).data('channel-id'));
-  });
-  if (channel_name = $('#view-channel h1').html()) {
-    $('[title="'+channel_name+' Replay"]').parent().addClass('active');
+  if ($('#view-channel').length > 0) {
+    $('.trigger-channel').click(function(){
+      UI.refreshChannel($(this).parent().data('channel-id'));
+    });
+    $('.trigger-channel-date').change(function(){
+      UI.refreshChannel($(this).data('channel-id'));
+    });
+    if (channel_name = $('#view-channel h1').html()) {
+      $('[title="'+channel_name+' Replay"]').parent().addClass('active');
+    }
   }
-  
+
+  // -- program
+  if ($('#view-program').length > 0) {
+
+    //no deportes
+    if ($('#trigger-deportes').data('nb') == 0) {
+      $('#triggers li:nth-child(2) a').trigger('click')
+    }
+
+    //theaters
+    var trigger = $('#trigger-theaters, #trigger-theaters-geoloc');
+    var container = $('#theaters-list');
+    console.log('trigger-theaters', trigger);
+    trigger.live('click', function(){
+      UI.appendLoader(container);
+      //geoloc
+      API.geolocation(function(position){
+        container.load(container.data('api-url') + '?latlng=' + position);
+      }, function(msg, code){
+        container.preprend('<p class="alert alert-error">' + msg + '</p>');
+      });
+      // - de 10
+      if ($('#trigger-theaters').data('nb') <= 10) {
+        container.load(container.data('api-url'));
+      }
+    });
+    $('#theaters-search').submit(function(){
+        container.load(container.data('api-url') + '?q=' + escape($('#theaters-search .search-query').val()));
+        return false;
+    });
+    
+    //youtube
+    var trigger = $('#view-program [data-more-streaming]');
+    if (trigger) {
+      console.log('data-more-streaming', trigger);
+      var url = 'program/more-streaming/' + trigger.data('more-streaming') + '.json';
+      API.query('GET',
+                url,
+                {nb_results: 12},
+                function(programs) {
+                  if (programs.length == 0) {
+                    return;
+                  }
+                  console.log('more-streaming', ' callback', programs.length);
+                  trigger.append('<br/><p class="lead"><small>' + programs.length + ' vidéos YouTube</small></p>');
+                  for (var i = 0; i < programs.length; i++) {
+                    //console.log('>> bbr', 'entry', entry.media$group);
+                    trigger.append('<a href="#" data-couchmode=\'{"type": "remote", "id": "' + encodeURIComponent(url) + '", "autoplay": "' + programs[i].id + '"}\' class="pull-left" style="display:block;position:relative;width:160px;height:160px;margin: 0 5px 5px;line-height: 1em;font-size:0.8em;color:black;">' +
+                                   '<span style="position:absolute;margin:5px;background:white;opacity:0.8;padding:3px;">' + programs[i].duration + ' min.</span>' +
+                                   '<img class="img-polaroid" alt="' + programs[i].title + '" src="' + programs[i].picture + '" style="width:150px;"/>' +
+                                   '<div style="padding: 2px 5px 0 5px;font-family: Tahoma;line-height: 1.1em;color: #555;">' + programs[i].title + '</div>' +
+                                   '</a>');
+                  }
+                });
+    };
+  }
+
   /* TOUCH */
   if ($('html').hasClass('touch')) {
     $('html.touch .tv-component, html.touch .tv-component *').live('touchstart', function(e){
@@ -291,4 +384,56 @@ $(document).ready(function(){
       return false;
     });
   }
+
+  /* FB */
+  function fbsync() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Good to see you, ' + response.name + '.', response);
+      API.query('POST', 'user', {
+                  session_uid: Skhf.session.uid,
+                  fbuid: response.id,
+                  username: response.email,
+                },
+                function(){
+                  Skhf.session.sync(function(){
+                    $('.modal').modal('hide');
+                  });
+                });
+    });
+  }
+  function fblogin() {
+    FB.login(function(response) {
+      if (response.authResponse) {
+        // connected
+        $('#fbconnect-infos').html('<span class="alert alert-success">Connexion à Facebook réussie ! Chargement ...</span>');
+        fbsync();
+      } else {
+        // cancelled
+        $('#fbconnect-infos').html('<span class="alert alert-error">La connexion à Facebook a échoué !</span>');
+      }
+    },{scope:'user_birthday,user_online_presence,email,read_friendlists,publish_stream,offline_access,friends_birthday,friends_likes,friends_online_presence,publish_actions'});
+  }
+  /* on shown
+  FB.getLoginStatus(function(response) {
+    if (response.status === 'connected') {
+      FB.api('/me', function(response) {
+        console.log('Good to see you, ' + response.name + '.', response);
+        $('#fbconnect-infos').html('<small>(' + response.name + ')</small>');
+      });
+    }
+  });
+  */
+  //trigger
+  $('#fbconnect').live('click', function(){
+    console.log('script', 'trigger FB');
+    fblogin();
+    return false;
+  })
+
+
+  /* END */
+  
+  // -- playlist friends
+  UI.addFriendsPlaylists();
 });

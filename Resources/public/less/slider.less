@@ -6,9 +6,9 @@
 @sliderHeight:   210px;
 @vignetteWidth:   150px;
 @vignetteHeight:   200px;
-@vignetteBorder:  1px solid white;
-@selectorBorder:  2px solid #BBBBBB;
-@vignetteBorderEmpty:  2px dashed #BBBBBB;
+@vignetteBorder:  1px solid transparent;
+@selectorBorder:  1px solid #BBBBBB;
+@vignetteBorderEmpty:  1px dashed #BBBBBB;
 @vignetteMargin:  0 7px 14px;
 
 /* slider */
@@ -47,9 +47,14 @@
 }
 .slider.loading {
   ul.items {
-    li.loader {
-      display: block !important;
-      border: none !important;
+    li {
+      opacity: 0.4;
+
+      &.loader {
+        opacity: 1;
+        display: block !important;
+        border: none !important;
+      }
     }
   }
 }
@@ -94,7 +99,7 @@
     padding: 10px 6px 3px 5px;
   }
   
-  h2 {
+  h2, h3 {
     span.pull-right {
       margin-right: 10px;
       color: #999;
@@ -102,7 +107,7 @@
   }
 
   &.current {
-    h2 {
+    h2, h3 {
       span.pull-right {
         display: none;
       }
@@ -182,11 +187,6 @@
       div.friends {
         position: absolute;
         z-index: 2;
-        
-        img {
-          margin: 3px;
-          box-shadow: 1px 1px 4px white;
-        }
       }
 
       div.progress {
@@ -203,9 +203,10 @@
         a.btn {
           position: relative;
           text-align: left;
-          margin-bottom:5px;
+          margin: 10px;
           line-height: 14px;
           padding: 4px 6px;
+          font-size: 1.1em;
 
           span {
             /*display: none;
@@ -213,9 +214,10 @@
             color: black;
           }
           
-          &.play {
-            overflow: hidden;
-            text-overflow: ellipsis;
+          i {
+            float: left;
+            margin-top: 7px;
+            margin-right: 7px;
           }
         }
 
@@ -260,6 +262,7 @@
         margin: 4px;
         padding: 3px;
         border-radius: 4px;
+        font-size: 0.9em;
       }
 
       &.selector {
@@ -307,53 +310,63 @@
         }
       }
 
-
-    }
-    li:hover, li.tv-component-focused {
-      div.actions {
-        display: block;
-      }
-      a.title { 
-        height: auto;
-      }
-    }
-    li.deporte {
-      div.actions a.btn span {
-        display: block;
-      }
-    }
-    li.deporte:hover, li.tv-component-focused.deporte {
-      a.title {
-        background: #333;
-      }
-    }
-    li.films {
-      a.title {
-        background: transparent;
-        font-size: 0;
-      }
       &:hover, &.tv-component-focused {
+        div.actions {
+          display: block;
+        }
+        a.title { 
+          height: auto;
+        }
+      }
+      &.tv-component-focused {
+        border: 1px solid #BCE8F1;
+        box-shadow: 1px 1px 4px #BCE8F1;
+      }
+      &:hover {
+        border: 1px solid #FBEED5;
+        box-shadow: 1px 1px 4px #FBEED5;
+      }
+      &.deporte {
+        div.actions a.btn span {
+          display: block;
+        }
+      }
+      &.deporte:hover, &.tv-component-focused.deporte {
         a.title {
-          font-size: 1.0em !important;
           background: #333;
         }
       }
-    }
-    li[data-id="%id%"] {
-      display: none;
-    }
-    li.loader {
-      display: none !important;
-      background: transparent !important;
-      box-shadow: none !important;
-      padding-top: 30px;
-    }
-    li.loader.loader-pager {
-      display: block;
-    }
-
-    li.to-animate {
-      width: 0;
+      &.films {
+        a.title {
+          background: transparent;
+          font-size: 0;
+        }
+        &:hover, &.tv-component-focused {
+          a.title {
+            font-size: 1.0em !important;
+            background: #333;
+          }
+        }
+      }
+      &[data-id="%id%"] {
+        display: none;
+      }
+      &.loader {
+        position: absolute;
+        z-index: 1;
+        display: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 30px 0 0 420px;
+        border: none !important;
+      }
+      &.loader.loader-pager {
+        display: block;
+      }
+  
+      &.to-animate {
+        width: 0;
+      }
     }
   }
 }

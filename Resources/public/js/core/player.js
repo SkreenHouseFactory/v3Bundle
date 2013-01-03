@@ -1,3 +1,13 @@
+// -- YouTube
+var tag = document.createElement('script');
+tag.src = "//www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+function onPlayerReady(event) {
+  console.warn('onPlayerReady', event.target);
+  Player.ytplayer = event.target;
+}
+
 // -- Player
 var Player;
 Player = {
@@ -14,8 +24,9 @@ Player = {
 
     var flashversion = flashembed.getVersion()[0];
     if (UI.ios || !flashversion) {
-      //this.type = 'html5';
+      this.type = 'html5';
     }
+    console.log('Player.init', 'type', this.type);
 
     return this;
   },
@@ -90,6 +101,8 @@ Player = {
     if (typeof url != 'undefined') {
       if (url.match(/\/redirection\//)) {
         document.location = url;
+      } else if (url.match(/\/exit\//)) {
+        window.open(url);
       } else {
         iframe.html('<iframe src="' + url + '"></iframe>');
       }
@@ -100,6 +113,7 @@ Player = {
   play: function(player, callback) {
     console.log('Player.play', player, this.type, callback);
     this.state = 'playing';
+    this.elmt.data('playing-id', player.id);
     if (typeof player.format != 'undefined') {
       this.type = player.format;
     }
@@ -155,7 +169,7 @@ Player = {
         };
 
         if (this.type == 'html5') {
-          console.warn(['Player.flowplayer', 'iOs/noflash', player.url]);
+          console.warn('Player.flowplayer', 'iOs/noflash', player.url);
           Player.elmt.css('height', document.body.clientHeight/2);
           $f(this.elmt.attr('id'), flashArgs, flowArgs).ipad({simulateiDevice: true, 
                                                               controls: false, 
@@ -165,11 +179,17 @@ Player = {
                          '<source type="video/mp4" src="' + player.url + '"></source>' +
                          '</video>');
           this.elmt.find('video:first').play();*/
-          console.warn(['Player.flowplayer', 'html', Player.elmt.html()]);
-          
+          console.warn('Player.flowplayer', 'html', Player.elmt.html());
+
         } else {
-          console.warn(['Player.flowplayer', 'flash', flowArgs, flowArgs]);
-          $f(this.elmt.attr('id'), flashArgs, flowArgs);
+          //if (this.elmt.data('player-jscontrolbar')) {
+          //  flowArgs.plugins.controls = null;
+          //}
+          console.warn('Player.flowplayer', 'flash', flowArgs, flowArgs);
+          var f = $f(this.elmt.attr('id'), flashArgs, flowArgs);
+          if (this.elmt.data('player-jscontrolbar')) {
+            f.controls(this.elmt.data('player-jscontrolbar'), {duration: 25});
+          }
         }
       break;
       case 'flash':
@@ -184,11 +204,19 @@ Player = {
         }
       break;
       case 'iframe':
-        this.elmt.html('<iframe src="' + embed.url + '" frameborder="0"></iframe>');
+        this.elmt.html('<iframe src="' + player.url + '" width="100%" height="100%" frameborder="0"></iframe>');
+      break;
+      case 'YouTube':
+        //this.elmt.html('<embed id="ytplayer" width="100%" height="100%" name="plugin" src="http://www.youtube.com/v/' + player.url + '?enablejsapi=1&version=3&playerapiid=ytplayer&wmode=opaque" type="application/x-shockwave-flash"><param name="wmode" value="transparent"></embed>');
+        this.elmt.html('<iframe src="http://www.youtube.com/embed/' + player.url + '?version=3&f=videos&app=youtube_gdata&rel=1&border=0&fs=1&autoplay=1&wmode=opaque" width="100%" height="100%" frameborder="0"></iframe>');
       break;
     }
   },
   pause: function() {
+    if (this.state != 'playing') {
+      console.warn('Player.pause', 'state', this.state);
+      return;
+    }
     this.state = 'paused';
     switch(this.type) {
       case 'android':
@@ -199,6 +227,9 @@ Player = {
       case 'html5':
       case 'flowplayer':
         $f(this.elmt.attr('id')).pause();
+      break;
+      case 'YouTube':
+        //this.ytplayer.pauseVideo();
       break;
     }
   },
@@ -213,6 +244,9 @@ Player = {
       case 'html5':
       case 'flowplayer':
         $f(this.elmt.attr('id')).resume();
+      break;
+      case 'YouTube':
+        //this.ytplayer.playVideo();
       break;
     }
   },
@@ -232,6 +266,9 @@ Player = {
           }
         }
       break;
+      case 'YouTube':
+        //this.ytplayer.stopVideo();
+      break;
     }
 
     if (this.elmt != null) {
@@ -241,13 +278,26 @@ Player = {
       this.reset();
     }
   },
+  mute: function() {
+    switch(this.type) {
+      case 'android':
+      //?
+      break;
+      case 'html5':
+      case 'flowplayer':
+        $f(this.elmt.attr('id')).mute();
+      break;
+      case 'YouTube':
+        //?
+      break;
+    }
+  },
   playProgram: function(id, callback, args) {
     var self = this;
     var args = $.extend(true,
                         {
                           player_width: '100%', 
                           player_height: '100%',
-                          control: 'disabled',
                           player: this.type,
                           fullHD: true
                         }, 
@@ -259,24 +309,61 @@ Player = {
                 console.log('Player.playProgram', media.player, args);
 
                 if (!media.player || typeof media.player == 'undefined') {
-                  //TODO handle errors
                   callback('unvailable');
-                  //UI.error('Oups : vidéo indisponible !');
                   return false;
                 }
-                self.play(media.player, callback);
-                self.elmt.data('playing-id', id);
+                self.play($.extend(media.player, {id: id}), callback);
   
                 return true;
               }, 
               true);
+  },
+  playOccurrence: function(id, callback, args) {
+    var self = this;
+    var args = $.extend(true,
+                        {
+                          player_width: '100%', 
+                          player_height: '100%',
+                          player: this.type,
+                          fullHD: true
+                        }, 
+                        typeof args != 'undefined' ? args : {});
+    API.query('GET',
+              'player/' + id + '/' + Skhf.session.uid + '.json',
+              args,
+              function(video){
+                console.log('Player.playOccurrence', video, args);
+
+                if (!video.player || typeof video.player == 'undefined') {
+                  callback('unvailable');
+                  return false;
+                }
+                self.play($.extend(video.player, {occurrence_id: id}), callback);
+                if (typeof video.versions != 'undefined' && video.versions) {
+                  self.loadVersions(video.versions, id);
+                }
+  
+                return true;
+              }, 
+              true);
+  },
+  loadVersions: function(versions, current_id) {
+    var el = $('#player-versions');
+    console.log('Player.loadVersions', versions, el);
+    el.html('Versions disponibles<br/>');
+    for (k in versions) {
+      el.append(' <a href="#" data-play="' + versions[k] + '" class="badge' + (versions[k] == current_id ? ' badge-info' : '') + '">' + k + '</a>');
+    }
   },
   loadMetaProgram: function(p) {
     var el = $('#player-meta');
     console.log('Player.loadMetaProgram', this.elmt, el, p);
     el.data('id', p.id);
     el.data('title', 'Ajout à vos playlists<br/><small>' + p.title + ', ' + p.format + ' - ' + p.year + '</small>');
-    el.html('<h4>' + p.title + '<br/><small>' + p.format + ' - ' + p.year + '</small></h4>');//<br/><a class="btn btn-large fav">Suivre / voir plus tard</a><span>');
+    el.html('<h4>' + p.title + '<br/><small>' + p.format + ' - ' + p.year + '</small></h4><div id="player-versions"></div>');//<br/><a class="btn btn-large fav">Suivre / voir plus tard</a><span>');
+    if (typeof p.pass != 'undefined' && p.pass) {
+      el.append('<div id="player-paywall"><a href="#" class="btn" data-play="' + p.pass + '"><i class="icon icon-play"></i> Louer ce programme</a></div>');
+    }
   },
   minify: function() {
     $('#header').collapse('show');

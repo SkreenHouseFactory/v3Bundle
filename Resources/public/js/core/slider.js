@@ -5,21 +5,23 @@ var BaseSlider = Class.extend({
   items: null,
   sample: null,
   loader: null,
-  params: {img_width: 150,
-           img_height: 200,
-           item_margin: 7,
-           pager_nb_results: 10,
-           type: 'scroll'},
+  params: {
+    width: 150,
+    height: 200,
+    item_margin: 7,
+    pager_nb_results: 10,
+    type: 'scroll'
+  },
   //init
   init: function(params, callback, elmt) {
     //console.log('BaseSlider.init', params, callback);
-    this.params    = $.extend(this.params, params);
+    this.params    = $.extend(this.params, params, typeof API.config.slider != 'undefined' ? API.config.slider : {});
     this.elmt      = typeof elmt != 'undefined' ? elmt : this.getTemplate(params);
     this.items     = $('ul', this.elmt);
     this.container = $('.slider-container', this.elmt);
-    this.loader    = $('.loader', this.items).css('width', this.params.img_width + 'px');
+    this.loader    = $('.loader', this.items).css('width', this.params.width + 'px');
     UI.appendLoader(this.loader);
-    console.log('BaseSlider.init', this.loader, this.items);
+    //console.log('BaseSlider.init', this.loader, this.items);
 
     //scroll ?
     if (this.params.scroll != 'no') {
@@ -39,21 +41,21 @@ var BaseSlider = Class.extend({
 
     //programs
     if ($('li:not(.static)', this.items).length > 0) {
-      console.log('BaseSlider.init', 'Programs found in DOM');
+      //console.log('BaseSlider.init', 'Programs found in DOM');
       this.ui();
     } else if (typeof params.programs != 'undefined') {
-      console.log('BaseSlider.init', 'insertPrograms');
+      //console.log('BaseSlider.init', 'insertPrograms');
       if (params.programs.length > 0) {
         this.insertPrograms(params.programs, callback);
       } else {
         callback(this.elmt);
       }
     } else if (typeof params.url != 'undefined') {
-      console.log('BaseSlider.init', 'insertPrograms');
+      //console.log('BaseSlider.init', 'insertPrograms');
       this.elmt.data('url', params.url);
       this.loadRemotePrograms(0, callback);
     } else if ( Skhf.session != null) { //ajax seulement
-      console.log('BaseSlider.init', 'loadRemotePrograms', Skhf);
+      //console.log('BaseSlider.init', 'loadRemotePrograms', Skhf);
       this.loadRemotePrograms(0, callback);
     }
 
@@ -63,24 +65,26 @@ var BaseSlider = Class.extend({
     return this.elmt;
   },
   ui: function(callback) {
-    console.log('BaseSlider.ui', this);
+    //console.log('BaseSlider.ui', this);
     var self = this;
 
     var next = $('.next', this.elmt);
     var prev = $('.prev', this.elmt);
-    if (!this.elmt.hasClass('couchmode')) {
-      //this.items.css('width', (parseInt(this.params.img_width) + parseInt(this.params.item_margin)*2  + 5) * this.items.children().length);
+    this.elmt.removeClass('loading');
+
+    //if (!this.elmt.hasClass('couchmode')) {
+      //this.items.css('width', (parseInt(this.params.width) + parseInt(this.params.item_margin)*2  + 5) * this.items.children().length);
       //console.log('BaseSlider.ui', 'width', this.items.css('width'));
-    }
+    //}
 
     if (this.elmt.hasClass('initialized')) {
       next.css({'visibility':'visible'});
-      console.log('BaseSlider.ui', 'already initialized');
+      //console.log('BaseSlider.ui', 'already initialized');
       return;
     }
 
     if (this.items.children().filter(':not(.static)').length <= 5) {
-      console.log('BaseSlider.ui', 'not initialized', 'count:' + this.items.children().filter(':not(.static)').length, this.items);
+      //console.log('BaseSlider.ui', 'not initialized', 'count:' + this.items.children().filter(':not(.static)').length, this.items);
       return;
     }
 
@@ -126,15 +130,15 @@ var BaseSlider = Class.extend({
   },
   next: function(trigger) {
     var self = this;
-    console.log('next', this.container.css('left'), this.container.css('width'));
+    //console.log('next', this.container.css('left'), this.container.css('width'));
     if (parseInt(this.container.css('left')) < parseInt(this.container.css('width')) || this.container.css('left') == 'auto') {
       self.items.animate({'left': '+=-'+parseInt(this.container.css('width'))}, 500, function() {
         //console.log('pager', parseInt(self.items.css('left')),  parseInt(self.container.css('width')), self.items.css('width'), self.elmt.data('pager-offset'));
-        console.log('pager', $('li:not(.static)', self.items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(self.container.css('width')),  parseInt(self.items.css('left')), self.elmt.data('pager-offset'));
-        if ($('li:not(.static)', self.items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(self.container.css('width')) < -parseInt(self.items.css('left'))) {
+        //console.log('pager', $('li:not(.static)', self.items).length * (self.params.width+self.params.item_margin*2) - parseInt(self.container.css('width')),  parseInt(self.items.css('left')), self.elmt.data('pager-offset'));
+        if ($('li:not(.static)', self.items).length * (self.params.width+self.params.item_margin*2) - parseInt(self.container.css('width')) < -parseInt(self.items.css('left'))) {
           trigger.css({'visibility':'hidden'});
           //pager
-          console.log('BaseSlider.ui', 'url', self.elmt.data('url'));
+          //console.log('BaseSlider.ui', 'url', self.elmt.data('url'));
           if (self.elmt.data('url')) {
             var offset = self.params.pager_nb_results + parseInt(self.elmt.data('pager-offset'));
             self.elmt.data('pager-offset', offset);
@@ -169,7 +173,7 @@ var BaseSlider = Class.extend({
     if (-parseInt(this.items.css('left')) < parseInt(this.items.css('width'))) {
       self.items.animate({'left': '+=' + parseInt(this.container.css('width'))}, 500, function() {
         console.log('pager', parseInt(self.items.css('left')), parseInt(self.items.css('width')));
-        console.log('pager =>', $('li:not(.static)', self.items).length * (self.params.img_width+self.params.item_margin*2) - parseInt(self.container.css('width')),  parseInt(self.items.css('left')), self.elmt.data('pager-offset'));
+        console.log('pager =>', $('li:not(.static)', self.items).length * (self.params.width+self.params.item_margin*2) - parseInt(self.container.css('width')),  parseInt(self.items.css('left')), self.elmt.data('pager-offset'));
         if (parseInt(self.items.css('left')) >= -5) {
           self.elmt.removeClass('back');
         }
@@ -200,7 +204,7 @@ var BaseSlider = Class.extend({
       console.warn('BaseSlider.loadRemotePrograms', 'already loading');
       return;
     }
-    
+
     if (!this.elmt.hasClass('loading')) {
       this.elmt.addClass('loading');
     }
@@ -211,13 +215,19 @@ var BaseSlider = Class.extend({
       $('li:not(.static)', this.elmt).remove();
     }
 
-    var args = $.extend(args, this.params, {url: ''}); //overwrite url params
+    var args = $.extend(args, {img_width: API.config.slider.width, 
+                               img_height: API.config.slider.height, 
+                               url: ''}); //overwrite url params
     var url = this.getUrl(typeof offset != 'undefined' ? offset : 0);
+    if (url == null) {
+      console.warn('BaseSlider.loadRemotePrograms', 'url', url);
+      return;
+    }
     API.query('GET',
               url, 
               args,
               function(programs){
-                console.log('BaseSlider.loadRemotePrograms', programs.length, programs, 'callback:' + callback);
+                //console.log('BaseSlider.loadRemotePrograms', programs.length, programs, 'callback:' + callback);
                 if (typeof keep == 'undefined' || keep != true) {
                   $('li:not(.static)', self.elmt).remove();
                 }
@@ -239,6 +249,10 @@ var BaseSlider = Class.extend({
   },
   getUrl: function(offset){
     var url = !isNaN(this.elmt.data('id')) ? 'www/slider/pack/' + this.elmt.data('id') + '.json'  : this.elmt.data('url');
+    if (typeof url == 'undefined') {
+      console.error('Slider.getUrl', url);
+      return null;
+    }
     return url .replace('session.uid', Skhf.session.uid)
                .replace('access.name', Skhf.session.access ? Skhf.session.access : 'undefined')
                + (url.indexOf('?') == -1 ? '?' : '&')
@@ -251,31 +265,14 @@ var BaseSlider = Class.extend({
       var popular_channel = program.popular_channel ? '<img alt="' + program.popular_channel.name + ' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
       var pere  = program.episodeof ? program.episodeof : program;
       var seo_url = API.config.site_url + program.seo_url + (this.elmt.attr('id') == 'playlist' ? '?keepPlaylist' : '');
-      if (program.has_vod == 4) { //cine
-        var seo_play_title = 'Voir au cinéma';
-      } else if (program.has_vod == 3) { //dvd
-        var seo_play_title = 'Voir en dvd';
-      } else if (program.has_vod == 11) { //box
-        var seo_play_title = 'Voir sur votre box';
-      } else if (program.has_vod == 5) { //tv
-        var seo_play_title = 'Voir à la télé';
-      } else if (program.has_vod == 6) { //commande replay
-        var seo_play_title = 'Bientôt en replay';
-      } else if (program.has_vod == 7 || program.has_vod == 8) {
-        var seo_play_title = 'Voir en replay';
-      } else {
-        var seo_play_title = 'Voir en streaming';
-      }
       //var icon_title = program.deporte ? '<i class="icon-th icon-white"></i> ' : '';
       var li    = $(this.sample.replace('%seo_add_title%', pere.title + ', ' + program.format + ' - ' + program.year)
-                               .replace('%seo_play_title%', seo_play_title).replace('%seo_play_title%', seo_play_title)
                                .replace('%title%', program.title).replace('%title%', program.title).replace('%title%', program.title)
                                .replace('%seo_url%', seo_url).replace('%seo_url%', seo_url)
                                .replace('%id%', pere.id).replace('%id%', pere.id).replace('%id%', pere.id)
                                .replace('%onglet%', program.onglet.toLowerCase()).replace('%onglet%', program.onglet.toLowerCase())
                                .replace('%popular_channel%', popular_channel));
       li.css('background-image', 'url(' + program.picture + ')');
-      $('.actions', li).data('id', program.id);
       li.attr('data-position', k);
       li.attr('data-player-program', JSON.stringify(program));
 
@@ -284,32 +281,36 @@ var BaseSlider = Class.extend({
       //    $.inArray('' + pere.id, Skhf.session.datas.notifications.programs['new']) != -1) { //'' + pere.id
       //  li.prepend(UI.badge_notification.replace('%count%', 'nouveau'));
       //}
-      if (program.deporte) {
-        li.addClass('deporte');
-        $('.title', li).each(function(){
-          $(this).prepend('<i class="icon-th icon-white"></i> ');
-        });
+      if (isNaN(program.id)) {
+        $('.actions', li).remove();
+      } else {
+        $('.actions', li).data('id', program.id);
+        this.addProgramBestOffer(li, program);
+        if (program.deporte) {
+          li.addClass('deporte');
+          $('.title', li).each(function(){
+            $(this).prepend('<i class="icon-th icon-white"></i> ');
+          });
+        }
+        if (program.friend_uids) {
+          UI.addFriends(li, program.friend_uids.split(','));
+        }
       }
-      if (program.friend_uids) {
-        UI.addFriends(li, program.friend_uids.split(','));
-      }
-      this.addProgramBestOffer(li, program);
       li.addClass('to-animate').show();
       li.appendTo($('ul.items', this.elmt));
       
       //console.log('BaseSlider.load', 'added', li, program, k);
     }
 
+    $('a[rel="tooltip"]', this.elmt).tooltip();
+    //if (this.elmt.data('animate') == 'width') {
+      $('li.to-animate', this.elmt).animate({'width':this.params.width}, 500).removeClass('to-animate');
+    //}
+    //console.log('BaseSlider.insertPrograms', 'done', 'to-animate ' + this.elmt.data('animate'));
     //ui
     if (!this.elmt.hasClass('initialized')) {
       this.ui();
     }
-    $('a[rel="tooltip"]', this.elmt).tooltip();
-    this.elmt.removeClass('loading');
-    //if (this.elmt.data('animate') == 'width') {
-      $('li.to-animate', this.elmt).animate({'width':this.params.img_width}, 500).removeClass('to-animate');
-    //}
-    console.log('BaseSlider.insertPrograms', 'done', 'to-animate ' + this.elmt.data('animate'));
     UI.loadUserPrograms(Skhf.session.datas.queue, this.elmt);
 
     if (typeof callback != 'undefined'){
@@ -362,7 +363,7 @@ var BaseSlider = Class.extend({
     var title = typeof params.title != 'undefined' ? '<h2>' + params.title + '</h2>' : '';
     var html = $('<div' + (typeof params.id != 'undefined' ? ' id="' + params.id + '"' : '') + ' class="slider tv-container"' + (typeof params.data_id != 'undefined' ? ' data-id="' + params.data_id + '"' : '') + '>' + title + '<div class="slider-container"><ul class="items" data-current-position="0"><li class="loader static">Chargement ...</li></ul></div></div>');
 
-    console.log('BaseSlider.getTemplate', params, html);
+    //console.log('BaseSlider.getTemplate', params, html);
     return html;
   }
 });
