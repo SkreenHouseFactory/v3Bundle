@@ -66,12 +66,13 @@ class ContentController extends Controller
           continue;
         }
         //print_r($r);
-        $datas->related[$key]->programs = (array)$api->fetch(str_replace('&onglet', '&_onglet', $r->url), 
+        $datas->related[$key]->programs = (array)$api->fetch(str_replace('&onglet', '&_onglet', $r->paginate), 
                                                               array(
                                                                 'img_width' => 150,
                                                                 'img_height' => 200,
                                                                 'programs_only' => true,
                                                                 'channel_img_width' => 50,
+                                                                'nb_results' => 7,
                                                               ));
         //echo "\n name:".$r->name.' url:'.$api->url;
         //echo "\n name:".$r->name.' : '.end($datas->related[$key]->programs)->id;

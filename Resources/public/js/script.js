@@ -164,11 +164,11 @@ $(document).ready(function(){
   });
 
   // -- ui actions : favorite & play
-  $('.slider li:not(.selector)').live('click', function(e){
+  /*$('.slider li:not(.selector)').live('click', function(e){
     //console.log('script', '.slider li:not(.selector)', $('a.title', this));
     document.location = API.config.v3_root + $('a.title', this).attr('href');
     return false;
-  });
+  });*/
   $('.actions .fav').live('click', function(e){
     e.preventDefault();
     UI.togglePlaylistProgram($(this));
@@ -331,7 +331,7 @@ $(document).ready(function(){
     //ics
     $('#broadcasts tr').click(function(e){
       e.preventDefault();
-      document.location = API.config.base + '1/icsfile/' +  + '.ics';
+      document.location = API.config.base + '1/icsfile/' + $(this).data('id')  + '.ics';
       return false;
     });
 
@@ -431,7 +431,7 @@ $(document).ready(function(){
                     }
                     item.append('<a href="#" data-couchmode=\'{"type": "remote", "id": "' + encodeURIComponent(url) + '", "autoplay": "' + programs[i].id + '"}\' class="pull-left">' +
                                    '<span>' + programs[i].duration + ' min.</span>' +
-                                   '<img class="img-polaroid" alt="' + programs[i].title + '" src="' + programs[i].picture + '" />' +
+                                   '<img width="150px" class="img-polaroid" alt="' + programs[i].title + '" src="' + programs[i].picture + '" />' +
                                    '<div class="title">' + programs[i].title + '</div>' +
                                    '</a>');
                   }
