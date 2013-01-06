@@ -190,7 +190,7 @@ UI = {
     API.query('GET', 
               'program/' + id + '.json', 
               {
-                with_offers: 1,
+                //with_offers: 1,
                 with_notifications: 1,
                 with_friends: 1,
                 session_uid: Skhf.session.uid
