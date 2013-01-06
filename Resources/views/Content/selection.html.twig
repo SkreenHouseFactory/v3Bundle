@@ -1,0 +1,32 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+
+{% block title %}{{ 'page.title.selection'|trans({'%name%': selection.name}) }}{% endblock %}
+{% block description %}{{ selection.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+
+{% block content %}
+<div id="view-selection" class="container">
+
+  <h1>{{ selection.name|raw }}</h1>
+  <p class="clear">{{ selection.description }}</p>
+
+  <div style="position:absolute;top:0;right:0;width: 300px;">
+  <br/>
+  <a class="btn btn-large btn-inverse btn-block" href="#" data-couchmode="{{ {'type': 'pack', 'id': selection.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>
+  <br/>
+  <ul class="nav nav-tabs nav-stacked">
+    {% for pack in selection.onglet.sliders %}
+    <li><a href="{{ path('selections', {id: pack.id, slug: pack.slug}) }}">{{ pack.name|raw }}</a></li>
+    {% endfor %}
+  </ul>
+  </div>
+
+  <div id="selection-programs" class="slider slider-list" style="width: 70%;clear:none;">
+    <ul class="items">
+    {% for program in selection.programs %}
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

@@ -14,10 +14,13 @@
 @iconSpritePath:          "/bundles/skreenhousefactoryv3/bootstrap/img/glyphicons-halflings.png";
 @iconWhiteSpritePath:     "/bundles/skreenhousefactoryv3/bootstrap/img/glyphicons-halflings-white.png";
 @bgBody:   url("/bundles/skreenhousefactoryv3/images/header/bg-playlist.jpeg");
+@bgBodyFade:   url("/bundles/skreenhousefactoryv3/images/header/bg-playlist-fade.png");
+@bgPlaylist: url("/bundles/skreenhousefactoryv3/images/bg-playlist.png") bottom repeat-x;
 
 /* pages */
 
 @import "channel.less";
+@import "program.less";
 
 
 /* main */
@@ -26,6 +29,9 @@
 }
 .bgbody {
   background: @bgBody;
+}
+.bgbodyfade {
+  background: @bgBodyFade;
 }
 body, .touch body {
   font-family: Helvetica, Arial;
@@ -38,12 +44,14 @@ body, .touch body {
   #header {
     position: absolute;
     top: 0;
+    z-index: 1;
     width: 100%;
   }
 }
 
 .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
   width: 1010px;
+  position: relative;
 
   .pagination {
     text-align: left;
@@ -59,6 +67,9 @@ body, .touch body {
 }
 
 /* helpers */
+.clear {
+  clear:both;
+}
 .uppercase {
   text-transform: uppercase;
 }
@@ -93,10 +104,19 @@ h3 {
   margin-top: 4px;
 }
 
+/* couchmode */
+#couchmode {
+position: absolute;
+width: 100%;
+height: 100%;
+top: 0;
+}
+
 
 /* friends */
 div.friends {
-  
+  clear: both;
+
   img {
     margin: 3px;
     box-shadow: 1px 1px 4px white;
@@ -372,13 +392,17 @@ tr[data-redirect]:hover, tr[data-play]:hover {
 }
 
 #top-playlist {
-  background: @bgBody;
+  background: @bgPlaylist;
   margin-bottom: 10px;
   overflow: hidden;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  top: 150px;
+  box-shadow:0px 1px 3px #333;
   /*box-shadow: inset 0px 1px 4px #999;*/
   
   .container {
-    position: relative;
     margin-bottom: 20px;
 
     .breadcrumb {
@@ -731,9 +755,4 @@ tr[data-redirect]:hover, tr[data-play]:hover {
       display:none;
   }
 
-}
-
-/* program */
-#offers .btn {
-  white-space: nowrap;
 }

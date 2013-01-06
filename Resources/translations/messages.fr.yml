@@ -163,6 +163,7 @@ action:
     remove.favorites: Retirer
     deporte: sur mySkreen
     play:
+        deporte: Sur mySkreen
         streaming: En streaming
         cine: Au cinéma
         dvd: En dvd
@@ -192,3 +193,5 @@ watch: Voir maintenant
 editors: Production
 actors: Acteurs
 directed.by: Réalisateur
+selection:
+    all: Zoom sur la sélection

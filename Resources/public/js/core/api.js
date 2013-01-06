@@ -9,7 +9,6 @@ function skPaymentPopinEnd(action, player, occurrence_id) {
       action == 'play') {
     Couchmode.init({type: 'occurrence', id: occurrence_id});
   }
-  
   $('.modal').modal('hide');
 }
 function skPaymentPopinRefreshSession () {
@@ -27,6 +26,7 @@ ENV = {
   dev: {
     env: 'dev',
     site_url: 'http://beta.' + DEV + '.myskreen.typhon.net:40011',
+    v3_url: 'http://v3.benoit.myskreen.typhon.net/app_dev.php',
     v3_root: '/app_dev.php/',
     base: 'http://' + DEV + '.myskreen.typhon.net/api/',
     popin: 'http://' + DEV + '.myskreen.typhon.net/popin/',
@@ -36,6 +36,7 @@ ENV = {
   preprod: {
     env: 'preprod',
     site_url: 'http://preprod.beta.myskreen.com',
+    v3_url: 'http://preprod.v3.myskreen.com',
     v3_root: '/app.php/',
     base: 'http://preprod.api.myskreen.com/api/',
     popin: 'https://preprod.api.myskreen.com/popin/',
@@ -45,6 +46,7 @@ ENV = {
   prod: {
     env: 'prod',
     site_url: 'http://www.myskreen.com',
+    v3_url: 'http://v3.myskreen.com',
     v3_root: '/',
     base: 'http://api.myskreen.com/api/',
     popin: 'https://api.myskreen.com/popin/',
@@ -310,12 +312,13 @@ API = {
         typeof Slider != 'undefined') {
       $.extend(data, {'img_height': Slider.item_height, 'img_width': Slider.item_width});
     }
-    
+
     if (typeof data.fromWebsite == 'undefined') {
       $.extend(data, {fromWebsite: 'v3'});
     }
 
     var post = {};
+    var dataType = typeof data.dataType != 'undefined' ? data.dataType : this.dataType;
     // Currently, proxy POST requests
     if (method == 'POST' || method == 'DELETE' || method == 'GET_PROXY') {
       method = method.replace('_PROXY', ''); //hack GET_PROXY
@@ -327,7 +330,6 @@ API = {
       url = this.config.env == 'dev' ? '/app_dev.php/proxy' : '/app.php/proxy';
 
     } else {
-      var dataType = 'jsonp';
       if (data && typeof data === 'object'){
         //console.log(data, 'url.indexOf', url.indexOf('?'));
         url += url.indexOf('?') == -1 ? '?' : '&';
@@ -338,7 +340,7 @@ API = {
       }
     }
 
-    console.log('API.query', method, this.dataType, url, data, new Date());
+    console.log('API.query', method, dataType, url, data, new Date());
     
     //Permet de benchmarker le temps d'execution des pages
     var tooLongQuery = setTimeout(function(){
@@ -347,7 +349,7 @@ API = {
 
     var req = $.ajax({
       url: url,
-      dataType: this.dataType,
+      dataType: dataType,
       cache: typeof cache != 'undefined' ? cache : false,
       data: data,
       type: method,

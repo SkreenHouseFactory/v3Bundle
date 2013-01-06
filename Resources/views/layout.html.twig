@@ -49,28 +49,28 @@
 <body>
 <!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
 
-  {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
   <div id="main">
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
-    <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
-      <div class="container">
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
-      </div>
-    </div>
 
     <div id="content" class="couchmode-off">
     {% block content %}
     {% endblock %}
     </div>
 
+    <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
+      <div class="container">
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
+      </div>
+    </div>
+
     <div id="redirect" class="collapse in">
     {% block redirect %}
     {% endblock %}
     </div>
+
   </div>
-  <div id="header">
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' %}
-  </div>
+  <div id="header">{% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' %}</div>
+  {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
+  {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
 
 {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.3.min.js'

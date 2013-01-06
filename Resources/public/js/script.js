@@ -1,3 +1,5 @@
+//TODO : redirect mobile
+
 $(document).ready(function(){
 
   // -- init
@@ -47,7 +49,7 @@ $(document).ready(function(){
   });
   $('.user-on .dropdown-toggle').click(function(){
 
-    if (!$('#top-playlist').hasClass('in')) {
+    if (API.context == 'v2' && !$('#top-playlist').hasClass('in')) {
       $('#top-playlist').collapse('show');
     }
     if ($(this).hasClass('notifications-count') && $(this).find('.badge-important')) {
@@ -91,7 +93,7 @@ $(document).ready(function(){
     var q = encodeURIComponent($('.search-query', this).val());
     console.log('search', '/programmes/' + q);
     if (q) {
-      API.linkV2('/programmes/' + q);
+      document.location = '/programmes/' + q;
     }
     return false;
   });
@@ -162,9 +164,9 @@ $(document).ready(function(){
   });
 
   // -- ui actions : favorite & play
-  $('.slider li:not(.selector), .slider li').live('click', function(e){
-    e.preventDefault();
-    API.linkV2($('a.title', this).attr('href'), false, function(){});
+  $('.slider li:not(.selector)').live('click', function(e){
+    //console.log('script', '.slider li:not(.selector)', $('a.title', this));
+    document.location = API.config.v3_root + $('a.title', this).attr('href');
     return false;
   });
   $('.actions .fav').live('click', function(e){
@@ -323,14 +325,53 @@ $(document).ready(function(){
 
     //no deportes
     if ($('#trigger-deportes').data('nb') == 0) {
-      $('#triggers li:nth-child(2) a').trigger('click')
+      $('#triggers li:nth-child(2) a').trigger('click');
     }
+
+    //ics
+    $('#broadcasts tr').click(function(e){
+      e.preventDefault();
+      document.location = API.config.base + '1/icsfile/' +  + '.ics';
+      return false;
+    });
+
+    //episodes
+    $('#program-offers .episode').live('hover', function(event) {
+      var trigger = $(this);
+      if (event.type == 'mouseover' || event.type == 'mouseenter') {
+        if (!trigger.data('loaded')) {
+          API.query('GET',
+                    'program/' + $(this).data('episode-id') + '.json',
+                    {
+                      with_metadata: 1,
+                      img_width: 200
+                    },
+                    function(json) {
+                      var content = (json.year != null ? json.year : '') + 
+                                    '<br/><small>' + json.description + '</small>' +
+                                    '<hr/><p align="center"><img src="' + json.picture + '" alt="' + json.title + '" /></p>';
+                      trigger.data('loaded', true);
+                      trigger.attr('data-content', content);
+                      trigger.popover('show');
+                      $('.popover:visible').addClass('popover-wide').css('width', '350px');
+                    });
+        } else {
+          trigger.popover('show');
+          if (!$('.popover:visible').hasClass('popover-wide')) {
+            $('.popover:visible').addClass('popover-wide').css('width', '350px');
+          }
+        }
+      } else {
+        trigger.popover('hide');
+      }
+    });
 
     //theaters
     var trigger = $('#trigger-theaters, #trigger-theaters-geoloc');
     var container = $('#theaters-list');
     console.log('trigger-theaters', trigger);
     trigger.live('click', function(){
+      container.empty();
       UI.appendLoader(container);
       //geoloc
       API.geolocation(function(position){
@@ -340,36 +381,62 @@ $(document).ready(function(){
       });
       // - de 10
       if ($('#trigger-theaters').data('nb') <= 10) {
-        container.load(container.data('api-url'));
+        API.query('GET',
+                  container.data('api-url'),
+                  {dataType: 'text html'},
+                  function(datas){
+                    UI.removeLoader(container);
+                    container.html(datas);
+        });
       }
+      return false;
     });
     $('#theaters-search').submit(function(){
-        container.load(container.data('api-url') + '?q=' + escape($('#theaters-search .search-query').val()));
-        return false;
+      container.empty();
+      UI.appendLoader(container);
+      API.query('GET',
+                API.config.v3_url + container.data('api-url') + '?q=' + escape($('#theaters-search .search-query').val()),
+                {dataType: 'text html'},
+                function(datas){
+                  UI.removeLoader(container);
+                  container.html(datas);
+      });
+      return false;
     });
     
     //youtube
     var trigger = $('#view-program [data-more-streaming]');
-    if (trigger) {
+    if (trigger &&
+        trigger.data('more-streaming')) {
       console.log('data-more-streaming', trigger);
       var url = 'program/more-streaming/' + trigger.data('more-streaming') + '.json';
       API.query('GET',
                 url,
-                {nb_results: 12},
+                {nb_results: 24},
                 function(programs) {
                   if (programs.length == 0) {
                     return;
                   }
+                  //TODO : sort by duration ?
                   console.log('more-streaming', ' callback', programs.length);
-                  trigger.append('<br/><p class="lead"><small>' + programs.length + ' vidéos YouTube</small></p>');
+                  trigger.prepend('<br/><p class="lead"><small>' + programs.length + ' vidéos YouTube</small></p>');
+                  var container = $('#ytCarousel .carousel-inner .item:first-child');
+                  var c_index = 0;
                   for (var i = 0; i < programs.length; i++) {
-                    //console.log('>> bbr', 'entry', entry.media$group);
-                    trigger.append('<a href="#" data-couchmode=\'{"type": "remote", "id": "' + encodeURIComponent(url) + '", "autoplay": "' + programs[i].id + '"}\' class="pull-left" style="display:block;position:relative;width:160px;height:160px;margin: 0 5px 5px;line-height: 1em;font-size:0.8em;color:black;">' +
-                                   '<span style="position:absolute;margin:5px;background:white;opacity:0.8;padding:3px;">' + programs[i].duration + ' min.</span>' +
-                                   '<img class="img-polaroid" alt="' + programs[i].title + '" src="' + programs[i].picture + '" style="width:150px;"/>' +
-                                   '<div style="padding: 2px 5px 0 5px;font-family: Tahoma;line-height: 1.1em;color: #555;">' + programs[i].title + '</div>' +
+                    //console.log('youtube callback', 'c_index:' + c_index, 'modulo:' + i%8, container);
+                    if (i%8 == 0) {
+                      c_index++;
+                      var item = $('<div class="item' + (i ==0 ? ' active' : '') + '"></div>')
+                      container = $('#ytCarousel .carousel-inner').append(item);
+                    }
+                    item.append('<a href="#" data-couchmode=\'{"type": "remote", "id": "' + encodeURIComponent(url) + '", "autoplay": "' + programs[i].id + '"}\' class="pull-left">' +
+                                   '<span>' + programs[i].duration + ' min.</span>' +
+                                   '<img class="img-polaroid" alt="' + programs[i].title + '" src="' + programs[i].picture + '" />' +
+                                   '<div class="title">' + programs[i].title + '</div>' +
                                    '</a>');
                   }
+                  
+                  $('#ytCarousel').carousel({interval: 7000, pause: 'hover'}).removeClass('hide');
                 });
     };
   }

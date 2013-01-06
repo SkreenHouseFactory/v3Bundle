@@ -22,17 +22,24 @@ Player = {
     this.elmt = elmt;
     this.reset();
 
-    var flashversion = flashembed.getVersion()[0];
-    if (UI.ios || !flashversion) {
+    /*
+    if (navigator.userAgent.match(/iPhone|iPod|iPad/)) {
+      console.log('Player.init', 'iPhone|iPod|iPad', navigator.userAgent);
       this.type = 'html5';
+    } else if (Modernizr.video.h264) {
+      console.log('Player.init', 'Modernizr.video', Modernizr.video);
+      this.type = 'h264';
     }
+    */
     console.log('Player.init', 'type', this.type);
 
     return this;
   },
   reset: function() {
-    $(this.elmt_meta).remove();
-    $(this.elmt_meta).insertBefore(this.elmt);
+    $('#player-meta').empty();
+    //$(this.elmt_meta).remove();
+    //$(this.elmt_meta).insertBefore(this.elmt);
+    this.elmt.empty();
   },
   load: function(trigger) {
     var self = this;
@@ -119,6 +126,12 @@ Player = {
     }
 
     switch(this.type) {
+      
+      
+      case 'h264':
+        this.elmt.html('<video style="background: black;height: 100%; width: 100%; cursor: pointer; -webkit-user-drag: none;" id="couchmode-player_h264" src="' + player.url + '"></video>');
+      break;
+      
       /*
         http://flowplayer.org/documentation/api/player.html
         
@@ -296,6 +309,8 @@ Player = {
     var self = this;
     var args = $.extend(true,
                         {
+                          with_player: true,
+                          with_teaser: true,
                           player_width: '100%', 
                           player_height: '100%',
                           player: this.type,
@@ -322,6 +337,8 @@ Player = {
     var self = this;
     var args = $.extend(true,
                         {
+                          with_player: true,
+                          with_teaser: true,
                           player_width: '100%', 
                           player_height: '100%',
                           player: this.type,

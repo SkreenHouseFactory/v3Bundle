@@ -1,7 +1,7 @@
 {% if p is not defined %}
 {% set p = {title:'%title%',id:'%id%',picture:'',onglet:'%onglet%',seo_url:'%seo_url%',has_vod:'%has_vod%',best_offer:'',deporte:'%deporte%'} %}
 {% endif %}
-<li class="{% if p.id == '%id%' %}slider-sample {% endif %}tv-component %onglet%" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
+<li class="{% if p.id == '%id%' %}slider-sample {% endif %}{% if p.deporte %}deporte {% endif %}tv-component %onglet%" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
   {% if p.best_offer is defined and p.best_offer %}
     <div class="channel">
       <img src="{{ p.best_offer.channel_img }}" alt="{{ p.best_offer.channel_name }}">
@@ -13,7 +13,8 @@
       <img src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" />
       {% endif %}
       <span class="diff">
-      {% if p.has_vod == 4 %}{{ 'action.play.cine'|trans }}
+      {% if p.deporte %}<i class="icon-th icon-white"></i> {{ 'action.play.deporte'|trans }}
+      {% elseif p.has_vod == 4 %}{{ 'action.play.cine'|trans }}
       {% elseif p.has_vod == 3 %}{{ 'action.play.dvd'|trans }}
       {% elseif p.has_vod == 5 %}{{ 'action.play.tv'|trans }}
       {% elseif p.has_vod == 6 %}{{ 'action.play.rec'|trans }}
@@ -25,5 +26,7 @@
   <div class="actions" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-onglet="{{ p.onglet }}">
     <a class="btn fav" title="{{ 'seo.title.add'|trans }}" href="#"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
   </div>
-  <a href="{{ p.seo_url }}" title="{{ p.title }} {{ 'seo.title.play'|trans }}" class="title">{{ p.title }}</a>
+  <a href="{{ p.seo_url }}" title="{{ p.title }} {{ 'seo.title.play'|trans }}" class="title">
+    {{ p.title }}
+  </a>
 </li>

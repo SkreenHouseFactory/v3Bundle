@@ -76,6 +76,8 @@ UI = {
 
     this.user = Skhf.session.datas.email;
     if (Skhf.session.datas.email) {
+      $('.user-off').addClass('hide');
+      $('.user-on').removeClass('hide');
       $('.user span').html(Skhf.session.datas.email);
       if (Skhf.session.datas.fb_uid) {
         $('.share btn-group').html(Skhf.session.datas.email);
@@ -98,6 +100,9 @@ UI = {
         this.loadProgramUsersDatas($('#view-program').data('id'));
       }
     } else {
+      
+      $('.user-off').removeClass('hide');
+      $('.user-on').addClass('hide');
       $('.user span, .favoris span').empty();
       $('.notifications-count').empty();
       $('.notifications li:not(.empty)').remove();
@@ -110,7 +115,6 @@ UI = {
       //  this.unloadProgramUsersDatas();
       //}
     }
-    $('.user-off, .user-on').toggleClass('hide');
   },
   //toggle btn
   loadUserPrograms: function(ids, elmt) {
@@ -182,11 +186,11 @@ UI = {
 
     // friends
     var container_friends = $('#program-friends .user-on');
-    container_friends.removeClass('hide');
     this.appendLoader(container_friends);
     API.query('GET', 
               'program/' + id + '.json', 
               {
+                with_offers: 1,
                 with_notifications: 1,
                 with_friends: 1,
                 session_uid: Skhf.session.uid
@@ -202,24 +206,26 @@ UI = {
                   }
                 }
                 //friends
-                if( typeof datas.friends != 'undefined' && 
-                    datas.friends && 
-                    datas.friends.length > 0)
-                { 
+                if( typeof datas.friends != 'undefined' && datas.friends)
+                {
                   container_friends.removeClass('hide'); //HACK : TODO appel après connexion
                   self.removeLoader(container_friends);
-                  self.addFriends(container_friends, datas.friends)
+                  if (datas.friends.length > 0) {
+                    self.addFriends(container_friends, datas.friends)
+                  } else {
+                    container_friends.append('<p class="alert">Aucun ami trouvé ! <a href="#same_playlists" class="btn pull-right">Ils ajoutent également à leurs playlists &raquo;</a></p>');
+                  }
                 }
                 //notifs
                 if( typeof datas.boutons_notifications != 'undefined' && 
                     datas.boutons_notifications &&
                     datas.boutons_notifications['new'].count > 0 ) {
                   for ( k in datas.boutons_notifications['new']) {
-                    var offers = datas.boutons_notifications['new'][k];
-                    if(offers.length > 0 && k != 'count' ) {
-                      $('#trigger-' + index).append('<span class="badge badge-important">' + offers.length + '</span>');                  
-                      for(k in offers){
-                        $('#offers [data-id="' + offers[k] + '"] td:nth-child(2)').prepend('<span class="badge badge-important">nouveau</span>');
+                    var notifs = datas.boutons_notifications['new'][k];
+                    if(notifs.length > 0 && k != 'count' ) {
+                      $('#trigger-' + k).append('<span class="badge badge-important">' + notifs.length + '</span>');                  
+                      for(k in notifs){
+                        $('#program-offers [data-id="' + notifs[k] + '"] td:first-child').html('<span class="badge badge-important">1</span>');
                       };
                     }
                   };
@@ -278,7 +284,7 @@ UI = {
 
     //show selector
     this.unloadPlaylist(Skhf.session.onglet, function() {
-      $('#top-playlist li.selector').animate({'width': self.playlist.params.img_width}, 500, function(){
+      $('#top-playlist li.selector').animate({'width': API.config.slider.width}, 500, function(){
       });
     });
 
@@ -295,7 +301,7 @@ UI = {
     $('#top-playlist .breadcrumb li:not(:first)').empty();
     lis.popover('enable');
     $('#top-playlist li.selector').show()
-                                  .animate({'width': self.playlist.params.img_width}, 500, function(){});
+                                  .animate({'width': API.config.slider.width}, 500, function(){});
     
   },
   loadPlaylist: function(access, onglet){
@@ -431,7 +437,7 @@ UI = {
 
     var div = $('<div class="friends"></div>');
     for (key in friend_uids) {
-      console.log('UI.addFriends', friend_uids[key], Skhf.session.datas.friends[friend_uids[key]]);
+      //console.log('UI.addFriends', friend_uids[key], Skhf.session.datas.friends[friend_uids[key]]);
       if (typeof Skhf.session.datas.friends[friend_uids[key]] != 'undefined') {
         var friend = Skhf.session.datas.friends[friend_uids[key]];
         div.append('<a rel="tooltip" title="' + friend.name + ' suit ce programme" href="#"><img src="' + friend.pic_square + '" alt="' + friend.name + '" /></a>');
@@ -446,7 +452,7 @@ UI = {
       for (k in friends_playlists) {
         var li = $('li[data-id="' + k + '"]');
         if (li.length > 0) {
-          console.log('UI.addFriendsPlaylists', 'add ' + friends_playlists[k].length + ' friends to program ' + k);
+          //console.log('UI.addFriendsPlaylists', 'add ' + friends_playlists[k].length + ' friends to program ' + k);
           UI.addFriends(li, friends_playlists[k]);
         }
       }

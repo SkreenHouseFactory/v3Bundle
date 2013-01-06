@@ -20,18 +20,49 @@ use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 class MainController extends Controller
 {
     /**
-    *
+    * homes
     */
     public function homeAction(Request $request)
     {
+      switch ($request->get('home')) {
+        case 'film':
+        case 'serie':
+        case 'documentaire':
+        case 'emission':
+        case 'spectacle':
+          $home = $request->get('home') . 's';
+        break;
+        case 'replay':
+          $home = 'tv-replay';
+        break;
+        case 'streaming':
+          $home = 'vod';
+        break;
+        case 'cinema':
+          $home = 'cine';
+        break;
+        case '':
+          $home = 'mixte';
+        break;
+        default:
+          $home = $request->get('home');
+        break;
+      }
+      
       //menus
-      //$api = new ApiManager($this->container->getParameter('kernel.environment'));
-      //$menus = $api->fetch('www/menu', array('without_footer' => true));
+      $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+      $datas = $api->fetch('www/home/' . $home, 
+                           array('without_footer' => true,
+                                 'img_width' => 160,
+                                 'img_height' => 200,
+                                 'with_programs' => true));
+      //echo $api->url;
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig', array(
-        //'menus' => (array)$menus->menu,
-        'nostat' => true
+        'sliders' => $datas->sliders,
       ));
+
+      /*
       $response->headers->set('Access-Control-Allow-Origin', '*');
       $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
       $response->headers->set('Access-Control-Allow-Headers', 'X-Requested-With');
@@ -39,42 +70,27 @@ class MainController extends Controller
       $response->setPublic();
       $response->setMaxAge(3600);
       //$response->headers->addCacheControlDirective('must-revalidate', true);
+      */
 
       return $response;
     }
 
     /**
-    *
+    * search
     */
-    public function channelAction(Request $request)
+    public function searchAction(Request $request)
     {
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
-      $datas = $api->fetch('channel/'.$request->get('id'), 
-                           array(
-                             'with_live'  => true,
-                             'with_next_live' => true,
-                             'with_prev_live' => true,
-                             'with_description'  => true,
-                             'img_width' => 150,
-                             'img_height' => 200,
-                             'live_img_width' => 300,
-                             'live_img_height' => 300,
-                             'with_epg' => true,
-                             'with_replay' => true,
-                             'with_best_offer' => true
-                           ));
-      //print_r($datas);
-      //echo $api->url;
-      //echo $datas->seo_url.' = '.$request->get('slug');
-      //echo $request->getUri();
-      if ($datas->seo_url != 'http://v3.myskreen.com/replay/'.$request->get('id').'-'.$request->get('slug') ||
-          !strstr($request->getUri(), 'http://v3.')) {
-        throw $this->createNotFoundException('La chaîne n\'existe pas');
-      }
+      $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
 
-      return $this->render('SkreenHouseFactoryV3Bundle:Home:channel.html.twig', 
-                            array('channel' => $datas)
-                           );
+      $datas = $api->fetch('search/' . urlencode($request->get('q')), 
+                           array('img_width' => 160,
+                                 'img_height' => 200,
+                                 'nb_results' => 10));
+      //echo $api->url;
+
+      return $this->render('SkreenHouseFactoryV3Bundle:Search:main.html.twig', array(
+        'results' => $datas,
+      ));
     }
 
     /**

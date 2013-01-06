@@ -12,4 +12,14 @@
 {% block title %}{{ 'page.title.home'|trans }}{% endblock %}
 
 {% block content %}
+<div id="home" class="container">
+<h1>{{ app.request.get('home') }}</h1>
+  {% for slider in sliders %}
+  {% if slider.id is defined %}
+  <a name="{{ slider.name }}"></a>
+  {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
+  <hr/>
+  {% endif %}
+  {% endfor %}
+</div>
 {% endblock %}

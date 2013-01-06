@@ -3,7 +3,7 @@
   <li><a href="#">dddd</a> <span class="divider">/</span></li>
   <li class="active">dddd</li>
 </ul>
-<div id="playlist" class="slider" data-pager-offset="0" data-animate="width" data-url="{{ path('playlist_load', {type:'access.name', session_uid: 'session.uid'}) }}">
+<div id="playlist" class="slider" data-pager-offset="0" data-animate="width" data-paginate-url="{{ path('playlist_load', {type:'access.name', session_uid: 'session.uid'}) }}">
   <div class="slider-container">
   <ul class="items{% if addClass is defined %} {{ addClass }}{% endif %}">
     <li class="loader static"><p class="alert alert-info">Chargement …</p></li>

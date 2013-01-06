@@ -44,7 +44,7 @@ var BaseSlider = Class.extend({
       //console.log('BaseSlider.init', 'Programs found in DOM');
       this.ui();
     } else if (typeof params.programs != 'undefined') {
-      //console.log('BaseSlider.init', 'insertPrograms');
+      console.log('BaseSlider.init', 'insertPrograms');
       if (params.programs.length > 0) {
         this.insertPrograms(params.programs, callback);
       } else {
@@ -52,7 +52,7 @@ var BaseSlider = Class.extend({
       }
     } else if (typeof params.url != 'undefined') {
       //console.log('BaseSlider.init', 'insertPrograms');
-      this.elmt.data('url', params.url);
+      this.elmt.data('paginate-url', params.url);
       this.loadRemotePrograms(0, callback);
     } else if ( Skhf.session != null) { //ajax seulement
       //console.log('BaseSlider.init', 'loadRemotePrograms', Skhf);
@@ -138,8 +138,8 @@ var BaseSlider = Class.extend({
         if ($('li:not(.static)', self.items).length * (self.params.width+self.params.item_margin*2) - parseInt(self.container.css('width')) < -parseInt(self.items.css('left'))) {
           trigger.css({'visibility':'hidden'});
           //pager
-          //console.log('BaseSlider.ui', 'url', self.elmt.data('url'));
-          if (self.elmt.data('url')) {
+          console.log('BaseSlider.ui', 'paginate', self.elmt.data('paginate-url'));
+          if (self.elmt.data('paginate-url')) {
             var offset = self.params.pager_nb_results + parseInt(self.elmt.data('pager-offset'));
             self.elmt.data('pager-offset', offset);
             self.items.append(self.loader.addClass('loader-pager'));
@@ -152,6 +152,8 @@ var BaseSlider = Class.extend({
                                       } else {
                                         trigger.css('visibility','visible');
                                       }
+                                      
+                                      self.elmt.removeClass('loading');
                                       if (nb_programs < self.params.pager_nb_results) {
                                         self.elmt.addClass('loaded'); //le slider ne pagine plus
                                       }
@@ -248,14 +250,15 @@ var BaseSlider = Class.extend({
               });
   },
   getUrl: function(offset){
-    var url = !isNaN(this.elmt.data('id')) ? 'www/slider/pack/' + this.elmt.data('id') + '.json'  : this.elmt.data('url');
+    var url = !isNaN(this.elmt.data('id')) ? 'www/slider/pack/' + this.elmt.data('id') + '.json'  : this.elmt.data('paginate-url');
     if (typeof url == 'undefined') {
       console.error('Slider.getUrl', url);
-      return null;
+      return;
     }
     return url .replace('session.uid', Skhf.session.uid)
                .replace('access.name', Skhf.session.access ? Skhf.session.access : 'undefined')
                + (url.indexOf('?') == -1 ? '?' : '&')
+               + (this.elmt.data('nb-results') ? 'nb_results=' + this.elmt.data('nb-results') + '&' : '')
                + 'programs_only=1&with_best_offer=1&offset=' + offset;
   },
   insertPrograms: function(programs, callback){
@@ -264,14 +267,20 @@ var BaseSlider = Class.extend({
       var program = programs[k];
       var popular_channel = program.popular_channel ? '<img alt="' + program.popular_channel.name + ' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
       var pere  = program.episodeof ? program.episodeof : program;
-      var seo_url = API.config.site_url + program.seo_url + (this.elmt.attr('id') == 'playlist' ? '?keepPlaylist' : '');
+      var seo_url = API.config.v3_root + program.seo_url + (this.elmt.attr('id') == 'playlist' ? '?keepPlaylist' : '');
       //var icon_title = program.deporte ? '<i class="icon-th icon-white"></i> ' : '';
-      var li    = $(this.sample.replace('%seo_add_title%', pere.title + ', ' + program.format + ' - ' + program.year)
-                               .replace('%title%', program.title).replace('%title%', program.title).replace('%title%', program.title)
-                               .replace('%seo_url%', seo_url).replace('%seo_url%', seo_url)
-                               .replace('%id%', pere.id).replace('%id%', pere.id).replace('%id%', pere.id)
-                               .replace('%onglet%', program.onglet.toLowerCase()).replace('%onglet%', program.onglet.toLowerCase())
-                               .replace('%popular_channel%', popular_channel));
+      var sample = this.sample.replace('%seo_add_title%', pere.title + ', ' + program.format + ' - ' + program.year)
+                              .replace('%title%', program.title).replace('%title%', program.title).replace('%title%', program.title)
+                              .replace('%seo_url%', seo_url).replace('%seo_url%', seo_url)
+                              .replace('%id%', pere.id).replace('%id%', pere.id).replace('%id%', pere.id)
+                              .replace('%popular_channel%', popular_channel);
+      if (typeof program.onglet != 'undefined') {
+        sample = sample.replace('%onglet%', program.onglet.toLowerCase()).replace('%onglet%', program.onglet.toLowerCase());
+      }
+
+      var li = $(sample);
+
+      
       li.css('background-image', 'url(' + program.picture + ')');
       li.attr('data-position', k);
       li.attr('data-player-program', JSON.stringify(program));
@@ -288,9 +297,7 @@ var BaseSlider = Class.extend({
         this.addProgramBestOffer(li, program);
         if (program.deporte) {
           li.addClass('deporte');
-          $('.title', li).each(function(){
-            $(this).prepend('<i class="icon-th icon-white"></i> ');
-          });
+          $('.diff', li).prepend('<i class="icon-th icon-white"></i> ');
         }
         if (program.friend_uids) {
           UI.addFriends(li, program.friend_uids.split(','));

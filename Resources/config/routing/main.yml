@@ -1,44 +1,26 @@
 #main
-homepage:
-    pattern:  /
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home }
 postproxy:
     pattern:  /proxy
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:proxy }
+homes:
+    pattern:  /{home}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home, home: null }
+    requirements:
+        home: |streaming|cinema|replay|film|serie|documentaire|emission|spectacle
+        
+selections:
+    pattern:  /selection/{id}-{slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:selection }
+    requirements:
+        id: \d+
+        slug: .*
 
 #search
 search:
-    pattern:  /programmes/{q}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Search:main }
+    pattern:  /programmes/{q}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:search }
     requirements:
-        q: .*
-
-#content
-program:
-    pattern:  /program/{id}-{slug}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
-    requirements:
-        id: \d+
-        slug: .*
-programtheater:
-    pattern:  /program/theaters/{id}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:programtheaters }
-    requirements:
-        id: \d+
-channel_replay:
-    pattern:  /replay/{id}-{slug}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
-    requirements:
-        id: \d+
-        slug: .*
-
-#cocons
-cocon_tv:
-    pattern:  /{cocon}/{name}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon, domain: replay }
-cocon_replay:
-    pattern:  /video/{name}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon, cocon: replay, domain: tv }
+        q: "[^/]+"
 
 #user
 user_programs:
@@ -96,3 +78,71 @@ playlist_load:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Session:playlist }
     requirements:
         type: .*
+
+
+
+#content
+channel_replay:
+    pattern:  /replay/{id}-{slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    requirements:
+        id: \d+
+        slug: .*
+program_dev:
+    pattern:  /program/{id}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    requirements:
+        id: \d+
+program_v2_pere:
+    pattern:  /{format}/{idpere}-{slugpere}/{id}-{slug}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    requirements:
+        id: \d+
+        slug: .*
+        idpere: \d+
+        slugpere: .*
+program_v2:
+    pattern:  /{format}/{id}-{slug}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    requirements:
+        id: \d+
+        slug: .*
+program_fils_saison:
+    pattern:  /{format}/{categorie}/{idpere}-{slugpere}/{saison}/{id}-{slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    requirements:
+        id: \d+
+        slug: .*
+        idpere: \d+
+        slugpere: .*
+        saison: .*
+        format: .*
+        categorie: .*
+program_fils:
+    pattern:  /{format}/{categorie}/{idpere}-{slugpere}/{id}-{slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    requirements:
+        id: \d+
+        slug: .*
+        idpere: \d+
+        slugpere: .*
+        format: .*
+        categorie: .*
+program_pere:
+    pattern:  /{format}/{categorie}/{id}-{slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    requirements:
+        id: \d+
+        slug: .*
+        format: .*
+        categorie: .*
+programtheater:
+    pattern:  /program/theaters/{id}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:programtheaters }
+    requirements:
+        id: \d+
+
+#cocons : end, important !
+cocon_tv:
+    pattern:  /{cocon}/{name}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon, domain: replay }

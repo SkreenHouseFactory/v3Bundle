@@ -25,36 +25,55 @@ class ContentController extends Controller
     */
     public function programAction(Request $request)
     {
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
+      //echo $request->get('id');echo $request->get('_route');exit();
+      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $datas = $api->fetch('program/'.$request->get('id'), 
                            array(
                              'img_width' => 450,
                              'img_height' => 600,
+                             'episode_img_width' => 80,
+                             'episode_img_height' => 50,
+                             'episode_img_crop' => 50,
+                             'channel_img_width' => 50,
                              'with_metadata'  => true,
                              'with_related' => true,
                              'with_offers' => true,
                              'with_teaser' => true,
-                             'with_player' => true,
+                             'filter_casting' => true,
                              'player' => 'flash'
                            ));
+
       //print_r($datas);
       //echo $api->url;
-      //echo $request->getUri();
-      //post treatment
-      $datas->boutons = (array)$datas->boutons[0];
+
+      //check url
+      //echo $request->getPathInfo().'/ != '.$datas->seo_url.' => '.($request->getPathInfo().'/' != $datas->seo_url);exit();
+      if ($request->getPathInfo().'/' != $datas->seo_url) {
+        //return $this->redirect($datas->seo_url);
+      }
+      //post treatments
+      $datas->offers = (array)$datas->offers;
+      if (isset($datas->datas_offers->episodes) && count((array)$datas->datas_offers->episodes) > 1) {
+        foreach ((array)$datas->datas_offers->episodes as $e) {
+          $datas->episode_list[$e->title] = $e;
+        }
+        ksort($datas->episode_list);
+      }
 
       //load programs
       foreach ($datas->related as $key => $r) {
         if ($r->name == 'promo_channel') {
           continue;
         }
-        $datas->related[$key]->programs = (array)$api->fetch('recommend/from_program/'.$request->get('id'), 
+        //print_r($r);
+        $datas->related[$key]->programs = (array)$api->fetch(str_replace('&onglet', '&_onglet', $r->url), 
                                                               array(
                                                                 'img_width' => 150,
                                                                 'img_height' => 200,
-                                                                'with_method'  => $r->name,
-                                                                'programs_only' => true
+                                                                'programs_only' => true,
+                                                                'channel_img_width' => 50,
                                                               ));
+        //echo "\n name:".$r->name.' url:'.$api->url;
         //echo "\n name:".$r->name.' : '.end($datas->related[$key]->programs)->id;
       }
 
@@ -131,14 +150,34 @@ class ContentController extends Controller
       //print_r($datas);
       //echo $api->url;
       //echo $datas->seo_url.' = '.$request->get('slug');
-      //echo $request->getUri();
-      if ($datas->seo_url != 'http://v3.myskreen.com/replay/'.$request->get('id').'-'.$request->get('slug') ||
-          !strstr($request->getUri(), 'http://v3.')) {
-        throw $this->createNotFoundException('La chaîne n\'existe pas');
+      //echo $request->getPathInfo() . ' != ' . $datas->seo_url;exit();
+      if ('http://v3.myskreen.com' . $request->getPathInfo() != $datas->seo_url) {
+        return $this->redirect($datas->seo_url);
       }
 
       return $this->render('SkreenHouseFactoryV3Bundle:Content:channel.html.twig', 
                             array('channel' => $datas)
+                           );
+    }
+
+    /**
+    * selection
+    */
+    public function selectionAction(Request $request)
+    {
+      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+      $datas = $api->fetch('www/slider/pack/'.$request->get('id'), 
+                           array(
+                             'with_programs'  => true,
+                             'with_onglet'  => true,
+                             'img_width' => 150,
+                             'img_height' => 200
+                           ));
+      //print_r($datas);
+      //echo $api->url;
+
+      return $this->render('SkreenHouseFactoryV3Bundle:Content:selection.html.twig', 
+                            array('selection' => $datas)
                            );
     }
 }

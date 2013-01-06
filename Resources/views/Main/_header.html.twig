@@ -49,10 +49,10 @@
     </li>
     <li class="divider-vertical"></li>
   </ul>
-  <a class="pull-left" href="http://www.myskreen.com" target="_top" title="{{ 'service.name'|trans }}"><img id="logo" src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="{{ 'service.name'|trans }}" /></a>
+  <a class="pull-left" href="/" target="_top" title="{{ 'service.name'|trans }}"><img id="logo" src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="{{ 'service.name'|trans }}" /></a>
   <form class="navbar-search pull-left">
   <i class="icon-search icon-white"></i>
-  <input type="text" class="search-query pull-left" placeholder="{{ 'search.pitch'|trans }}">
+  <input type="text" value="{{ app.request.get('q') }}" class="search-query pull-left" placeholder="{{ 'search.pitch'|trans }}">
   </form>
 </div>
 </div>
@@ -63,16 +63,16 @@
   <div class="subnav subnav-fixed">
     <div class="container">
       <ul id="shortcuts" class="pull-right">
-        <li class="shortcut-spectacles"><a href="http://www.myskreen.com/spectacles" target="_top">{{ 'nav.spectacles'|trans }}</a></li>
-        <li class="shortcut-series"><a href="http://www.myskreen.com/series" target="_top">{{ 'nav.series'|trans }}</a></li>
-        <li class="shortcut-documentaires"><a href="http://www.myskreen.com/documentaires" target="_top">{{ 'nav.documentaires'|trans }}</a></li>
-        <li class="shortcut-emissions"><a href="http://www.myskreen.com/emissions" target="_top">{{ 'nav.emissions'|trans }}</a></li>
-        <li class="shortcut-films"><a href="http://www.myskreen.com/films" target="_top">{{ 'nav.films'|trans }}</a></li>
+        <li class="shortcut-spectacles"><a href="{{ path('homes', {home: 'spectacle'}) }}" target="_top">{{ 'nav.spectacles'|trans }}</a></li>
+        <li class="shortcut-series"><a href="{{ path('homes', {home: 'serie'}) }}" target="_top">{{ 'nav.series'|trans }}</a></li>
+        <li class="shortcut-documentaires"><a href="{{ path('homes', {home: 'documentaire'}) }}" target="_top">{{ 'nav.documentaires'|trans }}</a></li>
+        <li class="shortcut-emissions"><a href="{{ path('homes', {home: 'emission'}) }}" target="_top">{{ 'nav.emissions'|trans }}</a></li>
+        <li class="shortcut-films"><a href="{{ path('homes', {home: 'film'}) }}" target="_top">{{ 'nav.films'|trans }}</a></li>
       </ul>
       <ul class="nav">
-        <li class="tv"><a href="http://www.myskreen.com/tv-replay" target="_top">{{ 'nav.subnav.tv'|trans }}</a></li>
-        <li class="vod"><a href="http://www.myskreen.com/vod" target="_top">{{ 'nav.subnav.vod'|trans }}</a></li>
-        <li class="cine"><a href="http://www.myskreen.com/cine" target="_top">{{ 'nav.subnav.cine'|trans }}</a></li>
+        <li class="tv"><a href="{{ path('homes', {home: 'replay'}) }}" target="_top">{{ 'nav.subnav.tv'|trans }}</a></li>
+        <li class="vod"><a href="{{ path('homes', {home: 'streaming'}) }}" target="_top">{{ 'nav.subnav.vod'|trans }}</a></li>
+        <li class="cine"><a href="{{ path('homes', {home: 'cinema'}) }}" target="_top">{{ 'nav.subnav.cine'|trans }}</a></li>
       </ul>
     </div>
   </div>
