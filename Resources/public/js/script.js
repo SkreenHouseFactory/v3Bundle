@@ -155,7 +155,6 @@ $(document).ready(function(){
     return;
   });
 
-  
   // -- ui modal
   $('.modal').on('show', function(){
     Player.pause();
@@ -163,9 +162,8 @@ $(document).ready(function(){
 
   // -- ui actions : favorite & play
   $('.slider li:not(.selector)').live('click', function(e){
-    //console.log('script', '.slider li:not(.selector)', $('a.title', this));
-    //document.location = API.config.v3_root + $('a.title', this).attr('href');
-    $('a.title', this).trigger('click');
+    console.log('script', '.slider li:not(.selector)', $('a.title', this));
+    document.location = API.config.v3_root + $('a.title', this).attr('href');
     return false;
   });
   $('.actions .fav').live('click', function(e){
@@ -202,7 +200,7 @@ $(document).ready(function(){
   // -- play deporte
   $('[data-play]').live('click', function(){
     console.log('script', 'data-play', $(this));
-    API.play($(this).data('play'));
+    API.play($(this).data('play'), $(this).data('play-args'));
     return false;
   });
 
@@ -359,13 +357,9 @@ $(document).ready(function(){
                       trigger.data('loaded', true);
                       trigger.attr('data-content', content);
                       trigger.popover('show');
-                      $('.popover:visible').addClass('popover-wide').css('width', '350px');
                     });
         } else {
           trigger.popover('show');
-          if (!$('.popover:visible').hasClass('popover-wide')) {
-            $('.popover:visible').addClass('popover-wide').css('width', '350px');
-          }
         }
       } else {
         trigger.popover('hide');

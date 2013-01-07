@@ -2,6 +2,7 @@
 var UI;
 UI = {
   user: '',
+  os: null,
   playlist: null,
   sliders: [],
   badge_notification: '<span class="badge">%count%</span>',
@@ -15,6 +16,11 @@ UI = {
                                    $('#playlist'));
     console.log('UI.init', 'this.playlist', this.playlist);
 
+    //ios
+    if (navigator.userAgent.match(/iPhone|iPod|iPad/)) {
+      $('html').addClass('ios');
+      UI.os = 'ios';
+    }
     //autoload sliders
     $('.slider[data-autoload="1"]').each(function(){
       self.sliders[this.id] = new BaseSlider({}, function(){}, $(this));
@@ -213,7 +219,7 @@ UI = {
                   if (datas.friends.length > 0) {
                     self.addFriends(container_friends, datas.friends)
                   } else {
-                    container_friends.append('<p class="alert">Aucun ami trouvé ! <a href="#same_playlists" class="btn pull-right">Ils ajoutent également à leurs playlists &raquo;</a></p>');
+                    container_friends.append('<p class="alert">Aucun ami trouvé ! <a href="#same_playlists" class="btn btn-block">Ils ajoutent également à leurs playlists &raquo;</a></p>');
                   }
                 }
                 //notifs

@@ -27,7 +27,7 @@ ENV = {
     env: 'dev',
     site_url: 'http://beta.' + DEV + '.myskreen.typhon.net:40011',
     v3_url: 'http://v3.benoit.myskreen.typhon.net/app_dev.php',
-    v3_root: '/app_dev.php/',
+    v3_root: '/app_dev.php',
     base: 'http://' + DEV + '.myskreen.typhon.net/api/',
     popin: 'http://' + DEV + '.myskreen.typhon.net/popin/',
     domain: DEV + '.myskreen.typhon.net',
@@ -37,7 +37,7 @@ ENV = {
     env: 'preprod',
     site_url: 'http://preprod.beta.myskreen.com',
     v3_url: 'http://preprod.v3.myskreen.com',
-    v3_root: '/',
+    v3_root: '',
     base: 'http://preprod.api.myskreen.com/api/',
     popin: 'https://preprod.api.myskreen.com/popin/',
     domain: 'preprod.beta.myskreen.com',
@@ -47,7 +47,7 @@ ENV = {
     env: 'prod',
     site_url: 'http://www.myskreen.com',
     v3_url: 'http://v3.myskreen.com',
-    v3_root: '/',
+    v3_root: '',
     base: 'http://api.myskreen.com/api/',
     popin: 'https://api.myskreen.com/popin/',
     domain: 'www.myskreen.com',
@@ -268,7 +268,7 @@ API = {
       UI.markAsRed(id);
     });
   },
-  play: function(id){
+  play: function(id, args){
     var self = this;
     this.query('GET', '/player/' + id + '/' + Skhf.session.uid + '.json', {}, function(datas) {
       console.log('API.play', 'callback API.query', datas);
@@ -290,7 +290,7 @@ API = {
         break;
         default:
           console.log('script', 'data-couchmode', $(this).data('couchmode'), args);
-          var args = {type: 'occurrence', id: id, session_uid: Skhf.session.uid};
+          var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid}, typeof args != 'undefined' ? args : {});
           Couchmode.init(args);
         break;
       }

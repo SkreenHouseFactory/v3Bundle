@@ -1,8 +1,15 @@
+.ios {
+  #view-program {
+    #program-teaser {
+      display:none;
+    }
+  }
+}
 
 #view-program {
 
-  #offers .btn {
-    white-space: nowrap;
+  .lead{
+    font-size: 16px;
   }
 
   #program-friends {
@@ -23,13 +30,17 @@
 
   .view-program-main {
     display: inline-block;
-    width: 72%;
-    
+    width: 73%;
+
+    .span3 {
+      width: 331px;
+    }
+
     .view-program-social {
       vertical-align: top;
       padding-top: 10px;
     }
-    
+
     .view-program-block {
       background:white;
       padding:10px;
@@ -54,28 +65,11 @@
         overflow: hidden;
         position: relative;
         
-        &.with-episodes-list {
-          padding-top: 40px;
-        }
-        
         .bgbodyfade {
           padding-left:60px;
           position:absolute;
           bottom:0;
           right:0;
-        }
-      }
-    
-      #program-episodes {
-        position: absolute;
-        top: 5px;
-
-        .program-episode {
-          display: inline-block;
-          
-          .label {
-            margin-left:20px;
-          }
         }
       }
     }
@@ -90,6 +84,10 @@
         
         td {
           padding: 8px 4px;
+          
+          .btn {
+            white-space: nowrap;
+          }
         }
         
         td.episode {
@@ -156,9 +154,9 @@
   }
 
   .view-program-column {
-    margin-right: 20px;
+    margin: 10px 20px 0 0;
     width:240px;
-    
+
     .fav {
       font-size:1.3em;
       margin: 8px 0 17px 0;
@@ -177,8 +175,9 @@
       background: white;
       opacity: 0.8;
       position: absolute;
-      right: 5px;
-      top: 5px;
+      right: 0px;
+      top: 0px;
+      border-bottom-left-radius: 5px;
     }
     .teaser {
       position:absolute;
@@ -186,9 +185,15 @@
       margin: 80px 0 0 45px;
       opacity: 0.9;
     }
-    .img-polaroid {
-      height:290px;
-      width:230px;
+    #program-episodes {
+      margin-top: 20px;
+
+      .program-episode {
+        display: block;
+      }        
+      .label {
+        margin-left:20px;
+      }
     }
     .bs-docs-sidenav {
       width: 240px;
@@ -230,12 +235,6 @@
   #program-infos {
    .img {
     margin-left: 20px;
-    
-    .teaser {
-      position:absolute;
-      margin: 200px 0 0 145px;
-      opacity: 0.9;
-    }
    }
   }
   

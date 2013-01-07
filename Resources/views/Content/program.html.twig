@@ -33,74 +33,28 @@
     </div>
     <h1>{{ program.title }}</h1>
     <hr style="margin-bottom:0;"/>
-    
+
     <div id="program-description">
-      <p id="synopsis" class="lead{% if program.season_number is defined or program.episode_number is defined or program.episode_list is defined %} with-episodes-list{% endif %}">
+      <p id="synopsis" class="lead">
       {{ program.description }}
       {% if program.description|length > 200 %}
         <a href="#" onClick="$('#synopsis').css('height', 'auto');$(this).addClass('hide');" class="bgbodyfade"> &raquo; {{ 'program.desc.read'|trans }}</a>
       {% endif %}
       </p>
-  
-      <div id="program-episodes">
-        {% if program.season_number is defined %}
-        <div class="btn-group program-episode">
-          <button class="btn">Saison {{ program.season_number }}</button>
-          <button class="btn dropdown-toggle" data-toggle="dropdown">
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            {% for season in program.seasons %}
-            <li><a href="#">Saison {{ season.number }}</a></li>
-            {% endfor %}
-          </ul>
-        </div>
-        {% endif %}
-        {% if program.episode_number is defined %}
-        <div class="btn-group program-episode">
-          <button class="btn">Episode {{ program.episode_number }}</button>
-          <button class="btn dropdown-toggle" data-toggle="dropdown">
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            {% for season in program.seasons if season.number == program.season_number %}
-              {% for episode in season.episodes %}
-              <li><a href="{{ episode.seo_url }}">
-                {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
-                Episode {{ episode.episode }} <i class="icon-chevron-right"></i> <strong>{{ episode.title }}</strong>
-              </a></li>
-              {% endfor %}
-            {% endfor %}
-          </ul>
-        </div>
-        {% elseif program.episode_list is defined  %}
-        <div class="btn-group program-episode">
-          {% if program.episodeof is defined %}
-          <a href="{{ program.episodeof.seo_url }}" class="btn">{{ program.episodeof.title }}</a>
-          {% endif %}
-          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            {{ program.episode_list|length }} épisodes disponibles
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            {% for episode in program.episode_list %}
-            <li><a href="{{ episode.seo_url }}">
-              {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
-              <strong>{{ episode.title }}</strong>{% if episode.year %} - {{ episode.year }}{% endif %}
-            </a></li>
-            {% endfor %}
-          </ul>
-        </div>
-        {% endif %}
+    </div>
+
+    <div class="row">
+      <div id="program-follow" class="span3 view-program-block actions" data-id="{{ program.id }}">
+        <p class="lead" style="margin: 0px;">{{ 'follow.block.title.'|lower|trans }}</p>
+        <a class="fav btn btn-large btn-block" data-placement="bottom"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
+      </div>
+      <div id="program-friends" class="span3 view-program-block">
+        <p class="lead" style="margin: 0px;">{{ 'friends.block.title.'|lower|trans }}</p>
+        <div class="user-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'friends.popover.content'|trans } %}</div>
+        <div class="user-on"></div>
       </div>
     </div>
-  
-    <div id="program-friends" class="view-program-block">
-      <p class="lead pull-left" style="margin: 0px;">Vos amis regardent-ils ce programme ?</p>
-      <div class="user-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' %}</div>
-      <div class="user-on"></div>
-    </div>
-  
+
     <a name="program-offers"></a>
     <div id="program-offers" class="view-program-block">
       {% if program.theater_release_date is defined %}
@@ -211,17 +165,71 @@
   </div>
 
   <div class="view-program-column pull-left actions" data-id="{{ program.id }}">
-    <a class="fav btn btn-large btn-block" data-placement="right"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
     <div style="position:relative;">
-      <a href="#infos" class="img-resize"><i class="icon-fullscreen icon-white"></i></a>
+      {#<a href="#infos" class="img-resize"><i class="icon-fullscreen icon-white"></i></a>#}
       {% if program.teaser %}
       <a class="teaser" href="#teaser"><img src="{{ asset('bundles/skreenhousefactoryv3/images/big-play.png') }}" alt="bande annonce" /></a>
       {% endif %}
       {% if program.popular_channel is defined %}
       <a class="popular-channel" href="{{ program.popular_channel.seo_url }}"><img src="{{ program.popular_channel.img }}" alt="{{ program.popular_channel.name }}" /></a>
       {% endif %}
-      <img src="{{ program.picture }}" alt="{{ program.title }}" class="img-polaroid" />
+      <img src="{{ program.picture }}" alt="{{ program.title }}" />
     </div>
+    
+    
+    <div id="program-episodes">
+      {% if program.season_number is defined %}
+      <div class="btn-group program-episode">
+        <button class="btn">Saison {{ program.season_number }}</button>
+        <button class="btn dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          {% for season in program.seasons %}
+          <li><a href="#">Saison {{ season.number }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      {% if program.episode_number is defined %}
+      <div class="btn-group program-episode">
+        <button class="btn">Episode {{ program.episode_number }}</button>
+        <button class="btn dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          {% for season in program.seasons if season.number == program.season_number %}
+            {% for episode in season.episodes %}
+            <li><a href="{{ episode.seo_url }}">
+              {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
+              Episode {{ episode.episode }} <i class="icon-chevron-right"></i> <strong>{{ episode.title }}</strong>
+            </a></li>
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+      
+      {% elseif program.episodeof is defined %}
+      <a href="{{ program.episodeof.seo_url }}" class="btn">{{ program.episodeof.title }}</a>
+
+      {% elseif program.episode_list is defined  %}
+      <div class="btn-group program-episode">
+        <a class="btn btn-block dropdown-toggle" data-toggle="dropdown" href="#">
+          {{ program.episode_list|length }} épisodes disponibles
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          {% for episode in program.episode_list %}
+          <li><a href="{{ episode.seo_url }}">
+            {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
+            <strong>{{ episode.title }}</strong>{% if episode.year %} - {{ episode.year }}{% endif %}
+          </a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+    
     <ul class="nav nav-list bs-docs-sidenav">
       <li><a href="#related"><i class="icon-chevron-right"></i> {{ 'program.related'|trans }}</a></li>
       <li><a href="#infos"><i class="icon-chevron-right"></i> {{ 'program.infos'|trans }}</a></li>
@@ -258,13 +266,20 @@
   {% endfor %}
   </div>
 
+  {% if program.teaser %}
+  <br class="clear"/>
+  <a name="teaser"></a>
+  <div id="program-teaser" class="inverse">
+  <a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>
+  <h3>Bande annonce</h3>
+  <div id="program-teaser-player" data-player-autoload="{{ program.teaser.id }}" data-player-muted="1"></div>
+  </div>
+  {% endif %}
+
   <br class="clear"/>
   <a name="infos"></a>
   <div id="program-infos">
     <div class="img pull-right">
-    {% if program.teaser %}
-    <a href="#teaser"><img class="teaser" src="{{ asset('bundles/skreenhousefactoryv3/images/big-play.png') }}" alt="bande annonce" /></a>
-    {% endif %}
     <img src="{{ program.picture }}" alt="{{ program.title }}" class="img-rounded" />
     </div>
     <p class="lead"><strong>Fiche complète</strong></h3>
@@ -304,16 +319,6 @@
       </small>
     </p>
   </div>
-
-  {% if program.teaser %}
-  <br class="clear"/>
-  <a name="teaser"></a>
-  <div id="program-teaser" class="inverse">
-  <a style="margin:10px" class="btn btn-large btn-inverse pull-right" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>
-  <h3>Bande annonce</h3>
-  <div id="program-teaser-player" data-player-autoload="{{ program.teaser.id }}" data-player-muted="1"></div>
-  </div>
-  {% endif %}
 
 </div>
 <br/>

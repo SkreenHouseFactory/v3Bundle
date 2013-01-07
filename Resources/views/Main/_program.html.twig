@@ -23,10 +23,10 @@
       </span>
     </div>
   {% endif %}
-  <div class="actions" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-onglet="{{ p.onglet }}">
-    <a class="btn fav" title="{{ 'seo.title.add'|trans }}" href="#"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
-  </div>
-  <a href="{{ p.seo_url }}" title="{{ p.title }} {{ 'seo.title.play'|trans }}" class="title">
+  {#<div class="actions" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-onglet="{{ p.onglet }}">
+    <a class="btn fav" href="#"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
+  </div>#}
+  <a href="{{ p.seo_url }}" class="title">
     {{ p.title }}
   </a>
 </li>

@@ -25,7 +25,7 @@ Player = {
     /*
     if (navigator.userAgent.match(/iPhone|iPod|iPad/)) {
       console.log('Player.init', 'iPhone|iPod|iPad', navigator.userAgent);
-      this.type = 'html5';
+      this.type = 'ios';
     } else if (Modernizr.video.h264) {
       console.log('Player.init', 'Modernizr.video', Modernizr.video);
       this.type = 'h264';
@@ -126,8 +126,11 @@ Player = {
     }
 
     switch(this.type) {
-      
-      
+
+      case 'ios':
+        window.open(player.url);
+      break;
+
       case 'h264':
         this.elmt.html('<video style="background: black;height: 100%; width: 100%; cursor: pointer; -webkit-user-drag: none;" id="couchmode-player_h264" src="' + player.url + '"></video>');
       break;

@@ -53,7 +53,8 @@ class ContentController extends Controller
       }
       //post treatments
       $datas->offers = (array)$datas->offers;
-      if (isset($datas->datas_offers->episodes) && count((array)$datas->datas_offers->episodes) > 1) {
+      if (!isset($datas->episodeof) && 
+          isset($datas->datas_offers->episodes) && count((array)$datas->datas_offers->episodes) > 1) {
         foreach ((array)$datas->datas_offers->episodes as $e) {
           $datas->episode_list[$e->title] = $e;
         }
@@ -176,6 +177,10 @@ class ContentController extends Controller
                            ));
       //print_r($datas);
       //echo $api->url;
+      //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';
+      if ($request->getPathInfo() != $datas->seo_url) {
+        return $this->redirect($datas->seo_url);
+      }
 
       return $this->render('SkreenHouseFactoryV3Bundle:Content:selection.html.twig', 
                             array('selection' => $datas)

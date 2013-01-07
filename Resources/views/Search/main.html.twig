@@ -18,7 +18,6 @@
     {% for spelling in results.spelling %}{{ spelling }}{% endfor %}
     </p>
     {% endif %}
-    <hr/>
 
     {% if results.count.films %}
     {% set slider = {title: results.count.films ~ ' Films ', programs: results.Films, paginate: results.paginate ~ '.json?format=films'} %}

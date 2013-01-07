@@ -32,10 +32,7 @@ class MainController extends Controller
         case 'spectacle':
           $home = $request->get('home') . 's';
         break;
-        case 'replay':
-          $home = 'tv-replay';
-        break;
-        case 'streaming':
+        case 'video-a-la-demande':
           $home = 'vod';
         break;
         case 'cinema':
@@ -53,9 +50,10 @@ class MainController extends Controller
       $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $datas = $api->fetch('www/home/' . $home, 
                            array('without_footer' => true,
+                                 'with_programs' => true,
                                  'img_width' => 160,
                                  'img_height' => 200,
-                                 'with_programs' => true));
+                                 'with_teaser' => true,));
       //echo $api->url;
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig', array(
@@ -87,7 +85,6 @@ class MainController extends Controller
                                  'img_height' => 200,
                                  'nb_results' => 10));
       //echo $api->url;
-
       return $this->render('SkreenHouseFactoryV3Bundle:Search:main.html.twig', array(
         'results' => $datas,
       ));

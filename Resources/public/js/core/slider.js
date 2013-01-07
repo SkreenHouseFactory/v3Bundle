@@ -39,6 +39,12 @@ var BaseSlider = Class.extend({
       //console.log('BaseSlider.init', 'this.sample', this.sample);
     }
 
+    //paginate ?
+    if (typeof params.url != 'undefined') {
+      //console.log('BaseSlider.init', 'insertPrograms');
+      this.elmt.data('paginate-url', params.url);
+    }
+
     //programs
     if ($('li:not(.static)', this.items).length > 0) {
       //console.log('BaseSlider.init', 'Programs found in DOM');
@@ -50,10 +56,6 @@ var BaseSlider = Class.extend({
       } else {
         callback(this.elmt);
       }
-    } else if (typeof params.url != 'undefined') {
-      //console.log('BaseSlider.init', 'insertPrograms');
-      this.elmt.data('paginate-url', params.url);
-      this.loadRemotePrograms(0, callback);
     } else if ( Skhf.session != null) { //ajax seulement
       //console.log('BaseSlider.init', 'loadRemotePrograms', Skhf);
       this.loadRemotePrograms(0, callback);
@@ -269,10 +271,9 @@ var BaseSlider = Class.extend({
       var pere  = program.episodeof ? program.episodeof : program;
       var seo_url = API.config.v3_root + program.seo_url + (this.elmt.attr('id') == 'playlist' ? '?keepPlaylist' : '');
       //var icon_title = program.deporte ? '<i class="icon-th icon-white"></i> ' : '';
-      var sample = this.sample.replace('%seo_add_title%', pere.title + ', ' + program.format + ' - ' + program.year)
-                              .replace('%title%', program.title).replace('%title%', program.title).replace('%title%', program.title)
-                              .replace('%seo_url%', seo_url).replace('%seo_url%', seo_url)
-                              .replace('%id%', pere.id).replace('%id%', pere.id).replace('%id%', pere.id)
+      var sample = this.sample.replace('%title%', program.title).replace('%title%', program.title)
+                              .replace('%id%', pere.id).replace('%id%', pere.id)
+                              .replace('%seo_url%', seo_url)
                               .replace('%popular_channel%', popular_channel);
       if (typeof program.onglet != 'undefined') {
         sample = sample.replace('%onglet%', program.onglet.toLowerCase()).replace('%onglet%', program.onglet.toLowerCase());
