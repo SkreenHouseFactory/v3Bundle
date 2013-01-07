@@ -1,0 +1,81 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+{% block meta %}
+<meta property="og:title" content="{{ category.name }}" />
+<meta property="og:description" content="{{ category.description }}" />
+<meta property="og:image" content="?" />
+<meta property="og:type" content="category" />
+<meta property="og:url" content="{{ category.seo_url }}" />
+<link rel="image_src" href="?" />
+<meta name="object_type" content="category" />
+{% endblock %}
+{% block title %}{{ category.name }}{% endblock %}
+{% block description %}{{ category.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+
+{% block content %}
+<div id="view-category" data-id="{{ category.id }}" class="container">
+
+  <div class="view-main view-category-main pull-right">
+    <div class="pull-right view-program-social">
+      <div class="fb-like" data-send="true" data-layout="button_count" data-width="180" data-show-faces="false"></div>
+      <iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer=http%3A%2F%2Fwww.myskreen.com{{ category.seo_url|url_encode }}&amp;size=m&amp;text=Je%20regarde%20{{ category.name|url_encode }}%20sur%20%40myskreen%20et%20vous%20%3F&amp;url=http%3A%2F%2Fwww.myskreen.com{{ category.seo_url|url_encode }}" class="block-twitter" data-twttr-rendered="true"></iframe>
+    </div>
+    <h1>{% if app.request.get('format') %}{{ app.request.get('format') }} &raquo; {% endif %}{{ category.name }}</h1>
+    <hr style="margin-bottom:0;"/>
+
+    <div id="program-description">
+      <p id="synopsis" class="lead">
+      {{ category.description }}
+      </p>
+    </div>
+
+    <div class="row">
+      <div id="program-follow" class="span3 view-program-block actions" data-id="{{ category.id }}">
+        <p class="lead" style="margin: 0px;">{{ 'category.follow.block.title.all'|lower|trans }}</p>
+        <a class="fav btn btn-large btn-block" data-placement="bottom"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
+      </div>
+      <div id="program-friends" class="span3 view-program-block">
+        <p class="lead" style="margin: 0px;">{{ 'category.friends.block.title.all'|lower|trans }}</p>
+        <div class="user-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'friends.popover.content'|trans } %}</div>
+        <div class="user-on"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view-category-column view-column pull-left actions" data-id="{{ category.id }}">
+    <div style="position:relative;">
+      <img src="{{ category.picture }}" alt="{{ category.name }}" />
+    </div>
+    {#
+    <ul class="nav nav-list bs-docs-sidenav">
+      <li><a href="#related"><i class="icon-chevron-right"></i> {{ 'program.related'|trans }}</a></li>
+      <li><a href="#infos"><i class="icon-chevron-right"></i> {{ 'program.infos'|trans }}</a></li>
+    </ul>
+    #}
+  </div>
+
+  <br class="clear"/>
+
+  <div class="pagination">
+    <ul>
+        <li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')}) }}">{{ 'nav.all'|trans }}</a></li>
+      {% for l in alpha %}
+        <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: l}) }}">{{ l }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% for k,s in subcategories %}
+    <a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k}) }}" class="label{% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</a>
+  {% endfor %}
+  <hr/>
+
+  <div id="category-programs" class="slider slider-list">
+    <ul class="items">
+    {% for program in category.programs %}
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
+    {% endfor %}
+    </ul>
+  </div>
+
+</div>
+{% endblock %}

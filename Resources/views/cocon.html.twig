@@ -37,38 +37,8 @@
     {% block content %}
     {% endblock %}
     </div>
-    
-    <div class="container">
-      <hr/>
-      <a href="http://www.myskreen.com/"><img src="http://www.myskreen.com/images/skhv2/img/logo-footer.jpg" alt="mySkreen.com"></a>
-      <br>
-      <br>
-      <b>
-      <ul class="nav">
-        <li>
-          <a title="A propos de mySkreen" href="http://www.myskreen.com/about">A propos</a>
-        </li>
-        <li>
-          <a title="CGV mySkreen" class="external" href="http://medias.myskreen.com/pdf/cguv.pdf">CGUV</a>
-        </li>
-        <li>
-          <a title="Press mySkreen" href="http://www.myskreen.com/press">Presse</a>
-        </li>
-        <li>
-          <a title="Contacter mySkreen" id="http://www.myskreen.com/writeus" class="colorbox">Nous écrire </a>
-        </li>
-        <li>
-          <a href="http://www.facebook.com/myskreen" title="mySkreen sur Facebook" id="fb" class="colorbox">Facebook</a>
-        </li>
-        <li>
-          <a href="http://www.twitter.com/myskreen" title="mySkreen sur Twitter" id="tw" class="colorbox">Twitter</a>
-        </li>
-        <li>
-          <a href="https://plus.google.com/106555719800030017985/posts">Google+</a>
-        </li>
-      </ul>
-      </b>
-    </div>
+
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_footer.html.twig' %}
 
 {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.0.min.js'

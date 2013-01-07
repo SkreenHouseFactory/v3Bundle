@@ -93,7 +93,7 @@ class ContentController extends Controller
     }
 
     /**
-    * channel
+    * programtheaters
     */
     public function programtheatersAction(Request $request)
     {
@@ -186,5 +186,41 @@ class ContentController extends Controller
       return $this->render('SkreenHouseFactoryV3Bundle:Content:selection.html.twig', 
                             array('selection' => $datas)
                            );
+    }
+
+    /**
+    * category
+    */
+    public function categoryAction(Request $request)
+    {
+      $facets = strlen($request->get('facet')) == 1 ? 'alpha:' . $request->get('facet') : 'subcategory:' . $request->get('facet');
+      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+      $datas = $api->fetch('category', 
+                           array(
+                             'from_slug'  => $request->get('category_slug'),
+                             'with_description' => true,
+                             'with_subcategories' => true,
+                             'with_programs'  => true,
+                             'img_width' => 150,
+                             'img_height' => 200,
+                             'offset' => 0,
+                             'nb_results' => 60,
+                             'facets' => $facets
+                           ));
+      $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
+      //print_r($datas);
+      //echo $api->url;
+      if (!strstr($request->getPathInfo(), $datas->seo_url)) {
+        echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';exit();
+        //return $this->redirect($datas->seo_url);
+      }
+
+      return $this->render('SkreenHouseFactoryV3Bundle:Content:category.html.twig', 
+        array('category' => $datas,
+              'subcategories' => array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory)),
+              'alpha_available' => explode(';', $datas->facets->alpha),
+              'alpha'    => array(1,2,3,4,5,6,7,8,9,
+                            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
+      ));
     }
 }

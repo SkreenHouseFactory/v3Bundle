@@ -153,6 +153,18 @@ programtheater:
 cocon_tv:
     pattern:  /{cocon}/{name}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon, domain: replay }
+    requirements:
+        cocon: video|tf1|france2|france-3|m6|w9
+
+#categories
+category_facet:
+    pattern:  /{format}/{category_slug}/{facet}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+category:
+    pattern:  /{format}/{category_slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+
+#hack url generation
 any_url:
     pattern:  /{url}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:404 }

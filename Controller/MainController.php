@@ -91,6 +91,21 @@ class MainController extends Controller
     }
 
     /**
+    * search
+    */
+    public function boostAction(Request $request)
+    {
+      $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+
+      $datas = $api->fetch('www/slider/pack/8774489', 
+                           array('programs_only' => true));
+      //echo $api->url;
+      return $this->render('SkreenHouseFactoryV3Bundle:Main:_boost.html.twig', array(
+        'programs' => $datas,
+      ));
+    }
+
+    /**
     *
     */
     public function proxyAction(Request $request)

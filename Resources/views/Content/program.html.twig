@@ -26,7 +26,7 @@
 {% block content %}
 <div id="view-program" data-id="{{ program.id }}" class="container">
 
-  <div class="view-program-main pull-right">
+  <div class="view-main view-program-main pull-right">
     <div class="pull-right view-program-social">
       <div class="fb-like" data-send="true" data-layout="button_count" data-width="180" data-show-faces="false"></div>
       <iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer=http%3A%2F%2Fwww.myskreen.com{{ program.seo_url|url_encode }}&amp;size=m&amp;text=Je%20regarde%20{{ program.title|url_encode }}%20sur%20%40myskreen%20et%20vous%20%3F&amp;url=http%3A%2F%2Fwww.myskreen.com{{ program.seo_url|url_encode }}" class="block-twitter" data-twttr-rendered="true"></iframe>
@@ -164,7 +164,7 @@
     </div>
   </div>
 
-  <div class="view-program-column pull-left actions" data-id="{{ program.id }}">
+  <div class="view-program-column view-column pull-left actions" data-id="{{ program.id }}">
     <div style="position:relative;">
       {#<a href="#infos" class="img-resize"><i class="icon-fullscreen icon-white"></i></a>#}
       {% if program.teaser %}
@@ -321,7 +321,4 @@
   </div>
 
 </div>
-<br/>
-<br/>
-<br/>
 {% endblock %}

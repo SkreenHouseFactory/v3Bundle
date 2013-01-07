@@ -342,18 +342,20 @@ $(document).ready(function(){
     //episodes
     $('#program-offers .episode').live('hover', function(event) {
       var trigger = $(this);
+      $('.popover:visible').popover('hide');
       if (event.type == 'mouseover' || event.type == 'mouseenter') {
         if (!trigger.data('loaded')) {
           API.query('GET',
                     'program/' + $(this).data('episode-id') + '.json',
                     {
                       with_metadata: 1,
-                      img_width: 200
+                      img_width: 200,
+                      img_episode_only: 1
                     },
                     function(json) {
+                      var picture = json.picture ? '<hr/><p align="center"><img src="' + json.picture + '" alt="' + json.title + '" />' : '';
                       var content = (json.year != null ? json.year : '') + 
-                                    '<br/><small>' + json.description + '</small>' +
-                                    '<hr/><p align="center"><img src="' + json.picture + '" alt="' + json.title + '" /></p>';
+                                    '<br/><small>' + json.description + '</small>' + picture + '</p>';
                       trigger.data('loaded', true);
                       trigger.attr('data-content', content);
                       trigger.popover('show');
