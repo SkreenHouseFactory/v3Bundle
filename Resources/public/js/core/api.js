@@ -11,7 +11,10 @@ function skPaymentPopinEnd(action, player, occurrence_id) {
   }
   $('.modal').modal('hide');
 }
-function skPaymentPopinRefreshSession () {
+function skPaymentPopinRefresh() {
+  return skPaymentPopinEnd();
+}
+function skPaymentPopinRefreshSession() {
 }
 function onRentClicked() {
   var current_program_id = Player.elmt.data('playing-id');

@@ -219,7 +219,7 @@ UI = {
                   if (datas.friends.length > 0) {
                     self.addFriends(container_friends, datas.friends)
                   } else {
-                    container_friends.append('<p class="alert">Aucun ami trouvé ! <a href="#same_playlists" class="btn btn-block">Ils ajoutent également à leurs playlists &raquo;</a></p>');
+                    container_friends.append('<p class="alert">Aucun ami trouvé !</p><a href="#same_playlists" class="btn btn-block">Ils ajoutent également à leurs playlists &raquo;</a>');
                   }
                 }
                 //notifs

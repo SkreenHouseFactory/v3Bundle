@@ -10,8 +10,7 @@
   <h1>{{ selection.name|raw }}</h1>
   <p class="clear">{{ selection.description }}</p>
 
-  <div style="position:absolute;top:0;right:0;width: 300px;">
-  <br/>
+  <div style="position:absolute;top:50;right:0;width: 300px;">
   <a class="btn btn-large btn-inverse btn-block trigger-tv" href="#" data-couchmode="{{ {'type': 'pack', 'id': selection.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>
   <br/>
   <ul class="nav nav-tabs nav-stacked">

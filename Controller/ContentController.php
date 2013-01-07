@@ -39,7 +39,7 @@ class ContentController extends Controller
                              'with_related' => true,
                              'with_offers' => true,
                              'with_teaser' => true,
-                             'filter_casting' => true,
+                             //'filter_casting' => true,
                              'player' => 'flash'
                            ));
 
