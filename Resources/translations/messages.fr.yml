@@ -192,16 +192,18 @@ program:
     friends:
         block:
             title:
-                film: Vos amis le regardent-ils ce film ?
-                série: Vos amis le regardent-ils cette série ?
-                documentaire: Vos amis le regardent-ils ce documentaire ?
-                emission: Vos amis le regardent-ils cette émission ?
-                concert: Vos amis le regardent-ils ce concert ?
-                théâtre: Vos amis le regardent-ils cette pièce ?
-                spectacle: Vos amis le regardent-ils ce spectacle ?
+                all: Vos amis le regardent-ils ?
+                film: Vos amis regardent-ils ce film ?
+                série: Vos amis regardent-ils cette série ?
+                documentaire: Vos amis regardent-ils ce documentaire ?
+                emission: Vos amis regardent-ils cette émission ?
+                concert: Vos amis regardent-ils ce concert ?
+                théâtre: Vos amis regardent-ils cette pièce ?
+                spectacle: Vos amis regardent-ils ce spectacle ?
     follow:
         block:
             title:
+                all: Ne ratez plus ce programme !
                 film: Ne ratez plus ce film !
                 série: Ne ratez plus cette série !
                 documentaire: Ne ratez plus ce documentaire !
@@ -210,6 +212,8 @@ program:
                 théâtre: Ne ratez plus cette pièce !
                 spectacle: Ne ratez plus ce spectacle !
         popover:
+            title: Partagez vos programmes avec vos amis !
+            content: Connectez-vous à Facebook en 1 clic et retrouvez ce que vos amis regardent sur mySkreen.
 free: Gratuit
 watch: Voir maintenant
 editors: Production

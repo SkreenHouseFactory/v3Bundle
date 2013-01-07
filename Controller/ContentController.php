@@ -47,8 +47,9 @@ class ContentController extends Controller
       //echo $api->url;
 
       //check url
-      //echo $request->getPathInfo().'/ != '.$datas->seo_url.' => '.($request->getPathInfo().'/' != $datas->seo_url);exit();
-      if ($request->getPathInfo().'/' != $datas->seo_url) {
+      //echo $request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
+      if ($request->getPathInfo() != $datas->seo_url) {
+        echo 'redirect '.$request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
         //return $this->redirect($datas->seo_url);
       }
       //post treatments
