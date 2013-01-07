@@ -90,6 +90,8 @@ $(document).ready(function(){
     return false;
   });
   $('#top-bar form.navbar-search').submit(function(){
+    console.log('script', 'searchbox blur', $('.search-query', $(this)));
+    $('.search-query', $(this)).blur();
     var q = encodeURIComponent($('.search-query', this).val());
     console.log('search', '/programmes/' + q);
     if (q) {
@@ -100,10 +102,6 @@ $(document).ready(function(){
 
   // -- ui typeahead
   UI.typeahead('.navbar-search .search-query');
-  $('.navbar-search').submit(function(){
-    console.log('script', 'searchbox blur', $('.search-query', $(this)));
-    $('.search-query', $(this)).blur();
-  });
 
   // -- ui playlist
   //height header
@@ -164,11 +162,12 @@ $(document).ready(function(){
   });
 
   // -- ui actions : favorite & play
-  /*$('.slider li:not(.selector)').live('click', function(e){
+  $('.slider li:not(.selector)').live('click', function(e){
     //console.log('script', '.slider li:not(.selector)', $('a.title', this));
-    document.location = API.config.v3_root + $('a.title', this).attr('href');
+    //document.location = API.config.v3_root + $('a.title', this).attr('href');
+    $('a.title', this).trigger('click');
     return false;
-  });*/
+  });
   $('.actions .fav').live('click', function(e){
     e.preventDefault();
     UI.togglePlaylistProgram($(this));
@@ -244,6 +243,13 @@ $(document).ready(function(){
     }, args);
     
     $(this).data('player-loaded', 1);
+  });
+
+  // -- carousel autoload
+  $('[data-carousel-autoload="1"]').each(function(){
+    console.log('script', 'carousel-autoload', $(this));
+    $(this).carousel({interval: 7000, pause: 'hover'});
+    $(this).data('carousel-loaded', 1);
   });
 
   // -- .fav : retirer / popover

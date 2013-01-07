@@ -12,14 +12,17 @@
 {% block title %}{{ 'page.title.home'|trans }}{% endblock %}
 
 {% block content %}
-<div id="home" class="container">
-<h1>{{ app.request.get('home') }}</h1>
-  {% for slider in sliders %}
-  {% if slider.id is defined %}
-  <a name="{{ slider.name }}"></a>
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
-  <hr/>
-  {% endif %}
+<div id="view-home">
+  {% for slider in sliders if slider.id is defined %}
+    {% if loop.first %}
+      <h1>{{ app.request.get('home') }}</h1>
+      <div class="carousel-container">{% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider} %}</div>
+    {% else %}
+      {% if loop.index == 2 %}<div class="container">{% else %}<hr/>{% endif %}
+      <a name="{{ slider.name }}"></a>
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
+    {% endif %}
   {% endfor %}
+  </div>
 </div>
 {% endblock %}
