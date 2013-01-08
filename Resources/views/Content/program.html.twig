@@ -26,14 +26,15 @@
 {% block content %}
 <div id="view-program" data-id="{{ program.id }}" class="container">
 
-  <div class="view-main view-program-main pull-right">
+  <div class="program-title">
     <div class="pull-right view-program-social">
       <div class="fb-like" data-send="true" data-layout="button_count" data-width="180" data-show-faces="false"></div>
       <iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer=http%3A%2F%2Fwww.myskreen.com{{ program.seo_url|url_encode }}&amp;size=m&amp;text=Je%20regarde%20{{ program.title|url_encode }}%20sur%20%40myskreen%20et%20vous%20%3F&amp;url=http%3A%2F%2Fwww.myskreen.com{{ program.seo_url|url_encode }}" class="block-twitter" data-twttr-rendered="true"></iframe>
     </div>
     <h1>{{ program.title }}</h1>
-    <hr style="margin-bottom:0;"/>
+  </div>
 
+  <div class="view-main view-program-main pull-right">
     <div id="program-description">
       <p id="synopsis" class="lead">
       {{ program.description }}
@@ -45,24 +46,25 @@
 
     <div class="row">
       <div id="program-follow" class="span3 view-program-block actions" data-id="{{ program.id }}">
-        <p class="lead" style="margin: 0px;">{{ 'program.follow.block.title.all'|lower|trans }}</p>
-        <a class="fav btn btn-large btn-block" data-placement="bottom"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
+        <p class="lead" style="margin: 0px;"><strong>{{ 'program.follow.block.title.all'|lower|trans }}</strong></p>
+        <a class="fav btn btn-large" data-placement="bottom"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
       </div>
       <div id="program-friends" class="span3 view-program-block">
-        <p class="lead" style="margin: 0px;">{{ 'program.friends.block.title.all'|lower|trans }}</p>
-        <div class="user-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'friends.popover.content'|trans } %}</div>
+        <p class="lead" style="margin: 0px;"><strong>{{ 'program.friends.block.title.all'|lower|trans }}</strong></p>
+        <div class="user-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'program.friends.popover.content'|trans } %}</div>
         <div class="user-on"></div>
       </div>
     </div>
 
     <a name="program-offers"></a>
-    <div id="program-offers" class="view-program-block">
+    <p class="lead" style="margin: 0px;"><strong>Où le voir ?</strong></p>
+    <div id="program-offers" class="well view-program-block">
       {% if program.theater_release_date is defined %}
         <p class="alert alert-success">Sortie en salle le <strong>{{ program.theater_release_date }}</strong> [ADD TO AGENDA]</p>
       {% endif %}
-      <ul id="triggers" class="nav nav-pills" style="margin-bottom: 0px;font-size: 1.2em;">
+      <ul id="triggers" class="nav nav-pills" style="font-size: 1.2em;">
         {% for key in offers|keys if program.offers[key]|length or key == 'deportes' %}
-        <li{% if loop.first %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ program.offers[key]|length }}">{{ offers[key] }} ({{ program.offers[key]|length }})</a></li>
+        <li{% if loop.first %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ program.offers[key]|length }}">{{ offers[key] }}{% if program.offers[key]|length %} ({{ program.offers[key]|length }}){% endif %}</a></li>
         {% endfor %}
       </ul>
       <div class="tab-content">
@@ -101,26 +103,24 @@
                 {% endif %}
               </td>
               <td>
-                <a href="#" class="btn btn-large btn-block">
-                  {% if o_access.name == 'TV' %}<i class="icon-calendar"></i>
-                  {% elseif o.url %}<i class="icon-share"></i>
-                  {% elseif key == 'deportes' %}<i class="icon-play"></i>
-                  {% endif %}
-                  {% if o_access.name == 'Live' or o_access.name == 'TV' %}
-                    {#{ o.broadcast_begin|localizeddate('full', 'none') }#}
-                    {{ o.broadcast_begin|date('G\\hi \\l\\e D j F', 'Europe/Paris') }}
-                  {% else %}
-                    {{ o_access.name }}, 
-                    {% if o.cost is defined %}
-                      {% if o.cost > 0 %}{{ o.cost }}&euro;
-                      {% elseif o_access.is_achat or o_access.is_location %}- &euro;
-                      {% else %}{{ 'free'|trans }}
-                      {% endif %}
-                    {% else %}
-                      {{ 'free'|trans }}
+                {% if o_access.name == 'TV' %}<i class="icon-calendar"></i>
+                {% elseif o.url %}<i class="icon-share"></i>
+                {% elseif key == 'deportes' %}<i class="icon-play"></i>
+                {% endif %}
+                {% if o_access.name == 'Live' or o_access.name == 'TV' %}
+                  {#{ o.broadcast_begin|localizeddate('full', 'none') }#}
+                  {{ o.broadcast_begin|date('G\\hi \\l\\e D j F', 'Europe/Paris') }}
+                {% else %}
+                  {{ o_access.name }}, 
+                  {% if o.cost is defined %}
+                    {% if o.cost > 0 %}{{ o.cost }}&euro;
+                    {% elseif o_access.is_achat or o_access.is_location %}- &euro;
+                    {% else %}{{ 'free'|trans }}
                     {% endif %}
+                  {% else %}
+                    {{ 'free'|trans }}
                   {% endif %}
-                </a>
+                {% endif %}
               </td>
             </tr>
           {% endfor %}
@@ -162,7 +162,26 @@
         {% endfor %}
       </div>
     </div>
+
+    {% if program.teaser %}
+    <br class="clear"/>
+    <p class="lead" style="margin: 0px;"><strong>{{ 'program.teaser'|trans }}</strong></p>
+    <a name="teaser"></a>
+    <div id="program-teaser">
+    <a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>
+    <div id="program-teaser-player" data-player-autoload="{{ program.teaser.id }}" data-player-muted="1"></div>
+    </div>
+    {% endif %}
+    
   </div>
+
+  {% if program.format %}
+  <ul class="breadcrumb">
+    <li><a href="#">{{ program.format.name }}</a> <span class="divider">/</span></li>
+    <li>{% for c in program.categories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %} <span class="divider">/</span></li>
+    <li class="active">{% for c in program.subcategories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|slice(1, c.seo_url|length-1)}) }}">{{ c.name }}</a>{% endfor %} <span class="divider">/</span></li>
+  </ul>
+  {% endif %}
 
   <div class="view-program-column view-column pull-left actions" data-id="{{ program.id }}">
     <div style="position:relative;">
@@ -232,10 +251,10 @@
     
     <ul class="nav nav-list bs-docs-sidenav">
       <li><a href="#related"><i class="icon-chevron-right"></i> {{ 'program.related'|trans }}</a></li>
-      <li><a href="#infos"><i class="icon-chevron-right"></i> {{ 'program.infos'|trans }}</a></li>
       {% if program.teaser %}
       <li><a href="#teaser"><i class="icon-chevron-right"></i> {{ 'program.teaser'|trans }}</a></li>
       {% endif %}
+      <li><a href="#infos"><i class="icon-chevron-right"></i> {{ 'program.infos'|trans }}</a></li>
     </ul>
   </div>
 
@@ -247,7 +266,7 @@
       <h3 id="same-actors-title" class="user-on-visibility">{{ r.title }}</h3>
       <div class="person-list">
       {% for pers in program.casting %}
-      <a href="{{ path('search', {q: pers.name|url_encode }) }}" class="label label-info">{{ pers.name }}</a>
+      <a href="{{ path('any_url', {url: pers.seo_url }) }}" class="label label-info">{{ pers.name }}</a>
       {% endfor %}
       </div>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r, noheader: true} %}
@@ -255,7 +274,7 @@
       <h3 id="same-director-title" class="user-on-visibility">{{ r.title }}</h3>
       <div class="person-list">
       {% for pers in program.director %}
-      <a href="{{ path('search', {q: pers.name|url_encode }) }}" class="label label-info">{{ pers.name }}</a>
+      <a href="{{ path('any_url', {url: pers.seo_url }) }}" class="label label-info">{{ pers.name }}</a>
       {% endfor %}
       </div>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r, noheader: true} %}
@@ -266,53 +285,38 @@
   {% endfor %}
   </div>
 
-  {% if program.teaser %}
-  <br class="clear"/>
-  <a name="teaser"></a>
-  <div id="program-teaser" class="inverse">
-  <a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>
-  <h3>Bande annonce</h3>
-  <div id="program-teaser-player" data-player-autoload="{{ program.teaser.id }}" data-player-muted="1"></div>
-  </div>
-  {% endif %}
-
   <br class="clear"/>
   <a name="infos"></a>
   <div id="program-infos">
-    <div class="img pull-right">
-    <img src="{{ program.picture }}" alt="{{ program.title }}" class="img-rounded" />
+    <div class="img pull-left">
+      <img src="{{ program.picture }}" alt="{{ program.title }}" class="img-rounded" />
     </div>
     <p class="lead"><strong>Fiche complète</strong></h3>
     <p class="lead">
       {{ program.title }}
       <br/>
-      {{ program.year }} - {{ program.format }}, {{ program.duration }}mn
+      {{ program.year }} - {{ program.duration }}mn
       </p>
-      <ul class="breadcrumb">
-        <li><a href="#">{{ program.format }}</a> <span class="divider">/</span></li>
-        <li><a href="#">{{ program.categories }}</a> <span class="divider">/</span></li>
-        <li class="active">{{ program.subcategories }}</li>
-      </ul>
       <p class="lead">
       <small>
       {% if program.director %}
       <strong>{{ 'directed.by'|trans }} :</strong> 
       {% for pers in program.director %}
-      {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('search', {q: pers.name|url_encode }) }}">{{ pers.name }}</a>
+      {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url }) }}">{{ pers.name }}</a>
       {% endfor %}
       {% endif %}
       <br/>
       {% if program.casting %}
       <strong>{{ 'actors'|trans }} :</strong>
       {% for pers in program.casting %}
-      {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('search', {q: pers.name|url_encode }) }}">{{ pers.name }}</a>
+      {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url }) }}">{{ pers.name }}</a>
       {% endfor %}
       {% endif %}
       <br/>
       {% if program.editor %}
       <strong>{{ 'editors'|trans }} :</strong>
       {% for pers in program.editor %}
-      {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('search', {q: pers.name|url_encode }) }}">{{ pers.name }}</a>
+      {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url }) }}">{{ pers.name }}</a>
       {% endfor %}
       {% endif %}
       <br/>

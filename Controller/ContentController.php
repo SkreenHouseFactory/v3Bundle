@@ -34,13 +34,13 @@ class ContentController extends Controller
                              'episode_img_width' => 80,
                              'episode_img_height' => 50,
                              'episode_img_crop' => 50,
-                             'channel_img_width' => 50,
+                             'channel_img_width' => 65,
                              'with_metadata'  => true,
                              'with_related' => true,
                              'with_offers' => true,
                              'with_teaser' => true,
                              //'filter_casting' => true,
-                             'player' => 'flash'
+                             //'player' => 'flash'
                            ));
 
       //print_r($datas);
@@ -135,7 +135,41 @@ class ContentController extends Controller
     */
     public function channelAction(Request $request)
     {
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
+
+      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+      $datas = $api->fetch('channel', 
+                           array(
+                             'from_slug'  => $request->get('slug'),
+                             'with_live'  => true,
+                             'with_next_live' => true,
+                             'with_prev_live' => true,
+                             'with_description'  => true,
+                             'img_width' => 150,
+                             'img_height' => 200,
+                             'live_img_width' => 300,
+                             'live_img_height' => 300,
+                             'with_epg' => true,
+                             'with_replay' => true,
+                             'with_best_offer' => true,
+                             'with_programs' => true,
+                             'offset' => 0,
+                             'nb_results' => 60,
+                             'facets' => $this->buildFacets($request)
+                           ));
+      //print_r($datas);
+      //echo $api->url;
+      //echo $datas->seo_url.' = '.$request->get('slug');
+      $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
+      $template = isset($datas->epg) && $datas->epg ? 'channel-replay' : 'channel';
+      return $this->render('SkreenHouseFactoryV3Bundle:Content:' . $template . '.html.twig', array(
+        'channel' => $datas,
+        'formats' => array_combine(explode(';', $datas->facets_seo_url->format),explode(';', $datas->facets->format)),
+        'subcategories' => array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory)),
+        'alpha_available' => explode(';', $datas->facets->alpha),
+        'alpha'    => array(1,2,3,4,5,6,7,8,9,
+                            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
+      ));
+      /*
       $datas = $api->fetch('channel/'.$request->get('id'), 
                            array(
                              'with_live'  => true,
@@ -158,9 +192,72 @@ class ContentController extends Controller
         return $this->redirect($datas->seo_url);
       }
 
-      return $this->render('SkreenHouseFactoryV3Bundle:Content:channel.html.twig', 
-                            array('channel' => $datas)
-                           );
+      return $this->render('SkreenHouseFactoryV3Bundle:Content:channel-replay.html.twig', array(
+        'channel' => $datas
+      ));
+      */
+    }
+
+    /**
+    * category
+    */
+    public function categoryAction(Request $request)
+    {
+
+      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+      $datas = $api->fetch('category', 
+                           array(
+                             'from_slug'  => $request->get('category_slug'),
+                             'with_description' => true,
+                             'with_subcategories' => true,
+                             'with_programs'  => true,
+                             'img_width' => 150,
+                             'img_height' => 200,
+                             'offset' => 0,
+                             'nb_results' => 60,
+                             'facets' => $this->buildFacets($request)
+                           ));
+      $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
+      //print_r($datas);
+      //echo $api->url;
+      if (!strstr($request->getPathInfo(), $datas->seo_url)) {
+        echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';exit();
+        //return $this->redirect($datas->seo_url);
+      }
+
+      return $this->render('SkreenHouseFactoryV3Bundle:Content:category.html.twig', array(
+        'category' => $datas,
+        'subcategories' => array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory)),
+        'alpha_available' => explode(';', $datas->facets->alpha),
+        'alpha'    => array(1,2,3,4,5,6,7,8,9,
+                            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
+      ));
+    }
+
+    /**
+    * person
+    */
+    public function personAction(Request $request)
+    {
+      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+      $datas = $api->fetch('person/'.$request->get('id'), 
+                           array(
+                             'with_programs'  => true,
+                             'img_width' => 150,
+                             'img_height' => 200,
+                             'advanced' => true
+                           ));
+      $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
+      //print_r($datas);
+      echo $api->url;
+      //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';
+      if ($request->getPathInfo() != $datas->seo_url) {
+        //return $this->redirect($datas->seo_url);
+      }
+
+      return $this->render('SkreenHouseFactoryV3Bundle:Content:person.html.twig', array(
+        'person' => $datas
+      ));
     }
 
     /**
@@ -183,44 +280,22 @@ class ContentController extends Controller
         return $this->redirect($datas->seo_url);
       }
 
-      return $this->render('SkreenHouseFactoryV3Bundle:Content:selection.html.twig', 
-                            array('selection' => $datas)
-                           );
-    }
-
-    /**
-    * category
-    */
-    public function categoryAction(Request $request)
-    {
-      $facets = strlen($request->get('facet')) == 1 ? 'alpha:' . $request->get('facet') : 'subcategory:' . $request->get('facet');
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
-      $datas = $api->fetch('category', 
-                           array(
-                             'from_slug'  => $request->get('category_slug'),
-                             'with_description' => true,
-                             'with_subcategories' => true,
-                             'with_programs'  => true,
-                             'img_width' => 150,
-                             'img_height' => 200,
-                             'offset' => 0,
-                             'nb_results' => 60,
-                             'facets' => $facets
-                           ));
-      $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
-      //print_r($datas);
-      //echo $api->url;
-      if (!strstr($request->getPathInfo(), $datas->seo_url)) {
-        echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';exit();
-        //return $this->redirect($datas->seo_url);
-      }
-
-      return $this->render('SkreenHouseFactoryV3Bundle:Content:category.html.twig', 
-        array('category' => $datas,
-              'subcategories' => array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory)),
-              'alpha_available' => explode(';', $datas->facets->alpha),
-              'alpha'    => array(1,2,3,4,5,6,7,8,9,
-                            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
+      return $this->render('SkreenHouseFactoryV3Bundle:Content:selection.html.twig', array(
+        'selection' => $datas
       ));
+    }
+    
+    protected function buildFacets(Request $request) {
+      $facets = array();
+      if (strlen($request->get('facet')) == 1) {
+        $facets[] = 'alpha:' . $request->get('facet');
+      } elseif ($request->get('facet')) {
+        $facets[] = 'subcategory:' . $request->get('facet');
+      }
+      if ($request->get('format')) {
+        $facets[] = 'format:' . $request->get('format');
+      }
+      
+      return implode(';', $facets);
     }
 }

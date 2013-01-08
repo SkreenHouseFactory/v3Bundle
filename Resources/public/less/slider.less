@@ -144,6 +144,7 @@
       white-space: normal;
 
       .channel {
+        display: none;
         position: absolute;
         right: 0px;
         top: 0px;
@@ -310,6 +311,9 @@
       }
 
       &:hover, &.tv-component-focused {
+        div.channel {
+          display: block;
+        }
         div.actions {
           display: block;
         }

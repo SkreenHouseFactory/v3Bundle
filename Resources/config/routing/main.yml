@@ -87,16 +87,18 @@ playlist_load:
         type: "[^/]+"
 
 
-
-#content
-channel_replay:
-    pattern:  /replay/{id}-{slug}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+#personnes
+person:
+    pattern:  /{type}/{id}-{slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
+        type: acteur|realisateur|presentateur|producteur
         id: \d+
         slug: "[^/]+"
+
+#content
 program_dev:
-    pattern:  /program/{id}
+    pattern:  /p/{id}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
     requirements:
         id: \d+
@@ -160,9 +162,57 @@ cocon_tv:
 category_facet:
     pattern:  /{format}/{category_slug}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+    requirements:
+        format: film|documentaire|serie|emission|court-metrage|theatre|concert|spectacle|telefilm
+        category_slug: "[^/]+"
+        facet: "[^/]+"
 category:
     pattern:  /{format}/{category_slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+    requirements:
+        format: film|documentaire|serie|emission|court-metrage|theatre|concert|spectacle|telefilm
+        category_slug: .*
+
+#channel
+channel_replay:
+    pattern:  /replay/{id}-{slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    requirements:
+        id: \d+
+        slug: "[^/]+"
+channel_v2_format:
+    pattern:  /{format}/sur-{slug}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    requirements:
+        slug: "[^/]+"
+channel_v2_facet:
+    pattern:  /{format}/{facet}/sur-{slug}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    requirements:
+        slug: "[^/]+"
+channel_v2:
+    pattern:  /sur-{slug}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    requirements:
+        slug: "[^/]+"
+channel_format_facet:
+    pattern:  /{slug}/{format}/{facet}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel, facet: null }
+    requirements:
+        slug: "[^/]+"
+        facet: "[^/]+"
+        format: film|documentaire|serie|emission|court-metrage|theatre|concert|spectacle|telefilm
+channel_facet:
+    pattern:  /{slug}/{facet}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    requirements:
+        slug: "[^/]+"
+        facet: "[^/]+"
+channel:
+    pattern:  /{slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    requirements:
+        slug: "[^/]+"
 
 #hack url generation
 any_url:

@@ -8,8 +8,14 @@
 
 #view-program {
 
-  .lead{
-    font-size: 16px;
+  .breadcrumb {
+    position:absolute;
+    top: 10px;
+    left: 0;
+  }
+    
+  .program-title {
+    margin: 50px 10px 0 10px;
   }
 
   #program-friends {
@@ -32,6 +38,7 @@
   }
 
   .view-program-main {
+    clear: both;
 
     .row > div.span3 {
       width: 331px;
@@ -43,10 +50,7 @@
     }
 
     .view-program-block {
-      background:white;
       padding:10px;
-      border-radius:5px;
-      border:1px solid #CCC;
     }
     
     #program-description {
@@ -153,15 +157,6 @@
       font-size:1.3em;
       margin: 8px 0 17px 0;
     }
-    .img-resize {
-      position:absolute;
-      left:3px;
-      top:3px;
-      background:black;
-      opacity:0.6;
-      padding:2px 5px;
-      border:2px solid white;
-    }
     .popular-channel {
       padding: 5px;
       background: white;
@@ -197,15 +192,15 @@
   
   #program-infos {
    .img {
-    margin-left: 20px;
+    margin-right: 20px;
    }
   }
   
   #program-teaser {
-    height:600px;
+    height:450px;
     
     #program-teaser-player {
-      height:550px;
+      height:400px;
     }
   }
 }

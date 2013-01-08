@@ -176,7 +176,7 @@ seo:
     add: Ajout à vos playlists
     play: en streaming
 program:
-    infos: Tout sur ce programme
+    infos: Affiche, infos détaillées
     related: A voir aussi
     teaser: Bande annonce
     tv.on: Allumer la TV
@@ -200,6 +200,9 @@ program:
                 concert: Vos amis regardent-ils ce concert ?
                 théâtre: Vos amis regardent-ils cette pièce ?
                 spectacle: Vos amis regardent-ils ce spectacle ?
+        popover:
+            title: Partagez vos programmes avec vos amis !
+            content: Connectez-vous à Facebook en 1 clic et retrouvez ce que vos amis regardent sur mySkreen.
     follow:
         block:
             title:
@@ -211,6 +214,27 @@ program:
                 concert: Ne ratez plus ce concert !
                 théâtre: Ne ratez plus cette pièce !
                 spectacle: Ne ratez plus ce spectacle !
+channel:
+    friends:
+        block:
+            title:
+                all: Vos amis regardent-ils cette chaîne ?
+    follow:
+        block:
+            title:
+                all: Ne ratez plus cles programmes de cette chaine !
+        popover:
+            title: Partagez vos programmes avec vos amis !
+            content: Connectez-vous à Facebook en 1 clic et retrouvez ce que vos amis regardent sur mySkreen.
+category:
+    friends:
+        block:
+            title:
+                all: Vos amis regardent-ils des %category% ?
+    follow:
+        block:
+            title:
+                all: Ne ratez plus aucune %category% !
         popover:
             title: Partagez vos programmes avec vos amis !
             content: Connectez-vous à Facebook en 1 clic et retrouvez ce que vos amis regardent sur mySkreen.

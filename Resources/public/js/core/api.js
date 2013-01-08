@@ -292,9 +292,13 @@ API = {
           });
         break;
         default:
-          console.log('script', 'data-couchmode', $(this).data('couchmode'), args);
-          var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid}, typeof args != 'undefined' ? args : {});
-          Couchmode.init(args);
+          console.log(['script', 'Player.getType:', Player.getType(), 'data-couchmode', $(this).data('couchmode'), args]);
+          if (Player.getType() == 'ios') {
+            Player.playOccurrence(id);
+          } else {
+            var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid}, typeof args != 'undefined' ? args : {});
+            Couchmode.init(args);
+          }
         break;
       }
     });

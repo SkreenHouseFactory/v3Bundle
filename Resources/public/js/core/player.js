@@ -14,24 +14,17 @@ Player = {
   elmt: null,
   timeout: null,
   timeoutdelay: 5000,
-  type: 'flowplayer',
+  type: null,
   state: 'stopped',
+  playing: null,
   elmt_meta: '<div id="player-meta" class="actions couchmode-overlay"></div>',
   //player
   init: function(elmt) {
     this.elmt = elmt;
     this.reset();
-
-    /*
-    if (navigator.userAgent.match(/iPhone|iPod|iPad/)) {
-      console.log('Player.init', 'iPhone|iPod|iPad', navigator.userAgent);
-      this.type = 'ios';
-    } else if (Modernizr.video.h264) {
-      console.log('Player.init', 'Modernizr.video', Modernizr.video);
-      this.type = 'h264';
-    }
-    */
-    console.log('Player.init', 'type', this.type);
+    
+    this.type = Player.getType();
+    console.log(['Player.init', 'type', this.type]);
 
     return this;
   },
@@ -40,6 +33,21 @@ Player = {
     //$(this.elmt_meta).remove();
     //$(this.elmt_meta).insertBefore(this.elmt);
     this.elmt.empty();
+  },
+  getType: function() {
+    if (this.type != null) {
+      return this.type;
+    }
+ 
+    if (navigator.userAgent.match(/iPhone|iPod|iPad/)) {
+      console.log(['Player.getType', 'iPhone|iPod|iPad', navigator.userAgent]);
+      return 'ios';
+    } else if (Modernizr.video.h264) {
+      console.log('Player.getType', 'Modernizr.video', Modernizr.video);
+      return 'h264';
+    } else {
+      return 'flowplayer';
+    }
   },
   load: function(trigger) {
     var self = this;
@@ -118,9 +126,9 @@ Player = {
     //$('#top-nav').collapse('hide');
   },
   play: function(player, callback) {
-    console.log('Player.play', player, this.type, callback);
+    console.log(['Player.play', player, this.type, callback]);
     this.state = 'playing';
-    this.elmt.data('playing-id', player.id);
+    this.playing = player.id;
     if (typeof player.format != 'undefined') {
       this.type = player.format;
     }
@@ -288,8 +296,8 @@ Player = {
     }
 
     if (this.elmt != null) {
-      if (this.elmt.data('playing-id')) {
-        this.elmt.data('playing-id', '');
+      if (this.playing) {
+        this.playing = null;
       }
       this.reset();
     }

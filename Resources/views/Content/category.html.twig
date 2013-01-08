@@ -1,5 +1,9 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
 {% block meta %}
+{% if category.programs|length < 6 %}
+<meta name="robots" content="noindex,follow" />
+{% endif %}
 <meta property="og:title" content="{{ category.name }}" />
 <meta property="og:description" content="{{ category.description }}" />
 <meta property="og:image" content="?" />
@@ -13,15 +17,13 @@
 
 {% block content %}
 <div id="view-category" data-id="{{ category.id }}" class="container">
+  <div class="pull-right view-program-social">
+    <div class="fb-like" data-send="true" data-layout="button_count" data-width="180" data-show-faces="false"></div>
+    <iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer=http%3A%2F%2Fwww.myskreen.com{{ category.seo_url|url_encode }}&amp;size=m&amp;text=Je%20regarde%20{{ category.name|url_encode }}%20sur%20%40myskreen%20et%20vous%20%3F&amp;url=http%3A%2F%2Fwww.myskreen.com{{ category.seo_url|url_encode }}" class="block-twitter" data-twttr-rendered="true"></iframe>
+  </div>
+  <h1>{% if app.request.get('format') %}{{ app.request.get('format') }} &raquo; {% endif %}{{ category.name }}{% if app.request.get('facet') %} &raquo; {{ app.request.get('facet') }}{% endif %}</h1>
 
   <div class="view-main view-category-main pull-right">
-    <div class="pull-right view-program-social">
-      <div class="fb-like" data-send="true" data-layout="button_count" data-width="180" data-show-faces="false"></div>
-      <iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer=http%3A%2F%2Fwww.myskreen.com{{ category.seo_url|url_encode }}&amp;size=m&amp;text=Je%20regarde%20{{ category.name|url_encode }}%20sur%20%40myskreen%20et%20vous%20%3F&amp;url=http%3A%2F%2Fwww.myskreen.com{{ category.seo_url|url_encode }}" class="block-twitter" data-twttr-rendered="true"></iframe>
-    </div>
-    <h1>{% if app.request.get('format') %}{{ app.request.get('format') }} &raquo; {% endif %}{{ category.name }}</h1>
-    <hr style="margin-bottom:0;"/>
-
     <div id="program-description">
       <p id="synopsis" class="lead">
       {{ category.description }}
@@ -30,11 +32,11 @@
 
     <div class="row">
       <div id="program-follow" class="span3 view-program-block actions" data-id="{{ category.id }}">
-        <p class="lead" style="margin: 0px;">{{ 'category.follow.block.title.all'|lower|trans }}</p>
+        <p class="lead" style="margin: 0px;">{{ 'category.follow.block.title.all'|lower|trans({'%category%': category.name}) }}</p>
         <a class="fav btn btn-large btn-block" data-placement="bottom"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
       </div>
       <div id="program-friends" class="span3 view-program-block">
-        <p class="lead" style="margin: 0px;">{{ 'category.friends.block.title.all'|lower|trans }}</p>
+        <p class="lead" style="margin: 0px;">{{ 'category.friends.block.title.all'|lower|trans({'%category%': category.name}) }}</p>
         <div class="user-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'friends.popover.content'|trans } %}</div>
         <div class="user-on"></div>
       </div>
@@ -65,7 +67,7 @@
   </div>
 
   {% for k,s in subcategories %}
-    <a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k}) }}" class="label{% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</a>
+    <a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k}) }}" class="label{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a>
   {% endfor %}
   <hr/>
 

@@ -1,97 +1,91 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
-
-
-{% block title %}{{ 'page.title.channel'|trans({'%name%': channel.name}) }}{% endblock %}
-{% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 {% block meta %}
-{% if channel.programs.epg is empty and channel.programs.replay is empty %}<meta name="robots" content="noindex,follow">{% endif %}
+{% if category.programs|length < 6 %}
+<meta name="robots" content="noindex,follow" />
+{% endif %}
+<meta property="og:title" content="{{ channel.name }}" />
+<meta property="og:description" content="{{ channel.description }}" />
+<meta property="og:image" content="?" />
+<meta property="og:type" content="channel" />
+<meta property="og:url" content="{{ channel.seo_url }}" />
+<link rel="image_src" href="?" />
+<meta name="object_type" content="channel" />
 {% endblock %}
+{% block title %}{{ channel.name }}{% endblock %}
+{% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
 {% block content %}
-<div id="view-channel" class="container">
-  <br/>
-  <img class="channel-logo pull-left" src="{{ channel.img }}" />
-  <h1>{{ channel.name }}</h1>
-  <p class="alert channel-description">{{ channel.description }}</p>
+<div id="view-channel" data-id="{{ channel.id }}" class="container">
 
-  {% if channel.live %}
-  <div id="lives" class="well">
+  <div class="view-main view-channel-main pull-right">
+    <div class="pull-right view-program-social">
+      <div class="fb-like" data-send="true" data-layout="button_count" data-width="180" data-show-faces="false"></div>
+      <iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer=http%3A%2F%2Fwww.myskreen.com{{ channel.seo_url|url_encode }}&amp;size=m&amp;text=Je%20regarde%20{{ channel.name|url_encode }}%20sur%20%40myskreen%20et%20vous%20%3F&amp;url=http%3A%2F%2Fwww.myskreen.com{{ channel.seo_url|url_encode }}" class="block-twitter" data-twttr-rendered="true"></iframe>
+    </div>
+    <h1>{% if app.request.get('format') %}{{ app.request.get('format') }} &raquo; {% endif %}{{ channel.name }}</h1>
+    <hr style="margin-bottom:0;"/>
 
-    <div class="relatedlive" id="prevlive">
-    {% if channel.prev_live %}
-    <h5><small>Juste avant - {{ channel.prev_live.broadcast.broadcast_begin|date('H:i') }}</small><br/>{{ channel.prev_live.program.title }}</h5>
-    <img src="{{ channel.prev_live.program.picture }}" width="250" />
-    {% endif %}
+    <div id="program-description">
+      <p id="synopsis" class="lead">
+      {{ channel.description }}
+      </p>
     </div>
 
-    {% if channel.live and channel.live.program is defined %}
-    <div id="live" style="background-image:url({{ channel.live.program.picture }});">
-    <h2><small>En ce moment - {{ channel.live.broadcast.broadcast_begin|date('H:i') }}</small><br/>{{ channel.live.program.title }}</h2>
-    {% if channel.live.player is defined %}
-      <a class="btn btn-large btn-primary link-v2" href="{{ channel.live.program.seo_url }}" title="{{ channel.name }} direct" disabled-data-couchmode="{{ {'type': 'channel', 'id': channel.id}|json_encode }}"><i class="icon-play icon-white"></i> &nbsp; {{ 'channel.live'|trans }}</a>
-    {% elseif channel.live.url is defined %}
-      <a class="btn btn-large btn-primary" target="_blank" href="{{ path('player_exit_with_infos', {type: 'live', name: channel.name, title: channel.live.program.title, url: channel.live.url|url_encode }) }}" title="{{ channel.name }} direct"><i class="icon-share icon-white"></i> &nbsp; {{ 'channel.live'|trans }}</a>
-    {% endif %}
-    {% else %}
-    <div id="live">
-    <p class="alert">Pas de direct</p>
-    {% endif %}
+    <div class="row">
+      <div id="program-follow" class="span3 view-program-block actions" data-id="{{ channel.id }}">
+        <p class="lead" style="margin: 0px;">{{ 'channel.follow.block.title.all'|lower|trans }}</p>
+        <a class="fav btn btn-large btn-block" data-placement="bottom"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
+      </div>
+      <div id="program-friends" class="span3 view-program-block">
+        <p class="lead" style="margin: 0px;">{{ 'channel.friends.block.title.all'|lower|trans }}</p>
+        <div class="user-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'friends.popover.content'|trans } %}</div>
+        <div class="user-on"></div>
+      </div>
     </div>
-    
-    <div class="relatedlive" id="nextlive">
-    {% if channel.next_live %}
-    <h5><small>à venir - {{ channel.next_live.broadcast.broadcast_begin|date('H:i') }}</small><br/>{{ channel.next_live.program.title }}</h5>
-    <img src="{{ channel.next_live.program.picture }}" width="250" />
-    {% endif %}
-    </div>
-  
-  </div>
-  {% endif %}
-  <br/>
-  
-  
-  {#<div data-channel-id="{{ channel.id }}" id="access" class="btn-group" data-toggle="buttons-radio" style="z-index: 10;">
-    <button data-access="" type="button" class="trigger-channel btn btn-primary active">Tout</button>
-    <button data-access="deporte" type="button" class="trigger-channel btn">Sur mySkreen</button>
-    <button data-access="ios" type="button" class="trigger-channel btn">Sur iOS</button>
-  </div>#}
-  <div data-channel-id="{{ channel.id }}" id="onglet" class="pull-right btn-group" data-toggle="buttons-radio">
-    <button data-onglet="" type="button" class="trigger-channel btn btn-primary active">Tout</button>
-    <button data-onglet="films" type="button" class="trigger-channel btn">Films</button>
-    <button data-onglet="emissions" type="button" class="trigger-channel btn">Emissions</button>
-    <button data-onglet="series" type="button" class="trigger-channel btn">Séries</button>
-    <button data-onglet="documentaires" type="button" class="trigger-channel btn">Documentaires</button>
-    <button data-onglet="sports" type="button" class="trigger-channel btn">Sports</button>
-    <button data-onglet="spectacles" type="button" class="trigger-channel btn">Spectacles</button>
   </div>
 
-  <select data-channel-id="{{ channel.id }}" id="date" class="trigger-channel-date">
-    <option>Quand ?</option>
-    <option data-show="replay">Plus d'une semaine</option>
-    <option data-show="replay">La semaine dernière</option>
-    <option data-show="replay">Hier</option>
-    <option data-show="epg">Aujourd'hui</option>
-    <option data-show="epg">Demain</option>
-    <option data-show="epg">Cette semaine</option>
-    <option data-show="epg">Au delà</option>
-  </select>
-  
-  {% if channel.has_replay %}
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {title: 'channel.replay'|trans({'%website%': channel.has_replay}), 
-                                                                                programs: channel.programs.replay, 
-                                                                                id: 'channel-replay', 
-                                                                                url: '/recommend/from_channel/' ~ channel.name ~ '.json?with_method=epg'}} %}
-  {% endif %}
-  
-  {% if channel.epg %}
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {title: 'channel.epg'|trans({'%name%': channel.name}), 
-                                                                                programs: channel.programs.epg, 
-                                                                                id: 'channel-epg', 
-                                                                                url: '/recommend/from_channel/' ~ channel.name ~ '.json?with_method=epg'}} %}
-  {% endif %}
+  <div class="view-channel-column view-column pull-left actions" data-id="{{ channel.id }}">
+    <div style="position:relative;">
+      <img src="{{ channel.picture }}" alt="{{ channel.name }}" />
+    </div>
+    {#
+    <ul class="nav nav-list bs-docs-sidenav">
+      <li><a href="#related"><i class="icon-chevron-right"></i> {{ 'program.related'|trans }}</a></li>
+      <li><a href="#infos"><i class="icon-chevron-right"></i> {{ 'program.infos'|trans }}</a></li>
+    </ul>
+    #}
+  </div>
 
-  <br/>
+  <br class="clear"/>
+
+  <div class="pagination">
+    <ul>
+        <li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('channel', { slug: app.request.get('slug')}) }}">{{ 'nav.all'|trans }}</a></li>
+      {% for l in alpha %}
+        <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="{{ path('channel_facet', {slug: app.request.get('slug'), facet: l}) }}">{{ l }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% for k,f in formats %}
+    <a href="{{ path('channel_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="badge{% if app.request.get('facet') == f %} badge-info"{% endif %}">{{ f }}</a>
+  {% endfor %}
   <hr/>
-  <br/>
+
+  {% if app.request.get('format') %}
+    {% for k,s in subcategories %}
+      <a href="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="label{% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</a>
+    {% endfor %}
+    <hr/>
+  {% endif%}
+
+  <div id="channel-programs" class="slider slider-list">
+    <ul class="items">
+    {% for program in channel.programs %}
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
+    {% endfor %}
+    </ul>
+  </div>
+
 </div>
 {% endblock %}

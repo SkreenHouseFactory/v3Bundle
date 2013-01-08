@@ -1,0 +1,71 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+{% block meta %}
+{% if person.programs|length < 6 %}
+<meta name="robots" content="noindex,follow" />
+{% endif %}
+<meta property="og:title" content="{{ person.name }}" />
+<meta property="og:description" content="{{ person.description }}" />
+<meta property="og:image" content="?" />
+<meta property="og:type" content="person" />
+<meta property="og:url" content="{{ person.seo_url }}" />
+<link rel="image_src" href="?" />
+<meta name="object_type" content="person" />
+{% endblock %}
+{% block title %}{{ person.name }}{% endblock %}
+{% block description %}{{ person.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+
+{% block content %}
+<div id="view-person" data-id="{{ person.id }}" class="container">
+
+  <div class="view-main view-person-main pull-right">
+    <div class="pull-right view-program-social">
+      <div class="fb-like" data-send="true" data-layout="button_count" data-width="180" data-show-faces="false"></div>
+      <iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer=http%3A%2F%2Fwww.myskreen.com{{ person.seo_url|url_encode }}&amp;size=m&amp;text=Je%20regarde%20{{ person.name|url_encode }}%20sur%20%40myskreen%20et%20vous%20%3F&amp;url=http%3A%2F%2Fwww.myskreen.com{{ person.seo_url|url_encode }}" class="block-twitter" data-twttr-rendered="true"></iframe>
+    </div>
+    <h1>{% if app.request.get('format') %}{{ app.request.get('format') }} &raquo; {% endif %}{{ person.name }}</h1>
+    <hr style="margin-bottom:0;"/>
+
+    <div id="program-description">
+      <p id="synopsis" class="lead">
+      {{ person.description }}
+      </p>
+    </div>
+
+    <div class="row">
+      <div id="program-follow" class="span3 view-program-block actions" data-id="{{ person.id }}">
+        <p class="lead" style="margin: 0px;">{{ 'person.follow.block.title.all'|lower|trans }}</p>
+        <a class="fav btn btn-large btn-block" data-placement="bottom"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
+      </div>
+      <div id="program-friends" class="span3 view-program-block">
+        <p class="lead" style="margin: 0px;">{{ 'person.friends.block.title.all'|lower|trans }}</p>
+        <div class="user-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'friends.popover.content'|trans } %}</div>
+        <div class="user-on"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view-person-column view-column pull-left actions" data-id="{{ person.id }}">
+    <div style="position:relative;">
+      <img src="{{ person.picture }}" alt="{{ person.name }}" />
+    </div>
+    {#
+    <ul class="nav nav-list bs-docs-sidenav">
+      <li><a href="#related"><i class="icon-chevron-right"></i> {{ 'program.related'|trans }}</a></li>
+      <li><a href="#infos"><i class="icon-chevron-right"></i> {{ 'program.infos'|trans }}</a></li>
+    </ul>
+    #}
+  </div>
+
+  <br class="clear"/>
+  <hr/>
+  <h2>Ses programmes</h2>
+  <div id="person-programs" class="slider slider-list">
+    <ul class="items">
+    {% for program in person.programs %}
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
+    {% endfor %}
+    </ul>
+  </div>
+
+</div>
+{% endblock %}
