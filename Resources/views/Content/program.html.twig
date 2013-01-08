@@ -57,8 +57,8 @@
     </div>
 
     <a name="program-offers"></a>
-    <p class="lead" style="margin: 0px;"><strong>Où le voir ?</strong></p>
     <div id="program-offers" class="well view-program-block">
+      <p class="lead" style="margin: 0px;"><strong>Où le voir ?</strong></p>
       {% if program.theater_release_date is defined %}
         <p class="alert alert-success">Sortie en salle le <strong>{{ program.theater_release_date }}</strong> [ADD TO AGENDA]</p>
       {% endif %}
@@ -81,7 +81,7 @@
             {% set o_episode = '' %}
             {% endif %}
             {#{ dump(o) }#}
-            <tr data-id="{{ o.id }}"{% if o.url %} data-redirect="{{ o.url }}"{% elseif key == 'deportes' %} data-play="{{ o.id }}"{% endif %}>
+            <tr data-id="{{ o.id }}"{% if o.url %} data-redirect="{{ o.url }}"{% elseif key == 'deportes' %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% endif %}>
               <td width="20px"><span class="badge" style="opacity:0.1;">0</span></td>
               {% if o_episode %}
               <td class="episode" width="250px" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="{{ o_episode.title }}" data-toggle="hover" data-placement="left"><img class="pull-left" src="{{ o_episode.picture }}" alt="{{ o_episode.title }}" /><strong>{{ o_episode.title }}</strong></td>
@@ -165,11 +165,10 @@
 
     {% if program.teaser %}
     <br class="clear"/>
-    <p class="lead" style="margin: 0px;"><strong>{{ 'program.teaser'|trans }}</strong></p>
     <a name="teaser"></a>
     <div id="program-teaser">
     <a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>
-    <div id="program-teaser-player" data-player-autoload="{{ program.teaser.id }}" data-player-muted="1"></div>
+    <div id="program-teaser-player" data-play-autoload="{{ program.teaser.id }}" data-play-muted="1" data-play-args="{{ {hide_sliders: 1}|json_encode }}"></div>
     </div>
     {% endif %}
     
@@ -179,7 +178,7 @@
   <ul class="breadcrumb">
     <li><a href="#">{{ program.format.name }}</a> <span class="divider">/</span></li>
     <li>{% for c in program.categories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %} <span class="divider">/</span></li>
-    <li class="active">{% for c in program.subcategories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|slice(1, c.seo_url|length-1)}) }}">{{ c.name }}</a>{% endfor %} <span class="divider">/</span></li>
+    <li class="active">{% for c in program.subcategories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>{% endfor %} <span class="divider">/</span></li>
   </ul>
   {% endif %}
 
@@ -266,7 +265,7 @@
       <h3 id="same-actors-title" class="user-on-visibility">{{ r.title }}</h3>
       <div class="person-list">
       {% for pers in program.casting %}
-      <a href="{{ path('any_url', {url: pers.seo_url }) }}" class="label label-info">{{ pers.name }}</a>
+      <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" class="label label-info">{{ pers.name }}</a>
       {% endfor %}
       </div>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r, noheader: true} %}
@@ -274,7 +273,7 @@
       <h3 id="same-director-title" class="user-on-visibility">{{ r.title }}</h3>
       <div class="person-list">
       {% for pers in program.director %}
-      <a href="{{ path('any_url', {url: pers.seo_url }) }}" class="label label-info">{{ pers.name }}</a>
+      <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" class="label label-info">{{ pers.name }}</a>
       {% endfor %}
       </div>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r, noheader: true} %}
@@ -302,21 +301,21 @@
       {% if program.director %}
       <strong>{{ 'directed.by'|trans }} :</strong> 
       {% for pers in program.director %}
-      {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url }) }}">{{ pers.name }}</a>
+      {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}">{{ pers.name }}</a>
       {% endfor %}
       {% endif %}
       <br/>
       {% if program.casting %}
       <strong>{{ 'actors'|trans }} :</strong>
       {% for pers in program.casting %}
-      {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url }) }}">{{ pers.name }}</a>
+      {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}">{{ pers.name }}</a>
       {% endfor %}
       {% endif %}
       <br/>
       {% if program.editor %}
       <strong>{{ 'editors'|trans }} :</strong>
       {% for pers in program.editor %}
-      {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url }) }}">{{ pers.name }}</a>
+      {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}">{{ pers.name }}</a>
       {% endfor %}
       {% endif %}
       <br/>

@@ -199,7 +199,7 @@ $(document).ready(function(){
 
   // -- play deporte
   $('[data-play]').live('click', function(){
-    console.log('script', 'data-play', $(this));
+    console.log('script', 'data-play', $(this).data('play'), $(this).data('play-args'));
     API.play($(this).data('play'), $(this).data('play-args'));
     return false;
   });
@@ -229,18 +229,18 @@ $(document).ready(function(){
   });
 
   // -- player autoload
-  $('[data-player-autoload]').each(function(){
+  $('[data-play-autoload]').each(function(){
     var trigger = $(this);
-    console.log('script', 'player autoload', trigger.data('player-autoload'), trigger);
+    console.log('script', 'play autoload', trigger.data('play-autoload'), trigger);
     Player.init(trigger);
-    var args = trigger.data('player-jscontrolbar') ? {control: 'disabled'} : {};
-    Player.playOccurrence(trigger.data('player-autoload'), function(){
-      if (trigger.data('player-muted')) {
+    var args = trigger.data('play-jscontrolbar') ? {control: 'disabled'} : {};
+    Player.playOccurrence(trigger.data('play-autoload'), function(){
+      if (trigger.data('play-muted')) {
         Player.mute();
       }
     }, args);
     
-    $(this).data('player-loaded', 1);
+    $(this).data('play-loaded', 1);
   });
 
   // -- carousel autoload

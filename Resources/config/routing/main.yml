@@ -163,15 +163,15 @@ category_facet:
     pattern:  /{format}/{category_slug}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        format: film|documentaire|serie|emission|court-metrage|theatre|concert|spectacle|telefilm
+        format: film|documentaire|serie|emission|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
         category_slug: "[^/]+"
         facet: "[^/]+"
 category:
     pattern:  /{format}/{category_slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        format: film|documentaire|serie|emission|court-metrage|theatre|concert|spectacle|telefilm
-        category_slug: .*
+        format: film|documentaire|serie|emission|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
+        category_slug: "[^/]+"
 
 #channel
 channel_replay:
@@ -201,7 +201,7 @@ channel_format_facet:
     requirements:
         slug: "[^/]+"
         facet: "[^/]+"
-        format: film|documentaire|serie|emission|court-metrage|theatre|concert|spectacle|telefilm
+        format: film|documentaire|serie|emission|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
 channel_facet:
     pattern:  /{slug}/{facet}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }

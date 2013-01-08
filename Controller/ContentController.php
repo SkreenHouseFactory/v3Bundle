@@ -76,7 +76,7 @@ class ContentController extends Controller
                                                                 'channel_img_width' => 50,
                                                                 'nb_results' => 7,
                                                               ));
-        //echo "\n name:".$r->name.' url:'.$api->url;
+        echo "\n name:".$r->name.' url:'.$api->url;
         //echo "\n name:".$r->name.' : '.end($datas->related[$key]->programs)->id;
       }
 
@@ -207,7 +207,7 @@ class ContentController extends Controller
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $datas = $api->fetch('category', 
                            array(
-                             'from_slug'  => $request->get('category_slug'),
+                             'from_slug'  => str_replace('/', '', $request->get('category_slug')),
                              'with_description' => true,
                              'with_subcategories' => true,
                              'with_programs'  => true,
@@ -242,14 +242,14 @@ class ContentController extends Controller
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $datas = $api->fetch('person/'.$request->get('id'), 
                            array(
-                             'with_programs'  => true,
+                             'with_programs' => true,
                              'img_width' => 150,
                              'img_height' => 200,
                              'advanced' => true
                            ));
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
       //print_r($datas);
-      echo $api->url;
+      //echo $api->url;
       //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';
       if ($request->getPathInfo() != $datas->seo_url) {
         //return $this->redirect($datas->seo_url);

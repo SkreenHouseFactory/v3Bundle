@@ -83,7 +83,7 @@ class MainController extends Controller
       $datas = $api->fetch('search/' . urlencode($request->get('q')), 
                            array('img_width' => 160,
                                  'img_height' => 200,
-                                 'nb_results' => 10));
+                                 'nb_results' => 7));
       //echo $api->url;
       return $this->render('SkreenHouseFactoryV3Bundle:Search:main.html.twig', array(
         'results' => $datas,

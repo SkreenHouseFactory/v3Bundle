@@ -271,7 +271,9 @@ API = {
       UI.markAsRed(id);
     });
   },
-  play: function(id, args){
+  play: function(id, base_args){
+    var base_args = typeof base_args != 'undefined' ? base_args : {};
+    console.log('API.play', 'id', id, 'args', base_args);
     var self = this;
     this.query('GET', '/player/' + id + '/' + Skhf.session.uid + '.json', {}, function(datas) {
       console.log('API.play', 'callback API.query', datas);
@@ -292,13 +294,13 @@ API = {
           });
         break;
         default:
-          console.log(['script', 'Player.getType:', Player.getType(), 'data-couchmode', $(this).data('couchmode'), args]);
-          if (Player.getType() == 'ios') {
-            Player.playOccurrence(id);
-          } else {
-            var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid}, typeof args != 'undefined' ? args : {});
+          console.log(['script', 'Player.getType:', Player.getType(), 'data-couchmode', $(this).data('couchmode'), base_args]);
+          //if (Player.getType() == 'ios') {
+          //  Player.playOccurrence(id);
+          //} else {
+            var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid}, base_args);
             Couchmode.init(args);
-          }
+          //}
         break;
       }
     });

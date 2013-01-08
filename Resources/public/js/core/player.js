@@ -136,13 +136,11 @@ Player = {
     switch(this.type) {
 
       case 'ios':
-        window.open(player.url);
-      break;
-
       case 'h264':
-        this.elmt.html('<video style="background: black;height: 100%; width: 100%; cursor: pointer; -webkit-user-drag: none;" id="couchmode-player_h264" src="' + player.url + '"></video>');
+        this.elmt.html('<video id="skPlayerHtml5" width="100%" height="100%" controls="1" x-webkit-airplay="allow" tabindex="0"><source src="' + player.url + '" type="video/mp4"></video>');
+        //this.elmt.html('<video style="background: black;height: 100%; width: 100%; cursor: pointer; -webkit-user-drag: none;" id="player-html5" src="' + player.url + '"></video>');
       break;
-      
+  
       /*
         http://flowplayer.org/documentation/api/player.html
         
@@ -348,22 +346,25 @@ Player = {
     var self = this;
     var args = $.extend(true,
                         {
-                          with_player: true,
-                          with_teaser: true,
+                          with_player: 1,
+                          with_teaser: 1,
                           player_width: '100%', 
                           player_height: '100%',
-                          player: this.type,
-                          fullHD: true
+                          player: this.getType(),
+                          fullHD: 1
                         }, 
                         typeof args != 'undefined' ? args : {});
     API.query('GET',
               'player/' + id + '/' + Skhf.session.uid + '.json',
               args,
-              function(video){
-                console.log('Player.playOccurrence', video, args);
+              function (video){
+                console.log(['Player.playOccurrence', video, args]);
 
                 if (!video.player || typeof video.player == 'undefined') {
-                  callback('unvailable');
+                  console.error(['Player.playOccurrence', 'API.query', 'callback', video]);
+                  if (typeof callback != 'undefined') {
+                    callback('unvailable');
+                  }
                   return false;
                 }
                 self.play($.extend(video.player, {occurrence_id: id}), callback);

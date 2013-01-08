@@ -3,7 +3,7 @@
   {% for p in slider.programs %}
   <div class="item{% if loop.first %} active{% endif %}">
     {% if p.teaser is defined and p.teaser.id is defined %}
-      <a href="#" data-play="{{ p.teaser.id }}" data-args="{\"no_sliders\": 1}" class="pull-left" style="position:absolute;top:30px;left:400px;"><img src="{{ asset('bundles/skreenhousefactoryv3/images/big-play.png') }}" alt="bande annonce {{ p.title }}" style="height:150px;" /></a>
+      <a href="#" data-play="{{ p.teaser.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}" class="pull-left" style="position:absolute;top:30px;left:400px;"><img src="{{ asset('bundles/skreenhousefactoryv3/images/big-play.png') }}" alt="bande annonce {{ p.title }}" style="height:150px;" /></a>
     {% endif %}
     <a href="{{ p.seo_url }}"><img src="{{ p.sliderPicture }}" alt="{{ p.title }}" /></a>
     <div class="carousel-caption actions" data-id="{{ p.id }}">
