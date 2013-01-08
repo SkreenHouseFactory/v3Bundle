@@ -76,7 +76,7 @@ class ContentController extends Controller
                                                                 'channel_img_width' => 50,
                                                                 'nb_results' => 7,
                                                               ));
-        echo "\n name:".$r->name.' url:'.$api->url;
+        //echo "\n name:".$r->name.' url:'.$api->url;
         //echo "\n name:".$r->name.' : '.end($datas->related[$key]->programs)->id;
       }
 
