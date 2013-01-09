@@ -35,7 +35,7 @@ class ContentController extends Controller
       $cache_date = new \DateTime($datas->updated_at);
 
       //cache
-      $cache_maxage = 52*7*24*3600;
+      $cache_maxage = 600;
       $cache_etag = md5('program-' . $request->get('id') . '-'. $datas->updated_at);
 
       // Créer un objet Response avec un en-tête ETag
