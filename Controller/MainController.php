@@ -100,9 +100,17 @@ class MainController extends Controller
       $datas = $api->fetch('www/slider/pack/8774489', 
                            array('programs_only' => true));
       //echo $api->url;
-      return $this->render('SkreenHouseFactoryV3Bundle:Main:_boost.html.twig', array(
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Main:_boost.html.twig', array(
         'programs' => $datas,
       ));
+
+
+      $maxage = 60;
+      $response->setPublic();
+      $response->setMaxAge($maxage);
+      $response->setSharedMaxAge($maxage);
+      
+      return $response;
     }
 
     /**

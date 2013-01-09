@@ -88,49 +88,6 @@ var BaseSession = Class.extend({
       console.log('BaseSession.deleteNotification', resp, args);
     });
   },
-  initSocial: function(onglet, offset, force_remote, callback) {
-    console.log('BaseSession.initSocial', 'fb_uid', this.datas.fb_uid)
-    var self = this;
-
-    var offset = typeof offset != 'undefined' ? offset : 0;
-    var onglet = typeof onglet != 'undefined' ? onglet : null;
-    var cookie_name = 'social_' + onglet + '_' + offset;
-    var cookie = API.cookie(cookie_name);
-    console.log('BaseSession.initSocial', cookie_name, cookie, 'force_remote:' + force_remote);
-    if (cookie && typeof force_remote == 'undefined') {
-      var json = JSON.parse(cookie);
-      console.log('BaseSession.initSocial', 'cookie');
-      if (json.statusText == 'error') {
-        console.warn('BaseSession.initSocial', 'cookie error');
-        API.cookie(cookie_name, null);
-        return this.initSocial(onglet, offset, true);
-      }
-      self.loadFriends(json.friends);
-      if (typeof callback != 'undefined') {
-        callback(json);
-      }
-    } else {
-
-      API.query('GET',
-                'www/slider/social/' + this.uid + '.json', 
-                {
-                 onglet: this.onglet, 
-                 nb_results: 1, 
-                 img_width: API.config.slider.width, 
-                 img_height: API.config.slider.height
-                }, 
-                function(json) {
-                  console.log('BaseSession.initSocial', 'offset:' + offset, 'error:' + json.error);
-                  if (typeof json.error == 'undefined') {
-                    API.cookie(cookie_name, JSON.stringify(json));
-                    self.loadFriends(json.friends);
-                    if (typeof callback != 'undefined') {
-                      callback(json);
-                    }
-                  }
-                });
-    }
-  },
   loadFriends: function(friends, callback) {
     var self = this;
     //console.log('BaseSession.loadFriends', friends);
@@ -155,38 +112,65 @@ var BaseSession = Class.extend({
       });
     }
   },
-  loadFriendsPlaylists: function(callback){
+  loadFriendsPrograms: function(callback){
     var self = this;
     var cookie_name = 'friends_playlist';
     var cookie = API.cookie(cookie_name);
-    console.log('BaseSession.loadFriendsPlaylists', cookie_name, cookie);
+    console.log('BaseSession.loadFriendsPrograms', cookie_name, cookie);
     if (cookie) {
       var json = JSON.parse(cookie);
-      console.log('BaseSession.loadFriendsPlaylists', 'cookie', json);
+      console.log('BaseSession.loadFriendsPrograms', 'cookie', json);
       if (json.statusText == 'error') {
-        console.warn('BaseSession.loadFriendsPlaylists', 'cookie error');
+        console.warn('BaseSession.loadFriendsPrograms', 'cookie error');
         API.cookie(cookie_name, null);
-        return this.loadFriendsPlaylists(callback);
+        return this.loadFriendsPrograms(callback);
       }
       if (typeof callback != 'undefined') {
         callback(json);
       }
     } else {
-
-      API.query('GET',
-                'session/' + this.uid + '.json', 
-                {
-                 with_friends_playlists: 1
-                }, 
-                function(json) {
-                  console.log('BaseSession.loadFriendsPlaylists', 'callback', json.friends_playlists, self.datas);
-                  if (typeof json.error == 'undefined') {
-                    API.cookie(cookie_name, JSON.stringify(json.friends_playlists));
-                    if (typeof callback != 'undefined') {
-                      callback(json.friends_playlists);
-                    }
-                  }
-                });
+      this.loadSocialDatas();
     }
+  },
+  loadFriendsPlaylist: function(onglet, offset, force_remote, callback) {
+    console.log('BaseSession.loadFriendsPlaylist', 'fb_uid', this.datas.fb_uid)
+    var self = this;
+
+    var offset = typeof offset != 'undefined' ? offset : 0;
+    var onglet = typeof onglet != 'undefined' ? onglet : null;
+    self.loadFriends()
+
+    API.query('GET',
+              'www/slider/social/' + this.uid + '.json', 
+              {
+                onglet: this.onglet, 
+                nb_results: 1, 
+                img_width: API.config.slider.width, 
+                img_height: API.config.slider.height
+              }, 
+              function(json) {
+                console.log('BaseSession.loadFriendsPlaylist', 'offset:' + offset, 'error:' + json.error);
+                if (typeof json.error == 'undefined') {
+                  if (typeof callback != 'undefined') {
+                    callback(json);
+                  }
+                }
+              });
+  },
+  loadSocialDatas: function(callback){
+    API.query('GET',
+              'session/' + this.uid + '.json', 
+              {
+                with_friends_playlists: 1
+              }, 
+              function(json) {
+                console.log('BaseSession.loadFriendsPrograms', 'callback', json.friends_playlists, self.datas);
+                if (typeof json.error == 'undefined') {
+                  API.cookie(cookie_name, JSON.stringify(json.friends_playlists));
+                  if (typeof callback != 'undefined') {
+                    callback(json.friends_playlists);
+                  }
+                }
+              });
   }
 });

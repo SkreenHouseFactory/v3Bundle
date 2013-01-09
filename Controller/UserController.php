@@ -93,7 +93,7 @@ class UserController extends Controller
       ));
 
       $response->setPrivate();
-      $response->setMaxAge(0);
+      $response->setMaxAge(60);
       $response->headers->addCacheControlDirective('no-cache');
       $response->headers->addCacheControlDirective('must-revalidate');
 

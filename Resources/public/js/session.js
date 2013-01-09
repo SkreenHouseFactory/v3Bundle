@@ -26,7 +26,8 @@ var Session = BaseSession.extend({
     UI.unloadSelector();
     UI.unloadPlaylist();
   },
-  initSocial: function(onglet, offset, force_remote) {
+  loadFriendsPlaylist: function(onglet, offset, force_remote) {
+    console.log('Session.loadFriendsPlaylist', this.datas);
     if (this.datas.fb_uid) {
       UI.appendLoader($('li#friends'));
       this.__base(onglet, offset, force_remote, function(json){
@@ -76,7 +77,7 @@ var Session = BaseSession.extend({
                 },
                 function(json) {
                   console.log('Session.initSelector', 'remote', 'reload', json);
-                  UI.loadSelector(json, true);
+                  UI.loadSelector(json);
                   UI.playlist.elmt.removeClass('loading');
                 });
     }

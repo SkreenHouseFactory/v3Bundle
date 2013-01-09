@@ -113,7 +113,7 @@ API = {
     if (url != this.currentModalUrl) {
       var body = $('.modal .modal-body');
       body.empty();
-      UI.appendLoader(body);
+      UI.appendLoader(body, 1000);
 
       var args = $.extend(typeof args != 'undefined' ? args : {}, {session_uid: Skhf.session.uid, proxy: 'v3'});
 

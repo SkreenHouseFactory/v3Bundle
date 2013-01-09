@@ -5,6 +5,7 @@ UI = {
   os: null,
   playlist: null,
   sliders: [],
+  max_notifications: 20,
   badge_notification: '<span class="badge">%count%</span>',
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
   init: function(callback) {
@@ -144,7 +145,8 @@ UI = {
   //notify
   loadNotifications: function(notifications) {
     console.log('UI.loadNotifications', notifications);
-    $('#top-bar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(notifications.length));
+    var nb = notifications.length == this.max_notifications ? notifications.length + ' +' : notifications.length;
+    $('#top-bar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
     if (notifications.length == 0) {
         $('#top-bar .notifications-count .badge-important').removeClass('badge-important');
     } else {
@@ -161,8 +163,9 @@ UI = {
       }
       //new
       if (nb_new > 0) {
-        console.log('UI.loadNotifications', 'new', nb_new);
-        $('#top-bar .notifications-count .badge').html(nb_new).addClass('badge-important');
+        var nb = nb_new == this.max_notifications ? nb_new + ' +' : nb_new;
+        console.log('UI.loadNotifications', 'new', nb);
+        $('#top-bar .notifications-count .badge').html(nb).addClass('badge-important');
       }
       $('#top-bar .notifications-count').data('count-new', nb_new);
       $('[rel="tooltip"]', list).tooltip({placement: 'bottom'});
@@ -223,12 +226,12 @@ UI = {
                   }
                 }
                 //notifs
-                if( typeof datas.boutons_notifications != 'undefined' && 
+                if (typeof datas.boutons_notifications != 'undefined' && 
                     datas.boutons_notifications &&
-                    datas.boutons_notifications['new'].count > 0 ) {
-                  for ( k in datas.boutons_notifications['new']) {
+                    datas.boutons_notifications['new'].count > 0) {
+                  for (k in datas.boutons_notifications['new']) {
                     var notifs = datas.boutons_notifications['new'][k];
-                    if(notifs.length > 0 && k != 'count' ) {
+                    if (notifs.length > 0 && k != 'count' ) {
                       $('#trigger-' + k).append('<span class="badge badge-important">' + notifs.length + '</span>');                  
                       for(k in notifs){
                         $('#program-offers [data-id="' + notifs[k] + '"] td:first-child').html('<span class="badge badge-important">1</span>');
@@ -294,7 +297,8 @@ UI = {
       });
     });
 
-    Skhf.session.initSocial();
+    console.log('UI.loadSelector', 'Skhf.session.initSocial', Skhf.session);
+    Skhf.session.loadFriendsPlaylist();
     //this.playlist.data('queue-selector', JSON.stringify(datas));
   },
   unloadSelector: function() {
@@ -452,14 +456,14 @@ UI = {
     $('a[rel="tooltip"]', div).tooltip();
     div.appendTo(container);
   },
-  addFriendsPlaylists: function(){
-    Skhf.session.loadFriendsPlaylists(function(friends_playlists){
-      console.log('UI.addFriendsPlaylists', friends_playlists);
-      for (k in friends_playlists) {
+  addFriendsPrograms: function(){
+    Skhf.session.loadFriendsPrograms(function(friends_programs){
+      console.log('UI.addFriendsPrograms', friends_programs);
+      for (k in friends_programs) {
         var li = $('li[data-id="' + k + '"]');
         if (li.length > 0) {
-          //console.log('UI.addFriendsPlaylists', 'add ' + friends_playlists[k].length + ' friends to program ' + k);
-          UI.addFriends(li, friends_playlists[k]);
+          //console.log('UI.addFriendsPrograms', 'add ' + friends_programs[k].length + ' friends to program ' + k);
+          UI.addFriends(li, friends_programs[k]);
         }
       }
     });

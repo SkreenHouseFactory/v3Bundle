@@ -1,5 +1,4 @@
-<ul class="nav">
-  {% for p in programs %}
-  {% if loop.first %}{% else %}<li class="pull-left"> ~ </li>{% endif %}<li><a class="pull-left" href="{{ p.seo_url }}">{{ p.title }}</a></li>
-  {% endfor %}
-</ul>
+En ce moment : 
+{% for p in programs %}
+{% if loop.first %}{% else %} ~ {% endif %}<a href="{{ p.seo_url }}">{{ p.title }}</a>
+{% endfor %}

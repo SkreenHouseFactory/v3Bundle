@@ -52,7 +52,8 @@ $(document).ready(function(){
     if (API.context == 'v2' && !$('#top-playlist').hasClass('in')) {
       $('#top-playlist').collapse('show');
     }
-    if ($(this).hasClass('notifications-count') && $(this).find('.badge-important')) {
+    if ($(this).hasClass('notifications-count') && 
+        $('.badge-important', $(this)).length > 0) {
       Skhf.session.readNotifications();
       var current = $('#top-bar .notifications li:not(.divider, .empty)').length;
       $('#top-bar .notifications-count span.badge').removeClass('badge-important').html(current);
@@ -374,7 +375,7 @@ $(document).ready(function(){
     console.log('trigger-theaters', trigger);
     trigger.live('click', function(){
       container.empty();
-      UI.appendLoader(container);
+      UI.appendLoader(container, 2000);
       //geoloc
       API.geolocation(function(position){
         container.load(container.data('api-url') + '?latlng=' + position);
@@ -395,7 +396,7 @@ $(document).ready(function(){
     });
     $('#theaters-search').submit(function(){
       container.empty();
-      UI.appendLoader(container);
+      UI.appendLoader(container, 2000);
       API.query('GET',
                 API.config.v3_url + container.data('api-url') + '?q=' + escape($('#theaters-search .search-query').val()),
                 {dataType: 'text html'},
@@ -504,5 +505,5 @@ $(document).ready(function(){
   /* END */
   
   // -- playlist friends
-  UI.addFriendsPlaylists();
+  UI.addFriendsPrograms();
 });

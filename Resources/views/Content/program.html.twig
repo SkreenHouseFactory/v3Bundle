@@ -72,62 +72,66 @@
         <div id="{{ key }}" class="tab-pane{% if loop.first %} active{% endif %}">
         <table class="table">
           <tbody>
-          {% for o in program.offers[key] %}
-            {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
-            {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
-            {% if o.episode_id is defined %}
-            {% set o_episode = attribute(program.datas_offers.episodes,  o.episode_id) %}
-            {% else %}
-            {% set o_episode = '' %}
-            {% endif %}
-            {#{ dump(o) }#}
-            <tr data-id="{{ o.id }}"{% if o.url %} data-redirect="{{ o.url }}"{% elseif key == 'deportes' %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% endif %}>
-              <td width="20px"><span class="badge" style="opacity:0.1;">0</span></td>
-              {% if o_episode %}
-              <td class="episode" width="250px" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="{{ o_episode.title }}" data-toggle="hover" data-placement="left"><img class="pull-left" src="{{ o_episode.picture }}" alt="{{ o_episode.title }}" /><strong>{{ o_episode.title }}</strong></td>
+          {%  if key != 'theaters' %}
+            {% for o in program.offers[key] %}
+              {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
+              {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
+              {% if o.episode_id is defined %}
+              {% set o_episode = attribute(program.datas_offers.episodes,  o.episode_id) %}
               {% else %}
-              <td></td>
+              {% set o_episode = '' %}
               {% endif %}
-              <td width="70px">
-                <img src="{{ o_channel.img }}" alt="{{ o_channel.name }}" />
-              </td>
-              <td>
-                {% if o.tags.version is defined %}
-                  <span class="label label-inverse">{{ o.tags.version|replace({',': ', '}) }}</span><br/>
-                {% endif %}
-                {% if o.tags.hd is defined %}
-                  <span class="label label-info">{{ o.tags.hd }}</span><br/>
-                {% endif %}
-                {% if o.tags.device is defined %}
-                  <span class="label">{{ o.tags.device|replace({',': ', '}) }}</span>
-                {% endif %}
-              </td>
-              <td>
-                {% if o_access.name == 'TV' %}<i class="icon-calendar"></i>
-                {% elseif o.url %}<i class="icon-share"></i>
-                {% elseif key == 'deportes' %}<i class="icon-play"></i>
-                {% endif %}
-                {% if o_access.name == 'Live' or o_access.name == 'TV' %}
-                  {#{ o.broadcast_begin|localizeddate('full', 'none') }#}
-                  {{ o.broadcast_begin|date('G\\hi \\l\\e D j F', 'Europe/Paris') }}
+              {#{ dump(o) }#}
+              <tr data-id="{{ o.id }}"{% if o.url %} data-redirect="{{ o.url }}"{% elseif key == 'deportes' %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% endif %}>
+                <td width="20px"><span class="badge" style="opacity:0.1;">0</span></td>
+                {% if o_episode %}
+                <td class="episode" width="250px" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="{{ o_episode.title }}" data-toggle="hover" data-placement="left"><img class="pull-left" src="{{ o_episode.picture }}" alt="{{ o_episode.title }}" /><strong>{{ o_episode.title }}</strong></td>
                 {% else %}
-                  {{ o_access.name }}, 
-                  {% if o.cost is defined %}
-                    {% if o.cost > 0 %}{{ o.cost }}&euro;
-                    {% elseif o_access.is_achat or o_access.is_location %}- &euro;
-                    {% else %}{{ 'free'|trans }}
-                    {% endif %}
-                  {% else %}
-                    {{ 'free'|trans }}
-                  {% endif %}
+                <td></td>
                 {% endif %}
-              </td>
-            </tr>
-          {% endfor %}
-          {% if key == 'theaters' %}
+                <td width="70px">
+                  <img src="{{ o_channel.img }}" alt="{{ o_channel.name }}" />
+                </td>
+                <td>
+                  {% if o.tags.version is defined %}
+                    <span class="label label-inverse">{{ o.tags.version|replace({',': ', '}) }}</span><br/>
+                  {% endif %}
+                  {% if o.tags.hd is defined %}
+                    <span class="label label-info">{{ o.tags.hd }}</span><br/>
+                  {% endif %}
+                  {% if o.tags.device is defined %}
+                    <span class="label">{{ o.tags.device|replace({',': ', '}) }}</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if o_access.name == 'TV' %}<i class="icon-calendar"></i>
+                  {% elseif o.url %}<i class="icon-share"></i>
+                  {% elseif key == 'deportes' %}<i class="icon-play"></i>
+                  {% endif %}
+                  {% if o_access.name == 'Live' or o_access.name == 'TV' %}
+                    {#{ o.broadcast_begin|localizeddate('full', 'none') }#}
+                    {{ o.broadcast_begin|date('G\\hi \\l\\e D j F', 'Europe/Paris') }}
+                  {% else %}
+                    {{ o_access.name }}, 
+                    {% if o.cost is defined %}
+                      {% if o.cost > 0 %}{{ o.cost }}&euro;
+                      {% elseif o_access.is_achat or o_access.is_location %}- &euro;
+                      {% else %}{{ 'free'|trans }}
+                      {% endif %}
+                    {% else %}
+                      {{ 'free'|trans }}
+                    {% endif %}
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          {% else %}
             <tr>
               <td colspan="5" class="theaters">
-                <p class="alert alert-info">{{ program.format }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.offers[key]|length }} salles.</p>
+                {% if program.offers[key].theaters_on_demand %}
+                  <p class="alert alert-success">Disponible chez ILC</p>
+                {% endif %}
+                <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.offers[key].theaters_ids|length }} salles.</p>
                 <form id="theaters-search" class="form-search pull-left">
                   <div class="input-append">
                     <input type="text" class="span3 search-query" placeholder="{{ 'program.theaters.search.placeholder'|trans }}">
@@ -135,17 +139,11 @@
                   </div>
                 </form>
                 <a class="btn" href="#" id="trigger-theaters-geoloc"><i class="icon-map-marker"></i> Séances près d'ici</a>
-                <div id="theaters-list" data-api-url="{{ path('programtheater', {id: program.id}) }}"></div>
+                <div id="theaters-list" class="clear" data-api-url="{{ path('programtheater', {id: program.id}) }}"></div>
               </td>
             </tr>
-          {% elseif key == 'deportes' %}
-            {#% if program.offers[key][0] is not defined %}
-            <tr>
-              <td colspan="5">
-                <p class="alert alert-info">{{ program.format }} {{ 'program.unvailable'|trans }}</p>
-              </td>
-            </tr>
-            {% endif %#}
+          {% endif %}
+          {% if key == 'deportes' %}
             <tr class="program-deportes">
               <td colspan="5" data-more-streaming="{{ program.id }}">
               <div id="ytCarousel" class="carousel slide hide">
@@ -176,7 +174,7 @@
 
   {% if program.format %}
   <ul class="breadcrumb">
-    <li><a href="#">{{ program.format.name }}</a> <span class="divider">/</span></li>
+    <li><a href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''})}) }}/">{{ program.format.name }}</a> <span class="divider">/</span></li>
     <li>{% for c in program.categories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %} <span class="divider">/</span></li>
     <li class="active">{% for c in program.subcategories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>{% endfor %} <span class="divider">/</span></li>
   </ul>
