@@ -49,7 +49,7 @@ class ContentController extends Controller
 
       // Vérifier que l'objet Response n'est pas modifié
       // pour un objet Request donné
-      if ($response->isNotModified($request)) {
+      if ($this->get('kernel')->getEnvironment() != 'dev' && $response->isNotModified($request)) {
           // Retourner immédiatement un objet 304 Response
 
       } else {
@@ -81,7 +81,8 @@ class ContentController extends Controller
           echo 'redirect '.$request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
           //return $this->redirect($datas->seo_url);
         }
-        //post treatments
+        // -- post treatments
+        //episodes
         $datas->offers = (array)$datas->offers;
         if (!isset($datas->episodeof) && 
             isset($datas->datas_offers->episodes) && count((array)$datas->datas_offers->episodes) > 1) {
@@ -90,12 +91,18 @@ class ContentController extends Controller
           }
           ksort($datas->episode_list);
         }
+        //theaters     
+        if (!$datas->offers['theaters'] && !$datas->offers['theaters_on_demand']) {
+          $datas->offers['theaters'] = array();
+        } else {
+          $datas->datas_theaters = array('theaters_ids' => explode(',', $datas->offers['theaters']),
+                                         'theaters_on_demand' => $datas->offers['theaters_on_demand']);
+          $datas->offers['theaters'] = ($datas->offers['theaters'] ? count($datas->offers['theaters']) : 0) +  
+                                       ($datas->offers['theaters_on_demand'] ? count($datas->offers['theaters_on_demand']) : 0);
+        }
   
-        //load programs
+        //load related programs
         foreach ($datas->related as $key => $r) {
-          if ($r->name == 'promo_channel') {
-            continue;
-          }
           //print_r($r);
           $datas->related[$key]->programs = (array)$api->fetch(str_replace('&onglet', '&_onglet', $r->paginate), 
                                                                 array(
@@ -108,11 +115,7 @@ class ContentController extends Controller
           //echo "\n name:".$r->name.' url:'.$api->url;
           //echo "\n name:".$r->name.' : '.end($datas->related[$key]->programs)->id;
         }
-        
-        $datas->offers['theaters'] = array('theaters_ids' => $datas->offers['theaters'],
-                                           'theaters_on_demand' => $datas->offers['theaters_on_demand'],
-                                           );
-  
+
         $response = $this->render('SkreenHouseFactoryV3Bundle:Content:program.html.twig', array(
           'program' => $datas,
           'offers' => array('deportes' => 'sur mySkreen', 
@@ -138,82 +141,42 @@ class ContentController extends Controller
     }
 
     /**
-    * programtheaters
-    */
-    public function programtheatersAction(Request $request)
-    {
-      $cinemas = null;
-      $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
-      if ($request->get('q') || $request->get('cinema_id')) {
-        $cinemas = $api->fetch('schedule/cine', array(
-                      'program_id' => $request->get('id'),
-                      'theater_ids' => $request->get('cinema_id'),
-                      'with_schedule' => true,
-                      'q' => $request->get('q')
-                    ));
-      } elseif ($request->get('latlng')) {
-        list ($lat, $lng) = explode(',', $request->get('latlng'));
-        $cinemas = $api->fetch('schedule/cine', array(
-                      'program_id' => $request->get('id'),
-                      'with_schedule' => true,
-                      'fromGeoloc' => true,
-                      'lat' => $lat,
-                      'long' => $lng
-                    ));
-      }
-
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
-      $program = $api->fetch('program/'.$request->get('id'), array(
-                    'img_width' => 300,
-                    'img_height' => 400
-                  ));
-
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Content:programtheaters.html.twig', array(
-                'program' => $program,
-                'cinemas' => $cinemas,
-                'days' => array('Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche')
-             ));
-
-      $maxage = 600;
-      $response->setPublic();
-      $response->setMaxAge($maxage);
-      $response->setSharedMaxAge($maxage);
-      
-      return $response;
-    }
-
-    /**
     * channel
     */
     public function channelAction(Request $request)
     {
 
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
-      $datas = $api->fetch('channel', 
-                           array(
-                             'from_slug'  => $request->get('slug'),
-                             'with_live'  => true,
-                             'with_next_live' => true,
-                             'with_prev_live' => true,
-                             'with_description'  => true,
-                             'img_width' => 150,
-                             'img_height' => 200,
-                             'live_img_width' => 300,
-                             'live_img_height' => 300,
-                             'with_epg' => true,
-                             'with_replay' => true,
-                             'with_best_offer' => true,
-                             'with_programs' => true,
-                             'offset' => 0,
-                             'nb_results' => 60,
-                             'facets' => $this->buildFacets($request)
-                           ));
+      $datas = $api->fetch('channel', array(
+                            'from_slug'  => $request->get('slug'),
+                            'with_live'  => true,
+                            'with_next_live' => true,
+                            //'with_prev_live' => true,
+                            'with_description'  => true,
+                            'img_width' => 150,
+                            'img_height' => 200,
+                            'live_img_width' => 300,
+                            'live_img_height' => 300,
+                            'slider_img_width'  => 900,
+                            'slider_img_height' => 300,
+                            'with_epg' => true,
+                            'with_replay' => true,
+                            'with_best_offer' => true,
+                            'with_programs' => true,
+                            'offset' => 0,
+                            'nb_results' => 30,
+                            'facets' => $this->buildFacets($request)
+                          ));
       //print_r($datas);
       //echo $api->url;
-      //echo $datas->seo_url.' = '.$request->get('slug');
+        //echo $request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
+        if ($request->getPathInfo() != $datas->seo_url) {
+          echo 'redirect '.$request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
+          //return $this->redirect($datas->seo_url);
+        }
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
-      $template = isset($datas->epg) && $datas->epg ? 'channel-replay' : 'channel';
-      $resonse = $this->render('SkreenHouseFactoryV3Bundle:Content:' . $template . '.html.twig', array(
+      //$template = isset($datas->epg) && $datas->epg ? 'channel-replay' : 'channel';
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Content:channel.html.twig', array(
         'channel' => $datas,
         'formats' => array_combine(explode(';', $datas->facets_seo_url->format),explode(';', $datas->facets->format)),
         'subcategories' => array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory)),
@@ -222,7 +185,7 @@ class ContentController extends Controller
                             'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
       ));
 
-      $maxage = 60;
+      $maxage = 120;
       $response->setPublic();
       $response->setMaxAge($maxage);
       $response->setSharedMaxAge($maxage);
@@ -241,12 +204,12 @@ class ContentController extends Controller
                            array(
                              'from_slug'  => str_replace('/', '', $request->get('category_slug')),
                              'with_description' => true,
-                             'with_subcategories' => true,
+                             //'with_subcategories' => true,
                              'with_programs'  => true,
                              'img_width' => 150,
                              'img_height' => 200,
                              'offset' => 0,
-                             'nb_results' => 60,
+                             'nb_results' => 30,
                              'facets' => $this->buildFacets($request)
                            ));
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
@@ -349,6 +312,6 @@ class ContentController extends Controller
         $facets[] = 'format:' . $request->get('format');
       }
       
-      return implode(';', $facets);
+      return implode(',', $facets);
     }
 }

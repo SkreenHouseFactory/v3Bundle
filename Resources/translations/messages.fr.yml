@@ -175,6 +175,8 @@ seo:
   title:
     add: Ajout à vos playlists
     play: en streaming
+slider:
+  sponsor: Sponsorisé
 program:
     infos: Affiche, infos détaillées
     related: A voir aussi

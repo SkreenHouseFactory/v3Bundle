@@ -1,0 +1,41 @@
+{% if app.request.get('q') %}
+  <h3>Recherche : {{ app.request.get('q') }}</h3>
+{% else %}
+  {% if app.request.get('cinema_id') is null %}
+  <h3>Séances près d'ici</h3>
+  {% endif %}
+{% endif %}
+{% if cinemas|length == 0 %}
+  <p class="alert">
+    {% if app.request.get('q') %}
+      {{ 'program.theaters.noprogram.search'|trans }}
+    {% else %}
+      {{ 'program.theaters.noprogram.geoloc'|trans }}
+    {% endif %}
+  </p>
+{% else %}
+  <div class="accordion" id="accordion-theaters">
+  {% for cinema in cinemas %}
+    {% if cinema.adress is defined %}
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-theaters" href="#theater-{{ cinema.id }}">
+          <small class="pull-right">{{ cinema.adress }} {{ cinema.city }} {{ cinema.zip_code }}</small>
+          {{ cinema.name }}
+        </a>
+      </div>
+      <div id="theater-{{ cinema.id }}" class="accordion-body collapse{% if loop.first %}  in{% endif %}">
+        <table class="table table-striped accordion-inner">
+        {% for day in days if attribute(cinema.schedules[0].horaires, day) is defined %}
+          <tr>
+            <th>{{ day }}</th>
+            <td>{{ attribute(cinema.schedules[0].horaires, day)|replace({',': ', '}) }}</td>
+          </tr>
+        {% endfor %}
+        </table>
+      </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+  </div>
+{% endif %}

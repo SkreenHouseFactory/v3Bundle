@@ -57,7 +57,7 @@
     </div>
 
     <a name="program-offers"></a>
-    <div id="program-offers" class="well view-program-block">
+    <div id="program-offers" class="view-program-block">
       <p class="lead" style="margin: 0px;"><strong>Où le voir ?</strong></p>
       {% if program.theater_release_date is defined %}
         <p class="alert alert-success">Sortie en salle le <strong>{{ program.theater_release_date }}</strong> [ADD TO AGENDA]</p>
@@ -128,18 +128,23 @@
           {% else %}
             <tr>
               <td colspan="5" class="theaters">
-                {% if program.offers[key].theaters_on_demand %}
-                  <p class="alert alert-success">Disponible chez ILC</p>
+                {% if program.datas_theaters.theaters_ids|length > 0 %}
+                  <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
+                  <form id="theaters-search" class="form-search pull-left">
+                    <div class="input-append">
+                      <input type="text" class="span3 search-query" placeholder="{{ 'program.theaters.search.placeholder'|trans }}">
+                      <button type="submit" class="btn"><i class="icon-search"></i> {{ 'program.theaters.search.submit'|trans }}</button>
+                    </div>
+                  </form>
+                  <a class="btn" href="#" id="trigger-theaters-geoloc"><i class="icon-map-marker"></i> Séances près d'ici</a>
+                  <div id="theaters-list" class="clear" data-api-url="{{ path('programtheater', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}"></div>
                 {% endif %}
-                <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.offers[key].theaters_ids|length }} salles.</p>
-                <form id="theaters-search" class="form-search pull-left">
-                  <div class="input-append">
-                    <input type="text" class="span3 search-query" placeholder="{{ 'program.theaters.search.placeholder'|trans }}">
-                    <button type="submit" class="btn"><i class="icon-search"></i> {{ 'program.theaters.search.submit'|trans }}</button>
-                  </div>
-                </form>
-                <a class="btn" href="#" id="trigger-theaters-geoloc"><i class="icon-map-marker"></i> Séances près d'ici</a>
-                <div id="theaters-list" class="clear" data-api-url="{{ path('programtheater', {id: program.id}) }}"></div>
+                {% if program.datas_theaters.theaters_on_demand|length %}
+                  {% for o in program.datas_theaters.theaters_on_demand %}
+                  <hr/>
+                  <p align="center"><a target="_blank" href="{{ attribute(o, 'url') }}}"><img class="img-polaroid" src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema.png') }}" alt="ilikecinema" /></a></p>
+                  {% endfor %}
+                {% endif %}
               </td>
             </tr>
           {% endif %}
@@ -169,7 +174,6 @@
     <div id="program-teaser-player" data-play-autoload="{{ program.teaser.id }}" data-play-muted="1" data-play-args="{{ {hide_sliders: 1}|json_encode }}"></div>
     </div>
     {% endif %}
-    
   </div>
 
   {% if program.format %}
@@ -191,8 +195,7 @@
       {% endif %}
       <img src="{{ program.picture }}" alt="{{ program.title }}" />
     </div>
-    
-    
+
     <div id="program-episodes">
       {% if program.season_number is defined %}
       <div class="btn-group program-episode">
@@ -218,7 +221,7 @@
             {% for episode in season.episodes %}
             <li><a href="{{ episode.seo_url }}">
               {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
-              Episode {{ episode.episode }} <i class="icon-chevron-right"></i> <strong>{{ episode.title }}</strong>
+              Episode {{ episode.episode_number }} <i class="icon-chevron-right"></i> <strong>{{ episode.title }}</strong>
             </a></li>
             {% endfor %}
           {% endfor %}

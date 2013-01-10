@@ -30,9 +30,18 @@ Player = {
   },
   reset: function() {
     $('#player-meta').empty();
-    //$(this.elmt_meta).remove();
-    //$(this.elmt_meta).insertBefore(this.elmt);
-    this.elmt.empty();
+    if (this.elmt != null) {
+      this.elmt.empty();
+    }
+    if (this.playing) {
+      this.playing = null;
+    }
+    this.type = null;
+    if (this.timeout != null && this.timeout.length > 0) {
+      for (k in this.timeout) {
+        clearTimeout(this.timeout[k]);
+      }
+    }
   },
   getType: function() {
     if (this.type != null) {
@@ -73,14 +82,14 @@ Player = {
       this.play(embed);
 
       //overlay
-      self.timeout = setTimeout(function(){
+      self.timeout['overlay'] = setTimeout(function(){
         $('.player-overlay').fadeOut('slow');
       }, self.timeoutdelay);
       $(window).mousemove(function(e) {
         if ($('.player-overlay').css('display') == 'none') {
           console.log('Player.load', 'mousemove');
           $('.player-overlay').show();
-          self.timeout = setTimeout(function(){
+          self.timeout['overlay'] = setTimeout(function(){
             $('.player-overlay').fadeOut('slow');
           }, self.timeoutdelay);
         }
@@ -136,7 +145,7 @@ Player = {
     switch(this.type) {
 
       case 'ios':
-      case 'h264':
+      //case 'h264':
         this.elmt.html('<video id="skPlayerHtml5" width="100%" height="100%" controls="1" x-webkit-airplay="allow" tabindex="0"><source src="' + player.url + '" type="video/mp4"></video>');
         //this.elmt.html('<video style="background: black;height: 100%; width: 100%; cursor: pointer; -webkit-user-drag: none;" id="player-html5" src="' + player.url + '"></video>');
       break;
@@ -153,6 +162,7 @@ Player = {
         302	Error when invoking plugin external method
         303	Failed to load resource such as stylesheet or background image
       */
+      case 'h264':
       case 'html5':
       case 'flowplayer':
 
@@ -213,6 +223,9 @@ Player = {
             f.controls(this.elmt.data('player-jscontrolbar'), {duration: 25});
           }
         }
+
+        this.track(player);
+
       break;
       case 'flash':
         this.elmt.html(player.embed != 'undefined' ? player.embed : player);
@@ -293,12 +306,7 @@ Player = {
       break;
     }
 
-    if (this.elmt != null) {
-      if (this.playing) {
-        this.playing = null;
-      }
-      this.reset();
-    }
+    this.reset();
   },
   mute: function() {
     switch(this.type) {
@@ -316,6 +324,7 @@ Player = {
   },
   playProgram: function(id, callback, args) {
     var self = this;
+    this.reset();
     var args = $.extend(true,
                         {
                           with_player: true,
@@ -344,6 +353,7 @@ Player = {
   },
   playOccurrence: function(id, callback, args) {
     var self = this;
+    this.reset();
     var args = $.extend(true,
                         {
                           with_player: 1,
@@ -375,6 +385,29 @@ Player = {
                 return true;
               }, 
               true);
+  },
+  track: function(player) {
+    //track
+    API.query('POST',
+              'player/track.json',
+              {
+                token: this.playing,
+                url: document.location.href
+              }
+             );
+
+    //watching
+    if (Skhf.session.datas.email) {
+      this.timeout['track'] = setTimeout(function() {
+        API.query('POST',
+                  'player/watching.json',
+                  {
+                    token: this.playing,
+                    session_uid: Skhf.session.datas.uid,
+                    ip_adress: ''
+                  });
+      }, 30000);
+    }
   },
   loadVersions: function(versions, current_id) {
     var el = $('#player-versions');

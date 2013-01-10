@@ -1,20 +1,11 @@
-{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+<div id="view-channel-replay">
 
+  <div style="margin:0 100px;">
+  {% set slider = {title: channel.name, programs: [channel.live.program, channel.next_live.program]} %}
+  {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider} %}
+  </div>
 
-{% block title %}{{ 'page.title.channel'|trans({'%name%': channel.name}) }}{% endblock %}
-{% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
-{% block meta %}
-{% if channel.programs.epg is empty and channel.programs.replay is empty %}<meta name="robots" content="noindex,follow">{% endif %}
-{% endblock %}
-
-{% block content %}
-<div id="view-channel" class="container">
-  <br/>
-  <img class="channel-logo pull-left" src="{{ channel.img }}" />
-  <h1>{{ channel.name }}</h1>
-  <p class="lead">{{ channel.description }}</p>
-
-  {% if channel.live %}
+  {#% if channel.live %}
   <div id="lives" class="well">
 
     <div class="relatedlive" id="prevlive">
@@ -46,7 +37,7 @@
     </div>
   
   </div>
-  {% endif %}
+  {% endif %#}
   <br/>
   
   
@@ -78,20 +69,19 @@
   
   {% if channel.has_replay %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {title: 'channel.replay'|trans({'%website%': channel.has_replay}), 
-                                                                                programs: channel.programs.replay, 
+                                                                                programs: channel.programs_replay, 
                                                                                 id: 'channel-replay', 
-                                                                                url: '/recommend/from_channel/' ~ channel.name ~ '.json?with_method=epg'}} %}
+                                                                                paginate: '/recommend/from_channel/' ~ channel.id ~ '.json?with_method=epg'}} %}
   {% endif %}
   
   {% if channel.epg %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {title: 'channel.epg'|trans({'%name%': channel.name}), 
-                                                                                programs: channel.programs.epg, 
+                                                                                programs: channel.programs_epg, 
                                                                                 id: 'channel-epg', 
-                                                                                url: '/recommend/from_channel/' ~ channel.name ~ '.json?with_method=epg'}} %}
+                                                                                paginate: '/recommend/from_channel/' ~ channel.id ~ '.json?with_method=epg'}} %}
   {% endif %}
 
   <br/>
   <hr/>
   <br/>
 </div>
-{% endblock %}

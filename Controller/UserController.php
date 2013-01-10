@@ -42,10 +42,15 @@ class UserController extends Controller
         }
       }
       //print_r($unsubscribed);
-      return $this->render('SkreenHouseFactoryV3Bundle:User:blacklist.html.twig', array(
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:blacklist.html.twig', array(
         'unsubscribed' => is_object($unsubscribed) ? $unsubscribed->success : null,
         'error' => $error
       ));
+
+      $response->setPrivate();
+      $response->setMaxAge(3600);
+
+      return $response;
     }
   
     /**
@@ -94,8 +99,6 @@ class UserController extends Controller
 
       $response->setPrivate();
       $response->setMaxAge(60);
-      $response->headers->addCacheControlDirective('no-cache');
-      $response->headers->addCacheControlDirective('must-revalidate');
 
       return $response;
     }

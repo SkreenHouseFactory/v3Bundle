@@ -2,7 +2,7 @@
 {% set p = {title:'%title%',id:'%id%',picture:'',onglet:'%onglet%',seo_url:'%seo_url%',has_vod:'%has_vod%',best_offer:'',deporte:'%deporte%'} %}
 {% endif %}
 <li class="{% if p.id == '%id%' %}slider-sample {% endif %}{% if p.deporte %}deporte {% endif %}tv-component %onglet%" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
-  {% if p.best_offer is defined and p.best_offer %}
+  {% if p.best_offer is defined and p.best_offer.channel_img is defined %}
     <div class="channel">
       <img src="{{ p.best_offer.channel_img }}" alt="{{ p.best_offer.channel_name }}">
       <span class="diff">{{ p.best_offer.broadcastdate|replace(' à', ' à') }}</span>

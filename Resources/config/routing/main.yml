@@ -21,6 +21,12 @@ v2_selections:
     requirements:
         id: \d+
         slug: "[^/]+"
+v2_channels:
+    pattern:  /replay/{id}-{slug}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    requirements:
+        id: \d+
+        slug: "[^/]+"
 
 #search
 search:
@@ -60,9 +66,10 @@ player_redirect:
     requirements:
         target: "[^/]+"
 player_exit_with_infos:
-    pattern:  /exit/{type}/{name}/{title}?url={url}
+    pattern:  /exit/{type}/{name}/{title}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }
     requirements:
+        type: "[^/]+"
         target: "[^/]+"
         title: "[^/]+"
 player_exit:
@@ -147,7 +154,7 @@ program_pere:
         categorie: "[^/]+"
 programtheater:
     pattern:  /program/theaters/{id}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:programtheaters }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cinema:program }
     requirements:
         id: \d+
 

@@ -354,12 +354,14 @@ $(document).ready(function(){
                       img_episode_only: 1
                     },
                     function(json) {
-                      var picture = json.picture ? '<hr/><p align="center"><img src="' + json.picture + '" alt="' + json.title + '" />' : '';
-                      var content = (json.year != null ? json.year : '') + 
-                                    '<br/><small>' + json.description + '</small>' + picture + '</p>';
                       trigger.data('loaded', true);
-                      trigger.attr('data-content', content);
-                      trigger.popover('show');
+                      if (json.description != null) {
+                        var picture = json.picture && json.picture.match(/missing\.jpg$/) == -1 ? '<hr/><p align="center"><img src="' + json.picture + '" alt="' + json.title + '" />' : '';
+                        var content = (json.year != null ? json.year : '') + 
+                                      '<br/><small>' + json.description + '</small>' + picture + '</p>';
+                        trigger.attr('data-content', content);
+                        trigger.popover('show');
+                      }
                     });
         } else {
           trigger.popover('show');
@@ -385,7 +387,7 @@ $(document).ready(function(){
       // - de 10
       if ($('#trigger-theaters').data('nb') <= 10) {
         API.query('GET',
-                  container.data('api-url'),
+                  API.config.v3_url + container.data('api-url') + '?cinema_id=' + container.data('theaters-ids'),
                   {dataType: 'text html'},
                   function(datas){
                     UI.removeLoader(container);

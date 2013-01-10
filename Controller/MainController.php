@@ -60,16 +60,11 @@ class MainController extends Controller
         'sliders' => $datas->sliders,
       ));
 
-      /*
-      $response->headers->set('Access-Control-Allow-Origin', '*');
-      $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-      $response->headers->set('Access-Control-Allow-Headers', 'X-Requested-With');
-
+      $maxage = 600;
       $response->setPublic();
-      $response->setMaxAge(3600);
-      //$response->headers->addCacheControlDirective('must-revalidate', true);
-      */
-
+      $response->setMaxAge($maxage);
+      $response->setSharedMaxAge($maxage);
+      
       return $response;
     }
 
@@ -85,9 +80,16 @@ class MainController extends Controller
                                  'img_height' => 200,
                                  'nb_results' => 7));
       //echo $api->url;
-      return $this->render('SkreenHouseFactoryV3Bundle:Search:main.html.twig', array(
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Search:main.html.twig', array(
         'results' => $datas,
       ));
+
+      $maxage = 300;
+      $response->setPublic();
+      $response->setMaxAge($maxage);
+      $response->setSharedMaxAge($maxage);
+      
+      return $response;
     }
 
     /**
@@ -105,7 +107,7 @@ class MainController extends Controller
       ));
 
 
-      $maxage = 60;
+      $maxage = 300;
       $response->setPublic();
       $response->setMaxAge($maxage);
       $response->setSharedMaxAge($maxage);

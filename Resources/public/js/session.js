@@ -6,7 +6,7 @@ var Session = BaseSession.extend({
   onglet: '',
   access: '',
   sync: function(callback, args) {
-    var args = $.extend(args, {with_friends: 1});
+    var args = $.extend(args, {with_notifications: 1});
     this.__base(callback, args);
     
     if (API.context == 'v2') {
@@ -26,15 +26,29 @@ var Session = BaseSession.extend({
     UI.unloadSelector();
     UI.unloadPlaylist();
   },
-  loadFriendsPlaylist: function(onglet, offset, force_remote) {
-    console.log('Session.loadFriendsPlaylist', this.datas);
-    if (this.datas.fb_uid) {
-      UI.appendLoader($('li#friends'));
-      this.__base(onglet, offset, force_remote, function(json){
-        UI.removeLoader($('li#friends'));
-        UI.loadSocialSelector(json);
-      });
-    }
+  loadSocialSelector: function(onglet, offset, force_remote) {
+    console.log('Session.loadSocialSelector', 'fb_uid', this.datas.fb_uid)
+    var self = this;
+
+    var offset = typeof offset != 'undefined' ? offset : 0;
+    var onglet = typeof onglet != 'undefined' ? onglet : null;
+
+    UI.appendLoader($('li#friends'));
+    API.query('GET',
+              'www/slider/social/' + this.uid + '.json', 
+              {
+                onglet: this.onglet, 
+                nb_results: 1, 
+                img_width: API.config.slider.width, 
+                img_height: API.config.slider.height
+              }, 
+              function(json) {
+                console.log('Session.loadSocialSelector', 'offset:' + offset, 'error:' + json.error);
+                if (typeof json.error == 'undefined') {
+                  UI.removeLoader($('li#friends'));
+                  UI.loadSocialSelector(json);
+                }
+              });
   },
   initSelector: function(onglet, reload) {
     //prevent multiple loadings

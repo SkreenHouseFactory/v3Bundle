@@ -298,7 +298,7 @@ UI = {
     });
 
     console.log('UI.loadSelector', 'Skhf.session.initSocial', Skhf.session);
-    Skhf.session.loadFriendsPlaylist();
+    Skhf.session.loadSocialSelector();
     //this.playlist.data('queue-selector', JSON.stringify(datas));
   },
   unloadSelector: function() {
@@ -457,8 +457,8 @@ UI = {
     div.appendTo(container);
   },
   addFriendsPrograms: function(){
-    Skhf.session.loadFriendsPrograms(function(friends_programs){
-      console.log('UI.addFriendsPrograms', friends_programs);
+    Skhf.session.getSocialDatas(function(friends, friends_programs){
+      console.log('UI.addFriendsPrograms', 'callback', friends_programs);
       for (k in friends_programs) {
         var li = $('li[data-id="' + k + '"]');
         if (li.length > 0) {
