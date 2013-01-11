@@ -21,12 +21,6 @@ v2_selections:
     requirements:
         id: \d+
         slug: "[^/]+"
-v2_channels:
-    pattern:  /replay/{id}-{slug}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
-    requirements:
-        id: \d+
-        slug: "[^/]+"
 
 #search
 search:
@@ -201,6 +195,12 @@ channel_v2:
     pattern:  /sur-{slug}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
     requirements:
+        slug: "[^/]+"
+channels_v2_replay:
+    pattern:  /replay/{id}-{slug}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    requirements:
+        id: \d+
         slug: "[^/]+"
 channel_format_facet:
     pattern:  /{slug}/{format}/{facet}

@@ -168,10 +168,10 @@ class ContentController extends Controller
                             'facets' => $this->buildFacets($request)
                           ));
       //print_r($datas);
-      //echo $api->url;
+      echo $api->url;
         //echo $request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
-        if ($request->getPathInfo() != $datas->seo_url) {
-          echo 'redirect '.$request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
+        if ($request->getPathInfo() != '/'.$datas->seo_url.'/') {
+          echo 'redirect '.$request->getPathInfo().' != /'.$datas->seo_url.'/ => '.($request->getPathInfo() != $datas->seo_url);exit();
           //return $this->redirect($datas->seo_url);
         }
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
