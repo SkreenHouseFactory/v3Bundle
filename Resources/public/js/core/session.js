@@ -5,10 +5,14 @@ var BaseSession = Class.extend({
   onglet: '',
   access: '',
   init: function(callback, args) {
-    //session
+    console.log('BaseSession.init', args);
+    var self = this;
     this.uid = API.cookie('uid');
     if (API.context == 'v3') {
-      this.sync(callback, args);
+      this.sync(function(sessionData){
+        console.log('BaseSession.init', 'callback Session.sync', sessionData);
+        self.signin(sessionData);
+      }, args);
     }
   },
   sync: function(callback, args) {
@@ -20,10 +24,8 @@ var BaseSession = Class.extend({
     }
 
     if (this.uid) {
-      $.extend(args, { 'short':1 }); //, 'with_selector':1
+      $.extend(args, { 'short':1 });
       API.query('GET', 'session/' + this.uid + '.json', args, function(sessionData) {
-        self.signin(sessionData);
-
         if (callback) {
           callback(sessionData);
         }
@@ -31,8 +33,6 @@ var BaseSession = Class.extend({
     } else {
       $.extend(args, {'short':1});
       API.query('POST', 'session.json', args, function(sessionData) {
-        self.signin(sessionData);
-
         if (callback) {
           callback(sessionData);
         }
@@ -47,7 +47,6 @@ var BaseSession = Class.extend({
     if (this.datas.email) {
       this.user = this.datas.email;
       UI.loadUser();
-      this.getSocialDatas();
     }
   },
   signout: function(callback) {
@@ -87,8 +86,6 @@ var BaseSession = Class.extend({
     });
   },
   getSocialDatas: function(callback){
-    return;
-    console.log('BaseSession.getSocialDatas', callback);
     var self = this;
     if (typeof callback != 'undefined' && 
         typeof self.datas.friends != 'undefined') {

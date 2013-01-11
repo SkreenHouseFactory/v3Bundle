@@ -6,7 +6,7 @@ var Session = BaseSession.extend({
   onglet: '',
   access: '',
   sync: function(callback, args) {
-    var args = $.extend(args, {with_notifications: 1});
+    var args = $.extend({with_notifications: 1}, args);
     this.__base(callback, args);
     
     if (API.context == 'v2') {
@@ -51,13 +51,7 @@ var Session = BaseSession.extend({
               });
   },
   initSelector: function(onglet, reload) {
-    //prevent multiple loadings
-    //if (UI.playlist.hasClass('loading')) {
-    //  console.warn('Session.initSelector', 'already loading');
-    //  return;
-    //}
-    //UI.playlist.addClass('loading');
-
+    var self = this;
     console.log('Session.initSelector', this.datas.email, this.onglet, onglet, 'reload:' + reload);
 
     //require authenticated user
@@ -65,36 +59,21 @@ var Session = BaseSession.extend({
       UI.loadSelector();
       return null;
     }
-    var self = this;
 
-    //already loaded
-    //if (this.onglet == onglet) {
-    //  console.log('Session.initSelector', 'already loaded');
-    //  return;
-    //}
-
-    //chargement initial avec data dans session
-    if (false && this.onglet == null && onglet == 'undefined') {
-      //console.log('Session.initSelector', 'this.datas.queue_selector', this.datas.queue_selector);
-      UI.loadSelector(this.datas.queue_selector);
-
-    //requete
-    } else if (typeof reload == 'undefined' && this.uid) {
-      //console.log('Session.initSelector', 'remote', 'www/slider/selector/' + this.uid + '.json');
-      this.onglet = onglet;
-      API.query('GET', 
-                'www/slider/selector/' + this.uid + '.json', 
-                {onglet: this.onglet, 
-                 with_count_favoris: true,
-                 img_width: API.config.slider.width,
-                 img_height: API.config.slider.height
-                },
-                function(json) {
-                  console.log('Session.initSelector', 'remote', 'reload', json);
-                  UI.loadSelector(json);
-                  UI.playlist.elmt.removeClass('loading');
-                });
-    }
+    //console.log('Session.initSelector', 'remote', 'www/slider/selector/' + this.uid + '.json');
+    this.onglet = onglet;
+    API.query('GET', 
+              'www/slider/selector/' + this.uid + '.json', 
+              {onglet: this.onglet, 
+                with_count_favoris: true,
+                img_width: API.config.slider.width,
+                img_height: API.config.slider.height
+              },
+              function(json) {
+                console.log('Session.initSelector', 'remote', 'reload', json);
+                UI.loadSelector(json);
+                UI.playlist.elmt.removeClass('loading');
+              });
   },
   initPlaylist: function(url) {
 
@@ -112,7 +91,7 @@ var Session = BaseSession.extend({
 
     // -- autoload
     if (API.context == 'v3') {
-      //console.log('Session.initPlaylist', 'autoload', document.location.href.match(/access=.+/));
+      console.warn('Session.initPlaylist', 'autoload', document.location.href.match(/access=.+/));
       var access = document.location.href.match(/access=.+/g);
       if (access != null && typeof access[0] != 'undefined') {
         UI.loadPlaylist(access[0].replace('access=', ''));

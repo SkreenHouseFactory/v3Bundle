@@ -6,7 +6,7 @@ $(document).ready(function(){
   API.init(function(){
 
     //tjs après ci-dessus : pas de console sur ie
-    console.log('script', 'API.init');
+    console.log('script', 'API.init', API.context);
 
     //Modernizr.load();
     UI.loadFilters('home');
@@ -19,8 +19,7 @@ $(document).ready(function(){
     }
     // -- session
     Skhf.session = new Session(function(){
-      console.log('script', 'context', API.context);
-      //Skhf.session.initPlaylist(); //2 appels : deconnecté/connecté. TO DO : passer à 1 seul
+      console.log('script', 'Session.init', 'callback');
     });
 
     // -- ad
@@ -468,8 +467,9 @@ $(document).ready(function(){
                   username: response.email,
                 },
                 function(){
-                  Skhf.session.sync(function(){
+                  Skhf.session.sync(function(sessionDatas){
                     $('.modal').modal('hide');
+                    Skhf.session.signin(sessionDatas);
                   });
                 });
     });
@@ -507,5 +507,7 @@ $(document).ready(function(){
   /* END */
   
   // -- playlist friends
-  UI.addFriendsPrograms();
+  setTimeout(function(){
+    UI.addFriendsPrograms();
+  }, 500);
 });

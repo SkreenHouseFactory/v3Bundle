@@ -52,11 +52,7 @@ UI = {
   //auth
   auth: function(callback) {
     API.quickLaunchModal('signin', function() {
-      Skhf.session.sync(function(){
-        if (typeof callback != 'undefined') {
-          callback();
-        }
-      });
+      Skhf.session.init();
     },{parcours: 'anonyme_favoris'});
   },
   //paywall
@@ -251,22 +247,17 @@ UI = {
       li.css('background-image', 'url('+program.picture+')').css('background-repeat', 'no-repeat');
       li.find('.label').removeClass('opacity');
       li.find('span.badge').remove();
-      if (Skhf.session.datas.friends != null) {
-        li.find('.label span').html(Skhf.session.datas.friends.length);
-      }
       li.find('a, h6').hide();
       li.popover('disable');
-      //this.addFriends(li, datas.friend_uids.split(','));
+      Skhf.session.getSocialDatas(function(friends) {
+        li.find('.label span').html(friends.length);
+      });
     }
   },
   //update selector
   loadSelector: function(datas) {
     var self = this;
     console.log('UI.loadSelector', datas, Skhf.session.onglet);
-
-    //if (Skhf.session.onglet) {
-    //  $('#top-playlist .breadcrumb li:last').html($('#top-filters .' + Skhf.session.onglet).html());
-    //}
 
     this.unloadSelector();
 
@@ -284,11 +275,6 @@ UI = {
       }
       li.find('a, h6').hide();
       li.popover('disable');
-
-      //if (group.nb_programs > 0 && !$('#top-playlist').hasClass('in')) {
-      //  console.log('UI.loadSelector', 'collapse', 'show');
-      //  $('#top-playlist').collapse('show');
-      //}
     }
 
     //show selector
@@ -299,7 +285,11 @@ UI = {
 
     console.log('UI.loadSelector', 'Skhf.session.initSocial', Skhf.session);
     Skhf.session.loadSocialSelector();
-    //this.playlist.data('queue-selector', JSON.stringify(datas));
+
+    //onglet ?
+    //if (Skhf.session.onglet) {
+    //  $('#top-playlist .breadcrumb li:last').html($('#top-filters .' + Skhf.session.onglet).html());
+    //}
   },
   unloadSelector: function() {
     var self = this;
@@ -322,7 +312,6 @@ UI = {
       //hide selector
       $('li.selector', this.playlist.elmt).animate({'width':0}, 500, function() {
         $(this).hide();
-        //self.playlist.elmt.addClass('loading');
       });
 
       //load playlist
@@ -437,24 +426,21 @@ UI = {
   },
   // -- add friends
   addFriends: function(container, friend_uids){
-    var self = this;
-
-    console.log('UI.addFriends', friend_uids, Skhf.session.datas, container);
-    if (typeof Skhf.session.datas.friends == 'undefined') {
-      console.warn('UI.addFriends', 'no friends in session');
-      return;
-    }
-
-    var div = $('<div class="friends"></div>');
-    for (key in friend_uids) {
-      //console.log('UI.addFriends', friend_uids[key], Skhf.session.datas.friends[friend_uids[key]]);
-      if (typeof Skhf.session.datas.friends[friend_uids[key]] != 'undefined') {
-        var friend = Skhf.session.datas.friends[friend_uids[key]];
-        div.append('<a rel="tooltip" title="' + friend.name + ' suit ce programme" href="#"><img src="' + friend.pic_square + '" alt="' + friend.name + '" /></a>');
+    console.log('UI.addFriends', container.data('id'), friend_uids);
+    
+    Skhf.session.getSocialDatas(function(friends, friends_programs) {
+      //console.log('UI.addFriends', 'callback Session.getSocialDatas', friends);
+      var div = $('<div class="friends"></div>');
+      for (k in friend_uids) {
+        //console.log('UI.addFriends', friend_uids[k], friends[friend_uids[k]]);
+        if (typeof friends[friend_uids[k]] != 'undefined') {
+          var friend = friends[friend_uids[k]];
+          div.append('<a rel="tooltip" title="' + friend.name + '<br/>suit ce programme" href="#"><img src="' + friend.pic_square + '" alt="' + friend.name + '" /></a>');
+        }
       }
-    }
-    $('a[rel="tooltip"]', div).tooltip();
-    div.appendTo(container);
+      $('a[rel="tooltip"]', div).tooltip();
+      div.appendTo(container);
+    });
   },
   addFriendsPrograms: function(){
     Skhf.session.getSocialDatas(function(friends, friends_programs){

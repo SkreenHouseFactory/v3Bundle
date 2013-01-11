@@ -1,7 +1,7 @@
 service:
     name: mySkreen
-    description: 'mySkreen description'
-    url: 'http://www.myskreen.com'
+    description: mySkreen description
+    url: http://www.myskreen.com
 page:
     title:
         home: Trouver, voir et revoir
@@ -177,6 +177,7 @@ seo:
     play: en streaming
 slider:
   sponsor: Sponsorisé
+  link.default: Zoom sur la sélection
 program:
     infos: Affiche, infos détaillées
     related: A voir aussi
@@ -245,5 +246,3 @@ watch: Voir maintenant
 editors: Production
 actors: Acteurs
 directed.by: Réalisateur
-selection:
-    all: Zoom sur la sélection

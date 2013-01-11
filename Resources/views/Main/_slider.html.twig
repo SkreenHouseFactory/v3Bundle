@@ -1,7 +1,7 @@
 {% if slider.seo_url is defined %}
-<div class="pull-right btn-group">
+<div class="slider-link pull-right">
 {#<a class="btn btn-inverse trigger-tv" href="#" data-couchmode="{{ {'type': 'pack', 'id': slider.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
-<a href="{{ path('any_url', {url: slider.seo_url[1:slider.seo_url|length-1]}) }}"><i class="icon-fullscreen"></i> {{ 'selection.all'|trans }}</a>
+<a href="{{ path('any_url', {url: slider.seo_url[1:slider.seo_url|length-1]}) }}"><i class="icon-fullscreen"></i> {{ 'slider.link.default'|trans }}</a>
 </div>
 {% endif %}
 {% if noheader is not defined %}

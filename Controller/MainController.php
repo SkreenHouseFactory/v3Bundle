@@ -53,7 +53,8 @@ class MainController extends Controller
                                  'with_programs' => true,
                                  'img_width' => 160,
                                  'img_height' => 200,
-                                 'with_teaser' => true,));
+                                 'with_teaser' => true,
+                                 'slider_width' => 990));
       //echo $api->url;
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig', array(
