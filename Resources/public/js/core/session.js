@@ -87,11 +87,20 @@ var BaseSession = Class.extend({
   },
   getSocialDatas: function(callback){
     var self = this;
+ 
+    //no fbuid
+    if (!this.datas.fb_uid) {
+      //console.log('BaseSession.getSocialDatas', 'no fbuid');
+      return;
+    }
+
+    //already loaded
     if (typeof callback != 'undefined' && 
         typeof self.datas.friends != 'undefined') {
       return callback(self.datas.friends, self.datas.friends_programs);
     }
 
+    //load
     this.sync(function(sessionDatas){
       console.log('BaseSession.getSocialDatas', 'callback', sessionDatas);
       self.datas.friends = sessionDatas.friends;
