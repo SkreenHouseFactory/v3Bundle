@@ -64,12 +64,14 @@ $(document).ready(function(){
       API.removePreference('disallow_share', 1, function(){});
     }
   });
-  $('.share a.share-off').click(function(e){
+  $('.share a.share-off').click(function(){
     if (API.context == 'v2') {
-      e.preventDefault();
-      e.stopPropagation();
       API.postMessage(['modal', 'facebook']);
+
+    } else {
+      API.quickLaunchModal($(this).data('modal'));
     }
+
     return false;
   });
 

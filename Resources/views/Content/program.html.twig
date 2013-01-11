@@ -109,8 +109,8 @@
                   {% elseif key == 'deportes' %}<i class="icon-play"></i>
                   {% endif %}
                   {% if o_access.name == 'Live' or o_access.name == 'TV' %}
-                    {#{ o.broadcast_begin|localizeddate('full', 'none') }#}
-                    {{ o.broadcast_begin|date('G\\hi \\l\\e D j F', 'Europe/Paris') }}
+                    {{ o.broadcast_begin|localizeddate('full', 'none') }}
+                    {{ app.session.locale }} 
                   {% else %}
                     {{ o_access.name }}, 
                     {% if o.cost is defined %}

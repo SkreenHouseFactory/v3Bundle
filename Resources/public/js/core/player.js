@@ -219,9 +219,9 @@ Player = {
           //}
           console.warn('Player.flowplayer', 'flash', flowArgs, flowArgs);
           var f = $f(this.elmt.attr('id'), flashArgs, flowArgs);
-          if (this.elmt.data('player-jscontrolbar')) {
-            f.controls(this.elmt.data('player-jscontrolbar'), {duration: 25});
-          }
+          //if (this.elmt.data('player-jscontrolbar')) {
+          //  f.controls(this.elmt.data('player-jscontrolbar'), {duration: 25});
+          //}
         }
 
         this.track(player);

@@ -168,7 +168,7 @@ class ContentController extends Controller
                             'facets' => $this->buildFacets($request)
                           ));
       //print_r($datas);
-      echo $api->url;
+      //echo $api->url;
         //echo $request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
         if ($request->getPathInfo() != '/'.$datas->seo_url.'/') {
           echo 'redirect '.$request->getPathInfo().' != /'.$datas->seo_url.'/ => '.($request->getPathInfo() != $datas->seo_url);exit();

@@ -8,10 +8,6 @@ page:
         redirect: Redirection en cours ...
         cinema.boxoffice: Cinéma, tous les films en salle commençant par %alpha%
         channel: %name%
-channel:
-    replay: Replay avec %website%
-    epg: A venir sur %name%
-    live: Voir le direct
 player:
     live:
       deporte: Sur mySkreen
@@ -218,6 +214,9 @@ program:
                 théâtre: Ne ratez plus cette pièce !
                 spectacle: Ne ratez plus ce spectacle !
 channel:
+    replay: Replay avec %website%
+    epg: A venir sur %name%
+    live: Voir le direct
     friends:
         block:
             title:
