@@ -110,7 +110,7 @@ API = {
       return;
     }
 
-    if (url != this.currentModalUrl) {
+    //if (url != this.currentModalUrl) {
       var body = $('.modal .modal-body');
       body.empty();
       UI.appendLoader(body, 1000);
@@ -132,9 +132,9 @@ API = {
                     API.catchFormModal(callbackOnLoad);
                   }
                 });
-    } else {
-      callbackOnLoad();
-    }
+    //} else {
+    //  callbackOnLoad();
+    //}
 
     $('.modal').modal();
 

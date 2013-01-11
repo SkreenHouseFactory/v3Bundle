@@ -85,7 +85,10 @@
               <tr data-id="{{ o.id }}"{% if o.url %} data-redirect="{{ o.url }}"{% elseif key == 'deportes' %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% endif %}>
                 <td width="20px"><span class="badge" style="opacity:0.1;">0</span></td>
                 {% if o_episode %}
-                <td class="episode" width="250px" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="{{ o_episode.title }}" data-toggle="hover" data-placement="left"><img class="pull-left" src="{{ o_episode.picture }}" alt="{{ o_episode.title }}" /><strong>{{ o_episode.title }}</strong></td>
+                <td class="episode" width="250px" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="{{ o_episode.title }}" data-toggle="hover" data-placement="left">
+                <img class="pull-left" src="{{ o_episode.picture }}" alt="{{ o_episode.title }}" /><strong>{{ o_episode.title }}</strong>
+                <br/>{% if o_episode.season_number %}Saison {{ o_episode.season_number }}{% endif %} {% if o_episode.episode_number %}Episode {{ o_episode.episode_number }}{% endif %}
+                </td>
                 {% else %}
                 <td></td>
                 {% endif %}
@@ -110,7 +113,6 @@
                   {% endif %}
                   {% if o_access.name == 'Live' or o_access.name == 'TV' %}
                     {{ o.broadcast_begin|localizeddate('full', 'none') }}
-                    {{ app.session.locale }} 
                   {% else %}
                     {{ o_access.name }}, 
                     {% if o.cost is defined %}

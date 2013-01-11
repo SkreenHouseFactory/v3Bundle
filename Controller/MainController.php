@@ -35,6 +35,9 @@ class MainController extends Controller
         case 'video-a-la-demande':
           $home = 'vod';
         break;
+        case 'dessin-anime-et-manga':
+          $home = 'jeunesse';
+        break;
         case 'cinema':
           $home = 'cine';
         break;
