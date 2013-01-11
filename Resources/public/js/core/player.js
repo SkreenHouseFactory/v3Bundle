@@ -12,7 +12,7 @@ function onPlayerReady(event) {
 var Player;
 Player = {
   elmt: null,
-  timeout: null,
+  timeout: [],
   timeoutdelay: 5000,
   type: null,
   state: 'stopped',
@@ -37,7 +37,7 @@ Player = {
       this.playing = null;
     }
     this.type = null;
-    if (this.timeout != null && this.timeout.length > 0) {
+    if (this.timeout.length > 0) {
       for (k in this.timeout) {
         clearTimeout(this.timeout[k]);
       }
@@ -51,9 +51,9 @@ Player = {
     if (navigator.userAgent.match(/iPhone|iPod|iPad/)) {
       console.log(['Player.getType', 'iPhone|iPod|iPad', navigator.userAgent]);
       return 'ios';
-    } else if (Modernizr.video.h264) {
-      console.log('Player.getType', 'Modernizr.video', Modernizr.video);
-      return 'h264';
+    //} else if (Modernizr.video.h264) {
+    //  console.log('Player.getType', 'Modernizr.video', Modernizr.video);
+    //  return 'h264';
     } else {
       return 'flowplayer';
     }
@@ -387,6 +387,7 @@ Player = {
               true);
   },
   track: function(player) {
+    var self = this;
     //track
     API.query('POST',
               'player/track.json',
@@ -402,7 +403,7 @@ Player = {
         API.query('POST',
                   'player/watching.json',
                   {
-                    token: this.playing,
+                    token: self.playing,
                     session_uid: Skhf.session.datas.uid,
                     ip_adress: ''
                   });
@@ -435,7 +436,7 @@ Player = {
     $('#header, #top-playlist').collapse('hide');
   },
   remove: function() {
-    this.timeout = null;
+    this.timeout = new Array();
     $('#player .title, #player .subtitle, #player .embed').empty();
     $('#player').removeClass('on');
     $('#header').collapse('show');

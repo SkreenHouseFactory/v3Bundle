@@ -37,7 +37,7 @@
       </p>
     </div>
 
-    <div class="row">
+    {#<div class="row">
       <div id="program-follow" class="span3 view-program-block actions" data-id="{{ channel.id }}">
         <p class="lead" style="margin: 0px;">{{ 'channel.follow.block.title.all'|lower|trans }}</p>
         <a class="fav btn btn-large btn-block" data-placement="bottom"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
@@ -47,14 +47,15 @@
         <div class="user-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'friends.popover.content'|trans } %}</div>
         <div class="user-on"></div>
       </div>
-    </div>
+    </div>#}
   </div>
 
   <div class="view-channel-column view-column pull-left actions" data-id="{{ channel.id }}">
+    {#
     <div style="position:relative;">
       <img src="{{ channel.picture }}" alt="{{ channel.name }}" />
     </div>
-    {#
+
     <ul class="nav nav-list bs-docs-sidenav">
       <li><a href="#related"><i class="icon-chevron-right"></i> {{ 'program.related'|trans }}</a></li>
       <li><a href="#infos"><i class="icon-chevron-right"></i> {{ 'program.infos'|trans }}</a></li>

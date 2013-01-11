@@ -190,8 +190,11 @@ UI = {
     var self = this;
 
     // friends
-    var container_friends = $('#program-friends .user-on');
-    this.appendLoader(container_friends);
+    if ( Skhf.session.datas.fb_uid) {
+      var container_friends = $('#program-friends .user-on');
+      this.appendLoader(container_friends);
+    }
+
     API.query('GET', 
               'program/' + id + '.json', 
               {
@@ -211,8 +214,8 @@ UI = {
                   }
                 }
                 //friends
-                if( typeof datas.friends != 'undefined' && datas.friends)
-                {
+                if(typeof datas.friends != 'undefined' && 
+                    datas.friends) {
                   container_friends.removeClass('hide'); //HACK : TODO appel après connexion
                   self.removeLoader(container_friends);
                   if (datas.friends.length > 0) {

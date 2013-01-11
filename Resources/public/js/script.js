@@ -47,7 +47,6 @@ $(document).ready(function(){
     return false;
   });
   $('.user-on .dropdown-toggle').click(function(){
-
     if (API.context == 'v2' && !$('#top-playlist').hasClass('in')) {
       $('#top-playlist').collapse('show');
     }
@@ -65,9 +64,10 @@ $(document).ready(function(){
       API.removePreference('disallow_share', 1, function(){});
     }
   });
-  
-  $('.share a.share-off').click(function(){
+  $('.share a.share-off').click(function(e){
     if (API.context == 'v2') {
+      e.preventDefault();
+      e.stopPropagation();
       API.postMessage(['modal', 'facebook']);
     }
     return false;
