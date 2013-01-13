@@ -84,22 +84,23 @@
               {#{ dump(o) }#}
               <tr data-id="{{ o.id }}"{% if o.url %} data-redirect="{{ o.url }}"{% elseif key == 'deportes' %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% endif %}>
                 <td width="20px"><span class="badge" style="opacity:0.1;">0</span></td>
-                {% if o_episode %}
-                <td class="episode" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="{{ o_episode.title }}" data-toggle="hover" data-placement="left">
-                <img class="pull-left" src="{{ o_episode.picture }}" alt="{{ o_episode.title }}" />{{ o_episode.title }}
-                <br/><em>{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %} {% if o_episode.episode_number is defined %}Episode {{ o_episode.episode_number }}{% endif %}</em>
-                </td>
+                  {% if o_episode %}
+                  <td class="episode" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="{{ o_episode.title }}" data-toggle="hover" data-placement="left">
+                  <img class="pull-left" src="{{ o_episode.picture }}" alt="{{ o_episode.title }}" />{{ o_episode.title }}
+                  <br/><em>{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %} {% if o_episode.episode_number is defined %}Episode {{ o_episode.episode_number }}{% endif %}</em>
                 {% else %}
-                <td></td>
-                {% endif %}
                 <td>
+                {% endif %}
+                  {% if o.timeleft is defined and o.timeleft %}
+                    <span class="label label-{% if o.timeleft > 24*60 %}warning{% else %}important{% endif %}">Plus que {{ (o.timeleft/60)|number_format }}h pour le voir</span>
+                  {% endif %}
+                </td>
+                <td class="access">
                   {% if o_access.name == 'TV' %}<i class="icon-calendar"></i>
                   {% elseif o.url %}<i class="icon-share"></i>
                   {% elseif key == 'deportes' %}<i class="icon-play"></i>
                   {% endif %}
-                  {% if o_access.name == 'Live' or o_access.name == 'TV' %}
-                    {{ o.broadcast_begin|localizeddate('full', 'none') }}
-                  {% else %}
+                  {% if o_access.name != 'Live' and o_access.name != 'TV' %}
                     {{ o_access.name }}, 
                     {% if o.cost is defined %}
                       {% if o.cost > 0 %}{{ o.cost }}&euro;
@@ -110,11 +111,14 @@
                       {{ 'free'|trans }}
                     {% endif %}
                   {% endif %}
+                  {% if o.broadcastdate is defined %}
+                    <br/><em>{{ o.broadcastdate }}{#{ o.broadcastdate|localizeddate('full', 'none') }#}</em>
+                  {% endif %}
                 </td>
-                <td width="70px">
+                <td class="channel">
                   <img src="{{ o_channel.img }}" alt="{{ o_channel.name }}" />
                 </td>
-                <td>
+                <td class="tag">
                   {% if o.tags.version is defined %}
                     <span class="label label-inverse">{{ o.tags.version|replace({',': ', '}) }}</span><br/>
                   {% endif %}

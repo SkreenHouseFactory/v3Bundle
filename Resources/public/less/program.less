@@ -110,6 +110,11 @@
                 white-space: nowrap;
               }
             
+              em {
+                color: #999;
+                font-size: 0.9em;
+              }
+
               &.episode {
                 min-width: 300px;
 
@@ -117,12 +122,14 @@
                   height:50px;
                   margin-right:10px;
                 }
-                em {
-                 color: #999;
-                }
               }
-            
-              &:last-child span {
+              &.channel {
+                min-width: 70px;
+              }
+              &.access {
+                min-width: 150px;
+              }
+              &.tag span {
                 font-size: 0.9em;
               }
             }

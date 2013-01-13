@@ -328,12 +328,13 @@ Player = {
     this.reset();
     var args = $.extend(true,
                         {
-                          with_player: true,
-                          with_teaser: true,
+                          with_player: 1,
+                          with_teaser: 1,
                           player_width: '100%', 
                           player_height: '100%',
                           player: this.type,
-                          fullHD: true
+                          fullHD: 1,
+                          no_paywall: 1
                         }, 
                         typeof args != 'undefined' ? args : {});
     API.query('GET',
@@ -362,7 +363,8 @@ Player = {
                           player_width: '100%', 
                           player_height: '100%',
                           player: this.getType(),
-                          fullHD: 1
+                          fullHD: 1,
+                          no_paywall: 1
                         }, 
                         typeof args != 'undefined' ? args : {});
     API.query('GET',

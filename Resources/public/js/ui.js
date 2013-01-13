@@ -200,7 +200,7 @@ UI = {
         if (typeof friends_programs[id] != 'undefined') {
           self.addFriends(container_friends, friends_programs[id])
         } else {
-          container_friends.append('<p class="alert">Aucun ami trouvé !</p><a href="#same_playlists" class="btn btn-block">Ils ajoutent également à leurs playlists &raquo;</a>');
+          container_friends.append('<p class="alert">Aucun ami trouvé !</p><a href="#same_playlists" class="btn btn-block">Ils ajoutent aussi à leurs playlists &raquo;</a>');
         }
       });
     }
@@ -219,7 +219,7 @@ UI = {
                 if (typeof datas.purchased != 'undefined' &&
                     datas.purchased) {
                   for (k in datas.purchased) {
-                    console.log('UI.loadProgramUsersDatas', 'purchased', '#offers [data-id="' + k + '"] td:last-child', $('#offers [data-id="' + k + '"] td:last-child'), k, API.formatTimestamp(datas.purchased[k]));
+                    console.log('UI.loadProgramUsersDatas', 'purchased', '#offers [data-id="' + k + '"] td.access', $('#offers [data-id="' + k + '"] td.access'), k, API.formatTimestamp(datas.purchased[k]));
                     $('#offers [data-id="' + k + '"] td:last-child .btn').append('<span class="btn-block badge badge-warning">Loué le ' + API.formatTimestamp(datas.purchased[k]) + '</span>');
                   }
                 }
