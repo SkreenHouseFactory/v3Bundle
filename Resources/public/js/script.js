@@ -341,8 +341,11 @@ $(document).ready(function(){
                       trigger.data('loaded', true);
                       if (json.description != null) {
                         var picture = json.picture && json.picture.match(/missing\.jpg$/) == -1 ? '<hr/><p align="center"><img src="' + json.picture + '" alt="' + json.title + '" />' : '';
-                        var content = (json.year != null ? json.year : '') + 
-                                      '<br/><small>' + json.description + '</small>' + picture + '</p>';
+                        var content = '<strong>' + (json.year != null ? json.year : '') + 
+                                      (json.season_number || json.episode_number  ? ' - ' : '') + 
+                                      (json.season_number ? ' Saison ' + json.season_number : '') + 
+                                      (json.episode_number ? ' Episode ' + json.episode_number : '') + 
+                                      '</strong><br/><small>' + json.description + '</small>' + picture + '</p>';
                         trigger.attr('data-content', content);
                         trigger.popover('show');
                       } else {

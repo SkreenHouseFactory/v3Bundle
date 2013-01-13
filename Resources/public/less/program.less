@@ -54,7 +54,7 @@
   .view-program-main {
     clear: both;
     position: relative;
-    padding: 20px 0  80px;
+    padding: 20px 0  100px;
 
     .row > div.span3 {
       width: 331px;
@@ -88,102 +88,106 @@
         }
       }
     }
-
-    #program-friends {
-      margin-bottom:10px;
-    }
-
-    #program-offers {
-      background: #FCFCFC;
-      margin-top: -10px;
-
-      .tab-content {
-        
-        .table-container {
-          overflow-y: auto;
-          height: 290px;
-          overflow-x: hidden;
   
-          tr {
-            
-            td {
-              padding: 8px 4px;
+    #program-main-block {
+      margin-top: -10px;
+  
+      #program-teaser {
+        width: 740px;
+      }
+  
+      #program-offers {
+        background: #FCFCFC;
+        margin-top: -10px;
+  
+        .tab-content {
+          
+          .table-container {
+            overflow-y: auto;
+            height: 253px;
+            overflow-x: hidden;
+    
+            tr {
               
-              .btn {
-                white-space: nowrap;
-              }
-            
-              em {
-                color: #999;
-                font-size: 0.9em;
-              }
-
-              &.episode {
-                min-width: 300px;
-
-                img {
-                  height:50px;
-                  margin-right:10px;
+              td {
+                padding: 8px 4px;
+                
+                .btn {
+                  white-space: nowrap;
+                }
+              
+                em {
+                  color: #999;
+                  font-size: 0.9em;
+                }
+  
+                &.episode {
+                  min-width: 300px;
+  
+                  img {
+                    height:50px;
+                    margin-right:10px;
+                  }
+                }
+                &.channel {
+                  min-width: 70px;
+                }
+                &.access {
+                  min-width: 150px;
+                }
+                &.tag span {
+                  font-size: 0.9em;
                 }
               }
-              &.channel {
-                min-width: 70px;
+              
+              &.program-theaters {
+                 margin-left: 20px;
+                 
+                 #theaters-list {
+                  clear: both;
+                 }
               }
-              &.access {
-                min-width: 150px;
-              }
-              &.tag span {
-                font-size: 0.9em;
-              }
-            }
-            
-            &.program-theaters {
-               margin-left: 20px;
-               
-               #theaters-list {
-                clear: both;
-               }
             }
           }
-        }
-        #ytCarousel {
-          .carousel-control {
-            &.right {
-              right: -10px;
-            }
-            &.left {
-              left: -10px;
-            }
-          }
-          .item {
-            a {
-              display: block;
-              position: relative;
-              width: 160px;
-              height: 160px;
-              margin: 0 5px 5px;
-              line-height: 1em;
-              font-size: 0.8em;
-              color: black;
-
-              span {
-                position: absolute;
-                margin: 5px;
-                background: white;
-                opacity: 0.8;
-                padding: 3px;
+          #ytCarousel {
+            .carousel-control {
+              &.right {
+                right: -10px;
               }
-
-              img {
-                width: 150px;
-                height: 100px;
+              &.left {
+                left: -10px;
               }
-
-              .title {
-                padding: 2px 5px 0 5px;
-                font-family: Tahoma;
-                line-height: 1.1em;
-                color: #555;
+            }
+            .item {
+              a {
+                display: block;
+                position: relative;
+                width: 160px;
+                height: 160px;
+                margin: 0 5px 5px;
+                line-height: 1em;
+                font-size: 0.8em;
+                color: black;
+  
+                span {
+                  position: absolute;
+                  margin: 5px;
+                  background: white;
+                  opacity: 0.8;
+                  padding: 3px;
+                }
+  
+                img {
+                  width: 150px;
+                  height: 100px;
+                }
+  
+                .title {
+                  padding: 2px 5px 0 5px;
+                  font-family: Tahoma;
+                  line-height: 1.1em;
+                  color: #555;
+                }
               }
             }
           }
@@ -239,14 +243,5 @@
    .img {
     margin-right: 20px;
    }
-  }
-  
-  #program-teaser {
-    height:350px;
-    
-    #program-teaser-player {
-      height:327px;
-      background: black;
-    }
   }
 }

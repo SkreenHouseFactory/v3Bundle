@@ -264,9 +264,9 @@ class ContentController extends Controller
                              'offset' => $request->get('page') * 30,
                              'nb_results' => 30,
                            ));
-      $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
       //print_r($datas);
       //echo $api->url;
+      $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
       //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';
       if ($request->getPathInfo() != $datas->seo_url) {
         //return $this->redirect($datas->seo_url);
