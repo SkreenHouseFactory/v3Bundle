@@ -458,35 +458,15 @@ UI = {
     });
 
   },
-  // -- ad manager
-  cheat: function() {
-    API.trackEvent('ga', 'testing', document.location.pathname);
-  },
-  ad: function() {
-    var cookie = API.cookie('ad');
-    console.log('UI.ad', 'cookie:' + cookie);
-    //unknown : mark as todisplay
-    /*
-    if (cookie == null || !cookie){
-      API.cookie('ad', 'todisplay');
-      API.postMessage(['javascript', 'if (!$(\'body\').hasClass(\'has_adulte\') && !$(\'body\').hasClass(\'withoutBeead\')) { $(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : to-display</p>\'); }']);
-    //todisplay
-    } else if (cookie == 'todisplay'){
-      //console.log('UI.ad', 'display and ad cookie');
-      var date = new Date();
-      date.setTime(date.getTime() + (12 * 3600 * 1000));
-      API.cookie('ad', 'hascookie',  date);
-      BeeadAds.gateway();
-      API.postMessage(['javascript', '$(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : display</p>\');']);
-
-
-      API.trackEvent('beead', 'displayed', document.location.pathname);
-    //hold
-    } else {
-      API.postMessage(['javascript', '$(\'#footer\').append(\'<p style="color:#EEE;clear:both;">ad : has-cookie</p>\');']);
-      API.trackEvent('beead', 'hold-cookie', document.location.pathname);
-    }
-    */
+  // -- launch player
+  play: function(id, args) {
+    console.log('UI.play', id, args);
+    //if (Player.getType() == 'ios') {
+    //  Player.playOccurrence(id);
+    //} else {
+      var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid}, args);
+      Couchmode.init(args);
+    //}
   },
   // -- typeahead
   typeahead: function(searchbox){

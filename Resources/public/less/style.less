@@ -96,6 +96,15 @@ a.trigger-tv {
 .clear {
   clear:both;
 }
+.nowrap {
+  white-space: nowrap;
+}
+.inline {
+  display: inline;
+}
+.inline-block {
+  display: inline-block;
+}
 .uppercase {
   text-transform: uppercase;
 }
@@ -107,6 +116,11 @@ h3 {
   font-weight: normal;
   padding-left: 10px;
   margin: 0;
+  
+  &.pager-count {
+    position: absolute;
+    left: 40%;
+  }
 }
 
 .inverse {
@@ -127,10 +141,12 @@ h3 {
 
 /* couchmode */
 #couchmode {
-  background: black;
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  z-index: 100;
+  padding: 5% 10%;
+  width: 80%;
+  height: 80%;
   top: 0;
 }
 
@@ -148,9 +164,11 @@ div.friends {
 /* social */
 .block-twitter {
   display: block;
-  margin-top:10px;
   width: 100px;
   height:25px;
+}
+.fb-like {
+  margin-right: 20px;
 }
 
 /* gabarit */
@@ -160,10 +178,10 @@ div.friends {
 }
 .view-column {
   margin: 10px 20px 0 0;
-  width:240px;
+  width:245px;
 
   .bs-docs-sidenav {
-    width: 240px;
+    width: 100%;
     margin: 20px 0 0;
     padding: 0;
     -webkit-border-radius: 6px;
@@ -227,10 +245,10 @@ div.friends {
 }
 
 /* redirect */
-tr[data-redirect], tr[data-play] {
+tr[data-id] {
   cursor: pointer;
 }
-tr[data-redirect]:hover, tr[data-play]:hover {
+tr[data-id]:hover {
   color: #C09853;
   background-color: #FCF8E3;
   border: 1px solid #FBEED5;

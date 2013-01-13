@@ -1,15 +1,22 @@
 #view-program {
 
-  .breadcrumb {
+  ul.breadcrumb {
     position:absolute;
-    top: 10px;
+    top: 7px;
     left: 0;
     padding-left: 0;
     margin-left: 0;
+
+    li.active {
+      a {
+        color: #999;
+        cursor: normal;
+      }
+    }
   }
     
   .program-title {
-    margin: 50px 0px 0 0px;
+    margin: 40px 0 0 0;
   }
 
   #program-friends {
@@ -20,6 +27,19 @@
         margin: 50px 100px 0px;
       }
     }
+  }
+  
+  #program-share {
+    vertical-align: top;
+    position: absolute;
+    right: 0;
+    top: 10px;
+  }
+
+  #program-follow {
+    position: absolute;
+    right: 0;
+    top: 40px;
   }
 
   #theaters {
@@ -38,22 +58,22 @@
       width: 331px;
     }
 
-    .view-program-social {
-      vertical-align: top;
-      padding-top: 10px;
-    }
-
     .view-program-block {
       padding:10px;
     }
-    
+
     #program-description {
       position: relative;
-    
+      
+      &.with-teaser {
+        margin-top: 330px;
+      }
+
       #synopsis {
+        line-height: 20px;
         padding-top: 10px;
         height: 230px;
-        height: 60px;
+        height: 40px;
         overflow: hidden;
         position: relative;
         
@@ -65,78 +85,88 @@
         }
       }
     }
-    
+
     #program-friends {
       margin-bottom:10px;
     }
-    
+
     #program-offers {
       background: #FCFCFC;
+      margin-top: -10px;
 
-      tr {
-        
-        td {
-          padding: 8px 4px;
+      .tab-content {
+        overflow-y: auto;
+        height: 290px;
+        overflow-x: hidden;
+
+        tr {
           
-          .btn {
-            white-space: nowrap;
-          }
-        }
-        
-        td.episode {
-          img {
-            height:50px;
-            margin-right:10px;
-          }
-        }
-        
-        &.program-theaters {
-           margin-left: 20px;
-           
-           #theaters-list {
-            clear: both;
-           }
-        }
-        
-        &.program-deportes {
-          #ytCarousel {
-            .carousel-control {
-              &.right {
-                right: -10px;
-              }
-              &.left {
-                left: -10px;
-              }
+          td {
+            padding: 8px 4px;
+            
+            .btn {
+              white-space: nowrap;
             }
-            .item {
-              a {
-                display: block;
-                position: relative;
-                width: 160px;
-                height: 160px;
-                margin: 0 5px 5px;
-                line-height: 1em;
-                font-size: 0.8em;
-                color: black;
-
-                span {
-                  position: absolute;
-                  margin: 5px;
-                  background: white;
-                  opacity: 0.8;
-                  padding: 3px;
+          }
+          
+          td.episode {
+            img {
+              height:50px;
+              margin-right:10px;
+            }
+            em {
+             color: #999;
+            }
+          }
+          
+          &.program-theaters {
+             margin-left: 20px;
+             
+             #theaters-list {
+              clear: both;
+             }
+          }
+          
+          &.program-deportes {
+            #ytCarousel {
+              .carousel-control {
+                &.right {
+                  right: -10px;
                 }
-
-                img {
-                  width: 150px;
-                  height: 100px;
+                &.left {
+                  left: -10px;
                 }
-
-                .title {
-                  padding: 2px 5px 0 5px;
-                  font-family: Tahoma;
-                  line-height: 1.1em;
-                  color: #555;
+              }
+              .item {
+                a {
+                  display: block;
+                  position: relative;
+                  width: 160px;
+                  height: 160px;
+                  margin: 0 5px 5px;
+                  line-height: 1em;
+                  font-size: 0.8em;
+                  color: black;
+  
+                  span {
+                    position: absolute;
+                    margin: 5px;
+                    background: white;
+                    opacity: 0.8;
+                    padding: 3px;
+                  }
+  
+                  img {
+                    width: 150px;
+                    height: 100px;
+                  }
+  
+                  .title {
+                    padding: 2px 5px 0 5px;
+                    font-family: Tahoma;
+                    line-height: 1.1em;
+                    color: #555;
+                  }
                 }
               }
             }
@@ -172,6 +202,10 @@
 
       .program-episode {
         display: block;
+        
+        &.season-episode {
+          display: inline-block;
+        }
       }        
       .label {
         margin-left:20px;
@@ -192,10 +226,10 @@
   }
   
   #program-teaser {
-    height:450px;
+    height:350px;
     
     #program-teaser-player {
-      height:400px;
+      height:327px;
       background: black;
     }
   }

@@ -1,7 +1,7 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
 {% block meta %}
-{% if category.programs|length < 6 %}
+{% if category.programs|length < 6 or app.request.get('facet')|length == 1 or app.request.get('page') %}
 <meta name="robots" content="noindex,follow" />
 {% endif %}
 <meta property="og:title" content="{{ category.name }}" />
@@ -12,7 +12,11 @@
 <link rel="image_src" href="?" />
 <meta name="object_type" content="category" />
 {% endblock %}
-{% block title %}{{ category.name }}{% endblock %}
+{% block title %}
+{{ category.name }}
+{% if app.request.get('format') %}, {{ app.request.get('format') }}{% endif %}
+{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}
+{% endblock %}
 {% block description %}{{ category.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
 {% block content %}
@@ -21,7 +25,7 @@
     <div class="fb-like" data-send="true" data-layout="button_count" data-width="180" data-show-faces="false"></div>
     <iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer=http%3A%2F%2Fwww.myskreen.com{{ category.seo_url|url_encode }}&amp;size=m&amp;text=Je%20regarde%20{{ category.name|url_encode }}%20sur%20%40myskreen%20et%20vous%20%3F&amp;url=http%3A%2F%2Fwww.myskreen.com{{ category.seo_url|url_encode }}" class="block-twitter" data-twttr-rendered="true"></iframe>
   </div>
-  <h1>{% if app.request.get('format') %}{{ app.request.get('format') }} &raquo; {% endif %}{{ category.name }}{% if app.request.get('facet') %} &raquo; {{ app.request.get('facet') }}{% endif %}</h1>
+  <h1>{% if app.request.get('format') %}{{ app.request.get('format') }} &raquo; {% endif %}{{ category.name }}{% if app.request.get('facet') %} &raquo; {{ app.request.get('facet') }}{% endif %}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
 
   <div class="view-main view-category-main pull-right">
     <div id="program-description">
@@ -70,6 +74,25 @@
     <a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k}) }}" class="label{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a>
   {% endfor %}
   <hr/>
+
+
+  <h3 class="pager-count">{{ category.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
+  {% if category.count > 30 %}
+  <ul class="pager">
+    {% if app.request.get('page') > 2 %}
+    <li class="previous">
+      <a href="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) - 1}) }}">&larr; 30 précédents</a>
+    </li>
+    {% elseif app.request.get('page') == 2 %}
+    <li class="previous">
+      <a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')}) }}">&larr; 30 précédents</a>
+    </li>
+    {% endif %}
+    <li class="next">
+      <a href="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) + 1}) }}">30 suivants &rarr;</a>
+    </li>
+  </ul>
+  {% endif %}
 
   <div id="category-programs" class="slider slider-list">
     <ul class="items">

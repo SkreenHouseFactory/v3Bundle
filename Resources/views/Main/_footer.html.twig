@@ -11,12 +11,68 @@
     <div class="span8"><p class="clear">mySkreen est un guide de programmes innovant qui réunit sur un seul site toutes les chaines de télévision, tout le replay, tous les catalogues de VOD, le cinéma avec les horaires et les salles, et les web séries produites par les meilleurs sites médias. Suivez les programmes que vous aimez et soyez avertis à chaque diffusion ou nouvelle offre en streaming. Grâce à mySkreen vous reprenez le pouvoir : mySkreen c’est votre télé à la carte et à la demande.</p></div>
   </div>
   <hr/>
-  <div class="row">
-    <div id="boost" class="span7">
+  <div class="row" style="font-size: 0.9em;">
+    <div id="boost" class="span4">
     {% render 'SkreenHouseFactoryV3Bundle:Main:boost' with {}, {'standalone': true} %}
     </div>
-    <div id="cats" class="span3">
-    CATS
+    <div id="cats" class="span2">
+      {% if app.request.get('home') == 'video-a-la-demande' %}
+      {% set footerspin = 'VOD' %}
+      {% elseif app.request.get('home') == 'replay-tv' %}
+      {% set footerspin = 'Replay TV' %}
+      {% elseif app.request.get('home') == 'cinema' %}
+      {% set footerspin = 'cinéma' %}
+      {% elseif app.request.get('home') == 'film' %}
+      {% set footerspin = 'films' %}
+      {% elseif app.request.get('home') == 'documentaire' %}
+      {% set footerspin = 'documentaires' %}
+      {% elseif app.request.get('home') == 'emission' %}
+      {% set footerspin = 'emissions' %}
+      {% elseif app.request.get('home') == 'serie' %}
+      {% set footerspin = 'séries' %}
+      {% else %}
+      {% set footerspin = 'Replay' %}
+      {% endif %}
+      <a href="http://tv.myskreen.com/video/replay/">Replay{% if app.request.get('home') != 'replay-tv' %} {{ footerspin }}{% endif %}</a><br/>      <a href="http://replay.myskreen.com/m6/tv-a-la-demande/">M6 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/tf1/tv-a-la-demande/">TF1 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/w9/tv-a-la-demande/">W9 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/France-2/tv-a-la-demande/">France 2 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/France-3/tv-a-la-demande/">France 3 {{ footerspin }}</a>
+    </div>
+    <div id="cats" class="span2">
+      <a href="/{{ app.request.get('home', 'film') }}/jeunesse/">Jeunesse {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/societe/">Société {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/arts/">Arts {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/erotique/">Erotique {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/romance/">Romance {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/cinema-classique/">Cinéma classique {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/policier-thriller/">Policier - Thriller {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/histoire/">Histoire {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/fantastique/">Fantastique {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/cinema-asiatique/">Cinéma asiatique {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/film-culte/">Film culte {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/sciences/">Sciences {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/brigraphie-biopic/">Biographie - Biopic {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/comedies/">Comédies {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/drames/">Drames {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/action-aventure/">Action - Aventure {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/sport/">Sport {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/decouverte/">Découverte {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/science-fiction/">Science-fiction {{ footerspin }}</a>
+    </div>
+    <div id="cats" class="span2">
+      <a href="/{{ app.request.get('home', 'film') }}/sante-bien-etre/">Santé - bien-être {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/loisirs-passions/">Loisirs - Passions {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/cinema-americain/">Cinéma américain {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/cinema-europeen/">Cinéma européen {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/ovni-experimental/">OVNI / Expérimental {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/cinema-francais/">Cinéma français {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/divertissement-humour/">Divertissement-humour {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/archives/">Archives {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/epouvante-horreur/">Epouvante - horreur {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/ceremonie/">Cérémonie {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/cinema-du-monde/">Cinéma du monde {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/series-americaines/">Séries américaines {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/series-francaise/">Séries françaises {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/siences-et-techniques/">Sciences et Techniques {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/justice/">Justice {{ footerspin }}</a><br/>
+      <a href="/{{ app.request.get('home', 'film') }}/serie-animee/">Série animée {{ footerspin }}</a>
     </div>
   </div>
   <hr/>

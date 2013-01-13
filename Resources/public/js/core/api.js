@@ -295,12 +295,7 @@ API = {
         break;
         default:
           console.log(['script', 'Player.getType:', Player.getType(), 'data-couchmode', $(this).data('couchmode'), base_args]);
-          //if (Player.getType() == 'ios') {
-          //  Player.playOccurrence(id);
-          //} else {
-            var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid}, base_args);
-            Couchmode.init(args);
-          //}
+          UI.play(id, base_args);
         break;
       }
     });

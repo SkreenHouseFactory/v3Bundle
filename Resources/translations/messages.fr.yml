@@ -180,6 +180,7 @@ program:
     teaser: Bande annonce
     tv.on: Allumer la TV
     desc.read: Lire la suite
+    episodes.all: Tous les épisodes
     theaters:
         search:
             submit: Rechercher une salle

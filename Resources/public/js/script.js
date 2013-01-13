@@ -21,9 +21,6 @@ $(document).ready(function(){
     Skhf.session = new Session(function(){
       console.log('script', 'Session.init', 'callback');
     });
-
-    // -- ad
-    UI.cheat();
   });
 
   // ui
@@ -174,30 +171,16 @@ $(document).ready(function(){
     return false;
   });
   /*
-  $('.actions .play').live('click', function(e){
-    e.preventDefault();
-
-    if ($(this).data('redirect')) {
-      console.log('script', 'player redirect', $(this));
-      UI.loadRedirect($(this).attr('href'));
-
-    //player
-    } else if ($(this).data('player')) {
-      console.log('script', 'player embed', $(this));
-      UI.loadPlayer($(this));
-
-    } else {
-      API.linkV2($(this).attr('href'));
-    }
-    
     if ($(this).parent().parent().find('.badge')) {
       API.markAsRed($(this).parent().data('id'));
     }
-
-    return false;
   });
   */
 
+  // ui -- player
+  $('#couchmode').live('click', function(){
+    Couchmode.off();
+  });
 
   // -- play deporte
   $('[data-play]').live('click', function(){
@@ -480,11 +463,11 @@ $(document).ready(function(){
     FB.login(function(response) {
       if (response.authResponse) {
         // connected
-        $('#fbconnect-infos').html('<span class="alert alert-success">Connexion à Facebook réussie ! Chargement ...</span>');
+        $('#fbconnect-infos').html('<span class="alert alert-success nowrap">Connexion réussie! Chargement...</span>');
         fbsync();
       } else {
         // cancelled
-        $('#fbconnect-infos').html('<span class="alert alert-error">La connexion à Facebook a échoué !</span>');
+        $('#fbconnect-infos').html('<span class="alert alert-error nowrap">La connexion a échoué !</span>');
       }
     },{scope:'user_birthday,user_online_presence,email,read_friendlists,publish_stream,offline_access,friends_birthday,friends_likes,friends_online_presence,publish_actions'});
   }

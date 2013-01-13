@@ -150,20 +150,19 @@
       white-space: normal;
 
       .channel {
-        display: none;
+
         position: absolute;
         right: 0px;
         top: 0px;
         border-bottom-left-radius: 5px;
-        background: #EEE;
         opacity: 0.9;
-        
+
         img {
           margin: 3px 0;
         }
 
         .diff {
-          display: block;
+          display: none;
           background: black;
           color: white;
           font-size: 0.9em;
@@ -317,8 +316,14 @@
       }
 
       &:hover, &.tv-component-focused {
+
         div.channel {
           display: block;
+          background: #EEE;
+          
+          .diff {
+            display: block;
+          }
         }
         div.actions {
           display: block;

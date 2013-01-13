@@ -74,9 +74,18 @@ class ContentController extends Controller
   
         //print_r($datas);
         //echo $api->url;
-  
+
         //check url
         //echo $request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
+        //TODO
+        if ($request->get('season_number')) {
+          foreach ($datas->seasons as $s) {
+            if ($s->number == $request->get('season_number')) {
+              return $this->redirect($s->episodes[0]->seo_url);
+            }
+          }
+          echo 'redirect fail : episode 1 saison '.$request->get('season_number');exit();
+        }
         if ($request->getPathInfo() != $datas->seo_url) {
           echo 'redirect '.$request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
           //return $this->redirect($datas->seo_url);
@@ -115,11 +124,15 @@ class ContentController extends Controller
           //echo "\n name:".$r->name.' url:'.$api->url;
           //echo "\n name:".$r->name.' : '.end($datas->related[$key]->programs)->id;
         }
+        
+        if (isset($datas->sagas) && count($datas->sagas) > 0) {
+          $datas->related = array_merge($datas->sagas, $datas->related);
+        }
 
         $response = $this->render('SkreenHouseFactoryV3Bundle:Content:program.html.twig', array(
           'program' => $datas,
           'offers' => array('deportes' => 'sur mySkreen', 
-                            'plays' => 'Replay et Vod', 
+                            'plays' => 'Replay et VOD', 
                             'broadcasts' => 'A la télé', 
                             'theaters' => 'Au cinéma',
                             'itunes' => 'iTunes', 
@@ -163,7 +176,7 @@ class ContentController extends Controller
                             'with_replay' => true,
                             'with_best_offer' => true,
                             'with_programs' => true,
-                            'offset' => 0,
+                            'offset' => $request->get('page') * 30,
                             'nb_results' => 30,
                             'facets' => $this->buildFacets($request)
                           ));
@@ -208,7 +221,7 @@ class ContentController extends Controller
                              'with_programs'  => true,
                              'img_width' => 150,
                              'img_height' => 200,
-                             'offset' => 0,
+                             'offset' => $request->get('page') * 30,
                              'nb_results' => 30,
                              'facets' => $this->buildFacets($request)
                            ));
@@ -247,7 +260,9 @@ class ContentController extends Controller
                              'with_programs' => true,
                              'img_width' => 150,
                              'img_height' => 200,
-                             'advanced' => true
+                             'advanced' => true,
+                             'offset' => $request->get('page') * 30,
+                             'nb_results' => 30,
                            ));
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
       //print_r($datas);
