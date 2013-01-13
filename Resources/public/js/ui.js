@@ -83,15 +83,15 @@ UI = {
       $('.user-on').removeClass('hide');
       $('.user span').html(Skhf.session.datas.email);
       if (Skhf.session.datas.fb_uid) {
-        $('.share btn-group').html(Skhf.session.datas.email);
-        $('.share .share-on').show();
-        $('.share .share-off').hide();
+        $('.share .btn-group').html(Skhf.session.datas.email);
+        $('.share-on').show();
+        $('.share-off').hide();
         if (Skhf.session.datas.disallow_share) {
           $('.share [data-share="disallow"]').trigger('click');
         }
       } else {
-        $('.share .share-on').hide();
-        $('.share .share-off').show();
+        $('.share-on').hide();
+        $('.share-off').show();
       }
       $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
       $('.user-on-visibility').css('visibility','visible');
@@ -191,16 +191,26 @@ UI = {
 
     // friends
     if ( Skhf.session.datas.fb_uid) {
-      var container_friends = $('#program-friends .user-on');
+      var container_friends = $('#program-friends .share-on');
       this.appendLoader(container_friends);
+      Skhf.session.getSocialDatas(function(friends, friends_programs) {
+        console.log('UI.loadProgramUsersDatas', 'callback session.getSocialDatas', id, friends_programs[id]);
+        container_friends.removeClass('hide'); //HACK : TODO appel après connexion
+        self.removeLoader(container_friends);
+        if (typeof friends_programs[id] != 'undefined') {
+          self.addFriends(container_friends, friends_programs[id])
+        } else {
+          container_friends.append('<p class="alert">Aucun ami trouvé !</p><a href="#same_playlists" class="btn btn-block">Ils ajoutent également à leurs playlists &raquo;</a>');
+        }
+      });
     }
 
+    // VOD & notifications
     API.query('GET', 
               'program/' + id + '.json', 
               {
-                //with_offers: 1,
+                no_metadata: 1,
                 with_notifications: 1,
-                with_friends: 1,
                 session_uid: Skhf.session.uid
               }, 
               function(datas){
@@ -211,17 +221,6 @@ UI = {
                   for (k in datas.purchased) {
                     console.log('UI.loadProgramUsersDatas', 'purchased', '#offers [data-id="' + k + '"] td:last-child', $('#offers [data-id="' + k + '"] td:last-child'), k, API.formatTimestamp(datas.purchased[k]));
                     $('#offers [data-id="' + k + '"] td:last-child .btn').append('<span class="btn-block badge badge-warning">Loué le ' + API.formatTimestamp(datas.purchased[k]) + '</span>');
-                  }
-                }
-                //friends
-                if(typeof datas.friends != 'undefined' && 
-                    datas.friends) {
-                  container_friends.removeClass('hide'); //HACK : TODO appel après connexion
-                  self.removeLoader(container_friends);
-                  if (datas.friends.length > 0) {
-                    self.addFriends(container_friends, datas.friends)
-                  } else {
-                    container_friends.append('<p class="alert">Aucun ami trouvé !</p><a href="#same_playlists" class="btn btn-block">Ils ajoutent également à leurs playlists &raquo;</a>');
                   }
                 }
                 //notifs

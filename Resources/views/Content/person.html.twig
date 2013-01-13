@@ -27,12 +27,10 @@
   </div>
   <h1>{{ person.name }}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
 
-  <div class="view-main view-person-main pull-right">
+  <div class="view-person-main">
 
     <div id="program-description">
-      <p id="synopsis" class="lead">
-      {{ person.description }}
-      </p>
+      <p id="synopsis" class="lead">{{ person.description }}</p>
     </div>
 
     {#<div class="row">
@@ -65,7 +63,7 @@
   <br class="clear"/>
   <hr/>
 
-  <h2>Ses programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
+  <h2>Sa filmographie{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
 
   <ul class="pager">
     {% if app.request.get('page') > 2 %}

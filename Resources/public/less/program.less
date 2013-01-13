@@ -95,79 +95,85 @@
       margin-top: -10px;
 
       .tab-content {
-        overflow-y: auto;
-        height: 290px;
-        overflow-x: hidden;
-
-        tr {
-          
-          td {
-            padding: 8px 4px;
+        
+        .table-container {
+          overflow-y: auto;
+          height: 290px;
+          overflow-x: hidden;
+  
+          tr {
             
-            .btn {
-              white-space: nowrap;
-            }
-          }
-          
-          td.episode {
-            img {
-              height:50px;
-              margin-right:10px;
-            }
-            em {
-             color: #999;
-            }
-          }
-          
-          &.program-theaters {
-             margin-left: 20px;
-             
-             #theaters-list {
-              clear: both;
-             }
-          }
-          
-          &.program-deportes {
-            #ytCarousel {
-              .carousel-control {
-                &.right {
-                  right: -10px;
+            td {
+              padding: 8px 4px;
+              
+              .btn {
+                white-space: nowrap;
+              }
+            
+              &.episode {
+                min-width: 300px;
+
+                img {
+                  height:50px;
+                  margin-right:10px;
                 }
-                &.left {
-                  left: -10px;
+                em {
+                 color: #999;
                 }
               }
-              .item {
-                a {
-                  display: block;
-                  position: relative;
-                  width: 160px;
-                  height: 160px;
-                  margin: 0 5px 5px;
-                  line-height: 1em;
-                  font-size: 0.8em;
-                  color: black;
-  
-                  span {
-                    position: absolute;
-                    margin: 5px;
-                    background: white;
-                    opacity: 0.8;
-                    padding: 3px;
-                  }
-  
-                  img {
-                    width: 150px;
-                    height: 100px;
-                  }
-  
-                  .title {
-                    padding: 2px 5px 0 5px;
-                    font-family: Tahoma;
-                    line-height: 1.1em;
-                    color: #555;
-                  }
-                }
+            
+              &:last-child span {
+                font-size: 0.9em;
+              }
+            }
+            
+            &.program-theaters {
+               margin-left: 20px;
+               
+               #theaters-list {
+                clear: both;
+               }
+            }
+          }
+        }
+        #ytCarousel {
+          .carousel-control {
+            &.right {
+              right: -10px;
+            }
+            &.left {
+              left: -10px;
+            }
+          }
+          .item {
+            a {
+              display: block;
+              position: relative;
+              width: 160px;
+              height: 160px;
+              margin: 0 5px 5px;
+              line-height: 1em;
+              font-size: 0.8em;
+              color: black;
+
+              span {
+                position: absolute;
+                margin: 5px;
+                background: white;
+                opacity: 0.8;
+                padding: 3px;
+              }
+
+              img {
+                width: 150px;
+                height: 100px;
+              }
+
+              .title {
+                padding: 2px 5px 0 5px;
+                font-family: Tahoma;
+                line-height: 1.1em;
+                color: #555;
               }
             }
           }

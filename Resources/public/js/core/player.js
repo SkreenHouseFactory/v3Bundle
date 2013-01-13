@@ -30,8 +30,9 @@ Player = {
   },
   reset: function() {
     $('#player-meta').empty();
-    if (this.elmt != null) {
+    if (this.elmt.html()) {
       this.elmt.empty();
+      this.elmt = null;
     }
     if (this.playing) {
       this.playing = null;

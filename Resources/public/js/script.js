@@ -179,7 +179,7 @@ $(document).ready(function(){
 
   // ui -- player
   $('#couchmode').live('click', function(){
-    Couchmode.off();
+    Couchmode.unload();
   });
 
   // -- play deporte
@@ -345,9 +345,11 @@ $(document).ready(function(){
                                       '<br/><small>' + json.description + '</small>' + picture + '</p>';
                         trigger.attr('data-content', content);
                         trigger.popover('show');
+                      } else {
+                        trigger.attr('data-content', '');
                       }
                     });
-        } else {
+        } else if (trigger.attr('data-content')) {
           trigger.popover('show');
         }
       } else {
@@ -413,12 +415,12 @@ $(document).ready(function(){
                   var c_index = 0;
                   for (var i = 0; i < programs.length; i++) {
                     //console.log('youtube callback', 'c_index:' + c_index, 'modulo:' + i%8, container);
-                    if (i%8 == 0) {
+                    if (i%4 == 0) {
                       c_index++;
                       var item = $('<div class="item' + (i ==0 ? ' active' : '') + '"></div>')
                       container = $('#ytCarousel .carousel-inner').append(item);
                     }
-                    item.append('<a href="#" data-couchmode=\'{"type": "remote", "id": "' + encodeURIComponent(url) + '", "autoplay": "' + programs[i].id + '"}\' class="pull-left">' +
+                    item.append('<a href="#" data-couchmode=\'{"type": "remote", "id": "' + encodeURIComponent(url) + '", "hide_sliders": "1", "autoplay": "' + programs[i].id + '"}\' class="pull-left">' +
                                    '<span>' + programs[i].duration + ' min.</span>' +
                                    '<img width="150px" class="img-polaroid" alt="' + programs[i].title + '" src="' + programs[i].picture + '" />' +
                                    '<div class="title">' + programs[i].title + '</div>' +

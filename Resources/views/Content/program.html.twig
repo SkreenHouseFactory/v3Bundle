@@ -69,6 +69,7 @@
       <div class="tab-content">
         {% for key in offers|keys if program.offers[key]|length or key == 'deportes' %}
         <div id="{{ key }}" class="tab-pane{% if loop.first %} active{% endif %}">
+        <div class="table-container">
         <table class="table">
           <tbody>
           {%  if key != 'theaters' %}
@@ -84,16 +85,13 @@
               <tr data-id="{{ o.id }}"{% if o.url %} data-redirect="{{ o.url }}"{% elseif key == 'deportes' %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% endif %}>
                 <td width="20px"><span class="badge" style="opacity:0.1;">0</span></td>
                 {% if o_episode %}
-                <td class="episode" width="300px" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="{{ o_episode.title }}" data-toggle="hover" data-placement="left">
+                <td class="episode" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="{{ o_episode.title }}" data-toggle="hover" data-placement="left">
                 <img class="pull-left" src="{{ o_episode.picture }}" alt="{{ o_episode.title }}" />{{ o_episode.title }}
                 <br/><em>{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %} {% if o_episode.episode_number is defined %}Episode {{ o_episode.episode_number }}{% endif %}</em>
                 </td>
                 {% else %}
                 <td></td>
                 {% endif %}
-                <td width="70px">
-                  <img src="{{ o_channel.img }}" alt="{{ o_channel.name }}" />
-                </td>
                 <td>
                   {% if o_access.name == 'TV' %}<i class="icon-calendar"></i>
                   {% elseif o.url %}<i class="icon-share"></i>
@@ -112,6 +110,9 @@
                       {{ 'free'|trans }}
                     {% endif %}
                   {% endif %}
+                </td>
+                <td width="70px">
+                  <img src="{{ o_channel.img }}" alt="{{ o_channel.name }}" />
                 </td>
                 <td>
                   {% if o.tags.version is defined %}
@@ -149,19 +150,18 @@
               </td>
             </tr>
           {% endif %}
-          {% if key == 'deportes' %}
-            <tr class="program-deportes">
-              <td colspan="5" data-more-streaming="{{ program.id }}">
-              <div id="ytCarousel" class="carousel slide hide">
-                <div class="carousel-inner"></div>
-                <a class="carousel-control left" href="#ytCarousel" data-slide="prev">&lsaquo;</a>
-                <a class="carousel-control right" href="#ytCarousel" data-slide="next">&rsaquo;</a>
-              </div>
-              </td>
-            </tr>
-          {% endif %}
           </tbody>
         </table>
+        </div>
+        {% if key == 'deportes' %}
+          <div class="program-deportes" data-more-streaming="{{ program.id }}">
+            <div id="ytCarousel" class="carousel slide hide">
+              <div class="carousel-inner"></div>
+              <a class="carousel-control left" href="#ytCarousel" data-slide="prev">&lsaquo;</a>
+              <a class="carousel-control right" href="#ytCarousel" data-slide="next">&rsaquo;</a>
+            </div>
+          </div>
+        {% endif %}
         </div>
         {% endfor %}
       </div>
@@ -269,7 +269,7 @@
     {% if r.name == 'same_actors' and program.casting %}
       <h3 id="same-actors-title" class="user-on-visibility">{{ r.title }}</h3>
       <div class="person-list">
-      {% for pers in program.casting %}
+      {% for pers in program.casting|slice(0,11) %}
       <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" class="label label-info">{{ pers.name }}</a>
       {% endfor %}
       </div>

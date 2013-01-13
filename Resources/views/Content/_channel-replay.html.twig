@@ -1,6 +1,6 @@
 <div id="view-channel-replay">
 
-  <div style="margin:0 100px;">
+  <div style="margin:0 200px;">
   {% set slider = {title: channel.name, programs: [channel.live.program, channel.next_live.program]} %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider} %}
   </div>
