@@ -34,21 +34,24 @@ var Session = BaseSession.extend({
     var onglet = typeof onglet != 'undefined' ? onglet : null;
 
     UI.appendLoader($('li#friends'));
-    API.query('GET',
-              'www/slider/social/' + this.uid + '.json', 
-              {
-                onglet: this.onglet, 
-                nb_results: 1, 
-                img_width: API.config.slider.width, 
-                img_height: API.config.slider.height
-              }, 
-              function(json) {
-                console.log('Session.loadSocialSelector', 'offset:' + offset, 'error:' + json.error);
-                if (typeof json.error == 'undefined') {
-                  UI.removeLoader($('li#friends'));
-                  UI.loadSocialSelector(json);
-                }
-              });
+    Skhf.session.getFriendsUids(function(friends_uids) {
+      API.query('GET',
+                'www/slider/social/' + self.uid + '.json', 
+                {
+                  onglet: self.onglet, 
+                  nb_results: 1, 
+                  img_width: API.config.slider.width, 
+                  img_height: API.config.slider.height,
+                  friends_uids: friends_uids
+                }, 
+                function(json) {
+                  console.log('Session.loadSocialSelector', 'offset:' + offset, 'error:' + json.error);
+                  if (typeof json.error == 'undefined') {
+                    UI.removeLoader($('li#friends'));
+                    UI.loadSocialSelector(json);
+                  }
+                });
+    });
   },
   initSelector: function(onglet, reload) {
     var self = this;

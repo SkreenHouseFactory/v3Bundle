@@ -326,6 +326,12 @@ UI = {
         var args = {with_best_offer: 1, time: new Date().getTime()};
         $('#top-playlist .breadcrumb li:last').empty();
       }
+      
+      if (access) {
+        Skhf.session.getFriendsUids(function(friends_uids){
+          $.extend(self.playlist.params.args, {friends_uids: friends_uids}); //, api_method: 'POST'
+        })
+      }
 
       this.playlist.loadRemotePrograms(0,
                                        function(slider){

@@ -328,8 +328,8 @@ API = {
       method = method.replace('_PROXY', ''); //hack GET_PROXY
       var dataType = "text json";
       var post = {};
-      post["url"] = url.replace('.json','');
-      post["data"] = data;
+      post['url'] = url.replace('.json','');
+      post['data'] = data;
       data = post;
       url = this.config.env == 'dev' ? '/app_dev.php/proxy' : '/app.php/proxy';
 

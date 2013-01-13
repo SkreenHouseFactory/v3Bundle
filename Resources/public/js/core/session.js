@@ -113,5 +113,14 @@ var BaseSession = Class.extend({
       with_friends: 1,
       with_friends_playlists: 1
     });
+  },
+  getFriendsUids: function(callback){
+    this.getSocialDatas(function(friends) {
+      var uids = new Array();
+      for (k in friends) {
+        uids.push(k);
+      }
+      callback(uids);
+    });
   }
 });

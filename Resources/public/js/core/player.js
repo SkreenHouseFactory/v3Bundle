@@ -143,11 +143,11 @@ Player = {
       this.type = player.format;
     }
 
-    switch(this.type) {
+    switch(this.getType()) {
 
       case 'ios':
       //case 'h264':
-        this.elmt.html('<video id="skPlayerHtml5" width="100%" height="100%" controls="1" x-webkit-airplay="allow" tabindex="0"><source src="' + player.url + '" type="video/mp4"></video>');
+        this.elmt.html('<video id="skPlayerHtml5" width="100%" height="100%" controls="1" x-webkit-airplay="allow" tabindex="0"><source src="' + player.url + '" type="video/mp4"></source></video>');
         //this.elmt.html('<video style="background: black;height: 100%; width: 100%; cursor: pointer; -webkit-user-drag: none;" id="player-html5" src="' + player.url + '"></video>');
       break;
   

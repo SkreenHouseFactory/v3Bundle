@@ -10,7 +10,8 @@ var BaseSlider = Class.extend({
     height: 200,
     item_margin: 7,
     pager_nb_results: 10,
-    type: 'scroll'
+    type: 'scroll', 
+    args: {}
   },
   //init
   init: function(params, callback, elmt) {
@@ -221,13 +222,13 @@ var BaseSlider = Class.extend({
 
     var args = $.extend(args, {img_width: API.config.slider.width, 
                                img_height: API.config.slider.height, 
-                               url: ''}); //overwrite url params
+                               url: ''}, this.params.args); //overwrite url params
     var url = this.getUrl(typeof offset != 'undefined' ? offset : 0);
     if (url == null) {
       console.warn('BaseSlider.loadRemotePrograms', 'url', url);
       return;
     }
-    API.query('GET',
+    API.query('GET', //typeof args.api_method != 'undefined' ? 'POST' : 'GET',
               url, 
               args,
               function(programs){
@@ -300,9 +301,12 @@ var BaseSlider = Class.extend({
           li.addClass('deporte');
           $('.diff', li).prepend('<i class="icon-th icon-white"></i> ');
         }
-        if (program.friend_uids) {
-          UI.addFriends(li, program.friend_uids.split(','));
-        }
+
+        Skhf.session.getSocialDatas(function (friends, friends_programs) {
+          if (typeof friends_programs[program.id] != 'undefined') {
+            UI.addFriends(li, friends_programs[program.id]);
+          }
+        });
       }
       li.addClass('to-animate').show();
       li.appendTo($('ul.items', this.elmt));
