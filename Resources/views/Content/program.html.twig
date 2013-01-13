@@ -2,7 +2,7 @@
 {% block meta %}
 <meta name="robots" content="noindex,nofollow" />
 <meta property="og:title" content="{{ program.title }}" />
-<meta property="og:description" content="{{ program.description }}" />
+<meta property="og:description" content="{{ program.description_seo }}" />
 <meta property="og:image" content="{{ program.picture }}" />
 <meta property="og:type" content="video.episode" />
 <meta property="og:url" content="{{ program.seo_url }}" />
@@ -33,8 +33,8 @@
   <div class="view-main view-program-main pull-right">
     <div id="program-description"{% if program.teaser %} class="with-teaser"{% endif %}">
       <p id="synopsis" class="lead">
-      {{ program.description }}
-      {% if program.description|length > 200 %}
+      {{ program.description_seo }}
+      {% if program.description_seo|length > 200 %}
         <a href="#" onClick="$('#synopsis').css('height', 'auto');$(this).addClass('hide');" class="bgbodyfade"> &raquo; {{ 'program.desc.read'|trans }}</a>
       {% endif %}
       </p>
@@ -95,17 +95,22 @@
                 {% else %}
                 <td>
                 {% endif %}
-                  {% if o.timeleft is defined and o.timeleft %}
+                  {% if o.replay_remaining is defined and o.replay_remaining %}
+                    {% if o.replay_remaining < 0 %}
+                    <span class="label label-info">Bientôt disponible en Replay</span>
+                    {% else %}
+                    <span class="label label-info">En Replay dans {{ (o.timeleft/60)|number_format }}h</span>
+                    {% endif %}
+                  {% elseif o.timeleft is defined and o.timeleft %}
                     {% if o.timeleft < 0 %}
-                    <span class="label label-important">Plus disponible !!</span>
+                    <span class="label">timeleft ?</span>
                     {% else %}
                     <span class="label label-{% if o.timeleft > 24*60 %}warning{% else %}important{% endif %}">Plus que {{ (o.timeleft/60)|number_format }}h pour le voir</span>
                     {% endif %}
                   {% endif %}
                 </td>
                 <td class="access">
-                  {% if o_access.name == 'TV' %}<i class="icon-calendar"></i>
-                  {% elseif o.url %}<i class="icon-share"></i>
+                  {% if o.url %}<i class="icon-share"></i>
                   {% elseif key == 'deportes' %}<i class="icon-play"></i>
                   {% endif %}
                   {% if o_access.name != 'Live' and o_access.name != 'TV' %}
@@ -120,7 +125,10 @@
                     {% endif %}
                   {% endif %}
                   {% if o.broadcastdate is defined %}
-                    <br/><em>{{ o.broadcastdate }}{#{ o.broadcastdate|localizeddate('full', 'none') }#}</em>
+                    {% if o_access.name == 'TV' %}<i class="icon-calendar"></i>
+                    {% else %}<br/>
+                    {% endif %}
+                    <em>{{ o.broadcastdate }}{#{ o.broadcastdate|localizeddate('full', 'none') }#}</em>
                   {% endif %}
                 </td>
                 <td class="channel">
@@ -230,7 +238,7 @@
         <ul class="dropdown-menu">
           {% for season in program.seasons if season.number == program.season_number %}
             {% for episode in season.episodes %}
-            <li><a href="{{ episode.seo_url }}">
+            <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
               {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
               Episode {{ episode.episode_number }} <i class="icon-chevron-right"></i> <strong>{{ episode.title }}</strong>
             </a></li>
@@ -240,7 +248,7 @@
       </div>
       
       {% elseif program.episodeof is defined %}
-      <a href="{{ program.episodeof.seo_url }}" class="btn">{{ 'program.episodes.all'|trans }}</a>
+      <a href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}" class="btn btn-block">{{ 'program.episodes.all'|trans }}</a>
 
       {% elseif program.episode_list is defined  %}
       <div class="btn-group program-episode">
@@ -250,7 +258,7 @@
         </a>
         <ul class="dropdown-menu">
           {% for episode in program.episode_list %}
-          <li><a href="{{ episode.seo_url }}">
+          <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
             {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
             <strong>{{ episode.title }}</strong>{% if episode.year %} - {{ episode.year }}{% endif %}
           </a></li>

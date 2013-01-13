@@ -71,7 +71,7 @@ class ContentController extends Controller
                                //'filter_casting' => true,
                                //'player' => 'flash'
                              ));
-  
+
         //print_r($datas);
         //echo $api->url;
 
@@ -88,7 +88,7 @@ class ContentController extends Controller
         }
         if ($request->getPathInfo() != $datas->seo_url) {
           echo 'redirect '.$request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
-          //return $this->redirect($datas->seo_url);
+          return $this->redirect($datas->seo_url);
         }
         // -- post treatments
         //episodes
@@ -183,9 +183,12 @@ class ContentController extends Controller
       //print_r($datas);
       //echo $api->url;
         //echo $request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
-        if ($request->getPathInfo() != '/'.$datas->seo_url.'/') {
-          echo 'redirect '.$request->getPathInfo().' != /'.$datas->seo_url.'/ => '.($request->getPathInfo() != $datas->seo_url);exit();
-          //return $this->redirect($datas->seo_url);
+        if ($request->getPathInfo() != '/' . $datas->seo_url . '/' &&
+            $request->getPathInfo() != '/' . $datas->seo_url . '/page-' . $request->get('page') . '/' &&
+            $request->getPathInfo() != '/' . $datas->seo_url . '/' . $request->get('facet') . '/'
+            ) {
+          //echo 'redirect '.$request->getPathInfo().' != /'.$datas->seo_url.'/ => '.($request->getPathInfo() != $datas->seo_url);exit();
+          return $this->redirect('/'.$datas->seo_url.'/');
         }
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
       //$template = isset($datas->epg) && $datas->epg ? 'channel-replay' : 'channel';
@@ -229,12 +232,13 @@ class ContentController extends Controller
       //print_r($datas);
       //echo $api->url;
       if (!strstr($request->getPathInfo(), $datas->seo_url)) {
-        echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';exit();
-        //return $this->redirect($datas->seo_url);
+        //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';exit();
+        return $this->redirect($datas->seo_url);
       }
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Content:category.html.twig', array(
         'category' => $datas,
+        'formats' => array_combine(explode(';', $datas->facets_seo_url->format),explode(';', $datas->facets->format)),
         'subcategories' => array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory)),
         'alpha_available' => explode(';', $datas->facets->alpha),
         'alpha'    => array(1,2,3,4,5,6,7,8,9,
@@ -269,7 +273,7 @@ class ContentController extends Controller
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
       //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';
       if ($request->getPathInfo() != $datas->seo_url) {
-        //return $this->redirect($datas->seo_url);
+        return $this->redirect($datas->seo_url);
       }
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Content:person.html.twig', array(
