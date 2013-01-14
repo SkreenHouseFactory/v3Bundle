@@ -60,8 +60,8 @@ player_redirect:
     requirements:
         target: "[^/]+"
 player_exit_with_infos:
-    pattern:  /exit/{type}/{name}/{title}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }
+    pattern:  /exit/{type}/{name}/{title}/{episode}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit, episode: null }
     requirements:
         type: "[^/]+"
         target: "[^/]+"
