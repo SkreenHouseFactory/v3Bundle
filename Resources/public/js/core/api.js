@@ -49,7 +49,7 @@ ENV = {
   prod: {
     env: 'prod',
     site_url: 'http://www.myskreen.com',
-    v3_url: '/',
+    v3_url: 'http://www.myskreen.com',
     v3_root: '',
     base: 'http://api.myskreen.com/api/',
     popin: 'https://api.myskreen.com/popin/',

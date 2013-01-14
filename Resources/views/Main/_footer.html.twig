@@ -34,7 +34,7 @@
       {% else %}
       {% set footerspin = 'Replay' %}
       {% endif %}
-      <a href="http://tv.myskreen.com/video/replay/">Replay{% if app.request.get('home') != 'replay-tv' %} {{ footerspin }}{% endif %}</a><br/>      <a href="http://replay.myskreen.com/m6/tv-a-la-demande/">M6 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/tf1/tv-a-la-demande/">TF1 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/w9/tv-a-la-demande/">W9 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/France-2/tv-a-la-demande/">France 2 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/France-3/tv-a-la-demande/">France 3 {{ footerspin }}</a>
+      <a href="http://tv.myskreen.com/video/replay/">Replay{% if app.request.get('home') != 'replay-tv' %} {{ footerspin }}{% endif %}</a><br/>      <a href="http://replay.myskreen.com/m6/tv-a-la-demande/">M6 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/tf1/tv-a-la-demande/">TF1 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/w9/tv-a-la-demande/">W9 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/france-2/tv-a-la-demande/">France 2 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/france-3/tv-a-la-demande/">France 3 {{ footerspin }}</a>
     </div>
     <div id="cats" class="span2">
       <a href="/{{ app.request.get('home', 'film') }}/jeunesse/">Jeunesse {{ footerspin }}</a><br/>
