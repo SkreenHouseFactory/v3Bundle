@@ -36,44 +36,45 @@
       {% endif %}
       <a href="http://tv.myskreen.com/video/replay/">Replay{% if app.request.get('home') != 'replay-tv' %} {{ footerspin }}{% endif %}</a><br/>      <a href="http://replay.myskreen.com/m6/tv-a-la-demande/">M6 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/tf1/tv-a-la-demande/">TF1 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/w9/tv-a-la-demande/">W9 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/france-2/tv-a-la-demande/">France 2 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/france-3/tv-a-la-demande/">France 3 {{ footerspin }}</a>
     </div>
+    {% if app.request.get('home') %}{% set base_footer = app.request.get('home') %}{% else %}{% set base_footer = 'film' %}{% endif %}
     <div id="cats" class="span2">
-      <a href="/{{ app.request.get('home', 'film') }}/jeunesse/">Jeunesse {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/societe/">Société {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/arts/">Arts {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/erotique/">Erotique {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/romance/">Romance {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/cinema-classique/">Cinéma classique {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/policier-thriller/">Policier - Thriller {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/histoire/">Histoire {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/fantastique/">Fantastique {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/cinema-asiatique/">Cinéma asiatique {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/film-culte/">Film culte {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/sciences/">Sciences {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/brigraphie-biopic/">Biographie - Biopic {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/comedies/">Comédies {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/drames/">Drames {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/action-aventure/">Action - Aventure {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/sport/">Sport {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/decouverte/">Découverte {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/science-fiction/">Science-fiction {{ footerspin }}</a>
+      <a href="/{{ base_footer }}/jeunesse/">Jeunesse {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/societe/">Société {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/arts/">Arts {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/erotique/">Erotique {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/romance/">Romance {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/cinema-classique/">Cinéma classique {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/policier-thriller/">Policier - Thriller {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/histoire/">Histoire {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/fantastique/">Fantastique {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/cinema-asiatique/">Cinéma asiatique {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/film-culte/">Film culte {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/sciences/">Sciences {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/brigraphie-biopic/">Biographie - Biopic {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/comedies/">Comédies {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/drames/">Drames {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/action-aventure/">Action - Aventure {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/sport/">Sport {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/decouverte/">Découverte {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/science-fiction/">Science-fiction {{ footerspin }}</a>
     </div>
     <div id="cats" class="span3">
-      <a href="/{{ app.request.get('home', 'film') }}/sante-bien-etre/">Santé - bien-être {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/loisirs-passions/">Loisirs - Passions {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/cinema-americain/">Cinéma américain {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/cinema-europeen/">Cinéma européen {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/ovni-experimental/">OVNI / Expérimental {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/cinema-francais/">Cinéma français {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/divertissement-humour/">Divertissement-humour {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/archives/">Archives {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/epouvante-horreur/">Epouvante - horreur {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/ceremonie/">Cérémonie {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/cinema-du-monde/">Cinéma du monde {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/series-americaines/">Séries américaines {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/series-francaise/">Séries françaises {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/siences-et-techniques/">Sciences et Techniques {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/justice/">Justice {{ footerspin }}</a><br/>
-      <a href="/{{ app.request.get('home', 'film') }}/serie-animee/">Série animée {{ footerspin }}</a>
+      <a href="/{{ base_footer }}/sante-bien-etre/">Santé - bien-être {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/loisirs-passions/">Loisirs - Passions {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/cinema-americain/">Cinéma américain {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/cinema-europeen/">Cinéma européen {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/ovni-experimental/">OVNI / Expérimental {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/cinema-francais/">Cinéma français {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/divertissement-humour/">Divertissement-humour {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/archives/">Archives {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/epouvante-horreur/">Epouvante - horreur {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/ceremonie/">Cérémonie {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/cinema-du-monde/">Cinéma du monde {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/series-americaines/">Séries américaines {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/series-francaise/">Séries françaises {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/siences-et-techniques/">Sciences et Techniques {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/justice/">Justice {{ footerspin }}</a><br/>
+      <a href="/{{ base_footer }}/serie-animee/">Série animée {{ footerspin }}</a>
     </div>
   </div>
   <hr/>
