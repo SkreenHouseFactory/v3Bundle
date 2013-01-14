@@ -29,9 +29,9 @@ class ContentController extends Controller
 
       //API lastmodified
       $datas = $api->fetch('cache', array(
-                  'model' => 'Programme',
-                  'id' => $request->get('id')
-                ));
+                 'model' => 'Programme',
+                 'id' => $request->get('id')
+               ));
       $cache_date = new \DateTime($datas->updated_at);
 
       //cache

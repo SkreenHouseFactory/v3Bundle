@@ -6,7 +6,7 @@ homes:
     pattern:  /{home}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home, home: null }
     requirements:
-        home: |video-a-la-demande|cinema|tv-replay|film|serie|documentaire|emission|spectacle
+        home: |video-a-la-demande|cinema|tv-replay|film|serie|documentaire|emission|spectacle|films|series|documentaires|emissions|spectacles|vod
         
 selections:
     pattern:  /{homeslug}/selection/{id}-{slug}/

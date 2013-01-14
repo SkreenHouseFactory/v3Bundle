@@ -25,6 +25,24 @@ class MainController extends Controller
     public function homeAction(Request $request)
     {
       switch ($request->get('home')) {
+        case 'films':
+        case 'series':
+        case 'documentaires':
+        case 'emissions':
+        case 'spectacles':
+        case 'jeunesse':
+          $redirect = substr($request->get('home'), 0, strlen($request->get('home'))-1);
+        break;
+        case 'vod':
+          $redirect = 'video-a-la-demande';
+        break;
+        case 'jeunesse':
+          $redirect = 'dessin-anime-et-manga';
+        break;
+        case 'cine':
+          $redirect = 'cinema';
+        break;
+        
         case 'film':
         case 'serie':
         case 'documentaire':
@@ -49,6 +67,12 @@ class MainController extends Controller
         break;
       }
       
+
+      if (isset($redirect)) {
+        //echo 'redirect '.$redirect;exit();
+        return $this->redirect('/'.$redirect.'/');
+      }
+
       //menus
       $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $datas = $api->fetch('www/home/' . $home, 
@@ -59,6 +83,7 @@ class MainController extends Controller
                                  'with_teaser' => true,
                                  'slider_width' => 990));
       //echo $api->url;
+
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig', array(
         'home' => $datas
