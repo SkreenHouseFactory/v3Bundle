@@ -4,16 +4,17 @@ service:
     url: http://www.myskreen.com
 page:
     title:
+        homecinema: ddd
         home: 
             mixte: The New TV Guide
-            video-a-la-demande: Video à la demande
+            vod: Video à la demande
             tv-replay: Replay
-            cinema: Cinéma
-            film: Films
-            serie: Séries
-            documentaire: Documentaires
-            emission: Emissions
-            spectacle: Théatre, concerts, spectacles
+            cine: Cinéma
+            films: Films
+            series: Séries
+            documentaires: Documentaires
+            emissions: Emissions
+            spectacles: Théatre, concerts, spectacles
         redirect: Redirection en cours ...
         cinema.boxoffice: Cinéma, tous les films en salle commençant par %alpha%
         channel: %name%
