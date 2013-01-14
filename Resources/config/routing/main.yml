@@ -221,6 +221,8 @@ category:
         format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
         category_slug: "[^/]+"
 
+
+
 #channel
 channel_format_facet:
     pattern:  /{slug}/{format}/{facet}/
@@ -229,12 +231,29 @@ channel_format_facet:
         slug: "[^/]+"
         facet: "[^/]+"
         format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
+channel_format:
+    pattern:  /{slug}/{format}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel, facet: null }
+    requirements:
+        slug: "[^/]+"
+        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
 channel_page:
     pattern:  /{slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
     requirements:
         slug: "[^/]+"
         page: \d+
+channel_facet:
+    pattern:  /{slug}/{facet}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    requirements:
+        slug: "[^/]+"
+        facet: "[^/]"
+channel:
+    pattern:  /{slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    requirements:
+        slug: "[^/]+"
 
 #cocons : end, important !
 cocon_tv:
@@ -242,18 +261,6 @@ cocon_tv:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon, domain: replay }
     requirements:
         cocon: video|tf1|france2|france-3|m6|w9
-
-channel_facet:
-    pattern:  /{slug}/{facet}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
-    requirements:
-        slug: "[^/]+"
-        facet: "[^/]+"
-channel:
-    pattern:  /{slug}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
-    requirements:
-        slug: "[^/]+"
 
 #hack url generation
 any_url:

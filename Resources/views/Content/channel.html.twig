@@ -79,7 +79,7 @@
   </div>
 
   {% for k,f in formats %}
-    <a href="{{ path('channel_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="badge{% if app.request.get('facet') == f %} badge-info"{% endif %}">{{ f }}</a>
+    <a href="{{ path('channel_format', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="badge{% if app.request.get('facet') == f %} badge-info"{% endif %}">{{ f }}</a>
   {% endfor %}
   <hr/>
 
