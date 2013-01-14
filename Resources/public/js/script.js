@@ -416,7 +416,7 @@ $(document).ready(function(){
                 url,
                 {nb_results: 24},
                 function(programs) {
-                  if (programs.length == 0) {
+                  if (programs.length == 0 || typeof programs.length == 'undefined') {
                     return;
                   }
                   //TODO : sort by duration ?
