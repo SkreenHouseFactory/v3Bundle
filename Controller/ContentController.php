@@ -87,7 +87,7 @@ class ContentController extends Controller
           echo 'redirect fail : episode 1 saison '.$request->get('season_number');exit();
         }
         if ($request->getPathInfo() != $datas->seo_url) {
-          echo 'redirect '.$request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
+          //echo 'redirect '.$request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
           return $this->redirect($datas->seo_url);
         }
         // -- post treatments
