@@ -65,7 +65,7 @@
       {% else %}
       <ul id="triggers" class="nav nav-pills" style="font-size: 1.2em;">
         {% for key in offers|keys if program.offers[key]|length or key == 'deportes' %}
-        <li{% if loop.first %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ program.offers[key]|length }}">{{ offers[key] }}{% if program.offers[key]|length %} ({{ program.offers[key]|length }}){% endif %}</a></li>
+        <li{% if loop.first %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ program.offers[key]|length }}">{{ offers[key] }}{% if if key == 'theaters' %}({% if program.datas_theaters.theaters_ids|length %}{{ program.datas_theaters.theaters_ids|length }}{% else %}1{% endif %}){% elseif program.offers[key]|length %} ({{ program.offers[key]|length }}){% endif %}</a></li>
         {% endfor %}
       </ul>
       <div class="tab-content">
@@ -165,7 +165,7 @@
                 {% if program.datas_theaters.theaters_on_demand|length %}
                   {% for o in program.datas_theaters.theaters_on_demand %}
                   <hr/>
-                  <p align="center"><a target="_blank" href="{{ attribute(o, 'url') }}}"><img class="img-polaroid" src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema.png') }}" alt="ilikecinema" /></a></p>
+                  <p align="center"><a target="_blank" href="{{ attribute(o, 'url') }}"><img class="img-polaroid" src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema.png') }}" alt="ilikecinema" /></a></p>
                   {% endfor %}
                 {% endif %}
               </td>
