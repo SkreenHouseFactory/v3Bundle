@@ -202,10 +202,10 @@
     <li{% if program.episode_title is not defined %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb">{% for c in program.subcategories|slice(0,1) %}{% if loop.first %}{% else %}, {% endif %}<a itemprop="url" href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}"><span itemprop="title">{{ c.name }}</span></a>{% endfor %}{% if program.episode_title is defined %} <span class="divider">/</span>{% endif %}</li>
     {% endif %}
     {% if program.episode_title is defined %}
-    <li{% if program.season_number is not defined %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: program.episodeof.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ program.episodeof.title }}</span></a> {% if program.season_number is defined %} <span class="divider">/</span>{% endif %}</li>
+    <li{% if program.season_number is not defined %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}"><span itemprop="title">{{ program.episodeof.title }}</span></a> {% if program.season_number is defined %} <span class="divider">/</span>{% endif %}</li>
     {% endif %}
     {% if program.season_number is defined %}
-    <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: program.episodeof.seo_url|replace({'/': ''}) ~ 'saison-' ~ program.season_number }) }}"><span itemprop="title">Saison {{ program.season_number }}</span></a></li>
+    <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) ~ 'saison-' ~ program.season_number }) }}"><span itemprop="title">Saison {{ program.season_number }}</span></a></li>
     {% endif %}
   </ul>
   {% endif %}
