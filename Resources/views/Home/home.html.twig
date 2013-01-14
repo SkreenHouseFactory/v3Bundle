@@ -2,17 +2,18 @@
 
 {% block meta %}
 <meta name="robots" content="noindex,nofollow" />
-<meta property="og:title" content="The New TV Guide | mySkreen.com" />
-<meta property="og:description" content="Le guide personnalisé de vos programmes. Retrouvez dans une même playlist : Vidéo à la demande (VOD) et Replay TV (télévision de rattrapage), programmes Télé, DVD, box et télé connectée." />
+<meta property="og:title" content="{{ 'page.title.home.' ~ app.request.get('home') ~ ''|trans }}" />
+<meta property="og:description" content="{{ 'page.description.home.' ~ app.request.get('home') ~ ''|trans }}" />
 <meta property="og:image" content="http://medias.myskreen.com/logo.png" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://www.myskreen.com" />
 {% endblock %}
-{% block title %}{{ 'page.title.home'|trans }}{% endblock %}
+{% block title %}{{ 'page.title.home.' ~ app.request.get('home') ~ ''|trans }}{% endblock %}
+{% block description %}{{ 'page.description.home.' ~ app.request.get('home') ~ ''|trans }}{% endblock %}
 
 {% block content %}
 <div id="view-home">
-  {% for slider in sliders if slider.id is defined %}
+  {% for slider in home.sliders if slider.id is defined %}
     {% if loop.first %}
       <h1>{{ app.request.get('home') }}</h1>
       <div class="carousel-container">{% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider} %}</div>

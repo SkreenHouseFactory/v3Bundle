@@ -4,10 +4,30 @@ service:
     url: http://www.myskreen.com
 page:
     title:
-        home: Trouver, voir et revoir
+        home: 
+            mixte: The New TV Guide
+            video-a-la-demande: Video à la demande
+            tv-replay: Replay
+            cinema: Cinéma
+            film: Films
+            serie: Séries
+            documentaire: Documentaires
+            emission: Emissions
+            spectacle: Théatre, concerts, spectacles
         redirect: Redirection en cours ...
         cinema.boxoffice: Cinéma, tous les films en salle commençant par %alpha%
         channel: %name%
+    description:
+        home:
+            mixte: Le guide personnalisé de vos programmes. Retrouvez dans une même playlist : Vidéo à la demande (VOD) et Replay TV (télévision de rattrapage), programmes Télé, DVD, box et télé connectée.
+            video-a-la-demande: Video à la demande : VOD et streaming. Ne ratez plus vos programmes préférés !
+            tv-replay: Replay : ne ratez plus vos programmes préférés !
+            cinema: Cinéma : ne ratez plus vos programmes préférés !
+            film: Films : ne ratez plus vos films préférés
+            serie: Séries : soyez avertis dès qu'un nouvel épisode est disponible
+            documentaire: Documentaires : ne ratez plus vos documentaires préférés
+            emission: Emissions : regardez vos émissions préférées en Replay.
+            spectacle: Théatre, concerts, spectacles : des milliers de vidéos en un clic !
 player:
     live:
       deporte: Sur mySkreen

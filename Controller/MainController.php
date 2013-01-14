@@ -61,7 +61,7 @@ class MainController extends Controller
       //echo $api->url;
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig', array(
-        'sliders' => $datas->sliders,
+        'home' => $datas
       ));
 
       $maxage = 600;
