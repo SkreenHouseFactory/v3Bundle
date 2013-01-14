@@ -34,9 +34,12 @@ UI = {
   },
   //toggle favorite
   togglePlaylistProgram: function(trigger){
+    var self = this;
     var value = trigger.parent().data('id');
-    var remove = trigger.hasClass('btn-primary') || trigger.hasClass('btn-danger') ? true : false;
+    var remove = trigger.hasClass('fav-on') ? true : false;
     if (Skhf.session.datas.email) {
+      console.log('UI.togglePlaylistProgram', 'remove', remove);
+      trigger.html('Chargement ...').removeClass('btn-danger');
       API.togglePreference('like', value, function(value){
         console.log('UI.togglePlaylistProgram', 'callback', value, trigger);
         if (remove && $('.friends', trigger.parent().parent()).length == 0) { //pas pour le slider social
@@ -46,8 +49,26 @@ UI = {
         }
       });
     } else {
-      this.auth();
+      this.auth(function(){
+        self.togglePlaylistProgram(trigger);
+      });
     }
+  },
+  //set popover infos
+  installPopover: function(trigger) {
+    if (trigger.parent().data('onglet') == 'emissions' || trigger.parent().data('onglet') == 'series') {
+      var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' +
+                    '<br/>En ajoutant ce programme à vos playlists vous serez averti dès qu\'un épisode est disponible !';
+    } else {
+      var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' + 
+                    '<br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD.';
+    }
+
+    trigger.popover({placement: 'top',
+                      title:	function() { return 'Ajout à vos playlists'},
+                      content: content,
+                      show: 500, 
+                      hide: 100});
   },
   //auth
   auth: function(callback) {
@@ -79,39 +100,43 @@ UI = {
 
     this.user = Skhf.session.datas.email;
     if (Skhf.session.datas.email) {
+      //on
       $('.user-off').addClass('hide');
       $('.user-on').removeClass('hide');
-      $('.user span').html(Skhf.session.datas.email);
-      if (Skhf.session.datas.fb_uid) {
-        $('.share .btn-group').html(Skhf.session.datas.email);
-        $('.share-on').show();
-        $('.share-off').hide();
-        if (Skhf.session.datas.disallow_share) {
-          $('.share [data-share="disallow"]').trigger('click');
-        }
-      } else {
-        $('.share-on').hide();
-        $('.share-off').show();
-      }
-      $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
       $('.user-on-visibility').css('visibility','visible');
       $('li.selector:not(.empty)').popover('disable').popover('hide');
-      $('#top-baseline').hide();
+      //infos
+      $('.user span').html(Skhf.session.datas.email);
+      $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
+      //datas
       this.loadUserPrograms();
       this.loadNotifications(Skhf.session.datas.notifications);
       if ($('#view-program').length) {
         this.loadProgramUsersDatas($('#view-program').data('id'));
       }
+      //fb
+      if (Skhf.session.datas.fb_uid) {
+        $('.share-on').show();
+        $('.share-off').hide();
+        if (Skhf.session.datas.disallow_share) {
+          $('.share [data-share="disallow"]').trigger('click');
+        }
+        this.addFriendsPrograms();
+      } else {
+        $('.share-on').hide();
+        $('.share-off').show();
+      }
     } else {
-      
+      //off
       $('.user-off').removeClass('hide');
       $('.user-on').addClass('hide');
+      $('.user-on-visibility').css('visibility','hidden');
+      $('.notifications li.empty').show();
+      $('li.selector').popover('enable');
+      //remove datas
       $('.user span, .favoris span').empty();
       $('.notifications-count').empty();
       $('.notifications li:not(.empty)').remove();
-      $('.notifications li.empty').show();
-      $('.user-on-visibility').css('visibility','hidden');
-      $('li.selector').popover('enable');
       this.unloadFilters();
       this.playlist.remove();
       //if ($('#view-program').length) {
@@ -123,19 +148,18 @@ UI = {
   loadUserPrograms: function(ids, elmt) {
     var ids  = typeof ids  != 'undefined' ? ids  : Skhf.session.datas.queue;
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
-    //console.log('UI.loadUserPrograms', ids, elmt);
+    console.log('UI.loadUserPrograms', ids, elmt);
     for (key in ids) {
-      //console.log('UI.loadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.btn-primary)');
-      $('.actions[data-id="' + ids[key] + '"] a.fav:not(.btn-primary)', elmt).html('<i class="icon-ok-sign icon-white"></i> Dans vos favoris')
-                                                                             .addClass('btn-primary');
+      console.log('UI.loadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
+      $('.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)', elmt).html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists').addClass('fav-on');
     }
   },
   unloadUserPrograms: function(ids, elmt) {
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
-    //console.log('UI.unloadUserPrograms', ids, elmt);
+    console.log('UI.unloadUserPrograms', ids, elmt);
     for (key in ids) {
-      //console.log('UI.unloadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.btn-primary)');
-      $('.actions[data-id="' + ids[key] + '"] a.fav.btn-primary, .actions[data-id="' + ids[key] + '"] a.fav.btn-danger', elmt).html('<i class="icon-plus-sign"></i> Suivre / voir + tard').removeClass('btn-primary');
+      console.log('UI.unloadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav.fav-on');
+      $('.actions[data-id="' + ids[key] + '"] a.fav.fav-on', elmt).html('<i class="icon-plus-sign icon-white"></i> Suivre').removeClass('fav-on').removeClass('btn-danger');
     }
   },
   //notify
@@ -430,7 +454,6 @@ UI = {
     console.log('UI.unloadFilters');
     $('.subnav li.active').removeClass('active');
     $('#top-filters ul li').removeClass('active').hide();
-    $('#top-baseline').removeClass('hide');
   },
   // -- add friends
   addFriends: function(container, friend_uids){

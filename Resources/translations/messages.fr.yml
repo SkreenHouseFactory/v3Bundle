@@ -170,9 +170,9 @@ signin: Se connecter
 signout: Se déconnecter
 signup: Ouvrir un compte
 search:
+    results: programmes trouvés
     pitch: Un programme, un acteur, une salle de cinéma
     launch: Rechercher
-    results: programmes trouvés
 
 action:
     in.favorites: Abonné

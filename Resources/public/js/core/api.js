@@ -225,7 +225,7 @@ API = {
     this.query('POST', 'preference/flag.json', {session_uid:Skhf.session.uid, type:parameter, value:value, parcours:parcours}, function(json){
       console.log('API.addPreference', 'callback', parameter, value, json, callback);
       if (json.success) {
-        if (Skhf.session.datas.queue == null) {
+        if (!Skhf.session.datas.queue) {
           Skhf.session.datas.queue = [value];
         } else {
           Skhf.session.datas.queue.push('' + value);

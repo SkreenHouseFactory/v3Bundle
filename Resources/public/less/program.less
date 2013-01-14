@@ -1,4 +1,9 @@
 #view-program {
+  padding: 0 0 150px 0;
+
+  h1 span {
+    color: #999;
+  }
 
   ul.breadcrumb {
     position:absolute;
@@ -39,6 +44,26 @@
     top: -50px;
   }
 
+  #program-description {
+    position: absolute;
+    bottom: 0;
+
+    #synopsis {
+      line-height: 20px;
+      padding-top: 10px;
+      /*height: 40px;
+      overflow: hidden;*/
+      position: relative;
+      
+      .bgbodyfade {
+        padding-left:60px;
+        position:absolute;
+        bottom:0;
+        right:0;
+      }
+    }
+  }
+
   #theaters {
     #trigger-theaters-geoloc {
       margin-left: 20px;
@@ -51,7 +76,7 @@
   .view-program-main {
     clear: both;
     position: relative;
-    padding: 20px 0  150px;
+    padding: 20px 0  30px;
 
     .row > div.span3 {
       width: 331px;
@@ -59,27 +84,6 @@
 
     .view-program-block {
       padding:10px;
-    }
-
-    #program-description {
-      position: absolute;
-      bottom: 0;
-
-      #synopsis {
-        line-height: 20px;
-        padding-top: 10px;
-        height: 230px;
-        height: 40px;
-        overflow: hidden;
-        position: relative;
-        
-        .bgbodyfade {
-          padding-left:60px;
-          position:absolute;
-          bottom:0;
-          right:0;
-        }
-      }
     }
   
     #program-main-block {
@@ -117,7 +121,7 @@
                 }
   
                 &.episode {
-                  min-width: 300px;
+                  min-width: 250px;
   
                   img {
                     height:50px;
@@ -131,7 +135,7 @@
                   min-width: 150px;
                 }
                 &.tag span {
-                  font-size: 0.9em;
+                  font-size: 0.8em;
                 }
               }
               
@@ -221,7 +225,7 @@
       .program-episode {
         display: block;
         
-        &.season-episode {
+        &.season-episode, &:nth-child(2) {
           display: inline-block;
         }
       }        

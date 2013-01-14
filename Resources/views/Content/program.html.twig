@@ -27,21 +27,25 @@
 <div id="view-program" data-id="{{ program.id }}" class="container">
 
   <div class="program-title">
+    {% if program.episode_title is defined %}
+    <h1>{{ program.episodeof.title }} ~ <span>{{ program.episode_title }}</span></h1>
+    {% else %}
     <h1>{{ program.title }}</h1>
+    {% endif %}
+  </div>
+  <div id="program-description">
+    <p id="synopsis" class="lead">
+    {{ program.description_seo }}
+    {#% if program.description_seo|length > 200 %}
+      <a href="#" onClick="$('#synopsis').css('height', 'auto');$(this).addClass('hide');" class="bgbodyfade"> &raquo; {{ 'program.desc.read'|trans }}</a>
+    {% endif %#}
+    </p>
   </div>
 
   <div class="view-main view-program-main pull-right">
-    <div id="program-description"{% if program.teaser %} class="with-teaser"{% endif %}">
-      <p id="synopsis" class="lead">
-      {{ program.description_seo }}
-      {% if program.description_seo|length > 200 %}
-        <a href="#" onClick="$('#synopsis').css('height', 'auto');$(this).addClass('hide');" class="bgbodyfade"> &raquo; {{ 'program.desc.read'|trans }}</a>
-      {% endif %}
-      </p>
-    </div>
 
     <div id="program-follow" class="actions" data-id="{{ program.id }}">
-      <a class="fav btn btn-large" data-placement="left"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
+      <a class="fav btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
     </div>
 
     <div id="program-main-block">
@@ -196,7 +200,13 @@
     <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">{% for c in program.categories|slice(0,1) %}{% if loop.first %}{% else %}, {% endif %}<a itemprop="url" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ c.name }}</span></a>{% endfor %} <span class="divider">/</span></li>
     {% endif %}
     {% if program.subcategories|length %}
-    <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">{% for c in program.subcategories|slice(0,1) %}{% if loop.first %}{% else %}, {% endif %}<a itemprop="url" href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}"><span itemprop="title">{{ c.name }}</span></a>{% endfor %} <span class="divider">/</span></li>
+    <li{% if program.episode_title is not defined %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb">{% for c in program.subcategories|slice(0,1) %}{% if loop.first %}{% else %}, {% endif %}<a itemprop="url" href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}"><span itemprop="title">{{ c.name }}</span></a>{% endfor %}{% if program.episode_title is defined %} <span class="divider">/</span>{% endif %}</li>
+    {% endif %}
+    {% if program.episode_title is defined %}
+    <li{% if program.season_number is not defined %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: program.episodeof.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ program.episodeof.title }}</span></a> {% if program.season_number is defined %} <span class="divider">/</span>{% endif %}</li>
+    {% endif %}
+    {% if program.season_number is defined %}
+    <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: program.episodeof.seo_url|replace({'/': ''}) ~ 'saison-' ~ program.season_number }) }}"><span itemprop="title">Saison {{ program.season_number }}</span></a></li>
     {% endif %}
   </ul>
   {% endif %}
@@ -265,6 +275,12 @@
       </div>
       {% endif %}
     </div>
+    {% if program.season_number is defined or 
+          program.episode_number is defined or 
+          program.episodeof is defined or 
+          program.episode_list is defined  %}
+    <hr/>
+    {% endif %}
 
     <div id="program-share">
       <div class="fb-like" data-send="true" data-layout="button_count" data-width="180" data-show-faces="false"></div>

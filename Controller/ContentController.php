@@ -128,6 +128,10 @@ class ContentController extends Controller
         if (isset($datas->sagas) && count($datas->sagas) > 0) {
           $datas->related = array_merge($datas->sagas, $datas->related);
         }
+        
+        if (strstr($datas->title, ' - ')) {
+          list($_, $datas->episode_title) = explode(' - ', $datas->title);
+        }
 
         $response = $this->render('SkreenHouseFactoryV3Bundle:Content:program.html.twig', array(
           'program' => $datas,
@@ -136,7 +140,7 @@ class ContentController extends Controller
                             'broadcasts' => 'A la télé', 
                             'theaters' => 'Au cinéma',
                             'itunes' => 'iTunes', 
-                            'dvds' => 'En Dvd', 
+                            'dvds' => 'En DVD', 
                             'boxs' => 'Sur les box')
         ));
 

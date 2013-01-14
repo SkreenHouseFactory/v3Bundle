@@ -1,4 +1,9 @@
-//TODO : redirect mobile
+//pause player if leaving
+$(window).unload(function() {
+  if (Player.state == 'playing') {
+    Player.pause();
+  }
+});
 
 $(document).ready(function(){
 
@@ -238,33 +243,23 @@ $(document).ready(function(){
   // -- .fav : retirer / popover
   $('.actions .fav').live('hover', function(event) {
     //console.log('script', '.fav:hover', event.type);
+    var trigger = $(this);
     if (event.type == 'mouseover' || event.type == 'mouseenter') {
       // retirer
-      if ($(this).hasClass('btn-primary')) {
-        $(this).removeClass('btn-primary')
-               .addClass('btn-danger')
+      if (trigger.hasClass('fav-on')) {
+        trigger.addClass('btn-danger')
                .html('<i class="icon-remove-sign icon-white"></i> Retirer des playlists');
       //popover
-      } else if (!$(this).hasClass('btn-danger')) {
-        if ($(this).parent().data('onglet') == 'emissions' || $(this).parent().data('onglet') == 'series') {
-          var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' +
-                        '<br/>En ajoutant ce programme à vos playlists vous serez averti dès qu\'un épisode est disponible !';
-        } else {
-          var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' + 
-                        '<br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD.';
+      } else if (!trigger.hasClass('btn-danger')) {
+        if (!trigger.data('content')) {
+          UI.installPopover(trigger);
         }
-
-        $(this).popover({placement: 'top',
-                         title:	function() { return 'Ajout à vos playlists'},
-                         content: content,
-                         show: 500, 
-                         hide: 100})
-               .popover('show');
+        trigger.popover('show');
       }
     } else if (event.type == 'mouseout' || event.type == 'mouseleave') {
-      $(this).popover('hide');
-      if ($(this).hasClass('btn-danger')) {
-        $(this).removeClass('btn-danger').addClass('btn-primary').html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists');
+      trigger.popover('hide');
+      if (trigger.hasClass('btn-danger')) {
+        trigger.removeClass('btn-danger').html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists');
       }
     }
   });
@@ -316,6 +311,19 @@ $(document).ready(function(){
     if ($('#trigger-deportes').data('nb') == 0) {
       $('#triggers li:nth-child(2) a').trigger('click');
     }
+
+    //affichage bulle pendant 4s
+    setTimeout(function(){
+      $('#program-follow .fav').each(function(){
+        var trigger = $(this);
+        UI.installPopover(trigger);
+        trigger.popover('show');
+
+        setTimeout(function(){
+          trigger.popover('hide');
+        }, 6000);
+      });
+    }, 2000);
 
     //ics
     $('#broadcasts tr').click(function(e){
@@ -499,5 +507,5 @@ $(document).ready(function(){
   // -- playlist friends
   setTimeout(function(){
     UI.addFriendsPrograms();
-  }, 500);
+  }, 700);
 });
