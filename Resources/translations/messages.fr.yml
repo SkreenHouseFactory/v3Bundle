@@ -7,9 +7,9 @@ page:
         homecinema: ddd
         home: 
             mixte: The New TV Guide
-            vod: Video à la demande
-            tv-replay: Replay
-            cine: Cinéma
+            v3-vod: Video à la demande
+            v3-tv-replay: Replay
+            v3-cine: Cinéma
             films: Films
             series: Séries
             documentaires: Documentaires
@@ -21,14 +21,14 @@ page:
     description:
         home:
             mixte: Le guide personnalisé de vos programmes. Retrouvez dans une même playlist : Vidéo à la demande (VOD) et Replay TV (télévision de rattrapage), programmes Télé, DVD, box et télé connectée.
-            video-a-la-demande: Video à la demande : VOD et streaming. Ne ratez plus vos programmes préférés !
-            tv-replay: Replay : ne ratez plus vos programmes préférés !
-            cinema: Cinéma : ne ratez plus vos programmes préférés !
-            film: Films : ne ratez plus vos films préférés
-            serie: Séries : soyez avertis dès qu'un nouvel épisode est disponible
-            documentaire: Documentaires : ne ratez plus vos documentaires préférés
-            emission: Emissions : regardez vos émissions préférées en Replay.
-            spectacle: Théatre, concerts, spectacles : des milliers de vidéos en un clic !
+            v3-vod: Video à la demande : VOD et streaming. Ne ratez plus vos programmes préférés !
+            v3-tv-replay: Replay : ne ratez plus vos programmes préférés !
+            v3-cine: Cinéma : ne ratez plus vos programmes préférés !
+            films: Films : ne ratez plus vos films préférés
+            series: Séries : soyez avertis dès qu'un nouvel épisode est disponible
+            documentaires: Documentaires : ne ratez plus vos documentaires préférés
+            emissions: Emissions : regardez vos émissions préférées en Replay.
+            spectacles: Théatre, concerts, spectacles : des milliers de vidéos en un clic !
 player:
     live:
       deporte: Sur mySkreen
