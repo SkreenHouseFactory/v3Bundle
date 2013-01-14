@@ -219,7 +219,7 @@
       {% if program.popular_channel is defined %}
       <a class="popular-channel" href="{{ program.popular_channel.seo_url }}"><img src="{{ program.popular_channel.img }}" alt="{{ program.popular_channel.name }}" /></a>
       {% endif %}
-      <img src="{{ program.picture }}" alt="{{ program.title }}" />
+      <img src="{{ program.picture|replace({'450/600': '245/325'}) }}" alt="{{ program.title }}" />
     </div>
 
     <div id="program-episodes">

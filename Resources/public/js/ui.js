@@ -74,6 +74,9 @@ UI = {
   auth: function(callback) {
     API.quickLaunchModal('signin', function() {
       Skhf.session.init();
+      if (typeof callback != 'undefined') {
+        callback();
+      }
     },{parcours: 'anonyme_favoris'});
   },
   //paywall
@@ -492,7 +495,7 @@ UI = {
     //if (Player.getType() == 'ios') {
     //  Player.playOccurrence(id);
     //} else {
-      var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid}, args);
+      var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid, hide_sliders: 1}, args);
       Couchmode.init(args);
     //}
   },
