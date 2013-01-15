@@ -158,7 +158,7 @@ UI = {
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
     console.log('UI.loadUserPrograms', ids, elmt);
     for (key in ids) {
-      console.log('UI.loadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
+      //console.log('UI.loadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
       $('.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)', elmt).html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists').addClass('fav-on');
     }
   },
@@ -166,7 +166,7 @@ UI = {
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
     console.log('UI.unloadUserPrograms', ids, elmt);
     for (key in ids) {
-      console.log('UI.unloadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav.fav-on');
+      //console.log('UI.unloadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav.fav-on');
       $('.actions[data-id="' + ids[key] + '"] a.fav.fav-on', elmt).html('<i class="icon-plus-sign icon-white"></i> Suivre').removeClass('fav-on').removeClass('btn-danger');
     }
   },
