@@ -20,6 +20,10 @@ var Session = BaseSession.extend({
     this.initPlaylist();
   },
   signout: function(callback) {
+    //before loosing queue
+    var queue = this.datas.queue;
+    UI.unloadUserPrograms(queue);
+    
     this.__base(callback)
 
     UI.loadUser();

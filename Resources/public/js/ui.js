@@ -145,7 +145,7 @@ UI = {
       $('.user span, .favoris span').empty();
       $('.notifications-count').empty();
       $('.notifications li:not(.empty)').remove();
-      this.unloadFilters();
+      //this.unloadFilters();
       this.playlist.remove();
       //if ($('#view-program').length) {
       //  this.unloadProgramUsersDatas();
@@ -163,6 +163,7 @@ UI = {
     }
   },
   unloadUserPrograms: function(ids, elmt) {
+    var ids = typeof ids != 'undefined' ? ids : Skhf.session.datas.queue;
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
     console.log('UI.unloadUserPrograms', ids, elmt);
     for (key in ids) {
