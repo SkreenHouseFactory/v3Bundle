@@ -58,12 +58,13 @@ class ContentController extends Controller
         //echo $request->get('id');echo $request->get('_route');exit();
         $datas = $api->fetch('program/'.$request->get('id'), 
                              array(
-                               'img_width' => 450,
-                               'img_height' => 600,
+                               'img_width' => 400,
+                               'img_height' => 550,
                                'episode_img_width' => 80,
                                'episode_img_height' => 50,
                                'episode_img_crop' => 50,
                                'channel_img_width' => 65,
+                               'with_img'  => '245,325',
                                'with_metadata'  => true,
                                'with_related' => true,
                                'with_offers' => true,
