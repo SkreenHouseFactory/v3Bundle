@@ -4,6 +4,7 @@ UI = {
   user: '',
   os: null,
   playlist: null,
+  callbackFbConnect: null,
   sliders: [],
   max_notifications: 20,
   badge_notification: '<span class="badge">%count%</span>',
@@ -49,6 +50,16 @@ UI = {
         }
       });
     } else {
+      
+      /*
+      * pb fbconnect ne passe pas par le callback !
+      */
+      UI.callbackFbConnect = function(){
+        console.log('UI.togglePlaylistProgram', 'UI.callbackFbConnect callback', Skhf.session.datas.email);
+        if (Skhf.session.datas.email) {
+          self.togglePlaylistProgram(trigger);
+        }
+      }
       this.auth(function(){
         console.log('UI.togglePlaylistProgram', 'UI.auth callback', Skhf.session.datas.email);
         if (Skhf.session.datas.email) {
@@ -484,7 +495,7 @@ UI = {
   },
   // -- add friends
   addFriends: function(container, friend_uids){
-    console.log('UI.addFriends', container.data('id'), friend_uids);
+    //console.log('UI.addFriends', container.data('id'), friend_uids);
     
     Skhf.session.getSocialDatas(function(friends, friends_programs) {
       //console.log('UI.addFriends', 'callback Session.getSocialDatas', friends);
@@ -502,7 +513,7 @@ UI = {
   },
   addFriendsPrograms: function(){
     Skhf.session.getSocialDatas(function(friends, friends_programs){
-      console.log('UI.addFriendsPrograms', 'callback', friends_programs);
+      //console.log('UI.addFriendsPrograms', 'callback', friends_programs);
       for (k in friends_programs) {
         var li = $('li[data-id="' + k + '"]');
         if (li.length > 0) {

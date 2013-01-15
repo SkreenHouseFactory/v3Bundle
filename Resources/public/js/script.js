@@ -481,7 +481,13 @@ $(document).ready(function(){
                 function(){
                   Skhf.session.sync(function(sessionDatas){
                     $('.modal').modal('hide');
-                    Skhf.session.signin(sessionDatas);
+                    Skhf.session.signin(sessionDatas, function(){
+                      //hack addtofavorite
+                      if (UI.callbackFbConnect) {
+                        UI.callbackFbConnect();
+                        UI.callbackFbConnect = null;
+                      }
+                    });
                   });
                 });
     });
