@@ -295,12 +295,14 @@
       <iframe frameborder="0" scrolling="no" style="position: static; width: 90px; margin: 0px; border-style: none; height: 20px;" id="I0_{{ program.id }}" name="I0_{{ program.id }}" src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=fr&amp;url=http%3A%2F%2Fwww.myskreen.com{{ program.seo_url|url_encode }}&amp;id=I0_{{ program.id }}" allowtransparency="true" data-gapiattached="true" title="+1"></iframe>
     </div>
 
+{#
     <hr/>
     <div id="program-friends">
       <p><strong>{{ 'program.friends.block.title.all'|lower|trans }}</strong></p>
       <div class="share-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'program.friends.popover.content'|trans } %}</div>
       <div class="share-on"></div>
     </div>
+#}
 
     <ul class="nav nav-list bs-docs-sidenav">
       <li><a href="#related"><i class="icon-chevron-right"></i> {{ 'program.related'|trans }}</a></li>
@@ -318,17 +320,17 @@
     {% if r.name == 'same_actors' and program.casting %}
       <h3 id="same-actors-title" class="user-on-visibility">{{ r.title }}</h3>
       <div class="person-list">
-      {% for pers in program.casting|slice(0,10) %}
+      {#% for pers in program.casting|slice(0,10) %}
       <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" class="label label-info">{{ pers.name }}</a>
-      {% endfor %}
+      {% endfor %#}
       </div>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r, noheader: true} %}
     {% elseif r.name == 'same_director' and program.director %}
       <h3 id="same-director-title" class="user-on-visibility">{{ r.title }}</h3>
       <div class="person-list">
-      {% for pers in program.director %}
+      {#% for pers in program.director %}
       <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" class="label label-info">{{ pers.name }}</a>
-      {% endfor %}
+      {% endfor %#}
       </div>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r, noheader: true} %}
     {% else %}
