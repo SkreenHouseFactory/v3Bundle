@@ -34,6 +34,11 @@ class MainController extends Controller
     */
     public function homeAction(Request $request)
     {
+      
+      if (!strstr($request->getHost(), 'www.')) {
+        throw $this->createNotFoundException('Page does not exist');
+      }
+      
       switch ($request->get('home')) {
         case 'films':
         case 'series':

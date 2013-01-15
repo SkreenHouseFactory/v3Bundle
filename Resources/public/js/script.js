@@ -49,6 +49,16 @@ $(document).ready(function(){
     return false;
   });
   $('.user-on .dropdown-toggle').click(function(){
+    
+    //show/hide filters
+    /* TO TEST
+    if ($('[data-target=[#top-playlist]]', $(this)).length > 0) {
+      $('#top-nav').hide();
+    } else {
+      $('#top-playlist').collapse('hide');
+    }
+    */
+    
     if (API.context == 'v2' && !$('#top-playlist').hasClass('in')) {
       $('#top-playlist').collapse('show');
     }

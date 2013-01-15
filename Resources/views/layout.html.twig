@@ -57,12 +57,6 @@
     {% endblock %}
     </div>
 
-    <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
-      <div class="container">
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
-      </div>
-    </div>
-
     <div id="redirect" class="collapse in">
     {% block redirect %}
     {% endblock %}
@@ -70,6 +64,11 @@
 
   </div>
   <div id="header">{% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' %}</div>
+  <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
+    <div class="container">
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
+    </div>
+  </div>
   <div id="footer">{% include 'SkreenHouseFactoryV3Bundle:Main:_footer.html.twig' %}</div>
   {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}

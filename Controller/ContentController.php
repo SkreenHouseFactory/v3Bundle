@@ -163,6 +163,9 @@ class ContentController extends Controller
     */
     public function channelAction(Request $request)
     {
+      if (!strstr($request->getHost(), 'www.')) {
+        throw $this->createNotFoundException('Page does not exist');
+      }
 
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $datas = $api->fetch('channel', array(

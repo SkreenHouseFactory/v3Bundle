@@ -63,23 +63,18 @@
   <div class="subnav subnav-fixed">
     <div class="container">
       <ul id="shortcuts" class="pull-right">
-        <li class="shortcut-spectacles"><a href="{{ path('homes', {home: 'spectacle'}) }}" target="_top">{{ 'nav.spectacles'|trans }}</a></li>
-        <li class="shortcut-series"><a href="{{ path('homes', {home: 'serie'}) }}" target="_top">{{ 'nav.series'|trans }}</a></li>
-        <li class="shortcut-documentaires"><a href="{{ path('homes', {home: 'documentaire'}) }}" target="_top">{{ 'nav.documentaires'|trans }}</a></li>
-        <li class="shortcut-emissions"><a href="{{ path('homes', {home: 'emission'}) }}" target="_top">{{ 'nav.emissions'|trans }}</a></li>
-        <li class="shortcut-films"><a href="{{ path('homes', {home: 'film'}) }}" target="_top">{{ 'nav.films'|trans }}</a></li>
+        <li class="shortcut-spectacles"><a href="http://www.myskreen.com{{ path('homes', {home: 'spectacle'}) }}" target="_top">{{ 'nav.spectacles'|trans }}</a></li>
+        <li class="shortcut-series"><a href="http://www.myskreen.com{{ path('homes', {home: 'serie'}) }}" target="_top">{{ 'nav.series'|trans }}</a></li>
+        <li class="shortcut-documentaires"><a href="http://www.myskreen.com{{ path('homes', {home: 'documentaire'}) }}" target="_top">{{ 'nav.documentaires'|trans }}</a></li>
+        <li class="shortcut-emissions"><a href="http://www.myskreen.com{{ path('homes', {home: 'emission'}) }}" target="_top">{{ 'nav.emissions'|trans }}</a></li>
+        <li class="shortcut-films"><a href="http://www.myskreen.com{{ path('homes', {home: 'film'}) }}" target="_top">{{ 'nav.films'|trans }}</a></li>
       </ul>
       <ul class="nav">
-        <li class="tv"><a href="{{ path('homes', {home: 'tv-replay'}) }}" target="_top">{{ 'nav.subnav.tv'|trans }}</a></li>
-        <li class="vod"><a href="{{ path('homes', {home: 'video-a-la-demande'}) }}" target="_top">{{ 'nav.subnav.vod'|trans }}</a></li>
-        <li class="cine"><a href="{{ path('homes', {home: 'cinema'}) }}" target="_top">{{ 'nav.subnav.cine'|trans }}</a></li>
+        <li class="tv"><a href="http://www.myskreen.com{{ path('homes', {home: 'tv-replay'}) }}" target="_top">{{ 'nav.subnav.tv'|trans }}</a></li>
+        <li class="vod"><a href="http://www.myskreen.com{{ path('homes', {home: 'video-a-la-demande'}) }}" target="_top">{{ 'nav.subnav.vod'|trans }}</a></li>
+        <li class="cine"><a href="http://www.myskreen.com{{ path('homes', {home: 'cinema'}) }}" target="_top">{{ 'nav.subnav.cine'|trans }}</a></li>
       </ul>
     </div>
   </div>
-  <div id="top-filters">
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_header-filters.html.twig' %}
-    <h6 id="top-baseline" class="user-off hide" data-toggle="collapse" data-target="#top-playlist">
-      {{ 'playlist.baseline'|trans }}
-    </h6>
-  </div>
+  <div id="top-filters">{% include 'SkreenHouseFactoryV3Bundle:Main:_header-filters.html.twig' %}</div>
 </div>
