@@ -14,13 +14,13 @@ var Session = BaseSession.extend({
     }
 
   },
-  signin: function(sessionData) {
-    this.__base(sessionData)
+  signin: function(sessionData, callback) {
+    this.__base(sessionData, callback)
 
     this.initPlaylist();
   },
-  signout: function() {
-    this.__base()
+  signout: function(callback) {
+    this.__base(callback)
 
     UI.loadUser();
     UI.unloadSelector();
@@ -94,9 +94,9 @@ var Session = BaseSession.extend({
 
     // -- autoload
     if (API.context == 'v3') {
-      console.warn('Session.initPlaylist', 'autoload', document.location.href.match(/access=.+/));
       var access = document.location.href.match(/access=.+/g);
       if (access != null && typeof access[0] != 'undefined') {
+        console.warn('Session.initPlaylist', 'autoload', access[0].replace('access=', ''));
         UI.loadPlaylist(access[0].replace('access=', ''));
         return;
       }

@@ -395,7 +395,7 @@ Player = {
                   return false;
                 }
                 self.play($.extend(video.player, {occurrence_id: id}), callback);
-                if (typeof video.versions != 'undefined' && video.versions) {
+                if (typeof video.versions != 'undefined' && video.versions.length > 0) {
                   self.loadVersions(video.versions, id);
                 }
   

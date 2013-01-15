@@ -25,7 +25,7 @@ UI = {
     //autoload sliders
     $('.slider[data-autoload="1"]').each(function(){
       self.sliders[this.id] = new BaseSlider({}, function(){}, $(this));
-      console.log('UI.init', 'autoload sliders', $(this));
+      //console.log('UI.init', 'autoload sliders', $(this));
     });
     //callback
     if (typeof callback != 'undefined') {
@@ -50,7 +50,7 @@ UI = {
       });
     } else {
       this.auth(function(){
-        console.log('UI.togglePlaylistProgram', 'callback modal', Skhf.session.datas.email);
+        console.log('UI.togglePlaylistProgram', 'UI.auth callback', Skhf.session.datas.email);
         if (Skhf.session.datas.email) {
           self.togglePlaylistProgram(trigger);
         }
@@ -76,12 +76,12 @@ UI = {
   //auth
   auth: function(callback) {
     API.quickLaunchModal('signin', function() {
-      if (typeof callback != 'undefined') {
-        console.log('UI.auth', 'set modal on hide callback', callback);
-        API.callbackOnHideModal = callback;
-        //callback();
-      }
-      Skhf.session.init();
+      Skhf.session.sync(function() {
+        if (typeof callback != 'undefined') {
+          console.log('UI.auth', 'Skhf.session.init callback', callback);
+          callback();
+        }
+      });
     },{parcours: 'anonyme_favoris'});
   },
   //paywall
@@ -172,7 +172,7 @@ UI = {
   },
   //notify
   loadNotifications: function(notifications) {
-    console.log('UI.loadNotifications', notifications);
+    //console.log('UI.loadNotifications', notifications);
     var nb = notifications.length == this.max_notifications ? notifications.length + ' +' : notifications.length;
     $('#top-bar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
     if (notifications.length == 0) {
@@ -185,14 +185,14 @@ UI = {
       for (k in notifications){
         if (notifications[k]['new'] == true) {
           nb_new++;
-          console.log('new', notifications[k]['new'], nb_new);
+          //console.log('new', notifications[k]['new'], nb_new);
         }
         list.append('<li class="tv-component" style="clear:both;overflow:hidden"><a data-id="' + notifications[k].id + '" rel="tooltip" title="Supprimer la notification" class="close">&times;</a>' + (notifications[k]['new'] ? '<span class="pull-right badge badge-important">Nouveau</span>' : '') + '<a target="_top" href="' + notifications[k].link + '" class="link"><img src="' + notifications[k].channel_ico + '" class="channel pull-left" /><img src="' + notifications[k].ico + '" class="ico pull-left" /><span class="title">' + notifications[k].title + '</span><span class="subtitle">' + notifications[k].title_episode + '</span><span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</a></li><li class="divider"></li>');
       }
       //new
       if (nb_new > 0) {
         var nb = nb_new == this.max_notifications ? nb_new + ' +' : nb_new;
-        console.log('UI.loadNotifications', 'new', nb);
+        //console.log('UI.loadNotifications', 'new', nb);
         $('#top-bar .notifications-count .badge').html(nb).addClass('badge-important');
       }
       $('#top-bar .notifications-count').data('count-new', nb_new);

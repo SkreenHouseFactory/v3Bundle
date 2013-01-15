@@ -77,6 +77,7 @@
         <table class="table">
           <tbody>
           {%  if key != 'theaters' %}
+            {% set other_episodes = '' %}
             {% for o in program.offers[key] %}
               {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
               {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
@@ -85,8 +86,12 @@
               {% else %}
               {% set o_episode = '' %}
               {% endif %}
-              {% if o.episode_id is defined and program.episodeof.id is defined and o.episode_id != program.id %}
+              {% if o.episode_id is defined and 
+                    program.episodeof.id is defined and 
+                    o.episode_id != program.id and
+                    other_episodes != 'ok' %}
               <tr><td colspan="5"><h6>Autres épisodes</h6></td></tr>
+              {% set other_episodes = 'ok' %}
               {% endif %}
               
               <tr data-id="{{ o.id }}"{% if o.url is defined and o.url %} data-redirect="{{ o.url }}"{% elseif key == 'deportes' %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% endif %}>

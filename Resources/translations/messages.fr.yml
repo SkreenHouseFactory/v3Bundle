@@ -172,6 +172,7 @@ signout: Se déconnecter
 signup: Ouvrir un compte
 search:
     results: programmes trouvés
+    noresults: Aucun programme trouvé
     pitch: Un programme, un acteur, une salle de cinéma
     launch: Rechercher
 

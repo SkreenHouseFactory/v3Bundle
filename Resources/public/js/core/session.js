@@ -10,8 +10,8 @@ var BaseSession = Class.extend({
     this.uid = API.cookie('uid');
     if (API.context == 'v3') {
       this.sync(function(sessionData){
-        console.log('BaseSession.init', 'callback Session.sync', sessionData);
-        self.signin(sessionData);
+        //console.log('BaseSession.init', 'callback Session.sync', sessionData);
+
       }, args);
     }
   },
@@ -23,30 +23,44 @@ var BaseSession = Class.extend({
       this.uid = API.cookie('session_uid');
     }
 
+    // exists
     if (this.uid) {
       $.extend(args, { 'short':1 });
       API.query('GET', 'session/' + this.uid + '.json', args, function(sessionData) {
-        if (callback) {
-          callback(sessionData);
-        }
+        //console.log('BaseSession.sync', 'API.query callback', callback);
+        self.signin(sessionData, function(){
+          //console.log('BaseSession.sync', 'Session.signin callback', callback);
+          if (callback) {
+            callback(sessionData)
+          }
+        });
       });
+    
+    // session
     } else {
       $.extend(args, {'short':1});
       API.query('POST', 'session.json', args, function(sessionData) {
-        if (callback) {
-          callback(sessionData);
-        }
+        self.signin(sessionData, function(){
+          if (callback) {
+            callback(sessionData)
+          }
+        });
       });
     }
   },
-  signin: function(sessionData) {
-    console.log('BaseSession.signin', sessionData);
+  signin: function(sessionData, callback) {
+    console.log('BaseSession.signin', sessionData, callback);
     this.datas = sessionData;
     this.uid = this.datas.uid;
     API.cookie('session_uid', this.uid);
     if (this.datas.email) {
       this.user = this.datas.email;
       UI.loadUser();
+    }
+    
+    if (typeof callback != 'undefined') {
+      console.log('BaseSession.signin callback', callback);
+      callback();
     }
   },
   signout: function(callback) {

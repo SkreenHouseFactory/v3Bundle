@@ -76,7 +76,6 @@ API = {
   currentModalUrl: null,
   currentUrl: null,
   geolocation_id: null,
-  callbackModal: null,
   init: function(callback) {
     var href = document.location.href;
     API.config = $.extend(ENV.all, href.indexOf('.net') != -1 ? ENV.dev : href.indexOf('preprod.') != -1 ? ENV.preprod : ENV.prod);
@@ -105,7 +104,9 @@ API = {
     this.launchModal(this.config.popin + action, callbackOnLoad, args);
   },
   launchModal: function(url, callbackOnLoad, args) {
-    console.log('API.launchModal enter', url, callbackOnLoad);
+    console.log('API.launchModal enter', url, typeof callbackOnLoad);
+
+    //v2
     if (this.context == 'v2') {
       this.postMessage(['modal', url]);
       return;
@@ -122,7 +123,7 @@ API = {
                  url,
                  args, 
                  function(json){
-                  console.log('API.launchModal', 'redirect:' + json.redirect, 'callbackOnLoad', callbackOnLoad);
+                  //console.log('API.launchModal', 'redirect:' + json.redirect, 'callbackOnLoad', callbackOnLoad);
                   if (typeof json.redirect != 'undefined') {
                     API.launchModal(json.redirect, callbackOnLoad);
                   } else if (json.html) {
@@ -144,12 +145,12 @@ API = {
   catchFormModal: function(callbackOnLoad) {
     var self = this;
     var modal = $('.modal');
-    console.log('API.catchFormModal', 'catch form');
+    //console.log('API.catchFormModal', 'catch form');
 
     //form
     $('[type="submit"]', modal).click(function(e){
       e.preventDefault();
-      console.warn('API.catchFormModal', 'submit');
+      //console.warn('API.catchFormModal', 'submit');
       //$(this).attr('disabled', 'disabled');
       var form = $(this).parents('form:first');
       var o = {};
@@ -166,7 +167,7 @@ API = {
       });
       var args = $.extend(o, {session_uid: Skhf.session.uid});
       self.query('POST', form.attr('action'), args, function(json){
-        console.log('API.catchFormModal', 'API.query callback', args, json);
+        //console.log('API.catchFormModal', 'API.query callback', args, json);
         //onError
         if (typeof json.error != 'undefined') {
           $('.modal #form-errors').html(json.error).fadeIn();

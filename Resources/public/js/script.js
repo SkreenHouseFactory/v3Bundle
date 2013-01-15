@@ -108,7 +108,6 @@ $(document).ready(function(){
   UI.typeahead('.navbar-search .search-query');
 
   // -- ui playlist
-  //height header
   $('#top-playlist').on('show', function () {
     console.log('script', '#top-playlist on show');
     API.postMessage(['header', 'add_playlist'])
@@ -162,12 +161,20 @@ $(document).ready(function(){
   // -- ui modal
   $('.modal').on('show', function(){
     Player.pause();
+    carousels = $('.carousel');
+    if (carousels.length > 0) {
+      carousels.each(function(){
+        $(this).carousel('pause');
+      });  
+    }
   });
-  $('.modal').on('hide', function(){
-    console.log('script', 'modal on hide', API.callbackOnHideModal);
-    if (API.callbackOnHideModal != null) {
-      API.callbackOnHideModal();
-      API.callbackOnHideModal = null;
+  $('.modal').on('hidden', function(){
+    //TODO : Player.play();
+    carousels = $('.carousel');
+    if (carousels.length > 0) {
+      carousels.each(function(){
+        $(this).carousel('cycle');
+      });  
     }
   });
 
