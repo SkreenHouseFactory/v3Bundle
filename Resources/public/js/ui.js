@@ -409,6 +409,19 @@ UI = {
       $('.notifications-count .badge-important').html(remaining);
     }
   },
+  // -- launch player
+  play: function(id, args) {
+    console.log('UI.play', id, args);
+    //if (Player.getType() == 'ios') {
+    //  Player.playOccurrence(id);
+    //} else {
+    if (typeof args.current_player != 'undefined' && args.current_player) {
+      Player.playOccurrence(id, function(){}, args);
+    } else {
+      var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid, hide_sliders: 1}, args);
+      Couchmode.init(args);
+    }
+  },
   loadPlayer: function(trigger) {
     var self = this;
     Player.load(trigger);
@@ -493,16 +506,6 @@ UI = {
       }
     });
 
-  },
-  // -- launch player
-  play: function(id, args) {
-    console.log('UI.play', id, args);
-    //if (Player.getType() == 'ios') {
-    //  Player.playOccurrence(id);
-    //} else {
-      var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid, hide_sliders: 1}, args);
-      Couchmode.init(args);
-    //}
   },
   // -- typeahead
   typeahead: function(searchbox){

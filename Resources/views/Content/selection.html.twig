@@ -1,7 +1,7 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
 
-{% block title %}{{ 'page.title.selection'|trans({'%name%': selection.name}) }}{% endblock %}
+{% block title %}{{ selection.name|striptags }}{% endblock %}
 {% block description %}{{ selection.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
 {% block content %}

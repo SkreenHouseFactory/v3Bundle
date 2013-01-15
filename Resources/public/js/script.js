@@ -229,7 +229,7 @@ $(document).ready(function(){
   $('[data-play-autoload]').each(function(){
     var trigger = $(this);
     console.log('script', 'play autoload', trigger.data('play-autoload'), trigger);
-    Player.init(trigger);
+    Player.init(trigger, $(trigger.data('play-meta-elmt')));
     var args = trigger.data('play-jscontrolbar') ? {control: 'disabled'} : {};
     Player.playOccurrence(trigger.data('play-autoload'), function(){
       if (trigger.data('play-muted')) {

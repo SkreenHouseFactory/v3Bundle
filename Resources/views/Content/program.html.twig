@@ -52,7 +52,8 @@
       <a name="teaser"></a>
       <div id="program-teaser">
       <a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>
-      <div id="program-teaser-player" data-play-autoload="{{ program.teaser.id }}" data-play-muted="1" data-play-args="{{ {hide_sliders: 1}|json_encode }}"></div>
+      <div id="program-teaser-meta" class="player-meta"></div>
+      <div id="program-teaser-player" data-play-autoload="{{ program.teaser.id }}" data-play-meta-elmt="#program-teaser-meta" data-play-muted="1" data-play-args="{{ {hide_sliders: 1}|json_encode }}"></div>
       </div>
     {% endif %}
 
@@ -84,8 +85,11 @@
               {% else %}
               {% set o_episode = '' %}
               {% endif %}
-              {#{ dump(o) }#}
-              <tr data-id="{{ o.id }}"{% if o.url %} data-redirect="{{ o.url }}"{% elseif key == 'deportes' %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% endif %}>
+              {% if o.episode_id is defined and program.episodeof.id is defined and o.episode_id != program.id %}
+              <tr><td colspan="5"><h6>Autres épisodes</h6></td></tr>
+              {% endif %}
+              
+              <tr data-id="{{ o.id }}"{% if o.url is defined and o.url %} data-redirect="{{ o.url }}"{% elseif key == 'deportes' %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% endif %}>
                 <td width="20px"><span class="badge" style="opacity:0.1;">0</span></td>
                   {% if o_episode %}
                   <td class="episode" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="{{ o_episode.title }}" data-toggle="hover" data-placement="left">
@@ -111,7 +115,7 @@
                   {% endif %}
                 </td>
                 <td class="access">
-                  {% if o.url %}<i class="icon-share"></i>
+                  {% if o.url is defined and o.url %}<i class="icon-share"></i>
                   {% elseif key == 'deportes' %}<i class="icon-play"></i>
                   {% endif %}
                   {% if o_access.name != 'Live' and o_access.name != 'TV' %}
@@ -136,6 +140,9 @@
                   <img src="{{ o_channel.img }}" alt="{{ o_channel.name }}" />
                 </td>
                 <td class="tag">
+                  {#% if o.tags is defined %}
+                  {{ dump(o.tags) }}
+                  {% endif %#}
                   {% if o.tags.version is defined %}
                     <span class="label label-inverse">{{ o.tags.version|replace({',': ', '}) }}</span><br/>
                   {% endif %}
@@ -231,7 +238,7 @@
         </button>
         <ul class="dropdown-menu">
           {% for season in program.seasons %}
-          <li><a href="{{ program.seo_url }}/saison-{{ season.number }}/">Saison {{ season.number }}</a></li>
+          <li><a href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}saison-{{ season.number }}/">Saison {{ season.number }}</a></li>
           {% endfor %}
         </ul>
       </div>
@@ -253,6 +260,7 @@
           {% endfor %}
         </ul>
       </div>
+      <a style="margin-top:15px;" href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}" class="btn btn-block">{{ 'program.episodes.all'|trans }}</a>
       
       {% elseif program.episodeof is defined %}
       <a href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}" class="btn btn-block">{{ 'program.episodes.all'|trans }}</a>

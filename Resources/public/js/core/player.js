@@ -17,10 +17,16 @@ Player = {
   type: null,
   state: 'stopped',
   playing: null,
-  elmt_meta: '<div id="player-meta" class="actions couchmode-overlay"></div>',
+  elmt_meta: null,
   //player
-  init: function(elmt) {
+  init: function(elmt, elmt_meta) {
     this.elmt = elmt;
+    if (typeof elmt_meta != 'undefined') {
+      console.log('Player.init', 'elmt_meta', elmt_meta.length);
+      this.elmt_meta = elmt_meta;
+      this.elmt_meta.addClass('actions');
+      this.loadMetaProgram(this.elmt.data('player-program'));
+    }
     this.reset();
     
     this.type = Player.getType();
@@ -325,7 +331,11 @@ Player = {
   },
   playProgram: function(id, callback, args) {
     var self = this;
-    this.reset();
+    if (typeof args == 'undefined' || 
+        typeof args.current_player == 'undefined' || 
+        !args.current_player) {
+      this.reset();
+    }
     var args = $.extend(true,
                         {
                           with_player: 1,
@@ -355,7 +365,11 @@ Player = {
   },
   playOccurrence: function(id, callback, args) {
     var self = this;
-    this.reset();
+    if (typeof args == 'undefined' || 
+        typeof args.current_player == 'undefined' || 
+        !args.current_player) {
+      this.reset();
+    }
     var args = $.extend(true,
                         {
                           with_player: 1,
@@ -418,17 +432,34 @@ Player = {
     console.log('Player.loadVersions', versions, el);
     el.html('Versions disponibles<br/>');
     for (k in versions) {
-      el.append(' <a href="#" data-play="' + versions[k] + '" class="badge' + (versions[k] == current_id ? ' badge-info' : '') + '">' + k + '</a>');
+      if (k) {
+        el.append(' <a href="#" data-play="' + versions[k] + '" data-play-args=\'{"current_player": "1"}\' class="badge' + (versions[k] == current_id ? ' badge-info' : '') + '">' + k + '</a>');
+      }
     }
   },
   loadMetaProgram: function(p) {
-    var el = $('#player-meta');
-    console.log('Player.loadMetaProgram', this.elmt, el, p);
-    el.data('id', p.id);
-    el.data('title', 'Ajout à vos playlists<br/><small>' + p.title + ', ' + p.format + ' - ' + p.year + '</small>');
-    el.html('<h4>' + p.title + '<br/><small>' + p.format + ' - ' + p.year + '</small></h4><div id="player-versions"></div>');//<br/><a class="btn btn-large fav">Suivre / voir plus tard</a><span>');
-    if (typeof p.pass != 'undefined' && p.pass) {
-      el.append('<div id="player-paywall"><a href="#" class="btn" data-play="' + p.pass + '"><i class="icon icon-play"></i> Louer ce programme</a></div>');
+    console.log('Player.loadMetaProgram', p, this.elmt_meta);
+    if (this.elmt_meta == null) {
+      return false;
+    }
+    this.elmt_meta.empty();
+
+    //meta program
+    if (typeof p == 'object') {
+      this.elmt_meta.data('id', p.id);
+      this.elmt_meta.data('title', 'Ajout à vos playlists<br/><small>' + p.title + ', ' + p.format + ' - ' + p.year + '</small>');
+      this.elmt_meta.append('<h4>' + p.title + '<br/><small>' + p.format + ' - ' + p.year + '</small></h4>');
+      //<br/><a class="btn btn-large fav">Suivre / voir plus tard</a><span>');
+    }
+    
+    //version ?
+    this.elmt_meta.append('<div id="player-versions"></div>');
+    
+    //buy ?
+    if (typeof p == 'object' && 
+        typeof p.pass != 'undefined' && 
+        p.pass) {
+      this.elmt_meta.append('<div id="player-paywall"><a href="#" class="btn" data-play="' + p.pass + '"><i class="icon icon-play"></i> Louer ce programme</a></div>');
     }
   },
   minify: function() {
