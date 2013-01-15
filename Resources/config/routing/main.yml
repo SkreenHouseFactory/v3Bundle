@@ -5,13 +5,13 @@ postproxy:
 header:
     pattern:  /header/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:header }
-        
+
 homes:
     pattern:  /{home}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home, home: null }
     requirements:
         home: |video-a-la-demande|cinema|tv-replay|film|serie|documentaire|emission|spectacle|films|series|documentaires|emissions|spectacles|vod
-        
+
 selections:
     pattern:  /{homeslug}/selection/{id}-{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:selection }
@@ -59,10 +59,12 @@ player_live:
     pattern:  /les-chaines-en-direct
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:live }
 player_redirect:
-    pattern:  /redirection/{target}
+    pattern:  /redirection/{type}/{name}/{title}/{episode}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, target: null, template: redirect }
     requirements:
+        type: "[^/]+"
         target: "[^/]+"
+        title: "[^/]+"
 player_exit_with_infos:
     pattern:  /exit/{type}/{name}/{title}/{episode}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit, episode: null }
