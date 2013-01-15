@@ -19,6 +19,16 @@ use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 
 class MainController extends Controller
 {
+
+    /**
+    * header
+    */
+    public function headerAction(Request $request)
+    {
+      return $this->render('SkreenHouseFactoryV3Bundle:Home:header.html.twig', array(
+      ));
+    }
+
     /**
     * homes
     */

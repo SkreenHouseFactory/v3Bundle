@@ -25,11 +25,10 @@ class CmsController extends Controller
     public function coconAction(Request $request)
     {
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
-      $datas = $api->fetch('article/cocon', 
-                           array(
-                            'type_id' => 8,
-                            'url' => str_replace(':81', '', $request->getUri())
-                           ));
+      $datas = $api->fetch('article/cocon', array(
+                 'type_id' => 8,
+                 'url' => str_replace(':81', '', $request->getUri())
+               ));
       //echo 'uri:'.$request->getUri();
       //echo $api->url;print_r($datas);
       return $this->render('SkreenHouseFactoryV3Bundle:Cms:cocon.html.twig', array(

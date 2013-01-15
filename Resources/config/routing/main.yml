@@ -2,6 +2,10 @@
 postproxy:
     pattern:  /proxy
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:proxy }
+header:
+    pattern:  /header/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:header }
+        
 homes:
     pattern:  /{home}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home, home: null }
