@@ -60,7 +60,7 @@ player_live:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:live }
 player_redirect:
     pattern:  /redirection/{type}/{name}/{title}/{episode}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, target: null, template: redirect }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, target: null, template: redirect, episode: null }
     requirements:
         type: "[^/]+"
         target: "[^/]+"
