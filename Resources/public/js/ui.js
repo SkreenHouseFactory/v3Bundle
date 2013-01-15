@@ -419,6 +419,11 @@ UI = {
     if (typeof args.current_player != 'undefined' && args.current_player) {
       Player.playOccurrence(id, function(){}, args);
     } else {
+      //add close
+      if ($('#couchmode #couchmode-close').length == 0) {
+        $('#couchmode').prepend('<div id="couchmode-close">FERMER</div>');
+      }
+      
       var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid, hide_sliders: 1}, args);
       Couchmode.init(args);
     }
