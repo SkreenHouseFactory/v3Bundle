@@ -27,7 +27,7 @@
   </div>
   <h1>{% if app.request.get('format') %}{{ app.request.get('format')|upper }} &raquo; {% endif %}{{ category.name }}{% if app.request.get('facet') %} &raquo; {% if app.request.get('facet')|length > 1 %}{{ subcategories[app.request.get('facet')] }}{% else %}{{ app.request.get('facet') }}{% endif %}{% endif %}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
 
-  <div class="view-main view-category-main pull-right">
+  <div class="view-main view-category-main">
     <div id="program-description">
       <p id="synopsis" class="lead">
       {{ category.description }}
