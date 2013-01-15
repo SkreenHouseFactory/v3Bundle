@@ -93,7 +93,7 @@ person_page:
     pattern:  /{type}/{id}-{slug}/page-{page}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
-        type: acteur|realisateur|presentateur|producteur|interprete
+        type: acteur|realisateur|presentateur|producteur|interprete|auteur
         id: \d+
         slug: "[^/]+"
         page: \d+
@@ -101,7 +101,7 @@ person:
     pattern:  /{type}/{id}-{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
-        type: acteur|realisateur|presentateur|producteur|interprete
+        type: acteur|realisateur|presentateur|producteur|interprete|auteur
         id: \d+
         slug: "[^/]+"
 
