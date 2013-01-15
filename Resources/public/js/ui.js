@@ -50,7 +50,10 @@ UI = {
       });
     } else {
       this.auth(function(){
-        self.togglePlaylistProgram(trigger);
+        console.log('UI.togglePlaylistProgram', 'callback modal', Skhf.session.datas.email);
+        if (Skhf.session.datas.email) {
+          self.togglePlaylistProgram(trigger);
+        }
       });
     }
   },
@@ -73,10 +76,12 @@ UI = {
   //auth
   auth: function(callback) {
     API.quickLaunchModal('signin', function() {
-      Skhf.session.init();
       if (typeof callback != 'undefined') {
-        callback();
+        console.log('UI.auth', 'set modal on hide callback', callback);
+        API.callbackOnHideModal = callback;
+        //callback();
       }
+      Skhf.session.init();
     },{parcours: 'anonyme_favoris'});
   },
   //paywall

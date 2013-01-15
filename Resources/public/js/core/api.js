@@ -76,6 +76,7 @@ API = {
   currentModalUrl: null,
   currentUrl: null,
   geolocation_id: null,
+  callbackModal: null,
   init: function(callback) {
     var href = document.location.href;
     API.config = $.extend(ENV.all, href.indexOf('.net') != -1 ? ENV.dev : href.indexOf('preprod.') != -1 ? ENV.preprod : ENV.prod);

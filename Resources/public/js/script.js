@@ -163,6 +163,13 @@ $(document).ready(function(){
   $('.modal').on('show', function(){
     Player.pause();
   });
+  $('.modal').on('hide', function(){
+    console.log('script', 'modal on hide', API.callbackOnHideModal);
+    if (API.callbackOnHideModal != null) {
+      API.callbackOnHideModal();
+      API.callbackOnHideModal = null;
+    }
+  });
 
   // -- ui actions : favorite & play
   $('.slider li:not(.selector)').live('click', function(e){
