@@ -7,7 +7,7 @@ function skPaymentPopinEnd(action, player, occurrence_id) {
   console.log('skPaymentPopinEnd', action, player, occurrence_id);
   if (typeof action != 'undefined' && 
       action == 'play') {
-    Couchmode.init({type: 'occurrence', id: occurrence_id});
+    Couchmode.init({type: 'occurrence', id: occurrence_id, hide_sliders: 1});
   }
   $('.modal').modal('hide');
 }
