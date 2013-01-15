@@ -120,10 +120,10 @@
                   {% endif %}
                 </td>
                 <td class="access">
-                  {% if o.url is defined and o.url %}<i class="icon-share"></i>
-                  {% elseif key == 'deportes' %}<i class="icon-play"></i>
-                  {% endif %}
                   {% if o_access.name != 'Live' and o_access.name != 'TV' %}
+                    {% if o.url is defined and o.url %}<i class="icon-share"></i>
+                    {% elseif key == 'deportes' %}<i class="icon-play"></i>
+                    {% endif %}
                     {{ o_access.name }}, 
                     {% if o.cost is defined %}
                       {% if o.cost > 0 %}{{ o.cost }}&euro;

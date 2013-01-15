@@ -480,18 +480,20 @@ $(document).ready(function(){
 
   /* FB */
   function fbsync() {
-    console.log('Welcome!  Fetching your information.... ');
+    console.log('script fbsync', 'fetching information...');
     FB.api('/me', function(response) {
-      console.log('Good to see you, ' + response.name + '.', response);
+      console.log('script fbsync', 'success: ' + response.name + '.', response);
       API.query('POST', 'user', {
                   session_uid: Skhf.session.uid,
                   fbuid: response.id,
                   username: response.email,
                 },
                 function(){
+                  console.log('script fbsync', 'API.query callback');
                   Skhf.session.sync(function(sessionDatas){
                     $('.modal').modal('hide');
                     Skhf.session.signin(sessionDatas, function(){
+                    console.log('script fbsync', 'API.query callback', 'Skhf.session.signin callback');
                       //hack addtofavorite
                       if (UI.callbackFbConnect) {
                         UI.callbackFbConnect();

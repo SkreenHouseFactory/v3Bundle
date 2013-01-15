@@ -97,7 +97,18 @@ UI = {
   },
   //paywall
   paywall: function(id, callback) {
+    var self = this;
     console.log('UI.paywall', id);
+
+    /*
+    * pb fbconnect ne passe pas par le callback !
+    */
+    UI.callbackFbConnect = function(){
+      console.log('UI.paywall', 'UI.callbackFbConnect callback', Skhf.session.datas.email);
+      if (Skhf.session.datas.email) {
+        self.paywall(id, callback)
+      }
+    }
 
     API.quickLaunchModal('signin', function() {
       if (typeof callback != 'undefined') {
