@@ -147,6 +147,18 @@ API = {
     var modal = $('.modal');
     //console.log('API.catchFormModal', 'catch form');
 
+    //link
+    $('a.tv-component', modal).click(function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      //tmp = $(this).attr('href').split('/');
+      //tmp[tmp.length-1]
+      console.log('API.catchFormModal', $(this).attr('href'));
+      self.launchModal($(this).attr('href'), callbackOnLoad);
+      
+      return false;
+    });
+
     //form
     $('[type="submit"]', modal).click(function(e){
       e.preventDefault();
