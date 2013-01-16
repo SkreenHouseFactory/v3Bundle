@@ -1,11 +1,24 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
-
+{% block meta %}
+{% if selection.programs|length < 6 %}
+<meta name="robots" content="noindex,follow" />
+{% endif %}
+<meta property="og:title" content="{{ selection.name }}" />
+<meta property="og:description" content="{{ selection.description }}" />
+<meta property="og:image" content="" />
+<meta property="og:type" content="category" />
+<meta property="og:url" content="http://www.myskreen.com{{ selection.seo_url }}" />
+<link rel="image_src" href="" />
+<meta name="object_type" content="category" />
+{% endblock %}
 {% block title %}{{ selection.name|striptags }}{% endblock %}
 {% block description %}{{ selection.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
 {% block content %}
 <div id="view-selection" class="container">
+
+  <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ selection.seo_url, text: selection.name ~ ' sur mySkreen' } %}</div>
 
   <h1>{{ selection.name|raw }}</h1>
   <p class="clear">{{ selection.description }}</p>

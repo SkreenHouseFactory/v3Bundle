@@ -1,14 +1,14 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 {% block meta %}
-{% if category.programs|length < 6 or app.request.get('page') %}
+{% if channel.programs|length < 6 or app.request.get('page') %}
 <meta name="robots" content="noindex,follow" />
 {% endif %}
 <meta property="og:title" content="{{ channel.name }}" />
 <meta property="og:description" content="{{ channel.description }}" />
-<meta property="og:image" content="?" />
+<meta property="og:image" content="" />
 <meta property="og:type" content="channel" />
-<meta property="og:url" content="{{ channel.seo_url }}" />
-<link rel="image_src" href="?" />
+<meta property="og:url" content="http://www.myskreen.com/{{ channel.seo_url }}" />
+<link rel="image_src" href="" />
 <meta name="object_type" content="channel" />
 {% endblock %}
 {% block title %}
