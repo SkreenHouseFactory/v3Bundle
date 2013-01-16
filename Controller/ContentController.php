@@ -312,7 +312,7 @@ class ContentController extends Controller
                              'img_width' => 150,
                              'img_height' => 200
                            ));
-      print_r($datas);
+      //print_r($datas);
       //echo $api->url;
       //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';
       if ($request->getPathInfo() != $datas->seo_url) {
