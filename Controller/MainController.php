@@ -35,11 +35,11 @@ class MainController extends Controller
     public function homeAction(Request $request)
     {
       
-      /*if ($this->get('kernel')->getEnvironment() == 'prod' && 
+      if ($this->get('kernel')->getEnvironment() == 'prod' && 
           !strstr($request->getHost(), 'www.') && 
           !strstr($request->getHost(), 'preprod.')) {
         throw $this->createNotFoundException('Home does not exist');
-      }*/
+      }
       
       switch ($request->get('home')) {
         case 'films':
