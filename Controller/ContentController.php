@@ -110,7 +110,7 @@ class ContentController extends Controller
           $datas->offers['theaters'] = ($datas->offers['theaters'] ? count($datas->offers['theaters']) : 0) +  
                                        ($datas->offers['theaters_on_demand'] ? count($datas->offers['theaters_on_demand']) : 0);
         }
-  
+
         //load related programs
         foreach ($datas->related as $key => $r) {
           //print_r($r);

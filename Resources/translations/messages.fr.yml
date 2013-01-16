@@ -1,6 +1,6 @@
 service:
-    name: mySkreen
-    description: mySkreen description
+    name: mySkreen.com
+    description: mySkreen
     url: http://www.myskreen.com
 page:
     title:
@@ -18,6 +18,7 @@ page:
         redirect: Redirection en cours ...
         cinema.boxoffice: Cinéma, tous les films en salle commençant par %alpha%
         channel: %name%
+        search: Recherche : %p%
     description:
         home:
             mixte: Le guide personnalisé de vos programmes. Retrouvez dans une même playlist : Vidéo à la demande (VOD) et Replay TV (télévision de rattrapage), programmes Télé, DVD, box et télé connectée.
@@ -29,6 +30,7 @@ page:
             documentaires: Documentaires : ne ratez plus vos documentaires préférés
             emissions: Emissions : regardez vos émissions préférées en Replay.
             spectacles: Théatre, concerts, spectacles : des milliers de vidéos en un clic !
+        search: Recherche : %p% : VOD, Replay, DVD, Cinéma. Retrouvez TOUTES les diffusions des programmes que vous aimez !
 player:
     live:
       deporte: Sur mySkreen

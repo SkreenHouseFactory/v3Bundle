@@ -22,6 +22,9 @@ var BaseSlider = Class.extend({
     this.container = $('.slider-container', this.elmt);
     this.loader    = $('.loader', this.items).css('width', this.params.width + 'px');
     UI.appendLoader(this.loader);
+    if (this.elmt.data('nb-results') > 0) {
+      this.params.pager_nb_results = this.elmt.data('nb-results');
+    }
     //console.log('BaseSlider.init', this.loader, this.items);
 
     //scroll ?
@@ -261,11 +264,11 @@ var BaseSlider = Class.extend({
     return url .replace('session.uid', Skhf.session.uid)
                .replace('access.name', Skhf.session.access ? Skhf.session.access : 'undefined')
                + (url.indexOf('?') == -1 ? '?' : '&')
-               + (this.elmt.data('nb-results') ? 'nb_results=' + this.elmt.data('nb-results') + '&' : '')
+               + (this.params.pager_nb_results ? 'nb_results=' + this.params.pager_nb_results + '&' : '')
                + 'programs_only=1&with_best_offer=1&offset=' + offset;
   },
   insertPrograms: function(programs, callback){
-    //console.log('BaseSlider.insertPrograms', programs, Skhf.session.datas);
+    console.log('BaseSlider.insertPrograms', programs, Skhf.session.datas);
     for (k in programs) {
       var program = programs[k];
       var popular_channel = program.popular_channel ? '<img alt="' + program.popular_channel.name + ' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        

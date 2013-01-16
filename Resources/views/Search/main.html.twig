@@ -1,7 +1,7 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
 {% block title %}{{ 'page.title.search'|trans({'%q%': app.request.get('q')}) }}{% endblock %}
-{% block description %}{{ 'page.title.search'|trans({'%q%': app.request.get('q')}) }}{% endblock %}
+{% block description %}{{ 'page.description.search'|trans({'%q%': app.request.get('q')}) }}{% endblock %}
 {% block meta %}<meta name="robots" content="noindex,follow" />{% endblock %}
 
 {% block content %}
