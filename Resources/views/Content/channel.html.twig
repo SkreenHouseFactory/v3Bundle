@@ -5,10 +5,12 @@
 {% endif %}
 <meta property="og:title" content="{{ channel.name }}" />
 <meta property="og:description" content="{{ channel.description }}" />
-<meta property="og:image" content="" />
 <meta property="og:type" content="channel" />
 <meta property="og:url" content="http://www.myskreen.com/{{ channel.seo_url }}" />
-<link rel="image_src" href="" />
+{% if channel.picture %}
+<meta property="og:image" content="{{ channel.picture }}" />
+<link rel="image_src" href="{{ channel.picture }}" />
+{% endif %}
 <meta name="object_type" content="channel" />
 {% endblock %}
 {% block title %}

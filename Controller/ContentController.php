@@ -247,6 +247,8 @@ class ContentController extends Controller
         return $this->redirect($datas->seo_url);
       }
 
+      $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
+
       $response = $this->render('SkreenHouseFactoryV3Bundle:Content:category.html.twig', array(
         'category' => $datas,
         'formats' => array_combine(explode(';', $datas->facets_seo_url->format),explode(';', $datas->facets->format)),
@@ -281,11 +283,13 @@ class ContentController extends Controller
                            ));
       //print_r($datas);
       //echo $api->url;
-      $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
+
       if ($request->getPathInfo() != $datas->seo_url . '/') {
         //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';exit();
         return $this->redirect($datas->seo_url);
       }
+
+      $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Content:person.html.twig', array(
         'person' => $datas
@@ -318,6 +322,9 @@ class ContentController extends Controller
       if ($request->getPathInfo() != $datas->seo_url) {
         return $this->redirect($datas->seo_url);
       }
+
+
+      $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Content:selection.html.twig', array(
         'selection' => $datas

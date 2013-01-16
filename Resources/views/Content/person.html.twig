@@ -5,10 +5,12 @@
 {% endif %}
 <meta property="og:title" content="{{ person.name }}" />
 <meta property="og:description" content="{{ person.description }}" />
-<meta property="og:image" content="" />
 <meta property="og:type" content="person" />
 <meta property="og:url" content="{{ person.seo_url }}" />
-<link rel="image_src" href="" />
+{% if person.picture %}
+<meta property="og:image" content="{{ person.picture }}" />
+<link rel="image_src" href="{{ person.picture }}" />
+{% endif %}
 <meta name="object_type" content="person" />
 {% endblock %}
 {% block title %}

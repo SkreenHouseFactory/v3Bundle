@@ -6,10 +6,12 @@
 {% endif %}
 <meta property="og:title" content="{{ category.name }}" />
 <meta property="og:description" content="{{ category.description }}" />
-<meta property="og:image" content="" />
 <meta property="og:type" content="category" />
 <meta property="og:url" content="http://www.myskreen.com{{ category.seo_url }}" />
-<link rel="image_src" href="" />
+{% if category.picture %}
+<meta property="og:image" content="{{ category.picture }}" />
+<link rel="image_src" href="{{ category.picture }}" />
+{% endif %}
 <meta name="object_type" content="category" />
 {% endblock %}
 {% block title %}
