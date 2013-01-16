@@ -163,8 +163,10 @@ class ContentController extends Controller
     */
     public function channelAction(Request $request)
     {
-      if (!strstr($request->getHost(), 'www.')) {
-        throw $this->createNotFoundException('Channel does not exist');
+      if ($this->get('kernel')->getEnvironment() == 'prod' && 
+          !strstr($request->getHost(), 'www.') && 
+          !strstr($request->getHost(), 'preprod.')) {
+        throw $this->createNotFoundException('Home does not exist');
       }
 
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
