@@ -77,13 +77,10 @@ UI = {
   },
   //auth
   auth: function(callback, parcours) {
-    /*
-    * hack : fbconnect ne passe pas par le callback !
-    */
+    //fbconnect ne passe pas par le callback !
     if (typeof callback != 'undefined') {
       UI.callbackFbConnect = callback;
     }
-
     API.quickLaunchModal('signin', function() {
       Skhf.session.sync(function() {
         if (typeof callback != 'undefined') {

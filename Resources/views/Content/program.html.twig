@@ -63,7 +63,7 @@
         <p class="alert alert-success">Sortie en salle le <strong>{{ program.theater_release_date }}</strong>{# <a href="#" data-ics-date="{{ program.theater_release_date }}"><i class="icon-agenda"></i> Ajouter à votre agenda</a>#}</p>
       {% elseif program.has_vod == 0 %}
         <p class="alert alert-success">Ce programme n'est pas diffusé pour le moment. Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera disponible.</p>
-      {% else %}
+      {% endif %}
       <ul id="triggers" class="nav nav-pills" style="font-size: 1.2em;">
         {% for key in offers|keys if program.offers[key]|length or key == 'deportes' %}
         <li{% if loop.first %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ program.offers[key]|length }}">{{ offers[key] }}{% if key == 'theaters' %}({% if program.datas_theaters.theaters_ids|length %}{{ program.datas_theaters.theaters_ids|length }}{% else %}1{% endif %}){% elseif program.offers[key]|length %} ({{ program.offers[key]|length }}){% endif %}</a></li>
@@ -199,7 +199,6 @@
         </div>
         {% endfor %}
       </div>
-    {% endif %}
     </div>
   </div>
   </div>
@@ -294,11 +293,7 @@
     <hr/>
     {% endif %}
 
-    <div id="program-share">
-      <div class="fb-like" data-send="true" data-layout="button_count" data-width="180" data-show-faces="false"></div>
-      <iframe class="pull-left" style="height: 20px;width: 100px;" allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer=http%3A%2F%2Fwww.myskreen.com{{ program.seo_url|url_encode }}&amp;size=m&amp;text=Je%20regarde%20{{ program.title|url_encode }}%20sur%20%40myskreen%20et%20vous%20%3F&amp;url=http%3A%2F%2Fwww.myskreen.com{{ program.seo_url|url_encode }}" class="block-twitter" data-twttr-rendered="true"></iframe>
-      <iframe frameborder="0" scrolling="no" style="position: static; width: 90px; margin: 0px; border-style: none; height: 20px;" id="I0_{{ program.id }}" name="I0_{{ program.id }}" src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=fr&amp;url=http%3A%2F%2Fwww.myskreen.com{{ program.seo_url|url_encode }}&amp;id=I0_{{ program.id }}" allowtransparency="true" data-gapiattached="true" title="+1"></iframe>
-    </div>
+    <div id="program-share">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}</div>
 
 {#
     <hr/>
