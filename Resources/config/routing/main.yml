@@ -2,10 +2,12 @@
 postproxy:
     pattern:  /proxy
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:proxy }
+sitemap:
+    pattern:  /sitemap.xml
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:sitemap }
 header:
     pattern:  /header/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:header }
-
 homes:
     pattern:  /{home}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home, home: null }

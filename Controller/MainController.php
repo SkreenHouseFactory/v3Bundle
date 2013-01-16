@@ -164,6 +164,14 @@ class MainController extends Controller
     /**
     *
     */
+    public function sitemapAction(Request $request)
+    {
+      return $this->redirect('http://api.myskreen.com/sitemapindex/500.xml');
+    }
+
+    /**
+    *
+    */
     public function proxyAction(Request $request)
     {
       $response = null;
