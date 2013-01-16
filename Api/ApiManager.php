@@ -42,7 +42,8 @@ class ApiManager
                                   $params)->send();
       break;
       case 'GET':
-        $this->url = $url . $this->format . '?' . http_build_query($params);
+        $separator = strstr($url, '?') ? '&' : $this->format . '?';
+        $this->url = $url . $separator . http_build_query($params);
         $response = $client->get($this->url)->send();
       break;
     }

@@ -345,7 +345,7 @@
     <p class="lead">
       {{ program.title }}
       <br/>
-      {{ program.year }} - {{ program.duration }}mn
+      {{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}
     </p>
     <p class="lead">
       {% if program.categories|length %}
