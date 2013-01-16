@@ -27,18 +27,13 @@
 
   <div class="program-title">
     {% if program.episode_title is defined %}
-    <h1>{{ program.episodeof.title }} ~ <span>{{ program.episode_title }}</span></h1>
+    <h1>{{ program.episodeof.title }} <span>{{ program.episode_title }}{% if program.season_number is defined or program.episode_number is defined %} ({% endif %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Episode {{ program.episode_number }}{% endif %}{% if program.season_number is defined or program.episode_number is defined %}){% endif %}</span></h1>
     {% else %}
     <h1>{{ program.title }}</h1>
     {% endif %}
   </div>
   <div id="program-description">
-    <p id="synopsis" class="lead">
-    {{ program.description_seo }}
-    {#% if program.description_seo|length > 200 %}
-      <a href="#" onClick="$('#synopsis').css('height', 'auto');$(this).addClass('hide');" class="bgbodyfade"> &raquo; {{ 'program.desc.read'|trans }}</a>
-    {% endif %#}
-    </p>
+    <p class="description lead">{{ program.description_seo }}</p>
   </div>
 
   <div class="view-main view-program-main pull-right">

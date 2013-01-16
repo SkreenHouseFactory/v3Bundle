@@ -26,9 +26,7 @@
 
   <div class="view-person-main">
 
-    <div id="program-description">
-      <p id="synopsis" class="lead">{{ person.description }}</p>
-    </div>
+    <p id="synopsis" class="description lead">{{ person.description }}</p>
 
     {#<div class="row">
       <div id="program-follow" class="span3 view-program-block actions" data-id="{{ person.id }}">
@@ -57,7 +55,6 @@
     #}
   </div>
 
-  <br class="clear"/>
   <hr/>
 
   <h2>Sa filmographie{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>

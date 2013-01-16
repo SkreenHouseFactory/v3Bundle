@@ -22,7 +22,6 @@
 @import "channel.less";
 @import "program.less";
 
-
 /* ios */
 .ios {
   .slider .prev {
@@ -82,19 +81,24 @@ a.trigger-tv {
   z-index: 3;
 }
 
-.container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
-  width: 1010px;
-  position: relative;
-
-  .pagination {
-    text-align: left;
-    a {
-      padding: 0 10px 0 9px;
-      background-color: white;
-    }
-    li.active a {
-      color: white;
-      background: #08C;
+#content {
+  .container:first-child {
+    margin-top: 10px;
+  }
+  .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+    width: 1010px;
+    position: relative;
+  
+    .pagination {
+      text-align: left;
+      a {
+        padding: 0 10px 0 9px;
+        background-color: white;
+      }
+      li.active a {
+        color: white;
+        background: #08C;
+      }
     }
   }
 }
@@ -185,6 +189,12 @@ div.friends {
 }
 .fb-like {
   margin-right: 20px;
+}
+
+.description.lead {
+  font-size: 1.0em;
+  color: #999;
+  line-height: 20px;
 }
 
 /* gabarit */
