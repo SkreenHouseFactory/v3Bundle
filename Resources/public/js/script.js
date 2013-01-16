@@ -375,6 +375,7 @@ $(document).ready(function(){
                       img_episode_only: 1
                     },
                     function(json) {
+                      $('.popover:visible').popover('hide');
                       trigger.data('loaded', true);
                       if (json.description != null) {
                         var picture = json.picture && json.picture.match(/missing\.jpg$/) == -1 ? '<hr/><p align="center"><img src="' + json.picture + '" alt="' + json.title + '" />' : '';
