@@ -206,7 +206,7 @@ $(document).ready(function(){
   });
   */
 
-  // ui -- player
+  // ui -- player : close player
   $('#couchmode').live('click', function(){
     Couchmode.unload();
   });
@@ -233,6 +233,11 @@ $(document).ready(function(){
       var args = $.extend({session_uid: Skhf.session.uid}, $(this).data('couchmode'));
       console.log('script', 'data-couchmode', $(this).data('couchmode'), args);
       Couchmode.init(args);
+      
+      //hack close player
+      if ($('#couchmode #couchmode-close').length == 0) {
+        $('#couchmode').prepend('<div id="couchmode-close"><i class="icon-remove icon-white"></i> Fermer</div>');
+      }
   });
 
   // -- couchmode autoplay

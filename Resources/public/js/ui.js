@@ -50,16 +50,7 @@ UI = {
         }
       });
     } else {
-      
-      /*
-      * pb fbconnect ne passe pas par le callback !
-      */
-      UI.callbackFbConnect = function(){
-        console.log('UI.togglePlaylistProgram', 'UI.callbackFbConnect callback', Skhf.session.datas.email);
-        if (Skhf.session.datas.email) {
-          self.togglePlaylistProgram(trigger);
-        }
-      }
+
       this.auth(function(){
         console.log('UI.togglePlaylistProgram', 'UI.auth callback', Skhf.session.datas.email);
         if (Skhf.session.datas.email) {
@@ -85,7 +76,14 @@ UI = {
                       hide: 100});
   },
   //auth
-  auth: function(callback) {
+  auth: function(callback, parcours) {
+    /*
+    * hack : fbconnect ne passe pas par le callback !
+    */
+    if (typeof callback != 'undefined') {
+      UI.callbackFbConnect = callback;
+    }
+
     API.quickLaunchModal('signin', function() {
       Skhf.session.sync(function() {
         if (typeof callback != 'undefined') {
@@ -93,26 +91,15 @@ UI = {
           callback();
         }
       });
-    },{parcours: 'anonyme_favoris'});
+    },{parcours: typeof parcours == 'undefined' ? 'anonyme_favoris' : parcours});
   },
   //paywall
   paywall: function(id, callback) {
     var self = this;
     console.log('UI.paywall', id);
-
-    /*
-    * pb fbconnect ne passe pas par le callback !
-    */
-    UI.callbackFbConnect = function(){
-      console.log('UI.paywall', 'UI.callbackFbConnect callback', Skhf.session.datas.email);
-      if (Skhf.session.datas.email) {
-        self.paywall(id, callback)
-      }
-    }
-
     API.quickLaunchModal('signin', function() {
-      if (typeof callback != 'undefined') {
-        callback();
+      if (!Skhf.session.datas.email) {
+        self.paywall(id, callback);
       }
     },{parcours: 'anonyme_favoris', occurrence_id: id});
   },
@@ -441,9 +428,9 @@ UI = {
     if (typeof args.current_player != 'undefined' && args.current_player) {
       Player.playOccurrence(id, function(){}, args);
     } else {
-      //add close
+      //hack close player
       if ($('#couchmode #couchmode-close').length == 0) {
-        $('#couchmode').prepend('<div id="couchmode-close">FERMER</div>');
+        $('#couchmode').prepend('<div id="couchmode-close"><i class="icon-remove icon-white"></i> Fermer</div>');
       }
       
       var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid, hide_sliders: 1}, args);

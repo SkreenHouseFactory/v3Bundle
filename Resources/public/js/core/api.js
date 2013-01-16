@@ -4,9 +4,13 @@ var skXdmSocket = {postMessage: function(){
 function skPaymentPopinResize() {
 }
 function skPaymentPopinEnd(action, player, occurrence_id) {
-  console.log('skPaymentPopinEnd', action, player, occurrence_id);
+  console.warn('skPaymentPopinEnd', action, player, occurrence_id);
   if (typeof action != 'undefined' && 
       action == 'play') {
+    //hack close player
+    if ($('#couchmode #couchmode-close').length == 0) {
+      $('#couchmode').prepend('<div id="couchmode-close"><i class="icon-remove icon-white"></i> Fermer</div>');
+    }
     Couchmode.init({type: 'occurrence', id: occurrence_id, hide_sliders: 1});
   }
   $('.modal').modal('hide');
