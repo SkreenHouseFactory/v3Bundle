@@ -164,7 +164,7 @@ class ContentController extends Controller
     public function channelAction(Request $request)
     {
       if (!strstr($request->getHost(), 'www.')) {
-        throw $this->createNotFoundException('Page does not exist');
+        throw $this->createNotFoundException('Channel does not exist');
       }
 
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
@@ -310,7 +310,7 @@ class ContentController extends Controller
                              'img_width' => 150,
                              'img_height' => 200
                            ));
-      //print_r($datas);
+      print_r($datas);
       //echo $api->url;
       //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';
       if ($request->getPathInfo() != $datas->seo_url) {

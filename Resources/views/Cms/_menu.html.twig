@@ -1,9 +1,7 @@
 <ul class="nav nav-tabs nav-stacked">
 {% if app.request.get('cocon') == 'video' %}
-<li><a href="/video/replay/">Tv en Replay</a></li><li><a href="/video/film/">Films en Replay</a></li><li><a href="/video/emission/">Emissions en Replay</a></li><li><a href="/video/documentaire/">Documentaires en Replay</a></li>{# REPLAY
+<li><a href="/video/replay/">Tv en Replay</a></li><li><a href="/video/film/">Films en Replay</a></li><li><a href="/video/emission/">Emissions en Replay</a></li><li><a href="/video/documentaire/">Documentaires en Replay</a></li>
 <li><a href="/video/dessins-animes/">Dessins animés en Replay</a></li><li><a href="/video/series/">Séries en Replay</a></li><li><a href="/video/spectacle/">Spectacles en Replay</a></li><li><a href="/video/sport/">Sports en Replay</a></li><li><a href="/video/telerealite/">Télé réalité en Replay</a></li>
-#}
-
 
 {% elseif app.request.get('cocon') == 'tf1' %}
 <li><a href="/tf1/tv-a-la-demande/">TV à la demande</a></li><li><a href="/tf1/secret-story/">Secret Story</a></li><li><a href="/tf1/les-experts/">Les Experts</a></li><li><a href="/tf1/mentalist/">Mentalist</a></li><li><a href="/tf1/esprit-criminel/">Esprit criminel</a></li><li><a href="/tf1/koh-lanta/">Koh Lanta</a></li><li><a href="/tf1/qui-veut-epouser-mon-fils/">Qui veut épouser mon fils ?</a></li><li><a href="/tf1/le-juste-prix/">Le juste prox</a></li><li><a href="/tf1/une-famille-en-or/">Une famille en or</a></li><li><a href="/tf1/telefoot/">Téléfoot</a></li><li><a href="/tf1/auto-moto/">Auto-moto</a></li><li><a href="/tf1/les-feux-de-lamour/">Les feux de l'amour</a></li>

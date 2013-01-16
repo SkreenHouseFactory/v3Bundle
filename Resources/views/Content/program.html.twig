@@ -60,7 +60,7 @@
     <a name="program-offers"></a>
     <div id="program-offers" class="view-program-block">
       {% if program.theater_release_date is defined %}
-        <p class="alert alert-success">Sortie en salle le <strong>{{ program.theater_release_date }}</strong> [ADD TO AGENDA]</p>
+        <p class="alert alert-success">Sortie en salle le <strong>{{ program.theater_release_date }}</strong>{# <a href="#" data-ics-date="{{ program.theater_release_date }}"><i class="icon-agenda"></i> Ajouter à votre agenda</a>#}</p>
       {% elseif program.has_vod == 0 %}
         <p class="alert alert-success">Ce programme n'est pas diffusé pour le moment. Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera disponible.</p>
       {% else %}
@@ -94,7 +94,7 @@
               {% set other_episodes = 'ok' %}
               {% endif %}
               
-              <tr data-id="{{ o.id }}"{% if o.url is defined and o.url %} data-redirect="{{ o.url }}"{% elseif key == 'deportes' %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% endif %}>
+              <tr data-id="{{ o.id }}"{% if o.url is defined and o.url %} data-redirect="{{ o.url }}"{% elseif key == 'deportes' %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %}>
                 <td width="20px"><span class="badge" style="opacity:0.1;">0</span></td>
                   {% if o_episode %}
                   <td class="episode" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="{{ o_episode.title }}" data-toggle="hover" data-placement="left">

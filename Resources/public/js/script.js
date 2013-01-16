@@ -350,7 +350,7 @@ $(document).ready(function(){
     }, 2000);
 
     //ics
-    $('#broadcasts tr').click(function(e){
+    $('[data-ics-occurrence]').click(function(e){
       e.preventDefault();
       document.location = API.config.base + '1/icsfile/' + $(this).data('id')  + '.ics';
       return false;
