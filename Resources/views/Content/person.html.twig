@@ -5,7 +5,7 @@
 {% endif %}
 <meta property="og:title" content="{{ person.name }}" />
 <meta property="og:description" content="{{ person.description }}" />
-<meta property="og:type" content="person" />
+<meta property="og:type" content="{% if person.activity in ['director', 'Réalisateur'] %}director{% else %}actor{% endif %}" />
 <meta property="og:url" content="http://wwww.myskreen.com{{ person.seo_url }}" />
 {% if person.picture %}
 <meta property="og:image" content="{{ person.picture }}" />

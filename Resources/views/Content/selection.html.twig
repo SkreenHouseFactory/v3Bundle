@@ -6,13 +6,13 @@
 {% endif %}
 <meta property="og:title" content="{{ selection.name }}" />
 <meta property="og:description" content="{{ selection.description }}" />
-<meta property="og:image" content="" />
+<meta property="og:type" content="website" />
 <meta property="og:url" content="http://www.myskreen.com{{ selection.seo_url }}" />
 {% if selection.picture %}
 <meta property="og:image" content="{{ selection.picture }}" />
 <link rel="image_src" href="{{ selection.picture }}" />
 {% endif %}
-<meta name="object_type" content="category" />
+<meta name="object_type" content="website" />
 {% endblock %}
 {% block title %}{{ selection.name|striptags }}{% endblock %}
 {% block description %}{{ selection.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}

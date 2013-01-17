@@ -4,22 +4,22 @@
 {% if category.programs|length < 6 or app.request.get('facet')|length == 1 or app.request.get('page') %}
 <meta name="robots" content="noindex,follow" />
 {% endif %}
-<meta property="og:title" content="{{ category.name }}" />
-<meta property="og:description" content="{{ category.description }}" />
-<meta property="og:type" content="category" />
+<meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ category.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}" />
+<meta property="og:description" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ category.description }}" />
+<meta property="og:type" content="website" />
 <meta property="og:url" content="http://www.myskreen.com{% if app.request.get('format') %}{{ '/' ~ app.request.get('format') }}{% endif %}{{ category.seo_url }}" />
 {% if category.picture %}
 <meta property="og:image" content="{{ category.picture }}" />
 <link rel="image_src" href="{{ category.picture }}" />
 {% endif %}
-<meta name="object_type" content="category" />
+<meta name="object_type" content="website" />
 {% endblock %}
 {% block title %}
 {{ app.request.get('format') }} - {{ category.name }}
 {% if app.request.get('facet') %}, {% if app.request.get('facet')|length > 1 %}{{ subcategories[app.request.get('facet')] }}{% else %}{{ app.request.get('facet') }}{% endif %}{% endif %}
 {% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}
 {% endblock %}
-{% block description %}{{ category.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+{% block description %}{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ category.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
 {% block content %}
 <div id="view-category" data-id="{{ category.id }}" class="container">
