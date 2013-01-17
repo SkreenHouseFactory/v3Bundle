@@ -3,7 +3,7 @@
 {% if channel.programs|length < 6 or app.request.get('page') %}
 <meta name="robots" content="noindex,follow" />
 {% endif %}
-<meta property="og:title" content="{{ channel.name }}" />
+<meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ channel.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}" />
 <meta property="og:description" content="{{ channel.description }}" />
 <meta property="og:type" content="channel" />
 <meta property="og:url" content="http://www.myskreen.com/{{ channel.seo_url }}" />
@@ -16,6 +16,7 @@
 {% block title %}
 {{ channel.name }}
 {% if app.request.get('format') %}, {{ app.request.get('format') }}{% endif %}
+{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}
 {% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}
 {% endblock %}
 {% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
@@ -26,9 +27,9 @@
 
   <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ channel.seo_url, text: 'Je regarde ' ~ channel.name ~ ' sur mySkreen et vous ?' } %}</div>
   <img class="channel-logo pull-left" src="{{ channel.img }}" />
-  <h1>{% if app.request.get('format') %}{{ app.request.get('format') }} &raquo; {% endif %}{{ channel.name }}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
+  <h1>{% if app.request.get('format') %}{{ app.request.get('format') }} &raquo; {% endif %}{{ channel.name }}{% if app.request.get('facet') %} <small> - {{ app.request.get('facet') }}</small>{% endif %}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
 
-  {% if app.request.get('page') is null and app.request.get('format') is null %}
+  {% if app.request.get('page') is null and app.request.get('format') is null and app.request.get('facet') is null %}
     {% if channel.epg is defined and channel.epg %}
       {% include 'SkreenHouseFactoryV3Bundle:Content:_channel-replay.html.twig' with {channel: channel} %}
     {% endif %}
