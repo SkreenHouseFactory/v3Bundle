@@ -279,7 +279,7 @@ cocon_tv:
     pattern:  /{cocon}/{name}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon, domain: replay }
     requirements:
-        cocon: video|tf1|france2|france-3|m6|w9
+        cocon: video|tf1|france-2|france-3|m6|w9
 
 #hack url generation
 any_url:
