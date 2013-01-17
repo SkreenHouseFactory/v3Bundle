@@ -456,13 +456,11 @@ Player = {
     this.elmt_meta.append('<div id="player-versions"></div>');
     
     //buy ?
-    /*
     if (typeof p == 'object' && 
         typeof p.pass != 'undefined' && 
-        p.pass) {
-      this.elmt_meta.append('<div id="player-paywall"><a href="#" class="btn" data-play="' + p.pass + '"><i class="icon icon-play"></i> Louer ce programme</a></div>');
+        p.pass != null) {
+      //this.elmt_meta.append('<div id="player-paywall"><a href="#" class="btn btn-info" data-play="' + p.pass + '"><i class="icon-play icon-white"></i> Louer ce programme</a></div>');
     }
-    */
   },
   minify: function() {
     $('#header').collapse('show');

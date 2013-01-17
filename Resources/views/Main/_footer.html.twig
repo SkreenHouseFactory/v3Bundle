@@ -36,7 +36,8 @@
       {% endif %}
       <a href="http://tv.myskreen.com/video/replay/">Replay{% if app.request.get('home') != 'replay-tv' %} {{ footerspin }}{% endif %}</a><br/>      <a href="http://replay.myskreen.com/m6/tv-a-la-demande/">M6 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/tf1/tv-a-la-demande/">TF1 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/w9/tv-a-la-demande/">W9 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/france-2/tv-a-la-demande/">France 2 {{ footerspin }}</a><br/>      <a href="http://replay.myskreen.com/france-3/tv-a-la-demande/">France 3 {{ footerspin }}</a>
     </div>
-    {% if app.request.get('home') %}{% set base_footer = app.request.get('home') %}{% else %}{% set base_footer = 'film' %}{% endif %}
+    {% if app.request.get('home') not in ['replay-tv','cinema','video-a-la-demande','mixte'] %}{% set base_footer = app.request.get('home') %}
+    {% else %}{% set base_footer = 'film' %}{% endif %}
     <div id="cats" class="span2">
       <a href="/{{ base_footer }}/jeunesse/">Jeunesse {{ footerspin }}</a><br/>
       <a href="/{{ base_footer }}/societe/">Société {{ footerspin }}</a><br/>

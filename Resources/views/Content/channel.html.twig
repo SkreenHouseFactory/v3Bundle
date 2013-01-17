@@ -74,22 +74,23 @@
     </ul>
   </div>
 
+  <div class="facets">
   {% for k,f in formats %}
     <a href="{{ path('channel_format', {format: k, slug: app.request.get('slug')}) }}" class="badge{% if app.request.get('facet') == f %} badge-info"{% endif %}">{{ f }}</a>
   {% endfor %}
   <hr/>
-
   {% if app.request.get('format') %}
     {% for k,s in subcategories %}
       <a href="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="label{% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</a>
     {% endfor %}
     <hr/>
   {% endif%}
+  </div>
 
 
   <h3 class="pager-count">{{ channel.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
-  {% if channel.count > 30 and app.request.get('format') is null  %}
   <ul class="pager">
+  {% if channel.count > 30 and app.request.get('format') is null  %}
     {% if app.request.get('page') > 2 %}
     <li class="previous">
       <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">&larr; 30 précédents</a>
@@ -104,8 +105,8 @@
       <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">30 suivants &rarr;</a>
     </li>
     {% endif %}
-  </ul>
   {% endif %}
+  </ul>
 
   <div id="channel-programs" class="slider slider-list">
     <ul class="items">

@@ -98,6 +98,7 @@ class MainController extends Controller
                                  'img_width' => 160,
                                  'img_height' => 200,
                                  'with_teaser' => true,
+                                 'with_pass' => true,
                                  'slider_width' => 990));
       //echo $api->url;
 

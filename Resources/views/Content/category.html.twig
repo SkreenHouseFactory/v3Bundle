@@ -67,15 +67,17 @@
     </ul>
   </div>
 
+  <div class="facets">
   {% for k,s in subcategories %}
     <a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k}) }}" class="label{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a>
   {% endfor %}
+  </div>
   <hr/>
 
 
   <h3 class="pager-count">{{ category.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
-  {% if category.count > 30 %}
   <ul class="pager">
+  {% if category.count > 30 %}
     {% if app.request.get('page') > 2 %}
     <li class="previous">
       <a href="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) - 1}) }}">&larr; 30 précédents</a>
@@ -90,8 +92,8 @@
       <a href="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) + 1}) }}">30 suivants &rarr;</a>
     </li>
     {% endif %}
-  </ul>
   {% endif %}
+  </ul>
 
   <div id="category-programs" class="slider slider-list">
     <ul class="items">
