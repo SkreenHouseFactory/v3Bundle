@@ -203,13 +203,17 @@ class ContentController extends Controller
       //bad url
       if ($request->getPathInfo() != '/' . $datas->seo_url . '/' &&
           $request->getPathInfo() != '/' . $datas->seo_url . '/' . $request->get('format') . '/' &&
+          $request->getPathInfo() != '/' . $datas->seo_url . '/' . $request->get('format') . '/' . $request->get('facet') . '/' &&
           $request->getPathInfo() != '/' . $datas->seo_url . '/page-' . $request->get('page') . '/' &&
           $request->getPathInfo() != '/' . $datas->seo_url . '/' . $request->get('facet') . '/'
           ) {
+        /*
         echo "\n".'facet: /' . $datas->seo_url . '/' . $request->get('facet') . '/';
         echo "\n".'format: /' . $datas->seo_url . '/' . $request->get('format') . '/';
+        echo "\n".'format+cat: /' . $datas->seo_url . '/' . $request->get('format') . '/' . $request->get('facet') . '/';
         echo "\n".'page: /' . $datas->seo_url . '/page-' . $request->get('page') . '/';
         echo "\n".'redirect '.$request->getPathInfo().' != /'.$datas->seo_url.'/ => '.($request->getPathInfo() != $datas->seo_url);exit();
+        */
         return $this->redirect('/'.$datas->seo_url.'/');
       }
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
