@@ -1,7 +1,7 @@
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="fr"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="fr"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="fr"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="fr"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="fr"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->
 <head>
 	<title>{% block title endblock %} | {{ 'service.name'|trans }}</title>
@@ -51,7 +51,6 @@
 <!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
 
   <div id="main">
-
     <div id="content">
     {% block content %}
     {% endblock %}
@@ -61,7 +60,6 @@
     {% block redirect %}
     {% endblock %}
     </div>
-
   </div>
   <div id="header">{% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' %}</div>
   <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
@@ -72,7 +70,8 @@
   <div id="footer">{% include 'SkreenHouseFactoryV3Bundle:Main:_footer.html.twig' %}</div>
   {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
-  <ul id="sample">{% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' %}</ul>
+  <ul id="program-li-sample" class="hide">{% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' %}</ul>
+  <span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
 
 {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.3.min.js'
