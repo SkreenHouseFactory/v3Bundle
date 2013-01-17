@@ -9,24 +9,22 @@
     </div>
   {% else %}
     <div class="channel">
-      {% if p.popular_channel is defined %}
+      {%- if p.popular_channel is defined -%}
       <img src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" />
-      {% endif %}
+      {%- endif -%}
       <span class="diff">
-      {% if p.deporte %}<i class="icon-th icon-white"></i> {{ 'action.play.deporte'|trans }}
-      {% elseif p.has_vod == 4 %}{{ 'action.play.cine'|trans }}
-      {% elseif p.has_vod == 3 %}{{ 'action.play.dvd'|trans }}
-      {% elseif p.has_vod == 5 %}{{ 'action.play.tv'|trans }}
-      {% elseif p.has_vod == 6 %}{{ 'action.play.rec'|trans }}
-      {% elseif p.has_vod == 7 or p.has_vod == 8 %}{{ 'action.play.replay'|trans }}
-      {% elseif p.has_vod %}{{ 'action.play.streaming'|trans }}{% endif %}
+      {%- if p.deporte %}<i class="icon-th icon-white"></i> {{ 'action.play.deporte'|trans }}
+      {%- elseif p.has_vod == 4 %}{{ 'action.play.cine'|trans }}
+      {%- elseif p.has_vod == 3 %}{{ 'action.play.dvd'|trans }}
+      {%- elseif p.has_vod == 5 %}{{ 'action.play.tv'|trans }}
+      {%- elseif p.has_vod == 6 %}{{ 'action.play.rec'|trans }}
+      {%- elseif p.has_vod == 7 or p.has_vod == 8 %}{{ 'action.play.replay'|trans }}
+      {%- elseif p.has_vod %}{{ 'action.play.streaming'|trans }}{% endif -%}
       </span>
     </div>
   {% endif %}
   {#<div class="actions" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-onglet="{{ p.onglet }}">
     <a class="btn fav" href="#"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
   </div>#}
-  <a href="{{ p.seo_url }}" class="title">
-    {{ p.title }}
-  </a>
+  <a href="{{ p.seo_url }}" class="title">{{ p.title }}</a>
 </li>
