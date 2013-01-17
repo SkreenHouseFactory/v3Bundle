@@ -28,43 +28,41 @@
   <img class="channel-logo pull-left" src="{{ channel.img }}" />
   <h1>{% if app.request.get('format') %}{{ app.request.get('format') }} &raquo; {% endif %}{{ channel.name }}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
 
-  {% if channel.epg is defined and channel.epg %}
-    {% include 'SkreenHouseFactoryV3Bundle:Content:_channel-replay.html.twig' with {channel: channel} %}
-  {% endif %}
-
-  <div class="view-channel-main">
-
-    <p id="synopsis" class="description lead">
-    {{ channel.description }}
-    </p>
-
-    {#<div class="row">
-      <div id="program-follow" class="span3 view-program-block actions" data-id="{{ channel.id }}">
-        <p class="lead" style="margin: 0px;">{{ 'channel.follow.block.title.all'|lower|trans }}</p>
-        <a class="fav btn btn-large btn-block" data-placement="bottom"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
-      </div>
-      <div id="program-friends" class="span3 view-program-block">
-        <p class="lead" style="margin: 0px;">{{ 'channel.friends.block.title.all'|lower|trans }}</p>
-        <div class="user-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'friends.popover.content'|trans } %}</div>
-        <div class="user-on"></div>
-      </div>
-    </div>#}
-  </div>
-
-  <div class="view-channel-column view-column pull-left actions" data-id="{{ channel.id }}">
-    {#
-    <div style="position:relative;">
-      <img src="{{ channel.picture }}" alt="{{ channel.name }}" />
+  {% if app.request.get('page') is null and app.request.get('format') is null %}
+    {% if channel.epg is defined and channel.epg %}
+      {% include 'SkreenHouseFactoryV3Bundle:Content:_channel-replay.html.twig' with {channel: channel} %}
+    {% endif %}
+    <div class="view-channel-main">
+      <p id="synopsis" class="description lead">
+      {{ channel.description }}
+      </p>
+  
+      {#<div class="row">
+        <div id="program-follow" class="span3 view-program-block actions" data-id="{{ channel.id }}">
+          <p class="lead" style="margin: 0px;">{{ 'channel.follow.block.title.all'|lower|trans }}</p>
+          <a class="fav btn btn-large btn-block" data-placement="bottom"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
+        </div>
+        <div id="program-friends" class="span3 view-program-block">
+          <p class="lead" style="margin: 0px;">{{ 'channel.friends.block.title.all'|lower|trans }}</p>
+          <div class="user-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'friends.popover.content'|trans } %}</div>
+          <div class="user-on"></div>
+        </div>
+      </div>#}
     </div>
-
-    <ul class="nav nav-list bs-docs-sidenav">
-      <li><a href="#related"><i class="icon-chevron-right"></i> {{ 'program.related'|trans }}</a></li>
-      <li><a href="#infos"><i class="icon-chevron-right"></i> {{ 'program.infos'|trans }}</a></li>
-    </ul>
-    #}
-  </div>
-
-  <br class="clear"/>
+    <div class="view-channel-column view-column pull-left actions" data-id="{{ channel.id }}">
+      {#
+      <div style="position:relative;">
+        <img src="{{ channel.picture }}" alt="{{ channel.name }}" />
+      </div>
+  
+      <ul class="nav nav-list bs-docs-sidenav">
+        <li><a href="#related"><i class="icon-chevron-right"></i> {{ 'program.related'|trans }}</a></li>
+        <li><a href="#infos"><i class="icon-chevron-right"></i> {{ 'program.infos'|trans }}</a></li>
+      </ul>
+      #}
+    </div>
+    <br class="clear"/>
+  {% endif%}
 
   <div class="pagination">
     <ul>
@@ -76,7 +74,7 @@
   </div>
 
   {% for k,f in formats %}
-    <a href="{{ path('channel_format', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="badge{% if app.request.get('facet') == f %} badge-info"{% endif %}">{{ f }}</a>
+    <a href="{{ path('channel_format', {format: k, slug: app.request.get('slug')}) }}" class="badge{% if app.request.get('facet') == f %} badge-info"{% endif %}">{{ f }}</a>
   {% endfor %}
   <hr/>
 
@@ -89,11 +87,11 @@
 
 
   <h3 class="pager-count">{{ channel.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
-  {% if channel.count > 30 %}
+  {% if channel.count > 30 and app.request.get('format') is null  %}
   <ul class="pager">
     {% if app.request.get('page') > 2 %}
     <li class="previous">
-      <a href="{{ path('channel_page', {format: app.request.get('format'), slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">&larr; 30 précédents</a>
+      <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">&larr; 30 précédents</a>
     </li>
     {% elseif app.request.get('page') == 2 %}
     <li class="previous">
@@ -101,7 +99,7 @@
     </li>
     {% endif %}
     <li class="next">
-      <a href="{{ path('channel_page', {format: app.request.get('format'), slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">30 suivants &rarr;</a>
+      <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">30 suivants &rarr;</a>
     </li>
   </ul>
   {% endif %}

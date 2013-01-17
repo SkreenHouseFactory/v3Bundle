@@ -15,7 +15,7 @@ var BaseSlider = Class.extend({
   },
   //init
   init: function(params, callback, elmt) {
-    //console.log('BaseSlider.init', params, callback);
+    console.log('BaseSlider.init', params, elmt);
     this.params    = $.extend(this.params, params, typeof API.config.slider != 'undefined' ? API.config.slider : {});
     this.elmt      = typeof elmt != 'undefined' ? elmt : this.getTemplate(params);
     this.items     = $('ul', this.elmt);
@@ -268,7 +268,7 @@ var BaseSlider = Class.extend({
                + 'programs_only=1&with_best_offer=1&offset=' + offset;
   },
   insertPrograms: function(programs, callback){
-    console.log('BaseSlider.insertPrograms', programs, Skhf.session.datas);
+    console.log('BaseSlider.insertPrograms', programs);
     for (k in programs) {
       var program = programs[k];
       var popular_channel = program.popular_channel ? '<img alt="' + program.popular_channel.name + ' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
@@ -314,14 +314,14 @@ var BaseSlider = Class.extend({
       li.addClass('to-animate').show();
       li.appendTo($('ul.items', this.elmt));
       
-      //console.log('BaseSlider.load', 'added', li, program, k);
+      console.log('BaseSlider.load', 'added', li, program, k);
     }
 
     $('a[rel="tooltip"]', this.elmt).tooltip();
     //if (this.elmt.data('animate') == 'width') {
       $('li.to-animate', this.elmt).animate({'width':this.params.width}, 500).removeClass('to-animate');
     //}
-    //console.log('BaseSlider.insertPrograms', 'done', 'to-animate ' + this.elmt.data('animate'));
+    console.log('BaseSlider.insertPrograms', 'done', this.elmt);
     //ui
     if (!this.elmt.hasClass('initialized')) {
       this.ui();

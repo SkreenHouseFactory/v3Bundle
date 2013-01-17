@@ -119,7 +119,6 @@ person:
         slug: "[^/]+"
 
 # deprecated channel : before program !
-
 channel_replay:
     pattern:  /replay/{id}-{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
@@ -243,6 +242,13 @@ cocon_tv:
         cocon: video
 
 #channel
+channel_format_page:
+    pattern:  /{slug}/{format}/page-{page}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel, page: null }
+    requirements:
+        slug: "[^/]+"
+        facet: "[^/]+"
+        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
 channel_format_facet:
     pattern:  /{slug}/{format}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel, facet: null }
@@ -252,7 +258,7 @@ channel_format_facet:
         format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
 channel_format:
     pattern:  /{slug}/{format}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel, facet: null }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
     requirements:
         slug: "[^/]+"
         format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
@@ -263,7 +269,7 @@ channel_page:
         slug: "[^/]+"
         page: \d+
 channel_facet:
-    pattern:  /{slug}/{facet}
+    pattern:  /{slug}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
     requirements:
         slug: "[^/]+"
