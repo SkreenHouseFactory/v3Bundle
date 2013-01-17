@@ -99,9 +99,11 @@
       <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">&larr; 30 précédents</a>
     </li>
     {% endif %}
+    {% if channel.programs|length > 0 %}
     <li class="next">
       <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">30 suivants &rarr;</a>
     </li>
+    {% endif %}
   </ul>
   {% endif %}
 

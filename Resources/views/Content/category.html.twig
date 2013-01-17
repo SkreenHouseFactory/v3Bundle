@@ -85,9 +85,11 @@
       <a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')}) }}">&larr; 30 précédents</a>
     </li>
     {% endif %}
+    {% if category.programs|length > 0 %}
     <li class="next">
       <a href="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) + 1}) }}">30 suivants &rarr;</a>
     </li>
+    {% endif %}
   </ul>
   {% endif %}
 
