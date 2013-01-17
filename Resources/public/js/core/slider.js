@@ -40,7 +40,7 @@ var BaseSlider = Class.extend({
     //li sample
     if (this.sample == null) {
       this.sample = $('<div>').append($('li.slider-sample:first').clone().removeClass('slider-sample')).html();
-      //console.log('BaseSlider.init', 'this.sample', this.sample);
+      console.log('BaseSlider.init', 'this.sample', this.sample);
     }
 
     //paginate ?
@@ -278,14 +278,9 @@ var BaseSlider = Class.extend({
       var sample = this.sample.replace('%title%', program.title).replace('%title%', program.title)
                               .replace('%id%', pere.id).replace('%id%', pere.id)
                               .replace('%seo_url%', seo_url)
-                              .replace('%popular_channel%', popular_channel);
-      if (typeof program.onglet != 'undefined') {
-        sample = sample.replace('%onglet%', program.onglet.toLowerCase()).replace('%onglet%', program.onglet.toLowerCase());
-      }
-
+                              .replace('%popular_channel%', popular_channel)
+                              .replace('%onglet%', typeof program.onglet != 'undefined' ? program.onglet.toLowerCase() : '');
       var li = $(sample);
-
-      
       li.css('background-image', 'url(' + program.picture + ')');
       li.attr('data-position', k);
       li.attr('data-player-program', JSON.stringify(program));
@@ -312,12 +307,13 @@ var BaseSlider = Class.extend({
         });
       }
       li.addClass('to-animate').show();
-      li.appendTo($('ul.items', this.elmt));
+      //li.appendTo($('ul.items', this.elmt));
+      console.log('BaseSlider.load', 'add', li, $('ul.items', this.elmt));
+      $('ul.items', this.elmt).append(li);
       
-      console.log('BaseSlider.load', 'added', li, program, k);
+      console.log('BaseSlider.load', 'added', program);
     }
 
-    $('a[rel="tooltip"]', this.elmt).tooltip();
     //if (this.elmt.data('animate') == 'width') {
       $('li.to-animate', this.elmt).animate({'width':this.params.width}, 500).removeClass('to-animate');
     //}
@@ -326,6 +322,7 @@ var BaseSlider = Class.extend({
     if (!this.elmt.hasClass('initialized')) {
       this.ui();
     }
+    $('a[rel="tooltip"]', this.elmt).tooltip();
     UI.loadUserPrograms(Skhf.session.datas.queue, this.elmt);
 
     if (typeof callback != 'undefined'){
