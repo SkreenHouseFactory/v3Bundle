@@ -298,7 +298,7 @@ class ContentController extends Controller
         throw $this->createNotFoundException('Person does not exist');
       }
       //bad url
-      if ($request->getPathInfo() != $datas->seo_url . '/') {
+      if (!strstr($request->getPathInfo(), $datas->seo_url . '/')) {
         //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';exit();
         return $this->redirect($datas->seo_url. '/');
       }
