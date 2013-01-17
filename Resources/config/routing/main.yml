@@ -96,12 +96,12 @@ playlist_load:
         type: "[^/]+"
 
 
-#personnes
+#persons
 person_page:
     pattern:  /{type}/{id}-{slug}/page-{page}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
-        type: acteur|realisateur|presentateur|producteur|interprete|auteur
+        type: acteur|realisateur|presentateur|producteur|interprete|auteur|invite|editor
         id: \d+
         slug: "[^/]+"
         page: \d+
@@ -109,7 +109,7 @@ person:
     pattern:  /{type}/{id}-{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
-        type: acteur|realisateur|presentateur|producteur|interprete|auteur
+        type: acteur|realisateur|presentateur|producteur|interprete|auteur|invite|editor
         id: \d+
         slug: "[^/]+"
 
@@ -158,7 +158,7 @@ program_v2_pere:
         idpere: \d+
         slugpere: "[^/]+"
 program_v2:
-    pattern:  /{format}/{id}-{slug}
+    pattern:  /{format}/{id}-{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
     requirements:
         id: \d+

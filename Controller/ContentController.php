@@ -32,6 +32,10 @@ class ContentController extends Controller
                  'model' => 'Programme',
                  'id' => $request->get('id')
                ));
+      //echo $api->url;
+      if (isset($datas->error) && $datas->error) {
+        throw $this->createNotFoundException('Programme does not exist');
+      }
       $cache_date = new \DateTime($datas->updated_at);
 
       //cache
@@ -192,15 +196,19 @@ class ContentController extends Controller
                           ));
       //print_r($datas);
       //echo $api->url;
-        //echo $request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
-        if ($request->getPathInfo() != '/' . $datas->seo_url . '/' &&
-            $request->getPathInfo() != '/' . $datas->seo_url . '/' . $request->get('format') . '/' &&
-            $request->getPathInfo() != '/' . $datas->seo_url . '/page-' . $request->get('page') . '/' &&
-            $request->getPathInfo() != '/' . $datas->seo_url . '/' . $request->get('facet') . '/'
-            ) {
-          //echo "\n".'redirect '.$request->getPathInfo().' != /'.$datas->seo_url.'/ => '.($request->getPathInfo() != $datas->seo_url);exit();
-          return $this->redirect('/'.$datas->seo_url.'/');
-        }
+      //404
+      if (isset($datas->error) && $datas->error) {
+        throw $this->createNotFoundException('Channel does not exist');
+      }
+      //bad url
+      if ($request->getPathInfo() != '/' . $datas->seo_url . '/' &&
+          $request->getPathInfo() != '/' . $datas->seo_url . '/' . $request->get('format') . '/' &&
+          $request->getPathInfo() != '/' . $datas->seo_url . '/page-' . $request->get('page') . '/' &&
+          $request->getPathInfo() != '/' . $datas->seo_url . '/' . $request->get('facet') . '/'
+          ) {
+        //echo "\n".'redirect '.$request->getPathInfo().' != /'.$datas->seo_url.'/ => '.($request->getPathInfo() != $datas->seo_url);exit();
+        return $this->redirect('/'.$datas->seo_url.'/');
+      }
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
       //$template = isset($datas->epg) && $datas->epg ? 'channel-replay' : 'channel';
       $response = $this->render('SkreenHouseFactoryV3Bundle:Content:channel.html.twig', array(
@@ -225,7 +233,6 @@ class ContentController extends Controller
     */
     public function categoryAction(Request $request)
     {
-
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $datas = $api->fetch('category', 
                            array(
@@ -239,14 +246,17 @@ class ContentController extends Controller
                              'nb_results' => 30,
                              'facets' => $this->buildFacets($request)
                            ));
-      $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
       //print_r($datas);
       //echo $api->url;
+      //404
+      if (isset($datas->error) && $datas->error) {
+        throw $this->createNotFoundException('Category does not exist');
+      }
+      //bad url
       if (!strstr($request->getPathInfo(), $datas->seo_url)) {
         //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';exit();
         return $this->redirect($datas->seo_url);
       }
-
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Content:category.html.twig', array(
@@ -283,10 +293,14 @@ class ContentController extends Controller
                            ));
       //print_r($datas);
       //echo $api->url;
-
+      //404
+      if (isset($datas->error) && $datas->error) {
+        throw $this->createNotFoundException('Person does not exist');
+      }
+      //bad url
       if ($request->getPathInfo() != $datas->seo_url . '/') {
         //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';exit();
-        return $this->redirect($datas->seo_url);
+        return $this->redirect($datas->seo_url. '/');
       }
 
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
@@ -318,8 +332,13 @@ class ContentController extends Controller
                            ));
       //print_r($datas);
       //echo $api->url;
-      //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';
+      //404
+      if (isset($datas->error) && $datas->error) {
+        throw $this->createNotFoundException('Selection does not exist');
+      }
+      //bad url
       if ($request->getPathInfo() != $datas->seo_url) {
+        //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';
         return $this->redirect($datas->seo_url);
       }
 
