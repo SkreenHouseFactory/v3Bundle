@@ -1,10 +1,9 @@
 service:
     name: mySkreen.com
-    description: mySkreen
+    description: mySkreen.com
     url: http://www.myskreen.com
 page:
     title:
-        homecinema: ddd
         home: 
             mixte: The New TV Guide
             v3-vod: Video à la demande
