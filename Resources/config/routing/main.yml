@@ -29,6 +29,11 @@ v2_selections:
         slug: "[^/]+"
 
 #search
+search_format:
+    pattern:  /{format}/search/{q}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:search }
+    requirements:
+        q: "[^/]+"
 search:
     pattern:  /programmes/{q}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:search }

@@ -119,13 +119,15 @@ class MainController extends Controller
     */
     public function searchAction(Request $request)
     {
+      $facets = $request->get('facets') ? $facets : ($request->get('format') ? 'format:' . $request->get('format') : null);
       $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
-
       $datas = $api->fetch('search/' . urlencode($request->get('q')), 
                            array('img_width' => 160,
                                  'img_height' => 200,
-                                 'nb_results' => 7));
+                                 'nb_results' => 7,
+                                 'facets' => $facets));
       //echo $api->url;
+      //print_r($datas);
       $response = $this->render('SkreenHouseFactoryV3Bundle:Search:main.html.twig', array(
         'results' => $datas,
       ));

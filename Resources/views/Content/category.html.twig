@@ -7,7 +7,7 @@
 <meta property="og:title" content="{{ category.name }}" />
 <meta property="og:description" content="{{ category.description }}" />
 <meta property="og:type" content="category" />
-<meta property="og:url" content="http://www.myskreen.com{{ category.seo_url }}" />
+<meta property="og:url" content="http://www.myskreen.com{% if app.request.get('format') %}{{ '/' ~ app.request.get('format') }}{% endif %}{{ category.seo_url }}" />
 {% if category.picture %}
 <meta property="og:image" content="{{ category.picture }}" />
 <link rel="image_src" href="{{ category.picture }}" />

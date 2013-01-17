@@ -9,7 +9,23 @@
   <h1>{{ app.request.get('q') }}</h1>
   
   <div id="search-programs">
-  
+  {% if results.count.total is not defined %}
+    {% if results.count %}
+    <p class="alert alert-info">{{ results.count }} {{ 'search.results'|trans }}</p>
+    {% else %}
+    <p class="alert">{{ 'search.noresults'|trans }}</p>
+    {% endif %}
+    {% if results.spelling|length %}
+    <p class="lead">Suggestions : 
+    {% for spelling in results.spelling %}{{ spelling }}{% endfor %}
+    </p>
+    {% endif %}
+
+    {% set slider = {title: '', 
+                     programs: results.programs, 
+                     paginate: results.paginate ~ '.json?format=' ~ app.request.get('format')} %}
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
+  {% else %}
     {% if results.count.total %}
     <p class="alert alert-info">{{ results.count.total }} {{ 'search.results'|trans }}</p>
     {% else %}
@@ -55,7 +71,7 @@
     {% set slider = {title: results.count.archives ~ ' Archives', programs: results.Archives, paginate: results.paginate ~ '.json?format=archives'} %}
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
     {% endif %}
-
+  {% endif %}
   </div>
 </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% if p is not defined %}
 {% set p = {title:'%title%',id:'%id%',picture:'',onglet:'%onglet%',seo_url:'%seo_url%',has_vod:'%has_vod%',best_offer:'',deporte:'%deporte%'} %}
 {% endif %}
-<li class="{% if p.id == '%id%' %}slider-sample {% endif %}{% if p.deporte %}deporte {% endif %}tv-component {{ p.onglet }}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
+<li class="tv-component {{ p.onglet }}{% if p.id == '%id%' %}slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
   {% if p.best_offer is defined and p.best_offer.channel_img is defined %}
     <div class="channel">
       <img src="{{ p.best_offer.channel_img }}" alt="{{ p.best_offer.channel_name }}">

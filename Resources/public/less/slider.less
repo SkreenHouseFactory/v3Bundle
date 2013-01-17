@@ -198,38 +198,6 @@
       div.progress {
           margin: 10px;
       }
-
-      div.actions {
-        display: none;
-        position: absolute;
-        z-index: 1;
-        bottom: 60px;
-        left: 0px;
-
-        a.btn {
-          position: relative;
-          text-align: left;
-          margin: 10px;
-          line-height: 14px;
-          padding: 4px 6px;
-          font-size: 1.1em;
-
-          span {
-            /*display: none;
-            padding-left: 20px;*/
-            color: black;
-          }
-          
-          i {
-            float: left;
-            margin-right: 7px;
-          }
-        }
-
-        a.btn-danger {
-          padding-right: 15%;
-        }
-      }
       span {
         color: white;
       }
@@ -325,9 +293,6 @@
             display: block;
           }
         }
-        div.actions {
-          display: block;
-        }
         a.title { 
           height: auto;
         }
@@ -350,7 +315,7 @@
           background: #333;
         }
       }
-      &.films {
+      &.films:not(.missing-picture) {
         a.title {
           background: transparent;
           font-size: 0;
