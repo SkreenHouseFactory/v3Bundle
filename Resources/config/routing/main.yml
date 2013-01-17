@@ -236,8 +236,8 @@ category:
 
 #cocons : before channel, important !
 cocon_tv:
-    pattern:  /video/{name}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon, domain: replay }
+    pattern:  /{cocon}/{name}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon }
     requirements:
         cocon: video
 
