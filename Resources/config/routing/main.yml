@@ -280,12 +280,12 @@ channel:
     requirements:
         slug: "[^/]+"
 
-#cocons : end, important !
-cocon_tv:
+#cocons : end, after channel, important !
+cocon_replay:
     pattern:  /{cocon}/{name}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon, domain: replay }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon }
     requirements:
-        cocon: video|tf1|france-2|france-3|m6|w9
+        cocon: tf1|france-2|france-3|m6|w9
 
 #hack url generation
 any_url:
