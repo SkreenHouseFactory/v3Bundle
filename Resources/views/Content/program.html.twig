@@ -348,20 +348,21 @@
       {{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}
     </p>
     <p class="lead">
+      <small>
       {% if program.categories|length %}
         Catégories : {% for c in program.categories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
         <br/>
       {% endif %}
       {% if program.subcategories|length %}
         Sous-catégories : {% for c in program.subcategories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>{% endfor %}
-      </ul>
       {% endif %}
+      </small>
       </p>
 
       <div class="lead">
       <small>
       {% if program.director %}
-      <strong>{{ 'directed.by'|trans }} :</strong> 
+      <strong>{{ 'directed.by'|trans }} : </strong> 
       {% for pers in program.director %}
       <div class="inline" itemprop="director" itemscope="" itemtype="http://schema.org/Person">
       {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
@@ -370,7 +371,7 @@
       {% endif %}
       <br/>
       {% if program.casting %}
-      <strong>{{ 'actors'|trans }} :</strong>
+      <strong>{{ 'actors'|trans }} : </strong>
       {% for pers in program.casting %}
       <div class="inline" itemprop="actor" itemscope="" itemtype="http://schema.org/Person">
       {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
@@ -379,7 +380,7 @@
       {% endif %}
       <br/>
       {% if program.editor %}
-      <strong>{{ 'editors'|trans }} :</strong>
+      <strong>{{ 'editors'|trans }} : </strong>
       {% for pers in program.editor %}
       {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}">{{ pers.name }}</a>
       {% endfor %}

@@ -9,7 +9,7 @@ var BaseSlider = Class.extend({
     width: 150,
     height: 200,
     item_margin: 7,
-    pager_nb_results: 10,
+    pager_nb_results: 7,
     type: 'scroll', 
     args: {}
   },
@@ -22,9 +22,11 @@ var BaseSlider = Class.extend({
     this.container = $('.slider-container', this.elmt);
     this.loader    = $('.loader', this.items).css('width', this.params.width + 'px');
     UI.appendLoader(this.loader);
-    if (this.elmt.data('nb-results') > 0) {
-      this.params.pager_nb_results = this.elmt.data('nb-results');
-    }
+    // TODO : extend BAseSlider to make it works
+    //if (this.elmt.data('nb-results') > 0) {
+    //  this.params.pager_nb_results = this.elmt.data('nb-results');
+    //  console.log('BaseSlider.init', 'pager_nb_results', this.params.pager_nb_results, this.elmt.data('nb-results'));
+    //}
     //console.log('BaseSlider.init', this.loader, this.items);
 
     //scroll ?
@@ -40,7 +42,7 @@ var BaseSlider = Class.extend({
     //li sample
     if (this.sample == null) {
       this.sample = $('<div>').append($('li.slider-sample:first').clone().removeClass('slider-sample')).html();
-      console.log('BaseSlider.init', 'this.sample', this.sample);
+      //console.log('BaseSlider.init', 'this.sample', this.sample);
     }
 
     //paginate ?
@@ -149,7 +151,7 @@ var BaseSlider = Class.extend({
             var offset = self.params.pager_nb_results + parseInt(self.elmt.data('pager-offset'));
             self.elmt.data('pager-offset', offset);
             self.items.append(self.loader.addClass('loader-pager'));
-            //console.log('pager-offset', 'set', offset, self.elmt, self.elmt.data('pager-offset'));
+            console.log('pager-offset', 'set', offset, self.elmt, self.params.pager_nb_results, self.elmt.data('pager-offset'));
             self.loadRemotePrograms(offset,
                                     function(nb_programs){
                                       //self.items.find('.loader-pager').remove();
