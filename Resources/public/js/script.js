@@ -142,6 +142,10 @@ $(document).ready(function(){
     }
     return false;
   });
+  $('#top-bar a[data-toggle="dropdown"]').on('click', function () {
+    console.log('script', 'a[data-toggle="dropdown"] on show');
+    $('#top-playlist').collapse('hide');
+  });
 
   // -- ui link/url
   $('a[data="url"]').live('click', function(e){
