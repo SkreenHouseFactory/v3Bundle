@@ -162,7 +162,7 @@ UI = {
   loadUserPrograms: function(ids, elmt) {
     var ids  = typeof ids  != 'undefined' ? ids  : Skhf.session.datas.queue;
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
-    console.log('UI.loadUserPrograms', ids, elmt);
+    //console.log('UI.loadUserPrograms', ids, elmt);
     for (key in ids) {
       //console.log('UI.loadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
       $('.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)', elmt).html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists').addClass('fav-on');

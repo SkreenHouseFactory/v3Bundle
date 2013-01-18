@@ -17,39 +17,45 @@ var BaseSession = Class.extend({
   },
   sync: function(callback, args) {
     var self = this;
+    console.log('BaseSession.sync', this.uid, 'cookie:' + API.cookie('session_uid'));
     var args = typeof args == 'undefined' ? new Array() : args;
-    console.warn('BaseSession.sync', this.uid, 'cookie:' + API.cookie('session_uid'));
     if (this.uid == null) {
       this.uid = API.cookie('session_uid');
+    }
+
+    // callback with signin only if not already signed in
+    var callback_signin = function(sessionData) {
+      //console.log('BaseSession.sync', 'API.query callback', callback);
+      if (!Skhf.session.datas.email) {
+        self.signin(sessionData, function(){
+          //console.log('BaseSession.sync', 'Session.signin callback', callback);
+          if (typeof callback != 'undefined' && callback) {
+            callback(sessionData)
+          }
+        });
+      } else {
+        if (typeof callback != 'undefined' && callback) {
+          callback(sessionData)
+        }
+      }
     }
 
     // exists
     if (this.uid) {
       $.extend(args, { 'short':1 });
       API.query('GET', 'session/' + this.uid + '.json', args, function(sessionData) {
-        //console.log('BaseSession.sync', 'API.query callback', callback);
-        self.signin(sessionData, function(){
-          //console.log('BaseSession.sync', 'Session.signin callback', callback);
-          if (callback) {
-            callback(sessionData)
-          }
-        });
+        callback_signin(sessionData);
       });
-    
-    // session
+    // create
     } else {
       $.extend(args, {'short':1});
       API.query('POST', 'session.json', args, function(sessionData) {
-        self.signin(sessionData, function(){
-          if (callback) {
-            callback(sessionData)
-          }
-        });
+        callback_signin(sessionData);
       });
     }
   },
   signin: function(sessionData, callback) {
-    console.log('BaseSession.signin', sessionData, callback);
+    console.log('BaseSession.signin', sessionData);
     this.datas = sessionData;
     this.uid = this.datas.uid;
     API.cookie('session_uid', this.uid);
@@ -59,7 +65,7 @@ var BaseSession = Class.extend({
     }
     
     if (typeof callback != 'undefined') {
-      console.log('BaseSession.signin callback', callback);
+      //console.log('BaseSession.signin callback', callback);
       callback();
     }
   },
@@ -101,7 +107,7 @@ var BaseSession = Class.extend({
   },
   getSocialDatas: function(callback){
     var self = this;
- 
+
     //no fbuid
     if (!this.datas.fb_uid) {
       //console.log('BaseSession.getSocialDatas', 'no fbuid');

@@ -362,7 +362,7 @@ API = {
       }
     }
 
-    console.log('API.query', method, dataType, url, data, new Date());
+    //console.log('API.query', method, dataType, url, data, new Date());
     
     //Permet de benchmarker le temps d'execution des pages
     var tooLongQuery = setTimeout(function(){

@@ -12,7 +12,6 @@ var Session = BaseSession.extend({
     if (API.context == 'v2') {
       API.postMessage(['sync']);
     }
-
   },
   signin: function(sessionData, callback) {
     this.__base(sessionData, callback)
@@ -57,9 +56,9 @@ var Session = BaseSession.extend({
                 });
     });
   },
-  initSelector: function(onglet, reload) {
+  initSelector: function(onglet) {
     var self = this;
-    console.log('Session.initSelector', this.datas.email, this.onglet, onglet, 'reload:' + reload);
+    console.log('Session.initSelector', this.datas.email, this.onglet, onglet);
 
     //require authenticated user
     if (!this.datas.email) {
@@ -72,12 +71,12 @@ var Session = BaseSession.extend({
     API.query('GET', 
               'www/slider/selector/' + this.uid + '.json', 
               {onglet: this.onglet, 
-                with_count_favoris: true,
+                with_count_favoris: 1,
                 img_width: API.config.slider.width,
                 img_height: API.config.slider.height
               },
               function(json) {
-                console.log('Session.initSelector', 'remote', 'reload', json);
+                console.log('Session.initSelector', 'load', json);
                 UI.loadSelector(json);
                 UI.playlist.elmt.removeClass('loading');
               });
@@ -154,11 +153,8 @@ var Session = BaseSession.extend({
      //load selector
      case '/':
      case '':
-       //UI.unloadFilters();
-       UI.loadFilters('home');
-       this.initSelector();
-     break;
      default:
+       //UI.unloadFilters();
        UI.loadFilters('home');
        this.initSelector();
      break;
