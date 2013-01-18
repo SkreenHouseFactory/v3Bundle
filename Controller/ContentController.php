@@ -246,7 +246,7 @@ class ContentController extends Controller
     public function categoryAction(Request $request)
     {
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
-      $datas = $api->fetch('category', 
+      $datas = $api->fetch(in_array($request->get('_route'), array('format', 'format_facet', 'format_page')) ? 'format' : 'category', 
                            array(
                              'from_slug'  => str_replace('/', '', $request->get('category_slug')),
                              'with_description' => true,
@@ -258,8 +258,9 @@ class ContentController extends Controller
                              'nb_results' => 30,
                              'facets' => $this->buildFacets($request)
                            ));
+      //echo "\n".'api:' . $api->url;
+      //echo "\n".'route:'  .$request->get('_route');
       //print_r($datas);
-      //echo $api->url;
       //404
       if (isset($datas->error) && $datas->error) {
         throw $this->createNotFoundException('Category does not exist');

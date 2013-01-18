@@ -419,6 +419,7 @@ UI = {
   // -- launch player
   play: function(id, args) {
     console.log('UI.play', id, args);
+    $('.popover:visible').popover('hide');
     //if (Player.getType() == 'ios') {
     //  Player.playOccurrence(id);
     //} else {

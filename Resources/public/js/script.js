@@ -120,11 +120,11 @@ $(document).ready(function(){
   // -- ui playlist
   $('#top-playlist').on('show', function () {
     console.log('script', '#top-playlist on show');
-    API.postMessage(['header', 'add_playlist'])
+    API.postMessage(['header', 'add_playlist']);
   });
   $('#top-playlist').on('hide', function () {
     console.log('script', '#top-playlist on hide');
-    API.postMessage(['header', 'remove_playlist'])
+    API.postMessage(['header', 'remove_playlist']);
   });
   $('#top-playlist .breadcrumb li:first').live('click', function(){
     Skhf.session.initSelector();
@@ -171,6 +171,7 @@ $(document).ready(function(){
   // -- ui modal
   $('.modal').on('show', function(){
     Player.pause();
+    $('.popover:visible').popover('hide');
     carousels = $('.carousel');
     if (carousels.length > 0) {
       carousels.each(function(){

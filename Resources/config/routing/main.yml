@@ -226,12 +226,30 @@ category_facet:
         format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
         category_slug: "[^/]+"
         facet: "[^/]+"
+format_facet:
+    pattern:  /{category_slug}/{facet}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+    requirements:
+        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
+        facet: "[^/]"
+format_page:
+    pattern:  /{category_slug}/page-{page}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+    requirements:
+        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
+        facet: "[^/]"
+        page: \d+
 category:
     pattern:  /{format}/{category_slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
         format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
         category_slug: "[^/]+"
+format:
+    pattern:  /{category_slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+    requirements:
+        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
 
 
 #cocons : before channel, important !
