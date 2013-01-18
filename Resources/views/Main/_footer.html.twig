@@ -14,7 +14,7 @@
   <hr/>
   <div class="row" style="font-size: 0.9em;">
     <div id="boost" class="span3">
-    {#% render 'SkreenHouseFactoryV3Bundle:Main:boost' with {}, {'standalone': true} %#}
+    {% render 'SkreenHouseFactoryV3Bundle:Main:boost' with {}, {'standalone': true} %}
     </div>
     <div id="cats" class="span2">
       {% if app.request.get('home') == 'video-a-la-demande' %}

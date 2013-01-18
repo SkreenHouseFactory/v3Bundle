@@ -47,16 +47,13 @@ class ContentController extends Controller
       $response = new Response();
       $response->setETag($cache_etag);
       $response->setLastModified($cache_date);
-  
-      // Définit la réponse comme publique. Sinon elle sera privée par défaut.
-      $response->setPublic();
 
       // Vérifier que l'objet Response n'est pas modifié
       // pour un objet Request donné
       if ($this->get('kernel')->getEnvironment() != 'dev' && 
           $response->isNotModified($request)) {
           // Retourner immédiatement un objet 304 Response
-
+          mail('benoit@myskreen.com', '[v3][program isNotModified] program-' . $request->get('id') . '-'. $datas->updated_at, print_r($response, true));
       } else {
         //$response->expire();
 
@@ -153,16 +150,16 @@ class ContentController extends Controller
                             'dvds' => 'En DVD', 
                             'boxs' => 'Sur les box')
         ));
-
-        $response->setCache(array(
-            'etag'          => $cache_etag,
-            'last_modified' => $cache_date,
-            'max_age'       => $cache_maxage,
-            's_maxage'      => $cache_maxage,
-            'public'        => true,
-            // 'private'    => true,
-        ));
       }
+
+      $response->setCache(array(
+          'etag'          => $cache_etag,
+          'last_modified' => $cache_date,
+          'max_age'       => $cache_maxage,
+          's_maxage'      => $cache_maxage,
+          'public'        => true,
+          // 'private'    => true,
+      ));
 
       return $response;
     }

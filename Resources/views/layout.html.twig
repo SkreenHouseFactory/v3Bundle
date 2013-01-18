@@ -4,6 +4,7 @@
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="fr"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->
 <head>
+{% spaceless %}
 	<title>{% block title endblock %} | mySkreen.com</title>
 	<meta name="description" content="{% block description %}{% endblock %}">
 	<meta name="author" content="SkreenHouseFactory">
@@ -49,9 +50,10 @@
       <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
 </head>
+{% endspaceless %}
 <body>
-<!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
 {% spaceless %}
+<!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
   <div id="main">
     <div id="content">
     {% block content %}
