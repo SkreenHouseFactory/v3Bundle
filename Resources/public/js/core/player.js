@@ -340,8 +340,8 @@ Player = {
                         {
                           with_player: 1,
                           with_teaser: 1,
-                          player_width: '100%', 
-                          player_height: '100%',
+                          player_width: this.elmt.date('play-width') ? this.elmt.date('play-width') : '100%', 
+                          player_height:  this.elmt.date('play-height') ? this.elmt.date('play-height') : '100%',
                           player: this.type,
                           fullHD: 1,
                           no_paywall: 1
@@ -374,8 +374,8 @@ Player = {
                         {
                           with_player: 1,
                           with_teaser: 1,
-                          player_width: '100%', 
-                          player_height: '100%',
+                          player_width: this.elmt.data('play-width') ? this.elmt.data('play-width') : '100%', 
+                          player_height:  this.elmt.data('play-height') ? this.elmt.data('play-height') : '100%',
                           player: this.getType(),
                           fullHD: 1,
                           no_paywall: 1

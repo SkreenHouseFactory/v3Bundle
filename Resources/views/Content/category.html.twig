@@ -60,7 +60,7 @@
 
   <div class="pagination">
     <ul>
-      <li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')}) }}">{{ 'nav.all'|trans }}</a></li>
+      <li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">{{ 'nav.all'|trans }}</a></li>
       {% for l in alpha %}
       <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: l})|replace({'//': '/'}) }}">{{ l }}</a></li>
       {% endfor %}
