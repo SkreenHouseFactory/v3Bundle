@@ -53,7 +53,8 @@ class ContentController extends Controller
 
       // Vérifier que l'objet Response n'est pas modifié
       // pour un objet Request donné
-      if ($this->get('kernel')->getEnvironment() != 'dev' && $response->isNotModified($request)) {
+      if ($this->get('kernel')->getEnvironment() != 'dev' && 
+          $response->isNotModified($request)) {
           // Retourner immédiatement un objet 304 Response
 
       } else {
@@ -68,8 +69,8 @@ class ContentController extends Controller
                                'episode_img_height' => 50,
                                'episode_img_crop' => 50,
                                'channel_img_width' => 65,
-                               'with_img'  => '245,325',
-                               'with_metadata'  => true,
+                               'with_img' => '245,325',
+                               'with_metadata' => true,
                                'with_related' => true,
                                'with_offers' => true,
                                'with_teaser' => true,
@@ -137,6 +138,10 @@ class ContentController extends Controller
         if (strstr($datas->title, ' - ')) {
           list($_, $datas->episode_title) = explode(' - ', $datas->title);
         }
+
+        //footer
+        list($_, $format, $__) = explode('/', $datas->seo_url);
+        $request->request->set('home', $format != 'programme' ? $format : null);
 
         $response = $this->render('SkreenHouseFactoryV3Bundle:Content:program.html.twig', array(
           'program' => $datas,
