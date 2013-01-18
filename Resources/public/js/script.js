@@ -49,16 +49,6 @@ $(document).ready(function(){
     return false;
   });
   $('.user-on .dropdown-toggle').click(function(){
-    
-    //show/hide filters
-    /* TO TEST
-    if ($('[data-target=[#top-playlist]]', $(this)).length > 0) {
-      $('#top-nav').hide();
-    } else {
-      $('#top-playlist').collapse('hide');
-    }
-    */
-    
     if (API.context == 'v2' && !$('#top-playlist').hasClass('in')) {
       $('#top-playlist').collapse('show');
     }
@@ -143,8 +133,10 @@ $(document).ready(function(){
     return false;
   });
   $('#top-bar a[data-toggle="dropdown"]').on('click', function () {
-    console.log('script', 'a[data-toggle="dropdown"] on show');
-    $('#top-playlist').collapse('hide');
+    if (API.context != 'v2') {
+      console.log('script', 'a[data-toggle="dropdown"] on show');
+      $('#top-playlist').collapse('hide');
+    }
   });
 
   // -- ui link/url
@@ -369,7 +361,6 @@ $(document).ready(function(){
     //episodes
     $('#program-offers .episode').live('hover', function(event) {
       var trigger = $(this);
-      $('.popover:visible').popover('hide');
       if (event.type == 'mouseover' || event.type == 'mouseenter') {
         if (!trigger.data('loaded')) {
           API.query('GET',
@@ -380,7 +371,7 @@ $(document).ready(function(){
                       img_episode_only: 1
                     },
                     function(json) {
-                      $('.popover:visible').popover('hide');
+                      $('.popover:visible').hide();
                       trigger.data('loaded', true);
                       if (json.description != null) {
                         var picture = json.picture && json.picture.match(/missing\.jpg$/) == -1 ? '<hr/><p align="center"><img src="' + json.picture + '" alt="' + json.title + '" />' : '';
@@ -396,6 +387,7 @@ $(document).ready(function(){
                       }
                     });
         } else if (trigger.attr('data-content')) {
+          $('.popover:visible').hide();
           trigger.popover('show');
         }
       } else {
