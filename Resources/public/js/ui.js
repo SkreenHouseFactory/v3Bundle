@@ -279,21 +279,31 @@ UI = {
     });
   },
   //update friends
-  loadSocialSelector: function(datas) {
-    if (datas.programs.length > 0) {
-      console.log('UI.loadSocialSelector', datas);
-      var program = datas.programs.pop();
-      var li = $('li#friends', this.playlist.elmt);
-      li.removeClass('empty');
-      li.css('background-image', 'url('+program.picture+')').css('background-repeat', 'no-repeat');
-      li.find('.label').removeClass('opacity');
-      li.find('span.badge').remove();
-      li.find('a, h6').hide();
-      li.popover('disable');
-      Skhf.session.getSocialDatas(function(friends) {
-        li.find('.label span').html(friends.length);
-      });
-    }
+  loadSocialSelector: function() {
+    var self = this;
+    this.appendLoader($('li#friends'));
+    Skhf.session.loadSocialSelector(function(datas){
+      console.log('UI.loadSocialSelector', 'Session.loadSocialSelector callback', datas);
+      self.removeLoader($('li#friends'));
+      if (typeof datas.error == 'undefined' ||
+          datas.programs.length > 0) { //Warning : Error sent by API even if results ?!
+        if (datas.programs.length > 0) {
+          var program = datas.programs.pop();
+          var li = $('li#friends', this.playlist.elmt);
+          li.removeClass('empty');
+          li.css('background-image', 'url('+program.picture+')').css('background-repeat', 'no-repeat');
+          li.find('.label').removeClass('opacity');
+          li.find('span.badge').remove();
+          li.find('a, h6').hide();
+          li.popover('disable');
+          Skhf.session.getSocialDatas(function(friends) {
+            li.find('.label span').html(friends.length);
+          });
+        }
+      } else {
+        $('li#friends').append('<p class="alert">Oups, erreur !</p>');
+      }
+    });
   },
   //update selector
   loadSelector: function(datas) {
@@ -324,8 +334,7 @@ UI = {
       });
     });
 
-    console.log('UI.loadSelector', 'Skhf.session.initSocial', Skhf.session);
-    Skhf.session.loadSocialSelector();
+    this.loadSocialSelector();
 
     //onglet ?
     //if (Skhf.session.onglet) {

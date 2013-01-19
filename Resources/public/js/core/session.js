@@ -107,6 +107,7 @@ var BaseSession = Class.extend({
   },
   getSocialDatas: function(callback){
     var self = this;
+    console.log('BaseSession.getSocialDatas');
 
     //no fbuid
     if (!this.datas.fb_uid) {
@@ -120,18 +121,41 @@ var BaseSession = Class.extend({
       return callback(self.datas.friends, self.datas.friends_programs);
     }
 
-    //load
-    this.sync(function(sessionDatas){
-      console.log('BaseSession.getSocialDatas', 'callback', sessionDatas);
-      self.datas.friends = sessionDatas.friends;
-      self.datas.friends_programs = sessionDatas.friends_playlists;
-      if (typeof callback != 'undefined') {
-        callback(self.datas.friends, self.datas.friends_programs);
+    //load from IndexedDb ?
+    API.selectIndexedDb('skhf', 'friends', 1, function(IndexedDbDatas){
+      console.log('BaseSession.getSocialDatas', 'selectIndexedDb', IndexedDbDatas);
+      if (IndexedDbDatas) {
+        console.log('BaseSession.getSocialDatas', 'IndexedDbDatas', IndexedDbDatas);
+        if (IndexedDbDatas.updated_at > (new Date()).getTime() - 3600*1000) {
+          self.datas.friends = IndexedDbDatas.friends;
+          self.datas.friends_programs = IndexedDbDatas.friends_programs;
+          callback(self.datas.friends, self.datas.friends_programs);
+  
+          return;
+        } else {
+          API.deleteIndexedDb('skhf', 'friends', 1);
+        }
       }
-    },{
-      with_notifications: 0,
-      with_friends: 1,
-      with_friends_playlists: 1
+  
+      //fail : load from API
+      self.sync(function(sessionDatas){
+        console.log('BaseSession.getSocialDatas', 'callback', sessionDatas);
+        self.datas.friends = sessionDatas.friends;
+        self.datas.friends_programs = sessionDatas.friends_playlists;
+  
+        API.insertIndexedDb('skhf', 'friends', {id: 1, 
+                                                friends: self.datas.friends, 
+                                                friends_programs: self.datas.friends_programs,
+                                                updated_at: (new Date()).getTime()});
+  
+        if (typeof callback != 'undefined') {
+          callback(self.datas.friends, self.datas.friends_programs);
+        }
+      },{
+        with_notifications: 0,
+        with_friends: 1,
+        with_friends_playlists: 1
+      });
     });
   },
   getFriendsUids: function(callback){

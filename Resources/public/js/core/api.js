@@ -73,6 +73,7 @@ $.support.cors = true;
 var API;
 API = {
   xhr: new Array(),
+  db: new Array(),
   context: 'v3',
   skXdmSocket: null,
   config: null,
@@ -504,6 +505,81 @@ API = {
         return false;
       break;
     }
+  },
+  openIndexedDb: function(dbname, storeName, callback) {
+    callback(null); return; //desactivated
+    
+    if (typeof window.indexedDB == 'undefined'){
+      console.warn('window.indexedDB', 'undefined');
+      if (typeof callback != 'undefined') {
+        callback(null);
+      }
+      return;
+    }
+    
+    var self = this;
+    console.log('API.openIndexedDb',  dbname, storeName);
+    var req = window.indexedDB.open(dbname, 2);
+    req.onsuccess = function (e) {
+      self.db[dbname] = e.target.result;
+      console.log('API.openIndexedDb', 'DONE', dbname, storeName, self.db[dbname]);
+
+      if (typeof callback != 'undefined') { //1: read_only
+        if (typeof storeName != 'undefined' && storeName != null) {
+          var trans = self.db[dbname].transaction(storeName, 'readwrite');
+          var store = trans.objectStore(storeName);
+          callback(store);
+        } else {
+          callback(self.db[dbname]);
+        }
+      }
+    }
+    req.onerror = function (e) {
+      console.error('API.openIndexedDb', 'Error', e.target.errorCode);
+    }
+    req.onupgradeneeded = function (e) {
+      console.log('API.openIndexedDb', 'onupgradeneeded', dbname, storeName);
+      var store = e.target.result.createObjectStore(storeName, { keyPath: 'id', autoIncrement: true });
+      /*switch(storeName) {
+        case 'friends':
+          //store.createIndex('parameter', 'parameter', { unique: false });
+          //store.createIndex('value', 'value', { unique: false });
+        break;
+      }*/
+    }
+  },
+  insertIndexedDb: function(dbname, storeName, storeObject) {
+    var self = this; 
+    this.openIndexedDb(dbname, storeName, function(store){
+      if (store == null) {
+        console.log('API.insertIndexedDb', 'store not found', storeName);
+        return;
+      }
+      //console.log('API.insertIndexedDb', 'callback', store);
+      store.put(storeObject);
+      self.db[dbname].close();
+    });
+  },
+  selectIndexedDb: function(dbname, storeName, id, callback) {
+    var self = this; 
+    this.openIndexedDb(dbname, storeName, function(store){
+      if (store == null) {
+        callback(null);
+        return;
+      }
+      store.get(id).onsuccess = function(e) {
+        console.log('selectIndexedDb', 'result', e.target.result);
+        callback(e.target.result);
+        self.db[dbname].close();
+      }
+    });
+  },
+  deleteIndexedDb: function(dbname, storeName, id) {
+    this.openIndexedDb(dbname, null, function(db){
+      db.transaction(storeName, 'readwrite').objectStore(storeName).delete(id).onsuccess = function(e){
+        console.log('deleteIndexedDb', 'deleted', id);
+      }
+    });
   },
   linkV2: function(url, force, callback) {
     console.log('API.linkV2', this.context, url, this.currentUrl, 'force:' + force, callback);

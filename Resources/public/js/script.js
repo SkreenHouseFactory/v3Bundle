@@ -31,6 +31,10 @@ $(document).ready(function(){
   // ui
   UI.init(function(){
     console.log('script', 'UI.init', 'callback');
+
+    //TEST
+    //API.insertIndexedDb('skhf', 'friends', {id: 2, uid: 'frienduid'});
+    //API.selectIndexedDb('skhf', 'friends', 2);
   });
 
   // -- ui user
@@ -133,7 +137,7 @@ $(document).ready(function(){
     return false;
   });
   $('#top-bar a[data-toggle="dropdown"]').on('click', function () {
-    if (API.context != 'v2') {
+    if (API.context != 'v2' && $('#top-playlist').hasClass('in')) {
       console.log('script', 'a[data-toggle="dropdown"] on show');
       $('#top-playlist').collapse('hide');
     }
@@ -485,11 +489,12 @@ $(document).ready(function(){
   function fbsync() {
     console.log('script fbsync', 'fetching information...');
     FB.api('/me', function(response) {
-      console.log('script fbsync', 'success: ' + response.name + '.', response);
+      console.log('script fbsync', 'success: ' + response.name, response, FB.getAuthResponse());
       API.query('POST', 'user', {
                   session_uid: Skhf.session.uid,
                   fbuid: response.id,
                   username: response.email,
+                  access_token: FB.getAuthResponse()['accessToken']
                 },
                 function(){
                   console.log('script fbsync', 'API.query callback');

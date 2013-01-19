@@ -29,31 +29,44 @@ var Session = BaseSession.extend({
     UI.unloadSelector();
     UI.unloadPlaylist();
   },
-  loadSocialSelector: function(onglet, offset, force_remote) {
-    console.log('Session.loadSocialSelector', 'fb_uid', this.datas.fb_uid)
+  loadSocialSelector: function(callback, offset, onglet) {
     var self = this;
-
     var offset = typeof offset != 'undefined' ? offset : 0;
-    var onglet = typeof onglet != 'undefined' ? onglet : null;
+    //var onglet = typeof onglet != 'undefined' ? onglet : null;
+    console.log('Session.loadSocialSelector', offset, onglet)
 
-    UI.appendLoader($('li#friends'));
-    Skhf.session.getFriendsUids(function(friends_uids) {
-      API.query('GET',
-                'www/slider/social/' + self.uid + '.json', 
-                {
-                  onglet: self.onglet, 
-                  nb_results: 1, 
-                  img_width: API.config.slider.width, 
-                  img_height: API.config.slider.height,
-                  friends_uids: friends_uids
-                }, 
-                function(json) {
-                  console.log('Session.loadSocialSelector', 'offset:' + offset, 'error:' + json.error);
-                  if (typeof json.error == 'undefined') {
-                    UI.removeLoader($('li#friends'));
-                    UI.loadSocialSelector(json);
-                  }
-                });
+    //load from IndexedDb ?
+    API.selectIndexedDb('skhf', 'social_selector', 1, function(IndexedDbDatas){
+      console.log('UI.loadSocialSelector', 'selectIndexedDb', IndexedDbDatas);
+      if (IndexedDbDatas) {
+        console.log('UI.loadSocialSelector', 'IndexedDbDatas', IndexedDbDatas);
+        if (IndexedDbDatas.updated_at > (new Date()).getTime() - 3600*1000) {
+          callback(IndexedDbDatas.social_selector);
+          return;
+        } else {
+          API.deleteIndexedDb('skhf', 'social_selector', 1);
+        }
+      }
+
+      Skhf.session.getFriendsUids(function(friends_uids) {
+        API.query('GET',
+                  'www/slider/social/' + self.uid + '.json', 
+                  {
+                    onglet: self.onglet, 
+                    nb_results: 1, 
+                    img_width: API.config.slider.width, 
+                    img_height: API.config.slider.height,
+                    friends_uids: friends_uids
+                  }, 
+                  function(datas) {
+                    if (typeof callback != 'undefined') {
+                      API.insertIndexedDb('skhf', 'IndexedDbDatas', {id: 1, 
+                                                                     social_selector: datas,
+                                                                     updated_at: (new Date()).getTime()});
+                      callback(datas);
+                    }
+                  });
+      });
     });
   },
   initSelector: function(onglet) {
