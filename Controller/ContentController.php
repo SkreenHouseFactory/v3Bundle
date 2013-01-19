@@ -302,7 +302,7 @@ class ContentController extends Controller
                              'nb_results' => 30,
                            ));
       //print_r($datas);
-      echo $api->url;
+      //echo $api->url;
       //404
       if (isset($datas->error) && $datas->error) {
         throw $this->createNotFoundException('Person does not exist');
