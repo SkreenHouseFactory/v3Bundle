@@ -516,7 +516,7 @@ API = {
       }
       return;
     }
-    
+
     var self = this;
     console.log('API.openIndexedDb',  dbname, storeName);
     var req = window.indexedDB.open(dbname, 2);
@@ -575,10 +575,15 @@ API = {
     });
   },
   deleteIndexedDb: function(dbname, storeName, id) {
-    this.openIndexedDb(dbname, null, function(db){
-      db.transaction(storeName, 'readwrite').objectStore(storeName).delete(id).onsuccess = function(e){
-        console.log('deleteIndexedDb', 'deleted', id);
+    this.openIndexedDb(dbname, storeName, function(store){
+      if (store == null) {
+        callback(null);
+        return;
       }
+      //Warning : bug YUICompressor
+      //store.delete(id).onsuccess = function(e){
+      //  console.log('deleteIndexedDb', 'deleted', id);
+      //}
     });
   },
   linkV2: function(url, force, callback) {
