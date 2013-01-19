@@ -580,7 +580,7 @@ API = {
         callback(null);
         return;
       }
-      //Warning : bug YUICompressor
+      //Warning : bug YUICompressor > .delete() ?
       //store.delete(id).onsuccess = function(e){
       //  console.log('deleteIndexedDb', 'deleted', id);
       //}
