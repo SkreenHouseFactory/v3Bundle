@@ -103,7 +103,7 @@ playlist_load:
 
 #persons
 person_page:
-    pattern:  /{type}/{id}-{slug}/page-{page}
+    pattern:  /{type}/{id}-{slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
         type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor

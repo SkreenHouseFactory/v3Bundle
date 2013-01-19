@@ -192,7 +192,7 @@ class ContentController extends Controller
                             'with_replay' => !$request->get('format') && !$request->get('page') ? true : false,
                             'with_best_offer' => !$request->get('format') && !$request->get('page') ? true : false,
                             'with_programs' => true,
-                            'offset' => $request->get('page') * 30,
+                            'offset' => $request->get('page', 1) * 30 - 30,
                             'nb_results' => 30,
                             'facets' => $this->buildFacets($request)
                           ));
@@ -251,7 +251,7 @@ class ContentController extends Controller
                              'with_programs'  => true,
                              'img_width' => 150,
                              'img_height' => 200,
-                             'offset' => $request->get('page') * 30,
+                             'offset' => $request->get('page', 1) * 30 - 30,
                              'nb_results' => 30,
                              'facets' => $this->buildFacets($request)
                            ));
@@ -298,11 +298,11 @@ class ContentController extends Controller
                              'img_width' => 150,
                              'img_height' => 200,
                              'advanced' => true,
-                             'offset' => $request->get('page') * 30,
+                             'offset' => $request->get('page', 1) * 30 - 30,
                              'nb_results' => 30,
                            ));
       //print_r($datas);
-      //echo $api->url;
+      echo $api->url;
       //404
       if (isset($datas->error) && $datas->error) {
         throw $this->createNotFoundException('Person does not exist');
