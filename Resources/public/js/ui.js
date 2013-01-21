@@ -631,16 +631,16 @@ UI = {
         console.log('UI.typeahead', 'onselect', obj, typeof obj, 'blur:' + $(searchbox));
 
         if (typeof obj != 'object') { //typeahead
-          API.linkV2('/programmes/' + obj);
+          top.location = v3_url + '/programmes/' + obj;
         } else if (typeof obj.seo_url != 'undefined') { //advanced
           $(searchbox).attr('value', '')
           if (obj.seo_url.match(/^http:\/\//)) {
             top.location = obj.seo_url;
           } else {
-            API.linkV2(obj.seo_url);
+            top.location = v3_url + obj.seo_url;
           }
         }
-        
+
         $('#top-playlist').collapse('hide');
       }
     });

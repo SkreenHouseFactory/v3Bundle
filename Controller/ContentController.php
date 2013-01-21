@@ -58,22 +58,21 @@ class ContentController extends Controller
         //$response->expire();
 
         //echo $request->get('id');echo $request->get('_route');exit();
-        $datas = $api->fetch('program/'.$request->get('id'), 
-                             array(
-                               'img_width' => 400,
-                               'img_height' => 550,
-                               'episode_img_width' => 80,
-                               'episode_img_height' => 50,
-                               'episode_img_crop' => 50,
-                               'channel_img_width' => 65,
-                               'with_img' => '245,325',
-                               'with_metadata' => true,
-                               'with_related' => true,
-                               'with_offers' => true,
-                               'with_teaser' => true,
-                               //'filter_casting' => true,
-                               //'player' => 'flash'
-                             ));
+        $datas = $api->fetch('program/'.$request->get('id'), array(
+                  'img_width' => 400,
+                  'img_height' => 550,
+                  'episode_img_width' => 80,
+                  'episode_img_height' => 50,
+                  'episode_img_crop' => 50,
+                  'channel_img_width' => 65,
+                  'with_img' => '245,325',
+                  'with_metadata' => true,
+                  'with_related' => true,
+                  'with_offers' => true,
+                  'with_teaser' => true,
+                  //'filter_casting' => true,
+                  //'player' => 'flash'
+                ));
 
         //print_r($datas);
         //echo $api->url;
@@ -116,14 +115,13 @@ class ContentController extends Controller
         //load related programs
         foreach ($datas->related as $key => $r) {
           //print_r($r);
-          $datas->related[$key]->programs = (array)$api->fetch(str_replace('&onglet', '&_onglet', $r->paginate), 
-                                                                array(
-                                                                  'img_width' => 150,
-                                                                  'img_height' => 200,
-                                                                  'programs_only' => true,
-                                                                  'channel_img_width' => 50,
-                                                                  'nb_results' => 7,
-                                                                ));
+          $datas->related[$key]->programs = (array)$api->fetch(str_replace('&onglet', '&_onglet', $r->paginate), array(
+                                                      'img_width' => 150,
+                                                      'img_height' => 200,
+                                                      'programs_only' => true,
+                                                      'channel_img_width' => 50,
+                                                      'nb_results' => 7,
+                                                    ));
           //echo "\n name:".$r->name.' url:'.$api->url;
           //echo "\n name:".$r->name.' : '.end($datas->related[$key]->programs)->id;
         }

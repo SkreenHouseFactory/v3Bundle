@@ -343,17 +343,19 @@ $(document).ready(function(){
     }
 
     //affichage bulle pendant 4s
-    setTimeout(function(){
-      $('#program-follow .fav').each(function(){
-        var trigger = $(this);
-        UI.installPopover(trigger);
-        trigger.popover('show');
-
-        setTimeout(function(){
-          trigger.popover('hide');
-        }, 6000);
-      });
-    }, 2000);
+    if (!Skhf.session.datas.email) {
+      setTimeout(function(){
+        $('#program-follow .fav').each(function(){
+          var trigger = $(this);
+          UI.installPopover(trigger);
+          trigger.popover('show');
+  
+          setTimeout(function(){
+            trigger.popover('hide');
+          }, 6000);
+        });
+      }, 2000);
+    }
 
     //ics
     $('[data-ics-occurrence]').click(function(e){

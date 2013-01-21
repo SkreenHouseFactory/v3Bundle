@@ -263,11 +263,12 @@ var BaseSlider = Class.extend({
       console.error('Slider.getUrl', url);
       return;
     }
+    var with_best_offer = typeof this.elmt.data('best-offer') != 'undefined' && this.elmt.data('best-offer') ? '&with_best_offer=1' : '';
     return url .replace('session.uid', Skhf.session.uid)
                .replace('access.name', Skhf.session.access ? Skhf.session.access : 'undefined')
                + (url.indexOf('?') == -1 ? '?' : '&')
                + (this.params.pager_nb_results ? 'nb_results=' + this.params.pager_nb_results + '&' : '')
-               + 'programs_only=1&with_best_offer=1&offset=' + offset;
+               + 'programs_only=1' + with_best_offer + '&offset=' + offset+ '&channel_img_width=50';
   },
   insertPrograms: function(programs, callback){
     console.log('BaseSlider.insertPrograms', programs);
@@ -280,6 +281,7 @@ var BaseSlider = Class.extend({
       var sample = this.sample.replace('%title%', program.title).replace('%title%', program.title)
                               .replace('%id%', pere.id).replace('%id%', pere.id)
                               .replace('%seo_url%', seo_url)
+                              .replace('%deporte%', program.deporte ? 'deporte' : '')
                               .replace('%popular_channel%', popular_channel)
                               .replace('%onglet%', typeof program.onglet != 'undefined' ? program.onglet.toLowerCase() : '');
       var li = $(sample);
@@ -297,10 +299,6 @@ var BaseSlider = Class.extend({
       } else {
         $('.actions', li).data('id', program.id);
         this.addProgramBestOffer(li, program);
-        if (program.deporte) {
-          li.addClass('deporte');
-          $('.diff', li).prepend('<i class="icon-th icon-white"></i> ');
-        }
 
         Skhf.session.getSocialDatas(function (friends, friends_programs) {
           if (typeof friends_programs[program.id] != 'undefined') {
@@ -331,32 +329,15 @@ var BaseSlider = Class.extend({
       callback(this.elmt);
     }
   },
-  addProgramBestOffer: function(li, program) {
-    //console.log('BaseSlider.addProgramBestOffer', li, program);
-    var o = program.best_offer;
+  addProgramBestOffer: function(li, p) {
+    //console.log('BaseSlider.addProgramBestOffer', li, p);
+    //popular_channel
+    if (typeof p.popular_channel == 'object') {
+      $('.channel', li).prepend('<img src="' + p.popular_channel.img + '" alt="' + p.popular_channel.name + '" />');
+    }
+    //best_offer
+    var o = p.best_offer;
     if (typeof o != 'undefined' && o != null && o.dispo) {
-      var btn = $('.actions .play', li);
-      //console.log('BaseSlider.addProgramBestOffer', 'btn', btn, o.dispo);
-      btn.html(o.dispo);
-      if (o.player) {
-        //console.log('BaseSlider.addProgramBestOffer', 'add player', o.player);
-        btn.attr('href', btn.attr('href') + '?onglet=' + Skhf.session.access);
-        //btn.attr('data-player', o.player);
-      } else if (o.url) {
-        //console.log('BaseSlider.addProgramBestOffer', 'add url', o.url);
-        //si context = v3
-        if (API.context == 'v3' || o.url.match(/\/redirection\//)) {
-          btn.attr('data-redirect', 1).attr('href', o.url);
-        } else {
-          var host = 'http://' + document.location.host;
-          var url =  host + '/redirection/' + escape(o.url) + '?access=' + Skhf.session.access;
-          btn.attr('data-redirect', 1).attr('href', url);
-        }
-      } else {
-        //console.log('BaseSlider.addProgramBestOffer', 'default', o, li);
-        btn.attr('href', btn.attr('href') + '?access=' + Skhf.session.access);
-      }
-
       //channel & diff
       if (typeof o.channel_name != 'undefined') {
         if ($('.channel img', li).length > 0) {
@@ -366,11 +347,19 @@ var BaseSlider = Class.extend({
         }
         if (o.broadcastdate) {
           $('.channel .diff', li).html(o.broadcastdate.replace(' à ', '<br/>')).removeClass('hide');
-        } else if (program.deporte) {
+        } else if (p.deporte) {
           $('.channel .diff', li).html('sur mySkreen').removeClass('hide');
         }
         $('.channel', li).removeClass('hide');
       }
+    } else {
+      if (p.deporte) { $('.channel .diff', li).html('<i class="icon-th icon-white"></i> Sur mySkreen'); }
+      else if (p.has_vod == 4) { $('.channel .diff', li).html('Au cinéma'); }
+      else if (p.has_vod == 3) { $('.channel .diff', li).html('En DVD'); }
+      else if (p.has_vod == 5) { $('.channel .diff', li).html('A la télé'); }
+      else if (p.has_vod == 6) { $('.channel .diff', li).html('Bientôt en replay'); }
+      else if (p.has_vod == 7 || p.has_vod == 8) { $('.channel .diff', li).html('En Replay'); }
+      else if (p.has_vod) { $('.channel .diff', li).html('En Streaming'); }
     }
   },
   getTemplate: function(params) {

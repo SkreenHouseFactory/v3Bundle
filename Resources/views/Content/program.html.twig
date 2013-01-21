@@ -102,15 +102,15 @@
                     {% if o.replay_remaining < 0 %}
                     <span class="label label-info">Bientôt disponible en Replay</span>
                     {% else %}
-                    <span class="label label-info">En Replay dans {{ (o.replay_remaining/60)|number_format }}h</span>
+                    <span class="label label-info">En Replay dans {% if o.replay_remaining/60 > 24  %}{{ (o.replay_remaining/(60*24))|number_format }} jours{% else %}{{ (o.replay_remaining/60)|number_format }}h{% endif %}</span>
                     {% endif %}
                   {% elseif o.timeleft is defined and o.timeleft %}
                     {% if o.timeleft < 0 %}
                     <span class="label">timeleft ?</span>
                     {% elseif o_access.name == 'TV' %}
-                    <span class="label label-warning">Dans {{ (o.timeleft/60)|number_format }}h</span>
+                    <span class="label label-warning">Dans {% if o.timeleft/60 > 24  %}{{ (o.timeleft/(60*24))|number_format }} jours{% else %}{{ (o.timeleft/60)|number_format }}h{% endif %}</span>
                     {% else %}
-                    <span class="label label-{% if o.timeleft > 24*60 %}warning{% else %}important{% endif %}">Plus que {{ (o.timeleft/60)|number_format }}h pour le voir</span>
+                    <span class="label label-{% if o.timeleft > 24*60 %}warning{% else %}important{% endif %}">Plus que {% if o.timeleft/60 > 24  %}{{ (o.timeleft/(60*24))|number_format }} jours{% else %}{{ (o.timeleft/60)|number_format }}h{% endif %} pour le voir</span>
                     {% endif %}
                   {% endif %}
                 </td>

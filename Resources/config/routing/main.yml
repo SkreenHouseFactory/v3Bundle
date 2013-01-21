@@ -129,12 +129,23 @@ channel_v2_format:
     pattern:  /{format}/sur-{slug}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
     requirements:
+        format: "[^/]+"
         slug: "[^/]+"
 channel_v2_facet:
     pattern:  /{format}/{facet}/sur-{slug}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
     requirements:
+        format: "[^/]+"
         slug: "[^/]+"
+        facet: "[^/]+"
+channel_v2_facet2:
+    pattern:  /{format}/{category}/{facet}/sur-{slug}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    requirements:
+        format: "[^/]+"
+        slug: "[^/]+"
+        facet: "[^/]+"
+        category: "[^/]+"
 channel_v2:
     pattern:  /sur-{slug}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
