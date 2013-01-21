@@ -293,7 +293,7 @@ UI = {
           li.removeClass('empty');
           li.css('background-image', 'url('+program.picture+')').css('background-repeat', 'no-repeat');
           li.find('.label').removeClass('opacity');
-          li.find('span.badge').remove();
+          li.find('span.badge, .alert').remove();
           li.find('a, h6').hide();
           li.popover('disable');
           Skhf.session.getSocialDatas(function(friends) {

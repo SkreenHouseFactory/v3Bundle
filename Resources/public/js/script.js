@@ -25,6 +25,21 @@ $(document).ready(function(){
     // -- session
     Skhf.session = new Session(function(){
       console.log('script', 'Session.init', 'callback');
+
+      //affichage bulle pendant 4s sur fiche programme
+      if (!Skhf.session.datas.email && $('#program-follow .fav').length > 0) {
+        setTimeout(function(){
+          $('#program-follow .fav').each(function(){
+            var trigger = $(this);
+            UI.installPopover(trigger);
+            trigger.popover('show');
+    
+            setTimeout(function(){
+              trigger.popover('hide');
+            }, 6000);
+          });
+        }, 2000);
+      }
     });
   });
 
@@ -345,21 +360,6 @@ $(document).ready(function(){
     //no deportes
     if ($('#trigger-deportes').data('nb') == 0) {
       $('#triggers li:nth-child(2) a').trigger('click');
-    }
-
-    //affichage bulle pendant 4s
-    if (!Skhf.session.datas.email) {
-      setTimeout(function(){
-        $('#program-follow .fav').each(function(){
-          var trigger = $(this);
-          UI.installPopover(trigger);
-          trigger.popover('show');
-  
-          setTimeout(function(){
-            trigger.popover('hide');
-          }, 6000);
-        });
-      }, 2000);
     }
 
     //ics

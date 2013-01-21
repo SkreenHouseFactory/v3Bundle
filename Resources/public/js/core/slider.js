@@ -307,10 +307,9 @@ var BaseSlider = Class.extend({
         });
       }
       li.addClass('to-animate').show();
-      //li.appendTo($('ul.items', this.elmt));
-      console.log('BaseSlider.load', 'add', li, $('ul.items', this.elmt));
+      //console.log('BaseSlider.load', 'add', li, $('ul.items', this.elmt));
       $('ul.items', this.elmt).append(li);
-      
+
       console.log('BaseSlider.load', 'added', program);
     }
 
