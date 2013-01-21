@@ -211,14 +211,31 @@ $(document).ready(function(){
   $('#couchmode').live('click', function(){
     Couchmode.unload();
   });
-
   // -- play deporte
   $('[data-play]').live('click', function(){
-    console.log('script', 'data-play', $(this).data('play'), $(this).data('play-args'));
+    console.log('script', 'data-play', $(this).data('play'), $(this).data('play-args'), Player.state);
+    if (Player.state == 'playing') {
+      console.log('script', 'data-play', 'Pause current player');
+      Player.pause();
+    }
     API.play($(this).data('play'), $(this).data('play-args'));
     return false;
   });
-
+  // -- couchmode
+  $('[data-couchmode]').live('click', function(){
+    if (Player.state == 'playing') {
+      console.log('script', 'data-play', 'Pause current player');
+      Player.pause();
+    }
+    var args = $.extend({session_uid: Skhf.session.uid}, $(this).data('couchmode'));
+    console.log('script', 'data-couchmode', $(this).data('couchmode'), args);
+    Couchmode.init(args);
+    
+    //hack close player
+    if ($('#couchmode #couchmode-close').length == 0) {
+      $('#couchmode').prepend('<div id="couchmode-close"><i class="icon-remove icon-white"></i> Fermer</div>');
+    }
+  });
   // -- ui redirect autoload
   if ($('#redirect iframe').length > 0) {
     console.log('UI.loadRedirect()', $('#redirect iframe').length);
@@ -227,18 +244,6 @@ $(document).ready(function(){
   $('[data-redirect]').live('click', function(){
       console.log('script', 'player redirect', $(this));
       UI.loadRedirect($(this).data('redirect'));
-  });
-
-  // -- couchmode
-  $('[data-couchmode]').live('click', function(){
-      var args = $.extend({session_uid: Skhf.session.uid}, $(this).data('couchmode'));
-      console.log('script', 'data-couchmode', $(this).data('couchmode'), args);
-      Couchmode.init(args);
-      
-      //hack close player
-      if ($('#couchmode #couchmode-close').length == 0) {
-        $('#couchmode').prepend('<div id="couchmode-close"><i class="icon-remove icon-white"></i> Fermer</div>');
-      }
   });
 
   // -- couchmode autoplay
