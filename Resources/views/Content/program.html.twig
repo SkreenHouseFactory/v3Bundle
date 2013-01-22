@@ -228,6 +228,12 @@
       <img src="{{ program.img }}" alt="{{ program.title }}" />
     </div>
 
+    <div id="program-friends">
+      {#<p><strong>{{ 'program.friends.block.title.all'|lower|trans }}</strong></p>
+      <div class="share-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'program.friends.popover.content'|trans } %}</div>#}
+      <div class="share-on"></div>
+    </div>
+
     <div id="program-episodes">
       {% if program.season_number is defined %}
       <div class="btn-group program-episode season-episode">
@@ -248,6 +254,7 @@
         <button class="btn dropdown-toggle" data-toggle="dropdown">
           <span class="caret"></span>
         </button>
+        {% if program.seasons is defined %}
         <ul class="dropdown-menu">
           {% for season in program.seasons if season.number == program.season_number %}
             {% for episode in season.episodes %}
@@ -258,6 +265,7 @@
             {% endfor %}
           {% endfor %}
         </ul>
+        {% endif %}
       </div>
       <a style="margin-top:15px;" href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}" class="btn btn-block">{{ 'program.episodes.all'|trans }}</a>
       
@@ -290,17 +298,10 @@
 
     <div id="program-share">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}</div>
 
-{#
-    <hr/>
-    <div id="program-friends">
-      <p><strong>{{ 'program.friends.block.title.all'|lower|trans }}</strong></p>
-      <div class="share-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'program.friends.popover.content'|trans } %}</div>
-      <div class="share-on"></div>
-    </div>
-#}
-
     <ul class="nav nav-list bs-docs-sidenav">
+      {% if program.has_related > 0 %}
       <li><a href="#related"><i class="icon-chevron-right"></i> {{ 'program.related'|trans }}</a></li>
+      {% endif %}
       {#% if program.teaser %}
       <li><a href="#teaser"><i class="icon-chevron-right"></i> {{ 'program.teaser'|trans }}</a></li>
       {% endif %#}
@@ -308,10 +309,11 @@
     </ul>
   </div>
 
+  {% if program.has_related %}
   <br class="clear"/>
   <a name="related"></a>
   <div id="program-related" class="inverse">
-  {% for r in program.related if r.programs is defined and r.programs|length > 0 %}
+  {% for r in program.related if r.programs is defined and r.programs|length %}
     {% if r.name == 'same_actors' and program.casting %}
       <h3 id="same-actors-title" class="user-on-visibility">{{ r.title }}</h3>
       <div class="person-list">
@@ -334,6 +336,7 @@
     {% endif %}
   {% endfor %}
   </div>
+  {% endif %}
 
   <br class="clear"/>
   <a name="infos"></a>

@@ -67,15 +67,21 @@ $(document).ready(function(){
     }
     return false;
   });
-  $('.user-on .dropdown-toggle').click(function(){
-    if (API.context == 'v2' && !$('#top-playlist').hasClass('in')) {
-      $('#top-playlist').collapse('show');
-    }
+  $('.user-on .dropdown-toggle, .user-on [data-target]').click(function(){
     if ($(this).hasClass('notifications-count') && 
         $('.badge-important', $(this)).length > 0) {
       Skhf.session.readNotifications();
       var current = $('#top-bar .notifications li:not(.divider, .empty)').length;
       $('#top-bar .notifications-count span.badge').removeClass('badge-important').html(current);
+    }
+
+    if (API.context == 'v2') {// for tv guide
+      console.log('toggleheader');
+      if (!$('#top-playlist').hasClass('in') && $('#top-bar .nav li.open').length == 0) {
+        API.postMessage(['header', 'add_playlist']);
+      } else {
+        API.postMessage(['header', 'remove_playlist']);
+      }
     }
   });
   $('.share .btn').click(function(){
@@ -118,7 +124,7 @@ $(document).ready(function(){
     var q = encodeURIComponent($('.search-query', this).val());
     console.log('search', '/programmes/' + q);
     if (q) {
-      document.location = '/programmes/' + q;
+      top.location = '/programmes/' + q;
     }
     return false;
   });
@@ -129,11 +135,8 @@ $(document).ready(function(){
   // -- ui playlist
   $('#top-playlist').on('show', function () {
     console.log('script', '#top-playlist on show');
+    $('.nav li.open').removeClass('open');
     API.postMessage(['header', 'add_playlist']);
-  });
-  $('#top-playlist').on('hide', function () {
-    console.log('script', '#top-playlist on hide');
-    API.postMessage(['header', 'remove_playlist']);
   });
   $('#top-playlist .breadcrumb li:first').live('click', function(){
     Skhf.session.initSelector();
@@ -291,7 +294,7 @@ $(document).ready(function(){
   });
 
   // -- .fav : retirer / popover
-  $('.actions .fav').live('hover', function(event) {
+  $('.actions .fav:not(.fav-remove)').live('hover', function(event) {
     //console.log('script', '.fav:hover', event.type);
     var trigger = $(this);
     if (event.type == 'mouseover' || event.type == 'mouseenter') {

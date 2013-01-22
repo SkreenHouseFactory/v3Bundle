@@ -33,7 +33,9 @@
       </a>
       <ul class="dropdown-menu">
         <li><a class="favoris" href="{{ path('user_programs') }}" target="_top"><i class="icon-list-alt"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
-        {#<li><a class="account" href="#"><i class="icon-cog"></i> {{ 'nav.account'|trans }}</a></li>#}
+        {% if app.environment == 'dev' %}
+        <li><a class="account" href="{{ path('user_settings') }}"><i class="icon-user"></i> {{ 'nav.account'|trans }}</a></li>
+        {% endif %}
         <li><a class="signout" href="#"><i class="icon-remove"></i> {{ 'signout'|trans }}</a></li>
       </ul>
     </li>

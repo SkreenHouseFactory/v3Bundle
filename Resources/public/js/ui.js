@@ -173,7 +173,8 @@ UI = {
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
     console.log('UI.unloadUserPrograms', ids, elmt);
     for (key in ids) {
-      //console.log('UI.unloadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav.fav-on');
+      console.log('UI.unloadUserPrograms', ids[key], $('li.actions[data-id="' + ids[key] + '"]', elmt));
+      $('li.actions[data-id="' + ids[key] + '"]', elmt).remove();
       $('.actions[data-id="' + ids[key] + '"] a.fav.fav-on', elmt).html('<i class="icon-plus-sign icon-white"></i> Suivre').removeClass('fav-on').removeClass('btn-danger');
     }
   },
@@ -509,7 +510,7 @@ UI = {
         //console.log('UI.addFriends', friend_uids[k], friends[friend_uids[k]]);
         if (typeof friends[friend_uids[k]] != 'undefined') {
           var friend = friends[friend_uids[k]];
-          div.append('<a rel="tooltip" title="' + friend.name + '<br/>suit ce programme" href="#"><img src="' + friend.pic_square + '" alt="' + friend.name + '" /></a>');
+          div.append('<a rel="tooltip" data-placement="bottom" title="' + friend.name + '<br/>suit ce programme" href="#"><img src="' + friend.pic_square + '" alt="' + friend.name + '" /></a>');
         }
       }
       $('a[rel="tooltip"]', div).tooltip();

@@ -306,7 +306,7 @@ var BaseSlider = Class.extend({
           }
         });
       }
-      li.addClass('to-animate').show();
+      li.addClass('to-animate').css('display', 'inline-block'); //attention : .show() > list-item
       //console.log('BaseSlider.load', 'add', li, $('ul.items', this.elmt));
       $('ul.items', this.elmt).append(li);
 

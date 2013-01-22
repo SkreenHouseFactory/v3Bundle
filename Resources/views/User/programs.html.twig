@@ -1,6 +1,6 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
-{% block title %}{{ 'service.name'|trans }} - {{ 'page.title.user.programs'|trans }}{% endblock %}
+{% block title %}{{ 'page.title.user.programs'|trans }}{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -38,7 +38,7 @@
   <div id="user-programs" class="slider slider-list">
     <ul class="items">
     {% for p in programs %}
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p} %}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, 'header': '<span class="fav fav-remove badge badge-important"><i class="icon-trash icon-white"></i></span>'} %}
     {% endfor %}
     </ul>
   </div>

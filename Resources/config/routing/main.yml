@@ -41,11 +41,14 @@ search:
         q: "[^/]+"
 
 #user
+user_settings:
+    pattern:  /user/settings/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:settings }
 user_programs:
-    pattern:  /mes-programmes/{onglet}
+    pattern:  /user/mes-programmes/{onglet}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:programs, onglet: null }
 user_playlist:
-    pattern:  /playlist/{username}
+    pattern:  /user/{username}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:playlist }
 user_blacklist:
     pattern:  /newsletter/unsubscribe

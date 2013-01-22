@@ -39,6 +39,7 @@ redirection:
     message: mySkreen vous redirige vers votre vidéo
 user:
     programs: Votre playlist
+    settings: Vos préférences
 notifications:
     empty: 
         title: Vous n'avez pas de notifications !
@@ -92,8 +93,8 @@ playlist:
         replay: Ajoutez vos émissions et séries préférées à vos playlists pour ne rater aucun épisode
         friends: Inviter vos proches pour partager vos playlists avec eux.
 nav:
-    favoris: Gérez vos programmes
-    account: Votre compte
+    favoris: Gérer vos programmes
+    account: Modifier vos préférences
     all: Tout
     filter: Filtrer vos playlist
     filters:

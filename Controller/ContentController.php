@@ -53,7 +53,8 @@ class ContentController extends Controller
       if ($this->get('kernel')->getEnvironment() != 'dev' && 
           $response->isNotModified($request)) {
           // Retourner immédiatement un objet 304 Response
-          mail('benoit@myskreen.com', '[v3][program isNotModified] program-' . $request->get('id') . '-'. $datas->updated_at, print_r($response, true));
+          mail('benoit@myskreen.com', 
+               '[v3][program isNotModified] program-' . $request->get('id') . '-'. $datas->updated_at, print_r($response, true));
       } else {
         //$response->expire();
 
@@ -89,7 +90,9 @@ class ContentController extends Controller
           echo 'redirect fail : episode 1 saison '.$request->get('season_number');exit();
         }
         if ($request->getPathInfo() != $datas->seo_url) {
-          //echo 'redirect '.$request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
+          if ($this->get('kernel')->getEnvironment() == 'dev') {
+            return new Response('redirect '.$request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url));
+          }
           return $this->redirect($datas->seo_url);
         }
         // -- post treatments
@@ -113,6 +116,7 @@ class ContentController extends Controller
         }
 
         //load related programs
+        $datas->has_related = false;
         foreach ($datas->related as $key => $r) {
           //print_r($r);
           $datas->related[$key]->programs = (array)$api->fetch(str_replace('&onglet', '&_onglet', $r->paginate), array(
@@ -122,8 +126,11 @@ class ContentController extends Controller
                                                       'channel_img_width' => 50,
                                                       'nb_results' => 7,
                                                     ));
-          //echo "\n name:".$r->name.' url:'.$api->url;
-          //echo "\n name:".$r->name.' : '.end($datas->related[$key]->programs)->id;
+          if (count($datas->related[$key]->programs) > 0) {
+            $datas->has_related = true;
+            //echo "\n name:".$r->name.' url:'.$api->url;
+            //echo "\n name:".$r->name.' : '.end($datas->related[$key]->programs)->id;
+          }
         }
         
         if (isset($datas->sagas) && count($datas->sagas) > 0) {

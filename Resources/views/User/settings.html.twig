@@ -1,0 +1,21 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}{{ 'page.title.user.settings'|trans }}{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <h1>{{ 'user.settings'|trans }}</h1>
+
+  <ul class="nav nav-pills" id="user-settings">
+    <li class="active"><a href="#user-profile">{{ 'user.settings.profile' }}</a></li>
+    <li><a href="#user-payment">{{ 'user.settings.payment' }}</a></li>
+    <li><a href="#user-social">{{ 'user.settings.social' }}</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="user-profile">PROFILS</div>
+    <div class="tab-pane" id="user-payment">PAYMENT</div>
+    <div class="tab-pane" id="user-social">SOCIAL</div>
+  </div>
+{% endblock %}

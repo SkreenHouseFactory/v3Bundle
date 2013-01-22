@@ -56,6 +56,22 @@ class UserController extends Controller
     /**
     *
     */
+    public function settingsAction(Request $request)
+    {
+
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:settings.html.twig', array(
+        //'menus'    => null,
+      ));
+
+      $response->setPrivate();
+      $response->setMaxAge(60);
+
+      return $response;
+    }
+
+    /**
+    *
+    */
     public function programsAction(Request $request)
     {
       $session_uid = $request->cookies->get('myskreen_session_uid');
@@ -89,7 +105,6 @@ class UserController extends Controller
 
       //print_r(array($session_uid, $programs));
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:programs.html.twig', array(
-        'menus'    => null,
         'onglets'  => array('films', 'documentaires', 'series', 'emissions', 'spectacles'),
         'alpha'    => array(1,2,3,4,5,6,7,8,9,
                             'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'),

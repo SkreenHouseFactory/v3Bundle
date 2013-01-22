@@ -3,7 +3,7 @@
    ========================================================================== */
 
 @bgBody:   url("/bundles/skreenhousefactoryv3/images/header/bg-playlist.jpeg");
-@sliderHeight:   210px;
+@sliderHeight:   210px; /*245px;*/
 @vignetteWidth:   150px;
 @vignetteHeight:   200px;
 @vignetteBorder:  1px solid transparent;
@@ -31,6 +31,8 @@
   }
 }
 .slider.slider-list {
+  height: auto;
+  
   ul.items {
     white-space: normal;
     position: relative;
@@ -138,15 +140,13 @@
       font-family: Helvetica, Arial;
       width: @vignetteWidth;
       height: @vignetteHeight;
-      display: block;
-      float: left;
+      display: inline-block;
       border: @vignetteBorder;
       margin: @vignetteMargin;
       background-repeat: no-repeat;
       list-style: none;
       text-align: center;
       box-shadow: 1px 1px 4px #999;
-      overflow: hidden;
       white-space: normal;
 
       .channel {
@@ -193,6 +193,13 @@
       div.friends {
         position: absolute;
         z-index: 2;
+        /*
+        bottom: -45px;
+
+        img {
+          height: 35px;
+        }
+        */
       }
 
       div.progress {
@@ -207,6 +214,16 @@
         top: 1px;
         right: 0px;
         box-shadow: 0px 0px 20px white;
+
+        &.fav-remove {
+          top: -10px;
+          left: -10px;
+          right: auto;
+          display:none;
+          padding: 5px;
+          border-radius: 15px;
+          border: 3px solid white;
+        }
       }
       span.opacity {
         opacity: 0.5;
@@ -295,6 +312,9 @@
         }
         a.title { 
           height: auto;
+        }
+        .badge.fav-remove {
+          display: block;
         }
       }
       &.tv-component-focused {

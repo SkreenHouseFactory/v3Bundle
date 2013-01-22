@@ -2,8 +2,24 @@
 
 {% set page_title = 'page.title.home.' ~ home.name %}
 {% set page_description = 'page.description.home.' ~ home.name %}
+{% if app.request.get('home') == 'jeunesse' %}
+{% set keywords = 'dessin animé, manga, film d\'animation, cartoon, enfants, junior, disney, pixar, série animée, kids' %}
+{% elseif app.request.get('home') == 'tv-replay' %}
+{% set keywords = 'émission, rattrapage, à la demande, programme tv, reportage, divertissement, télé réalité, JT, talk show, sports' %}
+{% elseif app.request.get('home') == 'film' %}
+{% set keywords = 'long métrage, cinéma, vidéo à la demande, fantastique, horreur, comédie, drame' %}
+{% elseif app.request.get('home') == 'spectacle' %}
+{% set keywords = 'divertissement, théatre, concert, musique, one man show, humour, pièce, classique, scène' %}
+{% elseif app.request.get('home') == 'documentaire' %}
+{% set keywords = 'reportage, société, découvertes, voyages, arts, biographies, histoire' %}
+{% elseif app.request.get('home') == 'serie' %}
+{% set keywords = 'feuilleton, policier, télé, soap, à suivre, house, experts, ncis, saison' %}
+{% elseif app.request.get('home') == 'cinema' %}
+{% set keywords = 'grand écran, séance, films, projection, salles, horaires, sorties, bandes-annonces' %}
+{% endif %}
 
 {% block meta %}
+{% if keywords is defined %}<meta name="keywords" content="{{ keywords }}">{% endif %}
 <meta property="og:title" content="{{ page_title|trans }}" />
 <meta property="og:description" content="{{ page_description|trans }}" />
 <meta property="og:image" content="http://medias.myskreen.com/logo.png" />
@@ -17,8 +33,13 @@
 <div id="view-home">
   {% for slider in home.sliders if slider.id is defined %}
     {% if loop.first %}
+      <div class="main-slider">
+      <div class="main-slider-title">
       <h1>{{ app.request.get('home') }}</h1>
+      {% if keywords is defined %}<p class="lead">{{ keywords }}</p>{% endif %}
+      </div>
       <div class="carousel-container">{% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider} %}</div>
+      </div>
     {% else %}
       {% if loop.index == 2 %}<div class="container">{% else %}<hr/>{% endif %}
       <a name="{{ slider.name }}"></a>
