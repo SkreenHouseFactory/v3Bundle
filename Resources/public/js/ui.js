@@ -437,10 +437,10 @@ UI = {
       Player.playOccurrence(id, function(){}, args);
     } else {
       //hack close player
-      if ($('#couchmode #couchmode-close').length == 0) {
-        $('#couchmode').prepend('<div id="couchmode-close"><i class="icon-remove icon-white"></i> Fermer</div>');
+      if ($('#couchmode-inner #couchmode-close').length == 0) {
+        $('#couchmode-inner').prepend('<div id="couchmode-close"><i class="icon-remove icon-white"></i> Fermer</div>');
       }
-      
+
       var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid, hide_sliders: 1}, args);
       Couchmode.init(args);
     }

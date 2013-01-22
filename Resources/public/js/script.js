@@ -226,7 +226,7 @@ $(document).ready(function(){
   */
 
   // ui -- player : close player
-  $('#couchmode').live('click', function(){
+  $('#couchmode-inner > *:not(#couchmode-player)').live('click', function(){
     Couchmode.unload();
   });
   // -- play deporte

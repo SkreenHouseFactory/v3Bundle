@@ -36,7 +36,7 @@ Player = {
   },
   reset: function() {
     $('#player-meta').empty();
-    if (this.elmt.html()) {
+    if (this.elmt != null  && this.elmt.html()) {
       this.elmt.empty();
       this.elmt = null;
     }
