@@ -55,7 +55,8 @@
 
     .description {
       color: black;
-      margin: -570px 0 0 420px;
+      margin: -560px 0 0 420px;
+      width: 550px;
     }
   }
 
@@ -279,12 +280,21 @@
   }
   
   #program-infos {
+    height: 550px;
+    background: white;
+    border: 1px solid #CCC;
+    paddin-right: 20px;
+
    .img {
     margin-right: 20px;
    }
-
-   #program-casting {
-    margin-top: 250px;
+   .inner {
+      padding: 10px;
+     #program-casting {
+      margin-top: 250px;
+      max-height: 200px;
+      overflow-y: auto;
+     }
    }
   }
 }
