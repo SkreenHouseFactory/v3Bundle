@@ -169,7 +169,7 @@
   , next: function (event) {
       var active = this.$menu.find('.active').removeClass('active')
         , next = active.next()
-
+      console.log('typeahead.next', active, next);
       if (!next.length) {
         next = $(this.$menu.find('li')[0])
       }
@@ -180,6 +180,7 @@
   , prev: function (event) {
       var active = this.$menu.find('.active').removeClass('active')
         , prev = active.prev()
+      console.log('typeahead.prev', active, prev);
 
       if (!prev.length) {
         prev = this.$menu.find('li').last()
@@ -254,12 +255,12 @@
 
         case 38: // up arrow
           e.preventDefault()
-          this.prev()
+          //this.prev()
           break
 
         case 40: // down arrow
           e.preventDefault()
-          this.next()
+          //this.next()
           break
       }
     }

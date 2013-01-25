@@ -30,12 +30,7 @@ var BaseSlider = Class.extend({
     //console.log('BaseSlider.init', this.loader, this.items);
 
     //scroll ?
-    if (this.params.scroll != 'no') {
-      if (this.elmt.find('.prev, .next').length == 0) {
-        this.elmt.append('<a class="next badge badge-inverse"><i class="icon-chevron-right icon-white"></i></a>');
-        this.elmt.append('<a class="prev badge badge-inverse"><i class="icon-chevron-left icon-white"></i></a>');
-      }
-    } else {
+    if (this.params.scroll == 'no') {
       this.elmt.addClass('no-scroll');
     }
 
@@ -76,8 +71,8 @@ var BaseSlider = Class.extend({
     //console.log('BaseSlider.ui', this);
     var self = this;
 
-    var next = $('.next', this.elmt);
-    var prev = $('.prev', this.elmt);
+    var next = $('.right', this.elmt);
+    var prev = $('.left', this.elmt);
     this.elmt.removeClass('loading');
 
     //if (!this.elmt.hasClass('couchmode')) {
@@ -178,7 +173,7 @@ var BaseSlider = Class.extend({
   },
   prev: function(trigger) {
     var self = this;
-    var next = $('.next', this.elmt);
+    var next = $('.right', this.elmt);
     console.log('prev', parseInt(this.container.css('left')), parseInt(this.container.css('width')));
     if (-parseInt(this.items.css('left')) < parseInt(this.items.css('width'))) {
       self.items.animate({'left': '+=' + parseInt(this.container.css('width'))}, 500, function() {
@@ -200,8 +195,8 @@ var BaseSlider = Class.extend({
   },
   remove: function() {
     console.log('BaseSlider.remove', this.elmt);
-    $('.next', this.elmt).css({'visibility':'hidden'});
-    $('.next, .prev', this.elmt).unbind('click');
+    $('.right', this.elmt).css({'visibility':'hidden'});
+    $('.right, .left', this.elmt).unbind('click');
     $('ul', this.elmt).css('left', '0px').find('li:not(.static)').remove();
     this.elmt.data('pager-offset', 0);
     this.elmt.data('nb-programs', 0);
@@ -277,18 +272,18 @@ var BaseSlider = Class.extend({
       var popular_channel = program.popular_channel ? '<img alt="' + program.popular_channel.name + ' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
       var pere  = program.episodeof ? program.episodeof : program;
       var seo_url = API.config.v3_root + program.seo_url + (this.elmt.attr('id') == 'playlist' ? '?keepPlaylist' : '');
-      //var icon_title = program.deporte ? '<i class="icon-th icon-white"></i> ' : '';
       var sample = this.sample.replace('%title%', program.title).replace('%title%', program.title)
                               .replace('%id%', pere.id).replace('%id%', pere.id)
                               .replace('%seo_url%', seo_url)
-                              .replace('%deporte%', program.deporte ? 'deporte' : '')
                               .replace('%popular_channel%', popular_channel)
                               .replace('%onglet%', typeof program.onglet != 'undefined' ? program.onglet.toLowerCase() : '');
       var li = $(sample);
       li.css('background-image', 'url(' + program.picture + ')');
       li.attr('data-position', k);
       li.attr('data-player-program', JSON.stringify(program));
-
+      if (program.deporte) {
+        li.addClass('deporte');
+      }
       //notif : FIX
       //if (Skhf.session.datas.notifications &&
       //    $.inArray('' + pere.id, Skhf.session.datas.notifications.programs['new']) != -1) { //'' + pere.id
@@ -300,11 +295,13 @@ var BaseSlider = Class.extend({
         $('.actions', li).data('id', program.id);
         this.addProgramBestOffer(li, program);
 
+        /* add friends : desactived
         Skhf.session.getSocialDatas(function (friends, friends_programs) {
           if (typeof friends_programs[program.id] != 'undefined') {
             UI.addFriends(li, friends_programs[program.id]);
           }
         });
+        */
       }
       li.addClass('to-animate').css('display', 'inline-block'); //attention : .show() > list-item
       //console.log('BaseSlider.load', 'add', li, $('ul.items', this.elmt));
@@ -352,13 +349,14 @@ var BaseSlider = Class.extend({
         $('.channel', li).removeClass('hide');
       }
     } else {
-      if (p.deporte) { $('.channel .diff', li).html('<i class="icon-th icon-white"></i> Sur mySkreen'); }
-      else if (p.has_vod == 4) { $('.channel .diff', li).html('Au cinéma'); }
-      else if (p.has_vod == 3) { $('.channel .diff', li).html('En DVD'); }
-      else if (p.has_vod == 5) { $('.channel .diff', li).html('A la télé'); }
-      else if (p.has_vod == 6) { $('.channel .diff', li).html('Bientôt en replay'); }
-      else if (p.has_vod == 7 || p.has_vod == 8) { $('.channel .diff', li).html('En Replay'); }
-      else if (p.has_vod) { $('.channel .diff', li).html('En Streaming'); }
+      //if (p.deporte) { $('.channel .diff', li).html('<i class="icon-th icon-white"></i> Sur mySkreen'); }
+      //else 
+      if (p.has_vod == 4) { $('.channel .diff', li).html('Ciné'); }
+      else if (p.has_vod == 3) { $('.channel .diff', li).html('DVD'); }
+      else if (p.has_vod == 5) { $('.channel .diff', li).html('TV'); }
+      else if (p.has_vod == 6) { $('.channel .diff', li).html('Bientôt en Replay'); }
+      else if (p.has_vod == 7 || p.has_vod == 8 || p.has_vod == 9 || p.has_vod == 10) { $('.channel .diff', li).html('Replay'); }
+      else if (p.has_vod) { $('.channel .diff', li).html('VOD'); }
     }
   },
   getTemplate: function(params) {

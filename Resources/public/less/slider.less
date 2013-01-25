@@ -9,7 +9,7 @@
 @vignetteBorder:  1px solid transparent;
 @selectorBorder:  1px solid #BBBBBB;
 @vignetteBorderEmpty:  1px dashed #BBBBBB;
-@vignetteMargin:  0 7px 14px;
+@vignetteMargin:  0 5px;
 
 /* link */
 .slider-link {
@@ -23,7 +23,7 @@
   }
 }
 .slider.back {
-  .prev {
+  .left {
     visibility: visible;
   }
   .slider-container {
@@ -86,25 +86,18 @@
   clear: both;
   z-index: 1;
 
-  .prev, .next {
+  .left, .right {
     visibility: hidden;
     position: absolute;
     z-index: 2;
     top: 42%;
-    font-size: 2em;
-    font-weight: bold;
+    cursor: pointer;
   }
-  .prev {
-    left: -25px;
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
-    padding: 10px 5px 3px 6px;
+  .left {
+    left: 5px;
   }
-  .next {
-    right: -25px;
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-    padding: 10px 6px 3px 5px;
+  .right {
+    right: 5px;
   }
   
   h2, h3 {
@@ -250,9 +243,13 @@
         height: 11px;
         background: #333;
         margin: 4px;
-        padding: 3px;
+        padding: 2px 4px 4px;
         border-radius: 4px;
         font-size: 0.9em;
+        
+        i {
+          display: none;
+        }
       }
 
       &.selector {
@@ -332,6 +329,9 @@
       &.deporte {
         div.actions a.btn span {
           display: block;
+        }
+        .title i {
+          display: inline-block;
         }
       }
       &.deporte:hover, &.tv-component-focused.deporte {

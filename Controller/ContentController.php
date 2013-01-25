@@ -105,6 +105,8 @@ class ContentController extends Controller
           }
           ksort($datas->episode_list);
         }
+        //online
+        $datas->offers['plays'] = array_merge($datas->offers['deportes'], $datas->offers['plays']);
         //theaters     
         if (!$datas->offers['theaters'] && !$datas->offers['theaters_on_demand']) {
           $datas->offers['theaters'] = array();
@@ -147,13 +149,14 @@ class ContentController extends Controller
 
         $response = $this->render('SkreenHouseFactoryV3Bundle:Content:program.html.twig', array(
           'program' => $datas,
-          'offers' => array('deportes' => 'sur mySkreen', 
-                            'plays' => 'Replay et VOD', 
-                            'broadcasts' => 'A la télé', 
-                            'theaters' => 'Au cinéma',
+          'offers' => array(//'deportes' => 'sur mySkreen', 
+                            'broadcasts' => 'Télé', 
+                            'plays' => 'Replay - VOD', 
                             'itunes' => 'iTunes', 
-                            'dvds' => 'En DVD', 
-                            'boxs' => 'Sur les box')
+                            'boxs' => 'Box',
+                            'dvds' => 'DVD', 
+                            'theaters' => 'Ciné', 
+                            'archives' => 'Archives')
         ));
       }
 

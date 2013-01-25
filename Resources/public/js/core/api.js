@@ -7,10 +7,6 @@ function skPaymentPopinEnd(action, player, occurrence_id) {
   console.warn('skPaymentPopinEnd', action, player, occurrence_id);
   if (typeof action != 'undefined' && 
       action == 'play') {
-    //hack close player
-    if ($('#couchmode #couchmode-close').length == 0) {
-      $('#couchmode').prepend('<div id="couchmode-close"><i class="icon-remove icon-white"></i> Fermer</div>');
-    }
     Couchmode.init({type: 'occurrence', id: occurrence_id, hide_sliders: 1});
   }
   $('.modal').modal('hide');
@@ -33,7 +29,7 @@ ENV = {
   dev: {
     env: 'dev',
     site_url: 'http://beta.' + DEV + '.myskreen.typhon.net:40011',
-    v3_url: 'http://v3.benoit.myskreen.typhon.net/app_dev.php',
+    v3_url: 'http://v3.' + DEV + '.myskreen.typhon.net/app_dev.php',
     v3_root: '/app_dev.php',
     base: 'http://' + DEV + '.myskreen.typhon.net/api/',
     popin: 'http://' + DEV + '.myskreen.typhon.net/popin/',
@@ -61,6 +57,7 @@ ENV = {
     console: false
   },
   all: {
+    api_version: '2',
     slider: {
       width: 150,
       height: 200
@@ -300,10 +297,9 @@ API = {
         case 'DISCONNECTED':
           UI.auth(function(){
             console.log('API.play', 'callback UI.auth', Skhf.session.datas);
+            $('.modal .modal-body').prepend('<p class="alert alert-success"><b>Vidéo à la demande :</b><br/>Créez votre compte pour voir ce programme sur mySkreen !</p>');
             if (Skhf.session.datas.email) {
               self.play(id);
-            } else {
-              console.error('API.play', 'callback UI.auth', Skhf.session.datas);
             }
           });
         break;
@@ -325,7 +321,7 @@ API = {
       //console.log('API.query', 'http(s|)://', 'is popin', url);
     } else {
       //console.log('API.query', 'http', 'is api', url);
-      var version = typeof version == 'undefined' ? '1' : version;
+      var version = typeof version != 'undefined' ? version : this.config.api_version;
       var url  = this.config.base + version + '/' + url; //.replace('//', '/');
     }
 

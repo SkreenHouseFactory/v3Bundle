@@ -47,7 +47,7 @@
     <li class="hide user-on dropdown notifications">
       <a data-toggle="dropdown" class="dropdown-toggle tv-component btn-last notifications-count" href="#"></a>
       <ul class="dropdown-menu">
-        <div><li class="empty"><h6>{{ 'notifications.empty.title'|trans }}<small>{{ 'notifications.empty.text'|trans }}</small></h6></li></div>
+        <div class="scroll"><li class="empty"><h6>{{ 'notifications.empty.title'|trans }}<small>{{ 'notifications.empty.text'|trans }}</small></h6></li></div>
       </ul>
     </li>
     <li class="divider-vertical"></li>
@@ -66,6 +66,7 @@
   <div class="subnav subnav-fixed">
     <div class="container">
       <ul id="shortcuts" class="pull-right">
+        <li class="shortcut-jeunesse"><a href="{{ header_base }}{{ path('homes', {home: 'dessin-anime-et-manga'}) }}" target="_top">{{ 'nav.jeunesse'|trans }}</a></li>
         <li class="shortcut-spectacles"><a href="{{ header_base }}{{ path('homes', {home: 'spectacle'}) }}" target="_top">{{ 'nav.spectacles'|trans }}</a></li>
         <li class="shortcut-series"><a href="{{ header_base }}{{ path('homes', {home: 'serie'}) }}" target="_top">{{ 'nav.series'|trans }}</a></li>
         <li class="shortcut-documentaires"><a href="{{ header_base }}{{ path('homes', {home: 'documentaire'}) }}" target="_top">{{ 'nav.documentaires'|trans }}</a></li>

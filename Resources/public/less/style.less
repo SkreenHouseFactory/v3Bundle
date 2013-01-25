@@ -4,6 +4,7 @@
 @import "../bootstrap/less/bootstrap.less";
 @import "../bootstrap/less/responsive.less";
 @import "modal.less";
+@import "scrollbars-webkit.less";
 
 /* ===== v3 =================================================================
    ========================================================================== */
@@ -21,13 +22,6 @@
 
 @import "channel.less";
 @import "program.less";
-
-/* ios */
-.ios {
-  .slider .prev {
-    left: -5px;
-  }
-}
 
 /* main */
 .touch body {
@@ -87,13 +81,13 @@ a.trigger-tv {
   }
 }
 .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
-  width: 1010px;
+  width: 990px; /*1010px;*/
   position: relative;
 
   .pagination {
     text-align: left;
     a {
-      padding: 0 10px 0 9px;
+      padding: 0 9px;
       background-color: white;
     }
     li.active a {
@@ -172,12 +166,13 @@ ul.pager {
     width: 60%;
     height: 60%;
     margin: 10% 20% 15%;
+  }
 
-    #couchmode-close {
-      color: white;
-      text-align: right;
-      cursor: pointer;
-    }
+  #couchmode-close {
+    display: block !important;
+    color: white;
+    text-align: right;
+    cursor: pointer;
   }
 }
 
@@ -344,18 +339,25 @@ tr[data-id]:hover {
   margin-top: -2px;
 }
 
-.typeahead {
+ul.typeahead {
   width: 457px;
 
-  .nav-header {
-    display: block;
-    padding: 3px 15px;
-    font-size: 11px;
-    font-weight: bold;
-    line-height: 18px;
-    color: #999;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-    text-transform: uppercase;
+  li {
+    img {
+      height: 30px;
+      width: 30px;
+    }
+
+    &.nav-header {
+      display: block;
+      padding: 3px 15px;
+      font-size: 11px;
+      font-weight: bold;
+      line-height: 18px;
+      color: #999;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+    }
   }
 }
 
@@ -729,6 +731,8 @@ tr[data-id]:hover {
       > a {
         text-shadow: 0px 0px 4px white;
         color: #555;
+        padding-right: 5px;
+        padding-left: 5px;
       }
 
       &.separator {

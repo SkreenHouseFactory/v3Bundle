@@ -33,6 +33,31 @@ UI = {
       callback();
     }
   },
+  //auth
+  auth: function(callback, parcours) {
+    //fbconnect ne passe pas par le callback !
+    if (typeof callback != 'undefined') {
+      UI.callbackFbConnect = callback;
+    }
+    API.quickLaunchModal('signin', function() {
+      Skhf.session.sync(function() {
+        if (typeof callback != 'undefined') {
+          console.log('UI.auth', 'Skhf.session.init callback', callback);
+          callback();
+        }
+      });
+    },{parcours: parcours});
+  },
+  //paywall
+  paywall: function(id, callback) {
+    var self = this;
+    console.log('UI.paywall', id);
+    API.quickLaunchModal('signin', function() {
+      if (!Skhf.session.datas.email) {
+        self.paywall(id, callback);
+      }
+    },{parcours: 'anonyme_favoris', occurrence_id: id});
+  },
   //toggle favorite
   togglePlaylistProgram: function(trigger){
     var self = this;
@@ -53,15 +78,17 @@ UI = {
 
       this.auth(function(){
         console.log('UI.togglePlaylistProgram', 'UI.auth callback', Skhf.session.datas.email);
+        $('.modal .modal-body').prepend('<p class="alert alert-success"><b>Vos playlists :</b><br/>Ajoutez ce programme pour être sûr de ne plus le rater !</p>');
         if (Skhf.session.datas.email) {
           self.togglePlaylistProgram(trigger);
         }
-      });
+      }, 'playlist');
     }
   },
   //set popover infos
   installPopover: function(trigger) {
-    if (trigger.parent().data('onglet') == 'emissions' || trigger.parent().data('onglet') == 'series') {
+    if (trigger.parent().data('onglet') == 'emissions' || 
+        trigger.parent().data('onglet') == 'series') {
       var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' +
                     '<br/>En ajoutant ce programme à vos playlists vous serez averti dès qu\'un épisode est disponible !';
     } else {
@@ -74,31 +101,6 @@ UI = {
                       content: content,
                       show: 500, 
                       hide: 100});
-  },
-  //auth
-  auth: function(callback, parcours) {
-    //fbconnect ne passe pas par le callback !
-    if (typeof callback != 'undefined') {
-      UI.callbackFbConnect = callback;
-    }
-    API.quickLaunchModal('signin', function() {
-      Skhf.session.sync(function() {
-        if (typeof callback != 'undefined') {
-          console.log('UI.auth', 'Skhf.session.init callback', callback);
-          callback();
-        }
-      });
-    },{parcours: typeof parcours == 'undefined' ? 'anonyme_favoris' : parcours});
-  },
-  //paywall
-  paywall: function(id, callback) {
-    var self = this;
-    console.log('UI.paywall', id);
-    API.quickLaunchModal('signin', function() {
-      if (!Skhf.session.datas.email) {
-        self.paywall(id, callback);
-      }
-    },{parcours: 'anonyme_favoris', occurrence_id: id});
   },
   //user infos
   loadUser: function() {
@@ -272,7 +274,7 @@ UI = {
                     if (notifs.length > 0 && k != 'count' ) {
                       $('#trigger-' + k).append('<span class="badge badge-important">' + notifs.length + '</span>');                  
                       for(k in notifs){
-                        $('#program-offers [data-id="' + notifs[k] + '"] td:first-child').html('<span class="badge badge-important">1</span>');
+                        $('#program-offers [data-id="' + notifs[k] + '"] td:first-child').html('<span class="badge badge-important">1</span>').fadeIn();
                       };
                     }
                   };
@@ -436,11 +438,6 @@ UI = {
     if (typeof args.current_player != 'undefined' && args.current_player) {
       Player.playOccurrence(id, function(){}, args);
     } else {
-      //hack close player
-      if ($('#couchmode-inner #couchmode-close').length == 0) {
-        $('#couchmode-inner').prepend('<div id="couchmode-close"><i class="icon-remove icon-white"></i> Fermer</div>');
-      }
-
       var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid, hide_sliders: 1}, args);
       Couchmode.init(args);
     }
@@ -518,6 +515,7 @@ UI = {
     });
   },
   addFriendsPrograms: function(){
+    return; //desactivated
     Skhf.session.getSocialDatas(function(friends, friends_programs){
       //console.log('UI.addFriendsPrograms', 'callback', friends_programs);
       for (k in friends_programs) {
@@ -542,7 +540,13 @@ UI = {
         }
         API.xhr['typeahead'] = API.query('GET', 
                          'search/autosuggest/' +query + '.json', 
-                         {session_uid: Skhf.session.uid, img_width: 30, img_height: 30, advanced: 1, with_unvailable: 1}, 
+                         {
+                          session_uid: Skhf.session.uid, 
+                          img_width: 30, 
+                          img_height: 30, 
+                          advanced: 1, 
+                          with_unvailable: 1
+                         }, 
                          function(data){
                             console.log('UI.typeahead', query, data);
                             //if (data.search) {
@@ -620,8 +624,9 @@ UI = {
                                 }
                               }
                               //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
-
-                              $('#top-playlist').collapse('show');
+                              if (API.context == 'v2') { //hack iframe header v2
+                                $('#top-playlist').collapse('show');
+                              }
                               typeahead.show();
                             } else {
                               return typeahead.shown ? typeahead.hide() : typeahead
@@ -629,20 +634,22 @@ UI = {
                            });
       },
       onselect: function(obj) {
-        console.log('UI.typeahead', 'onselect', obj, typeof obj, 'blur:' + $(searchbox));
+        console.log('UI.typeahead', 'onselect', obj, typeof obj, 'blur:' + $(searchbox), API.config.v3_url + '/programmes/' + obj);
 
         if (typeof obj != 'object') { //typeahead
-          top.location = v3_url + '/programmes/' + obj;
+          top.location = API.config.v3_url + '/programmes/' + obj;
         } else if (typeof obj.seo_url != 'undefined') { //advanced
           $(searchbox).attr('value', '')
           if (obj.seo_url.match(/^http:\/\//)) {
             top.location = obj.seo_url;
           } else {
-            top.location = v3_url + obj.seo_url;
+            top.location = API.config.v3_url + obj.seo_url;
           }
         }
 
-        $('#top-playlist').collapse('hide');
+        if (API.context == 'v2') { //hack iframe header v2
+          $('#top-playlist').collapse('hide');
+        }
       }
     });
   },

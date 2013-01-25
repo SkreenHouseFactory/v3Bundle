@@ -5,7 +5,7 @@ service:
 page:
     title:
         home: 
-            mixte: The New TV Guide
+            mixte: mySkreen : Programmes TV, Replay, VOD
             v3-vod: Video à la demande
             v3-tv-replay: Replay
             v3-cine: Cinéma
@@ -134,11 +134,11 @@ nav:
         boxoffice: Tous les films en salle
     playlist: Mes programmes
     replay.channels: Replay par chaîne
-    films: Films
-    emissions: Emissions et sport
-    series: Séries
-    documentaires: Documentaires
-    spectacles: Spectacles
+    films: Film
+    emissions: Emission et sport
+    series: Série
+    documentaires: Documentaire
+    spectacles: Spectacle
     jeunesse: Jeunesse
 date.month:
     jan: Janvier
@@ -184,13 +184,12 @@ action:
     remove.favorites: Retirer
     deporte: sur mySkreen
     play:
-        deporte: Sur mySkreen
-        streaming: En streaming
-        cine: Au cinéma
-        dvd: En dvd
-        replay: En replay
-        rec: Bientôt en replay
-        tv: A la TV
+        streaming: VOD
+        cine: Ciné
+        dvd: DVD
+        replay: Replay
+        rec: Bientôt en Replay
+        tv: TV
 seo:
   title:
     add: Ajout à vos playlists

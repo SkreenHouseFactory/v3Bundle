@@ -119,12 +119,11 @@ $(document).ready(function(){
     return false;
   });
   $('#top-bar form.navbar-search').submit(function(){
-    console.log('script', 'searchbox blur', $('.search-query', $(this)));
     $('.search-query', $(this)).blur();
-    var q = encodeURIComponent($('.search-query', this).val());
-    console.log('search', '/programmes/' + q);
+    var q = encodeURIComponent($('.search-query', $(this)).val());
+    console.log('script', 'searchbox blur', q);
     if (q) {
-      top.location = '/programmes/' + q;
+      top.location = API.config.v3_url + '/programmes/' + q;
     }
     return false;
   });
@@ -226,7 +225,7 @@ $(document).ready(function(){
   */
 
   // ui -- player : close player
-  $('#couchmode-inner > *:not(#couchmode-player)').live('click', function(){
+  $('#couchmode-close, #couchmode-inner > *:not(#couchmode-player)').live('click', function(){
     Couchmode.unload();
   });
   // -- play deporte
@@ -380,19 +379,20 @@ $(document).ready(function(){
           API.query('GET',
                     'program/' + $(this).data('episode-id') + '.json',
                     {
-                      with_metadata: 1,
+                      with_description: 1,
                       img_width: 200,
-                      img_episode_only: 1
+                      episode_only: 1
                     },
                     function(json) {
                       $('.popover:visible').hide();
                       trigger.data('loaded', true);
                       if (json.description != null) {
-                        var picture = json.picture && json.picture.match(/missing\.jpg$/) == -1 ? '<hr/><p align="center"><img src="' + json.picture + '" alt="' + json.title + '" />' : '';
-                        var content = '<strong>' + (json.year != null ? json.year : '') + 
-                                      (json.season_number || json.episode_number  ? ' - ' : '') + 
+                        var picture = json.picture != null ? '<hr/><p align="center"><img src="' + json.picture + '" alt="' + json.title + '" />' : '';
+                        var content = '<strong>' + 
                                       (json.season_number ? ' Saison ' + json.season_number : '') + 
                                       (json.episode_number ? ' Episode ' + json.episode_number : '') + 
+                                      (json.season_number || json.episode_number  ? ' - ' : '') + 
+                                      (json.year != null ? json.year : '') +
                                       '</strong><br/><small>' + json.description + '</small>' + picture + '</p>';
                         trigger.attr('data-content', content);
                         trigger.popover('show');
@@ -458,16 +458,17 @@ $(document).ready(function(){
                 {nb_results: 24},
                 function(programs) {
                   if (programs.length == 0 || typeof programs.length == 'undefined') {
+                    $('#trigger-bonus').addClass('hide');
                     return;
                   }
                   //TODO : sort by duration ?
                   console.log('more-streaming', ' callback', programs.length);
-                  trigger.prepend('<br/><p class="lead"><small>' + programs.length + ' vidéos YouTube</small></p>');
+                  $('#trigger-bonus').append(' (' + programs.length + ')');
                   var container = $('#ytCarousel .carousel-inner .item:first-child');
                   var c_index = 0;
                   for (var i = 0; i < programs.length; i++) {
                     //console.log('youtube callback', 'c_index:' + c_index, 'modulo:' + i%8, container);
-                    if (i%4 == 0) {
+                    if (i%8 == 0) {
                       c_index++;
                       var item = $('<div class="item' + (i ==0 ? ' active' : '') + '"></div>')
                       container = $('#ytCarousel .carousel-inner').append(item);
@@ -479,7 +480,7 @@ $(document).ready(function(){
                                    '</a>');
                   }
                   
-                  $('#ytCarousel').carousel({interval: 7000, pause: 'hover'}).removeClass('hide');
+                  $('#ytCarousel').carousel().carousel('pause').removeClass('hide'); //{interval: 7000, pause: 'hover'}
                 });
     };
   }
