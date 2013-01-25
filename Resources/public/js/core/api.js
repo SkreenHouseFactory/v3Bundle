@@ -226,7 +226,6 @@ API = {
     //error
     $('.error_list', modal).addClass('alert alert-error').removeClass('error_list');
     //input
-    $('.modal-footer', modal).append(' <a href="#" class="close">Fermer</a>');
     $('form input[type="submit"]', modal).addClass('btn-large btn-primary').removeClass('primary');
     console.log('API.v2Modal', 'exit', modal);
   },
