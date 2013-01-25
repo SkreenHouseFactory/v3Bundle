@@ -464,6 +464,9 @@ $(document).ready(function(){
                   //TODO : sort by duration ?
                   console.log('more-streaming', ' callback', programs.length);
                   $('#trigger-bonus').append(' (' + programs.length + ')');
+                  if ($('#triggers li').length == 1) {
+                    $('#trigger-bonus').trigger('click');
+                  }
                   var container = $('#ytCarousel .carousel-inner .item:first-child');
                   var c_index = 0;
                   for (var i = 0; i < programs.length; i++) {

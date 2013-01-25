@@ -72,7 +72,29 @@
         <div class="table-container scroll">
         <table class="table">
           <tbody>
-          {%  if key != 'theaters' %}
+          {%  if key == 'theaters' %}
+            <tr>
+              <td colspan="6" class="theaters">
+                {% if program.datas_theaters.theaters_ids|length > 0 %}
+                  <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
+                  <form id="theaters-search" class="form-search pull-left">
+                    <div class="input-append">
+                      <input type="text" class="span3 search-query" placeholder="{{ 'program.theaters.search.placeholder'|trans }}">
+                      <button type="submit" class="btn"><i class="icon-search"></i> {{ 'program.theaters.search.submit'|trans }}</button>
+                    </div>
+                  </form>
+                  <a class="btn" href="#" id="trigger-theaters-geoloc"><i class="icon-map-marker"></i> Séances près d'ici</a>
+                  <div id="theaters-list" class="clear" data-api-url="{{ path('programtheater', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}"></div>
+                {% endif %}
+                {% if program.datas_theaters.theaters_on_demand|length %}
+                  {% for o in program.datas_theaters.theaters_on_demand %}
+                  <hr/>
+                  <p align="center"><a target="_blank" href="{{ attribute(o, 'url') }}"><img class="img-polaroid" src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema.png') }}" alt="ilikecinema" /></a></p>
+                  {% endfor %}
+                {% endif %}
+              </td>
+            </tr>
+          {% else %}
             {% set other_episodes = '' %}
             {% for o in program.offers[key] %}
               {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
@@ -81,12 +103,6 @@
               {% set o_episode = attribute(program.datas_offers.episodes,  o.episode_id) %}
               {% else %}
               {% set o_episode = '' %}
-              {% endif %}
-              {% if key == 'plays' and 
-                    (o.deporte is not defined or o.deporte is null) and 
-                    other_websites is not defined %}
-                <tr><td colspan="6" style="padding:0 20px;background:#f0f0f0;text-align: center;"><h6><i class="icon-arrow-down"></i> Sur d'autres sites <i class="icon-arrow-down"></i></h6></td></tr>
-                {% set other_websites = 'ok' %}
               {% endif %}
               {% if o.episode_id is defined and 
                     program.episodeof.id is defined and 
@@ -164,28 +180,6 @@
                 </td>
               </tr>
             {% endfor %}
-          {% else %}
-            <tr>
-              <td colspan="6" class="theaters">
-                {% if program.datas_theaters.theaters_ids|length > 0 %}
-                  <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
-                  <form id="theaters-search" class="form-search pull-left">
-                    <div class="input-append">
-                      <input type="text" class="span3 search-query" placeholder="{{ 'program.theaters.search.placeholder'|trans }}">
-                      <button type="submit" class="btn"><i class="icon-search"></i> {{ 'program.theaters.search.submit'|trans }}</button>
-                    </div>
-                  </form>
-                  <a class="btn" href="#" id="trigger-theaters-geoloc"><i class="icon-map-marker"></i> Séances près d'ici</a>
-                  <div id="theaters-list" class="clear" data-api-url="{{ path('programtheater', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}"></div>
-                {% endif %}
-                {% if program.datas_theaters.theaters_on_demand|length %}
-                  {% for o in program.datas_theaters.theaters_on_demand %}
-                  <hr/>
-                  <p align="center"><a target="_blank" href="{{ attribute(o, 'url') }}"><img class="img-polaroid" src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema.png') }}" alt="ilikecinema" /></a></p>
-                  {% endfor %}
-                {% endif %}
-              </td>
-            </tr>
           {% endif %}
           </tbody>
         </table>

@@ -150,8 +150,8 @@ class ContentController extends Controller
         $response = $this->render('SkreenHouseFactoryV3Bundle:Content:program.html.twig', array(
           'program' => $datas,
           'offers' => array(//'deportes' => 'sur mySkreen', 
-                            'broadcasts' => 'Télé', 
                             'plays' => 'Replay - VOD', 
+                            'broadcasts' => 'Télé', 
                             'itunes' => 'iTunes', 
                             'boxs' => 'Box',
                             'dvds' => 'DVD', 
