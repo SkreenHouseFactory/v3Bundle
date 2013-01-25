@@ -61,7 +61,12 @@
       {% endif %}
       <ul id="triggers" class="nav nav-pills" style="font-size: 1.2em;">
         {% for key in offers|keys if program.offers[key]|length %}
-        <li{% if loop.first %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ program.offers[key]|length }}">{{ offers[key] }}{% if key == 'theaters' %}({% if program.datas_theaters.theaters_ids|length %}{{ program.datas_theaters.theaters_ids|length }}{% else %}1{% endif %}){% elseif program.offers[key]|length %} ({{ program.offers[key]|length }}){% endif %}</a></li>
+        {% if key == 'theaters' %}
+          {% if program.datas_theaters.theaters_ids|length %}{% set nb = program.datas_theaters.theaters_ids|length %}{% else %}{% set nb = 1 %}{% endif %}
+        {% elseif program.offers[key]|length %}
+          {% set nb = program.offers[key]|length %}
+        {% endif %}
+        <li{% if loop.first %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ offers[key] }} ({{ nb }})</a></li>
         {% endfor %}
         <li><a href="#bonus" id="trigger-bonus" data-toggle="tab">Bonus</a></li>
       </ul>
