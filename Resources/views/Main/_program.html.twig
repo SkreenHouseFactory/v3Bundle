@@ -3,7 +3,7 @@
             id:'%id%',
             picture:'',
             onglet:'%onglet%',
-            seo_url:'%seo_url%',
+            seo_url:'',
             has_vod:'%has_vod%',
             best_offer:'',
             deporte:''} %}
@@ -31,5 +31,5 @@
       </span>
     </div>
   {% endif %}
-  <a href="{{ p.seo_url }}" target="_top" class="title"><i class="icon-th icon-white"></i> {{ p.title }}</a>
+  <a {% if p.seo_url %}href="{{ p.seo_url }}"{% endif %} target="_top" class="title"><i class="icon-th icon-white"></i> {{ p.title }}</a>
 </li>

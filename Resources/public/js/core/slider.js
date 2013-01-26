@@ -271,19 +271,20 @@ var BaseSlider = Class.extend({
       var program = programs[k];
       var popular_channel = program.popular_channel ? '<img alt="' + program.popular_channel.name + ' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
       var pere  = program.episodeof ? program.episodeof : program;
-      var seo_url = API.config.v3_root + program.seo_url + (this.elmt.attr('id') == 'playlist' ? '?keepPlaylist' : '');
+      var seo_url = program.seo_url + (this.elmt.attr('id') == 'playlist' ? '?keepPlaylist' : '');
       var sample = this.sample.replace('%title%', program.title).replace('%title%', program.title)
                               .replace('%id%', pere.id).replace('%id%', pere.id)
-                              .replace('%seo_url%', seo_url)
                               .replace('%popular_channel%', popular_channel)
                               .replace('%onglet%', typeof program.onglet != 'undefined' ? program.onglet.toLowerCase() : '');
       var li = $(sample);
-      li.css('background-image', 'url(' + program.picture + ')');
-      li.attr('data-position', k);
-      li.attr('data-player-program', JSON.stringify(program));
+      li.css('background-image', 'url(' + program.picture + ')')
+        .attr('data-position', k)
+        .attr('data-player-program', JSON.stringify(program));
       if (program.deporte) {
         li.addClass('deporte');
       }
+      $('a.title', li).attr('href', seo_url);
+
       //notif : FIX
       //if (Skhf.session.datas.notifications &&
       //    $.inArray('' + pere.id, Skhf.session.datas.notifications.programs['new']) != -1) { //'' + pere.id
