@@ -76,7 +76,7 @@ class ContentController extends Controller
                 ));
 
         //print_r($datas);
-        //echo $api->url;
+        echo $api->url;
 
         //check url
         //echo $request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();

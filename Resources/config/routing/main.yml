@@ -230,40 +230,40 @@ category_page:
     pattern:  /{format}/{category_slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
+        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga|webserie
         category_slug: "[^/]+"
         page: \d+
 category_facet:
     pattern:  /{format}/{category_slug}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
+        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga|webserie
         category_slug: "[^/]+"
         facet: "[^/]+"
 format_facet:
     pattern:  /{category_slug}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
+        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga|webserie
         facet: "[^/]"
 format_page:
     pattern:  /{category_slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
+        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga|webserie
         facet: "[^/]"
         page: \d+
 category:
     pattern:  /{format}/{category_slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
+        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga|webserie
         category_slug: "[^/]+"
 format:
     pattern:  /{category_slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
+        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga|webserie
 
 
 #cocons : before channel, important !
@@ -280,20 +280,20 @@ channel_format_page:
     requirements:
         slug: "[^/]+"
         facet: "[^/]+"
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
+        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga|webserie
 channel_format_facet:
     pattern:  /{slug}/{format}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel, facet: null }
     requirements:
         slug: "[^/]+"
         facet: "[^/]+"
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
+        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga|webserie
 channel_format:
     pattern:  /{slug}/{format}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
     requirements:
         slug: "[^/]+"
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga
+        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|spectacle|telefilm|dessin-anime-et-manga|webserie
 channel_page:
     pattern:  /{slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
@@ -322,6 +322,6 @@ cocon_replay:
 #hack url generation
 any_url:
     pattern:  /{url}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:404 }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:notfound }
     requirements:
         url: .*
