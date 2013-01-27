@@ -185,6 +185,15 @@ $(document).ready(function(){
     return;
   });
 
+  // -- ui form
+  $('[data-form="catch"]').each(function(){
+    var form = $(this);
+    API.catchForm(form, function(){
+      //callback
+      console.log('ui form catched', form);
+    });
+  });
+
   // -- ui modal
   $('.modal').on('show', function(){
     Player.pause();

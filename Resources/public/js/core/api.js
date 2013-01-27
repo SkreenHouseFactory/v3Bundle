@@ -146,7 +146,6 @@ API = {
   },
   catchForm: function(elmt, callbackOnLoad) {
     var self = this;
-    var modal = ;
     //console.log('API.catchForm', 'catch form');
 
     //link
