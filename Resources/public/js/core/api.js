@@ -133,7 +133,7 @@ API = {
                       $('.modal .modal-header h3').html(json.title);
                     }
                     body.html(json.html);
-                    API.catchFormModal(callbackOnLoad);
+                    API.catchForm($('.modal'), callbackOnLoad);
                   }
                 });
     //} else {
@@ -144,27 +144,27 @@ API = {
 
     this.currentModalUrl = url;
   },
-  catchFormModal: function(callbackOnLoad) {
+  catchForm: function(elmt, callbackOnLoad) {
     var self = this;
-    var modal = $('.modal');
-    //console.log('API.catchFormModal', 'catch form');
+    var modal = ;
+    //console.log('API.catchForm', 'catch form');
 
     //link
-    $('a.tv-component', modal).click(function(e){
+    $('a.tv-component', elmt).click(function(e){
       e.preventDefault();
       e.stopPropagation();
       //tmp = $(this).attr('href').split('/');
       //tmp[tmp.length-1]
-      console.log('API.catchFormModal', $(this).attr('href'));
+      console.log('API.catchForm', $(this).attr('href'));
       self.launchModal($(this).attr('href'), callbackOnLoad);
       
       return false;
     });
 
     //form
-    $('[type="submit"]', modal).click(function(e){
+    $('[type="submit"]', elmt).click(function(e){
       e.preventDefault();
-      //console.warn('API.catchFormModal', 'submit');
+      //console.warn('API.catchForm', 'submit');
       //$(this).attr('disabled', 'disabled');
       var form = $(this).parents('form:first');
       var o = {};
@@ -181,35 +181,37 @@ API = {
       });
       var args = $.extend(o, {session_uid: Skhf.session.uid});
       self.query('POST', form.attr('action'), args, function(json){
-        //console.log('API.catchFormModal', 'API.query callback', args, json);
+        //console.log('API.catchForm', 'API.query callback', args, json);
         //onError
         if (typeof json.error != 'undefined') {
-          $('.modal #form-errors').html(json.error).fadeIn();
+          $('.#form-errors', elmt).html(json.error).fadeIn();
         //onSuccess
         } else if (typeof json.success != 'undefined' && json.success) {
           Skhf.session.sync(function(){
-            $('#skModal').modal('hide');
+            $('.modal').modal('hide');
           });
         //redirect
         } else if (typeof json.redirect != 'undefined') {
           self.launchModal(json.redirect, callbackOnLoad);
         //reload html
         } else if (typeof json.html != 'undefined') {
-          $('.modal .modal-body').empty().html(json.html);
-          self.catchFormModal(callbackOnLoad);
+          $('.modal-body', elmt).empty().html(json.html);
+          self.catchForm(elmt, callbackOnLoad);
         }
       });
       return false;
     });
 
     //input dpad
-    $('input:visible:not(.tv-component)', modal).addClass('tv-component tv-component-input');
-    $('.btn:visible:not(.tv-component)', modal).addClass('tv-component');
-    $('input[type="text"], input[type="email"], input[type="password"]', modal).attr('autocomplete', 'off');
+    $('input:visible:not(.tv-component)', elmt).addClass('tv-component tv-component-input');
+    $('.btn:visible:not(.tv-component)', elmt).addClass('tv-component');
+    $('input[type="text"], input[type="email"], input[type="password"]', elmt).attr('autocomplete', 'off');
 
     
     //v2
-    this.v2Modal(modal);
+    if (elmt.hsClass('modal')) {
+      this.v2Modal(elmt);
+    }
 
     if (typeof callbackOnLoad != 'undefined') {
       callbackOnLoad();
