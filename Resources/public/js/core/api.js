@@ -182,21 +182,30 @@ API = {
       var args = $.extend(o, {session_uid: Skhf.session.uid});
       self.query('POST', form.attr('action'), args, function(json){
         //console.log('API.catchForm', 'API.query callback', args, json);
-        //onError
-        if (typeof json.error != 'undefined') {
-          $('.#form-errors', elmt).html(json.error).fadeIn();
-        //onSuccess
-        } else if (typeof json.success != 'undefined' && json.success) {
-          Skhf.session.sync(function(){
-            $('.modal').modal('hide');
-          });
-        //redirect
-        } else if (typeof json.redirect != 'undefined') {
-          self.launchModal(json.redirect, callbackOnLoad);
-        //reload html
-        } else if (typeof json.html != 'undefined') {
-          $('.modal-body', elmt).empty().html(json.html);
-          self.catchForm(elmt, callbackOnLoad);
+        // if modal
+        if (elmt.hasClass('modal')) {
+          //onError
+          if (typeof json.error != 'undefined') {
+            $('.#form-errors', elmt).html(json.error).fadeIn();
+          //onSuccess
+          } else if (typeof json.success != 'undefined' && json.success) {
+            Skhf.session.sync(function(){
+              elmt.modal('hide');
+            });
+          //redirect
+          } else if (typeof json.redirect != 'undefined') {
+            self.launchModal(json.redirect, callbackOnLoad);
+          //reload html
+          } else if (typeof json.html != 'undefined') {
+            $('.modal-body', elmt).empty().html(json.html);
+            self.catchForm(elmt, callbackOnLoad);
+            
+          }
+        //default
+        } else {
+          //handle errors : {error: {message: 'error mesage ...', fields: {field1: error_name, field2: error_name, …}}}
+          
+          //handle success
         }
       });
       return false;

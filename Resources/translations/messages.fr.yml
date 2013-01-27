@@ -30,6 +30,23 @@ page:
             emissions: Emissions : regardez vos émissions préférées en Replay.
             spectacles: Théatre, concerts, spectacles : des milliers de vidéos en un clic !
         search: Recherche : %p% : VOD, Replay, DVD, Cinéma. Retrouvez TOUTES les diffusions des programmes que vous aimez !
+form:
+    error:
+        msg:
+            settings.disconnected: Vous n'êtes pas connecté.
+            bad.parameters: Mauvais paramètres.
+            cb:
+                already.registered: Carte bancaire déjà enregistrée.
+                rejected: Carte bancaire rejetée.
+            email:
+                already.exists: Un compte existe déjà avec cet email.
+                invalid: Email invalide.
+        fields:
+            exists: Existe déjà
+            empty: Obligatoire
+            invalid: Invalide
+    success:
+        settings: Vos informations on été mises à jour.
 player:
     live:
       deporte: Sur mySkreen
