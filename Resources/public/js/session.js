@@ -121,12 +121,11 @@ var Session = BaseSession.extend({
     // -- default
     switch (url) {
      //load tv 
-     case '/tv-replay':
-     case '/les-chaines-en-direct':
+     case '/tv-replay/':
        UI.loadPlaylist('tv');
        UI.loadFilters('tv');
      break;
-     case '/emissions':
+     case '/emission/':
        UI.loadPlaylist('tv');
        UI.loadFilters('tv'); //??
      break;
@@ -136,32 +135,32 @@ var Session = BaseSession.extend({
        //add grid filters
      break;
      //load cinema 
-     case '/cinema/box-office/a':
+     case '/cinema/box-office/a/':
        UI.loadFilters('cine', 'box-office');
      break;
-     case '/cine':
+     case '/cinema/':
        UI.loadPlaylist('cine');
        UI.loadFilters('cine');
      break;
-     case '/selection/7845147-a-voir-au-cinema':
+     case '/cinema/selection/7845147-a-decouvrir-dans-les-salles-cette-semaine/':
        UI.loadPlaylist('cine');
        UI.loadFilters('cine', 'new');
      break;
-     case '/selection/7845150-prochainement-dans-les-salles':
+     case '/cinema/selection/7845150-bientot-dans-les-salles/':
        UI.loadFilters('cine', 'coming');
      break;
      //load selector onglet
-     case '/vod':
+     case '/video-a-la-demande/':
        UI.loadPlaylist('vod');
        UI.loadFilters('vod');
      break;
-     case '/films':
-     case '/documentaires':
-     case '/series':
-     case '/spectacles':
-     case '/jeunesse':
+     case '/film/':
+     case '/documentaire/':
+     case '/serie/':
+     case '/spectacle/':
+     case '/dessin-anime-et-manga/':
        UI.loadPlaylist('vod');
-       UI.loadFilters('vod', url.replace('/', ''));
+       UI.loadFilters('vod', url.replace('/', '').replace('/', ''));
      break;
      //load selector
      case '/':

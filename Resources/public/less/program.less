@@ -2,6 +2,7 @@
   padding: 0 0 150px 0;
 
   h1 span {
+    width: 90%;
     color: #999;
     display: block;
     font-size: 0.6em;
@@ -52,10 +53,10 @@
     position: absolute;
     bottom: 0;
 
-    #synopsis {
-      line-height: 20px;
-      padding-top: 10px;
-      position: relative;
+    .description {
+      color: black;
+      margin: -560px 0 0 420px;
+      width: 550px;
     }
   }
 
@@ -85,7 +86,7 @@
       margin-top: -10px;
   
       #program-teaser {
-        width: 740px;
+        width: 723px;
         height: 330px;
         margin-bottom: 30px;
 
@@ -104,45 +105,69 @@
         }
 
         .tab-content {
-          padding-bottom: 5px;
           
           .table-container {
 
             overflow-y: auto;
             max-height: 253px;
             overflow-x: hidden;
-            box-shadow: 0 8px 6px -6px black;
 
             tr {
               
               td {
                 padding: 8px 4px;
-                
-                .btn {
-                  white-space: nowrap;
-                }
-              
-                em {
+
+                .big {
+                  display: block;
+                  text-transform: uppercase;
+                  font-size: 1.5em;
                   color: #999;
-                  font-size: 0.9em;
+                  font-weight: bold;
                 }
-  
+
+                &.notif {
+                  display: none;
+                  .badge {
+                    opacity: 0.1;
+                    &.badge-important {
+                      opacity: 1;
+                    }
+                  }
+                }
+                &.icon {
+                  width: 35px;
+                  span {
+                    padding: 10px;
+                    background: #DDD;
+                    opacity: 0.8;
+                    border-radius: 20px;
+                  }
+                }
                 &.episode {
                   min-width: 250px;
-  
+
                   img {
                     height:50px;
                     margin-right:10px;
+                  }
+
+                  .label {
+                    font-size: 0.8em;
+                    font-weight: normal;
                   }
                 }
                 &.channel {
                   min-width: 70px;
                 }
-                &.access {
-                  min-width: 150px;
+                &.price {
+                  font-size: 1.5em;
                 }
-                &.tag span {
-                  font-size: 0.8em;
+                &.access {
+                  min-width: 180px;
+
+                  .label {
+                    margin-left: 5px;
+                  }
                 }
               }
               
@@ -152,6 +177,17 @@
                  #theaters-list {
                   clear: both;
                  }
+              }
+            
+              &:hover {
+                td {
+                  &.icon span {
+                    background: #f89406;
+                  }
+                  .big {
+                      color: #f89406;
+                  }
+                }
               }
             }
           }
@@ -235,6 +271,10 @@
         &.season-episode, &:nth-child(2) {
           display: inline-block;
         }
+        
+        .btn-group + .btn-group {
+          margin-left: 0px;
+        }
       }        
       .label {
         margin-left:20px;
@@ -252,8 +292,23 @@
   }
   
   #program-infos {
+    height: 550px;
+    background: white;
+    border: 1px solid #CCC;
+    paddin-right: 20px;
+
    .img {
     margin-right: 20px;
+    width: 400px;
+    height: 100%;
+   }
+   .inner {
+      padding: 10px;
+   }
+   #program-casting {
+    margin-top: 300px;
+    max-height: 200px;
+    overflow-y: auto;
    }
   }
 }

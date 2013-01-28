@@ -5,7 +5,7 @@ service:
 page:
     title:
         home: 
-            mixte: The New TV Guide
+            mixte: mySkreen : Programmes TV, Replay, VOD
             v3-vod: Video à la demande
             v3-tv-replay: Replay
             v3-cine: Cinéma
@@ -30,6 +30,23 @@ page:
             emissions: Emissions : regardez vos émissions préférées en Replay.
             spectacles: Théatre, concerts, spectacles : des milliers de vidéos en un clic !
         search: Recherche : %p% : VOD, Replay, DVD, Cinéma. Retrouvez TOUTES les diffusions des programmes que vous aimez !
+form:
+    error:
+        msg:
+            settings.disconnected: Vous n'êtes pas connecté.
+            bad.parameters: Mauvais paramètres.
+            cb:
+                already.registered: Carte bancaire déjà enregistrée.
+                rejected: Carte bancaire rejetée.
+            email:
+                already.exists: Un compte existe déjà avec cet email.
+                invalid: Email invalide.
+        fields:
+            exists: Existe déjà
+            empty: Obligatoire
+            invalid: Invalide
+    success:
+        settings: Vos informations on été mises à jour.
 player:
     live:
       deporte: Sur mySkreen
@@ -134,11 +151,11 @@ nav:
         boxoffice: Tous les films en salle
     playlist: Mes programmes
     replay.channels: Replay par chaîne
-    films: Films
-    emissions: Emissions et sport
-    series: Séries
-    documentaires: Documentaires
-    spectacles: Spectacles
+    films: Film
+    emissions: Emission et sport
+    series: Série
+    documentaires: Documentaire
+    spectacles: Spectacle
     jeunesse: Jeunesse
 date.month:
     jan: Janvier
@@ -184,13 +201,12 @@ action:
     remove.favorites: Retirer
     deporte: sur mySkreen
     play:
-        deporte: Sur mySkreen
-        streaming: En streaming
-        cine: Au cinéma
-        dvd: En dvd
-        replay: En replay
-        rec: Bientôt en replay
-        tv: A la TV
+        streaming: VOD
+        cine: Ciné
+        dvd: DVD
+        replay: Replay
+        rec: Bientôt en Replay
+        tv: TV
 seo:
   title:
     add: Ajout à vos playlists

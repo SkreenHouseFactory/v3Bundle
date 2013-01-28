@@ -1,9 +1,9 @@
 {% if app.environment == 'prod' %}{% set header_base = 'http://www.myskreen.com' %}{% else %}{% set header_base = '' %}{% endif %}
 <ul class="container nav nav-pills hide btn-group">
-  <li class="vod vod-films"><a href="{{ header_base }}/film" target="_top">{{ 'nav.films'|trans }}</a></li>
-  <li class="vod vod-documentaires"><a href="{{ header_base }}/documentaire" target="_top">{{ 'nav.documentaires'|trans }}</a></li>
-  <li class="vod vod-series"><a href="{{ header_base }}/serie" target="_top">{{ 'nav.series'|trans }}</a></li>
-  <li class="vod vod-spectacles"><a href="{{ header_base }}/spectacle" target="_top">{{ 'nav.spectacles'|trans }}</a></li>
+  <li class="vod vod-film"><a href="{{ header_base }}/film" target="_top">{{ 'nav.films'|trans }}</a></li>
+  <li class="vod vod-documentaire"><a href="{{ header_base }}/documentaire" target="_top">{{ 'nav.documentaires'|trans }}</a></li>
+  <li class="vod vod-serie"><a href="{{ header_base }}/serie" target="_top">{{ 'nav.series'|trans }}</a></li>
+  <li class="vod vod-spectacle"><a href="{{ header_base }}/spectacle" target="_top">{{ 'nav.spectacles'|trans }}</a></li>
   <li class="vod vod-jeunesse"><a href="{{ header_base }}/jeunesse" target="_top">{{ 'nav.jeunesse'|trans }}</a></li>
   <li class="btn home tv tv-grid"><a href="http://v2.myskreen.com/programme-tv" target="_top">La grille TV </a></li>
   <li class="btn home tv no-link">Les chaînes &raquo</li>

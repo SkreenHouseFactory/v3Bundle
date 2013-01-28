@@ -3,12 +3,12 @@
             id:'%id%',
             picture:'',
             onglet:'%onglet%',
-            seo_url:'%seo_url%',
+            seo_url:'',
             has_vod:'%has_vod%',
             best_offer:'',
-            deporte:'%deporte%'} %}
+            deporte:''} %}
 {% endif %}
-<li class="tv-component actions {{ p.onglet }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte == '%deporte%' %} %deporte%{% elseif p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
+<li class="tv-component actions {{ p.onglet }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
   {% if header is defined %}{{ header|raw }}{% endif %}
   {% if p.best_offer is defined and p.best_offer.channel_img is defined %}
     <div class="channel">
@@ -21,15 +21,15 @@
       <img src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" />
       {%- endif -%}
       <span class="diff">
-      {%- if p.deporte == true %}<i class="icon-th icon-white"></i> {{ 'action.play.deporte'|trans }}
-      {%- elseif p.has_vod == 4 %}{{ 'action.play.cine'|trans }}
+      {#%- if p.deporte == true %}<i class="icon-th icon-white"></i> {{ 'action.play.deporte'|trans }}#}
+      {%- if p.has_vod == 4 %}{{ 'action.play.cine'|trans }}
       {%- elseif p.has_vod == 3 %}{{ 'action.play.dvd'|trans }}
       {%- elseif p.has_vod == 5 %}{{ 'action.play.tv'|trans }}
       {%- elseif p.has_vod == 6 %}{{ 'action.play.rec'|trans }}
-      {%- elseif p.has_vod == 7 or p.has_vod == 8 %}{{ 'action.play.replay'|trans }}
+      {%- elseif p.has_vod in [7,8,9,10] %}{{ 'action.play.replay'|trans }}
       {%- elseif p.has_vod != '%has_vod%' %}{{ 'action.play.streaming'|trans }}{% endif -%}
       </span>
     </div>
   {% endif %}
-  <a href="{{ p.seo_url }}" target="_top" class="title">{{ p.title }}</a>
+  <a {% if p.seo_url %}href="{{ p.seo_url }}"{% endif %} target="_top" class="title"><i class="icon-th icon-white"></i> {{ p.title }}</a>
 </li>

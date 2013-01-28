@@ -224,7 +224,7 @@ Player = {
           //if (this.elmt.data('player-jscontrolbar')) {
           //  flowArgs.plugins.controls = null;
           //}
-          console.warn('Player.flowplayer', 'flash', flowArgs, flowArgs);
+          console.warn('Player.flowplayer', 'flash', flashArgs, flowArgs, player.config);
           var f = $f(this.elmt.attr('id'), flashArgs, flowArgs);
           //if (this.elmt.data('player-jscontrolbar')) {
           //  f.controls(this.elmt.data('player-jscontrolbar'), {duration: 25});

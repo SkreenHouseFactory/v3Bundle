@@ -7,10 +7,6 @@ function skPaymentPopinEnd(action, player, occurrence_id) {
   console.warn('skPaymentPopinEnd', action, player, occurrence_id);
   if (typeof action != 'undefined' && 
       action == 'play') {
-    //hack close player
-    if ($('#couchmode #couchmode-close').length == 0) {
-      $('#couchmode').prepend('<div id="couchmode-close"><i class="icon-remove icon-white"></i> Fermer</div>');
-    }
     Couchmode.init({type: 'occurrence', id: occurrence_id, hide_sliders: 1});
   }
   $('.modal').modal('hide');
@@ -33,7 +29,7 @@ ENV = {
   dev: {
     env: 'dev',
     site_url: 'http://beta.' + DEV + '.myskreen.typhon.net:40011',
-    v3_url: 'http://v3.benoit.myskreen.typhon.net/app_dev.php',
+    v3_url: 'http://v3.' + DEV + '.myskreen.typhon.net/app_dev.php',
     v3_root: '/app_dev.php',
     base: 'http://' + DEV + '.myskreen.typhon.net/api/',
     popin: 'http://' + DEV + '.myskreen.typhon.net/popin/',
@@ -61,6 +57,7 @@ ENV = {
     console: false
   },
   all: {
+    api_version: '2',
     slider: {
       width: 150,
       height: 200
@@ -136,7 +133,7 @@ API = {
                       $('.modal .modal-header h3').html(json.title);
                     }
                     body.html(json.html);
-                    API.catchFormModal(callbackOnLoad);
+                    API.catchForm($('.modal'), callbackOnLoad);
                   }
                 });
     //} else {
@@ -147,27 +144,26 @@ API = {
 
     this.currentModalUrl = url;
   },
-  catchFormModal: function(callbackOnLoad) {
+  catchForm: function(elmt, callbackOnLoad) {
     var self = this;
-    var modal = $('.modal');
-    //console.log('API.catchFormModal', 'catch form');
+    //console.log('API.catchForm', 'catch form');
 
     //link
-    $('a.tv-component', modal).click(function(e){
+    $('a.tv-component', elmt).click(function(e){
       e.preventDefault();
       e.stopPropagation();
       //tmp = $(this).attr('href').split('/');
       //tmp[tmp.length-1]
-      console.log('API.catchFormModal', $(this).attr('href'));
+      console.log('API.catchForm', $(this).attr('href'));
       self.launchModal($(this).attr('href'), callbackOnLoad);
       
       return false;
     });
 
     //form
-    $('[type="submit"]', modal).click(function(e){
+    $('[type="submit"]', elmt).click(function(e){
       e.preventDefault();
-      //console.warn('API.catchFormModal', 'submit');
+      //console.warn('API.catchForm', 'submit');
       //$(this).attr('disabled', 'disabled');
       var form = $(this).parents('form:first');
       var o = {};
@@ -184,35 +180,46 @@ API = {
       });
       var args = $.extend(o, {session_uid: Skhf.session.uid});
       self.query('POST', form.attr('action'), args, function(json){
-        //console.log('API.catchFormModal', 'API.query callback', args, json);
-        //onError
-        if (typeof json.error != 'undefined') {
-          $('.modal #form-errors').html(json.error).fadeIn();
-        //onSuccess
-        } else if (typeof json.success != 'undefined' && json.success) {
-          Skhf.session.sync(function(){
-            $('#skModal').modal('hide');
-          });
-        //redirect
-        } else if (typeof json.redirect != 'undefined') {
-          self.launchModal(json.redirect, callbackOnLoad);
-        //reload html
-        } else if (typeof json.html != 'undefined') {
-          $('.modal .modal-body').empty().html(json.html);
-          self.catchFormModal(callbackOnLoad);
+        //console.log('API.catchForm', 'API.query callback', args, json);
+        // if modal
+        if (elmt.hasClass('modal')) {
+          //onError
+          if (typeof json.error != 'undefined') {
+            $('.#form-errors', elmt).html(json.error).fadeIn();
+          //onSuccess
+          } else if (typeof json.success != 'undefined' && json.success) {
+            Skhf.session.sync(function(){
+              elmt.modal('hide');
+            });
+          //redirect
+          } else if (typeof json.redirect != 'undefined') {
+            self.launchModal(json.redirect, callbackOnLoad);
+          //reload html
+          } else if (typeof json.html != 'undefined') {
+            $('.modal-body', elmt).empty().html(json.html);
+            self.catchForm(elmt, callbackOnLoad);
+            
+          }
+        //default
+        } else {
+          //handle errors : {error: {message: 'error mesage ...', fields: {field1: error_name, field2: error_name, …}}}
+          
+          //handle success
         }
       });
       return false;
     });
 
     //input dpad
-    $('input:visible:not(.tv-component)', modal).addClass('tv-component tv-component-input');
-    $('.btn:visible:not(.tv-component)', modal).addClass('tv-component');
-    $('input[type="text"], input[type="email"], input[type="password"]', modal).attr('autocomplete', 'off');
+    $('input:visible:not(.tv-component)', elmt).addClass('tv-component tv-component-input');
+    $('.btn:visible:not(.tv-component)', elmt).addClass('tv-component');
+    $('input[type="text"], input[type="email"], input[type="password"]', elmt).attr('autocomplete', 'off');
 
     
     //v2
-    this.v2Modal(modal);
+    if (elmt.hsClass('modal')) {
+      this.v2Modal(elmt);
+    }
 
     if (typeof callbackOnLoad != 'undefined') {
       callbackOnLoad();
@@ -229,7 +236,6 @@ API = {
     //error
     $('.error_list', modal).addClass('alert alert-error').removeClass('error_list');
     //input
-    $('.modal-footer', modal).append(' <a href="#" class="close">Fermer</a>');
     $('form input[type="submit"]', modal).addClass('btn-large btn-primary').removeClass('primary');
     console.log('API.v2Modal', 'exit', modal);
   },
@@ -300,10 +306,9 @@ API = {
         case 'DISCONNECTED':
           UI.auth(function(){
             console.log('API.play', 'callback UI.auth', Skhf.session.datas);
+            $('.modal .modal-body').prepend('<p class="alert alert-success"><b>Vidéo à la demande :</b><br/>Créez votre compte pour voir ce programme sur mySkreen !</p>');
             if (Skhf.session.datas.email) {
               self.play(id);
-            } else {
-              console.error('API.play', 'callback UI.auth', Skhf.session.datas);
             }
           });
         break;
@@ -325,7 +330,7 @@ API = {
       //console.log('API.query', 'http(s|)://', 'is popin', url);
     } else {
       //console.log('API.query', 'http', 'is api', url);
-      var version = typeof version == 'undefined' ? '1' : version;
+      var version = typeof version != 'undefined' ? version : this.config.api_version;
       var url  = this.config.base + version + '/' + url; //.replace('//', '/');
     }
 

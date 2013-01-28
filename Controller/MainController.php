@@ -175,6 +175,22 @@ class MainController extends Controller
     /**
     *
     */
+    public function programmetvAction(Request $request)
+    {
+      return $this->redirect('http://v2.myskreen.com/programme-tv');
+    }
+
+    /**
+    *
+    */
+    public function notfoundAction(Request $request)
+    {
+      throw $this->createNotFoundException('Page does not exist');
+    }
+
+    /**
+    *
+    */
     public function proxyAction(Request $request)
     {
       $response = null;
