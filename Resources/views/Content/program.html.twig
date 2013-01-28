@@ -68,7 +68,7 @@
         {% for key in offers|keys if program.offers[key]|length or key == 'deportes' %}
         <div id="{{ key }}" class="tab-pane{% if loop.first %} active{% endif %}">
         {%  if program.offers[key]|length %}
-        <div class="table-container">
+        <div class="table-container scroll">
         <table class="table">
           <tbody>
           {%  if key != 'theaters' %}

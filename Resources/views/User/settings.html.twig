@@ -8,14 +8,23 @@
   <h1>{{ 'user.settings'|trans }}</h1>
 
   <ul class="nav nav-pills" id="user-settings">
-    <li class="active"><a href="#user-profile">{{ 'user.settings.profile' }}</a></li>
-    <li><a href="#user-payment">{{ 'user.settings.payment' }}</a></li>
-    <li><a href="#user-social">{{ 'user.settings.social' }}</a></li>
+    <li class="nav-pill active"><a href="#profile" data-toggle="tab">{{ 'user.settings.profile' }}</a></li>
+    <li class="nav-pill"><a href="#payment" data-toggle="tab">{{ 'user.settings.payment' }}</a></li>
+    <li class="nav-pill"><a href="#social" data-toggle="tab">{{ 'user.settings.social' }}</a></li>
   </ul>
 
-  <div class="tab-content">
-    <div class="tab-pane active" id="user-profile">PROFILS</div>
-    <div class="tab-pane" id="user-payment">PAYMENT</div>
-    <div class="tab-pane" id="user-social">SOCIAL</div>
+  <div class="tab-content" id="user-settings-tabs">
+    <div class="tab-pane active" id="profile">
+<!--
+	{{ 'user.settings.email' }} : {{ email }} <input id="edit-settings" type="button" value="modifier"/><br />
+	{{ 'user.settings.newsletter' }} : {{ newsletter }}<br />
+-->
+	<form action="{{ path('user_settings') }}" method="post" {{ form_enctype(form) }}>
+    		{{ form_widget(form) }}
+		<input type="submit" />
+	</form>
+    </div>
+    <div class="tab-pane" id="payment">PAYMENT</div>
+    <div class="tab-pane" id="social">SOCIAL</div>
   </div>
 {% endblock %}

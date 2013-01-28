@@ -483,7 +483,6 @@ $(document).ready(function(){
                 });
     };
   }
-
   /* TOUCH */
   if ($('html').hasClass('touch')) {
     $('html.touch .tv-component, html.touch .tv-component *').live('touchstart', function(e){
