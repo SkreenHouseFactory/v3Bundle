@@ -84,7 +84,7 @@ class ContentController extends Controller
         if ($request->get('season_number')) {
           foreach ($datas->seasons as $s) {
             if ($s->number == $request->get('season_number')) {
-              return $this->redirect($s->episodes[0]->seo_url);
+              return $this->redirect($s->episodes[0]->seo_url, 301);
             }
           }
           echo 'redirect fail : episode 1 saison '.$request->get('season_number');exit();
@@ -93,7 +93,7 @@ class ContentController extends Controller
           if ($this->get('kernel')->getEnvironment() == 'dev') {
             return new Response('redirect '.$request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url));
           }
-          return $this->redirect($datas->seo_url);
+          return $this->redirect($datas->seo_url, 301);
         }
         // -- post treatments
         //episodes
@@ -111,7 +111,7 @@ class ContentController extends Controller
         if (!$datas->offers['theaters'] && !$datas->offers['theaters_on_demand']) {
           $datas->offers['theaters'] = array();
         } else {
-          $datas->datas_theaters = array('theaters_ids' => explode(',', $datas->offers['theaters']),
+          $datas->datas_theaters = array('theaters_ids' => $datas->offers['theaters'] ? explode(',', $datas->offers['theaters']) : array(),
                                          'theaters_on_demand' => $datas->offers['theaters_on_demand']);
           $datas->offers['theaters'] = ($datas->offers['theaters'] ? count($datas->offers['theaters']) : 0) +  
                                        ($datas->offers['theaters_on_demand'] ? count($datas->offers['theaters_on_demand']) : 0);
@@ -150,7 +150,7 @@ class ContentController extends Controller
         $response = $this->render('SkreenHouseFactoryV3Bundle:Content:program.html.twig', array(
           'program' => $datas,
           'offers' => array(//'deportes' => 'sur mySkreen', 
-                            'plays' => 'Replay - VOD', 
+                            'plays' => 'Replay & VOD', 
                             'broadcasts' => 'Télé', 
                             'itunes' => 'iTunes', 
                             'boxs' => 'Box',
@@ -211,11 +211,11 @@ class ContentController extends Controller
         throw $this->createNotFoundException('Channel does not exist');
       }
       //bad url
-      if ($request->getPathInfo() != '/' . $datas->seo_url . '/' &&
-          $request->getPathInfo() != '/' . $datas->seo_url . '/' . $request->get('format') . '/' &&
-          $request->getPathInfo() != '/' . $datas->seo_url . '/' . $request->get('format') . '/' . $request->get('facet') . '/' &&
-          $request->getPathInfo() != '/' . $datas->seo_url . '/page-' . $request->get('page') . '/' &&
-          $request->getPathInfo() != '/' . $datas->seo_url . '/' . $request->get('facet') . '/'
+      if ($request->getPathInfo() != $datas->seo_url &&
+          $request->getPathInfo() != $datas->seo_url . $request->get('format') . '/' &&
+          $request->getPathInfo() != $datas->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' &&
+          $request->getPathInfo() != $datas->seo_url . 'page-' . $request->get('page') . '/' &&
+          $request->getPathInfo() != $datas->seo_url . $request->get('facet') . '/'
           ) {
         /*
         echo "\n".'facet: /' . $datas->seo_url . '/' . $request->get('facet') . '/';
@@ -224,7 +224,7 @@ class ContentController extends Controller
         echo "\n".'page: /' . $datas->seo_url . '/page-' . $request->get('page') . '/';
         echo "\n".'redirect '.$request->getPathInfo().' != /'.$datas->seo_url.'/ => '.($request->getPathInfo() != $datas->seo_url);exit();
         */
-        return $this->redirect('/'.$datas->seo_url.'/');
+        return $this->redirect('/'.$datas->seo_url.'/', 301);
       }
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
       //$template = isset($datas->epg) && $datas->epg ? 'channel-replay' : 'channel';
@@ -273,7 +273,7 @@ class ContentController extends Controller
       //bad url
       if (!strstr($request->getPathInfo(), $datas->seo_url)) {
         //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';exit();
-        return $this->redirect($datas->seo_url);
+        return $this->redirect($datas->seo_url, 301);
       }
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
 
@@ -318,7 +318,7 @@ class ContentController extends Controller
       //bad url
       if (!strstr($request->getPathInfo(), $datas->seo_url)) {
         //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url;exit();
-        return $this->redirect($datas->seo_url);
+        return $this->redirect($datas->seo_url, 301);
       }
 
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
@@ -357,7 +357,7 @@ class ContentController extends Controller
       //bad url
       if ($request->getPathInfo() != $datas->seo_url) {
         //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';
-        return $this->redirect($datas->seo_url);
+        return $this->redirect($datas->seo_url, 301);
       }
 
 

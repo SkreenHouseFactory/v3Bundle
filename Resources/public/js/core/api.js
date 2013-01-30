@@ -169,14 +169,14 @@ API = {
       var o = {};
       var a = form.serializeArray();
       $.each(a, function() {
-          if (o[this.name] !== undefined) {
-              if (!o[this.name].push) {
-                  o[this.name] = [o[this.name]];
-              }
-              o[this.name].push(this.value || '');
-          } else {
-              o[this.name] = this.value || '';
+        if (o[this.name] !== undefined) {
+          if (!o[this.name].push) {
+            o[this.name] = [o[this.name]];
           }
+          o[this.name].push(this.value || '');
+        } else {
+          o[this.name] = this.value || '';
+        }
       });
       var args = $.extend(o, {session_uid: Skhf.session.uid});
       self.query('POST', form.attr('action'), args, function(json){
@@ -237,7 +237,6 @@ API = {
     if (typeof callbackOnLoad != 'undefined') {
       callbackOnLoad();
     }
-
   },
   v2Modal: function(modal) {
     console.log('API.v2Modal', 'enter', modal);
@@ -261,18 +260,13 @@ API = {
   },
   addPreference: function(parameter, value, callback, parcours) {
     this.query('POST', 'preference/flag.json', {session_uid:Skhf.session.uid, type:parameter, value:value, parcours:parcours}, function(json){
-      console.log('API.addPreference', 'callback', parameter, value, json, callback);
+      console.log('API.addPreference', 'callback', parameter, value, json);
       if (json.success) {
-        if (!Skhf.session.datas.queue) {
-          Skhf.session.datas.queue = [value];
-        } else {
-          Skhf.session.datas.queue.push('' + value);
-        }
         var added = new Array();
         added.push(value);
-        UI.loadUserPrograms(added);
+        UI.loadPlaylistTriggers(parameter, added);
         
-        Skhf.session.sync();
+        Skhf.session.sync(function(){},{ with_notifications: 0 });
         if (typeof callback != 'undefined' && callback != null) {
           callback(value);
         }
@@ -281,14 +275,13 @@ API = {
   },
   removePreference: function(parameter, value, callback) {
     this.query('POST', 'preference/unflag.json', {session_uid: Skhf.session.uid, type:parameter, value:value}, function(json){
-      console.log('API.removePreference', 'success:' + json.success, 'callback:' + callback, parameter, value, json);
+      console.log('API.removePreference', 'callback', parameter, value, json);
       if (json.success) {
-        delete Skhf.session.datas.queue[value];
         var removed = new Array();
         removed.push(value);
-        UI.unloadUserPrograms(removed);
+        UI.unloadPlaylistTriggers(parameter, removed);
         
-        Skhf.session.sync();
+        Skhf.session.sync(function(){},{ with_notifications: 0 });
         if (typeof callback != 'undefined') {
           callback(value);
         }

@@ -2,9 +2,10 @@
 var UI;
 UI = {
   user: '',
+  available_playlists: ['like','cinema'],
   os: null,
   playlist: null,
-  callbackFbConnect: null,
+  callbackModal: null,
   sliders: [],
   max_notifications: 20,
   badge_notification: '<span class="badge">%count%</span>',
@@ -37,7 +38,7 @@ UI = {
   auth: function(callback, parcours) {
     //fbconnect ne passe pas par le callback !
     if (typeof callback != 'undefined') {
-      UI.callbackFbConnect = callback;
+      UI.callbackModal = callback;
     }
     API.quickLaunchModal('signin', function() {
       Skhf.session.sync(function() {
@@ -57,51 +58,6 @@ UI = {
         self.paywall(id, callback);
       }
     },{parcours: 'anonyme_favoris', occurrence_id: id});
-  },
-  //toggle favorite
-  togglePlaylistProgram: function(trigger){
-    var self = this;
-    var value = trigger.parent().data('id');
-    var remove = trigger.hasClass('fav-on') ? true : false;
-    if (Skhf.session.datas.email) {
-      console.log('UI.togglePlaylistProgram', 'remove', remove);
-      trigger.html('Chargement ...').removeClass('btn-danger');
-      API.togglePreference('like', value, function(value){
-        console.log('UI.togglePlaylistProgram', 'callback', value, trigger);
-        if (remove && $('.friends', trigger.parent().parent()).length == 0) { //pas pour le slider social
-          $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
-            $(this).remove();
-          });
-        }
-      });
-    } else {
-
-      this.auth(function(){
-        console.log('UI.togglePlaylistProgram', 'UI.auth callback', Skhf.session.datas.email);
-        $('.modal .modal-body').prepend('<p class="alert alert-success"><b>Vos playlists <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b><br/>Ajoutez ce programme pour être sûr de ne plus le rater !</p>');
-        $('.modal .modal-body [data-content]').popover();
-        if (Skhf.session.datas.email) {
-          self.togglePlaylistProgram(trigger);
-        }
-      }, 'playlist');
-    }
-  },
-  //set popover infos
-  installPopover: function(trigger) {
-    if (trigger.parent().data('onglet') == 'emissions' || 
-        trigger.parent().data('onglet') == 'series') {
-      var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' +
-                    '<br/>En ajoutant ce programme à vos playlists vous serez averti dès qu\'un épisode est disponible !';
-    } else {
-      var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' + 
-                    '<br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD.';
-    }
-
-    trigger.popover({placement: 'top',
-                      title:	function() { return 'Ajout à vos playlists'},
-                      content: content,
-                      show: 500, 
-                      hide: 100});
   },
   //user infos
   loadUser: function() {
@@ -126,7 +82,7 @@ UI = {
       $('.user span').html(Skhf.session.datas.email);
       $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
       //datas
-      this.loadUserPrograms();
+      this.loadPlaylistTriggers();
       this.loadNotifications(Skhf.session.datas.notifications);
       if ($('#view-program').length) {
         this.loadProgramUsersDatas($('#view-program').data('id'));
@@ -161,24 +117,179 @@ UI = {
       //}
     }
   },
-  //toggle btn
-  loadUserPrograms: function(ids, elmt) {
-    var ids  = typeof ids  != 'undefined' ? ids  : Skhf.session.datas.queue;
-    var elmt = typeof elmt != 'undefined' ? elmt : $('body');
-    //console.log('UI.loadUserPrograms', ids, elmt);
-    for (key in ids) {
-      //console.log('UI.loadUserPrograms', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
-      $('.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)', elmt).html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists').addClass('fav-on');
+  //set popover infos
+  installPopover: function(trigger) {
+    
+    if (trigger.hasClass('fav-cinema')) {
+        var content = '<b>Ne ratez plus vos séances&nbsp;!</b>' + 
+                      '<br/>En ajoutant ce cinéma à vos playlists vous saurez averti de sa programmation.';
+    } else if (trigger.hasClass('fav-channel')) {
+        var content = '<b>Ne ratez plus vos chaînes préférées&nbsp;!</b>' + 
+                      '<br/>En ajoutant cette chaîne à vos playlists vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
+    } else if (trigger.hasClass('fav-person')) {
+        var content = '<b>Ne ratez plus vos acteurs préférés&nbsp;!</b>' + 
+                      '<br/>En ajoutant cette personne à vos playlists vous saurez averti dès qu\'un de ses programmes sera disponible.';
+    } else if (trigger.hasClass('fav-search')) {
+        var content = '<b>Ne ratez plus les programmes qui vous intéressent&nbsp;!</b>' + 
+                      '<br/>En ajoutant cette recherche à vos playlists vous saurez averti dès qu\'un programme correspondant sera disponible.';
+    } else {
+      if (trigger.parent().data('onglet') == 'emissions' || 
+          trigger.parent().data('onglet') == 'series') {
+        var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' +
+                      '<br/>En ajoutant ce programme à vos playlists vous serez averti dès qu\'un épisode est disponible !';
+      } else {
+        var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' + 
+                      '<br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD.';
+      }
+    }
+    
+
+    trigger.popover({placement: 'top',
+                      title:	function() { return 'Ajout à vos playlists'},
+                      content: content,
+                      show: 500, 
+                      hide: 100});
+  },
+  //toggle favorite
+  togglePlaylist: function(trigger){
+    var self = this;
+    if (trigger.hasClass('fav-cinema')) {
+      var parameter = 'cinema';
+      var name = 'ce cinéma';
+    } else if (trigger.hasClass('fav-channel')) {
+      var parameter = 'channel';
+      var name = 'cette chaîne';
+    } else if (trigger.hasClass('fav-person')) {
+      var parameter = 'person';
+      var name = 'cette personne';
+    } else if (trigger.hasClass('fav-search')) {
+      var parameter = 'search';
+      var name = 'cette recherche';
+    } else {
+      var parameter = 'like';
+      var name = 'ce programme';
+    }
+    if (Skhf.session.datas.email) {
+      console.log('UI.togglePlaylist', parameter, value, 'remove:' + remove, trigger);
+      trigger.html('Chargement ...').removeClass('btn-danger');
+      var value = trigger.parent().data('id');
+      var remove = trigger.hasClass('fav-on') ? true : false;
+      var callback = function(value){
+        console.log('UI.togglePlaylist', 'callback', value, trigger);
+        if (remove && 
+            parameter == 'like' &&
+            $('.friends', trigger.parent().parent()).length == 0) { //pas pour le slider social
+          $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
+            $(this).remove();
+          });
+        }
+      }
+      if (remove) {
+        API.removePreference(parameter, value, callback);
+      } else {
+        API.addPreference(parameter, value, callback);
+      }
+    } else {
+
+      this.auth(function(){
+        console.log('UI.togglePlaylist', 'UI.auth callback', Skhf.session.datas.email);
+        $('.modal .modal-body').prepend('<p class="alert alert-success"><b>Vos playlists <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b><br/>Ajoutez ' + name + ' pour être sûr de ne plus le rater !</p>');
+        $('.modal .modal-body [data-content]').popover();
+        if (Skhf.session.datas.email) {
+          self.togglePlaylist(trigger);
+        }
+      }, 'playlist');
     }
   },
-  unloadUserPrograms: function(ids, elmt) {
-    var ids = typeof ids != 'undefined' ? ids : Skhf.session.datas.queue;
+  //toggle btn
+  loadPlaylistTriggers: function(parameter, ids, elmt) {
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
-    console.log('UI.unloadUserPrograms', ids, elmt);
-    for (key in ids) {
-      console.log('UI.unloadUserPrograms', ids[key], $('li.actions[data-id="' + ids[key] + '"]', elmt));
-      $('li.actions[data-id="' + ids[key] + '"]', elmt).remove();
-      $('.actions[data-id="' + ids[key] + '"] a.fav.fav-on', elmt).html('<i class="icon-plus-sign icon-white"></i> Suivre').removeClass('fav-on').removeClass('btn-danger');
+    console.log('UI.loadPlaylistTriggers', parameter, ids, elmt);
+    if (typeof parameter != 'undefined') {
+      for (key in ids) {
+        console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)');
+        var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)', elmt);
+        trigger.html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists').addClass('fav-on');
+      }
+      switch(parameter) {
+        case 'cinema': //reload
+          if ($('#theaters-playlist #theaters-names').length) { //slider theaters-playlist
+            var name = $('.fav-cinema[data-id="' + ids[key] + '"]').data('name');
+            console.log('UI.loadPlaylistTriggers', 'theaters-names', name, '.fav-cinema[data-id="' + ids[key] + '"]');
+            $('#theaters-playlist #theaters-names').append('<a href="#theaters-playlist" data-id="' + ids[key] + '" class="label label-info">' + name + '</a>');
+          } else if ($('#trigger-theaters-playlist').length) { //fiche programme
+            console.log('UI.loadPlaylistTriggers', 'set UI.callbackModal');
+            UI.callbackModal = function() { //à la fermeture de la popin
+              $('#trigger-theaters-playlist').trigger('click');
+            }
+          }
+        break;
+      }
+
+    } else {
+      for(k in this.available_playlists) {
+        switch (this.available_playlists[k]) {
+          case 'like':
+            var ids = Skhf.session.datas.queue;
+          break;
+          case 'cinema':
+            var ids = Skhf.session.datas.cinema;
+          break;
+        }
+        for (key in ids) {
+          //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
+          var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + ':not(.fav-on)', elmt);
+          trigger.html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists').addClass('fav-on');
+        }
+      }
+    }
+  },
+  unloadPlaylistTriggers: function(parameter, ids, elmt) {
+    var elmt = typeof elmt != 'undefined' ? elmt : $('body');
+    console.log('UI.unloadPlaylistTriggers', parameter, ids, elmt);
+    if (typeof parameter != 'undefined') {
+      for (key in ids) {
+        console.log('UI.unloadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + '.fav-on');
+        var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + '.fav-on', elmt);
+        trigger.html('<i class="icon-plus-sign icon-white"></i> Suivre').removeClass('fav-on btn-danger');
+
+        switch(parameter) {
+          case 'like':
+            $('#top-playlist li[data-id="' + ids[key] + '"]', elmt).remove();
+          break;
+          case 'cinema': //reload
+            if ($('#theaters-playlist #theaters-names').length) { //slider theaters-playlist
+              $('#theaters-playlist #theaters-names a[data-id="' + ids[key] + '"]', elmt).remove();
+            } else if ($('#trigger-theaters-playlist').length) { //fiche programme
+              console.log('UI.unloadPlaylistTriggers', 'set UI.callbackModal');
+              UI.callbackModal = function() { //à la fermeture de la popin
+                $('#trigger-theaters-playlist').trigger('click');
+              }
+            }
+            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parent().remove();
+          break;
+          default:
+            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parent().remove();
+          break;
+        }
+      }
+      
+    } else {
+      for(k in this.available_playlists) {
+        switch (parameter) {
+          case 'like':
+            var ids = Skhf.session.datas.queue;
+          break;
+          case 'cinema':
+            var ids = Skhf.session.datas.cinema;
+          break;
+        }
+        for (key in ids) {
+          //console.log('UI.unloadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + '.fav-on');
+          var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + '.fav-on', elmt);
+          trigger.html('<i class="icon-plus-sign icon-white"></i> Suivre').removeClass('fav-on btn-danger');
+        }
+      }
     }
   },
   //notify
@@ -275,7 +386,8 @@ UI = {
                     if (notifs.length > 0 && k != 'count' ) {
                       $('#trigger-' + k).append('<span class="badge badge-important">' + notifs.length + '</span>');                  
                       for(k in notifs){
-                        $('#program-offers [data-id="' + notifs[k] + '"] td:first-child').html('<span class="badge badge-important">1</span>').fadeIn();
+                        $('#program-offers #' + k + ' .table-container').addClass('has-notification');
+                        $('#program-offers [data-id="' + notifs[k] + '"] td:first-child').html('<span class="badge badge-important">1</span>');
                       };
                     }
                   };
@@ -310,6 +422,59 @@ UI = {
           $('li#friends').append('<p class="alert">Oups, erreur !</p>');
         }
       });
+    }
+  },
+  loadTheatersPlaylist: function(){
+    if (!Skhf.session.datas.cinema ||
+        !$('#theaters-playlist').length) {
+      $('.theaters-on').hide();
+    } else {
+      $('.theaters-off').hide();
+      console.log('theaters-playlist', Skhf.session.datas.cinema);
+      if (Skhf.session.datas.cinema) {
+        API.query('GET',
+                'channel.json',
+                {
+                  type: 'cinema',
+                  ids: Skhf.session.datas.cinema
+                },
+                function(datas){
+        console.log('script', 'theaters-playlist', 'callback', datas, this.sliders);
+        for (k in datas) {
+          $('#theaters-names').append('<a href="#theaters-playlist" data-id="' + datas[k].id + '" class="label label-info">' + datas[k].name + '</a>');
+        }
+        UI.sliders['cinema'] = new BaseSlider(
+          {'url': 'schedule/cine.json?programs_only=1&theater_ids=' + Skhf.session.datas.cinema},
+          function(){
+            //update
+            var triggers = $('#theaters-names a');
+            triggers.click(function(){
+              if (triggers.filter(':not(.label-info)').length == 0) {
+                triggers.removeClass('label-info');
+                $(this).addClass('label-info');
+              } else {
+                $(this).toggleClass('label-info');
+              }
+              var ids = new Array();
+              triggers.each(function(){
+                if ($(this).hasClass('label-info')) {
+                  console.log('add theater id', $(this).data('id'));
+                  ids.push($(this).data('id'));
+                }
+              });
+              if (ids.length > 0) {
+                var url = 'schedule/cine.json?programs_only=1&theater_ids=' + ids.join(',');
+                console.log('script', 'update url slider cinema', url);
+                UI.sliders['cinema'].reset(url);
+              } else {
+                $(this).toggleClass('label-info');
+              }
+            });
+          
+          },
+          $('#theaters-playlist .slider'));
+        });
+      }
     }
   },
   //update selector
@@ -373,7 +538,6 @@ UI = {
 
       //load playlist
       Skhf.session.access = access;
-
       if (typeof onglet != 'undefined') { //, with_player: 1, player: API.config.player
         var args = {onglet: onglet, with_best_offer: 1, time: new Date().getTime()};
         $('#top-playlist .breadcrumb li:last').html($('#top-filters li.' + access + ' a[data-filter="' + onglet + '"]').html());
@@ -381,13 +545,11 @@ UI = {
         var args = {with_best_offer: 1, time: new Date().getTime()};
         $('#top-playlist .breadcrumb li:last').empty();
       }
-      
       if (access) {
         Skhf.session.getFriendsUids(function(friends_uids){
           $.extend(self.playlist.params.args, {friends_uids: friends_uids}); //, api_method: 'POST'
         })
       }
-
       this.playlist.loadRemotePrograms(0,
                                        function(slider){
                                           var nb_programs = slider.data('nb-programs');

@@ -19,7 +19,8 @@
 /* slider */
 .slider.navigate {
   .slider-container {
-    border-right: 1px solid black;
+    box-shadow: inset -8px 0px 6px -8px black;
+    border-right: 1px solid #999;
   }
 }
 .slider.back {
@@ -27,7 +28,8 @@
     visibility: visible;
   }
   .slider-container {
-    border-left: 1px solid black;
+    /*box-shadow: inset 8px 0px 6px -8px black;*/
+    border-left: 1px solid #999;
   }
 }
 .slider.slider-list {
@@ -68,7 +70,7 @@
 }
 
 .touch .slider {
-  width: 95%;
+  /*width: 95%;*/
   ul.items {
     li.selector {
       cursor: pointer;
@@ -87,17 +89,19 @@
   z-index: 1;
 
   .left, .right {
+    border-color: #EEEEEE !important;
+    opacity: 0.9;
     visibility: hidden;
     position: absolute;
     z-index: 2;
-    top: 42%;
+    top: 45%;
     cursor: pointer;
   }
   .left {
-    left: 5px !important;
+    left: -25px !important;
   }
   .right {
-    right: 5px !important;
+    right: -25px !important;
   }
   
   h2, h3 {

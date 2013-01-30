@@ -58,7 +58,8 @@ var BaseSlider = Class.extend({
         callback(this.elmt);
       }
     } else if ( Skhf.session != null) { //ajax seulement
-      //console.log('BaseSlider.init', 'loadRemotePrograms', Skhf);
+      //console.log('BaseSlider.init', 'loadRemotePrograms', this.elmt);
+      this.elmt.removeClass('loading');
       this.loadRemotePrograms(0, callback);
     }
 
@@ -133,10 +134,10 @@ var BaseSlider = Class.extend({
   },
   next: function(trigger) {
     var self = this;
-    //console.log('next', this.container.css('left'), this.container.css('width'));
+    console.log('next', this.container.css('left'), this.container.css('width'));
     if (parseInt(this.container.css('left')) < parseInt(this.container.css('width')) || this.container.css('left') == 'auto') {
       self.items.animate({'left': '+=-'+parseInt(this.container.css('width'))}, 500, function() {
-        //console.log('pager', parseInt(self.items.css('left')),  parseInt(self.container.css('width')), self.items.css('width'), self.elmt.data('pager-offset'));
+        console.log('pager', parseInt(self.items.css('left')),  parseInt(self.container.css('width')), self.items.css('width'), self.elmt.data('pager-offset'));
         //console.log('pager', $('li:not(.static)', self.items).length * (self.params.width+self.params.item_margin*2) - parseInt(self.container.css('width')),  parseInt(self.items.css('left')), self.elmt.data('pager-offset'));
         if ($('li:not(.static)', self.items).length * (self.params.width+self.params.item_margin*2) - parseInt(self.container.css('width')) < -parseInt(self.items.css('left'))) {
           trigger.css({'visibility':'hidden'});
@@ -203,7 +204,7 @@ var BaseSlider = Class.extend({
     this.elmt.removeClass('initialized navigate back loading loaded empty');// social');
   },
   loadRemotePrograms: function(offset, callback, args, keep) {
-    //console.log('BaseSlider.loadRemotePrograms', offset, callback, keep);
+    //console.log('BaseSlider.loadRemotePrograms', offset, callback, keep, this.elmt);
     //prevent multiple loadings
     if (this.elmt.hasClass('loading')) {
       console.warn('BaseSlider.loadRemotePrograms', 'already loading');
@@ -308,7 +309,7 @@ var BaseSlider = Class.extend({
       //console.log('BaseSlider.load', 'add', li, $('ul.items', this.elmt));
       $('ul.items', this.elmt).append(li);
 
-      console.log('BaseSlider.load', 'added', program);
+      //console.log('BaseSlider.load', 'added', program);
     }
 
     //if (this.elmt.data('animate') == 'width') {
@@ -320,7 +321,7 @@ var BaseSlider = Class.extend({
       this.ui();
     }
     $('a[rel="tooltip"]', this.elmt).tooltip();
-    UI.loadUserPrograms(Skhf.session.datas.queue, this.elmt);
+    UI.loadPlaylistTriggers('like', Skhf.session.datas.queue, this.elmt);
 
     if (typeof callback != 'undefined'){
       callback(this.elmt);

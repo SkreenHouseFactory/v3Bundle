@@ -52,15 +52,19 @@ class CinemaController extends Controller
 
     /**
     * programtheaters
+    * block html include/ajax
     */
     public function programAction(Request $request)
     {
+      if (!$request->get('id')) {
+        throw $this->createNotFoundException('Program id is missing');
+      }
       $cinemas = null;
       $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
-      if ($request->get('q') || $request->get('cinema_id')) {
+      if ($request->get('q') || $request->get('theater_ids')) {
         $cinemas = $api->fetch('schedule/cine', array(
                       'program_id' => $request->get('id'),
-                      'theater_ids' => $request->get('cinema_id'),
+                      'theater_ids' => count(explode(',', $request->get('theater_ids'))) < 10 ?  $request->get('theater_ids') : null,
                       'with_schedule' => true,
                       'q' => $request->get('q')
                     ));
@@ -74,17 +78,45 @@ class CinemaController extends Controller
                       'long' => $lng
                     ));
       }
-
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
-      $program = $api->fetch('program/'.$request->get('id'), array(
-                    'img_width' => 300,
-                    'img_height' => 400
-                  ));
-
+      //echo 'theater_ids:' . $request->get('theater_ids');
+      //echo $api->url;
       $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:program.html.twig', array(
-                'program' => $program,
                 'cinemas' => $cinemas,
                 'days' => array('Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche')
+             ));
+
+      $maxage = 600;
+      $response->setPublic();
+      $response->setMaxAge($maxage);
+      $response->setSharedMaxAge($maxage);
+      
+      return $response;
+    }
+    
+
+    /**
+    * search
+    * block html include/ajax
+    */
+    public function searchAction(Request $request)
+    {
+      $cinemas = null;
+      $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
+      if ($request->get('q')) {
+        $cinemas = $api->fetch('channel', array(
+                      'type' => 'cinema',
+                      'q' => $request->get('q')
+                    ));
+      } elseif ($request->get('latlng')) {
+        $cinemas = $api->fetch('channel', array(
+                      'type' => 'cinema',
+                      'latlng' => $request->get('latlng')
+                   ));
+      }
+      //echo $api->url;
+
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:search.html.twig', array(
+                'cinemas' => $cinemas,
              ));
 
       $maxage = 600;

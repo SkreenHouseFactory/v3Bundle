@@ -11,7 +11,9 @@ var BaseSession = Class.extend({
     if (API.context == 'v3') {
       this.sync(function(sessionData){
         //console.log('BaseSession.init', 'callback Session.sync', sessionData);
-
+        if (typeof callback != 'undefined') {
+          callback(sessionData)
+        }
       }, args);
     }
   },
@@ -23,17 +25,18 @@ var BaseSession = Class.extend({
       this.uid = API.cookie('session_uid');
     }
 
-    // callback with signin only if not already signed in
+    // callback with signin only if not already signed in else update datas
     var callback_signin = function(sessionData) {
       //console.log('BaseSession.sync', 'API.query callback', callback);
       if (!Skhf.session.datas.email) {
         self.signin(sessionData, function(){
-          //console.log('BaseSession.sync', 'Session.signin callback', callback);
+          console.log('BaseSession.sync', 'Session.signin callback', callback);
           if (typeof callback != 'undefined' && callback) {
             callback(sessionData)
           }
         });
       } else {
+        Skhf.session.datas = sessionData;
         if (typeof callback != 'undefined' && callback) {
           callback(sessionData)
         }

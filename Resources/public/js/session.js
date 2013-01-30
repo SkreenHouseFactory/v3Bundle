@@ -21,7 +21,7 @@ var Session = BaseSession.extend({
   signout: function(callback) {
     //before loosing queue
     var queue = this.datas.queue;
-    UI.unloadUserPrograms(queue);
+    UI.unloadPlaylistTriggers('like', queue);
     
     this.__base(callback)
 
