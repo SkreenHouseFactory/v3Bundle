@@ -58,9 +58,18 @@ class UserController extends Controller
     */
     public function settingsAction(Request $request)
     {
-
+      $api = new ApiManager($this->container->getParameter('kernel.environment'));
+      $userDatas = $api->fetch('session/settings/'.$request->cookies->get('myskreen_session_uid'),array(),'GET');
+      $userDatas->newsletter = (bool)$userDatas->newsletter;
+//print_r($userDatas);exit;
+      $form = $this->createFormBuilder($userDatas)
+				->add("email","email")
+				->add("newsletter","checkbox")
+				->getForm();
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:settings.html.twig', array(
-        //'menus'    => null,
+        "email" => $userDatas->email,
+        "newsletter" => ($userDatas->newsletter == true),
+	"form"=>$form->createView(),
       ));
 
       $response->setPrivate();
