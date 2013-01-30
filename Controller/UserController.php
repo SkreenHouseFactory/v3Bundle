@@ -60,17 +60,8 @@ class UserController extends Controller
     {
       $api = new ApiManager($this->container->getParameter('kernel.environment'));
       $userDatas = $api->fetch('session/settings/'.$request->cookies->get('myskreen_session_uid'),array(),'GET');
-      $userDatas->newsletter = (bool)$userDatas->newsletter;
-//print_r($userDatas);exit;
-      $form = $this->createFormBuilder($userDatas)
-				->add("email","email")
-				->add("newsletter","checkbox")
-				->getForm();
-      $response = $this->render('SkreenHouseFactoryV3Bundle:User:settings.html.twig', array(
-        "email" => $userDatas->email,
-        "newsletter" => ($userDatas->newsletter == true),
-	"form"=>$form->createView(),
-      ));
+//		print_r($userDatas);exit;
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:settings.html.twig', (array)$userDatas);
 
       $response->setPrivate();
       $response->setMaxAge(60);

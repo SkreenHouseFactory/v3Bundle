@@ -46,7 +46,7 @@ form:
             empty: Obligatoire
             invalid: Invalide
     success:
-        settings: Vos informations on été mises à jour.
+        settings: Vos informations ont été mises à jour.
 player:
     live:
       deporte: Sur mySkreen
@@ -57,6 +57,17 @@ redirection:
 user:
     programs: Votre playlist
     settings: Vos préférences
+    settings.profile: Votre compte
+    settings.payment: Vos informations de paiement
+    settings.communication: Préférences de notification
+    settings.email: Votre adresse e-mail
+    settings.password: Votre mot de passe
+    settings.change_password: Changer de mot de passe
+    settings.submit: Enregistrer
+    settings.newsletter: Recevoir la newsletter
+    settings.notification_email : Recevoir des e-mails
+    settings.newpassword: Nouveau mot de passe
+    settings.confirmpassword: Confirmer le mot de passe
 notifications:
     empty: 
         title: Vous n'avez pas de notifications !

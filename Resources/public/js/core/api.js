@@ -23,7 +23,7 @@ function onRentClicked() {
 }
 
 // -- ENV
-var DEV = 'benoit';
+var DEV = 'dev1';
 var ENV;
 ENV = {
   dev: {
@@ -202,9 +202,22 @@ API = {
           }
         //default
         } else {
-          //handle errors : {error: {message: 'error mesage ...', fields: {field1: error_name, field2: error_name, …}}}
-          
+//					console.log(json);
+					$('.post-form-display').remove();
           //handle success
+		  		if (json.success) {
+						form.prepend('<p class="alert alert-success post-form-display">Modification réussie</p>');
+		  		}
+          //handle errors : {error: {message: 'error mesage ...', fields: {field1: error_name, field2: error_name, …}}}
+          else if (json.error) {
+						form.prepend('<p class="alert alert-error post-form-display">' + json.error.message + '</p>');
+						for (k in json.error.fields) {
+							$('[name="'+k+'"]').after('<span class="alert alert-error post-form-display">'+ json.error.fields[k] +'</span>');
+						}
+					}
+					if (typeof(callbackOnLoad) != 'undefined') {
+						callbackOnLoad(json);
+					}
         }
       });
       return false;
@@ -217,7 +230,7 @@ API = {
 
     
     //v2
-    if (elmt.hsClass('modal')) {
+    if (elmt.hasClass('modal')) {
       this.v2Modal(elmt);
     }
 

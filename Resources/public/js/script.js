@@ -61,12 +61,14 @@ $(document).ready(function(){
     Skhf.session.signout();
     return false;
   });
+/*
   $('a.account').click(function(){
     if (API.context == 'v2') {
       API.postMessage(["account"]);
     }
     return false;
   });
+*/
   $('.user-on .dropdown-toggle, .user-on [data-target]').click(function(){
     if ($(this).hasClass('notifications-count') && 
         $('.badge-important', $(this)).length > 0) {
@@ -182,16 +184,68 @@ $(document).ready(function(){
   $('a[data-modal]').live('click', function(){
     console.log('script', 'a[data-modal]', 'click');
     API.quickLaunchModal($(this).data('modal'));
+		if ($(this).data('modal') == 'card') {
+			$('.modal').on('hidden',function() {
+				var url = document.location.toString();
+				if (url.match('#')) {
+					url = url.split("#")[0];
+				}
+//		    API.linkV2(url + "#payment");
+		    API.linkV2(url);
+		    return false;
+			});
+		}
     return;
   });
+
+	// Affichage de l'onglet correct sur la page settings
+	var url = document.location.toString();
+	if (url.match('settings') && url.match('#')) {
+	    $('.nav-pills a[href=#'+url.split('#')[1]+']').tab('show') ;
+	} 
 
   // -- ui form
   $('[data-form="catch"]').each(function(){
     var form = $(this);
-    API.catchForm(form, function(){
+    API.catchForm(form, function(json){
       //callback
       console.log('ui form catched', form);
+			// Modification préférences utilisateur
+			if (form.attr('name') == 'user_settings_profile_form') {
+				if ((typeof(json) != 'undefined') && (typeof(json.success) != 'undefined')) {
+//					console.log("la value",$('input[name="update_mail"]').attr('value'));
+					$('.username').html($('input[name="update_mail"]',form).attr('value'));
+				}
+			} else if (form.attr('name') == 'user_settings_password_form') {
+			}
     });
+  });
+
+  $('.newsletter .btn').click(function(){
+    if ($(this).data('share') == 'disallow') {
+      API.query('POST', 'session/settings/' + Skhf.session.uid + '.json', {
+                  newsletter: 'unsubscribe'
+                });
+    } else {
+      API.query('POST', 'session/settings/' + Skhf.session.uid + '.json', {
+                  newsletter: 'subscribe'
+                });
+    }
+  });
+
+  $('.notification .btn').click(function(){
+    if ($(this).data('notify') == 'disallow') {
+      API.query('POST', 'user/blacklist.json', {
+                  email: Skhf.session.datas.email,
+									notifications: true
+                });
+    } else {
+      API.query('POST', 'user/blacklist.json', {
+                  email: Skhf.session.datas.email,
+									notifications: true,
+									remove: true
+                });
+    }
   });
 
   // -- ui modal
