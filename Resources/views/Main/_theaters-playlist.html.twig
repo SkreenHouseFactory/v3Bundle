@@ -1,15 +1,13 @@
 <a name="theaters-playlist"></a>
 <div id="theaters-playlist">
   <h3>{{ 'theaters.playlist.title'|trans }}</h3>
-  <div class="theaters-on">
+  <div class="theaters-on hide">
     <a class="pull-right" data-modal="remote" data-modal-title="{{ 'theaters.playlist.add'|trans }}" href="{{ path('theaters_search', {'init': 1}) }}"><i class="icon-plus-sign"></i> {{ 'theaters.playlist.add'|trans }}</a>
     <div id="theaters-names"></div>
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'cinema'}, noheader: true} %}
   </div>
   <div class="theaters-off">
-    <p class="alert alert-info">
-      Retrouvez ici la programmation de vos cinémas préférés !<br/>
-      <a class="btn" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {'init': 1}) }}">Commencer</a>
-    </p>
+    <p class="alert alert-info">Retrouvez ici la programmation de vos cinémas préférés !</p>
+    <a class="btn btn-large" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {'init': 1}) }}">Ajouter un cinéma</a>
   </div>
 </div>

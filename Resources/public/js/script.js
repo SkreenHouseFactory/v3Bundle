@@ -41,9 +41,6 @@ $(document).ready(function(){
           });
         }, 2000);
       }
-
-      //theaters playlists
-      UI.loadTheatersPlaylist();
     });
   });
 
@@ -188,16 +185,18 @@ $(document).ready(function(){
       $('.modal').modal('show');
     } else {
 			API.quickLaunchModal($(this).data('modal'));
-			if ($(this).data('modal') == 'card') {
-			$('.modal').on('hidden',function() {
-				var url = document.location.toString();
-				if (url.match('#')) {
-					url = url.split("#")[0];
-				}
+			if ($(this).data('modal') == 'card') { //TODO : use UI.callbackModal
+  			$('.modal').on('hidden',function(e) {
+  			 e.preventDefault();
+  				var url = document.location.toString();
+  				if (url.match('#')) {
+  					url = url.split("#")[0];
+  				}
 //	    API.linkV2(url + "#payment");
-		   	API.linkV2(url);
-		   	return false;
-			});
+  		   	API.linkV2(url);
+  		   	return false;
+  			});
+			}
     }
     return false;
   });
@@ -254,8 +253,8 @@ $(document).ready(function(){
 
   // -- ui modal
   $('.modal').on('show', function(){
-    Player.pause();
     $('.popover:visible').popover('hide');
+    Player.pause();
     carousels = $('.carousel');
     if (carousels.length > 0) {
       carousels.each(function(){
@@ -264,6 +263,7 @@ $(document).ready(function(){
     }
   });
   $('.modal').on('hidden', function(){
+    $('.popover:visible').popover('hide');
     $('.modal .modal-body').empty();
     
     //hack addtofavorite fb + callback modal
@@ -416,51 +416,42 @@ $(document).ready(function(){
   });
 
   // -- theaters
-  if ($('#theaters-search').length > 0) {
-    $('#trigger-theaters-playlist').live('click', function(){
-      var theaters = Skhf.session.datas.cinema;
-      //if (theaters && theaters.split(',').length) {
-        var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
-        container.empty();
-        UI.appendLoader(container, 2000);
-        API.query(
-          'GET',
-          API.config.v3_url + container.data('api-url') + '?playlist=1&theater_ids=' + theaters,
-          {dataType: 'text html'},
-          function(datas){
-            console.log('script', '#theaters-playlist', 'callback');
-            UI.removeLoader(container);
-            container.html(datas);
-            UI.loadPlaylistTriggers('cinema', Skhf.session.datas.cinema.split(','), container);
-        });
-      //}
-      return false;
-    });
-    $('#trigger-theaters-geoloc').live('click', function(){
+  $('#trigger-theaters-playlist').live('click', function(){
+    console.log('script', 'trigger-theaters-playlist');
+    var theaters = Skhf.session.datas.cinema;
+    //if (theaters && theaters.split(',').length) {
       var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
       container.empty();
       UI.appendLoader(container, 2000);
-      //geoloc
-      API.geolocation(function(position){
-        container.load(container.data('api-url') + '?latlng=' + position);
-      }, function(msg, code){
-        container.preprend('<p class="alert alert-error">' + msg + '</p>');
+      API.query(
+        'GET',
+        API.config.v3_url + container.data('api-url') + '?playlist=1&theater_ids=' + theaters,
+        {dataType: 'text html'},
+        function(datas){
+          console.log('script', '#theaters-playlist', 'callback');
+          UI.removeLoader(container);
+          container.html(datas);
+          UI.loadPlaylistTriggers('cinema', Skhf.session.datas.cinema.split(','), container);
       });
-      // - de 10
-      if ($('#trigger-theaters').data('nb') <= 10) {
-        API.query(
-          'GET',
-          API.config.v3_url + container.data('api-url') + '?theater_ids=' + container.data('theaters-ids'),
-          {dataType: 'text html'},
-          function(datas){
-            //UI.removeLoader(container);
-            container.html(datas);
-            UI.loadPlaylistTriggers('cinema', Skhf.session.datas.cinema.split(','), container);
-        });
-      }
-      return false;
+    //}
+    return false;
+  });
+  $('#trigger-theaters-geoloc').live('click', function(){
+    console.log('script', 'trigger-theaters-geoloc');
+    var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
+    container.empty();
+    UI.appendLoader(container, 2000);
+    //geoloc
+    API.geolocation(function(position){
+      container.load(container.data('api-url') + '?latlng=' + position);
+    }, function(msg, code){
+      container.preprend('<p class="alert alert-error">' + msg + '</p>');
     });
-    $('#theaters-search').live('submit', function(){
+    return false;
+  });
+  $('#theaters-search').live('submit', function(){
+    console.log('script', 'theaters-search');
+    if ($('.search-query', $(this)).attr('value')){
       var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
       var input = $('.modal #theaters-search .search-query').length ? $('.modal #theaters-search .search-query') : $('#theaters-search .search-query');
       container.empty();
@@ -475,9 +466,9 @@ $(document).ready(function(){
           container.html(datas);
           UI.loadPlaylistTriggers('cinema', Skhf.session.datas.cinema.split(','), container);
       });
-      return false;
-    });
-  }
+    }
+    return false;
+  });
 
   /* PAGES */
 
@@ -616,7 +607,7 @@ $(document).ready(function(){
                   Skhf.session.sync(function(sessionDatas){
                     $('.modal').modal('hide');
                     Skhf.session.signin(sessionDatas, function(){
-                    console.log('script fbsync', 'API.query callback', 'Skhf.session.signin callback');
+                      console.log('script fbsync', 'API.query callback', 'Skhf.session.signin callback', sessionDatas);
                     });
                   });
                 });

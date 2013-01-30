@@ -37,6 +37,7 @@ var BaseSession = Class.extend({
         });
       } else {
         Skhf.session.datas = sessionData;
+        UI.loadUser();
         if (typeof callback != 'undefined' && callback) {
           callback(sessionData)
         }

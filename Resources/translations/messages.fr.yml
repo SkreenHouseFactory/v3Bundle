@@ -228,7 +228,7 @@ slider:
 theaters:
     playlist:
         title: Dans vos cinémas
-        add: Ajouter à vos cinéma
+        add: Ajouter vos cinémas
     search:
         submit: Rechercher
         geoloc: Près d'ici

@@ -23,7 +23,7 @@ function onRentClicked() {
 }
 
 // -- ENV
-var DEV = 'dev1';
+var DEV = 'benoit';
 var ENV;
 ENV = {
   dev: {
@@ -433,14 +433,7 @@ API = {
     }
   },
   geolocation: function(customSuccessCallback, customErrorCallback){
-    //browser capability
-    if (!navigator.geolocation) {
-      if (typeof customSuccessCallback != 'undefined') {
-        customErrorCallback('Votre navigateur ne prend pas en compte la géolocalisation', 'navigator.geolocation');
-      }
-      return null;
-    }
-
+    console.log('API.geolocation', customSuccessCallback, customErrorCallback);
     function successCallback(position){
       var date = new Date();
       date.setTime(date.getTime() + (30 * 60 * 1000));
@@ -469,6 +462,13 @@ API = {
       if (typeof customSuccessCallback != 'undefined') {
         customErrorCallback(msg, error.code);
       }
+    }
+    //browser capability
+    if (!navigator.geolocation) {
+      if (typeof customSuccessCallback != 'undefined') {
+        customErrorCallback('Votre navigateur ne prend pas en compte la géolocalisation', 'navigator.geolocation');
+      }
+      return null;
     }
     this.geolocation_id = navigator.geolocation.watchPosition(successCallback, 
                                                               errorCallback, 

@@ -62,10 +62,12 @@ UI = {
   //user infos
   loadUser: function() {
     console.log('UI.loadUser', Skhf.session.datas.email, this.user);
+    var update = false;
     if (this.user) {
       if (this.user == Skhf.session.datas.email) {
-        console.warn('UI.loadUser', 'already loaded');
-        return;
+        var update = true;
+        //console.warn('UI.loadUser', 'already loaded');
+        //return;
       } else {
         //TODO : unload user !
       }
@@ -73,31 +75,39 @@ UI = {
 
     this.user = Skhf.session.datas.email;
     if (Skhf.session.datas.email) {
-      //on
-      $('.user-off').addClass('hide');
-      $('.user-on').removeClass('hide');
-      $('.user-on-visibility').css('visibility','visible');
-      $('li.selector:not(.empty)').popover('disable').popover('hide');
+      if (!update) {
+        //on
+        $('.user-off:not(.hide)').addClass('hide');
+        $('.user-on.hide').removeClass('hide');
+        $('.user-on-visibility').css('visibility','visible');
+        $('li.selector:not(.empty)').popover('disable').popover('hide');
+        //datas
+        this.loadPlaylistTriggers();
+        this.loadNotifications(Skhf.session.datas.notifications);
+        if ($('#view-program').length) {
+          this.loadProgramUsersDatas($('#view-program').data('id'));
+        }
+        //fb
+        if (Skhf.session.datas.fb_uid) {
+          $('.share-on').show();
+          $('.share-off').hide();
+          if (Skhf.session.datas.disallow_share) {
+            $('.share [data-share="disallow"]').trigger('click');
+          }
+          this.addFriendsPrograms();
+        } else {
+          $('.share-on').hide();
+          $('.share-off').show();
+        }
+      }
       //infos
       $('.user span').html(Skhf.session.datas.email);
       $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
-      //datas
-      this.loadPlaylistTriggers();
-      this.loadNotifications(Skhf.session.datas.notifications);
-      if ($('#view-program').length) {
-        this.loadProgramUsersDatas($('#view-program').data('id'));
-      }
-      //fb
-      if (Skhf.session.datas.fb_uid) {
-        $('.share-on').show();
-        $('.share-off').hide();
-        if (Skhf.session.datas.disallow_share) {
-          $('.share [data-share="disallow"]').trigger('click');
-        }
-        this.addFriendsPrograms();
-      } else {
-        $('.share-on').hide();
-        $('.share-off').show();
+      //theaters
+      if (Skhf.session.datas.cinema) {
+        $('.theaters-off:not(.hide)').addClass('hide');
+        $('.theaters-on.hide').removeClass('hide');
+        UI.loadTheatersPlaylist();
       }
     } else {
       //off
@@ -425,56 +435,49 @@ UI = {
     }
   },
   loadTheatersPlaylist: function(){
-    if (!Skhf.session.datas.cinema ||
-        !$('#theaters-playlist').length) {
-      $('.theaters-on').hide();
-    } else {
-      $('.theaters-off').hide();
-      console.log('theaters-playlist', Skhf.session.datas.cinema);
-      if (Skhf.session.datas.cinema) {
-        API.query('GET',
-                'channel.json',
-                {
-                  type: 'cinema',
-                  ids: Skhf.session.datas.cinema
-                },
-                function(datas){
-        console.log('script', 'theaters-playlist', 'callback', datas, this.sliders);
-        for (k in datas) {
-          $('#theaters-names').append('<a href="#theaters-playlist" data-id="' + datas[k].id + '" class="label label-info">' + datas[k].name + '</a>');
-        }
-        UI.sliders['cinema'] = new BaseSlider(
-          {'url': 'schedule/cine.json?programs_only=1&theater_ids=' + Skhf.session.datas.cinema},
-          function(){
-            //update
-            var triggers = $('#theaters-names a');
-            triggers.click(function(){
-              if (triggers.filter(':not(.label-info)').length == 0) {
-                triggers.removeClass('label-info');
-                $(this).addClass('label-info');
-              } else {
-                $(this).toggleClass('label-info');
-              }
-              var ids = new Array();
-              triggers.each(function(){
-                if ($(this).hasClass('label-info')) {
-                  console.log('add theater id', $(this).data('id'));
-                  ids.push($(this).data('id'));
+    if (Skhf.session.datas.cinema && 
+        $('#cinema.slider').length) {
+      console.log('UI.loadTheatersPlaylist', Skhf.session.datas.cinema);
+      API.query('GET', 'channel.json', {
+          type: 'cinema',
+          ids: Skhf.session.datas.cinema
+        },
+        function(datas){
+          console.log('UI.loadTheatersPlaylist', 'callback', datas, this.sliders);
+          for (k in datas) {
+            $('#theaters-names').append('<a href="#theaters-playlist" data-id="' + datas[k].id + '" class="label label-info">' + datas[k].name + '</a>');
+          }
+          UI.sliders['cinema'] = new BaseSlider(
+            {'url': 'schedule/cine.json?programs_only=1&theater_ids=' + Skhf.session.datas.cinema},
+            function(){
+              //update
+              var triggers = $('#theaters-names a');
+              triggers.click(function(){
+                if (triggers.filter(':not(.label-info)').length == 0) {
+                  triggers.removeClass('label-info');
+                  $(this).addClass('label-info');
+                } else {
+                  $(this).toggleClass('label-info');
+                }
+                var ids = new Array();
+                triggers.each(function(){
+                  if ($(this).hasClass('label-info')) {
+                    console.log('add theater id', $(this).data('id'));
+                    ids.push($(this).data('id'));
+                  }
+                });
+                if (ids.length > 0) {
+                  var url = 'schedule/cine.json?programs_only=1&theater_ids=' + ids.join(',');
+                  console.log('script', 'update url slider cinema', url);
+                  UI.sliders['cinema'].reset(url);
+                } else {
+                  $(this).toggleClass('label-info');
                 }
               });
-              if (ids.length > 0) {
-                var url = 'schedule/cine.json?programs_only=1&theater_ids=' + ids.join(',');
-                console.log('script', 'update url slider cinema', url);
-                UI.sliders['cinema'].reset(url);
-              } else {
-                $(this).toggleClass('label-info');
-              }
-            });
-          
-          },
-          $('#theaters-playlist .slider'));
-        });
-      }
+            
+            },
+            $('#theaters-playlist .slider'));
+      });
     }
   },
   //update selector
