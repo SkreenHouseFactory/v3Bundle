@@ -216,12 +216,12 @@ slider:
   link.default: Zoom sur la sélection
 theaters:
     playlist:
-        title: Dans vos cinémas préférés
-        add: Ajouter un cinéma
+        title: Dans vos cinémas
+        add: Ajouter à vos cinéma
     search:
         submit: Rechercher
         geoloc: Près d'ici
-        playlist: Cinémas préférés
+        playlist: Vos cinémas
         placeholder: Marseille, 75014, Alésia, …
 program:
     infos: Fiche complète

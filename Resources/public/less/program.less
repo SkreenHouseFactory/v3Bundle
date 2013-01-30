@@ -66,8 +66,12 @@
   }
 
   #theaters {
-    #trigger-theaters-geoloc {
-      margin-left: 20px;
+    .btn-group {
+      display: inline-block;
+
+      #trigger-theaters-geoloc {
+        margin-left: 20px;
+      }
     }
     .progress {
       margin: 50px 100px 0px;
@@ -207,15 +211,15 @@
             a {
               
               &.accordion-toggle {
-                padding-left: 15px;
                 padding-bottom: 0;
               }
 
               &.pull-right {
                 margin-top: 10px;
               }
-              .adress {
-                color: #999;
+              &.address {
+                padding-left: 15px;
+                color: #000;
                 font-size: 0.9em;
               }
             }

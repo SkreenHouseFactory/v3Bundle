@@ -255,7 +255,7 @@ UI = {
 
         switch(parameter) {
           case 'like':
-            $('li.actions[data-id="' + ids[key] + '"]', elmt).remove();
+            $('#top-playlist li[data-id="' + ids[key] + '"]', elmt).remove();
           break;
           case 'cinema': //reload
             if ($('#theaters-playlist #theaters-names').length) { //slider theaters-playlist
@@ -266,6 +266,10 @@ UI = {
                 $('#trigger-theaters-playlist').trigger('click');
               }
             }
+            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parent().remove();
+          break;
+          default:
+            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parent().remove();
           break;
         }
       }

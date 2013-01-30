@@ -65,12 +65,6 @@ $(document).ready(function(){
     Skhf.session.signout();
     return false;
   });
-  $('a.account').click(function(){
-    if (API.context == 'v2') {
-      API.postMessage(["account"]);
-    }
-    return false;
-  });
   $('.user-on .dropdown-toggle, .user-on [data-target]').click(function(){
     if ($(this).hasClass('notifications-count') && 
         $('.badge-important', $(this)).length > 0) {

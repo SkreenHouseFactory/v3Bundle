@@ -253,7 +253,7 @@ API = {
         added.push(value);
         UI.loadPlaylistTriggers(parameter, added);
         
-        Skhf.session.sync();
+        Skhf.session.sync(function(){},{ with_notifications: 0 });
         if (typeof callback != 'undefined' && callback != null) {
           callback(value);
         }
@@ -268,7 +268,7 @@ API = {
         removed.push(value);
         UI.unloadPlaylistTriggers(parameter, removed);
         
-        Skhf.session.sync();
+        Skhf.session.sync(function(){},{ with_notifications: 0 });
         if (typeof callback != 'undefined') {
           callback(value);
         }

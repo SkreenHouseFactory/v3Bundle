@@ -94,7 +94,7 @@
                     </form>
                     <div class="btn-group">
                       <a class="btn" href="#theaters" id="trigger-theaters-geoloc"><i class="icon-map-marker"></i> {{ 'theaters.search.geoloc'|trans }}</a>
-                      <a class="btn" href="#theaters" id="trigger-theaters-playlist"><i class="icon-heart"></i> {{ 'theaters.search.playlist'|trans }}</a>
+                      <a class="btn" href="#theaters" id="trigger-theaters-playlist"><i class="icon-user"></i> {{ 'theaters.search.playlist'|trans }}</a>
                     </div>
                     <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}"></div>
                   {% endif %}
