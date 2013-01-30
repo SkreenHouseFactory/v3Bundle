@@ -40,6 +40,11 @@
       </div>
       <div class="carousel-container">{% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider} %}</div>
       </div>
+      {% if app.request.get('home') == 'cinema' %}
+      <div class="container well well-small playlist">
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_theaters-playlist.html.twig' with {slider: {}} %}
+      </div>
+      {% endif %}
     {% else %}
       {% if loop.index == 2 %}<div class="container">{% else %}<hr/>{% endif %}
       <a name="{{ slider.name }}"></a>

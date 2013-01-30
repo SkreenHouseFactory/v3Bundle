@@ -1,13 +1,15 @@
 #view-program {
   padding: 0 0 150px 0;
 
-  h1 span {
+  h1 {
     width: 90%;
-    color: #999;
-    display: block;
-    font-size: 0.6em;
-    font-weight: normal;
-    line-height: 20px;
+    span {
+      color: #999;
+      display: block;
+      font-size: 0.6em;
+      font-weight: normal;
+      line-height: 20px;
+    }
   }
 
   ul.breadcrumb {
@@ -32,7 +34,7 @@
   #program-friends {
     .user-on, .user-off {
       clear: both;
-      
+
       .progress {
         margin: 50px 100px 0px;
       }
@@ -40,6 +42,7 @@
   }
   
   #program-share {
+    padding-left: 40px;
     line-height: 30px;
   }
 
@@ -57,6 +60,8 @@
       color: black;
       margin: -560px 0 0 420px;
       width: 550px;
+      height: 200px;
+      overflow: auto;
     }
   }
 
@@ -105,6 +110,12 @@
         }
 
         .tab-content {
+          
+          .table-container.has-notification {
+            tr td.notif {
+              display: block;
+            }
+          }
           
           .table-container {
             overflow-y: auto;
@@ -163,7 +174,6 @@
                 }
                 &.access {
                   min-width: 180px;
-
                   .label {
                     margin-left: 5px;
                   }
@@ -190,44 +200,70 @@
               }
             }
           }
-          #ytCarousel {
-            .carousel-control {
-              &.right {
-                right: -10px;
+          
+          .accordion-heading {
+            padding: 0 10px;
+            a {
+              
+              &.accordion-toggle {
+                padding-left: 15px;
+                padding-bottom: 0;
               }
-              &.left {
-                left: -10px;
+
+              &.pull-right {
+                margin-top: 10px;
+              }
+              .adress {
+                color: #999;
+                font-size: 0.9em;
               }
             }
-            .item {
-              a {
-                display: block;
-                position: relative;
-                width: 160px;
-                height: 160px;
-                margin: 0 5px 5px;
-                line-height: 1em;
-                font-size: 0.8em;
-                color: black;
-  
-                span {
-                  position: absolute;
-                  margin: 5px;
-                  background: white;
-                  opacity: 0.8;
-                  padding: 3px;
+          }
+          
+          #ytCarousel {
+            .carousel-inner {
+              padding-left: 30px;
+
+              .carousel-control {
+                top: 45%;
+                
+                &.right {
+                  right: 0px;
                 }
-  
-                img {
+                &.left {
+                  left: 0px;
+                }
+              }
+              .item {
+                a {
+                  display: block;
+                  position: relative;
                   width: 150px;
-                  height: 100px;
-                }
-  
-                .title {
-                  padding: 2px 5px 0 5px;
-                  font-family: Tahoma;
-                  line-height: 1.1em;
-                  color: #555;
+                  height: 160px;
+                  margin: 0 5px 5px;
+                  line-height: 1em;
+                  font-size: 0.8em;
+                  color: black;
+    
+                  span {
+                    position: absolute;
+                    margin: 5px;
+                    background: white;
+                    opacity: 0.8;
+                    padding: 3px;
+                  }
+    
+                  img {
+                    width: 140px;
+                    height: 100px;
+                  }
+    
+                  .title {
+                    padding: 2px 5px 0 5px;
+                    font-family: Tahoma;
+                    line-height: 1.1em;
+                    color: #555;
+                  }
                 }
               }
             }
@@ -280,7 +316,7 @@
       }
     }
     .nav-list {
-      margin-top: 40px;
+      margin-top: 10px;
     }
   }
   
@@ -305,7 +341,7 @@
       padding: 10px;
    }
    #program-casting {
-    margin-top: 300px;
+    margin-top: 180px;
     max-height: 200px;
     overflow-y: auto;
    }

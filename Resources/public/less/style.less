@@ -138,7 +138,15 @@ ul.pager {
 }
 
 .inverse {
-  background-color: #333;
+  background: rgb(69,72,77); /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover,  rgba(69,72,77,1) 0%, rgba(0,0,0,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(69,72,77,1)), color-stop(100%,rgba(0,0,0,1))); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover,  rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, ellipse cover,  rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* Opera 12+ */
+  background: -ms-radial-gradient(center, ellipse cover,  rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* IE10+ */
+  background: radial-gradient(ellipse at center,  rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#333333',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
   color: white;
   clear: both;
   margin: 30px 0;
@@ -204,6 +212,20 @@ div.friends {
   font-size: 1.0em;
   color: #999;
   line-height: 20px;
+}
+
+/* theaters-playlist */
+#theaters-playlist {
+  position: relative;
+
+  .theaters-on {
+    #theaters-names {
+      margin-bottom: 10px;
+      .label {
+        margin-right: 5px;
+      }
+    }
+  }
 }
 
 /* gabarit */
@@ -570,6 +592,10 @@ ul.typeahead {
   }
 }
 
+.playlist {
+  background: url("/bundles/skreenhousefactoryv3/images/bg-playlist.png") bottom repeat-x;
+}
+
 #top-playlist {
   background: @bgPlaylist;
   margin-bottom: 10px;
@@ -577,7 +603,7 @@ ul.typeahead {
   position: absolute;
   z-index: 2;
   width: 100%;
-  top: 75px;
+  top: 70px;
   box-shadow:0px 1px 3px #333;
   /*box-shadow: inset 0px 1px 4px #999;*/
   

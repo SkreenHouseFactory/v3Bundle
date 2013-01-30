@@ -214,19 +214,26 @@ seo:
 slider:
   sponsor: Sponsorisé
   link.default: Zoom sur la sélection
+theaters:
+    playlist:
+        title: Dans vos cinémas préférés
+        add: Ajouter un cinéma
+    search:
+        submit: Rechercher
+        geoloc: Près d'ici
+        playlist: Cinémas préférés
+        placeholder: Marseille, 75014, Alésia, …
 program:
-    infos: Affiche, infos détaillées
+    infos: Fiche complète
     related: A voir aussi
     teaser: Bande annonce
     tv.on: Allumer la TV
     desc.read: Lire la suite
     episodes.all: Tous les épisodes
     theaters:
-        search:
-            submit: Rechercher une salle
-            placeholder: Marseille, 75014, Alésia, …
         noprogram:
             search: Aucun cinéma trouvé.
+            playlist: Aucun cinéma proposant ce film trouvé dans vos playlists.
             geoloc: Aucun cinéma trouvé dans les environs.
     unvailable: non disponible sur mySkreen
     friends:

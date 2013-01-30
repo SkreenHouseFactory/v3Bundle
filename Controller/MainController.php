@@ -34,13 +34,19 @@ class MainController extends Controller
     */
     public function homeAction(Request $request)
     {
-      
+
       if ($this->get('kernel')->getEnvironment() == 'prod' && 
           !strstr($request->getHost(), 'www.') && 
           !strstr($request->getHost(), 'preprod.')) {
+        if (!strstr($request->getHost(), 'replay.')) {
+          return $this->redirect('http://www.myskreen.com/tv-replay/', 301);
+        }
+        if (!strstr($request->getHost(), 'tv.')) {
+          return $this->redirect('http://tv.myskreen.com/video/replay/', 301);
+        }
         throw $this->createNotFoundException('Home does not exist');
       }
-      
+
       switch ($request->get('home')) {
         case 'films':
         case 'series':
@@ -87,7 +93,7 @@ class MainController extends Controller
 
       if (isset($redirect)) {
         //echo 'redirect '.$redirect;exit();
-        return $this->redirect('/'.$redirect.'/');
+        return $this->redirect('/'.$redirect.'/', 301);
       }
 
       //menus
@@ -169,7 +175,7 @@ class MainController extends Controller
     */
     public function sitemapAction(Request $request)
     {
-      return $this->redirect('http://api.myskreen.com/sitemapindex/500.xml');
+      return $this->redirect('http://api.myskreen.com/sitemapindex/500.xml', 301);
     }
 
     /**
@@ -177,7 +183,7 @@ class MainController extends Controller
     */
     public function programmetvAction(Request $request)
     {
-      return $this->redirect('http://v2.myskreen.com/programme-tv');
+      return $this->redirect('http://v2.myskreen.com/programme-tv', 301);
     }
 
     /**

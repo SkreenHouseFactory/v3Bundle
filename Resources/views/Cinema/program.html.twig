@@ -1,28 +1,29 @@
-{% if app.request.get('q') %}
-  <h3>Recherche : {{ app.request.get('q') }}</h3>
+<h3>{% if app.request.get('q') %}
+  Recherche : {{ app.request.get('q') }}
+{% elseif app.request.get('playlist') %}
+  {{ 'theaters.playlist.title'|trans }}
 {% else %}
-  {% if app.request.get('cinema_id') is null %}
-  <h3>Séances près d'ici</h3>
+  {% if app.request.get('theater_ids') is null %}
+  Séances près d'ici
   {% endif %}
-{% endif %}
+{% endif %}</h3>
 {% if cinemas|length == 0 %}
-  <p class="alert">
-    {% if app.request.get('q') %}
-      {{ 'program.theaters.noprogram.search'|trans }}
-    {% else %}
-      {{ 'program.theaters.noprogram.geoloc'|trans }}
-    {% endif %}
-  </p>
+  {% if app.request.get('q') %}
+    <p class="alert">{{ 'program.theaters.noprogram.search'|trans }}</p>
+  {% elseif app.request.get('playlist') %}
+    <p class="alert">{{ 'program.theaters.noprogram.playlist'|trans }} <a class="pull-right" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {'init': 1}) }}"><i class="icon-plus-sign"></i> {{ 'theaters.playlist.add'|trans }}</a></p>
+  {% elseif app.request.get('latlng') %}
+    <p class="alert">{{ 'program.theaters.noprogram.geoloc'|trans }}</p>
+  {% endif %}
 {% else %}
   <div class="accordion" id="accordion-theaters">
   {% for cinema in cinemas %}
-    {% if cinema.adress is defined %}
+    {% if cinema.adress is defined and cinema.schedules[0].horaires is defined %}
     <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-theaters" href="#theater-{{ cinema.id }}">
-          <small class="pull-right">{{ cinema.adress }} {{ cinema.city }} {{ cinema.zip_code }}</small>
-          {{ cinema.name }}
-        </a>
+      <div class="accordion-heading actions" data-id="{{ cinema.id }}" data-name="{{ cinema.name }}">
+        <a target="_blank" href="https://maps.google.com/maps?hl=fr&q={{ cinema.adress ~ ' ' ~ cinema.city ~ ' ' ~ cinema.zip_code|url_encode }}" class="fav fav-cinema btn btn-primary pull-right"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-theaters" href="#theater-{{ cinema.id }}">{{ cinema.name }}</a>
+        <a target="_blank" href="https://maps.google.com/maps?hl=fr&q={{ cinema.adress ~ ' ' ~ cinema.city ~ ' ' ~ cinema.zip_code|url_encode }}" class="adress"><i class="icon-map-marker"></i> {{ cinema.adress }} {{ cinema.city }} {{ cinema.zip_code }}</a>
       </div>
       <div id="theater-{{ cinema.id }}" class="accordion-body collapse{% if loop.first %}  in{% endif %}">
         <table class="table table-striped accordion-inner">

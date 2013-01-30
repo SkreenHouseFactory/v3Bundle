@@ -11,7 +11,7 @@ $(document).ready(function(){
   API.init(function(){
 
     //tjs après ci-dessus : pas de console sur ie
-    console.log('script', 'API.init', API.context);
+    console.log('script', 'API.init callback', API.context);
 
     //Modernizr.load();
     UI.loadFilters('home');
@@ -27,7 +27,8 @@ $(document).ready(function(){
       console.log('script', 'Session.init', 'callback');
 
       //affichage bulle pendant 4s sur fiche programme
-      if (!Skhf.session.datas.email && $('#program-follow .fav').length > 0) {
+      if (!Skhf.session.datas.email && 
+          $('#program-follow .fav').length > 0) {
         setTimeout(function(){
           $('#program-follow .fav').each(function(){
             var trigger = $(this);
@@ -40,6 +41,9 @@ $(document).ready(function(){
           });
         }, 2000);
       }
+
+      //theaters playlists
+      UI.loadTheatersPlaylist();
     });
   });
 
@@ -179,10 +183,19 @@ $(document).ready(function(){
     API.javascriptV2($(this).attr('href').replace('javascript://',''));
     return false;
   });
-  $('a[data-modal]').live('click', function(){
-    console.log('script', 'a[data-modal]', 'click');
-    API.quickLaunchModal($(this).data('modal'));
-    return;
+  $('a[data-modal]').live('click', function(e){
+    e.preventDefault();
+    console.log('script', 'a[data-modal]', $(this).data('modal'), 'click');
+
+    if ($(this).data('modal') == 'remote') {
+      UI.appendLoader($('.modal .modal-body'), 1000);
+      $('.modal .modal-header h3').html($(this).data('modal-title'));
+      $('.modal .modal-body').load($(this).attr('href'));
+      $('.modal').modal('show');
+    } else {
+      API.quickLaunchModal($(this).data('modal'));
+    }
+    return false;
   });
 
   // -- ui form
@@ -206,12 +219,19 @@ $(document).ready(function(){
     }
   });
   $('.modal').on('hidden', function(){
+    $('.modal .modal-body').empty();
+    
+    //hack addtofavorite fb + callback modal
+    if (UI.callbackModal) {
+      UI.callbackModal();
+      UI.callbackModal = null;
+    }
     //TODO : Player.play();
     carousels = $('.carousel');
     if (carousels.length > 0) {
       carousels.each(function(){
         $(this).carousel('cycle');
-      });  
+      });
     }
   });
 
@@ -223,7 +243,7 @@ $(document).ready(function(){
   });
   $('.actions .fav').live('click', function(e){
     e.preventDefault();
-    UI.togglePlaylistProgram($(this));
+    UI.togglePlaylist($(this));
     return false;
   });
   /*
@@ -350,6 +370,70 @@ $(document).ready(function(){
     $(this).addClass('active btn-primary');
   });
 
+  // -- theaters
+  if ($('#theaters-search').length > 0) {
+    $('#trigger-theaters-playlist').live('click', function(){
+      var theaters = Skhf.session.datas.cinema;
+      //if (theaters && theaters.split(',').length) {
+        var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
+        container.empty();
+        UI.appendLoader(container, 2000);
+        API.query(
+          'GET',
+          API.config.v3_url + container.data('api-url') + '?playlist=1&theater_ids=' + theaters,
+          {dataType: 'text html'},
+          function(datas){
+            console.log('script', '#theaters-playlist', 'callback');
+            UI.removeLoader(container);
+            container.html(datas);
+            UI.loadPlaylistTriggers('cinema', Skhf.session.datas.cinema.split(','), container);
+        });
+      //}
+      return false;
+    });
+    $('#trigger-theaters-geoloc').live('click', function(){
+      var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
+      container.empty();
+      UI.appendLoader(container, 2000);
+      //geoloc
+      API.geolocation(function(position){
+        container.load(container.data('api-url') + '?latlng=' + position);
+      }, function(msg, code){
+        container.preprend('<p class="alert alert-error">' + msg + '</p>');
+      });
+      // - de 10
+      if ($('#trigger-theaters').data('nb') <= 10) {
+        API.query(
+          'GET',
+          API.config.v3_url + container.data('api-url') + '?theater_ids=' + container.data('theaters-ids'),
+          {dataType: 'text html'},
+          function(datas){
+            //UI.removeLoader(container);
+            container.html(datas);
+            UI.loadPlaylistTriggers('cinema', Skhf.session.datas.cinema.split(','), container);
+        });
+      }
+      return false;
+    });
+    $('#theaters-search').live('submit', function(){
+      var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
+      var input = $('.modal #theaters-search .search-query').length ? $('.modal #theaters-search .search-query') : $('#theaters-search .search-query');
+      container.empty();
+      UI.appendLoader(container, 2000);
+      API.query(
+        'GET',
+        API.config.v3_url + container.data('api-url') + '?q=' + escape(input.val()),
+        {dataType: 'text html'},
+        function(datas){
+          console.log('script', '#theaters-search', 'callback');
+          UI.removeLoader(container);
+          container.html(datas);
+          UI.loadPlaylistTriggers('cinema', Skhf.session.datas.cinema.split(','), container);
+      });
+      return false;
+    });
+  }
+
   /* PAGES */
 
   // -- channel
@@ -417,44 +501,6 @@ $(document).ready(function(){
         trigger.popover('hide');
       }
     });
-
-    //theaters
-    var trigger = $('#trigger-theaters, #trigger-theaters-geoloc');
-    var container = $('#theaters-list');
-    console.log('trigger-theaters', trigger);
-    trigger.live('click', function(){
-      container.empty();
-      UI.appendLoader(container, 2000);
-      //geoloc
-      API.geolocation(function(position){
-        container.load(container.data('api-url') + '?latlng=' + position);
-      }, function(msg, code){
-        container.preprend('<p class="alert alert-error">' + msg + '</p>');
-      });
-      // - de 10
-      if ($('#trigger-theaters').data('nb') <= 10) {
-        API.query('GET',
-                  API.config.v3_url + container.data('api-url') + '?cinema_id=' + container.data('theaters-ids'),
-                  {dataType: 'text html'},
-                  function(datas){
-                    UI.removeLoader(container);
-                    container.html(datas);
-        });
-      }
-      return false;
-    });
-    $('#theaters-search').submit(function(){
-      container.empty();
-      UI.appendLoader(container, 2000);
-      API.query('GET',
-                API.config.v3_url + container.data('api-url') + '?q=' + escape($('#theaters-search .search-query').val()),
-                {dataType: 'text html'},
-                function(datas){
-                  UI.removeLoader(container);
-                  container.html(datas);
-      });
-      return false;
-    });
     
     //youtube
     var trigger = $('#view-program [data-more-streaming]');
@@ -478,21 +524,23 @@ $(document).ready(function(){
                   }
                   var container = $('#ytCarousel .carousel-inner .item:first-child');
                   var c_index = 0;
+                  var nb_page = 8;
                   for (var i = 0; i < programs.length; i++) {
                     //console.log('youtube callback', 'c_index:' + c_index, 'modulo:' + i%8, container);
-                    if (i%8 == 0) {
+                    if (i%nb_page == 0) {
                       c_index++;
                       var item = $('<div class="item' + (i ==0 ? ' active' : '') + '"></div>')
                       container = $('#ytCarousel .carousel-inner').append(item);
                     }
                     item.append('<a href="#" data-couchmode=\'{"type": "remote", "id": "' + encodeURIComponent(url) + '", "hide_sliders": "1", "autoplay": "' + programs[i].id + '"}\' class="pull-left">' +
                                    '<span>' + programs[i].duration + ' min.</span>' +
-                                   '<img width="150px" class="img-polaroid" alt="' + programs[i].title + '" src="' + programs[i].picture + '" />' +
+                                   '<img class="img-polaroid" alt="' + programs[i].title + '" src="' + programs[i].picture + '" />' +
                                    '<div class="title">' + programs[i].title + '</div>' +
                                    '</a>');
                   }
-                  
-                  $('#ytCarousel').carousel().carousel('pause').removeClass('hide'); //{interval: 7000, pause: 'hover'}
+                  if (programs.length > nb_page) {
+                    $('#ytCarousel').carousel().carousel('pause').removeClass('hide'); //{interval: 7000, pause: 'hover'}
+                  }
                 });
     };
   }
@@ -525,11 +573,6 @@ $(document).ready(function(){
                     $('.modal').modal('hide');
                     Skhf.session.signin(sessionDatas, function(){
                     console.log('script fbsync', 'API.query callback', 'Skhf.session.signin callback');
-                      //hack addtofavorite
-                      if (UI.callbackFbConnect) {
-                        UI.callbackFbConnect();
-                        UI.callbackFbConnect = null;
-                      }
                     });
                   });
                 });
