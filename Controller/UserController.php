@@ -58,8 +58,17 @@ class UserController extends Controller
     */
     public function settingsAction(Request $request)
     {
+			$session_uid = $request->cookies->get('myskreen_session_uid');
+      if (!$session_uid) {
+        return $this->redirect('http://www.myskreen.com');
+      }
+
       $api = new ApiManager($this->container->getParameter('kernel.environment'));
-      $userDatas = $api->fetch('session/settings/'.$request->cookies->get('myskreen_session_uid'),array(),'GET');
+      $userDatas = $api->fetch('session/settings/'.$session_uid);
+      if (isset($userDatas->error)) {
+        return $this->redirect('http://www.myskreen.com');
+      }
+			$userDatas->session_uid = $session_uid;
 //		print_r($userDatas);exit;
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:settings.html.twig', (array)$userDatas);
 
@@ -75,14 +84,11 @@ class UserController extends Controller
     public function programsAction(Request $request)
     {
       $session_uid = $request->cookies->get('myskreen_session_uid');
-      $onglet      = $request->get('onglet');
-
-
       if (!$session_uid) {
         return $this->redirect('http://www.myskreen.com');
       }
 
-      //programs
+      $onglet      = $request->get('onglet');
       $api = new ApiManager($this->container->getParameter('kernel.environment'));
       $programs = $api->fetch('www/slider/queue/' . $session_uid, 
                                array('img_width'  => 150,

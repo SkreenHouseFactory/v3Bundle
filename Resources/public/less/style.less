@@ -24,6 +24,7 @@
 
 @import "channel.less";
 @import "program.less";
+@import "user.less";
 
 /* main */
 .touch body {
@@ -445,30 +446,6 @@ ul.typeahead {
 
         > li {
           line-height: 45px;
-
-          .share {
-            opacity: 0.8;
-            position: absolute;
-            top: -14px;
-            right: 10px;
-            .text {
-              position: absolute;
-              line-height: 15px;
-              font-size: 0.8em;
-              width: 150px;
-              top: 17px;
-              right: 0px;
-              text-align: right;
-              color: #EFEFEF;
-              
-              &.share-on {
-                right: 45px;
-              }
-            }
-            .btn-small {
-              padding: 0 2px;
-            }
-          }
 
           > a {
             color: #EFEFEF;
@@ -969,51 +946,7 @@ ul.typeahead {
   }
 }
 
-/* user settings page */
-#user-settings-tabs {
-	width: 100%;
-	min-height: 150px;
-	margin-bottom: 150px;
 
-	.connection_info_form {
-		float: left;
-		width: 45%;
-		margin-right: 20px;
-
-		.item {
-			min-width: 17%;
-			min-height: 30px;
-			float: left;
-			padding: 0 5px;
-
-			label {
-				padding-top: 5px;
-			}
-
-		}
-
-		.item_text {
-			min-width: 17%;
-			min-height: 30px;
-			float: left;
-			padding: 5px 5px 0 5px;
-		}
-
-		.alert {
-			margin-left: 8px;
-			padding: 5px 10px;
-		}
-
-		.form_label, .form_value {
-			width: 90%;
-		}
-	}
-
-	#notifications {
-		width: 30%;
-		text-align: right;
-	}
-	#notifications div {
-		padding: 5px 10px;
-	}
+#trigger-theaters-geoloc {
+  margin-left: 10px;
 }

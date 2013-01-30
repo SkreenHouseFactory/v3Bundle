@@ -644,7 +644,7 @@ $(document).ready(function(){
 
 
   /* END */
-  
+
   // -- playlist friends
   setTimeout(function(){
     UI.addFriendsPrograms();

@@ -87,22 +87,22 @@ UI = {
         if ($('#view-program').length) {
           this.loadProgramUsersDatas($('#view-program').data('id'));
         }
-        //fb
-        if (Skhf.session.datas.fb_uid) {
-          $('.share-on').show();
-          $('.share-off').hide();
-          if (Skhf.session.datas.disallow_share) {
-            $('.share [data-share="disallow"]').trigger('click');
-          }
-          this.addFriendsPrograms();
-        } else {
-          $('.share-on').hide();
-          $('.share-off').show();
-        }
       }
       //infos
       $('.user span').html(Skhf.session.datas.email);
       $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
+      //fb
+      if (Skhf.session.datas.fb_uid) {
+        $('.share-on').show();
+        $('.share-off').hide();
+        if (Skhf.session.datas.disallow_share) {
+          $('.share [data-share="disallow"]').trigger('click');
+        }
+        this.addFriendsPrograms();
+      } else {
+        $('.share-on').hide();
+        $('.share-off').show();
+      }
       //theaters
       if (Skhf.session.datas.cinema) {
         $('.theaters-off:not(.hide)').addClass('hide');
@@ -223,11 +223,7 @@ UI = {
       }
       switch(parameter) {
         case 'cinema': //reload
-          if ($('#theaters-playlist #theaters-names').length) { //slider theaters-playlist
-            var name = $('.fav-cinema[data-id="' + ids[key] + '"]').data('name');
-            console.log('UI.loadPlaylistTriggers', 'theaters-names', name, '.fav-cinema[data-id="' + ids[key] + '"]');
-            $('#theaters-playlist #theaters-names').append('<a href="#theaters-playlist" data-id="' + ids[key] + '" class="label label-info">' + name + '</a>');
-          } else if ($('#trigger-theaters-playlist').length) { //fiche programme
+          if ($('#trigger-theaters-playlist').length) { //fiche programme
             console.log('UI.loadPlaylistTriggers', 'set UI.callbackModal');
             UI.callbackModal = function() { //à la fermeture de la popin
               $('#trigger-theaters-playlist').trigger('click');
@@ -268,9 +264,7 @@ UI = {
             $('#top-playlist li[data-id="' + ids[key] + '"]', elmt).remove();
           break;
           case 'cinema': //reload
-            if ($('#theaters-playlist #theaters-names').length) { //slider theaters-playlist
-              $('#theaters-playlist #theaters-names a[data-id="' + ids[key] + '"]', elmt).remove();
-            } else if ($('#trigger-theaters-playlist').length) { //fiche programme
+            if ($('#trigger-theaters-playlist').length) { //fiche programme
               console.log('UI.unloadPlaylistTriggers', 'set UI.callbackModal');
               UI.callbackModal = function() { //à la fermeture de la popin
                 $('#trigger-theaters-playlist').trigger('click');
@@ -444,6 +438,7 @@ UI = {
         },
         function(datas){
           console.log('UI.loadTheatersPlaylist', 'callback', datas, this.sliders);
+          $('#theaters-names').empty();
           for (k in datas) {
             $('#theaters-names').append('<a href="#theaters-playlist" data-id="' + datas[k].id + '" class="label label-info">' + datas[k].name + '</a>');
           }
@@ -476,7 +471,7 @@ UI = {
               });
             
             },
-            $('#theaters-playlist .slider'));
+            $('#cinema.slider'));
       });
     }
   },
