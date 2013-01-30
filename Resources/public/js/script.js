@@ -417,6 +417,7 @@ $(document).ready(function(){
 
   // -- theaters
   $('#theaters-names a').live('click', function(){
+		var triggers = $('#theaters-names a');	
     if (triggers.filter(':not(.label-info)').length == 0) {
       triggers.removeClass('label-info');
       $(this).addClass('label-info');

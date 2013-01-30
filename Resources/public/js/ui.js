@@ -442,7 +442,9 @@ UI = {
           for (k in datas) {
             $('#theaters-names').append('<a href="#theaters-playlist" data-id="' + datas[k].id + '" class="label label-info">' + datas[k].name + '</a>');
           }
-          UI.sliders['cinema'] = new BaseSlider({'url': 'schedule/cine.json?programs_only=1&theater_ids=' + Skhf.session.datas.cinema }, $('#cinema.slider'));
+          UI.sliders['cinema'] = new BaseSlider({'url': 'schedule/cine.json?programs_only=1&theater_ids=' + Skhf.session.datas.cinema }, 
+																								function(){}, 
+																								$('#cinema.slider'));
       });
     }
   },
