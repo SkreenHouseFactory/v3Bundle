@@ -416,6 +416,28 @@ $(document).ready(function(){
   });
 
   // -- theaters
+  $('#theaters-names a').live('click', function(){
+    if (triggers.filter(':not(.label-info)').length == 0) {
+      triggers.removeClass('label-info');
+      $(this).addClass('label-info');
+    } else {
+      $(this).toggleClass('label-info');
+    }
+    var ids = new Array();
+    triggers.each(function(){
+      if ($(this).hasClass('label-info')) {
+        console.log('add theater id', $(this).data('id'));
+        ids.push($(this).data('id'));
+      }
+    });
+    if (ids.length > 0) {
+      var url = 'schedule/cine.json?programs_only=1&theater_ids=' + ids.join(',');
+      console.log('script', 'update url slider cinema', url);
+      UI.sliders['cinema'].reset(url);
+    } else {
+      $(this).toggleClass('label-info');
+    }
+  });
   $('#trigger-theaters-playlist').live('click', function(){
     console.log('script', 'trigger-theaters-playlist');
     var theaters = Skhf.session.datas.cinema;
