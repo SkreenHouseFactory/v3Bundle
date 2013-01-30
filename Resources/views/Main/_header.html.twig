@@ -18,21 +18,20 @@
       <a data-toggle="collapse" data-target="#top-playlist" class="btn-last notifications" href="#">{{ 'playlist.discover'|trans }} <i class="icon-chevron-down icon-white"></i></a>
     </li>
     <li class="hide user-on dropdown">
-      {#<a class="signout" href="#"><i class="icon-ban-circle icon-white"></i></a>#}
-      {#<a  data-toggle="collapse" data-target="#top-playlist" class="" href="#"><i class="icon-resize-vertical icon-white"></i></a>#}
-      <span class="share">
-        <a href="#" class="text share-off" data-modal="facebook">Activez le partage facebook &raquo;</a>
-        <span class="text share-on">Partage Facebook</span>
-        <span class="btn-group share-on" data-toggle="buttons-radio">
-          <a class="btn btn-small btn-primary" data-share="allow">on</a>
-          <a class="btn btn-small" data-share="disallow">off</a>
-        </span>
-      </span>
       <a data-toggle="dropdown" class="dropdown-toggle tv-component user" href="#">
         <span class="username"></span>
       </a>
       <ul class="dropdown-menu">
-        <li><a class="favoris" href="{{ path('user_programs') }}" target="_top"><i class="icon-list-alt"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
+		  	<li><a class="favoris" href="{{ path('user_programs') }}" target="_top"><i class="icon-list-alt"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
+   			<li class="share">
+	        <a href="#" class="text share-off" data-modal="facebook">Facebook : activer le partage</a>
+	        <a href="#" class="text share-on">
+						<span class="btn-group" data-toggle="buttons-radio">
+		          <span class="btn btn-small btn-primary" data-share="allow">{{ 'yes'|trans }}</span>
+		          <span class="btn btn-small" data-share="disallow">{{ 'no'|trans }}</span>
+						</span>&nbsp;Partage Facebook
+	        </a>
+	      </li>
         <li><a class="account" href="{{ path('user_settings') }}" target="_top"><i class="icon-user"></i> {{ 'nav.account'|trans }}</a></li>
         <li><a class="signout" href="#"><i class="icon-remove"></i> {{ 'signout'|trans }}</a></li>
       </ul>

@@ -18,6 +18,9 @@ page:
         cinema.boxoffice: Cinéma, tous les films en salle commençant par %alpha%
         channel: %name%
         search: Recherche : %p%
+        user:
+            settings: Vos préférences
+            programs: Vos programmes
     description:
         home:
             mixte: Le guide personnalisé de vos programmes. Retrouvez dans une même playlist : Vidéo à la demande (VOD) et Replay TV (télévision de rattrapage), programmes Télé, DVD, box et télé connectée.
@@ -57,17 +60,17 @@ redirection:
 user:
     programs: Votre playlist
     settings: Vos préférences
-    settings.profile: Votre compte
-    settings.payment: Vos informations de paiement
-    settings.communication: Préférences de notification
-    settings.email: Votre adresse e-mail
-    settings.password: Votre mot de passe
+    settings.profile: Compte
+    settings.payment: Informations de paiement
+    settings.communication: Newsletter & notifications email
+    settings.email: Adresse e-mail
+    settings.password: Mot de passe
     settings.change_password: Changer de mot de passe
     settings.submit: Enregistrer
     settings.newsletter: Recevoir la newsletter
-    settings.notification_email : Recevoir des e-mails
+    settings.notification_email : Recevoir mes notifications par e-mails
     settings.newpassword: Nouveau mot de passe
-    settings.confirmpassword: Confirmer le mot de passe
+    settings.confirmpassword: Confirmation
 notifications:
     empty: 
         title: Vous n'avez pas de notifications !
@@ -299,8 +302,13 @@ category:
         popover:
             title: Partagez vos programmes avec vos amis !
             content: Connectez-vous à Facebook en 1 clic et retrouvez ce que vos amis regardent sur mySkreen.
+card:
+    add: Ajouter une carte de paiement
+    update: Modifier la carte de paiement
 free: Gratuit
 watch: Voir maintenant
 editors: Production
 actors: Acteurs
 directed.by: Réalisateur
+yes: Oui
+no: Non

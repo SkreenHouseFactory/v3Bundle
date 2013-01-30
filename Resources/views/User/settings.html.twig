@@ -3,84 +3,70 @@
 {% block title %}{{ 'page.title.user.settings'|trans }}{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container" id="view-settings">
 	<h1>{{ 'user.settings'|trans }}</h1>
 	<ul class="nav nav-pills" id="user-settings">
 		<li class="nav-pill active"><a href="#profile" data-toggle="tab">{{ 'user.settings.profile'|trans }}</a></li>
 		<li class="nav-pill"><a href="#payment" data-toggle="tab">{{ 'user.settings.payment'|trans }}</a></li>
 		<li class="nav-pill"><a href="#notifications" data-toggle="tab">{{ 'user.settings.communication'|trans }}</a></li>
 	</ul>
-
-	<div class="tab-content" id="user-settings-tabs">
+	<div class="tab-content">
 		<div class="tab-pane active" id="profile">
-			<div class="connection_info_form">
-				<form name="user_settings_profile_form" action="session/settings/{{ app.session.get('session_uid') }}.json" method="post" data-form="catch">
-					<div class="item">
-						<label for="update_mail">{{ 'user.settings.email'|trans }}</label>
+			<table class="table table-striped">
+				<tr>
+					<td>
+						<form class="form-inline" action="session/settings/{{ session_uid }}.json" method="post" data-form="catch">
+								<label for="update_mail">{{ 'user.settings.email'|trans }}</label>&nbsp;
+								<input type="email" name="update_mail" value="{{ email }}" />&nbsp;
+								<input type="submit" value="{{ 'user.settings.submit'|trans }}" class="btn"/>
+						</form>
 					</div>
-					<div class="item">
-						<input type="email" name="update_mail" value="{{ email }}" />
-					</div>
-					<div class="item">
-						<input type="submit" value="{{ 'user.settings.submit'|trans }}" class="btn"/>
-					</div>
-				</form>
-			</div>
-			<div class="connection_info_form" style="border-left: 1px solid #009; padding-left: 20px">
-				<form name="user_settings_password_form" action="session/settings/{{ app.session.get('session_uid') }}.json" method="post" data-form="catch">
-					<div class="form_label">
-						<label for="update_pwd">{{ 'user.settings.newpassword'|trans }}</label>
-					</div>
-					<div class="form_value">
-						<input type="password" name="update_pwd"/>
-					</div>
-					<div class="form_label">
-						<label for="passwordconfirm">{{ 'user.settings.confirmpassword'|trans }}</label>
-					</div>
-					<div class="form_value">
-						<input type="password" name="passwordconfirm"/>
-					</div>
-					<div class="form_value">
-						<input type="submit" value="{{ 'user.settings.change_password'|trans }}" class="btn"/>
-					</div>
-				</form>
-			</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+						<form class="form-inline" action="session/settings/{{ session_uid }}.json" method="post" data-form="catch">
+							<label for="update_pwd">{{ 'user.settings.newpassword'|trans }}</label>&nbsp;
+							<input type="password" name="update_pwd"/>&nbsp;
+							<label for="passwordconfirm">{{ 'user.settings.confirmpassword'|trans }}</label>&nbsp;
+							<input type="password" name="passwordconfirm"/>&nbsp;
+							<input type="submit" value="{{ 'user.settings.change_password'|trans }}" class="btn"/>
+						</form>
+					</td>
+				</tr>
+			</table>
 		</div>
-
 		<div class="tab-pane" id="notifications">
-			<div>
-		        <span class="text newsletter">{{ 'user.settings.newsletter'|trans }}</span>&nbsp;
+			<table class="table table-striped">
+				<tr>
+					<td>
 		        <span class="btn-group newsletter" data-toggle="buttons-radio">
-		        	<a class="btn btn-small{{ newsletter ? ' btn-primary' : '' }}" data-share="allow">on</a>
-		        	<a class="btn btn-small{{ newsletter ? '' : ' btn-primary' }}" data-share="disallow">off</a>
-		        </span>
-			</div>
-			<div>
-		        <span class="text notification">{{ 'user.settings.notification_email'|trans }}</span>&nbsp;
+		        	<a class="btn{{ newsletter ? ' btn-primary' : '' }}" data-share="allow">{{ 'yes'|trans }}</a>
+		        	<a class="btn{{ newsletter ? '' : ' btn-primary' }}" data-share="disallow">{{ 'no'|trans }}</a>
+		        </span>&nbsp;&nbsp;
+		        <span class="text newsletter">{{ 'user.settings.newsletter'|trans }}</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
 		        <span class="btn-group notification" data-toggle="buttons-radio">
-		        	<a class="btn btn-small{{ notifications ? '' : ' btn-primary' }}" data-notify="allow">on</a>
-		        	<a class="btn btn-small{{ notifications ? ' btn-primary' : '' }}" data-notify="disallow">off</a>
-		        </span>
-			</div>
+		        	<a class="btn{{ notifications ? '' : ' btn-primary' }}" data-notify="allow">{{ 'yes'|trans }}</a>
+		        	<a class="btn{{ notifications ? ' btn-primary' : '' }}" data-notify="disallow">{{ 'no'|trans }}</a>
+		        </span>&nbsp;&nbsp;
+		        <span class="text notification">{{ 'user.settings.notification_email'|trans }}</span>
+					</td>
+				</tr>
+			</table>
 		</div>
 
 		<div class="tab-pane" id="payment">
-			<div class="connection_info_form">
-		{% if card %} 
-				<div class="item_text">
-					{{ 'card'|trans }} ****-****-****-{{ card }}
-				</div>
-				<div class="item_text">
-					{{ 'peremted at'|trans }} {{ card_peremted_at is empty ? "" : card_peremted_at|date("d/m/Y") }}
-					{% if card_peremted_at < "now"|date("Y-m-d") %}
-					<span class="alert alert-error">carte expiree</span>
-					{% endif %}
-				</div>
-		{% else %}
-				<div class="item_text">Aucune carte enregistrée.</div>
- 		{% endif %}
-				<div class="item"><a data-modal="card" class="btn">{{ card is empty ? 'Ajouter'|trans : 'Modifier'|trans }}</a>
-			</div>
+			{% if card %} 
+				{% if card_peremted_at < "now"|date("Y-m-d") %}<p class="alert alert-error">carte expiree</p>{% endif %}
+				<p class="alert alert-success">{{ 'card'|trans }} ****-****-****-{{ card }}, &nbsp;{{ 'peremted at'|trans }} {{ card_peremted_at|date('d/m/Y') }}</p>
+			{% else %}
+				<p class="alert alert-info">Aucune carte enregistrée.</p>
+	 		{% endif %}
+			<a data-modal="card" data-modal-title="Préférences" class="btn btn-large">{{ card is empty ? 'card.add'|trans : 'card.update'|trans }} </a>
 		</div>
 	</div>
 </div>
