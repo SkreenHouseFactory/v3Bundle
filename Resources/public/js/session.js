@@ -25,7 +25,6 @@ var Session = BaseSession.extend({
     
     this.__base(callback)
 
-    UI.loadUser();
     UI.unloadSelector();
     UI.unloadPlaylist();
   },

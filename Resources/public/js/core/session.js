@@ -81,11 +81,12 @@ var BaseSession = Class.extend({
     }
 
     this.datas = '';
-//?    this.uid = '';
     this.user = '';
 
     API.cookie('session_uid', null);
     API.cookie('playlist_collapsed', null);
+
+    UI.loadUser();
   },
   readNotifications: function(){
 

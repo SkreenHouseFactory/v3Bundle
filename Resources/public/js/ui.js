@@ -61,7 +61,7 @@ UI = {
   },
   //user infos
   loadUser: function() {
-    console.log('UI.loadUser', Skhf.session.datas.email, this.user);
+
     var update = false;
     if (this.user) {
       if (this.user == Skhf.session.datas.email) {
@@ -72,6 +72,7 @@ UI = {
         //TODO : unload user !';
       }
     }
+    console.log('UI.loadUser', Skhf.session.datas.email, this.user, 'update:', update);
 
     this.user = Skhf.session.datas.email;
     if (Skhf.session.datas.email) {
@@ -81,6 +82,10 @@ UI = {
         $('.user-on.hide').removeClass('hide');
         $('.user-on-visibility').css('visibility','visible');
         $('li.selector:not(.empty)').popover('disable').popover('hide');
+				//share on
+        if (Skhf.session.datas.disallow_share) {
+          $('.share [data-share="disallow"]').trigger('click');
+        }
         //datas
         this.loadPlaylistTriggers();
         this.loadNotifications(Skhf.session.datas.notifications);
@@ -95,9 +100,6 @@ UI = {
       if (Skhf.session.datas.fb_uid) {
         $('.share-on').show();
         $('.share-off').hide();
-        if (Skhf.session.datas.disallow_share) {
-          $('.share [data-share="disallow"]').trigger('click');
-        }
         this.addFriendsPrograms();
       } else {
         $('.share-on').hide();
@@ -107,7 +109,7 @@ UI = {
       if (Skhf.session.datas.cinema) {
         $('.theaters-off:not(.hide)').addClass('hide');
         $('.theaters-on.hide').removeClass('hide');
-        UI.loadTheatersPlaylist();
+        this.loadTheatersPlaylist();
       }
     } else {
       //off
@@ -213,6 +215,7 @@ UI = {
   },
   //toggle btn
   loadPlaylistTriggers: function(parameter, ids, elmt) {
+
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
     console.log('UI.loadPlaylistTriggers', parameter, ids, elmt);
     if (typeof parameter != 'undefined') {
