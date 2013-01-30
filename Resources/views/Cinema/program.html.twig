@@ -19,8 +19,8 @@
   <div class="accordion" id="accordion-theaters">
   {% for cinema in cinemas %}
     {% if cinema.adress is defined and cinema.schedules[0].horaires is defined %}
-    <div class="accordion-group">
-      <div class="accordion-heading actions" data-id="{{ cinema.id }}" data-name="{{ cinema.name }}">
+    <div class="accordion-group actions" data-id="{{ cinema.id }}" data-name="{{ cinema.name }}">
+      <div class="accordion-heading">
         <a href="{{ cinema.seo_url }}" class="fav fav-cinema btn btn-primary pull-right"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-theaters" href="#theater-{{ cinema.id }}">{{ cinema.name }}</a>
         <a target="_blank" href="https://maps.google.com/maps?hl=fr&q={{ cinema.adress ~ ' ' ~ cinema.city ~ ' ' ~ cinema.zip_code|url_encode }}" class="address"><i class="icon-map-marker"></i> {{ cinema.adress }} {{ cinema.city }} {{ cinema.zip_code }}</a>

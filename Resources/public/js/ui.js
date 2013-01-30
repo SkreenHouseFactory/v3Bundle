@@ -143,8 +143,8 @@ UI = {
         var content = '<b>Ne ratez plus les programmes qui vous intéressent&nbsp;!</b>' + 
                       '<br/>En ajoutant cette recherche à vos playlists vous saurez averti dès qu\'un programme correspondant sera disponible.';
     } else {
-      if (trigger.parent().data('onglet') == 'emissions' || 
-          trigger.parent().data('onglet') == 'series') {
+      if (trigger.parents('.actions:first').data('onglet') == 'emissions' || 
+          trigger.parents('.actions:first').data('onglet') == 'series') {
         var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' +
                       '<br/>En ajoutant ce programme à vos playlists vous serez averti dès qu\'un épisode est disponible !';
       } else {
@@ -182,13 +182,13 @@ UI = {
     if (Skhf.session.datas.email) {
       console.log('UI.togglePlaylist', parameter, value, 'remove:' + remove, trigger);
       trigger.html('Chargement ...').removeClass('btn-danger');
-      var value = trigger.parent().data('id');
+      var value = trigger.parents('.actions:first').data('id');
       var remove = trigger.hasClass('fav-on') ? true : false;
       var callback = function(value){
         console.log('UI.togglePlaylist', 'callback', value, trigger);
         if (remove && 
             parameter == 'like' &&
-            $('.friends', trigger.parent().parent()).length == 0) { //pas pour le slider social
+            $('.friends', trigger.parents('.actions:first')).length == 0) { //pas pour le slider social
           $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
             $(this).remove();
           });
@@ -270,10 +270,10 @@ UI = {
                 $('#trigger-theaters-playlist').trigger('click');
               }
             }
-            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parent().remove();
+            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parents('.actions:first').remove();
           break;
           default:
-            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parent().remove();
+            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parents('.actions:first').remove();
           break;
         }
       }
