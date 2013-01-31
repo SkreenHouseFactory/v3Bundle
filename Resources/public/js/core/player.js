@@ -395,10 +395,11 @@ Player = {
                   return false;
                 }
                 self.play($.extend(video.player, {occurrence_id: id}), callback);
-                if (typeof video.versions != 'undefined' && video.versions.length > 0) {
+								var nb_version = $.map(video.versions, function(n, i) { return i; }).length;
+                if (typeof video.versions != 'undefined' && nb_version > 1) {
                   self.loadVersions(video.versions, id);
                 }
-  
+
                 return true;
               }, 
               true);
@@ -428,14 +429,23 @@ Player = {
     }
   },
   loadVersions: function(versions, current_id) {
-    var el = $('#player-versions');
+    var el = $('#player-versions', this.elmt_meta);
     console.log('Player.loadVersions', versions, el);
-    el.html('Versions disponibles<br/>');
+		if (el.html()) {
+			return;
+		}
     for (k in versions) {
       if (k) {
+				if (!el.html()) {
+		  		el.html('Versions disponibles<br/>');
+				}
         el.append(' <a href="#" data-play="' + versions[k] + '" data-play-args=\'{"current_player": "1"}\' class="badge' + (versions[k] == current_id ? ' badge-info' : '') + '">' + k + '</a>');
       }
     }
+		$('[data-play]', el).click(function() {
+			$('[data-play]', el).removeClass('badge-info');
+			$(this).addClass('badge-info');
+		});
   },
   loadMetaProgram: function(p) {
     console.log('Player.loadMetaProgram', p, this.elmt_meta);
@@ -446,8 +456,10 @@ Player = {
 
     //meta program
     if (typeof p == 'object') {
+			var format = p.format != null ? p.format : '';
+			var year = p.year != null ? p.year : '';
       this.elmt_meta.data('id', p.id);
-      this.elmt_meta.data('title', 'Ajout à vos playlists<br/><small>' + p.title + ', ' + p.format + ' - ' + p.year + '</small>');
+      this.elmt_meta.data('title', 'Ajout à vos playlists<br/><small>' + p.title + ', ' + format + ' - ' + year + '</small>');
       this.elmt_meta.append('<h4>' + p.title + '<br/><small>' + p.format + ' - ' + p.year + '</small></h4>');
       //<br/><a class="btn btn-large fav">Suivre / voir plus tard</a><span>');
     }

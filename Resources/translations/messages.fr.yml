@@ -230,7 +230,7 @@ slider:
   link.default: Zoom sur la sélection
 theaters:
     playlist:
-        title: Dans vos cinémas
+        title: Vos playlists : dans vos cinémas
         add: Ajouter vos cinémas
     search:
         submit: Rechercher

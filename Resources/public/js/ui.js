@@ -98,23 +98,23 @@ UI = {
       $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
       //fb
       if (Skhf.session.datas.fb_uid) {
-        $('.share-on').show();
-        $('.share-off').hide();
+        $('.share-on.hide').removeClass('hide');
+      	$('.share-off:not(.hide)').addClass('hide');
         this.addFriendsPrograms();
       } else {
-        $('.share-on').hide();
-        $('.share-off').show();
+      $('.share-on:not(.hide)').addClass('hide');
+      $('.share-off.hide').removeClass('hide');
       }
       //theaters
       if (Skhf.session.datas.cinema) {
-        $('.theaters-off:not(.hide)').addClass('hide');
-        $('.theaters-on.hide').removeClass('hide');
         this.loadTheatersPlaylist();
       }
     } else {
       //off
-      $('.user-off').removeClass('hide');
-      $('.user-on').addClass('hide');
+      $('.user-off.hide').removeClass('hide');
+      $('.user-on:not(.hide)').addClass('hide');
+      $('.share-on:not(.hide)').addClass('hide');
+      $('.share-off').removeClass('hide');
       $('.user-on-visibility').css('visibility','hidden');
       $('.notifications li.empty').show();
       $('li.selector').popover('enable');
@@ -127,6 +127,8 @@ UI = {
       //if ($('#view-program').length) {
       //  this.unloadProgramUsersDatas();
       //}
+      //theaters
+      this.unloadTheatersPlaylist();
     }
   },
   //set popover infos
@@ -431,10 +433,14 @@ UI = {
       });
     }
   },
+	//playlist theaters
   loadTheatersPlaylist: function(){
     if (Skhf.session.datas.cinema && 
         $('#cinema.slider').length) {
       console.log('UI.loadTheatersPlaylist', Skhf.session.datas.cinema);
+      $('.theaters-off:not(.hide)').addClass('hide');
+      $('.theaters-on.hide').removeClass('hide');
+
       API.query('GET', 'channel.json', {
           type: 'cinema',
           ids: Skhf.session.datas.cinema
@@ -451,6 +457,10 @@ UI = {
       });
     }
   },
+  unloadTheatersPlaylist: function(){
+    $('.theaters-on:not(.hide)').addClass('hide');
+    $('.theaters-off.hide').removeClass('hide');
+	},
   //update selector
   loadSelector: function(datas) {
     var self = this;
