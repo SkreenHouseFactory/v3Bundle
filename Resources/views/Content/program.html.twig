@@ -144,7 +144,7 @@
                 <td class="price big">
                   {% if o.cost is defined %}
                     {% if o.cost > 0 %}{{ o.cost|number_format(2, ',') }}&euro;
-                    {% elseif o_access.is_achat or o_access.is_location %}- &euro;
+                    {#% elseif o_access.is_achat or o_access.is_location %}- &euro;#}
                     {% endif %}
                   {% endif %}
                 </td>
@@ -186,8 +186,10 @@
                     {% if o.tags.version is defined %}
                       <span class="label label-success">{{ o.tags.version|replace({',': ', '}) }}</span><br/>
                     {% endif %}
-                    {% if o.tags.hd is defined %}
-                      <span class="label label-important">{{ o.tags.hd }}</span><br/>
+                    {% if o.tags.HD is defined %}
+                      <span class="label label-important">HD</span><br/>
+                    {% elseif o.tags.format is defined %}
+                      <span class="label label-important">{{ o.tags.format }}</span><br/>
                     {% endif %}
                     {% if o.tags.device is defined %}
                       <span class="label label-info">{{ o.tags.device|replace({',': ', '}) }}</span>
@@ -334,19 +336,23 @@
   {% for r in program.related if r.programs is defined and r.programs|length %}
     {% if r.name == 'same_actors' and program.casting %}
       <h3 id="same-actors-title" class="user-on-visibility">{{ r.title }}</h3>
-      <div class="person-list">
-      {#% for pers in program.casting|slice(0,10) %}
+      {#
+				<div class="person-list">
+      {% for pers in program.casting|slice(0,10) %}
       <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" class="label label-info">{{ pers.name }}</a>
-      {% endfor %#}
+      {% endfor %}
       </div>
+			#}
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r, noheader: true} %}
     {% elseif r.name == 'same_director' and program.director %}
       <h3 id="same-director-title" class="user-on-visibility">{{ r.title }}</h3>
-      <div class="person-list">
-      {#% for pers in program.director %}
+      {#
+				<div class="person-list">
+      {% for pers in program.director %}
       <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" class="label label-info">{{ pers.name }}</a>
-      {% endfor %#}
+      {% endfor %}
       </div>
+			#}
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r, noheader: true} %}
     {% else %}
       <a name="{{ r.name }}"></a>

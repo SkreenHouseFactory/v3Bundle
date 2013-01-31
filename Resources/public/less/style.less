@@ -25,6 +25,7 @@
 @import "channel.less";
 @import "program.less";
 @import "user.less";
+@import "person.less";
 
 /* main */
 .touch body {
@@ -211,12 +212,6 @@ div.friends {
   margin-right: 20px;
 }
 
-.description.lead {
-  font-size: 1.0em;
-  color: #999;
-  line-height: 20px;
-}
-
 /* theaters-playlist */
 #theaters-playlist {
   position: relative;
@@ -229,6 +224,17 @@ div.friends {
       }
     }
   }
+	.theaters-off {
+		height: 250px;
+		background: url(/bundles/skreenhousefactoryv3/images/vos-cinemas-sample.png) no-repeat;
+
+		.well {
+			position: absolute;
+			top: 100px;
+			left: 250px;
+			text-align: center;
+		}
+	}
 }
 
 /* gabarit */

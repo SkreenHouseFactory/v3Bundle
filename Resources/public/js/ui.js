@@ -154,7 +154,6 @@ UI = {
                       '<br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD.';
       }
     }
-    
 
     trigger.popover({placement: 'top',
                       title:	function() { return 'Ajout à vos playlists'},
@@ -162,7 +161,8 @@ UI = {
                       show: 500, 
                       hide: 100});
   },
-  //toggle favorite
+  //toggle favorite : fav-parameter
+	//if actions-remove[data-id="xx"] : element deleted in this.unloadPlaylistTrigger
   togglePlaylist: function(trigger){
     var self = this;
     if (trigger.hasClass('fav-cinema')) {
@@ -273,10 +273,10 @@ UI = {
                 $('#trigger-theaters-playlist').trigger('click');
               }
             }
-            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parents('.actions:first').remove();
+            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parents('.actions-remove:first').remove();
           break;
           default:
-            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parents('.actions:first').remove();
+            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parents('.actions-remove:first').remove();
           break;
         }
       }

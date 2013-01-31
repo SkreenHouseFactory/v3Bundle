@@ -26,6 +26,11 @@ $(document).ready(function(){
     Skhf.session = new Session(function(){
       console.log('script', 'Session.init', 'callback');
 
+			/* pages */
+			//theater playlist
+			if ($('#program-offers #trigger-theaters-playlist').length){
+				$('#program-offers #trigger-theaters-playlist').trigger('click');
+			}
       //affichage bulle pendant 4s sur fiche programme
       if (!Skhf.session.datas.email && 
           $('#program-follow .fav').length > 0) {
@@ -509,7 +514,7 @@ $(document).ready(function(){
   }
 
   // -- program
-  if ($('#view-program').length > 0) {
+  if ($('#view-program').length) {
 
     //no deportes
     if ($('#trigger-deportes').data('nb') == 0) {
