@@ -840,31 +840,6 @@ ul.typeahead {
     }
   }
 
-  .metas {
-    position: absolute;
-    top: 10%;
-    left: 5%;
-    color: white;
-    opacity: 0.9;
-    z-index: 3;
-    text-shadow: 1px 1px 0px black;
-
-    span {
-      display: inline-block;
-      padding: 10px;
-      background: #333;
-      font-size: 1.3em;
-    }
-    
-    span.title {
-      padding: 10px;
-      font-size: 2.0em;
-    }
-    span.subtitle {
-      margin-top: 20px;
-    }
-  }
-
   ul#player-channels {
     position: absolute;
     top: 10%;
@@ -881,6 +856,16 @@ ul.typeahead {
 #player.on {
   display: block;
   width: 100%;
+}
+.player-meta {
+  display: none;
+  color: white;
+  background: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  margin: 1% 0 0 1%;
+  width: 30%;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 
