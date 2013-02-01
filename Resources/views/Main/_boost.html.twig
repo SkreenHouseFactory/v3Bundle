@@ -1,4 +1,4 @@
 En ce moment : 
 {% for p in programs %}
-{% if loop.first %}{% else %} ~ {% endif %}<a href="{{ p.seo_url }}">{{ p.title }}</a>
+<a href="{{ p.seo_url }}">{{ p.title }}</a>
 {% endfor %}
