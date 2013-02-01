@@ -38,7 +38,7 @@
     {% endif %}
 
     {% if results.count.films %}
-    {% set slider = {title: results.count.films ~ ' Films ', programs: results.Films, paginate: results.paginate ~ '.json?format=films'} %}
+    {% set slider = {title: results.count.films ~ ' Films ', programs: results.Films, paginate: 1, url: results.paginate ~ '.json?format=films'} %}
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
     {% endif %}
     <hr/>
