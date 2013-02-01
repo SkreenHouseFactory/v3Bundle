@@ -15,7 +15,10 @@
 <meta name="object_type" content="website" />
 {% endblock %}
 {% block title %}
-{{ app.request.get('format') }} - {{ category.name }}
+{% if app.request.get('format') %}
+{{ app.request.get('format') }} - 
+{% endif %}
+{{ category.name }}
 {% if app.request.get('facet') %}, {% if app.request.get('facet')|length > 1 %}{{ subcategories[app.request.get('facet')] }}{% else %}{{ app.request.get('facet') }}{% endif %}{% endif %}
 {% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}
 {% endblock %}

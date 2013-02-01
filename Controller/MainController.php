@@ -53,14 +53,10 @@ class MainController extends Controller
         case 'documentaires':
         case 'emissions':
         case 'spectacles':
-        case 'jeunesse':
           $redirect = substr($request->get('home'), 0, strlen($request->get('home'))-1);
         break;
         case 'vod':
           $redirect = 'video-a-la-demande';
-        break;
-        case 'jeunesse':
-          $redirect = 'dessin-anime-et-manga';
         break;
         case 'cine':
           $redirect = 'cinema';
@@ -75,9 +71,6 @@ class MainController extends Controller
         break;
         case 'video-a-la-demande':
           $home = 'vod';
-        break;
-        case 'dessin-anime-et-manga':
-          $home = 'jeunesse';
         break;
         case 'cinema':
           $home = 'cine';
