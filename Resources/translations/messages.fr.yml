@@ -14,6 +14,7 @@ page:
             documentaires: Documentaires
             emissions: Emissions
             spectacles: Théatre, concerts, spectacles
+        error: Page introuvable
         redirect: Redirection en cours ...
         cinema.boxoffice: Cinéma, tous les films en salle commençant par %alpha%
         channel: %name%
@@ -33,6 +34,7 @@ page:
             emissions: Emissions : regardez vos émissions préférées en Replay.
             spectacles: Théatre, concerts, spectacles : des milliers de vidéos en un clic !
         search: Recherche : %p% : VOD, Replay, DVD, Cinéma. Retrouvez TOUTES les diffusions des programmes que vous aimez !
+        error: Utilisez le moteur de recherche pour trouver votre contenu.
 form:
     error:
         msg:
