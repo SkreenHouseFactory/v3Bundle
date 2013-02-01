@@ -77,7 +77,10 @@ class ContentController extends Controller
 
         //print_r($datas);
         //echo $api->url;
-
+				//stop Adulte
+        if (isset($datas->error)) {
+        	throw $this->createNotFoundException('Program error : ' . $datas->error);
+				}
         //check url
         //echo $request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
         //TODO
