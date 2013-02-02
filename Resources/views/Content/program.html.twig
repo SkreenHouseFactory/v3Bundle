@@ -179,7 +179,9 @@
                 </td>
                 {% if o_episode %}
                 <td class="episode" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="{{ o_episode.title }}" data-toggle="hover" data-placement="left">
-                  {{ o_episode.title }}
+									{% if o_episode.title %}
+                  {{ o_episode.title }}<br/>
+									{% endif %}
                   {% if o_episode.season_number is defined or o_episode.episode_number is defined or o_episode.part_number is defined %}
                     <span><em>{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %} {% if o_episode.episode_number is defined %}Episode {{ o_episode.episode_number }}{% endif %} {% if o_episode.part_number is defined %}Episode {{ o_episode.part_number }}{% endif %}</em></span>
                   {% endif %}

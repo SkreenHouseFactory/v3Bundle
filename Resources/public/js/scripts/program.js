@@ -63,7 +63,7 @@ $(document).ready(function(){
 	              {nb_results: 24},
 	              function(programs) {
 	                if (programs.length == 0 || typeof programs.length == 'undefined') {
-	                  $('#trigger-bonus').addClass('hide');
+	                  $('#trigger-bonus').parent().addClass('hide');
 	                  return;
 	                }
 	                //TODO : sort by duration ?
