@@ -170,6 +170,13 @@ program_dev:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
     requirements:
         id: \d+
+program_v1:
+    pattern:  /{format}/{id}-{slug}/{rubrique}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    requirements:
+        id: \d+
+        slug: "[^/]+"
+        rubrique: seo|enligne
 program_v2_pere:
     pattern:  /{format}/{idpere}-{slugpere}/{id}-{slug}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
