@@ -26,6 +26,11 @@ $(document).ready(function(){
     Skhf.session = new Session(function(){
       console.log('script', 'Session.init', 'callback');
 
+			/* pages */
+			//theater playlist
+			if ($('#program-offers #trigger-theaters-playlist').length){
+				$('#program-offers #trigger-theaters-playlist').trigger('click');
+			}
       //affichage bulle pendant 4s sur fiche programme
       if (!Skhf.session.datas.email && 
           $('#program-follow .fav').length > 0) {
@@ -416,6 +421,29 @@ $(document).ready(function(){
   });
 
   // -- theaters
+  $('#theaters-names a').live('click', function(){
+		var triggers = $('#theaters-names a');	
+    if (triggers.filter(':not(.label-info)').length == 0) {
+      triggers.removeClass('label-info');
+      $(this).addClass('label-info');
+    } else {
+      $(this).toggleClass('label-info');
+    }
+    var ids = new Array();
+    triggers.each(function(){
+      if ($(this).hasClass('label-info')) {
+        console.log('add theater id', $(this).data('id'));
+        ids.push($(this).data('id'));
+      }
+    });
+    if (ids.length > 0) {
+      var url = 'schedule/cine.json?programs_only=1&theater_ids=' + ids.join(',');
+      console.log('script', 'update url slider cinema', url);
+      UI.sliders['cinema'].reset(url);
+    } else {
+      $(this).toggleClass('label-info');
+    }
+  });
   $('#trigger-theaters-playlist').live('click', function(){
     console.log('script', 'trigger-theaters-playlist');
     var theaters = Skhf.session.datas.cinema;
@@ -486,7 +514,7 @@ $(document).ready(function(){
   }
 
   // -- program
-  if ($('#view-program').length > 0) {
+  if ($('#view-program').length) {
 
     //no deportes
     if ($('#trigger-deportes').data('nb') == 0) {

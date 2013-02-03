@@ -61,7 +61,7 @@ UI = {
   },
   //user infos
   loadUser: function() {
-    console.log('UI.loadUser', Skhf.session.datas.email, this.user);
+
     var update = false;
     if (this.user) {
       if (this.user == Skhf.session.datas.email) {
@@ -69,9 +69,10 @@ UI = {
         //console.warn('UI.loadUser', 'already loaded');
         //return;
       } else {
-        //TODO : unload user !
+        //TODO : unload user !';
       }
     }
+    console.log('UI.loadUser', Skhf.session.datas.email, this.user, 'update:', update);
 
     this.user = Skhf.session.datas.email;
     if (Skhf.session.datas.email) {
@@ -81,6 +82,10 @@ UI = {
         $('.user-on.hide').removeClass('hide');
         $('.user-on-visibility').css('visibility','visible');
         $('li.selector:not(.empty)').popover('disable').popover('hide');
+				//share on
+        if (Skhf.session.datas.disallow_share) {
+          $('.share [data-share="disallow"]').trigger('click');
+        }
         //datas
         this.loadPlaylistTriggers();
         this.loadNotifications(Skhf.session.datas.notifications);
@@ -93,26 +98,23 @@ UI = {
       $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
       //fb
       if (Skhf.session.datas.fb_uid) {
-        $('.share-on').show();
-        $('.share-off').hide();
-        if (Skhf.session.datas.disallow_share) {
-          $('.share [data-share="disallow"]').trigger('click');
-        }
+        $('.share-on.hide').removeClass('hide');
+      	$('.share-off:not(.hide)').addClass('hide');
         this.addFriendsPrograms();
       } else {
-        $('.share-on').hide();
-        $('.share-off').show();
+      $('.share-on:not(.hide)').addClass('hide');
+      $('.share-off.hide').removeClass('hide');
       }
       //theaters
       if (Skhf.session.datas.cinema) {
-        $('.theaters-off:not(.hide)').addClass('hide');
-        $('.theaters-on.hide').removeClass('hide');
-        UI.loadTheatersPlaylist();
+        this.loadTheatersPlaylist();
       }
     } else {
       //off
-      $('.user-off').removeClass('hide');
-      $('.user-on').addClass('hide');
+      $('.user-off.hide').removeClass('hide');
+      $('.user-on:not(.hide)').addClass('hide');
+      $('.share-on:not(.hide)').addClass('hide');
+      $('.share-off').removeClass('hide');
       $('.user-on-visibility').css('visibility','hidden');
       $('.notifications li.empty').show();
       $('li.selector').popover('enable');
@@ -125,6 +127,8 @@ UI = {
       //if ($('#view-program').length) {
       //  this.unloadProgramUsersDatas();
       //}
+      //theaters
+      this.unloadTheatersPlaylist();
     }
   },
   //set popover infos
@@ -143,8 +147,8 @@ UI = {
         var content = '<b>Ne ratez plus les programmes qui vous intéressent&nbsp;!</b>' + 
                       '<br/>En ajoutant cette recherche à vos playlists vous saurez averti dès qu\'un programme correspondant sera disponible.';
     } else {
-      if (trigger.parent().data('onglet') == 'emissions' || 
-          trigger.parent().data('onglet') == 'series') {
+      if (trigger.parents('.actions:first').data('onglet') == 'emissions' || 
+          trigger.parents('.actions:first').data('onglet') == 'series') {
         var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' +
                       '<br/>En ajoutant ce programme à vos playlists vous serez averti dès qu\'un épisode est disponible !';
       } else {
@@ -152,7 +156,6 @@ UI = {
                       '<br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD.';
       }
     }
-    
 
     trigger.popover({placement: 'top',
                       title:	function() { return 'Ajout à vos playlists'},
@@ -160,7 +163,8 @@ UI = {
                       show: 500, 
                       hide: 100});
   },
-  //toggle favorite
+  //toggle favorite : fav-parameter
+	//if actions-remove[data-id="xx"] : element deleted in this.unloadPlaylistTrigger
   togglePlaylist: function(trigger){
     var self = this;
     if (trigger.hasClass('fav-cinema')) {
@@ -182,13 +186,13 @@ UI = {
     if (Skhf.session.datas.email) {
       console.log('UI.togglePlaylist', parameter, value, 'remove:' + remove, trigger);
       trigger.html('Chargement ...').removeClass('btn-danger');
-      var value = trigger.parent().data('id');
+      var value = trigger.parents('.actions:first').data('id');
       var remove = trigger.hasClass('fav-on') ? true : false;
       var callback = function(value){
         console.log('UI.togglePlaylist', 'callback', value, trigger);
         if (remove && 
             parameter == 'like' &&
-            $('.friends', trigger.parent().parent()).length == 0) { //pas pour le slider social
+            $('.friends', trigger.parents('.actions:first')).length == 0) { //pas pour le slider social
           $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
             $(this).remove();
           });
@@ -213,6 +217,7 @@ UI = {
   },
   //toggle btn
   loadPlaylistTriggers: function(parameter, ids, elmt) {
+
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
     console.log('UI.loadPlaylistTriggers', parameter, ids, elmt);
     if (typeof parameter != 'undefined') {
@@ -270,10 +275,10 @@ UI = {
                 $('#trigger-theaters-playlist').trigger('click');
               }
             }
-            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parent().remove();
+            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parents('.actions-remove:first').remove();
           break;
           default:
-            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parent().remove();
+            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parents('.actions-remove:first').remove();
           break;
         }
       }
@@ -428,10 +433,14 @@ UI = {
       });
     }
   },
+	//playlist theaters
   loadTheatersPlaylist: function(){
     if (Skhf.session.datas.cinema && 
         $('#cinema.slider').length) {
       console.log('UI.loadTheatersPlaylist', Skhf.session.datas.cinema);
+      $('.theaters-off:not(.hide)').addClass('hide');
+      $('.theaters-on.hide').removeClass('hide');
+
       API.query('GET', 'channel.json', {
           type: 'cinema',
           ids: Skhf.session.datas.cinema
@@ -442,39 +451,16 @@ UI = {
           for (k in datas) {
             $('#theaters-names').append('<a href="#theaters-playlist" data-id="' + datas[k].id + '" class="label label-info">' + datas[k].name + '</a>');
           }
-          UI.sliders['cinema'] = new BaseSlider(
-            {'url': 'schedule/cine.json?programs_only=1&theater_ids=' + Skhf.session.datas.cinema},
-            function(){
-              //update
-              var triggers = $('#theaters-names a');
-              triggers.click(function(){
-                if (triggers.filter(':not(.label-info)').length == 0) {
-                  triggers.removeClass('label-info');
-                  $(this).addClass('label-info');
-                } else {
-                  $(this).toggleClass('label-info');
-                }
-                var ids = new Array();
-                triggers.each(function(){
-                  if ($(this).hasClass('label-info')) {
-                    console.log('add theater id', $(this).data('id'));
-                    ids.push($(this).data('id'));
-                  }
-                });
-                if (ids.length > 0) {
-                  var url = 'schedule/cine.json?programs_only=1&theater_ids=' + ids.join(',');
-                  console.log('script', 'update url slider cinema', url);
-                  UI.sliders['cinema'].reset(url);
-                } else {
-                  $(this).toggleClass('label-info');
-                }
-              });
-            
-            },
-            $('#cinema.slider'));
+          UI.sliders['cinema'] = new BaseSlider({'url': 'schedule/cine.json?programs_only=1&theater_ids=' + Skhf.session.datas.cinema }, 
+																								function(){}, 
+																								$('#cinema.slider'));
       });
     }
   },
+  unloadTheatersPlaylist: function(){
+    $('.theaters-on:not(.hide)').addClass('hide');
+    $('.theaters-off.hide').removeClass('hide');
+	},
   //update selector
   loadSelector: function(datas) {
     var self = this;

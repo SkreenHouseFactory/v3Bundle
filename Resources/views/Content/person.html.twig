@@ -28,7 +28,7 @@
 
   <div class="view-person-main">
 
-    <p id="synopsis" class="description lead">{{ person.description }}</p>
+    <p class="description">{{ person.description }}</p>
 
     {#<div class="row">
       <div id="program-follow" class="span3 view-program-block actions" data-id="{{ person.id }}">
@@ -61,6 +61,7 @@
 
   <h2>Sa filmographie{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
 
+  {% if person.programs|length == 30 or app.request.get('page') > 1 %}
   <ul class="pager">
     {% if app.request.get('page') > 2 %}
     <li class="previous">
@@ -71,12 +72,11 @@
       <a href="{{ path('person', {type: app.request.get('type'), id: app.request.get('id'), slug: app.request.get('slug')}) }}">&larr; 30 précédents</a>
     </li>
     {% endif %}
-    {% if person.programs|length == 30 %}
     <li class="next">
       <a href="{{ path('person_page', {type: app.request.get('type'), id: app.request.get('id'), slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">30 suivants &rarr;</a>
     </li>
-    {% endif %}
   </ul>
+  {% endif %}
 
   <div id="person-programs" class="slider slider-list">
     <ul class="items">

@@ -24,8 +24,8 @@
       <ul class="dropdown-menu">
 		  	<li><a class="favoris" href="{{ path('user_programs') }}" target="_top"><i class="icon-list-alt"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
    			<li class="share">
-	        <a href="#" class="text share-off" data-modal="facebook">Facebook : activer le partage</a>
-	        <a href="#" class="text share-on">
+	        <a href="#" class="text share-off" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook">Facebook : activer le partage</a>
+	        <a href="#" class="text share-on hide">
 						<span class="btn-group" data-toggle="buttons-radio">
 		          <span class="btn btn-small btn-primary" data-share="allow">{{ 'yes'|trans }}</span>
 		          <span class="btn btn-small" data-share="disallow">{{ 'no'|trans }}</span>
@@ -63,7 +63,7 @@
   <div class="subnav subnav-fixed">
     <div class="container">
       <ul id="shortcuts" class="pull-right">
-        <li class="shortcut-jeunesse"><a href="{{ header_base }}{{ path('homes', {home: 'dessin-anime-et-manga'}) }}" target="_top">{{ 'nav.jeunesse'|trans }}</a></li>
+        <li class="shortcut-jeunesse"><a href="{{ header_base }}{{ path('homes', {home: 'jeunesse'}) }}" target="_top">{{ 'nav.jeunesse'|trans }}</a></li>
         <li class="shortcut-spectacles"><a href="{{ header_base }}{{ path('homes', {home: 'spectacle'}) }}" target="_top">{{ 'nav.spectacles'|trans }}</a></li>
         <li class="shortcut-series"><a href="{{ header_base }}{{ path('homes', {home: 'serie'}) }}" target="_top">{{ 'nav.series'|trans }}</a></li>
         <li class="shortcut-documentaires"><a href="{{ header_base }}{{ path('homes', {home: 'documentaire'}) }}" target="_top">{{ 'nav.documentaires'|trans }}</a></li>

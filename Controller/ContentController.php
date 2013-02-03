@@ -77,7 +77,10 @@ class ContentController extends Controller
 
         //print_r($datas);
         //echo $api->url;
-
+				//stop Adulte
+        if (isset($datas->error)) {
+        	throw $this->createNotFoundException('Program error : ' . $datas->error);
+				}
         //check url
         //echo $request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url);exit();
         //TODO
@@ -121,12 +124,12 @@ class ContentController extends Controller
         $datas->has_related = false;
         foreach ($datas->related as $key => $r) {
           //print_r($r);
-          $datas->related[$key]->programs = (array)$api->fetch(str_replace('&onglet', '&_onglet', $r->paginate), array(
+          $datas->related[$key]->programs = (array)$api->fetch(str_replace('&onglet', '&_onglet', $r->url), array(
                                                       'img_width' => 150,
                                                       'img_height' => 200,
                                                       'programs_only' => true,
                                                       'channel_img_width' => 50,
-                                                      'nb_results' => 7,
+                                                      'nb_results' => $r->paginate ? 7 : 50,
                                                     ));
           if (count($datas->related[$key]->programs) > 0) {
             $datas->has_related = true;

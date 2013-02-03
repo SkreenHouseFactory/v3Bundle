@@ -25,6 +25,8 @@
 @import "channel.less";
 @import "program.less";
 @import "user.less";
+@import "person.less";
+@import "error.less";
 
 /* main */
 .touch body {
@@ -53,6 +55,9 @@ body, .touch body {
     background: white;
     margin-top: 20px;
     padding-top: 20px;
+		a {
+			display: block !important;
+		}
     
     ul.nav-share {
       li {
@@ -76,6 +81,10 @@ a.trigger-tv {
 
 .dropdown-menu {
   z-index: 3;
+	
+	a.hide {
+		display: none;
+	}
 }
 
 #content {
@@ -211,12 +220,6 @@ div.friends {
   margin-right: 20px;
 }
 
-.description.lead {
-  font-size: 1.0em;
-  color: #999;
-  line-height: 20px;
-}
-
 /* theaters-playlist */
 #theaters-playlist {
   position: relative;
@@ -229,6 +232,17 @@ div.friends {
       }
     }
   }
+	.theaters-off {
+		height: 250px;
+		background: url(/bundles/skreenhousefactoryv3/images/vos-cinemas-sample.png) no-repeat;
+
+		.well {
+			position: absolute;
+			top: 100px;
+			left: 250px;
+			text-align: center;
+		}
+	}
 }
 
 /* gabarit */
@@ -826,31 +840,6 @@ ul.typeahead {
     }
   }
 
-  .metas {
-    position: absolute;
-    top: 10%;
-    left: 5%;
-    color: white;
-    opacity: 0.9;
-    z-index: 3;
-    text-shadow: 1px 1px 0px black;
-
-    span {
-      display: inline-block;
-      padding: 10px;
-      background: #333;
-      font-size: 1.3em;
-    }
-    
-    span.title {
-      padding: 10px;
-      font-size: 2.0em;
-    }
-    span.subtitle {
-      margin-top: 20px;
-    }
-  }
-
   ul#player-channels {
     position: absolute;
     top: 10%;
@@ -867,6 +856,16 @@ ul.typeahead {
 #player.on {
   display: block;
   width: 100%;
+}
+.player-meta {
+  display: none;
+  color: white;
+  background: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  margin: 1% 0 0 1%;
+  width: 30%;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 
