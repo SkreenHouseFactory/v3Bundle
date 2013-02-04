@@ -220,14 +220,16 @@ class ContentController extends Controller
           $request->getPathInfo() != $datas->seo_url . 'page-' . $request->get('page') . '/' &&
           $request->getPathInfo() != $datas->seo_url . $request->get('facet') . '/'
           ) {
-        /*
-        echo "\n".'facet: /' . $datas->seo_url . '/' . $request->get('facet') . '/';
-        echo "\n".'format: /' . $datas->seo_url . '/' . $request->get('format') . '/';
-        echo "\n".'format+cat: /' . $datas->seo_url . '/' . $request->get('format') . '/' . $request->get('facet') . '/';
-        echo "\n".'page: /' . $datas->seo_url . '/page-' . $request->get('page') . '/';
-        echo "\n".'redirect '.$request->getPathInfo().' != /'.$datas->seo_url.'/ => '.($request->getPathInfo() != $datas->seo_url);exit();
-        */
-        return $this->redirect('/'.$datas->seo_url.'/', 301);
+				if ($this->container->getParameter('kernel.environment') == 'dev') {
+	        echo "\n".'facet: ' . $datas->seo_url . '/' . $request->get('facet') . '/';
+	        echo "\n".'format: ' . $datas->seo_url . '/' . $request->get('format') . '/';
+	        echo "\n".'format+cat: ' . $datas->seo_url . '/' . $request->get('format') . '/' . $request->get('facet') . '/';
+	        echo "\n".'page: ' . $datas->seo_url . '/page-' . $request->get('page') . '/';
+	        echo "\n".'default '.$request->getPathInfo().' != '.$datas->seo_url.'/ => '.($request->getPathInfo() != $datas->seo_url);
+	        echo "\n".'redirect '.$datas->seo_url;
+					exit();
+        }
+        return $this->redirect($datas->seo_url, 301);
       }
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
       //$template = isset($datas->epg) && $datas->epg ? 'channel-replay' : 'channel';
@@ -285,8 +287,7 @@ class ContentController extends Controller
         'formats' => array_combine(explode(';', $datas->facets_seo_url->format),explode(';', $datas->facets->format)),
         'subcategories' => array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory)),
         'alpha_available' => explode(';', $datas->facets->alpha),
-        'alpha'    => array(1,2,3,4,5,6,7,8,9,
-                            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
+        'alpha' => array(1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
       ));
 
       $maxage = 3600;
