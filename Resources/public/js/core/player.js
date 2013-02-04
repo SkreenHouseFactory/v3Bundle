@@ -21,6 +21,9 @@ Player = {
   //player
   init: function(elmt, elmt_meta) {
     this.elmt = elmt;
+    if (!this.elmt.hasClass('player')) {
+      this.elmt.addClass('player');
+    }
     if (typeof elmt_meta != 'undefined') {
       console.log('Player.init', 'elmt_meta', elmt_meta.length);
       this.elmt_meta = elmt_meta;
