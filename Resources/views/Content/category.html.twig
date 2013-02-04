@@ -30,11 +30,7 @@
   <h1>{% if app.request.get('format') %}{{ app.request.get('format')|upper }} &raquo; {% endif %}{{ category.name }}{% if app.request.get('facet') %} &raquo; {% if app.request.get('facet')|length > 1 %}{{ subcategories[app.request.get('facet')] }}{% else %}{{ app.request.get('facet') }}{% endif %}{% endif %}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
 
   <div class="view-main view-category-main">
-    <div id="program-description">
-      <p id="synopsis" class="lead">
-      {{ category.description }}
-      </p>
-    </div>
+    <p class="category-description">{{ category.description|raw }}</p>
 
     {#<div class="row">
       <div id="program-follow" class="span3 view-program-block actions" data-id="{{ category.id }}">
@@ -70,15 +66,14 @@
     </ul>
   </div>
 
-  {% if category.is_format is null %}
-  <div class="facets">
-  {% for k,s in subcategories %}
-    <a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k}) }}" class="label{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a>
-  {% endfor %}
-  </div>
-  {% endif %}
+  {#% if category.is_format is null %#}
+	  <div class="facets">
+	  {% for k,s in subcategories %}
+	    <a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k}) }}" class="label{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a>
+	  {% endfor %}
+	  </div>
+  {#% endif %#}
   <hr/>
-
 
   <h3 class="pager-count">{{ category.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
   <ul class="pager">
