@@ -4,7 +4,7 @@
 <meta name="robots" content="noindex,follow" />
 {% endif %}
 <meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ channel.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}" />
-<meta property="og:description" content="{{ channel.description }}" />
+<meta property="og:description" content="{{ channel.description|striptags }}" />
 <meta property="og:type" content="channel" />
 <meta property="og:url" content="http://www.myskreen.com/{{ channel.seo_url }}" />
 {% if channel.picture %}
