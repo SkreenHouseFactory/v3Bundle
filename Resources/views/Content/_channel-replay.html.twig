@@ -71,14 +71,14 @@
   {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {title: 'channel.replay'|trans({'%website%': channel.has_replay}), 
                                                                                 programs: channel.programs_replay, 
                                                                                 id: 'channel-replay', 
-                                                                                paginate: '/recommend/from_channel/' ~ channel.id ~ '.json?with_method=epg'}} %}
+                                                                                url: '/recommend/from_channel/' ~ channel.id ~ '.json?with_method=epg&date=Replay'}} %}
   {% endif %}
   
   {% if channel.epg %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {title: 'channel.epg'|trans({'%name%': channel.name}), 
                                                                                 programs: channel.programs_epg, 
                                                                                 id: 'channel-epg', 
-                                                                                paginate: '/recommend/from_channel/' ~ channel.id ~ '.json?with_method=epg'}} %}
+                                                                                url: '/recommend/from_channel/' ~ channel.id ~ '.json?with_method=epg&date=Epg'}} %}
   {% endif %}
 
   <br/>
