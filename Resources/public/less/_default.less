@@ -27,6 +27,8 @@
 @import "category.less";
 @import "program.less";
 @import "user.less";
+@import "player.less";
+@import "error.less";
 
 /* main */
 .touch body {
@@ -55,7 +57,6 @@ body, .touch body {
     background: white;
     margin-top: 20px;
     padding-top: 20px;
-    
 		a {
 			display: block !important;
 		}
@@ -82,6 +83,10 @@ a.trigger-tv {
 
 .dropdown-menu {
   z-index: 3;
+	
+	a.hide {
+		display: none;
+	}
 }
 
 #content {
@@ -217,12 +222,6 @@ div.friends {
   margin-right: 20px;
 }
 
-.description.lead {
-  font-size: 1.0em;
-  color: #999;
-  line-height: 20px;
-}
-
 /* theaters-playlist */
 #theaters-playlist {
   position: relative;
@@ -235,6 +234,17 @@ div.friends {
       }
     }
   }
+	.theaters-off {
+		height: 250px;
+		background: url(/bundles/skreenhousefactoryv3/images/vos-cinemas-sample.png) no-repeat;
+
+		.well {
+			position: absolute;
+			top: 100px;
+			left: 250px;
+			text-align: center;
+		}
+	}
 }
 
 /* gabarit */
@@ -739,8 +749,6 @@ ul.typeahead {
   }
 }
 
-
-/* player */
 #redirect {
   display: none;
   width: 100%;
@@ -764,150 +772,6 @@ ul.typeahead {
     overflow: hidden;
   }
 }
-#player {
-  display: none;
-  width: 100%;
-  background: transparent;
-  position: relative;
-
-  > i.icon-white {
-    position: absolute;
-    top: 10px;
-    right: 5px;
-    height:20px;
-    width:20px;
-    z-index: 3;
-  }
-
-  .embed {
-    height: 100%;
-    width: 100%;
-    
-    iframe {
-      pointer-events: none;
-    }
-  }
-
-  .metas {
-    position: absolute;
-    top: 10%;
-    left: 5%;
-    color: white;
-    opacity: 0.9;
-    z-index: 3;
-    text-shadow: 1px 1px 0px black;
-
-    span {
-      display: inline-block;
-      padding: 10px;
-      background: #333;
-      font-size: 1.3em;
-    }
-    
-    span.title {
-      padding: 10px;
-      font-size: 2.0em;
-    }
-    span.subtitle {
-      margin-top: 20px;
-    }
-  }
-
-  ul#player-channels {
-    position: absolute;
-    top: 10%;
-    right: 5%;
-    z-index: 3;
-    opacity: 0.9;
-    box-shadow: 0px 1px 5px black;
-    
-    i {
-      opacity: 0.6;
-    }
-  }
-}
-#player.on {
-  display: block;
-  width: 100%;
-}
-
-
-.player-controls {
-  position:relative;
-  height:8px;
-  background: white;
-  padding: 5px;
-  border-radius: 5px;
-  margin: 5px 10px;
-  
-  /* when play button toggles between play/pause class
-      we move its background image */
-  .play, .pause {
-      position:absolute;
-      width: 18px;
-      height:10px;
-      text-indent:-999em;
-      cursor:pointer;
-      overflow:hidden;
-      background:url(http://flash.flowplayer.org/media/img/controls/play_pause.gif) center top no-repeat;
-  }
-  
-  .pause {
-      background-position:center -10px;
-  }
-  
-  /* the track or "scrubber"  */
-  .track {
-      position:absolute;
-      top:4px;
-      height:18px;
-      left:20px;
-      background:url(http://flash.flowplayer.org/media/img/controls/track.gif) no-repeat;
-      text-align:left;
-      cursor:pointer;
-      width: 100%;
-  }
-  
-  /* the draggable playhead */
-  .playhead {
-      position:absolute;
-      height:12px;
-      background:url(http://flash.flowplayer.org/media/img/controls/playhead.png) no-repeat;
-      cursor:pointer;
-      top:0px;
-      width:12px;
-  }
-  
-  /* buffer and controls are automatically resized, their initial width should be 0 */
-  .progress, .buffer {
-      background-color:#fff;
-      height:6px;
-      margin:3px 4px;
-      width:0px;
-      position:absolute;
-      top:0;
-      font-size:0px;
-  
-      /* this is the way to fine tune buffer and progress max width */
-      max-width:634px;
-  }
-  
-  .buffer {
-      background-color:#999;
-  }
-  
-  /* som proprietary styling for progress bar under mozilla */
-  .progress {
-      -moz-border-radius-bottomleft:2px;
-      -moz-border-radius-topleft:2px;
-  }
-  
-  /* hide time & mute */
-  .time, .mute, .unmute {
-      display:none;
-  }
-}
-
 
 #trigger-theaters-geoloc {
   margin-left: 10px;
