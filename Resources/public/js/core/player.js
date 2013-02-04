@@ -440,6 +440,7 @@ Player = {
     for (k in versions) {
       if (k) {
 				if (!el.html()) {
+					this.elmt_meta.addClass('has-versions');
 		  		el.html('Versions disponibles<br/>');
 				}
         el.append(' <a href="#" data-play="' + versions[k] + '" data-play-args=\'{"current_player": "1"}\' class="badge' + (versions[k] == current_id ? ' badge-info' : '') + '">' + k + '</a>');
@@ -486,8 +487,8 @@ Player = {
   },
   remove: function() {
     this.timeout = new Array();
-    $('#player .title, #player .subtitle, #player .embed').empty();
-    $('#player').removeClass('on');
+    $('.title, .subtitle, .embed', this.elmt).empty();
+    this.elmt.removeClass('on');
     $('#header').collapse('show');
     $('#redirect').empty().collapse('hide');
   },
