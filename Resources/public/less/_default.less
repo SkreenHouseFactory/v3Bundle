@@ -459,6 +459,8 @@ ul.typeahead {
                 li {
                   width: 400px;
                   font-size: 0.9em;
+									clear: both;
+									overflow: hidden;
                   
                   a.link {
                     color: #333;
@@ -499,13 +501,16 @@ ul.typeahead {
                   .badge {
                     margin: 15px 5px 0 0;
                   }
-                  .close {
+                  .remove {
                     visibility: hidden;
-                    margin: 15px 5px 0 0;
+                    margin: 15px 15px 0 0;
                     padding: 0;
+										float: right;
+										cursor: pointer;
                   }
                   &:hover {
-                    .close {
+                    .remove {
+                      background: transparent;
                       visibility: visible;
                     }
                   }

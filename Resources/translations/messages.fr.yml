@@ -23,6 +23,7 @@ page:
         user:
             settings: Vos préférences
             programs: Vos programmes
+            vod: Vos playlists : vidéo à la demande
     description:
         home:
             mixte: Le guide personnalisé de vos programmes. Retrouvez dans une même playlist : Vidéo à la demande (VOD) et Replay TV (télévision de rattrapage), programmes Télé, DVD, box et télé connectée.
@@ -128,8 +129,9 @@ playlist:
         replay: Ajoutez vos émissions et séries préférées à vos playlists pour ne rater aucun épisode
         friends: Inviter vos proches pour partager vos playlists avec eux.
 nav:
-    favoris: Gérer vos programmes
-    account: Modifier vos préférences
+    favoris: Vos programmes
+    account: Vos préférences
+    vod: Vos locations (VOD)
     all: Tout
     filter: Filtrer vos playlist
     filters:
@@ -306,11 +308,16 @@ category:
         popover:
             title: Partagez vos programmes avec vos amis !
             content: Connectez-vous à Facebook en 1 clic et retrouvez ce que vos amis regardent sur mySkreen.
+user:
+    vod: Vos playlists : vidéo à la demande
 card:
     add: Ajouter une carte de paiement
     update: Modifier la carte de paiement
 free: Gratuit
 watch: Voir maintenant
+rent:
+    now: Louer maintenant
+    again: Louer à nouveau
 editors: Production
 actors: Acteurs
 directed.by: Réalisateur
