@@ -19,7 +19,7 @@ use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 
 class MainController extends Controller
 {
-		private function blockDomain() {
+		private function blockDomain(Request $request) {
       if ($this->get('kernel')->getEnvironment() == 'prod' && 
           !strstr($request->getHost(), 'www.') && 
           !strstr($request->getHost(), 'preprod.')) {
@@ -41,7 +41,7 @@ class MainController extends Controller
     */
     public function homeAction(Request $request)
     {
-			$this->blockDomain();
+			$this->blockDomain($request);
       if ($this->get('kernel')->getEnvironment() == 'prod' && 
           !strstr($request->getHost(), 'www.') && 
           !strstr($request->getHost(), 'preprod.')) {
@@ -126,7 +126,7 @@ class MainController extends Controller
     */
     public function searchAction(Request $request)
     {
-			$this->blockDomain();
+			$this->blockDomain($request);
       $facets = $request->get('facets') ? $facets : ($request->get('format') ? 'format:' . $request->get('format') : null);
       $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $datas = $api->fetch('search/' . urlencode($request->get('q')), 
