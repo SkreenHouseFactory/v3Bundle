@@ -19,13 +19,6 @@ use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 
 class MainController extends Controller
 {
-		private function blockDomain() {
-      if ($this->get('kernel')->getEnvironment() == 'prod' && 
-          !strstr($request->getHost(), 'www.') && 
-          !strstr($request->getHost(), 'preprod.')) {
-        throw $this->createNotFoundException('Page does not exist');
-      }
-		}
 
     /**
     * header
@@ -41,7 +34,7 @@ class MainController extends Controller
     */
     public function homeAction(Request $request)
     {
-			$this->blockDomain();
+
       if ($this->get('kernel')->getEnvironment() == 'prod' && 
           !strstr($request->getHost(), 'www.') && 
           !strstr($request->getHost(), 'preprod.')) {
@@ -126,7 +119,6 @@ class MainController extends Controller
     */
     public function searchAction(Request $request)
     {
-			$this->blockDomain();
       $facets = $request->get('facets') ? $facets : ($request->get('format') ? 'format:' . $request->get('format') : null);
       $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $datas = $api->fetch('search/' . urlencode($request->get('q')), 
@@ -154,6 +146,7 @@ class MainController extends Controller
     public function boostAction(Request $request)
     {
       $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+
       $datas = $api->fetch('www/slider/pack/8774489', 
                            array('programs_only' => true));
       //echo $api->url;

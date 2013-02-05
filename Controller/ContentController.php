@@ -19,20 +19,12 @@ use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 
 class ContentController extends Controller
 {
-		private function blockDomain() {
-      if ($this->get('kernel')->getEnvironment() == 'prod' && 
-          !strstr($request->getHost(), 'www.') && 
-          !strstr($request->getHost(), 'preprod.')) {
-        throw $this->createNotFoundException('Page does not exist');
-      }
-		}
 
     /**
     * program
     */
     public function programAction(Request $request)
     {
-			$this->blockDomain();
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
 
       //API lastmodified
@@ -188,7 +180,11 @@ class ContentController extends Controller
     */
     public function channelAction(Request $request)
     {
-			$this->blockDomain();
+      if ($this->get('kernel')->getEnvironment() == 'prod' && 
+          !strstr($request->getHost(), 'www.') && 
+          !strstr($request->getHost(), 'preprod.')) {
+        throw $this->createNotFoundException('Home does not exist');
+      }
 
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $datas = $api->fetch('channel', array(
@@ -259,7 +255,6 @@ class ContentController extends Controller
     */
     public function categoryAction(Request $request)
     {
-			$this->blockDomain();
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $datas = $api->fetch(in_array($request->get('_route'), array('format', 'format_facet', 'format_page')) ? 'format' : 'category', 
                            array(
@@ -308,7 +303,6 @@ class ContentController extends Controller
     */
     public function personAction(Request $request)
     {
-			$this->blockDomain();
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $datas = $api->fetch('person/'.$request->get('id'), 
                            array(
@@ -350,7 +344,6 @@ class ContentController extends Controller
     */
     public function selectionAction(Request $request)
     {
-			$this->blockDomain();
       $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $datas = $api->fetch('www/slider/pack/'.$request->get('id'), 
                            array(
