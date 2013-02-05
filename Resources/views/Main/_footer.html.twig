@@ -41,7 +41,9 @@
 			<a href="http://replay.myskreen.com/france-2/tv-a-la-demande/">France 2 en Replay</a>
 			<a href="http://replay.myskreen.com/france-3/tv-a-la-demande/">France 3 en Replay</a>
     </div>
-    {% if app.request.get('home') and app.request.get('home') not in ['replay-tv','cinema','video-a-la-demande','mixte'] %}{% set base_footer = app.request.get('home') %}
+    {% if app.request.get('home') and 
+					app.request.get('home') not in ['tv-replay','cinema','video-a-la-demande','mixte'] %}
+			{% set base_footer = app.request.get('home') %}
     {% else %}{% set base_footer = 'film' %}{% endif %}
     <div id="cats" class="span3">
       <a href="/{{ base_footer }}/jeunesse/">Thématique Jeunesse{{ footerspin }}</a>
