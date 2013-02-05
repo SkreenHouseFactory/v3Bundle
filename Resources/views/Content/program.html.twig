@@ -1,6 +1,6 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 {% block meta %}
-<meta property="og:title" content="{{ program.title }} {% if program.has_vod in [5,6,7,8] %}en Replay{% else %}en streaming{% endif %}" />
+<meta property="og:title" content="{{ program.title }}" />
 <meta property="og:description" content="{{ program.description_seo }}" />
 <meta property="og:image" content="{{ program.picture }}" />
 <meta property="og:type" content="{% if program.format %}{% if program.format.name == 'Série' %}video.episode{% elseif program.format.name in ['Emission','Journal'] %}video.tv_show{% else %}video.movie{% endif %}{% else %}video.movie{% endif %}" />
@@ -19,7 +19,7 @@
 <link rel="image_src" href="{{ program.picture }}" />
 <meta name="object_type" content="episode" />
 {% endblock %}
-{% block title %}{{ program.title }}{% endblock %}
+{% block title %}{{ program.title }} {% if program.has_vod in [5,6,7,8] %}en Replay{% else %}en streaming{% endif %}{% endblock %}
 {% block description %}{{ program.description_seo|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
 {% block content %}
