@@ -14,7 +14,7 @@
 <meta name="object_type" content="channel" />
 {% endblock %}
 {% block title %}
-{{ channel.name }}
+Découvrez {{ channel.name }} en {{ channel.has_replay ? 'Replay' : 'Streaming' }}
 {%- if app.request.get('format') %}, {{ app.request.get('format') }}{% endif -%}
 {%- if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif -%}
 {%- if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif -%}
@@ -27,7 +27,7 @@
 
   <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ channel.seo_url, text: 'Je regarde ' ~ channel.name ~ ' sur mySkreen et vous ?' } %}</div>
   <img class="channel-logo pull-left" src="{{ channel.img }}" />
-  <h1>{% if app.request.get('format') %}{{ app.request.get('format') }} &raquo; {% endif %}{{ channel.name }}{% if app.request.get('facet') %} <small> - {{ app.request.get('facet') }}</small>{% endif %}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
+  <h1>Regardez {% if app.request.get('format') %}{{ app.request.get('format') }} &raquo; {% endif %}{{ channel.name }}{% if app.request.get('facet') %} <small> - {{ app.request.get('facet') }}</small>{% endif %}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
   <p class="channel-description">{{ channel.description }}</p>
 
   {% if app.request.get('page') is null and 

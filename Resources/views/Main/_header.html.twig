@@ -22,7 +22,6 @@
         <span class="username"></span>
       </a>
       <ul class="dropdown-menu">
-		  	<li><a class="favoris" href="{{ path('user_programs') }}" target="_top"><i class="icon-list-alt"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
    			<li class="share">
 	        <a href="#" class="text share-off" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook">Facebook : activer le partage</a>
 	        <a href="#" class="text share-on hide">
@@ -32,6 +31,10 @@
 						</span>&nbsp;Partage Facebook
 	        </a>
 	      </li>
+		  	<li><a class="favoris" href="{{ path('user_programs') }}" target="_top"><i class="icon-list-alt"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
+				{% if app.environment == 'dev' %}
+		  	<li><a class="favoris" href="{{ path('user_vod') }}" target="_top"><i class="icon-film"></i> {{ 'nav.vod'|trans }} <span></span></a></li>
+				{% endif %}
         <li><a class="account" href="{{ path('user_settings') }}" target="_top"><i class="icon-user"></i> {{ 'nav.account'|trans }}</a></li>
         <li><a class="signout" href="#"><i class="icon-remove"></i> {{ 'signout'|trans }}</a></li>
       </ul>
