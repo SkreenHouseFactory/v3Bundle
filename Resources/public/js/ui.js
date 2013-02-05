@@ -318,7 +318,7 @@ UI = {
           nb_new++;
           //console.log('new', notifications[k]['new'], nb_new);
         }
-        list.append('<li class="tv-component" style="clear:both;overflow:hidden"><a data-id="' + notifications[k].id + '" rel="tooltip" title="Supprimer la notification" class="close">&times;</a>' + (notifications[k]['new'] ? '<span class="pull-right badge badge-important">Nouveau</span>' : '') + '<a target="_top" href="' + notifications[k].link + '" class="link"><img src="' + notifications[k].channel_ico + '" class="channel pull-left" /><img src="' + notifications[k].ico + '" class="ico pull-left" /><span class="title">' + notifications[k].title + '</span><span class="subtitle">' + notifications[k].title_episode + '</span><span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</a></li><li class="divider"></li>');
+        list.append('<li class="tv-component"><a data-id="' + notifications[k].id + '" class="remove"><i class="icon-trash"></i></a>' + (notifications[k]['new'] ? '<span class="pull-right badge badge-important">Nouveau</span>' : '') + '<a target="_top" href="' + notifications[k].link + '" class="link"><img src="' + notifications[k].channel_ico + '" class="channel pull-left" /><img src="' + notifications[k].ico + '" class="ico pull-left" /><span class="title">' + notifications[k].title + '</span><span class="subtitle">' + notifications[k].title_episode + '</span><span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</a></li><li class="divider"></li>');
       }
       //new
       if (nb_new > 0) {
@@ -328,12 +328,11 @@ UI = {
       }
       $('#top-bar .notifications-count').data('count-new', nb_new);
       $('[rel="tooltip"]', list).tooltip({placement: 'bottom'});
-      $('.close', list).click(function(e){
+      $('.remove', list).click(function(e){
         e.preventDefault();
         Skhf.session.deleteNotification($(this).data('id'));
         
         //dom
-        $(this).tooltip('destroy');
         $(this).parent().next().remove();
         $(this).parent().slideUp('slow').remove();
         
@@ -665,11 +664,11 @@ UI = {
     });
   },
   addFriendsPrograms: function(){
-    return; //desactivated
+    //return; //desactivated
     Skhf.session.getSocialDatas(function(friends, friends_programs){
       //console.log('UI.addFriendsPrograms', 'callback', friends_programs);
       for (k in friends_programs) {
-        var li = $('li[data-id="' + k + '"]');
+        var li = $('#top-playlist li[data-id="' + k + '"]');
         if (li.length > 0) {
           //console.log('UI.addFriendsPrograms', 'add ' + friends_programs[k].length + ' friends to program ' + k);
           UI.addFriends(li, friends_programs[k]);

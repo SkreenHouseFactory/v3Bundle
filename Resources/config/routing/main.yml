@@ -50,6 +50,9 @@ user_settings:
 user_programs:
     pattern:  /user/mes-programmes/{onglet}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:programs, onglet: null }
+user_vod:
+    pattern:  /user/vod/{onglet}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:vod, onglet: null }
 user_playlist:
     pattern:  /user/{username}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:playlist }
