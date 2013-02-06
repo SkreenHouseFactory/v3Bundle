@@ -4,42 +4,45 @@
 
 {% block content %}
 <div id="vod-view" class="container">
-
-  <h1>{{ 'user.vod'|trans }}</h1>
-  <ul class="nav nav-pills nav-alpha-client uppercase">
-    <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
-      <a href="{{ path('user_vod', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
-    </li>
-    {% for o in onglets %}
-      <li{% if app.request.get('onglet') == o %} class="active"{% endif %}>
-        <a href="{{ path('user_vod', {onglet: o}) }}">{{ o }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-
-  {% if vods|length > 6 %}
-  <div class="pagination pagination-client-alpha">
-    <ul>
-        <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a href="javascript://">{{ 'nav.all'|trans }}</a></li>
-      {% for l in alpha %}
-        <li{% if app.request.get('alpha') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="javascript://">{{ l }}</a></li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
-
   <div id="user-vods" class="slider slider-list">
 		{% if vods|length == 0 %}
 		<div class="hero-unit">
-		  <h1>Heading</h1>
-		  <p>Tagline</p>
-		  <p>
-		    <a class="btn btn-primary btn-large">
-		      Vidéo à la demande
-		    </a>
-		  </p>
+  		<h1>{{ 'user.vod'|trans }}</h1>
+		  <p>Votre compte mySkreen vous permet de visionner la vidéo à la demande en 1 clic directement sur mySkreen. Renseignez une fois la carte de paiement que vous souhaitez utiliser et payez de manière simple et sécurisée.</p>
+		      <p class="alert">
+						Les vidéos qui font partie de l'offre en 1 clic sont celles marquées d'un <i class="icon-play"></i>.
+						<br/>(les offres marquées d'un <i class="icon-share"></i> ne sont pas disponibles en 1 clic sur mySkreen).
+					</p>
+		      <br/>Vous retrouverez ici toutes les vidéos que vous avez loué.
+		      <br/>Bonne séance !</p>
+		  <p><a class="btn btn-primary btn-large">Découvrir la vidéo à la demande &raquo;</a></p>
 		</div>
+
 		{% else %}
+
+  	<h1>{{ 'user.vod'|trans }}</h1>
+	  <ul class="nav nav-pills nav-alpha-client uppercase">
+	    <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
+	      <a href="{{ path('user_vod', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
+	    </li>
+	    {% for o in onglets %}
+	      <li{% if app.request.get('onglet') == o %} class="active"{% endif %}>
+	        <a href="{{ path('user_vod', {onglet: o}) }}">{{ o }}</a>
+	      </li>
+	    {% endfor %}
+	  </ul>
+
+	  {% if vods|length > 6 %}
+	  <div class="pagination pagination-client-alpha">
+	    <ul>
+	        <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a href="javascript://">{{ 'nav.all'|trans }}</a></li>
+	      {% for l in alpha %}
+	        <li{% if app.request.get('alpha') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="javascript://">{{ l }}</a></li>
+	      {% endfor %}
+	    </ul>
+	  </div>
+	  {% endif %}
+		
 		<p class="alert alert-success">{{ vods|length }} vidéos à la demande. <br/><b>Astuce : </b> vous pouvez également utiliser le moteur de recherche pour retrouver un programme que vous avez loué.</p>
     <table class="table table-striped">
 			<tbody>
