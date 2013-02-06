@@ -63,6 +63,7 @@ redirection:
     h1: Patientez quelques secondes ...
     message: mySkreen vous redirige vers votre vidéo
 user:
+    vod: Vidéo à la demande
     programs: Votre playlist
     settings: Vos préférences
     settings.profile: Compte
@@ -308,8 +309,6 @@ category:
         popover:
             title: Partagez vos programmes avec vos amis !
             content: Connectez-vous à Facebook en 1 clic et retrouvez ce que vos amis regardent sur mySkreen.
-user:
-    vod: Vidéo à la demande
 card:
     add: Ajouter une carte de paiement
     update: Modifier la carte de paiement
