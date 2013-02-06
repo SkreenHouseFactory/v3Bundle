@@ -4,10 +4,9 @@
 
 {% block content %}
 <div id="vod-view" class="container">
-  <div id="user-vods" class="slider slider-list">
-		{% if vods|length == 0 %}
+	{% if vods|length == 0 %}
 		<div class="hero-unit">
-  		<h1>{{ 'user.vod'|trans }}</h1>
+			<h1>{{ 'user.vod'|trans }}</h1>
 		  <p>Votre compte mySkreen vous permet de visionner la vidéo à la demande en 1 clic directement sur mySkreen. Renseignez une fois la carte de paiement que vous souhaitez utiliser et payez de manière simple et sécurisée.</p>
 		      <p class="alert">
 						Les vidéos qui font partie de l'offre en 1 clic sont celles marquées d'un <i class="icon-play"></i>.
@@ -15,12 +14,12 @@
 					</p>
 		      <br/>Vous retrouverez ici toutes les vidéos que vous avez loué.
 		      <br/>Bonne séance !</p>
-		  <p><a class="btn btn-primary btn-large">Découvrir la vidéo à la demande &raquo;</a></p>
+		  <p><a href="{{ path('homes', {home: 'video-a-la-demande'}) }}" class="btn btn-primary btn-large">Découvrir la vidéo à la demande &raquo;</a></p>
 		</div>
 
-		{% else %}
+	{% else %}
 
-  	<h1>{{ 'user.vod'|trans }}</h1>
+		<h1>{{ 'user.vod'|trans }}</h1>
 	  <ul class="nav nav-pills nav-alpha-client uppercase">
 	    <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
 	      <a href="{{ path('user_vod', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
@@ -44,12 +43,12 @@
 	  {% endif %}
 		
 		<p class="alert alert-success">{{ vods|length }} vidéos à la demande. <br/><b>Astuce : </b> vous pouvez également utiliser le moteur de recherche pour retrouver un programme que vous avez loué.</p>
-    <table class="table table-striped">
+	  <table class="table table-striped">
 			<tbody>
 	    {% for v in vods %}
 	      <tr data-alpha="{{ v.program.title|slice(0,1)|lower }}">
 						<td>
-							<a href="{{ v.program.seo_url }}">{{ v.program.title }}</a>{#<br/>Loué le {{ v.created_at|localizeddate('full', 'none') }}#}
+							<a href="{{ path('any_url', {url: v.program.seo_url|slice(1, v.program.seo_url|length-1) }) }}">{{ v.program.title }}</a>{#<br/>Loué le {{ v.created_at|localizeddate('full', 'none') }}#}
 							<br/> {{ v.program.format }}, {{ v.program.year }}
 						</td>
 						<td>
@@ -62,12 +61,11 @@
 								<li>
 									{% if b.program.episodeof is defined %}
 										{% set title = b.program.title|split(' - ', 2) %}
-										{{ title|length > 1 ? title[1] : title[0] }}
+										<a href="{{ path('any_url', {url: b.program.seo_url|slice(1, b.program.seo_url|length-1) }) }}">{{ title|length > 1 ? title[1] : title[0] }}</a>
 										{{ b.program.saison_number is defined ? ', Saison ' ~ b.program.saison_number : '' }}
 										{{ b.program.episode_number is defined ? ', Episode ' ~ b.program.episode_number : '' }}
 										{{ b.program.part_number is defined ? ', Partie ' ~ b.program.part_number : '' }}
 									{% endif %}
-									<br/>
 									<a class="btn pull-right" data-play="{{ b.offer.id }}"><i class="icon-play"></i> {{ b.is_available ? 'watch'|trans : 'rent.again'|trans }}</a>
 									<img src="{{ b.offer.channel.img }}" alt="{{ b.offer.channel.name }}" /> <span class="access {{ b.is_location ? 'location' : 'achat' }}">{{ b.offer.access.name }}</span>, loué le {{ b.created_at|localizeddate('full', 'none') }}
 									{% if b.is_location %}
@@ -86,8 +84,7 @@
 				</tr>
 	    {% endfor %}
 			</tbody>
-    </table>
-		{% endif %}
-  </div>
+	  </table>
+	{% endif %}
 </div>
 {% endblock %}
