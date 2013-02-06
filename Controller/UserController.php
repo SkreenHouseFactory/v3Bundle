@@ -137,8 +137,7 @@ class UserController extends Controller
 
       $api = new ApiManager($this->container->getParameter('kernel.environment'));
       $vods = $api->fetch('www/slider/vod/' . $session_uid, 
-	                         array('img_width'  => 100,
-	                               'img_height' => 150,
+	                         array('img_height' => 100,
 	                               'offset'     => 0,
 	                               'nb_results' => 200,
 	                               'onglet'     => $onglet));
@@ -149,6 +148,16 @@ class UserController extends Controller
           $vods->error) {
         return $this->redirect('http://www.myskreen.com');
       }
+			//print_r($vods);exit();
+			//post treatments
+			$programs = array();
+			foreach ($vods as $vod) {
+				$pere_id = isset($vod->program->episodeof) ? $vod->program->episodeof->id : $vod->program->id;
+				$programs[$pere_id]['offers'][] = $vod;
+				if (!isset($programs[$pere_id]['program'])) {
+					$programs[$pere_id]['program'] = isset($vod->program->episodeof) ? $vod->program->episodeof : $vod->program;
+				}
+			}
 
       $alpha_available = array();
       foreach ($vods as $key => $v) {
@@ -162,7 +171,7 @@ class UserController extends Controller
         'alpha'    => array(1,2,3,4,5,6,7,8,9,
                             'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'),
         'alpha_available' => $alpha_available,
-        'vods' => $vods
+        'vods' => $programs
       ));
 
       $response->setPrivate();

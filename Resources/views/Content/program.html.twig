@@ -143,7 +143,7 @@
                   </span>
                 </td>
                 <td class="channel">
-                  <img src="{{ o_channel.img }}" alt="{{ o_channel.name }}" />
+                  <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
                 </td>
                 <td class="price big">
                   {% if o.cost is defined %}
@@ -247,9 +247,9 @@
       <a class="teaser" href="#teaser"><img src="{{ asset('bundles/skreenhousefactoryv3/images/big-play.png') }}" alt="bande annonce" /></a>
       {% endif %#}
       {% if program.popular_channel is defined %}
-      <a class="popular-channel" href="{{ path('any_url', {url: program.popular_channel.seo_url|slice(1, program.popular_channel.seo_url|length-1) }) }}"><img src="{{ program.popular_channel.img }}" alt="{{ program.popular_channel.name }}" /></a>
+      <a class="popular-channel" href="{{ path('any_url', {url: program.popular_channel.seo_url|slice(1, program.popular_channel.seo_url|length-1) }) }}"><img src="{{ program.popular_channel.img }}" alt="{{ program.popular_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" /></a>
       {% endif %}
-      <img src="{{ program.img }}" alt="{{ program.title }}" />
+      <img src="{{ program.img }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
     </div>
 
     {#
@@ -372,7 +372,7 @@
   <a name="infos"></a>
   <div id="program-infos">
     <div class="img pull-left">
-      <img src="{{ program.picture }}" alt="{{ program.title }}" />
+      <img src="{{ program.picture }}" alt="{{ program.title }} {{ program.format.name }} {{ program.has_vod is divisibleby(2) ? 'complet' : 'en entier' }}" />
     </div>
     <div class="inner">
       <h3>Présentation de {{ program.title }} complet</h3>

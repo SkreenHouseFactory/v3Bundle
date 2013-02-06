@@ -3,7 +3,7 @@
 {% block title %}{{ 'page.title.user.vod'|trans }}{% endblock %}
 
 {% block content %}
-<div id="user-vods-view" class="container">
+<div id="vod-view" class="container">
 
   <h1>{{ 'user.vod'|trans }}</h1>
   <ul class="nav nav-pills nav-alpha-client uppercase">
@@ -28,23 +28,63 @@
   </div>
   {% endif %}
 
-  <div id="user-programs" class="slider slider-list">
+  <div id="user-vods" class="slider slider-list">
+		{% if vods|length == 0 %}
+		<div class="hero-unit">
+		  <h1>Heading</h1>
+		  <p>Tagline</p>
+		  <p>
+		    <a class="btn btn-primary btn-large">
+		      Vidéo à la demande
+		    </a>
+		  </p>
+		</div>
+		{% else %}
+		<p class="alert alert-success">{{ vods|length }} vidéos à la demande. <br/><b>Astuce : </b> vous pouvez également utiliser le moteur de recherche pour retrouver un programme que vous avez loué.</p>
     <table class="table table-striped">
 			<tbody>
 	    {% for v in vods %}
-        {#% set o_channel = attribute(vods.datas_offers.channels, v.offer.channel_id) %}
-        {% set o_access = attribute(vods.datas_offers.access, v.offer.access_id) %#}
-	      <tr>
-						<td><a href="{{ v.program.seo_url }}"><img src="{{ v.program.picture }}" alt="{{ v.program.title }}" /></td>
-						<td><a href="{{ v.program.seo_url }}">{{ v.program.title }}</a><br/>Loué le {{ v.created_at|localizeddate('full', 'none') }}</td>
-						<td><img src="{#{ o_channel.img }}" alt="{{ o_channel.name }#}" /></td>
-						<td>{#{ o_access.name }#}</td>
-						<td>{% if v.is_available %}<span class="label label-success">Visible encore {{ v.timeleft|localizeddate('full', 'none') }}</span>{% else %}<span class="label label-warning">Expiré le {{ v.expire_at|localizeddate('full', 'none') }}</span>{% endif %}</a></td>
-						<td><a class="btn" data-play="{{ v.offer.id }}"><i class="icon-play"></i> {{ v.is_available ? 'watch'|trans : 'rent.again'|trans }}</a></td>
+	      <tr data-alpha="{{ v.program.title|slice(0,1)|lower }}">
+						<td>
+							<a href="{{ v.program.seo_url }}">{{ v.program.title }}</a>{#<br/>Loué le {{ v.created_at|localizeddate('full', 'none') }}#}
+							<br/> {{ v.program.format }}, {{ v.program.year }}
+						</td>
+						<td>
+							<ul class="nav" id="offers-{{ v.program.id }}" class="">
+							{% for b in v.offers %}
+								{% if loop.first %}
+								{% else %}
+								<li class="divider"></li>
+								{% endif %}
+								<li>
+									{% if b.program.episodeof is defined %}
+										{% set title = b.program.title|split(' - ', 2) %}
+										{{ title|length > 1 ? title[1] : title[0] }}
+										{{ b.program.saison_number is defined ? ', Saison ' ~ b.program.saison_number : '' }}
+										{{ b.program.episode_number is defined ? ', Episode ' ~ b.program.episode_number : '' }}
+										{{ b.program.part_number is defined ? ', Partie ' ~ b.program.part_number : '' }}
+									{% endif %}
+									<br/>
+									<a class="btn pull-right" data-play="{{ b.offer.id }}"><i class="icon-play"></i> {{ b.is_available ? 'watch'|trans : 'rent.again'|trans }}</a>
+									<img src="{{ b.offer.channel.img }}" alt="{{ b.offer.channel.name }}" /> <span class="access {{ b.is_location ? 'location' : 'achat' }}">{{ b.offer.access.name }}</span>, loué le {{ b.created_at|localizeddate('full', 'none') }}
+									{% if b.is_location %}
+										{% if b.nb_view == 0 %}
+										<br/><span class="label">Pas encore visionné.</span>
+										{% elseif b.is_available %}
+										<br/><span class="label label-success">Visible encore {{ (b.timeleft/3600)|number_format }} heure{{ (b.timeleft/3600)|number_format > 1 ? 's' : '' }}</span>
+										{% else %}
+										<br/><span class="label label-warning">Expiré le {{ b.expire_at|localizeddate('full', 'none') }}</span>
+										{% endif %}
+									{% endif %}
+								</li>
+							{% endfor %}
+						</ul>
+					</td>
 				</tr>
 	    {% endfor %}
 			</tbody>
     </table>
+		{% endif %}
   </div>
 </div>
 {% endblock %}

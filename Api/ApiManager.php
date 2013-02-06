@@ -11,7 +11,7 @@ class ApiManager
   protected $format = null;
   public $url = null;
 
-  public function __construct($env = 'prod', $format = '.json', $version = 1) {
+  public function __construct($env = 'prod', $format = '.json', $version = 2) {
     $this->base = $this->getApiBase($env, $version);
     $this->format = $format;
   }

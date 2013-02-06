@@ -9,12 +9,12 @@ page:
             v3-vod: Video à la demande
             v3-tv-replay: Replay
             v3-cine: Cinéma
+            v3-jeunesse: Des programmes pour toute la famille
             films: Films
             series: Séries
             documentaires: Documentaires
             emissions: Emissions
             spectacles: Théatre, concerts, spectacles
-            jeunesse: Des programmes pour toute la famille
         error: Page introuvable
         redirect: Redirection en cours ...
         cinema.boxoffice: Cinéma, tous les films en salle commençant par %alpha%
@@ -30,12 +30,12 @@ page:
             v3-vod: Video à la demande : VOD et streaming. Ne ratez plus vos programmes préférés !
             v3-tv-replay: Replay : ne ratez plus vos programmes préférés !
             v3-cine: Cinéma : ne ratez plus vos programmes préférés !
+            v3-jeunesse: Video à la demande, replay, cinéma : des programmes pour toute la famille
             films: Films : ne ratez plus vos films préférés
             series: Séries : soyez avertis dès qu'un nouvel épisode est disponible
             documentaires: Documentaires : ne ratez plus vos documentaires préférés
             emissions: Emissions : regardez vos émissions préférées en Replay.
             spectacles: Théatre, concerts, spectacles : des milliers de vidéos en un clic !
-            jeunesse: Video à la demande, replay, cinéma : des programmes pour toute la famille
         search: Recherche : %p% : VOD, Replay, DVD, Cinéma. Retrouvez TOUTES les diffusions des programmes que vous aimez !
         error: Utilisez le moteur de recherche pour trouver votre contenu.
 form:
@@ -131,7 +131,7 @@ playlist:
 nav:
     favoris: Vos programmes
     account: Vos préférences
-    vod: Vos locations (VOD)
+    vod: Vos vidéos à la demande
     all: Tout
     filter: Filtrer vos playlist
     filters:
