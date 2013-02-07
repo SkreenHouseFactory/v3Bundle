@@ -28,7 +28,7 @@
 
   <div class="view-person-main">
 
-    <p class="description">{{ person.description }}</p>
+    <p class="description">{{ person.description|raw }}</p>
 
     {#<div class="row">
       <div id="program-follow" class="span3 view-program-block actions" data-id="{{ person.id }}">
