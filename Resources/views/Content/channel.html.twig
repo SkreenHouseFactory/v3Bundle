@@ -26,6 +26,20 @@ Découvrez {{ channel.name }} en {{ channel.has_replay ? 'Replay' : 'Streaming' 
 
 
   <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ channel.seo_url, text: 'Je regarde ' ~ channel.name ~ ' sur mySkreen et vous ?' } %}</div>
+
+  <ul class="breadcrumb">
+    <li{% if app.request.get('facet') is null and app.request.get('page') is null and app.request.get('format') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: channel.seo_url|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }}</span></a>{% if app.request.get('facet') or app.request.get('page') or app.request.get('format') %} <span class="divider">/</span>{% endif %}</li>
+    {% if app.request.get('format') %}
+    <li{% if app.request.get('page') is null and app.request.get('facet') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_format', {format: app.request.get('format'), slug: channel.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ app.request.get('format') }}</span></a>{% if app.request.get('page') or app.request.get('facet') %} <span class="divider">/</span>{% endif %} </li>
+		{% endif %}
+    {% if app.request.get('facet') %}
+    <li{% if app.request.get('page') is null %} class="active"{% endif%} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_format', {format: app.request.get('format'), slug: channel.seo_url|replace({'/': ''})}) }}/{{ app.request.get('facet') }}/"><span itemprop="title">{{ app.request.get('facet') }}</span></a>{% if app.request.get('page') %} <span class="divider">/</span>{% endif %}</li>
+    {% endif %}
+    {% if app.request.get('page') %}
+    <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_format_page', {format: app.request.get('format'), slug: channel.seo_url|replace({'/': ''})}) }}/page-{{ app.request.get('page') }}/"><span itemprop="title">Page {{ app.request.get('page') }}</span></a></li>
+    {% endif %}
+  </ul>
+
   <img class="channel-logo pull-left" src="{{ channel.img }}" />
   <h1>Regardez {% if app.request.get('format') %}{{ app.request.get('format') }} &raquo; {% endif %}{{ channel.name }}{% if app.request.get('facet') %} <small> - {{ app.request.get('facet') }}</small>{% endif %}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
   <p class="channel-description">{{ channel.description }}</p>

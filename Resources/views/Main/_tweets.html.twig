@@ -1,0 +1,5 @@
+<table class="table table-striped">
+	{% for t in  tweets %}
+	<tr><td><a target="_blank" href="{{ t.url }}">{{ t.text }}</a></td></tr>
+	{% endfor %}
+</table>

@@ -79,6 +79,8 @@ class ContentController extends Controller
                   'with_related' => true,
                   'with_offers' => true,
                   'with_teaser' => true,
+                  'with_hashtags' => true,
+                  'with_tweets' => true,
                   //'filter_casting' => true,
                   //'player' => 'flash'
                 ));

@@ -180,7 +180,7 @@ API = {
       });
       var args = $.extend(o, {session_uid: Skhf.session.uid});
       self.query('POST', form.attr('action'), args, function(json){
-        //console.log('API.catchForm', 'API.query callback', args, json);
+        console.log('API.catchForm', 'API.query callback', args, json);
         // if modal
         if (elmt.hasClass('modal')) {
           //onError

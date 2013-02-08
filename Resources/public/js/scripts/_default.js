@@ -5,6 +5,11 @@ $(window).unload(function() {
   }
 });
 
+//helpers
+function getUrlParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+}
+
 $(document).ready(function(){
 
   // -- init
@@ -179,18 +184,38 @@ $(document).ready(function(){
     API.javascriptV2($(this).attr('href').replace('javascript://',''));
     return false;
   });
-  $('a[data-modal]').live('click', function(e){
+	var triggerModal = getUrlParameter('modal')
+	if (triggerModal) {
+		API.quickLaunchModal(triggerModal);
+	}
+  $('a[data-modal], [data-modal-remote]').live('click', function(e){
+    console.log('script', 'a[data-modal], [data-modal-remote]', 'click');
     e.preventDefault();
-    console.log('script', 'a[data-modal]', $(this).data('modal'), 'click');
-
-    if ($(this).data('modal') == 'remote') {
-      UI.appendLoader($('.modal .modal-body'), 1000);
-      $('.modal .modal-header h3').html($(this).data('modal-title'));
-      $('.modal .modal-body').load($(this).attr('href'));
-      $('.modal').modal('show');
+		var trigger = $(this);
+    if (trigger.data('modal') == 'remote' || trigger.data('modal-remote')) {
+			var url = trigger.data('modal-remote') ? trigger.data('modal-remote') : trigger.attr('href');
+      UI.appendLoader($('.modal .modal-body').empty(), 1000);
+			API.query('GET', url, {}, function(data){
+				//html
+				if (typeof data == 'object' && typeof data.html != 'undefined') {
+					$('.modal .modal-body').html(data.html);
+					API.catchForm($('.modal'));
+				} else {
+	      	$('.modal .modal-body').html(data);
+				}
+				//title
+				if (trigger.data('modal-title')) {
+      		$('.modal .modal-header h3').html(trigger.data('modal-title'));
+				}
+				//message
+				if (trigger.data('modal-message')) {
+		      $('.modal .modal-body').prepend('<p class="alert alert-success">' + trigger.data('modal-message') + '</p>');
+				}
+	      $('.modal').modal('show');
+			})
     } else {
-			API.quickLaunchModal($(this).data('modal'));
-			if ($(this).data('modal') == 'card') { //TODO : use UI.callbackModal
+			API.quickLaunchModal(trigger.data('modal'));
+			if (trigger.data('modal') == 'card') { //TODO : use UI.callbackModal
   			$('.modal').on('hidden',function(e) {
   			 e.preventDefault();
   				var url = document.location.toString();

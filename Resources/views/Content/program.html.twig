@@ -390,7 +390,7 @@
           Sous-catégories : {% for c in program.subcategories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>{% endfor %}
         {% endif %}
         </p>
-  
+
         <div id="program-casting" class="scroll">
         {% if program.director %}
         <strong>{{ 'directed.by'|trans }} : </strong> 
@@ -419,6 +419,14 @@
       </div>
     </div>
   </div>
-
+</div>
+<div class="container">
+<hr/>
+{% if program.hashtags %}
+<h4>{{ program.title }} sur Twitter</h4>
+{% else %}
+<h4>mySkreen sur Twitter</h4>
+{% endif %}
+{% include 'SkreenHouseFactoryV3Bundle:Main:_tweets.html.twig' with {tweets: program.tweets } %}
 </div>
 {% endblock %}
