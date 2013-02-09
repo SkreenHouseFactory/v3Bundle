@@ -420,13 +420,16 @@
     </div>
   </div>
 </div>
+
+{% if program.tweets is defined and program.tweets|length %}
 <div class="container">
-<hr/>
-{% if program.hashtags %}
-<h4>{{ program.title }} sur Twitter</h4>
-{% else %}
-<h4>mySkreen sur Twitter</h4>
-{% endif %}
-{% include 'SkreenHouseFactoryV3Bundle:Main:_tweets.html.twig' with {tweets: program.tweets } %}
+	<hr/>
+	{% if program.hashtags %}
+	<h4>{{ program.title }} sur Twitter</h4>
+	{% else %}
+	<h4>mySkreen sur Twitter</h4>
+	{% endif %}
+	{% include 'SkreenHouseFactoryV3Bundle:Main:_tweets.html.twig' with {tweets: program.tweets } %}
 </div>
+{% endif %}
 {% endblock %}

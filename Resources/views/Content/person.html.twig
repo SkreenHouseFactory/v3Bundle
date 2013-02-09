@@ -86,5 +86,10 @@
     </ul>
   </div>
 
+	{% if person.tweets is defined %}
+	<h4>{{ person.name }} sur Twitter</h4>
+	{% include 'SkreenHouseFactoryV3Bundle:Main:_tweets.html.twig' with {tweets: person.tweets } %}
+	{% endif %}
+	</div>
 </div>
 {% endblock %}

@@ -104,5 +104,10 @@ Découvrez {{ channel.name }} en {{ channel.has_replay ? 'Replay' : 'Streaming' 
     </ul>
   </div>
 
+	{% if channel.tweets is defined %}
+	<h4>{{ channel.name }} sur Twitter</h4>
+	{% include 'SkreenHouseFactoryV3Bundle:Main:_tweets.html.twig' with {tweets: channel.tweets } %}
+	{% endif %}
+	</div>
 </div>
 {% endblock %}
