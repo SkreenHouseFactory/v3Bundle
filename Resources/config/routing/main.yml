@@ -1,7 +1,10 @@
-#tests
-timeline:
+#timeline
+timelinejs:
     pattern:  /__timeline/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:main }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:timelinejs }
+tvgrid:
+    pattern:  /__grid/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:grid }
 
 #main
 postproxy:

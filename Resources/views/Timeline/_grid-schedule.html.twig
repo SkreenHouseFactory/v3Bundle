@@ -1,0 +1,17 @@
+<div class="schedule-cache"></div>
+<table class="schedule-bg table table-striped"></div>
+{% for c in data.channels %}
+	<tr><td></td></tr>
+{% endfor %}
+</table>
+<div class="schedule-infos">
+{% for c in data.channels %}
+<ul>
+	{% for o in c.epg %}
+	<li class="diff">
+			<a>{{ o.broadcastdate }}</a>
+	</li>
+	{% endfor %}
+</ul>
+{% endfor %}
+</div>

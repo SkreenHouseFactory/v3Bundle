@@ -20,11 +20,41 @@ use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 class TimelineController extends Controller
 {
     /**
-    * person
+    * grid
     */
-    public function mainAction(Request $request)
+    public function gridAction(Request $request)
     {
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Timeline:main.html.twig', array(
+      $api  = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+      $data = $api->fetch('schedule/epg', array(
+                            'timestamp' => $request->get('timestamp'),
+                            'with_player' => true,
+                            'img_width' => 150,
+                            'img_height' => 200,
+                            'with_related_sliders' => true
+                          ));
+			//echo $api->url;
+			// post treatment
+			$data->channels = (array)$data->channels;
+
+			$template = $request->get('schedule-only') ? '_grid-schedule' : 'grid';
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Timeline:' . $template . '.html.twig', array(
+				'data' => (array)$data
+      ));
+
+      $maxage = 3600;
+      $response->setPublic();
+      $response->setMaxAge($maxage);
+      $response->setSharedMaxAge($maxage);
+      
+      return $response;
+    }
+
+    /**
+    * timelinejs
+    */
+    public function timelinejsAction(Request $request)
+    {
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Timeline:timelinejs.html.twig', array(
       ));
 
       $maxage = 3600;

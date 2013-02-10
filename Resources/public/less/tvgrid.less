@@ -1,0 +1,53 @@
+#view-tvgrid {
+	#channels {
+		position: absolute;
+		z-index: 3;
+		width: 150px;
+		margin: 0;
+		box-shadow: 2px 0px 5px -2px black;
+		li {
+			line-height: 35px
+		}
+	}
+	#schedule {
+		margin-left: 180px;
+		
+		.schedule {
+			position: relative;
+			cursor: pointer;
+			background: #EFEFEF;
+			
+			.schedule-bg {
+				height: 100%;
+			}
+			.schedule-infos {
+				position: absolute;
+				z-index: 2;
+				height: 100%;
+				top: 0;
+				ul {
+					clear: both;
+					.diff {
+						line-height: 35px;
+						display: block;
+						float: left;
+					}
+				}
+			}
+			.schedule-cache {
+				position: absolute;
+				z-index: 1;
+				height: 100%;
+				width: 0;
+				background: rgba(0,0,0,0.2);
+				border-right: 1px solid white;
+			}
+			
+			&.schedule-prev {
+				.schedule-cache {
+					width: 100% !important;
+				}
+			}
+		}
+	}
+}

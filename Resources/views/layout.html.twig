@@ -73,6 +73,7 @@
   {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
   <span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
 
+{% if block('noscripts') is empty %}
 {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.3.min.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
@@ -94,6 +95,7 @@
     output='js/compiled/v3.js'  %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
+{% endif %}
 
 <div id="fb-root"></div>
 <script>
