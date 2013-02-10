@@ -7,7 +7,7 @@
 {% block content %}
 <div id="view-search" class="container">
   <h1>{{ app.request.get('q') }}</h1>
-  
+
   <div id="search-programs">
   {% if results.count.total is not defined %}
     {% if results.count %}
