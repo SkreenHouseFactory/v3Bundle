@@ -67,19 +67,19 @@
 			{% endif %}
       <ul id="triggers" class="nav nav-pills" style="font-size: 1.2em;">
         {% for key in offers|keys if program.offers[key]|length %}
-        {% if key == 'theaters' %}
-          {% if program.datas_theaters.theaters_ids|length %}{% set nb = program.datas_theaters.theaters_ids|length %}{% else %}{% set nb = 1 %}{% endif %}
-        {% elseif program.offers[key]|length %}
-          {% set nb = program.offers[key]|length %}
-        {% endif %}
-        <li{% if loop.first %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ offers[key] }} ({{ nb }})</a></li>
+	        {% if key == 'theaters' %}
+	          {% if program.datas_theaters.theaters_ids|length %}{% set nb = program.datas_theaters.theaters_ids|length %}{% else %}{% set nb = 1 %}{% endif %}
+	        {% elseif program.offers[key]|length %}
+	          {% set nb = program.offers[key]|length %}
+	        {% endif %}
+	        <li{% if key == program.offers_default %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ offers[key] }} ({{ nb }})</a></li>
         {% endfor %}
         <li><a href="#bonus" id="trigger-bonus" data-toggle="tab">Bonus</a></li>
       </ul>
       <div class="tab-content">
         {% for key in offers|keys if program.offers[key]|length %}
         <a name="{{ key }}"></a>
-        <div id="{{ key }}" class="tab-pane{% if loop.first %} active{% endif %}">
+        <div id="{{ key }}" class="tab-pane{% if key == program.offers_default %} active{% endif %}">
         {%  if program.offers[key]|length %}
         <div class="table-container scroll">
         <table class="table">

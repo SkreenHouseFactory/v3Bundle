@@ -109,8 +109,8 @@ class ContentController extends Controller
           return $this->redirect($datas->seo_url, 301);
         }
         // -- post treatments
-        //episodes
         $datas->offers = (array)$datas->offers;
+				//episodes list
         if (!isset($datas->episodeof) && 
             isset($datas->datas_offers->episodes) && count((array)$datas->datas_offers->episodes) > 1) {
           foreach ((array)$datas->datas_offers->episodes as $e) {
@@ -118,8 +118,18 @@ class ContentController extends Controller
           }
           ksort($datas->episode_list);
         }
-        //online
-        $datas->offers['plays'] = array_merge($datas->offers['deportes'], $datas->offers['plays']);
+        //list episode offers
+        $datas->offers_default = null;
+				foreach ($datas->offers as $type => $offers) {
+					if (count($offers) > 0) {
+        		$datas->offers_default = $type;
+						break;
+					}
+				}
+        //add other episodes offers
+				if (isset($datas->episodeof->offers)) {
+					$datas->offers = array_merge_recursive($datas->offers, (array)$datas->episodeof->offers);
+				}
         //theaters     
         if (!$datas->offers['theaters'] && !$datas->offers['theaters_on_demand']) {
           $datas->offers['theaters'] = array();

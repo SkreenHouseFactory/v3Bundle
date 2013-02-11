@@ -1,4 +1,4 @@
-// -- YouTube
+// -- YouTube Player API
 var tag = document.createElement('script');
 tag.src = "//www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -20,20 +20,21 @@ Player = {
   elmt_meta: null,
   //player
   init: function(elmt, elmt_meta) {
+    this.reset();
     this.elmt = elmt;
     if (!this.elmt.hasClass('player')) {
       this.elmt.addClass('player on');
+      //UI.appendLoader(this.elmt);
     }
     if (typeof elmt_meta != 'undefined') {
       console.log('Player.init', 'elmt_meta', elmt_meta.length);
       this.elmt_meta = elmt_meta;
       this.elmt_meta.addClass('actions');
-      this.loadMetaProgram(this.elmt.data('player-program'));
+      //this.loadMetaProgram(this.elmt.data('player-program'));
     }
-    this.reset();
-    
+
     this.type = Player.getType();
-    console.log(['Player.init', 'type', this.type]);
+    console.log('Player.init', 'type', this.type, this.elmt);
 
     return this;
   },
@@ -52,6 +53,7 @@ Player = {
         clearTimeout(this.timeout[k]);
       }
     }
+    console.log('Player.reset', 'done');
   },
   getType: function() {
     if (this.type != null) {
@@ -145,7 +147,7 @@ Player = {
     //$('#top-nav').collapse('hide');
   },
   play: function(player, callback) {
-    console.log(['Player.play', player, this.type, callback]);
+    console.log('Player.play', player, this.type, this.elmt);
     this.state = 'playing';
     this.playing = player.id;
     if (typeof player.format != 'undefined') {
@@ -367,6 +369,7 @@ Player = {
               true);
   },
   playOccurrence: function(id, callback, args) {
+    console.log('Player.playOccurrence', id, args);
     var self = this;
     if (typeof args == 'undefined' || 
         typeof args.current_player == 'undefined' || 
