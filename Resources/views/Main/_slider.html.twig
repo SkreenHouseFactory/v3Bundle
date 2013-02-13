@@ -1,7 +1,8 @@
+{% set base_url = app.environment == 'prod' and 'preprod' not in app.request.schemeAndHttpHost  ? 'http://www.myskreen.com' : '' %}
 {% if slider.seo_url is defined %}
 <div class="slider-link pull-right">
 {#<a class="btn btn-inverse trigger-tv" href="#" data-couchmode="{{ {'type': 'pack', 'id': slider.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
-<a href="{{ path('any_url', {url: slider.seo_url[1:slider.seo_url|length-1]}) }}"><i class="icon-fullscreen"></i> {{ 'slider.link.default'|trans }}</a>
+<a href="{{ base_url }}{{ path('any_url', {url: slider.seo_url[1:slider.seo_url|length-1]}) }}"><i class="icon-fullscreen"></i> {{ 'slider.link.default'|trans }}</a>
 </div>
 {% endif %}
 {% if noheader is not defined %}

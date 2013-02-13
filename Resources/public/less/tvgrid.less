@@ -1,8 +1,17 @@
+.img-tvgrid-popover {
+	float: left;
+	margin: 0 10px 20px;
+}
 #view-tvgrid {
+	.carousel-control {
+		z-index: 10;
+		cursor: pointer;
+	}
 	#channels {
 		position: absolute;
 		z-index: 3;
-		width: 150px;
+		width: 100px;
+		padding: 0;
 		margin: 0;
 		box-shadow: 2px 0px 5px -2px black;
 		li {
@@ -10,12 +19,13 @@
 		}
 	}
 	#schedule {
-		margin-left: 180px;
+		margin-left: 100px;
 		
 		.schedule {
 			position: relative;
 			cursor: pointer;
 			background: #EFEFEF;
+			overflow: hidden;
 			
 			.schedule-bg {
 				height: 100%;
@@ -26,11 +36,36 @@
 				height: 100%;
 				top: 0;
 				ul {
+					position: relative;
 					clear: both;
-					.diff {
+					height: 35px;
+					margin: 0;
+
+					li.diff {
+						position: absolute;
 						line-height: 35px;
+						height: 35px;
 						display: block;
-						float: left;
+						overflow: hidden;
+						border-left: 1px solid #DDD;
+						
+						a {
+							padding: 0 0 0 5px;
+							
+							.label {
+								display: none;
+							}
+						}
+						
+						&.is-short {
+							.label {
+								display: block;
+							}
+						}
+						
+						&.is-live {
+							background: #EFE;
+						}
 					}
 				}
 			}

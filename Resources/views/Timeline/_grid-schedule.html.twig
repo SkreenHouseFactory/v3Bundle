@@ -8,9 +8,14 @@
 {% for c in data.channels %}
 <ul>
 	{% for o in c.epg %}
-	<li class="diff">
-			<a>{{ o.broadcastdate }}</a>
+	{% if o.broadcast_begin is defined %}
+	{% set start =  ((o.broadcast_begin|date('U') - data.timestamp)*5/60)|number_format %}
+	{% set end   =  o.broadcast_end|date('U') > (data.timestamp + 3*3600) ? data.timestamp : o.broadcast_end|date('U') %}
+	{% set width =  ((end - o.broadcast_begin|date('U'))*5/60)|number_format %}
+	<li class="diff" class="{{ o.is_live ? 'is-live' : '' }}{{ width < 40 ? ' is-short' : '' }}" data-begin="{{ o.broadcast_begin|date('U') }}" data-end="{{ o.broadcast_end|date('U') }}" style="left: {{ start > 0 ? start : 0 }}px;width: {{ width }}px;">
+		<a rel="popover" data-placement="top" data-original-title="{{ o.broadcastdate }} - {{ o.program.format }}" data-content="<img class='img-tvgrid-popover' src='{{ o.program.picture }}' alt='{{ o.program.title }}'/>{{ o.program.description }}<a class='btn btn-primary'><i class='icon-plus-sign icon-white'></i>{{ 'add.to.favorite'|trans }}</a>"><span class="label">{{ o.program.format }}</span> {{ o.program.title }}</a>
 	</li>
+	{% endif %}
 	{% endfor %}
 </ul>
 {% endfor %}

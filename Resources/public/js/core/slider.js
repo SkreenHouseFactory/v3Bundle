@@ -16,12 +16,12 @@ var BaseSlider = Class.extend({
   //init
   init: function(params, callback, elmt) {
     //console.log('BaseSlider.init', params, elmt);
-    this.params    = $.extend(this.params, params, typeof API.config.slider != 'undefined' ? API.config.slider : {});
+    this.params    = $.extend(this.params, params, typeof API != 'undefined' && typeof API.config.slider != 'undefined' ? API.config.slider : {});
     this.elmt      = typeof elmt != 'undefined' ? elmt : this.getTemplate(params);
     this.items     = $('ul', this.elmt);
     this.container = $('.slider-container', this.elmt);
     this.loader    = $('.loader', this.items).css('width', this.params.width + 'px');
-    UI.appendLoader(this.loader);
+
     // TODO : extend BAseSlider to make it works
     //if (this.elmt.data('nb-results') > 0) {
     //  this.params.pager_nb_results = this.elmt.data('nb-results');
@@ -52,6 +52,7 @@ var BaseSlider = Class.extend({
       this.ui();
     } else if (typeof params.programs != 'undefined') {
       console.log('BaseSlider.init', 'insertPrograms');
+		  UI.appendLoader(this.loader);
       if (params.programs.length > 0) {
         this.insertPrograms(params.programs, callback);
       } else {
@@ -59,6 +60,7 @@ var BaseSlider = Class.extend({
       }
     } else if ( Skhf.session != null) { //ajax seulement
       //console.log('BaseSlider.init', 'loadRemotePrograms', this.elmt);
+			UI.appendLoader(this.loader);
       this.elmt.removeClass('loading');
       this.loadRemotePrograms(0, callback);
     }
@@ -102,7 +104,8 @@ var BaseSlider = Class.extend({
     });
 
     //swipe
-    if (UI.touch == true) {
+    if (typeof UI != 'undefined' && 
+				UI.touch == true) {
       this.elmt.touchwipe({
            wipeLeft: function() {
             //alert('wipeLeft');
@@ -221,12 +224,12 @@ var BaseSlider = Class.extend({
       $('li:not(.static)', this.elmt).remove();
     }
 
-    var args = $.extend(args, {img_width: API.config.slider.width, 
+    var args = $.extend(args, {img_wh: API.config.slider.width, 
                                img_height: API.config.slider.height, 
                                url: ''}, this.params.args); //overwrite url params
     var url = this.getUrl(typeof offset != 'undefined' ? offset : 0);
     if (url == null) {
-      console.warn('BaseSlider.loadRemotePrograms', 'url', url);
+    onsole.warn('BaseSlider.loadotePrograms', 'url', url);
       return;
     }
     API.query('GET', //typeof args.api_method != 'undefined' ? 'POST' : 'GET',

@@ -26,11 +26,11 @@ class TimelineController extends Controller
     {
       $api  = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $data = $api->fetch('schedule/epg', array(
-                            'timestamp' => $request->get('timestamp'),
+                            'timestamp' => $request->get('timestamp', mktime(date('H'),0,0,date('m'),date('d'),date('Y'))),
                             'with_player' => true,
                             'img_width' => 150,
                             'img_height' => 200,
-                            'with_related_sliders' => true
+                            //'with_related_sliders' => true
                           ));
 			//echo $api->url;
 			// post treatment

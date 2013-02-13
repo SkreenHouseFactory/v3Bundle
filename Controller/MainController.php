@@ -96,7 +96,6 @@ class MainController extends Controller
         return $this->redirect('/'.$redirect.'/', 301);
       }
 
-      //menus
       $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $datas = $api->fetch('www/home/' . $home, 
                            array('without_footer' => true,

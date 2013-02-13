@@ -119,11 +119,7 @@
             {% for o in program.offers[key] %}
               {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
               {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
-              {% if o.episode_id is defined %}
-              {% set o_episode = attribute(program.datas_offers.episodes,  o.episode_id) %}
-              {% else %}
-              {% set o_episode = '' %}
-              {% endif %}
+              {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
               {% if o.episode_id is defined and 
                     program.episodeof.id is defined and 
                     o.episode_id != program.id and

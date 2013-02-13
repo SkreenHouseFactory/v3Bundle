@@ -1,4 +1,4 @@
-<div id="carousel-{{ slider.title|replace({' ': '-'})|lower }}" data-carousel-autoload="1" class="carousel slide">
+<div id="carousel-{{ slider.title|replace({' ': '-'})|lower }}"{% if skip_autoload is not defined %} data-carousel-autoload="1"{% endif %} class="carousel slide">
   <div class="carousel-inner">
   {% for p in slider.programs %}
   <div class="item{% if loop.first %} active{% endif %}">

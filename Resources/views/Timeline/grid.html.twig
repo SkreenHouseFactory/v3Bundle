@@ -3,14 +3,38 @@
 {% block title %}{{ 'page.title.tvgrid'|trans }}{% endblock %}
 {% block description %}{{ 'page.description.tvgrid'|trans }}{% endblock %}
 {% block meta %}<meta name="robots" content="noindex,nofollow" />{% endblock %}
-{% block noscripts %}noscripts{% endblock %}
 
 {% block content %}
 <div id="view-tvgrid" class="container">
-	<h1>Programme TV <small>{{ data.timestamp|date('YmdH') }}</small></h1>
+	<div id="grid">
+	<h1>Programme TV <small><time>{{ data.timestamp|localizeddate('full') }}</time></small></h1>
+	<ul class="nav nav-pills">
+	  <li class="control left">
+	    <a href="#">‹</a>
+		</li>
+	  <li class="control right">
+	    <a href="#">›</a>
+		</li>
+	  <li class="dropdown">
+	    <a class="dropdown-toggle"
+	       data-toggle="dropdown"
+	       href="#">
+	        Filtrer
+	        <b class="caret"></b>
+	      </a>
+	    <ul class="dropdown-menu">
+				<li><a href=""><span class="label">Films</span></a></li>
+				<li><a href=""><span class="label">Documetaires</span></a></li>
+				<li><a href=""><span class="label">Emissions</span></a></li>
+				<li><a href=""><span class="label">Sports</span></a></li>
+				<li><a href=""><span class="label">Séries</span></a></li>
+				<li><a href=""><span class="label">Spectacles</span></a></li>
+	    </ul>
+	  </li>
+	</ul>
 	<ul id="channels" class="nav nav-list">
 		{% for k,c in data.channels %}
-			<li>{{ c.name }}</li>
+			<li data-id="{{ c.id }}">{{ c.name }}</li>
 		{% endfor %}
 	</ul>
   <div id="schedule" data-api="schedule/epg">
@@ -22,61 +46,19 @@
 			{% endif %}
 		{% endfor %}
   </div>
+  </div>
 </div>
-<script type="text/javascript" src="http://www.jqwidgets.com/jquery-widgets-demo/scripts/jquery-1.9.0.min.js"></script>
-<script type="text/javascript" src="http://www.jqwidgets.com/jquery-widgets-demo/jqwidgets/jqxcore.js"></script>
-<script type="text/javascript" src="http://www.jqwidgets.com/jquery-widgets-demo/jqwidgets/jqxscrollview.js"></script>
-<script type="text/javascript">
-    $(function () {
+{% endblock %}
 
-	      var elmt = $('#schedule');
-				var startDiv = $('[data-page="50"]', elmt);
-				//scrollview
-        elmt.jqxScrollView({ width: 900, 
-														 height: 700, 
-														 currentPage: 49});
-			  elmt.bind('pageChanged', function (event) { 
-					var page = event.args.currentPage;
-					var div = $('[data-page="' + page + '"]', elmt);
-					console.log(page, $('.schedule', elmt).length, div, div.prev());
-					$('h1 small').html(div.data('timestamp'));
-					//before
-					if (page < 50) {
-						var prev = div.prev();
-						if (!prev.html()) {
-							var timestamp = parseInt(div.data('timestamp')) - ((50-parseInt(prev.data('page'))) * 3600);
-							console.log(page, 'load prev', prev.data('page'), timestamp);
-							prev.load('/app_dev.php/__grid/?schedule-only=1&timestamp=' + timestamp, {}, function(){
-								$(this).data('timestamp', timestamp);
-							});
-						}
-					} else {
-						var next = div.next();
-						if (!next.html()) {
-							var timestamp = parseInt(div.data('timestamp')) + ((parseInt(next.data('page')) - 50) * 3600);
-							console.log(page, 'load next', timestamp);
-							next.load('/app_dev.php/__grid/?schedule-only=1&timestamp=' + timestamp, {}, function(){
-								$(this).data('timestamp', timestamp);
-							});
-						}
-					}
-				});
-				//cache
-				setTimeout(function(){
-					var cache = $('.schedule-cache', elmt);
-					var mn = Math.round((+new Date()/1000 - parseInt(startDiv.data('timestamp')))/60);
-					console.log('cache', cache, mn, (+new Date()/1000 - parseInt(startDiv.data('timestamp')))/60);
-					cache.animate({width: mn * 5 }, 3000);
-				}, 1000);
-				//load before / after
-				var timestamp = parseInt(startDiv.data('timestamp')) - 3600;
-				startDiv.prev().load('/app_dev.php/__grid/?schedule-only=1&timestamp=' + timestamp, {}, function(){
-					$(this).data('timestamp', timestamp);
-				});
-				var timestamp = parseInt(startDiv.data('timestamp')) + 3600;
-				startDiv.next().load('/app_dev.php/__grid/?schedule-only=1&timestamp=' + timestamp, {}, function(){
-					$(this).data('timestamp', timestamp);
-				});
-    });
-</script>
+{% block pagescripts %}
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/jqx/jqxcore.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/jqx/jqxscrollview.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery-ui-1.10.0.custom.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/tvgrid.js'
+    
+    filter='?yui_js' 
+    output='js/compiled/tvgrid.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 {% endblock %}
