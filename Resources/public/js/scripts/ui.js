@@ -24,6 +24,7 @@ $(document).ready(function(){
 		API.quickLaunchModal(triggerModal);
 	}
 
+  console.log('script', 'a[data-modal], [data-modal-remote]', $('a[data-modal], [data-modal-remote]'));
 	$('a[data-modal], [data-modal-remote]').live('click', function(e){
 	  console.log('script', 'a[data-modal], [data-modal-remote]', 'click');
 	  e.preventDefault();

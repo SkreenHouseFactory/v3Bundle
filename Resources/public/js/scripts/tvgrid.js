@@ -1,6 +1,6 @@
 // -- program
 $(document).ready(function(){
-	if ($('#view-program').length) {
+	if ($('#view-tvgrid').length) {
 
 	  Grid.init($('#grid'));
 
