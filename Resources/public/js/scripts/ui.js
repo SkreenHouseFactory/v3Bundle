@@ -23,14 +23,20 @@ $(document).ready(function(){
 	if (triggerModal) {
 		API.quickLaunchModal(triggerModal);
 	}
+
 	$('a[data-modal], [data-modal-remote]').live('click', function(e){
 	  console.log('script', 'a[data-modal], [data-modal-remote]', 'click');
 	  e.preventDefault();
 		var trigger = $(this);
 	  if (trigger.data('modal') == 'remote' || trigger.data('modal-remote')) {
 			var url = trigger.data('modal-remote') ? trigger.data('modal-remote') : trigger.attr('href');
+	    var args = {};
+			if (!url.match(/^http(s|)\:\/\//)) {
+	      url  = API.config.v3_url + url;
+				$.extend(args, {dataType: 'text html'});
+	    } 
 	    UI.appendLoader($('.modal .modal-body').empty(), 1000);
-			API.query('GET', url, {}, function(data){
+			API.query('GET', url, args, function(data){
 				//html
 				if (typeof data == 'object' && typeof data.html != 'undefined') {
 					$('.modal .modal-body').html(data.html);

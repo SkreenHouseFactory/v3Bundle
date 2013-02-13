@@ -41,7 +41,7 @@ ENV = {
     site_url: 'http://preprod.beta.myskreen.com',
     v3_url: 'http://preprod.v3.myskreen.com',
     v3_root: '',
-    base: 'http://preprod.api.myskreen.com/api/',
+    base: 'https://preprod.api.myskreen.com/api/',
     popin: 'https://preprod.api.myskreen.com/popin/',
     domain: 'preprod.beta.myskreen.com',
     console: true
@@ -51,7 +51,7 @@ ENV = {
     site_url: 'http://www.myskreen.com',
     v3_url: 'http://www.myskreen.com',
     v3_root: '',
-    base: 'http://api.myskreen.com/api/',
+    base: 'https://api.myskreen.com/api/',
     popin: 'https://api.myskreen.com/popin/',
     domain: 'www.myskreen.com',
     console: false

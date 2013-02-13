@@ -229,7 +229,7 @@ var BaseSlider = Class.extend({
                                url: ''}, this.params.args); //overwrite url params
     var url = this.getUrl(typeof offset != 'undefined' ? offset : 0);
     if (url == null) {
-    onsole.warn('BaseSlider.loadotePrograms', 'url', url);
+    	console.warn('BaseSlider.loadotePrograms', 'url', url);
       return;
     }
     API.query('GET', //typeof args.api_method != 'undefined' ? 'POST' : 'GET',
