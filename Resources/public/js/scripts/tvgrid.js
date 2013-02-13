@@ -1,3 +1,27 @@
+// -- program
+$(document).ready(function(){
+	if ($('#view-program').length) {
+
+	  Grid.init($('#grid'));
+
+		//connecte
+		//if Skhf.session.email
+		//reload grid
+
+		//sortable
+	  $( "#channels" ).sortable({ containment: 'parent', cursor: 'move', stop: function( event, ui ) {
+			var ids = $(this).sortable('toArray', {attribute: 'data-id'}).join(',');
+			console.log('ids', ids);
+			//if !Skhf.session.email
+			//UI.auth
+			//API.setPreference('epg', ids);
+			Grid.reset();
+	  }});
+	  $( "#channels" ).disableSelection();
+
+	}
+});
+
 // -- Grid
 var Grid;
 Grid = {
@@ -110,23 +134,3 @@ Grid = {
 		});
 	}
 }
-
-$(function () {
-  Grid.init($('#grid'));
-
-	//connecte
-	//if Skhf.session.email
-	//reload grid
-
-	//sortable
-  $( "#channels" ).sortable({ containment: 'parent', cursor: 'move', stop: function( event, ui ) {
-		var ids = $(this).sortable('toArray', {attribute: 'data-id'}).join(',');
-		console.log('ids', ids);
-		//if !Skhf.session.email
-		//UI.auth
-		//API.setPreference('epg', ids);
-		Grid.reset();
-  }});
-  $( "#channels" ).disableSelection();
-
-});
