@@ -115,7 +115,7 @@ class CinemaController extends Controller
       }
       //echo $api->url;
 
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:search.html.twig', array(
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:_popin-search.html.twig', array(
                 'cinemas' => $cinemas,
              ));
 

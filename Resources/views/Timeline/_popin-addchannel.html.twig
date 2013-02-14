@@ -1,0 +1,30 @@
+{% if app.request.get('init') %}
+<div class="channels-modal">
+  <form id="channels-search" class="form-search pull-left">
+    <div class="input-append">
+      <input type="text" class="span3 search-query" placeholder="{{ 'channels.search.placeholder'|trans }}">
+      <button type="submit" class="btn trigger-channels"><i class="icon-search"></i> {{ 'channels.search.submit'|trans }}</button>
+    </div>
+		</form
+  <div id="channels-list" class="clear" data-api-url="{{ path('tvgrid_addchannel') }}"></div>
+</div>
+{% endif %}
+<h3>Recherche : {{ app.request.get('q') }}</h3>
+
+{% if channels|length == 0 and app.request.get('init') is null %}
+  <p class="alert">{{ 'tvgrid.channels.noprogram.search'|trans }}</p>
+{% elseif app.request.get('init') is null %}
+  <div class="scroll" style="overflow-y: auto; max-height: 250px;">
+  <table class="table table-striped">
+  {% for channel in channels %}
+    {% if channel.epg %}
+    <tr><td class="actions" data-id="{{ channel.id }}">
+      <a class="fav fav-epg pull-right btn btn-primary" data-id="{{ channel.id }}" data-name="{{ channel.name }}" href="#"><i class="icon-plus-sign icon-white"></i> Suivre</a>
+      <strong>{{ channel.name }}</strong><br/>
+      <img src="{{ channel.img }}"/>
+    </td></tr>
+    {% endif %}
+  {% endfor %}
+  </table>
+  </div>
+{% endif %}

@@ -40,6 +40,13 @@
 			<a href="http://replay.myskreen.com/w9/tv-a-la-demande/">W9 en Replay</a>
 			<a href="http://replay.myskreen.com/france-2/tv-a-la-demande/">France 2 en Replay</a>
 			<a href="http://replay.myskreen.com/france-3/tv-a-la-demande/">France 3 en Replay</a>
+			<hr/>
+			<a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">Chaînes TV & Replay</a>
+			<a href="{{ path('sitemap_channels', {type: 'vod'}) }}">Chaînes VOD</a>
+			<a href="{{ path('sitemap_channels', {type: 'webcontent'}) }}">Chaînes Web</a>
+			<a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Salles de cinéma</a>
+			<a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">Location / achat Dvd</a>
+			<a href="{{ path('sitemap_channels', {type: 'box'}) }}">Box</a>
     </div>
     {% if app.request.get('home') and 
 					app.request.get('home') not in ['tv-replay','cinema','video-a-la-demande','mixte'] %}

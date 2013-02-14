@@ -332,9 +332,7 @@ API = {
   },
   query: function(method, url, data, callback, cache, version) {
 
-    if (url.match(/^http(s|)\:\/\//)) {
-      //console.log('API.query', 'http(s|)://', 'is popin', url);
-    } else {
+    if (!url.match(/^http(s|)\:\/\//)) {
       //console.log('API.query', 'http', 'is api', url);
       var version = typeof version != 'undefined' ? version : this.config.api_version;
       var url  = this.config.base + version + '/' + url; //.replace('//', '/');
@@ -374,7 +372,7 @@ API = {
       }
     }
 
-    //console.log('API.query', method, dataType, url, data, new Date());
+    console.log('API.query', method, dataType, url, data, new Date());
     
     //Permet de benchmarker le temps d'execution des pages
     var tooLongQuery = setTimeout(function(){

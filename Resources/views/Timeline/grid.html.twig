@@ -9,36 +9,39 @@
 	<div id="grid">
 	<h1>Programme TV <small><time>{{ data.timestamp|localizeddate('full') }}</time></small></h1>
 	<ul class="nav nav-pills">
-	  <li class="control left">
+	  <li class="active big arrow left">
 	    <a href="#">‹</a>
 		</li>
-	  <li class="control right">
+	  <li class="active big arrow right">
 	    <a href="#">›</a>
 		</li>
-	  <li class="dropdown">
-	    <a class="dropdown-toggle"
-	       data-toggle="dropdown"
-	       href="#">
-	        Filtrer
-	        <b class="caret"></b>
-	      </a>
+	  <li class="active calendar right">
+	    <a href="#"><i class="icon-calendar icon-white"></i></a>
+		</li>
+	  <li class="dropdown dropdown-update active">
+	    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Tout <b class="caret"></b></a>
 	    <ul class="dropdown-menu">
-				<li><a href=""><span class="label">Films</span></a></li>
-				<li><a href=""><span class="label">Documetaires</span></a></li>
-				<li><a href=""><span class="label">Emissions</span></a></li>
-				<li><a href=""><span class="label">Sports</span></a></li>
-				<li><a href=""><span class="label">Séries</span></a></li>
-				<li><a href=""><span class="label">Spectacles</span></a></li>
+				<li><a data-filter="films" href="#">Films</a></li>
+				<li><a data-filter="documentaires" href="#">Documentaires</a></li>
+				<li><a data-filter="emissions" href="#">Emissions</a></li>
+				<li><a data-filter="sports" href="#">Sports</a></li>
+				<li><a data-filter="series" href="#">Séries</a></li>
+				<li><a data-filter="spectacles" href="#">Spectacles</a></li>
+				<li class="divider"></li>
+				<li><a data-filter="" href="#">Tout</a></li>
 	    </ul>
 	  </li>
+	  <li class="active addchannel right">
+	    <a data-modal="remote" data-modal-title="Ajouter une chaîne" href="/programme-tv/addchannel?init=1"><i class="icon-plus-sign icon-white"></i> de chaînes</a>
+		</li>
 	</ul>
 	<ul id="channels" class="nav nav-list">
 		{% for k,c in data.channels %}
-			<li data-id="{{ c.id }}">{{ c.name }}</li>
+			<li data-id="{{ c.id }}"><img src="{{ c.img }}" alt="{{ c.name }}" /></li>
 		{% endfor %}
 	</ul>
   <div id="schedule" data-api="schedule/epg">
-		{% for i in 1..100 %}
+		{% for i in 0..99 %}
 			{% if loop.index == 50 %}
       <div class="schedule" data-page="{{ loop.index }}" data-timestamp="{{ data.timestamp }}">{% include 'SkreenHouseFactoryV3Bundle:Timeline:_grid-schedule.html.twig' with {data: data } %}</div>
 			{% else %}
@@ -56,7 +59,7 @@
     '@SkreenHouseFactoryV3Bundle/Resources/public/jqx/jqxscrollview.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery-ui-1.10.0.custom.min.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/tvgrid.js'
-    
+
     filter='?yui_js' 
     output='js/compiled/tvgrid.js'  %}
     <script src="{{ asset_url }}"></script>

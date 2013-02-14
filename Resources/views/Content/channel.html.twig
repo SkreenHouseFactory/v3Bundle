@@ -14,7 +14,7 @@
 <meta name="object_type" content="channel" />
 {% endblock %}
 {% block title %}
-Découvrez {{ channel.name }} en {{ channel.has_replay ? 'Replay' : 'Streaming' }}
+Découvrez {{ channel.name }} en {{ channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming' }}
 {%- if app.request.get('format') %}, {{ app.request.get('format') }}{% endif -%}
 {%- if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif -%}
 {%- if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif -%}
@@ -110,4 +110,14 @@ Découvrez {{ channel.name }} en {{ channel.has_replay ? 'Replay' : 'Streaming' 
 	{% endif %}
 	</div>
 </div>
+{% endblock %}
+
+{% block pagescripts %}
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/channel.js'
+    
+    filter='?yui_js' 
+    output='js/compiled/pages/channel.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 {% endblock %}

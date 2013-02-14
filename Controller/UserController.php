@@ -96,7 +96,8 @@ class UserController extends Controller
                                      'offset'     => 0,
                                      'nb_results' => 200,
                                      'onglet'     => $onglet));
-      //print_r($programs);
+			//echo $api->url;
+			//print_r($programs);
       //not connected ?
       if (isset($programs->error) && 
           $programs->error) {

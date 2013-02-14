@@ -1,16 +1,8 @@
-#timeline
-timelinejs:
-    pattern:  /__timeline/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:timelinejs }
-tvgrid:
-    pattern:  /__grid/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:grid }
-
 #main
 postproxy:
     pattern:  /proxy
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:proxy }
-sitemap:
+sitemap_mrss:
     pattern:  /sitemap.xml
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:sitemap }
 header:
@@ -22,6 +14,26 @@ homes:
     requirements:
         home: |video-a-la-demande|cinema|tv-replay|film|serie|documentaire|emission|spectacle|films|series|documentaires|emissions|spectacles|vod|jeunesse
 
+#timeline
+timelinejs:
+    pattern:  /__timeline/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:timelinejs }
+tvgrid_addchannel:
+    pattern:  /programme-tv/addchannel
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:addchannel }
+tvgrid:
+    pattern:  /programme-tv/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:grid }
+
+#sitemaps
+sitemap_channels_page:
+    pattern:  /channels/{type}/{page}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Sitemap:channels }
+sitemap_channels:
+    pattern:  /channels/{type}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Sitemap:channels }
+
+#selections
 selections:
     pattern:  /{homeslug}/selection/{id}-{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:selection }

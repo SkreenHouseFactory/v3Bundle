@@ -30,6 +30,7 @@ class TimelineController extends Controller
                             'with_player' => true,
                             'img_width' => 150,
                             'img_height' => 200,
+														'channel_img_width' => 40,
                             //'with_related_sliders' => true
                           ));
 			//echo $api->url;
@@ -42,6 +43,32 @@ class TimelineController extends Controller
       ));
 
       $maxage = 3600;
+      $response->setPublic();
+      $response->setMaxAge($maxage);
+      $response->setSharedMaxAge($maxage);
+      
+      return $response;
+    }
+
+    /**
+    * search
+    * block html include/ajax
+    */
+    public function addchannelAction(Request $request)
+    {
+      $channels = null;
+      $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
+      $channels = $api->fetch('channel', array(
+                    'type' => 'broadcast',
+                    'q' => $request->get('q')
+                  ));
+      //echo $api->url;
+
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Timeline:_popin-addchannel.html.twig', array(
+                'channels' => $channels,
+             ));
+
+      $maxage = 600;
       $response->setPublic();
       $response->setMaxAge($maxage);
       $response->setSharedMaxAge($maxage);

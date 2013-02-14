@@ -16,7 +16,7 @@ var BaseSlider = Class.extend({
   //init
   init: function(params, callback, elmt) {
     //console.log('BaseSlider.init', params, elmt);
-    this.params    = $.extend(this.params, params, typeof API != 'undefined' && typeof API.config.slider != 'undefined' ? API.config.slider : {});
+    this.params    = $.extend(this.params, params, typeof API.config.slider != 'undefined' ? API.config.slider : {});
     this.elmt      = typeof elmt != 'undefined' ? elmt : this.getTemplate(params);
     this.items     = $('ul', this.elmt);
     this.container = $('.slider-container', this.elmt);

@@ -71,3 +71,13 @@
 	</div>
 </div>
 {% endblock %}
+
+{% block pagescripts %}
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/settings.js'
+    
+    filter='?yui_js' 
+    output='js/compiled/pages/settings.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}

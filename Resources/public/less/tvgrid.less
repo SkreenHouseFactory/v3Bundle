@@ -3,9 +3,28 @@
 	margin: 0 10px 20px;
 }
 #view-tvgrid {
-	.carousel-control {
-		z-index: 10;
-		cursor: pointer;
+	.nav-pills {
+		position: absolute;
+		right: 0;
+		top: 40px;
+		li {
+			font-size: 1.2em;
+			a {
+				line-height: 15px;
+				padding-bottom: 12px;
+			}
+			ul {
+				li {
+					font-size: 0.9em;
+				}
+			}
+			&.big a {
+				font-size: 2.5em;
+			}
+			&.calendar a, &.addchannel a {
+				line-height: 5px;
+			}
+		}
 	}
 	#channels {
 		position: absolute;
@@ -15,7 +34,8 @@
 		margin: 0;
 		box-shadow: 2px 0px 5px -2px black;
 		li {
-			line-height: 35px
+			line-height: 35px;
+			text-align: center;
 		}
 	}
 	#schedule {
@@ -47,9 +67,10 @@
 						height: 35px;
 						display: block;
 						overflow: hidden;
-						border-left: 1px solid #DDD;
+						border-left: 1px solid #CCC;
 						
 						a {
+							color: #333;
 							padding: 0 0 0 5px;
 							
 							.label {
@@ -58,13 +79,17 @@
 						}
 						
 						&.is-short {
-							.label {
-								display: block;
+							a {
+								padding: 0;
+								.label {
+									margin: 10px 0 0 2px;
+									display: block;
+								}
 							}
 						}
 						
 						&.is-live {
-							background: #EFE;
+							background: rgba(0, 170, 255, 0.3);
 						}
 					}
 				}
@@ -74,8 +99,19 @@
 				z-index: 1;
 				height: 100%;
 				width: 0;
-				background: rgba(0,0,0,0.2);
 				border-right: 1px solid white;
+
+				background-color: rgba(0,0,0,0.1);
+				background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+				background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+				background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+				background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+				background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+				-webkit-background-size: 10px 10px;
+				-moz-background-size: 10px 10px;
+				-o-background-size: 10px 10px;
+				background-size: 10px 10px;
+				background-repeat: repeat;
 			}
 			
 			&.schedule-prev {
