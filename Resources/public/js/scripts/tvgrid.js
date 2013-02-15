@@ -78,7 +78,7 @@ Grid = {
 		var mn = Math.round((time - parseInt(div.data('timestamp')))/60);
 		if (mn > 180) {
 			console.log('forward', mn);
-			this.schedule.jqxscrollView('forward'); 
+			this.schedule.jqxScrollView('forward'); 
 		} else {
 			cache.animate({width: mn * 5 }, 3000, function(){
 				console.log('Grid.idle', 'animate cache', mn + 'mn');
@@ -86,7 +86,7 @@ Grid = {
 				//update is live
 				$('ul', div).each(function(){
 					var live = $(this).find('li.is-live:first');
-					console.log('Grid.idle', 'animate .is-live ' + $(this).attr('id'), parseInt(live.data('end')), '<=', time);
+					//console.log('Grid.idle', 'animate .is-live ' + $(this).attr('id'), parseInt(live.data('end')), '<=', time);
 					if (parseInt(live.data('end')) <= time) {
 						live.removeClass('is-live').next().addClass('is-live');
 					}

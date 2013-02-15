@@ -14,7 +14,7 @@
 	{% set end   =  o.broadcast_end|date('U') > timestamp_end ? timestamp_end : o.broadcast_end|date('U') %}
 	{% set width =  ((end - (start ? o.broadcast_begin|date('U') : data.timestamp))*5/60)|number_format %}
 	<li data-program-id="{{ o.program.episodeof_id is defined ? o.program.episodeof_id : o.program.id }}" class="diff {% if width < 40 %}is-short{% else %}is-long{% endif%}{{ o.is_live ? ' is-live' : '' }} {{ o.program.onglet }}" data-begin="{{ o.broadcast_begin|date('U') }}" data-end="{{ o.broadcast_end|date('U') }}" style="left: {{ start }}px;width: {{ width }}px;">
-		<a rel="popover" data-placement="top" data-original-title="{{ o.broadcastdate }} - {{ o.program.format }}" data-content="<img class='img-tvgrid-popover' src='{{ o.program.picture }}' alt='{{ o.program.title }}'/>{{ o.program.description }}<a class='btn btn-primary'><i class='icon-plus-sign icon-white'></i>{{ 'add.to.favorite'|trans }}</a>"><span class="label">{{ o.program.format }}</span> {{ o.program.title }}</a>
+		<a rel="popover" data-placement="top" data-original-title="{{ o.broadcastdate }} - {{ o.program.format }}" data-content="<img class='img-tvgrid-popover' src='{{ o.program.picture }}' alt='{{ o.program.title }}'/>{{ o.program.description }}<a class='btn btn-primary'><i class='icon-plus-sign icon-white'></i>{{ 'add.to.favorite'|trans }}</a>"><span class="header">{{ o.broadcast_begin|date('H:i') }} {{ o.program.format }}</span><span class="label">{{ o.program.format }}</span> {{ o.program.title }}</a>
 	</li>
 	{% endif %}
 	{% endfor %}
