@@ -200,7 +200,7 @@ program_v1:
     requirements:
         id: \d+
         slug: "[^/]+"
-        rubrique: seo|enligne
+        rubrique: seo|enligne|dvd|bandeannonce|box|alatele
 program_v2_pere:
     pattern:  /{format}/{idpere}-{slugpere}/{id}-{slug}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
