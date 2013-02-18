@@ -1,3 +1,6 @@
+@lineheight: 40px;
+@lineheightchannel: 39px;
+
 .img-tvgrid-popover {
 	float: left;
 	margin: 0 10px 20px;
@@ -6,23 +9,34 @@
 	.nav-pills {
 		position: absolute;
 		right: 0;
-		top: 40px;
+		top: 45px;
 		li {
 			font-size: 1.2em;
 			a {
-				line-height: 15px;
-				padding-bottom: 12px;
+				line-height: 10px;
+				padding-bottom: 8px;
 			}
 			ul {
 				li {
 					font-size: 0.9em;
 				}
 			}
+			&.arrow a {
+				font-size: 2em;
+			}
 			&.big a {
-				font-size: 2.5em;
+				line-height: 15px;
 			}
 			&.calendar a, &.addchannel a {
 				line-height: 5px;
+			}
+			&.calendar {
+				margin-right: 300px;
+			}
+			&.active.time-change {
+				a {
+					background: #AAA;
+				}
 			}
 		}
 	}
@@ -32,20 +46,58 @@
 		width: 100px;
 		padding: 0;
 		margin: 0;
-		box-shadow: 2px 0px 5px -2px black;
+		box-shadow: 2px 0px 10px -2px black;
+		background: #FAFAFA;
+		border-top-left-radius: 7px;
+		border-bottom-left-radius: 7px;
 		li {
-			line-height: 35px;
+			line-height: @lineheightchannel;
 			text-align: center;
+			border-bottom: 1px solid #E5E5E5;
+			border-left: 1px solid #E5E5E5;
+			position: relative;
+			i {
+				position: absolute;
+				display: none;
+				opacity: 0.5;
+				cursor: pointer;
+				top: 10px;
+			}
+			&:hover {
+				i {
+					display: block;
+				}
+			}
 		}
 	}
 	#schedule {
 		margin-left: 100px;
+		padding-bottom: 30px;
+		background: url(/bundles/skreenhousefactoryv3/images/tvgrid-bg.png);
+		border-right: 1px solid #DDD;
 		
 		.schedule {
 			position: relative;
 			cursor: pointer;
-			background: #EFEFEF;
-			overflow: hidden;
+			overflow-y: hidden;
+			
+			ul.timeline {
+				position: absolute;
+				bottom: 0;
+				background: rgba(0,0,0,0.8);
+				color: white;
+				list-style: none;
+				z-index: 3;
+				margin: 0;
+				li {
+					display: inline-block;
+					width: 300px;
+				}
+			}
+			
+			.progress {
+				margin: 20% 30%;
+			}
 			
 			.schedule-bg {
 				height: 100%;
@@ -58,21 +110,41 @@
 				ul {
 					position: relative;
 					clear: both;
-					height: 35px;
+					height: @lineheight;
 					margin: 0;
 
 					li.diff {
 						position: absolute;
-						line-height: 35px;
-						height: 35px;
+						line-height: @lineheight;
+						height: @lineheight;
 						display: block;
 						overflow: hidden;
 						border-left: 1px solid #CCC;
-						
+
 						a {
 							color: #333;
 							padding: 0 0 0 5px;
-							
+
+							ruby {
+								rt {
+									text-align: left;
+									font-size: 0.8em;
+									span {
+										&:first-child {
+											color: #0088cc;
+											text-transform: uppercase;
+											margin-right: 5px;
+											display: none;
+										}
+										&.label {
+											display: inline-block;
+											font-weight: normal;
+											padding: 0 4px;
+										}
+									}
+								}
+							}
+
 							.header {
 								display: none;
 								position: absolute;
@@ -84,15 +156,16 @@
 							}
 							.label {
 								display: none;
+								font-weight: normal;
 							}
 						}
-						
+
 						&.is-short {
 							a {
 								padding: 0;
 								.label {
 									margin: 10px 0 0 2px;
-									display: block;
+									display: inline-block;
 								}
 							}
 						}
@@ -102,9 +175,17 @@
 						}
 
 						&:hover {
-							.header {
-								display: block;
-							}
+							a {
+								ruby {
+									rt {
+										span {
+											&:first-child {
+												display: inline-block;
+											}
+										}
+									}
+								}
+						  }
 						}
 					}
 				}
@@ -128,7 +209,12 @@
 				background-size: 10px 10px;
 				background-repeat: repeat;
 			}
-			
+
+			&.current {
+				ul.timeline.fixed {
+					position: fixed;
+				}
+			}
 			&.schedule-prev {
 				.schedule-cache {
 					width: 100% !important;

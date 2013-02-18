@@ -332,6 +332,7 @@
   </div>
 
   {% if program.has_related %}
+  <hgroup>
   <br class="clear"/>
   <a name="related"></a>
   <div id="program-related" class="inverse">
@@ -362,9 +363,11 @@
     {% endif %}
   {% endfor %}
   </div>
+	</hgroup>
   {% endif %}
 
   <br class="clear"/>
+	<hgroup>
   <a name="infos"></a>
   <div id="program-infos">
     <div class="img pull-left">
@@ -415,6 +418,7 @@
       </div>
     </div>
   </div>
+	</hgroup>
 </div>
 
 {% if program.tweets is defined and program.tweets|length %}

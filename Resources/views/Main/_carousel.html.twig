@@ -9,7 +9,9 @@
     <div class="carousel-caption actions" data-id="{{ p.id }}">
       <a class="btn btn-large btn-primary pull-left fav fav-like" data-placement="top" href="#" style="margin: 5px 20px 0 0;"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
       <h4 class="pull-left">{{ p.title }}</h4>
+			{% if skip_like is not defined %}
       <iframe id="fc{{ p.id }}" scrolling="no" style="border: none; overflow: hidden; height: 20px; width: 89px;margin: 0 0 5px 10px;" title="Like on Facebook." class="fb_ltr" src="http://www.facebook.com/plugins/like.php?api_key=193945860617344&amp;locale=fr_FR&amp;sdk=joey&amp;channel_url=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter.php%3Fversion%3D18%23cb%3Df3f4113244%26origin%3Dhttp%253A%252F%252Fwww.myskreen.com%252Ff343bc9a38%26domain%3Dwww.myskreen.com%26relation%3Dparent.parent&amp;href=http%3A%2F%2Fwww.myskreen.com{{ p.seo_url|url_encode }}&amp;node_type=link&amp;width=155&amp;font=verdana&amp;layout=button_count&amp;colorscheme=light&amp;action=like&amp;show_faces=false&amp;send=false&amp;extended_social_context=false"></iframe>
+			{% endif %}
       <p clss="clear">{{ p.format }}, {{ p.duration }}mn</p>
     </div>
   </div>

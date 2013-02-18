@@ -24,7 +24,6 @@ $(document).ready(function(){
 		API.quickLaunchModal(triggerModal);
 	}
 
-  console.log('script', 'a[data-modal], [data-modal-remote]', $('a[data-modal], [data-modal-remote]'));
 	$('a[data-modal], [data-modal-remote]').live('click', function(e){
 	  console.log('script', 'a[data-modal], [data-modal-remote]', 'click');
 	  e.preventDefault();
@@ -41,10 +40,11 @@ $(document).ready(function(){
 				//html
 				if (typeof data == 'object' && typeof data.html != 'undefined') {
 					$('.modal .modal-body').html(data.html);
-					API.catchForm($('.modal'));
 				} else {
 	      	$('.modal .modal-body').html(data);
 				}
+				//form
+				API.catchForm($('.modal'));
 				//title
 				if (trigger.data('modal-title')) {
 	    		$('.modal .modal-header h3').html(trigger.data('modal-title'));
@@ -64,7 +64,6 @@ $(document).ready(function(){
 					if (url.match('#')) {
 						url = url.split("#")[0];
 					}
-	//	    API.linkV2(url + "#payment");
 			   	API.linkV2(url);
 			   	return false;
 				});

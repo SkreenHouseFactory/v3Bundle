@@ -19,10 +19,10 @@ timelinejs:
     pattern:  /__timeline/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:timelinejs }
 tvgrid_addchannel:
-    pattern:  /programme-tv/addchannel
+    pattern:  /programme-tv-dev/addchannel
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:addchannel }
 tvgrid:
-    pattern:  /programme-tv/
+    pattern:  /programme-tv-dev/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:grid }
 
 #sitemaps

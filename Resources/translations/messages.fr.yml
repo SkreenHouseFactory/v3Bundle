@@ -297,6 +297,10 @@ channel:
         popover:
             title: Partagez vos programmes avec vos amis !
             content: Connectez-vous à Facebook en 1 clic et retrouvez ce que vos amis regardent sur mySkreen.
+channels:
+    search:
+        placeholder: TF1, Arte, Bein, etc
+        submit: Rechercher
 category:
     friends:
         block:

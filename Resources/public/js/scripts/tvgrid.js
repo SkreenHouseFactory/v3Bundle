@@ -3,31 +3,48 @@ $(document).ready(function(){
 	if ($('#view-tvgrid').length) {
 
 	  Grid.init($('#grid'));
+	  $('#grid').disableSelection();
 
 		//dropdown update
 		$('.dropdown-update ul li a').click(function(){
-			$(this).parents('a:first').text($(this).text());
+			//console.log('script', 'tvgrid', 'dropdown-update', $(this).text(), $(this).parents('a.dropdown-toggle:first'));
+			$(this).parents('li.dropdown:first').find('a.dropdown-toggle span').text($(this).text());
 			Grid.filter($(this).data('filter'));
 			return false;
 		});
 
 		//sortable
-	  $( "#channels" ).sortable({ containment: 'parent', cursor: 'move', stop: function( event, ui ) {
+	  $('#channels').sortable({ containment: 'parent', cursor: 'move', stop: function( event, ui ) {
 			var ids = $(this).sortable('toArray', {attribute: 'data-id'}).join(',');
 			console.log('ids', ids);
-			var reset = function() {
+			var refresh = function() {
 				if (Skhf.session.datas.email) {
 					API.addPreference('epg', ids);
-					Grid.reset();
+					Grid.refresh();
+				} else {
+					$('#channels').sortable('cancel');
 				}
 			}
 			if (!Skhf.session.datas.email) {
-				UI.auth(reset)
+				UI.auth(refresh)
 			} else {
-				reset();
+				refresh();
 			}
 	  }});
-	  $( "#channels" ).disableSelection();
+
+		//timeline
+		$('#grid').scrollspy({
+        min: -100,
+        max: 300,
+        onEnter: function(element, position) {
+					Grid.getSchedule().find('.timeline').addClass('fixed');
+					console.log('script tvgrid', 'scrollspy', 'enter', position);
+        },
+        onLeave: function(element, position) {
+					Grid.getSchedule().find('.timeline').removeClass('fixed');
+					console.log('script tvgrid', 'scrollspy', 'leave', position);
+        }
+    });
 
 	}
 });
@@ -39,7 +56,8 @@ Grid = {
 	channels: null,
 	schedule: null,
 	currentPage: 50,
-	height: 700,
+	timestamp: 50,
+	height: 800,
 	width: 900,
 	timeout: null,
 	init: function(elmt) {
@@ -48,6 +66,7 @@ Grid = {
 		this.elmt = elmt;
 		this.channels = $('#channels', elmt);
 		this.schedule = $('#schedule', elmt);
+		this.timestamp = $('.schedule[data-timestamp]', elmt).data('timestamp');
 
 		this.scrollView();
 		this.load();
@@ -69,16 +88,36 @@ Grid = {
 			self.schedule.fadeIn('slow');
 		});
 	},
+	refresh: function() {
+		var self = this;
+		$('.schedule[data-timestamp]', this.schedule).each(function() {
+			$(this).empty();
+			UI.appendLoader($(this));
+			Grid.loadSchedule($(this), $(this).data('timestamp'));
+		});
+	},
 	idle: function() {
 		var self = this;
-		var div = this.getCurrentSchedule();
+		var div = this.getSchedule();
 		//update cache
 		var cache = $('.schedule-cache', div);
 		var time = parseInt(new Date()/1000);
 		var mn = Math.round((time - parseInt(div.data('timestamp')))/60);
 		if (mn > 180) {
 			console.log('forward', mn);
-			this.schedule.jqxScrollView('forward'); 
+			this.schedule.jqxScrollView('forward');
+			var div = this.getSchedule();
+			$('ul', div).each(function(){
+				var live = $(this).find('li:first');
+				//add live class
+				live.addClass('is-live');
+				//add live label
+				if ($('#channels li[data-id="' + parseInt(live.parent().attr('id')) + '"]').data('live')) {
+					$('a ruby rt', live).append('<span class="lable label-warning">Live</span>');
+				}
+			})
+			//$('.schedule.live', self.schedule).removeClass('live');
+			//div.addClass('live');
 		} else {
 			cache.animate({width: mn * 5 }, 3000, function(){
 				console.log('Grid.idle', 'animate cache', mn + 'mn');
@@ -87,7 +126,9 @@ Grid = {
 				$('ul', div).each(function(){
 					var live = $(this).find('li.is-live:first');
 					//console.log('Grid.idle', 'animate .is-live ' + $(this).attr('id'), parseInt(live.data('end')), '<=', time);
+					//move live class + label
 					if (parseInt(live.data('end')) <= time) {
+						$('.label-warning', live).appendTo($('a ruby rt', live.next()));
 						live.removeClass('is-live').next().addClass('is-live');
 					}
 				})
@@ -100,21 +141,25 @@ Grid = {
 		}, 60000);
 	},
 	load: function(timestamp, callback) {
-		var self = this;
-		startDiv = this.getCurrentSchedule();
+		this.idle();
+		startDiv = this.getSchedule();
+		//timeline
+		$('.timeline', startDiv).addClass('fixed');
 		timestamp = typeof timestamp != 'undefined' ? timestamp : parseInt(startDiv.data('timestamp'));
 		//popover
 		$('[rel="popover"]', startDiv).popover();
-		//cache
-		self.idle();
 		//connected ?
-		if (!Skhf.session.datas.email) {
+		if (Skhf.session.datas.email) {
 			console.log('Grid.load', 'email', Skhf.session.datas.email);
-			self.loadSchedule(startDiv, timestamp);
+			startDiv.empty();
+			UI.appendLoader(startDiv);
+			this.loadSchedule(startDiv, timestamp);
 		}
 		//load before / after
-		self.loadSchedule(startDiv.prev(), timestamp - 3*3600);
-		self.loadSchedule(startDiv.next(), timestamp + 3*3600);
+		this.loadSchedule(startDiv.prev(), timestamp - 3*3600);
+		this.loadSchedule(startDiv.next(), timestamp + 3*3600);
+		this.loadSchedule(startDiv.prev().prev(), timestamp - 2*3*3600);
+		this.loadSchedule(startDiv.next().next(), timestamp + 2*3*3600);
 
 		//if (typeof callback != 'undefined') {
 		//	callback();
@@ -122,7 +167,10 @@ Grid = {
 	},
 	loadSchedule : function(elmt, timestamp) {
 		var self = this;
-		startDiv = this.getCurrentSchedule();
+		UI.appendLoader(elmt);
+		if (!elmt.data('timestamp')) {
+			elmt.data('timestamp', timestamp);
+		}
 		elmt.load('/app_dev.php/programme-tv/', {
 				'schedule-only': 1,
 				timestamp: timestamp, 
@@ -130,12 +178,6 @@ Grid = {
 			}, function(){
 				//popover
 				$('[rel="popover"]', elmt).popover();
-				//idle
-				if (startDiv.data('timestamp') == timestamp) {
-					self.idle();
-				} else {
-					$(this).data('timestamp', timestamp);
-				}
 				//add playlist class
 				if (Skhf.session.datas.email) {
 					for (k in Skhf.session.datas.queue) {
@@ -146,12 +188,23 @@ Grid = {
 				}
 		});
 	},
-	getCurrentSchedule: function() {
-		console.log('Grid.getCurrentSchedule', '[data-page="' + this.currentPage + '"]')
-		return $('.schedule[data-page="' + this.currentPage + '"]', this.elmt);
+	getSchedule: function(page) {
+		var page = typeof page != 'undefined' ? page : this.currentPage;
+		//console.log('Grid.getSchedule', '[data-page="' + page + '"]')
+		return $('.schedule[data-page="' + page + '"]', this.schedule);
 	},
 	setTime: function(timestamp) {
+		console.log('Grid.setTime', timestamp);
 		var date = new Date(timestamp*1000);
+		switch(date.getUTCDay()) {
+			 case 0: var day = 'Dimanche'; break;
+			 case 1: var day = 'Lundi'; break;
+			 case 2: var day = 'Mardi'; break;
+			 case 3: var day = 'Mercredi'; break;
+			 case 4: var day = 'Jeudi'; break;
+			 case 5: var day = 'Vendredi'; break;
+			 case 6: var day = 'Samedi'; break;
+		}
 		var time = date.toLocaleTimeString().replace('00:00', '00');
 		var date = date.toLocaleDateString().replace('/1/', ' Janvier ')
 																				.replace('/2/', ' Février ')
@@ -165,9 +218,18 @@ Grid = {
 																				.replace('/10/', ' Octobre ')
 																				.replace('/11/', ' Novembre ')
 																				.replace('/12/', ' Décembre ');
-		$('h1 time').html(date + ' - ' + time);
+		$('h1 time').html(day + ' ' + date + ' - ' + time);
 	},
 	filter: function(onglet) {
+		if (onglet == 'in-playlists' && 
+				!Skhf.session.datas.email) {
+			UI.auth(function(){
+				if (Skhf.session.datas.email) {
+					Grid.filter(onglet);
+				}
+			});
+			return;
+		}
 		if (onglet) {
 			$('li:not(.' + onglet + ')', this.schedule).animate({opacity: 0.1});
 			$('li.' + onglet, this.schedule).animate({opacity: 1});
@@ -183,27 +245,28 @@ Grid = {
 																  currentPage: this.currentPage-1});
 
 	  this.schedule.bind('pageChanged', function (event) {
-			$('.popover').popover('hide');
+			//TO FIX : $('.popover:visible').popover('hide');
 			self.currentPage = event.args.currentPage+1;
-			var div = self.getCurrentSchedule();
-			console.log('Grid.scrollView', 'pageChanged', self.currentPage);
-			//before
+			var div = self.getSchedule();
+			self.setTime(div.data('timestamp'));
+			$('.schedule.current', self.schedule).removeClass('current');
+			div.addClass('current');
+			//console.log('Grid.scrollView', 'pageChanged', self.currentPage, self.timestamp);
+			//preload : before / after
 			if (self.currentPage < 50) {
 				var prev = div.prev().prev();
 				if (!prev.html()) {
-					var timestamp = parseInt(div.data('timestamp')) - ((50-parseInt(prev.data('page'))) * 3*3600);
-					console.log('Grid.scrollView', 'pageChanged prev', prev.data('page'), timestamp);
-					Grid.loadSchedule(prev, timestamp);
+					var new_timestamp = self.timestamp - ((50-parseInt(prev.data('page'))) * 3*3600);
+					//console.log('Grid.scrollView', 'pageChanged prev', prev.data('page'), new_timestamp);
+					Grid.loadSchedule(prev, new_timestamp);
 				}
-				self.setTime(prev.data('timestamp'));
 			} else {
 				var next = div.next().next();
 				if (!next.html()) {
-					var timestamp = parseInt(div.data('timestamp')) + ((parseInt(next.data('page')) - 50) * 3*3600);
-					console.log('Grid.scrollView', 'pageChanged next', next.data('page'), timestamp);
-					Grid.loadSchedule(next, timestamp);
+					var new_timestamp = self.timestamp + ((parseInt(next.data('page')) - 50) * 3*3600);
+					//console.log('Grid.scrollView', 'pageChanged next', next.data('page'), new_timestamp);
+					Grid.loadSchedule(next, new_timestamp);
 				}
-				self.setTime(next.data('timestamp'));
 			}
 		});
 	}

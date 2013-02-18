@@ -146,7 +146,7 @@ API = {
   },
   catchForm: function(elmt, callbackOnLoad) {
     var self = this;
-    //console.log('API.catchForm', 'catch form');
+    console.log('API.catchForm', 'catch form');
 
     //link
     $('a.tv-component', elmt).click(function(e){
@@ -179,12 +179,17 @@ API = {
         }
       });
       var args = $.extend(o, {session_uid: Skhf.session.uid});
-      self.query('POST', form.attr('action'), args, function(json){
-        console.log('API.catchForm', 'API.query callback', args, json);
+			var method = form.attr('method') ? form.attr('method') : 'POST';
+      self.query(method, form.attr('action'), args, function(json){
+        console.log('API.catchForm', 'API.query callback', args, json, elmt);
         // if modal
         if (elmt.hasClass('modal')) {
+					//return html
+					if (typeof json.html != 'object') {
+            $('.modal-body', elmt).empty().html(json);
+            self.catchForm(elmt, callbackOnLoad);
           //onError
-          if (typeof json.error != 'undefined') {
+					} else if (typeof json.error != 'undefined') {
             $('.#form-errors', elmt).html(json.error).fadeIn();
           //onSuccess
           } else if (typeof json.success != 'undefined' && json.success) {
@@ -198,7 +203,6 @@ API = {
           } else if (typeof json.html != 'undefined') {
             $('.modal-body', elmt).empty().html(json.html);
             self.catchForm(elmt, callbackOnLoad);
-            
           }
         //default
         } else {
@@ -354,12 +358,12 @@ API = {
     // Currently, proxy POST requests
     if (method == 'POST' || method == 'DELETE' || method == 'GET_PROXY') {
       method = method.replace('_PROXY', ''); //hack GET_PROXY
-      var dataType = "text json";
+      var dataType = 'text json';
       var post = {};
       post['url'] = url.replace('.json','');
       post['data'] = data;
       data = post;
-      url = this.config.env == 'dev' ? '/app_dev.php/proxy' : '/app.php/proxy';
+      url = this.config.env == 'dev' ? '/app_dev.php/proxy' : '/proxy';
 
     } else {
       if (data && typeof data === 'object'){

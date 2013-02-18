@@ -52,7 +52,8 @@
 <body>
 {% spaceless %}
 <!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
-  <div id="main">
+	<article>
+	<div id="main">
     <div id="content">
     {% block content %}
     {% endblock %}
@@ -62,13 +63,18 @@
     {% endblock %}
     </div>
   </div>
-  <div id="header">{% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' %}</div>
+	</article>
+	<header>
+  <nav><div id="header">{% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' %}</div></nav>
+	</header>
   <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
     <div class="container">
       {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
     </div>
   </div>
+	<footer>
   <div id="footer">{% include 'SkreenHouseFactoryV3Bundle:Main:_footer.html.twig' %}</div>
+	</footer>
   {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
   <span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
