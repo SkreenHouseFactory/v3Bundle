@@ -26,7 +26,7 @@ $(document).ready(function(){
     Skhf.session = new Session(function(){
       console.log('script', 'Session.init', 'callback');
 
-			/* pages */
+			/* pages : TODO > move into dedicated page script file. exple : scripts/program.js */
 			//theater playlist
 			if ($('#program-offers #trigger-theaters-playlist').length){
 				$('#program-offers #trigger-theaters-playlist').trigger('click');

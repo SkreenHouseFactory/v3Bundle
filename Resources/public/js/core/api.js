@@ -179,13 +179,14 @@ API = {
         }
       });
       var args = $.extend(o, {session_uid: Skhf.session.uid});
-			var method = form.attr('method') ? form.attr('method') : 'POST';
+			var method = form.attr('method') ? form.attr('method').toUpperCase() : 'POST';
+      //console.warn('API.catchForm', 'query method', method);
       self.query(method, form.attr('action'), args, function(json){
         console.log('API.catchForm', 'API.query callback', args, json, elmt);
         // if modal
         if (elmt.hasClass('modal')) {
 					//return html
-					if (typeof json.html != 'object') {
+					if (typeof json != 'object') {
             $('.modal-body', elmt).empty().html(json);
             self.catchForm(elmt, callbackOnLoad);
           //onError
