@@ -7,28 +7,21 @@
 }
 #view-tvgrid {
 	h1 {
-		margin-right: 10px;
+		margin-bottom: 2px;
 	}
 	ul.nav-pills {
 		display: block;
-		padding: 40px 0 0 0px;
-		li {
-			a {
-				line-height: 10px;
-				padding-bottom: 8px;
-			}
-			&.big a {
-				line-height: 15px;
-			}
-			&.calendar a, &.addchannel a {
-				line-height: 5px;
-			}
-			&.calendar {
-				margin-right: 300px;
+		padding: 0;
+		margin: 0 3px 0 0;
+		> li {
+			&.active {
+				> a {
+					background: rgba(0, 136, 204, 0.7);
+				}
 			}
 			&.active.time-change {
-				a {
-					background: #AAA;
+				> a {
+					background: rgba(0, 0, 0, 0.2);
 				}
 			}
 		}
@@ -36,10 +29,11 @@
 	#channels {
 		position: absolute;
 		z-index: 3;
-		width: 100px;
+		width: 87px;
 		padding: 0;
 		margin: 0;
 		background: #FAFAFA;
+		border-top: 1px solid #EEE;
 
 		li {
 			line-height: @lineheightchannel;
@@ -47,6 +41,9 @@
 			border-bottom: 1px solid #E5E5E5;
 			border-left: 1px solid #E5E5E5;
 			position: relative;
+			height: 44px;
+			overflow: hidden;
+
 			a {
 				padding: 0;
 				margin: 0;
@@ -67,7 +64,7 @@
 	}
 	#schedule {
 		min-height: 800px;
-		margin-left: 100px;
+		margin-left: 87px;
 		padding-bottom: 30px;
 		background: url(/bundles/skreenhousefactoryv3/images/tvgrid-bg.png);
 		border-right: 1px solid #DDD;

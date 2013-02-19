@@ -273,7 +273,7 @@ Grid = {
 			self.channels.empty();
 			for (k in data.channels) {
 				var c = data.channels[k];
-				self.channels.append('<li data-id="' + c.id + '"><a href="' + c.iseo_urld + '">' +
+				self.channels.append('<li data-id="' + c.id + '"><a href="' + c.seo_url + '">' +
 														 '<i class="icon-trash"></i><img src="' + c.img + '"  alt="' + c.name + '" /></a></li>');
 			}
 		})

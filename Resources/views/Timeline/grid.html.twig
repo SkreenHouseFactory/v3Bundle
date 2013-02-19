@@ -7,7 +7,7 @@
 {% block content %}
 <div id="view-tvgrid" class="container">
 	<div id="grid">
-	<h1 class="pull-left">Programme TV <small><time>{{ data.timestamp|localizeddate('full')|replace({'00:00': '00'}) }}</time></small></h1>
+	<h1>Programme TV <small><time>{{ data.timestamp|localizeddate('full')|replace({'00:00': '00'}) }}</time></small></h1>
 	<ul class="nav nav-pills">
 	  <li class="active left time-change">
 	    <a href="#"><i class="icon-backward"></i></a>
@@ -18,10 +18,18 @@
 	  <li class="active calendar time-change">
 	    <a href="#"><i class="icon-calendar icon-white"></i></a>
 		</li>
-	  <li class="pull-right active addchannel right">
+	  <li class="pull-right dropdown active">
+	    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-question-sign icon-white"></i></a>
+	    <ul class="dropdown-menu">
+				<li><a href="#"><span class="label"><i class="icon-time icon-white"></i> Replay</span> Bientôt disponible en Replay</a></li>
+				<li><a href="#"><span class="label label-info"><i class="icon-play icon-white"></i> Replay</span> Replay disponible</a></li>
+				<li><a href="#"><span class="label label-warning"><i class="icon-share icon-white"></i> Live</span> Direct disponible en streaming</a></li>
+	    </ul>
+		</li>
+	  <li class="pull-right active addchannel">
 	    <a data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="icon-plus-sign icon-white"></i> de chaînes</a>
 		</li>
-	  <li class="pull-right dropdown dropdown-update active big">
+	  <li class="pull-right dropdown dropdown-update active">
 	    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span>Tout</span> &nbsp;<b class="caret"></b></a>
 	    <ul class="dropdown-menu">
 				<li><a data-filter="films" href="#">Films</a></li>
