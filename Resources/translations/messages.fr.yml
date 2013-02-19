@@ -15,15 +15,16 @@ page:
             documentaires: Documentaires
             emissions: Emissions
             spectacles: Théatre, concerts, spectacles
-        error: Page introuvable
-        redirect: Redirection en cours ...
         cinema.boxoffice: Cinéma, tous les films en salle commençant par %alpha%
-        channel: %name%
+        tvgrid: Programme TV du %date%
+        channel: Découvrez %name% en %access%
         search: Recherche : %p%
         user:
             settings: Vos préférences
             programs: Vos programmes
             vod: Vos playlists : vidéo à la demande
+        error: Page introuvable
+        redirect: Redirection en cours ...
     description:
         home:
             mixte: Le guide personnalisé de vos programmes. Retrouvez dans une même playlist : Vidéo à la demande (VOD) et Replay TV (télévision de rattrapage), programmes Télé, DVD, box et télé connectée.
@@ -318,6 +319,7 @@ card:
     update: Modifier la carte de paiement
 free: Gratuit
 watch: Voir maintenant
+all.diff: Toutes les diffusions
 rent:
     now: Louer maintenant
     again: Louer à nouveau

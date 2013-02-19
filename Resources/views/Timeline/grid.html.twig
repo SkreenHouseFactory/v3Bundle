@@ -1,6 +1,6 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
-{% block title %}{{ 'page.title.tvgrid'|trans }}{% endblock %}
+{% block title %}{{ 'page.title.tvgrid'|trans({'%date%': data.timestamp|localizeddate('full')|replace({'00:00': '00'})}) }}{% endblock %}
 {% block description %}{{ 'page.description.tvgrid'|trans }}{% endblock %}
 {% block meta %}<meta name="robots" content="noindex,nofollow" />{% endblock %}
 
@@ -41,10 +41,10 @@
 	</ul>
 	<ul id="channels" class="nav nav-list">
 		{% for k,c in data.channels %}
-			<li data-id="{{ c.id }}"{% if c.live.player is defined %} data-live="player"{% elseif c.live.url is defined %} data-live="url"{% endif %}><i class="icon-trash"></i><img src="{{ c.img }}" alt="{{ c.name }}" /></li>
+			<li data-id="{{ c.id }}"{% if c.live.player is defined %} data-live="player"{% elseif c.live.url is defined %} data-live="url"{% endif %}><a href="{{ c.seo_url }}"><i class="icon-trash"></i><img src="{{ c.img }}" alt="{{ c.name }}" /></a></li>
 		{% endfor %}
 	</ul>
-  <div id="schedule" data-api="schedule/epg">
+  <div id="schedule" data-api="schedule/epg.json" data-ajax="{{ path('tvgrid') }}">
 		{% for i in 0..99 %}
 			{% if loop.index == 50 %}
       <div class="schedule schedule-start current" data-page="{{ loop.index }}" data-timestamp="{{ data.timestamp }}">{% include 'SkreenHouseFactoryV3Bundle:Timeline:_grid-schedule.html.twig' with {data: data } %}</div>

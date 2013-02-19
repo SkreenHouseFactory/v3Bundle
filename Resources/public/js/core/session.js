@@ -4,6 +4,7 @@ var BaseSession = Class.extend({
   datas: {},
   onglet: '',
   access: '',
+	callbackInit: null,
   init: function(callback, args) {
     console.log('BaseSession.init', args);
     var self = this;
@@ -11,6 +12,12 @@ var BaseSession = Class.extend({
     if (API.context == 'v3') {
       this.sync(function(sessionData){
         //console.log('BaseSession.init', 'callback Session.sync', sessionData);
+				//callbackInit : called only once
+				if (self.callbackInit) {
+					self.callbackInit();
+					self.callbackInit = null;
+				}
+				//callback
         if (typeof callback != 'undefined') {
           callback(sessionData)
         }

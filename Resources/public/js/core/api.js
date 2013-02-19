@@ -303,7 +303,7 @@ API = {
     }
   },
   markAsRed: function(id){
-    this.query('POST', '/user/markasred', {program_id: id}, function() {
+    this.query('POST', '/user/markasred.json', {program_id: id}, function() {
       UI.markAsRed(id);
     });
   },

@@ -1,5 +1,5 @@
-@lineheight: 40px;
-@lineheightchannel: 39px;
+@lineheight: 45px;
+@lineheightchannel: 44px;
 
 .img-tvgrid-popover {
 	float: left;
@@ -56,12 +56,16 @@
 			border-bottom: 1px solid #E5E5E5;
 			border-left: 1px solid #E5E5E5;
 			position: relative;
-			i {
-				position: absolute;
-				display: none;
-				opacity: 0.5;
-				cursor: pointer;
-				top: 10px;
+			a {
+				padding: 0;
+				margin: 0;
+				i {
+					position: absolute;
+					display: none;
+					opacity: 0.5;
+					cursor: pointer;
+					top: 10px;
+				}
 			}
 			&:hover {
 				i {
@@ -71,6 +75,7 @@
 		}
 	}
 	#schedule {
+		min-height: 800px;
 		margin-left: 100px;
 		padding-bottom: 30px;
 		background: url(/bundles/skreenhousefactoryv3/images/tvgrid-bg.png);
@@ -123,40 +128,32 @@
 
 						a {
 							color: #333;
-							padding: 0 0 0 5px;
-
-							ruby {
-								rt {
-									text-align: left;
+							display: inline-block;
+							margin: 0 0 0 5px;
+							line-height: 20px;
+							width: 100%;
+							height: 45px;
+							overflow: hidden;
+							
+							span {
+								&.header {
 									font-size: 0.8em;
-									span {
-										&:first-child {
-											color: #0088cc;
-											text-transform: uppercase;
-											margin-right: 5px;
-											display: none;
-										}
-										&.label {
-											display: inline-block;
-											font-weight: normal;
-											padding: 0 4px;
-										}
-									}
+									color: #0088cc;
+									text-transform: uppercase;
+									margin-right: 5px;
+									float: left;
+									display: none;
 								}
-							}
-
-							.header {
-								display: none;
-								position: absolute;
-								top: -10px;
-								left: 8px;
-								text-transform: uppercase;
-								font-size: 0.7em;
-								color: #999;
-							}
-							.label {
-								display: none;
-								font-weight: normal;
+								&.label {
+									font-size: 0.8em;
+									display: inline-block;
+									font-weight: normal;
+									padding: 0 4px;
+								}
+								&.title {
+									clear: both;
+									display: block;
+								}
 							}
 						}
 
@@ -171,19 +168,18 @@
 						}
 						
 						&.is-live {
-							background: rgba(0, 170, 255, 0.3);
+							background: rgba(255, 214, 0, 0.2);
+						}
+						&.has-live {
+							.label-info {
+								display: none;
+							}
 						}
 
 						&:hover {
 							a {
-								ruby {
-									rt {
-										span {
-											&:first-child {
-												display: inline-block;
-											}
-										}
-									}
+								span.header {
+									display: block;
 								}
 						  }
 						}

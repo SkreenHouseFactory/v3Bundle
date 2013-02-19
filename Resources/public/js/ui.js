@@ -40,10 +40,10 @@ UI = {
     if (typeof callback != 'undefined') {
       UI.callbackModal = callback;
     }
-    API.quickLaunchModal('signin', function() {
+    API.quickLaunchModal('signup', function() {
       Skhf.session.sync(function() {
         if (typeof callback != 'undefined') {
-          console.log('UI.auth', 'Skhf.session.init callback', callback);
+          console.log('UI.auth', 'Skhf.session.init callback');
           callback();
         }
       });

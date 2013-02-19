@@ -30,7 +30,9 @@ class TimelineController extends Controller
                             'with_player' => true,
                             'img_width' => 150,
                             'img_height' => 200,
-														'channel_img_width' => 40,
+														'channel_img_width' => 45,
+														'session_uid' => $request->get('session_uid'),
+														'channels_ids' => $request->get('channels_ids')
                             //'with_related_sliders' => true
                           ));
 			//echo $api->url;
