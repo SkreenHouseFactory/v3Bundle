@@ -75,7 +75,7 @@ Grid = {
 		this.load();
 					
 		//nav
-		$('.arrow', this.elmt).click(function(){
+		$('.left, .right', this.elmt).click(function(){
 			if ($(this).hasClass('right')) {
 				self.schedule.jqxScrollView('forward'); 
 			} else {

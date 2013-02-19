@@ -7,19 +7,22 @@
 {% block content %}
 <div id="view-tvgrid" class="container">
 	<div id="grid">
-	<h1>Programme TV <small><time>{{ data.timestamp|localizeddate('full')|replace({'00:00': '00'}) }}</time></small></h1>
+	<h1 class="pull-left">Programme TV <small><time>{{ data.timestamp|localizeddate('full')|replace({'00:00': '00'}) }}</time></small></h1>
 	<ul class="nav nav-pills">
-	  <li class="active big arrow left time-change">
-	    <a href="#">‹</a>
+	  <li class="active left time-change">
+	    <a href="#"><i class="icon-backward"></i></a>
 		</li>
-	  <li class="active big arrow right time-change">
-	    <a href="#">›</a>
+	  <li class="active right time-change">
+	    <a href="#"><i class="icon-forward"></i></a>
 		</li>
 	  <li class="active calendar time-change">
 	    <a href="#"><i class="icon-calendar icon-white"></i></a>
 		</li>
-	  <li class="dropdown dropdown-update active big">
-	    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span>Tout</span> <b class="caret"></b></a>
+	  <li class="pull-right active addchannel right">
+	    <a data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="icon-plus-sign icon-white"></i> de chaînes</a>
+		</li>
+	  <li class="pull-right dropdown dropdown-update active big">
+	    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span>Tout</span> &nbsp;<b class="caret"></b></a>
 	    <ul class="dropdown-menu">
 				<li><a data-filter="films" href="#">Films</a></li>
 				<li><a data-filter="documentaires" href="#">Documentaires</a></li>
@@ -35,9 +38,6 @@
 				<li><a data-filter="" href="#">Tout</a></li>
 	    </ul>
 	  </li>
-	  <li class="active addchannel right">
-	    <a data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="icon-plus-sign icon-white"></i> de chaînes</a>
-		</li>
 	</ul>
 	<ul id="channels" class="nav nav-list">
 		{% for k,c in data.channels %}

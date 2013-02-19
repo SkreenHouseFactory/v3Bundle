@@ -6,23 +6,16 @@
 	margin: 0 10px 20px;
 }
 #view-tvgrid {
-	.nav-pills {
-		position: absolute;
-		right: 0;
-		top: 45px;
+	h1 {
+		margin-right: 10px;
+	}
+	ul.nav-pills {
+		display: block;
+		padding: 40px 0 0 0px;
 		li {
-			font-size: 1.2em;
 			a {
 				line-height: 10px;
 				padding-bottom: 8px;
-			}
-			ul {
-				li {
-					font-size: 0.9em;
-				}
-			}
-			&.arrow a {
-				font-size: 2em;
 			}
 			&.big a {
 				line-height: 15px;
@@ -46,10 +39,8 @@
 		width: 100px;
 		padding: 0;
 		margin: 0;
-		box-shadow: 2px 0px 10px -2px black;
 		background: #FAFAFA;
-		border-top-left-radius: 7px;
-		border-bottom-left-radius: 7px;
+
 		li {
 			line-height: @lineheightchannel;
 			text-align: center;
@@ -131,7 +122,7 @@
 							display: inline-block;
 							margin: 0 0 0 5px;
 							line-height: 20px;
-							width: 100%;
+							min-width: 60%;
 							height: 45px;
 							overflow: hidden;
 							
