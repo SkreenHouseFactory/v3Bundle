@@ -17,6 +17,25 @@ $(document).ready(function(){
 			return false;
 		});
 
+		//remove popover
+		$('.popover .close').live('click', function() {
+			console.log('script', 'tvgrid', 'popovers destroy', $('.popover'));
+			$('.popover').remove();
+			return false;
+		})
+
+		//nav next/prev
+		$('.left a, .right a, .now a', this.elmt).click(function(){
+			if ($(this).parent().hasClass('right')) {
+				Grid.schedule.jqxScrollView('forward'); 
+			} else if ($(this).parent().hasClass('left')) {
+				Grid.schedule.jqxScrollView('back'); 
+			} else {
+				Grid.schedule.jqxScrollView('changePage', 49); ; 
+			}
+			return false;
+		})
+
 		//remove channel
 		$('#channels li a').live('click', function() {
 			return false;
@@ -176,18 +195,6 @@ Grid = {
 		this.loadSchedule(startDiv.next().next(), timestamp + 2*3*3600);
 
 		this.scrollView();
-					
-		//nav
-		$('.left a, .right a, .now a', this.elmt).click(function(){
-			if ($(this).hasClass('right')) {
-				self.schedule.jqxScrollView('forward'); 
-			} else if ($(this).hasClass('left')) {
-				self.schedule.jqxScrollView('back'); 
-			} else {
-				self.schedule.jqxScrollView('changePage', 49); ; 
-			}
-			return false;
-		})
 	},
 	loadSchedule : function(elmt, timestamp, callback) {
 		var self = this;
@@ -316,13 +323,13 @@ Grid = {
 																  currentPage: this.currentPage-1});
 
 	  this.schedule.bind('pageChanged', function (event) {
-			//TO FIX : $('.popover:visible').popover('hide');
+			$('.popover').remove();
 			self.currentPage = event.args.currentPage+1;
 			var div = self.getSchedule();
 			self.setTime(div.data('timestamp'));
 			$('.schedule.current', self.schedule).removeClass('current');
 			div.addClass('current');
-			//console.log('Grid.scrollView', 'pageChanged', self.currentPage, self.timestamp);
+			console.log('Grid.scrollView', 'pageChanged', self.currentPage, self.timestamp);
 			//preload : before / after
 			if (self.currentPage < 50) {
 				var prev = div.prev().prev();
