@@ -73,15 +73,6 @@ Grid = {
 		this.timestamp = $('.schedule[data-timestamp]', elmt).data('timestamp');
 
 		this.load();
-					
-		//nav
-		$('.left, .right', this.elmt).click(function(){
-			if ($(this).hasClass('right')) {
-				self.schedule.jqxScrollView('forward'); 
-			} else {
-				self.schedule.jqxScrollView('back'); 
-			}
-		})
 	},
 	reset: function() {
 		var self = this;
@@ -102,53 +93,58 @@ Grid = {
 			Grid.loadSchedule($(this), $(this).data('timestamp'));
 		});
 	},
-	idle: function() {
+	idle: function(initialized) {
 		var self = this;
 		var div = this.getSchedule();
 		//update cache
 		var cache = $('.schedule-cache', div);
 		var time = parseInt(new Date()/1000);
 		var mn = Math.round((time - parseInt(div.data('timestamp')))/60);
-		if (mn > 180) {
-			console.log('forward', mn);
-			this.schedule.jqxScrollView('forward');
-			var div = this.getSchedule();
-			$('ul', div).each(function(){
-				var live = $(this).find('li:first');
-				//add live class
-				live.addClass('is-live');
-				//add live label
-				if ($('#channels li[data-id="' + parseInt(live.parent().attr('id')) + '"]').data('live')) {
-					$('a ruby rt', live).append('<span class="lable label-warning">Live</span>');
-					live.addClass('has-live');
-				}
-			})
-			//$('.schedule.live', self.schedule).removeClass('live');
-			//div.addClass('live');
+		console.log('Grid.idle', 'mn', mn);
+		if (mn > 60) {
+			cache.css('width', '100%');
 		} else {
-			cache.animate({width: mn * 5 }, 3000, function(){
-				console.log('Grid.idle', 'animate cache', mn + 'mn');
-
-				//update is live
+			if (mn > 180) {
+				console.log('forward', mn);
+				this.schedule.jqxScrollView('forward');
+				var div = this.getSchedule();
 				$('ul', div).each(function(){
-					var live = $(this).find('li.is-live:first');
-					//console.log('Grid.idle', 'animate .is-live ' + $(this).attr('id'), parseInt(live.data('end')), '<=', time);
-					//move live class + label
-					if (parseInt(live.data('end')) <= time) {
-						$('.label-warning', live).appendTo($('a ruby rt', live.next()));
-						live.removeClass('is-live').next().addClass('is-live');
-						if (live.hasClass('has-live')) {
-							live.removeClass('has-live').next().addClass('has-live');
-						}
+					var live = $(this).find('li:first');
+					//add live class
+					live.addClass('is-live');
+					//add live label
+					if ($('#channels li[data-id="' + parseInt(live.parent().attr('id')) + '"]').data('live')) {
+						$('a ruby rt', live).append('<span class="lable label-warning">Live</span>');
+						live.addClass('has-live');
 					}
 				})
+				//$('.schedule.live', self.schedule).removeClass('live');
+				//div.addClass('live');
+			} else {
+				cache.animate({width: mn * 5 }, 3000, function(){
+					console.log('Grid.idle', 'animate cache', mn + 'mn');
+
+					//update is live
+					$('ul', div).each(function(){
+						var live = $(this).find('li.is-live:first');
+						//console.log('Grid.idle', 'animate .is-live ' + $(this).attr('id'), parseInt(live.data('end')), '<=', time);
+						//move live class + label
+						if (parseInt(live.data('end')) <= time) {
+							$('.label-warning', live).appendTo($('a ruby rt', live.next()));
+							live.removeClass('is-live').next().addClass('is-live');
+							if (live.hasClass('has-live')) {
+								live.removeClass('has-live').next().addClass('has-live');
+							}
+						}
+					})
 			
-			});
+				});
+			}
+			clearTimeout(this.timeout);
+			this.timeout = setTimeout(function(){
+				self.idle(true);
+			}, 60000);
 		}
-		clearTimeout(this.timeout);
-		this.timeout = setTimeout(function(){
-			self.idle();
-		}, 60000);
 	},
 	load: function(timestamp, callback) {
 		var self = this;
@@ -160,7 +156,7 @@ Grid = {
 		$('[rel="popover"]', startDiv).popover();
 		//connected ?
 		if (Skhf.session.datas.email) {
-			console.log('Grid.load', 'email', Skhf.session.datas.email);
+			console.log('Grid.load', 'email', Skhf.session.datas.email, timestamp);
 			//reload schedule
 			startDiv.empty();
 			UI.appendLoader(startDiv);
@@ -180,6 +176,18 @@ Grid = {
 		this.loadSchedule(startDiv.next().next(), timestamp + 2*3*3600);
 
 		this.scrollView();
+					
+		//nav
+		$('.left, .right, .now', this.elmt).click(function(){
+			if ($(this).hasClass('right')) {
+				self.schedule.jqxScrollView('forward'); 
+			} else if ($(this).hasClass('left')) {
+				self.schedule.jqxScrollView('back'); 
+			} else {
+				self.schedule.jqxScrollView('changePage', 49); ; 
+			}
+			return false;
+		})
 	},
 	loadSchedule : function(elmt, timestamp, callback) {
 		var self = this;
@@ -191,15 +199,15 @@ Grid = {
 		}
 		//schedule
 		//'&session_uid=' + Skhf.session.uid
-		elmt.load(this.schedule.data('ajax') + '?schedule-only=1&timestamp=' + timestamp + '&channels_ids=' + this.getChannelsIds(), function(){
+		elmt.load(this.schedule.data('ajax') + '?schedule-only=1&date=' + timestamp + '&channels_ids=' + this.getChannelsIds(), function(){
 				//popover
 				$('[rel="popover"]', elmt).popover();
 				//add playlist class
 				if (Skhf.session.datas.email) {
 					for (k in Skhf.session.datas.queue) {
-						console.log('Grid.loadSchedule', '.playlist', 'try', Skhf.session.datas.queue[k])
+						//console.log('Grid.loadSchedule', '.playlist', 'try', Skhf.session.datas.queue[k])
 						if ($('ul li[data-program-id="' + Skhf.session.datas.queue[k] + '"]', elmt).length) {
-							console.log('Grid.loadSchedule', '.playlist', 'add', Skhf.session.datas.queue[k])
+							//console.log('Grid.loadSchedule', '.playlist', 'add', Skhf.session.datas.queue[k])
 							$('ul li[data-program-id="' + Skhf.session.datas.queue[k] + '"]', elmt).addClass('is-playlist');
 						}
 					}

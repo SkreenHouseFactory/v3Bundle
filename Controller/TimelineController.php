@@ -24,17 +24,35 @@ class TimelineController extends Controller
     */
     public function gridAction(Request $request)
     {
+			switch ($request->get('date')) {
+				case 'hier-soir':
+					$timestamp = mktime(20, 0, 0, date('m'), date('d')-1, date('Y'));
+				break;
+				case 'ce-soir':
+					$timestamp = mktime(20, 0, 0, date('m'), date('d'), date('Y'));
+				break;
+				default:
+					if (is_numeric($request->get('date'))) {
+						$timestamp = $request->get('date');
+					} elseif ($request->get('date')) {
+						$timestamp = strtotime(str_replace('-', ' ', $request->get('date')));
+					} else {
+						$timestamp = mktime(date('H'),0,0,date('m'),date('d'),date('Y'));
+					}
+				break;
+			}
+
       $api  = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
       $data = $api->fetch('schedule/epg', array(
-                            'timestamp' => $request->get('timestamp', mktime(date('H'),0,0,date('m'),date('d'),date('Y'))),
-                            'with_player' => true,
-                            'img_width' => 150,
-                            'img_height' => 200,
-														'channel_img_width' => 45,
-														'session_uid' => $request->get('session_uid'),
-														'channels_ids' => $request->get('channels_ids')
-                            //'with_related_sliders' => true
-                          ));
+                          'timestamp' => $timestamp,
+                          'with_player' => true,
+                          'img_width' => 150,
+                          'img_height' => 200,
+													'channel_img_width' => 45,
+													'session_uid' => $request->get('session_uid'),
+													'channels_ids' => $request->get('channels_ids')
+                          //'with_related_sliders' => true
+                        ));
 			//echo $api->url;
 			// post treatment
 			$data->channels = (array)$data->channels;

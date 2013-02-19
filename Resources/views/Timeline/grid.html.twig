@@ -9,15 +9,12 @@
 	<div id="grid">
 	<h1>Programme TV <small><time>{{ data.timestamp|localizeddate('full')|replace({'00:00': '00'}) }}</time></small></h1>
 	<ul class="nav nav-pills">
-	  <li class="active left time-change">
-	    <a href="#"><i class="icon-backward"></i></a>
-		</li>
-	  <li class="active right time-change">
-	    <a href="#"><i class="icon-forward"></i></a>
-		</li>
-	  <li class="active calendar time-change">
-	    <a href="#"><i class="icon-calendar icon-white"></i></a>
-		</li>
+	  <li class="active yesterdaynight time-change"><a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir</a></li>
+	  <li class="active now time-change"><a href="{{ data.timestamp|date('Y-m-d-H') }}">En ce moment</a></li>
+	  <li class="active tonight time-change"><a href="{{ path('tvgrid_date', {date: 'ce-soir'}) }}">Ce soir</a></li>
+	  <li class="active left time-change"><a href="{{ path('tvgrid_date', {date: (data.timestamp-3*3600)|date('Y-m-d-H')}) }}"><i class="icon-backward"></i></a></li>
+	  <li class="active right time-change"><a href="{{ path('tvgrid_date', {date: (data.timestamp+3*3600)|date('Y-m-d-H')}) }}"><i class="icon-forward"></i></a></li>
+	  <li class="active calendar time-change"><a href="#"><i class="icon-calendar icon-white"></i></a></li>
 	  <li class="pull-right dropdown active">
 	    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-question-sign icon-white"></i></a>
 	    <ul class="dropdown-menu">
@@ -30,7 +27,7 @@
 	    <a data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="icon-plus-sign icon-white"></i> de chaînes</a>
 		</li>
 	  <li class="pull-right dropdown dropdown-update active">
-	    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span>Tout</span> &nbsp;<b class="caret"></b></a>
+	    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span>Que voir ?</span> &nbsp;<b class="caret"></b></a>
 	    <ul class="dropdown-menu">
 				<li><a data-filter="films" href="#">Films</a></li>
 				<li><a data-filter="documentaires" href="#">Documentaires</a></li>
