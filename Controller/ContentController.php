@@ -33,7 +33,7 @@ class ContentController extends Controller
     public function programAction(Request $request)
     {
 			$this->blockDomain($request);
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+			$api = $this->get('api');
 
       //API lastmodified
       $datas = $api->fetch('cache', array(

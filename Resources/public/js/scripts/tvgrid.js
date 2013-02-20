@@ -17,13 +17,6 @@ $(document).ready(function(){
 			return false;
 		});
 
-		//remove popover
-		$('.popover .close').live('click', function() {
-			console.log('script', 'tvgrid', 'popovers destroy', $('.popover'));
-			$('.popover').remove();
-			return false;
-		})
-
 		//nav next/prev
 		$('.left a, .right a, .now a', this.elmt).click(function(){
 			if ($(this).parent().hasClass('right')) {

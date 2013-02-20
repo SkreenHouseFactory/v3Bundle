@@ -174,7 +174,7 @@
                   {% endif %}
                 </td>
                 {% if o_episode %}
-                <td class="episode" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="{{ o_episode.title }}" data-toggle="hover" data-placement="left">
+                <td class="episode" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left">
 									{% if o_episode.title %}
                   {{ o_episode.title }}<br/>
 									{% endif %}

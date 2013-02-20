@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	console.log('scripts', 'load scripts/ui.js');
+
 	// -- ui link/url
 	$('a[data="url"]').live('click', function(e){
 	  e.preventDefault();
@@ -92,7 +93,7 @@ $(document).ready(function(){
 	// -- ui modal
 	if ($('.modal').length > 0) {
 		$('.modal').on('show', function(){
-		  $('.popover:visible').popover('hide');
+		  $('.popover').remove();
 		  Player.pause();
 		  carousels = $('.carousel');
 		  if (carousels.length > 0) {
@@ -102,7 +103,7 @@ $(document).ready(function(){
 		  }
 		});
 		$('.modal').on('hidden', function(){
-		  $('.popover:visible').popover('hide');
+		  $('.popover').remove();
 		  $('.modal .modal-body').empty();
     
 		  //hack addtofavorite fb + callback modal
@@ -163,6 +164,12 @@ $(document).ready(function(){
 	if ($('[data-content]').length > 0) {
 		$('[data-content]').popover();
 	}
+	//remove popover
+	$('.popover .close').live('click', function() {
+		//console.log('script', 'popovers destroy', $('.popover'));
+		$('.popover').remove();
+		return false;
+	})
 
 	// -- tooltip
 	if ($('[rel="tooltip"]').length > 0) {
