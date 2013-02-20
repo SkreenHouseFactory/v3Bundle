@@ -24,7 +24,6 @@ class ApiManager
 
   protected function getApiBase($env, $version) {
     if ($env == 'dev') {
-      return 'http://api.myskreen.com/api/' . $version . '/';
       return 'http://benoit.myskreen.typhon.net/api/' . $version . '/';
     } elseif (strstr($_SERVER['SERVER_NAME'], 'preprod')) {
       return 'http://preprod.api.myskreen.com/api/' . $version . '/';

@@ -36,7 +36,7 @@ class ContentController extends Controller
 			$api = $this->get('api');
 
       //API lastmodified
-      $datas = json_decode(file_get_contents('http://benoit.myskreen.typhon.net/cache.php?id=' . $request->get('id')));
+      $datas = $api->fetch('status/cache/program/' . $request->get('id'));
       //echo $api->url;
       if (isset($datas->error) && $datas->error) {
         throw $this->createNotFoundException('Programme does not exist');
@@ -59,7 +59,8 @@ class ContentController extends Controller
           $response->isNotModified($request)) {
           // Retourner immédiatement un objet 304 Response
           mail('benoit@myskreen.com', 
-               '[v3][program isNotModified] program-' . $request->get('id') . '-'. $datas->updated_at, print_r($response, true));
+               '[v3][program isNotModified] program-' . $request->get('id') . '-'. $datas->updated_at,
+							 print_r($response, true));
       } else {
         //$response->expire();
 
@@ -199,7 +200,7 @@ class ContentController extends Controller
     {
 			$this->blockDomain($request);
 
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+      $api   = $this->get('api');
       $datas = $api->fetch('channel', array(
                             'from_slug'  => $request->get('slug'),
                             'with_live'  => !$request->get('format') && !$request->get('page') ? true : false,
@@ -269,7 +270,7 @@ class ContentController extends Controller
     public function categoryAction(Request $request)
     {
 			$this->blockDomain($request);
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+      $api   = $this->get('api');
       $datas = $api->fetch(in_array($request->get('_route'), array('format', 'format_facet', 'format_page')) ? 'format' : 'category', 
                            array(
                              'from_slug'  => str_replace('/', '', $request->get('category_slug')),
@@ -318,7 +319,7 @@ class ContentController extends Controller
     public function personAction(Request $request)
     {
 			$this->blockDomain($request);
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+      $api   = $this->get('api');
       $datas = $api->fetch('person/'.$request->get('id'), 
                            array(
                              'with_programs' => true,
@@ -360,7 +361,7 @@ class ContentController extends Controller
     public function selectionAction(Request $request)
     {
 			$this->blockDomain($request);
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+      $api   = $this->get('api');
       $datas = $api->fetch('www/slider/pack/'.$request->get('id'), 
                            array(
                              'with_programs'  => true,
