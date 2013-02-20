@@ -36,10 +36,7 @@ class ContentController extends Controller
 			$api = $this->get('api');
 
       //API lastmodified
-      $datas = $api->fetch('cache', array(
-                 'model' => 'Programme',
-                 'id' => $request->get('id')
-               ));
+      $datas = json_decode(file_get_contents('http://benoit.myskreen.typhon.net/cache.php?id=' . $request->get('id')));
       //echo $api->url;
       if (isset($datas->error) && $datas->error) {
         throw $this->createNotFoundException('Programme does not exist');
