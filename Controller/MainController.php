@@ -23,7 +23,7 @@ class MainController extends Controller
       if ($this->get('kernel')->getEnvironment() == 'prod' && 
           !strstr($request->getHost(), 'www.') && 
           !strstr($request->getHost(), 'preprod.')) {
-        /throw $this->createNotFoundException('Page does not exist on this domain');
+        throw $this->createNotFoundException('Page does not exist on this domain');
       }
 		}
 
