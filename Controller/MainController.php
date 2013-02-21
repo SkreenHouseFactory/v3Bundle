@@ -22,8 +22,9 @@ class MainController extends Controller
 		private function blockDomain(Request $request) {
       if ($this->get('kernel')->getEnvironment() == 'prod' && 
           !strstr($request->getHost(), 'www.') && 
-          !strstr($request->getHost(), 'preprod.')) {
-        throw $this->createNotFoundException('Page does not exist on this domain');
+          !strstr($request->getHost(), 'preprod.') && 
+          !strstr($request->getHost(), '.typhon.net')) {
+        throw $this->createNotFoundException('Page does not exist on this domain : ' . $request->getHost());
       }
 		}
 
@@ -44,7 +45,8 @@ class MainController extends Controller
 			$this->blockDomain($request);
       if ($this->get('kernel')->getEnvironment() == 'prod' && 
           !strstr($request->getHost(), 'www.') && 
-          !strstr($request->getHost(), 'preprod.')) {
+          !strstr($request->getHost(), 'preprod.') && 
+          !strstr($request->getHost(), '.typhon.net')) {
         if (!strstr($request->getHost(), 'replay.')) {
           return $this->redirect('http://www.myskreen.com/tv-replay/', 301);
         }
