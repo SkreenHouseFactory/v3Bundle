@@ -75,10 +75,11 @@ class ContentController extends Controller
                   'with_img' => '245,325',
                   'with_metadata' => true,
                   'with_related' => true,
+									'with_related_programs' => true,
                   'with_offers' => true,
                   'with_teaser' => true,
                   'with_hashtags' => true,
-                  'with_tweets' => true,
+                  'with_tweets' => true
                   //'filter_casting' => true,
                   //'player' => 'flash'
                 ));
@@ -139,9 +140,8 @@ class ContentController extends Controller
         }
 
         //load related programs
-        $datas->has_related = false;
-        foreach ($datas->related as $key => $r) {
-          //print_r($r);
+        /*
+				foreach ($datas->related as $key => $r) {
           $datas->related[$key]->programs = (array)$api->fetch(str_replace('&onglet', '&_onglet', $r->url), array(
                                                       'img_width' => 150,
                                                       'img_height' => 200,
@@ -155,6 +155,7 @@ class ContentController extends Controller
             //echo "\n name:".$r->name.' : '.end($datas->related[$key]->programs)->id;
           }
         }
+				*/
         
         if (isset($datas->sagas) && count($datas->sagas) > 0) {
           $datas->related = array_merge($datas->sagas, $datas->related);

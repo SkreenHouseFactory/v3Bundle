@@ -321,7 +321,7 @@
     <div id="program-share">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}</div>
 
     <ul class="nav nav-list bs-docs-sidenav">
-      {% if program.has_related > 0 %}
+      {% if program.related|length %}
       <li><a href="#related"><i class="icon-chevron-right"></i> {{ 'program.related'|trans }}</a></li>
       {% endif %}
       {#% if program.teaser %}
@@ -331,7 +331,7 @@
     </ul>
   </div>
 
-  {% if program.has_related %}
+  {% if program.related|length %}
   <hgroup>
   <br class="clear"/>
   <a name="related"></a>
