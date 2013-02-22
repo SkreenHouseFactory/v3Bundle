@@ -22,7 +22,8 @@ class ContentController extends Controller
 		private function blockDomain(Request $request) {
       if ($this->get('kernel')->getEnvironment() == 'prod' && 
           !strstr($request->getHost(), 'www.') && 
-          !strstr($request->getHost(), 'preprod.')) {
+          !strstr($request->getHost(), 'preprod.') && 
+          !strstr($request->getHost(), '.typhon.net')) {
         throw $this->createNotFoundException('Page does not exist');
       }
 		}

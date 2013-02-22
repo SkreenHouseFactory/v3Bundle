@@ -1,4 +1,4 @@
-{% set base_url = app.environment == 'prod' and 'preprod' not in app.request.schemeAndHttpHost  ? 'http://www.myskreen.com' : '' %}
+{% set base_url = app.environment == 'prod' and 'preprod' not in app.request.httpHost  ? 'http://www.myskreen.com' : '' %}
 {% if p is not defined %}
 {% set p = {title:'%title%',
             id:'%id%',
