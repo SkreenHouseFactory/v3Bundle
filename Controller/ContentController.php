@@ -127,8 +127,16 @@ class ContentController extends Controller
 					}
 				}
         //add other episodes offers
+				//$datas->offers = array_merge_recursive($datas->offers, (array)$datas->episodeof->offers);
+				// ==> pas suffisant : il faut éviter la répetition lorsque l'on est sur un épisode
 				if (isset($datas->episodeof->offers)) {
-					$datas->offers = array_merge_recursive($datas->offers, (array)$datas->episodeof->offers);
+					foreach ($datas->episodeof->offers as $key => $offers) {
+						foreach ($offers as $offer) {
+							if (isset($offer->episode_id) && $offer->episode_id != $datas->id) {
+								$datas->offers[$key][] = $offer;
+							}
+						}
+					}
 				}
         //theaters     
         if (!$datas->offers['theaters'] && !$datas->offers['theaters_on_demand']) {
@@ -141,6 +149,7 @@ class ContentController extends Controller
         }
 
         //load related programs
+				$datas->related = (array)$datas->related;
         /*
 				foreach ($datas->related as $key => $r) {
           $datas->related[$key]->programs = (array)$api->fetch(str_replace('&onglet', '&_onglet', $r->url), array(
