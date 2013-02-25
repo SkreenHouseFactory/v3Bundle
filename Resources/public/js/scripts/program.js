@@ -17,6 +17,7 @@ $(document).ready(function(){
 	  //episodes
 	  $('#program-offers .episode').live('hover', function(event) {
 	    var trigger = $(this);
+			var timeout = null;
 	    if (event.type == 'mouseover' || event.type == 'mouseenter') {
 	      if (!trigger.data('loaded')) {
 	        API.query('GET',
@@ -38,16 +39,26 @@ $(document).ready(function(){
 	                                    (json.year != null ? json.year : '') +
 	                                    '</strong><br/><small>' + json.description + '</small>' + picture + '</p>';
 	                      trigger.attr('data-content', content);
-	                      trigger.popover('show');
+												clearTimeout(timeout);
+	                      timeout = setTimeout(function() {
+													$('.popover').hide();
+													trigger.popover('show');
+												}, 1000);
 	                    } else {
 	                      trigger.attr('data-content', '');
 	                    }
 	                  });
 	      } else if (trigger.attr('data-content')) {
-	        $('.popover:visible').hide();
-	        trigger.popover('show');
+					clearTimeout(timeout);
+	        timeout = setTimeout(function() {
+						$('.popover').hide();
+						trigger.popover('show');
+					}, 1000);
 	      }
 	    } else {
+				if (timeout) {
+					clearTimeout(timeout);
+				}
 	      trigger.popover('hide');
 	    }
 	  });
