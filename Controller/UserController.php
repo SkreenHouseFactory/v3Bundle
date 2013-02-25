@@ -32,7 +32,7 @@ class UserController extends Controller
         $errorList = $this->get('validator')->validateValue($request->request->get('email'), $emailConstraint);
         
         if (count($errorList) == 0) {
-          $api = new ApiManager($this->container->getParameter('kernel.environment'));
+          $api = $this->get('api');
           $unsubscribed = $api->fetch('user/blacklist',
                                       array('email' => $request->request->get('email'),
                                             'notifications' => $request->get('notifications')),
@@ -63,7 +63,7 @@ class UserController extends Controller
         return $this->redirect('http://www.myskreen.com');
       }
 
-      $api = new ApiManager($this->container->getParameter('kernel.environment'));
+			$api = $this->get('api');
       $userDatas = $api->fetch('session/settings/'.$session_uid);
       if (isset($userDatas->error)) {
         return $this->redirect('http://www.myskreen.com');
@@ -89,7 +89,7 @@ class UserController extends Controller
         return $this->redirect('http://www.myskreen.com');
       }
 
-      $api = new ApiManager($this->container->getParameter('kernel.environment'));
+			$api = $this->get('api');
       $programs = $api->fetch('www/slider/queue/' . $session_uid, 
                                array('img_width'  => 150,
                                      'img_height' => 200,
@@ -136,7 +136,7 @@ class UserController extends Controller
         return $this->redirect('http://www.myskreen.com');
       }
 
-      $api = new ApiManager($this->container->getParameter('kernel.environment'));
+			$api = $this->get('api');
       $vods = $api->fetch('www/slider/vod/' . $session_uid, 
 	                         array('img_height' => 100,
 	                               'offset'     => 0,

@@ -49,7 +49,7 @@ class PlayerController extends Controller
     */
     public function liveAction(Request $request)
     {
-      $api = new ApiManager();
+			$api = $this->get('api');
       $channels = $api->fetch('channel', array('type' => 'broadcast', 
                                                'with_live' => true, 
                                                'player' => 'flash',

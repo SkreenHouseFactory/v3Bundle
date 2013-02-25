@@ -98,7 +98,7 @@ class MainController extends Controller
         return $this->redirect('/'.$redirect.'/', 301);
       }
 
-      $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+			$api = $this->get('api');
       $datas = $api->fetch('www/home/' . $home, 
                            array('without_footer' => true,
                                  'with_programs' => true,
@@ -129,7 +129,7 @@ class MainController extends Controller
     {
 			$this->blockDomain($request);
       $facets = $request->get('facets') ? $facets : ($request->get('format') ? 'format:' . $request->get('format') : null);
-      $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+			$api = $this->get('api');
       $datas = $api->fetch('search/' .urlencode(str_replace('.', '%2E',  $request->get('q'))), 
                            array('img_width' => 160,
                                  'img_height' => 200,
@@ -154,7 +154,7 @@ class MainController extends Controller
     */
     public function boostAction(Request $request)
     {
-      $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+			$api = $this->get('api');
       $datas = $api->fetch('www/slider/pack/8774489', 
                            array('programs_only' => true));
       //echo $api->url;

@@ -42,7 +42,7 @@ class TimelineController extends Controller
 				break;
 			}
 
-      $api  = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+			$api = $this->get('api');
       $data = $api->fetch('schedule/epg', array(
                           'timestamp' => $timestamp,
                           'with_player' => true,
@@ -77,7 +77,7 @@ class TimelineController extends Controller
     public function addchannelAction(Request $request)
     {
       $channels = null;
-      $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
+      $api = $this->get('api');
       $channels = $api->fetch('channel', array(
                     'type' => 'broadcast',
                     'q' => $request->get('q')

@@ -28,7 +28,7 @@ class CinemaController extends Controller
       $alpha       = $request->get('alpha', 'a');
       
       //programs
-      $api = new ApiManager($this->container->getParameter('kernel.environment'));
+			$api = $this->get('api');
       $programs = $api->fetch('program', 
                                array('img_width'  => 150,
                                      'img_height' => 200,
@@ -60,7 +60,7 @@ class CinemaController extends Controller
         throw $this->createNotFoundException('Program id is missing');
       }
       $cinemas = null;
-      $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
+			$api = $this->get('api');
       if ($request->get('q') || $request->get('theater_ids')) {
         $cinemas = $api->fetch('schedule/cine', array(
                       'program_id' => $request->get('id'),
@@ -101,7 +101,7 @@ class CinemaController extends Controller
     public function searchAction(Request $request)
     {
       $cinemas = null;
-      $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json');
+			$api = $this->get('api');
       if ($request->get('q')) {
         $cinemas = $api->fetch('channel', array(
                       'type' => 'cinema',
