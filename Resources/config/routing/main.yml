@@ -139,7 +139,7 @@ person_page:
     pattern:  /{type}/{id}-{slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
-        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise
+        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier
         id: \d+
         slug: "[^/]+"
         page: \d+
@@ -147,7 +147,7 @@ person:
     pattern:  /{type}/{id}-{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
-        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise
+        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier
         id: \d+
         slug: "[^/]+"
 
