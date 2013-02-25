@@ -1,6 +1,6 @@
 // -- program
 $(document).ready(function(){
-	if ($('#view-program').length) {
+	if ($('#view-settings').length) {
 
 		// Affichage de l'onglet correct sur la page settings
 		var url = document.location.toString();
