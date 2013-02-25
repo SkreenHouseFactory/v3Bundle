@@ -45,8 +45,16 @@ class SitemapController extends Controller
       if (isset($datas->error) && $datas->error) {
         throw $this->createNotFoundException('Sitemap error');
       }
+      $alpha_available = array();
+      foreach ($datas as $key => $c) {
+        $datas[$key]->alpha = strtolower(substr($c->name, 0, 1));
+        $alpha_available[] = $datas[$key]->alpha;
+      }
       $response = $this->render('SkreenHouseFactoryV3Bundle:Sitemap:channels.html.twig', array(
-        'channels' => $datas
+        'channels' => $datas,
+        'alpha'    => array(1,2,3,4,5,6,7,8,9,
+                            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'),
+        'alpha_available' => $alpha_available
       ));
 
       $maxage = 600;

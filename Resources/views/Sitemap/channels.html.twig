@@ -1,7 +1,8 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
-{% block title %}{{ 'page.title.sitemap.channels'|trans }}{% endblock %}
-{% block description %}{{ 'page.description.sitemap.channels'|trans }}{% endblock %}
+{% set var = 'page.title.sitemap.channels.' ~ app.request.get('type') %}
+{% block title %}{{ var|trans }}{% endblock %}
+{% block description %}{{ var|trans }}{% endblock %}
 
 
 {% block content %}
