@@ -23,6 +23,13 @@ page:
             settings: Vos préférences
             programs: Vos programmes
             vod: Vos playlists : vidéo à la demande
+        sitemap:
+            channels:
+                broadcast: Chaines TV & Replay
+                webcast: Web contents en streaming
+                cinema: Salles de cinéma
+                dvd: DVDs en ligne
+                box: Box en ligne
         error: Page introuvable
         redirect: Redirection en cours ...
     description:
@@ -38,6 +45,13 @@ page:
             emissions: Emissions : regardez vos émissions préférées en Replay.
             spectacles: Théatre, concerts, spectacles : des milliers de vidéos en un clic !
         search: Recherche : %p% : VOD, Replay, DVD, Cinéma. Retrouvez TOUTES les diffusions des programmes que vous aimez !
+        sitemap:
+            channels:
+                broadcast: Tnt, Satellite, Cable : toutes vos chaînes sont en Replay sur mySkreen
+                webcast: Web séries, émissions sur le Web en streaming
+                cinema: Tous les horaires de cinéma sont sur mySkreen
+                dvd: Tous les Dvds sont sur mySkreen
+                box: Toutes les offres VOD des Box sont sur mySkreen
         error: Utilisez le moteur de recherche pour trouver votre contenu.
 form:
     error:
