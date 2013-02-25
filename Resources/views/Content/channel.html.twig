@@ -14,7 +14,7 @@
 <meta name="object_type" content="channel" />
 {% endblock %}
 {% block title %}
-{{ 'page.title.channel'|trans({name: channel.name, access: channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
+{{ 'page.title.channel'|trans({'%name%': channel.name, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
 {%- if app.request.get('format') %}, {{ app.request.get('format') }}{% endif -%}
 {%- if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif -%}
 {%- if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif -%}
