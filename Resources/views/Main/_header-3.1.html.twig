@@ -7,14 +7,14 @@
 				<ul class="nav pull-right">
   				<li class="divider-vertical"></li>
 					{# user off #}
-			    <li class="user-off">
+			    <li class="btn-primary user-off">
 			      <a class="auth" href="#"><i class="sprite-user"></i> {{ 'nav.menu.account.off'|trans }}</a>
 			    </li>
-			    <li class="user-off">
+			    <li class="btn-primary btn-last user-off">
 			      <a data-toggle="collapse" data-target="#top-playlist" class="btn-last notifications" href="#">{{ 'playlist.yours'|trans }}</a>
 			    </li>
 					{# user on #}
-			    <li class="hide user-on dropdown">
+			    <li class="btn-primary hide user-on dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle tv-component user" href="#"><i class="icon-user icon-white"></i></a>
 			      <ul class="dropdown-menu">
 			   			<li class="share">
@@ -33,10 +33,10 @@
 			        <li><a class="signout" href="#"><i class="icon-remove"></i> {{ 'signout'|trans }}</a></li>
 			      </ul>
 			    </li>
-					<li class="hide user-on dropdown">
+					<li class="btn-primary hide user-on dropdown">
 					  <a data-toggle="collapse" data-target="#top-playlist" class="tv-component" href="#">{{ 'playlist.yours'|trans }}</a>
 					</li>
-					<li class="hide user-on dropdown notifications">
+					<li class="btn-primary btn-last hide user-on dropdown notifications">
 					  <a data-toggle="dropdown" class="dropdown-toggle tv-component btn-last notifications-count" href="#"></a>
 					  <ul class="dropdown-menu">
 					    <div class="scroll"><li class="empty"><h6>{{ 'notifications.empty.title'|trans }}<small>{{ 'notifications.empty.text'|trans }}</small></h6></li></div>
