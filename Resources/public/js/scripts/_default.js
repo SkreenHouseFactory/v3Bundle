@@ -134,14 +134,14 @@ $(document).ready(function(){
   // -- ui playlist
   $('#top-playlist').on('show', function () {
     console.log('script', '#top-playlist on show');
-		$('body #main').animate({paddingTop: 480}, function(){
+		$('body:not(.view-homes) #main').animate({paddingTop: 480}, function(){
     	$('body').addClass('playlist-in');
 		})
     API.postMessage(['header', 'add_playlist']);
   });
   $('#top-playlist').on('hide', function () {
     console.log('script', '#top-playlist on hide');
-		$('body #main').animate({paddingTop: 80}, function(){
+		$('body:not(.view-homes) #main').animate({paddingTop: 80}, function(){
     	$('body').removeClass('playlist-in');
 		})
     API.postMessage(['header', 'remove_playlist']);

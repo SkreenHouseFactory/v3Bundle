@@ -37,26 +37,27 @@ class ContentController extends Controller
 			$api = $this->get('api');
 
       //API lastmodified
-      $datas = $api->fetch('status/cache/program/' . $request->get('id'));
+      //$datas = $api->fetch('status/cache/program/' . $request->get('id'));
       //echo $api->url;
-      if (isset($datas->error) && $datas->error) {
-        throw $this->createNotFoundException('Programme does not exist');
-      }
-      $cache_date = new \DateTime($datas->updated_at);
+      //if (isset($datas->error) && $datas->error) {
+      //  throw $this->createNotFoundException('Programme does not exist');
+      //}
+      //$cache_date = new \DateTime($datas->updated_at);
 
       //cache
       $cache_maxage = 600;
-      $cache_etag = md5('program-' . $request->get('id') . '-'. $datas->updated_at);
+      //$cache_etag = md5('program-' . $request->get('id') . '-'. $datas->updated_at);
 
       // Créer un objet Response avec un en-tête ETag
       // et/ou un en-tête Last-Modified
       $response = new Response();
-      $response->setETag($cache_etag);
-      $response->setLastModified($cache_date);
+      //$response->setETag($cache_etag);
+      //$response->setLastModified($cache_date);
 
       // Vérifier que l'objet Response n'est pas modifié
       // pour un objet Request donné
-      if ($this->get('kernel')->getEnvironment() != 'dev' && 
+      if (false &&
+					 $this->get('kernel')->getEnvironment() != 'dev' && 
           $response->isNotModified($request)) {
           // Retourner immédiatement un objet 304 Response
           mail('benoit@myskreen.com', 
@@ -193,8 +194,8 @@ class ContentController extends Controller
       }
 
       $response->setCache(array(
-          'etag'          => $cache_etag,
-          'last_modified' => $cache_date,
+          //'etag'          => $cache_etag,
+          //'last_modified' => $cache_date,
           'max_age'       => $cache_maxage,
           's_maxage'      => $cache_maxage,
           'public'        => true,
