@@ -65,7 +65,7 @@
   </div>
 	</article>
 	<header>
-  <nav><div id="header">{% include 'SkreenHouseFactoryV3Bundle:Main:_header' ~ (app.environment == 'dev' ? '-3.1' : '') ~ '.html.twig' %}</div></nav>
+  <nav><div id="header">{% include 'SkreenHouseFactoryV3Bundle:Main:_header-3.1.html.twig' %}</div></nav>
 	</header>
   <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
     <div class="container">
@@ -95,6 +95,7 @@
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
     '@SkreenHouseFactoryTvBundle/Resources/public/js/couchmode.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/playlists.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/cinema.js'
