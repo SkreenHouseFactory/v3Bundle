@@ -12,11 +12,7 @@ UI = {
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
   init: function(callback) {
     var self = this;
-    this.playlist = new BaseSlider({
-                                    programs: []
-                                   },
-                                   function() {},
-                                   $('#playlist'));
+    this.playlist = new BaseSlider({ programs: [] }, function() {},$('#playlist'));
     console.log('UI.init', 'this.playlist', this.playlist);
 
     //ios
@@ -305,11 +301,11 @@ UI = {
   loadNotifications: function(notifications) {
     //console.log('UI.loadNotifications', notifications);
     var nb = notifications.length == this.max_notifications ? notifications.length + ' +' : notifications.length;
-    $('#top-bar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
+    $('.navbar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
     if (notifications.length == 0) {
-        $('#top-bar .notifications-count .badge-important').removeClass('badge-important');
+        $('.navbar .notifications-count .badge-important').removeClass('badge-important');
     } else {
-      var list = $('#top-bar .notifications ul div');
+      var list = $('.navbar .notifications ul div');
       list.find('li.empty').hide();
       list.find('li:not(.empty)').remove();
       var nb_new = 0;
@@ -324,9 +320,9 @@ UI = {
       if (nb_new > 0) {
         var nb = nb_new == this.max_notifications ? nb_new + ' +' : nb_new;
         //console.log('UI.loadNotifications', 'new', nb);
-        $('#top-bar .notifications-count .badge').html(nb).addClass('badge-important');
+        $('.navbar .notifications-count .badge').html(nb).addClass('badge-important');
       }
-      $('#top-bar .notifications-count').data('count-new', nb_new);
+      $('.navbar .notifications-count').data('count-new', nb_new);
       $('[rel="tooltip"]', list).tooltip({placement: 'bottom'});
       $('.remove', list).click(function(e){
         e.preventDefault();
@@ -337,10 +333,10 @@ UI = {
         $(this).parent().slideUp('slow').remove();
         
         //count
-        var current = parseInt($('#top-bar .notifications-count .badge').html()) - 1;
-        $('#top-bar .notifications-count .badge').html(parseInt(current) > 0 ? current : 0);
+        var current = parseInt($('.navbar .notifications-count .badge').html()) - 1;
+        $('.navbar .notifications-count .badge').html(parseInt(current) > 0 ? current : 0);
         if (current == 0) {
-          $('#top-bar .notifications li.empty').show();
+          $('.navbar .notifications li.empty').show();
         }
 
         return false;
@@ -533,24 +529,26 @@ UI = {
           $.extend(self.playlist.params.args, {friends_uids: friends_uids}); //, api_method: 'POST'
         })
       }
-      this.playlist.loadRemotePrograms(0,
-                                       function(slider){
-                                          var nb_programs = slider.data('nb-programs');
-                                          console.log('UI.loadPlaylist', 'callback', Skhf.session.access, 'cookie:' + API.cookie('playlist_collapsed'), 'isHome:' + API.isHome(), slider);
+      this.playlist.loadRemotePrograms(
+				0,
+				function(slider){
+				  var nb_programs = slider.data('nb-programs');
+				  console.log('UI.loadPlaylist', 'callback', Skhf.session.access, 'cookie:' + API.cookie('playlist_collapsed'), 'isHome:' + API.isHome(), slider);
                                         
-                                          if (Skhf.session.access) {
-                                            var name = $('li#' + Skhf.session.access, slider.elmt).data('name');
-                                            if (typeof name != 'undefined') {
-                                              $('#top-playlist .breadcrumb li:nth-child(2)').html(name);
-                                            }
-                                          }
-                                          $('li.selector', slider.elmt).hide();
-                                          //if ((Skhf.session.access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
-                                          //    API.isHome() == true) {
-                                          //  $('#top-playlist').collapse('show');
-                                          //}
-                                       },
-                                       args);
+				  if (Skhf.session.access) {
+				    var name = $('li#' + Skhf.session.access, slider.elmt).data('name');
+				    if (typeof name != 'undefined') {
+				      $('#top-playlist .breadcrumb li:nth-child(2)').html(name);
+				    }
+				  }
+				  $('li.selector', slider.elmt).hide();
+				  //if ((Skhf.session.access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
+				  //    API.isHome() == true) {
+				  //  $('#top-playlist').collapse('show');
+				  //}
+				},
+				args
+			);
     }
   },
   unloadPlaylist: function(onglet, callback) {

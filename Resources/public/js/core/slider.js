@@ -224,7 +224,7 @@ var BaseSlider = Class.extend({
       $('li:not(.static)', this.elmt).remove();
     }
 
-    var args = $.extend(args, {img_wh: API.config.slider.width, 
+    var args = $.extend(args, {img_width: API.config.slider.width, 
                                img_height: API.config.slider.height, 
                                url: ''}, this.params.args); //overwrite url params
     var url = this.getUrl(typeof offset != 'undefined' ? offset : 0);

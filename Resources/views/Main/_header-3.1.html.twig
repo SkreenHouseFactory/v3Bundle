@@ -1,0 +1,59 @@
+{% if app.environment == 'prod' %}{% set header_base = 'http://www.myskreen.com' %}{% else %}{% set header_base = '' %}{% endif %}
+<div class="navbar-wrapper">
+  <div class="container">
+    <div class="navbar navbar-inverse">
+      <div class="navbar-inner">
+        <a class="brand" href="#"><img src="http://mskstatic.com/150/medias/logo_black_nobaseline.png" alt="mySkreen.com"/></a>
+				<ul class="nav pull-right">
+  				<li class="divider-vertical"></li>
+					{# user off #}
+			    <li class="user-off">
+			      <a class="auth" href="#"><i class="sprite-user"></i> {{ 'nav.menu.account.off'|trans }}</a>
+			    </li>
+			    <li class="user-off">
+			      <a data-toggle="collapse" data-target="#top-playlist" class="btn-last notifications" href="#">{{ 'playlist.yours'|trans }}</a>
+			    </li>
+					{# user on #}
+			    <li class="hide user-on dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle tv-component user" href="#"><i class="icon-user icon-white"></i></a>
+			      <ul class="dropdown-menu">
+			   			<li class="share">
+				        <a href="#" class="text share-off" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook" data-modal-message="... et suivez ce que regardent vos amis !">Facebook : activer le partage</a>
+				        <a href="#" class="text share-on hide">
+									<span class="btn-group" data-toggle="buttons-radio">
+					          <span class="btn btn-small btn-primary" data-share="allow">{{ 'yes'|trans }}</span>
+					          <span class="btn btn-small" data-share="disallow">{{ 'no'|trans }}</span>
+									</span>&nbsp;Partage Facebook
+				        </a>
+				      </li>
+					  	<li><a class="favoris" href="{{ path('user_programs') }}" target="_top"><i class="icon-list"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
+					  	<li><a class="vod" href="{{ path('user_vod') }}" target="_top"><i class="icon-film"></i> {{ 'nav.vod'|trans }}</a></li>
+			        <li><a class="account" href="{{ path('user_settings') }}" target="_top"><i class="icon-user"></i> {{ 'nav.account'|trans }}</a></li>
+			        <li class="divider"></li>
+			        <li><a class="signout" href="#"><i class="icon-remove"></i> {{ 'signout'|trans }}</a></li>
+			      </ul>
+			    </li>
+					<li class="hide user-on dropdown">
+					  <a data-toggle="collapse" data-target="#top-playlist" class="tv-component" href="#">{{ 'playlist.yours'|trans }} <b class="caret"></b></a>
+					</li>
+					<li class="hide user-on dropdown notifications">
+					  <a data-toggle="dropdown" class="dropdown-toggle tv-component btn-last notifications-count" href="#"></a>
+					  <ul class="dropdown-menu">
+					    <div class="scroll"><li class="empty"><h6>{{ 'notifications.empty.title'|trans }}<small>{{ 'notifications.empty.text'|trans }}</small></h6></li></div>
+					  </ul>
+					</li>
+				</ul>
+        <ul class="nav pull-left">
+  				<li class="divider-vertical"></li>
+					<li class="{{ app.request.get('home') == 'tv-replay' ? 'active' : '' }}"><a href="{{ header_base }}{{ path('homes', {home: 'tv-replay'}) }}" target="_top">{{ 'nav.subnav.tv'|trans }}</a></li>
+					<li class="{{ app.request.get('home') == 'video-a-la-demande' ? 'active' : '' }}"><a href="{{ header_base }}{{ path('homes', {home: 'video-a-la-demande'}) }}" target="_top">{{ 'nav.subnav.vod'|trans }}</a></li>
+					<li class="{{ app.request.get('home') == 'cinema' ? 'active' : '' }}"><a href="{{ header_base }}{{ path('homes', {home: 'cinema'}) }}" target="_top">{{ 'nav.subnav.cine'|trans }}</a></li>
+			  <form class="navbar-search">
+			  {#<i class="icon-search icon-white"></i>#}
+			  <input type="text" value="{{ app.request.get('q') }}" class="search-query pull-left span4" placeholder="{{ 'search.pitch'|trans }}">
+			  </form>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

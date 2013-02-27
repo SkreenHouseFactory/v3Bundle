@@ -1,43 +1,62 @@
 /* homes */
+body.view-homes {
+	#main {
+ 		padding: 0;
+	}
+}
 #view-home {
-  .main-slider {
-    h1 {
-      padding: 0 20%;
-      position: absolute;
-      opacity: 0.6;
-      font-style: italic;
-    }
-    .lead {
-      padding: 0 20%;
-      position: absolute;
-      font-size: 1.0em;
-      line-height: 1.5em;
-      margin-top: 50px;
-      text-align: justify;
-      /*word-spacing: 200px;*/
-      font-style: italic;
-      opacity: 0.6;
-    }
-    .carousel-container {
-      text-align: center;
-      background: black;
-      
-      .carousel {
-        text-align: left;
-        height: 300px;
-        width: 990px;
-        margin: 0 auto 20px;
-        background: black;
-        
-        .item {
-          text-align: center;
-          
-          .carousel-caption {
-            text-align: left;
-            background: rgba(0, 0, 0, 0.55);
-          }
-        }
-      }
-    }
-  }
+
+   .carousel {
+     margin-bottom: 10px;
+
+	   .carousel-control {
+	     height: 80px;
+	     margin-top: 0;
+	     font-size: 120px;
+	     text-shadow: 0 1px 1px rgba(0,0,0,.4);
+	     background-color: transparent;
+	     border: 0;
+	     z-index: 1;
+	   }
+
+	   .item {
+	     height: 500px;
+			 border: 0px solid transparent;
+
+		   img {
+		     position: absolute;
+		     top: 0;
+		     left: 0;
+		     min-width: 100%;
+		     height: 500px;
+		   }
+			 .container {
+		     position: relative;
+		     z-index: 0;
+
+			   .carousel-caption {
+			     position: static;
+			     max-width: 550px;
+			     padding: 10px 20px;
+			     margin-top: 300px;
+					 border-radius: 5px;
+					 background: rgba(0,0,0,0.2);
+			     /*background-color: transparent;*/
+
+				   h4 {
+						 font-size: 2.5em;
+				   }
+				   h4, .lead {
+				     margin: 0;
+				     line-height: 1.25;
+				     color: #fff;
+				     text-shadow: 0 1px 1px rgba(0,0,0,.4);
+				   }
+				   .btn {
+				     margin-top: 10px;
+				   }
+			   }
+		   }
+   	 }
+	 }
 }

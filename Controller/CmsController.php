@@ -22,6 +22,18 @@ class CmsController extends Controller
     /**
     *
     */
+    public function defaultAction(Request $request)
+    {
+			if (!$request->get('template')) {
+        throw $this->createNotFoundException('Page does not exist');
+			}
+      return $this->render('SkreenHouseFactoryV3Bundle:Cms:' . $request->get('template') . '.html.twig', array(
+      ));
+		}
+
+    /**
+    *
+    */
     public function coconAction(Request $request)
     {
 			$api = $this->get('api');

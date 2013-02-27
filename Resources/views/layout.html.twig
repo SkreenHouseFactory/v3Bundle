@@ -49,7 +49,7 @@
   {% endstylesheets %}
 </head>
 {% endspaceless %}
-<body>
+<body class="view-{{ app.request.attributes.get('_route') }}">
 {% spaceless %}
 <!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
 	<article>
@@ -65,7 +65,7 @@
   </div>
 	</article>
 	<header>
-  <nav><div id="header">{% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' %}</div></nav>
+  <nav><div id="header">{% include 'SkreenHouseFactoryV3Bundle:Main:_header' ~ (app.environment == 'dev' ? '-3.1' : '') ~ '.html.twig' %}</div></nav>
 	</header>
   <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
     <div class="container">

@@ -381,7 +381,7 @@
       </p>
       <p>
         {% if program.categories|length %}
-          Catégories : {% for c in program.categories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
+          Catégories : {% for c in program.categories if c.seo_url is defined %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
           <br/>
         {% endif %}
         {% if program.subcategories|length %}

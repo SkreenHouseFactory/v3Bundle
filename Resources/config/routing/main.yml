@@ -139,7 +139,7 @@ person_page:
     pattern:  /{type}/{id}-{slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
-        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier
+        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier|chanteur-lyrique|chef-monteur|chef-maquilleur|assistant-realisateur
         id: \d+
         slug: "[^/]+"
         page: \d+
@@ -147,10 +147,9 @@ person:
     pattern:  /{type}/{id}-{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
-        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier
+        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier|chanteur-lyrique|chef-monteur|chef-maquilleur|assistant-realisateur
         id: \d+
         slug: "[^/]+"
-
 # deprecated channel : before program !
 channel_replay:
     pattern:  /replay/{id}-{slug}/
@@ -314,6 +313,10 @@ format:
     requirements:
         category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
 
+#cms
+partenaires:
+    pattern:  /partenaires/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:default, template: partners }
 
 #cocons : before channel, important !
 cocon_tv:
@@ -367,6 +370,8 @@ cocon_replay:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon }
     requirements:
         cocon: tf1|france-2|france-3|m6|w9
+
+
 
 #hack url generation
 any_url:
