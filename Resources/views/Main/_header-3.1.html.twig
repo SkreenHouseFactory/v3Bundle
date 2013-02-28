@@ -10,6 +10,9 @@
 			    <li class="btn-primary user-off">
 			      <a class="auth" href="#"><i class="icon-user icon-white{#sprite-user#}"></i> {{ 'nav.menu.account.off'|trans }}</a>
 			    </li>
+					<li class="btn-primary btn-last user-off dropdown">
+					  <a data-toggle="collapse" data-target="#top-playlist" class="tv-component" href="#"><i class="icon-th-list icon-white"></i> {{ 'playlist.yours'|trans }}</a>
+					</li>
 					{# user on #}
 			    <li class="btn-primary hide user-on dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle tv-component user" href="#"><i class="icon-user icon-white"></i></a>
@@ -30,7 +33,7 @@
 			        <li><a class="signout" href="#"><i class="icon-remove"></i> {{ 'signout'|trans }}</a></li>
 			      </ul>
 			    </li>
-					<li class="btn-primary dropdown">
+					<li class="btn-primary hide user-on dropdown">
 					  <a data-toggle="collapse" data-target="#top-playlist" class="tv-component" href="#"><i class="icon-th-list icon-white"></i> {{ 'playlist.yours'|trans }}</a>
 					</li>
 					<li class="btn-primary btn-last hide user-on dropdown notifications">
