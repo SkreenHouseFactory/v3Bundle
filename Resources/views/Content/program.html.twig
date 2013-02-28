@@ -127,7 +127,7 @@
                 <tr><td colspan="6"><h6>Autres épisodes</h6></td></tr>
                 {% set other_episodes = 'ok' %}
               {% endif %}
-              <tr data-id="{{ o.id }}"{% if o.url is defined and o.url %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %}>
+              <tr data-id="{{ o.id }}"{% if o.url is defined and o.url %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} itemscope itemtype="http://data-vocabulary.org/Event">
                 <td class="notif"><span class="badge">0</span></td>
                 <td class="icon">
                   <span>
@@ -138,22 +138,32 @@
                   </span>
                 </td>
                 <td class="channel">
-                  <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
+									<meta itemprop="url" content="{{ o.url }}" />
+									<meta itemprop="eventType" content="{{ program.title }} diffusé sur {{ o_channel.name }}"/>
+									<span itemprop="location" itemscope itemtype="http://data-vocabulary.org/Organization">
+										<meta itemprop="name" content="{{ o_channel.name }}"/>
+										<span itemprop="address" itemscope itemtype="http://data-vocabulary.org/Address">
+							         <meta itemprop="locality" content="{{ o_channel.seo_url }}"/>
+							     </span>
+									</span>
+                  <img itemprop="photo" src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
                 </td>
-                <td class="price big">
+                <td class="price big" itemprop="ticketAggregate" itemscope itemtype="http://data-vocabulary.org/Offer-aggregate">
+								  <meta itemprop="currency" content="EUR" /> 
+								  <meta itemprop="offerurl" content="{{ program.seo_url }}" />
                   {% if o.cost is defined %}
-                    {% if o.cost > 0 %}{{ o.cost|number_format(2, ',') }}&euro;
+                    {% if o.cost > 0 %}<span itemprop="lowPrice">{{ o.cost|number_format(2, ',') }}&euro;</span>
                     {#% elseif o_access.is_achat or o_access.is_location %}- &euro;#}
                     {% endif %}
                   {% endif %}
                 </td>
                 <td class="access">
                   {% if o_access.name in ['Live', 'TV'] %}
-                    <span class="big">{{ o.broadcastdate }}</span>
+                    <span class="big"><time itemprop="startDate" datetime="{{ o.broadcastdate }}">{{ o.broadcastdate }}</time></span>
                   {% else %}
                       <span class="big">{{ o_access.name|replace({' iTunes': ''}) }}</span>
                     {% if o.broadcastdate is defined %}
-                      {{ o.broadcastdate }}{#{ o.broadcastdate|localizeddate('full', 'none') }#}
+                      <time itemprop="startDate" datetime="{{ o.broadcastdate }}">{{ o.broadcastdate }}</time>{#{ o.broadcastdate|localizeddate('full', 'none') }#}
                     {% endif %}
                   {% endif %}
                   {% if o.replay_remaining is defined and o.replay_remaining %}
@@ -173,7 +183,7 @@
                   {% endif %}
                 </td>
                 {% if o_episode %}
-                <td class="episode" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left">
+                <td class="episode" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left" itemprop="summary">
 									{% if o_episode.title %}
                   {{ o_episode.title }}<br/>
 									{% endif %}
