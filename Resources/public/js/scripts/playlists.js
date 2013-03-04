@@ -7,7 +7,7 @@ $(document).ready(function(){
 	  return false;
 	});
 	// -- .fav : retirer / popover
-	$('.actions .fav:not(.fav-remove)').live('hover', function(event) {
+	$('.actions .fav:not(.fav-trash)').live('hover', function(event) {
 	  //console.log('script', '.fav:hover', event.type);
 	  var trigger = $(this);
 	  if (event.type == 'mouseover' || event.type == 'mouseenter') {

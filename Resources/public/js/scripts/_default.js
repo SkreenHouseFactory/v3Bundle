@@ -26,7 +26,7 @@ $(document).ready(function(){
     Skhf.session = new Session(function(){
       console.log('script', 'Session.init', 'callback');
 
-			/* pages */
+			/* pages : TODO > move into dedicated page script file. exple : scripts/program.js */
 			//theater playlist
 			if ($('#program-offers #trigger-theaters-playlist').length){
 				$('#program-offers #trigger-theaters-playlist').trigger('click');
@@ -134,8 +134,17 @@ $(document).ready(function(){
   // -- ui playlist
   $('#top-playlist').on('show', function () {
     console.log('script', '#top-playlist on show');
-    $('.nav li.open').removeClass('open');
+		$('body:not(.view-homes) #main').animate({paddingTop: 480}, function(){
+    	$('body').addClass('playlist-in');
+		})
     API.postMessage(['header', 'add_playlist']);
+  });
+  $('#top-playlist').on('hide', function () {
+    console.log('script', '#top-playlist on hide');
+		$('body:not(.view-homes) #main').animate({paddingTop: 80}, function(){
+    	$('body').removeClass('playlist-in');
+		})
+    API.postMessage(['header', 'remove_playlist']);
   });
   $('#top-playlist .breadcrumb li:first').live('click', function(){
     Skhf.session.initSelector();
@@ -159,206 +168,6 @@ $(document).ready(function(){
       $('#top-playlist').collapse('hide');
     }
   });
-
-  // -- ui link/url
-  $('a[data="url"]').live('click', function(e){
-    e.preventDefault();
-    console.log('ui link/url', 'a[data="url"]');
-    API.linkV2($(this).data('url'));
-    return false;
-  });
-  $('a.link-v2').live('click', function(e){
-    console.log('ui link/url', 'linkV2');
-    e.preventDefault();
-    API.linkV2($(this).attr('href'), $(this).hasClass('link-force'));
-    return false;
-  });
-  $('a.javascript-v2').live('click', function(e){
-    console.log('ui link/url', 'javascriptV2');
-    e.preventDefault();
-    API.javascriptV2($(this).attr('href').replace('javascript://',''));
-    return false;
-  });
-  $('a[data-modal]').live('click', function(e){
-    e.preventDefault();
-    console.log('script', 'a[data-modal]', $(this).data('modal'), 'click');
-
-    if ($(this).data('modal') == 'remote') {
-      UI.appendLoader($('.modal .modal-body'), 1000);
-      $('.modal .modal-header h3').html($(this).data('modal-title'));
-      $('.modal .modal-body').load($(this).attr('href'));
-      $('.modal').modal('show');
-    } else {
-			API.quickLaunchModal($(this).data('modal'));
-			if ($(this).data('modal') == 'card') { //TODO : use UI.callbackModal
-  			$('.modal').on('hidden',function(e) {
-  			 e.preventDefault();
-  				var url = document.location.toString();
-  				if (url.match('#')) {
-  					url = url.split("#")[0];
-  				}
-//	    API.linkV2(url + "#payment");
-  		   	API.linkV2(url);
-  		   	return false;
-  			});
-			}
-    }
-    return false;
-  });
-
-  // -- ui form
-  $('[data-form="catch"]').each(function(){
-    var form = $(this);
-    API.catchForm(form, function(json){
-      //callback
-      console.log('ui form catched', form);
-			// Modification préférences utilisateur
-			if (form.attr('name') == 'user_settings_profile_form') {
-				if ((typeof(json) != 'undefined') && (typeof(json.success) != 'undefined')) {
-//					console.log("la value",$('input[name="update_mail"]').attr('value'));
-					$('.username').html($('input[name="update_mail"]',form).attr('value'));
-				}
-			} else if (form.attr('name') == 'user_settings_password_form') {
-			}
-    });
-  });
-
-  // -- ui modal
-  $('.modal').on('show', function(){
-    $('.popover:visible').popover('hide');
-    Player.pause();
-    carousels = $('.carousel');
-    if (carousels.length > 0) {
-      carousels.each(function(){
-        $(this).carousel('pause');
-      });  
-    }
-  });
-  $('.modal').on('hidden', function(){
-    $('.popover:visible').popover('hide');
-    $('.modal .modal-body').empty();
-    
-    //hack addtofavorite fb + callback modal
-    if (UI.callbackModal) {
-      UI.callbackModal();
-      UI.callbackModal = null;
-    }
-    //TODO : Player.play();
-    carousels = $('.carousel');
-    if (carousels.length > 0) {
-      carousels.each(function(){
-        $(this).carousel('cycle');
-      });
-    }
-  });
-
-  // -- ui actions : play
-  $('.slider li:not(.selector)').live('click', function(e){
-    console.log('script', '.slider li:not(.selector)', $('a.title', this));
-    document.location = API.config.v3_root + $('a.title', this).attr('href');
-    return false;
-  });
-  /*
-    if ($(this).parent().parent().find('.badge')) {
-      API.markAsRed($(this).parent().data('id'));
-    }
-  });
-  */
-
-  // -- carousel autoload
-  $('[data-carousel-autoload="1"]').each(function(){
-    console.log('script', 'carousel-autoload', $(this));
-    $(this).carousel({interval: 7000, pause: 'hover'});
-    $(this).data('carousel-loaded', 1);
-  });
-
-  // -- nav-alpha-client
-  $('.pagination-client-alpha li').click(function(){
-    console.log('script', 'nav-alpha-client', '[data-alpha="' + $('a', this).html() + '"]', $('[data-alpha="' + $('a', this).html() + '"]'));
-    if ($('a', this).html().length > 1) {
-      $('[data-alpha]').show();
-    } else {
-      $('[data-alpha]').hide();
-      $('[data-alpha="' + $('a', this).html() + '"]').show();
-    }
-    $('.pagination-client-alpha li').removeClass('active');
-    $(this).addClass('active');
-  });
-
-  // -- popover
-  $('[data-content]').popover();
-
-  // -- tooltip
-  $('[rel="tooltip"]').tooltip();
-
-  // -- btn-radio
-  $('[data-toggle="buttons-radio"] > *').click(function(){
-    $('> *', $(this).parent()).removeClass('active btn-primary');
-    $(this).addClass('active btn-primary');
-  });
-
-  /* TOUCH */
-  if ($('html').hasClass('touch')) {
-    $('html.touch .tv-component, html.touch .tv-component *').live('touchstart', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-
-      $(this).trigger('click');
-      return false;
-    });
-  }
-
-  /* FB */
-  function fbsync() {
-    console.log('script fbsync', 'fetching information...');
-    FB.api('/me', function(response) {
-      console.log('script fbsync', 'success: ' + response.name, response, FB.getAuthResponse());
-      API.query('POST', 'user', {
-                  session_uid: Skhf.session.uid,
-                  fbuid: response.id,
-                  username: response.email,
-                  access_token: FB.getAuthResponse()['accessToken']
-                },
-                function(){
-                  console.log('script fbsync', 'API.query callback');
-                  Skhf.session.sync(function(sessionDatas){
-                    $('.modal').modal('hide');
-                    Skhf.session.signin(sessionDatas, function(){
-                      console.log('script fbsync', 'API.query callback', 'Skhf.session.signin callback', sessionDatas);
-                    });
-                  });
-                });
-    });
-  }
-  function fblogin() {
-    FB.login(function(response) {
-      if (response.authResponse) {
-        // connected
-        $('#fbconnect-infos').html('<span class="alert alert-success nowrap">Connexion réussie! Chargement...</span>');
-        fbsync();
-      } else {
-        // cancelled
-        $('#fbconnect-infos').html('<span class="alert alert-error nowrap">La connexion a échoué !</span>');
-      }
-    },{scope:'user_birthday,user_online_presence,email,read_friendlists,publish_stream,offline_access,friends_birthday,friends_likes,friends_online_presence,publish_actions'});
-  }
-  /* on shown
-  FB.getLoginStatus(function(response) {
-    if (response.status === 'connected') {
-      FB.api('/me', function(response) {
-        console.log('Good to see you, ' + response.name + '.', response);
-        $('#fbconnect-infos').html('<small>(' + response.name + ')</small>');
-      });
-    }
-  });
-  */
-  //trigger
-  $('#fbconnect').live('click', function(){
-    console.log('script', 'trigger FB');
-    fblogin();
-    return false;
-  })
-
 
   /* END */
 

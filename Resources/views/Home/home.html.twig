@@ -33,13 +33,11 @@
 <div id="view-home">
   {% for slider in home.sliders if slider.id is defined %}
     {% if loop.first %}
-      <div class="main-slider">
-      <div class="main-slider-title">
-      <h1>{{ app.request.get('home') }}</h1>
-      {% if keywords is defined %}<p class="lead">{{ keywords }}</p>{% endif %}
+      <div class="absolute">
+	      <h1>{{ app.request.get('home') }}</h1>
+	      {% if keywords is defined %}<p class="lead">{{ keywords }}</p>{% endif %}
       </div>
-      <div class="carousel-container">{% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider} %}</div>
-      </div>
+			{% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider} %}
       {% if app.request.get('home') == 'cinema' %}
       <div class="container well well-small playlist">
       {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}

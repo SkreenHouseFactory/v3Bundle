@@ -23,7 +23,7 @@ $(document).ready(function(){
 	  var args = $.extend({session_uid: Skhf.session.uid}, $(this).data('couchmode'));
 	  console.log('script', 'data-couchmode', $(this).data('couchmode'), args);
 	  Couchmode.init(args);
-    
+
 	  //hack close player
 	  if ($('#couchmode #couchmode-close').length == 0) {
 	    $('#couchmode').prepend('<div id="couchmode-close"><i class="icon-remove icon-white"></i> Fermer</div>');
@@ -51,13 +51,12 @@ $(document).ready(function(){
 	  var trigger = $(this);
 	  console.log('script', 'play autoload', trigger.data('play-autoload'), trigger);
 	  Player.init(trigger, $(trigger.data('play-meta-elmt')));
-	  var args = trigger.data('play-jscontrolbar') ? {control: 'disabled'} : {};
 	  Player.playOccurrence(trigger.data('play-autoload'), function(){
 	    if (trigger.data('play-muted')) {
 	      Player.mute();
 	    }
-	  }, args);
-    
+	  }, trigger.data('play-args'));
+
 	  $(this).data('play-loaded', 1);
 	});
 });

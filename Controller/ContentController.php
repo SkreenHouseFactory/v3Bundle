@@ -19,42 +19,50 @@ use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 
 class ContentController extends Controller
 {
+		private function blockDomain(Request $request) {
+      if ($this->get('kernel')->getEnvironment() == 'prod' && 
+          !strstr($request->getHost(), 'www.') && 
+          !strstr($request->getHost(), 'preprod.') && 
+          !strstr($request->getHost(), '.typhon.net')) {
+        throw $this->createNotFoundException('Page does not exist');
+      }
+		}
 
     /**
     * program
     */
     public function programAction(Request $request)
     {
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+			$this->blockDomain($request);
+			$api = $this->get('api');
 
       //API lastmodified
-      $datas = $api->fetch('cache', array(
-                 'model' => 'Programme',
-                 'id' => $request->get('id')
-               ));
+      //$datas = $api->fetch('status/cache/program/' . $request->get('id'));
       //echo $api->url;
-      if (isset($datas->error) && $datas->error) {
-        throw $this->createNotFoundException('Programme does not exist');
-      }
-      $cache_date = new \DateTime($datas->updated_at);
+      //if (isset($datas->error) && $datas->error) {
+      //  throw $this->createNotFoundException('Programme does not exist');
+      //}
+      //$cache_date = new \DateTime($datas->updated_at);
 
       //cache
       $cache_maxage = 600;
-      $cache_etag = md5('program-' . $request->get('id') . '-'. $datas->updated_at);
+      //$cache_etag = md5('program-' . $request->get('id') . '-'. $datas->updated_at);
 
       // Créer un objet Response avec un en-tête ETag
       // et/ou un en-tête Last-Modified
       $response = new Response();
-      $response->setETag($cache_etag);
-      $response->setLastModified($cache_date);
+      //$response->setETag($cache_etag);
+      //$response->setLastModified($cache_date);
 
       // Vérifier que l'objet Response n'est pas modifié
       // pour un objet Request donné
-      if ($this->get('kernel')->getEnvironment() != 'dev' && 
+      if (false &&
+					 $this->get('kernel')->getEnvironment() != 'dev' && 
           $response->isNotModified($request)) {
           // Retourner immédiatement un objet 304 Response
           mail('benoit@myskreen.com', 
-               '[v3][program isNotModified] program-' . $request->get('id') . '-'. $datas->updated_at, print_r($response, true));
+               '[v3][program isNotModified] program-' . $request->get('id') . '-'. $datas->updated_at,
+							 print_r($response, true));
       } else {
         //$response->expire();
 
@@ -69,8 +77,11 @@ class ContentController extends Controller
                   'with_img' => '245,325',
                   'with_metadata' => true,
                   'with_related' => true,
+									'with_related_programs' => true,
                   'with_offers' => true,
                   'with_teaser' => true,
+                  'with_hashtags' => true,
+                  'with_tweets' => true
                   //'filter_casting' => true,
                   //'player' => 'flash'
                 ));
@@ -99,8 +110,8 @@ class ContentController extends Controller
           return $this->redirect($datas->seo_url, 301);
         }
         // -- post treatments
-        //episodes
         $datas->offers = (array)$datas->offers;
+				//episodes list
         if (!isset($datas->episodeof) && 
             isset($datas->datas_offers->episodes) && count((array)$datas->datas_offers->episodes) > 1) {
           foreach ((array)$datas->datas_offers->episodes as $e) {
@@ -108,8 +119,26 @@ class ContentController extends Controller
           }
           ksort($datas->episode_list);
         }
-        //online
-        $datas->offers['plays'] = array_merge($datas->offers['deportes'], $datas->offers['plays']);
+        //list episode offers
+        $datas->offers_default = null;
+				foreach ($datas->offers as $type => $offers) {
+					if (count($offers) > 0) {
+        		$datas->offers_default = $type;
+						break;
+					}
+				}
+        //add other episodes offers
+				//$datas->offers = array_merge_recursive($datas->offers, (array)$datas->episodeof->offers);
+				// ==> pas suffisant : il faut éviter la répetition lorsque l'on est sur un épisode
+				if (isset($datas->episodeof->offers)) {
+					foreach ($datas->episodeof->offers as $key => $offers) {
+						foreach ($offers as $offer) {
+							if (isset($offer->episode_id) && $offer->episode_id != $datas->id) {
+								$datas->offers[$key][] = $offer;
+							}
+						}
+					}
+				}
         //theaters     
         if (!$datas->offers['theaters'] && !$datas->offers['theaters_on_demand']) {
           $datas->offers['theaters'] = array();
@@ -121,9 +150,9 @@ class ContentController extends Controller
         }
 
         //load related programs
-        $datas->has_related = false;
-        foreach ($datas->related as $key => $r) {
-          //print_r($r);
+				$datas->related = (array)$datas->related;
+        /*
+				foreach ($datas->related as $key => $r) {
           $datas->related[$key]->programs = (array)$api->fetch(str_replace('&onglet', '&_onglet', $r->url), array(
                                                       'img_width' => 150,
                                                       'img_height' => 200,
@@ -137,6 +166,7 @@ class ContentController extends Controller
             //echo "\n name:".$r->name.' : '.end($datas->related[$key]->programs)->id;
           }
         }
+				*/
         
         if (isset($datas->sagas) && count($datas->sagas) > 0) {
           $datas->related = array_merge($datas->sagas, $datas->related);
@@ -164,8 +194,8 @@ class ContentController extends Controller
       }
 
       $response->setCache(array(
-          'etag'          => $cache_etag,
-          'last_modified' => $cache_date,
+          //'etag'          => $cache_etag,
+          //'last_modified' => $cache_date,
           'max_age'       => $cache_maxage,
           's_maxage'      => $cache_maxage,
           'public'        => true,
@@ -180,19 +210,16 @@ class ContentController extends Controller
     */
     public function channelAction(Request $request)
     {
-      if ($this->get('kernel')->getEnvironment() == 'prod' && 
-          !strstr($request->getHost(), 'www.') && 
-          !strstr($request->getHost(), 'preprod.')) {
-        throw $this->createNotFoundException('Home does not exist');
-      }
+			$this->blockDomain($request);
 
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+      $api   = $this->get('api');
       $datas = $api->fetch('channel', array(
                             'from_slug'  => $request->get('slug'),
                             'with_live'  => !$request->get('format') && !$request->get('page') ? true : false,
                             'with_next_live' => !$request->get('format') && !$request->get('page') ? true : false,
                             //'with_prev_live' => true,
                             'with_description'  => true,
+                            'channel_img_width' => 50,
                             'img_width' => 150,
                             'img_height' => 200,
                             'live_img_width' => 300,
@@ -220,14 +247,16 @@ class ContentController extends Controller
           $request->getPathInfo() != $datas->seo_url . 'page-' . $request->get('page') . '/' &&
           $request->getPathInfo() != $datas->seo_url . $request->get('facet') . '/'
           ) {
-        /*
-        echo "\n".'facet: /' . $datas->seo_url . '/' . $request->get('facet') . '/';
-        echo "\n".'format: /' . $datas->seo_url . '/' . $request->get('format') . '/';
-        echo "\n".'format+cat: /' . $datas->seo_url . '/' . $request->get('format') . '/' . $request->get('facet') . '/';
-        echo "\n".'page: /' . $datas->seo_url . '/page-' . $request->get('page') . '/';
-        echo "\n".'redirect '.$request->getPathInfo().' != /'.$datas->seo_url.'/ => '.($request->getPathInfo() != $datas->seo_url);exit();
-        */
-        return $this->redirect('/'.$datas->seo_url.'/', 301);
+				if ($this->container->getParameter('kernel.environment') == 'dev') {
+	        echo "\n".'facet: ' . $datas->seo_url . '/' . $request->get('facet') . '/';
+	        echo "\n".'format: ' . $datas->seo_url . '/' . $request->get('format') . '/';
+	        echo "\n".'format+cat: ' . $datas->seo_url . '/' . $request->get('format') . '/' . $request->get('facet') . '/';
+	        echo "\n".'page: ' . $datas->seo_url . '/page-' . $request->get('page') . '/';
+	        echo "\n".'default '.$request->getPathInfo().' != '.$datas->seo_url.'/ => '.($request->getPathInfo() != $datas->seo_url);
+	        echo "\n".'redirect '.$datas->seo_url;
+					exit();
+        }
+        return $this->redirect($datas->seo_url, 301);
       }
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
       //$template = isset($datas->epg) && $datas->epg ? 'channel-replay' : 'channel';
@@ -253,7 +282,8 @@ class ContentController extends Controller
     */
     public function categoryAction(Request $request)
     {
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+			$this->blockDomain($request);
+      $api   = $this->get('api');
       $datas = $api->fetch(in_array($request->get('_route'), array('format', 'format_facet', 'format_page')) ? 'format' : 'category', 
                            array(
                              'from_slug'  => str_replace('/', '', $request->get('category_slug')),
@@ -285,8 +315,7 @@ class ContentController extends Controller
         'formats' => array_combine(explode(';', $datas->facets_seo_url->format),explode(';', $datas->facets->format)),
         'subcategories' => array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory)),
         'alpha_available' => explode(';', $datas->facets->alpha),
-        'alpha'    => array(1,2,3,4,5,6,7,8,9,
-                            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
+        'alpha' => array(1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
       ));
 
       $maxage = 3600;
@@ -302,7 +331,8 @@ class ContentController extends Controller
     */
     public function personAction(Request $request)
     {
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+			$this->blockDomain($request);
+      $api   = $this->get('api');
       $datas = $api->fetch('person/'.$request->get('id'), 
                            array(
                              'with_programs' => true,
@@ -343,7 +373,8 @@ class ContentController extends Controller
     */
     public function selectionAction(Request $request)
     {
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+			$this->blockDomain($request);
+      $api   = $this->get('api');
       $datas = $api->fetch('www/slider/pack/'.$request->get('id'), 
                            array(
                              'with_programs'  => true,

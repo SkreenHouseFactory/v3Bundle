@@ -9,33 +9,49 @@ page:
             v3-vod: Video à la demande
             v3-tv-replay: Replay
             v3-cine: Cinéma
+            v3-jeunesse: Des programmes pour toute la famille
             films: Films
             series: Séries
             documentaires: Documentaires
             emissions: Emissions
             spectacles: Théatre, concerts, spectacles
-            jeunesse: Des programmes pour toute la famille
-        error: Page introuvable
-        redirect: Redirection en cours ...
         cinema.boxoffice: Cinéma, tous les films en salle commençant par %alpha%
-        channel: %name%
+        tvgrid: Programme TV du %date%
+        channel: Découvrez %name% en %access%
         search: Recherche : %p%
         user:
             settings: Vos préférences
             programs: Vos programmes
+            vod: Vos playlists : vidéo à la demande
+        sitemap:
+            channels:
+                broadcast: Chaines TV & Replay
+                webcast: Web contents en streaming
+                cinema: Salles de cinéma
+                dvd: DVDs en ligne
+                box: Box en ligne
+        error: Page introuvable
+        redirect: Redirection en cours ...
     description:
         home:
             mixte: Le guide personnalisé de vos programmes. Retrouvez dans une même playlist : Vidéo à la demande (VOD) et Replay TV (télévision de rattrapage), programmes Télé, DVD, box et télé connectée.
             v3-vod: Video à la demande : VOD et streaming. Ne ratez plus vos programmes préférés !
             v3-tv-replay: Replay : ne ratez plus vos programmes préférés !
             v3-cine: Cinéma : ne ratez plus vos programmes préférés !
+            v3-jeunesse: Video à la demande, replay, cinéma : des programmes pour toute la famille
             films: Films : ne ratez plus vos films préférés
             series: Séries : soyez avertis dès qu'un nouvel épisode est disponible
             documentaires: Documentaires : ne ratez plus vos documentaires préférés
             emissions: Emissions : regardez vos émissions préférées en Replay.
             spectacles: Théatre, concerts, spectacles : des milliers de vidéos en un clic !
-            jeunesse: Video à la demande, replay, cinéma : des programmes pour toute la famille
         search: Recherche : %p% : VOD, Replay, DVD, Cinéma. Retrouvez TOUTES les diffusions des programmes que vous aimez !
+        sitemap:
+            channels:
+                broadcast: Tnt, Satellite, Cable : toutes vos chaînes sont en Replay sur mySkreen
+                webcast: Web séries, émissions sur le Web en streaming
+                cinema: Tous les horaires de cinéma sont sur mySkreen
+                dvd: Tous les Dvds sont sur mySkreen
+                box: Toutes les offres VOD des Box sont sur mySkreen
         error: Utilisez le moteur de recherche pour trouver votre contenu.
 form:
     error:
@@ -62,6 +78,7 @@ redirection:
     h1: Patientez quelques secondes ...
     message: mySkreen vous redirige vers votre vidéo
 user:
+    vod: Vidéo à la demande
     programs: Votre playlist
     settings: Vos préférences
     settings.profile: Compte
@@ -128,8 +145,9 @@ playlist:
         replay: Ajoutez vos émissions et séries préférées à vos playlists pour ne rater aucun épisode
         friends: Inviter vos proches pour partager vos playlists avec eux.
 nav:
-    favoris: Gérer vos programmes
-    account: Modifier vos préférences
+    favoris: Vos programmes
+    account: Vos préférences
+    vod: Vos vidéos à la demande
     all: Tout
     filter: Filtrer vos playlist
     filters:
@@ -294,6 +312,10 @@ channel:
         popover:
             title: Partagez vos programmes avec vos amis !
             content: Connectez-vous à Facebook en 1 clic et retrouvez ce que vos amis regardent sur mySkreen.
+channels:
+    search:
+        placeholder: TF1, Arte, Bein, etc
+        submit: Rechercher
 category:
     friends:
         block:
@@ -311,8 +333,13 @@ card:
     update: Modifier la carte de paiement
 free: Gratuit
 watch: Voir maintenant
+all.diff: Toutes les diffusions
+rent:
+    now: Louer maintenant
+    again: Louer à nouveau
 editors: Production
 actors: Acteurs
 directed.by: Réalisateur
 yes: Oui
 no: Non
+tvgrid.channels.noprogram.search: Aucune chaîne trouvée.

@@ -19,6 +19,14 @@ use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 
 class MainController extends Controller
 {
+		private function blockDomain(Request $request) {
+      if ($this->get('kernel')->getEnvironment() == 'prod' && 
+          !strstr($request->getHost(), 'www.') && 
+          !strstr($request->getHost(), 'preprod.') && 
+          !strstr($request->getHost(), '.typhon.net')) {
+        throw $this->createNotFoundException('Page does not exist on this domain : ' . $request->getHost());
+      }
+		}
 
     /**
     * header
@@ -34,10 +42,11 @@ class MainController extends Controller
     */
     public function homeAction(Request $request)
     {
-
+			$this->blockDomain($request);
       if ($this->get('kernel')->getEnvironment() == 'prod' && 
           !strstr($request->getHost(), 'www.') && 
-          !strstr($request->getHost(), 'preprod.')) {
+          !strstr($request->getHost(), 'preprod.') && 
+          !strstr($request->getHost(), '.typhon.net')) {
         if (!strstr($request->getHost(), 'replay.')) {
           return $this->redirect('http://www.myskreen.com/tv-replay/', 301);
         }
@@ -89,8 +98,7 @@ class MainController extends Controller
         return $this->redirect('/'.$redirect.'/', 301);
       }
 
-      //menus
-      $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
+			$api = $this->get('api');
       $datas = $api->fetch('www/home/' . $home, 
                            array('without_footer' => true,
                                  'with_programs' => true,
@@ -119,9 +127,10 @@ class MainController extends Controller
     */
     public function searchAction(Request $request)
     {
+			$this->blockDomain($request);
       $facets = $request->get('facets') ? $facets : ($request->get('format') ? 'format:' . $request->get('format') : null);
-      $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
-      $datas = $api->fetch('search/' . urlencode($request->get('q')), 
+			$api = $this->get('api');
+      $datas = $api->fetch('search/' .urlencode(str_replace('.', '%2E',  $request->get('q'))), 
                            array('img_width' => 160,
                                  'img_height' => 200,
                                  'nb_results' => 7,
@@ -145,8 +154,7 @@ class MainController extends Controller
     */
     public function boostAction(Request $request)
     {
-      $api = new ApiManager($this->container->getParameter('kernel.environment'), '.json', 2);
-
+			$api = $this->get('api');
       $datas = $api->fetch('www/slider/pack/8774489', 
                            array('programs_only' => true));
       //echo $api->url;

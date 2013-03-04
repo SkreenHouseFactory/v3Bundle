@@ -1,0 +1,223 @@
+#header {
+
+   /* Special class on .container surrounding .navbar, used for positioning it into place. */
+   .navbar-wrapper {
+     position: absolute;
+     top: 0;
+     left: 0;
+     right: 0;
+     z-index: 3;
+     margin-top: 20px;
+     margin-bottom: -90px; /* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
+   
+	 	 .container {
+		 	 width: 1170px;
+		 }
+   }
+   /* Remove border and change up box shadow for more contrast */
+	 .navbar-inverse {
+	 	 .nav li.dropdown > a .caret {
+			 border-top-color: #AAA;
+			 border-bottom-color: #AAA;
+		 }
+		 .navbar-search {
+	  	margin-top: 7px;
+		 	 .search-query {
+			 	 font-size: 1.1em;
+		 		 color: #333;
+		 		 background-color: #EEE;
+		 		 padding: 8px 14px;
+		 	 }
+		 }
+	 }
+	 /* navbar */
+   .navbar {
+	 	 .navbar-inner {
+			 padding-right: 0;
+	     border: 0;
+	     -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.25);
+	        -moz-box-shadow: 0 2px 10px rgba(0,0,0,.25);
+	             box-shadow: 0 2px 10px rgba(0,0,0,.25);
+		   a.brand {
+				 padding: 6px 15px 8px 15px;
+		   }
+			.nav > li {
+				> a {
+			     padding: 15px;
+					 font-size: 1.1em;
+					 
+					 &.with-caret {
+					 	margin-right: 5px;
+					 }
+					 &.a-caret {
+						position: absolute;
+						right: 0;
+						padding: 15px 5px;
+					 }
+		   	 }
+				&.btn-primary {
+					> a {
+						border-left: 1px solid #0088cc;
+						color: white;
+					  /*
+						&.auth {
+							padding-bottom: 12px;
+					  }
+						*/
+					}
+					&.btn-last {
+						border-bottom-right-radius: 3px;
+						border-top-right-radius: 3px;
+					}
+				}
+				&.dropdown {
+					.dropdown-menu .tv-channels {
+						width: 260px;
+						padding-left: 5px;
+						a {
+							float: left;
+							padding: 8px;
+							display: block;
+							clear: none;
+						}
+			 		}
+				}
+				&.divider-vertical {
+			 	  margin: 0;
+			 	}
+	      &.notifications {
+	        ul {
+	          > div {
+	            height: 315px;
+	            overflow-y: auto;
+	            overflow-x: hidden;
+
+	            li {
+	              width: 400px;
+	              font-size: 0.9em;
+								clear: both;
+								overflow: hidden;
+                  
+	              a.link {
+	                color: #333;
+	                display: auto;
+	                padding: 0px;
+	                clear: none;
+	                line-height: 15px;
+	                color: #555;
+	                white-space: nowrap;
+	                filter: none; /* ie hover background */
+
+	                img.channel {
+	                  margin-left: 7px;
+	                  border-right: 3px solid white;
+	                  border-top: 3px solid white;
+	                }
+	                img.ico {
+	                  margin-right: 7px;
+	                }
+                    
+	                span {
+	                  display: block;
+	                  margin-left: 7px;
+      
+	                  &.title {
+	                    text-transform: uppercase;
+	                  }
+	                  &.label {
+	                    display: inline;
+	                    font-weight: normal;
+	                    margin-left: 0;
+	                  }
+	                }
+	                &:hover {
+	                  background: transparent;
+	                }
+	              }
+	              .badge {
+	                margin: 15px 5px 0 0;
+	              }
+	              .remove {
+	                visibility: hidden;
+	                margin: 15px 15px 0 0;
+	                padding: 0;
+									float: right;
+									cursor: pointer;
+	              }
+	              &:hover {
+	                .remove {
+	                  background: transparent;
+	                  visibility: visible;
+	                }
+	              }
+	              &.empty {
+	                h6 {
+	                  padding: 30px;
+	                  font-size: 1.3em;
+	                  small {
+	                    line-height: 1.3em;
+	                    display: block;
+	                  }
+	                }
+	              }
+	            }
+	          }
+					}
+        }
+			}
+		}
+	}
+}
+
+.playlist {
+  background: url("/bundles/skreenhousefactoryv3/images/bg-playlist.png") bottom repeat-x;
+}
+
+#top-playlist {
+  overflow: hidden;
+  position: absolute;
+  z-index: 0;
+  top: 70px;
+	width: 100%;
+  
+  .container {
+		margin-bottom: 5px;
+		padding: 50px 0;
+		width: 1160px;
+		box-shadow: 0px 1px 3px rgba(0,0,0,0.7);
+
+		background-color: rgba(240, 240, 240, 0.9);
+		background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent), to(transparent));
+		background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+		background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+		background-image: -ms-linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+		background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+		background-image: linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+		-webkit-background-size: 50px 50px;
+		-moz-background-size: 50px 50px;
+		background-size: 50px 50px;
+		-moz-box-shadow: 1px 1px 8px gray;
+		-webkit-box-shadow: 1px 1px 8px gray;
+
+    .breadcrumb {
+      margin: 10px 100px;
+      font-size: 1.3em;
+      border: 1px solid #DDD;
+    }
+		
+		#playlist {
+      margin: 0px 100px;
+  		width: 990px;
+		}
+
+    h2 {
+      color: #017FD5;
+      font-weight: normal;
+      text-shadow: #C3C8E8 1px 1px 3px;
+      padding-left: 13px;
+      font-size: 1.3em;
+      cursor: pointer;
+      margin: 0;
+    }
+  }
+}

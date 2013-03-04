@@ -12,11 +12,7 @@ UI = {
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
   init: function(callback) {
     var self = this;
-    this.playlist = new BaseSlider({
-                                    programs: []
-                                   },
-                                   function() {},
-                                   $('#playlist'));
+    this.playlist = new BaseSlider({ programs: [] }, function() {},$('#playlist'));
     console.log('UI.init', 'this.playlist', this.playlist);
 
     //ios
@@ -40,10 +36,10 @@ UI = {
     if (typeof callback != 'undefined') {
       UI.callbackModal = callback;
     }
-    API.quickLaunchModal('signin', function() {
+    API.quickLaunchModal('signup', function() {
       Skhf.session.sync(function() {
         if (typeof callback != 'undefined') {
-          console.log('UI.auth', 'Skhf.session.init callback', callback);
+          console.log('UI.auth', 'Skhf.session.init callback');
           callback();
         }
       });
@@ -305,11 +301,11 @@ UI = {
   loadNotifications: function(notifications) {
     //console.log('UI.loadNotifications', notifications);
     var nb = notifications.length == this.max_notifications ? notifications.length + ' +' : notifications.length;
-    $('#top-bar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
+    $('.navbar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
     if (notifications.length == 0) {
-        $('#top-bar .notifications-count .badge-important').removeClass('badge-important');
+        $('.navbar .notifications-count .badge-important').removeClass('badge-important');
     } else {
-      var list = $('#top-bar .notifications ul div');
+      var list = $('.navbar .notifications ul div');
       list.find('li.empty').hide();
       list.find('li:not(.empty)').remove();
       var nb_new = 0;
@@ -318,30 +314,29 @@ UI = {
           nb_new++;
           //console.log('new', notifications[k]['new'], nb_new);
         }
-        list.append('<li class="tv-component" style="clear:both;overflow:hidden"><a data-id="' + notifications[k].id + '" rel="tooltip" title="Supprimer la notification" class="close">&times;</a>' + (notifications[k]['new'] ? '<span class="pull-right badge badge-important">Nouveau</span>' : '') + '<a target="_top" href="' + notifications[k].link + '" class="link"><img src="' + notifications[k].channel_ico + '" class="channel pull-left" /><img src="' + notifications[k].ico + '" class="ico pull-left" /><span class="title">' + notifications[k].title + '</span><span class="subtitle">' + notifications[k].title_episode + '</span><span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</a></li><li class="divider"></li>');
+        list.append('<li class="tv-component"><a data-id="' + notifications[k].id + '" class="remove"><i class="icon-trash"></i></a>' + (notifications[k]['new'] ? '<span class="pull-right badge badge-important">Nouveau</span>' : '') + '<a target="_top" href="' + notifications[k].link + '" class="link"><img src="' + notifications[k].channel_ico + '" class="channel pull-left" /><img src="' + notifications[k].ico + '" class="ico pull-left" /><span class="title">' + notifications[k].title + '</span><span class="subtitle">' + notifications[k].title_episode + '</span><span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</a></li><li class="divider"></li>');
       }
       //new
       if (nb_new > 0) {
         var nb = nb_new == this.max_notifications ? nb_new + ' +' : nb_new;
         //console.log('UI.loadNotifications', 'new', nb);
-        $('#top-bar .notifications-count .badge').html(nb).addClass('badge-important');
+        $('.navbar .notifications-count .badge').html(nb).addClass('badge-important');
       }
-      $('#top-bar .notifications-count').data('count-new', nb_new);
+      $('.navbar .notifications-count').data('count-new', nb_new);
       $('[rel="tooltip"]', list).tooltip({placement: 'bottom'});
-      $('.close', list).click(function(e){
+      $('.remove', list).click(function(e){
         e.preventDefault();
         Skhf.session.deleteNotification($(this).data('id'));
         
         //dom
-        $(this).tooltip('destroy');
         $(this).parent().next().remove();
         $(this).parent().slideUp('slow').remove();
         
         //count
-        var current = parseInt($('#top-bar .notifications-count .badge').html()) - 1;
-        $('#top-bar .notifications-count .badge').html(parseInt(current) > 0 ? current : 0);
+        var current = parseInt($('.navbar .notifications-count .badge').html()) - 1;
+        $('.navbar .notifications-count .badge').html(parseInt(current) > 0 ? current : 0);
         if (current == 0) {
-          $('#top-bar .notifications li.empty').show();
+          $('.navbar .notifications li.empty').show();
         }
 
         return false;
@@ -534,24 +529,26 @@ UI = {
           $.extend(self.playlist.params.args, {friends_uids: friends_uids}); //, api_method: 'POST'
         })
       }
-      this.playlist.loadRemotePrograms(0,
-                                       function(slider){
-                                          var nb_programs = slider.data('nb-programs');
-                                          console.log('UI.loadPlaylist', 'callback', Skhf.session.access, 'cookie:' + API.cookie('playlist_collapsed'), 'isHome:' + API.isHome(), slider);
+      this.playlist.loadRemotePrograms(
+				0,
+				function(slider){
+				  var nb_programs = slider.data('nb-programs');
+				  console.log('UI.loadPlaylist', 'callback', Skhf.session.access, 'cookie:' + API.cookie('playlist_collapsed'), 'isHome:' + API.isHome(), slider);
                                         
-                                          if (Skhf.session.access) {
-                                            var name = $('li#' + Skhf.session.access, slider.elmt).data('name');
-                                            if (typeof name != 'undefined') {
-                                              $('#top-playlist .breadcrumb li:nth-child(2)').html(name);
-                                            }
-                                          }
-                                          $('li.selector', slider.elmt).hide();
-                                          //if ((Skhf.session.access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
-                                          //    API.isHome() == true) {
-                                          //  $('#top-playlist').collapse('show');
-                                          //}
-                                       },
-                                       args);
+				  if (Skhf.session.access) {
+				    var name = $('li#' + Skhf.session.access, slider.elmt).data('name');
+				    if (typeof name != 'undefined') {
+				      $('#top-playlist .breadcrumb li:nth-child(2)').html(name);
+				    }
+				  }
+				  $('li.selector', slider.elmt).hide();
+				  //if ((Skhf.session.access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
+				  //    API.isHome() == true) {
+				  //  $('#top-playlist').collapse('show');
+				  //}
+				},
+				args
+			);
     }
   },
   unloadPlaylist: function(onglet, callback) {
@@ -665,11 +662,11 @@ UI = {
     });
   },
   addFriendsPrograms: function(){
-    return; //desactivated
+    //return; //desactivated
     Skhf.session.getSocialDatas(function(friends, friends_programs){
       //console.log('UI.addFriendsPrograms', 'callback', friends_programs);
       for (k in friends_programs) {
-        var li = $('li[data-id="' + k + '"]');
+        var li = $('#top-playlist li[data-id="' + k + '"]');
         if (li.length > 0) {
           //console.log('UI.addFriendsPrograms', 'add ' + friends_programs[k].length + ' friends to program ' + k);
           UI.addFriends(li, friends_programs[k]);

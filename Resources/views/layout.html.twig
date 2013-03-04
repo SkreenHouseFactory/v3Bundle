@@ -41,7 +41,7 @@
       '@SkreenHouseFactoryV3Bundle/Resources/public/less/slider.less'
       '@SkreenHouseFactoryV3Bundle/Resources/public/less/modal.less'
       '@SkreenHouseFactoryPopinBundle/Resources/public/less/popin.less'
-      '@SkreenHouseFactoryV3Bundle/Resources/public/less/style.less'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
         filter='less,?yui_css'
         output='css/v3.css'
         %}
@@ -49,10 +49,11 @@
   {% endstylesheets %}
 </head>
 {% endspaceless %}
-<body>
+<body class="view-{{ app.request.attributes.get('_route') }}">
 {% spaceless %}
 <!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
-  <div id="main">
+	<article>
+	<div id="main">
     <div id="content">
     {% block content %}
     {% endblock %}
@@ -62,17 +63,23 @@
     {% endblock %}
     </div>
   </div>
-  <div id="header">{% include 'SkreenHouseFactoryV3Bundle:Main:_header.html.twig' %}</div>
+	</article>
+	<header>
+  <nav><div id="header">{% include 'SkreenHouseFactoryV3Bundle:Main:_header-3.1.html.twig' %}</div></nav>
+	</header>
   <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
     <div class="container">
       {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
     </div>
   </div>
+	<footer>
   <div id="footer">{% include 'SkreenHouseFactoryV3Bundle:Main:_footer.html.twig' %}</div>
+	</footer>
   {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
   <span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
 
+{% if block('noscripts') is empty %}
 {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.3.min.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
@@ -88,69 +95,24 @@
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
     '@SkreenHouseFactoryTvBundle/Resources/public/js/couchmode.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/*'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/playlists.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/cinema.js'
     
     filter='?yui_js' 
     output='js/compiled/v3.js'  %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
+{% endif %}
+{% block pagescripts %}
+{% endblock %}
 
-<div id="fb-root"></div>
-<script>
-  // Additional JS functions here
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '{% if app.environment != 'prod' %}101348563248431{% else %}193945860617344{% endif %}', // App ID
-      //channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel File
-      status     : true, // check login status
-      cookie     : true, // enable cookies to allow the server to access the session
-      xfbml      : true  // parse XFBML
-    });
-  
-    // Additional init code here
- 
-  };
-  
-  // Load the SDK Asynchronously
-  (function(d){
-      var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement('script'); js.id = id; js.async = true;
-      js.src = "//connect.facebook.net/fr_FR/all.js";
-      ref.parentNode.insertBefore(js, ref);
-    }(document));
-</script>
+{% include 'SkreenHouseFactoryV3Bundle::_fb.html.twig' %}
 
 {% if app.environment == 'prod' and block('nostats') is empty %}
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-6151896-14']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-  
-  <script type="text/javascript">
-    var _sf_async_config = { uid: 40056, domain: 'myskreen.com' };
-    (function() {
-      function loadChartbeat() {
-        window._sf_endpt = (new Date()).getTime();
-        var e = document.createElement('script');
-        e.setAttribute('language', 'javascript');
-        e.setAttribute('type', 'text/javascript');
-        e.setAttribute('src',
-          (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
-          "js/chartbeat.js");
-        document.body.appendChild(e);
-      };
-      var oldonload = window.onload;
-      window.onload = (typeof window.onload != 'function') ?
-        loadChartbeat : function() { oldonload(); loadChartbeat(); };
-    })();
-  </script>
+	{% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' %}
+	{% include 'SkreenHouseFactoryV3Bundle::_chartbeat.html.twig' %}
 {% endif %}
 {% endspaceless %}
 </body>

@@ -1,0 +1,119 @@
+{% if app.environment == 'prod' %}{% set header_base = 'http://www.myskreen.com' %}{% else %}{% set header_base = '' %}{% endif %}
+<div class="navbar-wrapper">
+  <div class="container">
+    <div class="navbar navbar-inverse">
+      <div class="navbar-inner">
+        <a class="brand" href="#"><img src="http://mskstatic.com/150/medias/logo_black_nobaseline.png" alt="mySkreen.com"/></a>
+				<ul class="nav nav-user pull-right">
+  				<li class="divider-vertical"></li>
+					{# user off #}
+			    <li class="btn-primary user-off">
+			      <a class="auth" href="#"><i class="icon-user icon-white{#sprite-user#}"></i> {{ 'nav.menu.account.off'|trans }}</a>
+			    </li>
+					<li class="btn-primary btn-last user-off dropdown">
+					  <a data-toggle="collapse" data-target="#top-playlist" class="tv-component" href="#"><i class="icon-th-list icon-white"></i> {{ 'playlist.yours'|trans }}</a>
+					</li>
+					{# user on #}
+			    <li class="btn-primary hide user-on dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle tv-component user" href="#"><i class="icon-user icon-white"></i></a>
+			      <ul class="dropdown-menu">
+			   			<li class="share">
+				        <a href="#" class="text share-off" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook" data-modal-message="... et suivez ce que regardent vos amis !">Facebook : activer le partage</a>
+				        <a href="#" class="text share-on hide">
+									<span class="btn-group" data-toggle="buttons-radio">
+					          <span class="btn btn-small btn-primary" data-share="allow">{{ 'yes'|trans }}</span>
+					          <span class="btn btn-small" data-share="disallow">{{ 'no'|trans }}</span>
+									</span>&nbsp;Partage Facebook
+				        </a>
+				      </li>
+					  	<li><a class="favoris" href="{{ path('user_programs') }}" target="_top"><i class="icon-list"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
+					  	<li><a class="vod" href="{{ path('user_vod') }}" target="_top"><i class="icon-film"></i> {{ 'nav.vod'|trans }}</a></li>
+			        <li><a class="account" href="{{ path('user_settings') }}" target="_top"><i class="icon-user"></i> {{ 'nav.account'|trans }}</a></li>
+			        <li class="divider"></li>
+			        <li><a class="signout" href="#"><i class="icon-remove"></i> {{ 'signout'|trans }}</a></li>
+			      </ul>
+			    </li>
+					<li class="btn-primary hide user-on dropdown">
+					  <a data-toggle="collapse" data-target="#top-playlist" class="tv-component" href="#"><i class="icon-th-list icon-white"></i> {{ 'playlist.yours'|trans }}</a>
+					</li>
+					<li class="btn-primary btn-last hide user-on dropdown notifications">
+					  <a data-toggle="dropdown" class="dropdown-toggle tv-component btn-last notifications-count" href="#"></a>
+					  <ul class="dropdown-menu">
+					    <div class="scroll"><li class="empty"><h6>{{ 'notifications.empty.title'|trans }}<small>{{ 'notifications.empty.text'|trans }}</small></h6></li></div>
+					  </ul>
+					</li>
+				</ul>
+        <ul class="nav pull-left">
+  				<li class="divider-vertical"></li>
+					<li class="dropdown {{ app.request.get('home') == 'tv-replay' ? 'active' : '' }}">
+						<a data-toggle="dropdown" class="a-caret dropdown-toggle tv-component" class="pull-right"><b class="caret"></b></a>
+						<a class="with-caret" href="{{ header_base }}{{ path('homes', {home: 'tv-replay'}) }}" target="_top">{{ 'nav.subnav.tv'|trans }}</a>
+			      <ul class="dropdown-menu">
+					  	<li><a href="{{ path('user_programs') }}" target="_top">Programme TV</a></li>
+			        <li class="divider"></li>
+  						<li class="tv-channels">
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'tf1'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/tf1_medium.png" alt="TF1 Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-2'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/france-2_medium.png" alt="FRANCE 2 Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-3'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/france-3_medium.png" alt="FRANCE 3 Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'canal'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/canal-%2B_medium.png" alt="CANAL + Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-4'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/france-4_medium.png" alt="FRANCE 4 Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-5'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/france-5_medium.png" alt="FRANCE 5 Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-o'}) }}""><img src="http://mskstatic.com/34/28/medias/ico/chaines/france-o_medium.png" alt="FRANCE Ô Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'arte'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/arte_medium.png" alt="ARTE Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'm6'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/m6_medium.png" alt="M6 Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'd8'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/d8_medium.png" alt="D8 Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'd17'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/d17_medium.png" alt="D17 Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'w9'}) }}""><img src="http://mskstatic.com/34/28/medias/ico/chaines/w9_medium.png" alt="W9 Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'tmc'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/tmc_medium.png" alt="TMC Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'nt1'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/nt1_medium.png" alt="NT1 Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'nrj-12'}) }}""><img src="http://mskstatic.com/34/28/medias/ico/chaines/nrj-12_medium.png" alt="NRJ 12 Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', { slug: 'gulli'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/gulli_medium.png" alt="GULLI Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-24'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/france-24_medium.png" alt="FRANCE 24 Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'bfm-tv'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/bfm-tv_medium.png" alt="BFM TV Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'itele'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/itele_medium.png" alt="iTélé Replay"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'public-senat'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/public-senat_medium.png" alt="Public Sénat Replay"></a>
+							</li>
+			      </ul>
+					</li>
+					<li class="dropdown {{ app.request.get('home') == 'video-a-la-demande' ? 'active' : '' }}">
+						<a data-toggle="dropdown" class="a-caret dropdown-toggle tv-component" class="pull-right"><b class="caret"></b></a>
+						<a class="with-caret" href="{{ header_base }}{{ path('homes', {home: 'video-a-la-demande'}) }}" target="_top">{{ 'nav.subnav.vod'|trans }}</a>
+			      <ul class="dropdown-menu">
+					  	<li><a href="{{ path('user_programs') }}" target="_top">Nouvautés VOD</a></li>
+			        <li class="divider"></li>
+					  	<li><a href="{{ path('user_programs') }}" target="_top">Sélection Canne</a></li>
+			        <li class="divider"></li>
+					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie1</a></li>
+					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie2</a></li>
+					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie3</a></li>
+					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie4</a></li>
+					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie5</a></li>
+					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie6</a></li>
+			      </ul>
+					</li>
+					<li class="dropdown {{ app.request.get('home') == 'cinema' ? 'active' : '' }}">
+						<a data-toggle="dropdown" class="a-caret dropdown-toggle tv-component" class="pull-right"><b class="caret"></b></a>
+						<a class="with-caret" href="{{ header_base }}{{ path('homes', {home: 'cinema'}) }}" target="_top">{{ 'nav.subnav.cine'|trans }}</a>
+			      <ul class="dropdown-menu">
+					  	<li><a href="{{ path('user_programs') }}" target="_top">Sorties de la semaine</a></li>
+					  	<li><a href="{{ path('user_programs') }}" target="_top">Le Top du box office</a></li>
+					  	<li><a href="{{ path('user_programs') }}" target="_top">Bientôt dans les salles</a></li>
+			        <li class="divider"></li>
+					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie1</a></li>
+					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie2</a></li>
+					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie3</a></li>
+					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie4</a></li>
+					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie5</a></li>
+					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie6</a></li>
+			      </ul>
+					</li>
+					<li class="divider"></li>
+        </ul>
+			  <form class="navbar-search">
+			  {#<i class="icon-search icon-white"></i>#}
+			  <input type="text" value="{{ app.request.get('q') }}" class="search-query pull-left span4" placeholder="{{ 'search.pitch'|trans }}">
+			  </form>
+      </div>
+    </div>
+  </div>
+</div>

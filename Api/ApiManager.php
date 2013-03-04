@@ -3,35 +3,43 @@
 namespace SkreenHouseFactory\v3Bundle\Api;
 
 use Guzzle\Http\Client;
-
+use Monolog\Logger;
 
 class ApiManager
 {
   protected $base = null;
   protected $format = null;
+	protected $logger;
   public $url = null;
 
-  public function __construct($env = 'prod', $format = '.json', $version = 1) {
+  public function __construct($env = 'prod', $format = '.json', $version = 2) {
     $this->base = $this->getApiBase($env, $version);
     $this->format = $format;
   }
+	
+	public function setLogger(Logger $logger)
+	{
+		$this->logger = $logger;
+	}
 
   protected function getApiBase($env, $version) {
     if ($env == 'dev') {
-      return 'http://dev1.myskreen.typhon.net/api/' . $version . '/';
+      return 'http://benoit.myskreen.typhon.net/api/' . $version . '/';
     } elseif (strstr($_SERVER['SERVER_NAME'], 'preprod')) {
       return 'http://preprod.api.myskreen.com/api/' . $version . '/';
     } else {
       return 'http://api.myskreen.com/api/' . $version . '/';
     }
-  } 
+  }
 
   public function fetch($url, $params = array(), $method = 'GET', $options = array()) {
 
     $client = new Client($this->base, $options);
+		$time = microtime(true);
     switch ($method) {
       case 'POST':
-        $response = $client->post($url . $this->format, 
+		 	  $this->url = $url . $this->format;
+        $response = $client->post($this->url, 
                                   array('accept' => 'application/json',
                                         'curl.options' => array(
                                             'CURLOPT_SSL_VERIFYHOST'   => false,
@@ -47,6 +55,12 @@ class ApiManager
         $response = $client->get($this->url)->send();
       break;
     }
+		
+		$time = microtime(true) - $time;
+
+		if (null !== $this->logger) {
+			$this->logger->debug(sprintf('API call (%-8sms) to "%s"', round($time*1000, 2), $this->url));
+		}
 
     $json = json_decode($response->getBody(true));
 

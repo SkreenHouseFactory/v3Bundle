@@ -1,0 +1,21 @@
+{% extends 'SkreenHouseFactoryV3Bundle::empty.html.twig' %}
+
+{% block title %}{{ 'page.title.timeline'|trans }}{% endblock %}
+{% block description %}{{ 'page.description.timeline'|trans }}{% endblock %}
+{% block meta %}<meta name="robots" content="noindex,nofollow" />{% endblock %}
+
+{% block content %}
+<div id="view-timeline">
+		<div id="timeline"></div>
+		<link href="http://veritetimeline.appspot.com/latest/timeline.css" rel="stylesheet">
+		<!-- JavaScript -->
+		<script type="text/javascript" src="http://veritetimeline.appspot.com/latest/jquery-min.js"></script>
+		<script type="text/javascript" src="http://veritetimeline.appspot.com/latest/timeline-min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var timeline = new VMM.Timeline();
+				timeline.init("http://benoit.myskreen.typhon.net/api/2/timelinejs.json?date={{ app.request.get('date') }}&programme_id={{ app.request.get('programme_id') }}&date={{ app.request.get('date') }}&date={{ app.request.get('date') }}&category_id={{ app.request.get('category_id') }}&pack_id={{ app.request.get('pack_id') }}&channel_id={{ app.request.get('channel_id') }}");
+			});
+		</script>
+</div>
+{% endblock %}

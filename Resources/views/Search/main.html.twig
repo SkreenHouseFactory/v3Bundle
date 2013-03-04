@@ -7,68 +7,66 @@
 {% block content %}
 <div id="view-search" class="container">
   <h1>{{ app.request.get('q') }}</h1>
-  
+
   <div id="search-programs">
   {% if results.count.total is not defined %}
     {% if results.count %}
-    <p class="alert alert-info">{{ results.count }} {{ 'search.results'|trans }}</p>
+    	<p class="alert alert-info">{{ results.count }} {{ 'search.results'|trans }}</p>
     {% else %}
-    <p class="alert">{{ 'search.noresults'|trans }}</p>
+    	<p class="alert">{{ 'search.noresults'|trans }}</p>
     {% endif %}
     {% if results.spelling|length %}
-    <p class="lead">Suggestions : 
-    {% for spelling in results.spelling %}{{ spelling }}{% endfor %}
-    </p>
+	    <p class="lead">Suggestions : 
+	    {% for spelling in results.spelling %}{{ spelling }}{% endfor %}
+	    </p>
     {% endif %}
-
-    {% set slider = {title: '', 
-                     programs: results.programs, 
-                     paginate: results.paginate ~ '.json?format=' ~ app.request.get('format')} %}
+    {% set slider = {title: '', programs: results.programs, url: results.paginate ~ '.json?format=' ~ app.request.get('format')} %}
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
+
   {% else %}
     {% if results.count.total %}
-    <p class="alert alert-info">{{ results.count.total }} {{ 'search.results'|trans }}</p>
+    	<p class="alert alert-info">{{ results.count.total }} {{ 'search.results'|trans }}</p>
     {% else %}
-    <p class="alert">{{ 'search.noresults'|trans }}</p>
+    	<p class="alert">{{ 'search.noresults'|trans }}</p>
     {% endif %}
     {% if results.spelling|length %}
-    <p class="lead">Suggestions : 
-    {% for spelling in results.spelling %}{{ spelling }}{% endfor %}
-    </p>
+	    <p class="lead">Suggestions : 
+	    {% for spelling in results.spelling %}{{ spelling }}{% endfor %}
+	    </p>
     {% endif %}
 
     {% if results.count.films %}
-    {% set slider = {title: results.count.films ~ ' Films ', programs: results.Films, paginate: 1, url: results.paginate ~ '.json?format=films'} %}
+    {% set slider = {title: results.count.films ~ ' Films ', programs: results.Films, url: results.paginate ~ '.json?format=films'} %}
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
-    {% endif %}
     <hr/>
+    {% endif %}
 
     {% if results.count.documentaires %}
-    {% set slider = {title: results.count.documentaires ~ ' Documentaires ', programs: results.Documentaires, paginate: results.paginate ~ '.json?format=documentaires'} %}
+    {% set slider = {title: results.count.documentaires ~ ' Documentaires ', programs: results.Documentaires, url: results.paginate ~ '.json?format=documentaires'} %}
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
-    {% endif %}
     <hr/>
+    {% endif %}
 
     {% if results.count.emissions %}
-    {% set slider = {title: results.count.emissions ~ ' Emissions ', programs: results.Emissions, paginate: results.paginate ~ '.json?format=emissions'} %}
+    {% set slider = {title: results.count.emissions ~ ' Emissions ', programs: results.Emissions, url: results.paginate ~ '.json?format=emissions'} %}
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
-    {% endif %}
     <hr/>
+    {% endif %}
 
     {% if results.count.series %}
-    {% set slider = {title: results.count.series ~ ' Séries ', programs: results.Séries, paginate: results.paginate ~ '.json?format=series'} %}
+    {% set slider = {title: results.count.series ~ ' Séries ', programs: results.Séries, url: results.paginate ~ '.json?format=series'} %}
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
-    {% endif %}
     <hr/>
+    {% endif %}
 
     {% if results.count.spectacles %}
-    {% set slider = {title: results.count.spectacles ~ ' Spectacles ', programs: results.Spectacles, paginate: results.paginate ~ '.json?format=spectacles'} %}
+    {% set slider = {title: results.count.spectacles ~ ' Spectacles ', programs: results.Spectacles, url: results.paginate ~ '.json?format=spectacles'} %}
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
-    {% endif %}
     <hr/>
+    {% endif %}
 
     {% if results.count.archives %}
-    {% set slider = {title: results.count.archives ~ ' Archives', programs: results.Archives, paginate: results.paginate ~ '.json?format=archives'} %}
+    {% set slider = {title: results.count.archives ~ ' Archives', programs: results.Archives, url: results.paginate ~ '.json?format=archives'} %}
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
     {% endif %}
   {% endif %}

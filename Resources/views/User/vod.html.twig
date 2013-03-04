@@ -1,0 +1,90 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}{{ 'page.title.user.vod'|trans }}{% endblock %}
+
+{% block content %}
+<div id="vod-view" class="container">
+	{% if vods|length == 0 %}
+		<div class="hero-unit">
+			<h1>{{ 'user.vod'|trans }}</h1>
+		  <p>Votre compte mySkreen vous permet de visionner la vidéo à la demande en 1 clic directement sur mySkreen. Renseignez une fois la carte de paiement que vous souhaitez utiliser et payez de manière simple et sécurisée.</p>
+		      <p class="alert">
+						Les vidéos qui font partie de l'offre en 1 clic sont celles marquées d'un <i class="icon-play"></i>.
+						<br/>(les offres marquées d'un <i class="icon-share"></i> ne sont pas disponibles en 1 clic sur mySkreen).
+					</p>
+		      <br/>Vous retrouverez ici toutes les vidéos que vous avez loué.
+		      <br/>Bonne séance !</p>
+		  <p><a href="{{ path('homes', {home: 'video-a-la-demande'}) }}" class="btn btn-primary btn-large">Découvrir la vidéo à la demande &raquo;</a></p>
+		</div>
+
+	{% else %}
+
+		<h1>{{ 'user.vod'|trans }}</h1>
+	  <ul class="nav nav-pills nav-alpha-client uppercase">
+	    <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
+	      <a href="{{ path('user_vod', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
+	    </li>
+	    {% for o in onglets %}
+	      <li{% if app.request.get('onglet') == o %} class="active"{% endif %}>
+	        <a href="{{ path('user_vod', {onglet: o}) }}">{{ o }}</a>
+	      </li>
+	    {% endfor %}
+	  </ul>
+
+	  {% if vods|length > 6 %}
+	  <div class="pagination pagination-client-alpha">
+	    <ul>
+	        <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a href="javascript://">{{ 'nav.all'|trans }}</a></li>
+	      {% for l in alpha %}
+	        <li{% if app.request.get('alpha') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="javascript://">{{ l }}</a></li>
+	      {% endfor %}
+	    </ul>
+	  </div>
+	  {% endif %}
+		
+		<p class="alert alert-success">{{ vods|length }} vidéos à la demande. <br/><b>Astuce : </b> vous pouvez également utiliser le moteur de recherche pour retrouver un programme que vous avez loué.</p>
+	  <table class="table table-striped">
+			<tbody>
+	    {% for v in vods %}
+	      <tr data-alpha="{{ v.program.title|slice(0,1)|lower }}">
+						<td>
+							<a href="{{ path('any_url', {url: v.program.seo_url|slice(1, v.program.seo_url|length-1) }) }}">{{ v.program.title }}</a>{#<br/>Loué le {{ v.created_at|localizeddate('full', 'none') }}#}
+							<br/> {{ v.program.format }}, {{ v.program.year }}
+						</td>
+						<td>
+							<ul class="nav" id="offers-{{ v.program.id }}" class="">
+							{% for b in v.offers %}
+								{% if loop.first %}
+								{% else %}
+								<li class="divider"></li>
+								{% endif %}
+								<li>
+									{% if b.program.episodeof is defined %}
+										{% set title = b.program.title|split(' - ', 2) %}
+										<a href="{{ path('any_url', {url: b.program.seo_url|slice(1, b.program.seo_url|length-1) }) }}">{{ title|length > 1 ? title[1] : title[0] }}</a>
+										{{ b.program.saison_number is defined ? ', Saison ' ~ b.program.saison_number : '' }}
+										{{ b.program.episode_number is defined ? ', Episode ' ~ b.program.episode_number : '' }}
+										{{ b.program.part_number is defined ? ', Partie ' ~ b.program.part_number : '' }}
+									{% endif %}
+									<a class="btn pull-right" data-play="{{ b.offer.id }}"><i class="icon-play"></i> {{ b.is_available ? 'watch'|trans : 'rent.again'|trans }}</a>
+									<img src="{{ b.offer.channel.img }}" alt="{{ b.offer.channel.name }}" /> <span class="access {{ b.is_location ? 'location' : 'achat' }}">{{ b.offer.access.name }}</span>, loué le {{ b.created_at|localizeddate('full', 'none') }}
+									{% if b.is_location %}
+										{% if b.nb_view == 0 %}
+										<br/><span class="label">Pas encore visionné.</span>
+										{% elseif b.is_available %}
+										<br/><span class="label label-success">Visible encore {{ (b.timeleft/3600)|number_format }} heure{{ (b.timeleft/3600)|number_format > 1 ? 's' : '' }}</span>
+										{% else %}
+										<br/><span class="label label-warning">Expiré le {{ b.expire_at|localizeddate('full', 'none') }}</span>
+										{% endif %}
+									{% endif %}
+								</li>
+							{% endfor %}
+						</ul>
+					</td>
+				</tr>
+	    {% endfor %}
+			</tbody>
+	  </table>
+	{% endif %}
+</div>
+{% endblock %}

@@ -23,7 +23,7 @@ function onRentClicked() {
 }
 
 // -- ENV
-var DEV = 'dev1';
+var DEV = 'benoit';
 var ENV;
 ENV = {
   dev: {
@@ -41,7 +41,7 @@ ENV = {
     site_url: 'http://preprod.beta.myskreen.com',
     v3_url: 'http://preprod.v3.myskreen.com',
     v3_root: '',
-    base: 'http://preprod.api.myskreen.com/api/',
+    base: 'https://preprod.api.myskreen.com/api/',
     popin: 'https://preprod.api.myskreen.com/popin/',
     domain: 'preprod.beta.myskreen.com',
     console: true
@@ -51,7 +51,7 @@ ENV = {
     site_url: 'http://www.myskreen.com',
     v3_url: 'http://www.myskreen.com',
     v3_root: '',
-    base: 'http://api.myskreen.com/api/',
+    base: 'https://api.myskreen.com/api/',
     popin: 'https://api.myskreen.com/popin/',
     domain: 'www.myskreen.com',
     console: false
@@ -146,7 +146,7 @@ API = {
   },
   catchForm: function(elmt, callbackOnLoad) {
     var self = this;
-    //console.log('API.catchForm', 'catch form');
+    console.log('API.catchForm', 'catch form');
 
     //link
     $('a.tv-component', elmt).click(function(e){
@@ -179,12 +179,18 @@ API = {
         }
       });
       var args = $.extend(o, {session_uid: Skhf.session.uid});
-      self.query('POST', form.attr('action'), args, function(json){
-        //console.log('API.catchForm', 'API.query callback', args, json);
+			var method = form.attr('method') ? form.attr('method').toUpperCase() : 'POST';
+      //console.warn('API.catchForm', 'query method', method);
+      self.query(method, form.attr('action'), args, function(json){
+        console.log('API.catchForm', 'API.query callback', args, json, elmt);
         // if modal
         if (elmt.hasClass('modal')) {
+					//return html
+					if (typeof json != 'object') {
+            $('.modal-body', elmt).empty().html(json);
+            self.catchForm(elmt, callbackOnLoad);
           //onError
-          if (typeof json.error != 'undefined') {
+					} else if (typeof json.error != 'undefined') {
             $('.#form-errors', elmt).html(json.error).fadeIn();
           //onSuccess
           } else if (typeof json.success != 'undefined' && json.success) {
@@ -198,7 +204,6 @@ API = {
           } else if (typeof json.html != 'undefined') {
             $('.modal-body', elmt).empty().html(json.html);
             self.catchForm(elmt, callbackOnLoad);
-            
           }
         //default
         } else {
@@ -298,7 +303,7 @@ API = {
     }
   },
   markAsRed: function(id){
-    this.query('POST', '/user/markasred', {program_id: id}, function() {
+    this.query('POST', '/user/markasred.json', {program_id: id}, function() {
       UI.markAsRed(id);
     });
   },
@@ -332,9 +337,7 @@ API = {
   },
   query: function(method, url, data, callback, cache, version) {
 
-    if (url.match(/^http(s|)\:\/\//)) {
-      //console.log('API.query', 'http(s|)://', 'is popin', url);
-    } else {
+    if (!url.match(/^http(s|)\:\/\//)) {
       //console.log('API.query', 'http', 'is api', url);
       var version = typeof version != 'undefined' ? version : this.config.api_version;
       var url  = this.config.base + version + '/' + url; //.replace('//', '/');
@@ -356,12 +359,12 @@ API = {
     // Currently, proxy POST requests
     if (method == 'POST' || method == 'DELETE' || method == 'GET_PROXY') {
       method = method.replace('_PROXY', ''); //hack GET_PROXY
-      var dataType = "text json";
+      var dataType = 'text json';
       var post = {};
       post['url'] = url.replace('.json','');
       post['data'] = data;
       data = post;
-      url = this.config.env == 'dev' ? '/app_dev.php/proxy' : '/app.php/proxy';
+      url = this.config.env == 'dev' ? '/app_dev.php/proxy' : '/proxy';
 
     } else {
       if (data && typeof data === 'object'){
@@ -374,7 +377,7 @@ API = {
       }
     }
 
-    //console.log('API.query', method, dataType, url, data, new Date());
+    console.log('API.query', method, dataType, url, data, new Date());
     
     //Permet de benchmarker le temps d'execution des pages
     var tooLongQuery = setTimeout(function(){

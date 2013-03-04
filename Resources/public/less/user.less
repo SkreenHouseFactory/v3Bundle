@@ -3,3 +3,40 @@
 		margin-bottom: 150px;
 	}
 }
+
+#vod-view {
+	table {
+		tr {
+			td {
+				&:first-child {
+					width: 33%;
+				}
+				&:last-child {
+					width: 77%;
+				}
+				ul {
+					li {
+						clear: both;
+						img {
+							float: left;
+							margin-right: 10px;
+						}
+						span.access {
+							text-transform: uppercase;
+							font-weight: bold;
+							color: #999;
+						
+							&.achat {
+								padding-top: 16px;
+								display: inline-block;
+							}
+						}
+						.btn.pull-right {
+							margin-top: 10px;
+						}
+					}
+				}
+			}
+		}
+	}
+}

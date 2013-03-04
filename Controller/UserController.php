@@ -32,7 +32,7 @@ class UserController extends Controller
         $errorList = $this->get('validator')->validateValue($request->request->get('email'), $emailConstraint);
         
         if (count($errorList) == 0) {
-          $api = new ApiManager($this->container->getParameter('kernel.environment'));
+          $api = $this->get('api');
           $unsubscribed = $api->fetch('user/blacklist',
                                       array('email' => $request->request->get('email'),
                                             'notifications' => $request->get('notifications')),
@@ -63,7 +63,7 @@ class UserController extends Controller
         return $this->redirect('http://www.myskreen.com');
       }
 
-      $api = new ApiManager($this->container->getParameter('kernel.environment'));
+			$api = $this->get('api');
       $userDatas = $api->fetch('session/settings/'.$session_uid);
       if (isset($userDatas->error)) {
         return $this->redirect('http://www.myskreen.com');
@@ -83,20 +83,21 @@ class UserController extends Controller
     */
     public function programsAction(Request $request)
     {
+      $onglet      = $request->get('onglet');
       $session_uid = $request->cookies->get('myskreen_session_uid');
       if (!$session_uid) {
         return $this->redirect('http://www.myskreen.com');
       }
 
-      $onglet      = $request->get('onglet');
-      $api = new ApiManager($this->container->getParameter('kernel.environment'));
+			$api = $this->get('api');
       $programs = $api->fetch('www/slider/queue/' . $session_uid, 
                                array('img_width'  => 150,
                                      'img_height' => 200,
                                      'offset'     => 0,
                                      'nb_results' => 200,
                                      'onglet'     => $onglet));
-      //print_r($programs);
+			//echo $api->url;
+			//print_r($programs);
       //not connected ?
       if (isset($programs->error) && 
           $programs->error) {
@@ -116,6 +117,62 @@ class UserController extends Controller
                             'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'),
         'alpha_available' => $alpha_available,
         'programs' => $programs
+      ));
+
+      $response->setPrivate();
+      $response->setMaxAge(60);
+
+      return $response;
+    }
+
+    /**
+    * video à la demande
+    */
+    public function vodAction(Request $request)
+    {
+      $onglet      = $request->get('onglet');
+      $session_uid = $request->cookies->get('myskreen_session_uid');
+      if (!$session_uid) {
+        return $this->redirect('http://www.myskreen.com');
+      }
+
+			$api = $this->get('api');
+      $vods = $api->fetch('www/slider/vod/' . $session_uid, 
+	                         array('img_height' => 100,
+	                               'offset'     => 0,
+	                               'nb_results' => 200,
+	                               'onglet'     => $onglet));
+			//echo $api->url;
+			//print_r($programs);
+      //not connected ?
+      if (isset($vods->error) && 
+          $vods->error) {
+        return $this->redirect('http://www.myskreen.com');
+      }
+			//print_r($vods);exit();
+			//post treatments
+			$programs = array();
+			foreach ($vods as $vod) {
+				$pere_id = isset($vod->program->episodeof) ? $vod->program->episodeof->id : $vod->program->id;
+				$programs[$pere_id]['offers'][] = $vod;
+				if (!isset($programs[$pere_id]['program'])) {
+					$programs[$pere_id]['program'] = isset($vod->program->episodeof) ? $vod->program->episodeof : $vod->program;
+				}
+			}
+
+      $alpha_available = array();
+      foreach ($vods as $key => $v) {
+        $vods[$key]->program->alpha = strtolower(substr($vods[$key]->program->title, 0, 1));
+        $alpha_available[] = $vods[$key]->program->alpha;
+      }
+
+      //print_r(array($session_uid, $vods));
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:vod.html.twig', array(
+        'onglets'  => array('films', 'documentaires', 'series', 'emissions', 'spectacles'),
+        'alpha'    => array(1,2,3,4,5,6,7,8,9,
+                            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'),
+        'alpha_available' => $alpha_available,
+        'vods' => $programs
       ));
 
       $response->setPrivate();

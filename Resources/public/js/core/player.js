@@ -1,4 +1,4 @@
-// -- YouTube
+// -- YouTube Player API
 var tag = document.createElement('script');
 tag.src = "//www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -20,17 +20,21 @@ Player = {
   elmt_meta: null,
   //player
   init: function(elmt, elmt_meta) {
+    this.reset();
     this.elmt = elmt;
+    if (!this.elmt.hasClass('player')) {
+      this.elmt.addClass('player on');
+      //UI.appendLoader(this.elmt);
+    }
     if (typeof elmt_meta != 'undefined') {
       console.log('Player.init', 'elmt_meta', elmt_meta.length);
       this.elmt_meta = elmt_meta;
       this.elmt_meta.addClass('actions');
-      this.loadMetaProgram(this.elmt.data('player-program'));
+      //this.loadMetaProgram(this.elmt.data('player-program'));
     }
-    this.reset();
-    
+
     this.type = Player.getType();
-    console.log(['Player.init', 'type', this.type]);
+    console.log('Player.init', 'type', this.type, this.elmt);
 
     return this;
   },
@@ -49,6 +53,7 @@ Player = {
         clearTimeout(this.timeout[k]);
       }
     }
+    console.log('Player.reset', 'done');
   },
   getType: function() {
     if (this.type != null) {
@@ -142,7 +147,7 @@ Player = {
     //$('#top-nav').collapse('hide');
   },
   play: function(player, callback) {
-    console.log(['Player.play', player, this.type, callback]);
+    console.log('Player.play', player, this.type, this.elmt);
     this.state = 'playing';
     this.playing = player.id;
     if (typeof player.format != 'undefined') {
@@ -224,7 +229,7 @@ Player = {
           //if (this.elmt.data('player-jscontrolbar')) {
           //  flowArgs.plugins.controls = null;
           //}
-          console.warn('Player.flowplayer', 'flash', flashArgs, flowArgs, player.config);
+          console.warn('Player.flowplayer', 'flash', flashArgs, flowArgs);
           var f = $f(this.elmt.attr('id'), flashArgs, flowArgs);
           //if (this.elmt.data('player-jscontrolbar')) {
           //  f.controls(this.elmt.data('player-jscontrolbar'), {duration: 25});
@@ -364,6 +369,7 @@ Player = {
               true);
   },
   playOccurrence: function(id, callback, args) {
+    console.log('Player.playOccurrence', id, args);
     var self = this;
     if (typeof args == 'undefined' || 
         typeof args.current_player == 'undefined' || 
@@ -437,6 +443,7 @@ Player = {
     for (k in versions) {
       if (k) {
 				if (!el.html()) {
+					this.elmt_meta.addClass('has-versions');
 		  		el.html('Versions disponibles<br/>');
 				}
         el.append(' <a href="#" data-play="' + versions[k] + '" data-play-args=\'{"current_player": "1"}\' class="badge' + (versions[k] == current_id ? ' badge-info' : '') + '">' + k + '</a>');
@@ -483,8 +490,8 @@ Player = {
   },
   remove: function() {
     this.timeout = new Array();
-    $('#player .title, #player .subtitle, #player .embed').empty();
-    $('#player').removeClass('on');
+    $('.title, .subtitle, .embed', this.elmt).empty();
+    this.elmt.removeClass('on');
     $('#header').collapse('show');
     $('#redirect').empty().collapse('hide');
   },

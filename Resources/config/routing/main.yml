@@ -2,7 +2,7 @@
 postproxy:
     pattern:  /proxy
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:proxy }
-sitemap:
+sitemap_mrss:
     pattern:  /sitemap.xml
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:sitemap }
 header:
@@ -14,6 +14,29 @@ homes:
     requirements:
         home: |video-a-la-demande|cinema|tv-replay|film|serie|documentaire|emission|spectacle|films|series|documentaires|emissions|spectacles|vod|jeunesse
 
+#timeline
+timelinejs:
+    pattern:  /__timeline/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:timelinejs }
+tvgrid_addchannel:
+    pattern:  /programme-tv-dev/addchannel/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:addchannel }
+tvgrid_date:
+    pattern:  /programme-tv-dev/{date}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:grid }
+tvgrid:
+    pattern:  /programme-tv-dev/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:grid }
+
+#sitemaps
+sitemap_channels_page:
+    pattern:  /channels/{type}/{page}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Sitemap:channels }
+sitemap_channels:
+    pattern:  /channels/{type}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Sitemap:channels }
+
+#selections
 selections:
     pattern:  /{homeslug}/selection/{id}-{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:selection }
@@ -48,8 +71,11 @@ user_settings:
     pattern:  /user/settings/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:settings }
 user_programs:
-    pattern:  /user/mes-programmes/{onglet}
+    pattern:  /user/programs/{onglet}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:programs, onglet: null }
+user_vod:
+    pattern:  /user/vod/{onglet}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:vod, onglet: null }
 user_playlist:
     pattern:  /user/{username}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:playlist }
@@ -89,7 +115,7 @@ player_exit:
     pattern:  /exit/{target}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }
     requirements:
-        target: "[^/]+"
+        target: ".*"
 player_exit_get_url:
     pattern:  /exit
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }
@@ -107,12 +133,13 @@ playlist_load:
         type: "[^/]+"
 
 
+
 #persons
 person_page:
     pattern:  /{type}/{id}-{slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
-        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor
+        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier|chanteur-lyrique|chef-monteur|chef-maquilleur|assistant-realisateur
         id: \d+
         slug: "[^/]+"
         page: \d+
@@ -120,10 +147,9 @@ person:
     pattern:  /{type}/{id}-{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
-        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor
+        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier|chanteur-lyrique|chef-monteur|chef-maquilleur|assistant-realisateur
         id: \d+
         slug: "[^/]+"
-
 # deprecated channel : before program !
 channel_replay:
     pattern:  /replay/{id}-{slug}/
@@ -170,6 +196,13 @@ program_dev:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
     requirements:
         id: \d+
+program_v1:
+    pattern:  /{format}/{id}-{slug}/{rubrique}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    requirements:
+        id: \d+
+        slug: "[^/]+"
+        rubrique: seo|enligne|dvd|bandeannonce|box|alatele
 program_v2_pere:
     pattern:  /{format}/{idpere}-{slugpere}/{id}-{slug}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
@@ -247,6 +280,14 @@ category_facet:
         format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
         category_slug: "[^/]+"
         facet: "[^/]+"
+category_facet_page:
+    pattern:  /{format}/{category_slug}/{facet}/page-{page}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+    requirements:
+        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        category_slug: "[^/]+"
+        facet: "[^/]+"
+        page: \d+
 format_facet:
     pattern:  /{category_slug}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
@@ -272,6 +313,10 @@ format:
     requirements:
         category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
 
+#cms
+partenaires:
+    pattern:  /partenaires/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:default, template: partners }
 
 #cocons : before channel, important !
 cocon_tv:
@@ -325,6 +370,8 @@ cocon_replay:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon }
     requirements:
         cocon: tf1|france-2|france-3|m6|w9
+
+
 
 #hack url generation
 any_url:
