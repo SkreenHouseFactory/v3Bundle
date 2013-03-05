@@ -2,16 +2,22 @@ parameters:
     api.class:   SkreenHouseFactory\v3Bundle\Api\ApiManager
     api.format:  .json
     api.env:     %kernel.environment%
+    twig.broadcastdate.class: SkreenHouseFactory\v3Bundle\Twig\Extension\BroadcastdateExtension
 
 services:
     api:
-        class:        %api.class%
-        arguments:    [%api.env%, %api.format%]
+        class: %api.class%
+        arguments: [%api.env%, %api.format%]
         calls:
             - [ setLogger, [ @logger ] ]
         tags:
             - { name: monolog.logger, channel: api_calls }
 
+    twig.extension.broadcastdate:
+        class: %twig.broadcastdate.class%
+        public: false
+        tags:
+            - { name: twig.extension }
 #twig:
 #    globals:
 #        fb_prod:

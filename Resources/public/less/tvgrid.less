@@ -1,5 +1,5 @@
-@lineheight: 45px;
-@lineheightchannel: 44px;
+@lineheight: 65px;
+@lineheightchannel: 64px;
 
 .img-tvgrid-popover {
 	float: left;
@@ -16,48 +16,136 @@
 		> li {
 			&.active {
 				> a {
-					background: rgba(0, 136, 204, 0.7);
+					background: rgba(0, 0, 0, 0.4);
 				}
 			}
 			&.active.time-change {
 				> a {
-					background: rgba(0, 0, 0, 0.2);
+					background: rgba(0, 136, 204, 1);
 				}
 			}
 		}
 	}
-	#channels {
+	#datepicker {
 		position: absolute;
-		z-index: 3;
-		width: 87px;
+		z-index: 1;
+		box-shadow: 1px 3px 3px rgba(0,0,0,0.3);
+		margin: 35px 0px 0px 0px;
+		width: 300px;
+		.ui-datepicker {
+			width: 100%;
+		}
+	}
+	#channels {
 		padding: 0;
 		margin: 0;
 		background: #FAFAFA;
 		border-top: 1px solid #EEE;
 
-		li {
+		> li {
 			line-height: @lineheightchannel;
+			height: @lineheightchannel;
 			text-align: center;
 			border-bottom: 1px solid #E5E5E5;
 			border-left: 1px solid #E5E5E5;
 			position: relative;
-			height: 44px;
 			overflow: hidden;
 
-			a {
+			> a {
 				padding: 0;
 				margin: 0;
+				float: left;
+				width: 87px;
+
 				i {
 					position: absolute;
 					display: none;
 					opacity: 0.5;
 					cursor: pointer;
-					top: 10px;
+					top: 25px;
 				}
 			}
+
 			&:hover {
 				i {
 					display: block;
+				}
+			}
+
+			ul {
+				position: relative;
+				height: @lineheight;
+				margin: 0 0 0 87px;
+
+				li.diff {
+					position: absolute;
+					line-height: @lineheight;
+					height: @lineheight;
+					display: block;
+					overflow: hidden;
+					border-left: 1px solid #E5E5E5;
+					border-bottom: 1px solid #E5E5E5;
+					text-align: left;
+
+					.actions {
+						position: absolute;
+						right: 5px;
+						top: 5px;
+						line-height: 30px;
+					}
+
+					a.link {
+						color: #333;
+						display: block;
+						padding: 5px;
+						line-height: 18px;
+						min-width: 60%;
+						overflow: hidden;
+
+						span {
+							&.header {
+								font-size: 0.8em;
+								color: #0088cc;
+								text-transform: uppercase;
+								margin-right: 5px;
+								float: left;
+							}
+							&.label {
+								font-size: 0.8em;
+								display: inline-block;
+								font-weight: normal;
+								padding: 0 4px;
+								opacity: 0.3;
+									
+								&.label-info, &.label-warning {
+									opacity: 1;
+								}
+							}
+							&.title {
+								clear: both;
+								display: block;
+							}
+						}
+					}
+
+					&.is-short {
+						a {
+							padding: 0;
+							.label {
+								margin: 10px 0 0 2px;
+								display: inline-block;
+							}
+						}
+					}
+
+					&.is-live {
+						background: rgba(255, 214, 0, 0.2);
+					}
+					&.has-live {
+						.label-info {
+							display: none;
+						}
+					}
 				}
 			}
 		}
@@ -66,7 +154,7 @@
 		min-height: 800px;
 		margin-left: 87px;
 		padding-bottom: 30px;
-		background: url(/bundles/skreenhousefactoryv3/images/tvgrid-bg.png);
+		background: white; /*url(/bundles/skreenhousefactoryv3/images/tvgrid-bg.png);*/
 		border-right: 1px solid #DDD;
 		
 		.schedule {
@@ -113,7 +201,8 @@
 						height: @lineheight;
 						display: block;
 						overflow: hidden;
-						border-left: 1px solid #CCC;
+						border-left: 1px solid #E5E5E5;
+						border-bottom: 1px solid #E5E5E5;
 
 						a {
 							color: #333;

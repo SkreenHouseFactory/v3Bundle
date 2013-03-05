@@ -27,6 +27,9 @@ tvgrid_date:
 tvgrid:
     pattern:  /programme-tv-dev/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:grid }
+tvgridv2:
+    pattern:  /programme-tv/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:gridv2 }
 
 #sitemaps
 sitemap_channels_page:
@@ -86,13 +89,6 @@ user_blacklist_notifications:
     pattern:  /notifications/unsubscribe
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:blacklist, notifications: 1 }
 
-#cinema
-cinema_boxoffice:
-    pattern:  /cinema/box-office/{alpha}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cinema:boxoffice }
-    requirements:
-        alpha: "[^/]+"
-
 #player
 player_live:
     pattern:  /les-chaines-en-direct
@@ -139,7 +135,7 @@ person_page:
     pattern:  /{type}/{id}-{slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
-        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier|chanteur-lyrique|chef-monteur|chef-maquilleur|assistant-realisateur
+        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier|chanteur-lyrique|chef-monteur|chef-maquilleur|assistant-realisateur|musicien|scripte
         id: \d+
         slug: "[^/]+"
         page: \d+
@@ -147,7 +143,7 @@ person:
     pattern:  /{type}/{id}-{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
-        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier|chanteur-lyrique|chef-monteur|chef-maquilleur|assistant-realisateur
+        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier|chanteur-lyrique|chef-monteur|chef-maquilleur|assistant-realisateur|musicien|scripte
         id: \d+
         slug: "[^/]+"
 # deprecated channel : before program !
@@ -202,7 +198,7 @@ program_v1:
     requirements:
         id: \d+
         slug: "[^/]+"
-        rubrique: seo|enligne|dvd|bandeannonce|box|alatele
+        rubrique: seo|enligne|dvd|bandeannonce|box|alatele|aucine
 program_v2_pere:
     pattern:  /{format}/{idpere}-{slugpere}/{id}-{slug}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
@@ -256,6 +252,12 @@ program_pere:
         format: "[^/]+"
         categorie: "[^/]+"
 
+#cinema
+cinema_boxoffice:
+    pattern:  /cinema/box-office/{alpha}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cinema:boxoffice }
+    requirements:
+        alpha: "[^/]+"
 theaters_program:
     pattern:  /cinema/progam/{id}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Cinema:program }
@@ -270,21 +272,21 @@ category_page:
     pattern:  /{format}/{category_slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        format: cinema|film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
         category_slug: "[^/]+"
         page: \d+
 category_facet:
     pattern:  /{format}/{category_slug}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        format: cinema|film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
         category_slug: "[^/]+"
         facet: "[^/]+"
 category_facet_page:
     pattern:  /{format}/{category_slug}/{facet}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        format: cinema|film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
         category_slug: "[^/]+"
         facet: "[^/]+"
         page: \d+
@@ -305,7 +307,7 @@ category:
     pattern:  /{format}/{category_slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        format: cinema|film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
         category_slug: "[^/]+"
 format:
     pattern:  /{category_slug}/

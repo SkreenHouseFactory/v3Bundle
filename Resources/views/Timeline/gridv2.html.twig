@@ -1,0 +1,25 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}Programme TV{% endblock %}
+{% block description %}{{ 'page.description.tvgrid'|trans }}{% endblock %}
+{% block meta %}<meta name="robots" content="noindex,nofollow" />{% endblock %}
+
+{% block content %}
+<style>
+#grid {
+	height: 2500px;
+}
+</style>
+<div id="view-tvgrid" class="container">
+	<div id="grid"></div>
+</div>
+{% endblock %}
+
+{% block pagescripts %}
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/tvgridv2.js'
+    filter='?yui_js' 
+    output='js/compiled/tvgridv2.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}

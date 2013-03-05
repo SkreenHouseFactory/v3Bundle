@@ -340,6 +340,7 @@ rent:
 editors: Production
 actors: Acteurs
 directed.by: Réalisateur
+presented.by: Présentateur
 yes: Oui
 no: Non
 tvgrid.channels.noprogram.search: Aucune chaîne trouvée.

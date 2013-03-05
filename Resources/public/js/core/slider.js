@@ -275,7 +275,6 @@ var BaseSlider = Class.extend({
       var program = programs[k];
       var popular_channel = program.popular_channel ? '<img alt="' + program.popular_channel.name + ' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
       var pere  = program.episodeof ? program.episodeof : program;
-      var seo_url = program.seo_url + (this.elmt.attr('id') == 'playlist' ? '?keepPlaylist' : '');
       var sample = this.sample.replace('%title%', program.title).replace('%title%', program.title)
                               .replace('%id%', pere.id).replace('%id%', pere.id)
                               .replace('%popular_channel%', popular_channel)
@@ -283,11 +282,11 @@ var BaseSlider = Class.extend({
       var li = $(sample);
       li.css('background-image', 'url(' + program.picture + ')')
         .attr('data-position', k)
-        .attr('data-player-program', JSON.stringify(program));
+        .attr('data-player-program', JSON.stringify(program))
+				.attr('href', program.seo_url);
       if (program.deporte) {
         li.addClass('deporte');
       }
-      $('a.title', li).attr('href', seo_url);
 
       //notif : FIX
       //if (Skhf.session.datas.notifications &&
@@ -338,19 +337,31 @@ var BaseSlider = Class.extend({
     }
     //best_offer
     var o = p.best_offer;
-    if (typeof o != 'undefined' && o != null && o.dispo) {
+    if (typeof o != 'undefined' && 
+				o != null && 
+				o.dispo) {
       //channel & diff
-      if (typeof o.channel_name != 'undefined') {
+      if (typeof o.channel.name != 'undefined') {
         if ($('.channel img', li).length > 0) {
-          $('.channel img', li).attr('src', o.channel_img).attr('title', o.channel_name);
+          $('.channel img', li).attr('src', o.channel.img).attr('title', o.channel.name);
         } else {
-          $('.channel', li).prepend('<img src="' + o.channel_img + '" alt="' + o.channel_name + '" />');
+          $('.channel', li).prepend('<img src="' + o.channel.img + '" alt="' + o.channel.name + '" />');
         }
         if (o.broadcastdate) {
           $('.channel .diff', li).html(o.broadcastdate.replace(' à ', '<br/>')).removeClass('hide');
         } else if (p.deporte) {
+					console.log('Slider.addProgramBestOffer', o, 'slider-playlist:' + this.elmt.hasClass('slider-playlist'));
           $('.channel .diff', li).html('sur mySkreen').removeClass('hide');
         }
+				//playlist seulement
+				if (this.elmt.hasClass('slider-playlist') && 
+						o.deporte) {
+					$('a.title', li).attr('data-play', o.deporte);
+					$('a.title', li).attr('data-ajax', p.seo_url);
+					$('a.title', li).attr('rel', '#content');
+				} else if (o.url) {
+					$('a.title', li).attr('data-redirect', o.url);
+				}
         $('.channel', li).removeClass('hide');
       }
     } else {

@@ -5,58 +5,63 @@
 {% block meta %}<meta name="robots" content="noindex,nofollow" />{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" media="screen" href="{{ asset('bundles/skreenhousefactoryv3/jquery-ui/css/no-theme/jquery-ui-1.10.0.custom.min.css') }}" />
+<link rel="stylesheet" media="screen" href="{{ asset('bundles/skreenhousefactoryv3/jquery-ui/css/flick/jquery-ui-1.10.1.custom.min.css') }}" />
 <div id="view-tvgrid" class="container">
-	<div id="grid">
-	<h1>Programme TV <small><time>{{ data.timestamp|localizeddate('full')|replace({'00:00': '00'}) }}</time></small></h1>
+	<div id="grid" data-timestamp="{{ data.timestamp }}" data-reload-ajax="{{ path('tvgrid') }}">
+	<h1>Programme TV</h1>
+	<div class="btn-group">
+		<a class="btn btn-primary" data-filter="">Tout</a>
+		<a class="btn" data-filter="films">Films</a>
+		<a class="btn" data-filter="documentaires">Documentaires</a>
+		<a class="btn" data-filter="emissions">Emissions</a>
+		<a class="btn" data-filter="sports">Sports</a>
+		<a class="btn" data-filter="series">Séries</a>
+		<a class="btn" data-filter="spectacles">Spectacles</a>
+	</div>
+	{% for slider in data.sliders %}
+  {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
+	{% endfor %}
+	<hr/>
+	<h2><small><time timestamp="{{ data.timestamp }}">{{ data.timestamp|localizeddate('full')|replace({'00:00': '00'}) }}</time></small></h2>
+	<div id="datepicker"></div>
 	<ul class="nav nav-pills">
 	  <li class="active yesterdaynight time-change"><a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir</a></li>
 	  <li class="active now time-change"><a href="{{ data.timestamp|date('Y-m-d-H') }}">En ce moment</a></li>
 	  <li class="active tonight time-change"><a href="{{ path('tvgrid_date', {date: 'ce-soir'}) }}">Ce soir</a></li>
-	  <li class="active left time-change"><a href="{{ path('tvgrid_date', {date: (data.timestamp-3*3600)|date('Y-m-d-H')}) }}"><i class="icon-backward"></i></a></li>
-	  <li class="active right time-change"><a href="{{ path('tvgrid_date', {date: (data.timestamp+3*3600)|date('Y-m-d-H')}) }}"><i class="icon-forward"></i></a></li>
-	  <li class="active calendar time-change"><a href="#"><i class="icon-calendar icon-white"></i></a></li>
+	  <li class="active calendar time-change"><a href="javascript://"><i class="icon-calendar icon-white"></i></a></li>
 	  <li class="pull-right dropdown active">
-	    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-question-sign icon-white"></i></a>
+	    <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-question-sign icon-white"></i></a>
 	    <ul class="dropdown-menu">
-				<li><a href="#"><span class="label"><i class="icon-time icon-white"></i> Replay</span> Bientôt disponible en Replay</a></li>
-				<li><a href="#"><span class="label label-info"><i class="icon-play icon-white"></i> Replay</span> Replay disponible</a></li>
-				<li><a href="#"><span class="label label-warning"><i class="icon-share icon-white"></i> Live</span> Direct disponible en streaming</a></li>
+				<li><a><span class="label">Replay</span> Bientôt disponible en Replay</a></li>
+				<li><a><span class="label label-info">Replay</span> Replay disponible</a></li>
+				<li><a><span class="label label-warning">Live</span> Direct disponible en streaming</a></li>
 	    </ul>
 		</li>
 	  <li class="pull-right active addchannel">
 	    <a data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="icon-plus-sign icon-white"></i> de chaînes</a>
 		</li>
 	  <li class="pull-right dropdown dropdown-update active">
-	    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span>Que voir ?</span> &nbsp;<b class="caret"></b></a>
+	    <a class="dropdown-toggle" data-toggle="dropdown"><span>Que voir ?</span> &nbsp;<b class="caret"></b></a>
 	    <ul class="dropdown-menu">
-				<li><a data-filter="films" href="#">Films</a></li>
-				<li><a data-filter="documentaires" href="#">Documentaires</a></li>
-				<li><a data-filter="emissions" href="#">Emissions</a></li>
-				<li><a data-filter="sports" href="#">Sports</a></li>
-				<li><a data-filter="series" href="#">Séries</a></li>
-				<li><a data-filter="spectacles" href="#">Spectacles</a></li>
+				<li><a data-filter="films">Films</a></li>
+				<li><a data-filter="documentaires">Documentaires</a></li>
+				<li><a data-filter="emissions">Emissions</a></li>
+				<li><a data-filter="sports">Sports</a></li>
+				<li><a data-filter="series">Séries</a></li>
+				<li><a data-filter="spectacles">Spectacles</a></li>
 				<li class="divider"></li>
-				<li><a data-filter="in-playlists" href="#">Dans vos playlists</a></li>
-				<li><a data-filter="has-replay" href="#">En Replay</a></li>
-				<li><a data-filter="is-popular" href="#">Les plus suivis</a></li>
+				<li><a data-filter="in-playlists">Dans vos playlists</a></li>
+				<li><a data-filter="has-replay">En Replay</a></li>
+				<li><a data-filter="is-popular">Les plus suivis</a></li>
 				<li class="divider"></li>
-				<li><a data-filter="" href="#">Tout</a></li>
+				<li><a data-filter="">Tout</a></li>
 	    </ul>
 	  </li>
 	</ul>
 	<ul id="channels" class="nav nav-list">
-		{% for k,c in data.channels %}
-			<li data-id="{{ c.id }}"{% if c.live.player is defined %} data-live="player"{% elseif c.live.url is defined %} data-live="url"{% endif %}><a href="{{ c.seo_url }}"><i class="icon-trash"></i><img src="{{ c.img }}" alt="{{ c.name }}" /></a></li>
-		{% endfor %}
+		{% include 'SkreenHouseFactoryV3Bundle:Timeline:_channels-schedule.html.twig' with {data: data } %}
 	</ul>
-  <div id="schedule" data-api="schedule/epg.json" data-ajax="{{ path('tvgrid') }}">
-		{% for i in 0..99 %}
-			{% if loop.index == 50 %}
-      <div class="schedule schedule-start current" data-page="{{ loop.index }}" data-timestamp="{{ data.timestamp }}">{% include 'SkreenHouseFactoryV3Bundle:Timeline:_grid-schedule.html.twig' with {data: data } %}</div>
-			{% else %}
-      <div class="schedule {% if loop.index < 50 %}schedule-prev{% else %}schedule-next{% endif %}" data-page="{{ loop.index }}"></div>
-			{% endif %}
-		{% endfor %}
   </div>
   </div>
 </div>
@@ -64,8 +69,6 @@
 
 {% block pagescripts %}
 {% javascripts
-    '@SkreenHouseFactoryV3Bundle/Resources/public/jqx/jqxcore.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/jqx/jqxscrollview.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery-ui-1.10.0.custom.min.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-scrollspy.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/tvgrid.js'

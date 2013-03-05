@@ -14,7 +14,6 @@ $(document).ready(function(){
     console.log('script', 'API.init callback', API.context);
 
     //Modernizr.load();
-    UI.loadFilters('home');
 
     // sync v2
     if (top.location != self.document.location) {
@@ -68,16 +67,17 @@ $(document).ready(function(){
     return false;
   });
   $('.user-on .dropdown-toggle, .user-on [data-target]').click(function(){
+		//notifications
     if ($(this).hasClass('notifications-count') && 
         $('.badge-important', $(this)).length > 0) {
       Skhf.session.readNotifications();
-      var current = $('#top-bar .notifications li:not(.divider, .empty)').length;
-      $('#top-bar .notifications-count span.badge').removeClass('badge-important').html(current);
+      var current = $('.navbar .notifications li:not(.divider, .empty)').length;
+      $('.navbar .notifications-count span.badge').removeClass('badge-important').html(current);
     }
 
     if (API.context == 'v2') {// for tv guide
       console.log('toggleheader');
-      if (!$('#top-playlist').hasClass('in') && $('#top-bar .nav li.open').length == 0) {
+      if (!$('#top-playlist').hasClass('in') && $('.navbar .nav li.open').length == 0) {
         API.postMessage(['header', 'add_playlist']);
       } else {
         API.postMessage(['header', 'remove_playlist']);
@@ -102,23 +102,17 @@ $(document).ready(function(){
     return false;
   });
 
-  // -- ui nav
-  $('#top-filters > ul > li').click(function(e){
-    $('#top-filters > ul > li').removeClass('active');
-    $(this).addClass('active');
-  });
-
   // -- ui form
-  $('#top-bar form.navbar-search').hover(function(){
+  $('.navbar form.navbar-search').hover(function(){
     $('i.icon-search', this).removeClass('icon-white');
   },function(){
     $('i.icon-search', this).addClass('icon-white');
   });
-  $('#top-bar form.navbar-search i.icon-search').click(function(){
-    $('#top-bar form.navbar-search').submit();
+  $('.navbar form.navbar-search i.icon-search').click(function(){
+    $('.navbar form.navbar-search').submit();
     return false;
   });
-  $('#top-bar form.navbar-search').submit(function(){
+  $('.navbar form.navbar-search').submit(function(){
     $('.search-query', $(this)).blur();
     var q = encodeURIComponent($('.search-query', $(this)).val());
     console.log('script', 'searchbox blur', q);
@@ -162,7 +156,7 @@ $(document).ready(function(){
     }
     return false;
   });
-  $('#top-bar a[data-toggle="dropdown"]').on('click', function () {
+  $('.navbar a[data-toggle="dropdown"]').on('click', function () {
     if (API.context != 'v2' && $('#top-playlist').hasClass('in')) {
       console.log('script', 'a[data-toggle="dropdown"] on show');
       $('#top-playlist').collapse('hide');

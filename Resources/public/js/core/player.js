@@ -436,6 +436,10 @@ Player = {
   },
   loadVersions: function(versions, current_id) {
     var el = $('#player-versions', this.elmt_meta);
+		if (!el.length) {
+	    var el = $('<div id="player-versions"></div>');
+			el.appendTo(this.elmt_meta);
+		}
     console.log('Player.loadVersions', versions, el);
 		if (el.html()) {
 			return;

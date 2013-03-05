@@ -296,7 +296,7 @@ class ContentController extends Controller
                              'nb_results' => 30,
                              'facets' => $this->buildFacets($request)
                            ));
-      //echo "\n".'api:' . $api->url;
+      //echo "\n".'api:' . $api->url;exit();
       //echo "\n".'route:'  .$request->get('_route');
       //print_r($datas);
       //404
@@ -416,7 +416,9 @@ class ContentController extends Controller
       } elseif ($request->get('facet')) {
         $facets[] = 'subcategory:' . $request->get('facet');
       }
-      if ($request->get('format')) {
+      if ($request->get('format') == 'cinema') {
+        $facets[] = 'access:cinéma';
+      } elseif ($request->get('format')) {
         $facets[] = 'format:' . $request->get('format');
       }
       

@@ -4,19 +4,20 @@
     <div class="navbar navbar-inverse">
       <div class="navbar-inner">
         <a class="brand" href="#"><img src="http://mskstatic.com/150/medias/logo_black_nobaseline.png" alt="mySkreen.com"/></a>
-				<ul class="nav nav-user pull-right">
+        <ul class="nav pull-left">
   				<li class="divider-vertical"></li>
 					{# user off #}
 			    <li class="btn-primary user-off">
-			      <a class="auth" href="#"><i class="icon-user icon-white{#sprite-user#}"></i> {{ 'nav.menu.account.off'|trans }}</a>
-			    </li>
-					<li class="btn-primary btn-last user-off dropdown">
-					  <a data-toggle="collapse" data-target="#top-playlist" class="tv-component" href="#"><i class="icon-th-list icon-white"></i> {{ 'playlist.yours'|trans }}</a>
+			      <a class="auth" href="#" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même playlist !"> {{ 'playlist.yours'|trans }}</a>
 					</li>
 					{# user on #}
+					<li class="btn-primary hide user-on dropdown">
+					  <a data-toggle="collapse" data-target="#top-playlist" class="tv-component" href="#"> {{ 'playlist.yours'|trans }}</a>
+					</li>
 			    <li class="btn-primary hide user-on dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle tv-component user" href="#"><i class="icon-user icon-white"></i></a>
 			      <ul class="dropdown-menu">
+							<li class="nav-header user-email"></li>
 			   			<li class="share">
 				        <a href="#" class="text share-off" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook" data-modal-message="... et suivez ce que regardent vos amis !">Facebook : activer le partage</a>
 				        <a href="#" class="text share-on hide">
@@ -33,17 +34,12 @@
 			        <li><a class="signout" href="#"><i class="icon-remove"></i> {{ 'signout'|trans }}</a></li>
 			      </ul>
 			    </li>
-					<li class="btn-primary hide user-on dropdown">
-					  <a data-toggle="collapse" data-target="#top-playlist" class="tv-component" href="#"><i class="icon-th-list icon-white"></i> {{ 'playlist.yours'|trans }}</a>
-					</li>
-					<li class="btn-primary btn-last hide user-on dropdown notifications">
-					  <a data-toggle="dropdown" class="dropdown-toggle tv-component btn-last notifications-count" href="#"></a>
+					<li class="btn-primary hide user-on dropdown notifications">
+					  <a data-toggle="dropdown" class="dropdown-toggle tv-component notifications-count" href="#"></a>
 					  <ul class="dropdown-menu">
 					    <div class="scroll"><li class="empty"><h6>{{ 'notifications.empty.title'|trans }}<small>{{ 'notifications.empty.text'|trans }}</small></h6></li></div>
 					  </ul>
 					</li>
-				</ul>
-        <ul class="nav pull-left">
   				<li class="divider-vertical"></li>
 					<li class="dropdown {{ app.request.get('home') == 'tv-replay' ? 'active' : '' }}">
 						<a data-toggle="dropdown" class="a-caret dropdown-toggle tv-component" class="pull-right"><b class="caret"></b></a>
@@ -51,6 +47,7 @@
 			      <ul class="dropdown-menu">
 					  	<li><a href="{{ path('user_programs') }}" target="_top">Programme TV</a></li>
 			        <li class="divider"></li>
+							<li class="nav-header">Les chaînes de la Tnt</li>
   						<li class="tv-channels">
 								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'tf1'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/tf1_medium.png" alt="TF1 Replay"></a>
 								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-2'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/france-2_medium.png" alt="FRANCE 2 Replay"></a>
@@ -73,43 +70,58 @@
 								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'itele'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/itele_medium.png" alt="iTélé Replay"></a>
 								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'public-senat'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/public-senat_medium.png" alt="Public Sénat Replay"></a>
 							</li>
+			        <li class="divider clear"></li>
+							<li class="nav-header">Les chaînes Web</li>
+  						<li class="tv-channels">
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'allocine'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/allocine_medium.png" alt="Allocine vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'telerama'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/telerama_medium.png" alt="Télérama vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'marmiton'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/marmiton_medium.png" alt="Marmiton vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'au-feminin-la-tribu'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/au-feminin-la-tribu_medium.png" alt="Au feminin vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'doctissimo'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/doctissimo_medium.png" alt="Doctissimo vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'europe-1'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/europe-1_medium.png" alt="Europe1 vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'le-monde'}) }}""><img src="http://mskstatic.com/34/28/medias/ico/chaines/le-monde_medium.png" alt="Le Monde vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'le-figaro'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/le-figaro_medium.png" alt="Le Figaro"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-info'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/france-info_medium.png" alt="France Info vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-inter'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/france-inter_medium.png" alt="France Inter vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'studio-4-0'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/studio-4-0_medium.png" alt="Le Studio de France 4 vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'verywatch'}) }}""><img src="http://mskstatic.com/34/28/medias/ico/chaines/verywatch_medium.png" alt="Very watch vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'it-s-big'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/it-s-big_medium.png" alt="It's big vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'rendez-vous-a-paris'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/rendez-vous-a-paris_medium.png" alt="Rendez-vous à Paris vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'xtremevideo'}) }}""><img src="http://mskstatic.com/34/28/medias/ico/chaines/xtremevideo_medium.png" alt="Xtreme vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', { slug: 'paris-saint-germain'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/paris-saint-germain_medium.png" alt="Paris Saint-Germain vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'taratata'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/taratata_medium.png" alt="Taratata vidéos"></a>
+								<a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'la-chaine-techno'}) }}"><img src="http://mskstatic.com/34/28/medias/ico/chaines/la-chaine-techno_medium.png" alt="La Chaine techno vidéos"></a>
+							</li>
+							<li><a href="#">Toutes les chaines web</a></li>
 			      </ul>
 					</li>
 					<li class="dropdown {{ app.request.get('home') == 'video-a-la-demande' ? 'active' : '' }}">
 						<a data-toggle="dropdown" class="a-caret dropdown-toggle tv-component" class="pull-right"><b class="caret"></b></a>
 						<a class="with-caret" href="{{ header_base }}{{ path('homes', {home: 'video-a-la-demande'}) }}" target="_top">{{ 'nav.subnav.vod'|trans }}</a>
 			      <ul class="dropdown-menu">
-					  	<li><a href="{{ path('user_programs') }}" target="_top">Nouvautés VOD</a></li>
-			        <li class="divider"></li>
-					  	<li><a href="{{ path('user_programs') }}" target="_top">Sélection Canne</a></li>
-			        <li class="divider"></li>
-					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie1</a></li>
-					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie2</a></li>
-					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie3</a></li>
-					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie4</a></li>
-					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie5</a></li>
-					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie6</a></li>
+				      <li><a href="{{ header_base }}{{ path('homes', {home: 'film'}) }}" target="_top">{{ 'nav.films'|trans }}</a></li>
+				      <li><a href="{{ header_base }}{{ path('homes', {home: 'documentaire'}) }}" target="_top">{{ 'nav.documentaires'|trans }}</a></li>
+				      <li><a href="{{ header_base }}{{ path('homes', {home: 'serie'}) }}" target="_top">{{ 'nav.series'|trans }}</a></li>
+				      <li><a href="{{ header_base }}{{ path('homes', {home: 'spectacle'}) }}" target="_top">{{ 'nav.spectacles'|trans }}</a></li>
+				      <li><a href="{{ header_base }}{{ path('homes', {home: 'jeunesse'}) }}" target="_top">{{ 'nav.jeunesse'|trans }}</a></li>
 			      </ul>
 					</li>
 					<li class="dropdown {{ app.request.get('home') == 'cinema' ? 'active' : '' }}">
 						<a data-toggle="dropdown" class="a-caret dropdown-toggle tv-component" class="pull-right"><b class="caret"></b></a>
 						<a class="with-caret" href="{{ header_base }}{{ path('homes', {home: 'cinema'}) }}" target="_top">{{ 'nav.subnav.cine'|trans }}</a>
 			      <ul class="dropdown-menu">
-					  	<li><a href="{{ path('user_programs') }}" target="_top">Sorties de la semaine</a></li>
-					  	<li><a href="{{ path('user_programs') }}" target="_top">Le Top du box office</a></li>
-					  	<li><a href="{{ path('user_programs') }}" target="_top">Bientôt dans les salles</a></li>
-			        <li class="divider"></li>
-					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie1</a></li>
-					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie2</a></li>
-					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie3</a></li>
-					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie4</a></li>
-					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie5</a></li>
-					  	<li><a href="{{ path('user_programs') }}" target="_top">categorie6</a></li>
+					  	<li><a href="{{ path('category', {format: 'cinema', category_slug: 'dessin-anime-et-manga'}) }}" target="_top">Jeunesse</a></li>
+					  	<li><a href="{{ path('category', {format: 'cinema', category_slug: 'film', facet: 'action'}) }}" target="_top">Action</a></li>
+					  	<li><a href="{{ path('category', {format: 'cinema', category_slug: 'film', facet: 'aventure'}) }}" target="_top">Aventure</a></li>
+					  	<li><a href="{{ path('category', {format: 'cinema', category_slug: 'film', facet: 'comedie-dramatique'}) }}" target="_top">Comédie dramatique</a></li>
+					  	<li><a href="{{ path('category', {format: 'cinema', category_slug: 'film', facet: 'comedie-musicale'}) }}" target="_top">Comédie musicale</a></li>
+					  	<li><a href="{{ path('category', {format: 'cinema', category_slug: 'film', facet: 'comedies-francaise'}) }}" target="_top">Comédies françaises</a></li>
+					  	<li><a href="{{ path('category', {format: 'cinema', category_slug: 'film', facet: 'drame-historique'}) }}" target="_top">Drame historique</a></li>
 			      </ul>
 					</li>
 					<li class="divider"></li>
         </ul>
-			  <form class="navbar-search">
+			  <form class="navbar-search pull-right">
 			  {#<i class="icon-search icon-white"></i>#}
 			  <input type="text" value="{{ app.request.get('q') }}" class="search-query pull-left span4" placeholder="{{ 'search.pitch'|trans }}">
 			  </form>

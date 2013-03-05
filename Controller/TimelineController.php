@@ -43,21 +43,23 @@ class TimelineController extends Controller
 			}
 
 			$api = $this->get('api');
-      $data = $api->fetch('schedule/epg', array(
-                          'timestamp' => $timestamp,
-                          'with_player' => true,
-                          'img_width' => 150,
-                          'img_height' => 200,
-													'channel_img_width' => 45,
-													'session_uid' => $request->get('session_uid'),
-													'channels_ids' => $request->get('channels_ids')
-                          //'with_related_sliders' => true
-                        ));
+      $data = $api->fetch(
+								'schedule/epg', array(
+                'timestamp' => $timestamp,
+                'with_player' => true,
+                'img_width' => 150,
+                'img_height' => 200,
+								'channel_img_width' => 45,
+								'session_uid' => $request->get('session_uid'),
+								'channels_ids' => $request->get('channels_ids'),
+                'with_related_sliders' => $request->get('schedule-only') ? false : true
+              ));
 			//echo $api->url;
+
 			// post treatment
 			$data->channels = (array)$data->channels;
 
-			$template = $request->get('schedule-only') ? '_grid-schedule' : 'grid';
+			$template = $request->get('schedule-only') ? '_channels-schedule' : 'grid';
       $response = $this->render('SkreenHouseFactoryV3Bundle:Timeline:' . $template . '.html.twig', array(
 				'data' => (array)$data
       ));

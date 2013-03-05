@@ -1,4 +1,5 @@
-{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+{% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
+
 {% block meta %}
 <meta property="og:title" content="{{ program.title }}" />
 <meta property="og:description" content="{{ program.description_seo }}" />
@@ -46,7 +47,7 @@
     {% if program.teaser %}
       <a name="teaser"></a>
       <div id="program-teaser">
-      <a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>
+      {#<a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
       <div id="program-teaser-meta" class="player-meta"></div>
       <div id="program-teaser-player" data-play-autoload="{{ program.teaser.id }}" data-play-meta-elmt="#program-teaser-meta" data-play-muted="1" data-play-args="{{ {hide_sliders: 1}|json_encode }}" data-play-width="740" data-play-height="330"></div>
       </div>
@@ -159,27 +160,21 @@
                 </td>
                 <td class="access">
                   {% if o_access.name in ['Live', 'TV'] %}
-                    <span class="big"><time itemprop="startDate" datetime="{{ o.broadcastdate }}">{{ o.broadcastdate }}</time></span>
+                    <span class="big"><time itemprop="startDate" datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time></span>
                   {% else %}
                       <span class="big">{{ o_access.name|replace({' iTunes': ''}) }}</span>
-                    {% if o.broadcastdate is defined %}
-                      <time itemprop="startDate" datetime="{{ o.broadcastdate }}">{{ o.broadcastdate }}</time>{#{ o.broadcastdate|localizeddate('full', 'none') }#}
+                    {% if o.broadcasttime is defined %}
+                      <time itemprop="startDate" datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
                     {% endif %}
                   {% endif %}
-                  {% if o.replay_remaining is defined and o.replay_remaining %}
-                    {% if o.replay_remaining < 0 %}
-                    <span class="label label-info">Bientôt disponible en Replay</span>
-                    {% else %}
-                    <span class="label label-info">En Replay dans {% if o.replay_remaining/60 > 24  %}{{ (o.replay_remaining/(60*24))|number_format }} jours{% else %}{{ (o.replay_remaining/60)|number_format }}h{% endif %}</span>
+                  {% if o_access.name == 'TV' %}
+										{% if o.has_replay and o.broadcasttime|remainingtv %}
+	                    <span class="label label-info">{{ o.broadcasttime|remainingtv }}</span>
+	                  {% elseif o.broadcasttime|timeleft %}
+	                    <span class="label label-warning">Dans {{ o.broadcasttime|timeleft }}</span>
                     {% endif %}
-                  {% elseif o.timeleft is defined and o.timeleft %}
-                    {% if o.timeleft < 0 %}
-                    <span class="label">timeleft ?</span>
-                    {% elseif o_access.name == 'TV' %}
-                    <span class="label label-warning">Dans {% if o.timeleft/60 > 24  %}{{ (o.timeleft/(60*24))|number_format }} jours{% else %}{{ (o.timeleft/60)|number_format }}h{% endif %}</span>
-                    {% else %}
-                    <span class="label label-{% if o.timeleft > 24*60 %}warning{% else %}important{% endif %}">Plus que {% if o.timeleft/60 > 24  %}{{ (o.timeleft/(60*24))|number_format }} jours{% else %}{{ (o.timeleft/60)|number_format }}h{% endif %} pour le voir</span>
-                    {% endif %}
+									{% elseif o.endtime|remainingreplay %}
+                    <span class="label label-warning">{{ o.endtime|remainingreplay }}</span>
                   {% endif %}
                 </td>
                 {% if o_episode %}
@@ -403,6 +398,14 @@
         {% if program.director %}
         <strong>{{ 'directed.by'|trans }} : </strong> 
         {% for pers in program.director %}
+        <div class="inline" itemprop="director" itemscope="" itemtype="http://schema.org/Person">
+        {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% if program.presenter is defined and program.presenter %}
+        <strong>{{ 'presented.by'|trans }} : </strong> 
+        {% for pers in program.presenter %}
         <div class="inline" itemprop="director" itemscope="" itemtype="http://schema.org/Person">
         {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
         </div>

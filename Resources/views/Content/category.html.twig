@@ -46,31 +46,7 @@
 
   <div class="view-main view-category-main">
     <p class="category-description">{{ category.description|raw }}</p>
-
-    {#<div class="row">
-      <div id="program-follow" class="span3 view-program-block actions" data-id="{{ category.id }}">
-        <p class="lead" style="margin: 0px;">{{ 'category.follow.block.title.all'|lower|trans({'%category%': category.name}) }}</p>
-        <a class="fav btn btn-large btn-block" data-placement="bottom"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
-      </div>
-      <div id="program-friends" class="span3 view-program-block">
-        <p class="lead" style="margin: 0px;">{{ 'category.friends.block.title.all'|lower|trans({'%category%': category.name}) }}</p>
-        <div class="user-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'friends.popover.content'|trans } %}</div>
-        <div class="user-on"></div>
-      </div>
-    </div>#}
   </div>
-
-  {#
-  <div class="view-category-column view-column pull-left actions" data-id="{{ category.id }}">
-    <div style="position:relative;">
-      <img src="{{ category.picture }}" alt="{{ category.name }}" />
-    </div>
-    <ul class="nav nav-list bs-docs-sidenav">
-      <li><a href="#related"><i class="icon-chevron-right"></i> {{ 'program.related'|trans }}</a></li>
-      <li><a href="#infos"><i class="icon-chevron-right"></i> {{ 'program.infos'|trans }}</a></li>
-    </ul>
-  </div>
-  #}
 
   <div class="pagination">
     <ul>

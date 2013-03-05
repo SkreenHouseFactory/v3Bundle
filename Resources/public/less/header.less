@@ -7,7 +7,7 @@
      left: 0;
      right: 0;
      z-index: 3;
-     margin-top: 20px;
+     margin-top: 10px;
      margin-bottom: -90px; /* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
    
 	 	 .container {
@@ -17,11 +17,12 @@
    /* Remove border and change up box shadow for more contrast */
 	 .navbar-inverse {
 	 	 .nav li.dropdown > a .caret {
+		 	 margin-top: 13px;
 			 border-top-color: #AAA;
 			 border-bottom-color: #AAA;
 		 }
 		 .navbar-search {
-	  	margin-top: 7px;
+	  	margin-top: 12px;
 		 	 .search-query {
 			 	 font-size: 1.1em;
 		 		 color: #333;
@@ -33,17 +34,20 @@
 	 /* navbar */
    .navbar {
 	 	 .navbar-inner {
-			 padding-right: 0;
 	     border: 0;
 	     -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.25);
 	        -moz-box-shadow: 0 2px 10px rgba(0,0,0,.25);
 	             box-shadow: 0 2px 10px rgba(0,0,0,.25);
 		   a.brand {
-				 padding: 6px 15px 8px 15px;
+				 padding: 12px 15px 8px 15px;
+				 img {
+				 	width: 150px;
+				 }
 		   }
 			.nav > li {
 				> a {
-			     padding: 15px;
+					color: #CCC;
+			     padding: 20px 15px;
 					 font-size: 1.1em;
 					 
 					 &.with-caret {
@@ -57,7 +61,8 @@
 		   	 }
 				&.btn-primary {
 					> a {
-						border-left: 1px solid #0088cc;
+						border-left: 0; /*1px solid #0088cc;*/
+						padding: 20px 10px;
 						color: white;
 					  /*
 						&.auth {
@@ -72,7 +77,7 @@
 				}
 				&.dropdown {
 					.dropdown-menu .tv-channels {
-						width: 260px;
+						width: 500px;
 						padding-left: 5px;
 						a {
 							float: left;
@@ -82,6 +87,9 @@
 						}
 			 		}
 				}
+				&.active > a {
+			 	  color: white;
+			 	}
 				&.divider-vertical {
 			 	  margin: 0;
 			 	}

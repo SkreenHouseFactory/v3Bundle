@@ -94,18 +94,19 @@ var Session = BaseSession.extend({
               });
   },
   initPlaylist: function(url) {
+    console.log('Session.initPlaylist', 'url:' + url);
 
     if (typeof url == 'undefined') {
       url = API.context == 'v2' ? API.currentUrl : top.location.pathname;
-    }
-    url = url.replace('/app_dev.php','').replace('/app.php','');
+    } else if (url) {
+    	url = url.replace('/app_dev.php','').replace('/app.php','');
+	    // -- keep
+	    if (url.match(/keepPlaylist/)) {
+	      console.log('Session.initPlaylist', 'keep');
+	      return;
+	    }
+		}
     console.log('Session.initPlaylist', 'url:' + url);
-
-    // -- keep
-    if (url.match(/keepPlaylist/)) {
-      console.log('Session.initPlaylist', 'keep');
-      return;
-    }
 
     // -- autoload
     if (API.context == 'v3') {
@@ -122,28 +123,28 @@ var Session = BaseSession.extend({
      //load tv 
      case '/tv-replay/':
        UI.loadPlaylist('tv');
-       UI.loadFilters('tv');
+       //UI.loadFilters('tv');
      break;
      case '/emission/':
        UI.loadPlaylist('tv');
-       UI.loadFilters('tv'); //??
+       //UI.loadFilters('tv'); //??
      break;
      case '/programme-tv':
        UI.loadPlaylist('tv');
-       UI.loadFilters('tv', 'grid');
+       //UI.loadFilters('tv', 'grid');
        //add grid filters
      break;
      //load cinema 
      case '/cinema/box-office/a/':
-       UI.loadFilters('cine', 'box-office');
+       //UI.loadFilters('cine', 'box-office');
      break;
      case '/cinema/':
        UI.loadPlaylist('cine');
-       UI.loadFilters('cine');
+       //UI.loadFilters('cine');
      break;
      case '/cinema/selection/7845147-a-decouvrir-dans-les-salles-cette-semaine/':
        UI.loadPlaylist('cine');
-       UI.loadFilters('cine', 'new');
+       //UI.loadFilters('cine', 'new');
      break;
      case '/cinema/selection/7845150-bientot-dans-les-salles/':
        UI.loadFilters('cine', 'coming');
@@ -151,7 +152,7 @@ var Session = BaseSession.extend({
      //load selector onglet
      case '/video-a-la-demande/':
        UI.loadPlaylist('vod');
-       UI.loadFilters('vod');
+       //UI.loadFilters('vod');
      break;
      case '/film/':
      case '/documentaire/':
@@ -159,14 +160,14 @@ var Session = BaseSession.extend({
      case '/spectacle/':
      case '/dessin-anime-et-manga/':
        UI.loadPlaylist('vod');
-       UI.loadFilters('vod', url.replace('/', '').replace('/', ''));
+       //UI.loadFilters('vod', url.replace('/', '').replace('/', ''));
      break;
      //load selector
      case '/':
      case '':
      default:
        //UI.unloadFilters();
-       UI.loadFilters('home');
+       //UI.loadFilters('home');
        this.initSelector();
      break;
     }

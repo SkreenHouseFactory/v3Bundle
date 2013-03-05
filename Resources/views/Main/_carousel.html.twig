@@ -5,10 +5,10 @@
     {#% if p.teaser is defined and p.teaser.id is defined %}
       <a href="#" data-play="{{ p.teaser.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}" class="pull-left" style="position:absolute;top:30px;left:400px;"><img src="{{ asset('bundles/skreenhousefactoryv3/images/big-play.png') }}" alt="bande annonce {{ p.title }}" style="height:150px;" /></a>
     {% endif %#}
-    <a href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}"><img src="{% if p.sliderPicture is defined %}{{ p.sliderPicture }}{% else %}{{ p.picture }}{% endif %}" alt="{{ p.title }}" /></a>
+    <a href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}"><img src="{% if p.sliderPicture is defined %}{{ p.sliderPicture|replace({'/990':'/845/330'}) }}{% else %}{{ p.picture }}{% endif %}" alt="{{ p.title }}" /></a>
     <div class="container">
 			<div class="carousel-caption actions" data-id="{{ p.id }}">
-      <h4>{{ p.title }}</h4>
+      <h4><a href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">{{ p.title }}</a></h4>
 			{% if skip_like is not defined %}
 			{% endif %}
       <p class="pull-left">{{ p.format }}{% if p.duration %}, {{ p.duration }}mn{% endif %}</p>
