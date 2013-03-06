@@ -2,9 +2,15 @@
 $(document).ready(function(){
 	if ($('#view-tvgrid').length) {
 
-		//need session
+		//session
 		Skhf.session.callbackInit = function() {
 		  Grid.init($('#grid'));
+		}
+		Skhf.session.callbackSignout = function() {
+		  Grid.loadSchedule();
+		}
+		Skhf.session.callbackSignin = function() {
+		  Grid.loadSchedule();
 		}
 
 		//datepicker
@@ -36,10 +42,9 @@ $(document).ready(function(){
 
 		//dropdown update
 		$('a[data-filter]').click(function(){
-			console.log('script', 'tvgrid', $(this).data('filter'));
-			if ($(this).parents('li.dropdown:first').length) {
-				$(this).parents('li.dropdown:first').find('a.dropdown-toggle span').text($(this).text());
-			}
+			console.log('script/tvgrid.js', $(this).data('filter'));
+			//grid
+			Grid.filter($(this).data('filter'));
 			//sliders
 			if ($(this).data('filter')) {
 				$('.items li').hide();
@@ -47,8 +52,10 @@ $(document).ready(function(){
 			} else {
 				$('.items li').show();
 			}
-			//grid
-			Grid.filter($(this).data('filter'));
+			//menu update
+			if ($(this).parents('li.dropdown:first').length) {
+				$(this).parents('li.dropdown:first').find('a.dropdown-toggle span').text($(this).text());
+			}
 			return false;
 		});
 
@@ -59,9 +66,8 @@ $(document).ready(function(){
 		$('#channels a .icon-trash').live('click', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
-			Grid.setChannelsList(function(){
-				$(this).parent().remove();
-			});
+			$(this).parents('li:first').remove();
+			Grid.setChannelsList();
 			return false;
 		})
 
@@ -87,7 +93,7 @@ Grid = {
 	elmt: null,
 	channels: null,
 	timestamp: null,
-	channel_img_width: 45,
+	channel_img_width: 55,
 	timeout: null,
 	init: function(elmt) {
 		console.log('Grid.init', elmt);
@@ -219,6 +225,7 @@ Grid = {
 		$('h1 time').html(day + ' ' + date + ' - ' + time);
 	},
 	filter: function(onglet) {
+		console.log('Grid.filter', onglet);
 		if (onglet == 'in-playlists' && 
 				!Skhf.session.datas.email) {
 			UI.auth(function(){
@@ -228,11 +235,19 @@ Grid = {
 			});
 			return;
 		}
+		$('> li', this.channels).show();
 		if (onglet) {
-			$('ul li:not(.' + onglet + ')', this.channels).animate({opacity: 0.1});
-			$('ul li.' + onglet, this.channels).animate({opacity: 1});
+			$('> li > ul > li.diff:not(.' + onglet + ')', this.channels).animate({opacity: 0.1});
+			$('> li', this.channels).each(function(){
+				if ($('ul > li.diff.' + onglet, $(this)).length) {
+					$('ul > li.diff.' + onglet, $(this)).animate({opacity: 1});
+				} else {
+					$(this).hide();
+				}
+			});
+			
 		} else {
-			$('ul li', this.channels).animate({opacity: 1});
+			$('> li > ul > li.diff', this.channels).animate({opacity: 1});
 		}
 	},
 	getChannelsIds: function(){

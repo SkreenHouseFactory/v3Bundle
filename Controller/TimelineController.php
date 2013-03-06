@@ -49,10 +49,11 @@ class TimelineController extends Controller
                 'with_player' => true,
                 'img_width' => 150,
                 'img_height' => 200,
-								'channel_img_width' => 45,
+								'channel_img_width' => 55,
 								'session_uid' => $request->get('session_uid'),
 								'channels_ids' => $request->get('channels_ids'),
-                'with_related_sliders' => $request->get('schedule-only') ? false : true
+                'with_related_sliders' => $request->get('schedule-only') ? false : true,
+                'time' => time()
               ));
 			//echo $api->url;
 

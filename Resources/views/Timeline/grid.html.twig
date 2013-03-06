@@ -9,9 +9,9 @@
 <link rel="stylesheet" media="screen" href="{{ asset('bundles/skreenhousefactoryv3/jquery-ui/css/flick/jquery-ui-1.10.1.custom.min.css') }}" />
 <div id="view-tvgrid" class="container">
 	<div id="grid" data-timestamp="{{ data.timestamp }}" data-reload-ajax="{{ path('tvgrid') }}">
-	<h1>Programme TV</h1>
-	<div class="btn-group">
-		<a class="btn btn-primary" data-filter="">Tout</a>
+
+	<div class="btn-group btn-filters" data-toggle="buttons-radio">
+		<a class="btn btn-info" data-filter="">Tout</a>
 		<a class="btn" data-filter="films">Films</a>
 		<a class="btn" data-filter="documentaires">Documentaires</a>
 		<a class="btn" data-filter="emissions">Emissions</a>
@@ -23,7 +23,7 @@
   {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
 	{% endfor %}
 	<hr/>
-	<h2><small><time timestamp="{{ data.timestamp }}">{{ data.timestamp|localizeddate('full')|replace({'00:00': '00'}) }}</time></small></h2>
+	<h1>Programme TV <small><time timestamp="{{ data.timestamp }}">{{ data.timestamp|localizeddate('full')|replace({'00:00': '00'}) }}</time></small></h1>
 	<div id="datepicker"></div>
 	<ul class="nav nav-pills">
 	  <li class="active yesterdaynight time-change"><a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir</a></li>

@@ -5,6 +5,8 @@ var BaseSession = Class.extend({
   onglet: '',
   access: '',
 	callbackInit: null,
+	callbackSignout: null,
+	callbackSignin: null,
   init: function(callback, args) {
     console.log('BaseSession.init', args);
     var self = this;
@@ -78,13 +80,24 @@ var BaseSession = Class.extend({
     if (typeof callback != 'undefined') {
       //console.log('BaseSession.signin callback', callback);
       callback();
+			if (this.callbackSignin) {
+				this.callbackSignin();
+			}
     }
   },
   signout: function(callback) {
+
     if (API.context == 'v2') {
       API.postMessage(['signout']);
     } else {
-      API.query('POST', 'session/signout.json', {session_uid: this.uid}, callback);
+      API.query('POST', 'session/signout.json', {session_uid: this.uid}, function(){
+				if (typeof callback != 'undefined') {
+					callback();
+				}
+				if (this.callbackSignout) {
+					callbackSignout();
+				}
+			});
     }
 
     this.datas = '';

@@ -132,6 +132,9 @@ UI = {
     if (trigger.hasClass('fav-cinema')) {
         var content = '<b>Ne ratez plus vos séances&nbsp;!</b>' + 
                       '<br/>En ajoutant ce cinéma à vos playlists vous saurez averti de sa programmation.';
+    } else if (trigger.hasClass('fav-epg')) {
+        var content = '<b>Faites-vous un programme TV sur mesure&nbsp;!</b>' + 
+                      '<br/>En ajoutant cette chaîne à vos playlists elle apparaîtra dans votre programme TV.';
     } else if (trigger.hasClass('fav-channel')) {
         var content = '<b>Ne ratez plus vos chaînes préférées&nbsp;!</b>' + 
                       '<br/>En ajoutant cette chaîne à vos playlists vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
@@ -165,6 +168,9 @@ UI = {
     if (trigger.hasClass('fav-cinema')) {
       var parameter = 'cinema';
       var name = 'ce cinéma';
+    } else if (trigger.hasClass('fav-epg')) {
+      var parameter = 'epg';
+      var name = 'cette chaîne TV';
     } else if (trigger.hasClass('fav-channel')) {
       var parameter = 'channel';
       var name = 'cette chaîne';
@@ -185,13 +191,18 @@ UI = {
       var remove = trigger.hasClass('fav-on') ? true : false;
       var callback = function(value){
         console.log('UI.togglePlaylist', 'callback', value, trigger);
-        if (remove && 
-            parameter == 'like' &&
-            $('.friends', trigger.parents('.actions:first')).length == 0) { //pas pour le slider social
-          $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
-            $(this).remove();
-          });
-        }
+        if (remove) {
+					if (parameter == 'like' &&
+            	$('.friends', trigger.parents('.actions:first')).length == 0) { //pas pour le slider social
+	          $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
+	            $(this).remove();
+	          });
+	        }
+				} else {
+					if (parameter == 'epg' && typeof Grid != 'undefined') {
+						Grid.loadSchedule();
+					}
+				}
       }
       if (remove) {
         API.removePreference(parameter, value, callback);
@@ -606,11 +617,8 @@ UI = {
   },
   loadRedirect: function(url) {
     console.log('UI.loadRedirect', API.context, url);
-    if (API.context == 'v2') {
-      API.linkV2(url, true);
-    } else {
-      Player.redirect(url);
-    }
+    Player.redirect(url);
+
     if ($('#top-playlist').hasClass('in')) {
       $('#top-playlist').collapse('hide');
     }
@@ -757,9 +765,6 @@ UI = {
                                 }
                               }
                               //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
-                              if (API.context == 'v2') { //hack iframe header v2
-                                $('#top-playlist').collapse('show');
-                              }
                               typeahead.show();
                             } else {
                               return typeahead.shown ? typeahead.hide() : typeahead
@@ -778,10 +783,6 @@ UI = {
           } else {
             top.location = API.config.v3_url + obj.seo_url;
           }
-        }
-
-        if (API.context == 'v2') { //hack iframe header v2
-          $('#top-playlist').collapse('hide');
         }
       }
     });

@@ -26,11 +26,13 @@ $(document).ready(function(){
 		API.quickLaunchModal(triggerModal);
 	}
 
+	/* trigger remote data in html elmt */
 	$('[data-ajax]').live('click', function(){
 	  console.log('script', '[data-ajax]', $(this).data('ajax'));
 		$($(this).attr('rel')).load($(this).data('ajax'));
 	});
 
+	/* trigger modal */
 	$('a[data-modal], [data-modal-remote]').live('click', function(e){
 	  console.log('script', 'a[data-modal], [data-modal-remote]', 'click');
 	  e.preventDefault();
@@ -184,8 +186,8 @@ $(document).ready(function(){
 
 	// -- btn-radio
 	$('[data-toggle="buttons-radio"] > *').click(function(){
-	  $('> *', $(this).parent()).removeClass('active btn-primary');
-	  $(this).addClass('active btn-primary');
+	  $('> *', $(this).parent()).removeClass('active btn-info');
+	  $(this).addClass('active btn-info');
 	});
 
 	/* TOUCH */
