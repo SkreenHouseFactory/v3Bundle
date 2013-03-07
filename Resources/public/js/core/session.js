@@ -86,19 +86,16 @@ var BaseSession = Class.extend({
     }
   },
   signout: function(callback) {
+		var self = this;
 
-    if (API.context == 'v2') {
-      API.postMessage(['signout']);
-    } else {
-      API.query('POST', 'session/signout.json', {session_uid: this.uid}, function(){
-				if (typeof callback != 'undefined') {
-					callback();
-				}
-				if (this.callbackSignout) {
-					callbackSignout();
-				}
-			});
-    }
+    API.query('POST', 'session/signout.json', {session_uid: this.uid}, function(){
+			if (typeof callback != 'undefined') {
+				callback();
+			}
+			if (self.callbackSignout) {
+				self.callbackSignout();
+			}
+		});
 
     this.datas = '';
     this.user = '';

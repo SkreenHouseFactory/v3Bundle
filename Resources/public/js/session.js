@@ -147,7 +147,7 @@ var Session = BaseSession.extend({
        //UI.loadFilters('cine', 'new');
      break;
      case '/cinema/selection/7845150-bientot-dans-les-salles/':
-       UI.loadFilters('cine', 'coming');
+       //UI.loadFilters('cine', 'coming');
      break;
      //load selector onglet
      case '/video-a-la-demande/':
