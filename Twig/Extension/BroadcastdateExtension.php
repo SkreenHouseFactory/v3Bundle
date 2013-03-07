@@ -23,6 +23,15 @@ class broadcastdateExtension extends \Twig_Extension
         );
     }
 
+    /**
+     * Returns the name of the extension.
+     *
+     * @return string The extension name
+     */
+    public function getName()
+    {
+        return 'broadcastdate';
+    }
 
     /**
      * get remaining time message
@@ -126,14 +135,4 @@ class broadcastdateExtension extends \Twig_Extension
 				case 12: return 'Déc.'; break;
 			}
 		}
-
-    /**
-     * Returns the name of the extension.
-     *
-     * @return string The extension name
-     */
-    public function getName()
-    {
-        return 'broadcastdate';
-    }
 }

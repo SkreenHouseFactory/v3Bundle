@@ -3,6 +3,7 @@ parameters:
     api.format:  .json
     api.env:     %kernel.environment%
     twig.broadcastdate.class: SkreenHouseFactory\v3Bundle\Twig\Extension\BroadcastdateExtension
+    twig.tools.class: SkreenHouseFactory\v3Bundle\Twig\Extension\ToolsExtension
 
 services:
     api:
@@ -15,6 +16,11 @@ services:
 
     twig.extension.broadcastdate:
         class: %twig.broadcastdate.class%
+        public: false
+        tags:
+            - { name: twig.extension }
+    twig.extension.tools:
+        class: %twig.tools.class%
         public: false
         tags:
             - { name: twig.extension }

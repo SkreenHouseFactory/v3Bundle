@@ -8,10 +8,6 @@ var Session = BaseSession.extend({
   sync: function(callback, args) {
     var args = $.extend({with_notifications: 1}, args);
     this.__base(callback, args);
-    
-    if (API.context == 'v2') {
-      API.postMessage(['sync']);
-    }
   },
   signin: function(sessionData, callback) {
     this.__base(sessionData, callback)

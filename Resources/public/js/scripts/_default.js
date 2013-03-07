@@ -74,15 +74,6 @@ $(document).ready(function(){
       var current = $('.navbar .notifications li:not(.divider, .empty)').length;
       $('.navbar .notifications-count span.badge').removeClass('badge-important').html(current);
     }
-
-    if (API.context == 'v2') {// for tv guide
-      console.log('toggleheader');
-      if (!$('#top-playlist').hasClass('in') && $('.navbar .nav li.open').length == 0) {
-        API.postMessage(['header', 'add_playlist']);
-      } else {
-        API.postMessage(['header', 'remove_playlist']);
-      }
-    }
   });
   $('.share .btn').click(function(){
     if ($(this).data('share') == 'disallow') {
@@ -92,13 +83,7 @@ $(document).ready(function(){
     }
   });
   $('.share a.share-off').click(function(){
-    if (API.context == 'v2') {
-      API.postMessage(['modal', 'facebook']);
-
-    } else {
-      API.quickLaunchModal($(this).data('modal'));
-    }
-
+    API.quickLaunchModal($(this).data('modal'));
     return false;
   });
 
@@ -131,14 +116,12 @@ $(document).ready(function(){
 		$('body:not(.view-homes) #main').animate({paddingTop: 480}, function(){
     	$('body').addClass('playlist-in');
 		})
-    API.postMessage(['header', 'add_playlist']);
   });
   $('#top-playlist').on('hide', function () {
     console.log('script', '#top-playlist on hide');
 		$('body:not(.view-homes) #main').animate({paddingTop: 80}, function(){
     	$('body').removeClass('playlist-in');
 		})
-    API.postMessage(['header', 'remove_playlist']);
   });
   $('#top-playlist .breadcrumb li:first').live('click', function(){
     Skhf.session.initSelector();
