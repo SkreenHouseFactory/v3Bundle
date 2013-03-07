@@ -139,7 +139,9 @@
                   </span>
                 </td>
                 <td class="channel">
+									{% if o.url is defined %}
 									<meta itemprop="url" content="{{ o.url }}" />
+									{% endif %}	
 									<meta itemprop="eventType" content="{{ program.title }} diffusé sur {{ o_channel.name }}"/>
 									<span itemprop="location" itemscope itemtype="http://data-vocabulary.org/Organization">
 										<meta itemprop="name" content="{{ o_channel.name }}"/>

@@ -19,17 +19,14 @@ timelinejs:
     pattern:  /__timeline/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:timelinejs }
 tvgrid_addchannel:
-    pattern:  /programme-tv-dev/addchannel/
+    pattern:  /programme-tv/addchannel/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:addchannel }
 tvgrid_date:
-    pattern:  /programme-tv-dev/{date}/
+    pattern:  /programme-tv/{date}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:grid }
 tvgrid:
-    pattern:  /programme-tv-dev/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:grid }
-tvgridv2:
     pattern:  /programme-tv/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:gridv2 }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Timeline:grid }
 
 #sitemaps
 sitemap_channels_page:
@@ -53,9 +50,6 @@ v2_selections:
     requirements:
         id: \d+
         slug: "[^/]+"
-v2_prgrammetv:
-    pattern:  /programme-tv/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:programmetv }
 
 #search
 search_format:
