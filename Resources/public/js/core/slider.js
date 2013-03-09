@@ -281,32 +281,27 @@ var BaseSlider = Class.extend({
                               .replace('%onglet%', typeof program.onglet != 'undefined' ? program.onglet.toLowerCase() : '');
       var li = $(sample);
       li.css('background-image', 'url(' + program.picture + ')')
-        .attr('data-position', k)
-        .attr('data-player-program', JSON.stringify(program))
-				.attr('href', program.seo_url);
+				.attr('data-position', k);
+      $('a.title', li).attr('data-player-program', JSON.stringify(program))
+											.attr('href', program.seo_url);
       if (program.deporte) {
         li.addClass('deporte');
       }
+      this.addProgramBestOffer(li, program);
 
       //notif : FIX
       //if (Skhf.session.datas.notifications &&
       //    $.inArray('' + pere.id, Skhf.session.datas.notifications.programs['new']) != -1) { //'' + pere.id
       //  li.prepend(UI.badge_notification.replace('%count%', 'nouveau'));
       //}
-      if (isNaN(program.id)) {
-        $('.actions', li).remove();
-      } else {
-        $('.actions', li).data('id', program.id);
-        this.addProgramBestOffer(li, program);
 
-        /* add friends : desactived
-        Skhf.session.getSocialDatas(function (friends, friends_programs) {
-          if (typeof friends_programs[program.id] != 'undefined') {
-            UI.addFriends(li, friends_programs[program.id]);
-          }
-        });
-        */
-      }
+      /* add friends : desactived
+      Skhf.session.getSocialDatas(function (friends, friends_programs) {
+        if (typeof friends_programs[program.id] != 'undefined') {
+          UI.addFriends(li, friends_programs[program.id]);
+        }
+      });
+      */
       li.addClass('to-animate').css('display', 'inline-block'); //attention : .show() > list-item
       //console.log('BaseSlider.load', 'add', li, $('ul.items', this.elmt));
       $('ul.items', this.elmt).append(li);

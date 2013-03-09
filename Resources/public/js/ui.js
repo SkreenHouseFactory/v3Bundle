@@ -10,6 +10,7 @@ UI = {
   max_notifications: 20,
   badge_notification: '<span class="badge">%count%</span>',
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
+	callbackTogglePlaylist: null,
   init: function(callback) {
     var self = this;
     this.playlist = new BaseSlider({ programs: [] }, function() {},$('#playlist'));
@@ -85,9 +86,6 @@ UI = {
         //datas
         this.loadPlaylistTriggers();
         this.loadNotifications(Skhf.session.datas.notifications);
-        if ($('#view-program').length) {
-          this.loadProgramUsersDatas($('#view-program').data('id'));
-        }
       }
       //infos
       $('.user-email').html(Skhf.session.datas.email);
@@ -119,9 +117,7 @@ UI = {
       $('.notifications-count').empty();
       $('.notifications li:not(.empty)').remove();
       this.playlist.remove();
-      //if ($('#view-program').length) {
-      //  this.unloadProgramUsersDatas();
-      //}
+
       //theaters
       this.unloadTheatersPlaylist();
     }
@@ -191,6 +187,7 @@ UI = {
       var remove = trigger.hasClass('fav-on') ? true : false;
       var callback = function(value){
         console.log('UI.togglePlaylist', 'callback', value, trigger);
+				// remove
         if (remove) {
 					if (parameter == 'like' &&
             	$('.friends', trigger.parents('.actions:first')).length == 0) { //pas pour le slider social
@@ -198,10 +195,9 @@ UI = {
 	            $(this).remove();
 	          });
 	        }
-				} else {
-					if (parameter == 'epg' && typeof Grid != 'undefined') {
-						Grid.loadSchedule();
-					}
+				}
+				if (UI.callbackTogglePlaylist) {
+					UI.callbackTogglePlaylist(parameter, value, remove);
 				}
       }
       if (remove) {
@@ -372,61 +368,6 @@ UI = {
       })
     }
   },
-  //load user program's infos
-  loadProgramUsersDatas: function(id) {
-    var self = this;
-
-    // friends
-    if ( Skhf.session.datas.fb_uid) {
-      var container_friends = $('#program-friends .share-on');
-      this.appendLoader(container_friends);
-      Skhf.session.getSocialDatas(function(friends, friends_programs) {
-        console.log('UI.loadProgramUsersDatas', 'callback session.getSocialDatas', id, friends_programs[id]);
-        container_friends.removeClass('hide'); //HACK : TODO appel après connexion
-        self.removeLoader(container_friends);
-        if (typeof friends_programs[id] != 'undefined') {
-          self.addFriends(container_friends, friends_programs[id])
-        } else {
-          container_friends.append('<p class="alert">Aucun ami trouvé !</p><a href="#same_playlists" class="btn btn-block">Ils ajoutent aussi à leurs playlists &raquo;</a>');
-        }
-      });
-    }
-
-    // VOD & notifications
-    API.query('GET', 
-              'program/' + id + '.json', 
-              {
-                no_metadata: 1,
-                with_notifications: 1,
-                session_uid: Skhf.session.uid
-              }, 
-              function(datas){
-                console.log('UI.loadProgramUsersDatas', 'callback', datas);
-                //bought ?
-                if (typeof datas.purchased != 'undefined' &&
-                    datas.purchased) {
-                  for (k in datas.purchased) {
-                    console.log('UI.loadProgramUsersDatas', 'purchased', '#offers [data-id="' + k + '"] td.access', $('#offers [data-id="' + k + '"] td.access'), k, API.formatTimestamp(datas.purchased[k]));
-                    $('#offers [data-id="' + k + '"] td:last-child .btn').append('<span class="btn-block badge badge-warning">Loué le ' + API.formatTimestamp(datas.purchased[k]) + '</span>');
-                  }
-                }
-                //notifs
-                if (typeof datas.boutons_notifications != 'undefined' && 
-                    datas.boutons_notifications &&
-                    datas.boutons_notifications['new'].count > 0) {
-                  for (k in datas.boutons_notifications['new']) {
-                    var notifs = datas.boutons_notifications['new'][k];
-                    if (notifs.length > 0 && k != 'count' ) {
-                      $('#trigger-' + k).append('<span class="badge badge-important">' + notifs.length + '</span>');                  
-                      for(k in notifs){
-                        $('#program-offers #' + k + ' .table-container').addClass('has-notification');
-                        $('#program-offers [data-id="' + notifs[k] + '"] td:first-child').html('<span class="badge badge-important">1</span>');
-                      };
-                    }
-                  };
-                }
-    });
-  },
   //update friends
   loadSocialSelector: function() {
     var self = this;
@@ -475,9 +416,11 @@ UI = {
           for (k in datas) {
             $('#theaters-names').append('<a href="#theaters-playlist" data-id="' + datas[k].id + '" class="label label-info">' + datas[k].name + '</a>');
           }
-          UI.sliders['cinema'] = new BaseSlider({'url': 'schedule/cine.json?programs_only=1&theater_ids=' + Skhf.session.datas.cinema }, 
-																								function(){}, 
-																								$('#cinema.slider'));
+          UI.sliders['cinema'] = new BaseSlider({
+						'url': 'schedule/cine.json?programs_only=1&theater_ids=' + Skhf.session.datas.cinema }, 
+						function(){}, 
+						$('#cinema.slider')
+					);
       });
     }
   },

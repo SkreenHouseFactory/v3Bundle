@@ -4,9 +4,11 @@ var BaseSession = Class.extend({
   datas: {},
   onglet: '',
   access: '',
+  social_state: null,
 	callbackInit: null,
 	callbackSignout: null,
 	callbackSignin: null,
+	callbackSocial: [],
   init: function(callback, args) {
     console.log('BaseSession.init', args);
     var self = this;
@@ -80,10 +82,10 @@ var BaseSession = Class.extend({
     if (typeof callback != 'undefined') {
       //console.log('BaseSession.signin callback', callback);
       callback();
-			if (this.callbackSignin) {
-				this.callbackSignin();
-			}
     }
+		if (this.callbackSignin) {
+			this.callbackSignin();
+		}
   },
   signout: function(callback) {
 		var self = this;
@@ -139,46 +141,65 @@ var BaseSession = Class.extend({
 
     //already loaded
     if (typeof callback != 'undefined' && 
-        typeof self.datas.friends != 'undefined') {
+        this.social_state == 'done') {
+      console.warn('BaseSession.getSocialDatas', 'state=done');
       return callback(self.datas.friends, self.datas.friends_programs);
     }
 
-    //load from IndexedDb ?
-    API.selectIndexedDb('skhf', 'friends', 1, function(IndexedDbDatas){
-      console.log('BaseSession.getSocialDatas', 'selectIndexedDb', IndexedDbDatas);
-      if (IndexedDbDatas) {
-        console.log('BaseSession.getSocialDatas', 'IndexedDbDatas', IndexedDbDatas);
-        if (IndexedDbDatas.updated_at > (new Date()).getTime() - 3600*1000) {
-          self.datas.friends = IndexedDbDatas.friends;
-          self.datas.friends_programs = IndexedDbDatas.friends_programs;
-          callback(self.datas.friends, self.datas.friends_programs);
+		//loading
+		if (this.social_state == 'processing') {
+      console.warn('BaseSession.getSocialDatas', 'state=processing', 'add callback');
+			this.callbackSocial.push(callback);
+		} else {
+			//init
+			if (this.social_state == null) {
+	      console.warn('BaseSession.getSocialDatas', 'state=init');
+				this.social_state = 'processing';
+				this.callbackSocial.push(callback);
+			}
+	    //load from IndexedDb ?
+	    API.selectIndexedDb('skhf', 'friends', 1, function(IndexedDbDatas){
+	      console.log('BaseSession.getSocialDatas', 'selectIndexedDb', IndexedDbDatas);
+				this.social_state = 'done';
+	      if (IndexedDbDatas) {
+	        console.log('BaseSession.getSocialDatas', 'IndexedDbDatas', IndexedDbDatas);
+	        if (IndexedDbDatas.updated_at > (new Date()).getTime() - 3600*1000) {
+	          self.datas.friends = IndexedDbDatas.friends;
+	          self.datas.friends_programs = IndexedDbDatas.friends_programs;
+						for (k in this.socialCallback) {
+		          this.callbackSocial[k](self.datas.friends, self.datas.friends_programs);
+						}
   
-          return;
-        } else {
-          API.deleteIndexedDb('skhf', 'friends', 1);
-        }
-      }
-  
-      //fail : load from API
-      self.sync(function(sessionDatas){
-        console.log('BaseSession.getSocialDatas', 'callback', sessionDatas);
-        self.datas.friends = sessionDatas.friends;
-        self.datas.friends_programs = sessionDatas.friends_playlists;
-  
-        API.insertIndexedDb('skhf', 'friends', {id: 1, 
-                                                friends: self.datas.friends, 
-                                                friends_programs: self.datas.friends_programs,
-                                                updated_at: (new Date()).getTime()});
-  
-        if (typeof callback != 'undefined') {
-          callback(self.datas.friends, self.datas.friends_programs);
-        }
-      },{
-        with_notifications: 0,
-        with_friends: 1,
-        with_friends_playlists: 1
-      });
-    });
+	          return;
+	        } else {
+	          API.deleteIndexedDb('skhf', 'friends', 1);
+	        }
+	      }
+
+	      //fail : load from API
+	      self.sync(function(sessionDatas){
+	        console.log('BaseSession.getSocialDatas', 'sync session callback', sessionDatas);
+	        self.datas.friends = sessionDatas.friends;
+	        self.datas.friends_programs = sessionDatas.friends_playlists;
+
+	        API.insertIndexedDb('skhf', 'friends', {id: 1, 
+	                                                friends: self.datas.friends, 
+	                                                friends_programs: self.datas.friends_programs,
+	                                                updated_at: (new Date()).getTime()});
+
+	        if (typeof callback != 'undefined') {
+						for (k in this.socialCallback) {
+	        		console.log('BaseSession.getSocialDatas', 'callback', this.callbackSocial[k]);
+		          this.callbackSocial[k](self.datas.friends, self.datas.friends_programs);
+						}
+	        }
+	      },{
+	        with_notifications: 0,
+	        with_friends: 1,
+	        with_friends_playlists: 1
+	      });
+	    });
+		}
   },
   getFriendsUids: function(callback){
     this.getSocialDatas(function(friends) {

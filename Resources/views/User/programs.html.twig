@@ -27,9 +27,9 @@
   {% if programs|length > 6 %}
   <div class="pagination pagination-client-alpha">
     <ul>
-        <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a href="javascript://">{{ 'nav.all'|trans }}</a></li>
+        <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a>{{ 'nav.all'|trans }}</a></li>
       {% for l in alpha %}
-        <li{% if app.request.get('alpha') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="javascript://">{{ l }}</a></li>
+        <li{% if app.request.get('alpha') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a>{{ l }}</a></li>
       {% endfor %}
     </ul>
   </div>

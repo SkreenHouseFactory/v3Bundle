@@ -67,7 +67,7 @@ Player = {
     //  console.log('Player.getType', 'Modernizr.video', Modernizr.video);
     //  return 'h264';
     } else {
-      return 'flowplayer';
+      return 'flash'; //'flowplayer';
     }
   },
   load: function(trigger) {
@@ -240,6 +240,7 @@ Player = {
 
       break;
       case 'flash':
+        console.warn('Player.play', 'flash', player, this.elmt);
         this.elmt.html(player.embed != 'undefined' ? player.embed : player);
       break;
       case 'android':
@@ -341,32 +342,34 @@ Player = {
         !args.current_player) {
       this.reset();
     }
-    var args = $.extend(true,
-                        {
-                          with_player: 1,
-                          with_teaser: 1,
-                          player_width: this.elmt.data('play-width') ? this.elmt.data('play-width') : '100%', 
-                          player_height:  this.elmt.data('play-height') ? this.elmt.data('play-height') : '100%',
-                          player: this.type,
-                          fullHD: 1,
-                          no_paywall: 1
-                        }, 
-                        typeof args != 'undefined' ? args : {});
-    API.query('GET',
-              'player/program/' + id + '.json',
-              args,
-              function(media){
-                console.log('Player.playProgram', media.player, args);
+    var args = $.extend(true, {
+        with_player: 1,
+        with_teaser: 1,
+        player_width: this.elmt.data('play-width') ? this.elmt.data('play-width') : '100%', 
+        player_height:  this.elmt.data('play-height') ? this.elmt.data('play-height') : '100%',
+        player: this.type,
+        fullHD: 1,
+        no_paywall: 1
+      }, 
+      typeof args != 'undefined' ? args : {}
+		);
+    API.query(
+			'GET',
+      'player/program/' + id + '.json',
+      args,
+      function(media){
+        console.log('Player.playProgram', media.player, args);
 
-                if (!media.player || typeof media.player == 'undefined') {
-                  callback('unvailable');
-                  return false;
-                }
-                self.play($.extend(media.player, {id: id}), callback);
+        if (!media.player || typeof media.player == 'undefined') {
+          callback('unvailable');
+          return false;
+        }
+        self.play($.extend(media.player, {id: id}), callback);
   
-                return true;
-              }, 
-              true);
+        return true;
+      }, 
+      true
+		);
   },
   playOccurrence: function(id, callback, args) {
     console.log('Player.playOccurrence', id, args);
@@ -376,39 +379,40 @@ Player = {
         !args.current_player) {
       this.reset();
     }
-    var args = $.extend(true,
-                        {
-                          with_player: 1,
-                          with_teaser: 1,
-                          player_width: this.elmt.data('play-width') ? this.elmt.data('play-width') : '100%', 
-                          player_height:  this.elmt.data('play-height') ? this.elmt.data('play-height') : '100%',
-                          player: this.getType(),
-                          fullHD: 1,
-                          no_paywall: 1
-                        }, 
-                        typeof args != 'undefined' ? args : {});
-    API.query('GET',
-              'player/' + id + '/' + Skhf.session.uid + '.json',
-              args,
-              function (video){
-                console.log(['Player.playOccurrence', video, args]);
+    var args = $.extend(true, {
+        with_player: 1,
+        with_teaser: 1,
+        player_width: this.elmt.data('play-width') ? this.elmt.data('play-width') : '100%', 
+        player_height:  this.elmt.data('play-height') ? this.elmt.data('play-height') : '100%',
+        player: this.getType(),
+        fullHD: 1,
+        no_paywall: 1
+      }, 
+      typeof args != 'undefined' ? args : {}
+		);
+    API.query(
+			'GET',
+      'player/' + id + '/' + Skhf.session.uid + '.json',
+      args,
+      function (video){
+        console.log('Player.playOccurrence', video, args);
+        if (!video.player || typeof video.player == 'undefined') {
+          console.error(['Player.playOccurrence', 'API.query', 'callback', video]);
+          if (typeof callback != 'undefined') {
+            callback('unvailable');
+          }
+          return false;
+        }
+        self.play($.extend(video.player, {occurrence_id: id}), callback);
+				var nb_version = $.map(video.versions, function(n, i) { return i; }).length;
+        if (typeof video.versions != 'undefined' && nb_version > 1) {
+          self.loadVersions(video.versions, id);
+        }
 
-                if (!video.player || typeof video.player == 'undefined') {
-                  console.error(['Player.playOccurrence', 'API.query', 'callback', video]);
-                  if (typeof callback != 'undefined') {
-                    callback('unvailable');
-                  }
-                  return false;
-                }
-                self.play($.extend(video.player, {occurrence_id: id}), callback);
-								var nb_version = $.map(video.versions, function(n, i) { return i; }).length;
-                if (typeof video.versions != 'undefined' && nb_version > 1) {
-                  self.loadVersions(video.versions, id);
-                }
-
-                return true;
-              }, 
-              true);
+        return true;
+      }, 
+      true
+		);
   },
   track: function(player) {
     var self = this;

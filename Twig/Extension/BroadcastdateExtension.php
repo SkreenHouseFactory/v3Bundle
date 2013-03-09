@@ -95,21 +95,23 @@ class broadcastdateExtension extends \Twig_Extension
      */
     public function broadcastdate ($time)
     {
-			$month = $this->getMonth(date('m', $time));
-			$tomorrow = 'le ' . date('d', $time + 24*3600) . ' ' . $this->getMonth(date('m', $time + 24*3600));
-			$yesterday = 'le ' . date('d', $time - 24*3600) . ' ' . $this->getMonth(date('m', $time - 24*3600));
-			$string = 'le ' . date('d', $time) . ' ' . $month . ' à ' . date('G\hi', $time);
-			$string = str_replace('le ' . date('d ') . $month, 'Aujourd\'hui', $string); //today
-			if (strstr($string, $tomorrow .' 2')) {
-				$string = str_replace($tomorrow, 'Demain soir', $string); //tommorow night
-			}
-			if (strstr($string, $yesterday .' 2')) {
-				$string = str_replace($yesterday, 'Hier soir', $string); //yesterday night
-			}
-			$string = str_replace($tomorrow, 'Demain', $string); //tommorow
-			$string = str_replace($yesterday, 'Hier', $string); //yesterday
+			if ($time) {
+				$month = $this->getMonth(date('m', $time));
+				$tomorrow = 'le ' . date('d', $time + 24*3600) . ' ' . $this->getMonth(date('m', $time + 24*3600));
+				$yesterday = 'le ' . date('d', $time - 24*3600) . ' ' . $this->getMonth(date('m', $time - 24*3600));
+				$string = 'le ' . date('d', $time) . ' ' . $month . ' à ' . date('G\hi', $time);
+				$string = str_replace('le ' . date('d ') . $month, 'Aujourd\'hui', $string); //today
+				if (strstr($string, $tomorrow .' 2')) {
+					$string = str_replace($tomorrow, 'Demain soir', $string); //tommorow night
+				}
+				if (strstr($string, $yesterday .' 2')) {
+					$string = str_replace($yesterday, 'Hier soir', $string); //yesterday night
+				}
+				$string = str_replace($tomorrow, 'Demain', $string); //tommorow
+				$string = str_replace($yesterday, 'Hier', $string); //yesterday
 
-    	return $string;
+	    	return $string;
+			}
     }
 
     /**

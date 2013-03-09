@@ -22,7 +22,7 @@ page:
         user:
             settings: Vos préférences
             programs: Vos programmes
-            vod: Vos playlists : vidéo à la demande
+            vod: Mes playlists : vidéo à la demande
         sitemap:
             channels:
                 broadcast: Chaines TV & Replay
@@ -79,7 +79,7 @@ redirection:
     message: mySkreen vous redirige vers votre vidéo
 user:
     vod: Vidéo à la demande
-    programs: Votre playlist
+    programs: Mes playlists
     settings: Vos préférences
     settings.profile: Compte
     settings.payment: Informations de paiement
@@ -112,10 +112,10 @@ playlist:
         replay: Les dernières mise en ligne Replay & Web
         vod: Les dernières mise en ligne VOD
         friends: Vos amis regardent
-    yours: Vos playlists
+    yours: Mes playlists
     discover: Mémorisez vos playlists
     pitch: : toutes les disponibilités de vos programmes
-    trigger: 'Vos playlists'
+    trigger: Mes playlists
     baseline: 970 000 films et programmes référencés : n'en ratez plus aucun, ajoutez-les à vos playlists !
     cine: En salle
     tv: A la télé
@@ -154,7 +154,7 @@ nav:
       all: Notre sélection
     menu:
         account:
-            on: Vos playlists
+            on: Mes playlists
             off: Se connecter
         tv: 
             on: Allumer la TV
@@ -162,7 +162,7 @@ nav:
     subnav:
         vod: VOD
         tv: TV & Replay
-        cine: Au cinéma
+        cine: Ciné
     tv:
       live: Les chaînes en direct
       grid: La grille TV
@@ -245,14 +245,14 @@ action:
         tv: TV
 seo:
   title:
-    add: Ajout à vos playlists
+    add: Ajout à mes playlists
     play: en streaming
 slider:
   sponsor: Sponsorisé
   link.default: Zoom sur la sélection
 theaters:
     playlist:
-        title: Vos playlists : dans vos cinémas
+        title: Mes playlists : dans vos cinémas
         add: Ajouter vos cinémas
     search:
         submit: Rechercher

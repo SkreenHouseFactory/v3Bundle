@@ -24,27 +24,6 @@ $(document).ready(function(){
     // -- session
     Skhf.session = new Session(function(){
       console.log('script', 'Session.init', 'callback');
-
-			/* pages : TODO > move into dedicated page script file. exple : scripts/program.js */
-			//theater playlist
-			if ($('#program-offers #trigger-theaters-playlist').length){
-				$('#program-offers #trigger-theaters-playlist').trigger('click');
-			}
-      //affichage bulle pendant 4s sur fiche programme
-      if (!Skhf.session.datas.email && 
-          $('#program-follow .fav').length > 0) {
-        setTimeout(function(){
-          $('#program-follow .fav').each(function(){
-            var trigger = $(this);
-            UI.installPopover(trigger);
-            trigger.popover('show');
-    
-            setTimeout(function(){
-              trigger.popover('hide');
-            }, 6000);
-          });
-        }, 2000);
-      }
     });
   });
 

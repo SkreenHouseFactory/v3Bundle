@@ -43,32 +43,32 @@ class TimelineController extends Controller
 			}
 
 			$api = $this->get('api');
-      $data = $api->fetch(
+			$data = $api->fetch(
 								'schedule/epg', array(
-                'timestamp' => $timestamp,
-                'with_player' => true,
-                'img_width' => 150,
-                'img_height' => 200,
-								'channel_img_width' => 55,
+							  'timestamp' => $timestamp,
+							  'with_player' => true,
+							  'img_width' => 150,
+							  'img_height' => 200,
+								'channel_img_width' => 65,
 								'session_uid' => $request->get('session_uid'),
 								'channels_ids' => $request->get('channels_ids'),
-                'with_related_sliders' => $request->get('schedule-only') ? false : true,
-                'time' => time()
-              ));
+							  'with_related_sliders' => $request->get('schedule-only') ? false : true,
+							  'time' => time()
+							));
 			//echo $api->url;
 
 			// post treatment
 			$data->channels = (array)$data->channels;
 
 			$template = $request->get('schedule-only') ? '_channels-schedule' : 'grid';
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Timeline:' . $template . '.html.twig', array(
+			$response = $this->render('SkreenHouseFactoryV3Bundle:Timeline:' . $template . '.html.twig', array(
 				'data' => (array)$data
       ));
 
-      $maxage = 3600;
-      $response->setPublic();
-      $response->setMaxAge($maxage);
-      $response->setSharedMaxAge($maxage);
+			$maxage = 3600;
+			$response->setPublic();
+			$response->setMaxAge($maxage);
+			$response->setSharedMaxAge($maxage);
       
       return $response;
     }
@@ -79,22 +79,22 @@ class TimelineController extends Controller
     */
     public function addchannelAction(Request $request)
     {
-      $channels = null;
-      $api = $this->get('api');
-      $channels = $api->fetch('channel', array(
+			$channels = null;
+			$api = $this->get('api');
+			$channels = $api->fetch('channel', array(
                     'type' => 'broadcast',
                     'q' => $request->get('q')
                   ));
       //echo $api->url;
 
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Timeline:_popin-addchannel.html.twig', array(
-                'channels' => $channels,
-             ));
+			$response = $this->render('SkreenHouseFactoryV3Bundle:Timeline:_popin-addchannel.html.twig', array(
+										'channels' => $channels,
+									));
 
-      $maxage = 600;
-      $response->setPublic();
-      $response->setMaxAge($maxage);
-      $response->setSharedMaxAge($maxage);
+			$maxage = 600;
+			$response->setPublic();
+			$response->setMaxAge($maxage);
+			$response->setSharedMaxAge($maxage);
       
       return $response;
     }
@@ -104,13 +104,13 @@ class TimelineController extends Controller
     */
     public function timelinejsAction(Request $request)
     {
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Timeline:timelinejs.html.twig', array(
+			$response = $this->render('SkreenHouseFactoryV3Bundle:Timeline:timelinejs.html.twig', array(
       ));
 
-      $maxage = 3600;
-      $response->setPublic();
-      $response->setMaxAge($maxage);
-      $response->setSharedMaxAge($maxage);
+			$maxage = 3600;
+			$response->setPublic();
+			$response->setMaxAge($maxage);
+			$response->setSharedMaxAge($maxage);
       
       return $response;
     }
