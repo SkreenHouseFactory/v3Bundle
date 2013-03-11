@@ -559,17 +559,23 @@ UI = {
     Player.load(trigger);
   },
   loadRedirect: function(url) {
-    console.log('UI.loadRedirect', API.context, url);
-    Player.redirect(url);
-
+    console.log('UI.loadRedirect', url);
+    Player.redirect(url, $('#redirect'));
+		$('#content').hide();
+		/*
     if ($('#top-playlist').hasClass('in')) {
       $('#top-playlist').collapse('hide');
     }
+		*/
     //window.onbeforeunload = API.quickLaunchModal('signin', function() {
     //  alert('leave');
     //  window.onbeforeunload = null;
     //});
   },
+  unloadRedirect: function(url) {
+		$('#content').show();
+    $('#redirect').empty();
+	},
   // -- insert loader
   appendLoader: function(elmt, timer) {
     $('.progress', elmt).remove();

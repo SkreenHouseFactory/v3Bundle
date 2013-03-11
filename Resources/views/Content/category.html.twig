@@ -25,7 +25,7 @@
 {% block description %}{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ category.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
 {% block content %}
-<div id="view-category" data-id="{{ category.id }}" class="container">
+<div id="view-category" data-id="{{ category.id }}" class="container view-category-{{ app.request.get('format') }}">
 	
   <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ category.seo_url, text: 'Je regarde des ' ~ category.name ~ ' sur mySkreen et vous ?' } %}</div>
 

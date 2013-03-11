@@ -93,7 +93,7 @@ var Session = BaseSession.extend({
     console.log('Session.initPlaylist', 'url:' + url);
 
     if (typeof url == 'undefined') {
-      url = API.context == 'v2' ? API.currentUrl : top.location.pathname;
+      url = top.location.pathname;
     } else if (url) {
     	url = url.replace('/app_dev.php','').replace('/app.php','');
 	    // -- keep
@@ -105,13 +105,11 @@ var Session = BaseSession.extend({
     console.log('Session.initPlaylist', 'url:' + url);
 
     // -- autoload
-    if (API.context == 'v3') {
-      var access = document.location.href.match(/access=.+/g);
-      if (access != null && typeof access[0] != 'undefined') {
-        console.warn('Session.initPlaylist', 'autoload', access[0].replace('access=', ''));
-        UI.loadPlaylist(access[0].replace('access=', ''));
-        return;
-      }
+    var access = document.location.href.match(/access=.+/g);
+    if (access != null && typeof access[0] != 'undefined') {
+      console.warn('Session.initPlaylist', 'autoload', access[0].replace('access=', ''));
+      UI.loadPlaylist(access[0].replace('access=', ''));
+      return;
     }
 
     // -- default

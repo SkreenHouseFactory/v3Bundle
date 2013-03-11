@@ -39,7 +39,7 @@
 
   <div class="view-main view-program-main pull-right">
 
-    <div id="program-follow" class="actions" data-id="{{ program.id }}">
+    <div id="program-follow" class="actions" data-id="{{ program.episodeof is defined ? program.episodeof.id : program.id }}">
       <a class="fav fav-like btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
     </div>
 
@@ -392,8 +392,7 @@
         {% if program.subcategories|length %}
           Sous-catégories : {% for c in program.subcategories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>{% endfor %}
         {% endif %}
-        </p>
-
+     </p>
         <div id="program-casting" class="scroll">
         {% if program.director %}
         <strong>{{ 'directed.by'|trans }} : </strong> 

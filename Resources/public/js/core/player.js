@@ -132,19 +132,21 @@ Player = {
     }
 
   },
-  redirect: function(url) {
-    var iframe = $('#redirect');
+  redirect: function(url, elmt) {
+    console.log('Player.redirect', url, elmt, url.indexOf('/exit/') != -1);
     if (typeof url != 'undefined') {
-      if (url.match(/\/redirection\//)) {
-        document.location = url;
-      } else if (url.match(/\/exit\//)) {
-        window.open(url);
+      if (url.indexOf('/exit/') != -1 || url.indexOf('m6replay') != -1) { //url.match(/\/exit\//)) {
+        window.open(url.replace('/redirection/', '/exit/')); //hack m6
       } else {
-        iframe.html('<iframe src="' + url + '"></iframe>');
+				//get final url
+				if (url.indexOf('?url=') != -1) {
+					var tmp = url.split('?url=');
+					url = unescape(tmp[1]);
+				}
+        elmt.html('<iframe src="' + url + '"></iframe>');
       }
+    	elmt.show().css('height', ($(window).height() - 100) + 'px');
     }
-    iframe.show().css('height', ($(window).height() - 100) + 'px');
-    //$('#top-nav').collapse('hide');
   },
   play: function(player, callback) {
     console.log('Player.play', player, this.type, this.elmt);

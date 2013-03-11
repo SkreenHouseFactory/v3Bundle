@@ -11,16 +11,10 @@ $(document).ready(function(){
   API.init(function(){
 
     //tjs après ci-dessus : pas de console sur ie
-    console.log('script', 'API.init callback', API.context);
+    console.log('script', 'API.init callback');
 
     //Modernizr.load();
 
-    // sync v2
-    if (top.location != self.document.location) {
-      API.syncV2(function(){
-        //callback sync
-      });
-    }
     // -- session
     Skhf.session = new Session(function(){
       console.log('script', 'Session.init', 'callback');
@@ -67,11 +61,6 @@ $(document).ready(function(){
   });
 
   // -- ui form
-  $('.navbar form.navbar-search').hover(function(){
-    $('i.icon-search', this).removeClass('icon-white');
-  },function(){
-    $('i.icon-search', this).addClass('icon-white');
-  });
   $('.navbar form.navbar-search i.icon-search').click(function(){
     $('.navbar form.navbar-search').submit();
     return false;
@@ -118,12 +107,14 @@ $(document).ready(function(){
     }
     return false;
   });
-  $('.navbar a[data-toggle="dropdown"]').on('click', function () {
-    if (API.context != 'v2' && $('#top-playlist').hasClass('in')) {
+	/*
+	$('.navbar a[data-toggle="dropdown"]').on('click', function () {
+    if ($('#top-playlist').hasClass('in')) {
       console.log('script', 'a[data-toggle="dropdown"] on show');
       $('#top-playlist').collapse('hide');
     }
   });
+	*/
 
   /* END */
 

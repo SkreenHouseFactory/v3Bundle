@@ -9,7 +9,6 @@
 <link rel="stylesheet" media="screen" href="{{ asset('bundles/skreenhousefactoryv3/jquery-ui/css/flick/jquery-ui-1.10.1.custom.min.css') }}" />
 <div id="view-tvgrid" class="container">
 	<div id="grid" data-timestamp="{{ data.timestamp }}" data-reload-ajax="{{ path('tvgrid') }}">
-
 	<div class="btn-group btn-filters" data-toggle="buttons-radio">
 		<a class="btn btn-info" data-filter="">Tout</a>
 		<a class="btn" data-filter="films">Films</a>
@@ -24,13 +23,14 @@
 	{% endfor %}
 	<hr/>
 	{% set date = data.timestamp|localizeddate('full')|split('now'|date('Y')) %}
-	<h1>Programme TV du <time timestamp="{{ data.timestamp }}">{{ date[0] }}</time> <a class="calendar btn"><i class="icon-calendar"></i></a></h1>
+	<h1>Programme TV du <time timestamp="{{ data.timestamp }}">{{ date[0] }}</time> </h1>
 	<div id="timeslider"></div>
 	<div id="datepicker"></div>
 	<ul class="nav nav-pills">
 	  <li class="{{ app.request.get('date') == 'hier-soir' ? 'active ' : '' }}yesterdaynight time-change"><a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir</a></li>
-	  <li class="{{ app.request.get('date') is null ? 'active ' : '' }}now time-change"><a href="{{ data.timestamp|date('Y-m-d-H') }}">En ce moment</a></li>
+	  <li class="{{ app.request.get('date') is null ? 'active ' : '' }}now time-change"><a href="{{ path('tvgrid') }}">En ce moment</a></li>
 	  <li class="{{ app.request.get('date') == 'ce-soir' ? 'active ' : '' }}tonight time-change"><a href="{{ path('tvgrid_date', {date: 'ce-soir'}) }}">Ce soir</a></li>
+		<li class="datepicker"><a class="calendar btn"><i class="icon-calendar"></i></a></li>
 	  <li class="pull-right addchannel">
 	    <a data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="icon-plus-sign"></i> de chaînes</a>
 		</li>
@@ -71,7 +71,6 @@
     '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery-ui-1.10.1.custom.min.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-scrollspy.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/tvgrid.js'
-
     filter='?yui_js' 
     output='js/compiled/tvgrid.js'  %}
     <script src="{{ asset_url }}"></script>

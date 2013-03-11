@@ -13,20 +13,18 @@ var BaseSession = Class.extend({
     console.log('BaseSession.init', args);
     var self = this;
     this.uid = API.cookie('uid');
-    if (API.context == 'v3') {
-      this.sync(function(sessionData){
-        //console.log('BaseSession.init', 'callback Session.sync', sessionData);
-				//callbackInit : called only once
-				if (self.callbackInit) {
-					self.callbackInit();
-					self.callbackInit = null;
-				}
-				//callback
-        if (typeof callback != 'undefined') {
-          callback(sessionData)
-        }
-      }, args);
-    }
+    this.sync(function(sessionData){
+      //console.log('BaseSession.init', 'callback Session.sync', sessionData);
+			//callbackInit : called only once
+			if (self.callbackInit) {
+				self.callbackInit();
+				self.callbackInit = null;
+			}
+			//callback
+      if (typeof callback != 'undefined') {
+        callback(sessionData)
+      }
+    }, args);
   },
   sync: function(callback, args) {
     var self = this;

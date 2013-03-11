@@ -8,6 +8,11 @@ sitemap_mrss:
 header:
     pattern:  /header/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:header }
+homes_vod:
+    pattern:  /video-a-la-demande/{home}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home }
+    requirements:
+        home: film|serie|documentaire|emission|spectacle|jeunesse
 homes:
     pattern:  /{home}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home, home: null }

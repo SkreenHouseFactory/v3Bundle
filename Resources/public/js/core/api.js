@@ -71,7 +71,6 @@ var API;
 API = {
   xhr: new Array(),
   db: new Array(),
-  context: 'v3',
   skXdmSocket: null,
   config: null,
   dataType: 'jsonp',

@@ -25,6 +25,12 @@
 	  		margin-top: 12px;
 				position: absolute;
 				left: 640px;
+				i {
+					position: absolute;
+					right: 5px;
+					top: 10px;
+					opacity: 0.5;
+				}
 
 		 	 .search-query {
 			 	 width: 316px;
@@ -50,178 +56,211 @@
 				 	width: 150px;
 				 }
 		   }
-			.nav > li {
-				> a {
-					color: #CCC;
-					padding: 20px 15px;
-					font-size: 1.2em;
+			.nav {
+				margin: 0;
+				&.nav-playlists {
+					width: 170px;
+				}
+				> li {
+					> a {
+						color: #CCC;
+						padding: 20px 15px 20px 10px;
+						font-size: 1.2em;
 					 
-					 &.with-caret {
-					 	margin-right: 5px;
-					 }
-					 &.a-caret {
-						position: absolute;
-						right: 0;
-						padding: 15px 5px;
-						visibility: hidden;
-					 }
-		   	 }
-				&:hover {
-					> a {
-						color: white;
-						&.a-caret {
-							visibility: visible;
+						 &.with-caret {
+						 	margin-right: 5px;
 						 }
-					}
-				}
-				&.nav-user {
-					> a {
-						padding: 20px 15px;
-						color: #0088cc;
-						&.a-caret {
+						 &.a-caret {
+							position: absolute;
+							right: 0;
 							padding: 15px 5px;
-							visibility: visible;
-							.caret {
-								border-top-color: #0088cc;
-								border-bottom-color: #0088cc;
-							}
+							visibility: hidden;
 						 }
-					}
-				}
-				&.user-on {
-					> a {
-						&.with-caret {
-							padding: 20px 15px 20px 0px;
+			   	 }
+					&:hover {
+						> a {
+							color: white;
+							&.a-caret {
+								visibility: visible;
+							 }
 						}
-						.badge {
-							background-color: #0088cc;
-							&.badge-important {
-								background-color: rgb(235, 14, 10);
+					}
+					&.nav-user {
+						> a {
+							padding: 20px 15px;
+							color: #0088cc;
+							&.a-caret {
+								padding: 15px 5px;
+								visibility: visible;
+								.caret {
+									border-top-color: #0088cc;
+									border-bottom-color: #0088cc;
+								}
+							 }
+						}
+						.dropdown-menu:after {
+							left: 100px;
+						}
+					}
+					&.user-on {
+						> a {
+							&.with-caret {
+								padding: 20px 15px 20px 0px;
+							}
+							.badge {
+								background-color: #0088cc;
+								&.badge-important {
+									background-color: rgb(235, 14, 10);
+								}
 							}
 						}
 					}
-				}
-				&.notifications {
-					> a {
-						padding: 20px 5px;
+					&.notifications {
+						width: 40px;
+						> a {
+							padding: 20px 5px;
+						}
 					}
-				}
-				&.dropdown {
-					.dropdown-menu {
-						.tv-channels {
-							width: 600px;
-							padding-left: 5px;
-							a {
-								float: left;
-								padding: 8px;
-								display: block;
-								clear: none;
-							}
-				 		}
-					}
-					&.active-visible.active {
+					&.dropdown {
 						.dropdown-menu {
-							z-index: 0;
-							background: rgba(255,255,255,0.9);
-							display: block;
-							left: -465px;
-							width: 990px;
-							li {
-								float: left;
+							&.dropdown-menu-tv {
+								a:hover {
+									background: transparent;
+									color: #999;
+								}
 							}
+							.tv-channels {
+								width: 600px;
+								padding-left: 5px;
+								a {
+									float: left;
+									padding: 8px;
+									display: block;
+									clear: none;
+								}
+					 		}
 						}
-						&.active-cine {
+						&.active-visible.active {
+							.a-caret {
+								display: none;
+							}
 							.dropdown-menu {
-								left: -535px;
+								z-index: 0;
+								background: rgba(255,255,255,0.9);
+								display: block;
+								width: 990px;
+								li {
+									float: left;
+									a:hover {
+										color: #999;
+										background: transparent;
+									}
+								}
+							}
+							&.active-vod {
+								.dropdown-menu {
+									left: -482px;
+									&:after {
+										left: 508px;
+									}
+								}
+							}
+							&.active-cine {
+								.dropdown-menu {
+									left: -553px;
+									&:after {
+										left: 582px;
+									}
+								}
 							}
 						}
 					}
-				}
-				&.active > a {
-			 	  color: white;
-			 	}
-				&.divider-vertical {
-			 	  margin: 0;
-			 	}
-	      &.notifications {
-	        ul {
-	          > div {
-	            height: 315px;
-	            overflow-y: auto;
-	            overflow-x: hidden;
+					&.active > a {
+				 	  color: white;
+				 	}
+					&.divider-vertical {
+				 	  margin: 0;
+				 	}
+		      &.notifications {
+		        ul {
+		          > div {
+		            height: 315px;
+		            overflow-y: auto;
+		            overflow-x: hidden;
 
-	            li {
-	              width: 400px;
-	              font-size: 0.9em;
-								clear: both;
-								overflow: hidden;
+		            li {
+		              width: 400px;
+		              font-size: 0.9em;
+									clear: both;
+									overflow: hidden;
                   
-	              a.link {
-	                color: #333;
-	                display: auto;
-	                padding: 0px;
-	                clear: none;
-	                line-height: 15px;
-	                color: #555;
-	                white-space: nowrap;
-	                filter: none; /* ie hover background */
+		              a.link {
+		                color: #333;
+		                display: auto;
+		                padding: 0px;
+		                clear: none;
+		                line-height: 15px;
+		                color: #555;
+		                white-space: nowrap;
+		                filter: none; /* ie hover background */
 
-	                img.channel {
-	                  margin-left: 7px;
-	                  border-right: 3px solid white;
-	                  border-top: 3px solid white;
-	                }
-	                img.ico {
-	                  margin-right: 7px;
-	                }
+		                img.channel {
+		                  margin-left: 7px;
+		                  border-right: 3px solid white;
+		                  border-top: 3px solid white;
+		                }
+		                img.ico {
+		                  margin-right: 7px;
+		                }
                     
-	                span {
-	                  display: block;
-	                  margin-left: 7px;
+		                span {
+		                  display: block;
+		                  margin-left: 7px;
       
-	                  &.title {
-	                    text-transform: uppercase;
-	                  }
-	                  &.label {
-	                    display: inline;
-	                    font-weight: normal;
-	                    margin-left: 0;
-	                  }
-	                }
-	                &:hover {
-	                  background: transparent;
-	                }
-	              }
-	              .badge {
-	                margin: 15px 5px 0 0;
-	              }
-	              .remove {
-	                visibility: hidden;
-	                margin: 15px 15px 0 0;
-	                padding: 0;
-									float: right;
-									cursor: pointer;
-	              }
-	              &:hover {
-	                .remove {
-	                  background: transparent;
-	                  visibility: visible;
-	                }
-	              }
-	              &.empty {
-	                h6 {
-	                  padding: 30px;
-	                  font-size: 1.3em;
-	                  small {
-	                    line-height: 1.3em;
-	                    display: block;
-	                  }
-	                }
-	              }
-	            }
-	          }
-					}
-        }
+		                  &.title {
+		                    text-transform: uppercase;
+		                  }
+		                  &.label {
+		                    display: inline;
+		                    font-weight: normal;
+		                    margin-left: 0;
+		                  }
+		                }
+		                &:hover {
+		                  background: transparent;
+		                }
+		              }
+		              .badge {
+		                margin: 15px 5px 0 0;
+		              }
+		              .remove {
+		                visibility: hidden;
+		                margin: 15px 15px 0 0;
+		                padding: 0;
+										float: right;
+										cursor: pointer;
+		              }
+		              &:hover {
+		                .remove {
+		                  background: transparent;
+		                  visibility: visible;
+		                }
+		              }
+		              &.empty {
+		                h6 {
+		                  padding: 30px;
+		                  font-size: 1.3em;
+		                  small {
+		                    line-height: 1.3em;
+		                    display: block;
+		                  }
+		                }
+		              }
+		            }
+		          }
+						}
+	        }
+				}
 			}
 		}
 	}

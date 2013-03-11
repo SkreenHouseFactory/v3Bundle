@@ -29,7 +29,9 @@ $(document).ready(function(){
 	/* trigger remote data in html elmt */
 	$('[data-ajax]').live('click', function(){
 	  console.log('script', '[data-ajax]', $(this).data('ajax'));
-		$($(this).attr('rel')).load($(this).data('ajax'));
+		$($(this).attr('rel')).load($(this).data('ajax'), function() {
+			UI.unloadRedirect();
+		});
 	});
 
 	/* trigger modal */
@@ -132,7 +134,11 @@ $(document).ready(function(){
 	// -- ui actions : play
 	$('.slider li:not(.selector)').live('click', function(e){
 	  console.log('script', '.slider li:not(.selector)', $('a.title', this));
-	  document.location = API.config.v3_root + $('a.title', this).attr('href');
+		if (typeof $('a.title', this).attr('href') == 'undefined') {
+			$('a.title', this).click();
+		} else {
+		  document.location = API.config.v3_root + $('a.title', this).attr('href');
+		}
 	  return false;
 	});
 	/*

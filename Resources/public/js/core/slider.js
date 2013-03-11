@@ -281,9 +281,9 @@ var BaseSlider = Class.extend({
                               .replace('%onglet%', typeof program.onglet != 'undefined' ? program.onglet.toLowerCase() : '');
       var li = $(sample);
       li.css('background-image', 'url(' + program.picture + ')')
-				.attr('data-position', k);
-      $('a.title', li).attr('data-player-program', JSON.stringify(program))
-											.attr('href', program.seo_url);
+				.attr('data-position', k)
+      	.attr('data-player-program', JSON.stringify(program))
+				.attr('href', program.seo_url);
       if (program.deporte) {
         li.addClass('deporte');
       }
@@ -352,7 +352,7 @@ var BaseSlider = Class.extend({
 				if (this.elmt.hasClass('slider-playlist') && 
 						o.deporte) {
 					$('a.title', li).attr('data-play', o.deporte);
-					$('a.title', li).attr('data-ajax', p.seo_url);
+					$('a.title', li).attr('data-ajax', API.config.v3_root + p.seo_url);
 					$('a.title', li).attr('rel', '#content');
 				} else if (o.url) {
 					$('a.title', li).attr('data-redirect', o.url);
