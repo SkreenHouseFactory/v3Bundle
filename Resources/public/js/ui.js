@@ -197,7 +197,7 @@ UI = {
 	        }
 				}
 				if (UI.callbackTogglePlaylist) {
-					UI.callbackTogglePlaylist(parameter, value, remove);
+					UI.callbackTogglePlaylist(parameter, value, remove, trigger);
 				}
       }
       if (remove) {

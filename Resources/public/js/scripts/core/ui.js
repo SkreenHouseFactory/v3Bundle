@@ -1,30 +1,7 @@
 $(document).ready(function(){
 	console.log('scripts', 'load scripts/ui.js');
 
-	// -- ui link/url
-/*	$('a[data="url"]').live('click', function(e){
-	  e.preventDefault();
-	  console.log('ui link/url', 'a[data="url"]');
-	  API.linkV2($(this).data('url'));
-	  return false;
-	});
-	*/
-	$('a.link-v2').live('click', function(e){
-	  console.log('ui link/url', 'linkV2');
-	  e.preventDefault();
-	  API.linkV2($(this).attr('href'), $(this).hasClass('link-force'));
-	  return false;
-	});
-	$('a.javascript-v2').live('click', function(e){
-	  console.log('ui link/url', 'javascriptV2');
-	  e.preventDefault();
-	  API.javascriptV2($(this).attr('href').replace('javascript://',''));
-	  return false;
-	});
-	var triggerModal = getUrlParameter('modal')
-	if (triggerModal) {
-		API.quickLaunchModal(triggerModal);
-	}
+
 
 	/* trigger remote data in html elmt */
 	$('[data-ajax]').live('click', function(){
@@ -33,6 +10,11 @@ $(document).ready(function(){
 			UI.unloadRedirect();
 		});
 	});
+
+	var triggerModal = getUrlParameter('modal');
+	if (triggerModal) {
+		API.quickLaunchModal(triggerModal);
+	}
 
 	/* trigger modal */
 	$('a[data-modal], [data-modal-remote]').live('click', function(e){

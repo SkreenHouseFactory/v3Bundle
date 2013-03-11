@@ -103,14 +103,16 @@ class MainController extends Controller
       }
 
 			$api = $this->get('api');
-      $datas = $api->fetch('www/home/' . $home, 
-                           array('without_footer' => true,
-                                 'with_programs' => true,
-                                 'img_width' => 160,
-                                 'img_height' => 200,
-                                 'with_teaser' => true,
-                                 'with_pass' => true,
-                                 'slider_width' => 990));
+      $datas = $api->fetch('www/home/' . $home, array(
+				'without_footer' => true,
+        'with_programs' => true,
+        'img_width' => 160,
+        'img_height' => 200,
+        'with_teaser' => true,
+        'with_pass' => true,
+        'slider_width' => 1500,
+        'slider_height' => 550
+			));
       //echo $api->url;
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig', array(

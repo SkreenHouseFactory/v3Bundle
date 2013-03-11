@@ -15,7 +15,7 @@ $(document).ready(function(){
 		  GridView.loadSchedule();
 		}
 		// -- UI callback : reload grid after adding channel
-		UI.callbackTogglePlaylist = function(parameter, value, remove) {
+		UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {
 			if (parameter == 'epg' && !remove) {
 				Grid.loadSchedule();
 			}
@@ -29,6 +29,11 @@ $(document).ready(function(){
 		}
 
 		//////////// SCRIPTS ////////////////
+		//btns
+		$('a[target="_blank"]').live('click', function(){
+			console.log('scripts/tvgrid.js', 'a[target="_blank"]', $(this).attr('href'));
+			window.open($(this).attr('href'));
+		})
 		//timeslider
 		var date = new Date(parseInt($('#grid').data('timestamp'))*1000);
 		GridView.hour = date.getHours();
@@ -56,6 +61,10 @@ $(document).ready(function(){
 		});
 		//datepicker
 		var datepicker = $('#datepicker');
+    datepicker.hide();
+    datepicker.hover(function(){},function(){
+      datepicker.hide();
+    });
     $('.calendar').click(function(){
       if(!datepicker.is(':visible')) {
         datepicker.show();
@@ -63,22 +72,19 @@ $(document).ready(function(){
         datepicker.hide();
 			}
     });
-    datepicker.hide();
+    $.datepicker.setDefaults($.datepicker.regional['fr']);
     datepicker.datepicker({
     	 showAnim: 'drop',
        maxDate: '+11d',
        onSelect: function(dateText, inst) {
-				var timestamp = Date.parse(dateText) / 1000;
-        console.log(dateText, timestamp, inst);
+				var date = (inst.selectedMonth + 1) + '/' + inst.selectedDay + '/' +  inst.selectedYear;
+				var timestamp = (Date.parse(date) / 1000) + GridView.hour * 3600;
+        console.log('script/tvGridView.js', 'datepicker.onSelect', dateText, timestamp, GridView.hour, inst);
 				GridView.setTime(timestamp);
 				GridView.loadSchedule(function(){
 	        datepicker.fadeOut('slow');
 				});
        }
-    });
-   	datepicker.datepicker('option', $.datepicker.regional['fr'] );
-    datepicker.hover(function(){},function(){
-      datepicker.hide();
     });
 
 		//dropdown update
@@ -111,20 +117,6 @@ $(document).ready(function(){
 			GridView.setChannelsList();
 			return false;
 		})
-
-		//timeline
-		$('#grid').scrollspy({
-        min: -100,
-        max: 300,
-        onEnter: function(element, position) {
-					GridView.elmt.find('.timeline').addClass('fixed');
-					console.log('script tvgrid', 'scrollspy', 'enter', position);
-        },
-        onLeave: function(element, position) {
-					GridView.elmt.find('.timeline').removeClass('fixed');
-					console.log('script tvgrid', 'scrollspy', 'leave', position);
-        }
-    });
 	}
 });
 
@@ -218,7 +210,7 @@ GridView = {
 		UI.appendLoader(this.channels);
 		//schedule
 		var url = this.elmt.data('ad-ajax') + '?schedule-only=1&date=' + this.timestamp + 
-																							'&channels_ids=' + channel_ids + '&session_uid=' + Skhf.session.uid;
+																					'&channels_ids=' + channel_ids + '&session_uid=' + Skhf.session.uid;
 		this.channels.load(url, function(){
 				//popover
 				$('[rel="popover"]', self.elmt).popover();
