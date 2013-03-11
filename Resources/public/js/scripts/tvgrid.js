@@ -206,8 +206,10 @@ GridView = {
 		var self = this;
 		var channel_ids = this.getChannelsIds();
 		//loader
-		this.channels.empty();
-		UI.appendLoader(this.channels);
+		this.channels.html('<li></li>');
+		UI.appendLoader($('li', this.channels));
+		//today
+		var date = new Date();
 		//schedule
 		var url = this.elmt.data('ad-ajax') + '?schedule-only=1&date=' + this.timestamp + 
 																					'&channels_ids=' + channel_ids + '&session_uid=' + Skhf.session.uid;

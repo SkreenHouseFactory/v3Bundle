@@ -9,7 +9,7 @@
      z-index: 3;
      margin-top: 10px;
      margin-bottom: -90px; /* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
-   
+
 	 	 .container {
 		 	 width: 100%;
 		 }
@@ -17,7 +17,7 @@
    /* Remove border and change up box shadow for more contrast */
 	 .navbar-inverse {
 	 	 .nav li.dropdown > a .caret {
-		 	 margin-top: 13px;
+		 	 margin-top: 15px;
 			 border-bottom-color: #AAA;
 			 border-top: 8px solid #AAA;
 		 }
@@ -87,7 +87,7 @@
 					}
 					&.nav-user {
 						> a {
-							padding: 22px 15px 18px;
+							padding: 22px 15px 18px 20px;
 							color: #0088cc;
 							&.a-caret {
 								padding: 15px 5px;
@@ -118,23 +118,27 @@
 					&.notifications {
 						width: 40px;
 						> a {
-							padding: 22px 5px 18px;
+							padding: 20px 5px;
 						}
 					}
 					&.dropdown {
 						.dropdown-menu {
 							&.dropdown-menu-tv {
+								left: -352px;
+								width: 990px;
 								a:hover {
 									background: transparent;
 									color: #999;
 								}
+								&:after {
+									left: 400px;
+								}
 							}
 							.tv-channels {
-								width: 600px;
-								padding-left: 5px;
+								padding-left: 15px;
 								a {
 									float: left;
-									padding: 8px;
+									padding: 5px;
 									display: block;
 									clear: none;
 								}

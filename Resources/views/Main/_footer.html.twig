@@ -82,12 +82,14 @@
       <a href="/{{ base_footer }}/societe/">Société{{ footerspin }}</a>
       <a href="/{{ base_footer }}/arts/">Arts{{ footerspin }}</a>
       <a href="/{{ base_footer }}/histoire/">Histoire{{ footerspin }}</a>
+			{% endif %}
+			{% if base_footer in ['documentaire'] %}
       <a href="/{{ base_footer }}/sciences/">Sciences{{ footerspin }}</a>
       <a href="/{{ base_footer }}/siences-et-techniques/">Sciences et Techniques{{ footerspin }}</a>
+      <a href="/{{ base_footer }}/justice/">Justice{{ footerspin }}</a>
 			{% endif %}
 			{% if base_footer in ['film','documentaire','serie','dessin-anime-et-manga'] %}
       <a href="/{{ base_footer }}/science-fiction/">Science-fiction{{ footerspin }}</a>
-      <a href="/{{ base_footer }}/justice/">Justice{{ footerspin }}</a>
 			{% endif %}
 			{% if base_footer in ['emission','journal','documentaire'] %}
       <a href="/{{ base_footer }}/sport/">Sport{{ footerspin }}</a>
