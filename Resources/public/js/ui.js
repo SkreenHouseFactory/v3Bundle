@@ -454,6 +454,7 @@ UI = {
     //show selector
     this.unloadPlaylist(Skhf.session.onglet, function() {
       $('#top-playlist li.selector').animate({'width': API.config.slider.width}, 500, function(){
+    		$('#top-playlist li.selector').show();
 				if (self.playlist.elmt.hasClass('empty')) {
 					self.playlist.elmt.removeClass('empty');
 				}
@@ -471,8 +472,6 @@ UI = {
     lis.find('a, h6').show();
     $('#top-playlist .breadcrumb li:not(:first)').empty();
     lis.popover('enable');
-    $('#top-playlist li.selector').show()
-                                  .animate({'width': API.config.slider.width}, 500, function(){});
     
   },
   loadPlaylist: function(access, onglet){
