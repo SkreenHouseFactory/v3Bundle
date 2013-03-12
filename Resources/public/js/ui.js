@@ -13,7 +13,7 @@ UI = {
 	callbackTogglePlaylist: null,
   init: function(callback) {
     var self = this;
-    this.playlist = new BaseSlider({ programs: [] }, function() {},$('#playlist'));
+    this.playlist = new BaseSlider({ programs: [] }, function() {}, $('#playlist'));
     console.log('UI.init', 'this.playlist', this.playlist);
 
     //ios
@@ -197,7 +197,7 @@ UI = {
 	        }
 				}
 				if (UI.callbackTogglePlaylist) {
-					UI.callbackTogglePlaylist(parameter, value, remove);
+					UI.callbackTogglePlaylist(parameter, value, remove, trigger);
 				}
       }
       if (remove) {
@@ -306,7 +306,7 @@ UI = {
   //notify
   loadNotifications: function(notifications) {
     //console.log('UI.loadNotifications', notifications);
-    var nb = notifications.length == this.max_notifications ? notifications.length + ' +' : notifications.length;
+    var nb = notifications.length == this.max_notifications ? notifications.length + '+' : notifications.length;
     $('.navbar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
     if (notifications.length == 0) {
         $('.navbar .notifications-count .badge-important').removeClass('badge-important');
@@ -322,7 +322,7 @@ UI = {
         }
         list.append('<li class="tv-component"><a data-id="' + notifications[k].id + '" class="remove">' + 
 										'<i class="icon-trash"></i></a>' + (notifications[k]['new'] ? '<span class="pull-right badge badge-important">Nouveau</span>' : '') + 
-										'<a ' + (notifications[k].player ? 'data-play="' + notifications[k].player + '" data-ajax="' + notifications[k].program.seo_url + '" rel="#content" href="#"' : 'target="_top" href="' + notifications[k].link + '"') + ' class="link">' + 
+										'<a ' + (notifications[k].player ? 'data-play="' + notifications[k].player + '" data-ajax="' + notifications[k].program.seo_url + '" rel="#content"' : 'data-redirect="' + notifications[k].link + '"') + ' class="link">' + 
 										'<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' +
 										'<img src="' + notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
 										'<span class="title">' + notifications[k].title + '</span>' +
@@ -343,7 +343,7 @@ UI = {
 
       //new
       if (nb_new > 0) {
-        var nb = nb_new == this.max_notifications ? nb_new + ' +' : nb_new;
+        var nb = nb_new == this.max_notifications ? nb_new + '+' : nb_new;
         //console.log('UI.loadNotifications', 'new', nb);
         $('.navbar .notifications-count .badge').addClass('badge-important').html(nb);
       }
@@ -454,6 +454,9 @@ UI = {
     //show selector
     this.unloadPlaylist(Skhf.session.onglet, function() {
       $('#top-playlist li.selector').animate({'width': API.config.slider.width}, 500, function(){
+				if (self.playlist.elmt.hasClass('empty')) {
+					self.playlist.elmt.removeClass('empty');
+				}
       });
     });
 
@@ -560,13 +563,7 @@ UI = {
   },
   loadRedirect: function(url) {
     console.log('UI.loadRedirect', url);
-    Player.redirect(url, $('#redirect'));
-		$('#content').hide();
-		/*
-    if ($('#top-playlist').hasClass('in')) {
-      $('#top-playlist').collapse('hide');
-    }
-		*/
+    Player.redirect(url, $('#redirect'), $('#content'));
     //window.onbeforeunload = API.quickLaunchModal('signin', function() {
     //  alert('leave');
     //  window.onbeforeunload = null;

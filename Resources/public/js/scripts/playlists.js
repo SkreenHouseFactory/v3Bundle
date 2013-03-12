@@ -2,6 +2,7 @@
 $(document).ready(function(){
 	// -- .fav : toggle
 	$('.actions .fav').live('click', function(e){
+	  console.log('scripts/core/playlists.js', '.fav click', $(this));
 	  e.preventDefault();
 	  e.stopPropagation();
 	  UI.togglePlaylist($(this));
@@ -10,7 +11,7 @@ $(document).ready(function(){
 	});
 	// -- .fav : retirer / popover
 	$('.actions .fav:not(.fav-trash)').live('hover', function(event) {
-	  //console.log('script', '.fav:hover', event.type);
+	  //console.log('scripts/core/playlists.js', '.fav:hover', event.type);
 	  var trigger = $(this);
 	  if (event.type == 'mouseover' || event.type == 'mouseenter') {
 	    // retirer

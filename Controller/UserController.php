@@ -33,10 +33,12 @@ class UserController extends Controller
         
         if (count($errorList) == 0) {
           $api = $this->get('api');
-          $unsubscribed = $api->fetch('user/blacklist',
-                                      array('email' => $request->request->get('email'),
-                                            'notifications' => $request->get('notifications')),
-                                      'POST');
+          $unsubscribed = $api->fetch('user/blacklist', array(
+						'email' => $request->request->get('email'),
+            'notifications' => $request->get('notifications')
+						),
+            'POST'
+					);
         } else {
           $error = 'Email invalide';
         }
@@ -90,12 +92,13 @@ class UserController extends Controller
       }
 
 			$api = $this->get('api');
-      $programs = $api->fetch('www/slider/queue/' . $session_uid, 
-                               array('img_width'  => 150,
-                                     'img_height' => 200,
-                                     'offset'     => 0,
-                                     'nb_results' => 200,
-                                     'onglet'     => $onglet));
+      $programs = $api->fetch('www/slider/queue/' . $session_uid, array(
+				'img_width' => 150,
+        'img_height' => 200,
+        'offset' => 0,
+        'nb_results' => 200,
+        'onglet' => $onglet
+			));
 			//echo $api->url;
 			//print_r($programs);
       //not connected ?
@@ -137,11 +140,13 @@ class UserController extends Controller
       }
 
 			$api = $this->get('api');
-      $vods = $api->fetch('www/slider/vod/' . $session_uid, 
-	                         array('img_height' => 100,
-	                               'offset'     => 0,
-	                               'nb_results' => 200,
-	                               'onglet'     => $onglet));
+      $vods = $api->fetch('www/slider/vod/' . $session_uid, array(
+				'img_height' => 100,
+        'offset' => 0,
+        'nb_results' => 200,
+        'channel_img_width' => 65,
+        'onglet' => $onglet
+			));
 			//echo $api->url;
 			//print_r($programs);
       //not connected ?

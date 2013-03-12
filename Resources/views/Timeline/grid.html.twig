@@ -35,7 +35,7 @@
 	    <a data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="icon-plus-sign"></i> de chaînes</a>
 		</li>
 	  <li class="pull-right dropdown dropdown-update">
-	    <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-check"></i> Que voir ?</span></a>
+	    <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-check"></i>&nbsp;<span>Que voir ?</span></a>
 	    <ul class="dropdown-menu">
 				<li><a data-filter="films">Films</a></li>
 				<li><a data-filter="documentaires">Documentaires</a></li>
@@ -69,7 +69,7 @@
 {% block pagescripts %}
 {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery-ui-1.10.1.custom.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-scrollspy.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery.ui.datepicker-fr.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/tvgrid.js'
     filter='?yui_js' 
     output='js/compiled/tvgrid.js'  %}

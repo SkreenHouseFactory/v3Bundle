@@ -1,4 +1,4 @@
-{% if !app.request.isXmlHttpRequest %}}
+{% if app.request.isXmlHttpRequest is null %}}
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="fr"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="fr"> <![endif]-->
@@ -18,7 +18,7 @@
 {% endif %}
 {% block content %}
 {% endblock %}
-{% if !app.request.isXmlHttpRequest %}}
+{% if app.request.isXmlHttpRequest is null %}}
 <footer>
   <hr />
   <p>&copy; The Skreen House Factory 2012</p>

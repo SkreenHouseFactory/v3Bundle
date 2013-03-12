@@ -252,8 +252,8 @@ slider:
   link.default: Zoom sur la sélection
 theaters:
     playlist:
-        title: Mes playlists : dans vos cinémas
-        add: Ajouter vos cinémas
+        title: Mes playlists : dans mes cinémas
+        add: Ajoutez vos cinémas
     search:
         submit: Rechercher
         geoloc: Près d'ici

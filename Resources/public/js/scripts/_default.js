@@ -81,7 +81,7 @@ $(document).ready(function(){
   // -- ui playlist
   $('#top-playlist').on('show', function () {
     console.log('script', '#top-playlist on show');
-		$('body:not(.view-homes) #main').animate({paddingTop: 480}, function(){
+		$('body:not(.view-homes) #main').animate({paddingTop: 400}, function(){
     	$('body').addClass('playlist-in');
 		})
   });
@@ -107,14 +107,13 @@ $(document).ready(function(){
     }
     return false;
   });
-	/*
+
 	$('.navbar a[data-toggle="dropdown"]').on('click', function () {
     if ($('#top-playlist').hasClass('in')) {
       console.log('script', 'a[data-toggle="dropdown"] on show');
       $('#top-playlist').collapse('hide');
     }
   });
-	*/
 
   /* END */
 
