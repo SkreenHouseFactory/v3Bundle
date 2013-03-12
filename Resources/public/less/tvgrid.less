@@ -57,8 +57,11 @@
 		box-shadow: 1px 3px 3px rgba(0,0,0,0.3);
 		margin: 35px 0px 0px 0px;
 		width: 300px;
-		.ui-datepicker {
+		.ui-datepicker.btn {
 			width: 100%;
+			padding-bottom: 7px;
+			padding-top: 7px;
+			cursor: pointer;
 		}
 	}	
 	ul.timeline {
@@ -115,8 +118,11 @@
 					cursor: pointer;
 					top: 25px;
 				}
-				&:hover i {
-					display: block;
+				&:hover {
+					cursor: move;
+					i {
+						display: block;
+					}
 				}
 			}
 

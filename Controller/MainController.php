@@ -111,7 +111,7 @@ class MainController extends Controller
         'with_teaser' => true,
         'with_pass' => true,
         'slider_width' => 1500,
-        'slider_height' => 550
+        'slider_height' => 400
 			));
       //echo $api->url;
 

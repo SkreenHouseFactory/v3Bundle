@@ -271,6 +271,9 @@ var BaseSlider = Class.extend({
   },
   insertPrograms: function(programs, callback){
     console.log('BaseSlider.insertPrograms', programs);
+		if (this.elmt.hasClass('empty') && programs.length > 0) {
+			this.elmt.removeClass('empty');
+		}
     for (k in programs) {
       var program = programs[k];
       var popular_channel = program.popular_channel ? '<img alt="' + program.popular_channel.name + ' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        

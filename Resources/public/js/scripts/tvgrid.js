@@ -86,7 +86,6 @@ $(document).ready(function(){
 				});
        }
     });
-
 		//dropdown update
 		$('a[data-filter]').click(function(){
 			console.log('script/tvGridView.js', $(this).data('filter'));
@@ -100,9 +99,10 @@ $(document).ready(function(){
 				$('.items li').show();
 			}
 			//menu update
-			if ($(this).parents('li.dropdown:first').length) {
-				$(this).parents('li.dropdown:first').find('a.dropdown-toggle span').text($(this).text());
+			if ($(this).parents('.dropdown:first').length) {
+				$(this).parents('.dropdown:first').find('a.dropdown-toggle span').text($(this).text());
 			}
+			$(this).parents('.open:first').removeClass('open');
 			return false;
 		});
 

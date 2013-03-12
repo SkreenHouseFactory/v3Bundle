@@ -23,8 +23,6 @@
 		 }
 		 .navbar-search {
 	  		margin-top: 12px;
-				position: absolute;
-				left: 640px;
 				i {
 					position: absolute;
 					right: 5px;
@@ -50,6 +48,10 @@
 	     -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.25);
 	        -moz-box-shadow: 0 2px 10px rgba(0,0,0,.25);
 	             box-shadow: 0 2px 10px rgba(0,0,0,.25);
+
+		 	 .navbar-inner-container {
+			 	width: 970px;
+			 }
 		   a.brand {
 				 padding: 12px 15px 8px 15px;
 				 img {
@@ -59,24 +61,28 @@
 			.nav {
 				margin: 0;
 				&.nav-playlists {
-					width: 170px;
+					width: 165px;
 				}
 				> li {
 					> a {
 						color: #CCC;
 						padding: 22px 15px 18px 10px;
-						font-size: 1.2em;
+						font-size: 1.1em;
+						text-transform: uppercase;
 					 
 						 &.with-caret {
-						 	margin-right: 5px;
+							i {
+								border-right: 1px solid transparent;
+								margin-left: 3px;
+							}
 						 }
 						 &.a-caret {
 							position: absolute;
 							right: 0;
-							padding: 15px 5px;
+							padding: 15px 2px;
 							visibility: hidden;
 						 }
-			   	 }
+			   	}
 					&:hover {
 						> a {
 							color: white;
@@ -85,21 +91,20 @@
 							 }
 						}
 					}
-					&.nav-user {
-						> a {
-							padding: 22px 15px 18px 20px;
+					 &.playlists {
+						a {
+							padding: 22px 5px 18px;
 							color: #0088cc;
-							&.a-caret {
-								padding: 15px 5px;
-								visibility: visible;
-								.caret {
-									border-top-color: #0088cc;
-									border-bottom-color: #0088cc;
-								}
-							 }
 						}
-						.dropdown-menu:after {
-							left: 100px;
+					 	&.user-off {
+							padding-left: 35px;
+						}
+					}
+					 &.with-caret:not(.active):hover {
+						a.with-caret {
+							i {
+								border-right: 1px solid #CCC;
+							}
 						}
 					}
 					&.user-on {
@@ -117,14 +122,30 @@
 					}
 					&.notifications {
 						width: 40px;
+						text-align: center;
 						> a {
 							padding: 20px 5px;
 						}
 					}
 					&.dropdown {
 						.dropdown-menu {
+							li.nav-header {
+								font-size: 1.0em;
+								&.user-email {
+									text-transform: none;
+								}
+							}
+							li.tv-channels {
+								padding-left: 15px;
+								a {
+									float: left;
+									padding: 5px;
+									display: block;
+									clear: none;
+								}
+					 		}
 							&.dropdown-menu-tv {
-								left: -352px;
+								left: -345px;
 								width: 990px;
 								a:hover {
 									background: transparent;
@@ -134,15 +155,6 @@
 									left: 400px;
 								}
 							}
-							.tv-channels {
-								padding-left: 15px;
-								a {
-									float: left;
-									padding: 5px;
-									display: block;
-									clear: none;
-								}
-					 		}
 						}
 						&.active-visible.active {
 							.a-caret {
@@ -153,6 +165,7 @@
 								background: rgba(255,255,255,0.9);
 								display: block;
 								width: 990px;
+								opacity: 0.9;
 								li {
 									float: left;
 									a:hover {
@@ -163,17 +176,20 @@
 							}
 							&.active-vod {
 								.dropdown-menu {
-									left: -482px;
+									left: -465px;
+									li:first-child {
+										margin-left: 250px;
+									}
 									&:after {
-										left: 508px;
+										left: 478px;
 									}
 								}
 							}
 							&.active-cine {
 								.dropdown-menu {
-									left: -553px;
+									left: -527px;
 									&:after {
-										left: 582px;
+										left: 550px;
 									}
 								}
 							}
@@ -187,6 +203,7 @@
 				 	}
 		      &.notifications {
 		        ul {
+							text-align: left;
 		          > div {
 		            height: 315px;
 		            overflow-y: auto;
@@ -282,7 +299,7 @@
 	width: 100%;
   
   .container {
-		padding: 50px 0;
+		padding: 20px 0;
 		margin-bottom: 5px;
 		width: 990px;
 		box-shadow: 0px 1px 3px rgba(0,0,0,0.7);
