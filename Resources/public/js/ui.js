@@ -643,7 +643,7 @@ UI = {
                             //  return typeahead.process(data.search.split(';'));
                             //}
 
-                            if (data.search || data.queue || data.channels || data.theaters) {
+                            if (data.programs || data.persons || data.queue || data.channels || data.theaters) {
                               var lis = new Array;
                               var titles = new Array;
                               typeahead.query = typeahead.$element.val()
@@ -667,8 +667,13 @@ UI = {
                                     var items = data[key];
                                     titles[key] = 'Salles de cinéma';
                                   break;
-                                  case 'search':
-                                    var items = data[key].split(';');
+                                  case 'programs':
+                                    var items = data[key];
+                                    titles[key] = 'Programmes';
+                                  break;
+                                  case 'persons':
+                                    var items = data[key];
+                                    titles[key] = 'Personnes';
                                   break;
                                 }
                                 items = items.slice(0, typeahead.options.items)
@@ -691,10 +696,15 @@ UI = {
                                        .find('a')
                                        .html('<img src="' + item.icon + '" /> ' + typeahead.highlighter(item.name))
                                     break;
-                                    case 'search':
-                                      i.addClass('search')
+                                    case 'programs':
+                                      i.addClass('program')
                                        .find('a')
-                                       .html(typeahead.highlighter(item))
+                                       .html(typeahead.highlighter(item.name))
+                                    break;
+                                    case 'persons':
+                                      i.addClass('person')
+                                       .find('a')
+                                       .html(typeahead.highlighter(item.name))
                                     break;
                                   }
                                   console.log('UI.typeahead', 'add item', key,  i);
@@ -703,7 +713,7 @@ UI = {
                               }
 
                               //data.first().addClass('active')
-                              var sort = Array('search','queue','channels','theaters');
+                              var sort = Array('programs','persons','queue','channels','theaters');
                               for (key in sort) {
                                 if (lis[sort[key]]) {
                                   //console.log('UI.typeahead', key, data[key], typeahead.$menu);
