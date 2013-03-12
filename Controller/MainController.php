@@ -62,13 +62,13 @@ class MainController extends Controller
         case 'documentaires':
         case 'emissions':
         case 'spectacles':
-          $redirect = substr($request->get('home'), 0, strlen($request->get('home'))-1);
+					$redirect = $this->generateUrl('homes', array('home' => substr($request->get('home'), 0, strlen($request->get('home'))-1)));
         break;
         case 'vod':
-          $redirect = 'video-a-la-demande';
+					$redirect = $this->generateUrl('homes', array('home' => 'video-a-la-demande'));
         break;
         case 'cine':
-          $redirect = 'cinema';
+					$redirect = $this->generateUrl('homes', array('home' => 'cinema'));
         break;
         
         case 'film':
@@ -76,7 +76,12 @@ class MainController extends Controller
         case 'documentaire':
         case 'emission':
         case 'spectacle':
-          $home = $request->get('home') . 's';
+        case 'jeunesse':
+					if ($request->get('_route') != 'homes_vod') {
+						$redirect = $this->generateUrl('homes_vod', array('home' => $request->get('home')));
+					} else {
+	          $home = $request->get('home') . ($request->get('home') != 'jeunesse' ? 's' : null);
+					}
         break;
         case 'video-a-la-demande':
           $home = 'vod';
@@ -92,10 +97,9 @@ class MainController extends Controller
         break;
       }
       
-
       if (isset($redirect)) {
         //echo 'redirect '.$redirect;exit();
-        return $this->redirect('/'.$redirect.'/', 301);
+        return $this->redirect($redirect, 301);
       }
 
 			$api = $this->get('api');
@@ -108,7 +112,6 @@ class MainController extends Controller
                                  'with_pass' => true,
                                  'slider_width' => 990));
       //echo $api->url;
-
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig', array(
         'home' => $datas

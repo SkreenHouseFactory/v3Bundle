@@ -8,10 +8,6 @@ var Session = BaseSession.extend({
   sync: function(callback, args) {
     var args = $.extend({with_notifications: 1}, args);
     this.__base(callback, args);
-    
-    if (API.context == 'v2') {
-      API.postMessage(['sync']);
-    }
   },
   signin: function(sessionData, callback) {
     this.__base(sessionData, callback)
@@ -94,27 +90,26 @@ var Session = BaseSession.extend({
               });
   },
   initPlaylist: function(url) {
-
-    if (typeof url == 'undefined') {
-      url = API.context == 'v2' ? API.currentUrl : top.location.pathname;
-    }
-    url = url.replace('/app_dev.php','').replace('/app.php','');
     console.log('Session.initPlaylist', 'url:' + url);
 
-    // -- keep
-    if (url.match(/keepPlaylist/)) {
-      console.log('Session.initPlaylist', 'keep');
-      return;
-    }
+    if (typeof url == 'undefined') {
+      url = top.location.pathname;
+    } else if (url) {
+    	url = url.replace('/app_dev.php','').replace('/app.php','');
+	    // -- keep
+	    if (url.match(/keepPlaylist/)) {
+	      console.log('Session.initPlaylist', 'keep');
+	      return;
+	    }
+		}
+    console.log('Session.initPlaylist', 'url:' + url);
 
     // -- autoload
-    if (API.context == 'v3') {
-      var access = document.location.href.match(/access=.+/g);
-      if (access != null && typeof access[0] != 'undefined') {
-        console.warn('Session.initPlaylist', 'autoload', access[0].replace('access=', ''));
-        UI.loadPlaylist(access[0].replace('access=', ''));
-        return;
-      }
+    var access = document.location.href.match(/access=.+/g);
+    if (access != null && typeof access[0] != 'undefined') {
+      console.warn('Session.initPlaylist', 'autoload', access[0].replace('access=', ''));
+      UI.loadPlaylist(access[0].replace('access=', ''));
+      return;
     }
 
     // -- default
@@ -122,36 +117,36 @@ var Session = BaseSession.extend({
      //load tv 
      case '/tv-replay/':
        UI.loadPlaylist('tv');
-       UI.loadFilters('tv');
+       //UI.loadFilters('tv');
      break;
      case '/emission/':
        UI.loadPlaylist('tv');
-       UI.loadFilters('tv'); //??
+       //UI.loadFilters('tv'); //??
      break;
      case '/programme-tv':
        UI.loadPlaylist('tv');
-       UI.loadFilters('tv', 'grid');
+       //UI.loadFilters('tv', 'grid');
        //add grid filters
      break;
      //load cinema 
      case '/cinema/box-office/a/':
-       UI.loadFilters('cine', 'box-office');
+       //UI.loadFilters('cine', 'box-office');
      break;
      case '/cinema/':
        UI.loadPlaylist('cine');
-       UI.loadFilters('cine');
+       //UI.loadFilters('cine');
      break;
      case '/cinema/selection/7845147-a-decouvrir-dans-les-salles-cette-semaine/':
        UI.loadPlaylist('cine');
-       UI.loadFilters('cine', 'new');
+       //UI.loadFilters('cine', 'new');
      break;
      case '/cinema/selection/7845150-bientot-dans-les-salles/':
-       UI.loadFilters('cine', 'coming');
+       //UI.loadFilters('cine', 'coming');
      break;
      //load selector onglet
      case '/video-a-la-demande/':
        UI.loadPlaylist('vod');
-       UI.loadFilters('vod');
+       //UI.loadFilters('vod');
      break;
      case '/film/':
      case '/documentaire/':
@@ -159,14 +154,14 @@ var Session = BaseSession.extend({
      case '/spectacle/':
      case '/dessin-anime-et-manga/':
        UI.loadPlaylist('vod');
-       UI.loadFilters('vod', url.replace('/', '').replace('/', ''));
+       //UI.loadFilters('vod', url.replace('/', '').replace('/', ''));
      break;
      //load selector
      case '/':
      case '':
      default:
        //UI.unloadFilters();
-       UI.loadFilters('home');
+       //UI.loadFilters('home');
        this.initSelector();
      break;
     }

@@ -5,10 +5,12 @@
 {% block content %}
 <div id="vod-view" class="container">
 	{% if vods|length == 0 %}
+		<br/>
 		<div class="hero-unit">
 			<h1>{{ 'user.vod'|trans }}</h1>
+			<br/>
 		  <p>Votre compte mySkreen vous permet de visionner la vidéo à la demande en 1 clic directement sur mySkreen. Renseignez une fois la carte de paiement que vous souhaitez utiliser et payez de manière simple et sécurisée.</p>
-		      <p class="alert">
+		      <p class="alert alert-info">
 						Les vidéos qui font partie de l'offre en 1 clic sont celles marquées d'un <i class="icon-play"></i>.
 						<br/>(les offres marquées d'un <i class="icon-share"></i> ne sont pas disponibles en 1 clic sur mySkreen).
 					</p>

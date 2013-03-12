@@ -37,6 +37,7 @@ $(document).ready(function(){
 	$('[data-redirect]').live('click', function(){
 	    console.log('script', 'player redirect', $(this));
 	    UI.loadRedirect($(this).data('redirect'));
+			return false;
 	});
 
 	// -- couchmode autoplay

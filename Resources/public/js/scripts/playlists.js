@@ -3,7 +3,9 @@ $(document).ready(function(){
 	// -- .fav : toggle
 	$('.actions .fav').live('click', function(e){
 	  e.preventDefault();
+	  e.stopPropagation();
 	  UI.togglePlaylist($(this));
+
 	  return false;
 	});
 	// -- .fav : retirer / popover

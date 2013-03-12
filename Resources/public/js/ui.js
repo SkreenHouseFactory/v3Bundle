@@ -10,6 +10,7 @@ UI = {
   max_notifications: 20,
   badge_notification: '<span class="badge">%count%</span>',
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
+	callbackTogglePlaylist: null,
   init: function(callback) {
     var self = this;
     this.playlist = new BaseSlider({ programs: [] }, function() {},$('#playlist'));
@@ -85,12 +86,9 @@ UI = {
         //datas
         this.loadPlaylistTriggers();
         this.loadNotifications(Skhf.session.datas.notifications);
-        if ($('#view-program').length) {
-          this.loadProgramUsersDatas($('#view-program').data('id'));
-        }
       }
       //infos
-      $('.user span').html(Skhf.session.datas.email);
+      $('.user-email').html(Skhf.session.datas.email);
       $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
       //fb
       if (Skhf.session.datas.fb_uid) {
@@ -115,14 +113,11 @@ UI = {
       $('.notifications li.empty').show();
       $('li.selector').popover('enable');
       //remove datas
-      $('.user span, .favoris span').empty();
+      $('.user-email, .favoris span').empty();
       $('.notifications-count').empty();
       $('.notifications li:not(.empty)').remove();
-      //this.unloadFilters();
       this.playlist.remove();
-      //if ($('#view-program').length) {
-      //  this.unloadProgramUsersDatas();
-      //}
+
       //theaters
       this.unloadTheatersPlaylist();
     }
@@ -133,6 +128,9 @@ UI = {
     if (trigger.hasClass('fav-cinema')) {
         var content = '<b>Ne ratez plus vos séances&nbsp;!</b>' + 
                       '<br/>En ajoutant ce cinéma à vos playlists vous saurez averti de sa programmation.';
+    } else if (trigger.hasClass('fav-epg')) {
+        var content = '<b>Faites-vous un programme TV sur mesure&nbsp;!</b>' + 
+                      '<br/>En ajoutant cette chaîne à vos playlists elle apparaîtra dans votre programme TV.';
     } else if (trigger.hasClass('fav-channel')) {
         var content = '<b>Ne ratez plus vos chaînes préférées&nbsp;!</b>' + 
                       '<br/>En ajoutant cette chaîne à vos playlists vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
@@ -166,6 +164,9 @@ UI = {
     if (trigger.hasClass('fav-cinema')) {
       var parameter = 'cinema';
       var name = 'ce cinéma';
+    } else if (trigger.hasClass('fav-epg')) {
+      var parameter = 'epg';
+      var name = 'cette chaîne TV';
     } else if (trigger.hasClass('fav-channel')) {
       var parameter = 'channel';
       var name = 'cette chaîne';
@@ -182,17 +183,22 @@ UI = {
     if (Skhf.session.datas.email) {
       console.log('UI.togglePlaylist', parameter, value, 'remove:' + remove, trigger);
       trigger.html('Chargement ...').removeClass('btn-danger');
-      var value = trigger.parents('.actions:first').data('id');
+      var value = trigger.data('id') ? trigger.data('id') : trigger.parents('.actions:first').data('id');
       var remove = trigger.hasClass('fav-on') ? true : false;
       var callback = function(value){
         console.log('UI.togglePlaylist', 'callback', value, trigger);
-        if (remove && 
-            parameter == 'like' &&
-            $('.friends', trigger.parents('.actions:first')).length == 0) { //pas pour le slider social
-          $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
-            $(this).remove();
-          });
-        }
+				// remove
+        if (remove) {
+					if (parameter == 'like' &&
+            	$('.friends', trigger.parents('.actions:first')).length == 0) { //pas pour le slider social
+	          $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
+	            $(this).remove();
+	          });
+	        }
+				}
+				if (UI.callbackTogglePlaylist) {
+					UI.callbackTogglePlaylist(parameter, value, remove);
+				}
       }
       if (remove) {
         API.removePreference(parameter, value, callback);
@@ -218,14 +224,14 @@ UI = {
     console.log('UI.loadPlaylistTriggers', parameter, ids, elmt);
     if (typeof parameter != 'undefined') {
       for (key in ids) {
-        console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)');
+        //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)');
         var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)', elmt);
         trigger.html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists').addClass('fav-on');
       }
       switch(parameter) {
         case 'cinema': //reload
           if ($('#trigger-theaters-playlist').length) { //fiche programme
-            console.log('UI.loadPlaylistTriggers', 'set UI.callbackModal');
+            //console.log('UI.loadPlaylistTriggers', 'set UI.callbackModal');
             UI.callbackModal = function() { //à la fermeture de la popin
               $('#trigger-theaters-playlist').trigger('click');
             }
@@ -314,13 +320,32 @@ UI = {
           nb_new++;
           //console.log('new', notifications[k]['new'], nb_new);
         }
-        list.append('<li class="tv-component"><a data-id="' + notifications[k].id + '" class="remove"><i class="icon-trash"></i></a>' + (notifications[k]['new'] ? '<span class="pull-right badge badge-important">Nouveau</span>' : '') + '<a target="_top" href="' + notifications[k].link + '" class="link"><img src="' + notifications[k].channel_ico + '" class="channel pull-left" /><img src="' + notifications[k].ico + '" class="ico pull-left" /><span class="title">' + notifications[k].title + '</span><span class="subtitle">' + notifications[k].title_episode + '</span><span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</a></li><li class="divider"></li>');
+        list.append('<li class="tv-component"><a data-id="' + notifications[k].id + '" class="remove">' + 
+										'<i class="icon-trash"></i></a>' + (notifications[k]['new'] ? '<span class="pull-right badge badge-important">Nouveau</span>' : '') + 
+										'<a ' + (notifications[k].player ? 'data-play="' + notifications[k].player + '" data-ajax="' + notifications[k].program.seo_url + '" rel="#content" href="#"' : 'target="_top" href="' + notifications[k].link + '"') + ' class="link">' + 
+										'<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' +
+										'<img src="' + notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
+										'<span class="title">' + notifications[k].title + '</span>' +
+										'<span class="subtitle">' + notifications[k].title_episode + '</span>' +
+										'<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span></a>' +
+										'</li>' +
+										'<li class="divider"></li>');
       }
+			//TOFIX : should be working in script/core/ui.js
+			$('li a[data-ajax]', list).bind('click', function(){
+				console.log('UI.loadNotifications', 'bind click [data-ajax]', $(this));
+				$($(this).attr('rel')).load(API.config.v3_url + $(this).data('ajax'));
+			});
+			$('li a[data-play]', list).bind('click', function(){
+				console.log('UI.loadNotifications', 'bind click [data-play]', $(this));
+				API.play($(this).data('play'), $(this).data('play-args'));
+			});
+
       //new
       if (nb_new > 0) {
         var nb = nb_new == this.max_notifications ? nb_new + ' +' : nb_new;
         //console.log('UI.loadNotifications', 'new', nb);
-        $('.navbar .notifications-count .badge').html(nb).addClass('badge-important');
+        $('.navbar .notifications-count .badge').addClass('badge-important').html(nb);
       }
       $('.navbar .notifications-count').data('count-new', nb_new);
       $('[rel="tooltip"]', list).tooltip({placement: 'bottom'});
@@ -342,61 +367,6 @@ UI = {
         return false;
       })
     }
-  },
-  //load user program's infos
-  loadProgramUsersDatas: function(id) {
-    var self = this;
-
-    // friends
-    if ( Skhf.session.datas.fb_uid) {
-      var container_friends = $('#program-friends .share-on');
-      this.appendLoader(container_friends);
-      Skhf.session.getSocialDatas(function(friends, friends_programs) {
-        console.log('UI.loadProgramUsersDatas', 'callback session.getSocialDatas', id, friends_programs[id]);
-        container_friends.removeClass('hide'); //HACK : TODO appel après connexion
-        self.removeLoader(container_friends);
-        if (typeof friends_programs[id] != 'undefined') {
-          self.addFriends(container_friends, friends_programs[id])
-        } else {
-          container_friends.append('<p class="alert">Aucun ami trouvé !</p><a href="#same_playlists" class="btn btn-block">Ils ajoutent aussi à leurs playlists &raquo;</a>');
-        }
-      });
-    }
-
-    // VOD & notifications
-    API.query('GET', 
-              'program/' + id + '.json', 
-              {
-                no_metadata: 1,
-                with_notifications: 1,
-                session_uid: Skhf.session.uid
-              }, 
-              function(datas){
-                console.log('UI.loadProgramUsersDatas', 'callback', datas);
-                //bought ?
-                if (typeof datas.purchased != 'undefined' &&
-                    datas.purchased) {
-                  for (k in datas.purchased) {
-                    console.log('UI.loadProgramUsersDatas', 'purchased', '#offers [data-id="' + k + '"] td.access', $('#offers [data-id="' + k + '"] td.access'), k, API.formatTimestamp(datas.purchased[k]));
-                    $('#offers [data-id="' + k + '"] td:last-child .btn').append('<span class="btn-block badge badge-warning">Loué le ' + API.formatTimestamp(datas.purchased[k]) + '</span>');
-                  }
-                }
-                //notifs
-                if (typeof datas.boutons_notifications != 'undefined' && 
-                    datas.boutons_notifications &&
-                    datas.boutons_notifications['new'].count > 0) {
-                  for (k in datas.boutons_notifications['new']) {
-                    var notifs = datas.boutons_notifications['new'][k];
-                    if (notifs.length > 0 && k != 'count' ) {
-                      $('#trigger-' + k).append('<span class="badge badge-important">' + notifs.length + '</span>');                  
-                      for(k in notifs){
-                        $('#program-offers #' + k + ' .table-container').addClass('has-notification');
-                        $('#program-offers [data-id="' + notifs[k] + '"] td:first-child').html('<span class="badge badge-important">1</span>');
-                      };
-                    }
-                  };
-                }
-    });
   },
   //update friends
   loadSocialSelector: function() {
@@ -446,9 +416,11 @@ UI = {
           for (k in datas) {
             $('#theaters-names').append('<a href="#theaters-playlist" data-id="' + datas[k].id + '" class="label label-info">' + datas[k].name + '</a>');
           }
-          UI.sliders['cinema'] = new BaseSlider({'url': 'schedule/cine.json?programs_only=1&theater_ids=' + Skhf.session.datas.cinema }, 
-																								function(){}, 
-																								$('#cinema.slider'));
+          UI.sliders['cinema'] = new BaseSlider({
+						'url': 'schedule/cine.json?programs_only=1&theater_ids=' + Skhf.session.datas.cinema }, 
+						function(){}, 
+						$('#cinema.slider')
+					);
       });
     }
   },
@@ -473,7 +445,7 @@ UI = {
       li.find('.label span').html(group.nb_programs);
       li.find('span.badge').remove();
       if (group.nb_notifs > 0){
-        li.prepend(this.badge_notification.replace('%count%', 'nouveaux')); //group.nb_notifs));
+        li.prepend($(this.badge_notification.replace('%count%', 'nouveaux')).addClass('badge-important')); //group.nb_notifs));
       }
       li.find('a, h6').hide();
       li.popover('disable');
@@ -486,11 +458,6 @@ UI = {
     });
 
     this.loadSocialSelector();
-
-    //onglet ?
-    //if (Skhf.session.onglet) {
-    //  $('#top-playlist .breadcrumb li:last').html($('#top-filters .' + Skhf.session.onglet).html());
-    //}
   },
   unloadSelector: function() {
     var self = this;
@@ -519,10 +486,8 @@ UI = {
       Skhf.session.access = access;
       if (typeof onglet != 'undefined') { //, with_player: 1, player: API.config.player
         var args = {onglet: onglet, with_best_offer: 1, time: new Date().getTime()};
-        $('#top-playlist .breadcrumb li:last').html($('#top-filters li.' + access + ' a[data-filter="' + onglet + '"]').html());
       } else {
         var args = {with_best_offer: 1, time: new Date().getTime()};
-        $('#top-playlist .breadcrumb li:last').empty();
       }
       if (access) {
         Skhf.session.getFriendsUids(function(friends_uids){
@@ -594,20 +559,23 @@ UI = {
     Player.load(trigger);
   },
   loadRedirect: function(url) {
-    console.log('UI.loadRedirect', API.context, url);
-    if (API.context == 'v2') {
-      API.linkV2(url, true);
-    } else {
-      Player.redirect(url);
-    }
+    console.log('UI.loadRedirect', url);
+    Player.redirect(url, $('#redirect'));
+		$('#content').hide();
+		/*
     if ($('#top-playlist').hasClass('in')) {
       $('#top-playlist').collapse('hide');
     }
+		*/
     //window.onbeforeunload = API.quickLaunchModal('signin', function() {
     //  alert('leave');
     //  window.onbeforeunload = null;
     //});
   },
+  unloadRedirect: function(url) {
+		$('#content').show();
+    $('#redirect').empty();
+	},
   // -- insert loader
   appendLoader: function(elmt, timer) {
     $('.progress', elmt).remove();
@@ -617,31 +585,6 @@ UI = {
   // -- remove loader
   removeLoader: function(elmt) {
     elmt.find('.progress').remove();
-  },
-  // -- load filters
-  loadFilters: function(filters, filter_selected) {
-    console.log('UI.loadFilters', filters, filter_selected);
-    $('#top-nav .subnav ul li').removeClass('active selected');
-    $('#top-nav .subnav ul li.' + filters).addClass('active');
-    $('#top-filters > ul').show();
-    $('#top-filters > ul > li, #top-filters h6').hide();
-    $('#top-filters > ul > li.' + filters+':not(.hide)').toggle();
-    if (typeof filter_selected != 'undefined' && filter_selected) {
-      $('#top-filters > ul > li.' + filters + '.active').removeClass('active');
-      $('#top-filters > ul > li.' + filters + '-' + filter_selected).addClass('active');
-    } else {
-      $('#top-nav .subnav ul li.' + filters).addClass('selected');
-      //$('#top-filters > ul > li.' + filters + ':first-child').addClass('active');
-    }
-    if (!$('#top-playlist').hasClass('in')) {
-      API.postMessage(['header', 'remove_playlist']);
-    }
-  },
-  // -- unload filters
-  unloadFilters: function() {
-    console.log('UI.unloadFilters');
-    $('.subnav li.active').removeClass('active');
-    $('#top-filters ul li').removeClass('active').hide();
   },
   // -- add friends
   addFriends: function(container, friend_uids){
@@ -771,9 +714,6 @@ UI = {
                                 }
                               }
                               //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
-                              if (API.context == 'v2') { //hack iframe header v2
-                                $('#top-playlist').collapse('show');
-                              }
                               typeahead.show();
                             } else {
                               return typeahead.shown ? typeahead.hide() : typeahead
@@ -792,10 +732,6 @@ UI = {
           } else {
             top.location = API.config.v3_url + obj.seo_url;
           }
-        }
-
-        if (API.context == 'v2') { //hack iframe header v2
-          $('#top-playlist').collapse('hide');
         }
       }
     });

@@ -74,7 +74,7 @@ class ContentController extends Controller
                   'episode_img_height' => 50,
                   'episode_img_crop' => 50,
                   'channel_img_width' => 65,
-                  'with_img' => '245,325',
+                  'with_img' => '245,330',
                   'with_metadata' => true,
                   'with_related' => true,
 									'with_related_programs' => true,
@@ -143,8 +143,10 @@ class ContentController extends Controller
         if (!$datas->offers['theaters'] && !$datas->offers['theaters_on_demand']) {
           $datas->offers['theaters'] = array();
         } else {
-          $datas->datas_theaters = array('theaters_ids' => $datas->offers['theaters'] ? explode(',', $datas->offers['theaters']) : array(),
-                                         'theaters_on_demand' => $datas->offers['theaters_on_demand']);
+          $datas->datas_theaters = array(
+						'theaters_ids' => $datas->offers['theaters'] ? explode(',', $datas->offers['theaters']) : array(),
+            'theaters_on_demand' => $datas->offers['theaters_on_demand']
+					);
           $datas->offers['theaters'] = ($datas->offers['theaters'] ? count($datas->offers['theaters']) : 0) +  
                                        ($datas->offers['theaters_on_demand'] ? count($datas->offers['theaters_on_demand']) : 0);
         }
@@ -296,7 +298,7 @@ class ContentController extends Controller
                              'nb_results' => 30,
                              'facets' => $this->buildFacets($request)
                            ));
-      //echo "\n".'api:' . $api->url;
+      //echo "\n".'api:' . $api->url;exit();
       //echo "\n".'route:'  .$request->get('_route');
       //print_r($datas);
       //404
@@ -416,7 +418,9 @@ class ContentController extends Controller
       } elseif ($request->get('facet')) {
         $facets[] = 'subcategory:' . $request->get('facet');
       }
-      if ($request->get('format')) {
+      if ($request->get('format') == 'cinema') {
+        $facets[] = 'access:cinéma';
+      } elseif ($request->get('format')) {
         $facets[] = 'format:' . $request->get('format');
       }
       

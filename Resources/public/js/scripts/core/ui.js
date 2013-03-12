@@ -2,12 +2,13 @@ $(document).ready(function(){
 	console.log('scripts', 'load scripts/ui.js');
 
 	// -- ui link/url
-	$('a[data="url"]').live('click', function(e){
+/*	$('a[data="url"]').live('click', function(e){
 	  e.preventDefault();
 	  console.log('ui link/url', 'a[data="url"]');
 	  API.linkV2($(this).data('url'));
 	  return false;
 	});
+	*/
 	$('a.link-v2').live('click', function(e){
 	  console.log('ui link/url', 'linkV2');
 	  e.preventDefault();
@@ -25,6 +26,15 @@ $(document).ready(function(){
 		API.quickLaunchModal(triggerModal);
 	}
 
+	/* trigger remote data in html elmt */
+	$('[data-ajax]').live('click', function(){
+	  console.log('script', '[data-ajax]', $(this).data('ajax'));
+		$($(this).attr('rel')).load($(this).data('ajax'), function() {
+			UI.unloadRedirect();
+		});
+	});
+
+	/* trigger modal */
 	$('a[data-modal], [data-modal-remote]').live('click', function(e){
 	  console.log('script', 'a[data-modal], [data-modal-remote]', 'click');
 	  e.preventDefault();
@@ -124,7 +134,11 @@ $(document).ready(function(){
 	// -- ui actions : play
 	$('.slider li:not(.selector)').live('click', function(e){
 	  console.log('script', '.slider li:not(.selector)', $('a.title', this));
-	  document.location = API.config.v3_root + $('a.title', this).attr('href');
+		if (typeof $('a.title', this).attr('href') == 'undefined') {
+			$('a.title', this).click();
+		} else {
+		  document.location = API.config.v3_root + $('a.title', this).attr('href');
+		}
 	  return false;
 	});
 	/*
@@ -178,8 +192,8 @@ $(document).ready(function(){
 
 	// -- btn-radio
 	$('[data-toggle="buttons-radio"] > *').click(function(){
-	  $('> *', $(this).parent()).removeClass('active btn-primary');
-	  $(this).addClass('active btn-primary');
+	  $('> *', $(this).parent()).removeClass('active btn-info');
+	  $(this).addClass('active btn-info');
 	});
 
 	/* TOUCH */

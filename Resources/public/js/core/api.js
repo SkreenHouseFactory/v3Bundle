@@ -71,7 +71,6 @@ var API;
 API = {
   xhr: new Array(),
   db: new Array(),
-  context: 'v3',
   skXdmSocket: null,
   config: null,
   dataType: 'jsonp',
@@ -107,12 +106,6 @@ API = {
   },
   launchModal: function(url, callbackOnLoad, args) {
     console.log('API.launchModal enter', url, typeof callbackOnLoad);
-
-    //v2
-    if (this.context == 'v2') {
-      this.postMessage(['modal', url]);
-      return;
-    }
 
     //if (url != this.currentModalUrl) {
       var body = $('.modal .modal-body');
@@ -182,7 +175,7 @@ API = {
 			var method = form.attr('method') ? form.attr('method').toUpperCase() : 'POST';
       //console.warn('API.catchForm', 'query method', method);
       self.query(method, form.attr('action'), args, function(json){
-        console.log('API.catchForm', 'API.query callback', args, json, elmt);
+        //console.log('API.catchForm', 'API.query callback', args, json, elmt);
         // if modal
         if (elmt.hasClass('modal')) {
 					//return html
@@ -599,109 +592,5 @@ API = {
       //  console.log('deleteIndexedDb', 'deleted', id);
       //}
     });
-  },
-  linkV2: function(url, force, callback) {
-    console.log('API.linkV2', this.context, url, this.currentUrl, 'force:' + force, callback);
-
-    if (typeof url == 'undefined') {
-      console.warn('API.linkV2', 'url undefined');
-      return;
-    }
-
-    if (this.context == 'v2') {
-      var url = url.replace('http://www.myskreen.com',''); //hack
-      if (url != this.currentUrl || url == '\\') {
-        this.postMessage(["link", url, force]);
-        if (force != true) {
-          if (typeof callback == 'undefined') {
-            Skhf.session.initPlaylist(('/' + url).replace('//','/'));
-          } else {
-            callback();
-          }
-        }
-      }
-    } else {
-      document.location = url.substr(0,1) == '/' ?  this.config.site_url + url : url;
-    }
-
-    this.currentUrl = url;
-  },
-  javascriptV2: function(script) {
-    if (this.context == 'v2') {
-      this.postMessage(['javascript', script]);
-    }
-  },
-  syncV2: function(callback) {
-    var self = this;
-
-    this.context = 'v2';
-    this.skXdmSocket = new easyXDM.Socket({
-      onMessage:function(message, origin) {
-        message = JSON.parse(message);
-        console.log('API.syncV2', 'onMessage', message);
-        if (message[0] == "sessionData") {
-          Skhf.session.uid = message[1].uid;
-          Skhf.session.sync();
-
-        } else if (message[0] == 'ajax-nav') {
-          UI.ad();
-
-        } else if (message[0] == 'nav') {
-          if (message[1] == 'reset' && !Skhf.session.datas.email) {
-            $('.subnav .nav li.active').removeClass('active selected');
-            //$('#top-filters li').hide();
-            UI.loadFilters('home');
-          }
-
-        } else if (message[0] == 'header') {
-
-          if (message[1] == 'collapsed') {
-            if ($('#top-playlist').hasClass('in')) {
-              $('#top-playlist').collapse('hide');
-            }
-            if (Skhf.session.datas.email) {
-              API.cookie('playlist_collapsed', 1);
-            }
-          } else {
-            API.cookie('playlist_collapsed', '');
-          }
-
-        } else if (message[0] == "preference") {
-          self.togglePreference(message[1],
-                                message[2], 
-                                null, function(){
-                                  Skhf.session.initPlaylist();
-                                }, 
-                                message[3]);
-
-        } else if (message[0] == 'redirect') {
-          window.open('/redirect?target=' + escape(message[1]));
-          //Player.redirect(message[1]);
-
-        } else if (message[0] == 'pathname') {
-          self.currentUrl = message[1];
-
-        } else if (message[0] == 'program_notified') {
-          UI.markAsRed(message[1]);
-
-        } else if (message[0] == 'typeahead') {
-          if (message[1] == 'blur') {
-            //console.log('API.syncV2', 'typeahead', 'blur', 'hide playlist');
-            $('.search-query').blur();
-            $('#top-playlist').collapse('hide');
-          }
-        }
-      }
-    });
-    this.postMessage(['sync']);
-    if (typeof callback != 'undefined') {
-      callback();
-    }
-
-  },
-  postMessage: function(message) {
-    if (this.context == 'v2') {
-      this.skXdmSocket.postMessage(JSON.stringify(message));
-    }
   }
 }

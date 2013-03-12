@@ -1,10 +1,13 @@
 /* homes */
-body.view-homes {
+body.view-homes, body.view-homes_vod {
 	#main {
  		padding: 0;
 	}
 }
 #view-home {
+	.absolute {
+		margin: 10px 100px;
+	}
 
    .carousel {
      margin-bottom: 10px;
@@ -16,7 +19,8 @@ body.view-homes {
 	     text-shadow: 0 1px 1px rgba(0,0,0,.4);
 	     background-color: transparent;
 	     border: 0;
-	     z-index: 1;
+	     z-index: 0;
+			 padding: 40px 120px;
 	   }
 
 	   .item {
@@ -35,25 +39,26 @@ body.view-homes {
 		     z-index: 0;
 
 			   .carousel-caption {
-			     position: static;
-			     max-width: 550px;
+			     position: absolute;
+			     min-height: 120px;
 			     padding: 10px 20px;
-			     margin-top: 300px;
+			     top: 350px;
 					 border-radius: 5px;
 					 background: rgba(0,0,0,0.2);
 			     /*background-color: transparent;*/
 
 				   h4 {
 						 font-size: 2.5em;
+						 a {
+							color: white;
+							text-decoration: none;
+						 }
 				   }
 				   h4, .lead {
 				     margin: 0;
 				     line-height: 1.25;
 				     color: #fff;
 				     text-shadow: 0 1px 1px rgba(0,0,0,.4);
-				   }
-				   .btn {
-				     margin-top: 10px;
 				   }
 			   }
 		   }

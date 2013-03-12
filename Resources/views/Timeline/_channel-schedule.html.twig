@@ -1,0 +1,23 @@
+{% for o in c.epg %}
+{% if o.broadcast_begin is defined %}
+{% set timestamp_end = data.timestamp + 3*3600 %}
+{% set start =  o.broadcast_begin|date('U') - data.timestamp > 0 ? ((o.broadcast_begin|date('U') - data.timestamp)*5/60)|number_format : 0 %}
+{% set end   =  o.broadcast_end|date('U') > timestamp_end ? timestamp_end : o.broadcast_end|date('U') %}
+{% set width =  ((end - (start ? o.broadcast_begin|date('U') : data.timestamp))*5/60)|number_format %}
+<li data-program-id="{{ o.program.episodeof_id is defined ? o.program.episodeof_id : o.program.id }}" class="diff {{ width < 60 ? 'is-short' : 'is-long' }}{{ 'now'|date('U') - data.timestamp < 3600 and o.is_live ? ' is-live' : '' }} {{ o.program.onglet }}{{ o.has_replay is defined and o.has_replay ? ' has-replay' : '' }}{{ o.program.nb_like > 5 ? ' is-popular' : '' }}{{ 'Sport' in o.program.categories ? ' sports' : '' }}" data-begin="{{ o.broadcast_begin|date('U') }}" data-end="{{ o.broadcast_end|date('U') }}" style="left: {{ start }}px;width: {{ width }}px;">
+	{% if width < 60  %}
+	<i class="icon-question-sign"></i>
+	{% else %}
+	<div class="actions btn-group pull-right" data-id="{{ o.program.episodeof_id is defined ? o.program.episodeof_id : o.program.id }}"><a class="btn fav fav-like"><i class="icon-plus-sign"></i></a>{% if o.player %}<a class="btn" data-play="{{ o.id }}"><i class="icon-play"></i></a>{% elseif o.url %}<a class="btn" target="_blank" href="{{ o.url }}"><i class="icon-share"></i></a>{% endif %}</div>
+	<a class="link" rel="popover" data-placement="{{ start > 5*60 ? 'left' : 'right' }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o.broadcastdate }} - {{ o.program.format }}" data-content="{% if o.has_replay %}<p class='alert alert-success'><b>Bientôt en Replay :</b> cliquez sur suivre pour être alerté lorsque le Replay sera disponible.</p><hr/>{% endif %}<img class='img-tvgrid-popover' src='{{ o.program.picture }}' alt='{{ o.program.title }}' style='height:200px'/>{{ o.program.description }}<br/><a class='btn' href='{{ o.program.seo_url }}'>Tout sur le programme</a>">
+		<div class="nowrap"><span class="header">{{ o.broadcast_begin|date('H:i') }} {{ o.program.format }}</span></div>
+		{%- if o.is_live and c.live %}<span class="label label-warning">{#<i class="icon-{{ o.player ? 'play' : 'share' }} icon-white"></i> #}Live</span>
+		{% elseif o.url or o.player %}<span class="label label-info">{#<i class="icon-{{ o.player ? 'play' : 'share' }} icon-white"></i> #}Replay</span>
+		{% elseif o.has_replay is defined and o.has_replay %}<span class="label">{#<i class="icon-time icon-white"></i> #}Replay</span>
+		{% endif -%}
+		<span class="title">{{ o.program.title }}</span>
+	</a>
+	{% endif %}
+</li>
+{% endif %}
+{% endfor %}

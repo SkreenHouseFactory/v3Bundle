@@ -69,6 +69,10 @@ body, .touch body {
   }
 }
 
+a {
+	cursor: pointer;
+}
+
 .btn {
 	border-radius: 3px;
 }
@@ -83,10 +87,6 @@ body, .touch body {
 
 .dropdown-menu {
   z-index: 3;
-	
-	a.hide {
-		display: none;
-	}
 }
 
 li.divider {
@@ -102,11 +102,6 @@ li.divider {
 	border-bottom: 1px solid #ffffff;
 }
 
-#content {
-  .container:first-child {
-    margin-top: 10px;
-  }
-}
 .container {
   width: 990px; /*1010px;*/
   position: relative;
@@ -114,7 +109,7 @@ li.divider {
   .pagination {
     text-align: left;
     a {
-			padding: 0px 9px;
+			padding: 5px 9px;
       background-color: white;
     }
     li.active a {
@@ -132,7 +127,6 @@ h1 {
 h3 {
   font-size: 1.3em;
   font-weight: normal;
-  padding-left: 10px;
   margin: 0;
   
   &.pager-count {
@@ -343,7 +337,8 @@ tr[data-id]:hover {
 }
 
 ul.typeahead {
-  width: 457px;
+	width: 325px;
+	margin-left: 10px;
 
   li {
     img {

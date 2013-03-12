@@ -15,11 +15,40 @@
 		<li{{ app.request.get('type') == 'dvd' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">DVD</a></li>
 		<li{{ app.request.get('type') == 'box' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'box'}) }}">BOX</a></li>
 	</ul>
-	<br/>
-	<ul>
+	<h1><small class="indent">{{ app.request.get('type') }}</small></h1>
+  {% if channels|length > 6 %}
+  <div class="pagination pagination-client-alpha">
+    <ul>
+        <li><a>{{ 'nav.all'|trans }}</a></li>
+      {% for l in alpha %}
+        <li{% if l not in alpha_available %} class="disabled"{% endif %}><a>{{ l }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+	<table class="table table-striped">
 		{% for c in channels %}
-		<li><a href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}">{{ c.name }}</a></li>
+		<tr data-alpha="{{ c.name|slice(0,1)|lower }}">
+			{% if app.request.get('type') != 'cinema' %}
+			<td width="100px">
+				{% if c.img %}
+				<a href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><img src="{{ c.img }}" alt="{{ c.name }} {{ app.request.get('type') == 'catchup' ? 'Replay' : 'Streaming' }}" /></a>
+				{% endif %}
+			</td>
+			{% endif %}
+			<td width="200px"><a href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}">{{ c.name }}</a></td>
+			{% if app.request.get('type') == 'cinema' %}
+			<td>{{ c.adress }}<br/>{{ c.city }} {{ c.zip_code }}</td>
+			{% endif %}
+			<td class="actions" data-id="{{ c.id }}" align="right">
+				{% if app.request.get('type') == 'broadcast' %}
+				<a class="btn btn-primary fav fav-epg" data-placement="left" href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+				{% elseif app.request.get('type') == 'cinema' %}
+				<a class="btn btn-primary fav fav-theater" data-placement="left" href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+				{% endif %}
+			</td>
+		</tr>
 		{% endfor %}
-	</ul>
+	</table>
 </div>
 {% endblock %}
