@@ -37,10 +37,11 @@ class SitemapController extends Controller
 
       //API lastmodified
       $datas = $api->fetch('channel', array(
-								 'type' => $request->get('type'),
-								 'offset' => $request->get('offset', 0),
-								 'nb_results' => $request->get('nb_results', 100)
-               ));
+			 'type' => $request->get('type'),
+			 'channel_img_width' => 65,
+			 'offset' => $request->get('offset', 0),
+			 'nb_results' => $request->get('nb_results', 100)
+			));
       //echo $api->url;
       if (isset($datas->error) && $datas->error) {
         throw $this->createNotFoundException('Sitemap error');

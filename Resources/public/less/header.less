@@ -112,7 +112,7 @@
 							padding-left: 35px;
 						}
 					}
-					 &.with-caret:not(.active):hover {
+					 &.with-caret:not(.active):hover, &.with-caret.open:not(.active) {
 						a.with-caret {
 							i {
 								border-right: 1px solid #EFEFEF;
@@ -180,8 +180,8 @@
 								li {
 									float: left;
 									a:hover {
+										background: none;
 										color: #999;
-										background: transparent;
 									}
 								}
 							}
