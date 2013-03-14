@@ -29,8 +29,8 @@
 				</ul>
 				<ul class="nav nav-menu">
 					<li class="dropdown with-caret {{ app.request.get('home') == 'tv-replay' ? 'active' : '' }}">
-						<a data-toggle="dropdown" class="a-caret dropdown-toggle tv-component" class="pull-right"><b class="caret"></b></a>
-						<a class="with-caret" href="{{ header_base }}{{ path('tvgrid') }}" target="_top">{{ 'nav.subnav.tv'|trans }}<i></i></a>
+						<a data-toggle="dropdown" class="a-caret visible-touch dropdown-toggle tv-component"><i class="icon-arrow-down icon-white"></i></a>
+						<a class="with-caret tv-component" href="{{ header_base }}{{ path('tvgrid') }}" target="_top">{{ 'nav.subnav.tv'|trans }}<i></i></a>
 			      <ul class="dropdown-menu dropdown-menu-tv">
 							<li class="nav-header">La grille TV</li>
 					  	<li class="pull-left"><a href="{{ path('tvgrid') }}" target="_top">En ce moment</a></li>
@@ -87,8 +87,8 @@
 			      </ul>
 					</li>
 					<li class="dropdown with-caret active-vod active-visible{{ app.request.get('home') in ['video-a-la-demande','film','documentaire','spectacle','serie','jeunesse'] and app.request.get('_route') in ['homes','homes_vod'] ? ' active' : '' }}">
-						<a data-toggle="dropdown" class="a-caret dropdown-toggle tv-component" class="pull-right"><b class="caret"></b></a>
-						<a class="with-caret" href="{{ header_base }}{{ path('homes', {home: 'video-a-la-demande'}) }}" target="_top">{{ 'nav.subnav.vod'|trans }}<i></i></a>
+						<a data-toggle="dropdown" class="a-caret visible-touch dropdown-toggle tv-component"><i class="icon-arrow-down icon-white"></i></a>
+						<a class="with-caret tv-component" href="{{ header_base }}{{ path('homes', {home: 'video-a-la-demande'}) }}" target="_top">{{ 'nav.subnav.vod'|trans }}<i></i></a>
 			      <ul class="dropdown-menu">
 				      <li><a href="{{ header_base }}{{ path('homes', {home: 'film'}) }}" target="_top">{{ 'nav.films'|trans }}</a></li>
 				      <li><a href="{{ header_base }}{{ path('homes', {home: 'documentaire'}) }}" target="_top">{{ 'nav.documentaires'|trans }}</a></li>
@@ -98,8 +98,8 @@
 			      </ul>
 					</li>
 					<li class="dropdown with-caret active-cine active-visible{{ app.request.get('home') == 'cinema' or app.request.get('format') == 'cinema' ? ' active' : '' }}">
-						<a data-toggle="dropdown" class="a-caret dropdown-toggle tv-component" class="pull-right"><b class="caret"></b></a>
-						<a class="with-caret" href="{{ header_base }}{{ path('homes', {home: 'cinema'}) }}" target="_top">{{ 'nav.subnav.cine'|trans }}<i></i></a>
+						<a data-toggle="dropdown" class="a-caret visible-touch dropdown-toggle tv-component"><i class="icon-arrow-down icon-white"></i></a>
+						<a class="with-caret tv-component" href="{{ header_base }}{{ path('homes', {home: 'cinema'}) }}" target="_top">{{ 'nav.subnav.cine'|trans }}<i></i></a>
 			      <ul class="dropdown-menu">
 					  	<li><a href="{{ path('category', {format: 'cinema', category_slug: 'dessin-anime-et-manga'}) }}" target="_top">Jeunesse</a></li>
 					  	<li><a href="{{ path('category_facet', {format: 'cinema', category_slug: 'film', facet: 'action'}) }}" target="_top">Action</a></li>

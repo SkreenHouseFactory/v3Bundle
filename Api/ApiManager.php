@@ -25,7 +25,7 @@ class ApiManager
   protected function getApiBase($env, $version) {
     if ($env == 'dev') {
       return 'http://benoit.myskreen.typhon.net/api/' . $version . '/';
-    } elseif (strstr($_SERVER['SERVER_NAME'], 'preprod')) {
+    } elseif (strstr($_SERVER['SERVER_NAME'], 'preprod') || strstr($_SERVER['SERVER_NAME'], 'typhon')) {
       return 'http://preprod.api.myskreen.com/api/' . $version . '/';
     } else {
       return 'http://api.myskreen.com/api/' . $version . '/';
@@ -33,7 +33,7 @@ class ApiManager
   }
 
   public function fetch($url, $params = array(), $method = 'GET', $options = array()) {
-
+		//echo $this->base;
     $client = new Client($this->base, $options);
 		$time = microtime(true);
     switch ($method) {

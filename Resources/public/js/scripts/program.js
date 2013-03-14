@@ -106,7 +106,7 @@ $(document).ready(function(){
 	                if ($('#triggers li').length == 1) {
 	                  $('#trigger-bonus').trigger('click');
 	                }
-	                var container = $('#ytCarousel .carousel-inner .item:first-child');
+									var container = $('#ytCarousel .carousel-inner .item:first-child');
 	                var c_index = 0;
 	                var nb_page = 8;
 	                for (var i = 0; i < programs.length; i++) {
@@ -124,6 +124,8 @@ $(document).ready(function(){
 	                }
 	                if (programs.length > nb_page) {
 	                  $('#ytCarousel').carousel().carousel('pause').removeClass('hide'); //{interval: 7000, pause: 'hover'}
+										$('#ytCarousel').append('<p class="alert alert-info">Ces extraits sont récupérés automatiquement sur Youtube notamment. Il se peut qu\'ils ne correspondent pas tout à fait au programme recherché et les sites référencés sont seuls responsables du contenu qu\'ils proposent.</p>');
+	                
 	                }
 	              });
 	  };

@@ -9,7 +9,6 @@
   <div id="channels-list" class="clear" data-api-url="{{ path('tvgrid_addchannel') }}"></div>
 </div>
 
-
 <hr class="clear"/>
 {% if channels|length == 0 and app.request.get('init') is null %}
   <p class="alert">{{ 'tvgrid.channels.noprogram.search'|trans }}</p>
@@ -19,7 +18,7 @@
   {% for channel in channels %}
     {% if channel.epg %}
     <tr><td class="actions" data-id="{{ channel.id }}">
-      <a class="fav fav-epg pull-right btn btn-primary" data-id="{{ channel.id }}" data-img="{{ channel.img }}" data-seo-url="{{ channel.seo_url }}" data-name="{{ channel.name }}" href="#"><i class="icon-plus-sign icon-white"></i> Suivre</a>
+      <a class="fav fav-epg pull-right btn btn-primary" data-id="{{ channel.id }}" data-img="{{ channel.img }}" data-seo-url="{{ channel.seo_url }}" data-name="{{ channel.name }}" href="#"><i class="icon-plus-sign icon-white"></i> Ajouter à la grille</a>
       <img src="{{ channel.img }}"/> {{ channel.name }}
     </td></tr>
     {% endif %}

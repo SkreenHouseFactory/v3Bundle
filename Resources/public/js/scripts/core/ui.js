@@ -177,15 +177,4 @@ $(document).ready(function(){
 	  $('> *', $(this).parent()).removeClass('active btn-info');
 	  $(this).addClass('active btn-info');
 	});
-
-	/* TOUCH */
-	if ($('html').hasClass('touch')) {
-	  $('html.touch .tv-component, html.touch .tv-component *').live('touchstart', function(e){
-	    e.preventDefault();
-	    e.stopPropagation();
-
-	    $(this).trigger('click');
-	    return false;
-	  });
-	}
 });

@@ -58,7 +58,7 @@
       {% if program.theater_release_date is defined %}
         <p class="alert alert-success">Sortie en salle le <strong>{{ program.theater_release_date }}</strong>{# <a href="#" data-ics-date="{{ program.theater_release_date }}"><i class="icon-agenda"></i> Ajouter à votre agenda</a>#}</p>
       {% elseif program.has_vod == 6 %}
-        <p class="alert alert-success">Ce programme sera bientôt disponible en Replay. Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera mis en ligne.</p>
+        <p class="alert alert-success">{{ program.episodeof is defined ? 'Cet épisode' : 'Ce programme' }} sera bientôt disponible en Replay. Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera mis en ligne.</p>
       {% elseif program.has_vod == 0 %}
 				{% if program.episodeof is defined %}
         <p class="alert alert-success">Cette épisode n'est pas diffusé pour le moment.</p>
@@ -183,10 +183,10 @@
                 {% if o_episode %}
                 <td class="episode" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left" itemprop="summary">
 									{% if o_episode.title %}
-                  {{ o_episode.title }}<br/>
+                  {{ o_episode.title }}
 									{% endif %}
                   {% if o_episode.season_number is defined or o_episode.episode_number is defined or o_episode.part_number is defined %}
-                    <span><em>{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %} {% if o_episode.episode_number is defined %}Episode {{ o_episode.episode_number }}{% endif %} {% if o_episode.part_number is defined %}Episode {{ o_episode.part_number }}{% endif %}</em></span>
+                    <br/><span><em>{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %} {% if o_episode.episode_number is defined %}Episode {{ o_episode.episode_number }}{% endif %} {% if o_episode.part_number is defined %}Episode {{ o_episode.part_number }}{% endif %}</em></span>
                   {% endif %}
                 {% else %}
                 <td>

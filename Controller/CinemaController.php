@@ -63,11 +63,11 @@ class CinemaController extends Controller
 			$api = $this->get('api');
       if ($request->get('q') || $request->get('theater_ids')) {
         $cinemas = $api->fetch('schedule/cine', array(
-                      'program_id' => $request->get('id'),
-                      'theater_ids' => count(explode(',', $request->get('theater_ids'))) < 10 ?  $request->get('theater_ids') : null,
-                      'with_schedule' => true,
-                      'q' => $request->get('q')
-                    ));
+          'program_id' => $request->get('id'),
+          'theater_ids' => count(explode(',', $request->get('theater_ids'))) < 10 ?  $request->get('theater_ids') : null,
+          'with_schedule' => true,
+          'q' => $request->get('q')
+        ));
       } elseif ($request->get('latlng')) {
         list ($lat, $lng) = explode(',', $request->get('latlng'));
         $cinemas = $api->fetch('schedule/cine', array(
@@ -81,9 +81,9 @@ class CinemaController extends Controller
       //echo 'theater_ids:' . $request->get('theater_ids');
       //echo $api->url;
       $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:program.html.twig', array(
-                'cinemas' => $cinemas,
-                'days' => array('Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche')
-             ));
+			  'cinemas' => $cinemas,
+			  'days' => array('Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche')
+			));
 
       $maxage = 600;
       $response->setPublic();

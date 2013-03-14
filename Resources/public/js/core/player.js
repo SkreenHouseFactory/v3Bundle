@@ -59,7 +59,6 @@ Player = {
     if (this.type != null) {
       return this.type;
     }
- 
     if (navigator.userAgent.match(/iPhone|iPod|iPad/)) {
       console.log(['Player.getType', 'iPhone|iPod|iPad', navigator.userAgent]);
       return 'ios';
@@ -67,7 +66,7 @@ Player = {
     //  console.log('Player.getType', 'Modernizr.video', Modernizr.video);
     //  return 'h264';
     } else {
-      return 'flash'; //'flowplayer';
+      return 'flowplayer'; //'flash';
     }
   },
   load: function(trigger) {

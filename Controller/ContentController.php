@@ -60,7 +60,7 @@ class ContentController extends Controller
 					 $this->get('kernel')->getEnvironment() != 'dev' && 
           $response->isNotModified($request)) {
           // Retourner immédiatement un objet 304 Response
-          mail('benoit@myskreen.com', 
+          mail('benoit@myskreen.com',
                '[v3][program isNotModified] program-' . $request->get('id') . '-'. $datas->updated_at,
 							 print_r($response, true));
       } else {
@@ -68,23 +68,23 @@ class ContentController extends Controller
 
         //echo $request->get('id');echo $request->get('_route');exit();
         $datas = $api->fetch('program/'.$request->get('id'), array(
-                  'img_width' => 400,
-                  'img_height' => 550,
-                  'episode_img_width' => 80,
-                  'episode_img_height' => 50,
-                  'episode_img_crop' => 50,
-                  'channel_img_width' => 65,
-                  'with_img' => '245,330',
-                  'with_metadata' => true,
-                  'with_related' => true,
-									'with_related_programs' => true,
-                  'with_offers' => true,
-                  'with_teaser' => true,
-                  'with_hashtags' => true,
-                  'with_tweets' => true
-                  //'filter_casting' => true,
-                  //'player' => 'flash'
-                ));
+          'img_width' => 400,
+          'img_height' => 550,
+          'episode_img_width' => 80,
+          'episode_img_height' => 50,
+          'episode_img_crop' => 50,
+          'channel_img_width' => 65,
+          'with_img' => '245,330',
+          'with_metadata' => true,
+          'with_related' => true,
+					'with_related_programs' => true,
+          'with_offers' => true,
+          'with_teaser' => true,
+          'with_hashtags' => true,
+          'with_tweets' => true
+          //'filter_casting' => true,
+          //'player' => 'flash'
+        ));
 
         //print_r($datas);
         //echo $api->url;
@@ -216,26 +216,26 @@ class ContentController extends Controller
 
       $api   = $this->get('api');
       $datas = $api->fetch('channel', array(
-                            'from_slug'  => $request->get('slug'),
-                            'with_live'  => !$request->get('format') && !$request->get('page') ? true : false,
-                            'with_next_live' => !$request->get('format') && !$request->get('page') ? true : false,
-                            //'with_prev_live' => true,
-                            'with_description'  => true,
-                            'channel_img_width' => 50,
-                            'img_width' => 150,
-                            'img_height' => 200,
-                            'live_img_width' => 300,
-                            'live_img_height' => 300,
-                            'slider_img_width'  => 900,
-                            'slider_img_height' => 300,
-                            'with_epg' => !$request->get('format') && !$request->get('page') ? true : false,
-                            'with_replay' => !$request->get('format') && !$request->get('page') ? true : false,
-                            'with_best_offer' => !$request->get('format') && !$request->get('page') ? true : false,
-                            'with_programs' => true,
-                            'offset' => $request->get('page', 1) * 30 - 30,
-                            'nb_results' => 30,
-                            'facets' => $this->buildFacets($request)
-                          ));
+        'from_slug'  => $request->get('slug'),
+        'with_live'  => !$request->get('format') && !$request->get('page') ? true : false,
+        'with_next_live' => !$request->get('format') && !$request->get('page') ? true : false,
+        //'with_prev_live' => true,
+        'with_description'  => true,
+        'channel_img_width' => 50,
+        'img_width' => 150,
+        'img_height' => 200,
+        'live_img_width' => 300,
+        'live_img_height' => 300,
+        'slider_img_width'  => 900,
+        'slider_img_height' => 300,
+        'with_epg' => !$request->get('format') && !$request->get('page') ? true : false,
+        'with_replay' => !$request->get('format') && !$request->get('page') ? true : false,
+        'with_best_offer' => !$request->get('format') && !$request->get('page') ? true : false,
+        'with_programs' => true,
+        'offset' => $request->get('page', 1) * 30 - 30,
+        'nb_results' => 30,
+        'facets' => $this->buildFacets($request)
+      ));
       //print_r($datas);
       //echo $api->url;
       //404
@@ -286,18 +286,17 @@ class ContentController extends Controller
     {
 			$this->blockDomain($request);
       $api   = $this->get('api');
-      $datas = $api->fetch(in_array($request->get('_route'), array('format', 'format_facet', 'format_page')) ? 'format' : 'category', 
-                           array(
-                             'from_slug'  => str_replace('/', '', $request->get('category_slug')),
-                             'with_description' => true,
-                             //'with_subcategories' => true,
-                             'with_programs'  => true,
-                             'img_width' => 150,
-                             'img_height' => 200,
-                             'offset' => $request->get('page', 1) * 30 - 30,
-                             'nb_results' => 30,
-                             'facets' => $this->buildFacets($request)
-                           ));
+      $datas = $api->fetch(in_array($request->get('_route'), array('format', 'format_facet', 'format_page')) ? 'format' : 'category', array(
+         'from_slug'  => str_replace('/', '', $request->get('category_slug')),
+         'with_description' => true,
+         //'with_subcategories' => true,
+         'with_programs'  => true,
+         'img_width' => 150,
+         'img_height' => 200,
+         'offset' => $request->get('page', 1) * 30 - 30,
+         'nb_results' => 30,
+         'facets' => $this->buildFacets($request)
+       ));
       //echo "\n".'api:' . $api->url;exit();
       //echo "\n".'route:'  .$request->get('_route');
       //print_r($datas);
@@ -335,15 +334,14 @@ class ContentController extends Controller
     {
 			$this->blockDomain($request);
       $api   = $this->get('api');
-      $datas = $api->fetch('person/'.$request->get('id'), 
-                           array(
-                             'with_programs' => true,
-                             'img_width' => 150,
-                             'img_height' => 200,
-                             'advanced' => true,
-                             'offset' => $request->get('page', 1) * 30 - 30,
-                             'nb_results' => 30,
-                           ));
+      $datas = $api->fetch('person/'.$request->get('id'), array(
+				'with_programs' => true,
+				'img_width' => 150,
+				'img_height' => 200,
+				'advanced' => true,
+				'offset' => $request->get('page', 1) * 30 - 30,
+				'nb_results' => 30,
+      ));
       //print_r($datas);
       //echo $api->url;
       //404
@@ -377,13 +375,12 @@ class ContentController extends Controller
     {
 			$this->blockDomain($request);
       $api   = $this->get('api');
-      $datas = $api->fetch('www/slider/pack/'.$request->get('id'), 
-                           array(
-                             'with_programs'  => true,
-                             'with_onglet'  => true,
-                             'img_width' => 150,
-                             'img_height' => 200
-                           ));
+      $datas = $api->fetch('www/slider/pack/'.$request->get('id'), array(
+				'with_programs'  => true,
+				'with_onglet'  => true,
+				'img_width' => 150,
+				'img_height' => 200
+			));
       //print_r($datas);
       //echo $api->url;
       //404

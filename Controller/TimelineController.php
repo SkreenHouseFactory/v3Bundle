@@ -53,9 +53,11 @@ class TimelineController extends Controller
 								'session_uid' => $request->get('session_uid'),
 								'channels_ids' => $request->get('channels_ids'),
 							  'with_related_sliders' => $request->get('schedule-only') ? false : true,
+							  'with_best_offer' => true,
 							  'time' => time()
 							));
 			//echo $api->url;
+			//print_r($data->sliders);exit();
 
 			// post treatment
 			$data->channels = (array)$data->channels;

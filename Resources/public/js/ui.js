@@ -562,6 +562,7 @@ UI = {
   },
   loadRedirect: function(url) {
     console.log('UI.loadRedirect', url);
+		$('body').removeClass('view-homes view-homes_vod');
     Player.redirect(url, $('#redirect'), $('#content'));
     //window.onbeforeunload = API.quickLaunchModal('signin', function() {
     //  alert('leave');
