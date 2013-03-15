@@ -12,7 +12,10 @@ $(document).ready(function(){
 		  GridView.loadSchedule();
 		}
 		Skhf.session.callbackSignin = function() {
-		  GridView.loadSchedule();
+			if (Skhf.session.datas.epg) {
+				console.log('scripts/tvgrid.js', 'callbackSignin', 'epg', Skhf.session.datas.epg);
+			  GridView.loadSchedule();
+			}
 		}
 		// -- UI callback : reload grid after adding channel
 		UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {

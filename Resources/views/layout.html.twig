@@ -65,13 +65,28 @@
   </div>
 	</article>
 	<header>
-  <nav><div id="header">{% include 'SkreenHouseFactoryV3Bundle:Main:_header-3.1.html.twig' %}</div></nav>
+	  <nav>
+			<div id="header">
+				<div class="navbar-wrapper">
+				  <div class="container-right">
+				    <div class="navbar navbar-inverse">
+				      <div class="navbar-inner"></div>
+						</div>
+					</div>
+				  <div class="container">
+						{% include 'SkreenHouseFactoryV3Bundle:Main:_header-nav.html.twig' %}
+				    {% block header_filters %}
+				    {% endblock %}
+					</div>
+				</div>
+			</div>
+		</nav>
+	  <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
+	    <div class="container">
+	      {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
+	    </div>
+	  </div>
 	</header>
-  <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
-    <div class="container">
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
-    </div>
-  </div>
 	<footer>
   <div id="footer">{% include 'SkreenHouseFactoryV3Bundle:Main:_footer.html.twig' %}</div>
 	</footer>

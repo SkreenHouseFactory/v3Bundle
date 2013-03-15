@@ -1,14 +1,16 @@
 $(document).ready(function(){
 	console.log('scripts', 'load scripts/ui.js');
 
-
-
 	/* trigger remote data in html elmt */
-	$('[data-ajax]').live('click', function(){
+	$('[data-ajax]').live('click', function(e){
+		//e.preventDefault();
 	  console.log('script', '[data-ajax]', $(this).data('ajax'));
+		$($(this).attr('rel')).empty();
+		UI.appendLoader($($(this).attr('rel')));
 		$($(this).attr('rel')).load($(this).data('ajax'), function() {
 			UI.unloadRedirect();
 		});
+		return false;
 	});
 
 	var triggerModal = getUrlParameter('modal');
@@ -27,7 +29,7 @@ $(document).ready(function(){
 			if (!url.match(/^http(s|)\:\/\//)) {
 	      url  = API.config.v3_url + url;
 				$.extend(args, {dataType: 'text html'});
-	    } 
+	    }
 	    UI.appendLoader($('.modal .modal-body').empty(), 1000);
 			API.query('GET', url, args, function(data){
 				//html
@@ -117,7 +119,7 @@ $(document).ready(function(){
 	$('.slider li:not(.selector)').live('click', function(e){
 	  console.log('script', '.slider li:not(.selector)', $('a.title', this));
 		if (typeof $('a.title', this).attr('href') == 'undefined') {
-			$('a.title', this).click();
+			$('a.title', this).trigger('click');
 		} else {
 		  document.location = API.config.v3_root + $('a.title', this).attr('href');
 		}

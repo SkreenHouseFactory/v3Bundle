@@ -49,6 +49,11 @@ body {
   background: @bgBody;
   #main {
     padding: 80px 0 0;
+		#content {
+			.progress {
+				margin: 10% 30%;
+			}
+		}
   }
   #header {
     position: absolute;
@@ -120,6 +125,9 @@ li.divider {
       color: white;
       background: #08C;
     }
+		&.pagination-access {
+			padding: 5px 6px;
+		}
   }
 }
 
@@ -369,27 +377,38 @@ ul.typeahead {
 }
 
 #redirect {
-  display: none;
-  width: 100%;
-  height: 500px;
-  background: transparent;
-  position: relative;
-  
-  .progress {
-    position: absolute;
-    top: 40%;
-    left: 30%;
-    width: 30%;
-  }
+	display: none;
+	width: 100%;
+	height: 500px;
+	background: transparent;
+	position: relative;
 
-  iframe {
-    position: absolute;
-    z-index: 1;
-    height: 100%;
-    width: 100%;
-    border: 0;
-    overflow: hidden;
-  }
+	.close-redirect {
+		background: #3a87ad;
+		color: white;
+		position: absolute;
+		right: 0;
+		z-index: 10;
+		padding: 10px 20px;
+		border-radius: 5px;
+	}
+
+	.progress {
+	  position: absolute;
+	  top: 40%;
+	  left: 30%;
+	  width: 30%;
+	}
+
+	iframe {
+	  border: 0;
+		border-top: 10px solid #3a87ad;
+	  position: absolute;
+	  z-index: 1;
+	  height: 100%;
+	  width: 100%;
+	  overflow: hidden;
+	}
 }
 
 #trigger-theaters-geoloc {

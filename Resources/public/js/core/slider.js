@@ -348,17 +348,21 @@ var BaseSlider = Class.extend({
         if (o.broadcastdate) {
           $('.channel .diff', li).html(o.broadcastdate.replace(' à ', '<br/>')).removeClass('hide');
         } else if (p.deporte) {
-					console.log('Slider.addProgramBestOffer', o, 'slider-playlist:' + this.elmt.hasClass('slider-playlist'));
           $('.channel .diff', li).html('sur mySkreen').removeClass('hide');
         }
 				//playlist seulement
-				if (this.elmt.hasClass('slider-playlist') && 
-						o.deporte) {
-					$('a.title', li).attr('data-play', o.deporte);
-					$('a.title', li).attr('data-ajax', API.config.v3_root + p.seo_url);
-					$('a.title', li).attr('rel', '#content');
-				} else if (o.url) {
-					$('a.title', li).attr('data-redirect', o.url);
+				if (this.elmt.hasClass('slider-playlist')) {
+					console.log('BaseSlider.addProgramBestOffer', 'slider-playlist', o);
+					if (o.deporte) {
+						$('a.title', li).attr('data-play', o.deporte)
+														.attr('data-ajax', API.config.v3_root + p.seo_url)
+														.attr('rel', '#content');
+					} else if (o.url) {
+						$('a.title', li).attr('data-redirect', o.url);
+					} else {
+						$('a.title', li).attr('data-ajax', API.config.v3_root + p.seo_url)
+														.attr('rel', '#content');
+					}
 				}
         $('.channel', li).removeClass('hide');
       }
@@ -371,6 +375,12 @@ var BaseSlider = Class.extend({
       else if (p.has_vod == 6) { $('.channel .diff', li).html('Bientôt en Replay'); }
       else if (p.has_vod == 7 || p.has_vod == 8 || p.has_vod == 9 || p.has_vod == 10) { $('.channel .diff', li).html('Replay'); }
       else if (p.has_vod) { $('.channel .diff', li).html('VOD'); }
+			//playlist seulement
+			if (this.elmt.hasClass('slider-playlist')) {
+				console.log('BaseSlider.addProgramBestOffer', 'slider-playlist no bestOffer', p);
+				$('a.title', li).attr('data-ajax', API.config.v3_root + p.seo_url)
+												.attr('rel', '#content');
+			}
     }
   },
   getTemplate: function(params) {

@@ -291,6 +291,7 @@ class ContentController extends Controller
          'with_description' => true,
          //'with_subcategories' => true,
          'with_programs'  => true,
+         'with_onglet' => true,
          'img_width' => 150,
          'img_height' => 200,
          'offset' => $request->get('page', 1) * 30 - 30,
@@ -393,7 +394,6 @@ class ContentController extends Controller
         return $this->redirect($datas->seo_url, 301);
       }
 
-
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Content:selection.html.twig', array(
@@ -407,20 +407,23 @@ class ContentController extends Controller
       
       return $response;
     }
-    
+
     protected function buildFacets(Request $request) {
       $facets = array();
       if (strlen($request->get('facet')) == 1) {
         $facets[] = 'alpha:' . $request->get('facet');
+      } elseif (in_array($request->get('facet'), array('video-a-la-demande', 'cinema'))) {
+        $facets[] = 'access:' . str_replace(array('video-a-la-demande'), array('vod'), $request->get('facet'));
       } elseif ($request->get('facet')) {
         $facets[] = 'subcategory:' . $request->get('facet');
       }
-      if ($request->get('format') == 'cinema') {
-        $facets[] = 'access:cinéma';
-      } elseif ($request->get('format')) {
+      if ($request->get('format')) {
         $facets[] = 'format:' . $request->get('format');
       }
-      
+      if ($request->get('access')) {
+        $facets[] = 'access:' . str_replace(array('video-a-la-demande'), array('vod'), $request->get('access'));
+      }
+
       return implode(',', $facets);
     }
 }

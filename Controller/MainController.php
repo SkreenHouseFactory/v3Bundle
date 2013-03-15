@@ -114,7 +114,7 @@ class MainController extends Controller
         'slider_height' => 400
 			));
       //echo $api->url;
-
+			//print_r($datas);
       $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig', array(
         'home' => $datas
       ));

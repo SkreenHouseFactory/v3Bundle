@@ -335,10 +335,17 @@ UI = {
 			$('li a[data-ajax]', list).bind('click', function(){
 				console.log('UI.loadNotifications', 'bind click [data-ajax]', $(this));
 				$($(this).attr('rel')).load(API.config.v3_url + $(this).data('ajax'));
+				return false;
 			});
 			$('li a[data-play]', list).bind('click', function(){
 				console.log('UI.loadNotifications', 'bind click [data-play]', $(this));
 				API.play($(this).data('play'), $(this).data('play-args'));
+				return false;
+			});
+			$('[data-redirect]').bind('click', function(){
+		    console.log('script', 'player redirect', $(this));
+		    UI.loadRedirect($(this).data('redirect'));
+				return false;
 			});
 
       //new
@@ -564,6 +571,10 @@ UI = {
     console.log('UI.loadRedirect', url);
 		$('body').removeClass('view-homes view-homes_vod');
     Player.redirect(url, $('#redirect'), $('#content'));
+		$('#redirect').prepend('<div class="container container-redirect collapse in">' +
+													 '<p class="alert alert-info"><span class="close pull-right" data-toggle="collapse" data-target=".container-redirect">&times;</span>Vous visitez un site partenaire de mySkreen.com. <a data-redirect="unload">Revenir à mySkreen.com</a></p>' +
+													 '</div>' +
+													 '<a class="close-redirect" data-redirect="unload">&times Fermer</a>');
     //window.onbeforeunload = API.quickLaunchModal('signin', function() {
     //  alert('leave');
     //  window.onbeforeunload = null;

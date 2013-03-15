@@ -42,7 +42,7 @@
 			{% endif %}
 			<td class="actions" data-id="{{ c.id }}" align="right">
 				{% if app.request.get('type') == 'broadcast' %}
-				<a class="btn btn-primary fav fav-epg" data-placement="left" href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+				<a class="btn btn-primary fav fav-epg" data-placement="left" href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><i class="icon-plus-sign icon-white"></i> Ajouter à votre grille TV</a>
 				{% elseif app.request.get('type') == 'cinema' %}
 				<a class="btn btn-primary fav fav-theater" data-placement="left" href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
 				{% endif %}
