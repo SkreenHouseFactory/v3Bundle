@@ -112,7 +112,8 @@ $(document).ready(function(){
 		$('body').removeClass('view-homes');
 		$($(this).attr('rel')).empty();
 		UI.appendLoader($($(this).attr('rel')));
-		$($(this).attr('rel')).load($(this).data('ajax'), function() {
+		var suffix = $(this).data('ajax').indexOf('?') == -1 ? '?skip_varnish' : '&skip_varnish';
+		$($(this).attr('rel')).load($(this).data('ajax') + suffix, function() {
 			UI.unloadRedirect();
 		});
 		return false;
