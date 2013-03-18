@@ -19,7 +19,7 @@
     {% endif %#}
     <div class="container">
 			<div class="carousel-caption actions" data-id="{{ p.id }}">
-	    <a class="pull-left btn btn-large btn-primary fav fav-like" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+	    <a class="pull-left btn btn-large btn-primary fav fav-like" data-placement="right"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
       <h4><a href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">{{ p.title }}</a></h4>
 			{% if skip_like is not defined %}
 			{% endif %}
