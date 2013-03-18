@@ -214,7 +214,7 @@ GridView = {
 		//today
 		var date = new Date();
 		//schedule
-		var url = this.elmt.data('ad-ajax') + '?schedule-only=1&date=' + this.timestamp + 
+		var url = this.elmt.data('reload-ajax') + '?schedule-only=1&date=' + this.timestamp + 
 																					'&channels_ids=' + channel_ids + '&session_uid=' + Skhf.session.uid;
 		this.channels.load(url, function(){
 				//popover
