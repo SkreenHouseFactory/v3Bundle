@@ -1,14 +1,25 @@
-<div id="carousel-{{ slider.title|replace({' ': '-'})|lower }}"{% if skip_autoload is not defined %} data-carousel-autoload="1"{% endif %} class="carousel slide">
+<div id="carousel-{{ slider.title|replace({' ': '-'})|lower }}"{% if skip_autoload is not defined %} data-carousel-autoload="1"{% endif %} class="carousel slide carousel-{{ slider.id }}">
+	<div class="container">
+  <a class="carousel-control left" href="#carousel-{{ slider.title|replace({' ': '-'})|lower }}" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#carousel-{{ slider.title|replace({' ': '-'})|lower }}" data-slide="next">&rsaquo;</a>
+	</div>
   <div class="carousel-inner">
+
+	{% if slider.id == 3772205 %}
+  <div class="item pointer active">
+		<a target="_blank" href="https://www.facebook.com/myskreen/app_441766419206825" class="mask mask-1500" style="background-image: url(http://mskstatic.com/1100/370/medias/jeux/slider-jeu-116.jpg);"></a>
+  </div>
+	{% endif %}
+
   {% for p in slider.programs %}
-  <div class="item pointer{% if loop.first %} active{% endif %}">
+  <div class="item pointer{% if loop.first and slider.id != 3772205 %} active{% endif %}">
 		<a href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}" class="mask {{ 'Slider1500' in p.sliderPicture ? 'mask-1500' : 'mask-990' }}" style="background-image: url({% if p.sliderPicture is defined %}{{ force_size is defined ? p.sliderPicture|replace({'/990': force_size }) : p.sliderPicture }}{% else %}{{ p.picture }}{% endif %});"></a>
     {#% if p.teaser is defined and p.teaser.id is defined %}
       <a href="#" data-play="{{ p.teaser.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}" class="pull-left" style="position:absolute;top:30px;left:400px;"><img src="{{ asset('bundles/skreenhousefactoryv3/images/big-play.png') }}" alt="bande annonce {{ p.title }}" style="height:150px;" /></a>
     {% endif %#}
     <div class="container">
 			<div class="carousel-caption actions" data-id="{{ p.id }}">
-	    <a class="pull-right btn btn-large btn-primary fav fav-like" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+	    <a class="pull-left btn btn-large btn-primary fav fav-like" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
       <h4><a href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">{{ p.title }}</a></h4>
 			{% if skip_like is not defined %}
 			{% endif %}
@@ -22,6 +33,4 @@
   </div>
   {% endfor %}
   </div>
-  <a class="carousel-control left" href="#carousel-{{ slider.title|replace({' ': '-'})|lower }}" data-slide="prev">&lsaquo;</a>
-  <a class="carousel-control right" href="#carousel-{{ slider.title|replace({' ': '-'})|lower }}" data-slide="next">&rsaquo;</a>
 </div>

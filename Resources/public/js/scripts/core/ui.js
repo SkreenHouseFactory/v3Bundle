@@ -40,6 +40,7 @@ $(document).ready(function(){
 			})
 	  } else {
 			API.quickLaunchModal(trigger.data('modal'));
+			/*
 			if (trigger.data('modal') == 'card') { //TODO : use UI.callbackModal
 				$('.modal').on('hidden',function(e) {
 				 e.preventDefault();
@@ -51,6 +52,7 @@ $(document).ready(function(){
 			   	return false;
 				});
 			}
+			*/
 	  }
 	  return false;
 	});
