@@ -1,6 +1,33 @@
+/**
+* FB init and FB connect
+* needs <div id="fb-root"></div> in the DOM
+*/
+//onload
 $(document).ready(function(){
 
-  /* FB */
+	// Additional JS functions here
+	window.fbAsyncInit = function() {
+	  FB.init({
+	    appId      : API.config.fb.app_id, // App ID
+	    //channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel File
+	    status     : true, // check login status
+	    cookie     : true, // enable cookies to allow the server to access the session
+	    xfbml      : true  // parse XFBML
+	  });
+  
+	  // Additional init code here
+ 
+	};
+	// Load the SDK Asynchronously
+	(function(d){
+	    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+	    if (d.getElementById(id)) {return;}
+	    js = d.createElement('script'); js.id = id; js.async = true;
+	    js.src = "//connect.facebook.net/fr_FR/all.js";
+	    ref.parentNode.insertBefore(js, ref);
+	  }(document));
+
+  // fb connect
   function fbsync() {
     console.log('script fbsync', 'fetching information...');
     FB.api('/me', function(response) {
@@ -26,13 +53,13 @@ $(document).ready(function(){
     FB.login(function(response) {
       if (response.authResponse) {
         // connected
-        $('#fbconnect-infos').html('<span class="alert alert-success nowrap">Connexion réussie! Chargement...</span>');
+        $('#fbconnect-infos').html('<span class="alert alert-success nowrap">Connexion à vos playlists en cours...</span>');
         fbsync();
       } else {
         // cancelled
         $('#fbconnect-infos').html('<span class="alert alert-error nowrap">La connexion a échoué !</span>');
       }
-    },{scope:'user_birthday,user_online_presence,email,read_friendlists,publish_stream,offline_access,friends_birthday,friends_likes,friends_online_presence,publish_actions'});
+    },{scope:'user_birthday,user_online_presence,email,read_friendlists,publish_stream,offline_access,friends_likes,friends_online_presence,publish_actions'});
   }
   /* on shown
   FB.getLoginStatus(function(response) {

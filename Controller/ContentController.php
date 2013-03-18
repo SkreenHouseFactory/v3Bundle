@@ -36,6 +36,18 @@ class ContentController extends Controller
 			$this->blockDomain($request);
 			$api = $this->get('api');
 
+			//redirect v1 route
+			if ($request->get('from_occurrence')) {
+        $data = $api->fetch('player/'.$request->get('id'), array(
+        	'with_program' => true
+        ));
+				if ($data->program && $data->program->id) {
+					return $this->redirect($data->program->seo_url, 301);
+				} else {
+					return $this->redirect('/');
+				}
+			}
+
       //API lastmodified
       //$datas = $api->fetch('status/cache/program/' . $request->get('id'));
       //echo $api->url;

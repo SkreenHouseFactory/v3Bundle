@@ -2,6 +2,7 @@
 var BaseSession = Class.extend({
   uid: '',
   datas: {},
+	sync_args: { 'short':1 },
   onglet: '',
   access: '',
   social_state: null,
@@ -13,6 +14,8 @@ var BaseSession = Class.extend({
     console.log('BaseSession.init', args);
     var self = this;
     this.uid = API.cookie('uid');
+		//update default sync args & launch sync
+		$.extend(this.sync_args, typeof args == 'undefined' ? {} : args);
     this.sync(function(sessionData){
       //console.log('BaseSession.init', 'callback Session.sync', sessionData);
 			//callbackInit : called only once
@@ -29,7 +32,7 @@ var BaseSession = Class.extend({
   sync: function(callback, args) {
     var self = this;
     console.log('BaseSession.sync', this.uid, 'cookie:' + API.cookie('session_uid'));
-    var args = typeof args == 'undefined' ? new Array() : args;
+    var args = $.extend(this.sync_args, typeof args == 'undefined' ? {} : args);
     if (this.uid == null) {
       this.uid = API.cookie('session_uid');
     }
@@ -55,13 +58,13 @@ var BaseSession = Class.extend({
 
     // exists
     if (this.uid) {
-      $.extend(args, { 'short':1 });
+      $.extend(args, this.sync_args);
       API.query('GET', 'session/' + this.uid + '.json', args, function(sessionData) {
         callback_signin(sessionData);
       });
     // create
     } else {
-      $.extend(args, {'short':1});
+      $.extend(args, this.sync_args);
       API.query('POST', 'session.json', args, function(sessionData) {
         callback_signin(sessionData);
       });

@@ -79,7 +79,7 @@
 					<li><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}"><i class="icon-chevron-right"></i> Toutes les chaines web</a></li>
 	      </ul>
 			</li>
-			<li class="dropdown with-caret {{ app.request.get('home') in ['video-a-la-demande','film','documentaire','spectacle','serie','jeunesse'] and app.request.get('_route') in ['homes','homes_vod'] ? ' active' : '' }}">
+			<li class="dropdown with-caret active-dropdown-visible active-vod {{ app.request.get('home') == 'video-a-la-demande' ? ' active' : '' }}">
 				<a data-toggle="dropdown" class="a-caret visible-touch dropdown-toggle tv-component"><i class="icon-chevron-down icon-white"></i></a>
 				<a class="with-caret tv-component" href="{{ header_base }}{{ path('homes', {home: 'video-a-la-demande'}) }}" target="_top">{{ 'nav.subnav.vod'|trans }}<i></i></a>
 	      <ul class="dropdown-menu">
@@ -90,7 +90,7 @@
 		      <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'jeunesse'}) }}" target="_top">{{ 'nav.jeunesse'|trans }}</a></li>
 	      </ul>
 			</li>
-			<li class="dropdown with-caret {{ app.request.get('home') == 'cinema' or app.request.get('format') == 'cinema' ? ' active' : '' }}">
+			<li class="dropdown with-caret active-dropdown-visible active-cinema {{ app.request.get('home') == 'cinema' or app.request.get('format') == 'cinema' ? ' active' : '' }}">
 				<a data-toggle="dropdown" class="a-caret visible-touch dropdown-toggle tv-component"><i class="icon-chevron-down icon-white"></i></a>
 				<a class="with-caret tv-component" href="{{ header_base }}{{ path('homes', {home: 'cinema'}) }}" target="_top">{{ 'nav.subnav.cine'|trans }}<i></i></a>
 	      <ul class="dropdown-menu">

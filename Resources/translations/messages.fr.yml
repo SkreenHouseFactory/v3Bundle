@@ -18,7 +18,7 @@ page:
         cinema.boxoffice: Cinéma, tous les films en salle commençant par %alpha%
         tvgrid: Programme TV du %date%
         channel: Découvrez %name% en %access%
-        search: Recherche : %p%
+        search: Recherche : %q%
         user:
             settings: Vos préférences
             programs: Vos programmes

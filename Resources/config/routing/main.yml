@@ -191,6 +191,11 @@ program_dev:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
     requirements:
         id: \d+
+occurrence_v1:
+    pattern:  /play/{id}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program, from_occurrence: 1 }
+    requirements:
+        id: \d+
 program_v1:
     pattern:  /{format}/{id}-{slug}/{rubrique}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }

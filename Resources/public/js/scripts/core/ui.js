@@ -1,24 +1,12 @@
 $(document).ready(function(){
 	console.log('scripts', 'load scripts/ui.js');
 
-	/* trigger remote data in html elmt */
-	$('[data-ajax]').live('click', function(e){
-		//e.preventDefault();
-	  console.log('script', '[data-ajax]', $(this).data('ajax'));
-		$($(this).attr('rel')).empty();
-		UI.appendLoader($($(this).attr('rel')));
-		$($(this).attr('rel')).load($(this).data('ajax'), function() {
-			UI.unloadRedirect();
-		});
-		return false;
-	});
-
+	// -- modal
 	var triggerModal = getUrlParameter('modal');
 	if (triggerModal) {
 		API.quickLaunchModal(triggerModal);
 	}
-
-	/* trigger modal */
+	// trigger modal
 	$('a[data-modal], [data-modal-remote]').live('click', function(e){
 	  console.log('script', 'a[data-modal], [data-modal-remote]', 'click');
 	  e.preventDefault();
@@ -66,25 +54,7 @@ $(document).ready(function(){
 	  }
 	  return false;
 	});
-
-	// -- ui form
-	$('[data-form="catch"]').each(function(){
-	  var form = $(this);
-	  API.catchForm(form, function(json){
-	    //callback
-	    console.log('ui form catched', form);
-			// Modification préférences utilisateur
-			if (form.attr('name') == 'user_settings_profile_form') {
-				if ((typeof(json) != 'undefined') && (typeof(json.success) != 'undefined')) {
-	//					console.log("la value",$('input[name="update_mail"]').attr('value'));
-					$('.username').html($('input[name="update_mail"]',form).attr('value'));
-				}
-			} else if (form.attr('name') == 'user_settings_password_form') {
-			}
-	  });
-	});
-
-	// -- ui modal
+	// ui modal
 	if ($('.modal').length > 0) {
 		$('.modal').on('show', function(){
 		  $('.popover').remove();
@@ -115,6 +85,37 @@ $(document).ready(function(){
 		});
 	}
 
+	// -- ui form
+	$('[data-form="catch"]').each(function(){
+	  var form = $(this);
+	  API.catchForm(form, function(json){
+	    //callback
+	    console.log('ui form catched', form);
+			// Modification préférences utilisateur
+			if (form.attr('name') == 'user_settings_profile_form') {
+				if ((typeof(json) != 'undefined') && (typeof(json.success) != 'undefined')) {
+	//					console.log("la value",$('input[name="update_mail"]').attr('value'));
+					$('.username').html($('input[name="update_mail"]',form).attr('value'));
+				}
+			} else if (form.attr('name') == 'user_settings_password_form') {
+			}
+	  });
+	});
+
+	// -- remote data in html elmt
+	$('[data-ajax]').live('click', function(e){
+		//e.preventDefault();
+	  console.log('script', '[data-ajax]', $(this).data('ajax'));
+		//remove home body class
+		$('body').removeClass('view-homes');
+		$($(this).attr('rel')).empty();
+		UI.appendLoader($($(this).attr('rel')));
+		$($(this).attr('rel')).load($(this).data('ajax'), function() {
+			UI.unloadRedirect();
+		});
+		return false;
+	});
+
 	// -- ui actions : play
 	$('.slider li:not(.selector)').live('click', function(e){
 	  console.log('script', '.slider li:not(.selector)', $('a.title', this));
@@ -139,7 +140,7 @@ $(document).ready(function(){
 	  $(this).data('carousel-loaded', 1);
 	});
 
-  //autoload sliders
+  // -- sliders autoload
   $('.slider[data-autoload="1"]').each(function(){
     new BaseSlider({}, function(){}, $(this));
     //console.log('UI.init', 'autoload sliders', $(this));

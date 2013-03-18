@@ -34,6 +34,7 @@ ENV = {
     base: 'http://' + DEV + '.myskreen.typhon.net/api/',
     popin: 'http://' + DEV + '.myskreen.typhon.net/popin/',
     domain: DEV + '.myskreen.typhon.net',
+		fb: {app_id: 101348563248431 },
     console: true
   },
   preprod: {
@@ -44,6 +45,7 @@ ENV = {
     base: 'https://preprod.api.myskreen.com/api/',
     popin: 'https://preprod.api.myskreen.com/popin/',
     domain: 'preprod.beta.myskreen.com',
+		fb: {app_id: 193945860617344 },
     console: true
   },
   prod: {
@@ -54,6 +56,7 @@ ENV = {
     base: 'https://api.myskreen.com/api/',
     popin: 'https://api.myskreen.com/popin/',
     domain: 'www.myskreen.com',
+		fb: {app_id: 193945860617344 },
     console: false
   },
   all: {

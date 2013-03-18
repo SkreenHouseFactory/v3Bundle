@@ -92,6 +92,7 @@
 	</footer>
   {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
+	<div id="fb-root"></div>
   <span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
 
 {% if block('noscripts') is empty %}
@@ -122,8 +123,6 @@
 {% endif %}
 {% block pagescripts %}
 {% endblock %}
-
-{% include 'SkreenHouseFactoryV3Bundle::_fb.html.twig' %}
 
 {% if app.environment == 'prod' and block('nostats') is empty %}
 	{% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' %}

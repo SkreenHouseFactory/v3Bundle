@@ -46,16 +46,6 @@ UI = {
       });
     },{parcours: parcours});
   },
-  //paywall
-  paywall: function(id, callback) {
-    var self = this;
-    console.log('UI.paywall', id);
-    API.quickLaunchModal('signin', function() {
-      if (!Skhf.session.datas.email) {
-        self.paywall(id, callback);
-      }
-    },{parcours: 'anonyme_favoris', occurrence_id: id});
-  },
   //user infos
   loadUser: function() {
 
@@ -548,6 +538,16 @@ UI = {
     if (remaining > 0) {
       $('.notifications-count .badge-important').html(remaining);
     }
+  },
+  //paywall
+  paywall: function(id, callback) {
+    var self = this;
+    console.log('UI.paywall', id);
+    API.quickLaunchModal('signin', function() {
+      if (!Skhf.session.datas.email) {
+        self.paywall(id, callback);
+      }
+    },{parcours: 'anonyme_favoris', occurrence_id: id});
   },
   // -- launch player
   play: function(id, args) {
