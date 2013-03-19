@@ -31,7 +31,7 @@
 
   <ul class="breadcrumb">
 		{% if app.request.get('format') %}
-    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: app.request.get('format')}) }}/"><span itemprop="title">{{ app.request.get('format')|upper }}</span></a> <span class="divider">/</span></li>
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: (app.request.get('format') in ['film','serie','documentaire','spectacle','jeunesse'] ? 'video-a-la-demande/' : '') ~ app.request.get('format')}) }}/"><span itemprop="title">{{ app.request.get('format')|upper }}</span></a> <span class="divider">/</span></li>
 		{% endif %}
     <li{% if app.request.get('page') is null and app.request.get('facet') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ category.name }}</span></a>{% if app.request.get('page') or app.request.get('facet') %} <span class="divider">/</span>{% endif %} </li>
     {% if app.request.get('facet') %}
