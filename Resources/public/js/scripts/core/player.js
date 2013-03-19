@@ -3,7 +3,7 @@ $(document).ready(function(){
 	//affichage versions au hover
 	$('.player').hover(function(){
 			$('.player-meta.has-versions').fadeIn('slow');
-		function(){
+		}, function(){
 			$('.player-meta.has-versions').fadeOut();
 	})
 	// ui -- player : close player
