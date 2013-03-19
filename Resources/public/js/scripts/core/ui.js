@@ -125,7 +125,7 @@ $(document).ready(function(){
 		if (typeof $('a.title', this).attr('href') == 'undefined') {
 			$('a.title', this).trigger('click');
 		} else {
-		  document.location = API.config.v3_root + $('a.title', this).attr('href');
+		  document.location = $('a.title', this).attr('href');
 		}
 	  return false;
 	});

@@ -380,6 +380,8 @@ var BaseSlider = Class.extend({
 				console.log('BaseSlider.addProgramBestOffer', 'slider-playlist no bestOffer', p);
 				$('a.title', li).attr('data-ajax', API.config.v3_root + p.seo_url)
 												.attr('rel', '#content');
+			} else {
+				$('a.title', li).attr('href', API.config.v3_root + p.seo_url);
 			}
     }
   },

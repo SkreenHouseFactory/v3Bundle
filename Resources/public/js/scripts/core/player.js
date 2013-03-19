@@ -1,5 +1,11 @@
 // -- player
 $(document).ready(function(){
+	//affichage versions au hover
+	$('.player').hover(function(){
+			$('.player-meta.has-versions').fadeIn('slow');
+		function(){
+			$('.player-meta.has-versions').fadeOut();
+	})
 	// ui -- player : close player
 	$('#couchmode-close, #couchmode-inner > *:not(#couchmode-player)').live('click', function(){
 	  Couchmode.unload();

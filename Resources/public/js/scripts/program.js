@@ -34,6 +34,7 @@ $(document).ready(function(){
 		}
 
 		//////////// SCRIPTS ////////////////
+		
 	  //no deportes
 	  if ($('#trigger-deportes').data('nb') == 0) {
 	    $('#triggers li:nth-child(2) a').trigger('click');

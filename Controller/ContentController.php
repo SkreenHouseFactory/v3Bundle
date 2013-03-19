@@ -165,7 +165,7 @@ class ContentController extends Controller
 
         //load related programs
 				$datas->related = (array)$datas->related;
-        /*
+        /* now loaded in API
 				foreach ($datas->related as $key => $r) {
           $datas->related[$key]->programs = (array)$api->fetch(str_replace('&onglet', '&_onglet', $r->url), array(
                                                       'img_width' => 150,
@@ -310,8 +310,10 @@ class ContentController extends Controller
          'nb_results' => 30,
          'facets' => $this->buildFacets($request)
        ));
-      //echo "\n".'api:' . $api->url;exit();
+      //echo "\n".'api:' . $api->url;
+      //echo "\n".'category_slug:' . $request->get('category_slug');
       //echo "\n".'route:'  .$request->get('_route');
+			//exit();
       //print_r($datas);
       //404
       if (isset($datas->error) && $datas->error) {

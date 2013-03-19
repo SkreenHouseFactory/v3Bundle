@@ -127,14 +127,12 @@ playlist_load:
     requirements:
         type: "[^/]+"
 
-
-
 #persons
 person_page:
     pattern:  /{type}/{id}-{slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
-        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier|chanteur-lyrique|chef-monteur|chef-maquilleur|assistant-realisateur|musicien|scripte
+        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier|chanteur-lyrique|chef-monteur|chef-maquilleur|assistant-realisateur|musicien|scripte|d-apres-le-roman-de|cascades|chef-decorateur|combats|choregraphie|chef-coiffeur|chroniqueur|chef-operateur-son|casting|chef-d-orchestre|commentaires|adaptation|maquette|mixage|presse|accessoiriste
         id: \d+
         slug: "[^/]+"
         page: \d+
@@ -142,7 +140,7 @@ person:
     pattern:  /{type}/{id}-{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
     requirements:
-        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier|chanteur-lyrique|chef-monteur|chef-maquilleur|assistant-realisateur|musicien|scripte
+        type: acteur|realisateur|presentateur|producteur|production|interprete|auteur|invite|editor|divers|scenario|scenariste|invite|costume-designer|studio|autre|compositeur|musique|intervenant|realisateur-metteur-en-scene|production-designer|photographie|createur|montage|producteur-executif|son|decors|famille|voix-francaise|bruitage|co-producteur|maquillage|costumes|images|effets-speciaux|mise-en-scene|armurier|chanteur-lyrique|chef-monteur|chef-maquilleur|assistant-realisateur|musicien|scripte|d-apres-le-roman-de|cascades|chef-decorateur|combats|choregraphie|chef-coiffeur|chroniqueur|chef-operateur-son|casting|chef-d-orchestre|commentaires|adaptation|maquette|mixage|presse|accessoiriste
         id: \d+
         slug: "[^/]+"
 # deprecated channel : before program !
@@ -302,11 +300,17 @@ category_facet_access:
         category_slug: "[^/]+"
         access: video-a-la-demande|cinema
         facet: "[^/]+"
+category_access:
+    pattern:  /{category_slug}/{facet}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+    requirements:
+        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        access: video-a-la-demande|cinema
 category:
     pattern:  /{format}/{category_slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        format: video-a-la-demande|cinema|film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
         category_slug: "[^/]+"
 format_facet:
     pattern:  /{category_slug}/{facet}/
