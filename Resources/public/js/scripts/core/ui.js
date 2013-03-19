@@ -112,8 +112,13 @@ $(document).ready(function(){
 		$('body').removeClass('view-homes');
 		$($(this).attr('rel')).empty();
 		UI.appendLoader($($(this).attr('rel')));
-		var suffix = $(this).data('ajax').indexOf('?') == -1 ? '?skip_varnish' : '&skip_varnish';
-		$($(this).attr('rel')).load($(this).data('ajax') + suffix, function() {
+		if ($(this).data('ajax').indexOf('#') != -1) {
+			var url = $(this).data('ajax').replace('#', '?skip_varnish#');
+		} else {
+			var suffix = $(this).data('ajax').indexOf('?') == -1 ? '?skip_varnish' : '&skip_varnish';
+			var url = $(this).data('ajax') + suffix;
+		}
+		$($(this).attr('rel')).load(url, function() {
 			UI.unloadRedirect();
 		});
 		return false;
