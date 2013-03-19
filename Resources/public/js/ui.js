@@ -310,9 +310,16 @@ UI = {
           nb_new++;
           //console.log('new', notifications[k]['new'], nb_new);
         }
+				if (notifications[k].type == 'broadcast') {
+					var attrs = 'data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
+				} else if (notifications[k].player) {
+					var attrs = 'data-play="' + notifications[k].player + '" data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
+				} else {
+					var attrs = 'data-redirect="' + notifications[k].link + '"';
+				}
         list.append('<li class="tv-component"><a data-id="' + notifications[k].id + '" class="remove">' + 
 										'<i class="icon-trash"></i></a>' + (notifications[k]['new'] ? '<span class="pull-right badge badge-important">Nouveau</span>' : '') + 
-										'<a ' + (notifications[k].player || notifications[k].type == 'broadcast' ? 'data-play="' + notifications[k].player + '" data-ajax="' + notifications[k].program.seo_url + '" rel="#content"' : 'data-redirect="' + notifications[k].link + '"') + ' class="link">' + 
+										'<a ' + attrs + ' class="link">' + 
 										'<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' +
 										'<img src="' + notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
 										'<span class="title">' + notifications[k].title + '</span>' +
@@ -324,9 +331,21 @@ UI = {
 			//TOFIX : should be working in script/core/ui.js
 			$('li a[data-ajax]', list).bind('click', function(){
 				console.log('UI.loadNotifications', 'bind click [data-ajax]', $(this));
-				$($(this).attr('rel')).load(API.config.v3_url + $(this).data('ajax'));
+				$('body').removeClass('view-homes');
+				$($(this).attr('rel')).empty();
+				UI.appendLoader($($(this).attr('rel')));
+				if ($(this).data('ajax').indexOf('#') != -1) {
+					var url = $(this).data('ajax').replace('#', '?skip_varnish#');
+				} else {
+					var suffix = $(this).data('ajax').indexOf('?') == -1 ? '?skip_varnish' : '&skip_varnish';
+					var url = $(this).data('ajax') + suffix;
+				}
+				$($(this).attr('rel')).load(url, function() {
+					UI.unloadRedirect();
+				});
 				return false;
 			});
+
 			$('li a[data-play]', list).bind('click', function(){
 				console.log('UI.loadNotifications', 'bind click [data-play]', $(this));
 				API.play($(this).data('play'), $(this).data('play-args'));
