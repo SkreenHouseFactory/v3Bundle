@@ -162,7 +162,17 @@ class ContentController extends Controller
           $datas->offers['theaters'] = ($datas->offers['theaters'] ? count($datas->offers['theaters']) : 0) +  
                                        ($datas->offers['theaters_on_demand'] ? count($datas->offers['theaters_on_demand']) : 0);
         }
-
+				//player
+				if ($datas->teaser) {
+					$datas->player = $datas->teaser;
+				} else {
+					foreach ($datas->offers['plays'] as $o) {
+						if ($o->deporte && !$o->cost) {
+							$datas->player = $o;
+							break;
+						}
+					}
+				}
         //load related programs
 				$datas->related = (array)$datas->related;
         /* now loaded in API
@@ -181,7 +191,7 @@ class ContentController extends Controller
           }
         }
 				*/
-        
+
         if (isset($datas->sagas) && count($datas->sagas) > 0) {
           $datas->related = array_merge($datas->sagas, $datas->related);
         }
