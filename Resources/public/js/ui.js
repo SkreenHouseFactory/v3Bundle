@@ -692,17 +692,17 @@ UI = {
                                     case 'queue':
                                       i.addClass('playlist')
                                        .find('a')
-                                       .html('<img src="' + item.picture + '" /> ' + typeahead.highlighter(item.title))
+                                       .html((item.picture ? '<img src="' + item.picture + '" /> ' : '') + typeahead.highlighter(item.title))
                                     break;
                                     case 'theaters':
                                       i.addClass('theater')
                                        .find('a')
-                                       .html(typeahead.highlighter(item.name + ' (' + item.ville + ')'))
+                                       .html(typeahead.highlighter(item.name + (item.ville ? ' (' + item.ville + ')' : '')))
                                     break;
                                     case 'channels':
                                       i.addClass('channel')
                                        .find('a')
-                                       .html('<img src="' + item.icon + '" /> ' + typeahead.highlighter(item.name))
+                                       .html((item.icon ? '<img src="' + item.icon + '" /> ' : '') + typeahead.highlighter(item.name))
                                     break;
                                     case 'programs':
                                       i.addClass('program')
