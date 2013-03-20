@@ -27,92 +27,92 @@
 {% block content %}
 <div id="view-category" data-id="{{ category.id }}" class="container view-category-{{ app.request.get('format') }}">
 	
-  <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ category.seo_url, text: 'Je regarde des ' ~ category.name ~ ' sur mySkreen et vous ?' } %}</div>
+	<div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ category.seo_url, text: 'Je regarde des ' ~ category.name ~ ' sur mySkreen et vous ?' } %}</div>
 
-  <ul class="breadcrumb">
+	<ul class="breadcrumb">
 		{% if app.request.get('format') %}
-    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: (app.request.get('format') in ['film','serie','documentaire','spectacle','jeunesse'] ? 'video-a-la-demande/' : '') ~ app.request.get('format')}) }}/"><span itemprop="title">{{ app.request.get('format')|upper }}</span></a> <span class="divider">/</span></li>
+		<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: (app.request.get('format') in ['film','serie','documentaire','spectacle','jeunesse'] ? 'video-a-la-demande/' : '') ~ app.request.get('format')}) }}/"><span itemprop="title">{{ app.request.get('format')|upper }}</span></a> <span class="divider">/</span></li>
 		{% endif %}
-    <li{% if app.request.get('page') is null and app.request.get('facet') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ category.name }}</span></a>{% if app.request.get('page') or app.request.get('facet') %} <span class="divider">/</span>{% endif %} </li>
-    {% if app.request.get('facet') %}
-    <li{% if app.request.get('page') is null %} class="active"{% endif%} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})}) }}{{ app.request.get('facet') }}/"><span itemprop="title">{{ app.request.get('facet')|replace({'video-a-la-demande': 'VOD'}) }}</span></a>{% if app.request.get('page') %} <span class="divider">/</span>{% endif %}</li>
-    {% endif %}
-    {% if app.request.get('page') %}
-    <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})}) }}/page-{{ app.request.get('page') }}/"><span itemprop="title">Page {{ app.request.get('page') }}</span></a></li>
-    {% endif %}
-  </ul>
+		<li{% if app.request.get('page') is null and app.request.get('facet') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ category.name }}</span></a>{% if app.request.get('page') or app.request.get('facet') %} <span class="divider">/</span>{% endif %} </li>
+		{% if app.request.get('facet') %}
+		<li{% if app.request.get('page') is null %} class="active"{% endif%} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})}) }}{{ app.request.get('facet') }}/"><span itemprop="title">{{ app.request.get('facet')|replace({'video-a-la-demande': 'VOD'}) }}</span></a>{% if app.request.get('page') %} <span class="divider">/</span>{% endif %}</li>
+		{% endif %}
+		{% if app.request.get('page') %}
+		<li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})}) }}/page-{{ app.request.get('page') }}/"><span itemprop="title">Page {{ app.request.get('page') }}</span></a></li>
+		{% endif %}
+	</ul>
 
-  <h1>{% if app.request.get('format') %}{{ app.request.get('format')|upper }} &raquo; {% endif %}{{ category.name }}{% if app.request.get('facet') %} &raquo; {% if app.request.get('facet')|length > 1 and subcategories[app.request.get('facet')] is defined %}{{ subcategories[app.request.get('facet')] }}{% else %}{{ app.request.get('facet')|replace({'video-a-la-demande': 'VOD'}) }}{% endif %}{% endif %}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
+	<h1>{% if app.request.get('format') %}{{ app.request.get('format')|upper }} &raquo; {% endif %}{{ category.name }}{% if app.request.get('facet') %} &raquo; {% if app.request.get('facet')|length > 1 and subcategories[app.request.get('facet')] is defined %}{{ subcategories[app.request.get('facet')] }}{% else %}{{ app.request.get('facet')|replace({'video-a-la-demande': 'VOD'}) }}{% endif %}{% endif %}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
 
-  <div class="view-main view-category-main">
-    <p class="category-description">{{ category.description|raw }}</p>
-  </div>
+	<div class="view-main view-category-main">
+		<p class="category-description">{{ category.description|raw }}</p>
+	</div>
 
 
 	{% if app.request.get('facet') not in ['video-a-la-demande', 'cinema'] %}
 	{# alpha #}
-  <div class="pagination">{# pagination-access #}
-    <ul>
-      <li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">{{ 'nav.all'|trans }}</a></li>
-      {# 
+	<div class="pagination">{# pagination-access #}
+		<ul>
+			<li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">{{ 'nav.all'|trans }}</a></li>
+			{# 
 				<li{% if app.request.get('access') == 'vod' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">En VOD</a></li>
-      <li{% if app.request.get('access') == 'cinema' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">Au cinéma</a></li>
-      <li{% if app.request.get('access') == 'tv' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">TV & Replay</a></li>
+			<li{% if app.request.get('access') == 'cinema' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">Au cinéma</a></li>
+			<li{% if app.request.get('access') == 'tv' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">TV & Replay</a></li>
 			#}
-      {% for l in alpha %}
-      <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: l})|replace({'//': '/'}) }}">{{ l }}</a></li>
-      {% endfor %}
-    </ul>
-  </div>
+			{% for l in alpha %}
+			<li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: l})|replace({'//': '/'}) }}">{{ l }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
 
 	{# facets #}
-  <div class="facets">
-  {% for k,s in subcategories %}
-    <a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k}) }}" class="label{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a>
-  {% endfor %}
-  </div>
+	<div class="facets">
+	{% for k,s in subcategories %}
+		<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k}) }}" class="label{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a>
+	{% endfor %}
+	</div>
 	{% endif %}
-  <hr/>
+	<hr/>
 
-  <h3 class="pager-count">{{ category.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
-  <ul class="pager">
-  {% if category.count > 30 %}
-    {% if app.request.get('page') > 2 %}
-    <li class="previous">
+	<h3 class="pager-count">{{ category.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
+	<ul class="pager">
+	{% if category.count > 30 %}
+		{% if app.request.get('page') > 2 %}
+		<li class="previous">
 			{% if app.request.get('facet') %}
-      	<a href="{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: app.request.get('page', 1) - 1})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
+				<a href="{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: app.request.get('page', 1) - 1})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
 			{% else %}
-      	<a href="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) - 1})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
+				<a href="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) - 1})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
 			{% endif %}
-    </li>
-    {% elseif app.request.get('page') == 2 %}
-    <li class="previous">
+		</li>
+		{% elseif app.request.get('page') == 2 %}
+		<li class="previous">
 			{% if app.request.get('facet') %}
-      	<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet')})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
+				<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet')})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
 			{% else %}
-      <a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
+			<a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
 			{% endif %}
-    </li>
-    {% endif %}
-    {% if category.programs|length > 0 %}
-    <li class="next">
+		</li>
+		{% endif %}
+		{% if category.programs|length > 0 %}
+		<li class="next">
 			{% if app.request.get('facet') %}
-      	<a href="{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: app.request.get('page', 1) + 1})|replace({'//': '/'}) }}">30 suivants &rarr;</a>
+				<a href="{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: app.request.get('page', 1) + 1})|replace({'//': '/'}) }}">30 suivants &rarr;</a>
 			{% else %}
-      <a href="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) + 1})|replace({'//': '/'}) }}">30 suivants &rarr;</a>
+			<a href="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) + 1})|replace({'//': '/'}) }}">30 suivants &rarr;</a>
 			{% endif %}
-    </li>
-    {% endif %}
-  {% endif %}
-  </ul>
+		</li>
+		{% endif %}
+	{% endif %}
+	</ul>
 
-  <div id="category-programs" class="slider slider-list">
-    <ul class="items">
-    {% for program in category.programs %}
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
-    {% endfor %}
-    </ul>
-  </div>
+	<div id="category-programs" class="slider slider-list">
+		<ul class="items">
+		{% for program in category.programs %}
+		{% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
+		{% endfor %}
+		</ul>
+	</div>
 
 </div>
 {% endblock %}
