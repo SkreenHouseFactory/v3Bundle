@@ -710,26 +710,31 @@ UI = {
                                   switch (key) {
                                     case 'queue':
                                       i.addClass('playlist')
+                                       .css('overflow','hidden')
                                        .find('a')
                                        .html((item.picture ? '<img src="' + item.picture + '" /> ' : '') + typeahead.highlighter(item.title))
                                     break;
                                     case 'theaters':
                                       i.addClass('theater')
+                                       .css('overflow','hidden')
                                        .find('a')
                                        .html(typeahead.highlighter(item.name + (item.ville ? ' (' + item.ville + ')' : '')))
                                     break;
                                     case 'channels':
                                       i.addClass('channel')
+                                       .css('overflow','hidden')
                                        .find('a')
                                        .html((item.icon ? '<img src="' + item.icon + '" /> ' : '') + typeahead.highlighter(item.name))
                                     break;
                                     case 'programs':
                                       i.addClass('program')
+				       .css('overflow','hidden')
                                        .find('a')
                                        .html(typeahead.highlighter(item.name))
                                     break;
                                     case 'persons':
                                       i.addClass('person')
+                                       .css('overflow','hidden')
                                        .find('a')
                                        .html(typeahead.highlighter(item.name))
                                     break;
