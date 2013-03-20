@@ -503,15 +503,17 @@ UI = {
       //load playlist
       Skhf.session.access = access;
       if (typeof onglet != 'undefined') { //, with_player: 1, player: API.config.player
-        var args = {onglet: onglet, with_best_offer: 1, time: new Date().getTime()};
+				$.extend(self.playlist.params.args, {onglet: onglet, with_best_offer: 1, time: new Date().getTime()});
       } else {
-        var args = {with_best_offer: 1, time: new Date().getTime()};
+				$.extend(self.playlist.params.args, {with_best_offer: 1, time: new Date().getTime()});
       }
       if (access) {
         Skhf.session.getFriendsUids(function(friends_uids){
           $.extend(self.playlist.params.args, {friends_uids: friends_uids}); //, api_method: 'POST'
         })
       }
+			console.log('UI.loadPlaylist', 'self.playlist.params.args', self.playlist.params.args);
+  
       this.playlist.loadRemotePrograms(
 				0,
 				function(slider){
@@ -529,9 +531,7 @@ UI = {
 				  //    API.isHome() == true) {
 				  //  $('#top-playlist').collapse('show');
 				  //}
-				},
-				args
-			);
+			});
     }
   },
   unloadPlaylist: function(onglet, callback) {
