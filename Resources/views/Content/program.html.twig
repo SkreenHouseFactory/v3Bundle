@@ -44,7 +44,7 @@
     </div>
 
     <div id="program-main-block">
-    {% if program.player %}
+    {% if program.player is defined and program.player %}
       <a name="teaser"></a>
       <div id="program-teaser">
       {#<a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}

@@ -35,12 +35,12 @@
       {% set footerspin = ' Streaming' %}
       {% endif %}
 			Replay :<br/> 
-      <a href="http://tv.myskreen.com/video/replay/">Replay{% if app.request.get('home') != 'replay-tv' and footerspin != ' Streaming' %}{{ footerspin }}{% endif %}</a>
-			<a href="http://replay.myskreen.com/m6/tv-a-la-demande/">M6 en Replay</a>
-			<a href="http://replay.myskreen.com/tf1/tv-a-la-demande/">TF1 en Replay</a>
-			<a href="http://replay.myskreen.com/w9/tv-a-la-demande/">W9 en Replay</a>
-			<a href="http://replay.myskreen.com/france-2/tv-a-la-demande/">France 2 en Replay</a>
-			<a href="http://replay.myskreen.com/france-3/tv-a-la-demande/">France 3 en Replay</a>
+      <a href="{{ path('tvgrid') }}">Replay{% if app.request.get('home') != 'replay-tv' and footerspin != ' Streaming' %}{{ footerspin }}{% endif %}</a>
+			<a href="{{ path('channel', {slug: 'm6'}) }}">M6 en Replay</a>
+			<a href="{{ path('channel', {slug: 'tf1'}) }}">TF1 en Replay</a>
+			<a href="{{ path('channel', {slug: 'w9'}) }}">W9 en Replay</a>
+			<a href="{{ path('channel', {slug: 'france-2'}) }}">France 2 en Replay</a>
+			<a href="{{ path('channel', {slug: 'france-3'}) }}">France 3 en Replay</a>
 			<hr/>
 			Chaînes : <br/>
 			<a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">Chaînes TV & Replay</a>

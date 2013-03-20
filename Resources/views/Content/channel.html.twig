@@ -24,7 +24,6 @@
 {% block content %}
 <div id="view-channel" data-id="{{ channel.id }}" class="container">
 
-
   <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ channel.seo_url, text: 'Je regarde ' ~ channel.name ~ ' sur mySkreen et vous ?' } %}</div>
 
   <ul class="breadcrumb">
@@ -41,7 +40,7 @@
   </ul>
 
 	{% if channel.type in ['broadcast','cinema'] %}
-	<div class="pull-right action" data-id="{{ channel.id }}">
+	<div class="pull-right actions" data-id="{{ channel.id }}">
 		<a class="fav fav-{{ channel.type == 'broadcast' ? 'epg' : 'theater' }} btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
 	</div>
 	{% endif %}

@@ -18,11 +18,20 @@
 {% endif %}
 {% block content %}
 {% endblock %}
-{% if app.request.isXmlHttpRequest is null %}}
-<footer>
-  <hr />
-  <p>&copy; The Skreen House Factory 2012</p>
-</footer>
-</body>
+{% if app.request.isXmlHttpRequest %}
+	{% block pagescripts %}
+	{% endblock %}
+	{% javascripts
+	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
+	    filter='?yui_js' 
+	    output='js/compiled/pages/ajax-core.js'  %}
+	    <script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{% else %}
+		<footer>
+		  <hr />
+		  <p>&copy; The Skreen House Factory 2012</p>
+		</footer>
+	</body>
 </html>
 {% endif %}
