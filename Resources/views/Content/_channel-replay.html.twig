@@ -1,9 +1,33 @@
 <div id="view-channel-replay">
 
-  <div style="margin:0 200px;">
+	{% if channel.live.program %}
+	<div class="well" style="min-height:220px;">
+		<h3>En Direct <small>de {{ channel.live.program.best_offer.broadcast_begin|date('H:i') }} à {{ channel.live.program.best_offer.broadcast_end|date('H:i') }}</small></h3>
+		<table>
+			<tr><td style="padding-right: 30px;">
+		<img src="{{ channel.live.program.picture }}" alt="{{ channel.live.program.title }} en direct sur {{ channel.name }}">
+	</td>
+	<td class="actions" data-id="{{ channel.live.program.id }}">
+		<h4>{{ channel.live.program.title }}</h4>
+		<p>{{ channel.live.program.description }}</p>
+		{% if channel.live.program.best_offer.has_replay %}
+		<p class="alert alert-success">Ce programme sera bientôt disponible en Replay. Cliquez sur suivre pour être averti dès qu'il sera disponible.</p>
+		{% endif %}
+		<a class="fav fav-like btn btn-primary" data-placement="right"><i class="icon-plus-sign icon-white"></i> Suivre</a>
+		&nbsp;
+		<a href="{{ channel.live.program.seo_url }}" class="btn">Tout sur ce programme</a>
+	</td>
+</tr>
+</table>
+	</div>
+	{% endif %}
+
+  {#
+	<div style="margin:0 200px;">
   {% set slider = {title: channel.name, programs: [channel.live.program, channel.next_live.program]} %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider} %}
   </div>
+	#}
 
   {#% if channel.live %}
   <div id="lives" class="well">
@@ -39,7 +63,7 @@
   </div>
   {% endif %#}
   <br/>
-  
+  <h2>TV & Replay</h2>
   
   {#<div data-channel-id="{{ channel.id }}" id="access" class="btn-group" data-toggle="buttons-radio" style="z-index: 10;">
     <button data-access="" type="button" class="trigger-channel btn btn-primary active">Tout</button>

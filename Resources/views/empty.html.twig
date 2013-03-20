@@ -18,11 +18,14 @@
 {% endif %}
 {% block content %}
 {% endblock %}
-{% if app.request.isXmlHttpRequest is null %}}
-<footer>
-  <hr />
-  <p>&copy; The Skreen House Factory 2012</p>
-</footer>
-</body>
+{% if app.request.isXmlHttpRequest %}
+	{% block pagescripts %}
+	{% endblock %}
+{% else %}
+		<footer>
+		  <hr />
+		  <p>&copy; The Skreen House Factory 2012</p>
+		</footer>
+	</body>
 </html>
 {% endif %}
