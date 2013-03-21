@@ -54,7 +54,7 @@
 		<li{% if hasActiveTabYet == false %} class="active"{% set hasActiveTabYet = key %}{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ val }} <span>{{ nb }}</span></a></li>
 		{% endif %}
 		{% endfor %}
-      	<li><a href="#bonus" id="trigger-bonus" data-toggle="tab">Bonus</a></li>
+      	<li class="pull-right"><a href="#bonus" id="trigger-bonus" data-toggle="tab">Bonus</a></li>
     </ul>
 
     <div class="tab-content">

@@ -1,5 +1,5 @@
 // -- search
-var shouldDisplayMore = true;
+var shouldDisplayMore = new Array();
 var query = $('.search-query').val();
 var elementsPerPage = 30;
 var offset = new Array();
@@ -53,13 +53,17 @@ $(document).ready(function(){
 
 $(document).scroll(function() {
 	var activeFormat = $(".tab-pane.active").attr("id");
+	if (!(activeFormat in shouldDisplayMore))
+		shouldDisplayMore[activeFormat] = true;
+
 	if (activeFormat == "bonus")
 		return;
-	if (shouldDisplayMore && ($('#bottom-search-results').offset().top - ($(window).scrollTop() + $(window).height())) < 0) {
+
+	if (shouldDisplayMore[activeFormat] && ($('#bottom-search-results').offset().top - ($(window).scrollTop() + $(window).height())) < 0) {
 		console.log("on charge la suite");
     var url = 'search/' + encodeURIComponent(query) + '.json';
 
-		shouldDisplayMore = false;
+		shouldDisplayMore[activeFormat] = false;
 		if (activeFormat in offset)
 			offset[activeFormat] += elementsPerPage;
 		else
@@ -82,12 +86,12 @@ $(document).scroll(function() {
 								if (activeFormat != "nouveautes") {
 									slider.insertPrograms(results.programs, function() {
 										if (results.count >= (offset[activeFormat] + elementsPerPage))
-											shouldDisplayMore = true;
+											shouldDisplayMore[activeFormat] = true;
 									});
 								} else {
 									slider.insertPrograms(results.Nouveautés, function() {
 										if (results.count.nouveautes >= (offset[activeFormat] + elementsPerPage))
-											shouldDisplayMore = true;
+											shouldDisplayMore[activeFormat] = true;
 									});
 								}
               });
