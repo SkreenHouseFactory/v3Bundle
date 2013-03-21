@@ -50,9 +50,9 @@ class MainController extends Controller
         if (!strstr($request->getHost(), 'replay.')) {
           return $this->redirect('http://www.myskreen.com/tv-replay/', 301);
         }
-        if (!strstr($request->getHost(), 'tv.')) {
-          return $this->redirect('http://tv.myskreen.com/video/replay/', 301);
-        }
+        //if (!strstr($request->getHost(), 'tv.')) {
+        //  return $this->redirect('http://tv.myskreen.com/video/replay/', 301);
+        //}
         throw $this->createNotFoundException('Home does not exist');
       }
 
@@ -111,7 +111,7 @@ class MainController extends Controller
         'with_teaser' => true,
         'with_pass' => true,
         'slider_width' => 1500,
-        'slider_height' => 400
+        'slider_height' => 450
 			));
       //echo $api->url;
 			//print_r($datas);

@@ -1,19 +1,19 @@
-<div id="carousel-{{ slider.title|replace({' ': '-'})|lower }}"{% if skip_autoload is not defined %} data-carousel-autoload="1"{% endif %} class="carousel slide carousel-{{ slider.id }}">
+<div id="carousel-{{ slider.title|replace({' ': '-'})|lower }}"{% if skip_autoload is not defined %} data-carousel-autoload="1"{% endif %} class="carousel slide{{ slider.id is defined ? ' carousel-' ~ slider.id : '' }}">
 	<div class="container">
   <a class="carousel-control left" href="#carousel-{{ slider.title|replace({' ': '-'})|lower }}" data-slide="prev">&lsaquo;</a>
   <a class="carousel-control right" href="#carousel-{{ slider.title|replace({' ': '-'})|lower }}" data-slide="next">&rsaquo;</a>
 	</div>
   <div class="carousel-inner">
 
-	{% if slider.id == 3772205 %}
+	{% if slider.id is defined and slider.id == 3772205 %}
   <div class="item pointer active">
-		<a target="_blank" href="https://www.facebook.com/myskreen/app_441766419206825" class="mask mask-1500" style="background-image: url(http://mskstatic.com/1100/390/b/medias/jeux/slider-jeu-116.jpg);"></a>
+		<a target="_blank" href="https://www.facebook.com/myskreen/app_579438962083607" class="mask mask-1500" style="background-image: url(http://mskstatic.com/1500/455/b/medias/jeux/slider-jeu-116.jpg);"></a>
   </div>
 	{% endif %}
 
   {% for p in slider.programs %}
-  <div class="item pointer{% if loop.first and slider.id != 3772205 %} active{% endif %}">
-		<a href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}" class="mask {{ 'Slider1500' in p.sliderPicture ? 'mask-1500' : 'mask-990' }}" style="background-image: url({% if p.sliderPicture is defined %}{{ force_size is defined ? p.sliderPicture|replace({'/990': force_size }) : p.sliderPicture }}{% else %}{{ p.picture }}{% endif %});"></a>
+  <div class="item pointer{% if loop.first and slider.id is defined  and slider.id != 3772205 %} active{% endif %}">
+		<a href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}" class="mask {{ 'Slider1500' in p.sliderPicture is defined and p.sliderPicture ? 'mask-1500' : 'mask-990' }}" style="background-image: url({% if p.sliderPicture is defined %}{{ force_size is defined ? p.sliderPicture|replace({'/990': force_size }) : p.sliderPicture }}{% else %}{{ p.picture }}{% endif %});"></a>
     {#% if p.teaser is defined and p.teaser.id is defined %}
       <a href="#" data-play="{{ p.teaser.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}" class="pull-left" style="position:absolute;top:30px;left:400px;"><img src="{{ asset('bundles/skreenhousefactoryv3/images/big-play.png') }}" alt="bande annonce {{ p.title }}" style="height:150px;" /></a>
     {% endif %#}
