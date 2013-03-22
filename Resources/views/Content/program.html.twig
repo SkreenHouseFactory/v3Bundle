@@ -23,6 +23,16 @@
 {% block title %}{{ program.title }} {% if program.has_vod in [5,6,7,8] %}en Replay{% else %}en streaming{% endif %}{% endblock %}
 {% block description %}{{ program.description_seo|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
+{% block pagescripts %}
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/program.js'
+    
+    filter='?yui_js' 
+    output='js/compiled/pages/program.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}
+
 {% block content %}
 <div id="view-program" data-id="{{ program.id }}" class="container">
 
@@ -444,14 +454,4 @@
 	{% include 'SkreenHouseFactoryV3Bundle:Main:_tweets.html.twig' with {tweets: program.tweets } %}
 </div>
 {% endif %}
-{% endblock %}
-
-{% block pagescripts %}
-{% javascripts
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/program.js'
-		
-		filter='?yui_js' 
-		output='js/compiled/pages/program.js'	%}
-		<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
 {% endblock %}

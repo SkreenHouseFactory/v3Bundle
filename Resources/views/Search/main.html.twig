@@ -4,6 +4,16 @@
 {% block description %}{{ 'page.description.search'|trans({'%q%': app.request.get('q')}) }}{% endblock %}
 {% block meta %}<meta name="robots" content="noindex,follow" />{% endblock %}
 
+{% block pagescripts %}
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/search.js'
+    
+    filter='?yui_js' 
+    output='js/compiled/pages/search.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}
+
 {% block content %}
 <div id="view-search" class="container">
   <h1>{{ app.request.get('q') }}</h1>
@@ -16,8 +26,8 @@
     	<p class="alert">{{ 'search.noresults'|trans }}</p>
     {% endif %}
     {% if results.spelling|length %}
-	    <p class="lead">Suggestions : 
-	    {% for spelling in results.spelling %}{{ spelling }}{% endfor %}
+	    <p class="lead">Vouliez-vous dire : 
+	    {% for spelling in results.spelling %}<a href="/app_dev.php/programmes/{{ spelling }}">{{ spelling }}</a> ?{% endfor %}
 	    </p>
     {% endif %}
     {% set slider = {title: '', programs: results.programs, url: results.paginate ~ '.json?format=' ~ app.request.get('format')} %}
@@ -30,46 +40,48 @@
     	<p class="alert">{{ 'search.noresults'|trans }}</p>
     {% endif %}
     {% if results.spelling|length %}
-	    <p class="lead">Suggestions : 
-	    {% for spelling in results.spelling %}{{ spelling }}{% endfor %}
+    <p class="lead">Vouliez-vous dire : 
+    {% for spelling in results.spelling %}<a href="/app_dev.php/programmes/{{ spelling }}">{{ spelling }}</a> ?{% endfor %}
 	    </p>
     {% endif %}
 
-    {% if results.count.films %}
-    {% set slider = {title: results.count.films ~ ' Films ', programs: results.Films, url: results.paginate ~ '.json?format=films'} %}
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
-    <hr/>
-    {% endif %}
+	{% set hasActiveTabYet = false %}
+	{% set keys = {'films':'Films','documentaires':'Documentaires','emissions':'Emissions','series':'Séries','spectacles':'Spectacles','archives':'Archives','nouveautes':'Nouveautés'} %}
+    <ul id="triggers" class="nav nav-pills" style="font-size: 1.2em;">
+		{% for key,val in keys %}
+    	{% if attribute(results.count,key) %}
+			{% set nb = attribute(results.count,key) %}
+		<li{% if hasActiveTabYet == false %} class="active"{% set hasActiveTabYet = key %}{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ val }} <span>{{ nb }}</span></a></li>
+		{% endif %}
+		{% endfor %}
+      	<li><a href="#bonus" id="trigger-bonus" data-toggle="tab">Bonus</a></li>
+    </ul>
 
-    {% if results.count.documentaires %}
-    {% set slider = {title: results.count.documentaires ~ ' Documentaires ', programs: results.Documentaires, url: results.paginate ~ '.json?format=documentaires'} %}
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
-    <hr/>
-    {% endif %}
-
-    {% if results.count.emissions %}
-    {% set slider = {title: results.count.emissions ~ ' Emissions ', programs: results.Emissions, url: results.paginate ~ '.json?format=emissions'} %}
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
-    <hr/>
-    {% endif %}
-
-    {% if results.count.series %}
-    {% set slider = {title: results.count.series ~ ' Séries ', programs: results.Séries, url: results.paginate ~ '.json?format=series'} %}
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
-    <hr/>
-    {% endif %}
-
-    {% if results.count.spectacles %}
-    {% set slider = {title: results.count.spectacles ~ ' Spectacles ', programs: results.Spectacles, url: results.paginate ~ '.json?format=spectacles'} %}
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
-    <hr/>
-    {% endif %}
-
-    {% if results.count.archives %}
-    {% set slider = {title: results.count.archives ~ ' Archives', programs: results.Archives, url: results.paginate ~ '.json?format=archives'} %}
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
-    {% endif %}
+    <div class="tab-content">
+		{% for key,val in keys %}
+		<div id="{{ key }}" class="tab-pane{% if hasActiveTabYet == key %} active{% endif %}">
+	    {% if attribute(results.count,key) %}
+		  	<div id="user-programs" class="slider slider-list">
+		    	<ul class="items">
+		    {% for p in attribute(results,val) %}
+		      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p} %}
+		    {% endfor %}
+		    	</ul>
+			</div>
+	    {% endif %}
+		</div>
+		{% endfor %}
+      	<div id="bonus" class="tab-pane" data-more-streaming-query="{{ results.query }}">
+        	<div id="ytCarousel" class="carousel slide">
+          		<div class="carousel-inner"></div>
+          			<a class="carousel-control left" href="#ytCarousel" data-slide="prev">&lsaquo;</a>
+          			<a class="carousel-control right" href="#ytCarousel" data-slide="next">&rsaquo;</a>
+        		</div>
+      		</div>
+		</div>
+	</div>
   {% endif %}
   </div>
+  <div id="bottom-search-results"></div>
 </div>
 {% endblock %}

@@ -138,7 +138,8 @@ class MainController extends Controller
       $datas = $api->fetch('search/' .urlencode(str_replace('.', '%2E',  $request->get('q'))), 
                            array('img_width' => 160,
                                  'img_height' => 200,
-                                 'nb_results' => 7,
+                                 'nb_results' => 30,
+																 'with_new' => 1,
                                  'facets' => $facets));
       //echo $api->url;
       //print_r($datas);

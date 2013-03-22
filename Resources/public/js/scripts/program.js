@@ -92,7 +92,7 @@ $(document).ready(function(){
 	  if (trigger &&
 	      trigger.data('more-streaming')) {
 	    console.log('data-more-streaming', trigger);
-	    var url = 'program/more-streaming/' + trigger.data('more-streaming') + '.json';
+	    var url = 'program/more-streaming/' + trigger.data('more-streaming') + '.json?nb_results=24';
 	    API.query('GET',
 	              url,
 	              {nb_results: 24},
@@ -109,7 +109,7 @@ $(document).ready(function(){
 	                }
 									var container = $('#ytCarousel .carousel-inner .item:first-child');
 	                var c_index = 0;
-	                var nb_page = 8;
+	                var nb_page = 6;
 	                for (var i = 0; i < programs.length; i++) {
 	                  //console.log('youtube callback', 'c_index:' + c_index, 'modulo:' + i%8, container);
 	                  if (i%nb_page == 0) {
@@ -130,6 +130,7 @@ $(document).ready(function(){
 	                }
 	              });
 	  };
+
 	}
 });
 

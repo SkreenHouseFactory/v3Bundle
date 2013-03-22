@@ -23,7 +23,7 @@ function onRentClicked() {
 }
 
 // -- ENV
-var DEV = 'benoit';
+var DEV = 'dev1';
 var ENV;
 ENV = {
   dev: {
