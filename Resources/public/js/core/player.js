@@ -59,7 +59,9 @@ Player = {
 		if (this.type != null) {
 			return this.type;
 		}
-		if (navigator.userAgent.match(/iPhone|iPod|iPad/)) {
+		if (navigator.userAgent.match(/Android/)) {
+			return 'android-mobile';
+		} else if (navigator.userAgent.match(/iPhone|iPod|iPad/)) {
 			console.log(['Player.getType', 'iPhone|iPod|iPad', navigator.userAgent]);
 			return 'ios';
 		//} else if (Modernizr.video.h264) {
@@ -158,7 +160,6 @@ Player = {
 		if (typeof player.format != 'undefined') {
 			this.type = player.format;
 		}
-
 		switch(this.getType()) {	
 			/*
 				http://flowplayer.org/documentation/api/player.html
@@ -172,6 +173,7 @@ Player = {
 				302	Error when invoking plugin external method
 				303	Failed to load resource such as stylesheet or background image
 			*/
+			case 'android-mobile':
 			case 'ios':
 			case 'h264':
 			case 'html5':
@@ -212,7 +214,8 @@ Player = {
 				};
 
 				if (this.getType() == 'html5' || 
-						this.getType() == 'ios') {
+						this.getType() == 'ios' || 
+						this.getType() == 'android-mobile') {
 					console.warn('Player.flowplayer', 'iOs/noflash', player.url);
 					/*
 					Player.elmt.css('height', document.body.clientHeight/2);
