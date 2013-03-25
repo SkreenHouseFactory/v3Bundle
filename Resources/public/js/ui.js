@@ -650,11 +650,21 @@ UI = {
     //console.log('UI.typeahead', searchbox);
     $(searchbox).typeahead({
       items: 5,
+			minLength: 3,
       source: function (typeahead, query) {
+				if (query.length < 3)
+					return;
+				if (!('typeahead-used' in API.xhr))
+					API.xhr['typeahead-used'] = [];
         if (typeof API.xhr['typeahead'] != 'undefined') {
           API.xhr['typeahead'].abort();
           console.log('UI.typeahead', 'abort previous call');
         }
+				for (v in API.xhr['typeahead-used']) {
+					if (v == query)
+						return;
+				}
+				API.xhr['typeahead-used'].push(query);
         API.xhr['typeahead'] = API.query('GET', 
                          'search/autosuggest/' +query + '.json', 
                          {
