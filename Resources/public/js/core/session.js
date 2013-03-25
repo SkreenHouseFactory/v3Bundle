@@ -31,8 +31,8 @@ var BaseSession = Class.extend({
   },
   sync: function(callback, args) {
     var self = this;
-    console.log('BaseSession.sync', this.uid, 'cookie:' + API.cookie('session_uid'));
     var args = $.extend(this.sync_args, typeof args == 'undefined' ? {} : args);
+    console.log('BaseSession.sync', this.uid, 'cookie:' + API.cookie('session_uid'), 'args:', args);
     if (this.uid == null) {
       this.uid = API.cookie('session_uid');
     }
@@ -72,6 +72,12 @@ var BaseSession = Class.extend({
   },
   signin: function(sessionData, callback) {
     console.log('BaseSession.signin', sessionData);
+		//already logged ?
+		if (this.datas.email) {
+			console.error('BaseSession.signin', 'user already logged to current session', this.datas, sessionData);
+			return;
+		}
+		
     this.datas = sessionData;
     this.uid = this.datas.uid;
     API.cookie('session_uid', this.uid);

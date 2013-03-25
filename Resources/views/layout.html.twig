@@ -8,18 +8,18 @@
 	<title>{% block title endblock %} | mySkreen.com</title>
 	<meta name="description" content="{% block description %}{% endblock %}">
 	<meta name="author" content="SkreenHouseFactory">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta charset="UTF-8">
-  <meta name="language" content="fr-FR" />
-  <meta name="revisit-after" content="2 days" />
-  <meta property="og:locale:alternate" content="fr_FR" />
-  <meta property="og:site_name" content="mySkreen.com" />
-  <meta property="fb:admins" content="672700878" />
-  <meta property="fb:app_id" content="{% if app.environment != 'prod' %}101348563248431{% else %}193945860617344{% endif %}" />
-  <meta name="msvalidate.01" content="578206D7F79F12C1D7F845473C11F955" />
-  <meta name="verify-a" value="e548aa1414e42be0692f">
-  <meta name="google-site-verification" content="XrGdiUEwEtqEFnxru9FgykHR9mmSCX6O1hky_g9gTDU" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="UTF-8">
+	<meta name="language" content="fr-FR" />
+	<meta name="revisit-after" content="2 days" />
+	<meta property="og:locale:alternate" content="fr_FR" />
+	<meta property="og:site_name" content="mySkreen.com" />
+	<meta property="fb:admins" content="672700878" />
+	<meta property="fb:app_id" content="{% if app.environment != 'prod' %}101348563248431{% else %}193945860617344{% endif %}" />
+	<meta name="msvalidate.01" content="578206D7F79F12C1D7F845473C11F955" />
+	<meta name="verify-a" value="e548aa1414e42be0692f">
+	<meta name="google-site-verification" content="XrGdiUEwEtqEFnxru9FgykHR9mmSCX6O1hky_g9gTDU" />
 	{% if app.environment != 'prod' or 'preprod' in app.request.host or 'typhon' in app.request.host %}
 	<meta name="robots" content="noindex,nofollow">
 	{% else %}
@@ -28,25 +28,25 @@
 	{% if app.request.pathinfo != app.request.requestUri %}
 	<link rel="canonical" href="http://www.myskreen.com{{ app.request.pathinfo }}" />
 	{% endif %}
-  <link rel="author" href="https://plus.google.com/106555719800030017985" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <link rel="apple-touch-icon" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone.png') }}" />
-  <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad.png') }}" />
-  <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone-retina.png') }}" />
-  <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad-retina.png') }}" />
-  <link rel="apple-touch-startup-image" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/startup.png') }}" />
-  <meta name="viewport" content="width=1010, maximum-scale=1, user-scalable = yes" />
-  {% stylesheets
-      '@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
-      '@SkreenHouseFactoryV3Bundle/Resources/public/less/slider.less'
-      '@SkreenHouseFactoryV3Bundle/Resources/public/less/modal.less'
-      '@SkreenHouseFactoryPopinBundle/Resources/public/less/popin.less'
-      '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
-        filter='less,?yui_css'
-        output='css/v3.css'
-        %}
-      <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
-  {% endstylesheets %}
+	<link rel="author" href="https://plus.google.com/106555719800030017985" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link rel="apple-touch-icon" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone.png') }}" />
+	<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad.png') }}" />
+	<link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone-retina.png') }}" />
+	<link rel="apple-touch-icon" sizes="144x144" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad-retina.png') }}" />
+	<link rel="apple-touch-startup-image" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/startup.png') }}" />
+	<meta name="viewport" content="width=1010, maximum-scale=1, user-scalable = yes" />
+	{% stylesheets
+			'@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
+			'@SkreenHouseFactoryV3Bundle/Resources/public/less/slider.less'
+			'@SkreenHouseFactoryV3Bundle/Resources/public/less/modal.less'
+			'@SkreenHouseFactoryPopinBundle/Resources/public/less/popin.less'
+			'@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
+				filter='less,?yui_css'
+				output='css/v3.css'
+				%}
+			<link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+	{% endstylesheets %}
 </head>
 {% endspaceless %}
 <body class="view-{{ app.request.attributes.get('_route') }}">
@@ -54,71 +54,71 @@
 <!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
 	<article>
 	<div id="main">
-    <div id="content">
-    {% block content %}
-    {% endblock %}
-    </div>
-    <div id="redirect" class="collapse in">
-    {% block redirect %}
-    {% endblock %}
-    </div>
-  </div>
+		<div id="content">
+		{% block content %}
+		{% endblock %}
+		</div>
+		<div id="redirect" class="collapse in">
+		{% block redirect %}
+		{% endblock %}
+		</div>
+	</div>
 	</article>
 	<header>
-	  <nav>
+		<nav>
 			<div id="header">
 				<div class="navbar-wrapper">
-				  <div class="container-right">
-				    <div class="navbar navbar-inverse">
-				      <div class="navbar-inner"></div>
+					<div class="container-right">
+						<div class="navbar navbar-inverse">
+							<div class="navbar-inner"></div>
 						</div>
 					</div>
-				  <div class="container">
+					<div class="container">
 						{% include 'SkreenHouseFactoryV3Bundle:Main:_header-nav.html.twig' %}
-				    {% block header_filters %}
-				    {% endblock %}
+						{% block header_filters %}
+						{% endblock %}
 					</div>
 				</div>
 			</div>
 		</nav>
-	  <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
-	    <div class="container">
-	      {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
-	    </div>
-	  </div>
+		<div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
+			<div class="container">
+				{% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
+			</div>
+		</div>
 	</header>
 	<footer>
-  <div id="footer">{% include 'SkreenHouseFactoryV3Bundle:Main:_footer.html.twig' %}</div>
+	<div id="footer">{% include 'SkreenHouseFactoryV3Bundle:Main:_footer.html.twig' %}</div>
 	</footer>
-  {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
+	{% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
+	{% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
 	<div id="fb-root"></div>
-  <span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
+	<span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
 
 {% if block('noscripts') is empty %}
 {% javascripts
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.3.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap-ajax-typeahead.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/modernizr.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/easyXDM.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer-3.2.11.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.controls-3.2.10.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.ipad-3.2.11.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*' 
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
-    '@SkreenHouseFactoryTvBundle/Resources/public/js/couchmode.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/playlists.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/cinema.js'
-    
-    filter='?yui_js' 
-    output='js/compiled/v3.js'  %}
-    <script src="{{ asset_url }}"></script>
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.3.min.js'
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.js'
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap-ajax-typeahead.js'
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/modernizr.min.js'
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/easyXDM.min.js'
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer-3.2.11.min.js'
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.controls-3.2.10.min.js'
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.ipad-3.2.11.js'
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*' 
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
+		'@SkreenHouseFactoryTvBundle/Resources/public/js/couchmode.js'
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/playlists.js'
+		'@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/cinema.js'
+		
+		filter='?yui_js' 
+		output='js/compiled/v3.js'	%}
+		<script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% endif %}
 {% block pagescripts %}

@@ -215,7 +215,7 @@ GridView = {
 		var date = new Date();
 		//schedule
 		var url = this.elmt.data('reload-ajax') + '?schedule-only=1&date=' + this.timestamp + 
-																					'&channels_ids=' + channel_ids + '&session_uid=' + Skhf.session.uid;
+							'&channels_ids=' + channel_ids + '&session_uid=' + Skhf.session.uid + (Skhf.session.datas.email ? '&time=' + new Date().getTime() : '');
 		this.channels.load(url, function(){
 				//popover
 				$('[rel="popover"]', self.elmt).popover();
