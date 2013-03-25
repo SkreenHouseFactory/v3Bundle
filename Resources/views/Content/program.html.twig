@@ -26,7 +26,7 @@
 {% block pagescripts %}
 {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/program.js'
-    
+
     filter='?yui_js' 
     output='js/compiled/pages/program.js'  %}
     <script src="{{ asset_url }}"></script>
@@ -59,7 +59,7 @@
 			<div id="program-teaser">
 			{#<a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
 			<div id="program-teaser-meta" class="player-meta"></div>
-			<div id="program-teaser-player" data-play-autoload="{{ program.player.id }}" data-play-meta-elmt="#program-teaser-meta" data-play-muted="1" data-play-args="{{ {hide_sliders: 1}|json_encode }}" data-play-width="720" data-play-height="330"></div>
+			<div id="program-teaser-player" {{ app.request.isXmlHttpRequest ? 'data-play' : 'data-play-autoload' }}="{{ program.player.id }}" data-play-elmt="#program-teaser-player" data-play-meta-elmt="#program-teaser-meta"{# data-play-muted="1"#} data-play-args="{{ {hide_sliders: 1}|json_encode }}" data-play-width="720" data-play-height="330"></div>
 			</div>
 		{% endif %}
 

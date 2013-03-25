@@ -666,7 +666,7 @@ UI = {
 				}
 				API.xhr['typeahead-used'].push(query);
         API.xhr['typeahead'] = API.query('GET', 
-                         'search/autosuggest/' +query + '.json', 
+                         'search/autosuggest/' + query + '.json', 
                          {
                           session_uid: Skhf.session.uid, 
                           img_width: 30, 

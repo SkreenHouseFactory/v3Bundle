@@ -48,13 +48,13 @@ $(document).ready(function(){
 			change: function(event, ui) {
 				var diff = GridView.hour - ui.value;
 				if (diff != 0) {
-					console.log('scripts/tvgrid.js', 'timeslider', 'change', event, ui, GridView.hour, diff);
-					GridView.setTime(GridView.timestamp - diff*3600);
+					console.log('scripts/tvgrid.js', 'timeslider', 'change', GridView.hour, '+', diff, GridView.hour - diff);
+					GridView.setTime(GridView.timestamp_start - diff*3600);
 					GridView.loadSchedule();
 				}
 			},
 			slide: function(event, ui) {
-				console.log('scripts/tvgrid.js', 'timeslider', 'stop', ui.value);
+				//console.log('scripts/tvgrid.js', 'timeslider', 'stop', ui.value);
 		  	$('.ui-slider-handle').html(ui.value + 'h00');
 			},
 		  create: function( event, ui ) {
@@ -130,6 +130,7 @@ GridView = {
 	channels: null,
 	hour: null,
 	timestamp: null,
+	timestamp_start: null,
 	channel_img_width: 55,
 	timeout: null,
 	init: function(elmt) {
@@ -138,7 +139,7 @@ GridView = {
 		this.elmt = elmt;
 		this.channels = $('#channels', elmt);
 		this.timestamp = this.elmt.data('timestamp');
-
+		this.timestamp_start = this.elmt.data('timestamp');
 		this.load();
 	},
 	idle: function(initialized) {
@@ -205,7 +206,7 @@ GridView = {
 		}
 	},
 	loadSchedule : function(callback) {
-		console.log('GridView.loadSchedule', 'timestamp', this.timestamp);
+		console.log('GridView.loadSchedule', 'timestamp', this.timestamp, new Date(this.timestamp*1000).toString());
 		var self = this;
 		var channel_ids = this.getChannelsIds();
 		//loader

@@ -17,7 +17,7 @@
 		{% elseif o.url or o.player %}<span class="label label-info">{#<i class="icon-{{ o.player ? 'play' : 'share' }} icon-white"></i> #}Replay</span>
 		{% elseif o.has_replay is defined and o.has_replay %}<span class="label">{#<i class="icon-time icon-white"></i> #}Replay</span>
 		{% endif -%}
-		<span class="title">{{ o.program.title }}</span>
+		<span class="t">{{ o.program.title|replace({' - ': '</span><span class="st">'})|raw }}</span>
 	</a>
 	{% endif %}
 </li>
