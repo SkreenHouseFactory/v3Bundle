@@ -23,7 +23,6 @@ function onRentClicked() {
 }
 
 // -- ENV
-var DEV = 'dev1';
 var ENV;
 ENV = {
 	dev: {
