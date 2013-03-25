@@ -38,7 +38,11 @@ Player = {
 
 		return this;
 	},
+	updateElmt: function(elmt) {
+		this.elmt = elmt;
+	},
 	reset: function() {
+
 		$('#player-meta').empty();
 		if (this.elmt != null	&& this.elmt.html()) {
 			this.elmt.empty();

@@ -1,4 +1,4 @@
-{% if app.request.isXmlHttpRequest is null %}}
+{% if app.request.isXmlHttpRequest is null %}
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="fr"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="fr"> <![endif]-->
@@ -21,12 +21,9 @@
 {% if app.request.isXmlHttpRequest %}
 	{% block pagescripts %}
 	{% endblock %}
-	{% javascripts
-	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
-	    filter='?yui_js' 
-	    output='js/compiled/pages/ajax-core.js'  %}
-	    <script src="{{ asset_url }}"></script>
-	{% endjavascripts %}
+	<script>
+	UiView.update($('.uiview-update'));
+	</script>
 {% else %}
 		<footer>
 		  <hr />
