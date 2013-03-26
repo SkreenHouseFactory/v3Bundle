@@ -1,4 +1,8 @@
-{% set base_url = app.environment == 'prod' and 'preprod' not in app.request.httpHost  ? 'http://www.myskreen.com' : '/app_dev.php' %}
+{% if app.environment == 'prod' %}
+{% set base_url = 'preprod' in app.request.httpHost  ? '/' : 'http://www.myskreen.com' %}
+{% else %}
+{% set base_url = '/app_dev.php' %}
+{% endif %}
 {% if p is not defined or p.title is not defined %}
 {% set p = {title:'%title%',
             id:'%id%',
@@ -9,7 +13,7 @@
             best_offer:'',
             deporte:''} %}
 {% endif %}
-<li class="tv-component actions {{ p.onglet }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
+<li class="tv-component actions{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
   {% if header is defined %}{{ header|raw }}{% endif %}
   {% if p.best_offer is defined and p.best_offer.channel_img is defined %}
     <a class="channel">
