@@ -7,6 +7,21 @@
 {% spaceless %}
 	<title>{% block title endblock %} | mySkreen.com</title>
 	<meta name="description" content="{% block description %}{% endblock %}">
+	<script>
+	function checkDenyMobileVersion(){
+		var i,x,y,ARRcookies=document.cookie.split(";");
+		for (i=0;i<ARRcookies.length;i++){
+		  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("=")); y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+		  x=x.replace(/^\s+|\s+$/g,"");
+		  if (x=='m_myskreen' && unescape(y) == 'deny') { return true; }
+		}
+		return false;
+	}
+	if (!checkDenyMobileVersion()) {
+		var navt = 'Blackberry,Blazer,Elaine,Handspring,HTC,IEMobile,iPhone,iPod,Kyocera,LG,MIDP,Motorola,NetFront,Nokia,Palm,PlayStation Portable,Samsung,Smartphone,SonyEricsson,Symbian,UP.Browser,WAP,Windows CE'.split(','), nava = navigator.userAgent;
+		for (e = 0; e < navt.length; e++) if (nava.indexOf(navt[e]) != -1) window.location.href = document.location.href.indexOf('.myskreen.typhon.net') ? '/app_dev.php/m/route' : 'http://m.myskreen.com/m/route';
+	}
+	</script>
 	<meta name="author" content="SkreenHouseFactory">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

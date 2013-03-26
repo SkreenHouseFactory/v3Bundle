@@ -2,7 +2,7 @@
 
 {% block meta %}
 <meta property="og:title" content="{{ program.title }}" />
-<meta property="og:description" content="{{ program.description_seo }}" />
+<meta property="og:description" content="{{ program.description }}" />
 <meta property="og:image" content="{{ program.picture }}" />
 <meta property="og:type" content="{% if program.format %}{% if program.format.name == 'Série' %}video.episode{% elseif program.format.name in ['Emission','Journal'] %}video.tv_show{% else %}video.movie{% endif %}{% else %}video.movie{% endif %}" />
 <meta property="og:url" content="http://www.myskreen.com{{ program.seo_url }}" />
@@ -59,7 +59,7 @@
 			<div id="program-teaser">
 			{#<a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
 			<div id="program-teaser-meta" class="player-meta"></div>
-			<div id="program-teaser-player" {{ app.request.isXmlHttpRequest ? 'data-play' : 'data-play-autoload' }}="{{ program.player.id }}" data-play-elmt="#program-teaser-player" data-play-meta-elmt="#program-teaser-meta"{# data-play-muted="1"#} data-play-args="{{ {hide_sliders: 1}|json_encode }}" data-play-width="720" data-play-height="330"></div>
+			<div id="program-teaser-player" {{ app.request.isXmlHttpRequest ? 'data-play' : 'data-play-autoload' }}="{{ program.player.id }}" data-play-meta-elmt="#program-teaser-meta"{# data-play-muted="1"#} data-play-args="{{ {hide_sliders: 1, current_player: '#program-teaser-player'}|json_encode }}" data-play-width="720" data-play-height="330"></div>
 			</div>
 		{% endif %}
 

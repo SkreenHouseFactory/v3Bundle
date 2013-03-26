@@ -39,6 +39,7 @@ Player = {
 		return this;
 	},
 	updateElmt: function(elmt) {
+		console.log('Player.updateElmt', elmt);
 		this.elmt = elmt;
 	},
 	reset: function() {
@@ -159,6 +160,11 @@ Player = {
 	},
 	play: function(player, callback) {
 		console.log('Player.play', player, this.type, this.elmt);
+		if (player.current_player &&
+			player.current_player != true) {
+				this.updateElmt($(player.current_player));
+		}
+		
 		this.state = 'playing';
 		this.playing = player.id;
 		if (typeof player.format != 'undefined') {

@@ -106,9 +106,6 @@ UiView = {
 		    console.log('script', 'data-play', 'Pause current player');
 		    Player.pause();
 		  }
-			if ($(this).data('play-elmt')) {
-				Player.elmt = $($(this).data('play-elmt'));
-			}
 		  API.play($(this).data('play'), $(this).data('play-args'));
 		  return false;
 		});
