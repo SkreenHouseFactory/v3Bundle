@@ -660,12 +660,13 @@ UI = {
           API.xhr['typeahead'].abort();
           console.log('UI.typeahead', 'abort previous call');
         }
-				for (v in API.xhr['typeahead-used']) {
-					if (v == query)
+				for (var v in API.xhr['typeahead-used']) {
+					if (v == query) {
 						return;
+					}
 				}
-				API.xhr['typeahead-used'].push(query);
-        API.xhr['typeahead'] = API.query('GET', 
+        API.xhr['typeahead-used'].push(query);
+	API.xhr['typeahead'] = API.query('GET', 
                          'search/autosuggest/' + query + '.json', 
                          {
                           session_uid: Skhf.session.uid, 
@@ -738,7 +739,7 @@ UI = {
                                     break;
                                     case 'programs':
                                       i.addClass('program')
-				       .css('overflow','hidden')
+				       												 .css('overflow','hidden')
                                        .find('a')
                                        .html(typeahead.highlighter(item.name))
                                     break;
