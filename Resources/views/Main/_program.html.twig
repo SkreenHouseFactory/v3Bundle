@@ -1,5 +1,5 @@
 {% set base_url = app.environment == 'prod' and 'preprod' not in app.request.httpHost  ? 'http://www.myskreen.com' : '/app_dev.php' %}
-{% if p is not defined %}
+{% if p is not defined or p.title is not defined %}
 {% set p = {title:'%title%',
             id:'%id%',
             picture:'',
