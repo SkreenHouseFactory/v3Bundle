@@ -8,21 +8,29 @@
   <title>{% block title endblock %} | mySkreen.com</title>
   <meta name="description" content="{% block description %}{% endblock %}">
   <script>
+  var c_name = 'myskreen_mobile'; var c_value = 'deny'; var c_exdays = 30;
   function checkDenyMobileVersion(){
     var i,x,y,ARRcookies=document.cookie.split(";");
     for (i=0;i<ARRcookies.length;i++){
       x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("=")); y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
       x=x.replace(/^\s+|\s+$/g,"");
-      if (x=='myskreen_mobile' && unescape(y) == 'deny') { return true; }
+      if (x==c_name && unescape(y) == c_value) { return true; }
       //alert('cookie: ' + x + '=' + y);
     }
     return false;
   }
-  //alert(navigator.userAgent);
-  if (!checkDenyMobileVersion()) {
-    var navl = document.location.href;
-    var navt = 'Blackberry,Blazer,Elaine,Handspring,HTC,IEMobile,iPhone,iPod,Kyocera,LG,MIDP,Motorola,NetFront,Nokia,Palm,PlayStation Portable,Samsung,Smartphone,SonyEricsson,Symbian,UP.Browser,WAP,Windows CE,GT-'.split(','), nava = navigator.userAgent;
-    for (e = 0; e < navt.length; e++) if (nava.indexOf(navt[e]) != -1) { if (navl.match(/typhon\./)) { window.location.href = '/app_dev.php/m/route/' } else { window.location.href = navl.match(/preprod\./) ? '/m/route/' : 'http://m.myskreen.com/m/route/'}};
+  //set deny
+  if (window.location.href.indexOf('setDenyMobile') != -1) {
+    var exdate=new Date();exdate.setDate(exdate.getDate() + c_exdays);
+    var c_value=escape(c_value) + ((c_exdays==null) ? '' : '; expires='+exdate.toUTCString());
+    document.cookie=c_name + '=' + c_value;
+  // -> m
+  } else {
+    if (!checkDenyMobileVersion()) {
+      var navl = document.location.href;
+      var navt = 'Blackberry,Blazer,Elaine,Handspring,HTC,IEMobile,iPhone,iPod,Kyocera,LG,MIDP,Motorola,NetFront,Nokia,Palm,PlayStation Portable,Samsung,Smartphone,SonyEricsson,Symbian,UP.Browser,WAP,Windows CE,GT-,Chrome'.split(','), nava = navigator.userAgent;
+      for (e = 0; e < navt.length; e++) if (nava.indexOf(navt[e]) != -1) { if (navl.match(/typhon\./)) { window.location.href = '/app_dev.php/m/route/' } else { window.location.href = navl.match(/preprod\./) ? '/m/route/' : 'http://m.myskreen.com/m/route/'}};
+    }
   }
   </script>
   <meta name="author" content="SkreenHouseFactory">

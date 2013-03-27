@@ -19,14 +19,14 @@ use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 
 class MainController extends Controller
 {
-		private function blockDomain(Request $request) {
+    private function blockDomain(Request $request) {
       if ($this->get('kernel')->getEnvironment() == 'prod' && 
           !strstr($request->getHost(), 'www.') && 
           !strstr($request->getHost(), 'preprod.') && 
           !strstr($request->getHost(), '.typhon.net')) {
         throw $this->createNotFoundException('Page does not exist on this domain : ' . $request->getHost());
       }
-		}
+    }
 
     /**
     * header
@@ -42,7 +42,7 @@ class MainController extends Controller
     */
     public function homeAction(Request $request)
     {
-			$this->blockDomain($request);
+      $this->blockDomain($request);
       if ($this->get('kernel')->getEnvironment() == 'prod' && 
           !strstr($request->getHost(), 'www.') && 
           !strstr($request->getHost(), 'preprod.') && 
@@ -62,13 +62,13 @@ class MainController extends Controller
         case 'documentaires':
         case 'emissions':
         case 'spectacles':
-					$redirect = $this->generateUrl('homes', array('home' => substr($request->get('home'), 0, strlen($request->get('home'))-1)));
+          $redirect = $this->generateUrl('homes', array('home' => substr($request->get('home'), 0, strlen($request->get('home'))-1)));
         break;
         case 'vod':
-					$redirect = $this->generateUrl('homes', array('home' => 'video-a-la-demande'));
+          $redirect = $this->generateUrl('homes', array('home' => 'video-a-la-demande'));
         break;
         case 'cine':
-					$redirect = $this->generateUrl('homes', array('home' => 'cinema'));
+          $redirect = $this->generateUrl('homes', array('home' => 'cinema'));
         break;
         
         case 'film':
@@ -77,11 +77,11 @@ class MainController extends Controller
         case 'emission':
         case 'spectacle':
         case 'jeunesse':
-					if ($request->get('_route') != 'homes_vod') {
-						$redirect = $this->generateUrl('homes_vod', array('home' => $request->get('home')));
-					} else {
-	          $home = $request->get('home') . ($request->get('home') != 'jeunesse' ? 's' : null);
-					}
+          if ($request->get('_route') != 'homes_vod') {
+            $redirect = $this->generateUrl('homes_vod', array('home' => $request->get('home')));
+          } else {
+            $home = $request->get('home') . ($request->get('home') != 'jeunesse' ? 's' : null);
+          }
         break;
         case 'video-a-la-demande':
           $home = 'vod';
@@ -96,15 +96,15 @@ class MainController extends Controller
           $home = $request->get('home');
         break;
       }
-      
+
       if (isset($redirect)) {
         //echo 'redirect '.$redirect;exit();
         return $this->redirect($redirect, 301);
       }
 
-			$api = $this->get('api');
+      $api = $this->get('api');
       $datas = $api->fetch('www/home/' . $home, array(
-				'without_footer' => true,
+        'without_footer' => true,
         'with_programs' => true,
         'img_width' => 160,
         'img_height' => 200,
@@ -112,9 +112,9 @@ class MainController extends Controller
         'with_pass' => true,
         'slider_width' => 1500,
         'slider_height' => 450
-			));
+      ));
       //echo $api->url;
-			//print_r($datas);
+      //print_r($datas);
       $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig', array(
         'home' => $datas
       ));
@@ -132,14 +132,14 @@ class MainController extends Controller
     */
     public function searchAction(Request $request)
     {
-			$this->blockDomain($request);
+      $this->blockDomain($request);
       $facets = $request->get('facets') ? $facets : ($request->get('format') ? 'format:' . $request->get('format') : null);
-			$api = $this->get('api');
+      $api = $this->get('api');
       $datas = $api->fetch('search/' .urlencode(str_replace('.', '%2E',  $request->get('q'))), 
                            array('img_width' => 160,
                                  'img_height' => 200,
                                  'nb_results' => 30,
-																 'with_new' => 1,
+                                 'with_new' => 1,
                                  'facets' => $facets));
       //echo $api->url;
       //print_r($datas);
@@ -160,7 +160,7 @@ class MainController extends Controller
     */
     public function boostAction(Request $request)
     {
-			$api = $this->get('api');
+      $api = $this->get('api');
       $datas = $api->fetch('www/slider/pack/8774489', 
                            array('programs_only' => true));
       //echo $api->url;
