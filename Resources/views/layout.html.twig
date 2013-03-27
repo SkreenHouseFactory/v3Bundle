@@ -5,141 +5,141 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->
 <head>
 {% spaceless %}
-	<title>{% block title endblock %} | mySkreen.com</title>
-	<meta name="description" content="{% block description %}{% endblock %}">
-	<script>
-	function checkDenyMobileVersion(){
-		var i,x,y,ARRcookies=document.cookie.split(";");
-		for (i=0;i<ARRcookies.length;i++){
-		  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("=")); y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-		  x=x.replace(/^\s+|\s+$/g,"");
-		  if (x=='myskreen_mobile' && unescape(y) == 'deny') { return true; }
-			//alert('cookie: ' + x + '=' + y);
-		}
-		return false;
-	}
-	//alert(navigator.userAgent);
-	if (!checkDenyMobileVersion()) {
-		var navl = document.location.href;
-		var navt = 'Blackberry,Blazer,Elaine,Handspring,HTC,IEMobile,iPhone,iPod,Kyocera,LG,MIDP,Motorola,NetFront,Nokia,Palm,PlayStation Portable,Samsung,Smartphone,SonyEricsson,Symbian,UP.Browser,WAP,Windows CE,Mobile'.split(','), nava = navigator.userAgent;
-		for (e = 0; e < navt.length; e++) if (nava.indexOf(navt[e]) != -1) { if (navl.match(/typhon\./)) { window.location.href = '/app_dev.php/m/route' } else { window.location.href = navl.match(/preprod\./) ? '/m/route' : 'http://m.myskreen.com/m/route'}};
-	}
-	</script>
-	<meta name="author" content="SkreenHouseFactory">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta charset="UTF-8">
-	<meta name="language" content="fr-FR" />
-	<meta name="revisit-after" content="2 days" />
-	<meta property="og:locale:alternate" content="fr_FR" />
-	<meta property="og:site_name" content="mySkreen.com" />
-	<meta property="fb:admins" content="672700878" />
-	<meta property="fb:app_id" content="{% if app.environment != 'prod' %}101348563248431{% else %}193945860617344{% endif %}" />
-	<meta name="msvalidate.01" content="578206D7F79F12C1D7F845473C11F955" />
-	<meta name="verify-a" value="e548aa1414e42be0692f">
-	<meta name="google-site-verification" content="XrGdiUEwEtqEFnxru9FgykHR9mmSCX6O1hky_g9gTDU" />
-	{% if app.environment != 'prod' or 'preprod' in app.request.host or 'typhon' in app.request.host %}
-	<meta name="robots" content="noindex,nofollow">
-	{% else %}
-	{% block meta endblock %}
-	{% endif %}
-	{% if app.request.pathinfo != app.request.requestUri %}
-	<link rel="canonical" href="http://www.myskreen.com{{ app.request.pathinfo }}" />
-	{% endif %}
-	<link rel="author" href="https://plus.google.com/106555719800030017985" />
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<link rel="apple-touch-icon" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone.png') }}" />
-	<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad.png') }}" />
-	<link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone-retina.png') }}" />
-	<link rel="apple-touch-icon" sizes="144x144" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad-retina.png') }}" />
-	<link rel="apple-touch-startup-image" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/startup.png') }}" />
-	<meta name="viewport" content="width=1010, maximum-scale=1, user-scalable = yes" />
-	{% stylesheets
-			'@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
-			'@SkreenHouseFactoryV3Bundle/Resources/public/less/slider.less'
-			'@SkreenHouseFactoryV3Bundle/Resources/public/less/modal.less'
-			'@SkreenHouseFactoryPopinBundle/Resources/public/less/popin.less'
-			'@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
-				filter='less,?yui_css'
-				output='css/v3.css'
-				%}
-			<link href="{{ asset_url }}" rel="stylesheet" media="screen" />
-	{% endstylesheets %}
+  <title>{% block title endblock %} | mySkreen.com</title>
+  <meta name="description" content="{% block description %}{% endblock %}">
+  <script>
+  function checkDenyMobileVersion(){
+    var i,x,y,ARRcookies=document.cookie.split(";");
+    for (i=0;i<ARRcookies.length;i++){
+      x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("=")); y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+      x=x.replace(/^\s+|\s+$/g,"");
+      if (x=='myskreen_mobile' && unescape(y) == 'deny') { return true; }
+      //alert('cookie: ' + x + '=' + y);
+    }
+    return false;
+  }
+  //alert(navigator.userAgent);
+  if (!checkDenyMobileVersion()) {
+    var navl = document.location.href;
+    var navt = 'Blackberry,Blazer,Elaine,Handspring,HTC,IEMobile,iPhone,iPod,Kyocera,LG,MIDP,Motorola,NetFront,Nokia,Palm,PlayStation Portable,Samsung,Smartphone,SonyEricsson,Symbian,UP.Browser,WAP,Windows CE,Mobile'.split(','), nava = navigator.userAgent;
+    for (e = 0; e < navt.length; e++) if (nava.indexOf(navt[e]) != -1) { if (navl.match(/typhon\./)) { window.location.href = '/app_dev.php/m/route' } else { window.location.href = navl.match(/preprod\./) ? '/m/route' : 'http://m.myskreen.com/m/route'}};
+  }
+  </script>
+  <meta name="author" content="SkreenHouseFactory">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="language" content="fr-FR" />
+  <meta name="revisit-after" content="2 days" />
+  <meta property="og:locale:alternate" content="fr_FR" />
+  <meta property="og:site_name" content="mySkreen.com" />
+  <meta property="fb:admins" content="672700878" />
+  <meta property="fb:app_id" content="{% if app.environment != 'prod' %}101348563248431{% else %}193945860617344{% endif %}" />
+  <meta name="msvalidate.01" content="578206D7F79F12C1D7F845473C11F955" />
+  <meta name="verify-a" value="e548aa1414e42be0692f">
+  <meta name="google-site-verification" content="XrGdiUEwEtqEFnxru9FgykHR9mmSCX6O1hky_g9gTDU" />
+  {% if app.environment != 'prod' or 'preprod' in app.request.host or 'typhon' in app.request.host %}
+  <meta name="robots" content="noindex,nofollow">
+  {% else %}
+  {% block meta endblock %}
+  {% endif %}
+  {% if app.request.pathinfo != app.request.requestUri %}
+  <link rel="canonical" href="http://www.myskreen.com{{ app.request.pathinfo }}" />
+  {% endif %}
+  <link rel="author" href="https://plus.google.com/106555719800030017985" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone.png') }}" />
+  <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad.png') }}" />
+  <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone-retina.png') }}" />
+  <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad-retina.png') }}" />
+  <link rel="apple-touch-startup-image" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/startup.png') }}" />
+  <meta name="viewport" content="width=1010, maximum-scale=1, user-scalable = yes" />
+  {% stylesheets
+      '@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/less/slider.less'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/less/modal.less'
+      '@SkreenHouseFactoryPopinBundle/Resources/public/less/popin.less'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
+        filter='less,?yui_css'
+        output='css/v3.css'
+        %}
+      <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
 </head>
 {% endspaceless %}
 <body class="view-{{ app.request.attributes.get('_route') }}">
 {% spaceless %}
 <!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
-	<article>
-	<div id="main">
-		<div id="content" class="uiview-update">
-		{% block content %}
-		{% endblock %}
-		</div>
-		<div id="redirect" class="collapse in">
-		{% block redirect %}
-		{% endblock %}
-		</div>
-	</div>
-	</article>
-	<header>
-		<nav>
-			<div id="header">
-				<div class="navbar-wrapper">
-					<div class="container">
-						{% include 'SkreenHouseFactoryV3Bundle:Main:_header-nav.html.twig' %}
-						{% block header_filters %}
-						{% endblock %}
-					</div>
-				</div>
-			</div>
-		</nav>
-		<div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
-			<div class="container">
-				{% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
-			</div>
-		</div>
-	</header>
-	<footer>
-	<div id="footer">{% include 'SkreenHouseFactoryV3Bundle:Main:_footer.html.twig' %}</div>
-	</footer>
-	{% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
-	{% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
-	<div id="fb-root"></div>
-	<span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
+  <article>
+  <div id="main">
+    <div id="content" class="uiview-update">
+    {% block content %}
+    {% endblock %}
+    </div>
+    <div id="redirect" class="collapse in">
+    {% block redirect %}
+    {% endblock %}
+    </div>
+  </div>
+  </article>
+  <header>
+    <nav>
+      <div id="header">
+        <div class="navbar-wrapper">
+          <div class="container">
+            {% include 'SkreenHouseFactoryV3Bundle:Main:_header-nav.html.twig' %}
+            {% block header_filters %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
+      <div class="container">
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
+      </div>
+    </div>
+  </header>
+  <footer>
+  <div id="footer">{% include 'SkreenHouseFactoryV3Bundle:Main:_footer.html.twig' %}</div>
+  </footer>
+  {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
+  {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
+  <div id="fb-root"></div>
+  <span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
 
 {% if block('noscripts') is empty %}
 {% javascripts
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.3.min.js'
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.js'
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap-ajax-typeahead.js'
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/modernizr.min.js'
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/easyXDM.min.js'
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer-3.2.11.min.js'
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.controls-3.2.10.min.js'
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.ipad-3.2.11.js'
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*' 
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
-		'@SkreenHouseFactoryTvBundle/Resources/public/js/couchmode.js'
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/playlists.js'
-		'@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/cinema.js'
-		
-		filter='?yui_js' 
-		output='js/compiled/v3.js'	%}
-		<script src="{{ asset_url }}"></script>
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.3.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap-ajax-typeahead.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/modernizr.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/easyXDM.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer-3.2.11.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.controls-3.2.10.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.ipad-3.2.11.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*' 
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
+    '@SkreenHouseFactoryTvBundle/Resources/public/js/couchmode.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/playlists.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/cinema.js'
+    
+    filter='?yui_js' 
+    output='js/compiled/v3.js'  %}
+    <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% endif %}
 {% block pagescripts %}
 {% endblock %}
 
 {% if app.environment == 'prod' and block('nostats') is empty %}
-	{% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' %}
-	{% include 'SkreenHouseFactoryV3Bundle::_chartbeat.html.twig' %}
+  {% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' %}
+  {% include 'SkreenHouseFactoryV3Bundle::_chartbeat.html.twig' %}
 {% endif %}
 {% endspaceless %}
 </body>

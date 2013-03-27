@@ -16,6 +16,8 @@
 {% set keywords = 'feuilleton, policier, télé, soap, à suivre, house, experts, ncis, saison' %}
 {% elseif app.request.get('home') == 'cinema' %}
 {% set keywords = 'grand écran, séance, films, projection, salles, horaires, sorties, bandes-annonces' %}
+{% elseif app.request.get('home') is null %}
+{% set keywords = 'replay, vidéo à la demande, streaming, cinéma' %}
 {% endif %}
 
 {% block meta %}
@@ -32,10 +34,10 @@
 {% block header_filters %}
 {% if home.filters|length %}
 <ul class="dropdown-menu dropdown-filters dropdown-filters-{{ app.request.get('home') }}">
-	<li class="nav-header">{{ home.name|replace({'v3-cine': 'cinéma'})|upper }} <i class="icon-chevron-right"></i></li>
-	{% for f in home.filters %}
-	<li><a href="{{ path('any_url', {url: f.url|slice(1, f.url|length-1)}) }}" target="_top">{{ f.name }}</a></li>
-	{% endfor %}
+  <li class="nav-header">{{ home.name|replace({'v3-cine': 'cinéma'})|upper }} <i class="icon-chevron-right"></i></li>
+  {% for f in home.filters %}
+  <li><a href="{{ path('any_url', {url: f.url|slice(1, f.url|length-1)}) }}" target="_top">{{ f.name }}</a></li>
+  {% endfor %}
 </ul>
 {% endif %}
 {% endblock %}
@@ -45,10 +47,10 @@
   {% for slider in home.sliders if slider.id is defined %}
     {% if loop.first %}
       <div class="absolute">
-	      <h1>{{ app.request.get('home') }}</h1>
-	      {% if keywords is defined %}<p class="lead">{{ keywords }}</p>{% endif %}
+        <h1>{{ app.request.get('home') ? app.request.get('home') : 'Replay, streaming, cinéma' }}</h1>
+        {% if keywords is defined %}<p class="lead">{{ keywords }}</p>{% endif %}
       </div>
-			{% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, force_size: '/1250/370'} %}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, force_size: '/1250/370'} %}
       {% if app.request.get('home') == 'cinema' %}
       <div class="container well well-small playlist">
       {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
@@ -67,7 +69,7 @@
 {% block pagescripts %}
 {#% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/home.js'
-    
+
     filter='?yui_js' 
     output='js/compiled/pages/home.js'  %}
     <script src="{{ asset_url }}"></script>
