@@ -22,7 +22,7 @@
   if (!checkDenyMobileVersion()) {
     var navl = document.location.href;
     var navt = 'Blackberry,Blazer,Elaine,Handspring,HTC,IEMobile,iPhone,iPod,Kyocera,LG,MIDP,Motorola,NetFront,Nokia,Palm,PlayStation Portable,Samsung,Smartphone,SonyEricsson,Symbian,UP.Browser,WAP,Windows CE,Mobile'.split(','), nava = navigator.userAgent;
-    for (e = 0; e < navt.length; e++) if (nava.indexOf(navt[e]) != -1) { if (navl.match(/typhon\./)) { window.location.href = '/app_dev.php/m/route' } else { window.location.href = navl.match(/preprod\./) ? '/m/route' : 'http://m.myskreen.com/m/route'}};
+    for (e = 0; e < navt.length; e++) if (nava.indexOf(navt[e]) != -1) { if (navl.match(/typhon\./)) { window.location.href = '/app_dev.php/m/route/' } else { window.location.href = navl.match(/preprod\./) ? '/m/route/' : 'http://m.myskreen.com/m/route/'}};
   }
   </script>
   <meta name="author" content="SkreenHouseFactory">
