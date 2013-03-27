@@ -52,7 +52,7 @@
 		<p class="alert">Pas de direct</p>
 		{% endif %}
 		</div>
-		
+
 		<div class="relatedlive" id="nextlive">
 		{% if channel.next_live %}
 		<h5><small>à venir - {{ channel.next_live.broadcast.broadcast_begin|date('H:i') }}</small><br/>{{ channel.next_live.program.title }}</h5>

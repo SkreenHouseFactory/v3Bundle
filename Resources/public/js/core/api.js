@@ -156,9 +156,9 @@ API = {
 		});
 
 		//form
-		$('[type="submit"]', elmt).click(function(e){
+		$('form:not(.modal-catchform-disable) [type="submit"]', elmt).click(function(e){
 			e.preventDefault();
-			//console.warn('API.catchForm', 'submit');
+			console.warn('API.catchForm', 'submit');
 			//$(this).attr('disabled', 'disabled');
 			var form = $(this).parents('form:first');
 			var o = {};

@@ -10,7 +10,7 @@
 	<i class="icon-question-sign"></i>
 	</a>
 	{% else %}
-	<div class="actions btn-group pull-right" data-id="{{ o.program.episodeof_id is defined ? o.program.episodeof_id : o.program.id }}"><a class="btn fav fav-like"><i class="icon-plus-sign"></i></a>{% if o.player %}<a class="btn" data-play="{{ o.id }}"><i class="icon-play"></i></a>{% elseif o.url %}<a class="btn" target="_blank" href="{{ o.url }}"><i class="icon-share"></i></a>{% endif %}</div>
+	<div class="actions btn-group pull-right" data-id="{{ o.program.episodeof_id is defined ? o.program.episodeof_id : o.program.id }}"><a class="btn fav fav-like"><i class="icon-plus-sign"></i></a>{% if o.player %}<a class="btn" data-play="{{ o.player.id }}"><i class="icon-play"></i></a>{% elseif o.url %}<a class="btn" target="_blank" href="{{ o.url }}"><i class="icon-share"></i></a>{% endif %}</div>
 	<a class="link" rel="popover" data-placement="{{ start > 5*60 ? 'left' : 'right' }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o.broadcastdate }} - {{ o.program.format }}" data-content="{% if o.has_replay %}<p class='alert alert-success'><b>Bientôt en Replay :</b> cliquez sur suivre pour être alerté lorsque le Replay sera disponible.</p><hr/>{% endif %}<img class='img-tvgrid-popover' src='{{ o.program.picture }}' alt='{{ o.program.title }}' style='height:200px'/>{{ o.program.description }}<br/><a class='btn' href='{{ o.program.seo_url }}'>Tout sur le programme</a>">
 		<div class="nowrap"><span class="header">{{ o.broadcast_begin|date('H:i') }} {{ o.program.format }}</span></div>
 		{%- if o.is_live and c.live %}<span class="label label-warning">{#<i class="icon-{{ o.player ? 'play' : 'share' }} icon-white"></i> #}Live</span>
