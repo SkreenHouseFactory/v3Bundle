@@ -516,7 +516,7 @@ API = {
     }
   },
   openIndexedDb: function(dbname, storeName, callback) {
-    //callback(null); return; //desactivated
+    callback(null); return; //desactivated
     
     if (typeof window.indexedDB == 'undefined'){
       console.warn('window.indexedDB', 'undefined');

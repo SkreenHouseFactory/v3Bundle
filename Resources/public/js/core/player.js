@@ -258,6 +258,7 @@ Player = {
 
 			break;
 			case 'flash':
+			case 'embed':
 				console.warn('Player.play', 'flash', player, this.elmt);
 				this.elmt.html(player.embed != 'undefined' ? player.embed : player);
 			break;
