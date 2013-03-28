@@ -1,37 +1,39 @@
+{% if app.environment == 'prod' %}
+{% set base_url = 'preprod' not in app.request.httpHost  ? 'http://www.myskreen.com' : '' %}
+{% else %}
+{% set base_url = '/app_dev.php' %}
+{% endif %}
 <div id="carousel-{{ slider.title|replace({' ': '-'})|lower }}"{% if skip_autoload is not defined %} data-carousel-autoload="1"{% endif %} class="carousel slide{{ slider.id is defined ? ' carousel-' ~ slider.id : '' }}">
-	<div class="container">
+  <div class="container">
   <a class="carousel-control left" href="#carousel-{{ slider.title|replace({' ': '-'})|lower }}" data-slide="prev">&lsaquo;</a>
   <a class="carousel-control right" href="#carousel-{{ slider.title|replace({' ': '-'})|lower }}" data-slide="next">&rsaquo;</a>
-	</div>
+  </div>
   <div class="carousel-inner">
 
-	{#% if slider.id is defined and slider.id == 3772205 %}
+  {#% if slider.id is defined and slider.id == 3772205 %}
   <div class="item pointer active">
-		<a target="_blank" href="https://www.facebook.com/myskreen/app_579438962083607" class="mask mask-1500" style="background-image: url(http://mskstatic.com/1500/455/b/medias/jeux/slider-jeu-116.jpg);"></a>
+    <a target="_blank" href="https://www.facebook.com/myskreen/app_579438962083607" class="mask mask-1500" style="background-image: url(http://mskstatic.com/1500/455/b/medias/jeux/slider-jeu-116.jpg);"></a>
   </div>
-	{% endif %
-		and slider.id is defined  and slider.id != 3772205
-		#}
+  {% endif %
+    and slider.id is defined  and slider.id != 3772205
+    #}
 
   {% for p in slider.programs %}
   <div class="item pointer{% if loop.first %} active{% endif %}">
-		<a href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}" class="mask {{ 'Slider1500' in p.sliderPicture is defined and p.sliderPicture ? 'mask-1500' : 'mask-990' }}" style="background-image: url({% if p.sliderPicture is defined %}{{ force_size is defined ? p.sliderPicture|replace({'/990': force_size }) : p.sliderPicture }}{% else %}{{ p.picture }}{% endif %});"></a>
-    {#% if p.teaser is defined and p.teaser.id is defined %}
-      <a href="#" data-play="{{ p.teaser.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}" class="pull-left" style="position:absolute;top:30px;left:400px;"><img src="{{ asset('bundles/skreenhousefactoryv3/images/big-play.png') }}" alt="bande annonce {{ p.title }}" style="height:150px;" /></a>
-    {% endif %#}
+    <a href="{{ base_url }}{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}" class="mask {{ 'Slider1500' in p.sliderPicture is defined and p.sliderPicture ? 'mask-1500' : 'mask-990' }}" style="background-image: url({% if p.sliderPicture is defined %}{{ force_size is defined ? p.sliderPicture|replace({'/990': force_size }) : p.sliderPicture }}{% else %}{{ p.picture }}{% endif %});"></a>
     <div class="container">
-			<div class="carousel-caption actions" data-id="{{ p.id }}">
-	    <a class="pull-left btn btn-large btn-primary fav fav-like" data-placement="right"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
-      <h4><a href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">{{ p.title }}</a></h4>
-			{% if skip_like is not defined %}
-			{% endif %}
+      <div class="carousel-caption actions" data-id="{{ p.id }}">
+      <a class="pull-left btn btn-large btn-primary fav fav-like" data-placement="right"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+      <h4><a href="{{ base_url }}{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">{{ p.title }}</a></h4>
+      {% if skip_like is not defined %}
+      {% endif %}
       <p class="pull-left">{{ p.format }}{% if p.duration %}, {{ p.duration }}mn{% endif %}</p>
-			{% if p.pitch is defined and p.pitch %}
+      {% if p.pitch is defined and p.pitch %}
       <p class="clear">{{ p.pitch }}</p>
-			{% endif %}
-			{% if skip_like is not defined %}
+      {% endif %}
+      {% if skip_like is not defined %}
       <iframe id="fc{{ p.id }}" scrolling="no" style="border: none; overflow: hidden; height: 20px; width: 89px;margin: 0 0 5px 10px;" title="Like on Facebook." class="fb_ltr" src="http://www.facebook.com/plugins/like.php?api_key=193945860617344&amp;locale=fr_FR&amp;sdk=joey&amp;channel_url=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter.php%3Fversion%3D18%23cb%3Df3f4113244%26origin%3Dhttp%253A%252F%252Fwww.myskreen.com%252Ff343bc9a38%26domain%3Dwww.myskreen.com%26relation%3Dparent.parent&amp;href=http%3A%2F%2Fwww.myskreen.com{{ p.seo_url|url_encode }}&amp;node_type=link&amp;width=155&amp;font=verdana&amp;layout=button_count&amp;colorscheme=light&amp;action=like&amp;show_faces=false&amp;send=false&amp;extended_social_context=false"></iframe>
-			{% endif %}
+      {% endif %}
     </div>
     </div>
   </div>
