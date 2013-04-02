@@ -1,0 +1,42 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+{% block meta %}
+{% if data.programs|length < 6 or app.request.get('page') %}
+<meta name="robots" content="noindex,follow" />
+{% endif %}
+<meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ data.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}" />
+<meta property="og:description" content="{{ data.description|striptags }}" />
+<meta property="og:type" content="channel" />
+<meta property="og:url" content="http://www.myskreen.com/{{ data.seo_url }}" />
+{% if data.picture %}
+<meta property="og:image" content="{{ data.picture }}" />
+<link rel="image_src" href="{{ data.picture }}" />
+{% endif %}
+<meta name="object_type" content="channel" />
+{% endblock %}
+{% block title %}
+{{ 'page.title.channel'|trans({'%name%': data.name, '%access%': data.has_replay is defined and data.has_replay ? 'Replay' : 'Streaming'}) }}
+{%- if app.request.get('format') %}, {{ app.request.get('format') }}{% endif -%}
+{%- if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif -%}
+{%- if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif -%}
+{%- endblock %}
+{% block description %}{{ data.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+
+{% block content %}
+<div id="cover" style="background: url('http://mskstatic.com/1500/450/medias/photos/programmes/moins_de4740000/4726222/Slider1500_populaire.jpg') top center no-repeat;"/>
+</div>
+{% if channel.type == "ChannelFournisseur" %}
+	{% include 'SkreenHouseFactoryV3Bundle:Content:_channel_fournisseur.html.twig' with {data:data} %}
+{% elseif channel.type == "ChannelOnglet" %}
+	{% include 'SkreenHouseFactoryV3Bundle:Content:_channel_onglet.html.twig' with {data:data} %}
+{% endif %}
+{% endblock %}
+
+{% block pagescripts %}
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/channel.js'
+    
+    filter='?yui_js' 
+    output='js/compiled/pages/channel.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}

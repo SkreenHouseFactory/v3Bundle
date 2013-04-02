@@ -1,0 +1,21 @@
+<div id="view-home">
+  {% for slider in data.sliders if slider.id is defined %}
+    {% if loop.first %}
+      <div class="absolute">
+	      <h1>{{ app.request.get('home') }}</h1>
+	      {% if keywords is defined %}<p class="lead">{{ keywords }}</p>{% endif %}
+      </div>
+			{% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, force_size: '/1250/370'} %}
+      {% if app.request.get('home') == 'cinema' %}
+      <div class="container well well-small playlist">
+      {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
+      </div>
+      {% endif %}
+    {% else %}
+      {% if loop.index == 2 %}<div class="container">{% else %}<hr/>{% endif %}
+      <a name="{{ slider.name }}"></a>
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
+    {% endif %}
+  {% endfor %}
+  </div>
+</div>
