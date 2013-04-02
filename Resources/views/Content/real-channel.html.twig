@@ -22,7 +22,7 @@
 {% block description %}{{ data.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
 {% block content %}
-<div id="cover" style="background: url('http://mskstatic.com/1500/450/medias/photos/programmes/moins_de4740000/4726222/Slider1500_populaire.jpg') top center no-repeat;"/>
+<div id="cover"{% if channel.cover %} style="background: url('{{ channel.cover }}') top center no-repeat;"{% endif %}/>
 </div>
 {% if channel.type == "ChannelFournisseur" %}
 	{% include 'SkreenHouseFactoryV3Bundle:Content:_channel_fournisseur.html.twig' with {data:data} %}
