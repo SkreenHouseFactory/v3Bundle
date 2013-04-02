@@ -22,8 +22,7 @@
 {% block description %}{{ data.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
 {% block content %}
-<div id="cover"{% if channel.cover %} style="background: url('{{ channel.cover }}') top center no-repeat;"{% endif %}/>
-</div>
+{% if channel.cover %}<div id="cover" style="background: url('{{ channel.cover }}') top center no-repeat;"/></div>{% endif %}
 {% if channel.type == "ChannelFournisseur" %}
 	{% include 'SkreenHouseFactoryV3Bundle:Content:_channel_fournisseur.html.twig' with {data:data} %}
 {% elseif channel.type == "ChannelOnglet" %}
