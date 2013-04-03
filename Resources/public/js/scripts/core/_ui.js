@@ -59,7 +59,7 @@ UiView = {
     }
 
     // -- ui actions : play
-    $('.slider li:not(.selector)').live('click', function(e){
+    $(document).on('click', '.slider li:not(.selector)', function(e){
       console.log('script', '.slider li:not(.selector)', $('a.title', this));
       if (typeof $('a.title', this).attr('href') == 'undefined') {
         $('a.title', this).trigger('click');
@@ -87,7 +87,7 @@ UiView = {
       $(this).addClass('active');
     });
     //remove popover
-    $('.popover .close').live('click', function() {
+    $(document).on('click', '.popover .close', function() {
       //console.log('script', 'popovers destroy', $('.popover'));
       $('.popover').remove();
       return false;
@@ -100,7 +100,7 @@ UiView = {
   },
   initDataLive: function() {
     // -- play deporte
-    $('[data-play]').live('click', function(){
+    $(document).on('click', '[data-play]', function(){
       console.log('script', 'data-play', $(this).data('play'), $(this).data('play-args'), Player.state);
       if (Player.state == 'playing') {
         console.log('script', 'data-play', 'Pause current player');
@@ -110,7 +110,7 @@ UiView = {
       return false;
     });
     // -- couchmode
-    $('[data-couchmode]').live('click', function(){
+    $(document).on('click', '[data-couchmode]', function(){
       if (Player.state == 'playing') {
         console.log('script', 'data-play', 'Pause current player');
         Player.pause();
@@ -125,7 +125,7 @@ UiView = {
       }
     });
     // -- remote data in html elmt
-    $('[data-ajax]').live('click', function(e){
+    $(document).on('click', '[data-ajax]', function(e){
       //e.preventDefault();
       console.log('script', '[data-ajax]', $(this).data('ajax'));
       //remove home body class
@@ -144,7 +144,7 @@ UiView = {
       return false;
     });
     // -- redirect
-    $('[data-redirect]').live('click', function(){
+    $(document).on('click', '[data-redirect]', function(){
         console.log('script', 'player redirect', $(this));
         if ($(this).data('redirect') == 'unload') {
           UI.unloadRedirect();
@@ -154,7 +154,7 @@ UiView = {
         return false;
     });
     // -- btn-radio
-    $('[data-toggle="buttons-radio"] > *').live('click', function(){
+    $(document).on('click', '[data-toggle="buttons-radio"] > *', function(){
       $('> *', $(this).parent()).removeClass('active btn-info');
       $(this).addClass('active btn-info');
     });
@@ -201,7 +201,7 @@ UiView = {
   },
   initDataModalTriggers: function(elmt) {
     // trigger modal
-    $('a[data-modal], [data-modal-remote]', elmt).live('click', function(e){
+    $('a[data-modal], [data-modal-remote]', elmt).on('click', function(e){
       console.log('script', 'a[data-modal], [data-modal-remote]', 'click');
       e.preventDefault();
       var trigger = $(this);

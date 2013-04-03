@@ -11,6 +11,10 @@
 <meta property="og:video:height" content="358" />
 <meta property="og:video:width" content="576" />
 <meta property="og:video:type" content="application/x-shockwave-flash" />
+{# mp4 video for facebook ? : http://blog.kaltura.org/facebook-now-require-html5-and-fallback-in-open-graph
+<meta property="og:video" content="{{ program.player_fb_mp4 }}" />
+<meta property="og:video:type" content="video/mp4" />
+#}
 <meta property="og:video:duration" content="{{ program.duration * 60 }}" />
 <meta name="video_height" content="470" />
 <meta name="video_width" content="940" />
@@ -21,7 +25,7 @@
 <meta name="object_type" content="episode" />
 {% endblock %}
 {% block title %}{{ program.title }} {% if program.has_vod in [5,6,7,8] %}en Replay{% else %}en streaming{% endif %}{% endblock %}
-{% block description %}{{ program.description_seo|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+{% block description %}{{ program.description_seo|replace({"\n": ''})|striptags|slice(0, 165) }} | {{ program.title }}, {{ program.id }}{% endblock %}
 
 {% block pagescripts %}
 {% javascripts
@@ -230,7 +234,13 @@
         {% endfor %}
         <div id="bonus" class="tab-pane" data-more-streaming="{{ program.id }}">
           <div id="ytCarousel" class="carousel slide">
-            <div class="carousel-inner"></div>
+            <div class="carousel-inner">
+              {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
+                {% for b in program.offers['bonus'] %}
+                <div class="item active"><a data-play="{{ b.id }}" class="pull-left"><img class="img-polaroid" alt="{{ b.title }} extrait" src="{{ b.picture }}"><div class="title">{{ b.title }}</div></a></div>
+                {% endfor %}
+              {% endif %}
+            </div>
             <a class="carousel-control left" href="#ytCarousel" data-slide="prev">&lsaquo;</a>
             <a class="carousel-control right" href="#ytCarousel" data-slide="next">&rsaquo;</a>
           </div>
@@ -308,7 +318,7 @@
         {% endif %}
       </div>
       <a style="margin-top:15px;" href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}" class="btn btn-block">{{ 'program.episodes.all'|trans }}</a>
-      
+
       {% elseif program.episodeof is defined %}
       <a href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}" class="btn btn-block">{{ 'program.episodes.all'|trans }}</a>
 
@@ -386,7 +396,7 @@
   <a name="infos"></a>
   <div id="program-infos">
     <div class="img pull-left">
-      <img src="{{ program.picture }}" alt="{{ program.title }} {{ program.format.name }} {{ program.has_vod is divisibleby(2) ? 'complet' : 'en entier' }}" />
+      <img src="{{ program.picture }}" alt="{{ program.title }} {{ program.format ? program.format.name : '' }} {{ program.has_vod is divisibleby(2) ? 'complet' : 'en entier' }}" />
     </div>
     <div class="inner">
       <h3>Présentation de {{ program.title }} complet</h3>
@@ -396,11 +406,11 @@
         {{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}
       </p>
       <p>
-        {% if program.categories|length %}
+        {% if program.format and program.categories|length %}
           Catégories : {% for c in program.categories if c.seo_url is defined %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
           <br/>
         {% endif %}
-        {% if program.subcategories|length %}
+        {% if program.format and program.subcategories|length %}
           Sous-catégories : {% for c in program.subcategories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>{% endfor %}
         {% endif %}
      </p>

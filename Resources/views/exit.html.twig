@@ -1,19 +1,18 @@
 <!doctype html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="fr"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="fr"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="fr"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="fr"> <![endif]-->  
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="fr"> <![endif]-->  
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="fr"> <![endif]-->  
+<!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->  
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>{% block title endblock %} | {{ 'service.name'|trans }}</title>
-	<meta name="description" content="{% block description %}{% endblock %}">
-	<meta name="author" content="mySkreen">
-	<meta name="language" content="fr-FR" />
-
-	<meta name="viewport" content="width=device-width">
-	<meta name="robots" content="noindex,nofollow">
+  <title>{% block title endblock %} | {{ 'service.name'|trans }}</title>
+  <meta name="description" content="{% block description %}{% endblock %}">
+  <meta name="author" content="mySkreen">
+  <meta name="language" content="fr-FR" />
+  <meta name="viewport" content="width=device-width">
+  <meta name="robots" content="noindex,nofollow">
 
   {% stylesheets
       '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
@@ -21,7 +20,7 @@
         output='css/v3-exit.css'
         %}
       <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
-  {% endstylesheets %}
+  {% endstylesheets %}  
 </head>
 <body class="exit" onload="ad();">
 
@@ -57,7 +56,7 @@
 {% endjavascripts %}
 <script src="http://www.beead.fr/scripts/api/beead_apiV4.js"></script>
 <script>
-BeeadAds.init({pid:2751,
+  BeeadAds.init({pid:2751,
                 jsCallback: "beeadCallbackSuccess", 
                 noPubCallback: "beeadCallbackEmpty", 
                 onCloseCallback: "beeadCallbackSuccess"});
@@ -124,7 +123,6 @@ function ad() {
               document.location.pathname]);
   }
 }
-*/</script>
-
+*/  </script>
 </body>
 </html>
