@@ -19,7 +19,7 @@
 {%- if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif -%}
 {%- if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif -%}
 {%- endblock %}
-{% block description %}{{ data.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+{% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
 {% block content %}
 {% if channel.cover %}<div id="cover" style="background: url('{{ channel.cover }}') top center no-repeat;"/></div>{% endif %}
@@ -27,6 +27,8 @@
 	{% include 'SkreenHouseFactoryV3Bundle:Content:_channel_fournisseur.html.twig' with {data:data} %}
 {% elseif channel.type == "ChannelOnglet" %}
 	{% include 'SkreenHouseFactoryV3Bundle:Content:_channel_onglet.html.twig' with {data:data} %}
+{% elseif channel.type == "ChannelPersonne" %}
+	{% include 'SkreenHouseFactoryV3Bundle:Content:_channel_personne.html.twig' with {data:data} %}
 {% endif %}
 {% endblock %}
 
