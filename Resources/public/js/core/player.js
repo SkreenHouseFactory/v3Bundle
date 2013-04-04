@@ -141,7 +141,7 @@ Player = {
   redirect: function(url, elmt, toggleElmt) {
     console.log('Player.redirect', url, elmt, url.indexOf('/exit/') != -1);
     if (typeof url != 'undefined') {
-      if (url.indexOf('/exit/') != -1 || url.indexOf('m6replay') != -1) { //url.match(/\/exit\//)) {
+      if (url.indexOf('/exit/') != -1 || url.indexOf('m6replay') != -1 || url.indexOf('play.google') != -1) { //url.match(/\/exit\//)) {
         window.open(url.replace('/redirection/', '/exit/')); //hack m6
         return false;
       } else {
@@ -242,7 +242,7 @@ Player = {
                                                               posterExtensions: /png|jpg/gi});
           */
           this.elmt.html(
-            '<video id="skPlayerHtml5" width="' + flashArgs.width + '" height="' + flashArgs.height + '" controls="1" x-webkit-airplay="allow" tabindex="0">' +
+            '<video id="skPlayerHtml5" width="' + flashArgs.width + '" height="' + flashArgs.height + '" controls="1" x-webkit-airplay="allow" tabindex="0" autoplay>' +
             '<source ' + ( typeof player.poster != 'undefined' ? 'poster="' + player.poster + '" ' : '') + 'src="' + player.url + '" type="video/mp4"></source>' +
             '</video>'
           );

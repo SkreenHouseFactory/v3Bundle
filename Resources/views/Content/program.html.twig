@@ -89,7 +89,10 @@
           {% endif %}
           <li{% if key == program.offers_default %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ offers[key] }} ({{ nb }})</a></li>
         {% endfor %}
-        <li><a href="#bonus" id="trigger-bonus" data-toggle="tab">Bonus</a></li>
+        {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
+        <li><a href="#carousel-bonus" id="trigger-bonus" data-toggle="tab">Bonus ({{ program.offers['bonus']|length }})</a></li>
+        {% endif %}
+        <li><a href="#carousel-youtube" id="trigger-youtube" class="carousel-youtube" data-toggle="tab">YouTube</a></li>
       </ul>
       <div class="tab-content">
         {% for key in offers|keys if program.offers[key]|length %}
@@ -232,17 +235,26 @@
         {% endif %}
         </div>
         {% endfor %}
-        <div id="bonus" class="tab-pane" data-more-streaming="{{ program.id }}">
-          <div id="ytCarousel" class="carousel slide">
+        {# bonus #}
+        {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
+        <div id="carousel-bonus" class="tab-pane">
+          <div class="carousel slide" data-carousel="autoload">
             <div class="carousel-inner">
-              {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
                 {% for b in program.offers['bonus'] %}
                 <div class="item active"><a data-play="{{ b.id }}" class="pull-left"><img class="img-polaroid" alt="{{ b.title }} extrait" src="{{ b.picture }}"><div class="title">{{ b.title }}</div></a></div>
                 {% endfor %}
-              {% endif %}
             </div>
-            <a class="carousel-control left" href="#ytCarousel" data-slide="prev">&lsaquo;</a>
-            <a class="carousel-control right" href="#ytCarousel" data-slide="next">&rsaquo;</a>
+            {#<a class="carousel-control left" href="#carousel-bonus" data-slide="prev">&lsaquo;</a>
+            <a class="carousel-control right" href="#carousel-bonus" data-slide="next">&rsaquo;</a>#}
+          </div>
+        </div>
+        {% endif %}
+        {# youtube #}
+        <div id="carousel-youtube" class="carousel-youtube tab-pane" data-more-streaming="{{ program.id }}">
+          <div class="carousel slide">
+            <div class="carousel-inner"></div>
+            <a class="carousel-control left" href="#carousel-youtube" data-slide="prev">&lsaquo;</a>
+            <a class="carousel-control right" href="#carousel-youtube" data-slide="next">&rsaquo;</a>
           </div>
         </div>
       </div>

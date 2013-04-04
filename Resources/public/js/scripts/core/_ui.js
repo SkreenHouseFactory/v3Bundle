@@ -58,6 +58,14 @@ UiView = {
       });
     }
 
+    // -- carousel
+    /*
+    $('[data-carousel="autoload"]').each(function(){
+      console.log('script', '[data-carousel="autoload"]', $(this));
+      $(this).carousel();
+    });
+    */
+
     // -- ui actions : play
     $(document).on('click', '.slider li:not(.selector)', function(e){
       console.log('script', '.slider li:not(.selector)', $('a.title', this));
@@ -98,9 +106,10 @@ UiView = {
       $('[rel="tooltip"]').tooltip();
     }
   },
-  initDataLive: function() {
+  initDataLive: function(elmt) {
+    var elmt = typeof elmt != 'undefined' ? elmt : document;
     // -- play deporte
-    $(document).on('click', '[data-play]', function(){
+    $(elmt).on('click', '[data-play]', function(){
       console.log('script', 'data-play', $(this).data('play'), $(this).data('play-args'), Player.state);
       if (Player.state == 'playing') {
         console.log('script', 'data-play', 'Pause current player');
@@ -110,7 +119,7 @@ UiView = {
       return false;
     });
     // -- couchmode
-    $(document).on('click', '[data-couchmode]', function(){
+    $(elmt).on('click', '[data-couchmode]', function(){
       if (Player.state == 'playing') {
         console.log('script', 'data-play', 'Pause current player');
         Player.pause();
@@ -125,7 +134,7 @@ UiView = {
       }
     });
     // -- remote data in html elmt
-    $(document).on('click', '[data-ajax]', function(e){
+    $(elmt).on('click', '[data-ajax]', function(e){
       //e.preventDefault();
       console.log('script', '[data-ajax]', $(this).data('ajax'));
       //remove home body class
@@ -144,17 +153,21 @@ UiView = {
       return false;
     });
     // -- redirect
-    $(document).on('click', '[data-redirect]', function(){
+    $(elmt).on('click', '[data-redirect]', function(){
         console.log('script', 'player redirect', $(this));
         if ($(this).data('redirect') == 'unload') {
           UI.unloadRedirect();
         } else {
-          UI.loadRedirect($(this).data('redirect'));
+          UI.loadRedirect($(this).data('redirect'), $(this).data('seo-url'));
+        }
+        //hack notifications
+        if ($(this).parents('li.open:first').length) {
+          $(this).parents('li.open:first').removeClass('open');
         }
         return false;
     });
     // -- btn-radio
-    $(document).on('click', '[data-toggle="buttons-radio"] > *', function(){
+    $(elmt).on('click', '[data-toggle="buttons-radio"] > *', function(){
       $('> *', $(this).parent()).removeClass('active btn-info');
       $(this).addClass('active btn-info');
     });

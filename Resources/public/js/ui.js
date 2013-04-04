@@ -10,7 +10,7 @@ UI = {
   max_notifications: 20,
   badge_notification: '<span class="badge">%count%</span>',
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
-	callbackTogglePlaylist: null,
+  callbackTogglePlaylist: null,
   init: function(callback) {
     var self = this;
     this.playlist = new BaseSlider({ programs: [] }, function() {}, $('#playlist'));
@@ -69,7 +69,7 @@ UI = {
         $('.user-on.hide').removeClass('hide');
         $('.user-on-visibility').css('visibility','visible');
         $('li.selector:not(.empty)').popover('disable').popover('hide');
-				//share on
+        //share on
         if (Skhf.session.datas.disallow_share) {
           $('.share [data-share="disallow"]').trigger('click');
         }
@@ -83,7 +83,7 @@ UI = {
       //fb
       if (Skhf.session.datas.fb_uid) {
         $('.share-on.hide').removeClass('hide');
-      	$('.share-off:not(.hide)').addClass('hide');
+        $('.share-off:not(.hide)').addClass('hide');
         this.addFriendsPrograms();
       } else {
       $('.share-on:not(.hide)').addClass('hide');
@@ -142,13 +142,13 @@ UI = {
     }
 
     trigger.popover({placement: 'top',
-                      title:	function() { return 'Ajout à vos playlists'},
+                      title:  function() { return 'Ajout à vos playlists'},
                       content: content,
                       show: 500, 
                       hide: 100});
   },
   //toggle favorite : fav-parameter
-	//if actions-remove[data-id="xx"] : element deleted in this.unloadPlaylistTrigger
+  //if actions-remove[data-id="xx"] : element deleted in this.unloadPlaylistTrigger
   togglePlaylist: function(trigger){
     var self = this;
     if (trigger.hasClass('fav-cinema')) {
@@ -177,18 +177,18 @@ UI = {
       var remove = trigger.hasClass('fav-on') ? true : false;
       var callback = function(value){
         console.log('UI.togglePlaylist', 'callback', value, trigger);
-				// remove
+        // remove
         if (remove) {
-					if (parameter == 'like' &&
-            	$('.friends', trigger.parents('.actions:first')).length == 0) { //pas pour le slider social
-	          $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
-	            $(this).remove();
-	          });
-	        }
-				}
-				if (UI.callbackTogglePlaylist) {
-					UI.callbackTogglePlaylist(parameter, value, remove, trigger);
-				}
+          if (parameter == 'like' &&
+              $('.friends', trigger.parents('.actions:first')).length == 0) { //pas pour le slider social
+            $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
+              $(this).remove();
+            });
+          }
+        }
+        if (UI.callbackTogglePlaylist) {
+          UI.callbackTogglePlaylist(parameter, value, remove, trigger);
+        }
       }
       if (remove) {
         API.removePreference(parameter, value, callback);
@@ -310,52 +310,26 @@ UI = {
           nb_new++;
           //console.log('new', notifications[k]['new'], nb_new);
         }
-				if (notifications[k].type == 'broadcast') {
-					var attrs = 'data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
-				} else if (notifications[k].player) {
-					var attrs = 'data-play="' + notifications[k].player + '" data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
-				} else {
-					var attrs = 'data-redirect="' + notifications[k].link + '"';
-				}
+        if (notifications[k].type == 'broadcast') {
+          var attrs = 'data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
+        } else if (notifications[k].player) {
+          var attrs = 'data-play="' + notifications[k].player + '" data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
+        } else {
+          var attrs = 'data-redirect="' + notifications[k].link + '" data-seo-url="' + notifications[k].program.seo_url + '"';
+        }
         list.append('<li class="tv-component"><a data-id="' + notifications[k].id + '" class="remove">' + 
-										'<i class="icon-trash"></i></a>' + (notifications[k]['new'] ? '<span class="pull-right badge badge-important">Nouveau</span>' : '') + 
-										'<a ' + attrs + ' class="link">' + 
-										'<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' +
-										'<img src="' + notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
-										'<span class="title">' + notifications[k].title + '</span>' +
-										'<span class="subtitle">' + notifications[k].title_episode + '</span>' +
-										'<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span></a>' +
-										'</li>' +
-										'<li class="divider"></li>');
+                    '<i class="icon-trash"></i></a>' + (notifications[k]['new'] ? '<span class="pull-right badge badge-important">Nouveau</span>' : '') + 
+                    '<a ' + attrs + ' class="link">' + 
+                    '<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' +
+                    '<img src="' + notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
+                    '<span class="title">' + notifications[k].title + '</span>' +
+                    '<span class="subtitle">' + notifications[k].title_episode + '</span>' +
+                    '<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span></a>' +
+                    '</li>' +
+                    '<li class="divider"></li>');
       }
-			//TOFIX : should be working in script/core/ui.js
-			$('li a[data-ajax]', list).bind('click', function(){
-				console.log('UI.loadNotifications', 'bind click [data-ajax]', $(this));
-				$('body').removeClass('view-homes');
-				$($(this).attr('rel')).empty();
-				UI.appendLoader($($(this).attr('rel')));
-				if ($(this).data('ajax').indexOf('#') != -1) {
-					var url = $(this).data('ajax').replace('#', '?skip_varnish#');
-				} else {
-					var suffix = $(this).data('ajax').indexOf('?') == -1 ? '?skip_varnish' : '&skip_varnish';
-					var url = $(this).data('ajax') + suffix;
-				}
-				$($(this).attr('rel')).load(url, function() {
-					UI.unloadRedirect();
-				});
-				return false;
-			});
-
-			$('li a[data-play]', list).bind('click', function(){
-				console.log('UI.loadNotifications', 'bind click [data-play]', $(this));
-				API.play($(this).data('play'), $(this).data('play-args'));
-				return false;
-			});
-			$('[data-redirect]').bind('click', function(){
-		    console.log('script', 'player redirect', $(this));
-		    UI.loadRedirect($(this).data('redirect'));
-				return false;
-			});
+      //TOFIX : should be working in script/core/ui.js
+      UiView.initDataLive(list);
 
       //new
       if (nb_new > 0) {
@@ -414,7 +388,7 @@ UI = {
       });
     }
   },
-	//playlist theaters
+  //playlist theaters
   loadTheatersPlaylist: function(){
     if (Skhf.session.datas.cinema && 
         $('#cinema.slider').length) {
@@ -433,17 +407,17 @@ UI = {
             $('#theaters-names').append('<a href="#theaters-playlist" data-id="' + datas[k].id + '" class="label label-info">' + datas[k].name + '</a>');
           }
           UI.sliders['cinema'] = new BaseSlider({
-						'url': 'schedule/cine.json?programs_only=1&theater_ids=' + Skhf.session.datas.cinema }, 
-						function(){}, 
-						$('#cinema.slider')
-					);
+            'url': 'schedule/cine.json?programs_only=1&theater_ids=' + Skhf.session.datas.cinema }, 
+            function(){}, 
+            $('#cinema.slider')
+          );
       });
     }
   },
   unloadTheatersPlaylist: function(){
     $('.theaters-on:not(.hide)').addClass('hide');
     $('.theaters-off.hide').removeClass('hide');
-	},
+  },
   //update selector
   loadSelector: function(datas) {
     var self = this;
@@ -470,10 +444,10 @@ UI = {
     //show selector
     this.unloadPlaylist(Skhf.session.onglet, function() {
       $('#top-playlist li.selector').animate({'width': API.config.slider.width}, 500, function(){
-    		$('#top-playlist li.selector').show();
-				if (self.playlist.elmt.hasClass('empty')) {
-					self.playlist.elmt.removeClass('empty');
-				}
+        $('#top-playlist li.selector').show();
+        if (self.playlist.elmt.hasClass('empty')) {
+          self.playlist.elmt.removeClass('empty');
+        }
       });
     });
 
@@ -503,35 +477,35 @@ UI = {
       //load playlist
       Skhf.session.access = access;
       if (typeof onglet != 'undefined') { //, with_player: 1, player: API.config.player
-				$.extend(self.playlist.params.args, {onglet: onglet, with_best_offer: 1, time: new Date().getTime()});
+        $.extend(self.playlist.params.args, {onglet: onglet, with_best_offer: 1, time: new Date().getTime()});
       } else {
-				$.extend(self.playlist.params.args, {with_best_offer: 1, time: new Date().getTime()});
+        $.extend(self.playlist.params.args, {with_best_offer: 1, time: new Date().getTime()});
       }
       if (access) {
         Skhf.session.getFriendsUids(function(friends_uids){
           $.extend(self.playlist.params.args, {friends_uids: friends_uids}); //, api_method: 'POST'
         })
       }
-			console.log('UI.loadPlaylist', 'self.playlist.params.args', self.playlist.params.args);
+      console.log('UI.loadPlaylist', 'self.playlist.params.args', self.playlist.params.args);
   
       this.playlist.loadRemotePrograms(
-				0,
-				function(slider){
-				  var nb_programs = slider.data('nb-programs');
-				  console.log('UI.loadPlaylist', 'callback', Skhf.session.access, 'cookie:' + API.cookie('playlist_collapsed'), 'isHome:' + API.isHome(), slider);
+        0,
+        function(slider){
+          var nb_programs = slider.data('nb-programs');
+          console.log('UI.loadPlaylist', 'callback', Skhf.session.access, 'cookie:' + API.cookie('playlist_collapsed'), 'isHome:' + API.isHome(), slider);
                                         
-				  if (Skhf.session.access) {
-				    var name = $('li#' + Skhf.session.access, slider.elmt).data('name');
-				    if (typeof name != 'undefined') {
-				      $('#top-playlist .breadcrumb li:nth-child(2)').html(name);
-				    }
-				  }
-				  $('li.selector', slider.elmt).hide();
-				  //if ((Skhf.session.access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
-				  //    API.isHome() == true) {
-				  //  $('#top-playlist').collapse('show');
-				  //}
-			});
+          if (Skhf.session.access) {
+            var name = $('li#' + Skhf.session.access, slider.elmt).data('name');
+            if (typeof name != 'undefined') {
+              $('#top-playlist .breadcrumb li:nth-child(2)').html(name);
+            }
+          }
+          $('li.selector', slider.elmt).hide();
+          //if ((Skhf.session.access != 'tv' && nb_programs > 0 && !API.cookie('playlist_collapsed')) ||
+          //    API.isHome() == true) {
+          //  $('#top-playlist').collapse('show');
+          //}
+      });
     }
   },
   unloadPlaylist: function(onglet, callback) {
@@ -586,23 +560,27 @@ UI = {
     var self = this;
     Player.load(trigger);
   },
-  loadRedirect: function(url) {
+  loadRedirect: function(url, link_fiche) {
     console.log('UI.loadRedirect', url);
-		$('body').removeClass('view-homes view-homes_vod');
+    $('body').removeClass('view-homes view-homes_vod');
     Player.redirect(url, $('#redirect'), $('#content'));
-		$('#redirect').prepend('<div class="container container-redirect collapse in">' +
-													 '<p class="alert alert-info"><span class="close pull-right" data-toggle="collapse" data-target=".container-redirect">&times;</span>Vous visitez un site partenaire de mySkreen.com. <a data-redirect="unload">Revenir à mySkreen.com</a></p>' +
-													 '</div>' +
-													 '<a class="close-redirect" data-redirect="unload">&times Fermer</a>');
+    $('#redirect').prepend('<div class="container container-redirect collapse in">' +
+                           '<p class="alert alert-info">' +
+                           '<span class="close pull-right" data-toggle="collapse" data-target=".container-redirect">&times;</span>' +
+                           'Vous visitez un site partenaire. ' +
+                           (typeof link_fiche != 'undefined' ? '<a data-ajax="' + link_fiche + '" rel="#content">› Voir le programme sur mySkreen</a>&nbsp; ' : '') +
+                           '<a data-redirect="unload">› Revenir à mySkreen.com</a></p>' +
+                           '</div>' +
+                           '<a class="close-redirect" data-redirect="unload">&times Fermer</a>');
     //window.onbeforeunload = API.quickLaunchModal('signin', function() {
     //  alert('leave');
     //  window.onbeforeunload = null;
     //});
   },
   unloadRedirect: function(url) {
-		$('#content').show();
+    $('#content').show();
     $('#redirect').empty();
-	},
+  },
   // -- insert loader
   appendLoader: function(elmt, timer) {
     $('.progress', elmt).remove();
@@ -650,23 +628,23 @@ UI = {
     //console.log('UI.typeahead', searchbox);
     $(searchbox).typeahead({
       items: 5,
-			minLength: 3,
+      minLength: 3,
       source: function (typeahead, query) {
-				if (query.length < 3)
-					return;
-				if (!('typeahead-used' in API.xhr))
-					API.xhr['typeahead-used'] = [];
+        if (query.length < 3)
+          return;
+        if (!('typeahead-used' in API.xhr))
+          API.xhr['typeahead-used'] = [];
         if (typeof API.xhr['typeahead'] != 'undefined') {
           API.xhr['typeahead'].abort();
           console.log('UI.typeahead', 'abort previous call');
         }
-				for (var v in API.xhr['typeahead-used']) {
-					if (v == query) {
-						return;
-					}
-				}
+        for (var v in API.xhr['typeahead-used']) {
+          if (v == query) {
+            return;
+          }
+        }
         API.xhr['typeahead-used'].push(query);
-	API.xhr['typeahead'] = API.query('GET', 
+  API.xhr['typeahead'] = API.query('GET', 
                          'search/autosuggest/' + query + '.json', 
                          {
                           session_uid: Skhf.session.uid, 
@@ -739,7 +717,7 @@ UI = {
                                     break;
                                     case 'programs':
                                       i.addClass('program')
-				       												 .css('overflow','hidden')
+                                        .css('overflow','hidden')
                                        .find('a')
                                        .html(typeahead.highlighter(item.name))
                                     break;

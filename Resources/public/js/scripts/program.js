@@ -86,11 +86,11 @@ $(document).ready(function(){
         trigger.popover('hide');
       }
     });
-    
+
     //youtube
     var trigger = $('#view-program [data-more-streaming]');
-    if ($('#bonus .item').length) {
-      $('#trigger-bonus').append(' (' + $('#bonus .item').length + ')');
+    if ($('#carousel-youtube .item').length) {
+      $('#trigger-youtube').append(' (' + $('#carousel-youtube .item').length + ')');
     } else if (trigger &&
                trigger.data('more-streaming')) {
       console.log('data-more-streaming', trigger);
@@ -100,16 +100,16 @@ $(document).ready(function(){
                 {nb_results: 24},
                 function(programs) {
                   if (programs.length == 0 || typeof programs.length == 'undefined') {
-                    $('#trigger-bonus').parent().addClass('hide');
+                    $('.carousel-youtube').remove();
                     return;
                   }
                   //TODO : sort by duration ?
                   console.log('more-streaming', ' callback', programs.length);
-                  $('#trigger-bonus').append(' (' + programs.length + ')');
+                  $('#trigger-youtube').append(' (' + programs.length + ')');
                   if ($('#triggers li').length == 1) {
-                    $('#trigger-bonus').trigger('click');
+                    $('#trigger-youtube').trigger('click');
                   }
-                  var container = $('#ytCarousel .carousel-inner .item:first-child');
+                  var container = $('#carousel-youtube .carousel-inner .item:first-child');
                   var c_index = 0;
                   var nb_page = 6;
                   for (var i = 0; i < programs.length; i++) {
@@ -117,17 +117,20 @@ $(document).ready(function(){
                     if (i%nb_page == 0) {
                       c_index++;
                       var item = $('<div class="item' + (i ==0 ? ' active' : '') + '"></div>')
-                      container = $('#ytCarousel .carousel-inner').append(item);
+                      container = $('#carousel-youtube .carousel-inner').append(item);
                     }
                     item.append('<a href="#" data-couchmode=\'{"type": "remote", "id": "' + encodeURIComponent(url) + '", "hide_sliders": "1", "autoplay": "' + programs[i].id + '"}\' class="pull-left">' +
-                                   '<span>' + programs[i].duration + ' min.</span>' +
-                                   '<img class="img-polaroid" alt="' + programs[i].title + '" src="' + programs[i].picture + '" />' +
-                                   '<div class="title">' + programs[i].title + '</div>' +
-                                   '</a>');
+                                '<span>' + programs[i].duration + ' min.</span>' +
+                                '<img class="img-polaroid" alt="' + programs[i].title + '" src="' + programs[i].picture + '" />' +
+                                '<div class="title">' + programs[i].title + '</div>' +
+                                '</a>');
                   }
                   if (programs.length > nb_page) {
-                    $('#ytCarousel').carousel().carousel('pause').removeClass('hide'); //{interval: 7000, pause: 'hover'}
-                    $('#ytCarousel').append('<p class="alert alert-info">Ces extraits sont récupérés automatiquement sur Youtube notamment. Il se peut qu\'ils ne correspondent pas tout à fait au programme recherché et les sites référencés sont seuls responsables du contenu qu\'ils proposent.</p>');
+                    console.log('scripts/program.js', 'carousel youtube init', $('#carousel-youtube .carousel'));
+                    $('#carousel-youtube .carousel').removeClass('hide')
+                                                    .carousel({interval: 7000, pause: 'hover'})
+                                                    .carousel('cycle'); //{interval: 7000, pause: 'hover'}
+                    $('#carousel-youtube').append('<p class="alert alert-info">Ces extraits sont récupérés automatiquement sur Youtube notamment. Il se peut qu\'ils ne correspondent pas tout à fait au programme recherché et les sites référencés sont seuls responsables du contenu qu\'ils proposent.</p>');
                   
                   }
                 });
