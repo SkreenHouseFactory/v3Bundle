@@ -2,7 +2,7 @@
 var UI;
 UI = {
   user: '',
-  available_playlists: ['like','cinema'],
+  available_playlists: ['like','cinema','onglet','person','myskreener'],
   os: null,
   playlist: null,
   callbackModal: null,
@@ -231,14 +231,7 @@ UI = {
 
     } else {
       for(k in this.available_playlists) {
-        switch (this.available_playlists[k]) {
-          case 'like':
-            var ids = Skhf.session.datas.queue;
-          break;
-          case 'cinema':
-            var ids = Skhf.session.datas.cinema;
-          break;
-        }
+        var ids = Skhf.session.getPlaylistIds(this.available_playlists[k]);
         for (key in ids) {
           //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
           var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + ':not(.fav-on)', elmt);
@@ -274,17 +267,9 @@ UI = {
           break;
         }
       }
-      
     } else {
       for(k in this.available_playlists) {
-        switch (parameter) {
-          case 'like':
-            var ids = Skhf.session.datas.queue;
-          break;
-          case 'cinema':
-            var ids = Skhf.session.datas.cinema;
-          break;
-        }
+        var ids = Skhf.session.getPlaylistIds(this.available_playlists[k]);
         for (key in ids) {
           //console.log('UI.unloadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + '.fav-on');
           var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + '.fav-on', elmt);

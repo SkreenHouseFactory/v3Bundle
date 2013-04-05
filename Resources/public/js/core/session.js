@@ -136,6 +136,25 @@ var BaseSession = Class.extend({
       console.log('BaseSession.deleteNotification', resp, args);
     });
   },
+  getPlaylistIds: function(playlist) {
+    switch (playlist) {
+      case 'like':
+        var ids = this.datas.queue;
+      break;
+      case 'cinema':
+        var ids = this.datas.cinema;
+      break;
+      case 'onglet':
+        var ids = this.datas.channels;
+      break;
+      case 'person':
+        var ids = this.datas.persons;
+      break;
+      case 'myskreener':
+        var ids = this.datas.myskreeners;
+      break;
+    }
+  },
   getSocialDatas: function(callback){
     var self = this;
     console.log('BaseSession.getSocialDatas');
