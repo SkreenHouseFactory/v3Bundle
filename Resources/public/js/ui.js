@@ -121,7 +121,7 @@ UI = {
     } else if (trigger.hasClass('fav-epg')) {
         var content = '<b>Faites-vous un programme TV sur mesure&nbsp;!</b>' + 
                       '<br/>En ajoutant cette chaîne à vos playlists elle apparaîtra dans votre programme TV.';
-    } else if (trigger.hasClass('fav-channel')) {
+    } else if (trigger.hasClass('fav-onglet')) {
         var content = '<b>Ne ratez plus vos chaînes préférées&nbsp;!</b>' + 
                       '<br/>En ajoutant cette chaîne à vos playlists vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
     } else if (trigger.hasClass('fav-person')) {
@@ -157,8 +157,8 @@ UI = {
     } else if (trigger.hasClass('fav-epg')) {
       var parameter = 'epg';
       var name = 'cette chaîne TV';
-    } else if (trigger.hasClass('fav-channel')) {
-      var parameter = 'channel';
+    } else if (trigger.hasClass('fav-onglet')) {
+      var parameter = 'onglet';
       var name = 'cette chaîne';
     } else if (trigger.hasClass('fav-person')) {
       var parameter = 'person';
