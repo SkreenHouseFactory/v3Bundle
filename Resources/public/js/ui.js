@@ -157,11 +157,8 @@ UI = {
     } else if (trigger.hasClass('fav-epg')) {
       var parameter = 'epg';
       var name = 'cette chaîne TV';
-    } else if (trigger.hasClass('fav-channel')) {
-      var parameter = 'channel';
-      var name = 'cette chaîne';
-    } else if (trigger.hasClass('fav-onglet')) {
-      var parameter = 'onglet';
+    } else if (trigger.hasClass('fav-page')) {
+      var parameter = 'page';
       var name = 'cette chaîne';
     } else if (trigger.hasClass('fav-person')) {
       var parameter = 'person';
@@ -214,7 +211,7 @@ UI = {
   loadPlaylistTriggers: function(parameter, ids, elmt) {
 
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
-    console.log('UI.loadPlaylistTriggers', parameter, ids, elmt);
+    console.log('UI.loadPlaylistTriggers', parameter, ids);
     if (typeof parameter != 'undefined') {
       for (key in ids) {
         //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)');
@@ -235,6 +232,7 @@ UI = {
     } else {
       for(k in this.available_playlists) {
         var ids = Skhf.session.getPlaylistIds(this.available_playlists[k]);
+        console.log('UI.loadPlaylistTriggers', 'playlist:', this.available_playlists[k], 'ids:', ids);
         for (key in ids) {
           //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
           var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + ':not(.fav-on)', elmt);

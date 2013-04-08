@@ -137,6 +137,7 @@ var BaseSession = Class.extend({
     });
   },
   getPlaylistIds: function(playlist) {
+    //console.log('BaseSession.getPlaylistIds', playlist);
     switch (playlist) {
       case 'like':
         var ids = this.datas.queue;
@@ -145,18 +146,20 @@ var BaseSession = Class.extend({
         var ids = this.datas.cinema;
       break;
       case 'channel':
-        var ids = this.datas.channels;
+        var ids = this.datas.channel;
       break;
-      case 'onglet':
-        var ids = this.datas.homes;
+      case 'page':
+        var ids = this.datas.page;
       break;
       case 'person':
-        var ids = this.datas.persons;
+        var ids = this.datas.person;
       break;
-      case 'myskreener':
-        var ids = this.datas.users;
+      case 'user':
+        var ids = this.datas.user;
       break;
     }
+
+    return ids.split(',');
   },
   getSocialDatas: function(callback){
     var self = this;
