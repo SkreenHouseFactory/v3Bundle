@@ -1,4 +1,5 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
 {% block meta %}
 {% if data.programs|length < 6 or app.request.get('page') %}
 <meta name="robots" content="noindex,follow" />
@@ -13,22 +14,35 @@
 {% endif %}
 <meta name="object_type" content="channel" />
 {% endblock %}
-{% block title %}
-{{ 'page.title.channel'|trans({'%name%': data.name, '%access%': data.has_replay is defined and data.has_replay ? 'Replay' : 'Streaming'}) }}
-{%- if app.request.get('format') %}, {{ app.request.get('format') }}{% endif -%}
-{%- if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif -%}
-{%- if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif -%}
-{%- endblock %}
+
+{% block title %}{{ channel.titre }}{% endblock %}
 {% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
 {% block content %}
-{% if channel.cover %}<div id="cover" style="background: url('{{ channel.cover }}') top center no-repeat;"/></div>{% endif %}
+<div id="cover"{% if channel.cover %} style="background: url('{{ channel.cover }}') top center no-repeat;"{% endif %}>
+<div class="header-container">
+  <div class="header-content">
+    <div class="pull-right actions" data-id="{{ data.id }}">
+      <a class="fav fav-onglet btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites_channel'|trans }}</a>
+    </div>
+    <h1>{{ channel.titre }}</h1>
+    {% if channel.img is defined %}
+    <img class="channel-logo pull-left" src="{{ channel.img }}" />
+    {%elseif data.img is defined %}
+    <img class="channel-logo pull-left" src="{{ data.img }}" /> {{ data.img }}
+    {% endif %}
+    {% if channel.description %}
+    <p class="lead channel-description">{{ channel.description }}</p>
+    {% endif %}
+  </div>
+</div>
+</div>
 {% if channel.type == "ChannelFournisseur" %}
-	{% include 'SkreenHouseFactoryV3Bundle:Content:_channel_fournisseur.html.twig' with {data:data} %}
+  {% include 'SkreenHouseFactoryV3Bundle:Content:_channel_fournisseur.html.twig' with {data:data} %}
 {% elseif channel.type == "ChannelOnglet" %}
-	{% include 'SkreenHouseFactoryV3Bundle:Content:_channel_onglet.html.twig' with {data:data} %}
+  {% include 'SkreenHouseFactoryV3Bundle:Content:_channel_onglet.html.twig' with {data:data} %}
 {% elseif channel.type == "ChannelPersonne" %}
-	{% include 'SkreenHouseFactoryV3Bundle:Content:_channel_personne.html.twig' with {data:data} %}
+  {% include 'SkreenHouseFactoryV3Bundle:Content:_channel_personne.html.twig' with {data:data} %}
 {% endif %}
 {% endblock %}
 

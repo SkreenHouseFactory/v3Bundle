@@ -1,4 +1,5 @@
 /* channel page */
+
 body.view-channel {
 	#main {
 		#cover {
@@ -8,6 +9,56 @@ body.view-channel {
 			padding: 0;
 		}
 	}
+}
+
+.header-container {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 450px;
+
+  .header-content { /* Cartouche logo, titre, description et Suivre pour une chaine */
+    position: absolute;
+    min-height: 70px;
+    padding: 10px;
+    width: 990px;
+    left: 50%;
+    margin-left: -495px;
+    bottom: 20px;
+  	border-radius: 5px;
+  	background: rgba(0,0,0,0.5);
+    /*background-color: transparent;*/
+
+    img {
+      padding: 5px;
+    }
+
+  	a.fav {
+  	 float: right;
+  		padding: 10px;
+  		margin: 0;
+  	}
+    h1 {
+  	  font-size: 2.7em;
+  	  padding-top: 0;
+  	  padding-bottom: 15px;
+      margin: 0;
+      color: #fff;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+  	  a {
+  	 	color: white;
+  	 	text-decoration: none;
+  	  }
+    }
+    .lead {
+  	  font-size: 1.25em;
+      margin: 0;
+      line-height: 1.45;
+      color: #fff;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+      padding: 0 5px;
+    }
+  }
 }
 
 #view-channel {

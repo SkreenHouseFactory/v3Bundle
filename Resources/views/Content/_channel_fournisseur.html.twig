@@ -1,29 +1,6 @@
 <div id="view-channel" data-id="{{ data.id }}" class="container">
 <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ data.seo_url, text: 'Je regarde ' ~ data.name ~ ' sur mySkreen et vous ?' } %}</div>
 
-<ul class="breadcrumb">
-  <li{% if app.request.get('facet') is null and app.request.get('page') is null and app.request.get('format') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: data.seo_url|replace({'/': ''})}) }}/"><span itemprop="title">{{ data.name }}</span></a>{% if app.request.get('facet') or app.request.get('page') or app.request.get('format') %} <span class="divider">/</span>{% endif %}</li>
-  {% if app.request.get('format') %}
-  <li{% if app.request.get('page') is null and app.request.get('facet') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_format', {format: app.request.get('format'), slug: data.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ app.request.get('format') }}</span></a>{% if app.request.get('page') or app.request.get('facet') %} <span class="divider">/</span>{% endif %} </li>
-		{% endif %}
-  {% if app.request.get('facet') %}
-  <li{% if app.request.get('page') is null %} class="active"{% endif%} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_facet', {facet: app.request.get('facet'), slug: data.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ app.request.get('facet') }}</span></a>{% if app.request.get('page') %} <span class="divider">/</span>{% endif %}</li>
-  {% endif %}
-  {% if app.request.get('page') %}
-  <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_format_page', {format: app.request.get('format'), slug: data.seo_url|replace({'/': ''})}) }}/page-{{ app.request.get('page') }}/"><span itemprop="title">Page {{ app.request.get('page') }}</span></a></li>
-  {% endif %}
-</ul>
-
-	{% if data.type in ['broadcast','cinema'] %}
-	<div class="pull-right actions" data-id="{{ data.id }}">
-		<a class="fav fav-{{ data.type == 'broadcast' ? 'epg' : 'theater' }} btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
-	</div>
-	{% endif %}
-
-<img class="channel-logo pull-left" src="{{ data.img }}" />
-<h1>Regardez {% if app.request.get('format') %}{{ app.request.get('format') }} &raquo; {% endif %}{{ data.name }}{% if app.request.get('facet') %} <small> - {{ app.request.get('facet') }}</small>{% endif %}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
-<p class="channel-description">{{ data.description }}</p>
-
 {% if app.request.get('page') is null and 
       app.request.get('format') is null and 
       app.request.get('facet') is null %}
