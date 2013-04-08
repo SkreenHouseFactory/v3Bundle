@@ -157,6 +157,9 @@ UI = {
     } else if (trigger.hasClass('fav-epg')) {
       var parameter = 'epg';
       var name = 'cette chaîne TV';
+    } else if (trigger.hasClass('fav-channel')) {
+      var parameter = 'channel';
+      var name = 'cette chaîne';
     } else if (trigger.hasClass('fav-page')) {
       var parameter = 'page';
       var name = 'cette chaîne';
