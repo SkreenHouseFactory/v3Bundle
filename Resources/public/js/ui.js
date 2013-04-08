@@ -2,7 +2,7 @@
 var UI;
 UI = {
   user: '',
-  available_playlists: ['like','cinema','channel','home','person','user'],
+  available_playlists: ['like','cinema','channel','page','person','user'],
   os: null,
   playlist: null,
   callbackModal: null,
