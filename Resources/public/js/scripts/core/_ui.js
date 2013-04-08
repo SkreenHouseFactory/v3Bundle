@@ -137,8 +137,8 @@ UiView = {
     $(elmt).on('click', '[data-ajax]', function(e){
       //e.preventDefault();
       console.log('script', '[data-ajax]', $(this).data('ajax'));
-      //remove home body class
-      $('body').removeClass('view-homes');
+      //add body class to overload view-homes
+      $('body').addClass('view-ajax');
       $($(this).attr('rel')).empty();
       UI.appendLoader($($(this).attr('rel')));
       if ($(this).data('ajax').indexOf('#') != -1) {
@@ -158,17 +158,17 @@ UiView = {
     });
     // -- redirect
     $(elmt).on('click', '[data-redirect]', function(){
-        console.log('script', 'player redirect', $(this));
-        if ($(this).data('redirect') == 'unload') {
-          UI.unloadRedirect();
-        } else {
-          UI.loadRedirect($(this).data('redirect'), $(this).data('seo-url'));
-        }
-        //hack notifications
-        if ($(this).parents('li.open:first').length) {
-          $(this).parents('li.open:first').removeClass('open');
-        }
-        return false;
+      console.log('script', 'player redirect', $(this));
+      if ($(this).data('redirect') == 'unload') {
+        UI.unloadRedirect();
+      } else {
+        UI.loadRedirect($(this).data('redirect'), $(this).data('seo-url'));
+      }
+      //hack notifications
+      if ($(this).parents('li.open:first').length) {
+        $(this).parents('li.open:first').removeClass('open');
+      }
+      return false;
     });
     // -- btn-radio
     $(elmt).on('click', '[data-toggle="buttons-radio"] > *', function(){

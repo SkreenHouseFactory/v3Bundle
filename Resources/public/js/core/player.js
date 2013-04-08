@@ -231,6 +231,11 @@ Player = {
             this.getType() == 'ios' || 
             this.getType() == 'android-mobile') {
           console.warn('Player.flowplayer', 'iOs/noflash', player.url);
+
+          if (navigator.userAgent.match(/iPhone|iPod/)) {
+            document.location = player.url;
+            return;
+          }
           /*
           Player.elmt.css('height', document.body.clientHeight/2);
           $f(this.elmt.attr('id'), flashArgs, flowArgs).ipad({simulateiDevice: true, 
@@ -246,7 +251,7 @@ Player = {
             '<source ' + ( typeof player.poster != 'undefined' ? 'poster="' + player.poster + '" ' : '') + 'src="' + player.url + '" type="video/mp4"></source>' +
             '</video>'
           );
-          this.elmt.find('video:first').play();
+          this.elmt.find('video').play();
           console.warn('Player.flowplayer', 'html', Player.elmt.html());
 
         } else {

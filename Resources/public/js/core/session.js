@@ -2,28 +2,28 @@
 var BaseSession = Class.extend({
   uid: '',
   datas: {},
-	sync_args: { 'short':1 },
+  sync_args: { 'short':1 },
   onglet: '',
   access: '',
   social_state: null,
-	callbackInit: null,
-	callbackSignout: null,
-	callbackSignin: null,
-	callbackSocial: [],
+  callbackInit: null,
+  callbackSignout: null,
+  callbackSignin: null,
+  callbackSocial: [],
   init: function(callback, args) {
     console.log('BaseSession.init', args);
     var self = this;
     this.uid = API.cookie('uid');
-		//update default sync args & launch sync
-		$.extend(this.sync_args, typeof args == 'undefined' ? {} : args);
+    //update default sync args & launch sync
+    $.extend(this.sync_args, typeof args == 'undefined' ? {} : args);
     this.sync(function(sessionData){
       //console.log('BaseSession.init', 'callback Session.sync', sessionData);
-			//callbackInit : called only once
-			if (self.callbackInit) {
-				self.callbackInit();
-				self.callbackInit = null;
-			}
-			//callback
+      //callbackInit : called only once
+      if (self.callbackInit) {
+        self.callbackInit();
+        self.callbackInit = null;
+      }
+      //callback
       if (typeof callback != 'undefined') {
         callback(sessionData)
       }
@@ -72,12 +72,12 @@ var BaseSession = Class.extend({
   },
   signin: function(sessionData, callback) {
     console.log('BaseSession.signin', sessionData);
-		//already logged ?
-		if (this.datas.email) {
-			console.error('BaseSession.signin', 'user already logged to current session', this.datas, sessionData);
-			return;
-		}
-		
+    //already logged ?
+    if (this.datas.email) {
+      console.error('BaseSession.signin', 'user already logged to current session', this.datas, sessionData);
+      return;
+    }
+    
     this.datas = sessionData;
     this.uid = this.datas.uid;
     API.cookie('session_uid', this.uid);
@@ -90,21 +90,21 @@ var BaseSession = Class.extend({
       //console.log('BaseSession.signin callback', callback);
       callback();
     }
-		if (this.callbackSignin) {
-			this.callbackSignin();
-		}
+    if (this.callbackSignin) {
+      this.callbackSignin();
+    }
   },
   signout: function(callback) {
-		var self = this;
+    var self = this;
 
     API.query('POST', 'session/signout.json', {session_uid: this.uid}, function(){
-			if (typeof callback != 'undefined') {
-				callback();
-			}
-			if (self.callbackSignout) {
-				self.callbackSignout();
-			}
-		});
+      if (typeof callback != 'undefined') {
+        callback();
+      }
+      if (self.callbackSignout) {
+        self.callbackSignout();
+      }
+    });
 
     this.datas = '';
     this.user = '';
@@ -127,14 +127,39 @@ var BaseSession = Class.extend({
     }
 
     var args = {
-                'session_uid': this.uid,
-                'id': id,
-                'delete': 1
-               };
+      'session_uid': this.uid,
+      'id': id,
+      'delete': 1
+    };
 
     API.query('POST', 'notify.json', args, function(resp){
       console.log('BaseSession.deleteNotification', resp, args);
     });
+  },
+  getPlaylistIds: function(playlist) {
+    //console.log('BaseSession.getPlaylistIds', playlist);
+    switch (playlist) {
+      case 'like':
+        var ids = this.datas.queue;
+      break;
+      case 'cinema':
+        var ids = this.datas.cinema;
+      break;
+      case 'channel':
+        var ids = this.datas.channel;
+      break;
+      case 'page':
+        var ids = this.datas.page;
+      break;
+      case 'person':
+        var ids = this.datas.person;
+      break;
+      case 'user':
+        var ids = this.datas.user;
+      break;
+    }
+
+    return ids.split(',');
   },
   getSocialDatas: function(callback){
     var self = this;
@@ -153,60 +178,60 @@ var BaseSession = Class.extend({
       return callback(self.datas.friends, self.datas.friends_programs);
     }
 
-		//loading
-		if (this.social_state == 'processing') {
+    //loading
+    if (this.social_state == 'processing') {
       console.warn('BaseSession.getSocialDatas', 'state=processing', 'add callback');
-			this.callbackSocial.push(callback);
-		} else {
-			//init
-			if (this.social_state == null) {
-	      console.warn('BaseSession.getSocialDatas', 'state=init');
-				this.social_state = 'processing';
-				this.callbackSocial.push(callback);
-			}
-	    //load from IndexedDb ?
-	    API.selectIndexedDb('skhf', 'friends', 1, function(IndexedDbDatas){
-	      console.log('BaseSession.getSocialDatas', 'selectIndexedDb', IndexedDbDatas);
-				this.social_state = 'done';
-	      if (IndexedDbDatas) {
-	        console.log('BaseSession.getSocialDatas', 'IndexedDbDatas', IndexedDbDatas);
-	        if (IndexedDbDatas.updated_at > (new Date()).getTime() - 3600*1000) {
-	          self.datas.friends = IndexedDbDatas.friends;
-	          self.datas.friends_programs = IndexedDbDatas.friends_programs;
-						for (k in this.socialCallback) {
-		          this.callbackSocial[k](self.datas.friends, self.datas.friends_programs);
-						}
+      this.callbackSocial.push(callback);
+    } else {
+      //init
+      if (this.social_state == null) {
+        console.warn('BaseSession.getSocialDatas', 'state=init');
+        this.social_state = 'processing';
+        this.callbackSocial.push(callback);
+      }
+      //load from IndexedDb ?
+      API.selectIndexedDb('skhf', 'friends', 1, function(IndexedDbDatas){
+        console.log('BaseSession.getSocialDatas', 'selectIndexedDb', IndexedDbDatas);
+        this.social_state = 'done';
+        if (IndexedDbDatas) {
+          console.log('BaseSession.getSocialDatas', 'IndexedDbDatas', IndexedDbDatas);
+          if (IndexedDbDatas.updated_at > (new Date()).getTime() - 3600*1000) {
+            self.datas.friends = IndexedDbDatas.friends;
+            self.datas.friends_programs = IndexedDbDatas.friends_programs;
+            for (k in this.socialCallback) {
+              this.callbackSocial[k](self.datas.friends, self.datas.friends_programs);
+            }
   
-	          return;
-	        } else {
-	          API.deleteIndexedDb('skhf', 'friends', 1);
-	        }
-	      }
+            return;
+          } else {
+            API.deleteIndexedDb('skhf', 'friends', 1);
+          }
+        }
 
-	      //fail : load from API
-	      self.sync(function(sessionDatas){
-	        console.log('BaseSession.getSocialDatas', 'sync session callback', sessionDatas);
-	        self.datas.friends = sessionDatas.friends;
-	        self.datas.friends_programs = sessionDatas.friends_playlists;
+        //fail : load from API
+        self.sync(function(sessionDatas){
+          console.log('BaseSession.getSocialDatas', 'sync session callback', sessionDatas);
+          self.datas.friends = sessionDatas.friends;
+          self.datas.friends_programs = sessionDatas.friends_playlists;
 
-	        API.insertIndexedDb('skhf', 'friends', {id: 1, 
-	                                                friends: self.datas.friends, 
-	                                                friends_programs: self.datas.friends_programs,
-	                                                updated_at: (new Date()).getTime()});
+          API.insertIndexedDb('skhf', 'friends', {id: 1, 
+                                                  friends: self.datas.friends, 
+                                                  friends_programs: self.datas.friends_programs,
+                                                  updated_at: (new Date()).getTime()});
 
-	        if (typeof callback != 'undefined') {
-						for (k in this.socialCallback) {
-	        		console.log('BaseSession.getSocialDatas', 'callback', this.callbackSocial[k]);
-		          this.callbackSocial[k](self.datas.friends, self.datas.friends_programs);
-						}
-	        }
-	      },{
-	        with_notifications: 0,
-	        with_friends: 1,
-	        with_friends_playlists: 1
-	      });
-	    });
-		}
+          if (typeof callback != 'undefined') {
+            for (k in this.socialCallback) {
+              console.log('BaseSession.getSocialDatas', 'callback', this.callbackSocial[k]);
+              this.callbackSocial[k](self.datas.friends, self.datas.friends_programs);
+            }
+          }
+        },{
+          with_notifications: 0,
+          with_friends: 1,
+          with_friends_playlists: 1
+        });
+      });
+    }
   },
   getFriendsUids: function(callback){
     this.getSocialDatas(function(friends) {

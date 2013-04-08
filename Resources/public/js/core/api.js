@@ -430,7 +430,8 @@ API = {
                   var3]);
     }
   },
-  geolocation: function(customSuccessCallback, customErrorCallback){
+  geolocation: function(customSuccessCallback, customErrorCallback, watch){
+    var self = this;
     console.log('API.geolocation', customSuccessCallback, customErrorCallback);
     function successCallback(position){
       var date = new Date();
@@ -463,14 +464,25 @@ API = {
     }
     //browser capability
     if (!navigator.geolocation) {
-      if (typeof customSuccessCallback != 'undefined') {
+      if (typeof customErrorCallback != 'undefined') {
         customErrorCallback('Votre navigateur ne prend pas en compte la géolocalisation', 'navigator.geolocation');
       }
       return null;
     }
-    this.geolocation_id = navigator.geolocation.watchPosition(successCallback, 
-                                                              errorCallback, 
-                                                              {enableHighAccuracy:true});
+    if (typeof watch != 'undefined') {
+      //stop watching : navigator.geolocation.clearWatch(API.geolocation_id);
+      this.geolocation_id = navigator.geolocation.watchPosition(
+        successCallback,
+        errorCallback,
+        {enableHighAccuracy:true}
+      );
+    } else {
+      this.geolocation_id = navigator.geolocation.getCurrentPosition(
+        successCallback,
+        errorCallback,
+        {enableHighAccuracy:true}
+      );
+    }
   },
   formatTimestamp: function(timestamp) {
     var time = new Date(timestamp),

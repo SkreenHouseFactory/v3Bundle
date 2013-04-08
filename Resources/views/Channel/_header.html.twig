@@ -1,0 +1,18 @@
+<div id="cover"{% if channel.cover %} style="background: url('{{ channel.cover }}') top center no-repeat;"{% endif %}>
+<div class="header-container">
+  <div class="header-content">
+    <div class="pull-right actions" data-id="{{ data.id }}">
+      <a class="fav fav-{{ fav }} btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites_channel'|trans }}</a>
+    </div>
+    <h1>{{ channel.titre }}</h1>
+    {% if channel.img is defined %}
+    <img class="channel-logo pull-left" src="{{ channel.img }}" />
+    {%elseif data.img is defined %}
+    <img class="channel-logo pull-left" src="{{ data.img }}" /> {{ data.img }}
+    {% endif %}
+    {% if channel.description %}
+    <p class="lead channel-description">{{ channel.description }}</p>
+    {% endif %}
+  </div>
+</div>
+</div>

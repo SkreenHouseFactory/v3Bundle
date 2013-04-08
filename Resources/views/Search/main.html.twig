@@ -21,65 +21,65 @@
   <div id="search-programs">
   {% if results.count.total is not defined %}
     {% if results.count %}
-    	<p class="alert alert-info">{{ results.count }} {{ 'search.results'|trans }}</p>
+      <p class="alert alert-info">{{ results.count }} {{ 'search.results'|trans }}</p>
     {% else %}
-    	<p class="alert">{{ 'search.noresults'|trans }}</p>
+      <p class="alert">{{ 'search.noresults'|trans }}</p>
     {% endif %}
     {% if results.spelling|length %}
-	    <p class="lead">Vouliez-vous dire : 
-	    {% for spelling in results.spelling %}<a href="/app_dev.php/programmes/{{ spelling }}">{{ spelling }}</a> ?{% endfor %}
-	    </p>
+      <p class="lead">Vouliez-vous dire : 
+      {% for spelling in results.spelling %}<a href="/app_dev.php/programmes/{{ spelling }}">{{ spelling }}</a> ?{% endfor %}
+      </p>
     {% endif %}
     {% set slider = {title: '', programs: results.programs, url: results.paginate ~ '.json?format=' ~ app.request.get('format')} %}
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
 
   {% else %}
     {% if results.count.total %}
-    	<p class="alert alert-info">{{ results.count.total }} {{ 'search.results'|trans }}</p>
+      <p class="alert alert-info">{{ results.count.total }} {{ 'search.results'|trans }}</p>
     {% else %}
-    	<p class="alert">{{ 'search.noresults'|trans }}</p>
+      <p class="alert">{{ 'search.noresults'|trans }}</p>
     {% endif %}
     {% if results.spelling|length %}
     <p class="lead">Vouliez-vous dire : 
     {% for spelling in results.spelling %}<a href="/app_dev.php/programmes/{{ spelling }}">{{ spelling }}</a> ?{% endfor %}
-	    </p>
+      </p>
     {% endif %}
 
-	{% set hasActiveTabYet = false %}
-	{% set keys = {'films':'Films','documentaires':'Documentaires','emissions':'Emissions','series':'Séries','spectacles':'Spectacles','archives':'Archives','nouveautes':'Nouveautés'} %}
+  {% set hasActiveTabYet = false %}
+  {% set keys = {'films':'Films','documentaires':'Documentaires','emissions':'Emissions','series':'Séries','spectacles':'Spectacles','archives':'Archives','nouveautes':'Nouveautés'} %}
     <ul id="triggers" class="nav nav-pills" style="font-size: 1.2em;">
-		{% for key,val in keys %}
-    	{% if attribute(results.count,key) %}
-			{% set nb = attribute(results.count,key) %}
-		<li{% if hasActiveTabYet == false %} class="active"{% set hasActiveTabYet = key %}{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ val }} <span>{{ nb }}</span></a></li>
-		{% endif %}
-		{% endfor %}
-      	<li class="pull-right"><a href="#bonus" id="trigger-bonus" data-toggle="tab">Bonus</a></li>
+    {% for key,val in keys %}
+      {% if attribute(results.count,key) %}
+      {% set nb = attribute(results.count,key) %}
+    <li{% if hasActiveTabYet == false %} class="active"{% set hasActiveTabYet = key %}{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ val }} <span>{{ nb }}</span></a></li>
+    {% endif %}
+    {% endfor %}
+        <li class="pull-right"><a href="#youtube" id="trigger-youtube" data-toggle="tab">YouTube</a></li>
     </ul>
 
     <div class="tab-content">
-		{% for key,val in keys %}
-		<div id="{{ key }}" class="tab-pane{% if hasActiveTabYet == key %} active{% endif %}">
-	    {% if attribute(results.count,key) %}
-		  	<div id="user-programs" class="slider slider-list">
-		    	<ul class="items">
-		    {% for p in attribute(results,val) %}
-		      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p} %}
-		    {% endfor %}
-		    	</ul>
-			</div>
-	    {% endif %}
-		</div>
-		{% endfor %}
-      	<div id="bonus" class="tab-pane" data-more-streaming-query="{{ results.query }}">
-        	<div id="ytCarousel" class="carousel slide">
-          		<div class="carousel-inner"></div>
-          			<a class="carousel-control left" href="#ytCarousel" data-slide="prev">&lsaquo;</a>
-          			<a class="carousel-control right" href="#ytCarousel" data-slide="next">&rsaquo;</a>
-        		</div>
-      		</div>
-		</div>
-	</div>
+    {% for key,val in keys %}
+    <div id="{{ key }}" class="tab-pane{% if hasActiveTabYet == key %} active{% endif %}">
+      {% if attribute(results.count,key) %}
+        <div id="user-programs" class="slider slider-list">
+          <ul class="items">
+        {% for p in attribute(results,val) %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p} %}
+        {% endfor %}
+          </ul>
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+    <div id="youtube" class="tab-pane" data-more-streaming-query="{{ results.query }}">
+      <div id="carousel-youtube" class="carousel slide">
+          <div class="carousel-inner"></div>
+            <a class="carousel-control left" href="#carousel-youtube" data-slide="prev">&lsaquo;</a>
+            <a class="carousel-control right" href="#carousel-youtube" data-slide="next">&rsaquo;</a>
+        </div>
+      </div>
+    </div>
+  </div>
   {% endif %}
   </div>
   <div id="bottom-search-results"></div>

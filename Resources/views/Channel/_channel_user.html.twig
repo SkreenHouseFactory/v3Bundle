@@ -1,0 +1,6 @@
+{% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data: data, fav: 'user'} %}
+<div id="view-channel" data-id="{{ data.id }}" class="container">
+  <div class="pull-right actions" data-id="{{ data.id }}">
+    <a class="fav fav-myskreener btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+  </div>
+</div>

@@ -2,7 +2,7 @@
 var UI;
 UI = {
   user: '',
-  available_playlists: ['like','cinema'],
+  available_playlists: ['like','cinema','channel','page','person','user'],
   os: null,
   playlist: null,
   callbackModal: null,
@@ -121,7 +121,7 @@ UI = {
     } else if (trigger.hasClass('fav-epg')) {
         var content = '<b>Faites-vous un programme TV sur mesure&nbsp;!</b>' + 
                       '<br/>En ajoutant cette chaîne à vos playlists elle apparaîtra dans votre programme TV.';
-    } else if (trigger.hasClass('fav-channel')) {
+    } else if (trigger.hasClass('fav-onglet')) {
         var content = '<b>Ne ratez plus vos chaînes préférées&nbsp;!</b>' + 
                       '<br/>En ajoutant cette chaîne à vos playlists vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
     } else if (trigger.hasClass('fav-person')) {
@@ -159,6 +159,9 @@ UI = {
       var name = 'cette chaîne TV';
     } else if (trigger.hasClass('fav-channel')) {
       var parameter = 'channel';
+      var name = 'cette chaîne';
+    } else if (trigger.hasClass('fav-page')) {
+      var parameter = 'page';
       var name = 'cette chaîne';
     } else if (trigger.hasClass('fav-person')) {
       var parameter = 'person';
@@ -211,7 +214,7 @@ UI = {
   loadPlaylistTriggers: function(parameter, ids, elmt) {
 
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
-    console.log('UI.loadPlaylistTriggers', parameter, ids, elmt);
+    console.log('UI.loadPlaylistTriggers', parameter, ids);
     if (typeof parameter != 'undefined') {
       for (key in ids) {
         //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)');
@@ -231,14 +234,8 @@ UI = {
 
     } else {
       for(k in this.available_playlists) {
-        switch (this.available_playlists[k]) {
-          case 'like':
-            var ids = Skhf.session.datas.queue;
-          break;
-          case 'cinema':
-            var ids = Skhf.session.datas.cinema;
-          break;
-        }
+        var ids = Skhf.session.getPlaylistIds(this.available_playlists[k]);
+        console.log('UI.loadPlaylistTriggers', 'playlist:', this.available_playlists[k], 'ids:', ids);
         for (key in ids) {
           //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
           var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + ':not(.fav-on)', elmt);
@@ -274,17 +271,9 @@ UI = {
           break;
         }
       }
-      
     } else {
       for(k in this.available_playlists) {
-        switch (parameter) {
-          case 'like':
-            var ids = Skhf.session.datas.queue;
-          break;
-          case 'cinema':
-            var ids = Skhf.session.datas.cinema;
-          break;
-        }
+        var ids = Skhf.session.getPlaylistIds(this.available_playlists[k]);
         for (key in ids) {
           //console.log('UI.unloadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + '.fav-on');
           var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + '.fav-on', elmt);
@@ -562,7 +551,7 @@ UI = {
   },
   loadRedirect: function(url, link_fiche) {
     console.log('UI.loadRedirect', url);
-    $('body').removeClass('view-homes view-homes_vod');
+    $('body').addClass('view-redirect');
     Player.redirect(url, $('#redirect'), $('#content'));
     $('#redirect').prepend('<div class="container container-redirect collapse in">' +
                            '<p class="alert alert-info">' +
@@ -578,6 +567,7 @@ UI = {
     //});
   },
   unloadRedirect: function(url) {
+    $('body').removeClass('view-redirect');
     $('#content').show();
     $('#redirect').empty();
   },

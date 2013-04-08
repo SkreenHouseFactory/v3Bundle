@@ -53,7 +53,7 @@
         app.request.get('format') is null and 
         app.request.get('facet') is null %}
     {% if channel.epg is defined and channel.epg %}
-      {% include 'SkreenHouseFactoryV3Bundle:Content:_channel-replay.html.twig' with {channel: channel} %}
+      {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-replay.html.twig' with {channel: channel} %}
     {% endif %}
     <h2>{{ channel.name }} : tous les programmes</h2>
   {% endif%}
