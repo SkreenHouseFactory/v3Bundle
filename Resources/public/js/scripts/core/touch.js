@@ -5,10 +5,11 @@ $(document).ready(function(){
     $('html.touch .tv-component').on('touchstart', function(e){
       console.log('scripts/core/ui.js', 'touch trigger click');
       //alert('touch trigger click: ' + this.className);
-      e.preventDefault();
-
-      $(this).trigger('click');
-      return false;
+      if (typeof $(this).attr('href') == 'undefined') {
+        e.preventDefault();
+        $(this).trigger('click');
+        return false;
+      }
     });
   }
 });

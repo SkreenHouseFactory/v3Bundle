@@ -547,7 +547,7 @@ UI = {
   },
   loadRedirect: function(url, link_fiche) {
     console.log('UI.loadRedirect', url);
-    $('body').removeClass('view-homes view-homes_vod');
+    $('body').addClass('view-redirect');
     Player.redirect(url, $('#redirect'), $('#content'));
     $('#redirect').prepend('<div class="container container-redirect collapse in">' +
                            '<p class="alert alert-info">' +
@@ -563,6 +563,7 @@ UI = {
     //});
   },
   unloadRedirect: function(url) {
+    $('body').removeClass('view-redirect');
     $('#content').show();
     $('#redirect').empty();
   },
