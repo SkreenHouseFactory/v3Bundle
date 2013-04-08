@@ -35,7 +35,8 @@ UiView = {
         carousels = $('.carousel');
         if (carousels.length > 0) {
           carousels.each(function(){
-            $(this).carousel('pause');
+            if ($(this).parent().attr('id') != 'carousel-bonus') //TOFIX
+              $(this).carousel('pause');
           });  
         }
       });
@@ -127,7 +128,6 @@ UiView = {
       var args = $.extend({session_uid: Skhf.session.uid}, $(this).data('couchmode'));
       console.log('script', 'data-couchmode', $(this).data('couchmode'), args);
       Couchmode.init(args);
-
       //hack close player
       if ($('#couchmode #couchmode-close').length == 0) {
         $('#couchmode').prepend('<div id="couchmode-close"><i class="icon-remove icon-white"></i> Fermer</div>');
@@ -150,6 +150,10 @@ UiView = {
       $($(this).attr('rel')).load(url, function() {
         UI.unloadRedirect();
       });
+      //hack notifications
+      if ($(this).parents('li.open:first').length) {
+        $(this).parents('li.open:first').removeClass('open');
+      }
       return false;
     });
     // -- redirect
