@@ -238,7 +238,7 @@
         {# bonus #}
         {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
         <div id="carousel-bonus" class="tab-pane">
-          <div class="carousel slide" data-carousel="autoload">
+          <div class="carousel slide">
             <div class="carousel-inner">
                 {% for b in program.offers['bonus'] %}
                 <div class="item active"><a data-play="{{ b.id }}" class="pull-left"><img class="img-polaroid" alt="{{ b.title }} extrait" src="{{ b.picture }}"><div class="title">{{ b.title }}</div></a></div>
