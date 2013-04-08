@@ -19,7 +19,6 @@
 {% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
 {% block content %}
-
 {% if channel.type == "ChannelFournisseur" %}
   {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_fournisseur.html.twig' with {data:data} %}
 {% elseif channel.type == "ChannelOnglet" %}
