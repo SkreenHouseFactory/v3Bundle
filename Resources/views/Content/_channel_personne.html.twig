@@ -1,11 +1,6 @@
 <div id="view-person" data-id="{{ data.id }}" class="container">
 
-  <div class="pull-right actions" data-id="{{ data.id }}">
-    <a class="fav fav-person btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
-  </div>
-
   <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ data.seo_url, text: 'Je regarde tout ' ~ data.name ~ ' sur mySkreen et vous ?' } %}</div>
-  <h1>{{ data.name }}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
 
   <div class="view-person-main">
 

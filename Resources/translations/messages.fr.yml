@@ -234,6 +234,7 @@ search:
 action:
     in.favorites: Abonné
     add.favorites: Suivre
+    add.favorites_channel: Suivre la chaine
     remove.favorites: Retirer
     deporte: sur mySkreen
     play:

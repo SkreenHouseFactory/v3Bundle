@@ -1,4 +1,5 @@
 <div id="view-home">
+
   {% for slider in data.sliders if slider.id is defined %}
     {% if loop.first %}
       <div class="absolute">
@@ -12,9 +13,6 @@
       </div>
       {% endif %}
 
-      <div class="pull-right actions" data-id="{{ data.id }}">
-        <a class="fav fav-onglet btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
-      </div>
     {% else %}
       {% if loop.index == 2 %}<div class="container">{% else %}<hr/>{% endif %}
       <a name="{{ slider.name }}"></a>
