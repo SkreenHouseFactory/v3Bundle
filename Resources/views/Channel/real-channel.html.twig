@@ -1,9 +1,6 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
 {% block meta %}
-{% if data.programs|length < 6 or app.request.get('page') %}
-<meta name="robots" content="noindex,follow" />
-{% endif %}
 <meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ data.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}" />
 <meta property="og:description" content="{{ data.description|striptags }}" />
 <meta property="og:type" content="channel" />
@@ -25,7 +22,7 @@
   {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_onglet.html.twig' with {data:data} %}
 {% elseif channel.type == "ChannelPersonne" %}
   {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_personne.html.twig' with {data:data} %}
-{% elseif channel.type == "ChannelUser" %}
+{% elseif channel.type == "ChannelMyskreener" %}
   {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_user.html.twig' with {data:data} %}
 {% endif %}
 {% endblock %}

@@ -273,7 +273,7 @@ class ContentController extends Controller
       }
 
       // Si on est une une page sk_channel, on redirige vers le twig correct
-      if (property_exists($datas,"channel")) {
+      if (property_exists($datas,'channel')) {
         $params = array(
           'data' => $datas,
           'channel' => $datas->channel,
