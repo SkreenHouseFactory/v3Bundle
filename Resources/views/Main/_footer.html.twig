@@ -17,56 +17,34 @@
     {% render 'SkreenHouseFactoryV3Bundle:Main:boost' with {}, {'standalone': true} %}
     </div>
     <div id="cats" class="span2">
-      {% if app.request.get('home') == 'video-a-la-demande' %}
-      {% set footerspin = ' VOD' %}
-      {% elseif app.request.get('home') == 'replay-tv' %}
-      {% set footerspin = ' Replay TV' %}
-      {% elseif app.request.get('home') == 'cinema' %}
-      {% set footerspin = ' cinéma' %}
-      {% elseif app.request.get('home') == 'film' %}
-      {% set footerspin = ' films' %}
-      {% elseif app.request.get('home') == 'documentaire' %}
-      {% set footerspin = ' documentaires' %}
-      {% elseif app.request.get('home') == 'emission' %}
-      {% set footerspin = ' emissions' %}
-      {% elseif app.request.get('home') == 'serie' %}
-      {% set footerspin = ' séries' %}
-      {% else %}
-      {% set footerspin = ' Streaming' %}
-      {% endif %}
-			Replay :<br/> 
-      <a href="{{ path('tvgrid') }}">Replay{% if app.request.get('home') != 'replay-tv' and footerspin != ' Streaming' %}{{ footerspin }}{% endif %}</a>
-			<a href="{{ path('channel', {slug: 'm6'}) }}">M6 en Replay</a>
-			<a href="{{ path('channel', {slug: 'tf1'}) }}">TF1 en Replay</a>
-			<a href="{{ path('channel', {slug: 'w9'}) }}">W9 en Replay</a>
-			<a href="{{ path('channel', {slug: 'france-2'}) }}">France 2 en Replay</a>
-			<a href="{{ path('channel', {slug: 'france-3'}) }}">France 3 en Replay</a>
-			<hr/>
-			Chaînes : <br/>
-			<a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">Chaînes TV & Replay</a>
-			<a href="{{ path('sitemap_channels', {type: 'vod'}) }}">Chaînes VOD</a>
-			<a href="{{ path('sitemap_channels', {type: 'webcast'}) }}">Chaînes Web</a>
-			<a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Salles de cinéma</a>
-			<a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">Location / achat Dvd</a>
-			<a href="{{ path('sitemap_channels', {type: 'box'}) }}">Box</a>
+      Replay :<br/> 
+      <a href="{{ path('tvgrid') }}">Replay</a>
+      <a href="{{ path('channel', {slug: 'm6'}) }}">M6 en Replay</a>
+      <a href="{{ path('channel', {slug: 'tf1'}) }}">TF1 en Replay</a>
+      <a href="{{ path('channel', {slug: 'w9'}) }}">W9 en Replay</a>
+      <a href="{{ path('channel', {slug: 'france-2'}) }}">France 2 en Replay</a>
+      <a href="{{ path('channel', {slug: 'france-3'}) }}">France 3 en Replay</a>
+      <hr/>
+      Chaînes : <br/>
+      <a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">Chaînes TV & Replay</a>
+      <a href="{{ path('sitemap_channels', {type: 'vod'}) }}">Chaînes VOD</a>
+      <a href="{{ path('sitemap_channels', {type: 'webcast'}) }}">Chaînes Web</a>
+      <a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Salles de cinéma</a>
+      <a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">Location / achat Dvd</a>
+      <a href="{{ path('sitemap_channels', {type: 'box'}) }}">Box</a>
     </div>
     {% if app.request.get('home') and 
-					app.request.get('home') not in ['tv-replay','cinema','video-a-la-demande','mixte'] %}
-			{% set base_footer = app.request.get('home') %}
+          app.request.get('home') not in ['tv-replay','cinema','video-a-la-demande','mixte'] %}
+      {% set base_footer = app.request.get('home') %}
     {% else %}{% set base_footer = 'film' %}{% endif %}
     <div id="cats" class="span3">
-			Catégories : 
-			{% if base_footer in ['film'] %}
-      <a href="/{{ base_footer }}/cinema-classique/">Cinéma classique{{ footerspin }}</a>
-      <a href="/{{ base_footer }}/cinema-asiatique/">Cinéma asiatique{{ footerspin }}</a>
-      <a href="/{{ base_footer }}/cinema-americain/">Cinéma américain{{ footerspin }}</a>
-      <a href="/{{ base_footer }}/cinema-europeen/">Cinéma européen{{ footerspin }}</a>
-      <a href="/{{ base_footer }}/cinema-francais/">Cinéma français{{ footerspin }}</a>
-      <a href="/{{ base_footer }}/cinema-du-monde/">Cinéma du monde{{ footerspin }}</a>
+      Catégories : 
+      {% set footerspin =  ' streaming' %}
+      {#% if base_footer in ['film'] %#}
       <a href="/{{ base_footer }}/film-culte/">Film culte{{ footerspin }}</a>
       <a href="/{{ base_footer }}/ovni-experimental/">OVNI / Expérimental{{ footerspin }}</a>
-			{% endif %}
-			{% if base_footer in ['film','dessin-anime-et-manga','serie'] %}
+      {#% endif %}
+      {% if base_footer in ['film','dessin-anime-et-manga','serie'] %#}
       <a href="/{{ base_footer }}/romance/">Romance{{ footerspin }}</a>
       <a href="/{{ base_footer }}/policier-thriller/">Policier - Thriller{{ footerspin }}</a>
       <a href="/{{ base_footer }}/fantastique/">Fantastique{{ footerspin }}</a>
@@ -76,37 +54,35 @@
       <a href="/{{ base_footer }}/erotique/">Erotique{{ footerspin }}</a>
       <a href="/{{ base_footer }}/action-aventure/">Action - Aventure{{ footerspin }}</a>
       <a href="/{{ base_footer }}/epouvante-horreur/">Epouvante - horreur{{ footerspin }}</a>
-			{% endif %}
-			{% if base_footer in ['film','documentaire'] %}
+      {#% endif %}
+      {% if base_footer in ['film','documentaire'] %#}
       <a href="/{{ base_footer }}/biographie-biopic/">Biographie - Biopic{{ footerspin }}</a>
       <a href="/{{ base_footer }}/societe/">Société{{ footerspin }}</a>
       <a href="/{{ base_footer }}/arts/">Arts{{ footerspin }}</a>
       <a href="/{{ base_footer }}/histoire/">Histoire{{ footerspin }}</a>
-			{% endif %}
-			{% if base_footer in ['documentaire'] %}
+      {#% endif %}
+      {% if base_footer in ['documentaire'] %#}
       <a href="/{{ base_footer }}/sciences/">Sciences{{ footerspin }}</a>
-      <a href="/{{ base_footer }}/siences-et-techniques/">Sciences et Techniques{{ footerspin }}</a>
       <a href="/{{ base_footer }}/justice/">Justice{{ footerspin }}</a>
-			{% endif %}
-			{% if base_footer in ['film','documentaire','serie','dessin-anime-et-manga'] %}
+      {#% endif %}
+      {% if base_footer in ['film','documentaire','serie','dessin-anime-et-manga'] %#}
       <a href="/{{ base_footer }}/science-fiction/">Science-fiction{{ footerspin }}</a>
-			{% endif %}
-			{% if base_footer in ['emission','journal','documentaire'] %}
+      {#% endif %}
+      {% if base_footer in ['emission','journal','documentaire'] %#}
       <a href="/{{ base_footer }}/sport/">Sport{{ footerspin }}</a>
       <a href="/{{ base_footer }}/decouverte/">Découverte{{ footerspin }}</a>
       <a href="/{{ base_footer }}/sante-bien-etre/">Santé - bien-être{{ footerspin }}</a>
       <a href="/{{ base_footer }}/loisirs-passions/">Loisirs - Passions{{ footerspin }}</a>
-			{% endif %}
-			{% if base_footer in ['emission','journal'] %}
+      {#% endif %}
+      {% if base_footer in ['emission','journal'] %#}
       <a href="/{{ base_footer }}/divertissement-humour/">Divertissement-humour{{ footerspin }}</a>
       <a href="/{{ base_footer }}/archives/">Archives{{ footerspin }}</a>
-      <a href="/{{ base_footer }}/ceremonie/">Cérémonie{{ footerspin }}</a>
-			{% endif %}
-			{% if base_footer in ['serie'] %}
+      {#% endif %}
+      {% if base_footer in ['serie'] %#}
       <a href="/serie/series-americaines/">Séries américaines{{ footerspin }}</a>
       <a href="/serie/series-francaise/">Séries françaises{{ footerspin }}</a>
       <a href="/serie/serie-animee/">Série animée{{ footerspin }}</a>
-			{% endif %}
+      {#% endif %#}
     </div>
   </div>
   <hr/>

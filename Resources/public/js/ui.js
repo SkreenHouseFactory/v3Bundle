@@ -121,8 +121,14 @@ UI = {
     } else if (trigger.hasClass('fav-epg')) {
         var content = '<b>Faites-vous un programme TV sur mesure&nbsp;!</b>' + 
                       '<br/>En ajoutant cette chaîne à vos playlists elle apparaîtra dans votre programme TV.';
-    } else if (trigger.hasClass('fav-onglet')) {
-        var content = '<b>Ne ratez plus vos chaînes préférées&nbsp;!</b>' + 
+    } else if (trigger.hasClass('fav-page')) {
+        var content = '<b>Ne ratez plus ' + trigger.data('channel-name') + '&nbsp;!</b>' + 
+                      '<br/>En ajoutant cette chaîne à vos playlists vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
+    } else if (trigger.hasClass('fav-channel')) {
+        var content = '<b>Ne ratez plus ' + trigger.data('channel-name') + '&nbsp;!</b>' + 
+                      '<br/>En ajoutant cette chaîne à vos playlists vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
+    } else if (trigger.hasClass('fav-user')) {
+        var content = '<b>Suivre la playlist de ' + trigger.data('channel-name') + ' &nbsp;!</b>' + 
                       '<br/>En ajoutant cette chaîne à vos playlists vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
     } else if (trigger.hasClass('fav-person')) {
         var content = '<b>Ne ratez plus vos acteurs préférés&nbsp;!</b>' + 

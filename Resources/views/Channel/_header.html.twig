@@ -2,9 +2,9 @@
 <div class="header-container">
   <div class="header-content">
     <div class="pull-right actions" data-id="{{ data.id }}">
-      <a class="fav fav-{{ fav }} btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites_channel'|trans }}</a>
+      <a class="fav fav-{{ fav }} btn btn-large btn-primary" data-channel-name="{{ channel.title }}" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites_channel'|trans }}</a>
     </div>
-    <h1>{{ channel.titre }}</h1>
+    <h1><a href="{{ path('channel', {slug: channel.slug }) }}">{{ channel.title }}</a></h1>
     {% if channel.img is defined %}
     <img class="channel-logo pull-left" src="{{ channel.img }}" />
     {%elseif data.img is defined %}

@@ -18,6 +18,8 @@
 {% block description %}{{ selection.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
 {% block content %}
+
+{% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {channel: selection.onglet.channel, data: selection.onglet, fav: 'page'} %}
 <div id="view-selection" class="container">
 
   <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ selection.seo_url, text: selection.name ~ ' sur mySkreen' } %}</div>
