@@ -13,6 +13,12 @@
             best_offer:'',
             deporte:''} %}
 {% endif %}
+{% if ' - ' in p.title %}
+  {% set tmp = p.title|split(' - ') %}
+  {% set p_title = tmp[1] ~ ' / ' ~ tmp[0] %}
+{% else %}
+  {% set p_title = p.title %}
+{% endif %}
 <li class="tv-component actions{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
   {% if header is defined %}{{ header|raw }}{% endif %}
   {% if p.best_offer is defined and p.best_offer.channel_img is defined %}
@@ -33,8 +39,8 @@
       {%- elseif p.has_vod == 6 %}{{ 'action.play.rec'|trans }}
       {%- elseif p.has_vod in [7,8,9,10] %}{{ 'action.play.replay'|trans }}
       {%- elseif p.has_vod != '%has_vod%' %}{{ 'action.play.streaming'|trans }}{% endif -%}
-		</span>
+    </span>
     </a>
   {% endif %}
-  <a {% if p.seo_url %}href="{{ base_url }}{{ p.seo_url }}{{ theater_id is defined and theater_id > 0 ? '?theater_id=' ~ theater_id : '' }}"{% endif %} target="_top" class="title"><i class="icon-th icon-white"></i> {{ p.title }}</a>
+  <a {% if p.seo_url %}href="{{ base_url }}{{ p.seo_url }}{{ theater_id is defined and theater_id > 0 ? '?theater_id=' ~ theater_id : '' }}"{% endif %} target="_top" class="title"><i class="icon-th icon-white"></i> {{ p_title }}</a>
 </li>
