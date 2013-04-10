@@ -64,7 +64,7 @@ Player = {
     if (this.type != null) {
       return this.type;
     }
-    if (navigator.userAgent.match(/Android/)) {
+    if (navigator.userAgent.match(/Android|KFJWI/)) { //KFJWI = KindleFire
       return 'android-mobile';
     } else if (navigator.userAgent.match(/iPhone|iPod|iPad/)) {
       console.log(['Player.getType', 'iPhone|iPod|iPad', navigator.userAgent]);
@@ -421,6 +421,7 @@ Player = {
       }, 
       typeof args != 'undefined' ? args : {}
     );
+
     API.query(
       'GET',
       'player/' + id + '/' + Skhf.session.uid + '.json',
