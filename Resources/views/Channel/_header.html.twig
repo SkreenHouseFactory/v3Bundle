@@ -6,9 +6,9 @@
     </div>
     <h1><a href="{{ path('channel', {slug: channel.slug }) }}">{{ channel.title }}</a></h1>
     {% if channel.img is defined %}
-    <img class="channel-logo pull-left" src="{{ channel.img }}" />
+    <a href="{{ path('channel', {slug: channel.slug }) }}"><img class="channel-logo pull-left" src="{{ channel.img }}" /></a>
     {%elseif data.img is defined %}
-    <img class="channel-logo pull-left" src="{{ data.img }}" /> {{ data.img }}
+    <a href="{{ path('channel', {slug: channel.slug }) }}"><img class="channel-logo pull-left" src="{{ data.img }}" /></a>
     {% endif %}
     {% if channel.description %}
     <p class="lead channel-description">{{ channel.description }}</p>
