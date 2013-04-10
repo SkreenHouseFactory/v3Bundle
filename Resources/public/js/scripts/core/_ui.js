@@ -171,7 +171,7 @@ UiView = {
       return false;
     });
     // -- btn-radio
-    $(elmt).on('click', '[data-toggle="buttons-radio"] > *', function(){
+    $('[data-toggle="buttons-radio"] > *').on('click', function() { //TODO Le live ne marche pas, du coup HACK
       $('> *', $(this).parent()).removeClass('active btn-info');
       $(this).addClass('active btn-info');
     });

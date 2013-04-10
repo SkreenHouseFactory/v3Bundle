@@ -156,72 +156,75 @@ API = {
     });
 
     //form
-    $('form:not(.modal-catchform-disable) [type="submit"]', elmt).click(function(e){
-      e.preventDefault();
-      console.warn('API.catchForm', 'submit');
-      //$(this).attr('disabled', 'disabled');
-      var form = $(this).parents('form:first');
-      var o = {};
-      var a = form.serializeArray();
-      $.each(a, function() {
-        if (o[this.name] !== undefined) {
-          if (!o[this.name].push) {
-            o[this.name] = [o[this.name]];
+    if (!$('form.modal-catchform-disable', elmt).length && 
+        !$(elmt).hasClass('modal-catchform-disable')) {
+      $('[type="submit"]', elmt).on('click',function(e){
+        e.preventDefault();
+        console.warn('API.catchForm', 'submit');
+        //$(this).attr('disabled', 'disabled');
+        var form = $(this).parents('form:first');
+        var o = {};
+        var a = form.serializeArray();
+        $.each(a, function() {
+          if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+              o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+          } else {
+            o[this.name] = this.value || '';
           }
-          o[this.name].push(this.value || '');
-        } else {
-          o[this.name] = this.value || '';
-        }
-      });
-      var args = $.extend(o, {session_uid: Skhf.session.uid});
-      var method = form.attr('method') ? form.attr('method').toUpperCase() : 'POST';
-      //console.warn('API.catchForm', 'query method', method);
-      self.query(method, form.attr('action'), args, function(json){
-        //console.log('API.catchForm', 'API.query callback', args, json, elmt);
-        // if modal
-        if (elmt.hasClass('modal')) {
-          //return html
-          if (typeof json != 'object') {
-            $('.modal-body', elmt).empty().html(json);
-            self.catchForm(elmt, callbackOnLoad);
-          //onError
-          } else if (typeof json.error != 'undefined') {
-            $('.#form-errors', elmt).html(json.error).fadeIn();
-          //onSuccess
-          } else if (typeof json.success != 'undefined' && json.success) {
-            Skhf.session.sync(function(){
-              elmt.modal('hide');
-            });
-          //redirect
-          } else if (typeof json.redirect != 'undefined') {
-            self.launchModal(json.redirect, callbackOnLoad);
-          //reload html
-          } else if (typeof json.html != 'undefined') {
-            $('.modal-body', elmt).empty().html(json.html);
-            self.catchForm(elmt, callbackOnLoad);
-          }
-        //default
-        } else {
-//          console.log(json);
-          $('.post-form-display').remove();
-          //handle success
-          if (json.success) {
-            form.prepend('<p class="alert alert-success post-form-display">Modification réussie</p>');
-          }
-          //handle errors : {error: {message: 'error mesage ...', fields: {field1: error_name, field2: error_name, …}}}
-          else if (json.error) {
-            form.prepend('<p class="alert alert-error post-form-display">' + json.error.message + '</p>');
-            for (k in json.error.fields) {
-              $('[name="'+k+'"]').after('<span class="alert alert-error post-form-display">'+ json.error.fields[k] +'</span>');
+        });
+        var args = $.extend(o, {session_uid: Skhf.session.uid});
+        var method = form.attr('method') ? form.attr('method').toUpperCase() : 'POST';
+        //console.warn('API.catchForm', 'query method', method);
+        self.query(method, form.attr('action'), args, function(json){
+          //console.log('API.catchForm', 'API.query callback', args, json, elmt);
+          // if modal
+          if (elmt.hasClass('modal')) {
+            //return html
+            if (typeof json != 'object') {
+              $('.modal-body', elmt).empty().html(json);
+              self.catchForm(elmt, callbackOnLoad);
+            //onError
+            } else if (typeof json.error != 'undefined') {
+              $('.#form-errors', elmt).html(json.error).fadeIn();
+            //onSuccess
+            } else if (typeof json.success != 'undefined' && json.success) {
+              Skhf.session.sync(function(){
+                elmt.modal('hide');
+              });
+            //redirect
+            } else if (typeof json.redirect != 'undefined') {
+              self.launchModal(json.redirect, callbackOnLoad);
+            //reload html
+            } else if (typeof json.html != 'undefined') {
+              $('.modal-body', elmt).empty().html(json.html);
+              self.catchForm(elmt, callbackOnLoad);
+            }
+          //default
+          } else {
+//            console.log(json);
+            $('.post-form-display').remove();
+            //handle success
+            if (json.success) {
+              form.prepend('<p class="alert alert-success post-form-display">Modification réussie</p>');
+            }
+            //handle errors : {error: {message: 'error mesage ...', fields: {field1: error_name, field2: error_name, …}}}
+            else if (json.error) {
+              form.prepend('<p class="alert alert-error post-form-display">' + json.error.message + '</p>');
+              for (k in json.error.fields) {
+                $('[name="'+k+'"]').after('<span class="alert alert-error post-form-display">'+ json.error.fields[k] +'</span>');
+              }
+            }
+            if (typeof(callbackOnLoad) != 'undefined') {
+              callbackOnLoad(json);
             }
           }
-          if (typeof(callbackOnLoad) != 'undefined') {
-            callbackOnLoad(json);
-          }
-        }
+        });
+        return false;
       });
-      return false;
-    });
+    }
 
     //input dpad
     $('input:visible:not(.tv-component)', elmt).addClass('tv-component tv-component-input');
