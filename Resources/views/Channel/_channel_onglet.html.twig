@@ -1,9 +1,8 @@
 {% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data:data, fav: 'page'} %}
-<div id="view-page">
-  <div class="container">
+<div id="view-page" class="container">
+
   {% for slider in data.sliders if slider.id is defined %}
     <a name="{{ slider.name }}"></a>
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
   {% endfor %}
-  </div>
 </div>

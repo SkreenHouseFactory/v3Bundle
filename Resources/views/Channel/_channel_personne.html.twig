@@ -1,38 +1,5 @@
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data: data, fav: 'person'} %}
+{% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data: data, fav: 'person', trigger_fav: 'Suivre ' ~ data.name} %}
 <div id="view-person" data-id="{{ data.id }}" class="container">
-
-  <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ data.seo_url, text: 'Je regarde tout ' ~ data.name ~ ' sur mySkreen et vous ?' } %}</div>
-
-  <div class="view-person-main">
-
-    {#<div class="row">
-      <div id="program-follow" class="span3 view-program-block actions" data-id="{{ data.id }}">
-        <p class="lead" style="margin: 0px;">{{ 'data.follow.block.title.all'|lower|trans }}</p>
-        <a class="fav btn btn-large btn-block" data-placement="bottom"><i class="icon-plus-sign"></i> {{ 'action.add.favorites'|trans }}</a>
-      </div>
-      <div id="program-friends" class="span3 view-program-block">
-        <p class="lead" style="margin: 0px;">{{ 'data.friends.block.title.all'|lower|trans }}</p>
-        <div class="user-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'friends.popover.content'|trans } %}</div>
-        <div class="user-on"></div>
-      </div>
-    </div>
-    #}
-  </div>
-
-  <div class="view-person-column view-column pull-left actions" data-id="{{ data.id }}">
-    {#
-    <div style="position:relative;">
-      <img src="{{ data.picture }}" alt="{{ data.name }}" />
-    </div>
-
-    <ul class="nav nav-list bs-docs-sidenav">
-      <li><a href="#related"><i class="icon-chevron-right"></i> {{ 'program.related'|trans }}</a></li>
-      <li><a href="#infos"><i class="icon-chevron-right"></i> {{ 'program.infos'|trans }}</a></li>
-    </ul>
-    #}
-  </div>
-
-  <hr/>
 
   <h2>Sa filmographie{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
 
