@@ -438,14 +438,14 @@ UI = {
         var imgs = group.other_imgs;
         li.on('mousemove',function(e) {
           var totalWidth = $(this).width();
-          var slice = totalWidth / group.other_imgs.length;
+          var slice = totalWidth / datas[$(this).attr('id')].other_imgs.length;
           var parentOffset = $(this).offset();
           var posX = e.pageX - parentOffset.left;
           var posY = e.pageY - parentOffset.top;
           var currSlice = Math.floor(posX / slice);
-          $(this).css('background-image', 'url('+group.other_imgs[currSlice]+')').css('background-repeat', 'no-repeat');
+          $(this).css('background-image', 'url('+datas[$(this).attr('id')].other_imgs[currSlice]+')').css('background-repeat', 'no-repeat');
         }).on('mouseleave',function() {
-          $(this).css('background-image', 'url('+group.img+')').css('background-repeat', 'no-repeat');
+          $(this).css('background-image', 'url('+datas[$(this).attr('id')].img+')').css('background-repeat', 'no-repeat');
         });
       }
     }
