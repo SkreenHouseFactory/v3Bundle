@@ -172,6 +172,9 @@ UI = {
     } else if (trigger.hasClass('fav-person')) {
       var parameter = 'person';
       var name = 'cette personne';
+    } else if (trigger.hasClass('fav-user')) {
+      var parameter = 'user';
+      var name = 'ce skreener';
     } else if (trigger.hasClass('fav-search')) {
       var parameter = 'search';
       var name = 'cette recherche';

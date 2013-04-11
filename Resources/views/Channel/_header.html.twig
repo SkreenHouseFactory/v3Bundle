@@ -1,9 +1,8 @@
 <div id="cover"{% if channel.cover %} style="background: url('{{ channel.cover }}') top center no-repeat;"{% endif %}>
 <div class="header-container">
   <div class="header-content">
-    <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ data.seo_url, text: 'Je regarde tout ' ~ data.name ~ ' sur mySkreen et vous ?' } %}</div>
-    <div class="pull-right actions" data-id="{{ data.id }}">
-      <a class="fav fav-{{ fav }} btn btn-large btn-primary" data-channel-name="{{ channel.title }}" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ trigger_fav is defined ? trigger_fav : 'action.add.favorites_channel'|trans }}</a>
+    <div class="pull-right actions" data-id="{{ channel.id }}">
+      <a class="fav fav-{{ fav }} btn btn-large btn-primary" data-channel-name="{{ channel.title }}" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites_channel'|trans }}</a>
     </div>
     <h1><a href="{{ path('channel', {slug: channel.slug }) }}">{{ channel.title }}</a></h1>
     {% if channel.img is defined %}

@@ -99,7 +99,7 @@ class ContentController extends Controller
         ));
 
         //print_r($datas);
-        //echo $api->url;
+        //echo $api->url;exit;
         //stop Adulte
         if (isset($datas->error)) {
           throw $this->createNotFoundException('Program error : ' . $datas->error);
