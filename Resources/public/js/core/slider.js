@@ -333,6 +333,7 @@ var BaseSlider = Class.extend({
     //console.log('BaseSlider.addProgramBestOffer', li, p);
     //popular_channel
     if (typeof p.popular_channel == 'object') {
+      $('.channel').addClass('logo-channel-' + p.popular_channel.id);
       $('.channel', li).prepend('<img src="' + p.popular_channel.img + '" alt="' + p.popular_channel.name + '" />');
     }
     //best_offer

@@ -22,12 +22,12 @@
 <li class="tv-component actions{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
   {% if header is defined %}{{ header|raw }}{% endif %}
   {% if p.best_offer is defined and p.best_offer.channel_img is defined %}
-    <a class="channel">
+    <a class="channel logo-channel-{{ p.best_offer.channel_id }}">
       <img src="{{ p.best_offer.channel_img }}" alt="{{ p.best_offer.channel_name }}">
       <span class="diff">{{ p.best_offer.broadcastdate|replace(' à', ' à') }}</span>
     </a>
   {% else %}
-    <a class="channel"{% if p.popular_channel is defined %} href="{{ base_url }}{{ p.popular_channel.seo_url }}"{% endif %}>
+    <a class="channel{% if p.popular_channel is defined %} logo-channel-{{ p.popular_channel.id }}{% endif %}"{% if p.popular_channel is defined %} href="{{ base_url }}{{ p.popular_channel.seo_url }}"{% endif %}>
       {%- if p.popular_channel is defined -%}
       <img src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" />
       {%- endif -%}
