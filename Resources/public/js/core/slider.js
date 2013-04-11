@@ -7,6 +7,7 @@ var BaseSlider = Class.extend({
   loader: null,
   params: {
     width: 150,
+    padding: 12,
     height: 200,
     item_margin: 7,
     pager_nb_results: 7,
@@ -21,8 +22,8 @@ var BaseSlider = Class.extend({
     this.items     = $('ul', this.elmt);
     this.container = $('.slider-container', this.elmt);
     this.loader    = $('.loader', this.items).css('width', this.params.width + 'px');
-    this.slide_step = parseInt(this.container.css('width')) - this.params.width;
-
+//    this.slide_step = parseInt(this.container.css('width')) - this.params.width;  // Euh, pas sûr, le calcul, là !!
+    this.slide_step = (this.params.width + this.params.padding) * (this.params.pager_nb_results - 1);
     // TODO : extend BAseSlider to make it works
     //if (this.elmt.data('nb-results') > 0) {
     //  this.params.pager_nb_results = this.elmt.data('nb-results');
@@ -84,7 +85,7 @@ var BaseSlider = Class.extend({
       //console.log('BaseSlider.ui', 'width', this.items.css('width'));
     //}
 
-    if (this.items.children().filter(':not(.static)').length < this.params.pager_nb_results-1) {
+    if (this.items.children().filter(':not(.static)').length < this.params.pager_nb_results) {
       //console.log('BaseSlider.ui', 'not initialized', 'count:' + this.items.children().filter(':not(.static)').length, this.items);
       return;
     }

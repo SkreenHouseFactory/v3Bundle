@@ -12,7 +12,7 @@
     <a href="{{ path('channel', {slug: channel.slug }) }}"><img class="channel-logo pull-left" src="{{ data.img }}" /></a>
     {% endif %}
     {% if channel.description %}
-    <p class="lead channel-description">{{ channel.description }}</p>
+    <p class="lead channel-description">{{ channel.description|raw }}</p>
     {% endif %}
   </div>
 </div>

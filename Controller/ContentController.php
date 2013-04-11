@@ -250,7 +250,7 @@ class ContentController extends Controller
       $this->blockDomain($request);
 
       $api   = $this->get('api');
-      $datas = $api->fetch('channel', array(
+      $params = array(
         'from_slug'  => $request->get('slug'),
         'with_live'  => !$request->get('format') && !$request->get('page') ? true : false,
         'with_next_live' => !$request->get('format') && !$request->get('page') ? true : false,
@@ -270,7 +270,15 @@ class ContentController extends Controller
         'offset' => $request->get('page', 1) * 30 - 30,
         'nb_results' => 30,
         'facets' => $this->buildFacets($request)
-      ));
+      );
+
+      // Gestion du mode preview
+      if ($request->get("preview") == 1) {
+        $params['preview'] = 1;
+      }
+
+      $datas = $api->fetch('channel', $params);
+
       //print("<pre>");print_r($datas);
       //echo $api->url;
       //exit;
