@@ -240,6 +240,13 @@ class ContentController extends Controller
     */
     public function channelAction(Request $request)
     {
+      //tmp : redirect channels
+      switch ($request->get('slug')) {
+        case 'lesinconnus':
+          return $this->redirect('/les-inconnus');
+        break;
+      }
+
       $this->blockDomain($request);
 
       $api   = $this->get('api');
