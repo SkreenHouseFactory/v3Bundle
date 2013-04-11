@@ -434,6 +434,20 @@ UI = {
       }
       li.find('a, h6').hide();
       li.popover('disable');
+      if (group.other_imgs.length > 1) {
+        var imgs = group.other_imgs;
+        li.on('mousemove',function(e) {
+          var totalWidth = $(this).width();
+          var slice = totalWidth / group.other_imgs.length;
+          var parentOffset = $(this).offset();
+          var posX = e.pageX - parentOffset.left;
+          var posY = e.pageY - parentOffset.top;
+          var currSlice = Math.floor(posX / slice);
+          $(this).css('background-image', 'url('+group.other_imgs[currSlice]+')').css('background-repeat', 'no-repeat');
+        }).on('mouseleave',function() {
+          $(this).css('background-image', 'url('+group.img+')').css('background-repeat', 'no-repeat');
+        });
+      }
     }
 
     //show selector
