@@ -1,7 +1,7 @@
 <div id="cover"{% if channel.cover %} style="background: url('{{ channel.cover }}') top center no-repeat;"{% endif %}>
 <div class="header-container">
   <div class="header-content">
-    <div class="pull-right actions" data-id="{{ data.id }}">
+    <div class="pull-right actions" data-id="{{ channel.id }}">
       <a class="fav fav-{{ fav }} btn btn-large btn-primary" data-channel-name="{{ channel.title }}" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites_channel'|trans }}</a>
     </div>
     <h1><a href="{{ path('channel', {slug: channel.slug }) }}">{{ channel.title }}</a></h1>
