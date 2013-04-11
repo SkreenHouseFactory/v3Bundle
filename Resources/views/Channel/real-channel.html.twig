@@ -3,9 +3,9 @@
 {% block meta %}
 <meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ data.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}" />
 <meta property="og:description" content="{{ data.description|striptags }}" />
-<meta property="og:type" content="channel" />
-<meta property="og:url" content="http://www.myskreen.com{{ data.seo_url }}" />
-{% if data.picture %}
+<meta property="og:type" content="video.movie" />
+<meta property="og:url" content="http://www.myskreen.com{{ data.seo_url }}/" />
+{% if data.channel.img %}
 <meta property="og:image" content="{{ data.channel.img }}" />
 <link rel="image_src" href="{{ data.channel.img }}" />
 {% endif %}

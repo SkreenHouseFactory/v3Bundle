@@ -6,21 +6,31 @@
 <meta property="og:image" content="{{ program.picture }}" />
 <meta property="og:type" content="{% if program.format %}{% if program.format.name == 'Série' %}video.episode{% elseif program.format.name in ['Emission','Journal'] %}video.tv_show{% else %}video.movie{% endif %}{% else %}video.movie{% endif %}" />
 <meta property="og:url" content="http://www.myskreen.com{{ program.seo_url }}" />
+
+
+<!-- You can use og:video instead of og:video:url, but :url is the preferred form -->
+<meta property="og:video"        content="http://example.com/awesome.swf" />
+<meta property="og:video:height" content="640" />
+<meta property="og:video:width"  content="385" />
+<meta property="og:video:type"   content="application/x-shockwave-flash" />
+<meta property="og:video:secure_url" content="https://secure.example.com/awesome.swf" /> <!-- desktop -->
+<meta property="og:video"        content="http://example.com/html5.mp4" />
+<meta property="og:video:type"   content="video/mp4" />     <!-- html5 for mobile -->
+<meta property="og:video"        content="http://example.com/fallback.vid" />
+<meta property="og:video:type"   content="text/html" />     <!-- html for others -->
+
 <meta property="og:video" content="{{ program.player_fb }}" />
 <meta name="medium" content="mult" />
 <meta property="og:video:height" content="358" />
 <meta property="og:video:width" content="576" />
 <meta property="og:video:type" content="application/x-shockwave-flash" />
-{# mp4 video for facebook ? : http://blog.kaltura.org/facebook-now-require-html5-and-fallback-in-open-graph
-<meta property="og:video" content="{{ program.player_fb_mp4 }}" />
-<meta property="og:video:type" content="video/mp4" />
-#}
 <meta property="og:video:duration" content="{{ program.duration * 60 }}" />
 <meta name="video_height" content="470" />
 <meta name="video_width" content="940" />
 <link rel="video_src" href="{{ program.player_fb }}" />
 <meta name="video_type" content="application/x-shockwave-flash" />
 <meta name="video_duration" content="{{ program.duration * 60 }}" />
+
 <link rel="image_src" href="{{ program.picture }}" />
 <meta name="object_type" content="episode" />
 {% endblock %}
