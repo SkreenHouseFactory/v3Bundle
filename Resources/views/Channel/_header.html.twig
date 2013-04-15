@@ -5,7 +5,7 @@
       <a class="fav fav-{{ fav }} btn btn-large btn-primary" data-channel-name="{{ channel.title }}" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites_channel'|trans }}</a>
     </div>
     <h1><a href="{{ path('channel', {slug: channel.slug }) }}">{{ channel.title }}</a></h1>
-    {% if channel.img is defined %}
+    {% if channel.img %}
     <a href="{{ path('channel', {slug: channel.slug }) }}"><img class="channel-logo pull-left" src="{{ channel.img }}" /></a>
     {%elseif data.img is defined %}
     <a href="{{ path('channel', {slug: channel.slug }) }}"><img class="channel-logo pull-left" src="{{ data.img }}" /></a>

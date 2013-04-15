@@ -5,4 +5,10 @@
     <a name="{{ slider.name }}"></a>
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
   {% endfor %}
+  {% if channel.personne is defined and channel.personne %}
+  <br />
+  <h3 style="text-align: justify; line-height: 1.3em">{{ channel.personne.description|raw }}</h3>
+  {% elseif channel.fournisseur is defined and channel.fournisseur %}
+    <br />
+  {% endif %}
 </div>
