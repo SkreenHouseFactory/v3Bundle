@@ -180,8 +180,8 @@ var BaseSlider = Class.extend({
   prev: function(trigger) {
     var self = this;
     var next = $('.right', this.elmt);
-    console.log('prev', parseInt(this.container.css('left')), parseInt(this.container.css('width')));
-    if (-parseInt(this.items.css('left')) < parseInt(this.items.css('width'))) {
+    console.log('prev', parseInt(this.items.css('left')), parseInt(this.items.css('width')));
+    if (-parseInt(this.items.css('left')) <= parseInt(this.items.css('width'))) {
       self.items.animate({'left': '+=' + self.slide_step}, 500, function() {
         console.log('pager', 'slide_step:', self.slide_step, parseInt(self.items.css('left')), parseInt(self.items.css('width')));
         console.log('pager =>', $('li:not(.static)', self.items).length * (self.params.width+self.params.item_margin*2) - parseInt(self.container.css('width')),  parseInt(self.items.css('left')), self.elmt.data('pager-offset'));
