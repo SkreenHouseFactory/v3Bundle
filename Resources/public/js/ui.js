@@ -692,6 +692,10 @@ UI = {
                                     var items = data[key];
                                     titles[key] = 'Chaînes';
                                   break;
+                                  case 'real-channels':
+                                    var items = data[key];
+                                    titles[key] = 'Pages';
+                                  break;
                                   case 'theaters':
                                     var items = data[key];
                                     titles[key] = 'Salles de cinéma';
@@ -728,6 +732,12 @@ UI = {
                                        .find('a')
                                        .html((item.icon ? '<img src="' + item.icon + '" /> ' : '') + typeahead.highlighter(item.name))
                                     break;
+                                    case 'real-channels':
+                                      i.addClass('program')
+                                       .css('overflow','hidden')
+                                       .find('a')
+                                       .html(typeahead.highlighter(item.name))
+                                    break;
                                     case 'programs':
                                       i.addClass('program')
                                         .css('overflow','hidden')
@@ -747,7 +757,7 @@ UI = {
                               }
 
                               //data.first().addClass('active')
-                              var sort = Array('programs','persons','queue','channels','theaters');
+                              var sort = Array('programs','persons','queue','real-channels','channels','theaters');
                               for (key in sort) {
                                 if (lis[sort[key]]) {
                                   //console.log('UI.typeahead', key, data[key], typeahead.$menu);
