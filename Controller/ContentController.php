@@ -304,6 +304,10 @@ class ContentController extends Controller
         }
 
         $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:real-channel.html.twig', $params);
+        if ($request->get("slug") != $datas->channel->slug) {
+          // Alias du channel fourni
+          return $this->redirect("/" . $datas->channel->slug, 301);
+        }
       } else {
         //bad url
         if (($request->getPathInfo() != $datas->seo_url &&
