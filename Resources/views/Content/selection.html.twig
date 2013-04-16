@@ -22,8 +22,9 @@
 {% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {channel: selection.onglet.channel, data: selection.onglet, fav: 'page'} %}
 {% endif %}
 <div id="view-selection" class="container">
-
+  {% if selection.onglet.type != 'page' %}
   <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ selection.seo_url, text: selection.name ~ ' sur mySkreen' } %}</div>
+  {% endif %}
 
   <h1>{{ selection.name|raw }}</h1>
   <p class="clear">{{ selection.description }}</p>
