@@ -1,12 +1,6 @@
 {% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% block meta %}
-<meta property="og:title" content="{{ program.title }}" />
-<meta property="og:description" content="{{ program.description }}" />
-<meta property="og:image" content="{{ program.picture }}" />
-<meta property="og:type" content="{% if program.format %}{% if program.format.name == 'Série' %}video.episode{% elseif program.format.name in ['Emission','Journal'] %}video.tv_show{% else %}video.movie{% endif %}{% else %}video.movie{% endif %}" />
-<meta property="og:url" content="http://www.myskreen.com{{ program.seo_url }}" />
-
 {#
 <!-- You can use og:video instead of og:video:url, but :url is the preferred form -->
 <meta property="og:video"        content="http://example.com/awesome.swf" />
@@ -20,20 +14,37 @@
 <meta property="og:video:type"   content="text/html" />     <!-- html for others -->
 #}
 
+<meta name="twitter:card" content="summary">
+<meta name="twitter:card" value="player" />
+<meta name="twitter:site" value="@mySkreen" />
+<meta name="twitter:url" content="http://www.myskreen.com{{ program.seo_url }}">
+<meta name="twitter:title" content="{{ program.title }}">
+<meta name="twitter:description" content="{{ program.description }}">
+<meta name="twitter:image" content="{{ program.picture }}">
+<meta name="twitter:player" value="{{ program.player_fb }}" />
+<meta name="twitter:player:width" value="576" />
+<meta name="twitter:player:height" value="358" />
+
+<meta property="og:title" content="{{ program.title }}" />
+<meta property="og:description" content="{{ program.description }}" />
+<meta property="og:image" content="{{ program.picture }}" />
+<meta property="og:type" content="{% if program.format %}{% if program.format.name == 'Série' %}video.episode{% elseif program.format.name in ['Emission','Journal'] %}video.tv_show{% else %}video.movie{% endif %}{% else %}video.movie{% endif %}" />
+<meta property="og:url" content="http://www.myskreen.com{{ program.seo_url }}" />
 <meta property="og:video" content="{{ program.player_fb }}" />
 <meta name="medium" content="mult" />
 <meta property="og:video:height" content="358" />
 <meta property="og:video:width" content="576" />
 <meta property="og:video:type" content="application/x-shockwave-flash" />
 <meta property="og:video:duration" content="{{ program.duration * 60 }}" />
+
 <meta name="video_height" content="470" />
 <meta name="video_width" content="940" />
 <link rel="video_src" href="{{ program.player_fb }}" />
 <meta name="video_type" content="application/x-shockwave-flash" />
 <meta name="video_duration" content="{{ program.duration * 60 }}" />
-
 <link rel="image_src" href="{{ program.picture }}" />
 <meta name="object_type" content="episode" />
+
 {% endblock %}
 {% block title %}{{ program.title }} {% if program.has_vod in [5,6,7,8] %}en Replay{% else %}en streaming{% endif %}{% endblock %}
 {% block description %}{{ program.description_seo|replace({"\n": ''})|striptags|slice(0, 165) }} | {{ program.title }}, {{ program.id }}{% endblock %}
