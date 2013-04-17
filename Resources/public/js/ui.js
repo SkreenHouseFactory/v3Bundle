@@ -312,13 +312,15 @@ UI = {
           var attrs = 'data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
         } else if (notifications[k].player) {
           var attrs = 'data-play="' + notifications[k].player + '" data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
+        } else if (notifications[k].type == "ajout") {
+          var attrs = 'href="' + notifications[k].program.seo_url + '"';
         } else {
           var attrs = 'data-redirect="' + notifications[k].link + '" data-seo-url="' + notifications[k].program.seo_url + '"';
         }
         list.append('<li class="tv-component"><a data-id="' + notifications[k].id + '" class="remove">' + 
                     '<i class="icon-trash"></i></a>' + (notifications[k]['new'] ? '<span class="pull-right badge badge-important">Nouveau</span>' : '') + 
                     '<a ' + attrs + ' class="link">' + 
-                    '<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' +
+                    (notifications[k].channel_ico ? '<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
                     '<img src="' + notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
                     '<span class="title">' + notifications[k].title + '</span>' +
                     '<span class="subtitle">' + notifications[k].title_episode + '</span>' +
