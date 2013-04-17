@@ -2,7 +2,7 @@
 {% if slider.seo_url is defined %}
 <div class="slider-link pull-right">
 {#<a class="btn btn-inverse trigger-tv" href="#" data-couchmode="{{ {'type': 'pack', 'id': slider.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
-<a href="{{ base_url }}{% if slider.fichier %}{{ slider.fichier}}{% else %}{{ path('any_url', {url: slider.seo_url[1:slider.seo_url|length-1]}) }}{% endif %}"> <i class="icon-fullscreen"></i> {% if slider.contenu_rss %}{{ slider.contenu_rss}}{% else %}{{ 'slider.link.default'|trans }}{% endif %}</a>
+<a href="{{ base_url }}{% if slider.fichier is defined and slider.fichier is not empty %}{{ slider.fichier }}{% else %}{{ path('any_url', {url: slider.seo_url[1:slider.seo_url|length-1]}) }}{% endif %}"> <i class="icon-fullscreen"></i> {% if slider.contenu_rss %}{{ slider.contenu_rss}}{% else %}{{ 'slider.link.default'|trans }}{% endif %}</a>
 </div>
 {% endif %}
 {% if noheader is not defined %}
