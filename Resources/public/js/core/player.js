@@ -419,7 +419,8 @@ Player = {
         no_paywall: 1,
         occurrence_id: id
       }, 
-      typeof args != 'undefined' ? args : {}
+      typeof args != 'undefined' ? args : {}, 
+      document.location.href.match(/forceMobileDevice/gi) ? {forceMobileDevice: 1} : {}
     );
 
     API.query(

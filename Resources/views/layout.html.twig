@@ -146,7 +146,7 @@
 {% endblock %}
 
 {% if app.environment == 'prod' and block('nostats') is empty %}
-  {% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' %}
+  {% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' with {tag: 'UA-6151896-14'} %}
   {% include 'SkreenHouseFactoryV3Bundle::_chartbeat.html.twig' %}
 {% endif %}
 {% endspaceless %}
