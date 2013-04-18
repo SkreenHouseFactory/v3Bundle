@@ -111,6 +111,7 @@ playlist:
         tv: Les prochaines diffusions TV
         replay: Les dernières mise en ligne Replay & Web
         vod: Les dernières mise en ligne VOD
+        channels: Les chaînes mySkreen
         friends: Vos amis regardent
     yours: Mes playlists
     discover: Mémorisez vos playlists
@@ -121,6 +122,7 @@ playlist:
     tv: A la télé
     replay: En Replay & Web
     vod: En VOD
+    channels: sur mySkreen
     friends: 'Vos amis regardent'
     add:
         friends: Inviter
@@ -128,12 +130,14 @@ playlist:
             cine: Ajouter
             tv: Ajouter
             vod: Ajouter
+            channels: Ajouter
             replay: Ajouter
     teaser:
         nb:
           vod: 16 000
           replay: 19 000
         vod: films et docus accessibles avec votre compte
+        channels: Les chaînes mySkreen
         replay: émissions TV immédiatement disponibles
         tv: Votre programme TV personnalisé
         cine: Ne ratez plus les projections des films que vous aimez
@@ -142,6 +146,7 @@ playlist:
         cine: Les sorties de la semaine et toute la programmation. Ajoutez vos films préférés à vos playlists pour être alerté des disponibilité VOD et des diffusions TV à venir
         tv: Ajoutez des programmes à vos playlists et soyez alerté lorsqu'il passent à la TV
         vod: Ajoutez vos films et documentaires préférés pour les voir plus tard et/ou pour être alerté de leur diffusion aussi bien en VOD qu'à la TV ou au cinéma
+        channels: Suivez les chaînes mySkreen et découvrez des univers audiovisuels
         replay: Ajoutez vos émissions et séries préférées à vos playlists pour ne rater aucun épisode
         friends: Inviter vos proches pour partager vos playlists avec eux.
 nav:
