@@ -74,7 +74,7 @@ var Session = BaseSession.extend({
       return null;
     }
 
-    //console.log('Session.initSelector', 'remote', 'www/slider/selector/' + this.uid + '.json');
+    console.log('Session.initSelector', 'remote', 'www/slider/selector/' + this.uid + '.json');
     this.onglet = onglet;
     API.query('GET', 
               'www/slider/selector/' + this.uid + '.json', 
