@@ -7,7 +7,7 @@ $(document).ready(function(){
     // -- session sync
     //Skhf.session.callbackInit = null;
     Skhf.session.callbackSignout = function() {
-      ProgramView.unloadProgramUsersDatas();
+      ProgramView.unloadProgramUsersDatas($('#view-program').data('id'));
     }
     Skhf.session.callbackSignin = function() {
       ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
@@ -142,7 +142,9 @@ $(document).ready(function(){
 // -- ProgramView
 var ProgramView;
 ProgramView = {
-  
+  unloadProgramUsersDatas: function(id) {
+    
+  },
   //load user program's infos
   loadProgramUsersDatas: function(id) {
 
