@@ -120,7 +120,7 @@ API = {
                  url,
                  args, 
                  function(json){
-                  //console.log('API.launchModal', 'redirect:' + json.redirect, 'callbackOnLoad', callbackOnLoad);
+                  console.log('API.launchModal', 'redirect:' + json.redirect, 'callbackOnLoad', callbackOnLoad);
                   if (typeof json.redirect != 'undefined') {
                     API.launchModal(json.redirect, callbackOnLoad);
                   } else if (json.html) {

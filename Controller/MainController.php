@@ -48,7 +48,7 @@ class MainController extends Controller
           !strstr($request->getHost(), 'preprod.') && 
           !strstr($request->getHost(), '.typhon.net')) {
         if (!strstr($request->getHost(), 'replay.')) {
-          return $this->redirect('http://www.myskreen.com/tv-replay/', 301);
+          $redirect = $this->generateUrl('tvgrid');
         }
         //if (!strstr($request->getHost(), 'tv.')) {
         //  return $this->redirect('http://tv.myskreen.com/video/replay/', 301);
@@ -57,6 +57,9 @@ class MainController extends Controller
       }
 
       switch ($request->get('home')) {
+        case 'tv-replay':
+          $redirect = $this->generateUrl('tvgrid');
+        break;
         case 'films':
         case 'series':
         case 'documentaires':
