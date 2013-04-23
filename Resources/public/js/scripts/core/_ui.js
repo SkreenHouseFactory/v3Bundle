@@ -154,6 +154,7 @@ UiView = {
       if ($(this).parents('li.open:first').length) {
         $(this).parents('li.open:first').removeClass('open');
       }
+      history.pushState('A', 'B', $(this).data('ajax').replace('#',''));
       return false;
     });
     // -- redirect

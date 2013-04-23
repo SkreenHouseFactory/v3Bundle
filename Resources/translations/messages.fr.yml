@@ -323,6 +323,12 @@ channels:
         placeholder: TF1, Arte, Bein, etc
         submit: Rechercher
 category:
+    channel: chaînes
+    films: films
+    documentaires: documentaires
+    series: séries
+    emissions: émissions
+    spectacles: spectacles
     friends:
         block:
             title:

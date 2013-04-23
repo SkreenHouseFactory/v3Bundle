@@ -97,7 +97,8 @@ class UserController extends Controller
         'img_height' => 200,
         'offset' => 0,
         'nb_results' => 200,
-        'onglet' => $onglet
+        'onglet' => $onglet,
+        'access' => 'with_channels'
 			));
 			//echo $api->url;
 			//print_r($programs);
@@ -115,7 +116,7 @@ class UserController extends Controller
 
       //print_r(array($session_uid, $programs));
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:programs.html.twig', array(
-        'onglets'  => array('films', 'documentaires', 'series', 'emissions', 'spectacles'),
+        'onglets'  => array('channel','films', 'documentaires', 'series', 'emissions', 'spectacles'),
         'alpha'    => array(1,2,3,4,5,6,7,8,9,
                             'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'),
         'alpha_available' => $alpha_available,

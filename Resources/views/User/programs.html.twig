@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
 
-  {# TODO : PUBLISH PLAYLISTS
+  {# TODO POUR PUBLIER LA PLAYLIST
   <div class="btn-group pull-right" data-toggle="buttons-radio" style="margin:20px;">
     <a href="#" class="btn btn-primary" data-placement="bottom" data-title="{{ 'playlist.publish.private.popover.title'|trans }}" data-content="{{ 'playlist.publish.private.popover.content'|trans }}" data-trigger="hover">{{ 'playlist.publish.private.link'|trans }}</a>
     <a href="#" class="btn" data-placement="bottom" data-title="{{ 'playlist.publish.public.popover.title'|trans }}" data-content="{{ 'playlist.publish.public.popover.content'|trans }}" data-trigger="hover">{{ 'playlist.publish.public.link'|trans }}</a>
@@ -19,7 +19,7 @@
     </li>
     {% for o in onglets %}
       <li{% if app.request.get('onglet') == o %} class="active"{% endif %}>
-        <a href="{{ path('user_programs', {onglet: o}) }}">{{ o }}</a>
+        <a href="{{ path('user_programs', {onglet: o}) }}">{{ ['category.',o]|join|trans }}</a>
       </li>
     {% endfor %}
   </ul>
