@@ -246,6 +246,7 @@ action:
         streaming: VOD
         cine: Ciné
         dvd: DVD
+        archive: Archive
         replay: Replay
         rec: Bientôt en Replay
         tv: TV

@@ -77,7 +77,13 @@
             <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'la-chaine-techno'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/la-chaine-techno_medium.png" alt="La Chaine techno vidéos"/></a>
             <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'perform'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/perform_medium.png" alt="Peform Sports"/></a>
           </li>
-          <li><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}"><i class="icon-chevron-right"></i> Toutes les chaines web</a></li>
+          <li><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}"><i class="icon-chevron-right"></i> Toutes les chaînes web</a></li>
+          <li class="divider clear"></li>
+          <li class="nav-header">Les chaînes mySkreen</li>
+          <li class="tv-channels">
+            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'les-inconnus'}) }}"><img src="http://mskstatic.com/50/50/c/medias/photos/channel/1-les-inconnus.jpg" alt="Les Inconnus"/></a>
+            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'jacques-demy'}) }}"><img src="http://mskstatic.com/50/50/c/medias/photos/channel/3-jacques-demy.jpg" alt="Jacques Demy"/></a>
+          </li>
         </ul>
       </li>
       <li class="dropdown with-caret active-dropdown-visible active-vod {{ app.request.get('home') == 'video-a-la-demande' ? ' active' : '' }}">

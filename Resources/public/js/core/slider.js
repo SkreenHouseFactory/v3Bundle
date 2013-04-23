@@ -376,6 +376,7 @@ var BaseSlider = Class.extend({
       else if (p.has_vod == 3) { $('.channel .diff', li).html('DVD'); }
       else if (p.has_vod == 5) { $('.channel .diff', li).html('TV'); }
       else if (p.has_vod == 6) { $('.channel .diff', li).html('Bientôt en Replay'); }
+      else if (p.has_vod == 13) { $('.channel .diff', li).html('Archive'); }
       else if (p.has_vod == 7 || p.has_vod == 8 || p.has_vod == 9 || p.has_vod == 10) { $('.channel .diff', li).html('Replay'); }
       else if (p.has_vod) { $('.channel .diff', li).html('VOD'); }
       //playlist seulement

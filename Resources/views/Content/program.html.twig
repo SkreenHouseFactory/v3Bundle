@@ -29,7 +29,7 @@
 
 {# opengraph #}
 <meta property="og:title" content="{{ program.title }}" />
-<meta property="og:description" content="{{ program.description }}" />
+<meta property="og:description" content="[ VIDEO ] {{ program.description }}" />
 <meta property="og:image" content="{{ program.picture }}" />
 <meta property="og:type" content="{% if program.format %}{% if program.format.name == 'Série' %}video.episode{% elseif program.format.name in ['Emission','Journal'] %}video.tv_show{% else %}video.movie{% endif %}{% else %}video.movie{% endif %}" />
 <meta property="og:url" content="http://www.myskreen.com{{ program.seo_url }}" />

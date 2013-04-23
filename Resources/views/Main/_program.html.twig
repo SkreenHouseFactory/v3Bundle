@@ -38,6 +38,7 @@
       {%- elseif p.has_vod == 5 %}{{ 'action.play.tv'|trans }}
       {%- elseif p.has_vod == 6 %}{{ 'action.play.rec'|trans }}
       {%- elseif p.has_vod in [7,8,9,10] %}{{ 'action.play.replay'|trans }}
+      {%- elseif p.has_vod == 13 %}{{ 'action.play.archive'|trans }}
       {%- elseif p.has_vod != '%has_vod%' %}{{ 'action.play.streaming'|trans }}{% endif -%}
     </span>
     </a>
