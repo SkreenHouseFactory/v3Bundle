@@ -112,6 +112,7 @@
         <form class="navbar-search">
         <i class="icon-search"></i>
         <input type="text" value="{{ app.request.get('q') }}" class="search-query pull-left span4" placeholder="{{ 'search.pitch'|trans }}">
+        <img id="loading_gif" src="{{ asset('bundles/skreenhousefactoryv3/images/loader.gif') }}" style="margin-left: -50px" class="hide"/>
         </form>
       </li>
       <li class="hide user-on dropdown">
@@ -131,6 +132,7 @@
             <a data-toggle="collapse" data-target="#top-playlist"><i class="icon-play-circle"></i> {{ 'playlist.yours'|trans }}</a>
           </li>
           <li><a class="programs" href="{{ path('user_programs') }}" target="_top"><i class="icon-list"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
+          <li><a class="programs" href="{{ path('user_channels') }}" target="_top"><i class="icon-list"></i> {{ 'nav.channel_favoris'|trans }} <span></span></a></li>
           <li><a class="vod" href="{{ path('user_vod') }}" target="_top"><i class="icon-film"></i> {{ 'nav.vod'|trans }}</a></li>
           <li><a class="account" href="{{ path('user_settings') }}" target="_top"><i class="icon-user"></i> {{ 'nav.account'|trans }}</a></li>
           <li class="divider"></li>

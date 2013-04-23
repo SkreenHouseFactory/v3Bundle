@@ -201,7 +201,14 @@ class ContentController extends Controller
         if (isset($datas->sagas) && count($datas->sagas) > 0) {
           $datas->related = array_merge($datas->sagas, $datas->related);
         }
-        
+
+        if (array_key_exists('chaines',$datas->related) && count($datas->related['chaines']->programs) == 1) {
+          $p = $datas->related['chaines']->programs[0];
+          // MODIFICATION DU FORMAT DE L'IMAGE DE LA CHAINE
+          $p->picture = str_replace("/150/200/","/245/120/",$p->picture);
+          $datas->related['chaines']->programs[0] = $p;
+        }
+
         if (strstr($datas->title, ' - ')) {
           list($_, $datas->episode_title) = explode(' - ', $datas->title);
         }

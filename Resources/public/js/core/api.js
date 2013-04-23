@@ -256,7 +256,7 @@ API = {
   },
   typeahead: function(keywords) {
     var url = 'search/autocomplete/' + keywords;
-    var args = {advanced:1, session_uid:Skhf.session.uid};
+    var args = {advanced:1, session_uid:Skhf.session.uid, with_loader:1};
     this.query('GET', url, args, function(json){
       return json;
     });
@@ -391,7 +391,15 @@ API = {
       jsonp: 'callback',
       async: true,
       //crossDomain: true,
+      beforeSend: function() {
+        if (data && data.with_loader) {
+          $("#loading_gif").removeClass("hide");
+        }
+      },
       error: function(retour, code) {
+        if (data && data.with_loader) {
+          $("#loading_gif").addClass("hide");
+        }
         console.log('API.query', 'error getting query', code, retour);
         clearTimeout(tooLongQuery); 
         if (retour.readyState == 4 && 
@@ -405,6 +413,9 @@ API = {
         }
       },
       success: function(json) {     
+        if (data && data.with_loader) {
+          $("#loading_gif").addClass("hide");
+        }
         //console.log(['API.query', 'succes', json]);
         clearTimeout(tooLongQuery);
         if (typeof callback != 'undefined') {
