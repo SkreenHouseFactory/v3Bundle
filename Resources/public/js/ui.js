@@ -293,7 +293,7 @@ UI = {
   },
   //notify
   loadNotifications: function(notifications) {
-    //console.log('UI.loadNotifications', notifications);
+    console.log('UI.loadNotifications', notifications);
     var nb = notifications.length == this.max_notifications ? notifications.length + '+' : notifications.length;
     $('.navbar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
     if (notifications.length == 0) {
@@ -323,7 +323,7 @@ UI = {
                     (notifications[k].channel_ico ? '<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
                     '<img src="' + notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
                     '<span class="title">' + notifications[k].title + '</span>' +
-                    '<span class="subtitle">' + notifications[k].title_episode + '</span>' +
+                    '<span class="subtitle">' + notifications[k].title_episode.substring(0,32) + (notifications[k].title_episode.length > 32 ? '...' : '') + '</span>' +
                     '<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span></a>' +
                     '</li>' +
                     '<li class="divider"></li>');
