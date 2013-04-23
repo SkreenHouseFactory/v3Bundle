@@ -24,6 +24,11 @@
 <div id="view-selection" class="container">
   {% if selection.onglet.type != 'page' %}
   <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ selection.seo_url, text: selection.name ~ ' sur mySkreen' } %}</div>
+  {% else %}
+    <ul class="breadcrumb">
+      <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: selection.onglet.channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ selection.onglet.channel.title }}</span></a> <span class="divider">/</span></li>
+      <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">{{ selection.name|raw }}</span></li>
+    </ul>
   {% endif %}
 
   <h1>{{ selection.name|raw }}</h1>

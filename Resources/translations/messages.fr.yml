@@ -22,6 +22,7 @@ page:
         user:
             settings: Vos préférences
             programs: Vos programmes
+            channels: Vos chaînes
             vod: Mes playlists : vidéo à la demande
         sitemap:
             channels:
@@ -79,7 +80,8 @@ redirection:
     message: mySkreen vous redirige vers votre vidéo
 user:
     vod: Vidéo à la demande
-    programs: Mes playlists
+    programs: Vos playlists
+    channels: Vos chaînes
     settings: Vos préférences
     settings.profile: Compte
     settings.payment: Informations de paiement
@@ -151,6 +153,7 @@ playlist:
         friends: Inviter vos proches pour partager vos playlists avec eux.
 nav:
     favoris: Vos programmes
+    channel_favoris: Vos chaînes
     account: Vos préférences
     vod: Vos vidéos à la demande
     all: Tout

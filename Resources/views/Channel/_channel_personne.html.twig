@@ -1,6 +1,5 @@
 {% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data: data, fav: 'person', trigger_fav: 'Suivre ' ~ data.name} %}
 <div id="view-person" data-id="{{ data.id }}" class="container">
-
   <h2>Sa filmographie{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
 
   <p class="description">{{ data.description|raw }}</p>

@@ -1,6 +1,6 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
-{% block title %}{{ 'page.title.user.programs'|trans }}{% endblock %}
+{% block title %}{{ (onglet == 'channel') ? 'page.title.user.channels'|trans : 'page.title.user.programs'|trans }}{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -12,7 +12,8 @@
   </div>
   #}
 
-  <h1>{{ 'user.programs'|trans }}</h1>
+  <h1>{{ (onglet == 'channel') ? 'user.channels'|trans : 'user.programs'|trans }}</h1>
+  {% if (onglet != 'channel') %}
   <ul class="nav nav-pills nav-alpha-client uppercase">
     <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
       <a href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
@@ -23,6 +24,9 @@
       </li>
     {% endfor %}
   </ul>
+  {% else %}
+  <br />
+  {% endif %}
 
   {% if programs|length > 6 %}
   <div class="pagination pagination-client-alpha">
