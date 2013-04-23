@@ -659,16 +659,19 @@ UI = {
           }
         }
         API.xhr['typeahead-used'].push(query);
-  API.xhr['typeahead'] = API.query('GET', 
+        $("#loading_gif").removeClass("hide");
+        API.xhr['typeahead'] = API.query('GET', 
                          'search/autosuggest/' + query + '.json', 
                          {
                           session_uid: Skhf.session.uid, 
                           img_width: 30, 
                           img_height: 30, 
                           advanced: 1, 
-                          with_unvailable: 1
+                          with_unvailable: 1,
+                          with_loader:1
                          }, 
                          function(data){
+                           $("#loading_gif").addClass("hide");
                             console.log('UI.typeahead', query, data);
                             //if (data.search) {
                             //  return typeahead.process(data.search.split(';'));
