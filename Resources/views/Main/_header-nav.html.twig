@@ -106,7 +106,7 @@
         <form class="navbar-search">
         <i class="icon-search"></i>
         <input type="text" value="{{ app.request.get('q') }}" class="search-query pull-left span4" placeholder="{{ 'search.pitch'|trans }}">
-        <img id="loading_gif" src="/bundles/skreenhousefactoryv3/images/loader.gif" style="margin-left: -50px" class="hide"/>
+        <img id="loading_gif" src="{{ asset('bundles/skreenhousefactoryv3/images/loader.gif') }}" style="margin-left: -50px" class="hide"/>
         </form>
       </li>
       <li class="hide user-on dropdown">
