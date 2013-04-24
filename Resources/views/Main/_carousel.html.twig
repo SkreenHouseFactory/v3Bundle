@@ -1,7 +1,7 @@
 {% if app.environment == 'prod' %}
 {% set base_url = 'preprod' not in app.request.httpHost  ? 'http://www.myskreen.com' : '' %}
 {% else %}
-{% set base_url = '/app_dev.php' %}
+{% set base_url = '' %}
 {% endif %}
 <div id="carousel-{{ slider.title|replace({' ': '-'})|lower }}"{% if skip_autoload is not defined %} data-carousel-autoload="1"{% endif %} class="carousel slide{{ slider.id is defined ? ' carousel-' ~ slider.id : '' }}">
   <div class="container">
