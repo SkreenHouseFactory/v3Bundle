@@ -387,9 +387,9 @@
 
     <div id="program-share">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}</div>
 
-    {% if (program.related.chaines.programs|length == 1) %}
+    {% if ((program.related.chaines is defined) and (program.related.chaines.programs is defined) and (program.related.chaines.programs|length == 1)) %}
       {% for r in program.related.chaines.programs %}
-      <a id="channel_root" href="javascript: document.location.href='{{ r.seo_url }}';" style="background: url('{{ r.picture }}') top left no-repeat;">
+      <a id="channel_root" href="{{ r.seo_url }};" style="background: url('{{ r.picture }}') top left no-repeat;">
         <span class="texte">{{ r.title ~ ', la chaîne' }}</span>
       </a>
       {% endfor %}
