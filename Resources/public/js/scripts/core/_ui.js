@@ -154,7 +154,8 @@ UiView = {
       if ($(this).parents('li.open:first').length) {
         $(this).parents('li.open:first').removeClass('open');
       }
-      history.pushState('A', 'B', $(this).data('ajax').replace('#',''));
+      history.pushState('', '', $(this).data('ajax').replace('#',''));
+      document.title = 'programmes, TV, replay | mySkreen.com';
       return false;
     });
     // -- redirect
