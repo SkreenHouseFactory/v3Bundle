@@ -203,7 +203,7 @@ program_v1:
     requirements:
         id: \d+
         slug: "[^/]+"
-        rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine
+        rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine|avertir|undefined
 program_v2_pere:
     pattern:  /{format}/{idpere}-{slugpere}/{id}-{slug}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
@@ -391,8 +391,6 @@ cocon_replay:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon }
     requirements:
         cocon: tf1|france-2|france-3|m6|w9
-
-
 
 #hack url generation
 any_url:
