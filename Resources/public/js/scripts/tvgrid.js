@@ -200,9 +200,11 @@ GridView = {
       //reload schedule
       this.loadSchedule(function(){
         self.idle();
+        self.channels.fadeIn();
       });
     } else {
       this.idle();
+      this.channels.fadeIn();
     }
   },
   loadSchedule : function(callback) {
