@@ -11,6 +11,7 @@ function onPlayerReady(event) {
 // -- Player
 var Player;
 Player = {
+  config: {width: '100%', height: '100%'},
   elmt: null,
   timeout: [],
   timeoutdelay: 5000,
@@ -377,8 +378,8 @@ Player = {
     var args = $.extend(true, {
         with_player: 1,
         with_teaser: 1,
-        player_width: this.elmt.data('play-width') ? this.elmt.data('play-width') : '100%', 
-        player_height:  this.elmt.data('play-height') ? this.elmt.data('play-height') : '100%',
+        player_width: this.config.width, 
+        player_height:  this.config.height,
         player: this.type,
         fullHD: 1,
         no_paywall: 1
@@ -416,8 +417,8 @@ Player = {
     var args = $.extend(true, {
         with_player: 1,
         with_teaser: 1,
-        player_width: this.elmt.data('play-width') ? this.elmt.data('play-width') : '100%', 
-        player_height:  this.elmt.data('play-height') ? this.elmt.data('play-height') : '100%',
+        player_width: this.config.width, 
+        player_height:  this.config.height,
         player: this.getType(),
         fullHD: 1,
         no_paywall: 1,
