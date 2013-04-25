@@ -2,269 +2,270 @@
 @lineheightchannel: 74px;
 
 .img-tvgrid-popover {
-	float: left;
-	margin: 0 10px 20px;
+  float: left;
+  margin: 0 10px 20px;
 }
 #view-tvgrid {
-	.btn-filters {
-		margin: 20px 200px;
-	}
-	h1, h2 {
-		font-size: 1.3em;
-		margin-top: 2px;
-		margin-bottom: 2px;
-	}
-	ul.nav-pills {
-		display: block;
-		padding: 0;
-		margin: 0 3px 0 0;
-		> li {
-			&.active {
-				> a {
-					background: rgba(0, 0, 0, 0.5);
-				}
-			}
-			&.active.time-change {
-				> a {
-					background: rgba(0, 136, 204, 1);
-				}
-			}
-			&.calendar {
-				padding-bottom: 7px;
-				padding-top: 7px;
-			}
-		}
-	}
-	#timeslider {
-		width: 230px;
-		position: absolute;
-		left: 320px;
-		height: 12px;
-		margin-top: 10px;
-		background: #999;
-		a {
-			text-decoration: none;
-			margin: -2px 0 0 -5px;
-			padding: 0 0 20px 0;
+  .btn-filters {
+    margin: 20px 200px;
+  }
+  h1, h2 {
+    font-size: 1.3em;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+  ul.nav-pills {
+    display: block;
+    padding: 0;
+    margin: 0 3px 0 0;
+    > li {
+      &.active {
+        > a {
+          background: rgba(0, 0, 0, 0.5);
+        }
+      }
+      &.active.time-change {
+        > a {
+          background: rgba(0, 136, 204, 1);
+        }
+      }
+      &.calendar {
+        padding-bottom: 7px;
+        padding-top: 7px;
+      }
+    }
+  }
+  #timeslider {
+    width: 230px;
+    position: absolute;
+    left: 320px;
+    height: 12px;
+    margin-top: 13px;
+    background: #999;
+    a {
+      text-decoration: none;
+      margin: -5px 0 0 -5px;
+      padding: 5px 0px 10px 5px;
       width: 44px;
-			font-size: 0.8em;
-			font-weight: normal;
-			color: black;
-			border-radius: 4px;
-			&.ui-state-hover {
-				background: #f6f6f6 url(images/ui-bg_highlight-soft_100_f6f6f6_1x100.png) 50% 50% repeat-x;
-			}
-		}
-	}
-	#datepicker {
-		position: absolute;
-		z-index: 2;
-		box-shadow: 1px 3px 3px rgba(0,0,0,0.3);
-		margin: 35px 0px 0px 0px;
-		width: 300px;
-		.ui-datepicker {
-			width: 100%;
-		}
-	}	
-	ul.timeline {
-		background: rgba(0,0,0,0.4);
-		color: white;
-		list-style: none;
-		margin: 10px 0 0 0;
-		li {
-			display: inline-block;
-			width: 300px;
-			&:first-child {
-				width: 87px;
-			}
-		}
-	}
-	#channels {
-		padding: 0;
-		margin: 0;
-		background: #FAFAFA;
-		border-top: 1px solid #EEE;
+      height: 30px;
+      font-size: 0.8em;
+      font-weight: normal;
+      color: black;
+      border-radius: 4px;
+      &.ui-state-hover {
+        background: #f6f6f6 url(images/ui-bg_highlight-soft_100_f6f6f6_1x100.png) 50% 50% repeat-x;
+      }
+    }
+  }
+  #datepicker {
+    position: absolute;
+    z-index: 2;
+    box-shadow: 1px 3px 3px rgba(0,0,0,0.3);
+    margin: 35px 0px 0px 0px;
+    width: 300px;
+    .ui-datepicker {
+      width: 100%;
+    }
+  }  
+  ul.timeline {
+    background: rgba(0,0,0,0.4);
+    color: white;
+    list-style: none;
+    margin: 10px 0 0 0;
+    li {
+      display: inline-block;
+      width: 300px;
+      &:first-child {
+        width: 87px;
+      }
+    }
+  }
+  #channels {
+    padding: 0;
+    margin: 0;
+    background: #FAFAFA;
+    border-top: 1px solid #EEE;
 
-		> li, > li:hover {
-			line-height: @lineheightchannel;
-			height: @lineheightchannel;
-			text-align: center;
-			border-bottom: 1px solid #E5E5E5;
-			border-left: 1px solid #E5E5E5;
-			position: relative;
-			overflow: hidden;
-			> .progress {
-				margin: 3% 30% !important;
-			}
-			> a {
-				padding: 0;
-				margin: 0;
-				float: left;
-				width: 87px;
-				background: #2B2B2B;
-				background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
-				background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
-				background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eeeeee), to(#cccccc));
-				background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
-				background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
-				background-image: linear-gradient(top, #eeeeee, #cccccc);
-				background-repeat: repeat-x;
-				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EEEEEE', endColorstr='#CCCCCC', GradientType=0);
+    > li, > li:hover {
+      line-height: @lineheightchannel;
+      height: @lineheightchannel;
+      text-align: center;
+      border-bottom: 1px solid #E5E5E5;
+      border-left: 1px solid #E5E5E5;
+      position: relative;
+      overflow: hidden;
+      > .progress {
+        margin: 3% 30% !important;
+      }
+      > a {
+        padding: 0;
+        margin: 0;
+        float: left;
+        width: 87px;
+        background: #2B2B2B;
+        background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+        background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eeeeee), to(#cccccc));
+        background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+        background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+        background-image: linear-gradient(top, #eeeeee, #cccccc);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EEEEEE', endColorstr='#CCCCCC', GradientType=0);
 
-				i {
-					position: absolute;
-					display: none;
-					opacity: 0.5;
-					cursor: pointer;
-					top: 30px;
-				}
-				&:hover {
-					cursor: move;
-					i {
-						display: block;
-					}
-				}
-			}
+        i {
+          position: absolute;
+          display: none;
+          opacity: 0.5;
+          cursor: pointer;
+          top: 30px;
+        }
+        &:hover {
+          cursor: move;
+          i {
+            display: block;
+          }
+        }
+      }
 
-			ul {
-				position: relative;
-				height: @lineheight;
-				margin: 0 0 0 87px;
+      ul {
+        position: relative;
+        height: @lineheight;
+        margin: 0 0 0 87px;
 
-				li.diff {
-					position: absolute;
-					line-height: @lineheight;
-					height: @lineheight;
-					display: block;
-					overflow: hidden;
-					border-left: 1px solid #E5E5E5;
-					border-bottom: 1px solid #E5E5E5;
-					text-align: left;
-					cursor: pointer;
-					background: white;
+        li.diff {
+          position: absolute;
+          line-height: @lineheight;
+          height: @lineheight;
+          display: block;
+          overflow: hidden;
+          border-left: 1px solid #E5E5E5;
+          border-bottom: 1px solid #E5E5E5;
+          text-align: left;
+          cursor: pointer;
+          background: white;
 
-					.icon-question-sign {
-						opacity: 0.5;
-						margin: 5px;
-					}
+          .icon-question-sign {
+            opacity: 0.5;
+            margin: 5px;
+          }
 
-					.actions {
-						position: absolute;
-						z-index: 1;
-						right: 5px;
-						top: 5px;
-						line-height: 30px;
-						.btn {
-							padding: 2px 6px;
-							/*font-size: 0.1em;*/
-						}
-					}
+          .actions {
+            position: absolute;
+            z-index: 1;
+            right: 5px;
+            top: 5px;
+            line-height: 30px;
+            .btn {
+              padding: 2px 6px;
+              /*font-size: 0.1em;*/
+            }
+          }
 
-					a.link {
-						color: #333;
-						display: block;
-						padding: 5px;
-						line-height: 16px;
-						min-width: 120px;
-						overflow: hidden;
+          a.link {
+            color: #333;
+            display: block;
+            padding: 5px;
+            line-height: 16px;
+            min-width: 120px;
+            overflow: hidden;
 
-						span {
-							&.header {
-								font-size: 0.7em;
-								color: #999;
-								text-transform: uppercase;
-								margin-right: 5px;
-								float: left;
-							}
-							&.label {
-								font-size: 0.8em;
-								display: inline-block;
-								font-weight: normal;
-								padding: 0 4px;
-								opacity: 0.3;
-									
-								&.label-info, &.label-warning {
-									opacity: 1;
-								}
-							}
-							&.t {
-								clear: both;
-								display: block;
-							}
-							&.st {
-								color: #999;
-								font-size: 0.9em;
-							}
-						}
-					}
+            span {
+              &.header {
+                font-size: 0.7em;
+                color: #999;
+                text-transform: uppercase;
+                margin-right: 5px;
+                float: left;
+              }
+              &.label {
+                font-size: 0.8em;
+                display: inline-block;
+                font-weight: normal;
+                padding: 0 4px;
+                opacity: 0.3;
+                  
+                &.label-info, &.label-warning {
+                  opacity: 1;
+                }
+              }
+              &.t {
+                clear: both;
+                display: block;
+              }
+              &.st {
+                color: #999;
+                font-size: 0.9em;
+              }
+            }
+          }
 
-					&.is-short {
-						a {
-							padding: 0;
-							.label {
-								margin: 10px 0 0 2px;
-								display: inline-block;
-							}
-						}
-					}
+          &.is-short {
+            a {
+              padding: 0;
+              .label {
+                margin: 10px 0 0 2px;
+                display: inline-block;
+              }
+            }
+          }
 
-					&.is-live {
-						background: rgba(254, 255, 231, 1);
-					}
+          &.is-live {
+            background: rgba(254, 255, 231, 1);
+          }
 
-					&.has-live {
-						.label-info {
-							display: none;
-						}
-					}
-				}
-			}
-		}
-	}
+          &.has-live {
+            .label-info {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
 
-	#schedule {
-		min-height: 800px;
-		margin-left: 87px;
-		padding-bottom: 30px;
-		background: white; /*url(/bundles/skreenhousefactoryv3/images/tvgrid-bg.png);*/
-		border-right: 1px solid #DDD;
-		
-		.schedule {
-			position: relative;
-			cursor: pointer;
-			overflow-y: hidden;
-			padding-bottom: 22px;
-			
-			.schedule-cache {
-				position: absolute;
-				z-index: 1;
-				height: 100%;
-				width: 0;
-				border-right: 1px solid white;
+  #schedule {
+    min-height: 800px;
+    margin-left: 87px;
+    padding-bottom: 30px;
+    background: white; /*url(/bundles/skreenhousefactoryv3/images/tvgrid-bg.png);*/
+    border-right: 1px solid #DDD;
+    
+    .schedule {
+      position: relative;
+      cursor: pointer;
+      overflow-y: hidden;
+      padding-bottom: 22px;
+      
+      .schedule-cache {
+        position: absolute;
+        z-index: 1;
+        height: 100%;
+        width: 0;
+        border-right: 1px solid white;
 
-				background-color: rgba(150,150,150,0.1);
-				background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
-				background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-				background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-				background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-				background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-				-webkit-background-size: 10px 10px;
-				-moz-background-size: 10px 10px;
-				-o-background-size: 10px 10px;
-				background-size: 10px 10px;
-				background-repeat: repeat;
-			}
+        background-color: rgba(150,150,150,0.1);
+        background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+        background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+        background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+        background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+        background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+        -webkit-background-size: 10px 10px;
+        -moz-background-size: 10px 10px;
+        -o-background-size: 10px 10px;
+        background-size: 10px 10px;
+        background-repeat: repeat;
+      }
 
-			&.current {
-				ul.timeline.fixed {
-					position: fixed;
-				}
-			}
-			&.schedule-prev {
-				.schedule-cache {
-					width: 100% !important;
-				}
-			}
-		}
-	}
+      &.current {
+        ul.timeline.fixed {
+          position: fixed;
+        }
+      }
+      &.schedule-prev {
+        .schedule-cache {
+          width: 100% !important;
+        }
+      }
+    }
+  }
 }
