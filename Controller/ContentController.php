@@ -117,7 +117,8 @@ class ContentController extends Controller
         }
         if ($request->getPathInfo() != $datas->seo_url) {
           if ($this->get('kernel')->getEnvironment() == 'dev') {
-            return new Response('redirect '.$request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url));
+            return $this->redirect('/app_dev.php' . $datas->seo_url, 301);;
+          //  return new Response('redirect '.$request->getPathInfo().' != '.$datas->seo_url.' => '.($request->getPathInfo() != $datas->seo_url));
           }
           return $this->redirect($datas->seo_url, 301);
         }
