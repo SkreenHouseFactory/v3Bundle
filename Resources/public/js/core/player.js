@@ -232,10 +232,12 @@ Player = {
             this.getType() == 'android-mobile') {
           console.warn('Player.flowplayer', 'iOs/noflash', player.url);
 
-          if (navigator.userAgent.match(/iPhone|iPod/)) {
-            document.location = player.url;
-            return;
-          }
+          //autoplay iphone
+          //if (navigator.userAgent.match(/iPhone|iPod/)) {
+          //  document.location = player.url;
+          //  return;
+          //}
+
           /*
           Player.elmt.css('height', document.body.clientHeight/2);
           $f(this.elmt.attr('id'), flashArgs, flowArgs).ipad({simulateiDevice: true, 
@@ -408,6 +410,8 @@ Player = {
         typeof args.current_player == 'undefined' || 
         !args.current_player) {
       this.reset();
+    } else if (!this.elmt && args.current_player) {
+      Player.init($(args.current_player));
     }
     var args = $.extend(true, {
         with_player: 1,

@@ -304,7 +304,7 @@ class ContentController extends Controller
           $params['alpha'] = array(1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
         }
 
-        $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:real-channel.html.twig', $params);
+        $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:channel.html.twig', $params);
         if ($request->get("slug") != $datas->channel->slug) {
           // Alias du channel fourni
           return $this->redirect("/" . $datas->channel->slug, 301);
@@ -332,13 +332,14 @@ class ContentController extends Controller
         $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
         //$template = isset($datas->epg) && $datas->epg ? 'channel-replay' : 'channel';
 
-        $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:channel.html.twig', array(
+        $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:fournisseur.html.twig', array(
           'channel' => $datas,
           'formats' => array_combine(explode(';', $datas->facets_seo_url->format),explode(';', $datas->facets->format)),
           'subcategories' => array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory)),
           'alpha_available' => explode(';', $datas->facets->alpha),
           'alpha'    => array(1,2,3,4,5,6,7,8,9,
-                              'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
+                              'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'),
+          'body_class' => 'view-fournisseur',
         ));
       }
 

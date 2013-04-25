@@ -91,10 +91,10 @@ $(document).ready(function(){
       $('body').removeClass('playlist-in');
     })
   });
-  $('#top-playlist .breadcrumb li:first').live('click', function(){
+  $(document).on('click', '#top-playlist .breadcrumb li:first', function(){
     Skhf.session.initSelector();
   });
-  $('#top-playlist li.selector').live('click', function(e){
+  $(document).on('click', '#top-playlist li.selector', function(e){
     e.preventDefault();
     e.stopPropagation();
     console.log('script', 'li.selector', 'click');

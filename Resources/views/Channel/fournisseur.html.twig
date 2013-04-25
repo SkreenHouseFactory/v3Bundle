@@ -1,0 +1,128 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+{% block meta %}
+{% if channel.programs|length < 6 or app.request.get('page') %}
+<meta name="robots" content="noindex,follow" />
+{% endif %}
+<meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ channel.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}" />
+<meta property="og:description" content="{{ channel.description|striptags }}" />
+<meta property="og:type" content="channel" />
+<meta property="og:url" content="http://www.myskreen.com/{{ channel.seo_url }}" />
+{% if channel.picture %}
+<meta property="og:image" content="{{ channel.picture }}" />
+<link rel="image_src" href="{{ channel.picture }}" />
+{% endif %}
+<meta name="object_type" content="channel" />
+{% endblock %}
+{% block title %}
+{{ 'page.title.channel'|trans({'%name%': channel.name, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
+{%- if app.request.get('format') %}, {{ app.request.get('format') }}{% endif -%}
+{%- if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif -%}
+{%- if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif -%}
+{%- endblock %}
+{% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+
+{% block content %}
+<div id="view-fournisseur" data-id="{{ channel.id }}" class="container">
+
+  <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ channel.seo_url, text: 'Je regarde ' ~ channel.name ~ ' sur mySkreen et vous ?' } %}</div>
+
+  <ul class="breadcrumb">
+    <li{% if app.request.get('facet') is null and app.request.get('page') is null and app.request.get('format') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: channel.seo_url|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }}</span></a>{% if app.request.get('facet') or app.request.get('page') or app.request.get('format') %} <span class="divider">/</span>{% endif %}</li>
+    {% if app.request.get('format') %}
+    <li{% if app.request.get('page') is null and app.request.get('facet') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_format', {format: app.request.get('format'), slug: channel.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ app.request.get('format') }}</span></a>{% if app.request.get('page') or app.request.get('facet') %} <span class="divider">/</span>{% endif %} </li>
+		{% endif %}
+    {% if app.request.get('facet') %}
+    <li{% if app.request.get('page') is null %} class="active"{% endif%} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_facet', {facet: app.request.get('facet'), slug: channel.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ app.request.get('facet') }}</span></a>{% if app.request.get('page') %} <span class="divider">/</span>{% endif %}</li>
+    {% endif %}
+    {% if app.request.get('page') %}
+    <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_format_page', {format: app.request.get('format'), slug: channel.seo_url|replace({'/': ''})}) }}/page-{{ app.request.get('page') }}/"><span itemprop="title">Page {{ app.request.get('page') }}</span></a></li>
+    {% endif %}
+  </ul>
+
+	{% if channel.type in ['broadcast','cinema'] %}
+	<div class="pull-right actions" data-id="{{ channel.id }}">
+		<a class="fav fav-{{ channel.type == 'broadcast' ? 'epg' : 'theater' }} btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+	</div>
+	{% endif %}
+
+  <img class="channel-logo pull-left" src="{{ channel.img }}" />
+  <h1>Regardez {% if app.request.get('format') %}{{ app.request.get('format') }} &raquo; {% endif %}{{ channel.name }}{% if app.request.get('facet') %} <small> - {{ app.request.get('facet') }}</small>{% endif %}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
+  <p class="channel-description">{{ channel.description }}</p>
+
+  {% if app.request.get('page') is null and 
+        app.request.get('format') is null and 
+        app.request.get('facet') is null %}
+    {% if channel.epg is defined and channel.epg %}
+      {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-replay.html.twig' with {channel: channel} %}
+    {% endif %}
+    <h2>{{ channel.name }} : tous les programmes</h2>
+  {% endif%}
+
+  <div class="pagination">
+    <ul>
+        <li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('channel', { slug: app.request.get('slug')}) }}">{{ 'nav.all'|trans }}</a></li>
+      {% for l in alpha %}
+        <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="{{ path('channel_facet', {slug: app.request.get('slug'), facet: l}) }}">{{ l }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="facets">
+  {% for k,f in formats %}
+    <a href="{{ path('channel_format', {format: k, slug: app.request.get('slug')}) }}" class="badge{% if app.request.get('facet') == f %} badge-info"{% endif %}">{{ f }}</a>
+  {% endfor %}
+  <hr/>
+  {% if app.request.get('format') %}
+    {% for k,s in subcategories %}
+      <a href="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="label{% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</a>
+    {% endfor %}
+    <hr/>
+  {% endif%}
+  </div>
+
+
+  <h3 class="pager-count">{{ channel.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
+  <ul class="pager">
+  {% if channel.count > 30 and app.request.get('format') is null  %}
+    {% if app.request.get('page') > 2 %}
+    <li class="previous">
+      <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">&larr; 30 précédents</a>
+    </li>
+    {% elseif app.request.get('page') == 2 %}
+    <li class="previous">
+      <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">&larr; 30 précédents</a>
+    </li>
+    {% endif %}
+    {% if channel.programs|length > 0 %}
+    <li class="next">
+      <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">30 suivants &rarr;</a>
+    </li>
+    {% endif %}
+  {% endif %}
+  </ul>
+
+  <div id="channel-programs" class="slider slider-list">
+    <ul class="items">
+    {% for program in channel.programs %}
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, theater_id: channel.type == 'cinema' ? channel.id : '' } %}
+    {% endfor %}
+    </ul>
+  </div>
+
+	{% if channel.tweets is defined %}
+	<h4>{{ channel.name }} sur Twitter</h4>
+	{% include 'SkreenHouseFactoryV3Bundle:Main:_tweets.html.twig' with {tweets: channel.tweets } %}
+	{% endif %}
+	</div>
+</div>
+{% endblock %}
+
+{% block pagescripts %}
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/channel.js'
+    
+    filter='?yui_js' 
+    output='js/compiled/pages/channel.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}
