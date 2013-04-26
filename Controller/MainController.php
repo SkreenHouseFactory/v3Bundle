@@ -50,9 +50,9 @@ class MainController extends Controller
         if (!strstr($request->getHost(), 'replay.')) {
           $redirect = $this->generateUrl('tvgrid');
         }
-        if (strstr($request->getHost(), 'tv.')) {
-          $redirect = $this->redirect('http://www.myskreen.com/video-a-la-demande/', 301);
-        }
+        //if (!strstr($request->getHost(), 'tv.')) {
+        //  return $this->redirect('http://tv.myskreen.com/video/replay/', 301);
+        //}
         throw $this->createNotFoundException('Home does not exist');
       }
 
