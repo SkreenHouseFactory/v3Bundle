@@ -200,7 +200,6 @@ GridView = {
       //reload schedule
       this.loadSchedule(function(){
         self.idle();
-        self.channels.fadeIn();
       });
     } else {
       this.idle();
@@ -212,7 +211,7 @@ GridView = {
     var self = this;
     var channel_ids = this.getChannelsIds();
     //loader
-    this.channels.html('<li></li>');
+    this.channels.html('<li></li>').show();
     UI.appendLoader($('li', this.channels));
     //today
     var date = new Date();
