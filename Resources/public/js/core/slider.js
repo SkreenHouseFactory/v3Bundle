@@ -373,7 +373,7 @@ var BaseSlider = Class.extend({
       }
     } else {
       if (p.onglet == 'channel') {
-        $('a.title', li).attr('data-ajax', API.config.v3_root + p.seo_url)
+        $('a.title', li).attr('data-ajax', API.config.v3_root + p.seo_url + '?view-cover=1')
                         .attr('rel', '#content');
       } else {
         //if (p.deporte) { $('.channel .diff', li).html('<i class="icon-th icon-white"></i> Sur mySkreen'); }

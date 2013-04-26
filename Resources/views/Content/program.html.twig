@@ -220,7 +220,7 @@
                     {% elseif o.broadcasttime|timeleft %}
                       <span class="label label-warning">Dans {{ o.broadcasttime|timeleft }}</span>
                     {% endif %}
-                  {% elseif o.endtime|remainingreplay %}
+                  {% elseif o.endtime is defined and o.endtime|remainingreplay %}
                     <span class="label label-warning">{{ o.endtime|remainingreplay }}</span>
                   {% endif %}
                 </td>

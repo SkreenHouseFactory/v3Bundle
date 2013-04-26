@@ -48,7 +48,12 @@
 .bgbodyfade {
   background: @bgBodyFade;
 }
-body {
+body.cover, body.playlist-in.cover {
+  #main {
+    padding-top: 0px !important;
+  }
+}
+body, .no-cover {
   background: @bgBody;
   #main {
     padding-top: 80px;

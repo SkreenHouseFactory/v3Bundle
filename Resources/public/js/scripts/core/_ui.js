@@ -139,6 +139,12 @@ UiView = {
       console.log('script', '[data-ajax]', $(this).data('ajax'));
       //add body class to overload view-homes
       $('body').addClass('view-ajax');
+      if ($(this).data('ajax').indexOf('view-cover') > 0) {
+        $('body').removeClass('nocover').addClass('cover');
+      } else {
+        $('body').removeClass('cover').addClass('no-cover');
+      }
+      console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
       $($(this).attr('rel')).empty();
       UI.appendLoader($($(this).attr('rel')));
       if ($(this).data('ajax').indexOf('#') != -1) {
