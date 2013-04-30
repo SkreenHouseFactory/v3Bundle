@@ -24,7 +24,7 @@ $(document).ready(function(){
             var trigger = $(this);
             UI.installPopover(trigger);
             trigger.popover('show');
-    
+
             setTimeout(function(){
               trigger.popover('hide');
             }, 6000);
@@ -34,10 +34,10 @@ $(document).ready(function(){
     }
 
     //////////// SCRIPTS ////////////////
-    
+
     //no deportes
-    if ($('#trigger-deportes').data('nb') == 0) {
-      $('#triggers li:nth-child(2) a').trigger('click');
+    if ($('#trigger-plays').length == 0) {
+      $('#triggers li:first-child a').trigger('click');
     }
 
     //ics

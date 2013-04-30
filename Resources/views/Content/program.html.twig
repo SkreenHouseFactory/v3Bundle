@@ -29,7 +29,7 @@
 
 {# opengraph #}
 <meta property="og:title" content="{{ program.title }}" />
-<meta property="og:description" content="[ VIDEO ] {{ program.description }}" />
+<meta property="og:description" content="[ VIDEO ] {{ program.description|striptags }}" />
 <meta property="og:image" content="{{ program.picture }}" />
 <meta property="og:type" content="{% if program.format %}{% if program.format.name == 'Série' %}video.episode{% elseif program.format.name in ['Emission','Journal'] %}video.tv_show{% else %}video.movie{% endif %}{% else %}video.movie{% endif %}" />
 <meta property="og:url" content="http://www.myskreen.com{{ program.seo_url }}" />
@@ -102,7 +102,7 @@
         <p class="alert alert-success">{{ program.episodeof is defined ? 'Cet épisode' : 'Ce programme' }} sera bientôt disponible en Replay. Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera mis en ligne.</p>
       {% elseif program.has_vod == 0 %}
         {% if program.episodeof is defined %}
-        <p class="alert alert-success">Cette épisode n'est pas diffusé pour le moment.</p>
+        <p class="alert alert-success">Cette épisode n'est pas diffusé pour le moment.<br/>Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera disponible.</p>
         {% else %}
         <p class="alert alert-success">Ce programme n'est pas diffusé pour le moment.<br/>Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera disponible.</p>
         {% endif %}

@@ -54,6 +54,7 @@ page:
                 dvd: Tous les Dvds sont sur mySkreen
                 box: Toutes les offres VOD des Box sont sur mySkreen
         error: Utilisez le moteur de recherche pour trouver votre contenu.
+        tvgrid: Programme TV. Les horaires de toutes vos émissions, magazines et séries préférés. Retrouvez aussi les vidéos en Replay.
 form:
     error:
         msg:
