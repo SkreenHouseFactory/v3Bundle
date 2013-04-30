@@ -150,7 +150,7 @@
       white-space: normal;
 
       .channel {
-				text-decoration: none;
+        text-decoration: none;
         position: absolute;
         right: 0px;
         top: 0px;
@@ -162,7 +162,8 @@
         }
 
         .diff {
-          display: none;
+          display: block;
+          opacity: 0.1;
           background: black;
           color: white;
           font-size: 0.8em;
@@ -170,7 +171,7 @@
           line-height: 1.1em;
           border-bottom-left-radius: 5px;
           width: 65px;
-					text-transform: uppercase;
+          text-transform: uppercase;
           
           &.hide {
             display: none;
@@ -254,16 +255,16 @@
         border-radius: 4px;
         font-size: 0.9em;
         background-color: rgba(0,0,0,0.7);
-			  /*
-				background: rgb(0,0,0); 
-			  background: -moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);
-			  background: -webkit-gradient(radial, center center, 0px, center center, 30%, color-stop(0%,rgba(0,0,0,1)), color-stop(70%,rgba(0,0,0,0))); 
-			  background: -webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,1) 30%,rgba(0,0,0,0) 70%); 
-			  background: -o-radial-gradient(center, ellipse cover,  rgba(0,0,0,1) 30%,rgba(0,0,0,0) 70%); 
-			  background: -ms-radial-gradient(center, ellipse cover,  rgba(0,0,0,1) 30%,rgba(0,0,0,0) 70%);
-			  background: radial-gradient(ellipse at center,  rgba(0,0,0,1) 30%,rgba(0,0,0,0) 70%); 
-			  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#333333',GradientType=1 );
-				*/
+        /*
+        background: rgb(0,0,0); 
+        background: -moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);
+        background: -webkit-gradient(radial, center center, 0px, center center, 30%, color-stop(0%,rgba(0,0,0,1)), color-stop(70%,rgba(0,0,0,0))); 
+        background: -webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,1) 30%,rgba(0,0,0,0) 70%); 
+        background: -o-radial-gradient(center, ellipse cover,  rgba(0,0,0,1) 30%,rgba(0,0,0,0) 70%); 
+        background: -ms-radial-gradient(center, ellipse cover,  rgba(0,0,0,1) 30%,rgba(0,0,0,0) 70%);
+        background: radial-gradient(ellipse at center,  rgba(0,0,0,1) 30%,rgba(0,0,0,0) 70%); 
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#333333',GradientType=1 );
+        */
         i {
           display: none;
         }
@@ -325,7 +326,7 @@
           background: #EEE;
           
           .diff {
-            display: block;
+            opacity: 0.9;
           }
         }
         a.title { 
@@ -353,7 +354,7 @@
       }
       &.deporte:hover, &.tv-component-focused.deporte {
         a.title {
-        	background-color: rgba(0,0,0,0.7);
+          background-color: rgba(0,0,0,0.7);
         }
       }
       &.films:not(.missing-picture) {
@@ -364,7 +365,7 @@
         &:hover, &.tv-component-focused {
           a.title {
             font-size: 1.0em !important;
-        		background-color: rgba(0,0,0,0.7);
+            background-color: rgba(0,0,0,0.7);
           }
         }
       }

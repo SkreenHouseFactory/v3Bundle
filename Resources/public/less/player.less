@@ -1,6 +1,6 @@
 /* player */
 .player {
-	display: none;
+  display: none;
   width: 100%;
   background: transparent;
   position: relative;
@@ -44,24 +44,28 @@
   display: block;
   width: 100%;
 }
-.player-meta.has-versions {
-  display: block !important;
-	h4 {
-		display: none;
-	}
-}
-.player-meta {
+.player-meta, #couchmode .player-meta {
   display: none;
   position: absolute;
-	z-index: 1;
-	margin: 10px 0 0 10px;
+  z-index: 1;
+  margin: 5% 0 0 1% !important;
   width: 25%;
-  padding: 5px;
+  padding: 3px;
   border-radius: 5px;
   color: white;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.8);
+  h4 {
+    font-weight: normal;
+    font-size: 1.0em;
+    margin: 0;
+  }
+  &.has-versions {
+    display: block !important;
+    h4 {
+      display: none;
+    }
+  }
 }
-
 
 .player-controls {
   position:relative;

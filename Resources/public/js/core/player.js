@@ -516,10 +516,10 @@ Player = {
       this.elmt_meta.append('<h4>' + p.title + '<br/><small>' + p.format + year + '</small></h4>');
       //<br/><a class="btn btn-large fav">Suivre / voir plus tard</a><span>');
     }
-    
+
     //version ?
     this.elmt_meta.append('<div id="player-versions"></div>');
-    
+
     //buy ?
     if (typeof p == 'object' && 
         typeof p.pass != 'undefined' && 

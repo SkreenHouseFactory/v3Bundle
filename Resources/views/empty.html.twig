@@ -14,7 +14,6 @@
   <meta name="language" content="fr-FR" />
   <meta name="viewport" content="width=device-width">
   <meta name="robots" content="noindex,nofollow">
-  {% block meta endblock %}
   {% stylesheets
       '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
         filter='less,?yui_css'
@@ -22,6 +21,7 @@
         %}
       <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
+  {% block meta endblock %}
 </head>
 <body>
 {% endif %}

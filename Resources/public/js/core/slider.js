@@ -332,7 +332,7 @@ var BaseSlider = Class.extend({
     }
   },
   addProgramBestOffer: function(li, p) {
-    //console.log('BaseSlider.addProgramBestOffer', li, p);
+    console.log('------------> BaseSlider.addProgramBestOffer', li, p);
     //popular_channel
     if (typeof p.popular_channel == 'object') {
       $('.channel').addClass('logo-channel-' + p.popular_channel.id);
@@ -370,6 +370,13 @@ var BaseSlider = Class.extend({
           }
         }
         $('.channel', li).removeClass('hide');
+        //title bonus / extrait
+        /*
+        console.log('o.title', o.title);
+        if (typeof o.title != 'undefined') {
+          li.attr('data-player-program', {title: o.title});
+        }
+        */
       }
     } else {
       if (p.onglet == 'channel') {

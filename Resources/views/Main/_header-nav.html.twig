@@ -1,4 +1,7 @@
 {% set header_base = app.environment == 'prod' ? 'http://www.myskreen.com' : '' %}
+{% set tv_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','GULLI','FRANCE 24','BFM TV','iTélé','Public Sénat'] %}
+{% set web_channels = ['Allocine','Télérama','Marmiton','AufemininTV','Doctissimo','Europe 1','Le Monde','Le Figaro','France Info','France Inter','Studio 4 0','Verywatch','It\'s big','Rendez-vous à Paris','Xtremevidéo','Paris Saint-Germain','Taratata','La Chaîne techno','Perform'] %}
+
 <div class="navbar navbar-inverse">
   <div class="navbar-inner">
   <div class="navbar-inner-container">
@@ -32,57 +35,26 @@
           <li class="clear divider"></li>
           <li class="nav-header">Les chaînes de la Tnt</li>
           <li class="tv-channels">
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'tf1'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/tf1_medium.png" alt="TF1 Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-2'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/france-2_medium.png" alt="FRANCE 2 Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-3'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/france-3_medium.png" alt="FRANCE 3 Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'canal'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/canal-%2B_medium.png" alt="CANAL + Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-4'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/france-4_medium.png" alt="FRANCE 4 Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-5'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/france-5_medium.png" alt="FRANCE 5 Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-o'}) }}""><img src="http://mskstatic.com/37/32/medias/ico/chaines/france-o_medium.png" alt="FRANCE Ô Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'arte'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/arte_medium.png" alt="ARTE Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'm6'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/m6_medium.png" alt="M6 Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'd8'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/d8_medium.png" alt="D8 Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'd17'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/d17_medium.png" alt="D17 Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'w9'}) }}""><img src="http://mskstatic.com/37/32/medias/ico/chaines/w9_medium.png" alt="W9 Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'tmc'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/tmc_medium.png" alt="TMC Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'nt1'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/nt1_medium.png" alt="NT1 Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'nrj-12'}) }}""><img src="http://mskstatic.com/37/32/medias/ico/chaines/nrj-12_medium.png" alt="NRJ 12 Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', { slug: 'gulli'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/gulli_medium.png" alt="GULLI Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-24'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/france-24_medium.png" alt="FRANCE 24 Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'bfm-tv'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/bfm-tv_medium.png" alt="BFM TV Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'itele'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/itele_medium.png" alt="iTélé Replay"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'public-senat'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/public-senat_medium.png" alt="Public Sénat Replay"/></a>
+            {% for channel in tv_channels %}
+            {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
+            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
+            {% endfor %}
           </li>
           <li><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}"><i class="icon-chevron-right"></i> Toutes les chaines TV</a></li>
           <li class="divider clear"></li>
           <li class="nav-header">Les chaînes Web</li>
           <li class="tv-channels">
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'allocine'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/allocine_medium.png" alt="Allocine vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'telerama'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/telerama_medium.png" alt="Télérama vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'marmiton'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/marmiton_medium.png" alt="Marmiton vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'au-feminin-la-tribu'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/au-feminin-la-tribu_medium.png" alt="Au feminin vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'doctissimo'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/doctissimo_medium.png" alt="Doctissimo vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'europe-1'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/europe-1_medium.png" alt="Europe1 vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'le-monde'}) }}""><img src="http://mskstatic.com/37/32/medias/ico/chaines/le-monde_medium.png" alt="Le Monde vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'le-figaro'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/le-figaro_medium.png" alt="Le Figaro"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-info'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/france-info_medium.png" alt="France Info vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'france-inter'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/france-inter_medium.png" alt="France Inter vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'studio-4-0'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/studio-4-0_medium.png" alt="Le Studio de France 4 vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'verywatch'}) }}""><img src="http://mskstatic.com/37/32/medias/ico/chaines/verywatch_medium.png" alt="Very watch vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'it-s-big'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/it-s-big_medium.png" alt="It's big vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'rendez-vous-a-paris'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/rendez-vous-a-paris_medium.png" alt="Rendez-vous à Paris vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'xtremevideo'}) }}""><img src="http://mskstatic.com/37/32/medias/ico/chaines/xtremevideo_medium.png" alt="Xtreme vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', { slug: 'paris-saint-germain'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/paris-saint-germain_medium.png" alt="Paris Saint-Germain vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'taratata'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/taratata_medium.png" alt="Taratata vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'la-chaine-techno'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/la-chaine-techno_medium.png" alt="La Chaine techno vidéos"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'perform'}) }}"><img src="http://mskstatic.com/37/32/medias/ico/chaines/perform_medium.png" alt="Peform Sports"/></a>
+            {% for channel in web_channels %}
+            {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
+            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><span>{{ channel }}</span><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
+            {% endfor %}
           </li>
           <li><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}"><i class="icon-chevron-right"></i> Toutes les chaînes web</a></li>
           <li class="divider clear"></li>
           <li class="nav-header">Les chaînes mySkreen</li>
           <li class="tv-channels">
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'les-inconnus'}) }}"><img src="http://mskstatic.com/50/50/c/medias/photos/channel/1-les-inconnus.jpg" alt="Les Inconnus"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'jacques-demy'}) }}"><img src="http://mskstatic.com/50/50/c/medias/photos/channel/3-jacques-demy.jpg" alt="Jacques Demy"/></a>
+            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'les-inconnus'}) }}"><span>Les Inconnus</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/1-les-inconnus.jpg" alt="Les Inconnus"/></a>
+            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'jacques-demy'}) }}"><span>Jacques Demy</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/3-jacques-demy.jpg" alt="Jacques Demy"/></a>
           </li>
         </ul>
       </li>

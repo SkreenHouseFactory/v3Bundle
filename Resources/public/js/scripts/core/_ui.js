@@ -43,7 +43,7 @@ UiView = {
       $('.modal').on('hidden', function(){
         $('.popover').remove();
         $('.modal .modal-body').empty();
-    
+
         //hack addtofavorite fb + callback modal
         if (UI.callbackModal) {
           UI.callbackModal();

@@ -81,15 +81,17 @@ $(document).ready(function(){
   // -- ui playlist
   $('#top-playlist').on('show', function () {
     console.log('script', '#top-playlist on show');
-    $('body:not(.view-homes, .view-homes_vod, .view-channel) #main').animate({paddingTop: 400}, function(){
-      $('body').addClass('playlist-in');
+    $('body:not(.cover) #main').animate({paddingTop: 400}, function(){
+      //
     })
+    $('body').addClass('playlist-in');
   });
   $('#top-playlist').on('hide', function () {
     console.log('script', '#top-playlist on hide');
-    $('body:not(.view-homes, .view-homes_vod, .view-channel) #main').animate({paddingTop: 80}, function(){
-      $('body').removeClass('playlist-in');
+    $('body:not(.cover) #main').animate({paddingTop: 80}, function(){
+      //
     })
+    $('body').removeClass('playlist-in');
   });
   $(document).on('click', '#top-playlist .breadcrumb li:first', function(){
     Skhf.session.initSelector();
