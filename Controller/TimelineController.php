@@ -57,7 +57,7 @@ class TimelineController extends Controller
                 'time' => time()
               ));
       //echo $api->url;
-      //print_r($data->sliders);exit();
+      //print("<pre>");print_r($data->sliders);exit();
 
       // post treatment
       $data->channels = (array)$data->channels;

@@ -269,9 +269,9 @@ GridView = {
       .replace('/12/', ' Décembre ');
     $('h1 time').html(day + ' ' + datestring);// + ' - ' + time);
     //timeline
-    $('.timeline li:nth-child(2)').html(date.getHours() + ':00')
-    $('.timeline li:nth-child(3)').html((date.getHours() + 1) + ':00')
-    $('.timeline li:last-child').html((date.getHours() + 2) + ':00')
+    $('.timeline li:nth-child(2)').html(date.getHours()%24 + 'h00')
+    $('.timeline li:nth-child(3)').html((date.getHours() + 1)%24 + 'h00')
+    $('.timeline li:last-child').html((date.getHours() + 2)%24 + 'h00')
   },
   filter: function(onglet) {
     console.log('GridView.filter', onglet);
