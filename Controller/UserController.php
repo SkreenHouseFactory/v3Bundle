@@ -40,9 +40,9 @@ class UserController extends Controller
 						'email' => $request->get('email'),
 						'token' => $request->get('token'),
             'notifications' => $request->get('notifications')
-						),
+            ),
             'POST'
-					);
+          );
         } else {
           $error = 'Email invalide';
         }
@@ -64,18 +64,18 @@ class UserController extends Controller
     */
     public function settingsAction(Request $request)
     {
-			$session_uid = $request->cookies->get('myskreen_session_uid');
+      $session_uid = $request->cookies->get('myskreen_session_uid');
       if (!$session_uid) {
         return $this->redirect('http://www.myskreen.com');
       }
 
-			$api = $this->get('api');
+      $api = $this->get('api');
       $userDatas = $api->fetch('session/settings/'.$session_uid);
       if (isset($userDatas->error)) {
         return $this->redirect('http://www.myskreen.com');
       }
-			$userDatas->session_uid = $session_uid;
-//		print_r($userDatas);exit;
+      $userDatas->session_uid = $session_uid;
+//    print_r($userDatas);exit;
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:settings.html.twig', (array)$userDatas);
 
       $response->setPrivate();
@@ -95,20 +95,20 @@ class UserController extends Controller
         return $this->redirect('http://www.myskreen.com');
       }
 
-			$api = $this->get('api');
+      $api = $this->get('api');
       $params = array(
-				'img_width' => 150,
+        'img_width' => 150,
         'img_height' => 200,
         'offset' => 0,
         'nb_results' => 200,
         'onglet' => $onglet,
-			);
+      );
       if ($onglet == "channel") {
         $params['access'] = 'with_channels';
       }
       $programs = $api->fetch('www/slider/queue/' . $session_uid, $params);
-			//echo $api->url;
-			//print_r($programs);
+      //echo $api->url;
+      //print_r($programs);
       //not connected ?
       if (isset($programs->error) && 
           $programs->error) {
@@ -159,31 +159,31 @@ class UserController extends Controller
         return $this->redirect('http://www.myskreen.com');
       }
 
-			$api = $this->get('api');
+      $api = $this->get('api');
       $vods = $api->fetch('www/slider/vod/' . $session_uid, array(
-				'img_height' => 100,
+        'img_height' => 100,
         'offset' => 0,
         'nb_results' => 200,
         'channel_img_width' => 65,
         'onglet' => $onglet
-			));
-			//echo $api->url;
-			//print_r($programs);
+      ));
+      //echo $api->url;
+      //print_r($programs);
       //not connected ?
       if (isset($vods->error) && 
           $vods->error) {
         return $this->redirect('http://www.myskreen.com');
       }
-			//print_r($vods);exit();
-			//post treatments
-			$programs = array();
-			foreach ($vods as $vod) {
-				$pere_id = isset($vod->program->episodeof) ? $vod->program->episodeof->id : $vod->program->id;
-				$programs[$pere_id]['offers'][] = $vod;
-				if (!isset($programs[$pere_id]['program'])) {
-					$programs[$pere_id]['program'] = isset($vod->program->episodeof) ? $vod->program->episodeof : $vod->program;
-				}
-			}
+      //print_r($vods);exit();
+      //post treatments
+      $programs = array();
+      foreach ($vods as $vod) {
+        $pere_id = isset($vod->program->episodeof) ? $vod->program->episodeof->id : $vod->program->id;
+        $programs[$pere_id]['offers'][] = $vod;
+        if (!isset($programs[$pere_id]['program'])) {
+          $programs[$pere_id]['program'] = isset($vod->program->episodeof) ? $vod->program->episodeof : $vod->program;
+        }
+      }
 
       $alpha_available = array();
       foreach ($vods as $key => $v) {

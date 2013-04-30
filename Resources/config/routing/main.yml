@@ -347,11 +347,11 @@ partenaires:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:default, template: partners }
 
 #cocons : before channel, important !
-#cocon_tv:
-#    pattern:  /{cocon}/{name}/
-#    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon }
-#    requirements:
-#        cocon: video
+cocon_tv:
+    pattern:  /{cocon}/{name}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon }
+    requirements:
+        cocon: video
 
 #channel
 channel_format_page:
@@ -393,11 +393,11 @@ channel:
         slug: "[^/]+"
 
 #cocons : end, after channel, important !
-#cocon_replay:
-#    pattern:  /{cocon}/{name}/
-#    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon }
-#    requirements:
-#        cocon: tf1|france-2|france-3|m6|w9
+cocon_replay:
+    pattern:  /{cocon}/{name}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon }
+    requirements:
+        cocon: tf1|france-2|france-3|m6|w9
 
 #hack url generation
 any_url:

@@ -20,6 +20,7 @@
 {%- if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif -%}
 {%- endblock %}
 {% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+{% block body_class %}view-fournisseur{% endblock %}
 
 {% block content %}
 <div id="view-fournisseur" data-id="{{ channel.id }}" class="container">

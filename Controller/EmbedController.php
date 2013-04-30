@@ -43,6 +43,11 @@ class EmbedController extends Controller
       ));
       //echo $api->url;
 
+      //post streatment
+      if (in_array($datas->program->id, array(4988489))) {
+        $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/LesInconnus/player-splash.jpg';
+      }
+
       $response = $this->render('SkreenHouseFactoryV3Bundle:Embed:video.html.twig', array(
         'offer' => $datas,
         'width' => $request->get('width', '100%'),
