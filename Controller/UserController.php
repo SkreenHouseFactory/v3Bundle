@@ -27,14 +27,18 @@ class UserController extends Controller
     {
       $unsubscribed = null;
       $error = null;
-      if ($request->request->get('email')) {
+      if (!$request->get('email') || !$request->get('token')) {
+        throw $this->createNotFoundException('Page does not exist');
+        exit;
+      }
+      if ($request->get('email')) {
         $emailConstraint = new Email();
-        $errorList = $this->get('validator')->validateValue($request->request->get('email'), $emailConstraint);
-        
+        $errorList = $this->get('validator')->validateValue($request->get('email'), $emailConstraint);
         if (count($errorList) == 0) {
           $api = $this->get('api');
           $unsubscribed = $api->fetch('user/blacklist', array(
-						'email' => $request->request->get('email'),
+						'email' => $request->get('email'),
+						'token' => $request->get('token'),
             'notifications' => $request->get('notifications')
 						),
             'POST'
