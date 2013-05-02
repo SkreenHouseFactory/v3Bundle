@@ -136,6 +136,10 @@ $(document).ready(function(){
                 });
     };
 
+    $('[data-track-channel]').each(function() {
+      //track channel
+      API.trackVar(1, 'Chaîne', $(this).data('track-channel'), 3);
+    })
   }
 });
 

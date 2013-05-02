@@ -389,7 +389,7 @@
 
     {% if ((program.related.chaines is defined) and (program.related.chaines.programs is defined) and (program.related.chaines.programs|length == 1)) %}
       {% for r in program.related.chaines.programs %}
-      <a id="channel_root" href="{{ r.seo_url }}" style="background: url('{{ r.picture }}') top left no-repeat;">
+      <a data-track-channel="{{ r.title }}" id="channel_root" href="{{ r.seo_url }}" style="background: url('{{ r.picture }}') top left no-repeat;">
         <span class="texte">{{ r.title ~ ', la chaîne' }}</span>
       </a>
       {% endfor %}
@@ -431,7 +431,7 @@
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r, noheader: true} %}
     {% elseif r.name == 'chaines' %}
       {% if (program.related.chaines is defined and program.related.chaines.programs is defined and program.related.chaines.programs|length > 1) %}
-      <a name="{{ r.name }}"></a>
+      <a data-track-channel="{{ r.name }}" name="{{ r.name }}"></a>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r} %}
       {% endif %}
     {% else %}

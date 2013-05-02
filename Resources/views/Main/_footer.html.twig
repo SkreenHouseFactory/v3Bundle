@@ -1,22 +1,11 @@
 <a name="footer"></a>
 <div class="container">
-  <div class="row">
-  <ul class="nav nav-pills nav-share">
-    <li class="span3"><iframe class="facebook" frameborder="0" scrolling="no" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fmyskreen&amp;send=false&amp;layout=button_count&amp;width=215&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=tahoma&amp;height=21&amp;appId=193945860617344" style="border: none; overflow: hidden; width: 200px; height: 20px;"></iframe><a rel="nofollow" href="http://www.facebook.com/myskreen" id="fb" class="colorbox">Facebook.com/mySkreen</a></li>
-    <li class="span3"><iframe class="twitter" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/follow_button.1337330192.html#_=1338538061760&amp;id=twitter-widget-0&amp;lang=fr&amp;screen_name=mySkreen&amp;show_count=true&amp;show_screen_name=true&amp;size=m" style="width: 200px; height: 20px;" title="Twitter Follow Button"></iframe><a rel="nofollow" href="http://www.twitter.com/myskreen" id="tw" class="colorbox">Twitter.com/mySkreen</a></li>
-    <li class="span3"><iframe class="google" frameborder="0" scrolling="no" src="https://plusone.google.com/_/+1/fastbutton?bsv=pr&amp;url=http%3A%2F%2Fwww.myskreen.com%2F&amp;size=medium&amp;count=true&amp;origin=https%3A%2F%2Fplusone.google.com&amp;hl=fr&amp;jsh=m%3B%2F_%2Fapps-static%2F_%2Fjs%2Fgapi%2F__features__%2Frt%3Dj%2Fver%3Da4VcHo_vwLs.en.%2Fsv%3D1%2Fam%3D!g1Jk74_hHGWYLXF4lw%2Fd%3D1%2Frs%3DAItRSTPHZ_P8iXGq2qNGyjGPcq1Cnsfr7w#id=I9_1343289996918&amp;parent=https%3A%2F%2Fplusone.google.com&amp;rpctoken=71946186&amp;_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart" style="width: 90px; margin: 0px; border-style: none; height: 20px; visibility: visible;" title="+1"></iframe><a rel="nofollow" href="https://plus.google.com/106555719800030017985/posts">Google+</a></li>
-  </ul>
-  </div>
-  <div class="row clear">
-    <div class="span2"><a class="pull-left" href="http://www.myskreen.com/"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-footer.jpg') }}" alt="mySkreen.com"></a></div>
-    <div class="span8"><p class="clear">mySkreen est un guide de programmes innovant qui réunit sur un seul site toutes les chaines de télévision, tout le replay, tous les catalogues de VOD, le cinéma avec les horaires et les salles, et les web séries produites par les meilleurs sites médias. Suivez les programmes que vous aimez et soyez avertis à chaque diffusion ou nouvelle offre en streaming. Grâce à mySkreen vous reprenez le pouvoir : mySkreen c’est votre télé à la carte et à la demande.</p></div>
+  <div id="boost" class="row">
+    {% render 'SkreenHouseFactoryV3Bundle:Main:boost' with {}, {'standalone': true} %}
   </div>
   <hr/>
   <div class="row" style="font-size: 0.9em;">
-    <div id="boost" class="span2">
-    {% render 'SkreenHouseFactoryV3Bundle:Main:boost' with {}, {'standalone': true} %}
-    </div>
-    <div id="cats" class="span2">
+    <div id="footer-replay" class="span2">
       Replay :<br/> 
       <a href="{{ path('tvgrid') }}">Replay</a>
       <a href="{{ path('channel', {slug: 'm6'}) }}">M6 en Replay</a>
@@ -24,7 +13,8 @@
       <a href="{{ path('channel', {slug: 'w9'}) }}">W9 en Replay</a>
       <a href="{{ path('channel', {slug: 'france-2'}) }}">France 2 en Replay</a>
       <a href="{{ path('channel', {slug: 'france-3'}) }}">France 3 en Replay</a>
-      <hr/>
+    </div>
+    <div id="footer-channels" class="span2">
       Chaînes : <br/>
       <a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">Chaînes TV & Replay</a>
       <a href="{{ path('sitemap_channels', {type: 'vod'}) }}">Chaînes VOD</a>
@@ -37,9 +27,9 @@
           app.request.get('home') not in ['tv-replay','cinema','video-a-la-demande','mixte'] %}
       {% set base_footer = app.request.get('home') %}
     {% else %}{% set base_footer = 'film' %}{% endif %}
-    <div id="cats" class="span3">
+    <div id="cats" class="span2">
       Catégories : 
-      {% set footerspin =  ' streaming' %}
+      {% set footerspin =  '' %}
       {#% if base_footer in ['film'] %#}
       <a href="/film/film-culte/">Film culte{{ footerspin }}</a>
       <a href="/film/ovni-experimental/">OVNI / Expérimental{{ footerspin }}</a>
@@ -52,6 +42,8 @@
       <a href="/film/drames/">Drames{{ footerspin }}</a>
       <a href="/film/jeunesse/">Jeunesse{{ footerspin }}</a>
       <a href="/film/erotique/">Erotique{{ footerspin }}</a>
+      </div>
+      <div id="cats-1" class="span2">
       <a href="/film/action-aventure/">Action - Aventure{{ footerspin }}</a>
       <a href="/film/epouvante-horreur/">Epouvante - horreur{{ footerspin }}</a>
       {#% endif %}
@@ -69,6 +61,8 @@
       <a href="/serie/science-fiction/">Science-fiction{{ footerspin }}</a>
       {#% endif %}
       {% if base_footer in ['emission','journal','documentaire'] %#}
+      </div>
+      <div id="cats-2" class="span2">
       <a href="/emission/sport/">Sport{{ footerspin }}</a>
       <a href="/emission/decouverte/">Découverte{{ footerspin }}</a>
       <a href="/emission/sante-bien-etre/">Santé - bien-être{{ footerspin }}</a>
@@ -84,6 +78,15 @@
       <a href="/serie/serie-animee/">Série animée{{ footerspin }}</a>
       {#% endif %#}
     </div>
+  </div>
+  <hr/>
+  <div class="row">
+  <ul class="nav nav-pills nav-share">
+    <li class="span2"><a class="pull-left" href="http://www.myskreen.com/"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-footer.jpg') }}" alt="mySkreen.com"></a></li>
+    <li class="span3"><iframe class="facebook" frameborder="0" scrolling="no" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fmyskreen&amp;send=false&amp;layout=button_count&amp;width=215&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=tahoma&amp;height=21&amp;appId=193945860617344" style="border: none; overflow: hidden; width: 200px; height: 20px;"></iframe><a rel="nofollow" href="http://www.facebook.com/myskreen" id="fb" class="colorbox">Facebook.com/mySkreen</a></li>
+    <li class="span3"><iframe class="twitter" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/follow_button.1337330192.html#_=1338538061760&amp;id=twitter-widget-0&amp;lang=fr&amp;screen_name=mySkreen&amp;show_count=true&amp;show_screen_name=true&amp;size=m" style="width: 200px; height: 20px;" title="Twitter Follow Button"></iframe><a rel="nofollow" href="http://www.twitter.com/myskreen" id="tw" class="colorbox">Twitter.com/mySkreen</a></li>
+    <li class="span2"><iframe class="google" frameborder="0" scrolling="no" src="https://plusone.google.com/_/+1/fastbutton?bsv=pr&amp;url=http%3A%2F%2Fwww.myskreen.com%2F&amp;size=medium&amp;count=true&amp;origin=https%3A%2F%2Fplusone.google.com&amp;hl=fr&amp;jsh=m%3B%2F_%2Fapps-static%2F_%2Fjs%2Fgapi%2F__features__%2Frt%3Dj%2Fver%3Da4VcHo_vwLs.en.%2Fsv%3D1%2Fam%3D!g1Jk74_hHGWYLXF4lw%2Fd%3D1%2Frs%3DAItRSTPHZ_P8iXGq2qNGyjGPcq1Cnsfr7w#id=I9_1343289996918&amp;parent=https%3A%2F%2Fplusone.google.com&amp;rpctoken=71946186&amp;_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart" style="width: 90px; margin: 0px; border-style: none; height: 20px; visibility: visible;" title="+1"></iframe><a rel="nofollow" href="https://plus.google.com/106555719800030017985/posts">Google+</a></li>
+  </ul>
   </div>
   <hr/>
   <div class="row">

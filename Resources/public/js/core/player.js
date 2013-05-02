@@ -18,6 +18,7 @@ Player = {
   type: null,
   state: 'stopped',
   playing: null,
+  program: null,
   elmt_meta: null,
   //player
   init: function(elmt, elmt_meta) {
@@ -86,15 +87,11 @@ Player = {
     var title    = trigger.data('player-title');
     var subtitle = trigger.data('player-subtitle');
     var icon     = trigger.data('player-icon') ? '<img src="' + trigger.data('player-icon') + '"/> ' : '';
-    var program  = trigger.data('player-program');
 
     this.elmt = $('#player');
     this.elmt.css('height', window.height)
     $('.title', this.elmt).html(icon + title);
     $('.subtitle', this.elmt).html(subtitle);
-    if (program) {
-      this.loadMetaProgram(program);
-    }
 
     // -- embed
     if (embed) {
@@ -160,7 +157,7 @@ Player = {
     }
   },
   play: function(player, callback) {
-    console.log('Player.play', player, this.type, this.elmt);
+    console.log('Player.play', player, this.type);
     if (player.current_player &&
       player.current_player != true) {
         this.updateElmt($(player.current_player));
@@ -170,6 +167,9 @@ Player = {
     this.playing = player.id;
     if (typeof player.format != 'undefined' && player.format) {
       this.type = player.format;
+    }
+    if (this.program) {
+      this.loadMetaProgram(this.program);
     }
 
 //    alert('this.type:' + this.type + ', this.getType():' + this.getType());
@@ -378,6 +378,7 @@ Player = {
     var args = $.extend(true, {
         with_player: 1,
         with_teaser: 1,
+        with_program: 1,
         player_width: this.config.width, 
         player_height:  this.config.height,
         player: this.type,
@@ -396,6 +397,9 @@ Player = {
         if (!media.player || typeof media.player == 'undefined') {
           callback('unvailable');
           return false;
+        }
+        if (typeof media.program != 'undefined') {
+          self.program = media.program;
         }
         self.play($.extend(media.player, {id: id}), callback);
   
@@ -417,6 +421,7 @@ Player = {
     var args = $.extend(true, {
         with_player: 1,
         with_teaser: 1,
+        with_program: 1,
         player_width: this.config.width, 
         player_height:  this.config.height,
         player: this.getType(),
@@ -440,6 +445,9 @@ Player = {
             callback('unvailable');
           }
           return false;
+        }
+        if (typeof video.program != 'undefined') {
+          self.program = video.program;
         }
         self.play($.extend(video.player, args), callback);
         var nb_version = $.map(video.versions, function(n, i) { return i; }).length;
@@ -517,6 +525,16 @@ Player = {
       //<br/><a class="btn btn-large fav">Suivre / voir plus tard</a><span>');
     }
 
+    //Hack : add link
+    if (typeof p.popular_channel != 'undefined' &&
+        typeof p.popular_channel.id != 'undefined') {
+      switch (p.popular_channel.id) {
+        case 5323:
+          this.elmt_meta.append('<a href="http://www.beinsport.fr/replay" target="_blank">BeInSport.fr</a>');
+        break
+      }
+    }
+
     //version ?
     this.elmt_meta.append('<div id="player-versions"></div>');
 
@@ -526,6 +544,8 @@ Player = {
         p.pass != null) {
       //this.elmt_meta.append('<div id="player-paywall"><a href="#" class="btn btn-info" data-play="' + p.pass + '"><i class="icon-play icon-white"></i> Louer ce programme</a></div>');
     }
+
+    this.elmt_meta.fadeIn();
   },
   minify: function() {
     $('#header').collapse('show');

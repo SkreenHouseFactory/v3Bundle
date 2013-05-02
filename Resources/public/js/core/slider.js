@@ -286,8 +286,8 @@ var BaseSlider = Class.extend({
                               .replace('%onglet%', typeof program.onglet != 'undefined' ? program.onglet.toLowerCase() : '');
       var li = $(sample);
       li.css('background-image', 'url(' + program.picture + ')')
-        .attr('data-position', k)
-        .attr('data-player-program', JSON.stringify(program));
+        .attr('data-position', k);
+        //.attr('data-player-program', JSON.stringify(program));
       if (!this.elmt.hasClass('slider-playlist')) {
         $('a',li).attr('href', API.config.v3_root + program.seo_url);
       } 

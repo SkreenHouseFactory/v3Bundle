@@ -306,8 +306,9 @@ API = {
     });
   },
   play: function(id, base_args){
-    var base_args = typeof base_args != 'undefined' ? base_args : {};
-    console.log('API.play', 'id', id, 'args', base_args);
+    var args = typeof base_args != 'undefined' ? base_args : {};
+    $.extend(args, {with_program: 1});
+    console.log('API.play', 'id', id, 'args', args);
     var self = this;
     this.query('GET', '/player/' + id + '/' + Skhf.session.uid + '.json', {}, function(datas) {
       console.log('API.play', 'callback API.query', datas);
@@ -327,8 +328,8 @@ API = {
           });
         break;
         default:
-          console.log(['script', 'Player.getType:', Player.getType(), 'data-couchmode', $(this).data('couchmode'), base_args]);
-          UI.play(id, base_args);
+          console.log(['script', 'Player.getType:', Player.getType(), 'data-couchmode', $(this).data('couchmode'), args]);
+          UI.play(id, args);
         break;
       }
     });
@@ -436,12 +437,24 @@ API = {
     }
   },
   trackEvent: function(var1, var2, var3) {
-    //return; //hack test visites ga
     if (typeof _gaq != 'undefined') {
-      _gaq.push(['_trackEvent', 
-                  var1, 
-                  var1 + '-' + var2, 
-                  var3]);
+      _gaq.push([
+        '_trackEvent', 
+        var1,               // category of activity
+        var1 + '-' + var2,  // Action
+        var3
+      ]);
+    }
+  },
+  trackVar: function(var1, var2, var3, var3) {
+    if (typeof _gaq != 'undefined') {
+      _gaq.push([
+        '_setCustomVar',
+         var1,     // This custom var is set to slot #1.  Required parameter.
+         var2,     // The name acts as a kind of category for the user activity.  Required parameter.
+         var3,     // This value of the custom variable.  Required parameter.
+         var4      // Sets the scope to session-level.  Optional parameter.
+      ]);
     }
   },
   geolocation: function(customSuccessCallback, customErrorCallback, watch){
