@@ -254,7 +254,7 @@ Player = {
             '<source ' + ( typeof player.poster != 'undefined' ? 'poster="' + player.poster + '" ' : '') + 'src="' + player.url + '" type="video/mp4"></source>' +
             '</video>'
           );
-          this.elmt.find('video').play();
+          //bug android : this.elmt.find('video').play();
           console.warn('Player.flowplayer', 'html', Player.elmt.html());
 
         } else {
