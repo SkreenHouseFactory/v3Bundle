@@ -444,9 +444,12 @@ API = {
         var1 + '-' + var2,  // Action
         var3
       ]);
+      console.log('API._trackEvent', ['_trackEvent', var1, var2, var3]);
+    } else {
+      console.warn('API._trackEvent', '_gaq undefined !', ['_trackEvent', var1, var2, var3]);
     }
   },
-  trackVar: function(var1, var2, var3, var3) {
+  trackVar: function(var1, var2, var3, var4) {
     if (typeof _gaq != 'undefined') {
       _gaq.push([
         '_setCustomVar',
@@ -455,6 +458,9 @@ API = {
          var3,     // This value of the custom variable.  Required parameter.
          var4      // Sets the scope to session-level.  Optional parameter.
       ]);
+      console.log('API.trackVar', ['_setCustomVar', var1, var2, var3, var4]);
+    } else {
+      console.warn('API.trackVar', '_gaq undefined !', ['_setCustomVar', var1, var2, var3, var4]);
     }
   },
   geolocation: function(customSuccessCallback, customErrorCallback, watch){

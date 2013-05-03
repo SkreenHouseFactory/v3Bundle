@@ -375,6 +375,7 @@ Player = {
         !args.current_player) {
       this.reset();
     }
+    self.program = null;
     var args = $.extend(true, {
         with_player: 1,
         with_teaser: 1,
@@ -418,6 +419,7 @@ Player = {
     } else if (!this.elmt && args.current_player) {
       Player.init($(args.current_player));
     }
+    self.program = null;
     var args = $.extend(true, {
         with_player: 1,
         with_teaser: 1,
