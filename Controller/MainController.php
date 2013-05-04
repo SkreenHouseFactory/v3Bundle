@@ -193,6 +193,9 @@ class MainController extends Controller
     */
     public function notfoundAction(Request $request)
     {
+      if (substr($request->get('url'), 0, 1) == '/') {
+        return $this->redirect($this->generateUrl('any_url', array('url' => substr($request->get('url'), 1, strlen($request->get('url'))-1)), 301));
+      }
       throw $this->createNotFoundException('Page does not exist');
     }
 
