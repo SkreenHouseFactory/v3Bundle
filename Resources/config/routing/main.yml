@@ -236,6 +236,27 @@ program_fils_saison:
         saison: "[^/]+"
         format: "[^/]+"
         categorie: "[^/]+"
+
+program_fils_undefined:
+    pattern:  /{format}/{categorie}/{idpere}-{slugpere}/{id}-{slug}/{rubrique}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    requirements:
+        id: \d+
+        slug: "[^/]+"
+        idpere: \d+
+        slugpere: "[^/]+"
+        format: "[^/]+"
+        categorie: "[^/]+"
+        rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine|avertir|undefined
+program_pere_undefined:
+    pattern:  /{format}/{categorie}/{id}-{slug}/{rubrique}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    requirements:
+        id: \d+
+        slug: "[^/]+"
+        format: "[^/]+"
+        categorie: "[^/]+"
+        rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine|avertir|undefined
 program_fils:
     pattern:  /{format}/{categorie}/{idpere}-{slugpere}/{id}-{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }

@@ -1,4 +1,4 @@
-{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+{% extends app.request.get('layout_partner') ? 'SkreenHouseFactoryPartnersBundle::' ~ app.request.get('layout_partner') ~ '.html.twig' : 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
 {% block meta %}
 {% if selection.programs|length < 6 %}
