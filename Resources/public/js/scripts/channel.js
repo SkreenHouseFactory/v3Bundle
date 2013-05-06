@@ -1,6 +1,6 @@
 // -- channel
 $(document).ready(function(){
-  if ($('#view-channel').length > 0) {
+  if ($('#view-fournisseur').length > 0) {
     $('.trigger-channel').click(function(){
       UI.refreshChannel($(this).parent().data('channel-id'));
     });
