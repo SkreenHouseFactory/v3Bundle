@@ -464,7 +464,7 @@ class ContentController extends Controller
       }
       //bad url
       if ($request->getPathInfo() != $datas->seo_url &&
-          !$request->get('partners_layout')) {
+          !$request->get('layout_partner')) {
         //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';
         return $this->redirect($datas->seo_url, 301);
       }
