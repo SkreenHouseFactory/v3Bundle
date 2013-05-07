@@ -563,10 +563,10 @@ UI = {
     //if (Player.getType() == 'ios') {
     //  Player.playOccurrence(id);
     //} else {
-    if (typeof args.player_width == 'undefined' || 
-        typeof args.player_width == 'undefined') {
-      args.player_width = 720;
-      args.player_height = 330;
+    if (isNaN(Player.config.width) || 
+        isNaN(Player.config.height)) {
+      Player.config.width = 720;
+      Player.config.height = 330;
     }
     console.log('UI.play', id, args);
     if (typeof args.current_player != 'undefined' && args.current_player) {

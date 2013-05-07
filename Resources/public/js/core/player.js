@@ -34,6 +34,10 @@ Player = {
       this.elmt_meta.addClass('actions');
       //this.loadMetaProgram(this.elmt.data('player-program'));
     }
+    if (this.elmt.data('player-config')) {
+      $.extend(this.config, this.elmt.data('player-config'));
+      console.log('Player.init', 'load data-player-config', this.config);
+    }
 
     this.type = Player.getType();
     console.log('Player.init', 'type', this.type, this.elmt);
