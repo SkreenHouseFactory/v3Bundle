@@ -260,7 +260,7 @@ seo:
     play: en streaming
 slider:
   sponsor: Sponsorisé
-  link.default: Agrandir
+  link.default: Zoom sur le sélection
 theaters:
     playlist:
         title: Mes playlists : dans mes cinémas
