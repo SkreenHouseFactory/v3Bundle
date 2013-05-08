@@ -102,7 +102,7 @@ $(document).ready(function(){
     console.log('script', 'li.selector', 'click');
     if ($(this).hasClass('empty')) {
       if ($('a', $(this)).data('modal')) {
-        API.launchModal($('a', $(this)).data('modal'));
+        API.quickLaunchModal($('a', $(this)).data('modal'));
       } else {
         $('a', $(this)).click();
       }
