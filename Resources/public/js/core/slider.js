@@ -326,7 +326,7 @@ var BaseSlider = Class.extend({
       this.ui();
     }
     $('a[rel="tooltip"]', this.elmt).tooltip();
-    UI.load$Triggers('like', Skhf.session.datas.queue, this.elmt);
+    UI.loadPlaylistTriggers('like', Skhf.session.datas.queue, this.elmt);
 
     if (typeof callback != 'undefined'){
       callback(this.elmt);
