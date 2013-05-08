@@ -348,7 +348,7 @@ var BaseSlider = Class.extend({
       if (typeof o.channel.name != 'undefined') {
         if ($('.channel img', li).length > 0) {
           $('.channel img', li).attr('src', o.channel.img).attr('title', o.channel.name);
-        } else {
+        } else if (o.channel.img) {
           $('.channel', li).prepend('<img src="' + o.channel.img + '" alt="' + o.channel.name + '" />');
         }
         if (o.broadcastdate) {
