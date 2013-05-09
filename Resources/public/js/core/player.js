@@ -300,6 +300,10 @@ Player = {
     this.elmt.show();
   },
   pause: function() {
+    //avoid bug with popin over video
+    if (/(iPod|iPhone)/.test(navigator.userAgent)) {
+      $('.player').empty();
+    }
     if (this.state != 'playing') {
       console.warn('Player.pause', 'state', this.state);
       return;
