@@ -37,8 +37,8 @@ class UserController extends Controller
         if (count($errorList) == 0) {
           $api = $this->get('api');
           $unsubscribed = $api->fetch('user/blacklist', array(
-						'email' => $request->get('email'),
-						'token' => $request->get('token'),
+            'email' => $request->get('email'),
+            'token' => $request->get('token'),
             'notifications' => $request->get('notifications')
             ),
             'POST'
@@ -54,7 +54,7 @@ class UserController extends Controller
       ));
 
       $response->setPrivate();
-      $response->setMaxAge(3600);
+      $response->setMaxAge(0);
 
       return $response;
     }
@@ -70,7 +70,14 @@ class UserController extends Controller
       }
 
       $api = $this->get('api');
+
+      if ($request->get('remove_card')) {
+        $userDatas = $api->fetch('session/settings/'.$session_uid, array('remove_card' => $request->get('remove_card')));
+        return $this->redirect($this->generateUrl('user_settings') . '#payment');
+      }
+
       $userDatas = $api->fetch('session/settings/'.$session_uid);
+      //echo $api->url;
       if (isset($userDatas->error)) {
         return $this->redirect('http://www.myskreen.com');
       }
@@ -79,7 +86,7 @@ class UserController extends Controller
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:settings.html.twig', (array)$userDatas);
 
       $response->setPrivate();
-      $response->setMaxAge(60);
+      $response->setMaxAge(0);
 
       return $response;
     }
@@ -143,7 +150,7 @@ class UserController extends Controller
       }
 
       $response->setPrivate();
-      $response->setMaxAge(60);
+      $response->setMaxAge(0);
 
       return $response;
     }
@@ -201,7 +208,7 @@ class UserController extends Controller
       ));
 
       $response->setPrivate();
-      $response->setMaxAge(60);
+      $response->setMaxAge(0);
 
       return $response;
     }

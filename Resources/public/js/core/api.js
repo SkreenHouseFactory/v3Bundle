@@ -79,6 +79,7 @@ API = {
   currentModalUrl: null,
   currentUrl: null,
   geolocation_id: null,
+  indexedDbStores: ['friends', 'social_selector'],
   init: function(callback) {
     var href = document.location.href;
     API.config = $.extend(ENV.all, href.indexOf('.net') != -1 ? ENV.dev : href.indexOf('preprod.') != -1 ? ENV.preprod : ENV.prod);
@@ -201,6 +202,9 @@ API = {
             } else if (typeof json.html != 'undefined') {
               $('.modal-body', elmt).empty().html(json.html);
               self.catchForm(elmt, callbackOnLoad);
+            }
+            if ($('input[type="text"].tv-component:first', elmt).length) {
+              $('input[type="text"].tv-component:first', elmt).focus();
             }
           //default
           } else {
@@ -561,7 +565,7 @@ API = {
     }
   },
   openIndexedDb: function(dbname, storeName, callback) {
-    callback(null); return; //desactivated
+    //callback(null); return; //desactivated
     
     if (typeof window.indexedDB == 'undefined'){
       console.warn('window.indexedDB', 'undefined');
@@ -580,8 +584,14 @@ API = {
 
       if (typeof callback != 'undefined') { //1: read_only
         if (typeof storeName != 'undefined' && storeName != null) {
-          var trans = self.db[dbname].transaction(storeName, 'readwrite');
-          var store = trans.objectStore(storeName);
+          if ($.inArray(storeName, self.db[dbname].objectStoreNames) == -1) {
+            console.log('API.openIndexedDb', 'callback createObjectStore', storeName, self.db[dbname].objectStoreNames);
+            //var store = self.db[dbname].createObjectStore(storeName, { keyPath: 'id', autoIncrement: true });
+          } else {
+            console.log('API.openIndexedDb', 'callback ObjectStore exists', dbname, storeName);
+            var trans = self.db[dbname].transaction(storeName, 'readwrite');
+            var store = trans.objectStore(storeName);
+          }
           callback(store);
         } else {
           callback(self.db[dbname]);
@@ -593,7 +603,10 @@ API = {
     }
     req.onupgradeneeded = function (e) {
       console.log('API.openIndexedDb', 'onupgradeneeded', dbname, storeName);
-      var store = e.target.result.createObjectStore(storeName, { keyPath: 'id', autoIncrement: true });
+      //var store = e.target.result.createObjectStore(storeName, { keyPath: 'id', autoIncrement: true });
+      for (k in self.indexedDbStores) {
+        var store = e.target.result.createObjectStore(self.indexedDbStores[k], { keyPath: 'id', autoIncrement: true });
+      }
       /*switch(storeName) {
         case 'friends':
           //store.createIndex('parameter', 'parameter', { unique: false });

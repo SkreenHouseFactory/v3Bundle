@@ -185,9 +185,9 @@ var BaseSession = Class.extend({
     } else {
       //init
       if (this.social_state == null) {
-        console.warn('BaseSession.getSocialDatas', 'state=init');
+        console.warn('BaseSession.getSocialDatas', 'set state=processing');
         this.social_state = 'processing';
-        this.callbackSocial.push(callback);
+        this.callbackSocial = [callback];
       }
       //load from IndexedDb ?
       API.selectIndexedDb('skhf', 'friends', 1, function(IndexedDbDatas){

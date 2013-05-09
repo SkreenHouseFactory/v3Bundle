@@ -4,71 +4,75 @@
 
 {% block content %}
 <div class="container" id="view-settings">
-	<h1>{{ 'user.settings'|trans }}</h1>
-	<ul class="nav nav-pills" id="user-settings">
-		<li class="nav-pill active"><a href="#profile" data-toggle="tab">{{ 'user.settings.profile'|trans }}</a></li>
-		<li class="nav-pill"><a href="#payment" data-toggle="tab">{{ 'user.settings.payment'|trans }}</a></li>
-		<li class="nav-pill"><a href="#notifications" data-toggle="tab">{{ 'user.settings.communication'|trans }}</a></li>
-	</ul>
-	<div class="tab-content">
-		<div class="tab-pane active" id="profile">
-			<table class="table table-striped">
-				<tr>
-					<td>
-						<form class="form-inline" action="session/settings/{{ session_uid }}.json" method="post" data-form="catch">
-								<label for="update_mail">{{ 'user.settings.email'|trans }}</label>&nbsp;
-								<input type="email" name="update_mail" value="{{ email }}" />&nbsp;
-								<input type="submit" value="{{ 'user.settings.submit'|trans }}" class="btn"/>
-						</form>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-						<form class="form-inline" action="session/settings/{{ session_uid }}.json" method="post" data-form="catch">
-							<label for="update_pwd">{{ 'user.settings.newpassword'|trans }}</label>&nbsp;
-							<input type="password" name="update_pwd"/>&nbsp;
-							<label for="passwordconfirm">{{ 'user.settings.confirmpassword'|trans }}</label>&nbsp;
-							<input type="password" name="passwordconfirm"/>&nbsp;
-							<input type="submit" value="{{ 'user.settings.change_password'|trans }}" class="btn"/>
-						</form>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<div class="tab-pane" id="notifications">
-			<table class="table table-striped">
-				<tr>
-					<td>
-		        <span class="btn-group newsletter" data-toggle="buttons-radio">
-		        	<a class="btn{{ newsletter ? ' btn-info' : '' }}" data-share="allow">{{ 'yes'|trans }}</a>
-		        	<a class="btn{{ newsletter ? '' : ' btn-info' }}" data-share="disallow">{{ 'no'|trans }}</a>
-		        </span>&nbsp;&nbsp;
-		        <span class="text newsletter">{{ 'user.settings.newsletter'|trans }}</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-		        <span class="btn-group notification" data-toggle="buttons-radio">
-		        	<a class="btn{{ notifications ? '' : ' btn-info' }}" data-notify="allow">{{ 'yes'|trans }}</a>
-		        	<a class="btn{{ notifications ? ' btn-info' : '' }}" data-notify="disallow">{{ 'no'|trans }}</a>
-		        </span>&nbsp;&nbsp;
-		        <span class="text notification">{{ 'user.settings.notification_email'|trans }}</span>
-					</td>
-				</tr>
-			</table>
-		</div>
+  <h1>{{ 'user.settings'|trans }}</h1>
+  <ul class="nav nav-pills" id="user-settings">
+    <li class="nav-pill active"><a href="#profile" data-toggle="tab">{{ 'user.settings.profile'|trans }}</a></li>
+    <li class="nav-pill"><a href="#payment" data-toggle="tab">{{ 'user.settings.payment'|trans }}</a></li>
+    <li class="nav-pill"><a href="#notifications" data-toggle="tab">{{ 'user.settings.communication'|trans }}</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="profile">
+      <table class="table table-striped">
+        <tr>
+          <td>
+            <form class="form-inline" action="session/settings/{{ session_uid }}.json" method="post" data-form="catch">
+                <label for="update_mail">{{ 'user.settings.email'|trans }}</label>&nbsp;
+                <input type="email" name="update_mail" value="{{ email }}" />&nbsp;
+                <input type="submit" value="{{ 'user.settings.submit'|trans }}" class="btn"/>
+            </form>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <form class="form-inline" action="session/settings/{{ session_uid }}.json" method="post" data-form="catch">
+              <label for="update_pwd">{{ 'user.settings.newpassword'|trans }}</label>&nbsp;
+              <input type="password" name="update_pwd"/>&nbsp;
+              <label for="passwordconfirm">{{ 'user.settings.confirmpassword'|trans }}</label>&nbsp;
+              <input type="password" name="passwordconfirm"/>&nbsp;
+              <input type="submit" value="{{ 'user.settings.change_password'|trans }}" class="btn"/>
+            </form>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="tab-pane" id="notifications">
+      <table class="table table-striped">
+        <tr>
+          <td>
+            <span class="btn-group newsletter" data-toggle="buttons-radio">
+              <a class="btn{{ newsletter ? ' btn-info' : '' }}" data-share="allow">{{ 'yes'|trans }}</a>
+              <a class="btn{{ newsletter ? '' : ' btn-info' }}" data-share="disallow">{{ 'no'|trans }}</a>
+            </span>&nbsp;&nbsp;
+            <span class="text newsletter">{{ 'user.settings.newsletter'|trans }}</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="btn-group notification" data-toggle="buttons-radio">
+              <a class="btn{{ notifications ? '' : ' btn-info' }}" data-notify="allow">{{ 'yes'|trans }}</a>
+              <a class="btn{{ notifications ? ' btn-info' : '' }}" data-notify="disallow">{{ 'no'|trans }}</a>
+            </span>&nbsp;&nbsp;
+            <span class="text notification">{{ 'user.settings.notification_email'|trans }}</span>
+          </td>
+        </tr>
+      </table>
+    </div>
 
-		<div class="tab-pane" id="payment">
-			{% if card %} 
-				{% if card_peremted_at < "now"|date("Y-m-d") %}<p class="alert alert-error">carte expiree</p>{% endif %}
-				<p class="alert alert-success">{{ 'card'|trans }} ****-****-****-{{ card }}, &nbsp;{{ 'peremted at'|trans }} {{ card_peremted_at|date('d/m/Y') }}</p>
-			{% else %}
-				<p class="alert alert-info">Aucune carte enregistrée.</p>
-	 		{% endif %}
-			<a data-modal="card" data-modal-title="Préférences" class="btn btn-large">{{ card is empty ? 'card.add'|trans : 'card.update'|trans }} </a>
-		</div>
-	</div>
+    <div class="tab-pane" id="payment">
+      {% if card %} 
+        {% if card_peremted_at < "now"|date("Y-m-d") %}<p class="alert alert-error">carte expirée</p>{% endif %}
+        <p class="alert alert-success">
+          Vous avez une carte enegistrée :<br/>
+          ****-****-****-<b>{{ card }}</b>, &nbsp;{{ 'card.perempted.at'|trans }} {{ card_peremted_at|localizeddate|replace({' 00:00:00': ''}) }}
+        </p>
+        <a href="?remove_card=1#payment" class="btn btn-danger btn-large">{{ 'card.remove'|trans }} </a>
+      {% else %}
+        <p class="alert alert-info">Aucune carte enregistrée.</p>
+        <a data-modal="card" data-modal-title="Enregistrer une carte de paiement" class="btn btn-large">{{ 'card.add'|trans }} </a>
+       {% endif %}
+    </div>
+  </div>
 </div>
 {% endblock %}
 

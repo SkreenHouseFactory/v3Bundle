@@ -347,7 +347,8 @@ category:
             content: Connectez-vous à Facebook en 1 clic et retrouvez ce que vos amis regardent sur mySkreen.
 card:
     add: Ajouter une carte de paiement
-    update: Modifier la carte de paiement
+    remove: Supprimer la carte de paiement
+    perempted.at: expire le
 free: Gratuit
 watch: Voir maintenant
 all.diff: Toutes les diffusions

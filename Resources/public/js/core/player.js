@@ -14,7 +14,7 @@ Player = {
   config: {width: '100%', height: '100%'},
   elmt: null,
   timeout: [],
-  timeoutdelay: 5000,
+  timeoutdelay: 2000,
   type: null,
   state: 'stopped',
   playing: null,
