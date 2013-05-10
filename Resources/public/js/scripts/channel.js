@@ -1,6 +1,7 @@
 // -- channel
 $(document).ready(function(){
-  if ($('#view-fournisseur').length > 0) {
+  // -- fournisseur
+  if ($('#view-fournisseur').length) {
     $('.trigger-channel').click(function(){
       UI.refreshChannel($(this).parent().data('channel-id'));
     });
@@ -11,6 +12,35 @@ $(document).ready(function(){
       $('[title="' + channel_name + ' Replay"]').parent().addClass('active');
       //track channel
       API.trackVar(1, 'Chaîne', channel_name, 3);
+    }
+
+  // -- chaine
+  } else if ($('#view-page').length) {
+
+    //////////// CALLBACKS ////////////////
+    // -- session sync
+    Skhf.session.callbackSignin = function() {
+      //add channel to playlist
+      if (Skhf.session.datas.email) {
+        if ($('.actions[data-id] a.fav').length) {
+          $('.actions[data-id] a.fav').trigger('click');
+        }
+      }
+    }
+
+    //////////// SCRIPTS ////////////////
+    //modal
+    var channel_id = $('.actions[data-id]').data('id');
+    var cookie = API.cookie('visited_channels') ? API.cookie('visited_channels').split(',') : [];
+    console.log('scripts/channels.js', 'visited_channels', channel_id, cookie)
+    if (!cookie ||
+        $.inArray('' + channel_id, cookie) == -1) {
+
+      if ($('#channel-modal').length) { //si modal
+        $('#channel-modal').modal('show');
+        console.log('scripts/channels.js', 'visited_channels', 'set cookie'),
+        API.cookie('visited_channels', (cookie.length ? cookie.join(',') + ',' : null) + channel_id);
+      }
     }
   }
 });

@@ -40,15 +40,23 @@ $(document).ready(function(){
       $('#triggers li:first-child a').trigger('click');
     }
 
+    //autoload from url
+    if (document.location.href.match(/\?rent/gi)) {
+      $('#plays [data-play]:first').trigger('click');
+    }
+    if (document.location.href.match(/\?follow/gi)) {
+      $('.actions .fav').trigger('click');
+    }
+
     //ics
-    $('[data-ics-occurrence]').click(function(e){
+    $('[data-ics-occurrence]').on('click', function(e){
       e.preventDefault();
       document.location = API.config.base + '1/icsfile/' + $(this).data('id')  + '.ics';
       return false;
     });
 
     //episodes
-    $('#program-offers .episode').live('hover', function(event) {
+    $('#program-offers .episode').on('hover', function(event) {
       var trigger = $(this);
       var timeout = null;
       if (event.type == 'mouseover' || event.type == 'mouseenter') {
