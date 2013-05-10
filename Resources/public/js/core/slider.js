@@ -234,6 +234,8 @@ var BaseSlider = Class.extend({
       console.warn('BaseSlider.loadotePrograms', 'url', url);
       return;
     }
+    if (url.substring(0,24) == "/recommend/from_channel/") // PAGE FOURNISSEUR
+      args = $.extend(args, {with_best_offer: true}, this.params.args);
     API.query('GET', //typeof args.api_method != 'undefined' ? 'POST' : 'GET',
               url, 
               args,

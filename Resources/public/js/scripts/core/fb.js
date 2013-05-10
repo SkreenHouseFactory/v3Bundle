@@ -61,7 +61,8 @@ $(document).ready(function(){
         // cancelled
         $('#fbconnect-infos').html('<span class="alert alert-error nowrap">La connexion a échoué !</span>');
       }
-    },{scope:'user_birthday,user_online_presence,email,read_friendlists,publish_stream,offline_access,friends_likes,friends_online_presence,publish_actions'});
+    },{scope:'email,read_friendlists,publish_stream,offline_access,publish_actions'});
+//    },{scope:'user_birthday,user_online_presence,email,read_friendlists,publish_stream,offline_access,friends_likes,friends_online_presence,publish_actions'});
   }
   /* on shown
   FB.getLoginStatus(function(response) {
