@@ -292,6 +292,8 @@ Player = {
         this.elmt.html('<iframe src="http://www.youtube.com/embed/' + player.url + '?version=3&f=videos&app=youtube_gdata&rel=1&border=0&fs=1&autoplay=1&wmode=opaque" width="100%" height="100%" frameborder="0"></iframe>');
       break;
     }
+    
+    this.elmt.show();
   },
   pause: function() {
     if (this.state != 'playing') {

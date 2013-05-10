@@ -18,7 +18,6 @@
 {% block description %}{{ selection.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 {% block body_class %}{% if selection.onglet.type == 'page' %}view-channel view-channel-selection cover{% endif %}{% endblock %}
 
-
 {% block content %}
 {% if selection.onglet.type == 'page' %}
 {% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {channel: selection.onglet.channel, data: selection.onglet, fav: 'page'} %}
