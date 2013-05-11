@@ -136,7 +136,7 @@ API = {
     //  callbackOnLoad();
     //}
 
-    $('.modal').modal();
+    $('#skModal.modal').modal();
 
     this.currentModalUrl = url;
   },

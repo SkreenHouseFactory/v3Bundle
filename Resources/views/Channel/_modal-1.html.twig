@@ -1,7 +1,14 @@
 <style>
+#channel-modal #triggerfav, #channel-modal.connected #fbconnect {
+  display: none;
+}
+#channel-modal.connected #triggerfav, #channel-modal #fbconnect {
+  display: block;
+}
 #channel-modal #fbconnect {
   margin: 0;
   text-align: left;
+  cursor: pointer;
 }
 #channel-modal #fbconnect img {
   margin: 0 0 0 -10px;
@@ -13,11 +20,14 @@
 <div class="modal hide" id="channel-modal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Abonnez-vous gratuitement à la chaîne &laquo; {{ data.name }} &raquo;</h3>
+    <h3>Abonnez-vous à la chaîne</h3>
   </div>
   <div class="modal-body">
     <img id="channel-logo" src="http://mskstatic.com/80/medias/ico/chaines/les-inconnus_medium.png" class="pull-left" />
-    <p>Pour recevoir les prochaines vidéos en avant-première, connectez-vous avec Facebook !</p>
+    <p>Abonnez-vous gratuitement à la chaîne &laquo; {{ data.name }} &raquo; <br/>pour recevoir les prochaines vidéos en avant-première !</p>
+    <div id="triggerfav">
+      <a class="btn btn-large btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre {{ data.name }}</a>
+    </div>
     <div id="fbconnect">
     <img src="https://api.myskreen.com/skPaymentPlugin/images/connexion_facebook.jpeg" alt="Se connecter avec Facebook" data-parcours="">
     <div id="fbconnect-infos"></div>

@@ -2,7 +2,7 @@
 var BaseSession = Class.extend({
   uid: '',
   datas: {},
-  sync_args: { 'short':1 },
+  sync_args: { 'short': 1, 'time': new Date().getTime() },
   onglet: '',
   access: '',
   social_state: null,
