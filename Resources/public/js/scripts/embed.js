@@ -8,5 +8,4 @@ $(document).ready(function(){
     console.log(['scripts/embed.js', 'iPhone|iPod|iPad|Android', 'default click']);
     $('#trigger').trigger('click');
   }
-  
 })
