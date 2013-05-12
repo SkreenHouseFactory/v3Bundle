@@ -88,10 +88,10 @@ var BaseSession = Class.extend({
     
     if (typeof callback != 'undefined') {
       //console.log('BaseSession.signin callback', callback);
-      callback();
+      callback(sessionData);
     }
     if (this.callbackSignin) {
-      this.callbackSignin();
+      this.callbackSignin(sessionData);
     }
   },
   signout: function(callback) {

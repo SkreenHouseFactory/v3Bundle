@@ -42,10 +42,17 @@ $(document).ready(function(){
             $('#channel-modal').modal('hide');
           })
           $('#fbconnect').on('click', function() {
-            Skhf.session.callbackSignin = function() {
+            Skhf.session.callbackSignin = function(sessionData) {
               //add channel to playlist
-              if (Skhf.session.datas.email) {
-                if ($('.actions[data-id] a.fav').length) {
+              if (sessionData.email) {
+                var id = $('.actions[data-id]').data('id');
+
+                console.log('scripts/channels.js', 'back from signin', id, sessionData.page.split(','));
+
+                if (($('.actions[data-id] a.fav-page').length && $.inArray(id, sessionData.page.split(',')) == -1) ||
+                    ($('.actions[data-id] a.fav-person').length && $.inArray(id, sessionData.person.split(',')) == -1) ||
+                    ($('.actions[data-id] a.fav-channel').length && $.inArray(id, sessionData.channel.split(',')) == -1) ||
+                    ($('.actions[data-id] a.fav-user').length && $.inArray(id, sessionData.user.split(',')) == -1)) {
                   $('.actions[data-id] a.fav').trigger('click');
                 }
               }
