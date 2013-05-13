@@ -5,7 +5,10 @@
 <meta property="og:description" content="{{ data.description|striptags }}" />
 <meta property="og:type" content="video.movie" />
 <meta property="og:url" content="http://www.myskreen.com{{ data.seo_url }}/" />
-{% if data.channel.cover %}
+{% if data.channel.img is defined %}
+<meta property="og:image" content="{{ data.channel.img }}" />
+<link rel="image_src" href="{{ data.channel.img }}" />
+{% elseif data.channel.cover is defined %}
 <meta property="og:image" content="{{ data.channel.cover }}" />
 <link rel="image_src" href="{{ data.channel.cover }}" />
 {% endif %}
