@@ -51,4 +51,9 @@ body {
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
+{# analitycs #}
+{% if app.environment == 'prod' %}
+  {% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' with {tag: 'UA-6151896-15', no_trackPageview: 1} %}
+{% endif %}
+
 {% endblock %}
