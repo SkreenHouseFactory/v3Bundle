@@ -225,7 +225,13 @@
                     <span class="label label-warning">{{ o.endtime|remainingreplay }}</span>
                   {% endif %}
                 </td>
-                {% if o_episode %}
+                {% if o.title %}
+                <td class="title">
+                  <b>{{ o.title }}</b>
+                  <br/>
+                  {{ o.description }}
+                </td>
+                {% elseif o_episode %}
                 <td class="episode" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left" itemprop="summary">
                   {% if o_episode.title %}
                   {{ o_episode.title }}

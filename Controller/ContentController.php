@@ -226,7 +226,8 @@ class ContentController extends Controller
                             'itunes' => 'iTunes', 
                             'boxs' => 'Box',
                             'dvds' => 'DVD', 
-                            'theaters' => 'Ciné', 
+                            'theaters' => 'Ciné',  
+                            'cuts' => 'Extraits', 
                             'archives' => 'Archives')
         ));
       }
