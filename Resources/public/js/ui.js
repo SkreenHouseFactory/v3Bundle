@@ -331,8 +331,8 @@ UI = {
           var attrs = 'data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
         } else if (notifications[k].player) {
           var attrs = 'data-play="' + notifications[k].player + '" data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
-        } else if (notifications[k].type == "ajout") {
-          var attrs = 'href="' + notifications[k].program.seo_url + '"';
+        } else if (notifications[k].type == 'ajout' || notifications[k].program.deporte) {
+          var attrs = 'data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
         } else {
           var attrs = 'data-redirect="' + notifications[k].link + '" data-seo-url="' + notifications[k].program.seo_url + '"';
         }
