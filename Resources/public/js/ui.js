@@ -614,6 +614,7 @@ UI = {
   },
   loadRedirect: function(url, link_fiche) {
     console.log('UI.loadRedirect', url);
+    $('body').removeClass('view-ajax');
     $('body').addClass('view-redirect');
     Player.redirect(url, $('#redirect'), $('#content'));
     $('#redirect').prepend('<div class="container container-redirect collapse in">' +

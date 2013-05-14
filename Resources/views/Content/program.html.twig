@@ -225,7 +225,7 @@
                     <span class="label label-warning">{{ o.endtime|remainingreplay }}</span>
                   {% endif %}
                 </td>
-                {% if o.title %}
+                {% if o.title is defined and o.title %}
                 <td class="title">
                   <b>{{ o.title }}</b>
                   <br/>

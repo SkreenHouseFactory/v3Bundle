@@ -51,18 +51,16 @@
 }
 body.cover, body.playlist-in.cover {
   #main {
-    padding-top: 0px !important;
-  }
-  &.view-redirect {
-    padding-top: 400px !important;
+    padding-top: 0px;
   }
 }
-body.no-cover.playlist-in {
+body.no-cover.playlist-in, body.cover.view-redirect.playlist-in {
   #main {
     padding-top: 400px;
   }
 }
-body, body.no-cover {
+
+body, body.no-cover, body.cover.view-redirect, body.view-redirect {
   background: @bgBody;
   #main {
     padding-top: 80px;
