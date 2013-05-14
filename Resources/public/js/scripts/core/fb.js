@@ -61,9 +61,10 @@ $(document).ready(function(){
         // cancelled
         $('#fbconnect-infos').html('<span class="alert alert-error nowrap">La connexion a échoué !</span>');
       }
-    },{scope:'email,read_friendlists,publish_stream,offline_access,publish_actions'});
-//    },{scope:'user_birthday,user_online_presence,email,read_friendlists,publish_stream,offline_access,friends_likes,friends_online_presence,publish_actions'});
+//    },{scope:'email,read_friendlists,publish_stream,offline_access,publish_actions'});
+    },{scope:'offline_access,user_birthday,user_online_presence,email,read_friendlists,publish_stream,friends_likes,friends_online_presence,publish_actions'});
   }
+
   /* on shown
   FB.getLoginStatus(function(response) {
     if (response.status === 'connected') {
@@ -75,10 +76,16 @@ $(document).ready(function(){
   });
   */
   //trigger
+  $("#fbconnect").click(function(){
+    console.log('script', 'trigger FB');
+    fblogin();
+    return false;
+  });
+/*
   $(document).on('click', '#fbconnect', function(){
     console.log('script', 'trigger FB');
     fblogin();
     return false;
-  })
-
+  });
+*/
 });

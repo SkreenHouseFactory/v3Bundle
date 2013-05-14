@@ -55,6 +55,14 @@ UI = {
       if (this.user == Skhf.session.datas.email) {
         var update = true;
         //console.warn('UI.loadUser', 'already loaded');
+        $('.fb-placeholder').addClass('hide');
+        $('.share-placeholder').removeClass('hide');
+        $('.badge-placeholder').removeClass('badge').removeClass('badge-important');
+        $('.badge-placeholder').removeAttr('rel');
+        $('.badge-placeholder').removeAttr('data-original-title');
+        $('.badge-placeholder').removeAttr('data-content');
+        $('.badge-placeholder').popover('hide');
+        $('.badge-placeholder').popover('disable');
         //return;
       } else {
         //TODO : unload user !';
@@ -83,12 +91,32 @@ UI = {
       $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
       //fb
       if (Skhf.session.datas.fb_uid) {
+        if (Skhf.session.datas.fb_access_token == null) {
+          $('.fb-placeholder').removeClass('hide');
+          $('.share-placeholder').addClass('hide');
+          $('.badge-placeholder').addClass('badge').addClass('badge-important');
+          $('.badge-placeholder').attr('rel','popover');
+          $('.badge-placeholder').attr('data-original-title',"ATTENTION ! Vous n'êtes pas connecté à votre compte Facebook");
+          $('.badge-placeholder').attr('data-content',"Vous ne pouvez dès lors pas partager vos programmes avec vos amis. Pour vous connecter, veuillez cliquer.");
+          $(function (){
+             $('.badge-placeholder').popover({placement:'bottom', trigger:'hover'});
+          });
+          $('.badge-placeholder').click(function() {
+             $('.badge-placeholder').popover('hide');
+          });
+        }
         $('.share-on.hide').removeClass('hide');
         $('.share-off:not(.hide)').addClass('hide');
         this.addFriendsPrograms();
       } else {
-      $('.share-on:not(.hide)').addClass('hide');
-      $('.share-off.hide').removeClass('hide');
+        $('.fb-placeholder').addClass('hide');
+        $('.share-placeholder').removeClass('hide');
+        $('.badge-placeholder').removeClass('badge').removeClass('badge-important');
+        $('.badge-placeholder').removeAttr('rel');
+        $('.badge-placeholder').removeAttr('data-original-title');
+        $('.badge-placeholder').removeAttr('data-content');
+        $('.share-on:not(.hide)').addClass('hide');
+        $('.share-off.hide').removeClass('hide');
       }
       //theaters
       if (Skhf.session.datas.cinema) {
@@ -96,6 +124,10 @@ UI = {
       }
     } else {
       //off
+      $('.badge-placeholder').removeClass('badge').removeClass('badge-important');
+      $('.badge-placeholder').removeAttr('rel');
+      $('.badge-placeholder').removeAttr('data-original-title');
+      $('.badge-placeholder').removeAttr('data-content');
       $('.user-off.hide').removeClass('hide');
       $('.user-on:not(.hide)').addClass('hide');
       $('.share-on:not(.hide)').addClass('hide');
@@ -394,6 +426,7 @@ UI = {
             li.find('a, h6').hide();
             li.popover('disable');
             Skhf.session.getSocialDatas(function(friends) {
+              console.log("AMIS : ",friends);
               li.find('.label span').html(friends.length);
             });
           }
@@ -577,10 +610,10 @@ UI = {
     //if (Player.getType() == 'ios') {
     //  Player.playOccurrence(id);
     //} else {
-    if (isNaN(Player.config.width) || 
-        isNaN(Player.config.height)) {
-      Player.config.width = 720;
-      Player.config.height = 330;
+    if (typeof args.player_width == 'undefined' || 
+        typeof args.player_width == 'undefined') {
+      args.player_width = 720;
+      args.player_height = 330;
     }
     console.log('UI.play', id, args);
     if (typeof args.current_player != 'undefined' && args.current_player) {
