@@ -167,7 +167,7 @@ var BaseSession = Class.extend({
 
     //no fbuid
     if (!this.datas.fb_uid) {
-      //console.log('BaseSession.getSocialDatas', 'no fbuid');
+      console.log('BaseSession.getSocialDatas', 'no fbuid');
       return;
     }
 

@@ -161,7 +161,7 @@ ProgramView = {
   loadProgramUsersDatas: function(id) {
 
     // friends
-    if ( Skhf.session.datas.fb_uid) {
+    if ( Skhf.session.datas.fb_uid && Skhf.session.datas.fb_access_token) {
       var container_friends = $('#program-friends .share-on');
       UI.appendLoader(container_friends);
       Skhf.session.getSocialDatas(function(friends, friends_programs) {
