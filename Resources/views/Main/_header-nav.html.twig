@@ -46,15 +46,15 @@
           <li class="tv-channels">
             {% for channel in web_channels %}
             {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><span>{{ channel }}</span><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
+            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><span class="hidden-touch">{{ channel }}</span><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
             {% endfor %}
           </li>
           <li><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}"><i class="icon-chevron-right"></i> Toutes les chaînes web</a></li>
           <li class="divider clear"></li>
           <li class="nav-header">Les chaînes mySkreen</li>
           <li class="tv-channels">
-            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: 'les-inconnus'}) }}"><span>Les Inconnus</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/1-les-inconnus.jpg" alt="Les Inconnus"/></a>
-            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: 'jacques-demy'}) }}"><span>Jacques Demy</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/3-jacques-demy.jpg" alt="Jacques Demy"/></a>
+            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: 'les-inconnus'}) }}"><span class="hidden-touch">Les Inconnus</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/1-les-inconnus.jpg" alt="Les Inconnus"/></a>
+            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: 'jacques-demy'}) }}"><span class="hidden-touch">Jacques Demy</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/3-jacques-demy.jpg" alt="Jacques Demy"/></a>
           </li>
         </ul>
       </li>
