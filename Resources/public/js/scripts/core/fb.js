@@ -81,11 +81,9 @@ $(document).ready(function(){
     fblogin();
     return false;
   });
-/*
   $(document).on('click', '#fbconnect', function(){
     console.log('script', 'trigger FB');
     fblogin();
     return false;
   });
-*/
 });

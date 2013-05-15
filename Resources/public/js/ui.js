@@ -409,7 +409,8 @@ UI = {
   loadSocialSelector: function() {
     var self = this;
     
-    if (Skhf.session.datas.fb_uid) {
+    if (Skhf.session.datas.fb_uid && Skhf.session.datas.fb_access_token) {
+      console.log("-------------",Skhf.session);
       this.appendLoader($('li#friends'));
       Skhf.session.loadSocialSelector(function(datas){
         console.log('UI.loadSocialSelector', 'Session.loadSocialSelector callback', datas);
