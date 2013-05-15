@@ -509,12 +509,13 @@ Player = {
     }
   },
   loadVersions: function(versions, current_id) {
-    var el = $('#player-versions', this.elmt_meta);
+    var el = $('#player-versions', this.elmt);
     if (!el.length) {
-      var el = $('<div id="player-versions"></div>');
-      el.appendTo(this.elmt_meta);
+      var el = $('<div id="player-versions" class="player-meta"></div>');
+      el.prependTo(this.elmt);
     }
     console.log('Player.loadVersions', versions, el);
+    el.show();
     if (el.html()) {
       return;
     }
