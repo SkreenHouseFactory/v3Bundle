@@ -434,14 +434,16 @@ Player = {
         with_player: 1,
         with_teaser: 1,
         with_program: 1,
-        player_width: this.config.width, 
-        player_height:  this.config.height,
         player: this.getType(),
         fullHD: 1,
         no_paywall: 1,
         occurrence_id: id
       }, 
       typeof args != 'undefined' ? args : {}, 
+      {
+        player_width: this.config.width, 
+        player_height:  this.config.height
+      },
       document.location.href.match(/forceMobileDevice/gi) ? {forceMobileDevice: 1} : {}
     );
 
