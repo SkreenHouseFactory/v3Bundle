@@ -27,7 +27,7 @@ body {
 {#
 <a class="player-cover" target="_top" style="position:absolute;bottom:0;font-size:1.1em;padding:5px;border-radius:5px;z-index:2;margin:2% 2% 1%;background:rgba(0,0,0,0.8);color:white;" disabled-href="http://www.myskreen.com/{{ offer.program.seo_url }}">{{ offer.program.format|replace({'Emission': 'Vidéo'})|upper }} : <b>{{ offer.program.title }}</b></a>
 #}
-<a class="player-cover" id="trigger" data-play="{{ offer.id }}" data-play-meta-elmt="#program-teaser-meta" data-play-args="{{ {hide_sliders:1, current_player: "#player", is_embed: true, noPub: app.request.get('noPub')}|json_encode }}"></a>
+<a class="player-cover" id="trigger" data-play="{{ offer.id }}" data-play-meta-elmt="#program-teaser-meta" data-play-args="{{ {hide_sliders:1, current_player: "#player", is_embed: true, noPub: app.request.get('noPub'), skKey: app.request.get('skKey') }|json_encode }}"></a>
 <div id="player" data-player-config="{{ {width: width, height: height}|json_encode }}" style="background: url({{ offer.program.picture }}) center no-repeat;width:{{ width }}px;height:{{ height }}px;" class="player on"></div>
 
 {% javascripts
