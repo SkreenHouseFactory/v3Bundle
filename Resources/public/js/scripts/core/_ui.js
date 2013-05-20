@@ -138,9 +138,10 @@ UiView = {
       //e.preventDefault();
       console.log('script', '[data-ajax]', $(this).data('ajax'));
       //add body class to overload view-homes
+      $('body').removeClass('view-redirect');
       $('body').addClass('view-ajax');
       if ($(this).data('ajax').indexOf('view-cover') > 0) {
-        $('body').removeClass('nocover').addClass('cover');
+        $('body').removeClass('no-cover').addClass('cover');
       } else {
         $('body').removeClass('cover').addClass('no-cover');
       }
@@ -255,7 +256,7 @@ UiView = {
           if (trigger.data('modal-message')) {
             $('.modal .modal-body').prepend('<p class="alert alert-success">' + trigger.data('modal-message') + '</p>');
           }
-          $('.modal').modal('show');
+          $('#skModal.modal').modal('show');
         })
       } else {
         API.quickLaunchModal(trigger.data('modal'));

@@ -136,7 +136,7 @@ API = {
     //  callbackOnLoad();
     //}
 
-    $('.modal').modal();
+    $('#skModal.modal').modal();
 
     this.currentModalUrl = url;
   },
@@ -314,28 +314,32 @@ API = {
     $.extend(args, {with_program: 1});
     console.log('API.play', 'id', id, 'args', args);
     var self = this;
-    this.query('GET', '/player/' + id + '/' + Skhf.session.uid + '.json', {}, function(datas) {
-      console.log('API.play', 'callback API.query', datas);
-      switch (datas.error) {
-        case 'DISCONNECTED':
-          UI.auth(function(){
-            console.log('API.play', 'callback UI.auth', Skhf.session.datas);
-            $('.modal .modal-body').prepend('<p class="alert alert-success"><b>Vidéo à la demande :</b><br/>Créez votre compte pour voir ce programme sur mySkreen !</p>');
-            if (Skhf.session.datas.email) {
-              self.play(id);
-            }
-          });
-        break;
-        case 'NO_RIGHTS':
-          UI.paywall(id, function(){
-            //self.play(id);
-          });
-        break;
-        default:
-          console.log(['script', 'Player.getType:', Player.getType(), 'data-couchmode', $(this).data('couchmode'), args]);
-          UI.play(id, args);
-        break;
-      }
+    this.query(
+      'GET', 
+      '/player/' + id + '/' + Skhf.session.uid + '.json', 
+      args,
+      function(datas) {
+        console.log('API.play', 'callback API.query', datas);
+        switch (datas.error) {
+          case 'DISCONNECTED':
+            UI.auth(function(){
+              console.log('API.play', 'callback UI.auth', Skhf.session.datas);
+              $('.modal .modal-body').prepend('<p class="alert alert-success"><b>Vidéo à la demande :</b><br/>Créez votre compte pour voir ce programme sur mySkreen !</p>');
+              if (Skhf.session.datas.email) {
+                self.play(id);
+              }
+            });
+          break;
+          case 'NO_RIGHTS':
+            UI.paywall(id, function(){
+              //self.play(id);
+            });
+          break;
+          default:
+            console.log(['script', 'Player.getType:', Player.getType(), 'data-couchmode', $(this).data('couchmode'), args]);
+            UI.play(id, args);
+          break;
+        }
     });
   },
   query: function(method, url, data, callback, cache, version) {

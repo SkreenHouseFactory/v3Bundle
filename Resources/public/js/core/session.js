@@ -2,7 +2,7 @@
 var BaseSession = Class.extend({
   uid: '',
   datas: {},
-  sync_args: { 'short':1 },
+  sync_args: { 'short': 1, 'time': new Date().getTime() },
   onglet: '',
   access: '',
   social_state: null,
@@ -88,10 +88,10 @@ var BaseSession = Class.extend({
     
     if (typeof callback != 'undefined') {
       //console.log('BaseSession.signin callback', callback);
-      callback();
+      callback(sessionData);
     }
     if (this.callbackSignin) {
-      this.callbackSignin();
+      this.callbackSignin(sessionData);
     }
   },
   signout: function(callback) {

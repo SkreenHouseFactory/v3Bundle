@@ -44,8 +44,10 @@ class EmbedController extends Controller
       //echo $api->url;
 
       //post streatment
-      if (in_array($datas->program->id, array(4988489,5050813))) {
+      if (in_array($datas->program->id, array(4988489))) {
         $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/LesInconnus/player-splash.jpg';
+      } elseif (in_array($datas->program->id, array(5050813))) {
+        $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/LesInconnus/player-splash-video2.png';
       }
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Embed:video.html.twig', array(

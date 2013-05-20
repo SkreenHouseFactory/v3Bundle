@@ -226,7 +226,8 @@ class ContentController extends Controller
                             'itunes' => 'iTunes', 
                             'boxs' => 'Box',
                             'dvds' => 'DVD', 
-                            'theaters' => 'Ciné', 
+                            'theaters' => 'Ciné',  
+                            'cuts' => 'Extraits', 
                             'archives' => 'Archives')
         ));
       }
@@ -462,24 +463,30 @@ class ContentController extends Controller
       if (isset($datas->error) && $datas->error) {
         throw $this->createNotFoundException('Selection does not exist');
       }
-      //bad url
-      if ($request->getPathInfo() != $datas->seo_url &&
-          !$request->get('layout_partner')) {
-        //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';
-        return $this->redirect($datas->seo_url, 301);
-      }
 
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
 
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Content:selection.html.twig', array(
-        'selection' => $datas
-      ));
+      if ($request->get('partner')) {
+        $response = $this->render('SkreenHouseFactoryPartnersBundle:'.$request->get('partner').':selection.html.twig', array(
+          'selection' => $datas
+        ));
+      } else {
+        //bad url
+        if ($request->getPathInfo() != $datas->seo_url) {
+          //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';
+          return $this->redirect($datas->seo_url, 301);
+        }
+
+        $response = $this->render('SkreenHouseFactoryV3Bundle:Content:selection.html.twig', array(
+          'selection' => $datas
+        ));
+      }
 
       $maxage = 600;
       $response->setPublic();
       $response->setMaxAge($maxage);
       $response->setSharedMaxAge($maxage);
-      
+
       return $response;
     }
 

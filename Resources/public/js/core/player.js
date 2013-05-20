@@ -451,7 +451,7 @@ Player = {
       args,
       function (video){
         console.log('Player.playOccurrence', video, args);
-        if (!video.player || typeof video.player == 'undefined') {
+        if (!video.player || typeof video.player == 'undefined' || !self.canPlay(video.player)) {
           console.error(['Player.playOccurrence', 'API.query', 'callback', video]);
           if (typeof callback != 'undefined') {
             callback('unvailable');
@@ -471,6 +471,18 @@ Player = {
       }, 
       true
     );
+  },
+  //handles player exceptions
+  canPlay: function(player) {
+    console.log('Player.canPlay', player, this.getType());
+    if (typeof player.format_original != 'undefined' &&
+        player.format_original == 'filmsdocumentaires' &&
+        $.inArray(this.getType(), ['ios', 'android-mobile']) != -1) {
+      console.warn('Player.canPlay', 'filmsdocumentaires cannot play on ios/android');
+      return false;
+    }
+
+    return true;
   },
   track: function(player) {
     var self = this;
@@ -497,12 +509,13 @@ Player = {
     }
   },
   loadVersions: function(versions, current_id) {
-    var el = $('#player-versions', this.elmt_meta);
+    var el = $('#player-versions', this.elmt);
     if (!el.length) {
-      var el = $('<div id="player-versions"></div>');
-      el.appendTo(this.elmt_meta);
+      var el = $('<div id="player-versions" class="player-meta"></div>');
+      el.prependTo(this.elmt);
     }
     console.log('Player.loadVersions', versions, el);
+    el.show();
     if (el.html()) {
       return;
     }

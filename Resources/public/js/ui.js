@@ -49,7 +49,7 @@ UI = {
   },
   //user infos
   loadUser: function() {
-
+    var self = this;
     var update = false;
     if (this.user) {
       if (this.user == Skhf.session.datas.email) {
@@ -141,8 +141,49 @@ UI = {
       $('.notifications li:not(.empty)').remove();
       this.playlist.remove();
 
-      //theaters
+      //unload playlists
       this.unloadTheatersPlaylist();
+      $('.fav-on').each(function() {
+        self.unloadPlaylistTriggers(self.getTriggerParameter($(this)), [$(this).parents('.actions').data('id')]);
+      });
+    }
+  },
+  getTriggerParameter: function(trigger) {
+    if (trigger.hasClass('fav-cinema')) {
+      return 'cinema';
+    } else if (trigger.hasClass('fav-epg')) {
+      return 'epg';
+    } else if (trigger.hasClass('fav-channel')) {
+      return 'channel';
+    } else if (trigger.hasClass('fav-page')) {
+      return 'page';
+    } else if (trigger.hasClass('fav-person')) {
+      return 'person';
+    } else if (trigger.hasClass('fav-user')) {
+      return 'user';
+    } else if (trigger.hasClass('fav-search')) {
+      return 'search';
+    } else {
+      return 'like';
+    }
+  },
+  getTriggerName: function(trigger) {
+    if (trigger.hasClass('fav-cinema')) {
+      return 'ce cinéma';
+    } else if (trigger.hasClass('fav-epg')) {
+      return 'cette chaîne TV';
+    } else if (trigger.hasClass('fav-channel')) {
+      return 'cette chaîne';
+    } else if (trigger.hasClass('fav-page')) {
+      return 'cette chaîne';
+    } else if (trigger.hasClass('fav-person')) {
+      return 'cette personne';
+    } else if (trigger.hasClass('fav-user')) {
+      return 'ce skreener';
+    } else if (trigger.hasClass('fav-search')) {
+      return 'cette recherche';
+    } else {
+      return 'ce programme';
     }
   },
   //set popover infos
@@ -190,31 +231,8 @@ UI = {
   //if actions-remove[data-id="xx"] : element deleted in this.unloadPlaylistTrigger
   togglePlaylist: function(trigger){
     var self = this;
-    if (trigger.hasClass('fav-cinema')) {
-      var parameter = 'cinema';
-      var name = 'ce cinéma';
-    } else if (trigger.hasClass('fav-epg')) {
-      var parameter = 'epg';
-      var name = 'cette chaîne TV';
-    } else if (trigger.hasClass('fav-channel')) {
-      var parameter = 'channel';
-      var name = 'cette chaîne';
-    } else if (trigger.hasClass('fav-page')) {
-      var parameter = 'page';
-      var name = 'cette chaîne';
-    } else if (trigger.hasClass('fav-person')) {
-      var parameter = 'person';
-      var name = 'cette personne';
-    } else if (trigger.hasClass('fav-user')) {
-      var parameter = 'user';
-      var name = 'ce skreener';
-    } else if (trigger.hasClass('fav-search')) {
-      var parameter = 'search';
-      var name = 'cette recherche';
-    } else {
-      var parameter = 'like';
-      var name = 'ce programme';
-    }
+    var parameter = this.getTriggerParameter(trigger);
+    var name = this.getTriggerName(trigger);
     if (Skhf.session.datas.email) {
       console.log('UI.togglePlaylist', parameter, value, 'remove:' + remove, trigger);
       trigger.html('Chargement ...').removeClass('btn-danger');
@@ -293,7 +311,7 @@ UI = {
       for (key in ids) {
         console.log('UI.unloadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + '.fav-on');
         var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + '.fav-on', elmt);
-        trigger.html('<i class="icon-plus-sign icon-white"></i> Suivre').removeClass('fav-on btn-danger');
+        trigger.html('<i class="icon-plus-sign icon-white"></i> Suivre ' + this.getTriggerName(trigger)).removeClass('fav-on btn-danger');
 
         switch(parameter) {
           case 'like':
@@ -345,8 +363,8 @@ UI = {
           var attrs = 'data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
         } else if (notifications[k].player) {
           var attrs = 'data-play="' + notifications[k].player + '" data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
-        } else if (notifications[k].type == "ajout") {
-          var attrs = 'href="' + notifications[k].program.seo_url + '"';
+        } else if (notifications[k].type == 'ajout' || notifications[k].program.deporte) {
+          var attrs = 'data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
         } else {
           var attrs = 'data-redirect="' + notifications[k].link + '" data-seo-url="' + notifications[k].program.seo_url + '"';
         }
@@ -630,6 +648,7 @@ UI = {
   },
   loadRedirect: function(url, link_fiche) {
     console.log('UI.loadRedirect', url);
+    $('body').removeClass('view-ajax');
     $('body').addClass('view-redirect');
     Player.redirect(url, $('#redirect'), $('#content'));
     $('#redirect').prepend('<div class="container container-redirect collapse in">' +

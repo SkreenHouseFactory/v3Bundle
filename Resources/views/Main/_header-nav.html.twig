@@ -1,6 +1,6 @@
 {% set header_base = app.environment == 'prod' ? 'http://www.myskreen.com' : '' %}
 {% set tv_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','GULLI','FRANCE 24','BFM TV','iTélé','Public Sénat'] %}
-{% set web_channels = ['Allocine','Télérama','Marmiton','AufemininTV','Doctissimo','Europe 1','Le Monde','Le Figaro','France Info','France Inter','Studio 4 0','Verywatch','It\'s big','Rendez-vous à Paris','Xtremevidéo','Paris Saint-Germain','Taratata','La Chaîne techno','Perform'] %}
+{% set web_channels = ['Allocine','Télérama','Marmiton','AufemininTV','Doctissimo','Europe 1','Le Monde','Le Figaro','France Info','France Inter','Studio 4 0','Verywatch','It\'s big','Rendez-vous à Paris','Xtremevidéo','Paris Saint-Germain','Taratata','La Chaîne techno','Perform','Yahoo'] %}
 
 <div class="navbar navbar-inverse">
   <div class="navbar-inner">
@@ -37,7 +37,7 @@
           <li class="tv-channels">
             {% for channel in tv_channels %}
             {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
+            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
             {% endfor %}
           </li>
           <li><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}"><i class="icon-chevron-right"></i> Toutes les chaines TV</a></li>
@@ -46,15 +46,15 @@
           <li class="tv-channels">
             {% for channel in web_channels %}
             {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><span>{{ channel }}</span><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
+            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><span class="hidden-touch">{{ channel }}</span><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
             {% endfor %}
           </li>
           <li><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}"><i class="icon-chevron-right"></i> Toutes les chaînes web</a></li>
           <li class="divider clear"></li>
           <li class="nav-header">Les chaînes mySkreen</li>
           <li class="tv-channels">
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'les-inconnus'}) }}"><span>Les Inconnus</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/1-les-inconnus.jpg" alt="Les Inconnus"/></a>
-            <a target="_top" href="{{ header_base }}{{ path('channel', {slug: 'jacques-demy'}) }}"><span>Jacques Demy</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/3-jacques-demy.jpg" alt="Jacques Demy"/></a>
+            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: 'les-inconnus'}) }}"><span class="hidden-touch">Les Inconnus</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/1-les-inconnus.jpg" alt="Les Inconnus"/></a>
+            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: 'jacques-demy'}) }}"><span class="hidden-touch">Jacques Demy</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/3-jacques-demy.jpg" alt="Jacques Demy"/></a>
           </li>
         </ul>
       </li>
