@@ -475,10 +475,16 @@
      </p>
         <div id="program-casting" class="scroll">
         {% if program.director %}
-        <strong>{{ 'directed.by'|trans }} : </strong> 
+        <strong>{{ 'directed.by'|trans }} : </strong>{% if program.director|length > 1 %}<br />{% endif %} 
         {% for pers in program.director %}
         <div class="inline" itemprop="director" itemscope="" itemtype="http://schema.org/Person">
-        {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+        {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+        {% if pers.programmes is defined and (pers.programmes|length > 1) %}
+          <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
+          {% if loop.first %}{% else %}, {% endif %}
+          <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
+          {% endfor %}<span style="color:#005580"> ) </span>
+        {% endif %}
         </div>
         {% endfor %}
         {% endif %}
@@ -492,10 +498,16 @@
         {% endif %}
         <br/>
         {% if program.casting %}
-        <strong>{{ 'actors'|trans }} : </strong>
+        <strong>{{ 'actors'|trans }} : </strong><br />
         {% for pers in program.casting %}
         <div class="inline" itemprop="actor" itemscope="" itemtype="http://schema.org/Person">
-        {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+        {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+        {% if pers.programmes is defined and (pers.programmes|length > 1) %}
+          <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
+          {% if loop.first %}{% else %}, {% endif %}
+          <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
+          {% endfor %}<span style="color:#005580"> ) </span>
+        {% endif %}
         </div>
         {% endfor %}
         {% endif %}
@@ -503,7 +515,15 @@
         {% if program.editor %}
         <strong>{{ 'editors'|trans }} : </strong>
         {% for pers in program.editor %}
-        {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}">{{ pers.name }}</a>
+        <div class="inline" itemprop="editor" itemscope="" itemtype="http://schema.org/Person">
+        {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+        {% if pers.programmes is defined and (pers.programmes|length > 1) %}
+          <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
+          {% if loop.first %}{% else %}, {% endif %}
+          <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
+          {% endfor %}<span style="color:#005580"> ) </span>
+        {% endif %}
+        </div>
         {% endfor %}
         {% endif %}
       </div>
