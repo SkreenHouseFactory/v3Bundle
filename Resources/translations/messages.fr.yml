@@ -252,6 +252,7 @@ action:
         dvd: DVD
         archive: Archive
         replay: Replay
+        webcast: Web TV
         rec: Bientôt en Replay
         tv: TV
 seo:
