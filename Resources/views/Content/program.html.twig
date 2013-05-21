@@ -230,7 +230,6 @@
                   <b>{{ o.title }}</b>
                   <br/>
                   {{ o.description }}
-                </td>
                 {% elseif o_episode %}
                 <td class="episode" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left" itemprop="summary">
                   {% if o_episode.title %}
@@ -275,7 +274,7 @@
           <div class="carousel slide">
             <div class="carousel-inner">
                 {% for b in program.offers['bonus'] %}
-                <div class="item active"><a data-play="{{ b.id }}" data-program="{{ {'title': b.title}|json_encode }}" class="pull-left"><img class="img-polaroid" alt="{{ b.title }} extrait" src="{{ b.picture }}"><div class="title">{{ b.title }}</div></a></div>
+                <div class="item active"><a data-play="{{ b.id }}" data-program="{{ {'title': b.title}|json_encode }}" class="pull-left"><img class="img-polaroid" alt="{{ b.title }} bonus" src="{{ b.picture }}"><div class="title">{{ b.title }}</div></a></div>
                 {% endfor %}
             </div>
             {#<a class="carousel-control left" href="#carousel-bonus" data-slide="prev">&lsaquo;</a>
