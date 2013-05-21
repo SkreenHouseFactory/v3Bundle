@@ -406,7 +406,7 @@ channel_facet:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
     requirements:
         slug: "[^/]+"
-        facet: "[^/]"
+        facet: "[^/]+"
 channel:
     pattern:  /{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }

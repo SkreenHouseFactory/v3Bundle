@@ -172,18 +172,19 @@ var BaseSession = Class.extend({
     }
 
     //already loaded
-    if (typeof callback != 'undefined' && 
-        this.social_state == 'done') {
-      console.warn('BaseSession.getSocialDatas', 'state=done');
-      return callback(self.datas.friends, self.datas.friends_programs);
-    }
+    if (this.social_state == 'done') {
+      if (typeof callback != 'undefined') {
+        console.warn('BaseSession.getSocialDatas', 'state=done');
+        callback(self.datas.friends, self.datas.friends_programs);
+      }
 
-    //loading
-    if (this.social_state == 'processing') {
+    //currently loading
+    } else if (this.social_state == 'processing') {
       console.warn('BaseSession.getSocialDatas', 'state=processing', 'add callback', this.callbackSocial);
       this.callbackSocial.push(callback);
+
+    //initialize
     } else {
-      //init
       if (this.social_state == null) {
         console.warn('BaseSession.getSocialDatas', 'set state=processing');
         this.social_state = 'processing';
@@ -192,7 +193,8 @@ var BaseSession = Class.extend({
       //load from IndexedDb ?
       API.selectIndexedDb('skhf', 'friends', 1, function(IndexedDbDatas){
         console.log('BaseSession.getSocialDatas', 'selectIndexedDb', IndexedDbDatas);
-        this.social_state = 'done';
+        self.social_state = 'done';
+
         if (IndexedDbDatas) {
           console.log('BaseSession.getSocialDatas', 'IndexedDbDatas', IndexedDbDatas);
           if (IndexedDbDatas.updated_at > (new Date()).getTime() - 3600*1000) {

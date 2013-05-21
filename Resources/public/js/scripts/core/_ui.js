@@ -108,6 +108,7 @@ UiView = {
     }
   },
   initDataLive: function(elmt) {
+    console.log('UiView.initDataLive', elmt);
     var elmt = typeof elmt != 'undefined' ? elmt : document;
     // -- play deporte
     $(elmt).on('click', '[data-play]', function(){
