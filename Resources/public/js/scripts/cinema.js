@@ -67,7 +67,7 @@ $(document).ready(function(){
 			UI.appendLoader(container, 2000);
 			API.query(
 				'GET',
-				API.config.v3_url + container.data('api-url') + '?q=' + escape(input.val()),
+				API.config.v3_url + container.data('api-url') + '?q=' + encodeURIComponent(input.val()),
 				{dataType: 'text html'},
 				function(datas){
 					console.log('script', '#theaters-search', 'callback');

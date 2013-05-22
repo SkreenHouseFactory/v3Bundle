@@ -12,39 +12,55 @@
   </div>
   #}
 
-  <h1>{{ (onglet == 'channel') ? 'user.channels'|trans : 'user.programs'|trans }}</h1>
-  {% if (onglet != 'channel') %}
-  <ul class="nav nav-pills nav-alpha-client uppercase">
-    <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
-      <a href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
-    </li>
-    {% for o in onglets %}
-      <li{% if app.request.get('onglet') == o %} class="active"{% endif %}>
-        <a href="{{ path('user_programs', {onglet: o}) }}">{{ ['category.',o]|join|trans }}</a>
-      </li>
-    {% endfor %}
-  </ul>
+  <h1>{{ onglet == 'channel' ? 'user.channels'|trans : 'user.programs'|trans }}</h1>
+  {% if programs|length == 0 %}
+    <p class="alert alert-info">Vous ne suivez {{ onglet == 'channel' ? 'aucune chaîne' : 'aucun programme' }}.</p>
+    <br/>
+    <h3>Ajoutez des chaînes à vos playlists</h3>
+    <div class="slider slider-list">
+      <div class="slider-container">
+        <ul class="items">
+          <li class="tv-component actions channel" data-id="200000001" data-play-program-id="200000001" style="background-image:url(http://mskstatic.com/150/200/c/medias/photos/channel/1-logo-les-inconnus.png)"><a href="/les-inconnus" target="_top" class="title"><i class="icon-th icon-white"></i> Les Inconnus</a></li>
+          <li class="tv-component actions channel" data-id="200000002" data-play-program-id="200000002" style="background-image:url(http://mskstatic.com/150/200/c/medias/photos/channel/3-jacques-demy.jpg)"><a href="/jacques-demy/" target="_top" class="title"><i class="icon-th icon-white"></i> Jacques Demy</a></li>
+        </ul>
+      </div>
+    </div>
+  
   {% else %}
-  <br />
-  {% endif %}
-
-  {% if programs|length > 6 %}
-  <div class="pagination pagination-client-alpha">
-    <ul>
-        <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a>{{ 'nav.all'|trans }}</a></li>
-      {% for l in alpha %}
-        <li{% if app.request.get('alpha') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a>{{ l }}</a></li>
+  
+    {% if (onglet != 'channel') %}
+    <ul class="nav nav-pills nav-alpha-client uppercase">
+      <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
+        <a href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
+      </li>
+      {% for o in onglets %}
+        <li{% if app.request.get('onglet') == o %} class="active"{% endif %}>
+          <a href="{{ path('user_programs', {onglet: o}) }}">{{ ['category.',o]|join|trans }}</a>
+        </li>
       {% endfor %}
     </ul>
-  </div>
-  {% endif %}
+    {% else %}
+    <br />
+    {% endif %}
 
-  <div id="user-programs" class="slider slider-list">
-    <ul class="items">
-    {% for p in programs %}
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, 'header': '<span class="fav fav-on fav-trash badge badge-important"><i class="icon-trash icon-white"></i></span>'} %}
-    {% endfor %}
-    </ul>
-  </div>
+    {% if programs|length > 6 %}
+    <div class="pagination pagination-client-alpha">
+      <ul>
+          <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a>{{ 'nav.all'|trans }}</a></li>
+        {% for l in alpha %}
+          <li{% if app.request.get('alpha') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a>{{ l }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <div id="user-programs" class="slider slider-list">
+      <ul class="items">
+      {% for p in programs %}
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, 'header': '<span class="fav fav-on fav-trash badge badge-important"><i class="icon-trash icon-white"></i></span>'} %}
+      {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
 </div>
 {% endblock %}

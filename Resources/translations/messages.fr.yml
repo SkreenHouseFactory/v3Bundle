@@ -22,6 +22,7 @@ page:
         user:
             settings: Vos préférences
             programs: Vos programmes
+            theaters: Vos cinémas
             channels: Vos chaînes
             vod: Mes playlists : vidéo à la demande
         sitemap:
@@ -83,6 +84,7 @@ user:
     vod: Vidéo à la demande
     programs: Vos playlists
     channels: Vos chaînes
+    theaters: Vos cinémas
     settings: Vos préférences
     settings.profile: Compte
     settings.payment: Informations de paiement
@@ -155,6 +157,7 @@ playlist:
 nav:
     favoris: Vos programmes
     channel_favoris: Vos chaînes
+    theater_favoris: Vos cinémas
     account: Vos préférences
     vod: Vos vidéos à la demande
     all: Tout

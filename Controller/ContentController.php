@@ -99,7 +99,10 @@ class ContentController extends Controller
         ));
 
         //print("<pre>");print_r($datas);
-        //echo $api->url;exit;
+        //echo $api->url;exit();
+        if ($this->get('kernel')->getEnvironment() == 'dev' && $request->get('debug')) {
+          echo $api->url;
+        }
         //stop Adulte
         if (isset($datas->error)) {
           throw $this->createNotFoundException('Program error : ' . $datas->error);
@@ -296,7 +299,7 @@ class ContentController extends Controller
           'data' => $datas,
           'channel' => $datas->channel,
         );
-        if ($datas->channel->type == "ChannelFournisseur") {
+        if ($datas->channel->type == 'ChannelFournisseur') {
           $formats = explode(';', $datas->facets->format);
           if (property_exists($datas,"facets_seo_url"))
             $formats = array_combine(explode(';', $datas->facets_seo_url->format),$formats);
@@ -318,7 +321,7 @@ class ContentController extends Controller
             $request->getPathInfo() != $datas->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' &&
             $request->getPathInfo() != $datas->seo_url . 'page-' . $request->get('page') . '/' &&
             $request->getPathInfo() != $datas->seo_url . $request->get('facet') . '/') &&
-            (!property_exists($datas,"channel") || str_replace("/","",$request->getPathInfo()) != $datas->channel->slug)
+            (!property_exists($datas,'channel') || str_replace('/','',$request->getPathInfo()) != $datas->channel->slug)
             ) {
           if ($this->container->getParameter('kernel.environment') == 'dev') {
             echo "\n".'facet: ' . $datas->seo_url . '/' . $request->get('facet') . '/';

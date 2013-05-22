@@ -85,6 +85,9 @@ user_programs:
 user_channels:
     pattern:  /user/programs/channel
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:programs, onglet: channel }
+user_theaters:
+    pattern:  /user/theaters
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:theaters }
 user_vod:
     pattern:  /user/vod/{onglet}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:vod, onglet: null }

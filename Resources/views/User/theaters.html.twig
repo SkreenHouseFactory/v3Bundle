@@ -1,0 +1,39 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}{{ 'page.title.user.theaters'|trans }}{% endblock %}
+
+{% block content %}
+<div class="container">
+
+
+  <h1>{{ 'user.theaters'|trans }}</h1>
+  {% if theaters|length == 0 %}
+    <p class="alert alert-info">Vous ne suivez aucun cinéma.</p>
+    <br/>
+  
+  {% else %}
+
+  <div class="container well well-small playlist">
+  {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
+  </div>
+  <br/>
+  <hr/>
+  <div id="user-theaters">
+    <h3>Gérer vos cinémas</h3>
+    <br/>
+    <br/>
+    {% for t in theaters %}
+      {% if loop.index > 1 %}<hr/>{% endif %}
+      <div class="pull-right actions" data-id="{{ t.id }}">
+        <a class="btn" href="{{ path('any_url', {url: t.seo_url[1:t.seo_url|length-1]}) }}">Voir la programmation</a>&nbsp;
+          <a class="fav fav-cinema btn btn-primary" data-id="{{ t.id }}" data-name="{{ t.name }}" href="#"><i class="icon-plus-sign icon-white"></i> Ajouter à vos cinéma</a>
+      </div>
+      <b>{{ t.name }}</b><br/>
+      {{ t.adress }} {{ t.zip_code }} {{ t.city }}<br/>
+      accès : {{ t.access }} / <a class="black" href="https://maps.google.fr/maps?hl=fr&q={{ t.adress|url_encode }}%20{{ t.zip_code }}%20{{ t.city|url_encode }}"><i class="icon-map-marker"></i> y aller</a>
+      
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

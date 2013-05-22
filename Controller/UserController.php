@@ -94,6 +94,38 @@ class UserController extends Controller
     /**
     *
     */
+    public function theatersAction(Request $request)
+    {
+      $session_uid = $request->cookies->get('myskreen_session_uid');
+      if (!$session_uid) {
+        return $this->redirect('http://www.myskreen.com');
+      }
+
+      $api = $this->get('api');
+      $params = array(
+        'img_width' => 150,
+        'img_height' => 200,
+        'type' => 'cinema',
+        'session_uid' => $session_uid
+      );
+
+      $theaters = $api->fetch('channel', $params);
+      //echo $api->url;
+      //print_r($programs);
+
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:theaters.html.twig', array(
+        'theaters' => $theaters
+      ));
+
+      $response->setPrivate();
+      $response->setMaxAge(0);
+
+      return $response;
+    }
+
+    /**
+    *
+    */
     public function programsAction(Request $request)
     {
       $onglet      = $request->get('onglet');
@@ -110,7 +142,7 @@ class UserController extends Controller
         'nb_results' => 200,
         'onglet' => $onglet,
       );
-      if ($onglet == "channel") {
+      if ($onglet == 'channel') {
         $params['access'] = 'with_channels';
       }
       $programs = $api->fetch('www/slider/queue/' . $session_uid, $params);
@@ -129,6 +161,7 @@ class UserController extends Controller
       }
 
       //print_r(array($session_uid, $programs));
+      //ses chaines
       if ($onglet == 'channel') {
         $response = $this->render('SkreenHouseFactoryV3Bundle:User:programs.html.twig', array(
           'onglet'  =>'channel',
@@ -138,6 +171,7 @@ class UserController extends Controller
           'alpha_available' => $alpha_available,
           'programs' => $programs
         ));
+      //ses programmes
       } else {
         $response = $this->render('SkreenHouseFactoryV3Bundle:User:programs.html.twig', array(
           'onglet'   => '',
