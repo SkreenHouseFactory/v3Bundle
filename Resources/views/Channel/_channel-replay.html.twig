@@ -1,6 +1,6 @@
 <div id="view-channel-replay">
 
-  {% if channel.live.program  %}
+  {% if channel.live and channel.live.program  %}
   <div class="well" style="min-height:220px;">
     <h3>En Direct <small>de {{ channel.live.program.best_offer.broadcast_begin|date('H:i') }} à {{ channel.live.program.best_offer.broadcast_end|date('H:i') }}</small></h3>
     <table>
@@ -62,6 +62,8 @@
   
   </div>
   {% endif %#}
+  
+  {% if channel.programs_replay|length or channel.programs_epg|length %}
   <br/>
   <h2>TV & Replay</h2>
   
@@ -90,15 +92,16 @@
     <option data-show="epg">Cette semaine</option>
     <option data-show="epg">Au delà</option>
   </select>
+  {% endif %}
   
-  {% if channel.has_replay %}
+  {% if channel.has_replay and channel.programs_replay|length %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {title: 'channel.replay'|trans({'%website%': channel.has_replay}), 
                                                                                 programs: channel.programs_replay, 
                                                                                 id: 'channel-replay', 
                                                                                 url: '/recommend/from_channel/' ~ channel.id ~ '.json?with_method=epg&date=Replay'}} %}
   {% endif %}
   
-  {% if channel.epg %}
+  {% if channel.epg and channel.programs_epg|length %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {title: 'channel.epg'|trans({'%name%': channel.name}), 
                                                                                 programs: channel.programs_epg, 
                                                                                 id: 'channel-epg', 
