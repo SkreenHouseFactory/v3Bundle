@@ -65,7 +65,7 @@ $(document).ready(function(){
     $('.navbar form.navbar-search').submit();
     return false;
   });
-  $('.navbar form.navbar-search').on('sumbmit', function(){
+  $('.navbar form.navbar-search').on('submit', function(){
     $('.search-query', $(this)).blur();
     var q = encodeURIComponent($('.search-query', $(this)).val());
     console.log('script', 'searchbox blur', q);

@@ -5,7 +5,7 @@ service:
 page:
     title:
         home: 
-            mixte: mySkreen : Programmes TV, Replay, VOD
+            mixte: mySkreen : Programmes Télé, Replay TV, VOD
             v3-vod: Video à la demande
             v3-tv-replay: Replay
             v3-cine: Cinéma
