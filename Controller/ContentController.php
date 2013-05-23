@@ -184,14 +184,18 @@ class ContentController extends Controller
           }
         } elseif (count($datas->offers['bonus']) > 0) {
           foreach ($datas->offers['bonus'] as $o) {
-            if (isset($o->deporte) && $o->deporte && !$o->cost) {
+            if (isset($o->deporte) && 
+                $o->deporte && 
+                $o->channel_id != 5325) { //except cultcut
               $datas->player = $o;
               break;
             }
           }
         } elseif (count($datas->offers['cuts']) > 0) {
           foreach ($datas->offers['cuts'] as $o) {
-            if (isset($o->deporte) && $o->deporte && !$o->cost) {
+            if (isset($o->deporte) && 
+                $o->deporte && 
+                $o->channel_id != 5325) { //except cultcut
               $datas->player = $o;
               break;
             }

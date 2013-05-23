@@ -572,7 +572,7 @@ Player = {
       //this.elmt_meta.append('<div id="player-paywall"><a href="#" class="btn btn-info" data-play="' + p.pass + '"><i class="icon-play icon-white"></i> Louer ce programme</a></div>');
     }
 
-    this.elmt_meta.fadeIn();
+    this.elmt_meta.addClass('meta-on');
   },
   minify: function() {
     $('#header').collapse('show');
