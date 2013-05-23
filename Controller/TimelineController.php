@@ -44,18 +44,18 @@ class TimelineController extends Controller
 
       $api = $this->get('api');
       $data = $api->fetch(
-                'schedule/epg', array(
-                'timestamp' => $timestamp,
-                'img_width' => 150,
-                'img_height' => 200,
-                'channel_img_width' => 65,
-                'session_uid' => $request->get('session_uid'),
-                'channels_ids' => $request->get('channels_ids'),
-                'with_related_sliders' => $request->get('schedule-only') ? false : true,
-                'with_best_offer' => true,
-                'with_player' => true,
-                'time' => time()
-              ));
+        'schedule/epg', array(
+        'timestamp' => $timestamp,
+        'img_width' => 150,
+        'img_height' => 200,
+        'channel_img_width' => 65,
+        'session_uid' => $request->get('session_uid'),
+        'channels_ids' => $request->get('channels_ids'),
+        'with_related_sliders' => $request->get('schedule-only') ? false : true,
+        'with_best_offer' => true,
+        'with_player' => true,
+        'time' => time()
+      ));
       //echo $api->url;
       //print("<pre>");print_r($data->sliders);exit();
 

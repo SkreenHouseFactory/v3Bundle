@@ -30,7 +30,7 @@
       </div>
       <b>{{ t.name }}</b><br/>
       {{ t.adress }} {{ t.zip_code }} {{ t.city }}<br/>
-      accès : {{ t.access }} / <a class="black" href="https://maps.google.fr/maps?hl=fr&q={{ t.adress|url_encode }}%20{{ t.zip_code }}%20{{ t.city|url_encode }}"><i class="icon-map-marker"></i> y aller</a>
+      accès : {{ t.access }} / <a class="black" target="_blank" href="https://maps.google.fr/maps?hl=fr&q={{ t.name|url_encode }}%20{{ t.adress|url_encode }}%20{{ t.zip_code }}%20{{ t.city|url_encode }}"><i class="icon-map-marker"></i> y aller</a>
       
     {% endfor %}
   </div>

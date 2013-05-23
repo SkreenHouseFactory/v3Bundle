@@ -175,8 +175,22 @@ class ContentController extends Controller
         //player
         if ($datas->teaser) {
           $datas->player = $datas->teaser;
-        } else {
+        } elseif (count($datas->offers['plays']) > 0) {
           foreach ($datas->offers['plays'] as $o) {
+            if (isset($o->deporte) && $o->deporte && !$o->cost) {
+              $datas->player = $o;
+              break;
+            }
+          }
+        } elseif (count($datas->offers['bonus']) > 0) {
+          foreach ($datas->offers['bonus'] as $o) {
+            if (isset($o->deporte) && $o->deporte && !$o->cost) {
+              $datas->player = $o;
+              break;
+            }
+          }
+        } elseif (count($datas->offers['cuts']) > 0) {
+          foreach ($datas->offers['cuts'] as $o) {
             if (isset($o->deporte) && $o->deporte && !$o->cost) {
               $datas->player = $o;
               break;
