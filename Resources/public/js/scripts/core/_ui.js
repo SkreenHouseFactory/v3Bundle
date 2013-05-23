@@ -186,7 +186,6 @@ UiView = {
       $($(this).data('remove')).slideUp().remove();
       return false;
     });
-    
     // -- btn-radio
     $('[data-toggle="buttons-radio"] > *').on('click', function() { //TODO Le live ne marche pas, du coup HACK en mettant on
       $('> *', $(this).parent()).removeClass('active btn-info');
