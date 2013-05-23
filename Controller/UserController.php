@@ -27,7 +27,8 @@ class UserController extends Controller
     {
       $unsubscribed = null;
       $error = null;
-      if ($request->get("notifications") && (!$request->get('email') || !$request->get('token'))) {
+      if ($request->get('notifications') && 
+          (!$request->get('email') || !$request->get('token'))) {
         throw $this->createNotFoundException('Page does not exist');
         exit;
       }

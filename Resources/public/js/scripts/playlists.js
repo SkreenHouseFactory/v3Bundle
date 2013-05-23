@@ -2,16 +2,16 @@
 $(document).ready(function(){
   //console.log('scripts/core/playlists.js', 'load');
   // -- .fav : toggle
-  $('.actions .fav').on('click', function(e){
+  $(document).on('click', '.actions .fav', function(e){
     //console.log('scripts/core/playlists.js', '.fav click', $(this));
-    e.preventDefault();
-    e.stopPropagation();
+//    e.preventDefault();
+//    e.stopPropagation();
     UI.togglePlaylist($(this));
 
     return false;
   });
   // -- .fav : retirer / popover
-  $('.actions .fav:not(.fav-trash)').live('hover', function(event) {
+  $(document).on('hover', '.actions .fav:not(.fav-trash)', function(event) {
     //console.log('scripts/core/playlists.js', '.fav:hover', event.type);
     var trigger = $(this);
     if (event.type == 'mouseover' || event.type == 'mouseenter') {

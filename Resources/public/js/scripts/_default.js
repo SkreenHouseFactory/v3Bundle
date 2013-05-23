@@ -31,11 +31,11 @@ $(document).ready(function(){
   });
 
   // -- ui user
-  $('a.auth').click(function(){
+  $('a.auth').on('click', function(){
     UI.auth();
     return false;
   });
-  $('a.signout').click(function(){
+  $('a.signout').on('click', function(){
     Skhf.session.signout();
     return false;
   });
@@ -48,24 +48,24 @@ $(document).ready(function(){
       $('.navbar .notifications-count span.badge').removeClass('badge-important').html(current);
     }
   });
-  $('.share .btn').click(function(){
+  $('.share .btn').on('click', function(){
     if ($(this).data('share') == 'disallow') {
       API.addPreference('disallow_share', 1, function(){});
     } else {
       API.removePreference('disallow_share', 1, function(){});
     }
   });
-  $('.share a.share-off').click(function(){
+  $('.share a.share-off').on('click', function(){
     API.quickLaunchModal($(this).data('modal'));
     return false;
   });
 
   // -- ui form
-  $('.navbar form.navbar-search i.icon-search').click(function(){
+  $('.navbar form.navbar-search i.icon-search').on('click', function(){
     $('.navbar form.navbar-search').submit();
     return false;
   });
-  $('.navbar form.navbar-search').submit(function(){
+  $('.navbar form.navbar-search').on('sumbmit', function(){
     $('.search-query', $(this)).blur();
     var q = encodeURIComponent($('.search-query', $(this)).val());
     console.log('script', 'searchbox blur', q);

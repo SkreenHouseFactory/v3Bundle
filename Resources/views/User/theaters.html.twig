@@ -5,11 +5,14 @@
 {% block content %}
 <div class="container">
 
-
   <h1>{{ 'user.theaters'|trans }}</h1>
   {% if theaters|length == 0 %}
-    <p class="alert alert-info">Vous ne suivez aucun cinéma.</p>
+    <p class="alert alert-info">Vous ne suivez aucun cinéma. </p>
+    <p><a class="btn btn-large" data-modal="remote" data-modal-title="{{ 'theaters.playlist.add'|trans }}" href="{{ path('theaters_search', {'init': 1}) }}"><i class="icon-plus-sign"></i> {{ 'theaters.playlist.add'|trans }}</a></p>
     <br/>
+    <div class="container well well-small playlist">
+    {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
+    </div>
   
   {% else %}
 
@@ -24,14 +27,15 @@
     <br/>
     {% for t in theaters %}
       {% if loop.index > 1 %}<hr/>{% endif %}
-      <div class="pull-right actions" data-id="{{ t.id }}">
-        <a class="btn" href="{{ path('any_url', {url: t.seo_url[1:t.seo_url|length-1]}) }}">Voir la programmation</a>&nbsp;
-          <a class="fav fav-cinema btn btn-primary" data-id="{{ t.id }}" data-name="{{ t.name }}" href="#"><i class="icon-plus-sign icon-white"></i> Ajouter à vos cinéma</a>
+      <div id="theater-{{ t.id }}">
+        <div class="pull-right actions" data-id="{{ t.id }}">
+          <a class="btn" href="{{ path('any_url', {url: t.seo_url[1:t.seo_url|length-1]}) }}">Voir la programmation</a>&nbsp;
+            <a class="fav fav-cinema btn btn-primary" data-id="{{ t.id }}" data-name="{{ t.name }}" data-remove="#theater-{{ t.id }}"><i class="icon-plus-sign icon-white"></i> Ajouter à vos cinéma</a>
+        </div>
+        <b>{{ t.name }}</b><br/>
+        {{ t.adress }} {{ t.zip_code }} {{ t.city }}<br/>
+        accès : {{ t.access }} / <a class="black" target="_blank" href="https://maps.google.fr/maps?hl=fr&q={{ t.name|url_encode }}%20{{ t.adress|url_encode }}%20{{ t.zip_code }}%20{{ t.city|url_encode }}"><i class="icon-map-marker"></i> y aller</a>
       </div>
-      <b>{{ t.name }}</b><br/>
-      {{ t.adress }} {{ t.zip_code }} {{ t.city }}<br/>
-      accès : {{ t.access }} / <a class="black" target="_blank" href="https://maps.google.fr/maps?hl=fr&q={{ t.name|url_encode }}%20{{ t.adress|url_encode }}%20{{ t.zip_code }}%20{{ t.city|url_encode }}"><i class="icon-map-marker"></i> y aller</a>
-      
     {% endfor %}
   </div>
   {% endif %}
