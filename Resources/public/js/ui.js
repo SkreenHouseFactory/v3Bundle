@@ -7,6 +7,7 @@ UI = {
   playlist: null,
   callbackModal: null,
   sliders: [],
+  last_notification: null,
   max_notifications: 20,
   badge_notification: '<span class="badge">%count%</span>',
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
@@ -350,15 +351,19 @@ UI = {
       $('.navbar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
     }
     if (notifications.length == 0) {
-        $('.navbar .notifications-count .badge-important').removeClass('badge-important');
+      $('.navbar .notifications-count .badge-important').removeClass('badge-important');
     } else {
       var list = $('.navbar .notifications ul div');
       list.find('li.empty').hide();
       list.find('li:not(.empty)').remove();
+      var current_last_notification = this.last_notification;
       var nb_new = 0;
-      for (k in notifications){
+      for (k in notifications) {
         if (notifications[k]['new'] == true) {
           nb_new++;
+          if (notifications[k].id > this.last_notification) {
+            this.last_notification = notifications[k].id;
+          }
           //console.log('new', notifications[k]['new'], nb_new);
         }
         if (notifications[k].type == 'broadcast') {
@@ -405,10 +410,12 @@ UI = {
         var nb = nb_new == this.max_notifications ? nb_new + '+' : nb_new;
         //console.log('UI.loadNotifications', 'new', nb);
         $('.navbar .notifications-count .badge').addClass('badge-important').html(nb);
-        if (nb_new == 1) {
-          API.notification('mySkreen', 'Vous avez ' + nb_new + ' nouvelle notification');
-        } else {
-          API.notification('mySkreen', 'Vous avez ' + nb_new + ' nouvelles notifications');
+        if (current_last_notification != this.last_notification) {
+          if (nb_new == 1) {
+            API.notification('mySkreen', 'Vous avez ' + nb_new + ' nouvelle notification');
+          } else {
+            API.notification('mySkreen', 'Vous avez ' + nb_new + ' nouvelles notifications');
+          }
         }
       }
 
