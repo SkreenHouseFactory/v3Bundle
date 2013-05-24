@@ -13,6 +13,9 @@ var Session = BaseSession.extend({
     this.__base(sessionData, callback)
 
     this.initPlaylist();
+
+    //update
+    this.update();
   },
   signout: function(callback) {
     //before loosing queue

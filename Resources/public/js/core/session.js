@@ -5,7 +5,7 @@ var BaseSession = Class.extend({
   sync_args: { 'short': 1, 'time': new Date().getTime() },
   onglet: '',
   access: '',
-  idle_timeout: 60000,
+  idle_timeout: 6000,
   social_state: null,
   callbackInit: null,
   callbackSignout: null,
@@ -114,6 +114,22 @@ var BaseSession = Class.extend({
     API.cookie('playlist_collapsed', null);
 
     UI.loadUser();
+  },
+  update: function() {
+    var self = this;
+    if (this.datas.email) {
+      setTimeout(function(){
+        console.log('Session.update', 'callback');
+        Skhf.session.sync(function(sessionData) {
+          UI.loadNotifications(sessionData.notifications);
+          if (sessionData.email) {
+            self.update();
+          }
+        },{
+          with_notifications: 1
+        });
+      }, self.idle_timeout);
+    }
   },
   readNotifications: function(){
 
