@@ -310,6 +310,10 @@ class ContentController extends Controller
       if (isset($datas->error) && $datas->error) {
         throw $this->createNotFoundException('Channel does not exist');
       }
+      //redirect fournisseur synonyme
+      if (isset($datas->redirect) && $datas->redirect) {
+        return $this->redirect($datas->redirect, 301);
+      }
 
       // Si on est une une page sk_channel, on redirige vers le twig correct
       if (property_exists($datas,'channel')) {
@@ -328,9 +332,9 @@ class ContentController extends Controller
         }
 
         $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:channel.html.twig', $params);
-        if ($request->get("slug") != $datas->channel->slug) {
+        if ($request->get('slug') != $datas->channel->slug) {
           // Alias du channel fourni
-          return $this->redirect("/" . $datas->channel->slug, 301);
+          return $this->redirect('/' . $datas->channel->slug, 301);
         }
       } else {
         //bad url

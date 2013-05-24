@@ -30,7 +30,7 @@
       <div id="theater-{{ t.id }}">
         <div class="pull-right actions" data-id="{{ t.id }}">
           <a class="btn" href="{{ path('any_url', {url: t.seo_url[1:t.seo_url|length-1]}) }}">Voir la programmation</a>&nbsp;
-            <a class="fav fav-cinema btn btn-primary" data-id="{{ t.id }}" data-name="{{ t.name }}" data-remove="#theater-{{ t.id }}"><i class="icon-plus-sign icon-white"></i> Ajouter à vos cinéma</a>
+            <a class="fav fav-cinema btn btn-primary" data-id="{{ t.id }}" data-name="{{ t.name }}" data-remove="#theater-{{ t.id }}"><i class="icon-plus-sign icon-white"></i> Ajouter à vos cinémas</a>
         </div>
         <b>{{ t.name }}</b><br/>
         {{ t.adress }} {{ t.zip_code }} {{ t.city }}<br/>

@@ -23,6 +23,7 @@ page:
             settings: Vos préférences
             programs: Vos programmes
             theaters: Vos cinémas
+            persons: Vos acteurs/réalisateurs
             channels: Vos chaînes
             vod: Mes playlists : vidéo à la demande
         sitemap:
@@ -85,6 +86,7 @@ user:
     programs: Vos playlists
     channels: Vos chaînes
     theaters: Vos cinémas
+    persons: Vos acteurs/réalisateurs
     settings: Vos préférences
     settings.profile: Compte
     settings.payment: Informations de paiement
@@ -155,9 +157,13 @@ playlist:
         replay: Ajoutez vos émissions et séries préférées à vos playlists pour ne rater aucun épisode
         friends: Inviter vos proches pour partager vos playlists avec eux.
 nav:
+    user:
+        actors: Acteurs
+        directors: Réalisateurs
     favoris: Vos programmes
     channel_favoris: Vos chaînes
     theater_favoris: Vos cinémas
+    person_favoris: Vos acteurs/réalisateurs
     account: Vos préférences
     vod: Vos vidéos à la demande
     all: Tout

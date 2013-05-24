@@ -67,7 +67,8 @@ body, body.no-cover, body.cover.view-redirect, body.view-redirect {
     padding-top: 80px;
     #content {
       .progress {
-        margin: 10% 30%;
+        margin: 10% 20%;
+        min-width: 100px;
       }
     }
   }
@@ -342,11 +343,24 @@ ul.typeahead {
   margin-left: 10px;
 
   li {
-    img {
-      height: 30px;
-      width: 30px;
+    position: relative;
+    a {
+      img {
+        height: 30px;
+        width: 30px;
+      }
     }
-
+    span.fav {
+      display: none;
+      position: absolute;
+      right: 5px;
+      top: 2px;
+    }
+    &:hover {
+      span.fav {
+        display: block;
+      }
+    }
     &.nav-header {
       display: block;
       padding: 3px 15px;

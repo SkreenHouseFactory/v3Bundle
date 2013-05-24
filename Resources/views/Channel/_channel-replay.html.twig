@@ -1,6 +1,6 @@
 <div id="view-channel-replay">
 
-  {% if channel.live and channel.live.program  %}
+  {% if channel.live.program is defined and channel.live.program  %}
   <div class="well" style="min-height:220px;">
     <h3>En Direct <small>de {{ channel.live.program.best_offer.broadcast_begin|date('H:i') }} à {{ channel.live.program.best_offer.broadcast_end|date('H:i') }}</small></h3>
     <table>

@@ -1,6 +1,6 @@
 {% set header_base = app.environment == 'prod' ? 'http://www.myskreen.com' : '' %}
-{% set tv_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','GULLI','FRANCE 24','BFM TV','iTélé','Public Sénat'] %}
-{% set web_channels = ['Allocine','Yahoo','Perform','Le Figaro','Europe 1','France Info','Le Monde','Télérama','Marmiton','Doctissimo','Studio 4 0','Verywatch','It\'s big','Rendez-vous à Paris','Xtremevidéo','Paris Saint-Germain','La Chaîne techno','BFM Business','RMC sport','Arte Live Web'] %}
+{% set tv_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat'] %}
+{% set web_channels = ['Allocine','Yahoo','Perform','Le Figaro','Europe 1','France Info','Le Monde','Télérama','Marmiton','Doctissimo','Studio 4 0','Verywatch','It\'s big','Rendez-vous à Paris','Xtremevidéo','Paris Saint-Germain','La Chaîne techno','LeZapping','RMC sport','Arte Live Web'] %}
 
 <div class="navbar navbar-inverse">
   <div class="navbar-inner">
@@ -104,10 +104,11 @@
           <li>
             <a data-toggle="collapse" data-target="#top-playlist"><i class="icon-play-circle"></i> {{ 'playlist.yours'|trans }}</a>
           </li>
+          <li><a class="vod" href="{{ path('user_vod') }}" target="_top"><i class="icon-film"></i> {{ 'nav.vod'|trans }}</a></li>
           <li><a class="programs" href="{{ path('user_programs') }}" target="_top"><i class="icon-list"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
           <li><a class="programs" href="{{ path('user_channels') }}" target="_top"><i class="icon-list"></i> {{ 'nav.channel_favoris'|trans }} <span></span></a></li>
           <li><a class="programs" href="{{ path('user_theaters') }}" target="_top"><i class="icon-list"></i> {{ 'nav.theater_favoris'|trans }} <span></span></a></li>
-          <li><a class="vod" href="{{ path('user_vod') }}" target="_top"><i class="icon-film"></i> {{ 'nav.vod'|trans }}</a></li>
+          <li><a class="programs" href="{{ path('user_persons') }}" target="_top"><i class="icon-list"></i> {{ 'nav.person_favoris'|trans }} <span></span></a></li>
           <li><a class="account" href="{{ path('user_settings') }}" target="_top"><i class="icon-user"></i> {{ 'nav.account'|trans }}</a></li>
           <li class="divider"></li>
           <li><a class="signout"><i class="icon-remove"></i> {{ 'signout'|trans }}</a></li>

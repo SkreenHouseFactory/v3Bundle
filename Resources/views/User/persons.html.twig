@@ -1,0 +1,55 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}{{ 'page.title.user.persons'|trans }}{% endblock %}
+
+{% block pagescripts %}
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-persons.js'
+    filter='?yui_js' 
+    output='js/compiled/pages/user-persons.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <div id="view-user-persons">
+
+    <h1>{{ 'user.persons'|trans }}</h1>
+    {% if persons|length == 0 %}
+      <p class="alert alert-info">Vous ne suivez aucun acteur/réalisateur. Utilisez le moteur de recherche pour ajouter vos acteurs et réalisateurs préférés.</p>
+  
+    {% else %}
+      <p class="alert alert-info">Utilisez le moteur de recherche pour ajouter vos acteurs et réalisateurs préférés.</p>
+
+    <ul class="nav nav-pills nav-alpha-client uppercase">
+      <li data-toggle class="active">
+        <a>{{ 'nav.all'|trans }}</a>
+      </li>
+      <li data-toggle="type-acteur">
+        <a>{{ 'nav.user.actors'|trans }}</a>
+      </li>
+      <li data-toggle="type-realisateur">
+        <a>{{ 'nav.user.directors'|trans }}</a>
+      </li>
+    </ul>
+    
+    <table class="table table-striped">
+    {% for p in persons %}
+      <tr id="person-{{ p.id }}" class="type-{{ p.activity|replace({'é': 'e'})|lower }}">
+        <td>
+        <div class="pull-right actions" data-id="{{ p.id }}">
+          <a class="btn" href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">Voir sa filmographie</a>&nbsp;
+            <a class="fav fav-person btn btn-primary" data-id="{{ p.id }}" data-name="{{ p.name }}" data-remove="#person-{{ p.id }}"><i class="icon-plus-sign icon-white"></i> Dans vos playlists</a>
+        </div>
+        <b>{{ p.name }}</b>, {{ p.activity }}<br/>
+        {#{ p.roles|join(', ') }#}
+      </td>
+      </tr>
+    {% endfor %}
+  </table>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

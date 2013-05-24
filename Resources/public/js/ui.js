@@ -732,125 +732,140 @@ UI = {
           }
         }
         API.xhr['typeahead-used'].push(query);
-        $("#loading_gif").removeClass("hide");
-        API.xhr['typeahead'] = API.query('GET', 
-                         'search/autosuggest/' + query + '.json', 
-                         {
-                          session_uid: Skhf.session.uid, 
-                          img_width: 30, 
-                          img_height: 30, 
-                          advanced: 1, 
-                          with_unvailable: 1,
-                          with_loader:1
-                         }, 
-                         function(data){
-                           $("#loading_gif").addClass("hide");
-                            console.log('UI.typeahead', query, data);
-                            //if (data.search) {
-                            //  return typeahead.process(data.search.split(';'));
-                            //}
+        $('#loading_gif').removeClass('hide');
+        API.xhr['typeahead'] = API.query(
+          'GET', 
+          'search/autosuggest/' + query + '.json', 
+          {
+            session_uid: Skhf.session.uid, 
+            img_width: 30, 
+            img_height: 30, 
+            advanced: 1, 
+            with_unvailable: 1,
+            with_loader: 1
+          }, 
+          function(data){
+           $('#loading_gif').addClass('hide');
+            console.log('UI.typeahead', query, data);
+            //if (data.search) {
+            //  return typeahead.process(data.search.split(';'));
+            //}
 
-                            if (data.programs || data.persons || data.queue || data.channels || data.theaters) {
-                              var lis = new Array;
-                              var titles = new Array;
-                              typeahead.query = typeahead.$element.val()
-                              typeahead.$menu.empty()
-                        
-                              if (!typeahead.query) {
-                                return typeahead.shown ? typeahead.hide() : typeahead
-                              }
+            if (data.programs || data.persons || data.queue || data.channels || data.theaters) {
+              var lis = new Array;
+              var titles = new Array;
+              typeahead.query = typeahead.$element.val()
+              typeahead.$menu.empty()
 
-                              for (key in data) {
-                                switch (key) {
-                                  case 'queue':
-                                    var items = data[key][0].programs;
-                                    titles[key] = 'Dans vos playlists';
-                                  break;
-                                  case 'channels':
-                                    var items = data[key];
-                                    titles[key] = 'Chaînes';
-                                  break;
-                                  case 'real-channels':
-                                    var items = data[key];
-                                    titles[key] = 'Pages';
-                                  break;
-                                  case 'theaters':
-                                    var items = data[key];
-                                    titles[key] = 'Salles de cinéma';
-                                  break;
-                                  case 'programs':
-                                    var items = data[key];
-                                    titles[key] = 'Programmes';
-                                  break;
-                                  case 'persons':
-                                    var items = data[key];
-                                    titles[key] = 'Personnes';
-                                  break;
-                                }
-                                items = items.slice(0, typeahead.options.items)
-                                //console.log('UI.typeahead', 'data', key, items);
-                                lis[key] = $(items).map(function (i, item) {
-                                  i = $(typeahead.options.item).attr('data-value', JSON.stringify(item))
-                                  switch (key) {
-                                    case 'queue':
-                                      i.addClass('playlist')
-                                       .css('overflow','hidden')
-                                       .find('a')
-                                       .html((item.picture ? '<img src="' + item.picture + '" /> ' : '') + typeahead.highlighter(item.title))
-                                    break;
-                                    case 'theaters':
-                                      i.addClass('theater')
-                                       .css('overflow','hidden')
-                                       .find('a')
-                                       .html(typeahead.highlighter(item.name + (item.ville ? ' (' + item.ville + ')' : '')))
-                                    break;
-                                    case 'channels':
-                                      i.addClass('channel')
-                                       .css('overflow','hidden')
-                                       .find('a')
-                                       .html((item.icon ? '<img src="' + item.icon + '" /> ' : '') + typeahead.highlighter(item.name))
-                                    break;
-                                    case 'real-channels':
-                                      i.addClass('program')
-                                       .css('overflow','hidden')
-                                       .find('a')
-                                       .html(typeahead.highlighter(item.name))
-                                    break;
-                                    case 'programs':
-                                      i.addClass('program')
-                                        .css('overflow','hidden')
-                                       .find('a')
-                                       .html(typeahead.highlighter(item.name))
-                                    break;
-                                    case 'persons':
-                                      i.addClass('person')
-                                       .css('overflow','hidden')
-                                       .find('a')
-                                       .html(typeahead.highlighter(item.name))
-                                    break;
-                                  }
-                                  console.log('UI.typeahead', 'add item', key,  i);
-                                  return i[0]
-                                })
-                              }
+              if (!typeahead.query) {
+                return typeahead.shown ? typeahead.hide() : typeahead
+              }
 
-                              //data.first().addClass('active')
-                              var sort = Array('programs','persons','queue','real-channels','channels','theaters');
-                              for (key in sort) {
-                                if (lis[sort[key]]) {
-                                  //console.log('UI.typeahead', key, data[key], typeahead.$menu);
-                                  if (typeof titles[sort[key]] != 'undefined') {
-                                    typeahead.$menu.append('<li class="nav-header">' + titles[sort[key]] + '</li>')
-                                  }
-                                  typeahead.$menu.append(lis[sort[key]])
-                                }
-                              }
-                              //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
-                              typeahead.show();
-                            } else {
-                              return typeahead.shown ? typeahead.hide() : typeahead
-                            }
-                           });
+              for (key in data) {
+                switch (key) {
+                  case 'queue':
+                    var items = data[key][0].programs;
+                    titles[key] = 'Dans vos playlists';
+                  break;
+                  case 'channels':
+                    var items = data[key];
+                    titles[key] = 'Chaînes';
+                  break;
+                  case 'real-channels':
+                    var items = data[key];
+                    titles[key] = 'Pages';
+                  break;
+                  case 'theaters':
+                    var items = data[key];
+                    titles[key] = 'Salles de cinéma';
+                  break;
+                  case 'programs':
+                    var items = data[key];
+                    titles[key] = 'Programmes';
+                  break;
+                  case 'persons':
+                    var items = data[key];
+                    titles[key] = 'Personnes';
+                  break;
+                }
+                items = items.slice(0, typeahead.options.items)
+                //console.log('UI.typeahead', 'data', key, items);
+                lis[key] = $(items).map(function (i, item) {
+                  i = $(typeahead.options.item).attr('data-value', JSON.stringify(item))
+                  i.attr('data-id', item.id).addClass('actions');
+                  btn = $('<span class="fav" data-placement="left"><i class="icon-plus-sign icon-white"></i></span>');
+                  switch (key) {
+                    case 'queue':
+                      i.addClass('playlist')
+                       .css('overflow','hidden')
+                       .find('a')
+                       .html((item.picture ? '<img src="' + item.picture + '" /> ' : '') + typeahead.highlighter(item.title))
+                    break;
+                    case 'theaters':
+                      i.addClass('theater actions')
+                       .css('overflow','hidden')
+                       .prepend(btn.addClass('fav-theater'))
+                       .find('a')
+                       .html(typeahead.highlighter(item.name + (item.ville ? ' (' + item.ville + ')' : '')))
+                    break;
+                    case 'channels':
+                      i.addClass('channel actions')
+                       .css('overflow','hidden')
+                       .find('a')
+                       .html((item.icon ? '<img src="' + item.icon + '" /> ' : '') + typeahead.highlighter(item.name))
+                    break;
+                    case 'real-channels':
+                      i.addClass('program actions')
+                       .css('overflow','hidden')
+                       .prepend(btn.addClass('fav-like'))
+                       .find('a')
+                       .html(typeahead.highlighter(item.name))
+                    break;
+                    case 'programs':
+                      i.addClass('program actions')
+                        .css('overflow','hidden')
+                       .prepend(btn.addClass('fav-program'))
+                       .find('a')
+                       .html(typeahead.highlighter(item.name))
+                    break;
+                    case 'persons':
+                      i.addClass('person actions')
+                       .css('overflow','hidden')
+                       .prepend(btn.addClass('fav-person'))
+                       .find('a')
+                       .html(typeahead.highlighter(item.name))
+                    break;
+                  }
+                  console.log('UI.typeahead', 'add item', key,  i);
+                  return i[0]
+                })
+              }
+
+              //data.first().addClass('active')
+              var sort = Array('programs','persons','queue','real-channels','channels','theaters');
+              for (key in sort) {
+                if (lis[sort[key]]) {
+                  //console.log('UI.typeahead', key, data[key], typeahead.$menu);
+                  if (typeof titles[sort[key]] != 'undefined') {
+                    typeahead.$menu.append('<li class="nav-header">' + titles[sort[key]] + '</li>')
+                  }
+                  typeahead.$menu.append(lis[sort[key]])
+                }
+              }
+
+              //toggle playlist
+              $('span.fav', typeahead.$menu).on('click', function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                UI.togglePlaylist($(this));
+              })
+              
+              //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
+              typeahead.show();
+            } else {
+              return typeahead.shown ? typeahead.hide() : typeahead
+            }
+           });
       },
       onselect: function(obj) {
         console.log('UI.typeahead', 'onselect', obj, typeof obj, 'blur:' + $(searchbox), API.config.v3_url + '/programmes/' + obj);

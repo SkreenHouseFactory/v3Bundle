@@ -88,6 +88,9 @@ user_channels:
 user_theaters:
     pattern:  /user/theaters
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:theaters }
+user_persons:
+    pattern:  /user/persons
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:persons }
 user_vod:
     pattern:  /user/vod/{onglet}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:vod, onglet: null }
