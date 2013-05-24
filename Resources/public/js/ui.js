@@ -408,7 +408,7 @@ UI = {
       //new
       if (nb_new > 0) {
         var nb = nb_new == this.max_notifications ? nb_new + '+' : nb_new;
-        //console.log('UI.loadNotifications', 'new', nb);
+        console.log('UI.loadNotifications', 'new', current_last_notification, this.last_notification);
         $('.navbar .notifications-count .badge').addClass('badge-important').html(nb);
         if (current_last_notification != this.last_notification) {
           if (nb_new == 1) {
