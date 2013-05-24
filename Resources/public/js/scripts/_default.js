@@ -18,6 +18,15 @@ $(document).ready(function(){
     // -- session
     Skhf.session = new Session(function(){
       console.log('script', 'Session.init', 'callback');
+      //update
+      setTimeout(function(){
+        console.log('script', 'Session.init', 'callback', 'update');
+        Skhf.session.sync(function() {
+          UI.loadNotifications(Skhf.session.datas.notifications);
+        },{
+          with_notifications: 1
+        });
+      }, Skhf.session.idle_timeout);
     });
   });
 

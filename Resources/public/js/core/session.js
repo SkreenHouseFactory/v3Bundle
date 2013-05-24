@@ -5,6 +5,7 @@ var BaseSession = Class.extend({
   sync_args: { 'short': 1, 'time': new Date().getTime() },
   onglet: '',
   access: '',
+  idle_timeout: 60000,
   social_state: null,
   callbackInit: null,
   callbackSignout: null,
@@ -175,7 +176,7 @@ var BaseSession = Class.extend({
     if (this.social_state == 'done') {
       if (typeof callback != 'undefined') {
         console.warn('BaseSession.getSocialDatas', 'state=done');
-        callback(self.datas.friends, self.datas.friends_programs);
+        callback(typeof self.datas.friends != 'undefined' ? self.datas.friends : [], self.datas.friends_programs);
       }
 
     //currently loading

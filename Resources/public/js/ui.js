@@ -346,7 +346,9 @@ UI = {
   loadNotifications: function(notifications) {
     console.log('UI.loadNotifications', notifications);
     var nb = notifications.length == this.max_notifications ? notifications.length + '+' : notifications.length;
-    $('.navbar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
+    if (!$('.navbar .notifications-count').hasClass('with-badge')) {
+      $('.navbar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
+    }
     if (notifications.length == 0) {
         $('.navbar .notifications-count .badge-important').removeClass('badge-important');
     } else {
@@ -371,27 +373,29 @@ UI = {
         var ep_title = notifications[k].title_episode;
         var len=32;
         if (ep_title.length > len) {
-          var currChar = "X";
+          var currChar = 'X';
           while (currChar != ' ' && len >= 0) {
             len--;
             currChar = ep_title.charAt(len);
           }
           if (len > 0) {
-            ep_title = ep_title.substring(0,len) + "...";
+            ep_title = ep_title.substring(0,len) + '...';
           } else {
             ep_title = ep_title.substring(0,32);
           }
         }
-        list.append('<li class="tv-component"><a data-id="' + notifications[k].id + '" class="remove">' + 
-                    '<i class="icon-trash"></i></a>' + (notifications[k]['new'] ? '<span class="pull-right badge badge-important">Nouveau</span>' : '') + 
-                    '<a ' + attrs + ' class="link">' + 
-                    (notifications[k].channel_ico ? '<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
-                    '<img src="' + notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
-                    '<span class="title">' + notifications[k].title + '</span>' +
-                    '<span class="subtitle">' + ep_title + '</span>' +
-                    '<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span></a>' +
-                    '</li>' +
-                    '<li class="divider"></li>');
+        list.append(
+          '<li class="tv-component"><a data-id="' + notifications[k].id + '" class="remove">' + 
+          '<i class="icon-trash"></i></a>' + (notifications[k]['new'] ? '<span class="pull-right badge badge-important">Nouveau</span>' : '') + 
+          '<a ' + attrs + ' class="link">' + 
+          (notifications[k].channel_ico ? '<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
+          '<img src="' + notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
+          '<span class="title">' + notifications[k].title + '</span>' +
+          '<span class="subtitle">' + ep_title + '</span>' +
+          '<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span></a>' +
+          '</li>' +
+          '<li class="divider"></li>'
+        );
       }
       //TOFIX : should be working in script/core/ui.js
       UiView.initDataLive(list);
@@ -401,7 +405,13 @@ UI = {
         var nb = nb_new == this.max_notifications ? nb_new + '+' : nb_new;
         //console.log('UI.loadNotifications', 'new', nb);
         $('.navbar .notifications-count .badge').addClass('badge-important').html(nb);
+        if (nb_new == 1) {
+          API.notification('mySkreen', 'Vous avez ' + nb_new + ' nouvelle notification');
+        } else {
+          API.notification('mySkreen', 'Vous avez ' + nb_new + ' nouvelles notifications');
+        }
       }
+
       $('.navbar .notifications-count').data('count-new', nb_new);
       $('[rel="tooltip"]', list).tooltip({placement: 'bottom'});
       $('.remove', list).click(function(e){
@@ -858,7 +868,7 @@ UI = {
                 e.preventDefault();
                 e.stopPropagation();
                 UI.togglePlaylist($(this));
-                API.notification('Ajouté à vos playlists', $(this).parent().find('a').text())
+                API.notification('Ajouté à vos playlists | mySkreen', $(this).parent().find('a').text())
               })
 
               //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
