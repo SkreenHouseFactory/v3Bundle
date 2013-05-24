@@ -356,7 +356,7 @@ UI = {
       var list = $('.navbar .notifications ul div');
       list.find('li.empty').hide();
       list.find('li:not(.empty)').remove();
-      var current_last_notification = this.last_notification;
+      var current_last_notification = this.last_notification ? this.last_notification : API.cookie('last_notification');
       var nb_new = 0;
       for (k in notifications) {
         if (notifications[k]['new'] == true) {
@@ -410,7 +410,9 @@ UI = {
         var nb = nb_new == this.max_notifications ? nb_new + '+' : nb_new;
         console.log('UI.loadNotifications', 'new', current_last_notification, this.last_notification);
         $('.navbar .notifications-count .badge').addClass('badge-important').html(nb);
+
         if (current_last_notification != this.last_notification) {
+          API.cookie('last_notification', this.last_notification);
           if (nb_new == 1) {
             API.notification('mySkreen', 'Vous avez ' + nb_new + ' nouvelle notification');
           } else {

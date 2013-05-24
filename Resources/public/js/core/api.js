@@ -117,21 +117,22 @@ API = {
 
       var args = $.extend(typeof args != 'undefined' ? args : {}, {session_uid: Skhf.session.uid, proxy: 'v3'});
 
-      this.query('GET_PROXY', 
-                 url,
-                 args, 
-                 function(json){
-                  console.log('API.launchModal', 'redirect:' + json.redirect, 'callbackOnLoad', callbackOnLoad);
-                  if (typeof json.redirect != 'undefined') {
-                    API.launchModal(json.redirect, callbackOnLoad);
-                  } else if (json.html) {
-                    if (typeof json.title != 'undefined' && json.title) {
-                      $('.modal .modal-header h3').html(json.title);
-                    }
-                    body.html(json.html);
-                    API.catchForm($('.modal'), callbackOnLoad);
-                  }
-                });
+      this.query(
+        'GET_PROXY', 
+         url,
+         args, 
+         function(json){
+          console.log('API.launchModal', 'redirect:' + json.redirect, 'callbackOnLoad', callbackOnLoad);
+          if (typeof json.redirect != 'undefined') {
+            API.launchModal(json.redirect, callbackOnLoad);
+          } else if (json.html) {
+            if (typeof json.title != 'undefined' && json.title) {
+              $('.modal .modal-header h3').html(json.title);
+            }
+            body.html(json.html);
+            API.catchForm($('.modal'), callbackOnLoad);
+          }
+        });
     //} else {
     //  callbackOnLoad();
     //}

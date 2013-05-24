@@ -22,11 +22,16 @@ UiView = {
     this.initDataLive();
     this.initDataTriggers(this.elmt);
 
-    // -- modal
+    // autoload modal from url
     var triggerModal = getUrlParameter('modal');
     if (triggerModal) {
       API.quickLaunchModal(triggerModal);
     }
+    var urlPopin = getUrlParameter('popin');
+    if (urlPopin) {
+      API.launchModal((API.config.popin + urlPopin + '&proxy=v3').replace('createIframe', ','));
+    }
+
     // ui modal
     if ($('.modal').length > 0) {
       $('.modal').on('show', function(){
