@@ -5,7 +5,7 @@ var BaseSession = Class.extend({
   sync_args: { 'short': 1, 'time': new Date().getTime() },
   onglet: '',
   access: '',
-  idle_timeout: 6000,
+  idle_timeout: 60000,
   social_state: null,
   callbackInit: null,
   callbackSignout: null,
