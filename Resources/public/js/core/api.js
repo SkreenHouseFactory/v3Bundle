@@ -568,6 +568,24 @@ API = {
       break;
     }
   },
+  // -- html5 notifications
+  notification: function(title, body, icon) {
+    if (!window.webkitNotifications) {
+      return;
+    }
+    if (window.webkitNotifications.checkPermission() > 0) {
+      window.webkitNotifications.requestPermission(function() {
+        API.notification(title, body, icon);
+      });
+    }
+    icon = typeof icon != 'undefined' && icon ? icon : 'http://mskstatic.com/90/medias/logo.png';
+    var popup = window.webkitNotifications.createNotification(icon, title, body);
+    popup.show();
+    setTimeout(function(){
+      popup.cancel();
+    }, '15000');
+  },
+  // -- indexedDb
   openIndexedDb: function(dbname, storeName, callback) {
     //callback(null); return; //desactivated
     

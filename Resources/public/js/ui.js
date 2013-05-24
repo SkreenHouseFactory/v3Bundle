@@ -788,8 +788,8 @@ UI = {
                     titles[key] = 'Personnes';
                   break;
                 }
-                items = items.slice(0, typeahead.options.items)
-                //console.log('UI.typeahead', 'data', key, items);
+                console.log('UI.typeahead', 'data', key, items);
+                items = items.slice(0, typeahead.options.items);
                 lis[key] = $(items).map(function (i, item) {
                   i = $(typeahead.options.item).attr('data-value', JSON.stringify(item))
                   i.attr('data-id', item.id).addClass('actions');
@@ -858,8 +858,9 @@ UI = {
                 e.preventDefault();
                 e.stopPropagation();
                 UI.togglePlaylist($(this));
+                API.notification('Ajouté à vos playlists', $(this).parent().find('a').text())
               })
-              
+
               //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
               typeahead.show();
             } else {
