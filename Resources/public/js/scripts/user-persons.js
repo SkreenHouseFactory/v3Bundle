@@ -1,6 +1,16 @@
-// -- program
+// -- user persons
+
 $(document).ready(function(){
   if ($('#view-user-persons').length) {
+
+
+    //////////// CALLBACKS ////////////////
+    // -- refresh on add person to playlist
+    UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {
+      if (parameter == 'person' && !remove) {
+        document.location.reload();
+      }
+    }
 
     // filter
     $('.nav-pills li').on('click', function(){

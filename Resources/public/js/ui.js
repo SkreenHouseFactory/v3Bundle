@@ -263,7 +263,7 @@ UI = {
 
       this.auth(function(){
         console.log('UI.togglePlaylist', 'UI.auth callback', Skhf.session.datas.email);
-        $('.modal .modal-body').prepend('<p class="alert alert-success"><b>Vos playlists <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b><br/>Ajoutez ' + name + ' pour être sûr de ne plus le rater !</p>');
+        $('.modal .modal-body').prepend('<p class="alert alert-success"><b>Vos playlists <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b><br/>Ajoutez ' + name + ' à vos playlists. Ne ratez plus vos programmes préférés !</p>');
         $('.modal .modal-body [data-content]').popover();
         if (Skhf.session.datas.email) {
           self.togglePlaylist(trigger);
@@ -877,7 +877,9 @@ UI = {
                 e.preventDefault();
                 e.stopPropagation();
                 UI.togglePlaylist($(this));
-                API.notification('Ajouté à vos playlists | mySkreen', $(this).parent().find('a').text())
+                if (Skhf.session.datas.email) {
+                  API.notification('Ajouté à vos playlists | mySkreen', $(this).parent().find('a').text());
+                }
               })
 
               //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');

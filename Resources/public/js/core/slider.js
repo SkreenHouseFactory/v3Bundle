@@ -307,7 +307,8 @@ var BaseSlider = Class.extend({
       /* add friends : desactived */
       if (this.elmt.hasClass('slider-playlist')) {
         Skhf.session.getSocialDatas(function (friends, friends_programs) {
-          if (typeof friends_programs[program.id] != 'undefined') {
+          if (typeof friends_programs != 'undefined' && 
+              typeof friends_programs[program.id] != 'undefined') {
             UI.addFriends(li, friends_programs[program.id]);
           }
         });

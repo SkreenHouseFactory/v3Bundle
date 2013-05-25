@@ -86,10 +86,10 @@ user_channels:
     pattern:  /user/programs/channel
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:programs, onglet: channel }
 user_theaters:
-    pattern:  /user/theaters
+    pattern:  /user/theaters/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:theaters }
 user_persons:
-    pattern:  /user/persons
+    pattern:  /user/persons/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:persons }
 user_vod:
     pattern:  /user/vod/{onglet}
@@ -98,10 +98,10 @@ user_playlist:
     pattern:  /user/{username}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:playlist }
 user_blacklist:
-    pattern:  /newsletter/unsubscribe
+    pattern:  /newsletter/unsubscribe/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:blacklist }
 user_blacklist_notifications:
-    pattern:  /notifications/unsubscribe
+    pattern:  /notifications/unsubscribe/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:blacklist, notifications: 1 }
 
 #player

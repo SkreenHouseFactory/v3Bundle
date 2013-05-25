@@ -18,6 +18,14 @@
 <div id="view-search" class="container">
   <h1>{{ app.request.get('q') }}</h1>
 
+  {% if results.person is defined  and results.person %}
+  <p class="actions" data-id="{{ results.person.id }}">
+    <a data-placement="right" class="fav fav-person btn btn-primary "><i class="icon-plus-sign icon-white"></i> Suivre {{ results.person.name }}</a>
+    &nbsp;&nbsp;
+    <a class="btn" href="{{ path('any_url', {url: results.person.seo_url|slice(1, results.person.seo_url|length-1) }) }}">Voir sa filmographie</a>
+  </p>
+  {% endif %}
+
   <div id="search-programs">
   {% if results.count.total is not defined %}
     {% if results.count %}
