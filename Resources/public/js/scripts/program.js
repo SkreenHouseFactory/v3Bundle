@@ -127,7 +127,7 @@ $(document).ready(function(){
                       var item = $('<div class="item' + (i ==0 ? ' active' : '') + '"></div>')
                       container = $('#carousel-youtube .carousel-inner').append(item);
                     }
-                    item.append('<a href="#" data-couchmode=\'{"type": "remote", "id": "' + encodeURIComponent(url) + '", "hide_sliders": "1", "autoplay": "' + programs[i].id + '"}\' class="pull-left">' +
+                    item.append('<a href="#" data-couchmode=\'{"type": "remote", "id": "' + encodeURIComponent(url).replace(/'/g, '%27') + '", "hide_sliders": "1", "autoplay": "' + programs[i].id + '"}\' class="pull-left">' +
                                 '<span>' + programs[i].duration + ' min.</span>' +
                                 '<img class="img-polaroid" alt="' + programs[i].title + '" src="' + programs[i].picture + '" />' +
                                 '<div class="title">' + programs[i].title + '</div>' +
