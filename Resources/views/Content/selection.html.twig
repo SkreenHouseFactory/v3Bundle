@@ -35,7 +35,7 @@
   <h1>{{ selection.name|raw }}</h1>
   <div class="clear">{{ selection.description|raw }}</div>
 
-  <div style="position:absolute;top:50;right:0;width: 300px;">
+  <div id="selection-related">
   {#<a class="btn btn-large btn-inverse btn-block trigger-tv" href="#" data-couchmode="{{ {'type': 'pack', 'id': selection.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
   <br/>
   <ul class="nav nav-tabs nav-stacked">
@@ -45,7 +45,7 @@
   </ul>
   </div>
 
-  <div id="selection-programs" class="slider slider-list" style="width: 70%;clear:none;">
+  <div id="selection-programs" class="slider slider-list">
     <ul class="items">
     {% for program in selection.programs %}
     {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
