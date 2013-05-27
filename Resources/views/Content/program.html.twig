@@ -1,7 +1,7 @@
 {% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% block title %}
-{{ program.title }} {% if program.id in [4750433,4225947,4802310,4802138,4827403,4325232,4301824,4653555,4750467,4348861] %}Film complet en streaming
+{{ program.title }}{% if program.format %}, {{ program.format }}{% endif %} {% if program.id in [4750433,4225947,4802310,4802138,4827403,4325232,4301824,4653555,4750467,4348861] %}Film complet en streaming
 {% elseif program.id in [4977242,4476408,4911399,4653895,4791542,4624174,4339164,4673973,4652360,5008693] %}Film en entier en streaming
 {% elseif program.id in [4761150,4762496,4902865,4761177,4989407,4954927,4761225,4970968,4807696,4902930] %}Bande annonce en streaming
 {% elseif program.id in [4750611,4750438,4675684,4796437,4746458,4750593,4750590,4750605,4746282,4750602] %}Film

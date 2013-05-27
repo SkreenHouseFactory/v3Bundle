@@ -27,12 +27,11 @@
       <li data-toggle class="active">
         <a>{{ 'nav.all'|trans }}</a>
       </li>
-      <li data-toggle="type-acteur">
-        <a>{{ 'nav.user.actors'|trans }}</a>
+      {% for r in relations %}
+      <li data-toggle="type-{{ r|replace({'é': 'e'})|lower }}">
+        <a>{{ r }}</a>
       </li>
-      <li data-toggle="type-realisateur">
-        <a>{{ 'nav.user.directors'|trans }}</a>
-      </li>
+      {% endfor %}
     </ul>
     
     <table class="table table-striped">
@@ -40,7 +39,7 @@
       <tr id="person-{{ p.id }}" class="type-{{ p.activity|replace({'é': 'e'})|lower }}">
         <td>
         <div class="pull-right actions" data-id="{{ p.id }}">
-          <a class="btn" href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">Voir sa filmographie</a>&nbsp;
+          <a class="btn" href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">Tous ses programmes</a>&nbsp;
             <a class="fav fav-person btn btn-primary" data-id="{{ p.id }}" data-name="{{ p.name }}" data-remove="#person-{{ p.id }}"><i class="icon-plus-sign icon-white"></i> Dans vos playlists</a>
         </div>
         <b>{{ p.name }}</b>, {{ p.activity }}<br/>
