@@ -112,8 +112,17 @@ class UserController extends Controller
       //echo $api->url;
       //print_r($programs);
 
+      //get relationtype filters
+      $relations = array();
+      foreach ($persons as $p) {
+        if (!in_array($p->activity, $relations)) {
+          $relations[] = $p->activity;
+        }
+      }
+
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:persons.html.twig', array(
-        'persons' => $persons
+        'persons' => $persons,
+        'relations' => $relations
       ));
 
       $response->setPrivate();

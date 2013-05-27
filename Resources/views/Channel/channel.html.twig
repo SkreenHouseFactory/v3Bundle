@@ -21,8 +21,8 @@
 
 {% block content %}
 
-{# check if modal #}
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_modal-' ~ data.channel.id ~ '.html.twig' ignore missing with {'data': data} %}
+{# modal #}
+{% include 'SkreenHouseFactoryV3Bundle:Channel:_modal.html.twig' ignore missing with {'data': data} %}
 
 {% if channel.type == "ChannelFournisseur" %}
   {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_fournisseur.html.twig' with {data:data} %}
