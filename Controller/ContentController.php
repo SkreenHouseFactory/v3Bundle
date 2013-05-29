@@ -133,6 +133,8 @@ class ContentController extends Controller
 
         // -- post treatments
         $datas->offers = (array)$datas->offers;
+        //description with html_entity_decode
+        $datas->description_text = strip_tags(html_entity_decode($datas->description_seo));
         //episodes list
         if (!isset($datas->episodeof) && 
             isset($datas->datas_offers->episodes) && count((array)$datas->datas_offers->episodes) > 1) {

@@ -7,7 +7,7 @@
 {% elseif program.id in [4750611,4750438,4675684,4796437,4746458,4750593,4750590,4750605,4746282,4750602] %}Film
 {% elseif program.has_vod in [5,6,7,8] %}en Replay
 {% else %}en streaming{% endif %}{% endblock %}
-{% block description %}{{ program.description_seo|replace({"\n": ''})|striptags|slice(0, 165) }} | {{ program.title }}, {{ program.id }}{% endblock %}
+{% block description %}{{ program.description_text|replace({"\n": ''})|slice(0, 165) }} | {{ program.title }}, {{ program.id }}{% endblock %}
 {% block meta %}
 
 {# twitter #}
@@ -15,7 +15,7 @@
 <meta name="twitter:creator" content="@mySkreen">
 <meta name="twitter:url" content="http://www.myskreen.com{{ program.seo_url }}">
 <meta name="twitter:title" content="{{ program.title }}">
-<meta name="twitter:description" content="{{ program.description }}">
+<meta name="twitter:description" content="{{ program.description_text|replace({"\n": ''}) }}">
 <meta name="twitter:image:src" content="{{ program.picture }}">
 {% if program.player_iframe is defined %}
 <meta name="twitter:card" value="player" />
@@ -35,7 +35,7 @@
 
 {# opengraph #}
 <meta property="og:title" content="{{ program.title }}" />
-<meta property="og:description" content="[ VIDEO ] {{ program.description|striptags }}" />
+<meta property="og:description" content="[ VIDEO ] {{ program.description_text|replace({"\n": ''}) }}" />
 <meta property="og:image" content="{{ program.picture }}" />
 <meta property="og:type" content="{% if program.format %}{% if program.format.name == 'Série' %}video.episode{% elseif program.format.name in ['Emission','Journal'] %}video.tv_show{% else %}video.movie{% endif %}{% else %}video.movie{% endif %}" />
 <meta property="og:url" content="http://www.myskreen.com{{ program.seo_url }}" />
@@ -46,7 +46,7 @@
 <meta property="og:video" content="{{ program.player_fb }}" />
 <meta property="og:video:type" content="application/x-shockwave-flash" />
 {#<meta property="og:video:duration" content="{{ program.duration * 60 }}" />#}
-<meta property="og:video:secure_url" content="{{ program.player_fb|replace({'http://': 'https://'}) }}" />
+<meta property="og:video:secure_url" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
 <meta property="og:video" content="{{ program.player_stream }}" />
 <meta property="og:video:type" content="video/mp4" />
 
