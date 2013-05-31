@@ -97,7 +97,8 @@
       <div id="header">
         <div class="navbar-wrapper">
           <div class="container">
-            {% include 'SkreenHouseFactoryV3Bundle:Main:_header-nav.html.twig' %}
+            {% render 'SkreenHouseFactoryV3Bundle:Main:header' with {}, {'standalone': true} %}
+            {#% include 'SkreenHouseFactoryV3Bundle:Main:_header-nav.html.twig' %#}
             {% block header_filters %}
             {% endblock %}
           </div>
@@ -111,7 +112,10 @@
     </div>
   </header>
   <footer>
-  <div id="footer">{% include 'SkreenHouseFactoryV3Bundle:Main:_footer.html.twig' %}</div>
+  <div id="footer">
+    {% render 'SkreenHouseFactoryV3Bundle:Main:footer' with {}, {'standalone': true} %}
+    {#% include 'SkreenHouseFactoryV3Bundle:Main:_footer.html.twig' %#}
+  </div>
   </footer>
   {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}

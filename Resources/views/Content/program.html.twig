@@ -22,8 +22,8 @@
 <meta name="twitter:player" value="{{ program.player_iframe }}" />
 <meta name="twitter:player:stream" content="{{ program.player_stream }}">
 <meta name="twitter:player:stream:content_type" content="video/mp4">
-<meta name="twitter:player:height" value="358" />
-<meta name="twitter:player:width" value="576" />
+<meta name="twitter:player:height" value="360" />
+<meta name="twitter:player:width" value="640" />
 {% elseif program.has_vod in [1,2] %}
 <meta name="twitter:card" value="product" />
 <meta name="twitter:data1" content="€2.99">
@@ -41,8 +41,8 @@
 <meta property="og:url" content="http://www.myskreen.com{{ program.seo_url }}" />
 {% if program.player_fb is defined %}
 
-<meta property="og:video:height" content="358" />
-<meta property="og:video:width" content="576" />
+<meta property="og:video:height" content="360" />
+<meta property="og:video:width" content="640" />
 <meta property="og:video" content="{{ program.player_fb }}" />
 <meta property="og:video:type" content="application/x-shockwave-flash" />
 {#<meta property="og:video:duration" content="{{ program.duration * 60 }}" />#}
@@ -50,8 +50,8 @@
 <meta property="og:video" content="{{ program.player_stream }}" />
 <meta property="og:video:type" content="video/mp4" />
 
-<meta name="video_height" content="358" />
-<meta name="video_width" content="576" />
+<meta name="video_height" content="360" />
+<meta name="video_width" content="640" />
 <link rel="video_src" href="{{ program.player_fb }}" />
 <meta name="video_type" content="application/x-shockwave-flash" />
 <meta name="video_duration" content="{{ program.duration * 60 }}" />
