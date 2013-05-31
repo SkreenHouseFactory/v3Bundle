@@ -3,6 +3,14 @@ service:
     description: mySkreen.com
     url: http://www.myskreen.com
 page:
+  
+  
+    h1:
+        channel: 
+          tv: Retrouvez les émissions de %name% en intégralité et gratuitement
+          tv_format: Revoir les programmes TV de %name% c'est possible
+          default: %name%
+          default_format: Retrouvez les %format%s de %name% en intégralité
     title:
         home: 
             mixte: mySkreen : Programmes Télé, Replay TV, VOD
@@ -17,7 +25,11 @@ page:
             spectacles: Théatre, concerts, spectacles
         cinema.boxoffice: Cinéma, tous les films en salle commençant par %alpha%
         tvgrid: Programme TV du %date%
-        channel: Découvrez %name% en %access%
+        channel: 
+          tv: %name% %access% : revoir tous les programmes TV de la chaîne
+          tv_format: Retrouvez ici toutes les %format%s de %name% en %access%
+          default: Découvrez %name% en %access%
+          default_format: Retrouvez ici toutes les %format%s de %name% en %access%
         search: Recherche : %q%
         user:
             settings: Vos préférences
