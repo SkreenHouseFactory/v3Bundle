@@ -192,7 +192,7 @@
                 <td class="notif"><span class="badge">0</span></td>
                 <td class="icon">
                   <span>
-                  {% if o_access.name == 'TV' %}<i class="icon-calendar"></i>
+                  {% if o_access.name == 'TV' and key != 'plays' %}<i class="icon-calendar"></i>
                   {% elseif o.url is defined and o.url %}<i class="icon-share"></i>
                   {% elseif o.deporte is defined and o.deporte %}<i class="icon-play"></i>
                   {% endif %}
@@ -230,7 +230,9 @@
                     {% endif %}
                   {% endif %}
                   {% if o_access.name == 'TV' %}
-                    {% if o.has_replay and o.broadcasttime|remainingtv %}
+                    {% if key == 'plays'  %}
+                      <span class="label label-important">Live</span>
+                    {% elseif o.has_replay and o.broadcasttime|remainingtv %}
                       <span class="label label-info">{{ o.broadcasttime|remainingtv }}</span>
                     {% elseif o.broadcasttime|timeleft %}
                       <span class="label label-warning">Dans {{ o.broadcasttime|timeleft }}</span>
