@@ -53,7 +53,7 @@
     {% if app.request.get('facet') %} <small>{{ app.request.get('facet') }}</small>{% endif %}
     {% if app.request.get('page') %} <small>page {{ app.request.get('page') }}</small>{% endif %}
   </h1>
-  <p class="channel-description">{{ channel.description }}</p>
+  <p class="channel-description">{{ channel.description|raw }}</p>
 
   {% if app.request.get('page') is null and 
         app.request.get('format') is null and 
