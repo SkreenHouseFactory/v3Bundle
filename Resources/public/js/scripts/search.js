@@ -44,7 +44,8 @@ $(document).ready(function(){
           }
           if (programs.length > nb_page) {
             $('#carousel-youtube').carousel().carousel('pause').removeClass('hide'); //{interval: 7000, pause: 'hover'}
-            $('#carousel-youtube').append('<p class="alert alert-info">Ces extraits sont récupérés automatiquement sur Youtube notamment. Il se peut qu\'ils ne correspondent pas tout à fait au programme recherché et les sites référencés sont seuls responsables du contenu qu\'ils proposent.</p>');
+            $('#carousel-youtube').css("height","400px");
+            $('#youtube').append('<p class="alert alert-info">Ces extraits sont récupérés automatiquement sur Youtube notamment. Il se peut qu\'ils ne correspondent pas tout à fait au programme recherché et les sites référencés sont seuls responsables du contenu qu\'ils proposent.</p>');
           
           }
         });

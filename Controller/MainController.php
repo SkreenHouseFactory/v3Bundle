@@ -153,8 +153,14 @@ class MainController extends Controller
                                  'nb_results' => 30,
                                  'with_new' => 1,
                                  'facets' => $facets));
-      //echo $api->url;
-      //print_r($datas);
+      //echo $api->url;exit;
+      //print_r($datas);exit;
+
+      if (array_key_exists("spelling",$datas)) {
+        if (count($datas->spelling) > 1)
+          $datas->spelling = array($datas->spelling[0]);
+      }
+
       $response = $this->render('SkreenHouseFactoryV3Bundle:Search:main.html.twig', array(
         'results' => $datas,
       ));
