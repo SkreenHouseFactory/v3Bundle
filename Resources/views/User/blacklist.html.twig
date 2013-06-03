@@ -18,7 +18,9 @@
   <div class="control-group">
     <label class="control-label" for="inputEmail">Indiquez votre email</label>
     <div class="controls">
+{% if app.request.get('notifications') %}
       <input type="hidden" name="notifications" id="inputNotifications" value="1">
+{% endif %}
       <input type="hidden" name="token" id="inputToken" value="{% if app.request.get('token') %}{{ app.request.get('token') }}{% endif %}">
       <input type="text" name="email" id="inputEmail" placeholder="Email" value="{% if app.request.request.get('email') %}{{ app.request.request.get('email') }}{% else %}{{ app.request.get('email') }}{% endif %}"> <input type="submit" value="Se désinscrire" class="btn" />
     </div>

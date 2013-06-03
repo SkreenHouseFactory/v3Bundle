@@ -37,13 +37,16 @@ class UserController extends Controller
         $errorList = $this->get('validator')->validateValue($request->get('email'), $emailConstraint);
         if (count($errorList) == 0) {
           $api = $this->get('api');
-          $unsubscribed = $api->fetch('user/blacklist', array(
-            'email' => $request->get('email'),
-            'token' => $request->get('token'),
-            'notifications' => $request->get('notifications')
-            ),
-            'POST'
-          );
+          $params = array('email'=>$request->get('email'));
+          if ($request->get('token'))
+            $params['token'] = $request->get('token');
+          if ($request->get('notifications'))
+            $params['notifications'] = $request->get('notifications');
+          $unsubscribed = $api->fetch('user/blacklist', 
+                                      $params,
+                                      'POST'
+                          );
+          //echo $api->url; exit;
         } else {
           $error = 'Email invalide';
         }
