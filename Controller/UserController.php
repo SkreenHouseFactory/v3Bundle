@@ -48,7 +48,7 @@ class UserController extends Controller
           $error = 'Email invalide';
         }
       }
-      //print_r($unsubscribed);
+      print_r($unsubscribed);
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:blacklist.html.twig', array(
         'unsubscribed' => is_object($unsubscribed) ? $unsubscribed->success : null,
         'error' => $error

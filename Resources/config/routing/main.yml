@@ -243,6 +243,18 @@ program_fils_saison:
         format: "[^/]+"
         categorie: "[^/]+"
 
+program_fils_saison_undefined:
+    pattern:  /{format}/{categorie}/{idpere}-{slugpere}/saison-{saison_num}/{id}-{slug}/{rubrique}
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    requirements:
+        id: \d+
+        slug: "[^/]+"
+        idpere: \d+
+        saison_num: \d+
+        slugpere: "[^/]+"
+        format: "[^/]+"
+        categorie: "[^/]+"
+        rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine|avertir|undefined|%20-%20
 program_fils_undefined:
     pattern:  /{format}/{categorie}/{idpere}-{slugpere}/{id}-{slug}/{rubrique}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
@@ -253,7 +265,7 @@ program_fils_undefined:
         slugpere: "[^/]+"
         format: "[^/]+"
         categorie: "[^/]+"
-        rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine|avertir|undefined
+        rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine|avertir|undefined|%20-%20
 program_pere_undefined:
     pattern:  /{format}/{categorie}/{id}-{slug}/{rubrique}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
@@ -262,7 +274,7 @@ program_pere_undefined:
         slug: "[^/]+"
         format: "[^/]+"
         categorie: "[^/]+"
-        rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine|avertir|undefined
+        rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine|avertir|undefined|%20-%20
 program_fils:
     pattern:  /{format}/{categorie}/{idpere}-{slugpere}/{id}-{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }

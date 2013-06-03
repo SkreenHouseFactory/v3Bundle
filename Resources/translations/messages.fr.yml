@@ -3,12 +3,10 @@ service:
     description: mySkreen.com
     url: http://www.myskreen.com
 page:
-  
-  
     h1:
         channel: 
-          tv: Retrouvez les émissions de %name% en intégralité et gratuitement
-          tv_format: Revoir les programmes TV de %name% c'est possible
+          tv: Retrouvez les programmes de %name% en intégralité et gratuitement
+          tv_format: Revoir les %format%s TV de %name% c'est possible
           default: %name%
           default_format: Retrouvez les %format%s de %name% en intégralité
     title:
