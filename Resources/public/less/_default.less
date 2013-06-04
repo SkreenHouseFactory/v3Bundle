@@ -51,6 +51,11 @@
   background: @bgBodyFade;
 }
 
+body.view-redirect {
+  #footer {
+    display: none;
+  }
+}
 body.cover, body.playlist-in.cover {
   #main {
     padding-top: 0px;
@@ -61,7 +66,6 @@ body.playlist-in, body.no-cover.playlist-in, body.cover.view-redirect.playlist-i
     padding-top: 400px;
   }
 }
-
 body, body.no-cover, body.cover.view-redirect, body.view-redirect {
   background: @bgBody;
   #main {

@@ -296,6 +296,7 @@ var BaseSlider = Class.extend({
       if (program.deporte) {
         li.addClass('deporte');
       }
+      li.addClass('hasvod-' + program.has_vod);
       this.addProgramBestOffer(li, program);
 
       //notif : FIX

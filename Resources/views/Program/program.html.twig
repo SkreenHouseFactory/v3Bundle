@@ -253,12 +253,13 @@
                   <br/>
                   {{ o.description }}
                 {% elseif o_episode %}
-                <td class="episode" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left" itemprop="summary">
+                <td class="episode" itemprop="summary">
                   {% if o_episode.title %}
-                  {{ o_episode.title }}
+                  {{ o_episode.title }} <i data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left" class="icon-info-sign"></i>
                   {% endif %}
+                  <br/>
                   {% if o_episode.season_number is defined or o_episode.episode_number is defined or o_episode.part_number is defined %}
-                    <br/><span><em>{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %} {% if o_episode.episode_number is defined %}Episode {{ o_episode.episode_number }}{% endif %} {% if o_episode.part_number is defined %}Episode {{ o_episode.part_number }}{% endif %}</em></span>
+                    <span><em>{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %} {% if o_episode.episode_number is defined %}Episode {{ o_episode.episode_number }}{% endif %} {% if o_episode.part_number is defined %}Episode {{ o_episode.part_number }}{% endif %}</em></span>
                   {% endif %}
                 {% else %}
                 <td class="tags">
@@ -267,17 +268,17 @@
                   {% for v,id in o.versions|to_array %}
                     <span class="label label-success">{{ v }}</span>&nbsp;
                   {% endfor %}
-                  <br/>
                   {% endif %}
                   {% if o.tags is defined and o.tags|length %}
+                    <br/>
                     {% if o.tags.HD is defined %}
-                      <span class="label label-important">HD</span>
+                      <span class="label label-important">HD</span><br/>
                     {% endif %}
                     {% if o.tags.format is defined %}
-                      <span class="label label-important">{{ o.tags.format }}</span>
+                      <span class="label label-important">{{ o.tags.format }}</span><br/>
                     {% endif %}
                     {% if o.tags.device is defined %}
-                      <br/><span class="label label-info">{{ o.tags.device|replace({',': ', '}) }}</span>
+                      <span class="label label-info">{{ o.tags.device|replace({',': ', '}) }}</span>
                     {% endif %}
                   {% endif %}
                 </td>
