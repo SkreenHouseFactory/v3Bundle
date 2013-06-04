@@ -1,0 +1,25 @@
+{{ dump(slider) }}
+{% set base_url = app.environment == 'prod' and 'preprod' not in app.request.httpHost  ? 'http://www.myskreen.com' : '' %}
+{% if slider.seo_url is defined %}
+<div class="slider-link pull-right">
+{#<a class="btn btn-inverse trigger-tv" href="#" data-couchmode="{{ {'type': 'pack', 'id': slider.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
+<a href="{{ base_url }}{% if slider.fichier is defined and slider.fichier is not empty %}{{ slider.fichier }}{% else %}{{ path('any_url', {url: slider.seo_url[1:slider.seo_url|length-1]}) }}{% endif %}"> <i class="icon-fullscreen"></i> {% if slider.contenu_rss is defined and slider.contenu_rss is not empty %}{{ slider.contenu_rss}}{% else %}{{ 'slider.link.default'|trans }}{% endif %}</a>
+</div>
+{% endif %}
+{% if noheader is not defined %}
+  <h3{% if slider.id is defined %} id="{{ slider.id }}-title"{% endif %} class="user-on-visibility">{% if slider.seo_url is defined %}<a href="{{ base_url }}{% if slider.fichier is defined and slider.fichier is not empty %}{{ slider.fichier }}{% else %}{{ path('any_url', {url: slider.seo_url[1:slider.seo_url|length-1]}) }}{% endif %}">{% endif %}{{ slider.title|raw }}{% if slider.name is defined and 'promo_' in slider.name %} <span class="label label-warning">{{ 'slider.sponsor'|trans }}</span>{% endif %}{% if slider.seo_url is defined %}</a>{% endif %}</h3>
+{% endif %}
+<div{% if slider.id is defined %} id="{{ slider.id }}"{% endif %}{% if (slider.paginate is not defined or slider.paginate) and slider.url is defined %} data-paginate-url="{{ slider.url }}"{% endif %} class="slider" data-autoload="1" {% if slider.programs is defined and slider.programs|length  %}data-nb-results="{{ slider.programs|length }}" {% endif %}data-pager-offset="0" data-animate="width">
+  <div class="slider-container">
+    <ul class="items{% if addClass is defined %} {{ addClass }}{% endif %}">
+      <li class="loader static alert alert-info">{{ 'loading'|trans }}</li>
+      {% if slider.programs is defined %}
+      {% for program in slider.programs %}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
+      {% endfor %}
+      {% endif %}
+    </ul>
+  </div>
+  <a class="carousel-control right">›</a>
+  <a class="carousel-control left">‹</a>
+</div>

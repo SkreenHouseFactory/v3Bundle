@@ -200,26 +200,32 @@ channels_v2_replay:
         slug: "[^/]+"
 
 #content
+saga:
+    pattern:  /saga/{id}-{slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:saga }
+    requirements:
+        id: \d+
+        slug: "[^/]+"
 program_dev:
     pattern:  /p/{id}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program }
     requirements:
         id: \d+
 occurrence_v1:
     pattern:  /play/{id}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program, from_occurrence: 1 }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program, from_occurrence: 1 }
     requirements:
         id: \d+
 program_v1:
     pattern:  /{format}/{id}-{slug}/{rubrique}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program }
     requirements:
         id: \d+
         slug: "[^/]+"
         rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine|avertir|undefined
 program_v2_pere:
     pattern:  /{format}/{idpere}-{slugpere}/{id}-{slug}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program }
     requirements:
         id: \d+
         slug: "[^/]+"
@@ -227,13 +233,13 @@ program_v2_pere:
         slugpere: "[^/]+"
 program_v2:
     pattern:  /{format}/{id}-{slug}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program }
     requirements:
         id: \d+
         slug: "[^/]+"
 program_fils_saison:
     pattern:  /{format}/{categorie}/{idpere}-{slugpere}/{saison}/{id}-{slug}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program }
     requirements:
         id: \d+
         slug: "[^/]+"
@@ -245,7 +251,7 @@ program_fils_saison:
 
 program_fils_saison_undefined:
     pattern:  /{format}/{categorie}/{idpere}-{slugpere}/saison-{saison_num}/{id}-{slug}/{rubrique}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program }
     requirements:
         id: \d+
         slug: "[^/]+"
@@ -257,7 +263,7 @@ program_fils_saison_undefined:
         rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine|avertir|undefined|%20-%20
 program_fils_undefined:
     pattern:  /{format}/{categorie}/{idpere}-{slugpere}/{id}-{slug}/{rubrique}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program }
     requirements:
         id: \d+
         slug: "[^/]+"
@@ -268,7 +274,7 @@ program_fils_undefined:
         rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine|avertir|undefined|%20-%20
 program_pere_undefined:
     pattern:  /{format}/{categorie}/{id}-{slug}/{rubrique}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program }
     requirements:
         id: \d+
         slug: "[^/]+"
@@ -277,7 +283,7 @@ program_pere_undefined:
         rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine|avertir|undefined|%20-%20
 program_fils:
     pattern:  /{format}/{categorie}/{idpere}-{slugpere}/{id}-{slug}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program }
     requirements:
         id: \d+
         slug: "[^/]+"
@@ -287,7 +293,7 @@ program_fils:
         categorie: "[^/]+"
 program_pere_saison:
     pattern:  /{format}/{categorie}/{id}-{slug}/saison-{season_number}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program }
     requirements:
         id: \d+
         slug: "[^/]+"
@@ -296,7 +302,7 @@ program_pere_saison:
         season_number: \d+
 program_pere:
     pattern:  /{format}/{categorie}/{id}-{slug}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:program }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program }
     requirements:
         id: \d+
         slug: "[^/]+"
