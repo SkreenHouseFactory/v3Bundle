@@ -101,7 +101,8 @@ class ContentController extends Controller
 
         //print("<pre>");print_r($datas);
         //echo $api->url;exit();
-        if ($this->get('kernel')->getEnvironment() == 'dev' && $request->get('debug')) {
+        if ($this->get('kernel')->getEnvironment() == 'dev' && 
+            $request->get('debug')) {
           echo $api->url;
         }
         //stop Adulte
