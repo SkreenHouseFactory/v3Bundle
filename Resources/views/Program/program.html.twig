@@ -255,7 +255,7 @@
                 {% elseif o_episode %}
                 <td class="episode" itemprop="summary">
                   {% if o_episode.title %}
-                  {{ o_episode.title }} <i data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left" class="icon-info-sign"></i>
+                  <span data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left">{{ o_episode.title }}</span>
                   {% endif %}
                   <br/>
                   {% if o_episode.season_number is defined or o_episode.episode_number is defined or o_episode.part_number is defined %}
