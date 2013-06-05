@@ -43,6 +43,7 @@ page:
                 cinema: Salles de cinéma
                 dvd: DVDs en ligne
                 box: Box en ligne
+                vod: Vidéo à la demande 
         error: Page introuvable
         redirect: Redirection en cours ...
     description:

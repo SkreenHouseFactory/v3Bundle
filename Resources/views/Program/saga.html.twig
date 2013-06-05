@@ -1,9 +1,6 @@
 {% extends app.request.get('layout_partner') ? 'SkreenHouseFactoryPartnersBundle::' ~ app.request.get('layout_partner') ~ '.html.twig' : 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
 {% block meta %}
-{% if saga.programs|length < 6 %}
-<meta name="robots" content="noindex,follow" />
-{% endif %}
 <meta property="og:title" content="{{ saga.name }}" />
 <meta property="og:description" content="{{ saga.description }}" />
 <meta property="og:type" content="website" />

@@ -50,6 +50,11 @@ $(document).ready(function(){
       $('[data-play="'+getUrlParameter('play')+'"]').trigger('click');
     }
 
+    //handle video mention
+    $('tr[data-play]').on('click', function(e){
+      $('#program-teaser-header').html($('#program-teaser-header').data('default-text'));
+    });
+
     //ics
     $('[data-ics-occurrence]').on('click', function(e){
       e.preventDefault();

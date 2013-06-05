@@ -103,14 +103,16 @@
     <a name="teaser"></a>
     <div id="program-teaser">
     {% if program.player is defined and program.player %}
-      <span id="program-teaser-header">{{ program.player.access_id is defined ? 'Votre programme en intégralité' : 'Bande annonce' }}</span>
+      <span id="program-teaser-header" data-default-text="Votre programme en intégralité">{{ program.player.access_id is defined ? 'Votre programme en intégralité' : 'Bande annonce' }}</span>
       {#<a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
       <div id="program-teaser-meta" class="player-meta"></div>
-      <div id="program-teaser-player"{% if app.request.isXmlHttpRequest %}{%else%} data-play-autoload="{{ program.player.id }}"{% endif %} data-play="{{ program.player.id }}" {#data-play-meta-elmt="#program-teaser-meta" data-play-muted="1"#} data-play-args="{{ {hide_sliders: 1, current_player: '#program-teaser-player'}|json_encode }}"></div>
+      <div id="program-teaser-player"{% if app.request.isXmlHttpRequest %}{%else%} data-play-autoload-bak="{{ program.player.id }}"{% endif %} data-play="{{ program.player.id }}" {#data-play-meta-elmt="#program-teaser-meta" data-play-muted="1"#} data-play-args="{{ {hide_sliders: 1, current_player: '#program-teaser-player'}|json_encode }}">
+        <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.player.id }}&height=330&width=720" style="height:330px;width:720px" scrolling="no" frameborder="0"></iframe>
+      </div>
     {% else %}
     <span id="program-teaser-header">Publicité</span>
       <div id="program-teaser-player">
-        <iframe src="http://preprod.api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=28370043&program_id={{ program.id }}&height=330&width=720" style="height:330px;width:720px" scrolling="no" frameborder="0"></iframe>
+        <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=28370043&program_id={{ program.id }}&height=330&width=720" style="height:330px;width:720px" scrolling="no" frameborder="0"></iframe>
       </div>
     {% endif %}
     </div>
@@ -524,8 +526,8 @@
         {% for pers in program.casting %}
         <div class="inline" itemprop="actor" itemscope="" itemtype="http://schema.org/Person">
         {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
-        {% if pers.programmes is defined and (pers.programmes|length > 1) %}
-          <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
+        {% if pers.main_programs is defined and (pers.main_programs|length > 1) %}
+          <span style="color:#005580"> ( </span>{% for prog in pers.main_programs if prog.id != program.id  %}
           {% if loop.first %}{% else %}, {% endif %}
           <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
           {% endfor %}<span style="color:#005580"> ) </span>
