@@ -43,9 +43,11 @@ $(document).ready(function(){
     //autoload from url
     if (document.location.href.match(/\?rent/gi)) {
       $('#plays [data-play]:first').trigger('click');
-    }
-    if (document.location.href.match(/\?follow/gi)) {
+    } else if (document.location.href.match(/\?follow/gi)) {
       $('.actions .fav').trigger('click');
+    } else if (document.location.href.match(/\?play/gi)) {
+      console.log('?play', getUrlParameter('play'));
+      $('[data-play="'+getUrlParameter('play')+'"]').trigger('click');
     }
 
     //ics
@@ -56,36 +58,38 @@ $(document).ready(function(){
     });
 
     //episodes
-    $('#program-offers .episode').on('hover', function(event) {
+    $('#program-offers [data-content]').on('hover', function(event) {
       var trigger = $(this);
       var timeout = null;
       if (event.type == 'mouseover' || event.type == 'mouseenter') {
+        console.log(trigger);
         if (!trigger.data('loaded')) {
-          API.query('GET',
-                    'program/' + $(this).data('episode-id') + '.json',
-                    {
-                      with_description: 1,
-                      img_width: 200,
-                      episode_only: 1
-                    },
-                    function(json) {
-                      $('.popover:visible').hide();
-                      trigger.data('loaded', true);
-                      if (json.description != null) {
-                        var picture = json.picture != null ? '<hr/><p align="center"><img src="' + json.picture + '" alt="' + json.title + '" />' : '';
-                        var content = '<strong>' + 
-                                      (json.season_number ? ' Saison ' + json.season_number : '') + 
-                                      (json.episode_number ? ' Episode ' + json.episode_number : '') + 
-                                      (json.season_number || json.episode_number  ? ' - ' : '') + 
-                                      (json.year != null ? json.year : '') +
-                                      '</strong><br/><small>' + json.description + '</small>' + picture + '</p>';
-                        trigger.attr('data-content', content);
-                        trigger.popover();
-                        trigger.popover('show');
-                      } else {
-                        trigger.attr('data-content', '');
-                      }
-                    });
+          API.query(
+            'GET',
+            'program/' + $(this).data('episode-id') + '.json',
+            {
+              with_description: 1,
+              img_width: 200,
+              episode_only: 1
+            },
+            function(json) {
+              $('.popover:visible').hide();
+              trigger.attr('data-loaded', 1);
+              if (json.description != null) {
+                var picture = json.picture != null ? '<hr/><p align="center"><img src="' + json.picture + '" alt="' + json.title + '" />' : '';
+                var content = '<strong>' + 
+                              (json.season_number ? ' Saison ' + json.season_number : '') + 
+                              (json.episode_number ? ' Episode ' + json.episode_number : '') + 
+                              (json.season_number || json.episode_number  ? ' - ' : '') + 
+                              (json.year != null ? json.year : '') +
+                              '</strong><br/><small>' + json.description + '</small>' + picture + '</p>';
+                trigger.attr('data-content', content);
+                trigger.popover();
+                trigger.popover('show');
+              } else {
+                trigger.attr('data-content', '');
+              }
+            });
         } else if (trigger.attr('data-content')) {
           $('.popover').hide();
           trigger.popover('show');

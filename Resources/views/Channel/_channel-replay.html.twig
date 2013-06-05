@@ -9,7 +9,7 @@
   </td>
   <td class="actions" data-id="{{ channel.live.program.id }}">
     <h4>{{ channel.live.program.title }}</h4>
-    <p>{{ channel.live.program.description }}</p>
+    <p>{{ channel.live.program.description|raw }}</p>
     {% if channel.live.program.best_offer.has_replay %}
     <p class="alert alert-success">Ce programme sera bientôt disponible en Replay. Cliquez sur suivre pour être averti dès qu'il sera disponible.</p>
     {% endif %}

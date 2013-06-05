@@ -33,7 +33,16 @@ class MainController extends Controller
     */
     public function headerAction(Request $request)
     {
-      return $this->render('SkreenHouseFactoryV3Bundle:Home:header.html.twig', array(
+      return $this->render('SkreenHouseFactoryV3Bundle:Main:_header-nav.html.twig', array(
+      ));
+    }
+
+    /**
+    * footer
+    */
+    public function footerAction(Request $request)
+    {
+      return $this->render('SkreenHouseFactoryV3Bundle:Main:_footer.html.twig', array(
       ));
     }
 

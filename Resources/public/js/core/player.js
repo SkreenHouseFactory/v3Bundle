@@ -511,6 +511,7 @@ Player = {
     }
   },
   loadVersions: function(versions, current_id) {
+    return;//desactivé : gestion des versions dans le player lui-même
     var el = $('#player-versions', this.elmt);
     if (!el.length) {
       var el = $('<div id="player-versions" class="player-meta"></div>');

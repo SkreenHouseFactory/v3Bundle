@@ -111,6 +111,10 @@ UiView = {
     if ($('[rel="tooltip"]').length > 0) {
       $('[rel="tooltip"]').tooltip();
     }
+    
+    // -- focus search
+    console.log('script', 'focus', $('.navbar-search .search-query'));
+    $('.navbar-search .search-query').focus();
   },
   initDataLive: function(elmt) {
     console.log('UiView.initDataLive', elmt);

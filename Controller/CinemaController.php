@@ -56,6 +56,7 @@ class CinemaController extends Controller
     */
     public function programAction(Request $request)
     {
+
       if (!$request->get('id')) {
         throw $this->createNotFoundException('Program id is missing');
       }
@@ -70,13 +71,14 @@ class CinemaController extends Controller
         ));
       } elseif ($request->get('latlng')) {
         list ($lat, $lng) = explode(',', $request->get('latlng'));
-        $cinemas = $api->fetch('schedule/cine', array(
-                      'program_id' => $request->get('id'),
-                      'with_schedule' => true,
-                      'fromGeoloc' => true,
-                      'lat' => $lat,
-                      'long' => $lng
-                    ));
+        $cinemas = $api->fetch(
+          'schedule/cine', array(
+          'program_id' => $request->get('id'),
+          'with_schedule' => true,
+          'fromGeoloc' => true,
+          'lat' => $lat,
+          'long' => $lng
+        ));
       }
       //echo 'theater_ids:' . $request->get('theater_ids');
       //echo $api->url;

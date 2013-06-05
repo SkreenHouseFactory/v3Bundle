@@ -1,13 +1,13 @@
 {% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% block title %}
-{{ program.title }}{% if program.format %}, {{ program.format.name }}{% endif %} {% if program.id in [4750433,4225947,4802310,4802138,4827403,4325232,4301824,4653555,4750467,4348861] %}Film complet en streaming
+{{ program.title }} {% if program.id in [4750433,4225947,4802310,4802138,4827403,4325232,4301824,4653555,4750467,4348861] %}Film complet en streaming
 {% elseif program.id in [4977242,4476408,4911399,4653895,4791542,4624174,4339164,4673973,4652360,5008693] %}Film en entier en streaming
 {% elseif program.id in [4761150,4762496,4902865,4761177,4989407,4954927,4761225,4970968,4807696,4902930] %}Bande annonce en streaming
 {% elseif program.id in [4750611,4750438,4675684,4796437,4746458,4750593,4750590,4750605,4746282,4750602] %}Film
 {% elseif program.has_vod in [5,6,7,8] %}en Replay
 {% else %}en streaming{% endif %}{% endblock %}
-{% block description %}{{ program.description_seo|replace({"\n": ''})|striptags|slice(0, 165) }} | {{ program.title }}, {{ program.id }}{% endblock %}
+{% block description %}{{ program.description_text|replace({"\n": ''})|slice(0, 165) }} | {{ program.title }}, {{ program.id }}{% endblock %}
 {% block meta %}
 
 {# twitter #}
@@ -15,15 +15,15 @@
 <meta name="twitter:creator" content="@mySkreen">
 <meta name="twitter:url" content="http://www.myskreen.com{{ program.seo_url }}">
 <meta name="twitter:title" content="{{ program.title }}">
-<meta name="twitter:description" content="{{ program.description }}">
+<meta name="twitter:description" content="{{ program.description_text|replace({"\n": ''}) }}">
 <meta name="twitter:image:src" content="{{ program.picture }}">
 {% if program.player_iframe is defined %}
 <meta name="twitter:card" value="player" />
 <meta name="twitter:player" value="{{ program.player_iframe }}" />
 <meta name="twitter:player:stream" content="{{ program.player_stream }}">
 <meta name="twitter:player:stream:content_type" content="video/mp4">
-<meta name="twitter:player:height" value="358" />
-<meta name="twitter:player:width" value="576" />
+<meta name="twitter:player:height" value="360" />
+<meta name="twitter:player:width" value="640" />
 {% elseif program.has_vod in [1,2] %}
 <meta name="twitter:card" value="product" />
 <meta name="twitter:data1" content="€2.99">
@@ -35,23 +35,23 @@
 
 {# opengraph #}
 <meta property="og:title" content="{{ program.title }}" />
-<meta property="og:description" content="[ VIDEO ] {{ program.description|striptags }}" />
+<meta property="og:description" content="[ VIDEO ] {{ program.description_text|replace({"\n": ''}) }}" />
 <meta property="og:image" content="{{ program.picture }}" />
 <meta property="og:type" content="{% if program.format %}{% if program.format.name == 'Série' %}video.episode{% elseif program.format.name in ['Emission','Journal'] %}video.tv_show{% else %}video.movie{% endif %}{% else %}video.movie{% endif %}" />
 <meta property="og:url" content="http://www.myskreen.com{{ program.seo_url }}" />
 {% if program.player_fb is defined %}
 
-<meta property="og:video:height" content="358" />
-<meta property="og:video:width" content="576" />
+<meta property="og:video:height" content="360" />
+<meta property="og:video:width" content="640" />
 <meta property="og:video" content="{{ program.player_fb }}" />
 <meta property="og:video:type" content="application/x-shockwave-flash" />
-<meta property="og:video:duration" content="{{ program.duration * 60 }}" />
-<meta property="og:video:secure_url" content="{{ program.player_fb|replace({'http://': 'https://'}) }}" />
+<meta property="og:video:secure_url" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
 <meta property="og:video" content="{{ program.player_stream }}" />
 <meta property="og:video:type" content="video/mp4" />
+<meta property="video:duration" content="{{ program.duration * 60 }}" />
 
-<meta name="video_height" content="358" />
-<meta name="video_width" content="576" />
+<meta name="video_height" content="360" />
+<meta name="video_width" content="640" />
 <link rel="video_src" href="{{ program.player_fb }}" />
 <meta name="video_type" content="application/x-shockwave-flash" />
 <meta name="video_duration" content="{{ program.duration * 60 }}" />
@@ -100,14 +100,20 @@
     </div>
 
     <div id="program-main-block">
+    <a name="teaser"></a>
+    <div id="program-teaser">
     {% if program.player is defined and program.player %}
-      <a name="teaser"></a>
-      <div id="program-teaser">
+      <span id="program-teaser-header">{{ program.player.access_id is defined ? 'Votre programme en intégralité' : 'Bande annonce' }}</span>
       {#<a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
       <div id="program-teaser-meta" class="player-meta"></div>
       <div id="program-teaser-player"{% if app.request.isXmlHttpRequest %}{%else%} data-play-autoload="{{ program.player.id }}"{% endif %} data-play="{{ program.player.id }}" {#data-play-meta-elmt="#program-teaser-meta" data-play-muted="1"#} data-play-args="{{ {hide_sliders: 1, current_player: '#program-teaser-player'}|json_encode }}"></div>
+    {% else %}
+    <span id="program-teaser-header">Publicité</span>
+      <div id="program-teaser-player">
+        <iframe src="http://preprod.api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=28370043&program_id={{ program.id }}&height=330&width=720" style="height:330px;width:720px" scrolling="no" frameborder="0"></iframe>
       </div>
     {% endif %}
+    </div>
 
     <a name="program-offers"></a>
     <div id="program-offers" class="view-program-block">
@@ -192,7 +198,7 @@
                 <td class="notif"><span class="badge">0</span></td>
                 <td class="icon">
                   <span>
-                  {% if o_access.name == 'TV' %}<i class="icon-calendar"></i>
+                  {% if o_access.name == 'TV' and key != 'plays' %}<i class="icon-calendar"></i>
                   {% elseif o.url is defined and o.url %}<i class="icon-share"></i>
                   {% elseif o.deporte is defined and o.deporte %}<i class="icon-play"></i>
                   {% endif %}
@@ -230,7 +236,9 @@
                     {% endif %}
                   {% endif %}
                   {% if o_access.name == 'TV' %}
-                    {% if o.has_replay and o.broadcasttime|remainingtv %}
+                    {% if key == 'plays'  %}
+                      <span class="label label-important">Live</span>
+                    {% elseif o.has_replay and o.broadcasttime|remainingtv %}
                       <span class="label label-info">{{ o.broadcasttime|remainingtv }}</span>
                     {% elseif o.broadcasttime|timeleft %}
                       <span class="label label-warning">Dans {{ o.broadcasttime|timeleft }}</span>
@@ -245,12 +253,13 @@
                   <br/>
                   {{ o.description }}
                 {% elseif o_episode %}
-                <td class="episode" data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left" itemprop="summary">
+                <td class="episode" itemprop="summary">
                   {% if o_episode.title %}
-                  {{ o_episode.title }}
+                  {{ o_episode.title }} <i data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left" class="icon-info-sign"></i>
                   {% endif %}
+                  <br/>
                   {% if o_episode.season_number is defined or o_episode.episode_number is defined or o_episode.part_number is defined %}
-                    <br/><span><em>{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %} {% if o_episode.episode_number is defined %}Episode {{ o_episode.episode_number }}{% endif %} {% if o_episode.part_number is defined %}Episode {{ o_episode.part_number }}{% endif %}</em></span>
+                    <span><em>{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %} {% if o_episode.episode_number is defined %}Episode {{ o_episode.episode_number }}{% endif %} {% if o_episode.part_number is defined %}Episode {{ o_episode.part_number }}{% endif %}</em></span>
                   {% endif %}
                 {% else %}
                 <td class="tags">
@@ -259,17 +268,17 @@
                   {% for v,id in o.versions|to_array %}
                     <span class="label label-success">{{ v }}</span>&nbsp;
                   {% endfor %}
-                  <br/>
                   {% endif %}
                   {% if o.tags is defined and o.tags|length %}
+                    <br/>
                     {% if o.tags.HD is defined %}
-                      <span class="label label-important">HD</span>
+                      <span class="label label-important">HD</span><br/>
                     {% endif %}
                     {% if o.tags.format is defined %}
-                      <span class="label label-important">{{ o.tags.format }}</span>
+                      <span class="label label-important">{{ o.tags.format }}</span><br/>
                     {% endif %}
                     {% if o.tags.device is defined %}
-                      <br/><span class="label label-info">{{ o.tags.device|replace({',': ', '}) }}</span>
+                      <span class="label label-info">{{ o.tags.device|replace({',': ', '}) }}</span>
                     {% endif %}
                   {% endif %}
                 </td>

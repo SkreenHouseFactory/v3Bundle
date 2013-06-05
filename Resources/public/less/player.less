@@ -71,12 +71,12 @@
   bottom: 10%;
 }
 .player-meta, #couchmode .player-meta {
-  display: none;
+  visibility: hidden;
   position: absolute;
   z-index: 1;
   margin: 5% 0 0 1% !important;
   width: 25%;
-  min-width: 300px;
+  min-width: 250px;
   padding: 3px;
   border-radius: 5px;
   color: white;
@@ -87,11 +87,13 @@
     margin: 0;
   }
   &.has-versions {
-    display: block !important;
     h4 {
       display: none;
     }
   }
+}
+.player:hover .player-meta , #couchmode .player:hover .player-meta {
+  visibility: visible;
 }
 
 .player-controls {
