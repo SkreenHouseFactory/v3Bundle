@@ -1,4 +1,6 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+{% set format = 'format.singulier.' ~ app.request.get('format') %}
+{% set formats = 'format.pluriel.' ~ app.request.get('format') %}
 {% block meta %}
 {% if channel.programs|length < 6 or app.request.get('page') %}
 <meta name="robots" content="noindex,follow" />
@@ -15,7 +17,7 @@
 {% endblock %}
 {% block title %}
 {% set page_title_channel = 'page.title.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
-{{ page_title_channel|trans({'%name%': channel.name, '%format%': app.request.get('format'), '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
+{{ page_title_channel|trans({'%name%': channel.name, '%format%': format|trans, '%formats%': formats|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
 {%- if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif -%}
 {%- if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif -%}
 {%- endblock %}
@@ -49,7 +51,7 @@
   <img class="channel-logo pull-left" src="{{ channel.img }}" />
   {% set page_h1_channel = 'page.h1.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
   <h1>
-    {{ page_h1_channel|trans({'%name%': channel.name, '%format%': app.request.get('format'), '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
+    {{ page_h1_channel|trans({'%name%': channel.name, '%format%': format|trans, '%formats%': formats|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
     {% if app.request.get('facet') %} <small>{{ app.request.get('facet') }}</small>{% endif %}
     {% if app.request.get('page') %} <small>page {{ app.request.get('page') }}</small>{% endif %}
   </h1>

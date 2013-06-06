@@ -6,9 +6,9 @@ page:
     h1:
         channel: 
           tv: Retrouvez les programmes de %name% en intégralité et gratuitement
-          tv_format: Revoir les %format%s TV de %name% c'est possible
+          tv_format: Revoir les %formats% TV de %name% c'est possible
           default: %name%
-          default_format: Retrouvez les %format%s de %name% en intégralité
+          default_format: Retrouvez les %formats% de %name% en intégralité
     title:
         home: 
             mixte: mySkreen : Programmes Télé, Replay TV, VOD
@@ -25,9 +25,9 @@ page:
         tvgrid: Programme TV du %date%
         channel: 
           tv: %name% %access% : revoir tous les programmes TV de la chaîne
-          tv_format: Retrouvez ici toutes les %format%s de %name% en %access%
+          tv_format: Retrouvez ici toutes les %formats% de %name% en %access%
           default: Découvrez %name% en %access%
-          default_format: Retrouvez ici toutes les %format%s de %name% en %access%
+          default_format: Retrouvez ici toutes les %formats% de %name% en %access%
         search: Recherche : %q%
         user:
             settings: Vos préférences
@@ -243,7 +243,27 @@ access:
 all:
     the:
         format: Tous les %format%
-
+format:
+    singulier:
+        film: film
+        serie: série
+        emission: émission
+        documentaire: documentaire
+        court-metrage: court-métrage
+        journal: journal
+        spectacle: spectacle
+        theatre: théâtre
+        concert: concert
+    pluriel:
+        film: films
+        serie: séries
+        emission: émissions
+        documentaire: documentaires
+        court-metrage: court-métrages
+        journal: journaux
+        spectacle: spectacles
+        theatre: théâtres
+        concert: concerts
 past: passé
 today: aujourd'hui
 coming: à venir
