@@ -75,7 +75,9 @@
 <div id="view-program" data-id="{{ program.id }}" class="container">
 
   <div class="program-title">
-    {% if program.episode_title is defined and program.episodeof is defined %}
+    {% if program.episode_title is defined and program.episodeof is defined and program.episodeof.title|slice(0,13) == 'Autres vidéos' %}
+    <h1>{{ program.episode_title }}</h1>
+    {% elseif program.episode_title is defined and program.episodeof is defined %}
     <h1>{{ program.episodeof.title }} <span>{{ program.episode_title }}{% if program.season_number is defined or program.episode_number is defined %} ({% endif %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Episode {{ program.episode_number }}{% endif %}{% if program.season_number is defined or program.episode_number is defined %}){% endif %}</span></h1>
     {% else %}
     <h1>
