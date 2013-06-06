@@ -84,7 +84,7 @@ class CinemaController extends Controller
       //echo $api->url;
       $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:program.html.twig', array(
 			  'cinemas' => $cinemas,
-			  'days' => array('Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche')
+			  'days' => array('Mercredi','Jeudi','Vendredi','Samedi','Dimanche','Lundi','Mardi')
 			));
 
       $maxage = 600;
