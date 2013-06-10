@@ -20,7 +20,7 @@
       <a href="{{ path('sitemap_channels', {type: 'vod'}) }}">Chaînes Vidéo à la demande</a>
       <a href="{{ path('sitemap_channels', {type: 'webcast'}) }}">Chaînes Web</a>
       <a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Salles et horaires de cinéma</a>
-      <a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">Location / achat Dvd et Blu-ray</a>
+      <a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">Location Dvd et Blu-ray</a>
     </div>
     {% if app.request.get('home') and 
           app.request.get('home') not in ['tv-replay','cinema','video-a-la-demande','mixte'] %}

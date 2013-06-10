@@ -36,7 +36,7 @@ $(document).ready(function(){
     //////////// SCRIPTS ////////////////
 
     //no deportes
-    if ($('#trigger-plays').length == 0) {
+    if ($('li.active #trigger-plays').length == 0) {
       $('#triggers li:first-child a').trigger('click');
     }
 
