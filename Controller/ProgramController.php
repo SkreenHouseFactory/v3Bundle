@@ -118,7 +118,8 @@ class ProgramController extends Controller
           'with_teaser' => true,
           'with_hashtags' => true,
           'with_tweets' => true,
-          'with_empty_player' => true
+          'with_empty_player' => true,
+          'wrap_default_description' => 'h2',
           //'filter_casting' => true,
           //'player' => 'flash'
         ));
