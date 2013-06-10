@@ -6,8 +6,11 @@
 {% elseif program.id in [4761150,4762496,4902865,4761177,4989407,4954927,4761225,4970968,4807696,4902930] %}Bande annonce en streaming
 {% elseif program.id in [4750611,4750438,4675684,4796437,4746458,4750593,4750590,4750605,4746282,4750602] %}Film
 {% elseif program.has_vod in [5,6,7,8] %}en Replay
-{% else %}en streaming{% endif %}{% endblock %}
-{% block description %}{{ program.description_text|replace({"\n": ''})|slice(0, 165) }} | {{ program.title }}, {{ program.id }}{% endblock %}
+{% else %} en streaming{% if program.format %} | {{ program.format.name }}{% endif %}{% endif %}
+{% endblock %}
+{% block description %}
+{{ program.description_text|replace({"\n": ''})|slice(0, 165) }} | {{ program.title }}, {{ program.id }}
+{% endblock %}
 {% block meta %}
 
 {# twitter #}
@@ -74,9 +77,14 @@
 {% block content %}
 <div id="view-program" data-id="{{ program.id }}" class="container">
 
+  <div id="program-follow" class="actions add-friends" data-id="{{ program.episodeof is defined ? program.episodeof.id : program.id }}">
+    <div class="container-friends"></div>
+    <a class="fav fav-like btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>{% if app.environment == 'dev' and program.nb_like %} <span class="playlists-count"><i class="icon-user"></i>{{ program.nb_like }}</span>{% endif %}
+  </div>
+
   <div class="program-title">
     {% if program.episode_title is defined and program.episodeof is defined and program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
-    <h1>{{ program.episode_title }}</h1>
+    <h1>{{ program.episode_title }}{% if program.popular_channel is defined %} <small>{{ program.popular_channel.name }}</small>{% endif %}</h1>
     {% elseif program.episode_title is defined and program.episodeof is defined %}
     <h1>{{ program.episodeof.title }} <span>{{ program.episode_title }}{% if program.season_number is defined or program.episode_number is defined %} ({% endif %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Episode {{ program.episode_number }}{% endif %}{% if program.season_number is defined or program.episode_number is defined %}){% endif %}</span></h1>
     {% else %}
@@ -92,14 +100,10 @@
     {% endif %}
   </div>
   <div id="program-description">
-    <div class="description scroll">{{ program.description_seo|raw }}</div>
+    <h2 class="description scroll">{{ program.description_seo|raw }}</h2>
   </div>
 
   <div class="view-main view-program-main pull-right">
-
-    <div id="program-follow" class="actions" data-id="{{ program.episodeof is defined ? program.episodeof.id : program.id }}">
-      <a class="fav fav-like btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
-    </div>
 
     <div id="program-main-block">
     <a name="teaser"></a>
@@ -149,7 +153,7 @@
       <div class="tab-content">
         {% for key in offers|keys if program.offers[key]|length %}
         <a name="{{ key }}"></a>
-        <div id="{{ key }}" class="tab-pane{% if key == program.offers_default %} active{% endif %}">
+        <div id="{{ key }}" data-play-text="{{ ('player.content.text.' ~ key)|trans }}" class="tab-pane{% if key == program.offers_default %} active{% endif %}">
         {%  if program.offers[key]|length %}
         <div class="table-container scroll">
         <table class="table">
@@ -263,7 +267,7 @@
                   {% endif %}
                   <br/>
                   {% if o_episode.season_number is defined or o_episode.episode_number is defined or o_episode.part_number is defined %}
-                    <span><em>{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %} {% if o_episode.episode_number is defined %}Episode {{ o_episode.episode_number }}{% endif %} {% if o_episode.part_number is defined %}Episode {{ o_episode.part_number }}{% endif %}</em></span>
+                    <span><em>{% if o_episode.season_number is defined %}Saison n° {{ o_episode.season_number }}{% endif %} {% if o_episode.episode_number is defined %}Episode n° {{ o_episode.episode_number }}{% endif %} {% if o_episode.part_number is defined %}Partie n° {{ o_episode.part_number }}{% endif %}</em></span>
                   {% endif %}
                 {% else %}
                 <td class="tags">
@@ -348,13 +352,12 @@
       <img src="{{ program.img }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
     </div>
 
-    {#
+    {#% if app.environment == 'dev' %}
     <div id="program-friends">
-      <p><strong>{{ 'program.friends.block.title.all'|lower|trans }}</strong></p>
-      <div class="share-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'program.friends.popover.content'|trans } %}</div>
+      <div class="share-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'program.friends.popover.content'|trans, placement: 'left', text: 'Vos amis le regardent-il ?' } %}</div>
       <div class="share-on"></div>
     </div>
-    #}
+    {% endif %#}
 
     <div id="program-episodes">
       {% if program.season_number is defined %}
@@ -378,7 +381,7 @@
         </button>
         {% if program.seasons is defined %}
         <ul class="dropdown-menu">
-          {% for season in program.seasons if season.number == program.season_number %}
+          {% for season in program.seasons if program.season_number is not defined or season.number == program.season_number %}
             {% for episode in season.episodes %}
             <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
               {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
@@ -443,7 +446,7 @@
   <div id="program-related" class="inverse">
   {% for r in program.related if r.programs is defined and r.programs|length %}
     {% if r.name == 'same_actors' and program.casting %}
-      <h3 id="same-actors-title" class="user-on-visibility">{{ r.title }}</h3>
+      <h4 id="same-actors-title" class="user-on-visibility">{{ r.title }}</h4>
       {#
         <div class="person-list">
       {% for pers in program.casting|slice(0,10) %}
@@ -453,7 +456,7 @@
       #}
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r, noheader: true} %}
     {% elseif r.name == 'same_director' and program.director %}
-      <h3 id="same-director-title" class="user-on-visibility">{{ r.title }}</h3>
+      <h4 id="same-director-title" class="user-on-visibility">{{ r.title }}</h4>
       {#
         <div class="person-list">
       {% for pers in program.director %}
@@ -485,23 +488,22 @@
     </div>
     <div class="inner">
       <h3>Présentation de {{ program.title }} complet</h3>
+      <h4>{{ program.title }}</h4>
       <p>
-        {{ program.title }}
-        <br/>
         {{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}
       </p>
       <p>
         {% if program.format and program.categories|length %}
-          Catégories : {% for c in program.categories if c.seo_url is defined %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
+          <h5 class="inline-block">Catégories</h5>&nbsp; {% for c in program.categories if c.seo_url is defined %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
           <br/>
         {% endif %}
         {% if program.format and program.subcategories|length %}
-          Sous-catégories : {% for c in program.subcategories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>{% endfor %}
+          <h5 class="inline-block">Sous-catégories</h5>&nbsp; {% for c in program.subcategories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>{% endfor %}
         {% endif %}
      </p>
         <div id="program-casting" class="scroll">
         {% if program.director %}
-        <strong>{{ 'directed.by'|trans }} : </strong>{% if program.director|length > 1 %}<br />{% endif %} 
+        <h5>{{ 'directed.by'|trans }}</h5>
         {% for pers in program.director %}
         <div class="inline" itemprop="director" itemscope="" itemtype="http://schema.org/Person">
         {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
@@ -515,7 +517,7 @@
         {% endfor %}
         {% endif %}
         {% if program.presenter is defined and program.presenter %}
-        <strong>{{ 'presented.by'|trans }} : </strong> 
+        <h5>{{ 'presented.by'|trans }}</h5> 
         {% for pers in program.presenter %}
         <div class="inline" itemprop="director" itemscope="" itemtype="http://schema.org/Person">
         {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
@@ -524,7 +526,7 @@
         {% endif %}
         <br/>
         {% if program.casting %}
-        <strong>{{ 'actors'|trans }} : </strong><br />
+        <h5>{{ 'actors'|trans }}</h5>
         {% for pers in program.casting %}
         <div class="inline" itemprop="actor" itemscope="" itemtype="http://schema.org/Person">
         {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
@@ -539,7 +541,7 @@
         {% endif %}
         <br/>
         {% if program.editor %}
-        <strong>{{ 'editors'|trans }} : </strong>
+        <h5>{{ 'editors'|trans }}</h5>
         {% for pers in program.editor %}
         <div class="inline" itemprop="editor" itemscope="" itemtype="http://schema.org/Person">
         {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>

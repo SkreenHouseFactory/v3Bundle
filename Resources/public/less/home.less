@@ -3,82 +3,86 @@
 @topCaption: 350px;
 
 #view-home {
+  h2, h3 {
+    font: 14px Tahoma;
+  }
+  
   .absolute {
     margin: 0px 150px;
   }
 
-   .carousel {
-     margin-bottom: 10px;
-     z-index: 2;
-     min-height: 450px;
+  .carousel {
+   margin-bottom: 10px;
+   z-index: 2;
+   min-height: 450px;
 
-     .carousel-control {
-       height: 80px;
-       margin-top: 0;
-       font-size: 120px;
-       text-shadow: 0 1px 1px rgba(0,0,0,.4);
-       background-color: transparent;
-       border: 0;
-       top: 180px;
-       z-index: 3;
+   .carousel-control {
+     height: 80px;
+     margin-top: 0;
+     font-size: 120px;
+     text-shadow: 0 1px 1px rgba(0,0,0,.4);
+     background-color: transparent;
+     border: 0;
+     top: 180px;
+     z-index: 3;
 
-       &.left {
-         left: 10px;
-       }
-       &.right {
-         right: 10px;
-       }
+     &.left {
+       left: 10px;
      }
+     &.right {
+       right: 10px;
+     }
+   }
 
-     .item {
-       height: @carouselHeight;
+   .item {
+      height: @carouselHeight;
 
-       .mask {
-          background-repeat: no-repeat;
-          background-position: center center;
-          background-color: black;
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-         &.mask-990 {
-            background-position: center bottom;
-            background-repeat: repeat-y;
-         }
+      .mask {
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-color: black;
+       position: absolute;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       &.mask-990 {
+          background-position: center bottom;
+          background-repeat: repeat-y;
        }
-       .container {
-         position: relative;
-         z-index: 0;
+      }
+      .container {
+       position: relative;
+       z-index: 0;
 
-         .carousel-caption {
-           position: absolute;
-           min-height: 90px;
-           padding: 10px 20px;
-           top: @topCaption;
-           border-radius: 5px;
-           background: rgba(0,0,0,0.2);
-           /*background-color: transparent;*/
+       .carousel-caption {
+         position: absolute;
+         min-height: 90px;
+         padding: 10px 20px;
+         top: @topCaption;
+         border-radius: 5px;
+         background: rgba(0,0,0,0.2);
+         /*background-color: transparent;*/
 
-           a.fav {
-             padding: 15px;
-             margin: 7px 10px 0 0;
+         a.fav {
+           padding: 15px;
+           margin: 7px 10px 0 0;
+         }
+         h4 {
+           font-size: 2.5em;
+           a {
+            color: white;
+            text-decoration: none;
            }
-           h4 {
-             font-size: 2.5em;
-             a {
-              color: white;
-              text-decoration: none;
-             }
-           }
-           h4, .lead {
-             margin: 0;
-             line-height: 1.25;
-             color: #fff;
-             text-shadow: 0 1px 1px rgba(0,0,0,.4);
-           }
+         }
+         h4, .lead {
+           margin: 0;
+           line-height: 1.25;
+           color: #fff;
+           text-shadow: 0 1px 1px rgba(0,0,0,.4);
          }
        }
       }
-   }
+    }
+  }
 }

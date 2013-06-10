@@ -181,6 +181,18 @@
           &.hide {
             display: none;
           }
+          > div {
+            border-top: 1px solid white;
+            .friends {
+              text-align: left;
+              border: 0;
+              margin-top: 5px;
+              img {
+                display: inline-block;
+                width: 25px;
+              }
+            }
+          }
         }
       }
 
@@ -197,17 +209,10 @@
         }
       }
 
-      div.friends {
+      /*div.friends {
         position: absolute;
         z-index: 2;
-        /*
-        bottom: -45px;
-
-        img {
-          height: 35px;
-        }
-        */
-      }
+        }*/
 
       div.progress {
           margin: 10px;

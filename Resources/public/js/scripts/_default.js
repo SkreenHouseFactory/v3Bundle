@@ -48,6 +48,7 @@ $(document).ready(function(){
       $('.navbar .notifications-count span.badge').removeClass('badge-important').html(current);
     }
   });
+  //share
   $('.share .btn').on('click', function(){
     if ($(this).data('share') == 'disallow') {
       API.addPreference('disallow_share', 1, function(){});
@@ -57,6 +58,13 @@ $(document).ready(function(){
   });
   $('.share a.share-off').on('click', function(){
     API.quickLaunchModal($(this).data('modal'));
+    return false;
+  });
+  //publish playlist
+  $('.playlist-publish .btn').on('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    API.publishPlaylist($(this).data('publish') == 'remove' ? true : false);
     return false;
   });
 

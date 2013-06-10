@@ -310,6 +310,18 @@ API = {
       UI.markAsRed(id);
     });
   },
+  /* DEV, TO FINISH */
+  publishPlaylist: function(remove){
+    this.query(
+      'POST',
+      'user/playlist-publish.json',
+      {
+        session_uid: Skhf.session.datas.uid,
+        remove: typeof remove != 'undefined' ? remove : false
+      }, function() {
+
+    });
+  },
   play: function(id, base_args){
     var args = typeof base_args != 'undefined' ? base_args : {};
     $.extend(args, {with_program: 1});

@@ -52,7 +52,9 @@ $(document).ready(function(){
 
     //handle video mention
     $('tr[data-play]').on('click', function(e){
-      $('#program-teaser-header').html($('#program-teaser-header').data('default-text'));
+      if ($(this).parents('[data-play-text]:first').length) {
+        $('#program-teaser-header').html($(this).parents('[data-play-text]:first').data('play-text'));
+      }
     });
 
     //ics

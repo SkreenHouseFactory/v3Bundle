@@ -6,29 +6,28 @@
   <hr/>
   <div class="row" style="font-size: 0.9em;">
     <div id="footer-replay" class="span2">
-      Replay :<br/> 
-      <a href="{{ path('tvgrid') }}">Replay</a>
-      <a href="{{ path('channel', {slug: 'm6'}) }}">M6 en Replay</a>
-      <a href="{{ path('channel', {slug: 'tf1'}) }}">TF1 en Replay</a>
-      <a href="{{ path('channel', {slug: 'w9'}) }}">W9 en Replay</a>
-      <a href="{{ path('channel', {slug: 'france-2'}) }}">France 2 en Replay</a>
-      <a href="{{ path('channel', {slug: 'france-3'}) }}">France 3 en Replay</a>
+      <h5>Replay TV</h5> 
+      <a href="{{ path('tvgrid') }}">Programme TV & Replay</a>
+      <a href="{{ path('channel', {slug: 'm6'}) }}">M6 Replay</a>
+      <a href="{{ path('channel', {slug: 'tf1'}) }}">TF1 Replay</a>
+      <a href="{{ path('channel', {slug: 'w9'}) }}">W9 Replay</a>
+      <a href="{{ path('channel', {slug: 'france-2'}) }}">France 2 Replay</a>
+      <a href="{{ path('channel', {slug: 'france-3'}) }}">France 3 Replay</a>
     </div>
     <div id="footer-channels" class="span2">
-      Chaînes : <br/>
+      <h5>Chaînes</h5> 
       <a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">Chaînes TV & Replay</a>
-      <a href="{{ path('sitemap_channels', {type: 'vod'}) }}">Chaînes VOD</a>
+      <a href="{{ path('sitemap_channels', {type: 'vod'}) }}">Chaînes Vidéo à la demande</a>
       <a href="{{ path('sitemap_channels', {type: 'webcast'}) }}">Chaînes Web</a>
-      <a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Salles de cinéma</a>
-      <a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">Location / achat Dvd</a>
-      <a href="{{ path('sitemap_channels', {type: 'box'}) }}">Box</a>
+      <a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Salles et horaires de cinéma</a>
+      <a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">Location / achat Dvd et Blu-ray</a>
     </div>
     {% if app.request.get('home') and 
           app.request.get('home') not in ['tv-replay','cinema','video-a-la-demande','mixte'] %}
       {% set base_footer = app.request.get('home') %}
     {% else %}{% set base_footer = 'film' %}{% endif %}
     <div id="cats" class="span2">
-      Catégories : 
+      <h5>Catégories</h5>
       {% set footerspin =  '' %}
       {#% if base_footer in ['film'] %#}
       <a href="/film/film-culte/">Film culte{{ footerspin }}</a>

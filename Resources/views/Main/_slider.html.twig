@@ -6,7 +6,7 @@
 </div>
 {% endif %}
 {% if noheader is not defined %}
-  <h3{% if slider.id is defined %} id="{{ slider.id }}-title"{% endif %} class="user-on-visibility">{% if slider.seo_url is defined %}<a href="{{ base_url }}{% if slider.fichier is defined and slider.fichier is not empty %}{{ slider.fichier }}{% else %}{{ path('any_url', {url: slider.seo_url[1:slider.seo_url|length-1]}) }}{% endif %}">{% endif %}{{ slider.title|raw }}{% if slider.name is defined and 'promo_' in slider.name %} <span class="label label-warning">{{ 'slider.sponsor'|trans }}</span>{% endif %}{% if slider.seo_url is defined %}</a>{% endif %}</h3>
+  <h{{ h_level is defined ? h_level : 4 }}{% if slider.id is defined %} id="{{ slider.id }}-title"{% endif %} class="user-on-visibility">{% if slider.seo_url is defined %}<a href="{{ base_url }}{% if slider.fichier is defined and slider.fichier is not empty %}{{ slider.fichier }}{% else %}{{ path('any_url', {url: slider.seo_url[1:slider.seo_url|length-1]}) }}{% endif %}">{% endif %}{{ slider.title|raw }}{% if slider.name is defined and 'promo_' in slider.name %} <span class="label label-warning">{{ 'slider.sponsor'|trans }}</span>{% endif %}{% if slider.seo_url is defined %}</a>{% endif %}</h{{ h_level is defined ? h_level : 4 }}>
 {% endif %}
 <div{% if slider.id is defined %} id="{{ slider.id }}"{% endif %}{% if (slider.paginate is not defined or slider.paginate) and slider.url is defined %} data-paginate-url="{{ slider.url }}"{% endif %} class="slider" data-autoload="1" {% if slider.programs is defined and slider.programs|length  %}data-nb-results="{{ slider.programs|length }}" {% endif %}data-pager-offset="0" data-animate="width">
   <div class="slider-container">

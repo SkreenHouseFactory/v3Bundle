@@ -23,7 +23,7 @@
   {% if header is defined %}{{ header|raw }}{% endif %}
   {% if p.onglet != 'channel' %}
     {% if p.best_offer is defined and p.best_offer.channel_id is defined %}
-    <a class="channel logo-channel-{{ p.best_offer.channel_id }}">
+    <a class="channel is-best-offer logo-channel-{{ p.best_offer.channel_id }}">
       {% if p.best_offer.channel_img is defined and p.best_offer.channel_name is defined %}
       <img src="{{ p.best_offer.channel_img }}" alt="{{ p.best_offer.channel_name }}">
       {% endif %}
@@ -31,8 +31,8 @@
       <span class="diff">{{ p.best_offer.broadcastdate|replace(' à', ' à') }}</span>
       {% endif %}
     </a>
-    {% else %}
-    <a class="channel{% if p.popular_channel is defined %} logo-channel-{{ p.popular_channel.id }}{% endif %}"{% if p.popular_channel is defined %} href="{{ base_url }}{{ p.popular_channel.seo_url }}"{% endif %}>
+    {% elseif p.popular_channel is defined or p.has_vod %}
+    <a class="channel is-popular-channel{% if p.popular_channel is defined %} logo-channel-{{ p.popular_channel.id }}{% endif %}"{% if p.popular_channel is defined %} href="{{ base_url }}{{ p.popular_channel.seo_url }}"{% endif %}>
       {%- if p.popular_channel is defined -%}
       <img src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" />
       {%- endif -%}
@@ -46,6 +46,9 @@
       {%- elseif p.has_vod in [9,10] %}{{ 'action.play.webcast'|trans }}
       {%- elseif p.has_vod == 13 %}{{ 'action.play.archive'|trans }}
       {%- elseif p.has_vod != '%has_vod%' %}{{ 'action.play.streaming'|trans }}{% endif -%}
+      {% if app.environment == 'dev' and p.nb_like is defined and p.nb_like %}
+      <div class="container-friends"><i class="icon-user icon-white"></i> <big>{{ p.nb_like }}</big></div>
+      {% endif%}
     </span>
     </a>
     {% endif %}
