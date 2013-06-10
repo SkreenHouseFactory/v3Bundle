@@ -156,7 +156,7 @@ class MainController extends Controller
       //echo $api->url;exit;
       //print_r($datas);exit;
 
-      if (array_key_exists("spelling",$datas)) {
+      if (is_array($datas) && array_key_exists("spelling",$datas)) {
         if (count($datas->spelling) > 1)
           $datas->spelling = array($datas->spelling[0]);
       }

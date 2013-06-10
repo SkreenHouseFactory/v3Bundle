@@ -27,7 +27,7 @@
   {% endif %}
 
   <div id="search-programs">
-  {% if results.count.total is not defined %}
+  {% if results.count is not defined or results.count.total is not defined %}
     {% if results.count %}
       <p class="alert alert-info">{{ results.count }} {{ 'search.results'|trans }}</p>
     {% else %}
