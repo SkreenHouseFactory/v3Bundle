@@ -55,7 +55,7 @@
           <li class="tv-channels">
             <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: 'les-inconnus'}) }}"><span class="hidden-touch">Les Inconnus</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/1-les-inconnus.jpg" alt="Les Inconnus"/></a>
             <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: 'jacques-demy'}) }}"><span class="hidden-touch">Jacques Demy</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/3-jacques-demy.jpg" alt="Jacques Demy"/></a>
-            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: 'cannes-2013'}) }}"><span class="hidden-touch">Cannes 2013</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/7-logo-cannes-2013.png" alt="Jacques Demy"/></a>
+            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: 'agnes-varda'}) }}"><span class="hidden-touch">Agnès Varda</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/8-logo-agnes-varda.jpg" alt="Agnès Varda"/></a>
           </li>
         </ul>
       </li>
@@ -96,14 +96,15 @@
            <li class="share share-placeholder">
             <a class="text share-off" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook" data-modal-message="... et suivez ce que regardent vos amis !">Facebook : activer le partage</a>
             <a class="text share-on hide">
+              Partage Facebook&nbsp; 
               <span class="btn-group" data-toggle="buttons-radio">
                 <span class="btn btn-small btn-info" data-share="allow">{{ 'yes'|trans }}</span>
                 <span class="btn btn-small" data-share="disallow">{{ 'no'|trans }}</span>
-              </span>&nbsp;Partage Facebook
+              </span>
             </a>
           </li>
-          <li>
-            <a data-toggle="collapse" data-target="#top-playlist"><i class="icon-play-circle"></i> {{ 'playlist.yours'|trans }}</a>
+          <li class="playlist-publish">
+            <a data-toggle="collapse" data-target="#top-playlist"><i class="icon-play-circle"></i> {{ 'playlist.yours'|trans }} {% if app.environment == 'dev' %}<span data-publish="remove" class="btn btn-small">Publier</span>{% endif %}</a>
           </li>
           <li><a class="vod" href="{{ path('user_vod') }}" target="_top"><i class="icon-film"></i> {{ 'nav.vod'|trans }}</a></li>
           <li><a class="programs" href="{{ path('user_programs') }}" target="_top"><i class="icon-list"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>

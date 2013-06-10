@@ -369,7 +369,7 @@ UI = {
         if (notifications[k].type == 'broadcast') {
           var attrs = 'data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
         } else if (notifications[k].player) {
-          var attrs = 'data-play="' + notifications[k].player + '" data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
+          var attrs = 'data-ajax-play="' + notifications[k].player + '" data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
         } else if (notifications[k].type == 'ajout' || notifications[k].program.deporte) {
           var attrs = 'data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
         } else {
@@ -728,10 +728,10 @@ UI = {
     Skhf.session.getSocialDatas(function(friends, friends_programs){
       //console.log('UI.addFriendsPrograms', 'callback', friends_programs);
       for (k in friends_programs) {
-        var li = $('#top-playlist li[data-id="' + k + '"]');
-        if (li.length > 0) {
-          //console.log('UI.addFriendsPrograms', 'add ' + friends_programs[k].length + ' friends to program ' + k);
-          UI.addFriends(li, friends_programs[k]);
+        var elmts = API.config.env == 'dev' ? $('.slider li[data-id="' + k + '"], .add-friends[data-id="' + k + '"]') : $('.slider-playlist li[data-id="' + k + '"]');
+        if (elmts.length > 0 && !$('.friends', elmts).length) {
+          console.log('UI.addFriendsPrograms', 'add ' + friends_programs[k].length + ' friends to program ' + k, elmts);
+          UI.addFriends($('.container-friends', elmts), friends_programs[k]);
         }
       }
     });

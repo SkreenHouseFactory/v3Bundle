@@ -5,37 +5,46 @@ service:
 page:
     h1:
         channel: 
-          tv: Retrouvez les programmes de %name% en intégralité et gratuitement
-          tv_format: Revoir les %format%s TV de %name% c'est possible
-          default: %name%
-          default_format: Retrouvez les %format%s de %name% en intégralité
+            tv: Retrouvez les programmes de %name% en intégralité et gratuitement
+            tv_format: Revoir les %formats% TV de %name% c'est possible
+            default: %name%
+            default_format: Retrouvez les %formats% de %name% en intégralité
+        home:
+            mixte: mySkreen : replay et films / cinéma en streaming
+            films: Film streaming
+            documentaires: Documentaire streaming
+            series: Séries streaming
+            spectacles: Spectacles, concerts, théatre streaming
+            v3-cine: Cinéma : les horaires et les salles
+            v3-vod: Vidéo à la demande (VOD) en streaming
+            v3-jeunesse: Cartoons, animation et dessins animés en streaming
     title:
         home: 
-            mixte: mySkreen : Programmes Télé, Replay TV, VOD
-            v3-vod: Video à la demande
-            v3-tv-replay: Replay
-            v3-cine: Cinéma
-            v3-jeunesse: Des programmes pour toute la famille
-            films: Films
-            series: Séries
-            documentaires: Documentaires
-            emissions: Emissions
-            spectacles: Théatre, concerts, spectacles
-        cinema.boxoffice: Cinéma, tous les films en salle commençant par %alpha%
+            mixte: Replay, VOD, films, programmes TV et cinéma en streaming
+            v3-vod: Video à la demande | Streaming
+            v3-tv-replay: Replay TV
+            v3-cine: Les films et les horaires | Cinéma
+            v3-jeunesse: Des programmes pour toute la famille | Streaming jeunesse
+            films: Films | Streaming et VOD
+            series: Séries | Streaming et Replay
+            documentaires: Documentaires | Streaming et VOD
+            emissions: Emissions | Streaming et Replay
+            spectacles: Théatre, concerts, spectacles | Streaming et VOD
+        cinema.boxoffice: Films en salle commençant par %alpha% | Cinéma
         tvgrid: Programme TV du %date%
         channel: 
-          tv: %name% %access% : revoir tous les programmes TV de la chaîne
-          tv_format: Retrouvez ici toutes les %format%s de %name% en %access%
-          default: Découvrez %name% en %access%
-          default_format: Retrouvez ici toutes les %format%s de %name% en %access%
-        search: Recherche : %q%
+          tv: %name% %access% : revoir tous les programmes TV de la chaîne | Tv et Replay
+          tv_format: Retrouvez ici toutes les %formats% de %name% en %access% | Tv et Replay
+          default: Découvrez %name% en %access% | Streaming
+          default_format: Retrouvez ici toutes les %formats% de %name% en %access% | Streaming
+        search: Recherche : %q% | Recherche
         user:
-            settings: Vos préférences
-            programs: Vos programmes
-            theaters: Vos cinémas
-            persons: Vos acteurs/réalisateurs
-            channels: Vos chaînes
-            vod: Mes playlists : vidéo à la demande
+            settings: Vos préférences | Mon compte
+            programs: Vos programmes | Mon compte
+            theaters: Vos cinémas | Mon compte
+            persons: Vos acteurs/réalisateurs | Mon compte
+            channels: Vos chaînes | Mon compte
+            vod: Mes playlists : vidéo à la demande | Mon compte
         sitemap:
             channels:
                 broadcast: Chaines TV & Replay
@@ -43,6 +52,7 @@ page:
                 cinema: Salles de cinéma
                 dvd: DVDs en ligne
                 box: Box en ligne
+                vod: Vidéo à la demande 
         error: Page introuvable
         redirect: Redirection en cours ...
     description:
@@ -86,8 +96,13 @@ form:
         settings: Vos informations ont été mises à jour.
 player:
     live:
-      deporte: Sur mySkreen
-      external: Sur d'autres sites
+        deporte: Sur mySkreen
+        external: Sur d'autres sites
+    content.text:
+        plays: Votre programme en intégralité
+        bonus: Bonus
+        cuts: Extrait
+        archives: Votre archive en intégralité
 redirection:
     h1: Patientez quelques secondes ...
     message: mySkreen vous redirige vers votre vidéo
@@ -242,7 +257,27 @@ access:
 all:
     the:
         format: Tous les %format%
-
+format:
+    singulier:
+        film: film
+        serie: série
+        emission: émission
+        documentaire: documentaire
+        court-metrage: court-métrage
+        journal: journal
+        spectacle: spectacle
+        theatre: théâtre
+        concert: concert
+    pluriel:
+        film: films
+        serie: séries
+        emission: émissions
+        documentaire: documentaires
+        court-metrage: court-métrages
+        journal: journaux
+        spectacle: spectacles
+        theatre: théâtres
+        concert: concerts
 past: passé
 today: aujourd'hui
 coming: à venir

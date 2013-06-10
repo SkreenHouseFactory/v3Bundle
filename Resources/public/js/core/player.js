@@ -298,6 +298,7 @@ Player = {
     }
     
     this.elmt.show();
+    API.trackEvent('Player', 'installed-' + this.getType(), player.format);
   },
   pause: function() {
     //avoid bug with popin over video
@@ -489,24 +490,27 @@ Player = {
   track: function(player) {
     var self = this;
     //track
-    API.query('POST',
-              'player/track.json',
-              {
-                token: this.playing,
-                url: document.location.href
-              }
-             );
+    API.query(
+      'POST',
+      'player/track.json',
+      {
+        token: this.playing,
+        url: document.location.href
+      }
+    );
 
     //watching
     if (Skhf.session.datas.email) {
       this.timeout['track'] = setTimeout(function() {
-        API.query('POST',
-                  'player/watching.json',
-                  {
-                    token: self.playing,
-                    session_uid: Skhf.session.datas.uid,
-                    ip_adress: ''
-                  });
+        API.query(
+          'POST',
+          'player/watching.json',
+          {
+            token: self.playing,
+            session_uid: Skhf.session.datas.uid,
+            ip_adress: ''
+          }
+        );
       }, 30000);
     }
   },

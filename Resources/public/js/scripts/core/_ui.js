@@ -132,7 +132,7 @@ UiView = {
     // -- couchmode
     $(elmt).on('click', '[data-couchmode]', function(){
       if (Player.state == 'playing') {
-        console.log('script', 'data-play', 'Pause current player');
+        console.log('script', 'data-couchmode', 'Pause current player');
         Player.pause();
       }
       var args = $.extend({session_uid: Skhf.session.uid}, $(this).data('couchmode'));
@@ -145,6 +145,7 @@ UiView = {
     });
     // -- remote data in html elmt
     $(elmt).on('click', '[data-ajax]', function(e){
+      var trigger = $(this);
       //e.preventDefault();
       console.log('script', '[data-ajax]', $(this).data('ajax'));
       //add body class to overload view-homes
@@ -156,6 +157,7 @@ UiView = {
         $('body').removeClass('cover').addClass('no-cover');
       }
       console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
+      //load ajax
       $($(this).attr('rel')).empty();
       UI.appendLoader($($(this).attr('rel')));
       if ($(this).data('ajax').indexOf('#') != -1) {
@@ -164,10 +166,19 @@ UiView = {
         var suffix = $(this).data('ajax').indexOf('?') == -1 ? '?skip_varnish' : '&skip_varnish';
         var url = $(this).data('ajax') + suffix;
       }
-      $($(this).attr('rel')).load(url, function() {
+      $($(this).attr('rel')).load(API.config.v3_root + url, function() {
+        console.log('script', '[data-ajax]', 'clalback', 'ajax-play', trigger.data('ajax-play'));
         UI.unloadRedirect();
+        //ajax play ?
+        if (trigger.data('ajax-play')) {
+          if (Player.state == 'playing') {
+            console.log('script', 'data-play', 'Pause current player');
+            Player.pause();
+          }
+          API.play(trigger.data('ajax-play'), trigger.data('play-args'));
+        }
       });
-      //hack notifications
+      //HACK notifications
       if ($(this).parents('li.open:first').length) {
         $(this).parents('li.open:first').removeClass('open');
       }

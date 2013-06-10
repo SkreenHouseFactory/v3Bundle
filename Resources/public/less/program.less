@@ -11,6 +11,9 @@
       line-height: 25px;
     }
   }
+  h5 {
+    margin: 2px 0px;
+  }
 
   ul.breadcrumb {
     position:absolute;
@@ -24,6 +27,33 @@
     margin: 35px 0 0 0;
   }
 
+  .playlists-count {
+    background: white;
+    padding: 10px 10px 12px 10px;
+    border: 1px solid #006dcc;
+    border-radius: 2px;
+    display: inline-block;
+    margin-left: 7px;
+    color: #006dcc;
+    font-size: 1.1em;
+    i {
+      opacity: 0.6;
+    }
+    &:before {
+      content: '';
+      display: inline-block;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 7px solid #006dcc;
+      border-bottom-color: rgba(0, 0, 0, 0.2);
+      margin-left: -21px;
+      transform: rotate(90deg);
+      -moz-transform: rotate(90deg);
+      -o-transform: rotate(90deg);
+      -webkit-transform: rotate(90deg);
+    }
+  }
+
   #program-friends {
     .user-on, .user-off {
       clear: both;
@@ -33,7 +63,7 @@
       }
     }
   }
-  
+
   #program-share {
     padding-left: 40px;
     line-height: 30px;
@@ -42,7 +72,13 @@
   #program-follow {
     position: absolute;
     right: 0;
-    top: -50px;
+    top: -10px;
+    .container-friends {
+      height: 45px;
+      img {
+        height: 39px;
+      }
+    }
   }
 
   #program-description {
@@ -56,6 +92,9 @@
       width: 550px;
       height: 180px;
       overflow: auto;
+      font-weight: normal;
+      font-size: 1.0em;
+      line-height: 1.3em;
     }
   }
 
@@ -169,12 +208,14 @@
                 }
                 &.episode {
                   min-width: 250px;
-
                   img {
                     height:50px;
                     margin-right:10px;
                   }
-
+                  em {
+                    font-size: 0.8em;
+                    font-style: normal;
+                  }
                   .label {
                     font-size: 0.8em;
                     font-weight: normal;
@@ -347,7 +388,7 @@
   }
   
   #program-related {
-    h3 {
+    h3, h4 {
       padding-left: 10px;
       a {
         color: white;
@@ -369,7 +410,7 @@
     height: 550px;
     background: white;
     border: 1px solid #CCC;
-    paddin-right: 20px;
+    padding-right: 20px;
 
     h3 {
       line-height: 1em;
@@ -384,7 +425,7 @@
       padding: 10px;
    }
    #program-casting {
-    margin-top: 240px;
+    margin-top: 230px;
     max-height: 160px;
     overflow-y: auto;
    }

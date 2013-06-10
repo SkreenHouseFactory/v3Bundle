@@ -48,7 +48,7 @@
   {% for slider in home.sliders if slider.id is defined %}
     {% if loop.first %}
       <div class="absolute">
-        <h1>{{ app.request.get('home') ? app.request.get('home') : 'Replay, streaming, cinéma' }}</h1>
+        <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1>
         {% if keywords is defined %}<p class="lead">{{ keywords }}</p>{% endif %}
       </div>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, force_size: '/1250/370'} %}
@@ -60,11 +60,22 @@
     {% else %}
       {% if loop.index == 2 %}<div class="container">{% else %}<hr/>{% endif %}
       <a name="{{ slider.name }}"></a>
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider } %}
     {% endif %}
   {% endfor %}
   </div>
+  {% if home.name == 'mixte' %}
+  <div class="container">
+  <br/>
+  <hr/>
+  <h2>mySkreen est un guide de programmes innovant qui réunit sur un seul site toutes les chaines de télévision, tout le replay, tous les catalogues de VOD, le cinéma avec les horaires et les salles, et les web séries produites par les meilleurs sites médias. Suivez les programmes que vous aimez et soyez avertis à chaque diffusion ou nouvelle offre en streaming. Grâce à mySkreen vous reprenez le pouvoir : mySkreen c’est votre télé à la carte et à la demande.</h2>
+  <h3><a href="/programme-tv">TV & REPLAY</a></h3>
+  <h3><a href="/video-a-la-demande">Vidéo à la demande</a></h3>
+  <h3><a href="/cinema">Cinéma</a></h3>
 </div>
+  {% endif %}
+</div>
+
 {% endblock %}
 
 {% block pagescripts %}
