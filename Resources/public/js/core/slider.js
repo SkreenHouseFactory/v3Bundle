@@ -365,7 +365,7 @@ var BaseSlider = Class.extend({
         if (this.elmt.hasClass('slider-playlist')) {
           console.log('BaseSlider.addProgramBestOffer', 'slider-playlist', o);
           if (o.deporte) {
-            $('a.title', li).attr('data-play', o.deporte)
+            $('a.title', li).attr('data-ajax-play', o.deporte)
                             .attr('data-ajax', API.config.v3_root + p.seo_url)
                             .attr('rel', '#content');
           } else if (o.url) {
