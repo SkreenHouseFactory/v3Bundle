@@ -32,6 +32,38 @@ $(document).ready(function(){
         }, 2000);
       }
     }
+    // -- add preference callback
+    /*
+    UI.callbackTogglePlaylist = function(parameter, value, remove, trigger, return_data) {
+      if (return_data.channels) {
+        //TODO : insert channels in modal
+        $('.modal .modal-header h3').html('Voulez-vous suivre aussi ces chaînes ?');
+        $('.modal .modal-body').html('<p class="alert alert-info">Cliquez sur les chaînes qui vous intéressent pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p><div class="slider slider-list"><ul class="items"></ul></div>');
+        new BaseSlider({
+          scroll: 'no',
+          programs: return_data.channels
+        }, function(){
+          $('.modal .slider li a[href]').attr('href', '#').data('ajax', '');
+          $('.modal .slider li').on('click', function(){
+            var trigger = $(this);
+          });
+        }, $('.modal .slider'));
+        
+        $('.modal').modal();
+      } else if (return_data.programs) {
+        //TODO : insert programs in modal
+        $('.modal .modal-header h3').html('Programmes fréquemments suivis ensembles');
+        $('.modal .modal-body').html('<p class="alert alert-info">Suivez tous les programmes que vous aimez pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p><div class="slider slider-list"><ul class="items"></ul></div>');
+        new BaseSlider({
+          scroll: 'no',
+          programs: return_data.channels
+        }, function(){
+          $('.modal .slider li a[href]').attr('href', '#').data('ajax', '');
+        }, $('.modal .slider'));
+        $('.modal').modal();
+      }
+    }
+    */
 
     //////////// SCRIPTS ////////////////
 

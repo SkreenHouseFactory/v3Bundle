@@ -156,6 +156,11 @@ class ProgramController extends Controller
         if ($request->get('imgdev')) {
           $datas->img = preg_replace('/s(\d)\.mskstatic.com/', 'mskstatic.dev-new.myskreen.typhon.net', $datas->img);
         }
+        //hack rename API
+        if (isset($datas->related->chaines)) {
+          $datas->related->channels = $datas->related->chaines;
+          unset($datas->related->chaines);
+        }
 
         // -- post treatments
         $datas->offers = (array)$datas->offers;
