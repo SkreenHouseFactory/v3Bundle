@@ -125,7 +125,7 @@ class MainController extends Controller
         'slider_width' => 1500,
         'slider_height' => 450
       ));
-      //echo $api->url;
+      //echo $api->url;exit;
       //print_r($datas);
       $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home.html.twig', array(
         'home' => $datas
@@ -147,15 +147,12 @@ class MainController extends Controller
       $this->blockDomain($request);
       $facets = $request->get('facets') ? $facets : ($request->get('format') ? 'format:' . $request->get('format') : null);
       $api = $this->get('api');
-      $datas = $api->fetch(
-        'search/' .urlencode(str_replace('.', '%2E',  $request->get('q'))), 
-         array(
-           'img_width' => 160,
-           'img_height' => 200,
-           'nb_results' => 30,
-           'with_new' => 1,
-           'facets' => $facets
-      ));
+      $datas = $api->fetch('search/' .urlencode(str_replace('.', '%2E',  $request->get('q'))), 
+                           array('img_width' => 160,
+                                 'img_height' => 200,
+                                 'nb_results' => 30,
+                                 'with_new' => 1,
+                                 'facets' => $facets));
       //echo $api->url;exit;
       //print_r($datas);exit;
 
