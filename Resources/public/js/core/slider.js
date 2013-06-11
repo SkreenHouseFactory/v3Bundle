@@ -156,8 +156,16 @@ var BaseSlider = Class.extend({
             self.loadRemotePrograms(offset,
                                     function(nb_programs){
                                       //self.items.find('.loader-pager').remove();
-                                      if (nb_programs < 3) {
-                                        trigger.css('visibility','hidden');
+                                      // nb total elements charges [inclus suivant]
+                                      var nb_total = self.items[0].childElementCount - 1;
+                                      // On masque le bouton next si on ne charge plus de nouveaux programmes et qu'on ne deborde
+                                      // pas deja du slider
+                                      console.log(nb_total , " - " , offset);
+                                      if (nb_total < (offset + 7)) {
+                                        if (Math.floor(nb_total/6) <= Math.floor(offset/6))
+                                          trigger.css('visibility','hidden');
+                                        else
+                                          trigger.css('visibility','visible');
                                       } else {
                                         trigger.css('visibility','visible');
                                       }

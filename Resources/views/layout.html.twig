@@ -97,7 +97,7 @@
       <div id="header">
         <div class="navbar-wrapper">
           <div class="container">
-            {% render 'SkreenHouseFactoryV3Bundle:Main:header' with {}, {'standalone': true} %}
+            {% render 'SkreenHouseFactoryV3Bundle:Main:header' with {'q':app.request.get('q') ? app.request.get('q') : null }, {'standalone': true} %}
             {#% include 'SkreenHouseFactoryV3Bundle:Main:_header-nav.html.twig' %#}
             {% block header_filters %}
             {% endblock %}
