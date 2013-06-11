@@ -276,7 +276,7 @@ API = {
         
         Skhf.session.sync();//function(){},{ with_notifications: 0 });
         if (typeof callback != 'undefined' && callback != null) {
-          callback(value);
+          callback(value, json);
         }
       }
     });

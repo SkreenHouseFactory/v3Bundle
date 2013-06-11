@@ -4,7 +4,7 @@
   <div class="well" style="min-height:220px;">
     <h3>En Direct <small>de {{ channel.live.program.best_offer.broadcast_begin|date('H:i') }} à {{ channel.live.program.best_offer.broadcast_end|date('H:i') }}</small></h3>
     <table>
-      <tr><td style="padding-right: 30px;">
+      <tr><td style="padding-right: 30px;width: 150px;">
     <img src="{{ channel.live.program.picture }}" alt="{{ channel.live.program.title }} en direct sur {{ channel.name }}">
   </td>
   <td class="actions" data-id="{{ channel.live.program.id }}">

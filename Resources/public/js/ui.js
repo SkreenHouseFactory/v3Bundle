@@ -239,19 +239,19 @@ UI = {
       trigger.html('Chargement ...').removeClass('btn-danger');
       var value = trigger.data('id') ? trigger.data('id') : trigger.parents('.actions:first').data('id');
       var remove = trigger.hasClass('fav-on') ? true : false;
-      var callback = function(value){
+      var callback = function(value, return_data){
         console.log('UI.togglePlaylist', 'callback', value, trigger);
         // remove
         if (remove) {
           if (parameter == 'like' &&
               $('.friends', trigger.parents('.actions:first')).length == 0) { //pas pour le slider social
-            $('#playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
+            $('.slider-playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
               $(this).remove();
             });
           }
         }
         if (UI.callbackTogglePlaylist) {
-          UI.callbackTogglePlaylist(parameter, value, remove, trigger);
+          UI.callbackTogglePlaylist(parameter, value, remove, trigger, return_data);
         }
       }
       if (remove) {
