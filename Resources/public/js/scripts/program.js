@@ -38,7 +38,11 @@ $(document).ready(function(){
       if (typeof return_data != 'undefined') {
         // -- réinitialisation callback pour rester sur la popin
         UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {
-          trigger.parents('.actions:first').remove();
+          if ($('.modal .slider li').length) {
+            trigger.parents('.actions:first').remove();
+          } else {
+            $('.modal').modal('hide');
+          }
         }
         //related channels
         if (return_data.channels) {
@@ -89,7 +93,7 @@ $(document).ready(function(){
     //////////// SCRIPTS ////////////////
 
     //no deportes
-    if ($('li.active #trigger-plays').length == 0) {
+    if ($('#trigger-plays').length == 0) {
       $('#triggers li:first-child a').trigger('click');
     }
 
