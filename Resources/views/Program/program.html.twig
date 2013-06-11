@@ -83,9 +83,12 @@
   </div>
 
   <div class="program-title">
-    {% if program.episode_title is defined and program.episodeof is defined and program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
+    {% if program.episode_title is defined and 
+          program.episodeof is defined and 
+          program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
     <h1>{{ program.episode_title }}{% if program.popular_channel is defined %} <small>{{ program.popular_channel.name }}</small>{% endif %}</h1>
-    {% elseif program.episode_title is defined and program.episodeof is defined %}
+    {% elseif program.episode_title is defined and 
+              program.episodeof is defined %}
     <h1>{{ program.episodeof.title }} <span>{{ program.episode_title }}{% if program.season_number is defined or program.episode_number is defined %} ({% endif %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Episode {{ program.episode_number }}{% endif %}{% if program.season_number is defined or program.episode_number is defined %}){% endif %}</span></h1>
     {% else %}
     <h1>
@@ -423,9 +426,12 @@
 
     <div id="program-share">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}</div>
 
-    {% if ((program.related.chaines is defined) and (program.related.chaines.programs is defined) and (program.related.chaines.programs|length == 1)) %}
-      {% for r in program.related.chaines.programs %}
-      <a data-track-channel="{{ r.title }}" id="channel_root" href="{{ r.seo_url }}" style="background: url('{{ program.related.chaines.image }}') top left no-repeat;">
+    {# related channels #}
+    {% if program.related.channels is defined and 
+          program.related.channels.programs is defined and 
+          program.related.channels.programs|length == 1 %}
+      {% for r in program.related.channels.programs %}
+      <a data-track-channel="{{ r.title }}" id="channel_root" href="{{ r.seo_url }}" style="background: url('{{ program.related.channels.image }}') top left no-repeat;">
         <span class="texte">{{ r.title ~ ', la chaîne' }}</span>
       </a>
       {% endfor %}
@@ -466,7 +472,7 @@
       #}
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r, noheader: true} %}
     {% elseif r.name == 'chaines' %}
-      {% if (program.related.chaines is defined and program.related.chaines.programs is defined and program.related.chaines.programs|length > 1) %}
+      {% if (program.related.channels is defined and program.related.channels.programs is defined and program.related.channels.programs|length > 1) %}
       <a data-track-channel="{{ r.name }}" name="{{ r.name }}"></a>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r} %}
       {% endif %}
