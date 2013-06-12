@@ -26,6 +26,11 @@ homes:
     requirements:
         home: |video-a-la-demande|cinema|tv-replay|film|serie|documentaire|emission|spectacle|films|series|documentaires|emissions|spectacles|vod|jeunesse
 
+#modal
+modal_publish_playlist:
+    pattern:  /user/modal/publish-playlist
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:publishplaylist }
+
 #timeline
 timelinejs:
     pattern:  /__timeline/

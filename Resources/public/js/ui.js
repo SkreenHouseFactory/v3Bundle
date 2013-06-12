@@ -257,7 +257,7 @@ UI = {
       if (remove) {
         API.removePreference(parameter, value, callback);
       } else {
-        API.addPreference(parameter, value, callback);
+        API.addPreference(parameter, value, callback, '', with_related=true);
       }
     } else {
 

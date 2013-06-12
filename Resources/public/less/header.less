@@ -143,7 +143,7 @@
             padding: 22px 16px 18px 10px;
             font-size: 1.1em;
             text-transform: uppercase;
-           
+
              &.with-caret {
               i {
                 border-right: 1px solid transparent;
@@ -186,6 +186,9 @@
                 }
               }
             }
+            ul li {
+              min-width: 250px;
+            }
           }
           &.notifications {
             width: 40px;
@@ -196,13 +199,23 @@
           }
           &.dropdown {
             .dropdown-menu {
-              li.nav-header {
+              li {
+                a {
+                  position: relative;
+                  > .btn, .btn-group {
+                    position: absolute;
+                    right: 5px;
+                    top: -5px;
+                  }
+                }
+              }
+              &.nav-header {
                 font-size: 1.0em;
                 &.user-email {
                   text-transform: none;
                 }
               }
-              li.tv-channels {
+              &.tv-channels {
                 padding-left: 15px;
                 a {
                   float: left;
@@ -226,7 +239,7 @@
                     }
                   }
                 }
-               }
+              }
               &.dropdown-menu-tv {
                 left: -350px;
                 width: 990px;

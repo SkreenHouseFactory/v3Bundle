@@ -35,6 +35,7 @@ $(document).ready(function(){
     // -- add preference callback : incitation à suivre des related
     if (API.config.env == 'dev' || API.config.env == 'preprod') {
       UI.callbackTogglePlaylist = function(parameter, value, remove, trigger, return_data) {
+      console.log('UI.callbackTogglePlaylist', 'return_data', return_data);
       if (typeof return_data != 'undefined') {
         // -- réinitialisation callback pour rester sur la popin
         UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {
@@ -56,7 +57,8 @@ $(document).ready(function(){
             $('.modal .slider li a[href]').addClass('fav fav-channel')
                                           .attr('href', '#')
                                           .data('ajax', '');
-            $('.modal .slider li').on('click', function(){
+            $('.modal .slider li').append('<span class="hide add-playlist btn btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre</span>')
+                                  .on('click', function(){
               //TODO
               UI.togglePlaylist($(this).find('a.title'));
             });
@@ -77,7 +79,8 @@ $(document).ready(function(){
             $('.modal .slider li a[href]').addClass('fav fav-like')
                                           .attr('href', '#')
                                           .data('ajax', '');
-            $('.modal .slider li').on('click', function(){
+            $('.modal .slider li').append('<span class="hide add-playlist btn btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre</span>')
+                                  .on('click', function(){
               //TODO
               UI.togglePlaylist($(this).find('a.title'));
             });

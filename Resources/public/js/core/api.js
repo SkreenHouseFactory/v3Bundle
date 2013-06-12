@@ -266,19 +266,29 @@ API = {
       return json;
     });
   },
-  addPreference: function(parameter, value, callback, parcours) {
-    this.query('POST', 'preference/flag.json', {session_uid:Skhf.session.uid, type:parameter, value:value, parcours:parcours}, function(json){
-      console.log('API.addPreference', 'callback', parameter, value, json);
-      if (json.success) {
-        var added = new Array();
-        added.push(value);
-        UI.loadPlaylistTriggers(parameter, added);
+  addPreference: function(parameter, value, callback, parcours, with_related) {
+    this.query(
+      'POST', 
+      'preference/flag.json', 
+      {
+        session_uid: Skhf.session.uid,
+        type: parameter,
+        value: value,
+        parcours: parcours,
+        with_related: typeof with_related != 'undefined' ? with_related : false
+      }, 
+      function(json){
+        console.log('API.addPreference', 'callback', parameter, value, json);
+        if (json.success) {
+          var added = new Array();
+          added.push(value);
+          UI.loadPlaylistTriggers(parameter, added);
         
-        Skhf.session.sync();//function(){},{ with_notifications: 0 });
-        if (typeof callback != 'undefined' && callback != null) {
-          callback(value, json);
+          Skhf.session.sync();//function(){},{ with_notifications: 0 });
+          if (typeof callback != 'undefined' && callback != null) {
+            callback(value, json);
+          }
         }
-      }
     });
   },
   removePreference: function(parameter, value, callback) {

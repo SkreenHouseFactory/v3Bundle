@@ -254,7 +254,7 @@ UiView = {
   },
   initDataModalTriggers: function(elmt) {
     // trigger modal
-    $('a[data-modal], [data-modal-remote]', elmt).on('click', function(e){
+    $('a[data-modal], a[data-modal-internal], [data-modal-remote]', elmt).on('click', function(e){
       console.log('script', 'a[data-modal], [data-modal-remote]', 'click');
       e.preventDefault();
       var trigger = $(this);
@@ -262,7 +262,7 @@ UiView = {
         var url = trigger.data('modal-remote') ? trigger.data('modal-remote') : trigger.attr('href');
         var args = {};
         if (!url.match(/^http(s|)\:\/\//)) {
-          url  = API.config.v3_url + url;
+          url  = API.config.v3_url + API.config.v3_root + url;
           $.extend(args, {dataType: 'text html'});
         }
         UI.appendLoader($('.modal .modal-body').empty(), 1000);
