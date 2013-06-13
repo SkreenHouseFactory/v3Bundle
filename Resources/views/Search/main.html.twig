@@ -16,7 +16,13 @@
 
 {% block content %}
 <div id="view-search" class="container">
-  <h1>{{ app.request.get('q') }}</h1>
+  <h1>{{ app.request.get('q') }}
+    {% if results.count and results.count.total and results.spelling|length %}
+      <p class="lead pull-right" style="margin-bottom: -10px">Vouliez-vous dire : 
+      {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling}) }}">{{ spelling }}</a> ?{% endfor %}
+      </p>
+    {% endif %}
+  </h1>
 
   {% if results.person is defined  and results.person %}
   <p class="actions" data-id="{{ results.person.id }}">
@@ -32,11 +38,11 @@
       <p class="alert alert-info">{{ results.count }} {{ 'search.results'|trans }}</p>
     {% else %}
       <p class="alert">{{ 'search.noresults'|trans }}</p>
-    {% endif %}
-    {% if results.spelling|length %}
+      {% if results.spelling|length %}
       <p class="lead">Vouliez-vous dire : 
       {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling}) }}">{{ spelling }}</a> ?{% endfor %}
-      </p>
+        </p>
+      {% endif %}
     {% endif %}
     {% set slider = {title: '', programs: results.programs, url: results.paginate ~ '.json?format=' ~ app.request.get('format')} %}
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
@@ -46,11 +52,11 @@
       <p class="alert alert-info">{{ results.count.total }} {{ 'search.results'|trans }}</p>
     {% else %}
       <p class="alert">{{ 'search.noresults'|trans }}</p>
-    {% endif %}
-    {% if results.spelling|length %}
-    <p class="lead">Vouliez-vous dire : 
-    {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling}) }}">{{ spelling }}</a> ?{% endfor %}
-      </p>
+      {% if results.spelling|length %}
+      <p class="lead">Vouliez-vous dire : 
+      {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling}) }}">{{ spelling }}</a> ?{% endfor %}
+        </p>
+      {% endif %}
     {% endif %}
 
   {% set hasActiveTabYet = false %}
