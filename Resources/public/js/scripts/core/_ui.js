@@ -113,8 +113,10 @@ UiView = {
     }
     
     // -- focus search
-    console.log('script', 'focus', $('.navbar-search .search-query'));
-    $('.navbar-search .search-query').focus();
+    if (navigator.userAgent.match(/iPhone|iPod/)) {
+      console.log('script', 'focus', $('.navbar-search .search-query'));
+      $('.navbar-search .search-query').focus();
+    }
   },
   initDataLive: function(elmt) {
     console.log('UiView.initDataLive', elmt);

@@ -39,6 +39,8 @@ class EmbedController extends Controller
       $datas = $api->fetch('player/' . $request->get('id'), array(
         'img_width' => $request->get('width'),
         'img_height' => $request->get('height'),
+        'slider_width' => $request->get('width'),
+        'slider_height' => $request->get('height'),
         'with_program' => true
       ));
       //echo $api->url;
@@ -48,6 +50,8 @@ class EmbedController extends Controller
         $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/LesInconnus/player-splash.jpg';
       } elseif (in_array($datas->program->id, array(5050813))) {
         $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/LesInconnus/player-splash-video2.png';
+      } else {
+        $datas->program->picture = $datas->program->sliderPicture;
       }
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Embed:video.html.twig', array(
