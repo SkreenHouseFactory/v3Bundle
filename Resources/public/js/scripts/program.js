@@ -35,7 +35,7 @@ $(document).ready(function(){
     // -- add preference callback : incitation à suivre des related
     UI.callbackTogglePlaylist = function(parameter, value, remove, trigger, return_data) {
       console.log('UI.callbackTogglePlaylist', 'return_data', return_data);
-      if (API.config.env != 'prod') {
+      //if (API.config.env != 'prod') {
         if (typeof return_data != 'undefined') {
           // -- réinitialisation callback pour rester sur la popin
           UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {
@@ -86,7 +86,7 @@ $(document).ready(function(){
             $('.modal').modal();
           }
         }
-      }
+        //}
     }
 
     //////////// SCRIPTS ////////////////
