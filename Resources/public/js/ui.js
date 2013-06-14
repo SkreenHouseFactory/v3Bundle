@@ -230,7 +230,7 @@ UI = {
   },
   //toggle favorite : fav-parameter
   //if actions-remove[data-id="xx"] : element deleted in this.unloadPlaylistTrigger
-  togglePlaylist: function(trigger){
+  togglePlaylist: function(trigger, with_related){
     var self = this;
     var parameter = this.getTriggerParameter(trigger);
     var name = this.getTriggerName(trigger);
@@ -257,7 +257,7 @@ UI = {
       if (remove) {
         API.removePreference(parameter, value, callback);
       } else {
-        API.addPreference(parameter, value, callback, '', with_related=true);
+        API.addPreference(parameter, value, callback, '', typeof with_related == 'undefined' ? true : with_related);
       }
     } else {
 

@@ -44,7 +44,7 @@ class ContentController extends Controller
         'with_next_live' => !$request->get('format') && !$request->get('page') ? true : false,
         //'with_prev_live' => true,
         'with_description'  => true,
-        'channel_img_width' => 50,
+        'channel_img_width' => 120,
         'img_width' => 150,
         'img_height' => 200,
         'live_img_width' => 150,

@@ -59,12 +59,10 @@ $(document).ready(function(){
                                             .data('ajax', '');
               $('.modal .slider li').append('<span class="hide add-playlist btn btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre</span>')
                                     .on('click', function(){
-                //TODO
-                UI.togglePlaylist($(this).find('a.title'));
+                UI.togglePlaylist($(this).find('a.title'), false);
               });
             }, $('.modal .slider'));
 
-            $('.modal .slider li[data-toggle="tooltip"]').tooltip();
             $('.modal').modal();
           //related same_playlist
           } else if (return_data.programs) {
@@ -81,12 +79,10 @@ $(document).ready(function(){
                                             .data('ajax', '');
               $('.modal .slider li').append('<span class="hide add-playlist btn btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre</span>')
                                     .on('click', function(){
-                //TODO
-                UI.togglePlaylist($(this).find('a.title'));
+                UI.togglePlaylist($(this).find('a.title'), false);
               });
             }, $('.modal .slider'));
-            console.log('UI.callbackTogglePlaylist', 'tooltip', $('.modal .slider li[data-toggle="tooltip"]'));
-            $('.modal .slider li[data-toggle="tooltip"]').tooltip().tooltip('show');
+
             $('.modal').modal();
           }
         }

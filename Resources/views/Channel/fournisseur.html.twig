@@ -27,7 +27,7 @@
 {% block content %}
 <div id="view-fournisseur" data-id="{{ channel.id }}" class="container">
 
-  <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ channel.seo_url, text: 'Je regarde ' ~ channel.name ~ ' sur mySkreen et vous ?' } %}</div>
+  {#<div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ channel.seo_url, text: 'Je regarde ' ~ channel.name ~ ' sur mySkreen et vous ?' } %}</div>#}
 
   <ul class="breadcrumb">
     <li{% if app.request.get('facet') is null and app.request.get('page') is null and app.request.get('format') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: channel.seo_url|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }}</span></a>{% if app.request.get('facet') or app.request.get('page') or app.request.get('format') %} <span class="divider">/</span>{% endif %}</li>

@@ -438,6 +438,11 @@
     {% endif %}
 
     <ul class="nav nav-list bs-docs-sidenav">
+      {% if program.selections|length %}
+        {% for s in program.selections %}
+        <li><a href="{{ s.seo_url }}"><i class="icon-chevron-right"></i> {{ s.name }}</a></li>
+        {% endfor %}
+      {% endif %}
       {% if program.related|length %}
       <li><a href="#related"><i class="icon-chevron-right"></i> {{ 'program.related'|trans }}</a></li>
       {% endif %}

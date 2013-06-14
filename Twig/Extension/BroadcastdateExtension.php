@@ -97,6 +97,9 @@ class broadcastdateExtension extends \Twig_Extension
     {
 			if ($time) {
 				$month = $this->getMonth(date('m', $time));
+        if (date('Y', $time) != date('Y')) {
+          $month .= ' '.date('Y', $time);
+        }
 				$tomorrow = 'le ' . date('d', $time + 24*3600) . ' ' . $this->getMonth(date('m', $time + 24*3600));
 				$yesterday = 'le ' . date('d', $time - 24*3600) . ' ' . $this->getMonth(date('m', $time - 24*3600));
 				$string = 'le ' . date('d', $time) . ' ' . $month . ' à ' . date('G\hi', $time);
