@@ -334,21 +334,21 @@ category_page:
     pattern:  /{format}/{category_slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        format: film|telefilm|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
         category_slug: "[^/]+"
         page: \d+
 category_facet:
     pattern:  /{format}/{category_slug}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        format: film|telefilm|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
         category_slug: "[^/]+"
         facet: "[^/]+"
 category_facet_page:
     pattern:  /{format}/{category_slug}/{facet}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        format: film|telefilm|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
         category_slug: "[^/]+"
         facet: "[^/]+"
         page: \d+
@@ -356,7 +356,7 @@ category_facet_access:
     pattern:  /{format}/{category_slug}/{facet}/{access}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        format: film|telefilm|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
         category_slug: "[^/]+"
         access: video-a-la-demande|cinema
         facet: "[^/]+"
@@ -364,32 +364,31 @@ category_access:
     pattern:  /{category_slug}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
         category_slug: video-a-la-demande|cinema
-category:
-    pattern:  /{format}/{category_slug}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
-    requirements:
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
-        category_slug: "[^/]+"
 format_facet:
     pattern:  /{category_slug}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        category_slug: film|telefilm|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
         facet: "[^/]"
+category:
+    pattern:  /{format}/{category_slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+    requirements:
+        format: film|telefilm|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        category_slug: "[^/]+"
 format_page:
     pattern:  /{category_slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        category_slug: film|telefilm|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
         facet: "[^/]"
         page: \d+
 format:
     pattern:  /{category_slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        category_slug: film|telefilm|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
 
 #cms
 partenaires:
@@ -410,20 +409,20 @@ channel_format_page:
     requirements:
         slug: "[^/]+"
         facet: "[^/]+"
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        format: film|telefilm|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
 channel_format_facet:
     pattern:  /{slug}/{format}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel, facet: null }
     requirements:
         slug: "[^/]+"
         facet: "[^/]+"
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        format: film|telefilm|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
 channel_format:
     pattern:  /{slug}/{format}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
     requirements:
         slug: "[^/]+"
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        format: film|telefilm|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
 channel_page:
     pattern:  /{slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }

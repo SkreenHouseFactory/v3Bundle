@@ -149,6 +149,7 @@ class ContentController extends Controller
     public function categoryAction(Request $request)
     {
       $this->blockDomain($request);
+//      print_r($request->get('_route'));
       $is_route_format = in_array($request->get('_route'), array('format', 'format_facet', 'format_page')) ? true : false;
       $api   = $this->get('api');
       $datas = $api->fetch($is_route_format ? 'format' : 'category', array(
@@ -182,7 +183,6 @@ class ContentController extends Controller
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Content:category.html.twig', array(
-        'is_route_format' => $is_route_format,
         'category' => $datas,
         'formats' => array_combine(explode(';', $datas->facets_seo_url->format),explode(';', $datas->facets->format)),
         'categories' => array_combine(explode(';', $datas->facets_seo_url->category),explode(';', $datas->facets->category)),
