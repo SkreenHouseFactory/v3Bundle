@@ -146,7 +146,7 @@
           {% elseif program.offers[key]|length %}
             {% set nb = program.offers[key]|length %}
           {% endif %}
-          <li{% if key == program.offers_default %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ offers[key] }} ({{ nb }})</a></li>
+          <li{% if key == program.offers_default %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ offers[key] }} <span>{{ nb }}</span></a></li>
         {% endfor %}
         {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
         <li><a href="#carousel-bonus" id="trigger-bonus" data-toggle="tab">Bonus ({{ program.offers['bonus']|length }})</a></li>

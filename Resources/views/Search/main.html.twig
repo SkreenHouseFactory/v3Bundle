@@ -17,7 +17,7 @@
 {% block content %}
 <div id="view-search" class="container">
   <h1>{{ app.request.get('q') }}
-    {% if results.count and results.count.total and results.spelling|length %}
+    {% if results and results.count and results.count.total and results.spelling|length %}
       <p class="lead pull-right" style="margin-bottom: -10px">Vouliez-vous dire : 
       {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling}) }}">{{ spelling }}</a> ?{% endfor %}
       </p>

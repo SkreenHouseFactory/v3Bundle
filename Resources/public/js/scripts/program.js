@@ -165,7 +165,7 @@ $(document).ready(function(){
     //youtube
     var trigger = $('#view-program [data-more-streaming]');
     if ($('#carousel-youtube .item').length) {
-      $('#trigger-youtube').append(' (' + $('#carousel-youtube .item').length + ')');
+      $('#trigger-youtube').append(' <span>' + $('#carousel-youtube .item').length + '</span>');
     } else if (trigger &&
                trigger.data('more-streaming')) {
       console.log('data-more-streaming', trigger);
@@ -180,7 +180,7 @@ $(document).ready(function(){
                   }
                   //TODO : sort by duration ?
                   console.log('more-streaming', ' callback', programs.length);
-                  $('#trigger-youtube').append(' (' + programs.length + ')');
+                  $('#trigger-youtube').append(' <span>' + programs.length + '</span>');
                   if ($('#triggers li').length == 1) {
                     $('#trigger-youtube').trigger('click');
                   }
