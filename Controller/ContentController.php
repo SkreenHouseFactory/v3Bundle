@@ -51,6 +51,8 @@ class ContentController extends Controller
         'live_img_height' => 200,
         'slider_img_width'  => 900,
         'slider_img_height' => 300,
+        'live_player_width' => 450,
+        'live_player_height' => 300,
         'with_epg' => !$request->get('format') && !$request->get('page') ? true : false,
         'with_replay' => !$request->get('format') && !$request->get('page') ? true : false,
         'with_best_offer' => !$request->get('format') && !$request->get('page') ? true : false,
@@ -147,8 +149,9 @@ class ContentController extends Controller
     public function categoryAction(Request $request)
     {
       $this->blockDomain($request);
+      $is_route_format = in_array($request->get('_route'), array('format', 'format_facet', 'format_page')) ? true : false;
       $api   = $this->get('api');
-      $datas = $api->fetch(in_array($request->get('_route'), array('format', 'format_facet', 'format_page')) ? 'format' : 'category', array(
+      $datas = $api->fetch($is_route_format ? 'format' : 'category', array(
          'from_slug'  => str_replace('/', '', $request->get('category_slug')),
          'with_description' => true,
          //'with_subcategories' => true,
@@ -170,15 +173,19 @@ class ContentController extends Controller
         throw $this->createNotFoundException('Category does not exist');
       }
       //bad url
-      if (!strstr($request->getPathInfo(), $datas->seo_url)) {
-        //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';exit();
-        return $this->redirect($datas->seo_url, 301);
+      if (strstr($request->getPathInfo(), $datas->seo_url)) {
+        if ($this->container->getParameter('kernel.environment') == 'dev') {
+          //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';exit();
+        }
+        //return $this->redirect($datas->seo_url, 301);
       }
       $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Content:category.html.twig', array(
+        'is_route_format' => $is_route_format,
         'category' => $datas,
         'formats' => array_combine(explode(';', $datas->facets_seo_url->format),explode(';', $datas->facets->format)),
+        'categories' => array_combine(explode(';', $datas->facets_seo_url->category),explode(';', $datas->facets->category)),
         'subcategories' => array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory)),
         'alpha_available' => explode(';', $datas->facets->alpha),
         'alpha' => array(1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')

@@ -100,7 +100,9 @@ $(document).ready(function(){
     if (document.location.href.match(/\?rent/gi)) {
       $('#plays [data-play]:first').trigger('click');
     } else if (document.location.href.match(/\?follow/gi)) {
-      $('.actions .fav').trigger('click');
+      if (!$('.actions .fav').hasClass('fav-on')) {
+        $('.actions .fav').trigger('click');
+      }
     } else if (document.location.href.match(/\?play/gi)) {
       console.log('?play', getUrlParameter('play'));
       $('[data-play="'+getUrlParameter('play')+'"]').trigger('click');

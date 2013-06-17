@@ -67,10 +67,16 @@
 
 	{# facets #}
 	<div class="facets">
-	{% for k,s in subcategories %}
-		<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'}) }}" class="label{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a>
-	{% endfor %}
-	</div>
+  {% if app.request.get('category_slug') is null and categories|length > 1 %}
+  	{% for k,s in categories %}
+  		<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'}) }}" class="label{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a>
+  	{% endfor %}
+  {% else %}
+  	{% for k,s in subcategories %}
+  		<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'}) }}" class="label{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a>
+  	{% endfor %}
+  	</div>
+  	{% endif %}
 	{% endif %}
 	<hr/>
 
