@@ -63,7 +63,7 @@
     {% if channel.epg is defined and channel.epg %}
       {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-replay.html.twig' with {channel: channel} %}
     {% endif %}
-    <h3>Tous les programmes ({{ channel.count }}){% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
+    {% if app.request.get('page') %}<h3><small>page {{ app.request.get('page') }}</small>{% endif %}</h3>
   {% endif%}
 
   <div class="pagination">

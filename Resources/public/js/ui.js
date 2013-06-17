@@ -367,11 +367,11 @@ UI = {
           //console.log('new', notifications[k]['new'], nb_new);
         }
         if (notifications[k].type == 'broadcast') {
-          var attrs = 'data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
+          var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '" rel="#content"';
         } else if (notifications[k].player) {
-          var attrs = 'data-ajax-play="' + notifications[k].player + '" data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
+          var attrs = 'data-ajax-play="' + notifications[k].player + '" data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '" rel="#content"';
         } else if (notifications[k].type == 'ajout' || notifications[k].program.deporte) {
-          var attrs = 'data-ajax="' + notifications[k].program.seo_url + '" rel="#content"';
+          var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '" rel="#content"';
         } else {
           var attrs = 'data-redirect="' + notifications[k].link + '" data-seo-url="' + notifications[k].program.seo_url + '"';
         }

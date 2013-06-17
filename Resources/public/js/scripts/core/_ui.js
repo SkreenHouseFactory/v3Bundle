@@ -168,7 +168,7 @@ UiView = {
         var suffix = $(this).data('ajax').indexOf('?') == -1 ? '?skip_varnish' : '&skip_varnish';
         var url = $(this).data('ajax') + suffix;
       }
-      $($(this).attr('rel')).load(API.config.v3_root + url, function() {
+      $($(this).attr('rel')).load(url, function() {
         console.log('script', '[data-ajax]', 'clalback', 'ajax-play', trigger.data('ajax-play'));
         UI.unloadRedirect();
         //ajax play ?
