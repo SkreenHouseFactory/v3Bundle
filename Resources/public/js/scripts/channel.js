@@ -1,5 +1,10 @@
 // -- channel
 $(document).ready(function(){
+
+  // -- track channel
+  var channel_name = $('h1').data('channel');
+  API.trackVar(1, 'Chaîne', channel_name, 3);
+
   // -- fournisseur
   if ($('#view-fournisseur').length) {
     $('.trigger-channel').click(function(){
@@ -8,10 +13,8 @@ $(document).ready(function(){
     $('.trigger-channel-date').change(function(){
       UI.refreshChannel($(this).data('channel-id'));
     });
-    if (channel_name = $('#view-channel h1').html()) {
+    if (channel_name) {
       $('[title="' + channel_name + ' Replay"]').parent().addClass('active');
-      //track channel
-      API.trackVar(1, 'Chaîne', channel_name, 3);
     }
 
   // -- chaine

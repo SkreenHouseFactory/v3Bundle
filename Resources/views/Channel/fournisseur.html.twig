@@ -50,7 +50,7 @@
 
   <img class="channel-logo pull-left" src="{{ channel.img }}" />
   {% set page_h1_channel = 'page.h1.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
-  <h1>
+  <h1 data-channel="{{ channel.name }}">
     {{ page_h1_channel|trans({'%name%': channel.name, '%format%': format|trans, '%formats%': formats|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
     {% if app.request.get('facet') %} <small>{{ app.request.get('facet') }}</small>{% endif %}
     {% if app.request.get('page') %} <small>page {{ app.request.get('page') }}</small>{% endif %}
