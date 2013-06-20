@@ -13,28 +13,30 @@
 		<li{{ app.request.get('type') == 'webcast' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}">Web content</a></li>
 		<li{{ app.request.get('type') == 'cinema' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Cinéma</a></li>
 		<li{{ app.request.get('type') == 'dvd' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">DVD</a></li>
-		<li{{ app.request.get('type') == 'box' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'box'}) }}">BOX</a></li>
+		<li{{ app.request.get('type') == 'thematique' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'thematique'}) }}">Thématique</a></li>
 	</ul>
 	<h1><small class="indent">{{ app.request.get('type') }}</small></h1>
   {% if channels|length > 6 %}
-  <div class="pagination pagination-client-alpha">
+  <div class="pagination{% if app.request.get('type') != 'cinema' %} pagination-client-alpha{% endif %}">
     <ul>
-        <li><a>{{ 'nav.all'|trans }}</a></li>
+        <li><a href="{{ path('sitemap_channels', {type: app.request.get('type') }) }}">{{ 'nav.all'|trans }}</a></li>
       {% for l in alpha %}
-        <li{% if l not in alpha_available %} class="disabled"{% endif %}><a>{{ l }}</a></li>
+        <li{% if l not in alpha_available %} class="disabled"{% endif %}><a{% if l in alpha_available %} href="{{ path('sitemap_channels_page', {type: app.request.get('type'), page: l }) }}"{% endif %}>{{ l }}</a></li>
       {% endfor %}
     </ul>
   </div>
   {% endif %}
 	<table class="table table-striped">
-		{% for c in channels if c.img %}
-		<tr data-alpha="{{ c.name|slice(0,1)|lower }}">
+		{% for c in channels if c.channel is defined or c.img or c.type in ['cinema']  %}
+    {% set c = c.channel is defined ? c.channel : c %}
+    {% set name = c.name is defined ? c.name : c.title %}
+		<tr data-alpha="{{ name|slice(0,1)|lower }}">
 			{% if app.request.get('type') != 'cinema' %}
 			<td width="100px">
-				<a href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><img src="{{ c.img }}" alt="{{ c.name }} {{ app.request.get('type') == 'catchup' ? 'Replay' : 'Streaming' }}" /></a>
+				<a href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><img src="{{ c.img }}" alt="{{ name }} {{ app.request.get('type') == 'catchup' ? 'Replay' : 'Streaming' }}" /></a>
 			</td>
 			{% endif %}
-			<td width="200px"><a href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}">{{ c.name }}</a></td>
+			<td width="200px"><a href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}">{{ c.name }}{{ c.city is defined and c.city ? ' (' ~ c.city ~ ')' : '' }}</a></td>
 			{% if app.request.get('type') == 'cinema' %}
 			<td>{{ c.adress }}<br/>{{ c.city }} {{ c.zip_code }}</td>
 			{% endif %}
@@ -42,7 +44,9 @@
 				{% if app.request.get('type') == 'broadcast' %}
 				<a class="btn btn-primary fav fav-epg" data-placement="left" href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><i class="icon-plus-sign icon-white"></i> Ajouter à votre grille TV</a>
 				{% elseif app.request.get('type') == 'cinema' %}
-				<a class="btn btn-primary fav fav-theater" data-placement="left" href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+				<a class="btn btn-primary fav fav-cinema" data-placement="left" href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }} ce cinéma</a>
+				{% elseif app.request.get('type') == 'thematique' %}
+				<a data-channel-name="{{ c.name }}" class="btn btn-primary fav fav-channel" data-placement="left" href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }} la chaîne</a>
 				{% endif %}
 			</td>
 		</tr>

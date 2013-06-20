@@ -34,10 +34,18 @@ class SitemapController extends Controller
     {
 			$this->blockDomain($request);
 			$api = $this->get('api');
+      if ($request->get('type') == 'cinema' &&
+          !$request->get('page')) {
+        return $this->redirect($this->generateUrl('sitemap_channels_page', array(
+          'type' => $request->get('type'), 
+          'page' => 'a'
+        )));
+      }
 
       //API lastmodified
       $datas = $api->fetch('channel', array(
-			 'type' => $request->get('type'),
+			 'type' => str_replace('thematique', 'thematic', $request->get('type')),
+			 'q' => $request->get('page').'%',
 			 'channel_img_width' => 65,
 			 'offset' => $request->get('offset', 0),
 			 'nb_results' => $request->get('nb_results', 100)
@@ -46,15 +54,19 @@ class SitemapController extends Controller
       if (isset($datas->error) && $datas->error) {
         throw $this->createNotFoundException('Sitemap error');
       }
-      $alpha_available = array();
-      foreach ($datas as $key => $c) {
-        $datas[$key]->alpha = strtolower(substr($c->name, 0, 1));
-        $alpha_available[] = $datas[$key]->alpha;
+      if ($request->get('type') == 'cinema') {
+        $alpha_available = array(7,'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','z');
+      } else {
+        $alpha_available = array();
+        foreach ($datas as $key => $c) {
+          $datas[$key]->alpha = strtolower(substr($c->name, 0, 1));
+          $alpha_available[] = $datas[$key]->alpha;
+        }
       }
+
       $response = $this->render('SkreenHouseFactoryV3Bundle:Sitemap:channels.html.twig', array(
         'channels' => $datas,
-        'alpha'    => array(1,2,3,4,5,6,7,8,9,
-                            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'),
+        'alpha'    => array(1,2,3,4,5,6,7,8,9, 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'),
         'alpha_available' => $alpha_available
       ));
 

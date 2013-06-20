@@ -56,14 +56,6 @@ UI = {
       if (this.user == Skhf.session.datas.email) {
         var update = true;
         //console.warn('UI.loadUser', 'already loaded');
-        $('.fb-placeholder').addClass('hide');
-        $('.share-placeholder').removeClass('hide');
-        $('.badge-placeholder').removeClass('badge').removeClass('badge-important');
-        $('.badge-placeholder').removeAttr('rel');
-        $('.badge-placeholder').removeAttr('data-original-title');
-        $('.badge-placeholder').removeAttr('data-content');
-        $('.badge-placeholder').popover('hide');
-        $('.badge-placeholder').popover('disable');
         //return;
       } else {
         //TODO : unload user !';
@@ -73,8 +65,8 @@ UI = {
 
     this.user = Skhf.session.datas.email;
     if (Skhf.session.datas.email) {
+      //on
       if (!update) {
-        //on
         $('.user-off:not(.hide)').addClass('hide');
         $('.user-on.hide').removeClass('hide');
         $('.user-on-visibility').css('visibility','visible');
@@ -86,6 +78,15 @@ UI = {
         //datas
         this.loadPlaylistTriggers();
         this.loadNotifications(Skhf.session.datas.notifications);
+      } else {
+        $('.fb-placeholder').addClass('hide');
+        $('.share-placeholder').removeClass('hide');
+        $('.badge-placeholder').removeClass('badge badge-important')
+                               .removeAttr('rel')
+                               .removeAttr('data-original-title')
+                               .removeAttr('data-content')
+                               .popover('hide')
+                               .popover('disable');
       }
       //infos
       $('.user-email').html(Skhf.session.datas.email);
@@ -95,14 +96,14 @@ UI = {
         if (Skhf.session.datas.fb_access_token == null) {
           $('.fb-placeholder').removeClass('hide');
           $('.share-placeholder').addClass('hide');
-          $('.badge-placeholder').addClass('badge').addClass('badge-important');
-          $('.badge-placeholder').attr('rel','popover');
-          $('.badge-placeholder').attr('data-original-title',"ATTENTION ! Vous n'êtes pas connecté à votre compte Facebook");
-          $('.badge-placeholder').attr('data-content',"Vous ne pouvez dès lors pas partager vos programmes avec vos amis. Pour vous connecter, veuillez cliquer.");
+          $('.badge-placeholder').addClass('badge badge-important')
+                                 .attr('rel','popover')
+                                 .attr('data-original-title',"ATTENTION ! Vous n'êtes pas connecté à votre compte Facebook")
+                                 .attr('data-content',"Vous ne pouvez dès lors pas partager vos programmes avec vos amis. Pour vous connecter, veuillez cliquer.");
           $(function (){
              $('.badge-placeholder').popover({placement:'bottom', trigger:'hover'});
           });
-          $('.badge-placeholder').click(function() {
+          $('.badge-placeholder').on('click', function() {
              $('.badge-placeholder').popover('hide');
           });
         }
@@ -112,10 +113,10 @@ UI = {
       } else {
         $('.fb-placeholder').addClass('hide');
         $('.share-placeholder').removeClass('hide');
-        $('.badge-placeholder').removeClass('badge').removeClass('badge-important');
-        $('.badge-placeholder').removeAttr('rel');
-        $('.badge-placeholder').removeAttr('data-original-title');
-        $('.badge-placeholder').removeAttr('data-content');
+        $('.badge-placeholder').removeClass('badge badge-important')
+                               .removeAttr('rel')
+                               .removeAttr('data-original-title')
+                               .removeAttr('data-content');
         $('.share-on:not(.hide)').addClass('hide');
         $('.share-off.hide').removeClass('hide');
       }
@@ -123,12 +124,13 @@ UI = {
       if (Skhf.session.datas.cinema) {
         this.loadTheatersPlaylist();
       }
+
     } else {
       //off
-      $('.badge-placeholder').removeClass('badge').removeClass('badge-important');
-      $('.badge-placeholder').removeAttr('rel');
-      $('.badge-placeholder').removeAttr('data-original-title');
-      $('.badge-placeholder').removeAttr('data-content');
+      $('.badge-placeholder').removeClass('badge badge-important')
+                             .removeAttr('rel')
+                             .removeAttr('data-original-title')
+                             .removeAttr('data-content');
       $('.user-off.hide').removeClass('hide');
       $('.user-on:not(.hide)').addClass('hide');
       $('.share-on:not(.hide)').addClass('hide');
@@ -138,7 +140,8 @@ UI = {
       $('li.selector').popover('enable');
       //remove datas
       $('.user-email, .favoris span').empty();
-      $('.notifications-count').empty();
+      $('.notifications-count').removeClass('with-badge')
+                               .empty();
       $('.notifications li:not(.empty)').remove();
       this.playlist.remove();
 
@@ -345,6 +348,10 @@ UI = {
   },
   //notify
   loadNotifications: function(notifications) {
+    if (typeof notifications == 'undefined') {
+      console.error('UI.loadNotifications', 'notifications undefined!');
+      return;
+    }
     console.log('UI.loadNotifications', notifications);
     var nb = notifications.length == this.max_notifications ? notifications.length + '+' : notifications.length;
     if (!$('.navbar .notifications-count').hasClass('with-badge')) {

@@ -254,6 +254,11 @@ cinema:
         h1: Box office : tous les films
 access:
     streaming: en streaming
+    video-a-la-demande: Vidéo à la demande
+    cinema: Cinéma
+    tv: TV
+    replay: Replay
+    dvd: Dvd, Blu-Ray
 all:
     the:
         format: Tous les %format%

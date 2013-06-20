@@ -14,14 +14,6 @@
       <a href="{{ path('channel', {slug: 'france-2'}) }}">France 2 Replay</a>
       <a href="{{ path('channel', {slug: 'france-3'}) }}">France 3 Replay</a>
     </div>
-    <div id="footer-channels" class="span2">
-      <h5>Chaînes</h5> 
-      <a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">Chaînes TV & Replay</a>
-      <a href="{{ path('sitemap_channels', {type: 'vod'}) }}">Chaînes Vidéo à la demande</a>
-      <a href="{{ path('sitemap_channels', {type: 'webcast'}) }}">Chaînes Web</a>
-      <a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Salles et horaires de cinéma</a>
-      <a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">Location Dvd et Blu-ray</a>
-    </div>
     {% if app.request.get('home') and 
           app.request.get('home') not in ['tv-replay','cinema','video-a-la-demande','mixte'] %}
       {% set base_footer = app.request.get('home') %}
@@ -39,10 +31,10 @@
       <a href="/film/fantastique/">Fantastique{{ footerspin }}</a>
       <a href="/film/comedies/">Comédies{{ footerspin }}</a>
       <a href="/film/drames/">Drames{{ footerspin }}</a>
-      <a href="/film/jeunesse/">Jeunesse{{ footerspin }}</a>
-      <a href="/film/erotique/">Erotique{{ footerspin }}</a>
       </div>
       <div id="cats-1" class="span2">
+      <a href="/film/jeunesse/">Jeunesse{{ footerspin }}</a>
+      <a href="/film/erotique/">Erotique{{ footerspin }}</a>
       <a href="/film/action-aventure/">Action - Aventure{{ footerspin }}</a>
       <a href="/film/epouvante-horreur/">Epouvante - horreur{{ footerspin }}</a>
       {#% endif %}
@@ -57,12 +49,12 @@
       <a href="/documentaire/justice/">Justice{{ footerspin }}</a>
       {#% endif %}
       {% if base_footer in ['film','documentaire','serie','dessin-anime-et-manga'] %#}
-      <a href="/serie/science-fiction/">Science-fiction{{ footerspin }}</a>
-      <a href="/emission/decouverte/">Découverte{{ footerspin }}</a>
       {#% endif %}
       {% if base_footer in ['emission','journal','documentaire'] %#}
       </div>
       <div id="cats-2" class="span2">
+      <a href="/serie/science-fiction/">Science-fiction{{ footerspin }}</a>
+      <a href="/emission/decouverte/">Découverte{{ footerspin }}</a>
       <a href="/emission/sport/">Sport{{ footerspin }}</a>
       <a href="/emission/sante-bien-etre/">Santé - bien-être{{ footerspin }}</a>
       <a href="/emission/loisirs-passions/">Loisirs - Passions{{ footerspin }}</a>
@@ -76,7 +68,8 @@
       <a href="/serie/series-francaise/">Séries françaises{{ footerspin }}</a>
       <a href="/serie/serie-animee/">Série animée{{ footerspin }}</a>
       {#% endif %#}
-      <hr/>
+    </div>
+    <div id="partners" class="span2">
       <a href="/partenaires">Partenaires</a>
       <a href="http://www.videofutur.fr" target="_blank">Location DVD, Blu-ray</a>
     </div>

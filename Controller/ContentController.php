@@ -107,14 +107,18 @@ class ContentController extends Controller
         if (($request->getPathInfo() != $datas->seo_url &&
             $request->getPathInfo() != $datas->seo_url . $request->get('format') . '/' &&
             $request->getPathInfo() != $datas->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' &&
+            $request->getPathInfo() != $datas->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' .  'page-' . $request->get('page') . '/' &&
             $request->getPathInfo() != $datas->seo_url . 'page-' . $request->get('page') . '/' &&
             $request->getPathInfo() != $datas->seo_url . $request->get('facet') . '/') &&
             (!property_exists($datas,'channel') || str_replace('/','',$request->getPathInfo()) != $datas->channel->slug)
             ) {
           if ($this->container->getParameter('kernel.environment') == 'dev') {
-            echo "\n".'facet: ' . $datas->seo_url . '/' . $request->get('facet') . '/';
-            echo "\n".'format: ' . $datas->seo_url . '/' . $request->get('format') . '/';
-            echo "\n".'format+cat: ' . $datas->seo_url . '/' . $request->get('format') . '/' . $request->get('facet') . '/';
+            echo "\n".'pathInfo: ' . $request->getPathInfo();
+            echo "\n".'----';
+            echo "\n".'facet: ' . $datas->seo_url . $request->get('facet') . '/';
+            echo "\n".'format: ' . $datas->seo_url . $request->get('format') . '/';
+            echo "\n".'format+cat: ' . $datas->seo_url . $request->get('format') . '/' . $request->get('facet') . '/';
+            echo "\n".'format+cat+page: ' . $datas->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' .  'page-' . $request->get('page');
             echo "\n".'page: ' . $datas->seo_url . '/page-' . $request->get('page') . '/';
             echo "\n".'default '.$request->getPathInfo().' != '.$datas->seo_url.'/ => '.($request->getPathInfo() != $datas->seo_url);
             echo "\n".'redirect '.$datas->seo_url;
@@ -128,7 +132,9 @@ class ContentController extends Controller
         $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:fournisseur.html.twig', array(
           'channel' => $datas,
           'formats' => array_combine(explode(';', $datas->facets_seo_url->format),explode(';', $datas->facets->format)),
+          'categories' => array_combine(explode(';', $datas->facets_seo_url->category),explode(';', $datas->facets->category)),
           'subcategories' => array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory)),
+          'access' => explode(';', $datas->facets->access),
           'alpha_available' => explode(';', $datas->facets->alpha),
           'alpha'    => array(1,2,3,4,5,6,7,8,9,
                               'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
@@ -168,7 +174,7 @@ class ContentController extends Controller
       //echo "\n".'category_slug:' . $request->get('category_slug');
       //echo "\n".'route:'  .$request->get('_route');
       //exit();
-      //print_r($datas);
+      //print_r($datas->facets);
       //404
       if (isset($datas->error) && $datas->error) {
         throw $this->createNotFoundException('Category does not exist');
@@ -187,6 +193,8 @@ class ContentController extends Controller
         'formats' => array_combine(explode(';', $datas->facets_seo_url->format),explode(';', $datas->facets->format)),
         'categories' => array_combine(explode(';', $datas->facets_seo_url->category),explode(';', $datas->facets->category)),
         'subcategories' => array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory)),
+        'access' => explode(';', $datas->facets->access),
+        'channels' => array_combine(explode(';', $datas->facets_seo_url->channel),explode(';', $datas->facets->channel)),
         'alpha_available' => explode(';', $datas->facets->alpha),
         'alpha' => array(1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
       ));
@@ -299,7 +307,11 @@ class ContentController extends Controller
         $facets[] = 'format:' . $request->get('format');
       }
       if ($request->get('access')) {
-        $facets[] = 'access:' . str_replace(array('video-a-la-demande'), array('vod'), $request->get('access'));
+        $facets[] = 'access:' . str_replace(
+          array('video-a-la-demande', 'tv', 'replay', 'cinema', 'dvd'), 
+          array('vod', 'broadcast', 'catchup', 'cinema', 'dvd'), 
+          $request->get('access')
+        );
       }
 
       return implode(',', $facets);

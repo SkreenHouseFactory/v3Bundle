@@ -33,9 +33,9 @@ $(document).ready(function(){
       }
     }
     // -- add preference callback : incitation à suivre des related
-    UI.callbackTogglePlaylist = function(parameter, value, remove, trigger, return_data) {
-      console.log('UI.callbackTogglePlaylist', 'return_data', return_data);
-      //if (API.config.env != 'prod') {
+    if (!navigator.userAgent.match(/iPhone|iPod/)) { //not optimized for iPhone
+      UI.callbackTogglePlaylist = function(parameter, value, remove, trigger, return_data) {
+        console.log('UI.callbackTogglePlaylist', 'return_data', return_data);
         if (typeof return_data != 'undefined') {
           // -- réinitialisation callback pour rester sur la popin
           UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {
@@ -86,7 +86,7 @@ $(document).ready(function(){
             $('.modal').modal();
           }
         }
-        //}
+      }
     }
 
     //////////// SCRIPTS ////////////////
@@ -152,10 +152,11 @@ $(document).ready(function(){
                 trigger.popover();
                 trigger.popover('show');
               } else {
-                trigger.attr('data-content', '');
+                trigger.removeAttr('data-content');
               }
             });
-        } else if (trigger.attr('data-content')) {
+        } else if (trigger.attr('data-content') != 'undefined' && 
+                   trigger.attr('data-content')) {
           $('.popover').hide();
           trigger.popover('show');
         }
@@ -242,6 +243,9 @@ ProgramView = {
     });
   },
   loadMoreStreaming: function() {
+    if ($('carousel-youtube .carousel .item').length) {
+      return;
+    }
     //youtube
     var trigger = $('#view-program [data-more-streaming]');
     if ($('#carousel-youtube .item').length) {

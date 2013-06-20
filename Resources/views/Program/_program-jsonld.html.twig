@@ -1,0 +1,27 @@
+<script type="application/ld+json">
+[ {
+  "@context" : "http://schema.org",
+  "image" : "{{ program.picture }}",
+  "url" : "{{ program.seo_url }}",
+  "datePublished" : "{{ program.year }}",
+  "actor" : [{% for pers in program.casting %}"{{ loop.index  > 0 ? ',' : '' }}{{ pers.name }}"{% endfor %}],
+  "director" : [{% for pers in program.director %}"{{ loop.index  > 0 ? ',' : '' }}{{ pers.name }}"{% endfor %}]
+{% if program.episodeof is defined or program.episode_list is defined %}
+  {% if program.episodeof is defined %}
+  "@type" : "TVEpisode",
+  "partOfTVSeries" : "{{ program.episodeof.title }}",
+  "partOfSeason" : {
+    "@type" : "TVSeason",
+    "seasonNumber" : "{{ program.season_number }}"
+  },
+  "episodeNumber" : "{{ program.episode_number }}",
+  {% else %}
+  "@type" : "TVSerie",
+  {% endif %}
+  "name" : "{{ program.title }}",
+{% else %}
+  "@type" : "Movie",
+  "name" : "{{ program.title }}",
+{% endif %}
+}]
+</script>

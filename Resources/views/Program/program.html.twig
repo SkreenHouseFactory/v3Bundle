@@ -13,6 +13,8 @@
 {% endblock %}
 {% block meta %}
 
+{% include 'SkreenHouseFactoryV3Bundle:Program:_program-jsonld.html.twig' with {program: program} %}
+
 {# twitter #}
 <meta name="twitter:site" value="@mySkreen" />
 <meta name="twitter:creator" content="@mySkreen">
@@ -75,23 +77,23 @@
 {% endblock %}
 
 {% block content %}
-<div id="view-program" data-id="{{ program.id }}" class="container">
+<div id="view-program" data-id="{{ program.id }}" class="container"{% if program.episodeof is not defined %} itemscope itemtype="http://schema.org/Movie"{% endif %}>
 
   <div id="program-follow" class="actions add-friends" data-id="{{ program.episodeof is defined ? program.episodeof.id : program.id }}">
     <div class="container-friends"></div>
     <a class="fav fav-like btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>{% if app.environment == 'dev' and program.nb_like %} <span class="playlists-count"><i class="icon-user"></i>{{ program.nb_like }}</span>{% endif %}
   </div>
 
-  <div class="program-title">
+  <div class="program-title" >
     {% if program.episode_title is defined and 
           program.episodeof is defined and 
           program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
     <h1>{{ program.episode_title }}{% if program.popular_channel is defined %} <small>{{ program.popular_channel.name }}</small>{% endif %}</h1>
     {% elseif program.episode_title is defined and 
               program.episodeof is defined %}
-    <h1>{{ program.episodeof.title }} <span>{{ program.episode_title }}{% if program.season_number is defined or program.episode_number is defined %} ({% endif %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Episode {{ program.episode_number }}{% endif %}{% if program.season_number is defined or program.episode_number is defined %}){% endif %}</span></h1>
+      <h1><span itemprop="partOfTVSeries" itemscope itemtype="http://schema.org/TVSeries"><span itemprop="name">{{ program.episodeof.title }}</span></span> <div><span itemscope itemtype="http://schema.org/TVEpisode"><span itemprop="name">{{ program.episode_title }}</span></span>{% if program.season_number is defined or program.episode_number is defined %} ({% endif %}{% if program.season_number is defined %}<span itemprop="partOfSeason" itemscope itemtype="http://schema.org/TVSeason">Saison <span itemprop="seasonNumber">{{ program.season_number }}</span></span>{% endif %}{% if program.episode_number is defined %}<span itemscope itemtype="http://schema.org/TVEpisode"> Episode <span itemprop="episodeNumber">{{ program.episode_number }}</span></span>{% endif %}{% if program.season_number is defined or program.episode_number is defined %}){% endif %}</span></div></h1>
     {% else %}
-    <h1>
+    <h1 itemprop="name">
       {{ program.title }} {% if program.id in [4750433,4225947,4802310,4802138,4827403,4325232,4301824,4653555,4750467,4348861] %}
       <small>le film complet en streaming</small>
       {% elseif program.id in [4977242,4476408,4911399,4653895,4791542,4624174,4339164,4673973,4652360,5008693] %}
@@ -205,7 +207,7 @@
                 <tr><td colspan="6"><h6>Autres épisodes</h6></td></tr>
                 {% set other_episodes = 'ok' %}
               {% endif %}
-              <tr data-id="{{ o.id }}"{% if o.url is defined and o.url %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} itemscope itemtype="http://data-vocabulary.org/Event">
+              <tr data-id="{{ o.id }}"{% if o.url is defined and o.url %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} itemscope itemtype="http://data-vocabulary.org/Event" {% if o_episode %} data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left"{% endif %}>
                 <td class="notif"><span class="badge">0</span></td>
                 <td class="icon">
                   <span>
@@ -266,7 +268,7 @@
                 {% elseif o_episode %}
                 <td class="episode" itemprop="summary">
                   {% if o_episode.title %}
-                  <span data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left">{{ o_episode.title }}</span>
+                  <span>{{ o_episode.title }}</span>
                   {% endif %}
                   <br/>
                   {% if o_episode.season_number is defined or o_episode.episode_number is defined or o_episode.part_number is defined %}
@@ -352,7 +354,7 @@
       {% if program.popular_channel is defined %}
       <a class="popular-channel logo-channel-{{ program.popular_channel.id }}" href="{{ path('any_url', {url: program.popular_channel.seo_url|slice(1, program.popular_channel.seo_url|length-1) }) }}"><img src="{{ program.popular_channel.img }}" alt="{{ program.popular_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" /></a>
       {% endif %}
-      <img src="{{ program.img }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
+      <img itemprop="image" src="{{ program.img }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
     </div>
 
     {#% if app.environment == 'dev' %}
@@ -516,7 +518,7 @@
         {% if program.director %}
         <h5>{{ 'directed.by'|trans }}</h5>
         {% for pers in program.director %}
-        <div class="inline" itemprop="director" itemscope="" itemtype="http://schema.org/Person">
+        <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
         {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
         {% if pers.programmes is defined and (pers.programmes|length > 1) %}
           <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
@@ -530,7 +532,7 @@
         {% if program.presenter is defined and program.presenter %}
         <h5>{{ 'presented.by'|trans }}</h5> 
         {% for pers in program.presenter %}
-        <div class="inline" itemprop="director" itemscope="" itemtype="http://schema.org/Person">
+        <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
         {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
         </div>
         {% endfor %}
@@ -539,7 +541,7 @@
         {% if program.casting %}
         <h5>{{ 'actors'|trans }}</h5>
         {% for pers in program.casting %}
-        <div class="inline" itemprop="actor" itemscope="" itemtype="http://schema.org/Person">
+        <div class="inline" itemprop="actor" itemscope itemtype="http://schema.org/Person">
         {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
         {% if pers.main_programs is defined and (pers.main_programs|length > 1) %}
           <span style="color:#005580"> ( </span>{% for prog in pers.main_programs if prog.id != program.id  %}
@@ -554,7 +556,7 @@
         {% if program.editor %}
         <h5>{{ 'editors'|trans }}</h5>
         {% for pers in program.editor %}
-        <div class="inline" itemprop="editor" itemscope="" itemtype="http://schema.org/Person">
+        <div class="inline" itemprop="editor" itemscope itemtype="http://schema.org/Person">
         {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
         {% if pers.programmes is defined and (pers.programmes|length > 1) %}
           <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}

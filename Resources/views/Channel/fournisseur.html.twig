@@ -1,6 +1,6 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
-{% set format = 'format.singulier.' ~ app.request.get('format') %}
-{% set formats = 'format.pluriel.' ~ app.request.get('format') %}
+{% set format_trans = 'format.singulier.' ~ app.request.get('format') %}
+{% set formats_trans = 'format.pluriel.' ~ app.request.get('format') %}
 {% block meta %}
 {% if channel.programs|length < 6 or app.request.get('page') %}
 <meta name="robots" content="noindex,follow" />
@@ -17,8 +17,8 @@
 {% endblock %}
 {% block title %}
 {% set page_title_channel = 'page.title.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
-{{ page_title_channel|trans({'%name%': channel.name, '%format%': format|trans, '%formats%': formats|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
-{%- if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif -%}
+{{ page_title_channel|trans({'%name%': channel.name, '%format%': format_trans|trans, '%formats%': formats_trans|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
+{%- if app.request.get('facet') %}, {{ subcategories[app.request.get('facet')] is defined ? subcategories[app.request.get('facet')] : app.request.get('facet')  }}{% endif -%}
 {%- if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif -%}
 {%- endblock %}
 {% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
@@ -29,34 +29,54 @@
 
   {#<div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ channel.seo_url, text: 'Je regarde ' ~ channel.name ~ ' sur mySkreen et vous ?' } %}</div>#}
 
+  {# breadcrumb #}
   <ul class="breadcrumb">
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('sitemap_channels', {type: channel.type}) }}"><span itemprop="title">{% if channel.type == 'cinema' %}Tous les cinémas{% else %}Chaînes {{ channel.type|replace({'broadcast': 'TV', 'catchup': 'Replay', 'webcast': 'Web TV'}) }}{% endif %}</span></a> <span class="divider">/</span></li>
     <li{% if app.request.get('facet') is null and app.request.get('page') is null and app.request.get('format') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: channel.seo_url|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }}</span></a>{% if app.request.get('facet') or app.request.get('page') or app.request.get('format') %} <span class="divider">/</span>{% endif %}</li>
     {% if app.request.get('format') %}
     <li{% if app.request.get('page') is null and app.request.get('facet') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_format', {format: app.request.get('format'), slug: channel.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ app.request.get('format') }}</span></a>{% if app.request.get('page') or app.request.get('facet') %} <span class="divider">/</span>{% endif %} </li>
 		{% endif %}
     {% if app.request.get('facet') %}
-    <li{% if app.request.get('page') is null %} class="active"{% endif%} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_facet', {facet: app.request.get('facet'), slug: channel.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ app.request.get('facet') }}</span></a>{% if app.request.get('page') %} <span class="divider">/</span>{% endif %}</li>
+    <li{% if app.request.get('page') is null or app.request.get('facet')|length > 1 %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a{% if app.request.get('facet')|length < 2 %} itemprop="url" href="{{ path('channel_facet', {facet: app.request.get('facet'), slug: channel.seo_url|replace({'/': ''})}) }}"{% endif %}><span itemprop="title">{{ subcategories[app.request.get('facet')] is defined ? subcategories[app.request.get('facet')] : app.request.get('facet') }}</span></a>{% if app.request.get('page') %} <span class="divider">/</span>{% endif %}</li>
     {% endif %}
     {% if app.request.get('page') %}
     <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_format_page', {format: app.request.get('format'), slug: channel.seo_url|replace({'/': ''})}) }}/page-{{ app.request.get('page') }}/"><span itemprop="title">Page {{ app.request.get('page') }}</span></a></li>
     {% endif %}
   </ul>
 
+  {# suivre #}
 	{% if channel.type in ['broadcast','cinema'] %}
 	<div class="pull-right actions" data-id="{{ channel.id }}">
 		<a class="fav fav-{{ channel.type == 'broadcast' ? 'epg' : 'theater' }} btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
 	</div>
 	{% endif %}
 
-  <img class="channel-logo pull-left" src="{{ channel.img }}" />
+  {# title #}
+  <img class="channel-logo inline-block" src="{{ channel.img }}" />
   {% set page_h1_channel = 'page.h1.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
-  <h1 data-channel="{{ channel.name }}">
-    {{ page_h1_channel|trans({'%name%': channel.name, '%format%': format|trans, '%formats%': formats|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
-    {% if app.request.get('facet') %} <small>{{ app.request.get('facet') }}</small>{% endif %}
-    {% if app.request.get('page') %} <small>page {{ app.request.get('page') }}</small>{% endif %}
+  <h1 class="inline-block" data-channel="{{ channel.name }}">
+    {{ page_h1_channel|trans({'%name%': channel.name, '%format%': format_trans|trans, '%formats%': formats_trans|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
+     <small>{% if app.request.get('facet') %}{{ subcategories[app.request.get('facet')] is defined ? subcategories[app.request.get('facet')] : app.request.get('facet') }}{% endif %}{% if app.request.get('page') %}{{ app.request.get('facet') ? ', ' : '' }}page {{ app.request.get('page') }}{% endif %}</small>
   </h1>
-  <p class="channel-description">{{ channel.description|raw }}</p>
 
+  {# description #}
+  {% if app.request.get('format') is null %}
+    <p class="channel-description">{{ channel.description|raw }}</p>
+  {% else %}
+    <p class="channel-description">
+      {% set page_title_channel = 'page.title.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
+      {{ channel.name }} : regardez les {{ app.request.get('format') }} {{ app.request.get('facet') }}.
+      {%- if app.request.get('page') %}Page {{ app.request.get('page') }}{% endif -%}
+      <br/><br/>
+      {% if app.request.get('facet') %}
+        <a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('facet')}) }}">{{ subcategories[app.request.get('facet')] is defined ? subcategories[app.request.get('facet')] : app.request.get('facet') }} : tous les programmes en streaming</a>
+      {% else %}
+        <a href="{{ path('format', {category_slug: app.request.get('format') }) }}">{{ app.request.get('format') }} : tous les programmes en streaming</a>
+      {% endif %}
+    </p>
+  {% endif %}
+
+  {# tv/replay ? #}
   {% if app.request.get('page') is null and 
         app.request.get('format') is null and 
         app.request.get('facet') is null %}
@@ -66,42 +86,68 @@
     {% if app.request.get('page') %}<h3><small>page {{ app.request.get('page') }}</small>{% endif %}</h3>
   {% endif%}
 
+  {# pagination alpha #}
   <div class="pagination">
     <ul>
         <li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('channel', { slug: app.request.get('slug')}) }}">{{ 'nav.all'|trans }}</a></li>
       {% for l in alpha %}
+        {% if app.request.get('format') %}
+        <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="{{ path('channel_format_facet', {slug: app.request.get('slug'), facet: l, format: app.request.get('format')}) }}">{{ l }}</a></li>
+        {% else %}
         <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="{{ path('channel_facet', {slug: app.request.get('slug'), facet: l}) }}">{{ l }}</a></li>
+        {% endif %}
       {% endfor %}
     </ul>
   </div>
 
+  {# facets #}
+  {% if app.request.get('facet')|length < 2 %}
   <div class="facets">
-  {% for k,f in formats %}
-    <a href="{{ path('channel_format', {format: k, slug: app.request.get('slug')}) }}" class="badge{% if app.request.get('facet') == f %} badge-info"{% endif %}">{{ f }}</a>
-  {% endfor %}
-  <hr/>
-  {% if app.request.get('format') %}
-    {% for k,s in subcategories %}
-      <a href="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="label{% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</a>
-    {% endfor %}
+    {% if app.request.get('format') %}
+      {% for k,s in subcategories %}
+        <a href="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="label{% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</a>
+      {% endfor %}
+    {% else %}
+      {% for k,f in formats %}
+        <a href="{{ path('channel_format', {format: k, slug: app.request.get('slug')}) }}" class="badge{% if app.request.get('facet') == f %} badge-info"{% endif %}">{{ f }}</a>&nbsp;
+      {% endfor %}
+    {% endif %}
     <hr/>
-  {% endif%}
   </div>
+  {% endif %}
 
-  {% if channel.count > 30 and app.request.get('format') is null  %}
+  {% if channel.count > 30  %}
   <ul class="pager">
     {% if app.request.get('page') > 2 %}
     <li class="previous">
-      <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">&larr; 30 précédents</a>
+      {% if app.request.get('facet') %}
+      <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
+      {% elseif app.request.get('format') %}
+      <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
+      {% else %}
+      <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">
+      {% endif %}&larr; 30 précédents</a>
     </li>
     {% elseif app.request.get('page') == 2 %}
     <li class="previous">
-      <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">&larr; 30 précédents</a>
+        {% if app.request.get('facet') %}
+        <a href="{{ path('channel_format_facet', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format')}) }}">
+        {% elseif app.request.get('format') %}
+        <a href="{{ path('channel_format', {slug: app.request.get('slug'), format: app.request.get('format')}) }}">
+        {% else %}
+        <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">
+        {% endif %}&larr; 30 précédents</a>
     </li>
     {% endif %}
     {% if channel.programs|length > 0 %}
     <li class="next">
-      <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">30 suivants &rarr;</a>
+        {% if app.request.get('facet') %}
+        <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
+        {% elseif app.request.get('format') %}
+        <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
+        {% else %}
+        <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">
+        {% endif %}30 suivants &rarr;</a>
     </li>
     {% endif %}
   </ul>
