@@ -181,6 +181,11 @@ var ProgramView;
 ProgramView = {
   initialized: false,
   init: function() {
+    //hack player pas initialisé
+    if ($('#program-teaser-player iframe').length && 
+        !Player.elmt) {
+      Player.elmt = $('#program-teaser-player');
+    }
     if (!this.initialized) {
       this.loadMoreStreaming();
     }

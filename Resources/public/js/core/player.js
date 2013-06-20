@@ -48,24 +48,6 @@ Player = {
     console.log('Player.updateElmt', elmt);
     this.elmt = elmt;
   },
-  reset: function() {
-
-    $('#player-meta').empty();
-    if (this.elmt != null  && this.elmt.html()) {
-      this.elmt.empty();
-      //this.elmt = null;
-    }
-    if (this.playing) {
-      this.playing = null;
-    }
-    this.type = null;
-    if (this.timeout.length > 0) {
-      for (k in this.timeout) {
-        clearTimeout(this.timeout[k]);
-      }
-    }
-    console.log('Player.reset', 'done');
-  },
   getType: function() {
     if (this.type != null) {
       return this.type;
@@ -364,6 +346,23 @@ Player = {
     }
 
     this.reset();
+  },
+  reset: function() {
+    $('#player-meta').empty();
+    if (this.elmt != null  && this.elmt.html()) {
+      this.elmt.empty();
+      //this.elmt = null;
+    }
+    if (this.playing) {
+      this.playing = null;
+    }
+    this.type = null;
+    if (this.timeout.length > 0) {
+      for (k in this.timeout) {
+        clearTimeout(this.timeout[k]);
+      }
+    }
+    console.log('Player.reset', 'done');
   },
   mute: function() {
     switch(this.type) {
