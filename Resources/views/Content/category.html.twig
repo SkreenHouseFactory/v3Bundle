@@ -95,9 +95,9 @@
     <ul class="dropdown-menu">
       {% for k,c in channels %}
       <li>
-        {% if app.request.get('category_slug') %}
+        {% if app.request.get('category_slug') and app.request.get('format') %}
         <a href="{{ path('channel_format_facet', {slug: k|replace({'-+': ''}), format: app.request.get('format'), facet: app.request.get('category_slug') }) }}">
-        {% else %}
+        {% elseif app.request.get('category_slug') %}
         <a href="{{ path('channel_format', {slug: k|replace({'-+': ''}), format: app.request.get('category_slug')}) }}">
         {% endif %}
         {{ c }}</a></li>
