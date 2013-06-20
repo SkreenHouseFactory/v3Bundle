@@ -38,7 +38,7 @@
   <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ person.seo_url, text: 'Je regarde tout ' ~ person.name ~ ' sur mySkreen et vous ?' } %}</div>
 
   <br/>
-  <h3>Sa filmographie{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
+  <h3>Ses programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
 
   {% if person.programs|length == 30 or app.request.get('page') > 1 %}
   <ul class="pager">

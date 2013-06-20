@@ -273,6 +273,7 @@ format:
         spectacle: spectacle
         theatre: théâtre
         concert: concert
+        dessin-anime-et-manga: déssin-animé et manga
     pluriel:
         film: films
         serie: séries
@@ -283,6 +284,7 @@ format:
         spectacle: spectacles
         theatre: théâtres
         concert: concerts
+        dessin-anime-et-manga: déssin-animés et mangas
 past: passé
 today: aujourd'hui
 coming: à venir

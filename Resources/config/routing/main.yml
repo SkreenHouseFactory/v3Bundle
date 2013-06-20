@@ -382,12 +382,6 @@ format_facet:
     requirements:
         category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
         facet: "[^/]"
-category:
-    pattern:  /{format}/{category_slug}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
-    requirements:
-        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
-        category_slug: "[^/]+"
 format_page:
     pattern:  /{category_slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
@@ -395,6 +389,12 @@ format_page:
         category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
         facet: "[^/]"
         page: \d+
+category:
+    pattern:  /{format}/{category_slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+    requirements:
+        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        category_slug: "[^/]+"
 format:
     pattern:  /{category_slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }

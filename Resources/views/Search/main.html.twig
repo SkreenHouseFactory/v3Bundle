@@ -28,7 +28,7 @@
   <p class="actions" data-id="{{ results.person.id }}">
     <a data-placement="right" class="fav fav-person btn btn-primary "><i class="icon-plus-sign icon-white"></i> Suivre {{ results.person.name }}</a>
     &nbsp;&nbsp;
-    <a class="btn" href="{{ path('any_url', {url: results.person.seo_url|slice(1, results.person.seo_url|length-1) }) }}">Voir sa filmographie</a>
+    <a class="btn" href="{{ path('any_url', {url: results.person.seo_url|slice(1, results.person.seo_url|length-1) }) }}">Voir tous ses programmes</a>
   </p>
   {% endif %}
 
