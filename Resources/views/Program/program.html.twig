@@ -133,7 +133,7 @@
       {% if program.theater_release_date is defined %}
         <p class="alert alert-success">Sortie en salle le <strong>{{ program.theater_release_date }}</strong>{# <a href="#" data-ics-date="{{ program.theater_release_date }}"><i class="icon-agenda"></i> Ajouter à votre agenda</a>#}</p>
       {% elseif program.has_vod == 6 %}
-        <p class="alert alert-success">{{ program.episodeof is defined ? 'Cet épisode' : 'Ce programme' }} sera bientôt disponible en Replay. Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera mis en ligne.</p>
+        <p class="alert alert-success">{{ program.episodeof is defined ? 'Cet épisode' : 'Ce programme' }} sera bientôt disponible en Replay. <br/>Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera mis en ligne.</p>
       {% elseif program.has_vod == 0 %}
         {% if program.episodeof is defined %}
         <p class="alert alert-success">Cette épisode n'est pas diffusé pour le moment.<br/>Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera disponible.</p>
@@ -148,7 +148,7 @@
           {% elseif program.offers[key]|length %}
             {% set nb = program.offers[key]|length %}
           {% endif %}
-          <li{% if key == program.offers_default %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ offers[key] }} <span>{{ nb }}</span></a></li>
+          <li{% if key == program.offers_default %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ offers[key] }} ({{ nb }})</a></li>
         {% endfor %}
         {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
         <li><a href="#carousel-bonus" id="trigger-bonus" data-toggle="tab">Bonus ({{ program.offers['bonus']|length }})</a></li>

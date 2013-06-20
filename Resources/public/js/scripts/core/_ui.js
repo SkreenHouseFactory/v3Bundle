@@ -35,8 +35,15 @@ UiView = {
     // ui modal
     if ($('.modal').length > 0) {
       $('.modal').on('show', function(){
+        //retrait des popover
         $('.popover').remove();
-        Player.pause();
+        //pause du player (retait pour iphone)
+        if (navigator.userAgent.match(/iPhone|iPod/)) {
+          Player.stop();
+        } else {
+          Player.pause();
+        }
+        //pause carousels
         carousels = $('.carousel');
         if (carousels.length > 0) {
           carousels.each(function(){
@@ -113,7 +120,7 @@ UiView = {
     }
     
     // -- focus search
-    if (navigator.userAgent.match(/iPhone|iPod/)) {
+    if (!navigator.userAgent.match(/iPhone|iPod/)) {
       console.log('script', 'focus', $('.navbar-search .search-query'));
       $('.navbar-search .search-query').focus();
     }
