@@ -165,6 +165,7 @@ $(document).ready(function(){
       }
     });
 
+
     //init
     ProgramView.init();
 
