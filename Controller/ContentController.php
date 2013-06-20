@@ -295,13 +295,19 @@ class ContentController extends Controller
     }
 
     protected function buildFacets(Request $request) {
+      //echo '$facet:'.$request->get('facet');
+      //echo '$route:'.$request->get('_route');
       $facets = array();
       if (strlen($request->get('facet')) == 1) {
         $facets[] = 'alpha:' . $request->get('facet');
       } elseif (in_array($request->get('facet'), array('video-a-la-demande', 'cinema'))) {
         $facets[] = 'access:' . str_replace(array('video-a-la-demande'), array('vod'), $request->get('facet'));
       } elseif ($request->get('facet')) {
-        $facets[] = 'subcategory:' . $request->get('facet');
+        if (in_array($request->get('_route'), array('channel_format_facet'))) {
+          $facets[] = 'category:' . $request->get('facet');
+        } else {
+          $facets[] = 'subcategory:' . $request->get('facet');
+        }
       }
       if ($request->get('format')) {
         $facets[] = 'format:' . $request->get('format');
