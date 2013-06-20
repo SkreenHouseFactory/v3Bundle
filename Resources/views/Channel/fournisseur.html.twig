@@ -68,11 +68,11 @@
       {{ channel.name }} : regardez les {{ app.request.get('format') }} {{ app.request.get('facet') }}.
       {%- if app.request.get('page') %}Page {{ app.request.get('page') }}{% endif -%}
       <br/><br/>
-      {% if app.request.get('facet') %}
+      <h3>{% if app.request.get('facet') %}
         <a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('facet')}) }}">{{ subcategories[app.request.get('facet')] is defined ? subcategories[app.request.get('facet')] : app.request.get('facet') }} : tous les programmes en streaming</a>
       {% else %}
         <a href="{{ path('format', {category_slug: app.request.get('format') }) }}">{{ app.request.get('format') }} : tous les programmes en streaming</a>
-      {% endif %}
+      {% endif %}</h3>
     </p>
   {% endif %}
 
