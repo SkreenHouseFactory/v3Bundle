@@ -70,6 +70,8 @@ class ContentController extends Controller
 
       //print("<pre>");print_r($datas);
       //echo $api->url;
+      //echo "\n".'category_slug:' . $request->get('category_slug');
+      //echo "\n".'route:'  .$request->get('_route');
       //exit;
       //404
       if (isset($datas->error) && $datas->error) {
