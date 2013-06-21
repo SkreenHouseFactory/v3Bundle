@@ -34,7 +34,7 @@
     <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('sitemap_channels', {type: channel.type}) }}"><span itemprop="title">{% if channel.type == 'cinema' %}Tous les cinémas{% else %}Chaînes {{ channel.type|replace({'broadcast': 'TV', 'catchup': 'Replay', 'webcast': 'Web TV'}) }}{% endif %}</span></a> <span class="divider">/</span></li>
     <li{% if app.request.get('facet') is null and app.request.get('page') is null and app.request.get('format') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: channel.seo_url|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }}</span></a>{% if app.request.get('facet') or app.request.get('page') or app.request.get('format') %} <span class="divider">/</span>{% endif %}</li>
     {% if app.request.get('format') %}
-    <li{% if app.request.get('page') is null and app.request.get('facet') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_format', {format: app.request.get('format'), slug: channel.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ app.request.get('format') }}</span></a>{% if app.request.get('page') or app.request.get('facet') %} <span class="divider">/</span>{% endif %} </li>
+    <li{% if app.request.get('page') is null and app.request.get('facet') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_format', {format: app.request.get('format'), slug: channel.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ ('format.singulier.' ~ app.request.get('format'))|trans }}</span></a>{% if app.request.get('page') or app.request.get('facet') %} <span class="divider">/</span>{% endif %} </li>
 		{% endif %}
     {% if app.request.get('facet') %}
     <li{% if app.request.get('page') is null or app.request.get('facet')|length > 1 %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a{% if app.request.get('facet')|length < 2 %} itemprop="url" href="{{ path('channel_facet', {facet: app.request.get('facet'), slug: channel.seo_url|replace({'/': ''})}) }}"{% endif %}><span itemprop="title">{{ subcategories[app.request.get('facet')] is defined ? subcategories[app.request.get('facet')] : app.request.get('facet') }}</span></a>{% if app.request.get('page') %} <span class="divider">/</span>{% endif %}</li>
@@ -63,7 +63,7 @@
   {% if app.request.get('format') is null %}
     <p class="channel-description">{{ channel.description|raw }}</p>
   {% else %}
-    <p class="channel-description">
+    <div class="channel-description">
       {% set page_title_channel = 'page.title.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
       {{ channel.name }} : regardez les {{ app.request.get('format') }} {{ app.request.get('facet') }}.
       {%- if app.request.get('page') %}Page {{ app.request.get('page') }}{% endif -%}
@@ -73,7 +73,7 @@
       {% else %}
         <a href="{{ path('format', {category_slug: app.request.get('format') }) }}">{{ app.request.get('format') }} : tous les programmes en streaming</a>
       {% endif %}</h3>
-    </p>
+    </div>
   {% endif %}
 
   {# tv/replay ? #}
