@@ -378,6 +378,12 @@ format_list:
     requirements:
         category_slug: film|documentaire|serie|spectacle|jeunesse
         facet: "[^/]"
+format_access:
+    pattern:  /{category_slug}/{access}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+    requirements:
+        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
+        access: video-a-la-demande|cinema|dvd|tv|replay|vod|svod|cuts|bonus|catchup|free|ios|recent|online|myskreen
 format_facet:
     pattern:  /{category_slug}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
