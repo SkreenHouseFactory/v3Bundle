@@ -32,6 +32,9 @@
   {# breadcrumb #}
   <ul class="breadcrumb">
     <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('sitemap_channels', {type: channel.type}) }}"><span itemprop="title">{% if channel.type == 'cinema' %}Tous les cinémas{% else %}Chaînes {{ channel.type|replace({'broadcast': 'TV', 'catchup': 'Replay', 'webcast': 'Web TV'}) }}{% endif %}</span></a> <span class="divider">/</span></li>
+    {% if channel.city is defined and channel.city %}
+    <li class="active"><a>{{ channel.city }}</a> <span class="divider">/</span></li>
+    {% endif %}
     <li{% if app.request.get('facet') is null and app.request.get('page') is null and app.request.get('format') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: channel.seo_url|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }}</span></a>{% if app.request.get('facet') or app.request.get('page') or app.request.get('format') %} <span class="divider">/</span>{% endif %}</li>
     {% if app.request.get('format') %}
     <li{% if app.request.get('page') is null and app.request.get('facet') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_format', {format: app.request.get('format'), slug: channel.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ ('format.singulier.' ~ app.request.get('format'))|trans }}</span></a>{% if app.request.get('page') or app.request.get('facet') %} <span class="divider">/</span>{% endif %} </li>
@@ -47,21 +50,25 @@
   {# suivre #}
 	{% if channel.type in ['broadcast','cinema'] %}
 	<div class="pull-right actions" data-id="{{ channel.id }}">
-		<a class="fav fav-{{ channel.type == 'broadcast' ? 'epg' : 'theater' }} btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+		<a class="fav fav-{{ channel.type == 'broadcast' ? 'epg' : 'cinema' }} btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
 	</div>
 	{% endif %}
 
   {# title #}
+  {% if channel.img %}
   <img class="channel-logo inline-block" src="{{ channel.img }}" />
+  {% endif %}
   {% set page_h1_channel = 'page.h1.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
   <h1 class="inline-block" data-channel="{{ channel.name }}">
     {{ page_h1_channel|trans({'%name%': channel.name, '%format%': format_trans|trans, '%formats%': formats_trans|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
-     <small>{% if app.request.get('facet') %}{{ subcategories[app.request.get('facet')] is defined ? subcategories[app.request.get('facet')] : app.request.get('facet') }}{% endif %}{% if app.request.get('page') %}{{ app.request.get('facet') ? ', ' : '' }}page {{ app.request.get('page') }}{% endif %}</small>
+     <small>{% if app.request.get('facet') %}{{ subcategories[app.request.get('facet')] is defined ? subcategories[app.request.get('facet')] : app.request.get('facet') }}{% endif %}{% if app.request.get('page') %}{{ app.request.get('facet') ? ', ' : '' }}page {{ app.request.get('page') }}{% endif %}{% if channel.city is defined and channel.city %}{{ channel.adress }}<br/>{{ channel.zip_code }} {{ channel.city }}{% endif %}</small>
   </h1>
 
   {# description #}
   {% if app.request.get('format') is null %}
-    <p class="channel-description">{{ channel.description|raw }}</p>
+    <p class="channel-description">
+      {{ channel.description|raw }}
+    </p>
   {% else %}
     <div class="channel-description">
       {% set page_title_channel = 'page.title.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
@@ -87,6 +94,7 @@
   {% endif%}
 
   {# pagination alpha #}
+  {% if channel.type != 'cinema' %}
   <div class="pagination">
     <ul>
         <li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('channel', { slug: app.request.get('slug')}) }}">{{ 'nav.all'|trans }}</a></li>
@@ -99,6 +107,7 @@
       {% endfor %}
     </ul>
   </div>
+  {% endif %}
 
   {# facets #}
   {% if app.request.get('facet')|length < 2 %}
@@ -116,6 +125,19 @@
   </div>
   {% endif %}
 
+  {# map #}
+  {% if channel.adress is defined %}
+  <div id="map-container" class="well">
+    {% if channel.tel %}tél : {{ channel.tel }}<br/>{% endif %}
+    {% if channel.web %}<a href="{{ channel.web }}" target="_blank">{{ channel.web }}</a>{% endif %}
+    <hr/>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <div id="map-canvas" data-name="{{ channel.name }}" data-adress="{{ channel.adress }} {{ channel.zip_code }} {{ channel.city }}"></div>
+  </div>
+  {% endif %}
+
+
+  {# pager #}
   {% if channel.count > 30  %}
   <ul class="pager">
     {% if app.request.get('page') > 2 %}
@@ -153,7 +175,7 @@
   </ul>
   {% endif %}
 
-  <div id="channel-programs" class="slider slider-list">
+  <div id="channel-programs" class="slider slider-list{% if channel.adress is defined %} clear-cancel{% endif %}">
     <ul class="items">
     {% for program in channel.programs %}
     {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, theater_id: channel.type == 'cinema' ? channel.id : '' } %}

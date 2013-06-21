@@ -34,7 +34,6 @@ class ContentController extends Controller
     */
     public function channelAction(Request $request)
     {
-
       $this->blockDomain($request);
 
       $api   = $this->get('api');
@@ -134,7 +133,7 @@ class ContentController extends Controller
           'formats' => array_combine(explode(';', $datas->facets_seo_url->format),explode(';', $datas->facets->format)),
           'categories' => array_combine(explode(';', $datas->facets_seo_url->category),explode(';', $datas->facets->category)),
           'subcategories' => array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory)),
-          'access' => explode(';', $datas->facets->access),
+          'access' => explode(';', isset($datas->facets->access) ? $datas->facets->access : null),
           'alpha_available' => explode(';', $datas->facets->alpha),
           'alpha'    => array(1,2,3,4,5,6,7,8,9,
                               'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
