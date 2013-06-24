@@ -39,14 +39,21 @@ $(document).ready(function(){
     Skhf.session.signout();
     return false;
   });
-  $('.user-on .dropdown-toggle, .user-on [data-target]').click(function(){
+  $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
     //notifications
-    if ($(this).hasClass('notifications-count') && 
-        $('.badge-important', $(this)).length > 0) {
-      Skhf.session.readNotifications();
-      var current = $('.navbar .notifications li:not(.divider, .empty)').length;
-      $('.navbar .notifications-count span.badge').removeClass('badge-important').html(current);
-    }
+    if ($(this).hasClass('notifications-count')  && 
+        !$(this).parent().hasClass('open') ) { 
+      if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
+        Player.stop();
+        
+      }
+	     
+		  if($('.badge-important', $(this)).length > 0) {
+	      Skhf.session.readNotifications();
+	      var current = $('.navbar .notifications li:not(.divider, .empty)').length;
+	      $('.navbar .notifications-count span.badge').removeClass('badge-important').html(current);
+	    }
+	}
   });
   //share
   $('.share .btn').on('click', function(){
