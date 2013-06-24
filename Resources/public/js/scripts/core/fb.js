@@ -32,23 +32,26 @@ $(document).ready(function(){
     console.log('script fbsync', 'fetching information...');
     FB.api('/me', function(response) {
       console.log('script fbsync', 'success: ' + response.name, response, FB.getAuthResponse());
-      API.query('POST', 'user', {
-                  session_uid: Skhf.session.uid,
-                  fbuid: response.id,
-                  username: response.email,
-                  access_token: FB.getAuthResponse()['accessToken']
-                },
-                function(){
-                  console.log('script fbsync', 'API.query callback');
-                  Skhf.session.sync(function(sessionDatas){
-                    $('.modal').modal('hide');
-                    /* handled in Skhf.session.sync
-                    Skhf.session.signin(sessionDatas, function(){
-                      console.log('script fbsync', 'API.query callback', 'Skhf.session.signin callback', sessionDatas);
-                    });
-                    */
-                  });
-                });
+      API.query(
+        'POST', 
+        'user', 
+        {
+          session_uid: Skhf.session.uid,
+          fbuid: response.id,
+          username: response.email,
+          access_token: FB.getAuthResponse()['accessToken']
+        },
+        function(){
+          console.log('script fbsync', 'API.query callback');
+          Skhf.session.sync(function(sessionDatas){
+            $('.modal').modal('hide');
+            /* handled in Skhf.session.sync
+            Skhf.session.signin(sessionDatas, function(){
+              console.log('script fbsync', 'API.query callback', 'Skhf.session.signin callback', sessionDatas);
+            });
+            */
+          });
+        });
     });
   }
   function fblogin() {
@@ -76,7 +79,7 @@ $(document).ready(function(){
   });
   */
   //trigger
-  $("#fbconnect").click(function(){
+  $('#fbconnect').on('click', function(){
     console.log('script', 'trigger FB');
     fblogin();
     return false;
