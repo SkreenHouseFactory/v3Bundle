@@ -24,39 +24,43 @@
   <hr/>
   {% set date = data.timestamp|localizeddate('full')|split('now'|date('Y')) %}
   <h1>Programme TV du <time timestamp="{{ data.timestamp }}">{{ date[0] }}</time> </h1>
-  <div id="timeslider"></div>
   <div id="datepicker"></div>
   <ul class="nav nav-pills">
     <li class="{{ app.request.get('date') == 'hier-soir' ? 'active ' : '' }}yesterdaynight time-change"><a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir</a></li>
-    <li class="{{ app.request.get('date') is null ? 'active ' : '' }}now time-change"><a href="{{ path('tvgrid') }}">En ce moment</a></li>
-    <li class="{{ app.request.get('date') == 'ce-soir' ? 'active ' : '' }}tonight time-change"><a href="{{ path('tvgrid_date', {date: 'ce-soir'}) }}">Ce soir</a></li>
+    <li class="{{ app.request.get('date') == 'en-ce-moment' ? 'active ' : '' }}now time-change"><a href="{{ path('tvgrid_date',{date:'en-ce-moment'}) }}">En ce moment</a></li>
+    <li class="{{ app.request.get('date') is null ? 'active ' : '' }}tonight time-change"><a href="{{ path('tvgrid') }}">Ce soir</a></li>
     <li class="datepicker"><a class="calendar btn"><i class="icon-calendar"></i></a></li>
     <li class="pull-right addchannel">
       <a data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="icon-plus-sign"></i> de chaînes</a>
     </li>
-    <li class="pull-right dropdown dropdown-update">
-      <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-check"></i>&nbsp;<span>Que voir ?</span></a>
-      <ul class="dropdown-menu">
-        <li><a data-filter="films">Films</a></li>
-        <li><a data-filter="documentaires">Documentaires</a></li>
-        <li><a data-filter="emissions">Emissions</a></li>
-        <li><a data-filter="sports">Sports</a></li>
-        <li><a data-filter="series">Séries</a></li>
-        <li><a data-filter="spectacles">Spectacles</a></li>
-        <li class="divider"></li>
-        <li><a data-filter="in-playlists">Dans vos playlists</a></li>
-        <li><a data-filter="has-replay">En Replay</a></li>
-        <li><a data-filter="is-popular">Les plus suivis</a></li>
-        <li class="divider"></li>
-        <li><a data-filter="">Tout</a></li>
-      </ul>
-    </li>
+    <select class="pull-right dropdown dropdown-update" id="filter">
+        <option>Que voir?</option>
+        <option value="films">Films</option>
+        <option value="documentaires">Documentaires</option>
+        <option value="emissions">Emissions</option>
+        <option value="sports">Sports</option>
+        <option value="series">Séries</option>
+        <option value="spectacles">Spectacles</option>
+        <option class="divider"></option>
+        <option value="in-playlists">Dans vos playlists</option>
+        <option value="has-replay">En Replay</option>
+        <option value="is-popular">Les plus suivis</option>
+        <option class="divider"></option>
+        <option value="">Tout</option>
+      
+    </select>
   </ul>
+  <div class="horaire">
+    <a class="btn btn-small btn-inverse btn-precedent" ><i class="icon-chevron-left icon-white"></i> Précédent</a>
+   <a class="btn btn-small btn-inverse btn-suivant">Suivant <i class="icon-chevron-right icon-white"></i></a>
+ </div>
   <ul class="timeline">
+    
     <li></li>
     <li>&nbsp;{{ data.timestamp|date('H:i')|replace({':': 'h'}) }}</li>
     <li>{{ (data.timestamp + 3600)|date('H:i')|replace({':': 'h'}) }}</li>
     <li><span class="pull-right">{{ (data.timestamp + 3*3600)|date('H:i')|replace({':': 'h'}) }}</span>{{ (data.timestamp + 2*3600)|date('H:i')|replace({':': 'h'}) }}&nbsp;</li>
+    
   </ul>
   <ul id="channels" class="nav nav-list">
     {% include 'SkreenHouseFactoryV3Bundle:Timeline:_channels-schedule.html.twig' with {data: data } %}

@@ -32,15 +32,10 @@ $(document).ready(function(){
     }
 
     //////////// SCRIPTS ////////////////
-    //btns
-    $('a[target="_blank"]').live('click', function(){
-      console.log('scripts/tvgrid.js', 'a[target="_blank"]', $(this).attr('href'));
-      window.open($(this).attr('href'));
-    })
     //timeslider
     var date = new Date(parseInt($('#grid').data('timestamp'))*1000);
     GridView.hour = date.getHours();
-    $('#timeslider').slider({
+   /* $('#timeslider').slider({
       step: 1,
       max: 23,
       min: 0,
@@ -61,7 +56,19 @@ $(document).ready(function(){
         $('.ui-slider-handle').addClass('btn')
                               .html(GridView.hour + 'h00');
       }
-    });
+    }); */
+     $('.btn-precedent').on('click', function(){
+       
+       GridView.setTime( $('#grid').data('timestamp') - 3600);
+       GridView.loadSchedule();
+     
+     });
+     $('.btn-suivant').on('click', function(){
+      
+       GridView.setTime( $('#grid').data('timestamp') + 3600);
+       GridView.loadSchedule();
+     
+     });
     //datepicker
     var datepicker = $('#datepicker');
     datepicker.hide();
@@ -90,14 +97,14 @@ $(document).ready(function(){
        }
     });
     //dropdown update
-    $('a[data-filter]').click(function(){
-      console.log('script/tvGridView.js', $(this).data('filter'));
+    $('#filter').on('change',function(){
+      console.log('script/tvGridView.js', $(this).val());
       //grid
-      GridView.filter($(this).data('filter'));
+      GridView.filter($(this).val());
       //sliders
-      if ($(this).data('filter')) {
+      if ($(this).val()) {
         $('.items li').hide();
-        $('.items li.'  + $(this).data('filter')).show();
+        $('.items li.'  + $(this).val()).show();
       } else {
         $('.items li').show();
       }
