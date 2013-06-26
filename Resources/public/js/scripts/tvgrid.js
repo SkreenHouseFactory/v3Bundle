@@ -104,6 +104,12 @@ $(document).ready(function(){
        }
     });
     //dropdown update
+    
+    $('.btn-filters > a').on('click', function(){
+      console.log('filter', $(this).data('filter'));
+      $('#filter').val($(this).data('filter')).change();
+    });
+    
     $('#filter').on('change',function(){
       console.log('script/tvGridView.js', $(this).val());
       //grid
