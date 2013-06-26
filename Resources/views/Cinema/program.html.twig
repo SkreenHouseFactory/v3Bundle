@@ -17,6 +17,9 @@
   {% endif %}
 {% else %}
   <div class="accordion" id="accordion-theaters">
+  {% if radius is defined and radius > 10 %}
+    <p class="alert alert-info">{{ 'program.theaters.extended.geoloc'|trans }}</p>
+  {% endif %}
   {% for cinema in cinemas %}
     {% if cinema.adress is defined and cinema.schedules[0].horaires is defined %}
     <div class="accordion-group actions actions-remove" data-id="{{ cinema.id }}" data-name="{{ cinema.name }}">

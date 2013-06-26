@@ -343,6 +343,8 @@ program:
     desc.read: Lire la suite
     episodes.all: Tous les épisodes
     theaters:
+        extended:
+            geoloc: Aucun cinéma trouvé dans les environs immédiats.
         noprogram:
             search: Aucun cinéma trouvé.
             playlist: Aucun cinéma proposant ce film trouvé dans vos playlists.
