@@ -23,29 +23,42 @@
   {% endfor %}
   <hr/>
   {% set date = data.timestamp|localizeddate('full')|split('now'|date('Y')) %}
-  <h1>Programme TV du <time timestamp="{{ data.timestamp }}">{{ date[0] }}</time> </h1>
+  <h1>Programme TV du <time timestamp="{{ data.timestamp }}">{{ date[0]|capitalize}}{{ data.timestamp|date('Y')}}
+   </time> </h1>
   <div id="datepicker"></div>
   <ul class="nav nav-pills">
     <li class="{{ app.request.get('date') == 'hier-soir' ? 'active ' : '' }}yesterdaynight time-change"><a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir</a></li>
     <li class="{{ app.request.get('date') == 'en-ce-moment' ? 'active ' : '' }}now time-change"><a href="{{ path('tvgrid_date',{date:'en-ce-moment'}) }}">En ce moment</a></li>
     <li class="{{ app.request.get('date') is null ? 'active ' : '' }}tonight time-change"><a href="{{ path('tvgrid') }}">Ce soir</a></li>
     <li class="datepicker"><a class="calendar btn"><i class="icon-calendar"></i></a></li>
+    <li >
+      <select id="opt-hour" class="btn hourpicker" data-current-hour="{{date[1]|date('H')}}">
+     
+        {% for h in range(0, 23) %}
+        <option value="{{h}}" {%if h==date[1]|date('H') %} selected{% endif %}>{{h}}h00</option>
+        {% endfor %}
+        
+      
+      
+      </select>
+    </li>
     <li class="pull-right addchannel">
       <a data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="icon-plus-sign"></i> de chaînes</a>
-    </li>
+    </li> 
+   
     <select class="pull-right dropdown dropdown-update" id="filter">
-        <option>Que voir?</option>
+        <option>Que voir ?</option>
         <option value="films">Films</option>
         <option value="documentaires">Documentaires</option>
         <option value="emissions">Emissions</option>
         <option value="sports">Sports</option>
         <option value="series">Séries</option>
         <option value="spectacles">Spectacles</option>
-        <option class="divider"></option>
+        <option class="divider">-----------------</option>
         <option value="in-playlists">Dans vos playlists</option>
         <option value="has-replay">En Replay</option>
         <option value="is-popular">Les plus suivis</option>
-        <option class="divider"></option>
+        <option class="divider">-----------------</option>
         <option value="">Tout</option>
       
     </select>
