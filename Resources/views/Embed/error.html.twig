@@ -1,0 +1,72 @@
+{% extends 'SkreenHouseFactoryV3Bundle::empty.html.twig' %}
+{% block nostats %}nostat{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="noindex,nofollow" />
+<style>
+body {
+  margin: 0;
+  padding: 0;
+}
+#player { height: 100%; }
+#trigger {
+  position: absolute;
+  z-index: 2;
+  width: {{ width }}px;
+  height: {{ height }}px;
+  background: url({{ asset('bundles/skreenhousefactoryv3/images/big-play.png') }}) no-repeat center;
+}
+</style>
+{% endblock %}
+{% block title %}embed{% endblock %}
+{% block description %}embed{% endblock %}
+
+{% block content %}
+
+<a class="player-cover" target="_blank" style="position:absolute;top:3%;left:{{ width-120 }}px;z-index:3;padding:5px;border-radius:3px;background:rgba(0,0,0,0.6);" href="http://www.myskreen.com"><img src="http://mskstatic.com/100/medias/logo_black_nobaseline.png" alt="mySkreen : Guide Replay, Vod, Ciné"></a>
+<div id="player" style="width:{{ width }}px;height:{{ height }}px;">
+<h1>&nbsp;Vidéo supprimée !</h1>
+<br><br>
+<p class="alert alert-info">Retrouvez tous vos programmes Replay, VOD, ciné sur <a href="http://www.myskreen.com" target="_top">mySkreen.com</a></p>
+<br><br>
+<form id="search">
+<p align="center"><input placeholder="Un programme, un acteur, une chaîne, etc" class="span4 embed-search-query"/><a class="btn">Rechercher sur mySkreen.com</a></p>
+</form>
+</div>
+
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.9.1.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap-ajax-typeahead.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/modernizr.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer-3.2.11.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.controls-3.2.10.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.ipad-3.2.11.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
+    '@SkreenHouseFactoryTvBundle/Resources/public/js/couchmode.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/embed.js'
+
+    filter='?yui_js' 
+    output='js/compiled/embed.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+<script>
+$('#search').on('submit', function(){
+  var q = encodeURIComponent($('.embed-search-query', $(this)).val());
+  window.open('http://www.myskreen.com/programmes/' + q);
+  return false;
+});
+</script>
+
+{# analitycs #}
+{% if app.environment == 'prod' %}
+  {% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' with {tag: 'UA-6151896-15'} %}
+{% endif %}
+
+{% endblock %}

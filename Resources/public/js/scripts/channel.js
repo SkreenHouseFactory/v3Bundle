@@ -3,7 +3,8 @@ $(document).ready(function(){
 
   // -- track channel
   var channel_name = $('h1').data('channel');
-  API.trackVar(1, 'Chaîne', channel_name, 3);
+  //API.trackVar(1, 'Chaîne', channel_name, 3);
+  API.trackEvent('Chaîne', channel_name, 'page=chaine');
 
   // -- fournisseur
   if ($('#view-fournisseur').length) {

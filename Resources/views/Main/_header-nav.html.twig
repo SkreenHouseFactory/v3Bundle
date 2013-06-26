@@ -37,7 +37,7 @@
           <li class="tv-channels">
             {% for channel in tv_channels %}
             {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
+            <a data-tnt-name="{{ channel }}" class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
             {% endfor %}
           </li>
           <li><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}"><i class="icon-chevron-right"></i> Toutes les chaines TV</a></li>
