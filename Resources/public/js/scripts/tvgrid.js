@@ -57,6 +57,14 @@ $(document).ready(function(){
                               .html(GridView.hour + 'h00');
       }
     }); */
+     
+     $('#opt-hour').on('change',function(){
+       var current = $(this).data('current-hour');
+       var nhour = $(this).val();
+       var diff =  current - nhour;
+        GridView.setTime( $('#grid').data('timestamp') - diff*3600);
+        GridView.loadSchedule();
+     });
      $('.btn-precedent').on('click', function(){
        
        GridView.setTime( $('#grid').data('timestamp') - 3600);
@@ -260,7 +268,7 @@ GridView = {
        case 5: var day = 'Vendredi'; break;
        case 6: var day = 'Samedi'; break;
     }
-    var datehours = date.getHours();
+   
     //var time = date.toLocaleTimeString().replace('00:00', '00');
     var datestring = date.toLocaleDateString()
       .replace('/1/', ' Janvier ')
@@ -277,11 +285,14 @@ GridView = {
       .replace('/12/', ' Décembre ');
     
       
-    $('h1 time').html(day + ' ' + datestring + ' ' + datehours + 'h00');// + ' - ' + time);
+    $('h1 time').html(day + ' ' + datestring + ' ');// + ' - ' + time);
+    
     //timeline
     $('.timeline li:nth-child(2)').html(date.getHours()%24 + 'h00')
     $('.timeline li:nth-child(3)').html((date.getHours() + 1)%24 + 'h00')
     $('.timeline li:last-child').html((date.getHours() + 2)%24 + 'h00')
+    // modification select current-hour
+    $('#opt-hour').data('current-hour',date.getHours()%24)
   },
   filter: function(onglet) {
     console.log('GridView.filter', onglet);
