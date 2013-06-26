@@ -747,7 +747,9 @@ UI = {
   // -- typeahead
   typeahead: function(searchbox){
     //console.log('UI.typeahead', searchbox);
-    $(searchbox).typeahead({
+    $(searchbox).keyup($.debounce(autocpl,500));
+    function autocpl() {
+    $(this).typeahead({
       items: 5,
       minLength: 3,
       source: function (typeahead, query) {
@@ -904,12 +906,12 @@ UI = {
            });
       },
       onselect: function(obj) {
-        console.log('UI.typeahead', 'onselect', obj, typeof obj, 'blur:' + $(searchbox), API.config.v3_url + '/programmes/' + obj);
+        console.log('UI.typeahead', 'onselect', obj, typeof obj, 'blur:' + $(this), API.config.v3_url + '/programmes/' + obj);
 
         if (typeof obj != 'object') { //typeahead
           top.location = API.config.v3_url + '/programmes/' + obj;
         } else if (typeof obj.seo_url != 'undefined') { //advanced
-          $(searchbox).attr('value', '')
+          $(this).attr('value', '')
           if (obj.seo_url.match(/^http:\/\//)) {
             top.location = obj.seo_url;
           } else {
@@ -918,6 +920,7 @@ UI = {
         }
       }
     });
+    };
   },
   keynav: function(){
   },

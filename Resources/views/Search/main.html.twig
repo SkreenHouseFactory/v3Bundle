@@ -34,11 +34,11 @@
 
   <div id="search-programs">
   {% if results.count is not defined or results.count.total is not defined %}
-    {% if results.count %}
+    {% if results.count is defined %}
       <p class="alert alert-info">{{ results.count }} {{ 'search.results'|trans }}</p>
     {% else %}
       <p class="alert">{{ 'search.noresults'|trans }}</p>
-      {% if results.spelling|length %}
+      {% if results.spelling and results.spelling|length %}
       <p class="lead">Vouliez-vous dire : 
       {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling}) }}">{{ spelling }}</a> ?{% endfor %}
         </p>
