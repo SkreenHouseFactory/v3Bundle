@@ -308,7 +308,7 @@ GridView = {
     $('.timeline li:last-child').html((date.getHours() + 2)%24 + 'h00');
     // modification select current-hour
     $('#opt-hour').data('current-hour',date.getHours()%24);
-    
+    $('#opt-hour').val(date.getHours()%24);
   },
   filter: function(onglet) {
     console.log('GridView.filter', onglet);
