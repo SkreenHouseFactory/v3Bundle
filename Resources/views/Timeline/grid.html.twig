@@ -23,7 +23,8 @@
   {% endfor %}
   <hr/>
   {% set date = data.timestamp|localizeddate('full')|split('now'|date('Y')) %}
-  <h1>Programme TV du <time timestamp="{{ data.timestamp }}">{{ date[0] }}</time> </h1>
+  <h1>Programme TV du <time timestamp="{{ data.timestamp }}">{{ date[0]|capitalize}}{{ data.timestamp|date('Y')}}&nbsp;{{  date[1]|date('H:i')|replace({':': 'h'}) }}
+   </time> </h1>
   <div id="datepicker"></div>
   <ul class="nav nav-pills">
     <li class="{{ app.request.get('date') == 'hier-soir' ? 'active ' : '' }}yesterdaynight time-change"><a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir</a></li>

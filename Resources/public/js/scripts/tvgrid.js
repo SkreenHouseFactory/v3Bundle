@@ -148,9 +148,9 @@ GridView = {
     this.timestamp = this.elmt.data('timestamp');
     this.timestamp_start = this.elmt.data('timestamp');
     this.load();
-  },
+  },  
   idle: function(initialized) {
-    /*
+  
     var self = this;
     var div = this.elmt;
     //update cache
@@ -190,7 +190,7 @@ GridView = {
         self.idle(true);
       }, 60000);
     }
-    */
+    
   },
   load: function(timestamp, callback) {
     console.log('GridView.load', 'timestamp', timestamp);
@@ -251,7 +251,7 @@ GridView = {
       GridView.timestamp_start = timestamp;
     }
     var date = new Date(timestamp*1000);
-    switch(date.getUTCDay()) {
+    switch(date.getDay()) {
        case 0: var day = 'Dimanche'; break;
        case 1: var day = 'Lundi'; break;
        case 2: var day = 'Mardi'; break;
@@ -260,6 +260,7 @@ GridView = {
        case 5: var day = 'Vendredi'; break;
        case 6: var day = 'Samedi'; break;
     }
+    var datehours = date.getHours();
     //var time = date.toLocaleTimeString().replace('00:00', '00');
     var datestring = date.toLocaleDateString()
       .replace('/1/', ' Janvier ')
@@ -274,7 +275,9 @@ GridView = {
       .replace('/10/', ' Octobre ')
       .replace('/11/', ' Novembre ')
       .replace('/12/', ' Décembre ');
-    $('h1 time').html(day + ' ' + datestring);// + ' - ' + time);
+    
+      
+    $('h1 time').html(day + ' ' + datestring + ' ' + datehours + 'h00');// + ' - ' + time);
     //timeline
     $('.timeline li:nth-child(2)').html(date.getHours()%24 + 'h00')
     $('.timeline li:nth-child(3)').html((date.getHours() + 1)%24 + 'h00')
