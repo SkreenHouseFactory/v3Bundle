@@ -66,13 +66,12 @@ $(document).ready(function(){
         GridView.loadSchedule();
      });
      $('.btn-precedent').on('click', function(){
-       
+      
        GridView.setTime( $('#grid').data('timestamp') - 3600);
        GridView.loadSchedule();
      
      });
      $('.btn-suivant').on('click', function(){
-      
        GridView.setTime( $('#grid').data('timestamp') + 3600);
        GridView.loadSchedule();
      
@@ -255,10 +254,15 @@ GridView = {
     console.log('GridView.setTime', timestamp);
     this.elmt.data('timestamp', timestamp);
     this.timestamp = timestamp;
+    
+    if($(".time-change").hasClass('active')){
+      $(".time-change").removeClass('active');
+    }
     if (typeof resetDate != 'undefined' && resetDate) {
       GridView.timestamp_start = timestamp;
     }
     var date = new Date(timestamp*1000);
+    this.hour = date.getHours();
     switch(date.getDay()) {
        case 0: var day = 'Dimanche'; break;
        case 1: var day = 'Lundi'; break;
@@ -270,6 +274,7 @@ GridView = {
     }
    
     //var time = date.toLocaleTimeString().replace('00:00', '00');
+    var CurrentDate = new Date();
     var datestring = date.toLocaleDateString()
       .replace('/1/', ' Janvier ')
       .replace('/2/', ' Février ')
@@ -283,16 +288,27 @@ GridView = {
       .replace('/10/', ' Octobre ')
       .replace('/11/', ' Novembre ')
       .replace('/12/', ' Décembre ');
-    
       
+    if( date.getDate() == CurrentDate.getDate() && date.getHours()==CurrentDate.getHours()){
+      $('.now.time-change').addClass('active');
+    }
+    
+    if( date.getDate() == CurrentDate.getDate() && date.getHours()>=20 ){
+      $('.tonight.time-change').addClass('active');
+    }
+    if( date.getDate() == CurrentDate.getDate()-1 && date.getHours()>=20 ){
+      $('.yesterdaynight.time-change').addClass('active');
+    }
+    
     $('h1 time').html(day + ' ' + datestring + ' ');// + ' - ' + time);
     
     //timeline
-    $('.timeline li:nth-child(2)').html(date.getHours()%24 + 'h00')
-    $('.timeline li:nth-child(3)').html((date.getHours() + 1)%24 + 'h00')
-    $('.timeline li:last-child').html((date.getHours() + 2)%24 + 'h00')
+    $('.timeline li:nth-child(2)').html(date.getHours()%24 + 'h00');
+    $('.timeline li:nth-child(3)').html((date.getHours() + 1)%24 + 'h00');
+    $('.timeline li:last-child').html((date.getHours() + 2)%24 + 'h00');
     // modification select current-hour
-    $('#opt-hour').data('current-hour',date.getHours()%24)
+    $('#opt-hour').data('current-hour',date.getHours()%24);
+    
   },
   filter: function(onglet) {
     console.log('GridView.filter', onglet);
