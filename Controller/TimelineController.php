@@ -31,13 +31,16 @@ class TimelineController extends Controller
         case 'ce-soir':
           $timestamp = mktime(20, 0, 0, date('m'), date('d'), date('Y'));
         break;
+        case 'en-ce-moment':
+          $timestamp = mktime(date('H'), 0, 0, date('m'), date('d'), date('Y'));
+        break;
         default:
           if (is_numeric($request->get('date'))) {
             $timestamp = $request->get('date');
           } elseif ($request->get('date')) {
             $timestamp = strtotime(str_replace('-', ' ', $request->get('date')));
           } else {
-            $timestamp = mktime(date('H'),0,0,date('m'),date('d'),date('Y'));
+            $timestamp = mktime(20,0,0,date('m'),date('d'),date('Y'));
           }
         break;
       }

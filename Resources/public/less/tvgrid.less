@@ -33,8 +33,16 @@
         padding-bottom: 7px;
         padding-top: 7px;
       }
+      &.datepicker{
+        > a {
+          &.calendar{
+            padding-bottom: 6px;
+          }
+        }
+      }
     }
   }
+  
   #timeslider {
     width: 230px;
     position: absolute;
@@ -69,17 +77,43 @@
     }
   }  
   ul.timeline {
-    background: rgba(0,0,0,0.4);
+    position: relative;
+    background: rgba(0,0,0,0.7);
     color: white;
     list-style: none;
     margin: 10px 0 0 0;
+    height: 23px;
     li {
       display: inline-block;
       width: 300px;
       &:first-child {
-        width: 87px;
+        width: 89px;
+      }
+      &:nth-child(2){
+        padding-left: 10px;
       }
     }
+  }
+  
+  .horaire{
+    position: absolute;
+    top: 423px;
+    width: 100%;
+  }
+  .btn-precedent{
+   padding: 0px 8px;
+   z-index: 1;
+   position: relative ;
+   left:0;
+   top: 0;
+  }
+  .btn-suivant{
+    padding: 0px 8px;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    top: 0;
+   
   }
   #channels {
     padding: 0;
