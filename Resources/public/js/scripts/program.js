@@ -171,7 +171,8 @@ $(document).ready(function(){
 
     $('[data-track-channel]').each(function() {
       //track channel
-      API.trackVar(1, 'Chaîne', $(this).data('track-channel'), 3);
+      //API.trackVar(1, 'Chaîne', $(this).data('track-channel'), 3);
+      API.trackEvent('Chaîne', $(this).data('track-channel'), 'page=programme');
     })
   }
 });

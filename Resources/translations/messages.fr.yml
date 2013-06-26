@@ -53,6 +53,7 @@ page:
                 dvd: DVDs en ligne
                 box: Box en ligne
                 vod: Vidéo à la demande 
+                thematique: Les chaînes mySkreen : ne ratez plus rien !
         error: Page introuvable
         redirect: Redirection en cours ...
     description:
@@ -265,6 +266,7 @@ all:
 format:
     singulier:
         film: film
+        telefilm: téléfilm
         serie: série
         emission: émission
         documentaire: documentaire
@@ -276,6 +278,7 @@ format:
         dessin-anime-et-manga: déssin-animé et manga
     pluriel:
         film: films
+        telefilm: téléfilms
         serie: séries
         emission: émissions
         documentaire: documentaires
@@ -340,6 +343,8 @@ program:
     desc.read: Lire la suite
     episodes.all: Tous les épisodes
     theaters:
+        extended:
+            geoloc: Aucun cinéma trouvé dans les environs immédiats.
         noprogram:
             search: Aucun cinéma trouvé.
             playlist: Aucun cinéma proposant ce film trouvé dans vos playlists.

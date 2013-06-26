@@ -148,7 +148,7 @@
           {% elseif program.offers[key]|length %}
             {% set nb = program.offers[key]|length %}
           {% endif %}
-          <li{% if key == program.offers_default %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ offers[key] }} ({{ nb }})</a></li>
+          <li{% if key == program.offers_default or program.offers_default is null %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ offers[key] }} ({{ nb }})</a></li>
         {% endfor %}
         {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
         <li><a href="#carousel-bonus" id="trigger-bonus" data-toggle="tab">Bonus ({{ program.offers['bonus']|length }})</a></li>
@@ -158,12 +158,12 @@
       <div class="tab-content">
         {% for key in offers|keys if program.offers[key]|length %}
         <a name="{{ key }}"></a>
-        <div id="{{ key }}" data-play-text="{{ ('player.content.text.' ~ key)|trans }}" class="tab-pane{% if key == program.offers_default %} active{% endif %}">
+        <div id="{{ key }}" data-play-text="{{ ('player.content.text.' ~ key)|trans }}" class="tab-pane{% if key == program.offers_default or program.offers_default is null %} active{% endif %}">
         {%  if program.offers[key]|length %}
         <div class="table-container scroll">
         <table class="table">
           <tbody>
-          {%  if key == 'theaters' %}
+          {% if key == 'theaters' %}
             <tr>
               <td colspan="6" class="theaters">
                 {% if program.datas_theaters.theaters_ids|length > 0 %}

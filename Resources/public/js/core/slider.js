@@ -300,7 +300,9 @@ var BaseSlider = Class.extend({
         .attr('data-player-program', JSON.stringify(program));
       if (!this.elmt.hasClass('slider-playlist')) {
         $('a',li).attr('href', API.config.v3_root + program.seo_url);
-      } 
+      }  else {
+        $('a',li).data('seo-url', API.config.v3_root + program.seo_url); //redirect > lien vers programme
+      }
       if (program.deporte) {
         li.addClass('deporte');
       }

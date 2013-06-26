@@ -3,7 +3,8 @@ $(document).ready(function(){
 
   // -- track channel
   var channel_name = $('h1').data('channel');
-  API.trackVar(1, 'Chaîne', channel_name, 3);
+  //API.trackVar(1, 'Chaîne', channel_name, 3);
+  API.trackEvent('Chaîne', channel_name, 'page=chaine');
 
   // -- fournisseur
   if ($('#view-fournisseur').length) {
@@ -15,6 +16,37 @@ $(document).ready(function(){
     });
     if (channel_name) {
       $('[title="' + channel_name + ' Replay"]').parent().addClass('active');
+    }
+
+    if ($('#map-container').length) {
+      var map;
+      var mapOptions = {
+        zoom: 16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+      geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ 'address': $('#map-canvas').data('adress')}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          map.setCenter(results[0].geometry.location);
+          //marker
+          var marker = new google.maps.Marker({
+           position: results[0].geometry.location,
+          	map: map,
+          	title: $('#map-canvas').data('name')
+          });
+          // fenêtre
+          var myWindowOptions = {
+          	content: '<h6>'+$('#map-canvas').data('name')+'</h6>'
+          };
+          var myInfoWindow = new google.maps.InfoWindow(myWindowOptions);
+          google.maps.event.addListener(marker, 'click', function() {
+          	myInfoWindow.open(map, marker);
+          });
+        } else {
+          console.error("Geocode was not successful for the following reason: " + status);
+        }
+      });
     }
 
   // -- chaine

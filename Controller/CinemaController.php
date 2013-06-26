@@ -71,19 +71,27 @@ class CinemaController extends Controller
         ));
       } elseif ($request->get('latlng')) {
         list ($lat, $lng) = explode(',', $request->get('latlng'));
-        $cinemas = $api->fetch(
-          'schedule/cine', array(
-          'program_id' => $request->get('id'),
-          'with_schedule' => true,
-          'fromGeoloc' => true,
-          'lat' => $lat,
-          'long' => $lng
-        ));
+        $radius_all = array(10, 100, 200, 500, 1000);
+        foreach ($radius_all as $radius) { 
+          $cinemas = $api->fetch(
+            'schedule/cine', array(
+            'program_id' => $request->get('id'),
+            'with_schedule' => true,
+            'fromGeoloc' => true,
+            'lat' => $lat,
+            'long' => $lng,
+  			    'radius' => $radius
+          ));
+          if (count($cinemas) > 0) {
+            break;
+          }
+        }
       }
       //echo 'theater_ids:' . $request->get('theater_ids');
       //echo $api->url;
       $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:program.html.twig', array(
 			  'cinemas' => $cinemas,
+			  'radius' => $radius,
 			  'days' => array('Mercredi','Jeudi','Vendredi','Samedi','Dimanche','Lundi','Mardi')
 			));
 
@@ -94,7 +102,6 @@ class CinemaController extends Controller
       
       return $response;
     }
-    
 
     /**
     * search

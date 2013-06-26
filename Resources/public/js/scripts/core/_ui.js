@@ -106,6 +106,7 @@ UiView = {
       }
       $('.pagination-client-alpha li').removeClass('active');
       $(this).addClass('active');
+      return false;
     });
     //remove popover
     $(document).on('click', '.popover .close', function() {
