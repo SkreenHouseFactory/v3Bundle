@@ -11,27 +11,27 @@
     <li id="tv" class="selector static empty" data-name="{{ 'playlist.name.tv'|trans }}" data-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.tv'|trans }}</small>" data-content="{{ 'playlist.popover.tv'|trans }}" data-placement="top" data-trigger="hover">
       <span class="label label-inverse opacity"><span></span> {{ 'playlist.tv'|trans|lower }}</span>
       <h6 class="teaser">{{ 'playlist.teaser.tv'|trans }}</h6>
-      <a class="btn btn-large link-v2" href="http://v2.myskreen.com/programme-tv" target="_top"><i class="icon-plus-sign"></i> {{ 'playlist.add.programs.tv'|trans }}</a>
+      <a class="btn btn-large" href="{{ path('tvgrid') }}"><i class="icon-plus-sign"></i> {{ 'playlist.add.programs.tv'|trans }}</a>
     </li>
     <li id="replay" class="selector static empty" data-name="{{ 'playlist.name.replay'|trans }}" data-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.replay'|trans }}</small>" data-content="{{ 'playlist.popover.replay'|trans }}" data-placement="top" data-trigger="hover">
       <span class="label label-inverse opacity"><span></span> {{ 'playlist.replay'|trans|lower }}</span>
       <h6 class="teaser"><b>{{ 'playlist.teaser.nb.replay'|trans }}</b> {{ 'playlist.teaser.replay'|trans }}</h6>
-      <a class="btn btn-large link-v2" href="/tv-replay"><i class="icon-plus-sign"></i> {{ 'playlist.add.programs.replay'|trans }}</a>
+      <a class="btn btn-large" href="{{ path('tvgrid') }}"><i class="icon-plus-sign"></i> {{ 'playlist.add.programs.replay'|trans }}</a>
     </li>
     <li id="vod" class="selector static empty" data-name="{{ 'playlist.name.vod'|trans }}" data-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.vod'|trans }}</small>" data-content="{{ 'playlist.popover.vod'|trans }}" data-placement="top" data-trigger="hover">
       <span class="label label-inverse opacity"><span></span> {{ 'playlist.vod'|trans|lower }}</span>
       <h6 class="teaser"><b>{{ 'playlist.teaser.nb.vod'|trans }}</b> {{ 'playlist.teaser.vod'|trans }}</h6>
-      <a class="btn btn-large link-v2" href="/video-a-la-demande"><i class="icon-plus-sign"></i> {{ 'playlist.add.programs.vod'|trans }}</a>
+      <a class="btn btn-large" href="{{ path('homes', {home: 'video-a-la-demande'}) }}"><i class="icon-plus-sign"></i> {{ 'playlist.add.programs.vod'|trans }}</a>
     </li>
     <li id="cine" class="selector static empty" data-name="{{ 'playlist.name.cine'|trans }}" data-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.cine'|trans }}</small>" data-content="{{ 'playlist.popover.cine'|trans }}" data-placement="top" data-trigger="hover">
       <span class="label label-inverse opacity"><span></span> {{ 'playlist.cine'|trans|lower }}</span>
       <h6 class="teaser">{{ 'playlist.teaser.cine'|trans }}</h6>
-      <a class="btn btn-large link-v2" href="/cinema"><i class="icon-plus-sign"></i> {{ 'playlist.add.programs.cine'|trans }}</a>
+      <a class="btn btn-large" href="{{ path('homes', {home: 'cinema'}) }}"><i class="icon-plus-sign"></i> {{ 'playlist.add.programs.cine'|trans }}</a>
     </li>
     <li id="channels" class="selector static empty" data-name="{{ 'playlist.name.channels'|trans }}" data-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.channels'|trans }}</small>" data-content="{{ 'playlist.popover.channels'|trans }}" data-placement="top" data-trigger="hover">
       <span class="label label-inverse opacity"><span></span> {{ 'playlist.channels'|trans|lower }}</span>
       <h6 class="teaser">{{ 'playlist.teaser.channels'|trans }}</h6>
-      <a class="btn btn-large link-v2" href="/channels"><i class="icon-plus-sign"></i> {{ 'playlist.add.programs.channels'|trans }}</a>
+      <a class="btn btn-large" href="{{ path('sitemap_channels', {type: 'thematique'}) }}"><i class="icon-plus-sign"></i> {{ 'playlist.add.programs.channels'|trans }}</a>
     </li>
     <li id="friends" class="selector static empty" data-name="{{ 'playlist.name.friends'|trans }}" data-title="{{ 'playlist.friends'|trans }}" data-content="{{ 'playlist.popover.friends'|trans }}" data-placement="top" data-trigger="hover">
       <span class="label label-warning opacity"><span></span> {{ 'playlist.friends'|trans|lower }}</span>

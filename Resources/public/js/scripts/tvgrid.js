@@ -241,13 +241,16 @@ GridView = {
     this.channels.load(url, function(){
         //popover
         $('[rel="popover"]', self.elmt).popover();
-        //add playlist class
+        var queue = Skhf.session.datas.queue.split(',');
+        //toggle playlist triggers
+        UI.loadPlaylistTriggers('like', queue, self.elmt);
+        //add in-playlists class
         if (Skhf.session.datas.email) {
-          for (k in Skhf.session.datas.queue) {
-            //console.log('GridView.loadSchedule', '.playlist', 'try', Skhf.session.datas.queue[k])
-            if ($('ul li[data-program-id="' + Skhf.session.datas.queue[k] + '"]', self.elmt).length) {
-              //console.log('GridView.loadSchedule', '.playlist', 'add', Skhf.session.datas.queue[k])
-              $('ul li[data-program-id="' + Skhf.session.datas.queue[k] + '"]', self.elmt).addClass('is-playlist');
+          for (k in queue) {
+            //console.log('GridView.loadSchedule', '.playlist', 'try', queue[k])
+            if ($('ul li[data-program-id="' + queue[k] + '"]', self.elmt).length) {
+              //console.log('GridView.loadSchedule', '.playlist', 'add', queue[k])
+              $('ul li[data-program-id="' + queue[k] + '"]', self.elmt).addClass('in-playlists');
             }
           }
         }
