@@ -37,7 +37,7 @@
 		<li{% if app.request.get('page') is null and app.request.get('access') is null %} class="active"{% endif%} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})}) }}{{ app.request.get('facet') }}/"><span itemprop="title">{{ subcategories[app.request.get('facet')] }}</span></a>{% if app.request.get('page') or app.request.get('access') %} <span class="divider">/</span>{% endif %}</li>
 		{% endif %}
 		{% if app.request.get('page') %}
-		<li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})})|replace({'//':'/'}) }}/page-{{ app.request.get('page') }}/"><span itemprop="title">Page {{ app.request.get('page') }}</span></a></li>
+		<li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})})|replace({'//':'/'}) }}page-{{ app.request.get('page') }}/"><span itemprop="title">Page {{ app.request.get('page') }}</span></a></li>
 		{% endif %}
 		{% if app.request.get('access') %}
 		<li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})})|replace({'//':'/'}) }}/{{ app.request.get('access') }}/"><span itemprop="title">{{ ('access.' ~ app.request.get('access'))|trans }}</span></a></li>
