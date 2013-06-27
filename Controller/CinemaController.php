@@ -61,6 +61,7 @@ class CinemaController extends Controller
         throw $this->createNotFoundException('Program id is missing');
       }
       $cinemas = null;
+      $radius = null;
 			$api = $this->get('api');
       if ($request->get('q') || $request->get('theater_ids')) {
         $cinemas = $api->fetch('schedule/cine', array(
