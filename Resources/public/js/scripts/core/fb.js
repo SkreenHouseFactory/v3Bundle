@@ -29,9 +29,9 @@ $(document).ready(function(){
 
   // fb connect
   function fbsync() {
-    console.log('script fbsync', 'fetching information...');
+    console.log(['script fbsync', 'fetching information...']);
     FB.api('/me', function(response) {
-      console.log('script fbsync', 'success: ' + response.name, response, FB.getAuthResponse());
+      console.log(['script fbsync', 'success: ' + response.name, response, FB.getAuthResponse()]);
       API.query(
         'POST', 
         'user', 
@@ -80,12 +80,12 @@ $(document).ready(function(){
   */
   //trigger
   $('#fbconnect').on('click', function(){
-    console.log('script', 'trigger FB');
+    console.log(['script', 'trigger FB']);
     fblogin();
     return false;
   });
   $(document).on('click', '#fbconnect', function(){
-    console.log('script', 'trigger FB');
+    console.log(['script', 'trigger FB']);
     fblogin();
     return false;
   });
