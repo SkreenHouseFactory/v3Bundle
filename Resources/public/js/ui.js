@@ -23,7 +23,7 @@ var getSuggestions = $.debounce(function (typeahead, query) {
     function(data) {
       $('#loading_gif').addClass('hide');
       console.log('UI.typeahead', query, data);
-      if (data.programs || data.persons || data.queue || data.channels || data.theaters) {
+      if (data.channels || data.theaters || data.programs || data.persons || data.queue) {
         var lis = new Array;
         var titles = new Array;
         typeahead.query = typeahead.$element.val();
@@ -114,7 +114,7 @@ var getSuggestions = $.debounce(function (typeahead, query) {
         }
 
         //data.first().addClass('active')
-        var sort = Array('programs','persons','queue','real-channels','channels','theaters');
+        var sort = Array('channels','theaters','real-channels','programs','persons','queue');
         for (key in sort) {
           if (lis[sort[key]]) {
             //console.log('UI.typeahead', key, data[key], typeahead.$menu);
