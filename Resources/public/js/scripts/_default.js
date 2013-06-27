@@ -40,6 +40,14 @@ $(document).ready(function(){
     return false;
   });
   
+  $('.a-caret').on('click', function(){
+    if(!$(this).parent().hasClass('open')){
+      if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
+        Player.stop();
+      }
+    }
+  });
+  
   $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
     //notifications
     if ($(this).hasClass('tv-component')  && 
