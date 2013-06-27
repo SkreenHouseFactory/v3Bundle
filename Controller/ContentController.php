@@ -316,7 +316,7 @@ class ContentController extends Controller
       if ($request->get('access')) {
         $facets[] = 'access:' . str_replace(
           array('video-a-la-demande', 'tv', 'replay', 'cinema', 'dvd'), 
-          array('vod', 'broadcast', 'catchup', 'cinema', 'dvd'), 
+          array('vod', 'tv', 'catchup', 'cinema', 'dvd'), 
           $request->get('access')
         );
       }

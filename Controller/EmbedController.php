@@ -46,11 +46,17 @@ class EmbedController extends Controller
       //echo $api->url;
 
       //post streatment
-      if (in_array($datas->program->id, array(4988489))) {
+      if (!isset($datas->program)) {
+        return $this->render('SkreenHouseFactoryV3Bundle:Embed:error.html.twig', array(
+          'width' => $request->get('width', '100%'),
+          'height' => $request->get('height', '100%'),
+        ));
+
+      } elseif (in_array($datas->program->id, array(4988489))) {
         $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/LesInconnus/player-splash.jpg';
       } elseif (in_array($datas->program->id, array(5050813))) {
         $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/LesInconnus/player-splash-video2.png';
-      } else {
+      } elseif (isset($datas->program->sliderPicture)) {
         $datas->program->picture = $datas->program->sliderPicture;
       }
 
