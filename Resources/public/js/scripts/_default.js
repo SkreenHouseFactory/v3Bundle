@@ -121,19 +121,20 @@ $(document).ready(function(){
     Skhf.session.initSelector();
   });
   $(document).on('click', '#top-playlist li.selector', function(e){
-    e.preventDefault();
-    e.stopPropagation();
     console.log('script', 'li.selector', 'click');
     if ($(this).hasClass('empty')) {
       if ($('a', $(this)).data('modal')) {
+        e.preventDefault();
+        e.stopPropagation();
         API.quickLaunchModal($('a', $(this)).data('modal'));
-      } else {
-        $('a', $(this)).click();
+        return false;
       }
     } else {
+      e.preventDefault();
+      e.stopPropagation();
       UI.loadPlaylist(this.id);
+      return false;
     }
-    return false;
   });
 
   $('.navbar a[data-toggle="dropdown"]').on('click', function () {

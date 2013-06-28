@@ -1,5 +1,149 @@
 // -- UI
 var UI;
+
+var getSuggestions = $.debounce(function (typeahead, query) {
+  console.log("AUTOSUGGEST : ",query);
+
+  if (query.length < 3)
+    return;
+
+  $('#loading_gif').removeClass('hide');
+
+  API.xhr['typeahead'] = API.query(
+    'GET', 
+    'search/autosuggest/' + query + '.json', 
+    {
+      session_uid: Skhf.session.uid, 
+      img_width: 30, 
+      img_height: 30, 
+      advanced: 1, 
+      with_unvailable: 1,
+      with_loader: 1
+    }, 
+    function(data) {
+      $('#loading_gif').addClass('hide');
+      console.log('UI.typeahead', query, data);
+      if (data.channels || data.theaters || data.programs || data.persons || data.queue) {
+        var lis = new Array;
+        var titles = new Array;
+        typeahead.query = typeahead.$element.val();
+        typeahead.$menu.empty();
+
+        if (!typeahead.query) {
+          return typeahead.shown ? typeahead.hide() : typeahead;
+        }
+
+        for (key in data) {
+          switch (key) {
+            case 'queue':
+              var items = data[key][0].programs;
+              titles[key] = 'Dans vos playlists';
+              break;
+            case 'channels':
+              var items = data[key];
+              titles[key] = 'Chaînes';
+              break;
+            case 'real-channels':
+              var items = data[key];
+              titles[key] = 'Pages';
+              break;
+            case 'theaters':
+              var items = data[key];
+              titles[key] = 'Salles de cinéma';
+              break;
+            case 'programs':
+              var items = data[key];
+              titles[key] = 'Programmes';
+              break;
+            case 'persons':
+              var items = data[key];
+              titles[key] = 'Personnes';
+              break;
+          }
+          console.log('UI.typeahead', 'data', key, items);
+          items = items.slice(0, typeahead.options.items);
+          lis[key] = $(items).map(function (i, item) {
+            i = $(typeahead.options.item).attr('data-value', JSON.stringify(item));
+            i.attr('data-id', item.id).addClass('actions');
+            btn = $('<span class="fav" data-placement="left"><i class="icon-plus-sign icon-white"></i></span>');
+            switch (key) {
+              case 'queue':
+                i.addClass('playlist')
+                 .css('overflow','hidden')
+                 .find('a')
+                 .html((item.picture ? '<img src="' + item.picture + '" /> ' : '') + typeahead.highlighter(item.title))
+                break;
+              case 'theaters':
+                i.addClass('theater actions')
+                 .css('overflow','hidden')
+                 .prepend(btn.addClass('fav-theater'))
+                 .find('a')
+                 .html(typeahead.highlighter(item.name + (item.ville ? ' (' + item.ville + ')' : '')))
+                break;
+              case 'channels':
+                i.addClass('channel actions')
+                 .css('overflow','hidden')
+                 .find('a')
+                 .html((item.icon ? '<img src="' + item.icon + '" /> ' : '') + typeahead.highlighter(item.name))
+                break;
+              case 'real-channels':
+                i.addClass('program actions')
+                 .css('overflow','hidden')
+                 .prepend(btn.addClass('fav-like'))
+                 .find('a')
+                 .html(typeahead.highlighter(item.name))
+                break;
+              case 'programs':
+                i.addClass('program actions')
+                  .css('overflow','hidden')
+                 .prepend(btn.addClass('fav-program'))
+                 .find('a')
+                 .html(typeahead.highlighter(item.name))
+                break;
+              case 'persons':
+                i.addClass('person actions')
+                 .css('overflow','hidden')
+                 .prepend(btn.addClass('fav-person'))
+                 .find('a')
+                 .html(typeahead.highlighter(item.name))
+                break;
+            }
+            console.log('UI.typeahead', 'add item', key,  i);
+            return i[0];
+          });
+        }
+
+        //data.first().addClass('active')
+        var sort = Array('channels','theaters','real-channels','programs','persons','queue');
+        for (key in sort) {
+          if (lis[sort[key]]) {
+            //console.log('UI.typeahead', key, data[key], typeahead.$menu);
+            if (typeof titles[sort[key]] != 'undefined') {
+              typeahead.$menu.append('<li class="nav-header">' + titles[sort[key]] + '</li>');
+            }
+            typeahead.$menu.append(lis[sort[key]]);
+          }
+        }
+
+        //toggle playlist
+        $('span.fav', typeahead.$menu).on('click', function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          UI.togglePlaylist($(this));
+          if (Skhf.session.datas.email) {
+            API.notification('Ajouté à vos playlists | mySkreen', $(this).parent().find('a').text());
+          }
+        });
+
+        //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
+        typeahead.show();
+      } else {
+        return typeahead.shown ? typeahead.hide() : typeahead
+      }
+    }
+  );
+},200);
+
 UI = {
   user: '',
   available_playlists: ['like','cinema','channel','page','person','user'],
@@ -190,9 +334,7 @@ UI = {
       return 'ce programme';
     }
   },
-  //set popover infos
-  installPopover: function(trigger) {
-    
+  getPlaylistMessage: function(trigger) {
     if (trigger.hasClass('fav-cinema')) {
         var content = '<b>Ne ratez plus vos séances&nbsp;!</b>' + 
                       '<br/>En ajoutant ce cinéma à vos playlists vous saurez averti de sa programmation.';
@@ -224,6 +366,11 @@ UI = {
                       '<br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD.';
       }
     }
+    return content;
+  },
+  //set popover infos
+  installPopover: function(trigger) {
+    var content = this.getPlaylistMessage(trigger);
 
     trigger.popover({placement: 'top',
                       title:  function() { return 'Ajout à vos playlists'},
@@ -266,7 +413,7 @@ UI = {
 
       this.auth(function(){
         console.log('UI.togglePlaylist', 'UI.auth callback', Skhf.session.datas.email);
-        $('.modal .modal-body').prepend('<p class="alert alert-success"><b>Vos playlists <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b><br/>Ajoutez ' + name + ' à vos playlists. Ne ratez plus vos programmes préférés !</p>');
+        $('.modal .modal-body').prepend('<p class="alert alert-success"><b>Vos playlists <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b><br/>' + self.getPlaylistMessage(trigger) + '</p>');
         $('.modal .modal-body [data-content]').popover();
         if (Skhf.session.datas.email) {
           self.togglePlaylist(trigger);
@@ -283,7 +430,7 @@ UI = {
       for (key in ids) {
         //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)');
         var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)', elmt);
-        trigger.html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists').addClass('fav-on');
+        trigger.html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists').addClass('fav-on btn-primary');
       }
       switch(parameter) {
         case 'cinema': //reload
@@ -303,7 +450,7 @@ UI = {
         for (key in ids) {
           //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
           var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + ':not(.fav-on)', elmt);
-          trigger.html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists').addClass('fav-on');
+          trigger.html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists').addClass('fav-on btn-primary');
         }
       }
     }
@@ -750,158 +897,8 @@ UI = {
     $(searchbox).typeahead({
       items: 5,
       minLength: 3,
-      source: function (typeahead, query) {
-        if (query.length < 3)
-          return;
-        if (!('typeahead-used' in API.xhr))
-          API.xhr['typeahead-used'] = [];
-        if (typeof API.xhr['typeahead'] != 'undefined') {
-          API.xhr['typeahead'].abort();
-          console.log('UI.typeahead', 'abort previous call');
-        }
-        for (var v in API.xhr['typeahead-used']) {
-          if (v == query) {
-            return;
-          }
-        }
-        API.xhr['typeahead-used'].push(query);
-        $('#loading_gif').removeClass('hide');
-        API.xhr['typeahead'] = API.query(
-          'GET', 
-          'search/autosuggest/' + query + '.json', 
-          {
-            session_uid: Skhf.session.uid, 
-            img_width: 30, 
-            img_height: 30, 
-            advanced: 1, 
-            with_unvailable: 1,
-            with_loader: 1
-          }, 
-          function(data){
-           $('#loading_gif').addClass('hide');
-            console.log('UI.typeahead', query, data);
-            //if (data.search) {
-            //  return typeahead.process(data.search.split(';'));
-            //}
-
-            if (data.programs || data.persons || data.queue || data.channels || data.theaters) {
-              var lis = new Array;
-              var titles = new Array;
-              typeahead.query = typeahead.$element.val()
-              typeahead.$menu.empty()
-
-              if (!typeahead.query) {
-                return typeahead.shown ? typeahead.hide() : typeahead
-              }
-
-              for (key in data) {
-                switch (key) {
-                  case 'queue':
-                    var items = data[key][0].programs;
-                    titles[key] = 'Dans vos playlists';
-                  break;
-                  case 'channels':
-                    var items = data[key];
-                    titles[key] = 'Chaînes';
-                  break;
-                  case 'real-channels':
-                    var items = data[key];
-                    titles[key] = 'Pages';
-                  break;
-                  case 'theaters':
-                    var items = data[key];
-                    titles[key] = 'Salles de cinéma';
-                  break;
-                  case 'programs':
-                    var items = data[key];
-                    titles[key] = 'Programmes';
-                  break;
-                  case 'persons':
-                    var items = data[key];
-                    titles[key] = 'Personnes';
-                  break;
-                }
-                console.log('UI.typeahead', 'data', key, items);
-                items = items.slice(0, typeahead.options.items);
-                lis[key] = $(items).map(function (i, item) {
-                  i = $(typeahead.options.item).attr('data-value', JSON.stringify(item))
-                  i.attr('data-id', item.id).addClass('actions');
-                  btn = $('<span class="fav" data-placement="left"><i class="icon-plus-sign icon-white"></i></span>');
-                  switch (key) {
-                    case 'queue':
-                      i.addClass('playlist')
-                       .css('overflow','hidden')
-                       .find('a')
-                       .html((item.picture ? '<img src="' + item.picture + '" /> ' : '') + typeahead.highlighter(item.title))
-                    break;
-                    case 'theaters':
-                      i.addClass('theater actions')
-                       .css('overflow','hidden')
-                       .prepend(btn.addClass('fav-theater'))
-                       .find('a')
-                       .html(typeahead.highlighter(item.name + (item.ville ? ' (' + item.ville + ')' : '')))
-                    break;
-                    case 'channels':
-                      i.addClass('channel actions')
-                       .css('overflow','hidden')
-                       .find('a')
-                       .html((item.icon ? '<img src="' + item.icon + '" /> ' : '') + typeahead.highlighter(item.name))
-                    break;
-                    case 'real-channels':
-                      i.addClass('program actions')
-                       .css('overflow','hidden')
-                       .prepend(btn.addClass('fav-like'))
-                       .find('a')
-                       .html(typeahead.highlighter(item.name))
-                    break;
-                    case 'programs':
-                      i.addClass('program actions')
-                        .css('overflow','hidden')
-                       .prepend(btn.addClass('fav-program'))
-                       .find('a')
-                       .html(typeahead.highlighter(item.name))
-                    break;
-                    case 'persons':
-                      i.addClass('person actions')
-                       .css('overflow','hidden')
-                       .prepend(btn.addClass('fav-person'))
-                       .find('a')
-                       .html(typeahead.highlighter(item.name))
-                    break;
-                  }
-                  console.log('UI.typeahead', 'add item', key,  i);
-                  return i[0]
-                })
-              }
-
-              //data.first().addClass('active')
-              var sort = Array('programs','persons','queue','real-channels','channels','theaters');
-              for (key in sort) {
-                if (lis[sort[key]]) {
-                  //console.log('UI.typeahead', key, data[key], typeahead.$menu);
-                  if (typeof titles[sort[key]] != 'undefined') {
-                    typeahead.$menu.append('<li class="nav-header">' + titles[sort[key]] + '</li>')
-                  }
-                  typeahead.$menu.append(lis[sort[key]])
-                }
-              }
-
-              //toggle playlist
-              $('span.fav', typeahead.$menu).on('click', function(e){
-                e.preventDefault();
-                e.stopPropagation();
-                UI.togglePlaylist($(this));
-                if (Skhf.session.datas.email) {
-                  API.notification('Ajouté à vos playlists | mySkreen', $(this).parent().find('a').text());
-                }
-              })
-
-              //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
-              typeahead.show();
-            } else {
-              return typeahead.shown ? typeahead.hide() : typeahead
-            }
-           });
+      source: function(typeahead, query) {
+        getSuggestions(typeahead, query);
       },
       onselect: function(obj) {
         console.log('UI.typeahead', 'onselect', obj, typeof obj, 'blur:' + $(searchbox), API.config.v3_url + '/programmes/' + obj);

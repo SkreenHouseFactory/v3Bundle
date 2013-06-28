@@ -129,6 +129,8 @@ UiView = {
   initDataLive: function(elmt) {
     console.log('UiView.initDataLive', elmt);
     var elmt = typeof elmt != 'undefined' ? elmt : document;
+    // -- modal
+    this.initDataModalTriggers(elmt);
     // -- play deporte
     $(elmt).on('click', '[data-play]', function(){
       console.log('script', 'data-play', $(this).data('play'), $(this).data('play-args'), Player.state);
@@ -179,6 +181,8 @@ UiView = {
       $($(this).attr('rel')).load(url, function() {
         console.log('script', '[data-ajax]', 'clalback', 'ajax-play', trigger.data('ajax-play'));
         UI.unloadRedirect();
+        //trigger playlists
+        UI.loadPlaylistTriggers('like', Skhf.session.datas.queue.split(','), elmt);
         //ajax play ?
         if (trigger.data('ajax-play')) {
           if (Player.state == 'playing') {
@@ -224,7 +228,6 @@ UiView = {
   },
   initDataTriggers: function(elmt) {
     this.initDataPlayerTriggers(elmt);
-    this.initDataModalTriggers(elmt);
 
     // -- ui form
     $('[data-form="catch"]', elmt).each(function(){
@@ -260,19 +263,18 @@ UiView = {
     if ($('[data-content]', elmt).length > 0) {
       $('[data-content]').popover();
     }
-
   },
   initDataModalTriggers: function(elmt) {
     // trigger modal
-    $('a[data-modal], a[data-modal-internal], [data-modal-remote]', elmt).on('click', function(e){
+    $(elmt).on('click', 'a[data-modal], a[data-modal-internal], [data-modal-remote]', function(e){
       console.log('script', 'a[data-modal], [data-modal-remote]', 'click');
       e.preventDefault();
       var trigger = $(this);
       if (trigger.data('modal') == 'remote' || trigger.data('modal-remote')) {
-        var url = trigger.data('modal-remote') ? trigger.data('modal-remote') : trigger.attr('href');
+        var url = trigger.data('modal-remote') ? API.config.v3_root + trigger.data('modal-remote') : trigger.attr('href');
         var args = {};
         if (!url.match(/^http(s|)\:\/\//)) {
-          url  = API.config.v3_url + API.config.v3_root + url;
+          url  = API.config.v3_url + url;
           $.extend(args, {dataType: 'text html'});
         }
         UI.appendLoader($('.modal .modal-body').empty(), 1000);
