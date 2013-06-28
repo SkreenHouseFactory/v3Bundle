@@ -1,7 +1,6 @@
 // -- program
 
 $(document).ready(function(){
-  
   if ($('#view-program').length) {
 
     //////////// CALLBACKS ////////////////
@@ -96,12 +95,7 @@ $(document).ready(function(){
     if ($('#trigger-plays').length == 0) {
       $('#triggers li:first-child a').trigger('click');
     }
-    var offers= getUrlParameter('offers')
-    if( offers ){
-       console.log('offers:',  offers);
-     
-      $('#trigger-'+offers).trigger('click');
-    }
+
     //autoload from url
     if (document.location.href.match(/\?rent/gi)) {
       $('#plays [data-play]:first').trigger('click');
