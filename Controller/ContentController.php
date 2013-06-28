@@ -311,7 +311,7 @@ class ContentController extends Controller
         }
       }
       if ($request->get('format')) {
-        $facets[] = 'format:' . $request->get('format');
+        $facets[] = 'format:' . $request->get('format').'s';
       }
       if ($request->get('access')) {
         $facets[] = 'access:' . str_replace(
