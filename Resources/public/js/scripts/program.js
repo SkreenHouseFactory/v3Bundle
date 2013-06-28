@@ -173,8 +173,10 @@ $(document).ready(function(){
 
 
     //init
-    ProgramView.init();
-
+    if( !$('#view-program').hasClass('isInitialized') ){
+     ProgramView.init();
+    
+    }
     $('[data-track-channel]').each(function() {
       //track channel
       //API.trackVar(1, 'Chaîne', $(this).data('track-channel'), 3);
@@ -186,17 +188,19 @@ $(document).ready(function(){
 // -- ProgramView
 var ProgramView;
 ProgramView = {
-  initialized: false,
+  
   init: function() {
+     
     //hack player pas initialisé
     if ($('#program-teaser-player iframe').length && 
         !Player.elmt) {
       Player.elmt = $('#program-teaser-player');
     }
-    if (!this.initialized) {
-      this.loadMoreStreaming();
-    }
-  },
+    
+    this.loadMoreStreaming();
+    $('#view-program').addClass('isInitialized');
+      
+},
   unloadProgramUsersDatas: function(id) {
     
   },

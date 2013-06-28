@@ -1,149 +1,6 @@
 // -- UI
 var UI;
 
-var getSuggestions = $.debounce(function (typeahead, query) {
-  console.log("AUTOSUGGEST : ",query);
-
-  if (query.length < 3)
-    return;
-
-  $('#loading_gif').removeClass('hide');
-
-  API.xhr['typeahead'] = API.query(
-    'GET', 
-    'search/autosuggest/' + query + '.json', 
-    {
-      session_uid: Skhf.session.uid, 
-      img_width: 30, 
-      img_height: 30, 
-      advanced: 1, 
-      with_unvailable: 1,
-      with_loader: 1
-    }, 
-    function(data) {
-      $('#loading_gif').addClass('hide');
-      console.log('UI.typeahead', query, data);
-      if (data.channels || data.theaters || data.programs || data.persons || data.queue) {
-        var lis = new Array;
-        var titles = new Array;
-        typeahead.query = typeahead.$element.val();
-        typeahead.$menu.empty();
-
-        if (!typeahead.query) {
-          return typeahead.shown ? typeahead.hide() : typeahead;
-        }
-
-        for (key in data) {
-          switch (key) {
-            case 'queue':
-              var items = data[key][0].programs;
-              titles[key] = 'Dans vos playlists';
-              break;
-            case 'channels':
-              var items = data[key];
-              titles[key] = 'Chaînes';
-              break;
-            case 'real-channels':
-              var items = data[key];
-              titles[key] = 'Pages';
-              break;
-            case 'theaters':
-              var items = data[key];
-              titles[key] = 'Salles de cinéma';
-              break;
-            case 'programs':
-              var items = data[key];
-              titles[key] = 'Programmes';
-              break;
-            case 'persons':
-              var items = data[key];
-              titles[key] = 'Personnes';
-              break;
-          }
-          console.log('UI.typeahead', 'data', key, items);
-          items = items.slice(0, typeahead.options.items);
-          lis[key] = $(items).map(function (i, item) {
-            i = $(typeahead.options.item).attr('data-value', JSON.stringify(item));
-            i.attr('data-id', item.id).addClass('actions');
-            btn = $('<span class="fav" data-placement="left"><i class="icon-plus-sign icon-white"></i></span>');
-            switch (key) {
-              case 'queue':
-                i.addClass('playlist')
-                 .css('overflow','hidden')
-                 .find('a')
-                 .html((item.picture ? '<img src="' + item.picture + '" /> ' : '') + typeahead.highlighter(item.title))
-                break;
-              case 'theaters':
-                i.addClass('theater actions')
-                 .css('overflow','hidden')
-                 .prepend(btn.addClass('fav-theater'))
-                 .find('a')
-                 .html(typeahead.highlighter(item.name + (item.ville ? ' (' + item.ville + ')' : '')))
-                break;
-              case 'channels':
-                i.addClass('channel actions')
-                 .css('overflow','hidden')
-                 .find('a')
-                 .html((item.icon ? '<img src="' + item.icon + '" /> ' : '') + typeahead.highlighter(item.name))
-                break;
-              case 'real-channels':
-                i.addClass('program actions')
-                 .css('overflow','hidden')
-                 .prepend(btn.addClass('fav-like'))
-                 .find('a')
-                 .html(typeahead.highlighter(item.name))
-                break;
-              case 'programs':
-                i.addClass('program actions')
-                  .css('overflow','hidden')
-                 .prepend(btn.addClass('fav-program'))
-                 .find('a')
-                 .html(typeahead.highlighter(item.name))
-                break;
-              case 'persons':
-                i.addClass('person actions')
-                 .css('overflow','hidden')
-                 .prepend(btn.addClass('fav-person'))
-                 .find('a')
-                 .html(typeahead.highlighter(item.name))
-                break;
-            }
-            console.log('UI.typeahead', 'add item', key,  i);
-            return i[0];
-          });
-        }
-
-        //data.first().addClass('active')
-        var sort = Array('channels','theaters','real-channels','programs','persons','queue');
-        for (key in sort) {
-          if (lis[sort[key]]) {
-            //console.log('UI.typeahead', key, data[key], typeahead.$menu);
-            if (typeof titles[sort[key]] != 'undefined') {
-              typeahead.$menu.append('<li class="nav-header">' + titles[sort[key]] + '</li>');
-            }
-            typeahead.$menu.append(lis[sort[key]]);
-          }
-        }
-
-        //toggle playlist
-        $('span.fav', typeahead.$menu).on('click', function(e){
-          e.preventDefault();
-          e.stopPropagation();
-          UI.togglePlaylist($(this));
-          if (Skhf.session.datas.email) {
-            API.notification('Ajouté à vos playlists | mySkreen', $(this).parent().find('a').text());
-          }
-        });
-
-        //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
-        typeahead.show();
-      } else {
-        return typeahead.shown ? typeahead.hide() : typeahead
-      }
-    }
-  );
-},200);
-
 UI = {
   user: '',
   available_playlists: ['like','cinema','channel','page','person','user'],
@@ -521,14 +378,18 @@ UI = {
           //console.log('new', notifications[k]['new'], nb_new);
         }
         if (notifications[k].type == 'broadcast') {
-          var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '" rel="#content"';
+          var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url +'?offers='+notifications[k].offers +'" rel="#content"';
+          
         } else if (notifications[k].player) {
-          var attrs = 'data-ajax-play="' + notifications[k].player + '" data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '" rel="#content"';
+          var attrs = 'data-ajax-play="' + notifications[k].player + '" data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?offers='+notifications[k].offers + '" rel="#content"'; 
+          
         } else if (notifications[k].type == 'ajout' || notifications[k].program.deporte) {
-          var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '" rel="#content"';
+          var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?offers='+notifications[k].offers +  '" data-offers="' + notifications[k].offers + '" rel="#content"';
+          
         } else {
           var attrs = 'data-redirect="' + notifications[k].link + '" data-seo-url="' + notifications[k].program.seo_url + '"';
         }
+        
         var ep_title = notifications[k].title_episode;
         var len=32;
         if (ep_title.length > len) {
@@ -893,12 +754,13 @@ UI = {
   },
   // -- typeahead
   typeahead: function(searchbox){
+    var self = this;
     //console.log('UI.typeahead', searchbox);
     $(searchbox).typeahead({
       items: 5,
       minLength: 3,
       source: function(typeahead, query) {
-        getSuggestions(typeahead, query);
+        $.debounce(self.getTypeaheadSuggestions(typeahead, query), 200);
       },
       onselect: function(obj) {
         console.log('UI.typeahead', 'onselect', obj, typeof obj, 'blur:' + $(searchbox), API.config.v3_url + '/programmes/' + obj);
@@ -915,6 +777,148 @@ UI = {
         }
       }
     });
+  },
+  getTypeaheadSuggestions: function (typeahead, query) {
+    console.log("AUTOSUGGEST : ",query);
+
+    if (query.length < 3)
+      return;
+
+    $('#loading_gif').removeClass('hide');
+
+    API.xhr['typeahead'] = API.query(
+      'GET', 
+      'search/autosuggest/' + query + '.json', 
+      {
+        session_uid: Skhf.session.uid, 
+        img_width: 30, 
+        img_height: 30, 
+        advanced: 1, 
+        with_unvailable: 1,
+        with_loader: 1
+      }, 
+      function(data) {
+        $('#loading_gif').addClass('hide');
+        console.log('UI.typeahead', query, data);
+        if (data.channels || data.theaters || data.programs || data.persons || data.queue) {
+          var lis = new Array;
+          var titles = new Array;
+          typeahead.query = typeahead.$element.val();
+          typeahead.$menu.empty();
+
+          if (!typeahead.query) {
+            return typeahead.shown ? typeahead.hide() : typeahead;
+          }
+
+          for (key in data) {
+            switch (key) {
+              case 'queue':
+                var items = data[key][0].programs;
+                titles[key] = 'Dans vos playlists';
+                break;
+              case 'channels':
+                var items = data[key];
+                titles[key] = 'Chaînes';
+                break;
+              case 'real-channels':
+                var items = data[key];
+                titles[key] = 'Pages';
+                break;
+              case 'theaters':
+                var items = data[key];
+                titles[key] = 'Salles de cinéma';
+                break;
+              case 'programs':
+                var items = data[key];
+                titles[key] = 'Programmes';
+                break;
+              case 'persons':
+                var items = data[key];
+                titles[key] = 'Personnes';
+                break;
+            }
+            console.log('UI.typeahead', 'data', key, items);
+            items = items.slice(0, typeahead.options.items);
+            lis[key] = $(items).map(function (i, item) {
+              i = $(typeahead.options.item).attr('data-value', JSON.stringify(item));
+              i.attr('data-id', item.id).addClass('actions');
+              btn = $('<span class="fav" data-placement="left"><i class="icon-plus-sign icon-white"></i></span>');
+              switch (key) {
+                case 'queue':
+                  i.addClass('playlist')
+                   .css('overflow','hidden')
+                   .find('a')
+                   .html((item.picture ? '<img src="' + item.picture + '" /> ' : '') + typeahead.highlighter(item.title))
+                  break;
+                case 'theaters':
+                  i.addClass('theater actions')
+                   .css('overflow','hidden')
+                   .prepend(btn.addClass('fav-theater'))
+                   .find('a')
+                   .html(typeahead.highlighter(item.name + (item.ville ? ' (' + item.ville + ')' : '')))
+                  break;
+                case 'channels':
+                  i.addClass('channel actions')
+                   .css('overflow','hidden')
+                   .find('a')
+                   .html((item.icon ? '<img src="' + item.icon + '" /> ' : '') + typeahead.highlighter(item.name))
+                  break;
+                case 'real-channels':
+                  i.addClass('program actions')
+                   .css('overflow','hidden')
+                   .prepend(btn.addClass('fav-like'))
+                   .find('a')
+                   .html(typeahead.highlighter(item.name))
+                  break;
+                case 'programs':
+                  i.addClass('program actions')
+                    .css('overflow','hidden')
+                   .prepend(btn.addClass('fav-program'))
+                   .find('a')
+                   .html(typeahead.highlighter(item.name))
+                  break;
+                case 'persons':
+                  i.addClass('person actions')
+                   .css('overflow','hidden')
+                   .prepend(btn.addClass('fav-person'))
+                   .find('a')
+                   .html(typeahead.highlighter(item.name))
+                  break;
+              }
+              console.log('UI.typeahead', 'add item', key,  i);
+              return i[0];
+            });
+          }
+
+          //data.first().addClass('active')
+          var sort = Array('channels','theaters','real-channels','programs','persons','queue');
+          for (key in sort) {
+            if (lis[sort[key]]) {
+              //console.log('UI.typeahead', key, data[key], typeahead.$menu);
+              if (typeof titles[sort[key]] != 'undefined') {
+                typeahead.$menu.append('<li class="nav-header">' + titles[sort[key]] + '</li>');
+              }
+              typeahead.$menu.append(lis[sort[key]]);
+            }
+          }
+
+          //toggle playlist
+          $('span.fav', typeahead.$menu).on('click', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            UI.togglePlaylist($(this));
+            if (Skhf.session.datas.email) {
+              API.notification('Ajouté à vos playlists | mySkreen', $(this).parent().find('a').text());
+            }
+          });
+
+          //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
+          typeahead.show();
+        } else {
+          return typeahead.shown ? typeahead.hide() : typeahead
+        }
+      }
+    );
   },
   keynav: function(){
   },

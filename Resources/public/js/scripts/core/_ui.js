@@ -184,6 +184,10 @@ UiView = {
         //trigger playlists
         UI.loadPlaylistTriggers('like', Skhf.session.datas.queue.split(','), elmt);
         //ajax play ?
+        if (trigger.data('offers')) {
+          
+          $('.trigger-'+ trigger.data('offers')).trigger('click');
+        }
         if (trigger.data('ajax-play')) {
           if (Player.state == 'playing') {
             console.log('script', 'data-play', 'Pause current player');
