@@ -278,7 +278,7 @@
                 <td class="tags">
                 {% endif %}
                   {% if o.versions is defined %}
-                  {% for v,id in o.versions|to_array %}
+                  {% for v,id in o.versions|to_array if o.deporte or o.tags.version is defined %}
                     <span class="label label-success">{{ v }}</span>&nbsp;
                   {% endfor %}
                   {% endif %}
