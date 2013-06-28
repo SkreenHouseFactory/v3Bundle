@@ -1,6 +1,7 @@
 // -- tvgrid
 
 $(document).ready(function(){
+
   if ($('#view-tvgrid').length) {
 
     //////////// CALLBACKS ////////////////
@@ -327,19 +328,34 @@ GridView = {
       });
       return;
     }
+   
     $('> li', this.channels).show();
+   
     if (onglet) {
+      
       $('> li > ul > li.diff:not(.' + onglet + ')', this.channels).animate({opacity: 0.1});
       $('> li', this.channels).each(function(){
+      
         if ($('ul > li.diff.' + onglet, $(this)).length) {
           $('ul > li.diff.' + onglet, $(this)).animate({opacity: 1});
         } else {
           $(this).hide();
+          
         }
+        
+       
       });
+      
+    
+    
+      
       
     } else {
       $('> li > ul > li.diff', this.channels).animate({opacity: 1});
+    }
+    console.log('channels :visible ',$('> li:visible', this.channels).length);
+    if(!$('> li:visible', this.channels).length){
+      $('#channels').prepend('<li> Aucun programme trouvé </li>');
     }
   },
   getChannelsIds: function(){

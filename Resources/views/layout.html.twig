@@ -5,6 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->
 <head>
 {% spaceless %}
+
   <title>{% block title endblock %} | mySkreen.com</title>
   <meta name="description" content="{% block description %}{% endblock %}">
   {#
@@ -53,10 +54,12 @@
     {% block meta endblock %}
   {% endif %}
   {% if app.request.pathinfo != app.request.requestUri %}
+  
   <link rel="canonical" href="http://www.myskreen.com{{ app.request.pathinfo }}" />
   {% endif %}
   <link rel="author" href="https://plus.google.com/106555719800030017985" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="search" type="application/opensearchdescription+xml" href="http://www.myskreen.com/opensearch.xml" title="Recherche de vidéos mySkreen"/>
   <link rel="apple-touch-icon" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone.png') }}" />
   <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad.png') }}" />
   <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone-retina.png') }}" />
