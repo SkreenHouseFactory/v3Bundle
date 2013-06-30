@@ -779,7 +779,7 @@ UI = {
     });
   },
   getTypeaheadSuggestions: function (typeahead, query) {
-    console.log("AUTOSUGGEST : ",query);
+    console.log('UI.getTypeaheadSuggestions', query);
 
     if (query.length < 3)
       return;
@@ -822,7 +822,7 @@ UI = {
                 break;
               case 'real-channels':
                 var items = data[key];
-                titles[key] = 'Pages';
+                titles[key] = 'Chaînes mySkreen';
                 break;
               case 'theaters':
                 var items = data[key];
@@ -853,13 +853,14 @@ UI = {
                 case 'theaters':
                   i.addClass('theater actions')
                    .css('overflow','hidden')
-                   .prepend(btn.addClass('fav-theater'))
+                   .prepend(btn.clone().addClass('fav-theater'))
                    .find('a')
                    .html(typeahead.highlighter(item.name + (item.ville ? ' (' + item.ville + ')' : '')))
                   break;
                 case 'channels':
                   i.addClass('channel actions')
                    .css('overflow','hidden')
+                   .prepend(btn.clone().addClass('fav-channel'))
                    .find('a')
                    .html((item.icon ? '<img src="' + item.icon + '" /> ' : '') + typeahead.highlighter(item.name))
                   break;
@@ -873,14 +874,14 @@ UI = {
                 case 'programs':
                   i.addClass('program actions')
                     .css('overflow','hidden')
-                   .prepend(btn.addClass('fav-program'))
+                   .prepend(btn.clone().addClass('fav-program'))
                    .find('a')
                    .html(typeahead.highlighter(item.name))
                   break;
                 case 'persons':
                   i.addClass('person actions')
                    .css('overflow','hidden')
-                   .prepend(btn.addClass('fav-person'))
+                   .prepend(btn.clone().addClass('fav-person'))
                    .find('a')
                    .html(typeahead.highlighter(item.name))
                   break;
