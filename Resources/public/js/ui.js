@@ -802,7 +802,7 @@ UI = {
       function(data) {
         $('#loading_gif').addClass('hide');
         console.log('UI.typeahead', query, data);
-        if (data.channels || data.theaters || data.programs || data.persons || data.queue) {
+        if (data.channels || data.theaters || data.programs || data.persons || data.queue || data.categories) {
           var lis = new Array;
           var titles = new Array;
           typeahead.query = typeahead.$element.val();
@@ -837,6 +837,10 @@ UI = {
               case 'persons':
                 var items = data[key];
                 titles[key] = 'Personnes';
+                break;
+              case 'categories':
+                var items = data[key];
+                titles[key] = 'Genres';
                 break;
             }
             console.log('UI.typeahead', 'data', key, items);
@@ -887,6 +891,12 @@ UI = {
                    .find('a')
                    .html(typeahead.highlighter(item.name))
                   break;
+                case 'categories':
+                  i.addClass('category actions')
+                   .css('overflow','hidden')
+                   .find('a')
+                   .html(typeahead.highlighter(item.name))
+                  break;
               }
               console.log('UI.typeahead', 'add item', key,  i);
               return i[0];
@@ -894,7 +904,7 @@ UI = {
           }
 
           //data.first().addClass('active')
-          var sort = Array('channels','theaters','real-channels','programs','persons','queue');
+          var sort = Array('channels','theaters','real-channels','programs','persons','categories','queue');
           for (key in sort) {
             if (lis[sort[key]]) {
               //console.log('UI.typeahead', key, data[key], typeahead.$menu);

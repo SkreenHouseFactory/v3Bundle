@@ -1,4 +1,4 @@
-{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+{% extends app.request.isXmlHttpRequest or app.request.get('xhr') ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% set page_title = 'page.title.home.' ~ home.name %}
 {% set page_description = 'page.description.home.' ~ home.name %}

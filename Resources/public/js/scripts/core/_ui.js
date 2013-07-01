@@ -127,12 +127,17 @@ UiView = {
     }
   },
   initHistory: function(){
-    
-    $(window).bind('popstate', function() {
-     
-      if ( $('body').data('page') != window.location.pathname){
-        $('#content').load(window.location.pathname);
-        $('body').data('page', window.location.pathname);
+    history.pushState({path: window.location.pathname, cover: $('body').hasClass('cover')}, '', window.location.pathname);
+    $(window).bind('popstate', function(e) {
+    console.log('UiView.initHistory', 'popstate', e.originalEvent.state);
+      if (e.originalEvent.state) {
+        $('#content').load(window.location.pathname + '?xhr=1', function() {
+          if (e.originalEvent.state.cover) {
+            $('body').removeClass('no-cover').addClass('cover');
+          } else {
+            $('body').removeClass('cover').addClass('no-cover');
+          }
+        });
       }
     });
   },
