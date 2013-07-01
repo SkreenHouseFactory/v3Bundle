@@ -1,7 +1,7 @@
-$(document).ready(function(){
-  console.log('scripts', 'load scripts/ui.js');
-  UiView.init();
-});
+/**
+* load view scripts
+*
+*/
 
 var UiView;
 UiView = {

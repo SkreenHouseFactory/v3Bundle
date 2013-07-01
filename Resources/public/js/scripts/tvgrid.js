@@ -242,11 +242,15 @@ GridView = {
     this.channels.load(url, function(){
         //popover
         $('[rel="popover"]', self.elmt).popover();
-        var queue = Skhf.session.datas.queue.split(',');
-        //toggle playlist triggers
-        UI.loadPlaylistTriggers('like', queue, self.elmt);
+
         //add in-playlists class
         if (Skhf.session.datas.email) {
+
+          var queue = Skhf.session.datas.queue.split(',');
+
+          //toggle playlist triggers
+          UI.loadPlaylistTriggers('like', queue, self.elmt);
+          
           for (k in queue) {
             //console.log('GridView.loadSchedule', '.playlist', 'try', queue[k])
             if ($('ul li[data-program-id="' + queue[k] + '"]', self.elmt).length) {

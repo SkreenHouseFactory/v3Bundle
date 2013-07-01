@@ -316,6 +316,7 @@ UI = {
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
     console.log('UI.unloadPlaylistTriggers', parameter, ids, elmt);
     if (typeof parameter != 'undefined') {
+      ids = ids.indexOf(',') == -1 ? ids : ids.split(',');
       for (key in ids) {
         console.log('UI.unloadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + '.fav-on');
         var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + '.fav-on', elmt);

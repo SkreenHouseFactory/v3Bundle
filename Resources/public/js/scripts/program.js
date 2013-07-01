@@ -92,7 +92,11 @@ $(document).ready(function(){
     //////////// SCRIPTS ////////////////
 
     //no deportes
-    if ($('#trigger-plays').length == 0) {
+    var offers = getUrlParameter('offers')
+    if (offers) {
+      console.log('offers',  offers);
+      $('#trigger-' + offers).trigger('click');
+    } else if ($('#trigger-plays').length == 0) {
       $('#triggers li:first-child a').trigger('click');
     }
 
