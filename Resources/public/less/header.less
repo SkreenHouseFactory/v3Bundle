@@ -329,6 +329,7 @@
                     color: #555;
                     white-space: nowrap;
                     filter: none; /* ie hover background */
+                    z-index: 1000;
 
                     img.channel {
                       margin-left: 7px;
@@ -365,11 +366,13 @@
                     padding: 0;
                     float: right;
                     cursor: pointer;
+                    z-index: 1200;
                   }
                   &:hover {
                     .remove {
                       background: transparent;
                       visibility: visible;
+                      z-index: 1200;
                     }
                   }
                   &.empty {
