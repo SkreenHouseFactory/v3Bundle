@@ -4,8 +4,8 @@
   "image" : "{{ program.picture }}",
   "url" : "{{ program.seo_url }}",
   "datePublished" : "{{ program.year }}",
-  "actor" : [{% for pers in program.casting %}"{{ loop.index  > 0 ? ',' : '' }}{{ pers.name }}"{% endfor %}],
-  "director" : [{% for pers in program.director %}"{{ loop.index  > 0 ? ',' : '' }}{{ pers.name }}"{% endfor %}]
+  "actor" : [{% for pers in program.casting %}{{ loop.index  > 0 ? ',' : '' }}"{{ pers.name }}"{% endfor %}],
+  "director" : [{% for pers in program.director %}{{ loop.index  > 0 ? ',' : '' }}"{{ pers.name }}"{% endfor %}]
 {% if program.episodeof is defined or program.episode_list is defined %}
   {% if program.episodeof is defined %}
   "@type" : "TVEpisode",

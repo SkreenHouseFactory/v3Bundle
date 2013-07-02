@@ -84,6 +84,14 @@
     <a class="fav fav-like btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>{% if app.environment == 'dev' and program.nb_like %} <span class="playlists-count"><i class="icon-user"></i>{{ program.nb_like }}</span>{% endif %}
   </div>
 
+
+  <div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+    <meta itemprop="thumbnailUrl" content="{{ program.picture }}" />
+    <meta itemprop="contentURL" content="{{ program.player_stream }}" />
+    <meta itemprop="embedURL" content="{{ program.player_fb }}" />
+    <meta itemprop="uploadDate" content="{{ program.year }}-01-01T00:00:00+01:00" />
+    <meta itemprop="expires" content="{{ program.year + 10 }}-01-01T00:00:00+01:00" />
+  
   <div class="program-title" >
     {% if program.episode_title is defined and 
           program.episodeof is defined and 
@@ -105,7 +113,8 @@
     {% endif %}
   </div>
   <div id="program-description">
-    <div class="description scroll">{{ program.description_seo|raw }}</div>
+    <div itemprop="description" class="description scroll">{{ program.description_seo|raw }}</div>
+  </div>
   </div>
 
   <div class="view-main view-program-main pull-right">
@@ -230,6 +239,7 @@
                        <meta itemprop="locality" content="{{ o_channel.seo_url }}"/>
                    </span>
                   </span>
+                  <span itemprop="summary" class="hide">{{ o_channel.name }}</span>
                   <img itemprop="photo" src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
                 </td>
                 <td class="price big" itemprop="ticketAggregate" itemscope itemtype="http://data-vocabulary.org/Offer-aggregate">
@@ -248,7 +258,10 @@
                       <span class="big">{{ o_access.name|replace({' iTunes': ''}) }}</span>
                     {% if o.broadcasttime is defined %}
                       <time itemprop="startDate" datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
+                    {% else %}
+                      <time itemprop="startDate" datetime="{{ program.year }}-01-01 00:00:00"></time>
                     {% endif %}
+
                   {% endif %}
                   {% if o_access.name == 'TV' %}
                     {% if key == 'plays'  %}
