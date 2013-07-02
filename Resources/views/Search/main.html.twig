@@ -19,7 +19,7 @@
   <h1>{{ app.request.get('q') }}
     {% if results and results.count and results.count.total and results.spelling|length %}
       <p class="lead pull-right" style="margin-bottom: -10px">Vouliez-vous dire : 
-      {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling}) }}">{{ spelling }}</a> ?{% endfor %}
+      {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}
       </p>
     {% endif %}
   </h1>
@@ -40,7 +40,7 @@
       <p class="alert">{{ 'search.noresults'|trans }}</p>
       {% if results.spelling and results.spelling|length %}
       <p class="lead">Vouliez-vous dire : 
-      {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling}) }}">{{ spelling }}</a> ?{% endfor %}
+      {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}
         </p>
       {% endif %}
     {% endif %}
@@ -54,7 +54,7 @@
       <p class="alert">{{ 'search.noresults'|trans }}</p>
       {% if results.spelling|length %}
       <p class="lead">Vouliez-vous dire : 
-      {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling}) }}">{{ spelling }}</a> ?{% endfor %}
+      {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}
         </p>
       {% endif %}
     {% endif %}
