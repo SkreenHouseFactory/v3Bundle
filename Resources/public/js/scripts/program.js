@@ -29,7 +29,7 @@ $(document).ready(function(){
             setTimeout(function(){
               trigger.popover('hide');
             }, 6000);
-         } });
+          });
         }, 2000);
       }
     }

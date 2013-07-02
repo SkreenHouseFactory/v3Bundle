@@ -41,7 +41,9 @@ $(document).ready(function(){
 
   // -- ui user
   $('a.auth').on('click', function(){
-    UI.auth();
+    Player.stop();
+    
+    UI.auth();    
     return false;
   });
   $('a.signout').on('click', function(){

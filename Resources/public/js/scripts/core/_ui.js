@@ -41,7 +41,9 @@ UiView = {
         if (navigator.userAgent.match(/iPhone|iPod/)) {
           Player.stop();
         } else {
-          Player.pause();
+          Player.stop(); 
+          // on est en iframe, le player ne peut plus etre en pause.
+          // Player.pause();
         }
         //pause carousels
         carousels = $('.carousel');
