@@ -16,13 +16,7 @@
 
 {% block content %}
 <div id="view-search" class="container">
-  <h1>{{ app.request.get('q') }}
-    {% if results and results.count and results.count.total and results.spelling|length %}
-      <p class="lead pull-right" style="margin-bottom: -10px">Vouliez-vous dire : 
-      {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}
-      </p>
-    {% endif %}
-  </h1>
+  <h1>{{ app.request.get('q') }}</h1>
 
   {% if results.person is defined  and results.person %}
   <p class="actions" data-id="{{ results.person.id }}">
@@ -36,6 +30,11 @@
   {% if results.count is not defined or results.count.total is not defined %}
     {% if results.count is defined %}
       <p class="alert alert-info">{{ results.count }} {{ 'search.results'|trans }}</p>
+      {% if results.spelling|length %}
+      <p class="lead">Vouliez-vous dire : 
+      {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}
+        </p>
+      {% endif %}
     {% else %}
       <p class="alert">{{ 'search.noresults'|trans }}</p>
       {% if results.spelling and results.spelling|length %}
@@ -50,6 +49,11 @@
   {% else %}
     {% if results.count.total %}
       <p class="alert alert-info">{{ results.count.total }} {{ 'search.results'|trans }}</p>
+      {% if results.spelling|length %}
+      <p class="lead">Vouliez-vous dire : 
+      {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}
+        </p>
+      {% endif %}
     {% else %}
       <p class="alert">{{ 'search.noresults'|trans }}</p>
       {% if results.spelling|length %}
@@ -85,7 +89,7 @@
       {% endif %}
     </div>
     {% endfor %}
-    <div id="youtube" class="tab-pane" data-more-streaming-query="{{ results.query|replace({'subcat:': '', 'cat:': ''}) }}">
+    <div id="youtube" class="tab-pane" data-more-streaming-query="{{ results.query }}">
       <div id="carousel-youtube" class="carousel slide">
           <div class="carousel-inner"></div>
             <a class="carousel-control left" href="#carousel-youtube" data-slide="prev">&lsaquo;</a>
