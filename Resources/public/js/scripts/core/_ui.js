@@ -1,7 +1,7 @@
-$(document).ready(function(){
-  console.log('scripts', 'load scripts/ui.js');
-  UiView.init();
-});
+/**
+* load view scripts
+*
+*/
 
 var UiView;
 UiView = {
@@ -9,7 +9,7 @@ UiView = {
   init: function(elmt) {
     console.log('UiView.init', elmt);
     this.elmt = typeof elmt != 'undefined' && elmt ? elmt : $('body');
-
+    this.initHistory();
     this.onLoad();
   },
   update: function(elmt) {
@@ -126,6 +126,22 @@ UiView = {
       $('.navbar-search .search-query').focus();
     }
   },
+  initHistory: function(){
+    history.pushState({path: window.location.pathname, cover: $('body').hasClass('cover')}, '', window.location.pathname);
+    $(window).bind('popstate', function(e) {
+    console.log('UiView.initHistory', 'popstate', e.originalEvent.state);
+      if (e.originalEvent.state) {
+        $('#content').load(window.location.pathname + '?xhr=1', function() {
+          if (e.originalEvent.state.cover) {
+            $('body').removeClass('no-cover').addClass('cover');
+          } else {
+            $('body').removeClass('cover').addClass('no-cover');
+          }
+        });
+      }
+    });
+  },
+  
   initDataLive: function(elmt) {
     console.log('UiView.initDataLive', elmt);
     var elmt = typeof elmt != 'undefined' ? elmt : document;
@@ -180,10 +196,16 @@ UiView = {
       }
       $($(this).attr('rel')).load(url, function() {
         console.log('script', '[data-ajax]', 'clalback', 'ajax-play', trigger.data('ajax-play'));
+        //update data body
+        
         UI.unloadRedirect();
         //trigger playlists
         UI.loadPlaylistTriggers('like', Skhf.session.datas.queue.split(','), elmt);
         //ajax play ?
+        if (trigger.data('offers')) {
+          
+          $('.trigger-'+ trigger.data('offers')).trigger('click');
+        }
         if (trigger.data('ajax-play')) {
           if (Player.state == 'playing') {
             console.log('script', 'data-play', 'Pause current player');
@@ -196,10 +218,18 @@ UiView = {
       if ($(this).parents('li.open:first').length) {
         $(this).parents('li.open:first').removeClass('open');
       }
-      history.pushState('', '', $(this).data('ajax').replace('#',''));
+
+      var pageurl = $(this).data('ajax').replace('#','');
+      $('body').data('page', pageurl);
+      if (pageurl != window.location) {
+        history.pushState({path: pageurl}, '', pageurl);
+      }
+
       document.title = 'programmes, TV, replay | mySkreen.com';
       return false;
     });
+   
+    
     // -- redirect
     $(elmt).on('click', '[data-redirect]', function(){
       console.log('script', 'player redirect', $(this));

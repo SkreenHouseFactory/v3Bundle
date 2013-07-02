@@ -1,3 +1,8 @@
+/**
+* scripts initialization
+*
+*/
+
 //pause player if leaving
 $(window).unload(function() {
   if (Player.state == 'playing') {
@@ -7,7 +12,7 @@ $(window).unload(function() {
 
 $(document).ready(function(){
 
-  // -- init
+  // -- API init
   API.init(function(){
 
     //tjs après ci-dessus : pas de console sur ie
@@ -15,13 +20,17 @@ $(document).ready(function(){
 
     //Modernizr.load();
 
+    // -- DOM interactions
+    UiView.init();
+
     // -- session
     Skhf.session = new Session(function(){
       console.log('script', 'Session.init', 'callback');
     });
   });
 
-  // ui
+
+  // -- User interactions
   UI.init(function(){
     console.log('script', 'UI.init', 'callback');
 
@@ -53,7 +62,7 @@ $(document).ready(function(){
     if ($(this).hasClass('tv-component')  && 
         !$(this).parent().hasClass('open') ) { 
       if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
-            Player.stop();
+        Player.stop();
       }   
     }
     

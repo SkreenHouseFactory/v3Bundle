@@ -83,7 +83,7 @@ class ContentController extends Controller
       }
 
       // Si on est une une page sk_channel, on redirige vers le twig correct
-      if (property_exists($datas,'channel')) {
+      if (property_exists($datas, 'channel')) {
         $params = array(
           'data' => $datas,
           'channel' => $datas->channel,
@@ -311,7 +311,7 @@ class ContentController extends Controller
         }
       }
       if ($request->get('format')) {
-        $facets[] = 'format:' . $request->get('format');
+        $facets[] = 'format:' . $request->get('format').'s';
       }
       if ($request->get('access')) {
         $facets[] = 'access:' . str_replace(

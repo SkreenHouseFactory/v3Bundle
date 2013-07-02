@@ -5,6 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->
 <head>
 {% spaceless %}
+
   <title>{% block title endblock %} | mySkreen.com</title>
   <meta name="description" content="{% block description %}{% endblock %}">
   {#
@@ -53,10 +54,12 @@
     {% block meta endblock %}
   {% endif %}
   {% if app.request.pathinfo != app.request.requestUri %}
+  
   <link rel="canonical" href="http://www.myskreen.com{{ app.request.pathinfo }}" />
   {% endif %}
   <link rel="author" href="https://plus.google.com/106555719800030017985" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="search" type="application/opensearchdescription+xml" href="http://www.myskreen.com/opensearch.xml" title="Recherche de vidéos mySkreen"/>
   <link rel="apple-touch-icon" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone.png') }}" />
   <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad.png') }}" />
   <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone-retina.png') }}" />
@@ -76,7 +79,7 @@
   {% endstylesheets %}
 </head>
 {% endspaceless %}
-<body class="{% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}">
+<body data-page="" class="{% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}">
 {% spaceless %}
 <!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
   <article>

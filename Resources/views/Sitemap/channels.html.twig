@@ -10,7 +10,7 @@
 	<ul class="nav nav-pills">
 		<li{{ app.request.get('type') == 'broadcast' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">TV & Replay</a></li>
 		<li{{ app.request.get('type') == 'vod' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'vod'}) }}">VOD</a></li>
-		<li{{ app.request.get('type') == 'webcast' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}">Web content</a></li>
+		<li{{ app.request.get('type') == 'webcast' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}">Web TV</a></li>
 		<li{{ app.request.get('type') == 'cinema' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Cinéma</a></li>
 		<li{{ app.request.get('type') == 'dvd' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">DVD</a></li>
 		<li{{ app.request.get('type') == 'thematique' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'thematique'}) }}">Thématique</a></li>

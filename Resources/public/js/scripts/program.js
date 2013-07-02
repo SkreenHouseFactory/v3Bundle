@@ -21,6 +21,7 @@ $(document).ready(function(){
           $('#program-follow .fav').length > 0) {
         setTimeout(function(){
           $('#program-follow .fav').each(function(){
+             if(!$('#skModal').hasClass('in')){
             var trigger = $(this);
             UI.installPopover(trigger);
             trigger.popover('show');
@@ -28,7 +29,7 @@ $(document).ready(function(){
             setTimeout(function(){
               trigger.popover('hide');
             }, 6000);
-          });
+         } });
         }, 2000);
       }
     }
@@ -92,7 +93,11 @@ $(document).ready(function(){
     //////////// SCRIPTS ////////////////
 
     //no deportes
-    if ($('#trigger-plays').length == 0) {
+    var offers = getUrlParameter('offers')
+    if (offers) {
+      console.log('offers',  offers);
+      $('#trigger-' + offers).trigger('click');
+    } else if ($('#trigger-plays').length == 0) {
       $('#triggers li:first-child a').trigger('click');
     }
 
@@ -167,8 +172,10 @@ $(document).ready(function(){
 
 
     //init
-    ProgramView.init();
-
+    if( !$('#view-program').hasClass('isInitialized') ){
+     ProgramView.init();
+    
+    }
     $('[data-track-channel]').each(function() {
       //track channel
       //API.trackVar(1, 'Chaîne', $(this).data('track-channel'), 3);
@@ -180,17 +187,19 @@ $(document).ready(function(){
 // -- ProgramView
 var ProgramView;
 ProgramView = {
-  initialized: false,
+  
   init: function() {
+     
     //hack player pas initialisé
     if ($('#program-teaser-player iframe').length && 
         !Player.elmt) {
       Player.elmt = $('#program-teaser-player');
     }
-    if (!this.initialized) {
-      this.loadMoreStreaming();
-    }
-  },
+    
+    this.loadMoreStreaming();
+    $('#view-program').addClass('isInitialized');
+      
+},
   unloadProgramUsersDatas: function(id) {
     
   },

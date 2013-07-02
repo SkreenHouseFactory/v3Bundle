@@ -1,6 +1,7 @@
 // -- tvgrid
 
 $(document).ready(function(){
+
   if ($('#view-tvgrid').length) {
 
     //////////// CALLBACKS ////////////////
@@ -241,11 +242,15 @@ GridView = {
     this.channels.load(url, function(){
         //popover
         $('[rel="popover"]', self.elmt).popover();
-        var queue = Skhf.session.datas.queue.split(',');
-        //toggle playlist triggers
-        UI.loadPlaylistTriggers('like', queue, self.elmt);
+
         //add in-playlists class
         if (Skhf.session.datas.email) {
+
+          var queue = Skhf.session.datas.queue.split(',');
+
+          //toggle playlist triggers
+          UI.loadPlaylistTriggers('like', queue, self.elmt);
+          
           for (k in queue) {
             //console.log('GridView.loadSchedule', '.playlist', 'try', queue[k])
             if ($('ul li[data-program-id="' + queue[k] + '"]', self.elmt).length) {
@@ -330,19 +335,34 @@ GridView = {
       });
       return;
     }
+   
     $('> li', this.channels).show();
+   
     if (onglet) {
+      
       $('> li > ul > li.diff:not(.' + onglet + ')', this.channels).animate({opacity: 0.1});
       $('> li', this.channels).each(function(){
+      
         if ($('ul > li.diff.' + onglet, $(this)).length) {
           $('ul > li.diff.' + onglet, $(this)).animate({opacity: 1});
         } else {
           $(this).hide();
+          
         }
+        
+       
       });
+      
+    
+    
+      
       
     } else {
       $('> li > ul > li.diff', this.channels).animate({opacity: 1});
+    }
+    console.log('channels :visible ',$('> li:visible', this.channels).length);
+    if(!$('> li:visible', this.channels).length){
+      $('#channels').prepend('<li> Aucun programme trouvé </li>');
     }
   },
   getChannelsIds: function(){
