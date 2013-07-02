@@ -21,6 +21,7 @@ $(document).ready(function(){
           $('#program-follow .fav').length > 0) {
         setTimeout(function(){
           $('#program-follow .fav').each(function(){
+             if(!$('#skModal').hasClass('in')){
             var trigger = $(this);
             UI.installPopover(trigger);
             trigger.popover('show');
@@ -28,7 +29,7 @@ $(document).ready(function(){
             setTimeout(function(){
               trigger.popover('hide');
             }, 6000);
-          });
+         } });
         }, 2000);
       }
     }
