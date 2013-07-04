@@ -58,87 +58,93 @@ class ContentController extends Controller
         'with_programs' => true,
         'offset' => $request->get('page', 1) * 30 - 30,
         'nb_results' => 30,
-        'facets' => $this->buildFacets($request)
+        'facets' => $this->buildFacets($request),
+        'preview' => $request->get('preview')
       );
 
-      // Gestion du mode preview
-      if ($request->get("preview") == 1) {
-        $params['preview'] = 1;
-      }
+      $data = $api->fetch('channel', $params);
 
-      $datas = $api->fetch('channel', $params);
-
-      //print("<pre>");print_r($datas);
+      //print("<pre>");print_r($data);
       //echo $api->url;
       //echo "\n".'category_slug:' . $request->get('category_slug');
       //echo "\n".'route:'  .$request->get('_route');
       //exit;
       //404
-      if (isset($datas->error) && $datas->error) {
+      if (isset($data->error) && $data->error) {
         throw $this->createNotFoundException('Channel does not exist');
       }
       //redirect fournisseur synonyme
-      if (isset($datas->redirect) && $datas->redirect) {
-        return $this->redirect($datas->redirect, 301);
+      if (isset($data->redirect) && $data->redirect) {
+        return $this->redirect($data->redirect, 301);
       }
 
+      //bad url
+      if (($request->getPathInfo() != $data->seo_url &&
+          $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' &&
+          $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' &&
+          $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' .  'page-' . $request->get('page') . '/' &&
+          $request->getPathInfo() != $data->seo_url . 'page-' . $request->get('page') . '/' &&
+          $request->getPathInfo() != $data->seo_url . $request->get('facet') . '/') &&
+          (!property_exists($data,'channel') || str_replace('/','',$request->getPathInfo()) != $data->channel->slug)
+          ) {
+        if ($this->container->getParameter('kernel.environment') == 'dev') {
+          echo "\n".'pathInfo: ' . $request->getPathInfo();
+          echo "\n".'----';
+          echo "\n".'facet: ' . $data->seo_url . $request->get('facet') . '/';
+          echo "\n".'format: ' . $data->seo_url . $request->get('format') . '/';
+          echo "\n".'format+cat: ' . $data->seo_url . $request->get('format') . '/' . $request->get('facet') . '/';
+          echo "\n".'format+cat+page: ' . $data->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' .  'page-' . $request->get('page');
+          echo "\n".'page: ' . $data->seo_url . '/page-' . $request->get('page') . '/';
+          echo "\n".'default '.$request->getPathInfo().' != '.$data->seo_url.'/ => '.($request->getPathInfo() != $data->seo_url);
+          echo "\n".'redirect '.$data->seo_url;
+          exit();
+        }
+        return $this->redirect($data->seo_url, 301);
+      }
+
+
       // Si on est une une page sk_channel, on redirige vers le twig correct
-      if (property_exists($datas, 'channel')) {
+      if (property_exists($data, 'channel')) {
+
         $params = array(
-          'data' => $datas,
-          'channel' => $datas->channel,
+          'data' => $data,
+          'channel' => $data->channel,
         );
-        if ($datas->channel->type == 'ChannelFournisseur') {
-          $formats = explode(';', $datas->facets->format);
-          if (property_exists($datas,"facets_seo_url"))
-            $formats = array_combine(explode(';', $datas->facets_seo_url->format),$formats);
-          $params['formats'] = $formats;
-          $params['subcategories'] = array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory));
-          $params['alpha_available'] = explode(';', $datas->facets->alpha);
-          $params['alpha'] = array(1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+        if ($data->channel->type == 'ChannelFournisseur' ||
+            property_exists($data->channel, 'fournisseur')) {
+          //$data->channel->description = $data->channel->fournisseur->description;
+          $data->channel->fournisseur->formats = array_combine(explode(';', $data->channel->fournisseur->facets_seo_url->format),explode(';', $data->channel->fournisseur->facets->format));
+          $data->channel->fournisseur->alpha_available = explode(';', $data->channel->fournisseur->facets->alpha);
+          $data->channel->fournisseur->alpha = array(
+            1,2,3,4,5,6,7,8,9,
+            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
+          );
+          
+          unset($data->channel->fournisseur->facets);
+          unset($data->channel->fournisseur->facets_seo_url);
         }
 
         $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:channel.html.twig', $params);
-        if ($request->get('slug') != $datas->channel->slug) {
+        if ($request->get('slug') != $data->channel->slug) {
           // Alias du channel fourni
-          return $this->redirect('/' . $datas->channel->slug, 301);
+          return $this->redirect('/' . $data->channel->slug, 301);
         }
       } else {
-        //bad url
-        if (($request->getPathInfo() != $datas->seo_url &&
-            $request->getPathInfo() != $datas->seo_url . $request->get('format') . '/' &&
-            $request->getPathInfo() != $datas->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' &&
-            $request->getPathInfo() != $datas->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' .  'page-' . $request->get('page') . '/' &&
-            $request->getPathInfo() != $datas->seo_url . 'page-' . $request->get('page') . '/' &&
-            $request->getPathInfo() != $datas->seo_url . $request->get('facet') . '/') &&
-            (!property_exists($datas,'channel') || str_replace('/','',$request->getPathInfo()) != $datas->channel->slug)
-            ) {
-          if ($this->container->getParameter('kernel.environment') == 'dev') {
-            echo "\n".'pathInfo: ' . $request->getPathInfo();
-            echo "\n".'----';
-            echo "\n".'facet: ' . $datas->seo_url . $request->get('facet') . '/';
-            echo "\n".'format: ' . $datas->seo_url . $request->get('format') . '/';
-            echo "\n".'format+cat: ' . $datas->seo_url . $request->get('format') . '/' . $request->get('facet') . '/';
-            echo "\n".'format+cat+page: ' . $datas->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' .  'page-' . $request->get('page');
-            echo "\n".'page: ' . $datas->seo_url . '/page-' . $request->get('page') . '/';
-            echo "\n".'default '.$request->getPathInfo().' != '.$datas->seo_url.'/ => '.($request->getPathInfo() != $datas->seo_url);
-            echo "\n".'redirect '.$datas->seo_url;
-            exit();
-          }
-          return $this->redirect($datas->seo_url, 301);
-        }
-        $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
-        //$template = isset($datas->epg) && $datas->epg ? 'channel-replay' : 'channel';
+
+        $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) ? $data->programs[0]->picture : null);
+        //$template = isset($data->epg) && $data->epg ? 'channel-replay' : 'channel';
 
         $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:fournisseur.html.twig', array(
-          'channel' => $datas,
-          'formats' => array_combine(explode(';', $datas->facets_seo_url->format),explode(';', $datas->facets->format)),
-          'categories' => array_combine(explode(';', $datas->facets_seo_url->category),explode(';', $datas->facets->category)),
-          'subcategories' => array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory)),
-          'access' => explode(';', isset($datas->facets->access) ? $datas->facets->access : null),
-          'alpha_available' => explode(';', $datas->facets->alpha),
-          'alpha'    => array(1,2,3,4,5,6,7,8,9,
-                              'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
+          'channel' => $data,
+          'formats' => array_combine(explode(';', $data->facets_seo_url->format),explode(';', $data->facets->format)),
+          'categories' => array_combine(explode(';', $data->facets_seo_url->category),explode(';', $data->facets->category)),
+          'subcategories' => array_combine(explode(';', $data->facets_seo_url->subcategory),explode(';', $data->facets->subcategory)),
+          'access' => explode(';', isset($data->facets->access) ? $data->facets->access : null),
+          'alpha_available' => explode(';', $data->facets->alpha),
+          'alpha' => array(
+            1,2,3,4,5,6,7,8,9,
+            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
+          )
         ));
       }
 
@@ -159,7 +165,7 @@ class ContentController extends Controller
 //      print_r($request->get('_route'));
       $is_route_format = in_array($request->get('_route'), array('format', 'format_facet', 'format_page')) ? true : false;
       $api   = $this->get('api');
-      $datas = $api->fetch($is_route_format ? 'format' : 'category', array(
+      $data = $api->fetch($is_route_format ? 'format' : 'category', array(
          'from_slug'  => str_replace('/', '', $request->get('category_slug')),
          'with_description' => true,
          //'with_subcategories' => true,
@@ -175,28 +181,28 @@ class ContentController extends Controller
       //echo "\n".'category_slug:' . $request->get('category_slug');
       //echo "\n".'route:'  .$request->get('_route');
       //exit();
-      //print_r($datas->facets);
+      //print_r($data->facets);
       //404
-      if (isset($datas->error) && $datas->error) {
+      if (isset($data->error) && $data->error) {
         throw $this->createNotFoundException('Category does not exist');
       }
       //bad url
-      if (strstr($request->getPathInfo(), $datas->seo_url)) {
+      if (strstr($request->getPathInfo(), $data->seo_url)) {
         if ($this->container->getParameter('kernel.environment') == 'dev') {
-          //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';exit();
+          //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$data->seo_url . '/';exit();
         }
-        //return $this->redirect($datas->seo_url, 301);
+        //return $this->redirect($data->seo_url, 301);
       }
-      $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
+      $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) ? $data->programs[0]->picture : null);
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Content:category.html.twig', array(
-        'category' => $datas,
-        'formats' => array_combine(explode(';', $datas->facets_seo_url->format),explode(';', $datas->facets->format)),
-        'categories' => array_combine(explode(';', $datas->facets_seo_url->category),explode(';', $datas->facets->category)),
-        'subcategories' => array_combine(explode(';', $datas->facets_seo_url->subcategory),explode(';', $datas->facets->subcategory)),
-        'access' => explode(';', $datas->facets->access),
-        'channels' => array_combine(explode(';', $datas->facets_seo_url->channel),explode(';', $datas->facets->channel)),
-        'alpha_available' => explode(';', $datas->facets->alpha),
+        'category' => $data,
+        'formats' => array_combine(explode(';', $data->facets_seo_url->format),explode(';', $data->facets->format)),
+        'categories' => array_combine(explode(';', $data->facets_seo_url->category),explode(';', $data->facets->category)),
+        'subcategories' => array_combine(explode(';', $data->facets_seo_url->subcategory),explode(';', $data->facets->subcategory)),
+        'access' => explode(';', $data->facets->access),
+        'channels' => array_combine(explode(';', $data->facets_seo_url->channel),explode(';', $data->facets->channel)),
+        'alpha_available' => explode(';', $data->facets->alpha),
         'alpha' => array(1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
       ));
 
@@ -215,7 +221,7 @@ class ContentController extends Controller
     {
       $this->blockDomain($request);
       $api   = $this->get('api');
-      $datas = $api->fetch('person/'.$request->get('id'), array(
+      $data = $api->fetch('person/'.$request->get('id'), array(
         'with_programs' => true,
         'img_width' => 150,
         'img_height' => 200,
@@ -223,22 +229,22 @@ class ContentController extends Controller
         'offset' => $request->get('page', 1) * 30 - 30,
         'nb_results' => 30,
       ));
-      //print_r($datas);
+      //print_r($data);
       //echo $api->url;exit;
       //404
-      if (isset($datas->error) && $datas->error) {
+      if (isset($data->error) && $data->error) {
         throw $this->createNotFoundException('Person does not exist');
       }
       //bad url
-      if (!strstr($request->getPathInfo(), $datas->seo_url)) {
-        //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url;exit();
-        return $this->redirect($datas->seo_url, 301);
+      if (!strstr($request->getPathInfo(), $data->seo_url)) {
+        //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$data->seo_url;exit();
+        return $this->redirect($data->seo_url, 301);
       }
 
-      $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
+      $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) && isset($data->programs[0]->picture) ? $data->programs[0]->picture : null);
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Content:person.html.twig', array(
-        'person' => $datas
+        'person' => $data
       ));
 
       $maxage = 3600;
@@ -256,34 +262,34 @@ class ContentController extends Controller
     {
       $this->blockDomain($request);
       $api   = $this->get('api');
-      $datas = $api->fetch('www/slider/pack/'.$request->get('id'), array(
+      $data = $api->fetch('www/slider/pack/'.$request->get('id'), array(
         'with_programs'  => true,
         'with_onglet'  => true,
         'img_width' => 150,
         'img_height' => 200
       ));
-      //print_r($datas);
+      //print_r($data);
       //echo $api->url;
       //404
-      if (isset($datas->error) && $datas->error) {
+      if (isset($data->error) && $data->error) {
         throw $this->createNotFoundException('Selection does not exist');
       }
 
-      $datas->picture = str_replace('150/200', '240/320', isset($datas->programs[0]) && is_object($datas->programs[0]) ? $datas->programs[0]->picture : null);
+      $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) ? $data->programs[0]->picture : null);
 
       if ($request->get('partner')) {
         $response = $this->render('SkreenHouseFactoryPartnersBundle:'.$request->get('partner').':selection.html.twig', array(
-          'selection' => $datas
+          'selection' => $data
         ));
       } else {
         //bad url
-        if ($request->getPathInfo() != $datas->seo_url) {
-          //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$datas->seo_url . '/';
-          return $this->redirect($datas->seo_url, 301);
+        if ($request->getPathInfo() != $data->seo_url) {
+          //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$data->seo_url . '/';
+          return $this->redirect($data->seo_url, 301);
         }
 
         $response = $this->render('SkreenHouseFactoryV3Bundle:Content:selection.html.twig', array(
-          'selection' => $datas
+          'selection' => $data
         ));
       }
 

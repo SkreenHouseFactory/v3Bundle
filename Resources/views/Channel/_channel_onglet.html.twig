@@ -7,5 +7,7 @@
   <br />
   {% if channel.personne is defined and channel.personne %}
   <p class="description">{{ channel.personne.description|raw }}</p>
+  {% elseif channel.text is defined and channel.text %}
+  <p class="description">{{ channel.text|raw }}</p>
   {% endif %}
 </div>

@@ -90,7 +90,7 @@
   {% if program.player_stream is defined %}  <meta itemprop="contentURL" content="{{ program.player_stream }}" />{% endif %}
     {% if program.player_fb is defined %} <meta itemprop="embedURL" content="{{ program.player_fb }}" />{% endif %}
     <meta itemprop="uploadDate" content="{{ program.year }}-01-01T00:00:00+01:00" />
-    <meta itemprop="expires" content="{{ program.year + 10 }}-01-01T00:00:00+01:00" />
+    <meta itemprop="expires" content="{{ program.year + 100 }}-01-01T00:00:00+01:00" />
   
   <div class="program-title" >
     {% if program.episode_title is defined and 

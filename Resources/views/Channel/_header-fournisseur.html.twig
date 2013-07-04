@@ -1,0 +1,52 @@
+<div id="cover"{% if channel.cover %} style="background: url('{{ channel.cover }}') top center no-repeat;"{% endif %}>
+<div class="header-container">
+  {% if fournisseur.live.program is defined and fournisseur.live.program  %}
+  <div class="container">
+    <div class="well" style="width: 500px;
+position: absolute;
+right: 0;
+margin: 20px;
+height: 340px;
+top: 80px;">
+    {% if fournisseur.live.player is defined %}
+      <iframe class="player-live" frameborder="0" scrolling="no" src="{{ fournisseur.live.player }}"></iframe>
+    {% endif %}
+    <div class="actions" data-id="{{ fournisseur.live.program.id }}">
+    <h3><strong>En direct : {{ fournisseur.live.program.title }}</strong>&nbsp; <small>de {{ fournisseur.live.program.best_offer.broadcast_begin|date('H:i') }} à {{ fournisseur.live.program.best_offer.broadcast_end|date('H:i') }}</small></h3>
+    <img style="float: left;margin-right: 20px;" src="{{ fournisseur.live.program.picture }}" alt="{{ fournisseur.live.program.title }} en direct sur {{ fournisseur.name }}">
+    <p>
+      {{ fournisseur.live.program.description|striptags|slice(0,600)|raw }}
+      <br/><br/>
+      <a class="fav fav-like btn btn-primary" data-placement="right"><i class="icon-plus-sign icon-white"></i> Suivre</a>
+      &nbsp;
+      <a href="{{ fournisseur.live.program.seo_url }}" class="btn">Tout sur ce programme</a>
+    </p>
+    {% if fournisseur.live.program.best_offer.has_replay %}
+    <p class="alert alert-success">Bientôt disponible en Replay. Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera disponible.</p>
+    {% endif %}
+  </div>
+  </div>
+  </div>
+  {% endif %}
+  
+  <div class="header-content" style="max-width:400px;">
+    <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' est sur @mySkreen   ' } %}</div>
+    {#<div class="pull-right actions" data-id="{{ channel.id }}">
+      <a class="fav fav-{{ fav }} btn btn-large btn-primary" data-channel-name="{{ channel.title }}" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ trigger_fav is defined and trigger_fav ? trigger_fav : 'Suivre ' ~ channel.title|trans }}</a>
+    </div>
+    #}
+    
+    <h1 data-channel="{{ channel.title }}"><a href="{{ path('channel', {slug: channel.slug }) }}">{{ channel.title }}</a></h1>
+    {# ON UTILISE L'ICO COMME JAQUETTE PROGRAMME UNIQUEMENT
+    {% if channel.img %}
+    <a href="{{ path('channel', {slug: channel.slug }) }}"><img class="channel-logo pull-left" src="{{ channel.img }}" /></a>
+    {%elseif data.img is defined %}
+    <a href="{{ path('channel', {slug: channel.slug }) }}"><img class="channel-logo pull-left" src="{{ data.img }}" /></a>
+    {% endif %}
+    #}
+    {% if channel.description %}
+    <p class="lead channel-description">{{ channel.description|raw }}</p>
+    {% endif %}
+  </div>
+</div>
+</div>

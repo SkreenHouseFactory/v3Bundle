@@ -40,6 +40,7 @@
   <br/>
   <h3>Ses programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
 
+
   {% if person.programs|length == 30 or app.request.get('page') > 1 %}
   <ul class="pager">
     {% if app.request.get('page') > 2 %}
@@ -57,6 +58,9 @@
   </ul>
   {% endif %}
 
+  {% if person.programs|length == 0 and app.request.get('page') < 2 %}
+  <p class="alert alert-info">Aucun programme n'est disponible.</p>
+  {% else %}
   <div id="person-programs" class="slider slider-list">
     <ul class="items">
     {% for program in person.programs %}
@@ -64,6 +68,7 @@
     {% endfor %}
     </ul>
   </div>
+  {% endif %}
 
 	{% if person.tweets is defined %}
 	<h4>{{ person.name }} sur Twitter</h4>

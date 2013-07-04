@@ -1,40 +1,24 @@
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data: data, fav: 'channel'} %}
-<div id="view-channel" data-id="{{ data.id }}" class="container">
-<div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ data.seo_url, text: 'Je regarde ' ~ data.name ~ ' sur mySkreen et vous ?' } %}</div>
+{% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: channel, fournisseur: data} %}
 
+<div id="view-channel" data-id="{{ data.id }}" class="container">
+
+{# sliders #}
+{% for slider in sliders if slider.id is defined %}
+  <a name="{{ slider.name }}"></a>
+  {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
+{% endfor %}
+<hr/>
+
+{# fournisseur #}
 {% if app.request.get('page') is null and 
       app.request.get('format') is null and 
       app.request.get('facet') is null %}
   {% if data.epg is defined and data.epg %}
     {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-replay.html.twig' with {channel: data} %}
   {% endif %}
-  <h2>{{ data.name }} : tous les programmes</h2>
-{% endif%}
+  <h2>Tous les programmes {{ data.name }} ({{ data.count }}){% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h2>
+{% endif %}
 
-<div class="pagination">
-  <ul>
-      <li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('channel', { slug: app.request.get('slug')}) }}">{{ 'nav.all'|trans }}</a></li>
-    {% for l in alpha %}
-      <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="{{ path('channel_facet', {slug: app.request.get('slug'), facet: l}) }}">{{ l }}</a></li>
-    {% endfor %}
-  </ul>
-</div>
-
-<div class="facets">
-{% for k,f in formats %}
-  <a href="{{ path('channel_format', {format: k, slug: app.request.get('slug')}) }}" class="badge{% if app.request.get('facet') == f %} badge-info"{% endif %}">{{ f }}</a>
-{% endfor %}
-<hr/>
-{% if app.request.get('format') %}
-  {% for k,s in subcategories %}
-    <a href="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="label{% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</a>
-  {% endfor %}
-  <hr/>
-{% endif%}
-</div>
-
-
-<h3 class="pager-count">{{ data.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
 <ul class="pager">
 {% if data.count > 30 and app.request.get('format') is null  %}
   {% if app.request.get('page') > 2 %}
@@ -54,6 +38,29 @@
 {% endif %}
 </ul>
 
+<div class="pagination">
+  <ul>
+      <li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('channel', { slug: app.request.get('slug')}) }}">{{ 'nav.all'|trans }}</a></li>
+    {% for l in data.alpha %}
+      <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in data.alpha_available %} class="disabled"{% endif %}><a href="{{ path('channel_facet', {slug: app.request.get('slug'), facet: l}) }}">{{ l }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="facets">
+{% if app.request.get('format') %}
+  {% for k,s in data.subcategories %}
+    <a href="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="label{% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</a> 
+  {% endfor %}
+  <hr/>
+{% else %}
+  {% for k,f in data.formats %}
+    <a href="{{ path('channel_format', {format: k, slug: app.request.get('slug')}) }}" class="label{% if app.request.get('facet') == f %} label-info"{% endif %}">{{ f }}</a> 
+  {% endfor %}
+{% endif %}
+</div>
+
+<hr/>
 <div id="channel-programs" class="slider slider-list">
   <ul class="items">
   {% for program in data.programs %}
@@ -62,9 +69,10 @@
   </ul>
 </div>
 
-	{% if data.tweets is defined %}
-	<h4>{{ data.name }} sur Twitter</h4>
-	{% include 'SkreenHouseFactoryV3Bundle:Main:_tweets.html.twig' with {tweets: data.tweets } %}
-	{% endif %}
+<p class="channel-description">
+  {{ data.description|raw }}
+</p>
+
+
 	</div>
 </div>

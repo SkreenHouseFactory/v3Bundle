@@ -1,4 +1,4 @@
-{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+{% extends app.request.isXmlHttpRequest or app.request.get('xhr') ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% block meta %}
 {% if category.programs|length < 6 or app.request.get('facet')|length == 1 or app.request.get('page') %}
@@ -94,7 +94,6 @@
 	<hr/>
 
 	<h3 class="pager-count">{{ category.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
-
 
 	<ul class="pager">
 	{% if category.count > 30 %}

@@ -1,4 +1,4 @@
-{% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
+{% extends app.request.isXmlHttpRequest or app.request.get('xhr') ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% block meta %}
 <meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ data.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}" />
@@ -24,13 +24,13 @@
 {# modal #}
 {% include 'SkreenHouseFactoryV3Bundle:Channel:_modal.html.twig' ignore missing with {'data': data} %}
 
-{% if channel.type == "ChannelFournisseur" %}
-  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_fournisseur.html.twig' with {data:data} %}
-{% elseif channel.type == "ChannelOnglet" %}
+{% if channel.type == 'ChannelFournisseur' or data.channel.fournisseur is defined %}
+  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_fournisseur.html.twig' with { data: data.channel.fournisseur, sliders: data.sliders, channel: data.channel } %}
+{% elseif channel.type == 'ChannelOnglet' %}
   {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_onglet.html.twig' with {data:data} %}
-{% elseif channel.type == "ChannelPersonne" %}
+{% elseif channel.type == 'ChannelPersonne' %}
   {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_personne.html.twig' with {data:data} %}
-{% elseif channel.type == "ChannelMyskreener" %}
+{% elseif channel.type == 'ChannelMyskreener' %}
   {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_user.html.twig' with {data:data} %}
 {% endif %}
 {% endblock %}

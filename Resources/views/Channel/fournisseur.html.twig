@@ -1,4 +1,5 @@
-{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+{% extends app.request.isXmlHttpRequest or app.request.get('xhr') ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
+
 {% set format_trans = 'format.singulier.' ~ app.request.get('format') %}
 {% set formats_trans = 'format.pluriel.' ~ app.request.get('format') %}
 {% set tnt_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat'] %}
@@ -78,9 +79,9 @@
 
   {# description #}
   {% if app.request.get('format') is null %}
-    <p class="channel-description">
+    <div class="channel-description">
       {{ channel.description|raw }}
-    </p>
+    </div>
   {% else %}
     <div class="channel-description">
       {% set page_title_channel = 'page.title.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
@@ -100,10 +101,77 @@
         app.request.get('format') is null and 
         app.request.get('facet') is null %}
     {% if channel.epg is defined and channel.epg %}
+    
+      {% if channel.live.program is defined and channel.live.program  %}
+      <div class="well">
+    
+        {% if channel.live.player is defined %}
+        <iframe class="player-live" frameborder="0" scrolling="no" src="{{ channel.live.player }}"></iframe>
+        {% elseif channel.hashtags|length %}
+        <a class="twitter-timeline" href="https://twitter.com/search?q={{ channel.hashtags|join(' ')|url_encode }}" data-widget-id="345502983871672320">Tweets concernant "{{ channel.hashtags|join(' ') }}"</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+        {% endif %}
+        <div class="actions" data-id="{{ channel.live.program.id }}">
+        <h3><strong>En direct : {{ channel.live.program.title }}</strong>&nbsp; <small>de {{ channel.live.program.best_offer.broadcast_begin|date('H:i') }} à {{ channel.live.program.best_offer.broadcast_end|date('H:i') }}</small></h3>
+        <br/>
+        <img src="{{ channel.live.program.picture }}" alt="{{ channel.live.program.title }} en direct sur {{ channel.name }}">
+        <p>
+          {{ channel.live.program.description|striptags|slice(0,600)|raw }}
+          <br/><br/>
+          <a class="fav fav-like btn btn-primary" data-placement="right"><i class="icon-plus-sign icon-white"></i> Suivre</a>
+          &nbsp;
+          <a href="{{ channel.live.program.seo_url }}" class="btn">Tout sur ce programme</a>
+        </p>
+        {% if channel.live.program.best_offer.has_replay %}
+        <p class="alert alert-success">Bientôt disponible en Replay. Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera disponible.</p>
+        {% endif %}
+      </div>
+      </div>
+      {% endif %}
+    
       {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-replay.html.twig' with {channel: channel} %}
     {% endif %}
     {% if app.request.get('page') %}<h3><small>page {{ app.request.get('page') }}</small>{% endif %}</h3>
   {% endif%}
+
+  {# pager #}
+  {% if channel.count > 30  %}
+  <ul class="pager">
+    {% if app.request.get('page') > 2 %}
+    <li class="previous">
+      {% if app.request.get('facet') %}
+      <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
+      {% elseif app.request.get('format') %}
+      <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
+      {% else %}
+      <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">
+      {% endif %}&larr; 30 précédents</a>
+    </li>
+    {% elseif app.request.get('page') == 2 %}
+    <li class="previous">
+        {% if app.request.get('facet') %}
+        <a href="{{ path('channel_format_facet', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format')}) }}">
+        {% elseif app.request.get('format') %}
+        <a href="{{ path('channel_format', {slug: app.request.get('slug'), format: app.request.get('format')}) }}">
+        {% else %}
+        <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">
+        {% endif %}&larr; 30 précédents</a>
+    </li>
+    {% endif %}
+    {% if channel.programs|length > 0 %}
+    <li class="next">
+        {% if app.request.get('facet') %}
+        <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
+        {% elseif app.request.get('format') %}
+        <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
+        {% else %}
+        <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">
+        {% endif %}30 suivants &rarr;</a>
+    </li>
+    {% endif %}
+  </ul>
+  {% endif %}
 
   {# pagination alpha #}
   {% if channel.type != 'cinema' %}
@@ -148,44 +216,6 @@
   </div>
   {% endif %}
 
-
-  {# pager #}
-  {% if channel.count > 30  %}
-  <ul class="pager">
-    {% if app.request.get('page') > 2 %}
-    <li class="previous">
-      {% if app.request.get('facet') %}
-      <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
-      {% elseif app.request.get('format') %}
-      <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
-      {% else %}
-      <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">
-      {% endif %}&larr; 30 précédents</a>
-    </li>
-    {% elseif app.request.get('page') == 2 %}
-    <li class="previous">
-        {% if app.request.get('facet') %}
-        <a href="{{ path('channel_format_facet', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format')}) }}">
-        {% elseif app.request.get('format') %}
-        <a href="{{ path('channel_format', {slug: app.request.get('slug'), format: app.request.get('format')}) }}">
-        {% else %}
-        <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">
-        {% endif %}&larr; 30 précédents</a>
-    </li>
-    {% endif %}
-    {% if channel.programs|length > 0 %}
-    <li class="next">
-        {% if app.request.get('facet') %}
-        <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
-        {% elseif app.request.get('format') %}
-        <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
-        {% else %}
-        <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">
-        {% endif %}30 suivants &rarr;</a>
-    </li>
-    {% endif %}
-  </ul>
-  {% endif %}
 
   {% if channel.programs|length %}
   <div id="channel-programs" class="slider slider-list{% if channel.adress is defined %} clear-cancel{% endif %}">
