@@ -176,12 +176,16 @@ UiView = {
     });
     // -- remote data in html elmt
     $(elmt).on('click', '[data-ajax]', function(e){
-
-      history.pushState({path: window.location.pathname, cover: $('body').hasClass('cover')}, '', window.location.pathname);
       
       var trigger = $(this);
       //e.preventDefault();
       console.log('script', '[data-ajax]', $(this).data('ajax'));
+      
+      if ( history.state == null ) {
+        history.pushState({path: window.location.href , cover: $('body').hasClass('cover')}, document.title, window.location.href);
+      }
+      history.pushState({path: $(this).data('ajax') , cover: $('body').hasClass('cover')}, $(this).html(), $(this).data('ajax'));
+    
       //add body class to overload view-homes
       $('body').removeClass('view-redirect');
       $('body').addClass('view-ajax');
@@ -223,13 +227,6 @@ UiView = {
       //HACK notifications
       if ($(this).parents('li.open:first').length) {
         $(this).parents('li.open:first').removeClass('open');
-      }
-
-      var pageurl = $(this).data('ajax').replace('#','');
-      $('body').data('page', pageurl);
-      if (pageurl != window.location) {
-        history.pushState({path: pageurl}, '', pageurl);
-       
       }
 
       document.title = 'programmes, TV, replay | mySkreen.com';
