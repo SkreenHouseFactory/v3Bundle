@@ -176,12 +176,21 @@ UiView = {
     });
     // -- remote data in html elmt
     $(elmt).on('click', '[data-ajax]', function(e){
-
-      history.pushState({path: window.location.pathname, cover: $('body').hasClass('cover')}, '', window.location.pathname);
-      
-      var trigger = $(this);
       //e.preventDefault();
       console.log('script', '[data-ajax]', $(this).data('ajax'));
+
+      //history
+      history.pushState({
+        path: window.location.pathname, 
+        cover: $('body').hasClass('cover')
+      }, '', window.location.pathname);
+      console.log('script', '[data-ajax]', 'pushState', {
+        path: window.location.pathname, 
+        cover: $('body').hasClass('cover')
+      });
+      
+      
+      var trigger = $(this);
       //add body class to overload view-homes
       $('body').removeClass('view-redirect');
       $('body').addClass('view-ajax');
