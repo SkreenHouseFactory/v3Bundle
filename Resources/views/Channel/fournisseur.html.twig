@@ -79,9 +79,9 @@
 
   {# description #}
   {% if app.request.get('format') is null %}
-    <p class="channel-description">
+    <div class="channel-description">
       {{ channel.description|raw }}
-    </p>
+    </div>
   {% else %}
     <div class="channel-description">
       {% set page_title_channel = 'page.title.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
