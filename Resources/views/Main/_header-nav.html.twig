@@ -26,18 +26,18 @@
     <ul class="nav nav-menu">
       <li class="dropdown with-caret {{ app.request.get('home') == 'tv-replay' ? 'active' : '' }}">
         <a data-toggle="dropdown" class="a-caret visible-touch dropdown-toggle tv-component"><i class="icon-chevron-down icon-white"></i></a>
-        <a class="with-caret tv-component" href="{{ header_base }}{{ path('tvgrid') }}" target="_top">{{ 'nav.subnav.tv'|trans }}<i></i></a>
+        <a class="with-caret tv-component" href="{{ header_base }}{{ path('tvgrid') }}">{{ 'nav.subnav.tv'|trans }}<i></i></a>
         <ul class="dropdown-menu dropdown-menu-tv">
           <li class="nav-header">La grille TV</li>
-          <li class="pull-left"><a href="{{ path('tvgrid') }}" target="_top">En ce moment</a></li>
-          <li class="pull-left"><a href="{{ path('tvgrid_date', {date: 'ce-soir'}) }}" target="_top">Ce soir</a></li>
-          <li class="pull-left"><a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}" target="_top">Hier soir</a></li>
+          <li class="pull-left"><a href="{{ path('tvgrid') }}">En ce moment</a></li>
+          <li class="pull-left"><a href="{{ path('tvgrid_date', {date: 'ce-soir'}) }}">Ce soir</a></li>
+          <li class="pull-left"><a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir</a></li>
           <li class="clear divider"></li>
           <li class="nav-header">Les chaînes de la Tnt</li>
           <li class="tv-channels">
             {% for channel in tv_channels %}
             {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-            <a data-tnt-name="{{ channel }}" class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
+            <a data-tnt-name="{{ channel }}" class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
             {% endfor %}
           </li>
           <li><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}"><i class="icon-chevron-right"></i> Toutes les chaines TV</a></li>
@@ -46,37 +46,38 @@
           <li class="tv-channels">
             {% for channel in web_channels %}
             {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><span class="hidden-touch">{{ channel }}</span><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
+            <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><span class="hidden-touch">{{ channel }}</span><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
             {% endfor %}
           </li>
           <li><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}"><i class="icon-chevron-right"></i> Toutes les chaînes web</a></li>
           <li class="divider clear"></li>
           <li class="nav-header">Les chaînes mySkreen</li>
           <li class="tv-channels">
-            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: 'les-inconnus'}) }}"><span class="hidden-touch">Les Inconnus</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/1-les-inconnus.jpg" alt="Les Inconnus"/></a>
-            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: 'jacques-demy'}) }}"><span class="hidden-touch">Jacques Demy</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/3-jacques-demy.jpg" alt="Jacques Demy"/></a>
-            <a class="tv-component" target="_top" href="{{ header_base }}{{ path('channel', {slug: 'agnes-varda'}) }}"><span class="hidden-touch">Agnès Varda</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/8-logo-agnes-varda.jpg" alt="Agnès Varda"/></a>
+            <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'politique'}) }}"><span class="hidden-touch">La chaîne politique</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/12-logo-politique.jpg" alt="Politique, émissions et replay"/></a>
+            <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'les-inconnus'}) }}"><span class="hidden-touch">Les Inconnus</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/1-les-inconnus.jpg" alt="Les Inconnus"/></a>
+            <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'jacques-demy'}) }}"><span class="hidden-touch">Jacques Demy</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/3-jacques-demy.jpg" alt="Jacques Demy"/></a>
+            <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'agnes-varda'}) }}"><span class="hidden-touch">Agnès Varda</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/8-logo-agnes-varda.jpg" alt="Agnès Varda"/></a>
           </li>
         </ul>
       </li>
       <li class="dropdown with-caret active-dropdown-visible active-vod {{ app.request.get('home') == 'video-a-la-demande' ? ' active' : '' }}">
         <a data-toggle="dropdown" class="a-caret visible-touch dropdown-toggle tv-component"><i class="icon-chevron-down icon-white"></i></a>
-        <a class="with-caret tv-component" href="{{ header_base }}{{ path('homes', {home: 'video-a-la-demande'}) }}" target="_top">{{ 'nav.subnav.vod'|trans }}<i></i></a>
+        <a class="with-caret tv-component" href="{{ header_base }}{{ path('homes', {home: 'video-a-la-demande'}) }}">{{ 'nav.subnav.vod'|trans }}<i></i></a>
         <ul class="dropdown-menu">
-          <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'film'}) }}" target="_top">{{ 'nav.films'|trans }}</a></li>
-          <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'documentaire'}) }}" target="_top">{{ 'nav.documentaires'|trans }}</a></li>
-          <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'serie'}) }}" target="_top">{{ 'nav.series'|trans }}</a></li>
-          <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'spectacle'}) }}" target="_top">{{ 'nav.spectacles'|trans }}</a></li>
-          <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'jeunesse'}) }}" target="_top">{{ 'nav.jeunesse'|trans }}</a></li>
+          <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'film'}) }}">{{ 'nav.films'|trans }}</a></li>
+          <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'documentaire'}) }}">{{ 'nav.documentaires'|trans }}</a></li>
+          <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'serie'}) }}">{{ 'nav.series'|trans }}</a></li>
+          <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'spectacle'}) }}">{{ 'nav.spectacles'|trans }}</a></li>
+          <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'jeunesse'}) }}">{{ 'nav.jeunesse'|trans }}</a></li>
         </ul>
       </li>
       <li class="dropdown with-caret active-dropdown-visible active-cinema {{ app.request.get('home') == 'cinema' or app.request.get('format') == 'cinema' ? ' active' : '' }}">
         <a data-toggle="dropdown" class="a-caret visible-touch dropdown-toggle tv-component"><i class="icon-chevron-down icon-white"></i></a>
-        <a class="with-caret tv-component" href="{{ header_base }}{{ path('homes', {home: 'cinema'}) }}" target="_top">{{ 'nav.subnav.cine'|trans }}<i></i></a>
+        <a class="with-caret tv-component" href="{{ header_base }}{{ path('homes', {home: 'cinema'}) }}">{{ 'nav.subnav.cine'|trans }}<i></i></a>
         <ul class="dropdown-menu">
-          <li><a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845147-a-decouvrir-dans-les-salles-cette-semaine/'}) }}" target="_top">{{ 'nav.theaters.release'|trans }}</a></li>
-          <li><a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845150-bientot-dans-les-salles/'}) }}" target="_top">{{ 'nav.theaters.coming'|trans }}</a></li>
-          <li><a href="{{ header_base }}{{ path('cinema_boxoffice', {alpha: 'a'}) }}" target="_top">{{ 'nav.theaters.boxoffice'|trans }}</a></li>
+          <li><a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845147-a-decouvrir-dans-les-salles-cette-semaine/'}) }}">{{ 'nav.theaters.release'|trans }}</a></li>
+          <li><a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845150-bientot-dans-les-salles/'}) }}">{{ 'nav.theaters.coming'|trans }}</a></li>
+          <li><a href="{{ header_base }}{{ path('cinema_boxoffice', {alpha: 'a'}) }}">{{ 'nav.theaters.boxoffice'|trans }}</a></li>
         </ul>
       </li>
     </ul>
@@ -106,12 +107,12 @@
           <li class="playlist-publish">
             <a data-toggle="collapse" data-target="#top-playlist"><i class="icon-play-circle"></i> {{ 'playlist.yours'|trans }} {% if app.environment == 'dev' %}<span data-modal-remote="/user/modal/publish-playlist" data-modal-title="Publier ma playlist" class="btn btn-small">Publier</span>{% endif %}</a>
           </li>
-          <li><a class="vod" href="{{ path('user_vod') }}" target="_top"><i class="icon-film"></i> {{ 'nav.vod'|trans }}</a></li>
-          <li><a class="programs" href="{{ path('user_programs') }}" target="_top"><i class="icon-list"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
-          <li><a class="programs" href="{{ path('user_channels') }}" target="_top"><i class="icon-list"></i> {{ 'nav.channel_favoris'|trans }} <span></span></a></li>
-          <li><a class="programs" href="{{ path('user_theaters') }}" target="_top"><i class="icon-list"></i> {{ 'nav.theater_favoris'|trans }} <span></span></a></li>
-          <li><a class="programs" href="{{ path('user_persons') }}" target="_top"><i class="icon-list"></i> {{ 'nav.person_favoris'|trans }} <span></span></a></li>
-          <li><a class="account" href="{{ path('user_settings') }}" target="_top"><i class="icon-user"></i> {{ 'nav.account'|trans }}</a></li>
+          <li><a class="vod" href="{{ path('user_vod') }}"><i class="icon-film"></i> {{ 'nav.vod'|trans }}</a></li>
+          <li><a class="programs" href="{{ path('user_programs') }}"><i class="icon-list"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
+          <li><a class="programs" href="{{ path('user_channels') }}"><i class="icon-list"></i> {{ 'nav.channel_favoris'|trans }} <span></span></a></li>
+          <li><a class="programs" href="{{ path('user_theaters') }}"><i class="icon-list"></i> {{ 'nav.theater_favoris'|trans }} <span></span></a></li>
+          <li><a class="programs" href="{{ path('user_persons') }}"><i class="icon-list"></i> {{ 'nav.person_favoris'|trans }} <span></span></a></li>
+          <li><a class="account" href="{{ path('user_settings') }}"><i class="icon-user"></i> {{ 'nav.account'|trans }}</a></li>
           <li class="divider"></li>
           <li><a class="signout"><i class="icon-remove"></i> {{ 'signout'|trans }}</a></li>
         </ul>
