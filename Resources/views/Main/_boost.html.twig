@@ -1,9 +1,9 @@
 <div class="span3">
 <h5>En ce moment</h5>
 {% for p in programs %}
-{% if loop.index in [11,21] %}
+{% if loop.index in [12,22] %}
 </div>
-<div class="span3">
+<div class="span3 span-d">
 {% endif %}
 <a href="{{ p.seo_url }}">{{ p.title }} {{ p.has_vod in [5,6,7,8] ? 'replay' : 'streaming' }}</a>
 {% endfor %}
