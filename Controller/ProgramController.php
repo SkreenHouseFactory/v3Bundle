@@ -74,7 +74,7 @@ class ProgramController extends Controller
 
       //API lastmodified
       //$data = $api->fetch('status/cache/program/' . $request->get('id'));
-      //echo $api->url;
+      // echo $api->url;
       //if (isset($data->error) && $data->error) {
       //  throw $this->createNotFoundException('Programme does not exist');
       //}
@@ -126,7 +126,7 @@ class ProgramController extends Controller
         ));
 
         //print("<pre>");print_r($data);
-        //echo $api->url;exit();
+       // echo $api->url;exit();
         if ($this->get('kernel')->getEnvironment() == 'dev' && 
             $request->get('debug')) {
           echo $api->url;

@@ -87,8 +87,8 @@
 
   <div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
     <meta itemprop="thumbnailUrl" content="{{ program.picture }}" />
-    <meta itemprop="contentURL" content="{{ program.player_stream }}" />
-    <meta itemprop="embedURL" content="{{ program.player_fb }}" />
+  {% if program.player_stream is defined %}  <meta itemprop="contentURL" content="{{ program.player_stream }}" />{% endif %}
+    {% if program.player_fb is defined %} <meta itemprop="embedURL" content="{{ program.player_fb }}" />{% endif %}
     <meta itemprop="uploadDate" content="{{ program.year }}-01-01T00:00:00+01:00" />
     <meta itemprop="expires" content="{{ program.year + 100 }}-01-01T00:00:00+01:00" />
   
@@ -292,11 +292,12 @@
                 {% else %}
                 <td class="tags">
                 {% endif %}
-                  {% if o.versions is defined %}
-                    {% for v,id in o.versions|to_array if o.deporte or o.tags.version is defined %}
-                      <span class="label label-success">{{ v }}</span>&nbsp;
-                    {% endfor %}
+                  {% if o.deporte is defined and o.deporte and o.versions is defined %}
+                    <span class="label label-success">{{ o.versions|to_array|keys|join(', ') }}</span>&nbsp;
+                  {% elseif o.tags is defined and o.tags.version is defined %}
+                    <span class="label label-success">{{ o.tags.version|replace({',': ', '}) }}</span>
                   {% endif %}
+                  
                   {% if o.tags is defined and o.tags|length %}
                     <br/>
                     {% if o.tags.HD is defined %}

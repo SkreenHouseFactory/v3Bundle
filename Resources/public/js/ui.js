@@ -41,7 +41,7 @@ UI = {
     if (typeof callback != 'undefined') {
       UI.callbackModal = callback;
     }
-    API.quickLaunchModal('signup', function() {
+      API.quickLaunchModal('signup', function() {
       Skhf.session.sync(function() {
         if (typeof callback != 'undefined') {
           console.log('UI.auth', 'Skhf.session.init callback');
@@ -664,6 +664,7 @@ UI = {
     $('.popover:visible').popover('hide');
     //if (Player.getType() == 'ios') {
     //  Player.playOccurrence(id);
+    
     //} else {
     if (typeof args.player_width == 'undefined' || 
         typeof args.player_width == 'undefined') {

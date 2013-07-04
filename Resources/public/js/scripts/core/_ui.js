@@ -8,6 +8,7 @@ UiView = {
   elmt: null,
   init: function(elmt) {
     console.log('UiView.init', elmt);
+
     this.elmt = typeof elmt != 'undefined' && elmt ? elmt : $('body');
     this.initHistory();
     this.onLoad();
@@ -41,7 +42,9 @@ UiView = {
         if (navigator.userAgent.match(/iPhone|iPod/)) {
           Player.stop();
         } else {
-          Player.pause();
+          Player.stop(); 
+          // on est en iframe, le player ne peut plus etre en pause.
+          // Player.pause();
         }
         //pause carousels
         carousels = $('.carousel');
@@ -127,7 +130,7 @@ UiView = {
     }
   },
   initHistory: function(){
-    history.pushState({path: window.location.pathname, cover: $('body').hasClass('cover')}, '', window.location.pathname);
+   
     $(window).bind('popstate', function(e) {
     console.log('UiView.initHistory', 'popstate', e.originalEvent.state);
       if (e.originalEvent.state) {
@@ -173,6 +176,9 @@ UiView = {
     });
     // -- remote data in html elmt
     $(elmt).on('click', '[data-ajax]', function(e){
+
+      history.pushState({path: window.location.pathname, cover: $('body').hasClass('cover')}, '', window.location.pathname);
+      
       var trigger = $(this);
       //e.preventDefault();
       console.log('script', '[data-ajax]', $(this).data('ajax'));
@@ -223,6 +229,7 @@ UiView = {
       $('body').data('page', pageurl);
       if (pageurl != window.location) {
         history.pushState({path: pageurl}, '', pageurl);
+       
       }
 
       document.title = 'programmes, TV, replay | mySkreen.com';
