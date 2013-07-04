@@ -20,16 +20,17 @@ $(document).ready(function(){
       if (!Skhf.session.datas.email && 
           $('#program-follow .fav').length > 0) {
         setTimeout(function(){
-          $('#program-follow .fav').each(function(){
-             if(!$('#skModal').hasClass('in')){
-            var trigger = $(this);
-            UI.installPopover(trigger);
-            trigger.popover('show');
+          if (!$('#skModal').hasClass('in')) {
+            $('#program-follow .fav').each(function(){
+              var trigger = $(this);
+              UI.installPopover(trigger);
+              trigger.popover('show');
 
-            setTimeout(function(){
-              trigger.popover('hide');
-            }, 6000);
-          });
+              setTimeout(function(){
+                trigger.popover('hide');
+              }, 6000);
+            });
+          }
         }, 2000);
       }
     }
@@ -93,11 +94,11 @@ $(document).ready(function(){
     //////////// SCRIPTS ////////////////
 
     //no deportes
-    var offers = getUrlParameter('offers')
+    var offers = getUrlParameter('offers');
     if (offers) {
       console.log('offers',  offers);
       $('#trigger-' + offers).trigger('click');
-    } else if ($('#trigger-plays').length == 0) {
+    } else if (!$('#trigger-plays').length ) {
       $('#triggers li:first-child a').trigger('click');
     }
 
@@ -172,22 +173,20 @@ $(document).ready(function(){
 
 
     //init
-    if( !$('#view-program').hasClass('isInitialized') ){
+    if (!$('#view-program').hasClass('isInitialized')) {
      ProgramView.init();
-    
     }
     $('[data-track-channel]').each(function() {
       //track channel
       //API.trackVar(1, 'Chaîne', $(this).data('track-channel'), 3);
       API.trackEvent('Chaîne', $(this).data('track-channel'), 'page=programme');
-    })
+    });
   }
 });
 
 // -- ProgramView
 var ProgramView;
 ProgramView = {
-  
   init: function() {
      
     //hack player pas initialisé
@@ -195,11 +194,11 @@ ProgramView = {
         !Player.elmt) {
       Player.elmt = $('#program-teaser-player');
     }
-    
+
     this.loadMoreStreaming();
     $('#view-program').addClass('isInitialized');
       
-},
+  },
   unloadProgramUsersDatas: function(id) {
     
   },
