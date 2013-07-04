@@ -87,8 +87,8 @@
 
   <div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
     <meta itemprop="thumbnailUrl" content="{{ program.picture }}" />
-    <meta itemprop="contentURL" content="{{ program.player_stream }}" />
-    <meta itemprop="embedURL" content="{{ program.player_fb }}" />
+  {% if program.player_stream is defined %}  <meta itemprop="contentURL" content="{{ program.player_stream }}" />{% endif %}
+    {% if program.player_fb is defined %} <meta itemprop="embedURL" content="{{ program.player_fb }}" />{% endif %}
     <meta itemprop="uploadDate" content="{{ program.year }}-01-01T00:00:00+01:00" />
     <meta itemprop="expires" content="{{ program.year + 10 }}-01-01T00:00:00+01:00" />
   
