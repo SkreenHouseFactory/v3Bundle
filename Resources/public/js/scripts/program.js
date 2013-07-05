@@ -1,4 +1,5 @@
 // -- program
+
 //surcharge session sync args to get VOD :
 //Session_sync_args =  { 'with_vod': 1 };
 
@@ -12,6 +13,7 @@ $(document).ready(function(){
       ProgramView.unloadProgramUsersDatas($('#view-program').data('id'));
     }
     Skhf.session.callbackSignin = function() {
+      
       ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
       //theater playlist
       if ($('#program-offers #trigger-theaters-playlist').length && 
@@ -228,18 +230,19 @@ ProgramView = {
       'GET', 
       'program/' + id + '.json', 
       {
-        no_metadata: 1,
+        no_metadata: 0,
         with_notifications: 1,
         session_uid: Skhf.session.uid
       }, 
       function(datas){
         console.log('UI.loadProgramUsersDatas', 'callback', datas);
         //bought ?
+        console.log('datas.purchased ', datas.purchased );
         if (typeof datas.purchased != 'undefined' &&
             datas.purchased) {
           for (k in datas.purchased) {
-            console.log('UI.loadProgramUsersDatas', 'purchased', '#offers [data-id="' + k + '"] td.access', $('#offers [data-id="' + k + '"] td.access'), k, API.formatTimestamp(datas.purchased[k]));
-            $('#offers [data-id="' + k + '"] td:last-child .btn').append('<span class="btn-block badge badge-warning">Loué le ' + API.formatTimestamp(datas.purchased[k]) + '</span>');
+            console.log('UI.loadProgramUsersDatas', 'purchased', '#program-offers [data-id="' + k + '"] td.access', $('#program-offers [data-id="' + k + '"] td.access'), k, API.formatTimestamp(datas.purchased[k]));
+            $('#program-offers [data-id="' + k + '"] td.access').append('<span class="btn-block badge badge-warning">Loué le ' + API.formatTimestamp(datas.purchased[k]) + '</span>');
           }
         }
         //notifs
