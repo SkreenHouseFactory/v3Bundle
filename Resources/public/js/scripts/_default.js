@@ -50,6 +50,33 @@ $(document).ready(function(){
     Skhf.session.signout();
     return false;
   });
+  $('.label.filter').on('click', function(){
+    $('.label.filter').removeClass('label-info');
+    $('.tv-component').addClass('hide');
+    $('.divider').addClass('hide');
+    if( $(this).data('filter') == 'tv-replay' ){
+      $('.label.filter[data-filter="tv-replay"]').addClass('label-info');
+      $('.tv-component.plays.catchup, .tv-component.broadcasts, .tv-component.plays.webcast').removeClass('hide'); 
+       $('.divider.plays.catchup, .divider.broadcasts, .divider.plays.webcast').removeClass('hide'); 
+    }
+    else if( $(this).data('filter') == 'vod' ){
+      $('.label.filter[data-filter="vod"]').addClass('label-info');
+      $('.tv-component.plays.dvd, .tv-component.plays.location.48h, .tv-component.plays.achat.itunes').removeClass('hide'); 
+      $('.divider.plays.dvd, .divider.plays.location.48h, .divider.plays.achat.itunes').removeClass('hide'); 
+    }
+    else if( $(this).data('filter') == 'theaters' ){
+      $('.label.filter[data-filter="theaters"]').addClass('label-info');
+      $('.tv-component.theaters').removeClass('hide'); 
+      $('.divider.theaters').removeClass('hide'); 
+    }
+    else{
+      $('.label.filter').addClass('label-info');
+      $('.tv-component').removeClass('hide');
+      $('.divider').removeClass('hide'); 
+    }
+   
+    
+  });
   
   $('.a-caret').on('click', function(){
     if(!$(this).parent().hasClass('open')){

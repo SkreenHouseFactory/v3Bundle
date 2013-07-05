@@ -384,7 +384,7 @@ UI = {
     if (notifications.length == 0) {
       $('.navbar .notifications-count .badge-important').removeClass('badge-important');
     } else {
-      var list = $('.navbar .notifications ul div');
+      var list = $('.navbar .notifications ul .scroll');
       list.find('li.empty').hide();
       list.find('li:not(.empty)').remove();
       var current_last_notification = this.last_notification ? this.last_notification : API.cookie('last_notification');
@@ -425,7 +425,7 @@ UI = {
           }
         }
         list.append(
-          '<li class="tv-component"><a data-id="' + notifications[k].id + '" class="remove">' + 
+          '<li class="tv-component '+ notifications[k].offers+' '+ notifications[k].access+'"><a data-id="' + notifications[k].id + '" class="remove">' + 
           '<i class="icon-trash"></i></a>' + (notifications[k]['new'] ? '<span id="new-notif'+ notifications[k].id + '" class="pull-right badge badge-important">Nouveau</span>' : '') + 
           '<a ' + attrs + (notifications[k]['new'] ? ' data-remove="#new-notif'+ notifications[k].id + '"' : '')+' class="link">' + 
           (notifications[k].channel_ico ? '<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
@@ -434,7 +434,7 @@ UI = {
           '<span class="subtitle">' + ep_title + '</span>' +
           '<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span></a>' +
           '</li>' +
-          '<li class="divider"></li>'
+          '<li class="divider'+' '+ notifications[k].offers+' '+ notifications[k].access+'"></li>'
         );
       }
       //TOFIX : should be working in script/core/ui.js

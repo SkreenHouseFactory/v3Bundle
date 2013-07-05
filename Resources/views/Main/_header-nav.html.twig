@@ -15,7 +15,9 @@
       <li class="hide user-on dropdown notifications">
         <a data-toggle="dropdown" class="dropdown-toggle tv-component notifications-count"/></a>
         <ul class="dropdown-menu">
-          <div class="scroll"><li class="empty"><h6>{{ 'notifications.empty.title'|trans }}<small>{{ 'notifications.empty.text'|trans }}</small></h6></li></div>
+          <span class="notification-filter"><a class="label label-info filter " data-filter="tv-replay">Tv&Replay</a><a class="label label-info filter" data-filter="vod">Vod</a><a class="label label-info filter" data-filter="theaters">Cinéma</a><a class="label label-info filter" data-filter="all">Tous</a></span>
+
+          <div class="scroll notification-scroll"><li class="empty"><h6>{{ 'notifications.empty.title'|trans }}<small>{{ 'notifications.empty.text'|trans }}</small></h6></li></div>
         </ul>
       </li>
       <li class="hide user-on playlists">
@@ -86,7 +88,7 @@
         <form id="nav-search" class="navbar-search">
         <i class="icon-search"></i>
         <input type="text" value="{{ app.request.get('q') }}" class="search-query pull-left span4" placeholder="{{ 'search.pitch'|trans }}">
-        <div class="hide mini-loading mini-bar"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        <div class=" hide mini-loading mini-bar"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
        
         </form>
       </li>
