@@ -805,7 +805,7 @@ UI = {
     if (query.length < 3)
       return;
 
-    $('#loading_gif').removeClass('hide');
+    $('.mini-loading.mini-bar').removeClass('hide');
 
     API.xhr['typeahead'] = API.query(
       'GET', 
@@ -819,7 +819,7 @@ UI = {
         with_loader: 1
       }, 
       function(data) {
-        $('#loading_gif').addClass('hide');
+       
         console.log('UI.typeahead', query, data);
         if (data.channels || data.theaters || data.programs || data.persons || data.queue || data.categories) {
           var lis = new Array;
@@ -917,8 +917,10 @@ UI = {
                    .html(typeahead.highlighter(item.name))
                   break;
               }
+               
               console.log('UI.typeahead', 'add item', key,  i);
               return i[0];
+              
             });
           }
 
@@ -943,10 +945,11 @@ UI = {
               API.notification('Ajouté à vos playlists | mySkreen', $(this).parent().find('a').text());
             }
           });
-
+          $('.mini-loading.mini-bar').addClass('hide');
           //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
           typeahead.show();
         } else {
+          $('.mini-loading.mini-bar').addClass('hide');
           return typeahead.shown ? typeahead.hide() : typeahead
         }
       }

@@ -83,10 +83,11 @@
     </ul>
     <ul class="nav pull-right">
       <li>
-        <form class="navbar-search">
+        <form id="nav-search" class="navbar-search">
         <i class="icon-search"></i>
         <input type="text" value="{{ app.request.get('q') }}" class="search-query pull-left span4" placeholder="{{ 'search.pitch'|trans }}">
-        <img id="loading_gif" src="{{ asset('bundles/skreenhousefactoryv3/images/loader.gif') }}" style="position: absolute;top: 10px; right: 30px" class="hide"/>
+        <div class="hide mini-loading mini-bar"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+       
         </form>
       </li>
       <li class="hide user-on dropdown user-menu">
