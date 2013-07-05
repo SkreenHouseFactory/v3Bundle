@@ -4,12 +4,19 @@ var skXdmSocket = {postMessage: function(){
 function skPaymentPopinResize() {
 }
 function skPaymentPopinEnd(action, player, occurrence_id) {
+ $('.modal').modal('hide');
   console.warn('skPaymentPopinEnd', action, player, occurrence_id);
-  if (typeof action != 'undefined' && 
-      action == 'play') {
-    Couchmode.init({type: 'occurrence', id: occurrence_id, hide_sliders: 1});
+  if (typeof action != 'undefined') {
+    switch(action) {
+      case 'play':
+        Couchmode.init({type: 'occurrence', id: occurrence_id, hide_sliders: 1});
+      break;
+      case 'loadAlertUser':
+        UI.loadAlertUser('Gerez vos vidéos','Cliquez sur "Vos vidéos à la demande" pour voir ou revoir vos VOD!',6000);
+      break;
+    }
   }
-  $('.modal').modal('hide');
+ 
 }
 function skPaymentPopinRefresh() {
   return skPaymentPopinEnd();

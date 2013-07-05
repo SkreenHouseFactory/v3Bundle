@@ -32,7 +32,10 @@ UiView = {
     if (urlPopin) {
       API.launchModal((API.config.popin + urlPopin + '&proxy=v3').replace('createIframe', ','));
     }
-
+    //popup après achat
+    $('#resume').on('click', function(){
+      alert('zzzz');
+    });
     // ui modal
     if ($('.modal').length > 0) {
       $('.modal').on('show', function(){

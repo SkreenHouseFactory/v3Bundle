@@ -34,6 +34,7 @@ UI = {
       callback();
     }
   },
+    
   //auth
   
   auth: function(callback, parcours) {
@@ -153,6 +154,23 @@ UI = {
         self.unloadPlaylistTriggers(self.getTriggerParameter($(this)), [$(this).parents('.actions').data('id')]);
       });
     }
+  },
+  loadAlertUser: function(titre,contenu,delay_timeout){
+    var self = this;
+    $('.user-menu').attr('rel','popover')
+                   .attr('data-original-title',titre)
+                   .attr('data-placement','bottom')
+                   .attr('data-content',contenu)
+                   .popover('show');
+     if (typeof delay_timeout != 'undefined') {
+       setTimeout( function(){
+         self.unloadAlertUser();
+       }, delay_timeout);
+    }
+  },
+  unloadAlertUser: function(parent){
+    $('.user-menu').popover('destroy');
+    
   },
   getTriggerParameter: function(trigger) {
     if (trigger.hasClass('fav-cinema')) {
