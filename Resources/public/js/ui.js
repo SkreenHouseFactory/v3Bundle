@@ -34,6 +34,7 @@ UI = {
       callback();
     }
   },
+    
   //auth
   
   auth: function(callback, parcours) {
@@ -153,6 +154,23 @@ UI = {
         self.unloadPlaylistTriggers(self.getTriggerParameter($(this)), [$(this).parents('.actions').data('id')]);
       });
     }
+  },
+  loadAlertUser: function(titre,contenu,delay_timeout){
+    var self = this;
+    $('.user-menu').attr('rel','popover')
+                   .attr('data-original-title',titre)
+                   .attr('data-placement','bottom')
+                   .attr('data-content',contenu)
+                   .popover('show');
+     if (typeof delay_timeout != 'undefined') {
+       setTimeout( function(){
+         self.unloadAlertUser();
+       }, delay_timeout);
+    }
+  },
+  unloadAlertUser: function(parent){
+    $('.user-menu').popover('destroy');
+    
   },
   getTriggerParameter: function(trigger) {
     if (trigger.hasClass('fav-cinema')) {
@@ -375,7 +393,7 @@ UI = {
     if (notifications.length == 0) {
       $('.navbar .notifications-count .badge-important').removeClass('badge-important');
     } else {
-      var list = $('.navbar .notifications ul div');
+      var list = $('.navbar .notifications ul .scroll');
       list.find('li.empty').hide();
       list.find('li:not(.empty)').remove();
       var current_last_notification = this.last_notification ? this.last_notification : API.cookie('last_notification');
@@ -394,7 +412,7 @@ UI = {
         } else if (notifications[k].player) {
           var attrs = 'data-ajax-play="' + notifications[k].player + '" data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?offers='+notifications[k].offers + '" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"' 
           
-        } else if (notifications[k].type == 'ajout' || notifications[k].program.deporte) {
+        } else if ( notifications[k].access == 'extrait'|| notifications[k].type == 'ajout' || notifications[k].program.deporte) {
           var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?offers='+notifications[k].offers +  '" data-offers="' + notifications[k].offers + '" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"';
           
         } else {
@@ -416,7 +434,7 @@ UI = {
           }
         }
         list.append(
-          '<li class="tv-component"><a data-id="' + notifications[k].id + '" class="remove">' + 
+          '<li class="tv-component '+ notifications[k].offers+' '+ notifications[k].access+'"><a data-id="' + notifications[k].id + '" class="remove">' + 
           '<i class="icon-trash"></i></a>' + (notifications[k]['new'] ? '<span id="new-notif'+ notifications[k].id + '" class="pull-right badge badge-important">Nouveau</span>' : '') + 
           '<a ' + attrs + (notifications[k]['new'] ? ' data-remove="#new-notif'+ notifications[k].id + '"' : '')+' class="link">' + 
           (notifications[k].channel_ico ? '<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
@@ -425,7 +443,7 @@ UI = {
           '<span class="subtitle">' + ep_title + '</span>' +
           '<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span></a>' +
           '</li>' +
-          '<li class="divider"></li>'
+          '<li class="divider'+' '+ notifications[k].offers+' '+ notifications[k].access+'"></li>'
         );
       }
       //TOFIX : should be working in script/core/ui.js
@@ -796,7 +814,7 @@ UI = {
     if (query.length < 3)
       return;
 
-    $('#loading_gif').removeClass('hide');
+    $('.mini-loading.mini-bar').removeClass('hide');
 
     API.xhr['typeahead'] = API.query(
       'GET', 
@@ -810,7 +828,7 @@ UI = {
         with_loader: 1
       }, 
       function(data) {
-        $('#loading_gif').addClass('hide');
+       
         console.log('UI.typeahead', query, data);
         if (data.channels || data.theaters || data.programs || data.persons || data.queue || data.categories) {
           var lis = new Array;
@@ -908,8 +926,10 @@ UI = {
                    .html(typeahead.highlighter(item.name))
                   break;
               }
+               
               console.log('UI.typeahead', 'add item', key,  i);
               return i[0];
+              
             });
           }
 
@@ -934,10 +954,11 @@ UI = {
               API.notification('Ajouté à vos playlists | mySkreen', $(this).parent().find('a').text());
             }
           });
-
+          $('.mini-loading.mini-bar').addClass('hide');
           //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
           typeahead.show();
         } else {
+          $('.mini-loading.mini-bar').addClass('hide');
           return typeahead.shown ? typeahead.hide() : typeahead
         }
       }

@@ -1,4 +1,5 @@
-// -- search
+// -- searchloading_gif
+
 var shouldDisplayMore = new Array();
 var query = $('.search-query').val();
 var elementsPerPage = 30;
@@ -11,6 +12,7 @@ $(document).ready(function(){
     if (trigger && trigger.data('more-streaming-query')) {
       console.log('data-more-streaming-query', trigger);
       var url = 'program/more-streaming-query/' + encodeURIComponent(trigger.data('more-streaming-query')) + '.json?nb_results=30';
+      $('#nav-search').append('<div class=" hide mini-loading mini-bar"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>');
       API.query(
         'GET',
         url,
@@ -48,7 +50,8 @@ $(document).ready(function(){
             $('#youtube').append('<p class="alert alert-info">Ces extraits sont récupérés automatiquement sur Youtube notamment. Il se peut qu\'ils ne correspondent pas tout à fait au programme recherché et les sites référencés sont seuls responsables du contenu qu\'ils proposent.</p>');
           
           }
-        });
+           $('.mini-loading.mini-bar').remove();
+       });
     }
   }
 });
@@ -79,7 +82,7 @@ $(document).scroll(function() {
     } else {
       params["format"] = activeFormat;
     }
-
+    $('#view-search').append('<div class="loading bar"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>');
     API.query('GET',
               url,
               params,
@@ -96,6 +99,7 @@ $(document).scroll(function() {
                       shouldDisplayMore[activeFormat] = true;
                   });
                 }
+                $('.loading.bar').remove();
               });
   }
 });
