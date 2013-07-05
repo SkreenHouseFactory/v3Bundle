@@ -54,7 +54,7 @@ $(document).ready(function(){
   $('.label.filter').on('click', function(){
     $('.label.filter').removeClass('label-info');
     $('.tv-component').addClass('hide');
-    $('.divider').addClass('hide');
+    $('.divider.notification').addClass('hide');
     if( $(this).data('filter') == 'tv-replay' ){
       $('.label.filter[data-filter="tv-replay"]').addClass('label-info');
       $('.tv-component.plays.catchup, .tv-component.broadcasts, .tv-component.plays.webcast').removeClass('hide'); 

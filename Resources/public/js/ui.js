@@ -443,7 +443,7 @@ UI = {
           '<span class="subtitle">' + ep_title + '</span>' +
           '<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span></a>' +
           '</li>' +
-          '<li class="divider'+' '+ notifications[k].offers+' '+ notifications[k].access+'"></li>'
+          '<li class="divider notification'+' '+ notifications[k].offers+' '+ notifications[k].access+'"></li>'
         );
       }
       //TOFIX : should be working in script/core/ui.js
