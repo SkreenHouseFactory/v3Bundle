@@ -70,7 +70,7 @@ $(document).ready(function(){
       $('.divider.theaters').removeClass('hide'); 
     }
     else{
-      $('.label.filter').addClass('label-info');
+      $('.label.filter[data-filter="all"]').addClass('label-info');
       $('.tv-component').removeClass('hide');
       $('.divider').removeClass('hide'); 
     }
