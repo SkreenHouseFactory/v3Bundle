@@ -79,8 +79,8 @@ $(document).scroll(function() {
     } else {
       params["format"] = activeFormat;
     }
-
-    API.query('GET',
+    $('#view-search').append('<div class="loading bar"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>');
+  API.query('GET',
               url,
               params,
               function(results) {
@@ -96,6 +96,7 @@ $(document).scroll(function() {
                       shouldDisplayMore[activeFormat] = true;
                   });
                 }
+                $('.loading.bar').remove();
               });
   }
 });
