@@ -32,6 +32,7 @@ UiView = {
     if (urlPopin) {
       API.launchModal((API.config.popin + urlPopin + '&proxy=v3').replace('createIframe', ','));
     }
+    
     //popup après achat
     $('#resume').on('click', function(){
       alert('zzzz');
@@ -191,18 +192,6 @@ UiView = {
       history.pushState({path: $(this).data('ajax') , cover: $('body').hasClass('cover')}, $(this).html(), $(this).data('ajax'));
     
 
-      //e.preventDefault();
-      console.log('script', '[data-ajax]', $(this).data('ajax'));
-
-      //history
-      history.pushState({
-        path: window.location.pathname, 
-        cover: $('body').hasClass('cover')
-      }, '', window.location.pathname);
-      console.log('script', '[data-ajax]', 'pushState', {
-        path: window.location.pathname, 
-        cover: $('body').hasClass('cover')
-      });
       
       
       var trigger = $(this);
