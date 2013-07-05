@@ -1,6 +1,8 @@
 {% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: channel, fournisseur: data} %}
 
-<div id="view-channel" data-id="{{ data.id }}" class="container">
+<div id="view-fournisseur" data-id="{{ data.id }}" class="container">
+
+{#% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: data} %#}
 
 {# sliders #}
 {% for slider in sliders if slider.id is defined %}

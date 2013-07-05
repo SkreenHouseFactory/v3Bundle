@@ -349,6 +349,9 @@
 
   {% if program.format %}
   <ul class="breadcrumb">
+    {% if program.popular_channel is defined %}
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: program.popular_channel.seo_url|slice(1, program.popular_channel.seo_url|length-1) }) }}"><span itemprop="title">{{ program.popular_channel.name }}</span></a> <span class="divider">/</span></li>
+    {% endif %}
     <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''})}) }}/"><span itemprop="title">{{ program.format.name }}</span></a> <span class="divider">/</span></li>
     {% if program.categories|length %}
     <li{% if program.subcategories|length == 0 and program.episode_title is not defined %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb">{% for c in program.categories|slice(0,1) %}{% if loop.first %}{% else %}, {% endif %}<a itemprop="url" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ c.name }}</span></a>{% endfor %}{% if program.subcategories|length or program.episode_title is defined %}  <span class="divider">/</span>{% endif %}</li>

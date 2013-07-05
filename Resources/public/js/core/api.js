@@ -424,14 +424,14 @@ API = {
       async: true,
       //crossDomain: true,
       beforeSend: function() {
-        if (data && data.with_loader) {
-          $("#loading_gif").removeClass("hide");
-        }
+        //if (data && data.with_loader) {
+        //  $("#loading_gif").removeClass("hide");
+        //}
       },
       error: function(retour, code) {
-        if (data && data.with_loader) {
-          $("#loading_gif").addClass("hide");
-        }
+        //if (data && data.with_loader) {
+        //  $("#loading_gif").addClass("hide");
+        //}
         console.log('API.query', 'error getting query', code, retour);
         clearTimeout(tooLongQuery); 
         if (retour.readyState == 4 && 
@@ -445,9 +445,9 @@ API = {
         }
       },
       success: function(json) {     
-        if (data && data.with_loader) {
-          $("#loading_gif").addClass("hide");
-        }
+        //if (data && data.with_loader) {
+        //  $("#loading_gif").addClass("hide");
+        //}
         //console.log(['API.query', 'succes', json]);
         clearTimeout(tooLongQuery);
         if (typeof callback != 'undefined') {

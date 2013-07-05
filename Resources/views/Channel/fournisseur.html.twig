@@ -2,7 +2,6 @@
 
 {% set format_trans = 'format.singulier.' ~ app.request.get('format') %}
 {% set formats_trans = 'format.pluriel.' ~ app.request.get('format') %}
-{% set tnt_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat'] %}
 {% block meta %}
 {% if channel.programs|length < 6 or app.request.get('page') %}
 <meta name="robots" content="noindex,follow" />
@@ -31,34 +30,7 @@
 
   {#<div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ channel.seo_url, text: 'Je regarde ' ~ channel.name ~ ' sur mySkreen et vous ?' } %}</div>#}
 
-  {# breadcrumb #}
-  <ul class="breadcrumb">
-    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('sitemap_channels', {type: channel.type}) }}"><span itemprop="title">{% if channel.type == 'cinema' %}Tous les cinémas{% else %}Chaînes {{ channel.type|replace({'broadcast': 'TV', 'catchup': 'Replay', 'webcast': 'Web TV'}) }}{% endif %}</span></a> <span class="divider">/</span></li>
-    {% if channel.city is defined and channel.city %}
-    <li class="active"><a>{{ channel.city }}</a> <span class="divider">/</span></li>
-    {% elseif channel.name in tnt_channels %}
-    <li class="dropdown dropdown-update">
-      <a class="dropdown-toggle" data-toggle="dropdown">Chaînes TNT <i class="icon-chevron-down"></i></a>
-      <ul class="dropdown-menu">
-        {% for channel in tnt_channels %}
-        {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-        <li><a href="{{ path('channel', {slug: slug}) }}">{{ channel }}</a></li>
-        {% endfor %}
-      </ul>
-      <span class="divider">/</span>
-    </li>
-    {% endif %}
-    <li{% if app.request.get('facet') is null and app.request.get('page') is null and app.request.get('format') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: channel.seo_url|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }}</span></a>{% if app.request.get('facet') or app.request.get('page') or app.request.get('format') %} <span class="divider">/</span>{% endif %}</li>
-    {% if app.request.get('format') %}
-    <li{% if app.request.get('page') is null and app.request.get('facet') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_format', {format: app.request.get('format'), slug: channel.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ ('format.singulier.' ~ app.request.get('format'))|trans|capitalize }}</span></a>{% if app.request.get('page') or app.request.get('facet') %} <span class="divider">/</span>{% endif %} </li>
-		{% endif %}
-    {% if app.request.get('facet') %}
-    <li{% if app.request.get('page') is null or app.request.get('facet')|length > 1 %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a{% if app.request.get('facet')|length < 2 %} itemprop="url" href="{{ path('channel_facet', {facet: app.request.get('facet'), slug: channel.seo_url|replace({'/': ''})}) }}"{% endif %}><span itemprop="title">{{ categories[app.request.get('facet')] is defined ? categories[app.request.get('facet')] : app.request.get('facet') }}</span></a>{% if app.request.get('page') %} <span class="divider">/</span>{% endif %}</li>
-    {% endif %}
-    {% if app.request.get('page') %}
-    <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('channel_format_page', {format: app.request.get('format'), slug: channel.seo_url|replace({'/': ''})}) }}/page-{{ app.request.get('page') }}/"><span itemprop="title">Page {{ app.request.get('page') }}</span></a></li>
-    {% endif %}
-  </ul>
+  {% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: channel} %}
 
   {# suivre #}
 	{% if channel.type in ['broadcast','cinema'] %}

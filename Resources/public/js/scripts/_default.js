@@ -1,5 +1,6 @@
 /**
 * scripts initialization
+* core : script that are specific to the website
 *
 */
 
@@ -26,7 +27,7 @@ $(document).ready(function(){
     // -- session
     Skhf.session = new Session(function(){
       console.log('script', 'Session.init', 'callback');
-    });
+    }, typeof Session_sync_args != 'undefined' ? Session_sync_args : {});
   });
 
 

@@ -257,6 +257,15 @@ UI = {
               $(this).remove();
             });
           }
+        //add : introduce user menu
+        } else {
+          if (Skhf.session.getNbPlaylists() == 1) {
+            UI.loadAlertUser(
+              'Bravo ! vous avez commencé vos playlists !',
+              'Gérez vos playlists ici !',
+              6000
+            );
+          }
         }
         if (UI.callbackTogglePlaylist) {
           UI.callbackTogglePlaylist(parameter, value, remove, trigger, return_data);

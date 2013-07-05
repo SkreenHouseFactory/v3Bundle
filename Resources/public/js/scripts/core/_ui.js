@@ -1,5 +1,6 @@
 /**
 * load view scripts
+* core : script that can be reused in other apps / bundles
 *
 */
 

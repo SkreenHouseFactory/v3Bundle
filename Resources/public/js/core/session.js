@@ -153,6 +153,14 @@ var BaseSession = Class.extend({
       console.log('BaseSession.deleteNotification', resp, args);
     });
   },
+  getNbPlaylists: function() {
+    return this.getPlaylistIds('like').length + 
+           this.getPlaylistIds('cinema').length + 
+           this.getPlaylistIds('channel').length + 
+           this.getPlaylistIds('page').length + 
+           this.getPlaylistIds('person').length + 
+           this.getPlaylistIds('user').length ;
+  },
   getPlaylistIds: function(playlist) {
     //console.log('BaseSession.getPlaylistIds', playlist);
     switch (playlist) {

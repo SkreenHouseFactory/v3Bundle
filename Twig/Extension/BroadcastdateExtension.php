@@ -45,9 +45,11 @@ class broadcastdateExtension extends \Twig_Extension
 			if ($remaining < 0) {
 				return 'Bientôt disponible en Replay';
 			} elseif ($remaining/3600 < 24 ) {
-				return 'En Replay dans ' . round($remaining/3600) . ' heures';
+        $nb_hours = round($remaining/3600);
+				return 'En Replay dans ' . $nb_hours . ' heure'.($nb_hours > 1 ? 's' : null);
 			} elseif ($remaining/3600 < 73 ) {
-				return 'En Replay dans ' . round($remaining/(3600*24)) . ' jours';
+        $nb_days = round($remaining/(3600*24));
+				return 'En Replay dans ' . $nb_days . ' jour'.($nb_days > 1 ? 's' : null);
 			}
     }
 
@@ -62,9 +64,11 @@ class broadcastdateExtension extends \Twig_Extension
 			$remaining = $time - time() + 3600;
 			if ($remaining < 0) {
 			} elseif ($remaining/3600 < 24 ) {
-				return 'Plus que ' . round($remaining/3600) . ' heures pour le voir';
+        $nb_hours = round($remaining/3600);
+				return 'Plus que ' . $nb_hours . ' heure'.($nb_hours > 1 ? 's' : null).' pour le voir';
 			} elseif ($remaining/3600 < 73 ) {
-				return 'Plus que ' . round($remaining/(3600*24)) . ' jours pour le voir';
+        $nb_days = round($remaining/(3600*24));
+				return 'Plus que ' . $nb_days . ' jour'.($nb_days > 1 ? 's' : null).' pour le voir';
 			}
     }
 
@@ -81,9 +85,11 @@ class broadcastdateExtension extends \Twig_Extension
 				return;
 			}
 			if ($timeleft/3600 < 24) {
-				return round($timeleft/3600) . ' heures';
+        $nb_hours = round($timeleft/3600);
+				return round($timeleft/3600) . ' heure'.($nb_hours > 1 ? 's' : null);
 			} elseif ($timeleft/3600 < 72) {
-				return round($timeleft/(3600*24)) . ' jours';
+        $nb_days = round($timeleft/(3600*24));
+				return round($timeleft/(3600*24)) . ' jour'.($nb_days > 1 ? 's' : null);
 			}
     }
 
