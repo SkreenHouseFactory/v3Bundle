@@ -1,5 +1,8 @@
 // -- program
 
+//surcharge session sync args to get VOD :
+//Session_sync_args =  { 'with_vod': 1 };
+
 $(document).ready(function(){
   if ($('#view-program').length) {
 
