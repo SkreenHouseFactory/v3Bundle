@@ -9,7 +9,7 @@ UI = {
   callbackModal: null,
   sliders: [],
   last_notification: null,
-  max_notifications: 20,
+  max_notifications: 50,
   badge_notification: '<span class="badge">%count%</span>',
   loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
   callbackTogglePlaylist: null,
@@ -436,7 +436,7 @@ UI = {
           }
         }
         list.append(
-          '<li class="tv-component '+ notifications[k].offers+' '+ notifications[k].access+'"><a data-id="' + notifications[k].id + '" class="remove">' + 
+          '<li class="tv-component '+ notifications[k].offers+' '+ notifications[k].access+ ' ' + notifications[k].type_ajout + '"><a data-id="' + notifications[k].id + '" class="remove">' + 
           '<i class="icon-trash"></i></a>' + (notifications[k]['new'] ? '<span id="new-notif'+ notifications[k].id + '" class="pull-right badge badge-important">Nouveau</span>' : '') + 
           '<a ' + attrs + (notifications[k]['new'] ? ' data-remove="#new-notif'+ notifications[k].id + '"' : '')+' class="link">' + 
           (notifications[k].channel_ico ? '<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
@@ -445,9 +445,51 @@ UI = {
           '<span class="subtitle">' + ep_title + '</span>' +
           '<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span></a>' +
           '</li>' +
-          '<li class="divider'+' '+ notifications[k].offers+' '+ notifications[k].access+'"></li>'
+          '<li class="divider notification'+' '+ notifications[k].offers+ ' ' + notifications[k].access+ ' ' + notifications[k].type_ajout + '"></li>'
         );
       }
+      $('.notifications .label.filter').remove();
+      $('.notifications .notification-filter').append('<a class="label label-info filter" data-filter="all">Tout</a>');
+      
+      if ($('li.tv-component.plays.catchup, li.tv-component.broadcasts, li.tv-component.plays.webcast').length) {
+        $('.notifications .notification-filter').append('<a class="label filter" data-filter="tv-replay">Tv et Replay</a>');
+      }
+      if ($('.tv-component.plays.dvd, li.tv-component.plays.location.48h, li.tv-component.plays.achat.itunes').length){
+         $('.notifications .notification-filter').append('<a class="label filter" data-filter="vod">Vod</a>');
+      }
+      if ($('.tv-component.theaters').length){
+         $('.notifications .notification-filter').append('<a class="label filter" data-filter="theaters">Cinéma</a>');
+      }
+      if ($('.tv-component.chaîne').length){
+         $('.notifications .notification-filter').append('<a class="label filter" data-filter="chaîne">Chaîne</a>');
+      }
+     
+      $('.notifications .label.filter').on('click', function(){
+        $('.notifications .label.filter').removeClass('label-info');
+        $('.notifications .tv-component').addClass('hide');
+        $('.notifications .divider.notification').addClass('hide');
+        $('.label.filter[data-filter="' + $(this).data('filter') + '"]').addClass('label-info');
+    
+        if ( $(this).data('filter') == 'all' ){
+          $('.notifications .tv-component').removeClass('hide');
+          $('.notifications .divider').removeClass('hide'); 
+        } else {
+          if( $(this).data('filter') == 'tv-replay' ){
+            var classes = ['plays.catchup', 'broadcasts', 'plays.webcast'];
+          } else if( $(this).data('filter') == 'vod' ){
+            var classes = ['plays.dvd', 'plays.location.48h', 'plays.achat.itunes']; 
+          } else {
+            var classes = [$(this).data('filter')];
+          }
+          for (k in classes) {
+            $('.notifications .tv-component.' +  classes[k]).removeClass('hide'); 
+            $('.notifications .divider.plays.' +  classes[k]).removeClass('hide'); 
+          }
+        }
+      });
+     
+      
+      
       //TOFIX : should be working in script/core/ui.js
       UiView.initDataLive(list);
 
