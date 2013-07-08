@@ -446,6 +446,48 @@ UI = {
           '<li class="divider notification'+' '+ notifications[k].offers+ ' ' + notifications[k].access+ ' ' + notifications[k].type_ajout + '"></li>'
         );
       }
+      $('.notifications .label.filter').remove();
+      $('.notifications .notification-filter').append('<a class="label label-info filter" data-filter="all">Tout</a>');
+      
+      if ($('li.tv-component.plays.catchup, li.tv-component.broadcasts, li.tv-component.plays.webcast').length) {
+        $('.notifications .notification-filter').append('<a class="label filter" data-filter="tv-replay">Tv et Replay</a>');
+      }
+      if ($('.tv-component.plays.dvd, li.tv-component.plays.location.48h, li.tv-component.plays.achat.itunes').length){
+         $('.notifications .notification-filter').append('<a class="label filter" data-filter="vod">Vod</a>');
+      }
+      if ($('.tv-component.theaters').length){
+         $('.notifications .notification-filter').append('<a class="label filter" data-filter="theaters">Cinéma</a>');
+      }
+      if ($('.tv-component.chaîne').length){
+         $('.notifications .notification-filter').append('<a class="label filter" data-filter="chaîne">Chaîne</a>');
+      }
+     
+      $('.notifications .label.filter').on('click', function(){
+        $('.notifications .label.filter').removeClass('label-info');
+        $('.notifications .tv-component').addClass('hide');
+        $('.notifications .divider.notification').addClass('hide');
+        $('.label.filter[data-filter="' + $(this).data('filter') + '"]').addClass('label-info');
+    
+        if ( $(this).data('filter') == 'all' ){
+          $('.notifications .tv-component').removeClass('hide');
+          $('.notifications .divider').removeClass('hide'); 
+        } else {
+          if( $(this).data('filter') == 'tv-replay' ){
+            var classes = ['plays.catchup', 'broadcasts', 'plays.webcast'];
+          } else if( $(this).data('filter') == 'vod' ){
+            var classes = ['plays.dvd', 'plays.location.48h', 'plays.achat.itunes']; 
+          } else {
+            var classes = [$(this).data('filter')];
+          }
+          for (k in classes) {
+            $('.notifications .tv-component.' +  classes[k]).removeClass('hide'); 
+            $('.notifications .divider.plays.' +  classes[k]).removeClass('hide'); 
+          }
+        }
+      });
+     
+      
+      
       //TOFIX : should be working in script/core/ui.js
       UiView.initDataLive(list);
 

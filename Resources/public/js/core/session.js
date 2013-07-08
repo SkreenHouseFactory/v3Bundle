@@ -161,6 +161,9 @@ var BaseSession = Class.extend({
            this.getPlaylistIds('person').length + 
            this.getPlaylistIds('user').length ;
   },
+  isInPlaylist: function(playlist,id){
+    return $.inArray(id, this.getPlaylistIds(playlist)) != -1 ? true : false;
+  },
   getPlaylistIds: function(playlist) {
     //console.log('BaseSession.getPlaylistIds', playlist);
     switch (playlist) {
