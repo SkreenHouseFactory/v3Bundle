@@ -5,8 +5,8 @@ service:
 page:
     h1:
         channel: 
-            tv: Retrouvez les programmes de %name% en intégralité et gratuitement
-            tv_format: Revoir les %formats% TV de %name% c'est possible
+            tv: Les programmes de %name%
+            tv_format: Revoir les %formats% TV de %name%
             default: %name%
             default_format: Retrouvez les %formats% de %name% en intégralité
         home:

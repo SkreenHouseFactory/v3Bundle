@@ -63,7 +63,7 @@ var BaseSlider = Class.extend({
     } else if ( Skhf.session != null) { //ajax seulement
       //console.log('BaseSlider.init', 'loadRemotePrograms', this.elmt);
       UI.appendLoader(this.loader);
-      this.elmt.removeClass('loading');
+      this.elmt.removeClass('slider-loading');
       this.loadRemotePrograms(0, callback);
     }
 
@@ -78,7 +78,7 @@ var BaseSlider = Class.extend({
 
     var next = $('.right', this.elmt);
     var prev = $('.left', this.elmt);
-    this.elmt.removeClass('loading');
+    this.elmt.removeClass('slider-loading');
 
     //if (!this.elmt.hasClass('couchmode')) {
       //this.items.css('width', (parseInt(this.params.width) + parseInt(this.params.item_margin)*2  + 5) * this.items.children().length);
@@ -170,7 +170,7 @@ var BaseSlider = Class.extend({
                                         trigger.css('visibility','visible');
                                       }
                                       
-                                      self.elmt.removeClass('loading');
+                                      self.elmt.removeClass('slider-loading');
                                       if (nb_programs < self.params.pager_nb_results) {
                                         self.elmt.addClass('loaded'); //le slider ne pagine plus
                                       }
@@ -214,18 +214,18 @@ var BaseSlider = Class.extend({
     $('ul', this.elmt).css('left', '0px').find('li:not(.static)').remove();
     this.elmt.data('pager-offset', 0);
     this.elmt.data('nb-programs', 0);
-    this.elmt.removeClass('initialized navigate back loading loaded empty');// social');
+    this.elmt.removeClass('initialized navigate back slider-loading loaded empty');// social');
   },
   loadRemotePrograms: function(offset, callback, args, keep) {
     //console.log('BaseSlider.loadRemotePrograms', offset, callback, keep, this.elmt);
     //prevent multiple loadings
-    if (this.elmt.hasClass('loading')) {
+    if (this.elmt.hasClass('slider-loading')) {
       console.warn('BaseSlider.loadRemotePrograms', 'already loading');
       return;
     }
 
-    if (!this.elmt.hasClass('loading')) {
-      this.elmt.addClass('loading');
+    if (!this.elmt.hasClass('slider-loading')) {
+      this.elmt.addClass('slider-loading');
     }
 
     var self = this;
@@ -257,7 +257,7 @@ var BaseSlider = Class.extend({
                   self.insertPrograms(programs);
                   self.elmt.data('nb-programs', programs.length);
                 } else if (typeof programs.length ==  'undefined' || $('li:not(.static)', self.elmt).length == 0) {
-                  self.elmt.removeClass('loading');
+                  self.elmt.removeClass('slider-loading');
                   self.elmt.addClass('loaded');
                   if ($('li:not(.static)', self.elmt).length == 0) {
                     self.elmt.addClass('empty');
@@ -348,7 +348,7 @@ var BaseSlider = Class.extend({
     }
   },
   addProgramBestOffer: function(li, p) {
-    console.log('------------> BaseSlider.addProgramBestOffer', li, p);
+    //console.log('BaseSlider.addProgramBestOffer', li, p);
     //popular_channel
     if (typeof p.popular_channel == 'object') {
       $('.channel').addClass('logo-channel-' + p.popular_channel.id);

@@ -10,31 +10,40 @@
   {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
 {% endfor %}
 <hr/>
+<br/>
 
 {# fournisseur #}
 {% if app.request.get('page') is null and 
       app.request.get('format') is null and 
       app.request.get('facet') is null %}
-  {% if data.epg is defined and data.epg %}
+  {#% if data.epg is defined and data.epg %}
     {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-replay.html.twig' with {channel: data} %}
-  {% endif %}
-  <h2>Tous les programmes {{ data.name }} ({{ data.count }}){% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h2>
+  {% endif %#}
+  <h2>
+    {{ data.name }}, TV & Replay 
+    {#<select id="access" class="btn btn-large">
+      <option value="all">Replay & TV</option>
+      <option value="replay">Replay</option>
+      <option value="tv">TV</option>
+    </select>#}
+    {% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}
+  </h2>
 {% endif %}
 
-<ul class="pager">
+<ul class="pager pull-right" style="margin: 10px 0">
 {% if data.count > 30 and app.request.get('format') is null  %}
   {% if app.request.get('page') > 2 %}
   <li class="previous">
-    <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">&larr; 30 précédents</a>
+    <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">&larr; 30 préc.</a>
   </li>
   {% elseif app.request.get('page') == 2 %}
   <li class="previous">
-    <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">&larr; 30 précédents</a>
+    <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">&larr; 30 préc.</a>
   </li>
   {% endif %}
-  {% if data.programs|length > 0 %}
+  {% if data.programs|length == 30 %}
   <li class="next">
-    <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">30 suivants &rarr;</a>
+    <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">30 suiv. &rarr;</a>
   </li>
   {% endif %}
 {% endif %}

@@ -5,7 +5,7 @@
   <li class="active"><a>{{ channel.city }}</a> <span class="divider">/</span></li>
   {% elseif channel.name in tnt_channels %}
   <li class="dropdown dropdown-update">
-    <a class="dropdown-toggle" data-toggle="dropdown">Chaînes TNT <i class="icon-chevron-down"></i></a>
+    <a class="dropdown-toggle" data-toggle="dropdown">TNT <i class="icon-chevron-down"></i></a>
     <ul class="dropdown-menu">
       {% for channel in tnt_channels %}
       {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}

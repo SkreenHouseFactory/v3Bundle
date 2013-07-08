@@ -155,7 +155,8 @@ UI = {
       });
     }
   },
-  loadAlertUser: function(titre,contenu,delay_timeout){
+  loadAlertUser: function(titre, contenu, delay_timeout){
+    console.log('UI.loadAlertUser', titre, contenu, delay_timeout);
     var self = this;
     $('.user-menu').attr('rel','popover')
                    .attr('data-original-title',titre)
@@ -277,10 +278,11 @@ UI = {
           }
         //add : introduce user menu
         } else {
-          if (Skhf.session.getNbPlaylists() == 1) {
-            UI.loadAlertUser(
+          //console.log('Skhf.session.getNbPlaylists()' + Skhf.session.getNbPlaylists());
+          if (Skhf.session.getNbPlaylists() == 0) {
+            self.loadAlertUser(
               'Bravo ! vous avez commencé vos playlists !',
-              'Gérez vos playlists ici !',
+              'Gérez les ici !',
               6000
             );
           }
@@ -850,10 +852,10 @@ UI = {
                 var items = data[key];
                 titles[key] = 'Chaînes';
                 break;
-              case 'real-channels':
+                /*case 'real-channels':
                 var items = data[key];
                 titles[key] = 'Chaînes mySkreen';
-                break;
+                break;*/
               case 'theaters':
                 var items = data[key];
                 titles[key] = 'Salles de cinéma';
@@ -894,17 +896,17 @@ UI = {
                 case 'channels':
                   i.addClass('channel actions')
                    .css('overflow','hidden')
-                   .prepend(btn.clone().addClass('fav-channel'))
+                   .prepend(btn.clone().addClass('fav-channel').attr('data-channel-name', item.name))
                    .find('a')
                    .html((item.icon ? '<img src="' + item.icon + '" /> ' : '') + typeahead.highlighter(item.name))
                   break;
-                case 'real-channels':
+                  /*case 'real-channels':
                   i.addClass('program actions')
                    .css('overflow','hidden')
                    .prepend(btn.addClass('fav-like'))
                    .find('a')
                    .html(typeahead.highlighter(item.name))
-                  break;
+                  break;*/
                 case 'programs':
                   i.addClass('program actions')
                     .css('overflow','hidden')
@@ -934,7 +936,8 @@ UI = {
           }
 
           //data.first().addClass('active')
-          var sort = Array('channels','theaters','real-channels','programs','persons','categories','queue');
+          //var sort = Array('channels','theaters','real-channels','programs','persons','categories','queue');
+          var sort = Array('channels','theaters','programs','persons','categories','queue');
           for (key in sort) {
             if (lis[sort[key]]) {
               //console.log('UI.typeahead', key, data[key], typeahead.$menu);

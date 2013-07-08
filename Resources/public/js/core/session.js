@@ -183,12 +183,12 @@ var BaseSession = Class.extend({
         var ids = this.datas.user;
       break;
     }
-
-    return ids.split(',');
+    //console.log('getPlaylistIds', playlist, ids.indexOf(',') ? ids.split(',') : [parseInt(ids)]);
+    return ids.length > 0 ? ids.split(',') : [];
   },
   getSocialDatas: function(callback){
     var self = this;
-    console.log('BaseSession.getSocialDatas');
+    //console.log('BaseSession.getSocialDatas');
 
     //no fbuid
     if (!this.datas.fb_uid) {

@@ -33,7 +33,7 @@
   {% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: channel} %}
 
   {# suivre #}
-	{% if channel.type in ['broadcast','cinema'] %}
+	{% if channel.type in ['webcast','cinema'] %}
 	<div class="pull-right actions" data-id="{{ channel.id }}">
 		<a class="fav fav-{{ channel.type == 'broadcast' ? 'epg' : 'cinema' }} btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
 	</div>
@@ -46,7 +46,7 @@
   {% set page_h1_channel = 'page.h1.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
   <h1 class="inline-block" data-channel="{{ channel.name }}">
     {{ page_h1_channel|trans({'%name%': channel.name, '%format%': format_trans|trans, '%formats%': formats_trans|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
-     <small>{% if app.request.get('facet') %}{{ categories[app.request.get('facet')] is defined ? categories[app.request.get('facet')] : app.request.get('facet') }}{% endif %}{% if app.request.get('page') %}{{ app.request.get('facet') ? ', ' : '' }}page {{ app.request.get('page') }}{% endif %}{% if channel.city is defined and channel.city %}{{ channel.adress }}<br/>{{ channel.zip_code }} {{ channel.city }}{% endif %}</small>
+     <small>{% if app.request.get('facet') %}{{ categories[app.request.get('facet')] is defined ? categories[app.request.get('facet')] : 'commençant par ' ~ app.request.get('facet') }}{% endif %}{% if app.request.get('page') %}{{ app.request.get('facet') ? ', ' : '' }}page {{ app.request.get('page') }}{% endif %}{% if channel.city is defined and channel.city %}{{ channel.adress }}<br/>{{ channel.zip_code }} {{ channel.city }}{% endif %}</small>
   </h1>
 
   {# description #}
@@ -109,7 +109,7 @@
 
   {# pager #}
   {% if channel.count > 30  %}
-  <ul class="pager">
+  <ul class="pager pull-right">
     {% if app.request.get('page') > 2 %}
     <li class="previous">
       {% if app.request.get('facet') %}
@@ -118,7 +118,7 @@
       <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
       {% else %}
       <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">
-      {% endif %}&larr; 30 précédents</a>
+      {% endif %}&larr; 30 préc.</a>
     </li>
     {% elseif app.request.get('page') == 2 %}
     <li class="previous">
@@ -128,10 +128,10 @@
         <a href="{{ path('channel_format', {slug: app.request.get('slug'), format: app.request.get('format')}) }}">
         {% else %}
         <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">
-        {% endif %}&larr; 30 précédents</a>
+        {% endif %}&larr; 30 préc.</a>
     </li>
     {% endif %}
-    {% if channel.programs|length > 0 %}
+    {% if channel.programs|length == 30 %}
     <li class="next">
         {% if app.request.get('facet') %}
         <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
@@ -139,7 +139,7 @@
         <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
         {% else %}
         <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">
-        {% endif %}30 suivants &rarr;</a>
+        {% endif %}30 suiv. &rarr;</a>
     </li>
     {% endif %}
   </ul>

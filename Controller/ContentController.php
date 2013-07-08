@@ -59,6 +59,7 @@ class ContentController extends Controller
         'offset' => $request->get('page', 1) * 30 - 30,
         'nb_results' => 30,
         'facets' => $this->buildFacets($request),
+        'disable_search_by_format' => true,
         'preview' => $request->get('preview')
       );
 
@@ -82,7 +83,7 @@ class ContentController extends Controller
       if (($request->getPathInfo() != $data->seo_url &&
           $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' &&
           $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' &&
-          $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' .  'page-' . $request->get('page') . '/' &&
+          $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' . $request->get('facet') .  'page-' . $request->get('page') . '/' &&
           $request->getPathInfo() != $data->seo_url . 'page-' . $request->get('page') . '/' &&
           $request->getPathInfo() != $data->seo_url . $request->get('facet') . '/') &&
           (!property_exists($data,'channel') || str_replace('/','',$request->getPathInfo()) != $data->channel->slug)
@@ -92,10 +93,10 @@ class ContentController extends Controller
           echo "\n".'----';
           echo "\n".'facet: ' . $data->seo_url . $request->get('facet') . '/';
           echo "\n".'format: ' . $data->seo_url . $request->get('format') . '/';
-          echo "\n".'format+cat: ' . $data->seo_url . $request->get('format') . '/' . $request->get('facet') . '/';
-          echo "\n".'format+cat+page: ' . $data->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' .  'page-' . $request->get('page');
-          echo "\n".'page: ' . $data->seo_url . '/page-' . $request->get('page') . '/';
-          echo "\n".'default '.$request->getPathInfo().' != '.$data->seo_url.'/ => '.($request->getPathInfo() != $data->seo_url);
+          echo "\n".'format+cat: ' . $data->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' ;
+          echo "\n".'format+cat+page: ' . $data->seo_url . $request->get('format') . '/' . $request->get('facet') .  'page-' . $request->get('page') . '/';
+          echo "\n".'page: ' . $data->seo_url . 'page-' . $request->get('page') . '/';
+          echo "\n".'default '.$request->getPathInfo().' != '.$data->seo_url.' => '.($request->getPathInfo() != $data->seo_url);
           echo "\n".'redirect '.$data->seo_url;
           exit();
         }
@@ -175,7 +176,8 @@ class ContentController extends Controller
          'img_height' => 200,
          'offset' => $request->get('page', 1) * 30 - 30,
          'nb_results' => 30,
-         'facets' => $this->buildFacets($request)
+         'facets' => $this->buildFacets($request),
+          'disable_search_by_format' => true
        ));
       //echo "\n".'api:' . $api->url;
       //echo "\n".'category_slug:' . $request->get('category_slug');
@@ -317,7 +319,7 @@ class ContentController extends Controller
         }
       }
       if ($request->get('format')) {
-        $facets[] = 'format:' . $request->get('format').'s';
+        $facets[] = 'format:' . $request->get('format');
       }
       if ($request->get('access')) {
         $facets[] = 'access:' . str_replace(
