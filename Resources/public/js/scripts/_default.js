@@ -65,6 +65,11 @@ $(document).ready(function(){
       $('.tv-component.plays.dvd, .tv-component.plays.location.48h, .tv-component.plays.achat.itunes').removeClass('hide'); 
       $('.divider.plays.dvd, .divider.plays.location.48h, .divider.plays.achat.itunes').removeClass('hide'); 
     }
+    else if( $(this).data('filter') == 'chaîne' ){
+      $('.label.filter[data-filter="chaîne"]').addClass('label-info');
+      $('.tv-component.chaîne').removeClass('hide'); 
+      $('.divider.plays.chaîne').removeClass('hide'); 
+    }
     else if( $(this).data('filter') == 'theaters' ){
       $('.label.filter[data-filter="theaters"]').addClass('label-info');
       $('.tv-component.theaters').removeClass('hide'); 
