@@ -21,6 +21,59 @@ body.view-channel, body.view-channel-selections {
       height: 450px;
       margin: 0 auto;
       padding: 0;
+      &.cover-fournisseur {
+        .header-container {
+          .container {
+            height: 450px; 
+            border-bottom: 1px solid #EEE;
+            padding-top: 80px;
+            .well {
+              width: 600px;
+              position: absolute;
+              border: none;
+              box-shadow: none;
+              right: 0px;
+              margin: 0 20px;
+              height: 290px;
+              padding: 10px;
+              .well-inner {
+                position: absolute;
+                left: 170px;
+                width: 420px;
+                height: 270px;
+                background: rgba(0,0,0,0.9);
+                text-align:center;
+                .alert {
+                  margin: 10px;
+                }
+              }
+              .slider {
+                width: 160px;
+                ul.items {
+                  li {
+                    width: 150px;
+                  }
+                }
+                .fav {
+                  position: absolute;
+                  top: 220px;
+                  padding: 13px 40px;
+                }
+              }
+            }
+            ul#remote-tnt {
+              height: 60px;
+              margin: 0 0 0 15px;
+              li {
+                float:left;
+                list-style:none;
+                margin: 0 6px 5px 7px;
+              }
+            }
+          }
+        }
+      }
+      
     }
     .share-block {
       position: absolute;
