@@ -21,7 +21,7 @@ var BaseSlider = Class.extend({
     this.elmt      = typeof elmt != 'undefined' ? elmt : this.getTemplate(params);
     this.items     = $('ul', this.elmt);
     this.container = $('.slider-container', this.elmt);
-    this.loader    = $('.loader', this.items).css('width', this.params.width + 'px');
+    this.loader    = $('.loader', this.elmt).css('width', this.params.width + 'px');
 //    this.slide_step = parseInt(this.container.css('width')) - this.params.width;  // Euh, pas sûr, le calcul, là !!
     this.slide_step = (this.params.width + this.params.padding) * (this.params.pager_nb_results - 1);
     // TODO : extend BAseSlider to make it works
@@ -54,15 +54,19 @@ var BaseSlider = Class.extend({
       this.ui();
     } else if (typeof params.programs != 'undefined') {
       console.log('BaseSlider.init', 'insertPrograms');
+    
       UI.appendLoader(this.loader);
       if (params.programs.length > 0) {
+        
         this.insertPrograms(params.programs, callback);
       } else {
+        
         callback(this.elmt);
       }
     } else if ( Skhf.session != null) { //ajax seulement
       //console.log('BaseSlider.init', 'loadRemotePrograms', this.elmt);
       UI.appendLoader(this.loader);
+        
       this.elmt.removeClass('slider-loading');
       this.loadRemotePrograms(0, callback);
     }
@@ -73,6 +77,7 @@ var BaseSlider = Class.extend({
     return this.elmt;
   },
   ui: function(callback) {
+  
     //console.log('BaseSlider.ui', this);
     var self = this;
 
@@ -139,7 +144,7 @@ var BaseSlider = Class.extend({
   },
   next: function(trigger) {
     var self = this;
-    console.log('next', this.container.css('left'), this.container.css('width'));
+   
     if (parseInt(this.container.css('left')) < parseInt(this.container.css('width')) || this.container.css('left') == 'auto') {
       self.items.animate({'left': '+=-' + self.slide_step}, 500, function() {
         console.log('pager', 'slide_step:', self.slide_step, parseInt(self.items.css('left')),  self.items.css('width'), self.elmt.data('pager-offset'));
@@ -151,7 +156,7 @@ var BaseSlider = Class.extend({
           if (self.elmt.data('paginate-url')) {
             var offset = self.params.pager_nb_results + parseInt(self.elmt.data('pager-offset'));
             self.elmt.data('pager-offset', offset);
-            self.items.append(self.loader.addClass('loader-pager'));
+            //self.items.append(self.loader.addClass('loader-pager'));
             console.log('pager-offset', 'set', offset, self.elmt, self.params.pager_nb_results, self.elmt.data('pager-offset'));
             self.loadRemotePrograms(offset,
                                     function(nb_programs){
@@ -219,6 +224,9 @@ var BaseSlider = Class.extend({
   loadRemotePrograms: function(offset, callback, args, keep) {
     //console.log('BaseSlider.loadRemotePrograms', offset, callback, keep, this.elmt);
     //prevent multiple loadings
+    
+     $('.slider-container',this.elmt).prepend('<div class="loading bar" style="width: 150px;position: absolute;z-index: 2;top: 35px;left: 465px;"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>');
+    
     if (this.elmt.hasClass('slider-loading')) {
       console.warn('BaseSlider.loadRemotePrograms', 'already loading');
       return;
@@ -328,6 +336,7 @@ var BaseSlider = Class.extend({
       li.addClass('to-animate').css('display', 'inline-block'); //attention : .show() > list-item
       //console.log('BaseSlider.load', 'add', li, $('ul.items', this.elmt));
       $('ul.items', this.elmt).append(li);
+      $('.loading.bar').remove();
 
       //console.log('BaseSlider.load', 'added', program);
     }

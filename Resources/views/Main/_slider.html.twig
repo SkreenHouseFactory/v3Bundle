@@ -10,8 +10,8 @@
 {% endif %}
 <div{% if slider.id is defined %} id="{{ slider.id }}"{% endif %}{% if (slider.paginate is not defined or slider.paginate) and slider.url is defined %} data-paginate-url="{{ slider.url }}"{% endif %} class="slider" data-autoload="1" {% if slider.programs is defined and slider.programs|length  %}data-nb-results="{{ slider.programs|length }}" {% endif %}data-pager-offset="0" data-animate="width">
   <div class="slider-container">
+    <div class="loader static alert alert-info hide">{{ 'loading'|trans }}...</div>
     <ul class="items{% if addClass is defined %} {{ addClass }}{% endif %}">
-      <li class="loader static alert alert-info">{{ 'loading'|trans }}</li>
       {% if slider.programs is defined %}
       {% for program in slider.programs %}
       {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
