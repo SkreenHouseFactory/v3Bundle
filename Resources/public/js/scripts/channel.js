@@ -69,19 +69,17 @@ $(document).ready(function(){
       var cookie = API.cookie('visited_channels') ? API.cookie('visited_channels').split(',') : [];
       console.log('scripts/channels.js', 'visited_channels', channel_id, cookie)
       if (!cookie || $.inArray('' + channel_id, cookie) == -1) {
-   
-        if ($('#channel-modal').length) { //si modal
 
+        if ($('#channel-modal').length){
+          //si modal
           if (Skhf.session.datas.email) {
             $('#channel-modal').addClass('connected');
-            console.log('SESSION DATA',Skhf.session);
           }
-          if{Skhf.session.datas.email && 
-            !Skhf.session.isInPlaylist($('.actions').data('playlist'),$('.actions').data('id'))){
+          if (Skhf.session.datas.email && 
+              !Skhf.session.isInPlaylist($('.actions').data('playlist'), $('.actions').data('id'))) {
             $('#channel-modal').modal('show');
           }
-            console.log('scripts/channels.js', ' c', 'set cookie'),
-            API.cookie('visited_channels', (cookie.length ? cookie.join(',') + ',' : null) + channel_id);
+          API.cookie('visited_channels', (cookie.length ? cookie.join(',') + ',' : null) + channel_id);
           
           $('#triggerfav').on('click', function() {
             $('.actions[data-id] .fav').trigger('click');
