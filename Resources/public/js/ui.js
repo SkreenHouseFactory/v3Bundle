@@ -458,10 +458,10 @@ UI = {
          $('.notifications .notification-filter').append('<a class="label filter" data-filter="vod">Vod</a>');
       }
       if ($('.tv-component.theaters').length){
-         $('.notifications .notification-filter').append('<a class="label filter" data-filter="theaters">Cinéma</a>');
+         $('.notifications .notification-filter').append('<a class="label filter" data-filter="theaters">Ciné</a>');
       }
       if ($('.tv-component.chaîne').length){
-         $('.notifications .notification-filter').append('<a class="label filter" data-filter="chaîne">Chaîne</a>');
+         $('.notifications .notification-filter').append('<a class="label filter" data-filter="chaîne">Chaînes</a>');
       }
      
       $('.notifications .label.filter').on('click', function(){
@@ -483,7 +483,7 @@ UI = {
           }
           for (k in classes) {
             $('.notifications .tv-component.' +  classes[k]).removeClass('hide'); 
-            $('.notifications .divider.plays.' +  classes[k]).removeClass('hide'); 
+            $('.notifications .divider.' +  classes[k]).removeClass('hide'); 
           }
         }
       });
