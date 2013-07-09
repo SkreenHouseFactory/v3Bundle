@@ -93,7 +93,7 @@ var Session = BaseSession.extend({
                 console.log('Session.initSelector', 'load', json);
                 UI.loadSelector(json);
                  $('.loading.bar').remove();
-                UI.playlist.elmt.removeClass('loading');
+                UI.playlist.elmt.removeClass('slider-loading');
                
               });
   },
