@@ -30,6 +30,7 @@ function onRentClicked() {
 }
 
 // -- ENV
+var DEV = $('body').data('env');
 var ENV;
 ENV = {
   dev: {
