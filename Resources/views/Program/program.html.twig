@@ -77,31 +77,23 @@
 {% endblock %}
 
 {% block content %}
-<div id="view-program" data-id="{{ program.id }}" class="container"{% if program.episodeof is not defined %} itemscope itemtype="http://schema.org/Movie"{% endif %}>
+<div id="view-program" data-id="{{ program.id }}" class="container" itemscope itemtype="http://www.schema.org/VideoObject">
 
   <div id="program-follow" class="actions add-friends" data-id="{{ program.episodeof is defined ? program.episodeof.id : program.id }}">
     <div class="container-friends"></div>
     <a class="fav fav-like btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>{% if app.environment == 'dev' and program.nb_like %} <span class="playlists-count"><i class="icon-user"></i>{{ program.nb_like }}</span>{% endif %}
   </div>
-
-
-  <div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
-    <meta itemprop="thumbnailUrl" content="{{ program.picture }}" />
-  {% if program.player_stream is defined %}  <meta itemprop="contentURL" content="{{ program.player_stream }}" />{% endif %}
-    {% if program.player_fb is defined %} <meta itemprop="embedURL" content="{{ program.player_fb }}" />{% endif %}
-    <meta itemprop="uploadDate" content="{{ program.year }}-01-01T00:00:00+01:00" />
-    <meta itemprop="expires" content="{{ program.year + 100 }}-01-01T00:00:00+01:00" />
   
-  <div class="program-title" >
+  <div class="program-title">
     {% if program.episode_title is defined and 
           program.episodeof is defined and 
           program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
-    <h1>{{ program.episode_title }}{% if program.popular_channel is defined %} <small>{{ program.popular_channel.name }}</small>{% endif %}</h1>
+    <h1 itemprop="name">{{ program.episode_title }}{% if program.popular_channel is defined %} <small>{{ program.popular_channel.name }}</small>{% endif %}</h1>
     {% elseif program.episode_title is defined and 
               program.episodeof is defined %}
-      <h1><span itemprop="partOfTVSeries" itemscope itemtype="http://schema.org/TVSeries"><span itemprop="name">{{ program.episodeof.title }}</span></span> <div><span itemscope itemtype="http://schema.org/TVEpisode"><span itemprop="name">{{ program.episode_title }}</span></span>{% if program.season_number is defined or program.episode_number is defined %} ({% endif %}{% if program.season_number is defined %}<span itemprop="partOfSeason" itemscope itemtype="http://schema.org/TVSeason">Saison <span itemprop="seasonNumber">{{ program.season_number }}</span></span>{% endif %}{% if program.episode_number is defined %}<span itemscope itemtype="http://schema.org/TVEpisode"> Episode <span itemprop="episodeNumber">{{ program.episode_number }}</span></span>{% endif %}{% if program.season_number is defined or program.episode_number is defined %}){% endif %}</span></div></h1>
+      <h1 itemprop="name">{{ program.episodeof.title }} <div>{{ program.episode_title }}{% if program.season_number is defined or program.episode_number is defined %} ({% endif %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Episode {{ program.episode_number }}{% endif %}{% if program.season_number is defined or program.episode_number is defined %}){% endif %}</div></h1>
     {% else %}
-    <h1 itemprop="name">
+    <h1>
       {{ program.title }} {% if program.id in [4750433,4225947,4802310,4802138,4827403,4325232,4301824,4653555,4750467,4348861] %}
       <small>le film complet en streaming</small>
       {% elseif program.id in [4977242,4476408,4911399,4653895,4791542,4624174,4339164,4673973,4652360,5008693] %}
@@ -113,8 +105,7 @@
     {% endif %}
   </div>
   <div id="program-description">
-    <div itemprop="description" class="description scroll">{{ program.description_seo|raw }}</div>
-  </div>
+    <div class="description scroll">{{ program.description_seo|raw }}</div>
   </div>
 
   <div class="view-main view-program-main pull-right">
@@ -122,7 +113,13 @@
     <div id="program-main-block">
     {% if program.player is defined and program.player %}
     <a name="teaser"></a>
-    <div id="program-teaser">
+    <div id="program-teaser">  
+      <meta itemprop="duration" />
+      <meta itemprop="thumbnail" content="{{ program.picture }}" />
+      <meta itemprop="embedURL" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
+      <meta itemprop="width" content="640" />
+      <meta itemprop="height" content="390" />
+      <meta itemprop="playerType" content="Flash" />
     {#% if program.player is defined and program.player %#}
       <span id="program-teaser-header" data-default-text="Votre programme en intégralité">{{ program.player.access_id is defined ? 'Votre programme en intégralité' : 'Bande annonce' }}</span>
       {#<a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
@@ -218,7 +215,7 @@
                 <tr><td colspan="6"><h6>Autres épisodes</h6></td></tr>
                 {% set other_episodes = 'ok' %}
               {% endif %}
-              <tr data-id="{{ o.id }}"{% if o.url is defined and o.url %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} itemscope itemtype="http://data-vocabulary.org/Event" {% if o_episode %} data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left"{% endif %}>
+              <tr data-id="{{ o.id }}"{% if o.url is defined and o.url %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left"{% endif %}>
                 <td class="notif"><span class="badge">0</span></td>
                 <td class="icon">
                   <span>
@@ -229,37 +226,18 @@
                   </span>
                 </td>
                 <td class="channel logo-channel-{{ o_channel.id }}">
-                  {% if o.url is defined %}
-                  <meta itemprop="url" content="{{ o.url }}" />
-                  {% endif %}  
-                  <meta itemprop="eventType" content="{{ program.title }} diffusé sur {{ o_channel.name }}"/>
-                  <span itemprop="location" itemscope itemtype="http://data-vocabulary.org/Organization">
-                    <meta itemprop="name" content="{{ o_channel.name }}"/>
-                    <span itemprop="address" itemscope itemtype="http://data-vocabulary.org/Address">
-                       <meta itemprop="locality" content="{{ o_channel.seo_url }}"/>
-                   </span>
-                  </span>
-                  <span itemprop="summary" class="hide">{{ o_channel.name }}</span>
-                  <img itemprop="photo" src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
+                  <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
                 </td>
-                <td class="price big" itemprop="ticketAggregate" itemscope itemtype="http://data-vocabulary.org/Offer-aggregate">
-                  <meta itemprop="currency" content="EUR" /> 
-                  <meta itemprop="offerurl" content="{{ program.seo_url }}" />
-                  {% if o.cost is defined %}
-                    {% if o.cost > 0 %}<span itemprop="lowPrice">{{ o.cost|number_format(2, ',') }}&euro;</span>
-                    {#% elseif o_access.is_achat or o_access.is_location %}- &euro;#}
-                    {% endif %}
-                  {% endif %}
+                <td class="price big">
+                  {% if o.cost is defined and o.cost > 0 %}{{ o.cost|number_format(2, ',') }}&euro;{% endif %}
                 </td>
                 <td class="access">
                   {% if o_access.name in ['Live', 'TV'] %}
-                    <span class="big"><time itemprop="startDate" datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time></span>
+                    <span class="big"><time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time></span>
                   {% else %}
                       <span class="big">{{ o_access.name|replace({' iTunes': ''}) }}</span>
                     {% if o.broadcasttime is defined %}
-                      <time itemprop="startDate" datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
-                    {% else %}
-                      <time itemprop="startDate" datetime="{{ program.year }}-01-01 00:00:00"></time>
+                      <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
                     {% endif %}
 
                   {% endif %}
@@ -281,12 +259,14 @@
                   <br/>
                   {{ o.description }}
                 {% elseif o_episode %}
-                <td class="episode" itemprop="summary">
+                <td class="episode">
                   {% if o_episode.title %}
                   <span>{{ o_episode.title }}</span>
                   {% endif %}
                   <br/>
-                  {% if o_episode.season_number is defined or o_episode.episode_number is defined or o_episode.part_number is defined %}
+                  {% if o_episode.season_number is defined or 
+                        o_episode.episode_number is defined or 
+                        o_episode.part_number is defined %}
                     <span><em>{% if o_episode.season_number is defined %}Saison n° {{ o_episode.season_number }}{% endif %} {% if o_episode.episode_number is defined %}Episode n° {{ o_episode.episode_number }}{% endif %} {% if o_episode.part_number is defined %}Partie n° {{ o_episode.part_number }}{% endif %}</em></span>
                   {% endif %}
                 {% else %}
@@ -373,7 +353,7 @@
       {% if program.popular_channel is defined %}
       <a class="popular-channel logo-channel-{{ program.popular_channel.id }}" href="{{ path('any_url', {url: program.popular_channel.seo_url|slice(1, program.popular_channel.seo_url|length-1) }) }}"><img src="{{ program.popular_channel.img }}" alt="{{ program.popular_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" /></a>
       {% endif %}
-      <img itemprop="image" src="{{ program.img }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
+      <img src="{{ program.img }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
     </div>
 
     {#% if app.environment == 'dev' %}
@@ -514,7 +494,9 @@
   <br class="clear"/>
   <hgroup>
   <a name="infos"></a>
-  <div id="program-infos">
+  <div id="program-infos" itemprop="about" itemscope itemtype="http://schema.org/Movie">
+    <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
+    <meta itemprop="name" content="{{ program.title }}" />
     <div class="img pull-left">
       <img src="{{ program.picture }}" alt="{{ program.title }} {{ program.format ? program.format.name : '' }} {{ program.has_vod is divisibleby(2) ? 'complet' : 'en entier' }}" />
     </div>
