@@ -6,7 +6,7 @@
 <div id="playlist" class="slider slider-playlist" data-pager-offset="0" data-animate="width" data-paginate-url="{{ path('playlist_load', {type:'access.name', session_uid: 'session.uid'}) }}">
   <div class="slider-container">
   <ul class="items{% if addClass is defined %} {{ addClass }}{% endif %}">
-    <li class="loader static"><p class="alert alert-info">Chargement …</p></li>
+    
     {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' %}
     <li id="tv" class="selector static empty" data-name="{{ 'playlist.name.tv'|trans }}" data-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.tv'|trans }}</small>" data-content="{{ 'playlist.popover.tv'|trans }}" data-placement="top" data-trigger="hover">
       <span class="label label-inverse opacity"><span></span> {{ 'playlist.tv'|trans|lower }}</span>
