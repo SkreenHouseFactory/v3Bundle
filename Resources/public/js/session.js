@@ -80,6 +80,8 @@ var Session = BaseSession.extend({
 
     console.log('Session.initSelector', 'remote', 'www/slider/selector/' + this.uid + '.json');
     this.onglet = onglet;
+    $('.slider-container','#playlist').prepend('<div class="loading bar" style="width: 150px;position: absolute;z-index: 2;top: 35px;left: 465px;"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>');
+    UI.playlist.elmt.addClass('slider-loading');
     API.query('GET', 
               'www/slider/selector/' + this.uid + '.json', 
               {onglet: this.onglet, 
@@ -90,7 +92,9 @@ var Session = BaseSession.extend({
               function(json) {
                 console.log('Session.initSelector', 'load', json);
                 UI.loadSelector(json);
-                UI.playlist.elmt.removeClass('loading');
+                 $('.loading.bar').remove();
+                UI.playlist.elmt.removeClass('slider-loading');
+               
               });
   },
   initPlaylist: function(url) {

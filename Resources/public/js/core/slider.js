@@ -77,7 +77,6 @@ var BaseSlider = Class.extend({
     return this.elmt;
   },
   ui: function(callback) {
-  
     //console.log('BaseSlider.ui', this);
     var self = this;
 
