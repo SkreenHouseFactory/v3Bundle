@@ -451,7 +451,7 @@ UI = {
       $('.notifications .label.filter').remove();
       $('.notifications .notification-filter').append('<a class="label label-info filter" data-filter="all">Tout</a>');
       
-      if ($('li.tv-component.plays.broadcast').length) {
+      if ($('li.tv-component.plays.broadcast,li.tv-component.broadcasts.broadcast').length) {
         $('.notifications .notification-filter').append('<a class="label filter" data-filter="tv">Tv</a>');
       }
       if ($('li.tv-component.plays.catchup,li.tv-component.plays.webcast').length) {
@@ -478,7 +478,7 @@ UI = {
           $('.notifications .divider').removeClass('hide'); 
         } else {
           if( $(this).data('filter') == 'tv' ){
-            var classes = ['plays.broadcast'];
+            var classes = ['plays.broadcast','broadcasts.broadcast'];
           }else if( $(this).data('filter') == 'replay' ){
             var classes = ['plays.catchup','plays.webcast'];
           }else if( $(this).data('filter') == 'vod' ){
