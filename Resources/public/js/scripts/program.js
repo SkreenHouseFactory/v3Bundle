@@ -17,7 +17,8 @@ $(document).ready(function(){
       ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
       //theater playlist
       if ($('#program-offers #trigger-theaters-playlist').length && 
-          !document.location.href.match(/theater_id=/)){ //desactivé si id cinéma dans url
+          !document.location.href.match(/theater_id=/)){ //desactivé si id cinéma dans 
+            
         $('#program-offers #trigger-theaters-playlist').trigger('click');
       }
       //affichage bulle pendant 4s sur fiche programme
@@ -241,8 +242,10 @@ ProgramView = {
         if (typeof datas.purchased != 'undefined' &&
             datas.purchased) {
           for (k in datas.purchased) {
+            if( API.formatTimestamp(datas.purchased[k] != 'undefined' ){
             console.log('UI.loadProgramUsersDatas', 'purchased', '#program-offers [data-id="' + k + '"] td.access', $('#program-offers [data-id="' + k + '"] td.access'), k, API.formatTimestamp(datas.purchased[k]));
             $('#program-offers [data-id="' + k + '"] td.access').append('<span class="btn-block badge badge-warning">Loué le ' + API.formatTimestamp(datas.purchased[k]) + '</span>');
+            }
           }
         }
         //notifs
@@ -312,7 +315,9 @@ ProgramView = {
                     $('#carousel-youtube').append('<p class="alert alert-info">Ces extraits sont récupérés automatiquement sur Youtube notamment. Il se peut qu\'ils ne correspondent pas tout à fait au programme recherché et les sites référencés sont seuls responsables du contenu qu\'ils proposent.</p>');
                   
                   }
+                  
                 });
     };
+    
   }
 }
