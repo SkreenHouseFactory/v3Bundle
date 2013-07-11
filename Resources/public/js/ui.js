@@ -713,10 +713,10 @@ UI = {
     
     $('li:not(.static)', this.playlist.elmt).animate({'width':0}, 500, function() {
       //$('li.static', self.playlist.elmt).show().animate({'width': self.playlist.item_width}, 500);
+      self.playlist.remove();
+      
       if (typeof callback != 'undefined') {
-        self.playlist.remove();
         callback();
-        self.playlist.remove();
         
       }
     });
