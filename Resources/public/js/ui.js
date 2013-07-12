@@ -680,7 +680,7 @@ UI = {
         })
       }
       console.log('UI.loadPlaylist', 'self.playlist.params.args', self.playlist.params.args);
-  
+       
       this.playlist.loadRemotePrograms(
         0,
         function(slider){

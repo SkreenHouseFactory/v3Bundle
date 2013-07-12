@@ -63,6 +63,10 @@ var Session = BaseSession.extend({
                                                                      social_selector: datas,
                                                                      updated_at: (new Date()).getTime()});
                       callback(datas);
+                      setTimeout( function(){
+                        $('.loading.bar').remove();
+                       UI.playlist.elmt.removeClass('slider-loading');
+                       }, 1500);
                     }
                   });
       });
@@ -80,7 +84,7 @@ var Session = BaseSession.extend({
 
     console.log('Session.initSelector', 'remote', 'www/slider/selector/' + this.uid + '.json');
     this.onglet = onglet;
-    $('.slider-container','#playlist').prepend('<div class="loading bar" style="width: 150px;position: absolute;z-index: 2;top: 35px;left: 465px;"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>');
+    $('.slider-container','#playlist').prepend('<div class="loading bar " style="width: 150px;position: absolute;z-index: 2;top: 35px;left: 465px;"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>');
     UI.playlist.elmt.addClass('slider-loading');
     API.query('GET', 
               'www/slider/selector/' + this.uid + '.json', 
@@ -92,9 +96,7 @@ var Session = BaseSession.extend({
               function(json) {
                 console.log('Session.initSelector', 'load', json);
                 UI.loadSelector(json);
-                 $('.loading.bar').remove();
-                UI.playlist.elmt.removeClass('slider-loading');
-               
+                
               });
   },
   initPlaylist: function(url) {
