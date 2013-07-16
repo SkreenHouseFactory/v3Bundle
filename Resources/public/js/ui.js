@@ -451,8 +451,11 @@ UI = {
       $('.notifications .label.filter').remove();
       $('.notifications .notification-filter').append('<a class="label label-info filter" data-filter="all">Tout</a>');
       
-      if ($('li.tv-component.plays.catchup, li.tv-component.broadcasts, li.tv-component.plays.webcast').length) {
-        $('.notifications .notification-filter').append('<a class="label filter" data-filter="tv-replay">Tv et Replay</a>');
+      if ($('li.tv-component.plays.broadcast,li.tv-component.broadcasts.broadcast').length) {
+        $('.notifications .notification-filter').append('<a class="label filter" data-filter="tv">Tv</a>');
+      }
+      if ($('li.tv-component.plays.catchup,li.tv-component.plays.webcast').length) {
+        $('.notifications .notification-filter').append('<a class="label filter" data-filter="replay">Replay</a>');
       }
       if ($('.tv-component.plays.dvd, li.tv-component.plays.location.48h, li.tv-component.plays.achat.itunes').length){
          $('.notifications .notification-filter').append('<a class="label filter" data-filter="vod">Vod</a>');
@@ -474,9 +477,11 @@ UI = {
           $('.notifications .tv-component').removeClass('hide');
           $('.notifications .divider').removeClass('hide'); 
         } else {
-          if( $(this).data('filter') == 'tv-replay' ){
-            var classes = ['plays.catchup', 'broadcasts', 'plays.webcast'];
-          } else if( $(this).data('filter') == 'vod' ){
+          if( $(this).data('filter') == 'tv' ){
+            var classes = ['plays.broadcast','broadcasts.broadcast'];
+          }else if( $(this).data('filter') == 'replay' ){
+            var classes = ['plays.catchup','plays.webcast'];
+          }else if( $(this).data('filter') == 'vod' ){
             var classes = ['plays.dvd', 'plays.location.48h', 'plays.achat.itunes']; 
           } else {
             var classes = [$(this).data('filter')];
@@ -675,7 +680,7 @@ UI = {
         })
       }
       console.log('UI.loadPlaylist', 'self.playlist.params.args', self.playlist.params.args);
-  
+       
       this.playlist.loadRemotePrograms(
         0,
         function(slider){
@@ -705,11 +710,14 @@ UI = {
     //  Skhf.session.initPlaylist('/' + onglet);
     //}
     $('#top-playlist .breadcrumb li:not(:first)').empty();
+    
     $('li:not(.static)', this.playlist.elmt).animate({'width':0}, 500, function() {
       //$('li.static', self.playlist.elmt).show().animate({'width': self.playlist.item_width}, 500);
       self.playlist.remove();
+      
       if (typeof callback != 'undefined') {
         callback();
+        
       }
     });
   },

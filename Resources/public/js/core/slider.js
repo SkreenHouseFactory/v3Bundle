@@ -166,14 +166,14 @@ var BaseSlider = Class.extend({
                                       // pas deja du slider
                                       console.log(nb_total , " - " , offset);
                                       if (nb_total < (offset + 7)) {
-                                        if (Math.floor(nb_total/6) <= Math.floor(offset/6))
+                                     //   if (Math.floor(nb_total/6) <= Math.floor(offset/6))
                                           trigger.css('visibility','hidden');
-                                        else
-                                          trigger.css('visibility','visible');
+                                       // else
+                                      // trigger.css('visibility','visible');
                                       } else {
                                         trigger.css('visibility','visible');
                                       }
-                                      
+                                      $('.loading.bar').remove();
                                       self.elmt.removeClass('slider-loading');
                                       if (nb_programs < self.params.pager_nb_results) {
                                         self.elmt.addClass('loaded'); //le slider ne pagine plus
@@ -217,8 +217,9 @@ var BaseSlider = Class.extend({
     $('.right, .left', this.elmt).unbind('click');
     $('ul', this.elmt).css('left', '0px').find('li:not(.static)').remove();
     this.elmt.data('pager-offset', 0);
-    this.elmt.data('nb-programs', 0);
-    this.elmt.removeClass('initialized navigate back slider-loading loaded empty');// social');
+    this.elmt.data('nb-programs', 0); 
+    
+    this.elmt.removeClass('initialized navigate back loaded empty');// social');
   },
   loadRemotePrograms: function(offset, callback, args, keep) {
     //console.log('BaseSlider.loadRemotePrograms', offset, callback, keep, this.elmt);
