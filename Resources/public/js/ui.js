@@ -155,23 +155,41 @@ UI = {
       });
     }
   },
-  loadAlertUser: function(titre, contenu, delay_timeout){
-    console.log('UI.loadAlertUser', titre, contenu, delay_timeout);
-    var self = this;
-    $('.user-menu').attr('rel','popover')
-                   .attr('data-original-title',titre)
-                   .attr('data-placement','bottom')
-                   .attr('data-content',contenu)
-                   .popover('show');
-     if (typeof delay_timeout != 'undefined') {
-       setTimeout( function(){
-         self.unloadAlertUser();
-       }, delay_timeout);
-    }
-  },
-  unloadAlertUser: function(parent){
-    $('.user-menu').popover('destroy');
-    
+  loadAlertUser: function(titre, contenu, delay_timeout, cible){
+      console.log('UI.loadAlertUser', titre, contenu, delay_timeout);
+      var self = this;
+      if( typeof(session) == undefined){
+        $('.user-menu').attr('rel','popover')
+                       .attr('data-original-title',titre)
+                       .attr('data-placement','bottom')
+                       .attr('data-content',contenu)
+                       .popover('show');
+      }             
+      else{
+        $(cible).attr('rel','popover')
+                       .attr('data-original-title',titre)
+                       .attr('data-placement','bottom')
+                       .attr('data-content',contenu)
+                       .popover('show');  
+      }           
+       if (typeof delay_timeout != 'undefined') {
+         setTimeout( function(){
+           if( typeof(cible) == undefined){
+             self.unloadAlertUser();
+           }
+           else{
+             self.unloadAlertUser(cible);
+           }
+         }, delay_timeout);
+      }
+    },
+  unloadAlertUser: function(cible){
+      if( typeof(cible) == undefined){
+        $('.user-menu').popover('destroy');
+      }
+      else{
+        $(cible).popover('destroy');
+      }
   },
   getTriggerParameter: function(trigger) {
     if (trigger.hasClass('fav-cinema')) {
@@ -1016,6 +1034,25 @@ UI = {
         }
       }
     );
+  },
+  editSkModal: function(header,body,footer,header_size,body_size,close){
+    $('#skModal .modal-header').children().remove();
+    $('#skModal .modal-body').children().remove();
+    $('#skModal .modal-footer').children().remove();
+    
+    if (typeof header != 'undefined'){
+      if( typeof close != 'undefined' && close == 'true'){
+      $('#skModal .modal-header').append('<button type="button" class="close" data-dismiss="modal">×</button>')
+      }
+      $('#skModal .modal-header').append('<h'+ header_size+'>'+ header + '</h'+ header_size+'>');
+    }
+    
+    if (typeof body != 'undefined'){
+      $('#skModal .modal-body').append('<h'+ body_size+'>'+ body + '</h'+ body_size+'>');
+    }
+    if (typeof footer != 'undefined'){
+      $('#skModal .modal-footer').append('<button type="button" class="btn btn-info btn-large alert_mobile" data-dismiss="modal">'+ footer +'</button>');
+    }
   },
   keynav: function(){
   },

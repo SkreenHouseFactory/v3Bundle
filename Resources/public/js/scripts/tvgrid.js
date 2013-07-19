@@ -3,7 +3,8 @@
 $(document).ready(function(){
 
   if ($('#view-tvgrid').length) {
-
+    
+    GridView.setTimeBar();
     //////////// CALLBACKS ////////////////
     // -- session sync
     Skhf.session.callbackInit = function() {
@@ -31,7 +32,6 @@ $(document).ready(function(){
         }
       }
     }
-
     //////////// SCRIPTS ////////////////
     //timeslider
     var date = new Date(parseInt($('#grid').data('timestamp'))*1000);
@@ -58,6 +58,9 @@ $(document).ready(function(){
                               .html(GridView.hour + 'h00');
       }
     }); */
+   
+     //
+   
      
      $('#opt-hour').on('change',function(){
        var current = $(this).data('current-hour');
@@ -182,12 +185,13 @@ GridView = {
       } else {
         cache.animate({width: mn * 5 }, 3000, function(){
           console.log('GridView.idle', 'animate cache', mn + 'mn');
-
+          
           //update is live
           $('ul', div).each(function(){
             var live = $(this).find('li.is-live:first');
             //console.log('GridView.idle', 'animate .is-live ' + $(this).attr('id'), parseInt(live.data('end')), '<=', time);
             //move live class + label
+            GridView.setTimeBar();
             if (parseInt(live.data('end')) <= time) {
               $('.label-warning', live).appendTo($('a ruby rt', live.next()));
               live.removeClass('is-live').next().addClass('is-live');
@@ -198,12 +202,44 @@ GridView = {
           })
       
         });
+        //hide actions
+        $('#channels .actions').addClass('hide');
       }
       clearTimeout(this.timeout);
       this.timeout = setTimeout(function(){
         self.idle(true);
       }, 60000);
     }
+    
+  },
+  setTimeBar: function(){
+    //mise en place de la Bar de temps.
+     
+        if( $('.now').hasClass('active') ){
+          var now = new Date();
+          var time2Pixel = 88 + now.getMinutes()*5.2;
+          var channelSize = $('#channels').css('height');
+          channelSize = parseInt(channelSize.replace('px',''))-5;
+          $('.time-bar').css('height',channelSize);
+          $('.time-bar').css('left',time2Pixel);
+          $('.time-bar-icon').css('left',time2Pixel-5.6);
+      
+          $('.time-bar').removeClass('hide');
+          $('.time-bar-icon').removeClass('hide');
+     
+        }
+        else{
+          $('.time-bar').addClass('hide');
+          $('.time-bar-icon').addClass('hide');
+        }
+    
+    //hide .actions button
+      $('#channels li ul li').on('mouseover',function(){
+        $('.actions',this).removeClass('hide');
+      });
+      $('#channels li ul li').on('mouseout',function(){
+        $('.actions',this).addClass('hide');
+      });
     
   },
   load: function(timestamp, callback) {
@@ -226,6 +262,7 @@ GridView = {
       this.idle();
       this.channels.fadeIn();
     }
+    
   },
   loadSchedule : function(callback) {
     console.log('GridView.loadSchedule', 'timestamp', this.timestamp, new Date(this.timestamp*1000).toString());
@@ -263,6 +300,7 @@ GridView = {
           callback();
         }
     });
+    
   },
   setTime: function(timestamp, resetDate) {
     console.log('GridView.setTime', timestamp);
@@ -323,7 +361,10 @@ GridView = {
     // modification select current-hour
     $('#opt-hour').data('current-hour',date.getHours()%24);
     $('#opt-hour').val(date.getHours()%24);
-  },
+     $(document).ajaxComplete(function(){
+       GridView.setTimeBar();
+     });
+   },
   filter: function(onglet) {
     console.log('GridView.filter', onglet);
     if (onglet == 'in-playlists' && 
@@ -352,11 +393,7 @@ GridView = {
         
        
       });
-      
-    
-    
-      
-      
+       
     } else {
       $('> li > ul > li.diff', this.channels).animate({opacity: 1});
     }
@@ -364,8 +401,11 @@ GridView = {
     if(!$('> li:visible', this.channels).length){
       $('#channels').prepend('<li> Aucun programme trouvé </li>');
     }
+    GridView.setTimeBar();
+  
   },
   getChannelsIds: function(){
+    
     console.log('GridView.getChannelsIds', this.channels.sortable('toArray', {attribute: 'data-id'}).join(','));
     return this.channels.sortable('toArray', {attribute: 'data-id'}).join(',');
   },
