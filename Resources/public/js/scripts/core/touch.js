@@ -1,4 +1,5 @@
 /* TOUCH */
+/*
 $(document).ready(function(){
   //alert('touch:' + $('html').hasClass('touch'));
   if ($('html').hasClass('touch')) {
@@ -13,3 +14,4 @@ $(document).ready(function(){
     });
   }
 });
+*/

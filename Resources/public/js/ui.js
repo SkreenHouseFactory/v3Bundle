@@ -155,23 +155,41 @@ UI = {
       });
     }
   },
-  loadAlertUser: function(titre, contenu, delay_timeout){
-    console.log('UI.loadAlertUser', titre, contenu, delay_timeout);
-    var self = this;
-    $('.user-menu').attr('rel','popover')
-                   .attr('data-original-title',titre)
-                   .attr('data-placement','bottom')
-                   .attr('data-content',contenu)
-                   .popover('show');
-     if (typeof delay_timeout != 'undefined') {
-       setTimeout( function(){
-         self.unloadAlertUser();
-       }, delay_timeout);
-    }
-  },
-  unloadAlertUser: function(parent){
-    $('.user-menu').popover('destroy');
-    
+  loadAlertUser: function(titre, contenu, delay_timeout, cible){
+      console.log('UI.loadAlertUser', titre, contenu, delay_timeout);
+      var self = this;
+      if( typeof(session) == undefined){
+        $('.user-menu').attr('rel','popover')
+                       .attr('data-original-title',titre)
+                       .attr('data-placement','bottom')
+                       .attr('data-content',contenu)
+                       .popover('show');
+      }             
+      else{
+        $(cible).attr('rel','popover')
+                       .attr('data-original-title',titre)
+                       .attr('data-placement','bottom')
+                       .attr('data-content',contenu)
+                       .popover('show');  
+      }           
+       if (typeof delay_timeout != 'undefined') {
+         setTimeout( function(){
+           if( typeof(cible) == undefined){
+             self.unloadAlertUser();
+           }
+           else{
+             self.unloadAlertUser(cible);
+           }
+         }, delay_timeout);
+      }
+    },
+  unloadAlertUser: function(cible){
+      if( typeof(cible) == undefined){
+        $('.user-menu').popover('destroy');
+      }
+      else{
+        $(cible).popover('destroy');
+      }
   },
   getTriggerParameter: function(trigger) {
     if (trigger.hasClass('fav-cinema')) {
@@ -451,8 +469,11 @@ UI = {
       $('.notifications .label.filter').remove();
       $('.notifications .notification-filter').append('<a class="label label-info filter" data-filter="all">Tout</a>');
       
-      if ($('li.tv-component.plays.catchup, li.tv-component.broadcasts, li.tv-component.plays.webcast').length) {
-        $('.notifications .notification-filter').append('<a class="label filter" data-filter="tv-replay">Tv et Replay</a>');
+      if ($('li.tv-component.plays.broadcast,li.tv-component.broadcasts.broadcast').length) {
+        $('.notifications .notification-filter').append('<a class="label filter" data-filter="tv">Tv</a>');
+      }
+      if ($('li.tv-component.plays.catchup,li.tv-component.plays.webcast').length) {
+        $('.notifications .notification-filter').append('<a class="label filter" data-filter="replay">Replay</a>');
       }
       if ($('.tv-component.plays.dvd, li.tv-component.plays.location.48h, li.tv-component.plays.achat.itunes').length){
          $('.notifications .notification-filter').append('<a class="label filter" data-filter="vod">Vod</a>');
@@ -474,9 +495,11 @@ UI = {
           $('.notifications .tv-component').removeClass('hide');
           $('.notifications .divider').removeClass('hide'); 
         } else {
-          if( $(this).data('filter') == 'tv-replay' ){
-            var classes = ['plays.catchup', 'broadcasts', 'plays.webcast'];
-          } else if( $(this).data('filter') == 'vod' ){
+          if( $(this).data('filter') == 'tv' ){
+            var classes = ['plays.broadcast','broadcasts.broadcast'];
+          }else if( $(this).data('filter') == 'replay' ){
+            var classes = ['plays.catchup','plays.webcast'];
+          }else if( $(this).data('filter') == 'vod' ){
             var classes = ['plays.dvd', 'plays.location.48h', 'plays.achat.itunes']; 
           } else {
             var classes = [$(this).data('filter')];
@@ -675,7 +698,7 @@ UI = {
         })
       }
       console.log('UI.loadPlaylist', 'self.playlist.params.args', self.playlist.params.args);
-  
+       
       this.playlist.loadRemotePrograms(
         0,
         function(slider){
@@ -705,11 +728,14 @@ UI = {
     //  Skhf.session.initPlaylist('/' + onglet);
     //}
     $('#top-playlist .breadcrumb li:not(:first)').empty();
+    
     $('li:not(.static)', this.playlist.elmt).animate({'width':0}, 500, function() {
       //$('li.static', self.playlist.elmt).show().animate({'width': self.playlist.item_width}, 500);
       self.playlist.remove();
+      
       if (typeof callback != 'undefined') {
         callback();
+        
       }
     });
   },
@@ -1008,6 +1034,25 @@ UI = {
         }
       }
     );
+  },
+  editSkModal: function(header,body,footer,header_size,body_size,close){
+    $('#skModal .modal-header').children().remove();
+    $('#skModal .modal-body').children().remove();
+    $('#skModal .modal-footer').children().remove();
+    
+    if (typeof header != 'undefined'){
+      if( typeof close != 'undefined' && close == 'true'){
+      $('#skModal .modal-header').append('<button type="button" class="close" data-dismiss="modal">×</button>')
+      }
+      $('#skModal .modal-header').append('<h'+ header_size+'>'+ header + '</h'+ header_size+'>');
+    }
+    
+    if (typeof body != 'undefined'){
+      $('#skModal .modal-body').append('<h'+ body_size+'>'+ body + '</h'+ body_size+'>');
+    }
+    if (typeof footer != 'undefined'){
+      $('#skModal .modal-footer').append('<button type="button" class="btn btn-info btn-large alert_mobile" data-dismiss="modal">'+ footer +'</button>');
+    }
   },
   keynav: function(){
   },
