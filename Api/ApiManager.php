@@ -12,8 +12,8 @@ class ApiManager
   protected $logger;
   public $url = null;
 
-  public function __construct($env = 'prod', $format = '.json', $version = 2) {
-    $this->base = $this->getApiBase($env, $version);
+  public function __construct($format = '.json', $version = 2) {
+    $this->base = $this->getApiBase($version);
     $this->format = $format;
   }
   
@@ -22,9 +22,9 @@ class ApiManager
     $this->logger = $logger;
   }
 
-  protected function getApiBase($env, $version) {
-    if ($env == 'dev') {
-      return 'http://benoit.myskreen.typhon.net/api/' . $version . '/';
+  protected function getApiBase($version) {
+    if (preg_match('/v3\.(\w+)\.myskreen\.typhon\.net/', $_SERVER['SERVER_NAME'], $matches)) {
+      return 'http://'.$matches[1].'.myskreen.typhon.net/api/' . $version . '/';
     } elseif (isset($_SERVER['SERVER_NAME']) && 
               strstr($_SERVER['SERVER_NAME'], 'preprod')) {
       return 'http://preprod.api.myskreen.com/api/' . $version . '/';
@@ -35,6 +35,7 @@ class ApiManager
 
   public function fetch($url, $params = array(), $method = 'GET', $options = array()) {
     //echo $this->base;
+    //echo $this->url;
     $client = new Client($this->base, $options);
     $time = microtime(true);
     switch ($method) {

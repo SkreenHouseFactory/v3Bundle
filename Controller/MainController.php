@@ -219,6 +219,7 @@ class MainController extends Controller
     */
     public function proxyAction(Request $request)
     {
+
       $response = null;
       $method   = $request->getMethod();
       $datas    = $method == 'POST' ? $request->request->get('data') : $request->get('data');
@@ -231,6 +232,7 @@ class MainController extends Controller
 
       // HACK get
       if ($method == 'GET') {
+        //echo $url . '?' . http_build_query($datas);
         return  new Response(file_get_contents($url . '?' . http_build_query($datas)));
       }
 
@@ -249,14 +251,14 @@ class MainController extends Controller
       }
 //      print_r($datas);
 
-      $api   = new ApiManager($this->container->getParameter('kernel.environment'), $format);
+      $api   = new ApiManager($format);
       $response = $api->fetch($url, 
                               $datas, 
                               $method, 
                               array('curl.CURLOPT_SSL_VERIFYHOST' => 0, 
                                     'curl.CURLOPT_SSL_VERIFYPEER' => 0));
 
-      //echo 'HERE';exit();
+      //echo 'HERE:'.$api->url;exit();
       return new Response(json_encode($response));
     }
 }

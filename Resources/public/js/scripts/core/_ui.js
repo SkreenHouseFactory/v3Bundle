@@ -148,9 +148,9 @@ UiView = {
     }
   },
   initHistory: function(){
-   
+
     $(window).bind('popstate', function(e) {
-    console.log('UiView.initHistory', 'popstate', e.originalEvent.state);
+      console.log('UiView.initHistory', 'popstate', e.originalEvent.state);
       if (e.originalEvent.state) {
         $('#content').load(window.location.pathname + '?xhr=1', function() {
           if (e.originalEvent.state.cover) {
@@ -162,7 +162,6 @@ UiView = {
       }
     });
   },
-  
   initDataLive: function(elmt) {
     console.log('UiView.initDataLive', elmt);
     var elmt = typeof elmt != 'undefined' ? elmt : document;
