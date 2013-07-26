@@ -36,7 +36,7 @@ UiView = {
     
     // TEST !
     if (window.location.href == "http://v3.dev3.myskreen.typhon.net/app_dev.php/pluzz-vad/?preview=1"){
-          $('body').css("background-image", "url('http://mskstatic.com/medias/photos/channel/19-pluzz-vad.jpg')");
+           $('body').css("background-image", "url('http://mskstatic.com/medias/photos/channel/19-pluzz-vad.jpg')");
            $('body').css("background-position", "top center");
            $('body').css("background-repeat", "no-repeat");
            $('#cover').css("margin-bottom","10px");

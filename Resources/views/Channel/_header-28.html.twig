@@ -1,21 +1,14 @@
-<div id="cover"{#% if channel.cover %} style="background: url('{{ channel.cover }}') top center no-repeat;"{% endif %#}>
+<div id="cover"{#% if channel.cover %} style="background: url('{{ channel.cover }}') top center no-repeat; z-index: 300"{% endif %#}>
 <div class="header-container">
-  <div class="header-content">
-    <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' est sur @mySkreen   ' } %}</div>
-    <div class="pull-right actions" data-id="{{ channel.id }}" data-playlist="{{ fav }}">
-      <a class="fav fav-{{ fav }} btn btn-large btn-primary" data-channel-name="{{ channel.title }}" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ trigger_fav is defined and trigger_fav ? trigger_fav : 'Suivre ' ~ channel.title|trans }}</a>
-    </div>
-    <h1 data-channel="{{ channel.title }}"><a href="{{ path('channel', {slug: channel.slug }) }}">{{ channel.title }}</a></h1>
-    {# ON UTILISE L'ICO COMME JAQUETTE PROGRAMME UNIQUEMENT
-    {% if channel.img %}
-    <a href="{{ path('channel', {slug: channel.slug }) }}"><img class="channel-logo pull-left" src="{{ channel.img }}" /></a>
-    {%elseif data.img is defined %}
-    <a href="{{ path('channel', {slug: channel.slug }) }}"><img class="channel-logo pull-left" src="{{ data.img }}" /></a>
-    {% endif %}
-    #}
-    {% if channel.description %}
-    <p class="lead channel-description">{{ channel.description|raw }}</p>
-    {% endif %}
+  <div id="pblv" class="header-content">
+  <h1 data-channel="{{ channel.title }}"><a href="{{ path('channel', {slug: channel.slug }) }}">{{ channel.title }}</a></h1>
+      <div class="well">
+        <div class="actions slider"><iframe frameborder="0" width="500" height="300" src="http://www.dailymotion.com/embed/video/x102q8s/?autoPlay=1&logo=0&related=0"></iframe></div>
+      </div>
+      <div class="pull-right actions" data-id="{{ channel.id }}" data-playlist="{{ fav }}">
+            <a class="fav fav-{{ fav }} btn btn-large btn-primary" data-channel-name="{{ channel.title }}" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ trigger_fav is defined and trigger_fav ? trigger_fav : 'Suivre ' ~ channel.title|trans }}</a>
+          </div>
+          
   </div>
 </div>
 </div>

@@ -117,7 +117,42 @@ body.view-channel, body.view-channel-selections {
     border-radius: 5px;
     background: rgba(0,0,0,0.5);
     /*background-color: transparent;*/
-
+    &#pblv{
+      background-color: transparent;
+      padding:0;
+      >h1{
+        top: 30px;
+        position: absolute;
+        >a{
+          color: black;
+        }
+      }
+      .well{
+        position: relative;
+        left: 470px;
+        width: 620px;
+        height: 340px; 
+        top: 32px;
+        border: 0;
+        margin-top: 18px;
+        background-color: transparent;
+        
+      }
+      .fav{
+        position: absolute;
+        bottom: 10px;
+        left: 13px;
+      }
+      .channel-icon{
+        
+        top: 260px;
+        width: 230px;
+        height: 230px;
+        z-index: 100;
+        position: relative;
+        background-image:url('http://mskstatic.com/230/medias/photos/PBLV/saison9.jpg');
+      }
+    }
     img {
       margin: 0 10px 0 0;
     }
