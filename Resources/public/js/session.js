@@ -46,7 +46,6 @@ var Session = BaseSession.extend({
           API.deleteIndexedDb('skhf', 'social_selector', 1);
         }
       }
-
       Skhf.session.getFriendsUids(function(friends_uids) {
         API.query('GET',
                   'www/slider/social/' + self.uid + '.json', 
@@ -62,11 +61,9 @@ var Session = BaseSession.extend({
                       API.insertIndexedDb('skhf', 'IndexedDbDatas', {id: 1, 
                                                                      social_selector: datas,
                                                                      updated_at: (new Date()).getTime()});
+                     
                       callback(datas);
-                      setTimeout( function(){
-                        $('.loading.bar').remove();
-                       UI.playlist.elmt.removeClass('slider-loading');
-                       }, 1500);
+                      
                     }
                   });
       });
@@ -75,17 +72,29 @@ var Session = BaseSession.extend({
   initSelector: function(onglet) {
     var self = this;
     console.log('Session.initSelector', this.datas.email, this.onglet, onglet);
-
     //require authenticated user
+    // true si l'utilisateur charge les selectors
+    if($('#playlist .items .empty').length >= 2 ){
+      var noplaylist = true;
+    }
+    else{
+      var noplaylist = false;
+    }
+    
     if (!this.datas.email) {
       UI.loadSelector();
       return null;
     }
-
     console.log('Session.initSelector', 'remote', 'www/slider/selector/' + this.uid + '.json');
     this.onglet = onglet;
     $('.slider-container','#playlist').prepend('<div class="loading bar " style="width: 150px;position: absolute;z-index: 2;top: 35px;left: 465px;"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>');
     UI.playlist.elmt.addClass('slider-loading');
+    $('#top-playlist .container ul li a').bind('click',function(event){
+      event.stopPropagation();
+    });
+    $('#playlist .items li').bind('click.loading',function(event){
+      event.stopPropagation();
+    }); 
     API.query('GET', 
               'www/slider/selector/' + this.uid + '.json', 
               {onglet: this.onglet, 
@@ -96,7 +105,14 @@ var Session = BaseSession.extend({
               function(json) {
                 console.log('Session.initSelector', 'load', json);
                 UI.loadSelector(json);
-                
+             // autorise le click sur les selectors et enlève le loaders si les selecteurs viennent d'être chargé.
+                if (noplaylist == true){
+                  console.log('Session.initSelector','Remove Loading Bar');
+                  $('.loading.bar').remove();
+                  UI.playlist.elmt.removeClass('slider-loading');
+                  $("#playlist .items li").unbind('click.loading');
+                  noplaylist = false;
+                }
               });
   },
   initPlaylist: function(url) {

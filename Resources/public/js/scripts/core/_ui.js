@@ -91,7 +91,7 @@ UiView = {
         }
       });
     }
-
+   
     // -- carousel
     /*
     $('[data-carousel="autoload"]').each(function(){

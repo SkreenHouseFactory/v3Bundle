@@ -326,45 +326,45 @@ Player = {
     }
   },
   stop: function() {
-    this.state = 'stopped';
-    switch(this.type) {
-      case 'android':
-        if (typeof Webview != 'undefined') {
-          Webview.postMessage(['player', 'stop']);
-        }
-      break;
-      case 'html5':
-      case 'flowplayer':
-        if (this.elmt != null) {
-          if (player = $f(this.elmt.attr('id'))) {
-            player.stop();
+      this.state = 'stopped';
+      switch(this.type) {
+        case 'android':
+          if (typeof Webview != 'undefined') {
+            Webview.postMessage(['player', 'stop']);
           }
-        }
-      break;
-      case 'YouTube':
-        //this.ytplayer.stopVideo();
-      break;
-    }
-
-    this.reset();
-  },
-  reset: function() {
-    $('#player-meta').empty();
-    if (this.elmt != null  && this.elmt.html()) {
-      this.elmt.empty();
-      //this.elmt = null;
-    }
-    if (this.playing) {
-      this.playing = null;
-    }
-    this.type = null;
-    if (this.timeout.length > 0) {
-      for (k in this.timeout) {
-        clearTimeout(this.timeout[k]);
+        break;
+        case 'html5':
+        case 'flowplayer':
+          if (this.elmt != null) {
+            if (player = $f(this.elmt.attr('id'))) {
+              player.stop();
+            }
+          }
+        break;
+        case 'YouTube':
+          //this.ytplayer.stopVideo();
+        break;
       }
-    }
-    console.log('Player.reset', 'done');
-  },
+
+      this.reset();
+ },
+  reset: function() {
+      $('#player-meta').empty();
+      if (this.elmt != null  && this.elmt.html()) {
+        this.elmt.empty();
+        //this.elmt = null;
+      }
+      if (this.playing) {
+        this.playing = null;
+      }
+      this.type = null;
+      if (this.timeout.length > 0) {
+        for (k in this.timeout) {
+          clearTimeout(this.timeout[k]);
+        }
+      }
+      console.log('Player.reset', 'done');
+ },
   mute: function() {
     switch(this.type) {
       case 'android':

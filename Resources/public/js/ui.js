@@ -626,6 +626,7 @@ UI = {
       var group = datas[key];
       //console.log('UI.loadSelector', key, group);
       var li = $('li#' + key, this.playlist.elmt);
+      
       li.removeClass('empty');
       li.css('background-image', 'url('+group.img+')').css('background-repeat', 'no-repeat');
       li.find('.label').removeClass('opacity').addClass('label-inverse');
@@ -650,17 +651,27 @@ UI = {
           $(this).css('background-image', 'url('+datas[$(this).attr('id')].img+')').css('background-repeat', 'no-repeat');
         });
       }
+      
     }
-
+     
     //show selector
     this.unloadPlaylist(Skhf.session.onglet, function() {
-      $('#top-playlist li.selector').animate({'width': API.config.slider.width}, 500, function(){
-        $('#top-playlist li.selector').show();
-        if (self.playlist.elmt.hasClass('empty')) {
-          self.playlist.elmt.removeClass('empty');
-        }
+          $('#top-playlist li.selector').animate({'width': API.config.slider.width}, 500, function(){
+          $('#top-playlist li.selector').show();
+          if (self.playlist.elmt.hasClass('empty')) {
+            self.playlist.elmt.removeClass('empty');
+          }
       });
-    });
+      // autorise le click sur les selectors et enlève le loaders si les sélecteurs sont déja initiés.
+      $('#top-playlist li.selector').promise().done(function(){
+        console.log('UI.loadSelector','Remove Loading Bar');
+        $('.loading.bar').remove();
+        UI.playlist.elmt.removeClass('slider-loading');
+        $("#playlist .items li").unbind('click.loading');
+      });
+       
+      
+   });
 
     this.loadSocialSelector();
   },
@@ -722,7 +733,6 @@ UI = {
   unloadPlaylist: function(onglet, callback) {
     var self = this;
     console.log('UI.unloadPlaylist', onglet, Skhf.session.onglet);
-
     //if (typeof onglet != 'undefined' && 
     //    onglet != Skhf.session.onglet) {
     //  Skhf.session.initPlaylist('/' + onglet);
@@ -732,10 +742,8 @@ UI = {
     $('li:not(.static)', this.playlist.elmt).animate({'width':0}, 500, function() {
       //$('li.static', self.playlist.elmt).show().animate({'width': self.playlist.item_width}, 500);
       self.playlist.remove();
-      
       if (typeof callback != 'undefined') {
-        callback();
-        
+         callback();
       }
     });
   },

@@ -337,7 +337,7 @@ var BaseSlider = Class.extend({
       //console.log('BaseSlider.load', 'add', li, $('ul.items', this.elmt));
       $('ul.items', this.elmt).append(li);
       $('.loading.bar').remove();
-
+      $('#top-playlist .container ul li a').unbind('click');
       //console.log('BaseSlider.load', 'added', program);
     }
 

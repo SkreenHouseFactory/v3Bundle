@@ -3,20 +3,23 @@
 $(document).ready(function(){
 
   if ($('#view-tvgrid').length) {
-    
-    GridView.setTimeBar();
+     //affiche la barre de temps 
+   
     //////////// CALLBACKS ////////////////
     // -- session sync
     Skhf.session.callbackInit = function() {
       GridView.init($('#grid'));
+      GridView.setTimeBar();
     }
     Skhf.session.callbackSignout = function() {
       GridView.loadSchedule();
+      GridView.setTimeBar();
     }
     Skhf.session.callbackSignin = function() {
       if (Skhf.session.datas.epg) {
         console.log('scripts/tvgrid.js', 'callbackSignin', 'epg', Skhf.session.datas.epg);
         GridView.loadSchedule();
+        GridView.setTimeBar();
       }
     }
     // -- UI callback : reload grid after adding channel
@@ -175,6 +178,9 @@ GridView = {
     var time = parseInt(new Date()/1000);
     var mn = Math.round((time - parseInt(div.data('timestamp')))/60);
     console.log('GridView.idle', 'mn', mn);
+    if (!$('.time-bar').hasClass('hide')){
+      GridView.updateTimeBar();
+    }
     if (mn > 60) {
       cache.css('width', '100%');
     } else {
@@ -185,21 +191,13 @@ GridView = {
       } else {
         cache.animate({width: mn * 5 }, 3000, function(){
           console.log('GridView.idle', 'animate cache', mn + 'mn');
-          
           //update is live
           $('ul', div).each(function(){
             var live = $(this).find('li.is-live:first');
             //console.log('GridView.idle', 'animate .is-live ' + $(this).attr('id'), parseInt(live.data('end')), '<=', time);
             //move live class + label
-            GridView.setTimeBar();
-            if (parseInt(live.data('end')) <= time) {
-              $('.label-warning', live).appendTo($('a ruby rt', live.next()));
-              live.removeClass('is-live').next().addClass('is-live');
-              if (live.hasClass('has-live')) {
-                live.removeClass('has-live').next().addClass('has-live');
-              }
-            }
-          })
+            
+          });
       
         });
         //hide actions
@@ -212,35 +210,67 @@ GridView = {
     }
     
   },
+  updateTimeBar: function(){
+   var newPixel1 = parseInt($('.time-bar').css('left')) + 5.2;
+   $('.time-bar').css('left',newPixel1);
+   if(parseInt($('.time-bar').css('left')) >= 990){
+      $('.time-bar').addClass('hide');
+   }  
+  },
   setTimeBar: function(){
     //mise en place de la Bar de temps.
-     
+      //checking Ajax Request
+      if( $.active != 0 ){
+        $(document).ajaxStop(function(){
+          $('#channels .actions .fav-on').parent().removeClass('hide');
+          if( $('.now').hasClass('active') ){
+            var now = new Date();
+            var time2Pixel = 87 + now.getMinutes()*5;
+            $('.time-bar').css('left',time2Pixel);
+            $('.time-bar').removeClass('hide');
+          }
+          else{
+            $('.time-bar').addClass('hide');
+          }
+    
+          //hide .actions button
+          $('#channels li ul li').on('mouseover',function(){
+            if( !$('.actions',this).children().hasClass('fav-on') ){
+              $('.actions',this).removeClass('hide');
+            }
+          });
+          $('#channels li ul li').on('mouseout',function(){
+            if( !$('.actions',this).children().hasClass('fav-on') ){
+              $('.actions',this).addClass('hide');
+            }
+          });
+        });
+      }
+      else{
+        $('#channels .actions .fav-on').parent().removeClass('hide');
         if( $('.now').hasClass('active') ){
           var now = new Date();
-          var time2Pixel = 88 + now.getMinutes()*5.2;
-          var channelSize = $('#channels').css('height');
-          channelSize = parseInt(channelSize.replace('px',''))-5;
-          $('.time-bar').css('height',channelSize);
+          var time2Pixel = 89 + now.getMinutes()*5;
           $('.time-bar').css('left',time2Pixel);
-          $('.time-bar-icon').css('left',time2Pixel-5.6);
-      
           $('.time-bar').removeClass('hide');
-          $('.time-bar-icon').removeClass('hide');
-     
+          
         }
         else{
           $('.time-bar').addClass('hide');
-          $('.time-bar-icon').addClass('hide');
         }
     
     //hide .actions button
-      $('#channels li ul li').on('mouseover',function(){
-        $('.actions',this).removeClass('hide');
-      });
-      $('#channels li ul li').on('mouseout',function(){
-        $('.actions',this).addClass('hide');
-      });
-    
+        $('#channels li ul li').on('mouseover',function(){
+          if( !$('.actions',this).children().hasClass('fav-on') ){
+            $('.actions',this).removeClass('hide');
+          }
+        });
+        $('#channels li ul li').on('mouseout',function(){
+          if( !$('.actions',this).children().hasClass('fav-on') ){
+            $('.actions',this).addClass('hide');
+          }
+        });
+      }
   },
   load: function(timestamp, callback) {
     console.log('GridView.load', 'timestamp', timestamp);
@@ -262,6 +292,7 @@ GridView = {
       this.idle();
       this.channels.fadeIn();
     }
+    GridView.setTimeBar();
     
   },
   loadSchedule : function(callback) {
@@ -299,7 +330,7 @@ GridView = {
         if (typeof callback != 'undefined') {
           callback();
         }
-    });
+    }); 
     
   },
   setTime: function(timestamp, resetDate) {
@@ -361,9 +392,11 @@ GridView = {
     // modification select current-hour
     $('#opt-hour').data('current-hour',date.getHours()%24);
     $('#opt-hour').val(date.getHours()%24);
-     $(document).ajaxComplete(function(){
-       GridView.setTimeBar();
-     });
+    
+    $('.time-bar').addClass('hide');
+    $('.time-bar-icon').addClass('hide');
+    GridView.setTimeBar();
+    
    },
   filter: function(onglet) {
     console.log('GridView.filter', onglet);
@@ -399,8 +432,12 @@ GridView = {
     }
     console.log('channels :visible ',$('> li:visible', this.channels).length);
     if(!$('> li:visible', this.channels).length){
-      $('#channels').prepend('<li> Aucun programme trouvé </li>');
+      $('#channels').prepend('<li class=\'noprogram\'> Aucun programme trouvé </li>');
     }
+    else{
+      $('#channels .noprogram').remove();
+    }
+    //affiche la barre de temps 
     GridView.setTimeBar();
   
   },
