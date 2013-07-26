@@ -12,7 +12,6 @@ $(window).unload(function() {
 });
 
 $(document).ready(function(){
-
   // -- API init
   API.init(function(){
 
@@ -29,8 +28,7 @@ $(document).ready(function(){
       console.log('script', 'Session.init', 'callback');
     }, typeof Session_sync_args != 'undefined' ? Session_sync_args : {});
   });
-
-
+  
   // -- User interactions
   UI.init(function(){
     console.log('script', 'UI.init', 'callback');
@@ -39,7 +37,6 @@ $(document).ready(function(){
     //API.insertIndexedDb('skhf', 'friends', {id: 2, uid: 'frienduid'});
     //API.selectIndexedDb('skhf', 'friends', 2);
   });
-
   // -- ui user
   $('a.auth').on('click', function(){
     Player.stop();
@@ -52,41 +49,7 @@ $(document).ready(function(){
     return false;
   });
   
-  if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
-        // Warning for iOS users
-        if(!$.cookie('myskreen_alert_mobile')){
-          UI.editSkModal('','Attention, mySkreen n\'est pas optimisé pour votre appareil, néanmoins vous pouvez continuer à naviguer et découvrir nos offres.','Continuer','',2,false);
-          $('#skModal').css('top','40%');
-        $('body').append('<div class="modal-backdrop in"></div>');
-        $('#skModal').removeClass('hide');
-        }
-        $('#skModal .modal-footer button').on('click', function(){
-          $('.modal-backdrop').remove();
-          $('#skModal').addClass('hide');
-          API.cookie('alert_mobile','true');
-        });
-    
-       // Changement du fonctionnement des boutons du header pour les appareils iOS/touch
-       $('.with-caret').on('click',function() {
-         if( !$(this).parent().hasClass('open')){
-           $(this).siblings('.a-caret').trigger('click');
-           event.preventDefault();
-         }
-         else{
-           window.location = $(this).attr('href');
-         }
-   
-      });
-   }
-   Player.stop();
   
-  $('.a-caret').on('click', function(){
-    if(!$(this).parent().hasClass('open')){
-      if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
-        Player.stop();
-      }
-    }
-  });
   
   $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
     //notifications
@@ -94,6 +57,7 @@ $(document).ready(function(){
         !$(this).parent().hasClass('open') ) { 
       if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
         Player.stop();
+        alert('tv comp');
       }   
     }
     
@@ -101,6 +65,7 @@ $(document).ready(function(){
         !$(this).parent().hasClass('open') ) { 
       if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
         Player.stop();
+        alert('noti');
       }
 	    
 		  if($('.badge-important', $(this)).length > 0) {

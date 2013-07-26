@@ -130,7 +130,7 @@ class ContentController extends Controller
           // Alias du channel fourni
           return $this->redirect('/' . $data->channel->slug, 301);
         }
-      } else {
+      }else {
 
         $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) ? $data->programs[0]->picture : null);
         //$template = isset($data->epg) && $data->epg ? 'channel-replay' : 'channel';
