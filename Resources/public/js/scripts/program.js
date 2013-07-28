@@ -241,9 +241,9 @@ ProgramView = {
         if (typeof datas.purchased != 'undefined' &&
             datas.purchased) {
           for (k in datas.purchased) {
-            if( API.formatTimestamp(datas.purchased[k] != 'undefined' ){
-            console.log('UI.loadProgramUsersDatas', 'purchased', '#program-offers [data-id="' + k + '"] td.access', $('#program-offers [data-id="' + k + '"] td.access'), k, API.formatTimestamp(datas.purchased[k]));
-            $('#program-offers [data-id="' + k + '"] td.access').append('<span class="btn-block badge badge-warning">Loué le ' + API.formatTimestamp(datas.purchased[k]) + '</span>');
+            if( API.formatTimestamp(datas.purchased[k]) != 'undefined' ){
+              console.log('UI.loadProgramUsersDatas', 'purchased', '#program-offers [data-id="' + k + '"] td.access', $('#program-offers [data-id="' + k + '"] td.access'), k, API.formatTimestamp(datas.purchased[k]));
+              $('#program-offers [data-id="' + k + '"] td.access').append('<span class="btn-block badge badge-warning">Loué le ' + API.formatTimestamp(datas.purchased[k]) + '</span>');
             }
           }
         }

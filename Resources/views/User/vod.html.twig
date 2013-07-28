@@ -31,6 +31,9 @@
 	        <a href="{{ path('user_vod', {onglet: o}) }}">{{ o }}</a>
 	      </li>
 	    {% endfor %}
+      <li>
+        <a href="{{ path('user_svod') }}" style="color: rgb(255, 132, 19);">Abonnements</a>
+      </li>
 	  </ul>
 
 	  {% if vods|length > 6 %}

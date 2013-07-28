@@ -12,7 +12,6 @@ $(window).unload(function() {
 });
 
 $(document).ready(function(){
-
   // -- API init
   API.init(function(){
 
@@ -29,8 +28,7 @@ $(document).ready(function(){
       console.log('script', 'Session.init', 'callback');
     }, typeof Session_sync_args != 'undefined' ? Session_sync_args : {});
   });
-
-
+  
   // -- User interactions
   UI.init(function(){
     console.log('script', 'UI.init', 'callback');
@@ -39,7 +37,6 @@ $(document).ready(function(){
     //API.insertIndexedDb('skhf', 'friends', {id: 2, uid: 'frienduid'});
     //API.selectIndexedDb('skhf', 'friends', 2);
   });
-
   // -- ui user
   $('a.auth').on('click', function(){
     Player.stop();
@@ -53,13 +50,6 @@ $(document).ready(function(){
   });
   
   
-  $('.a-caret').on('click', function(){
-    if(!$(this).parent().hasClass('open')){
-      if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
-        Player.stop();
-      }
-    }
-  });
   
   $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
     //notifications
@@ -67,6 +57,7 @@ $(document).ready(function(){
         !$(this).parent().hasClass('open') ) { 
       if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
         Player.stop();
+        alert('tv comp');
       }   
     }
     
@@ -74,6 +65,7 @@ $(document).ready(function(){
         !$(this).parent().hasClass('open') ) { 
       if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
         Player.stop();
+        alert('noti');
       }
 	    
 		  if($('.badge-important', $(this)).length > 0) {

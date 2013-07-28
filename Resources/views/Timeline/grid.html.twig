@@ -68,16 +68,18 @@
    <a class="btn btn-small btn-inverse btn-suivant">Suivant <i class="icon-chevron-right icon-white"></i></a>
  </div>
   <ul class="timeline">
-    
     <li></li>
     <li>&nbsp;{{ data.timestamp|date('H:i')|replace({':': 'h'}) }}</li>
     <li>{{ (data.timestamp + 3600)|date('H:i')|replace({':': 'h'}) }}</li>
     <li><span class="pull-right">{{ (data.timestamp + 3*3600)|date('H:i')|replace({':': 'h'}) }}</span>{{ (data.timestamp + 2*3600)|date('H:i')|replace({':': 'h'}) }}&nbsp;</li>
     
   </ul>
-  <ul id="channels" class="nav nav-list">
+  <div class="channel-wrap">
+    <div title="En direct" class="time-bar hide"></div>
+    <ul id="channels" class="nav nav-list">
     {% include 'SkreenHouseFactoryV3Bundle:Timeline:_channels-schedule.html.twig' with {data: data } %}
   </ul>
+</div>
   </div>
   </div>
 </div>

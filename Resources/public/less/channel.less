@@ -17,6 +17,10 @@ body.view-channel:not(.view-ajax) {
 
 body.view-channel, body.view-channel-selections {
   #main {
+    #view-page .container {
+      background: white;
+    }
+    
     #cover {
       height: 450px;
       margin: 0 auto;
@@ -28,6 +32,7 @@ body.view-channel, body.view-channel-selections {
             border-bottom: 1px solid #EEE;
             padding-top: 80px;
             .well {
+              top: 120px;
               width: 600px;
               position: absolute;
               border: none;
@@ -62,12 +67,16 @@ body.view-channel, body.view-channel-selections {
               }
             }
             ul#remote-tnt {
-              height: 60px;
+              height: 290px;
+              width: 150px;
               margin: 0 0 0 15px;
+              position: absolute;
+              top: 120px;
+              left: 175px;
               li {
                 float:left;
                 list-style:none;
-                margin: 0 6px 5px 7px;
+                margin: 5px;
               }
             }
           }
@@ -108,7 +117,42 @@ body.view-channel, body.view-channel-selections {
     border-radius: 5px;
     background: rgba(0,0,0,0.5);
     /*background-color: transparent;*/
-
+    &#pblv{
+      background-color: transparent;
+      padding:0;
+      >h1{
+        top: 30px;
+        position: absolute;
+        >a{
+          color: black;
+        }
+      }
+      .well{
+        position: relative;
+        left: 470px;
+        width: 620px;
+        height: 340px; 
+        top: 32px;
+        border: 0;
+        margin-top: 18px;
+        background-color: transparent;
+        
+      }
+      .fav{
+        position: absolute;
+        bottom: 0;
+        left: 50px;
+      }
+      .channel-icon{
+        
+        top: 260px;
+        width: 230px;
+        height: 230px;
+        z-index: 100;
+        position: relative;
+        background-image:url('http://mskstatic.com/230/medias/photos/PBLV/saison9.jpg');
+      }
+    }
     img {
       margin: 0 10px 0 0;
     }

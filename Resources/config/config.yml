@@ -1,14 +1,14 @@
 parameters:
     api.class:   SkreenHouseFactory\v3Bundle\Api\ApiManager
     api.format:  .json
-    api.env:     %kernel.environment%
+#    api.env:     %kernel.environment%
     twig.broadcastdate.class: SkreenHouseFactory\v3Bundle\Twig\Extension\BroadcastdateExtension
     twig.tools.class: SkreenHouseFactory\v3Bundle\Twig\Extension\ToolsExtension
 
 services:
     api:
         class: %api.class%
-        arguments: [%api.env%, %api.format%]
+        arguments: [%api.format%]
         calls:
             - [ setLogger, [ @logger ] ]
         tags:

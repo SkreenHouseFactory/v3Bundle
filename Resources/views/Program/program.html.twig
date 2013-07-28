@@ -389,7 +389,7 @@
             {% for episode in season.episodes %}
             <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
               {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
-              Episode {{ episode.episode_number }} <i class="icon-chevron-right"></i> <strong>{{ episode.title }}</strong>
+              {{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }} <i class="icon-chevron-right"></i> <strong>{{ episode.title }}</strong>
             </a></li>
             {% endfor %}
           {% endfor %}

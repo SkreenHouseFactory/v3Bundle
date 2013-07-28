@@ -1,12 +1,11 @@
 // -- tvgrid
 $(document).ready(function(){
 	if ($('#view-tvgrid').length) {
-
 		//need session
 		Skhf.session.callbackInit = function() {
 		  Grid.init($('#grid'));
 		}
-
+  
 	  $('#grid').disableSelection();
 
 		//dropdown update
@@ -188,6 +187,7 @@ Grid = {
 		this.loadSchedule(startDiv.next().next(), timestamp + 2*3*3600);
 
 		this.scrollView();
+    
 	},
 	loadSchedule : function(elmt, timestamp, callback) {
 		var self = this;
@@ -202,7 +202,7 @@ Grid = {
 		elmt.load(this.schedule.data('ajax') + '?schedule-only=1&date=' + timestamp + '&channels_ids=' + this.getChannelsIds(), function(){
 				//popover
 				$('[rel="popover"]', elmt).popover();
-				//add playlist class
+        				//add playlist class
 				if (Skhf.session.datas.email) {
 					for (k in Skhf.session.datas.queue) {
 						//console.log('Grid.loadSchedule', '.playlist', 'try', Skhf.session.datas.queue[k])
