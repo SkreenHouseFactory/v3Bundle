@@ -1,0 +1,44 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}{{ 'page.title.user.svod'|trans }}{% endblock %}
+
+{% block content %}
+<div id="svod-view" class="container">
+	{% if svods|length %}
+    <ul class="nav nav-pills pull-right">
+      <li>
+        <a href="{{ path('user_vod', {onglet: null}) }}">&raquo; Vos vidéos à la demande</a>
+      </li>
+    </ul>
+		<h1>{{ 'user.svod'|trans }}</h1>
+    <ul>
+      {% for svod in svods %}
+        {% if loop.index > 1 %}<hr/>{% endif %}
+        <a data-code="{{ svod.code }}" class="btn btn-danger pull-right"><i class="icon-remove-sign icon-white"></i> Mettre fin à cet abonnement</a>
+        <b>{{ svod.pass.name }}</b>
+        <br/>{{ svod.pass.description }}
+        <br/><i>Prochain prélèvement le {{ svod.perempted_at|date('d-m-Y') }}</i>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  {#
+	<div class="hero-unit">
+		<h2>Les abonnements disponibles</h2>
+		<br/>
+	  <p>Votre compte mySkreen vous permet de vous abonner aux offres VOD suivantes :</p>
+	  <ul>
+      {% for svod in svods_available %}
+        {% if loop.index > 1 %}<hr/>{% endif %}
+        <b>{{ svod.pass.name }}</b>
+        <br/>{{ svod.pass.description }}
+      {% endfor %}
+    </ul>
+	</div>
+  #}
+</div>
+{% endblock %}

@@ -235,6 +235,34 @@ class UserController extends Controller
     /**
     * video à la demande
     */
+    public function svodAction(Request $request)
+    {
+      $session_uid = $request->cookies->get('myskreen_session_uid');
+      if (!$session_uid) {
+        return $this->redirect('http://www.myskreen.com');
+      }
+
+      $api = $this->get('api');
+      $session = $api->fetch('session/' . $session_uid, array(
+        'with_svod' => true
+      ));
+
+      //print_r(array($session_uid, $vods));
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:svod.html.twig', array(
+        'onglets'  => array('films', 'documentaires', 'series', 'emissions', 'spectacles'),
+        'svods' => $session->svods,
+        'svods_available' => $session->svods_available
+      ));
+
+      $response->setPrivate();
+      $response->setMaxAge(0);
+
+      return $response;
+    }
+
+    /**
+    * video à la demande
+    */
     public function vodAction(Request $request)
     {
       $onglet      = $request->get('onglet');
@@ -244,10 +272,11 @@ class UserController extends Controller
       }
 
       $api = $this->get('api');
+
       $vods = $api->fetch('www/slider/vod/' . $session_uid, array(
         'img_height' => 100,
         'offset' => 0,
-        'nb_results' => 200,
+        'nb_results' => 500,
         'channel_img_width' => 65,
         'onglet' => $onglet
       ));
@@ -261,7 +290,11 @@ class UserController extends Controller
       //print_r($vods);exit();
       //post treatments
       $programs = array();
-      foreach ($vods as $vod) {
+      foreach ($vods as $key => $vod) {
+        if (!isset($vod->program->id)) {
+          unset($vods[$key]);
+          continue; //adulte
+        }
         $pere_id = isset($vod->program->episodeof) ? $vod->program->episodeof->id : $vod->program->id;
         $programs[$pere_id]['offers'][] = $vod;
         if (!isset($programs[$pere_id]['program'])) {

@@ -44,7 +44,8 @@ page:
             theaters: Vos cinémas | Mon compte
             persons: Vos acteurs/réalisateurs | Mon compte
             channels: Vos chaînes | Mon compte
-            vod: Mes playlists : vidéo à la demande | Mon compte
+            vod: Mes vidéos à la demande | Mon compte
+            svod: Mes abonnements | Mon compte
         sitemap:
             channels:
                 broadcast: Chaines TV & Replay
@@ -109,6 +110,7 @@ redirection:
     message: mySkreen vous redirige vers votre vidéo
 user:
     vod: Vidéo à la demande
+    svod: Vos abonnements
     programs: Vos playlists
     channels: Vos chaînes
     theaters: Vos cinémas
