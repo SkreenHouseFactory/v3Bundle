@@ -164,6 +164,7 @@
         <li><a href="#carousel-youtube" id="trigger-youtube" class="carousel-youtube" data-toggle="tab">YouTube</a></li>
       </ul>
       <div class="tab-content">
+        
         {% for key in offers|keys if program.offers[key]|length %}
         <a name="{{ key }}"></a>
         <div id="{{ key }}" data-play-text="{{ ('player.content.text.' ~ key)|trans }}" class="tab-pane{% if key == program.offers_default or program.offers_default is null %} active{% endif %}">
@@ -171,6 +172,23 @@
         <div class="table-container scroll">
         <table class="table">
           <tbody>
+            
+        
+          {# hack PBLV #}
+          {% if key == 'plays' and
+                program.episodeof is defined and 
+                program.episodeof.id == 3517970 %}
+          <tr data-id="29781058" data-play="29781058" data-play-args="{&quot;hide_sliders&quot;:1}">
+            <td class="notif"><span class="badge">0</span></td>
+            <td class="icon"><span><i class="icon-play"></i></span></td>
+            <td class="channel logo-channel-4952"><img src="http://mskstatic.com/65/medias/ico/chaines/pluzz-vad_medium.png" alt="pluzz VAD Streaming"></td>
+            <td class="price big">3,99€</td>
+            <td class="access"><span class="big">PBLV : les épisodes en avance !</span><time datetime=""></time></td>
+            <td class="tags"><span class="label label-success"></span>&nbsp;<br><span class="label label-info">PC Mac, iOS, Android, Google TV</span></td>
+          </tr>
+          {% endif %}
+          {# hack PBLV #}
+            
           {% if key == 'theaters' %}
             <tr>
               <td colspan="6" class="theaters">
