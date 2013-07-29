@@ -57,7 +57,6 @@ $(document).ready(function(){
         !$(this).parent().hasClass('open') ) { 
       if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
         Player.stop();
-        alert('tv comp');
       }   
     }
     
@@ -65,7 +64,6 @@ $(document).ready(function(){
         !$(this).parent().hasClass('open') ) { 
       if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
         Player.stop();
-        alert('noti');
       }
 	    
 		  if($('.badge-important', $(this)).length > 0) {
