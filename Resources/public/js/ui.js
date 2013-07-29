@@ -475,7 +475,7 @@ UI = {
       if ($('li.tv-component.plays.catchup,li.tv-component.plays.webcast').length) {
         $('.notifications .notification-filter').append('<a class="label filter" data-filter="replay">Replay</a>');
       }
-      if ($('.tv-component.plays.dvd, li.tv-component.plays.location.48h, li.tv-component.plays.achat.itunes').length){
+      if ($('.tv-component.plays.dvd, li.tv-component.plays.location.48h, li.tv-component.plays.achat').length){
          $('.notifications .notification-filter').append('<a class="label filter" data-filter="vod">Vod</a>');
       }
       if ($('.tv-component.theaters').length){
