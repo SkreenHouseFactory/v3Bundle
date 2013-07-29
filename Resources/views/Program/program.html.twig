@@ -116,7 +116,9 @@
     <div id="program-teaser">  
       <meta itemprop="duration" />
       <meta itemprop="thumbnail" content="{{ program.picture }}" />
+      {% if program.player_fb is defined %}
       <meta itemprop="embedURL" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
+      {% endif %}
       <meta itemprop="width" content="640" />
       <meta itemprop="height" content="390" />
       <meta itemprop="playerType" content="Flash" />
