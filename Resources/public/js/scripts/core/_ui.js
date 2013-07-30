@@ -328,7 +328,11 @@ UiView = {
       e.preventDefault();
       var trigger = $(this);
       if (trigger.data('modal') == 'remote' || trigger.data('modal-remote')) {
-        var url = trigger.data('modal-remote') ? API.config.v3_root + trigger.data('modal-remote') : trigger.attr('href');
+        if (trigger.data('modal-remote')) {
+          var url = trigger.data('modal-remote').indexOf('http://') == -1 ? API.config.v3_root + trigger.data('modal-remote') : trigger.data('modal-remote');
+        } else {
+          var url = trigger.attr('href');
+        }
         var args = {};
         if (!url.match(/^http(s|)\:\/\//)) {
           url  = API.config.v3_url + url;
