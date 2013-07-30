@@ -483,7 +483,7 @@ UI = {
       }
       if ($('.tv-component.chaîne').length){
          $('.notifications .notification-filter').append('<a class="label filter" data-filter="chaîne">Chaînes</a>');
-      }
+      } 
      
       $('.notifications .label.filter').on('click', function(){
         $('.notifications .label.filter').removeClass('label-info');

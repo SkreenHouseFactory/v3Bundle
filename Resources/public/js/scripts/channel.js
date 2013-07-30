@@ -115,17 +115,21 @@ $(document).ready(function(){
     	// Création de l'objet 'date' (année / mois / jour) ici initialisé au : 9 mars 2012
     	// Attention les mois commencent à 0 !
       var ts = new Date(date.getFullYear(),date.getMonth(),date.getDate(),10,0,0);
-      switch (date.getDay()) {
-      case 5:
-            ts.setDate(date.getDate() + 3); 
-            break;
-      case 6:
-            ts.setDate(date.getDate() + 2); 
-            break;
-      default:
-            ts.setDate(date.getDate() + 1);
-        break;
-      }
+      
+        switch (date.getDay()) {
+        case 5:
+              ts.setDate(date.getDate() + 3); 
+              break;
+        case 6:
+              ts.setDate(date.getDate() + 2); 
+              break;
+        default:
+              if( date.getHours() >=10 ){
+                ts.setDate(date.getDate() + 1);
+              }
+          break;
+        }
+      
       
     	var newYear = true;
     
