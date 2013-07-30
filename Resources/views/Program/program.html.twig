@@ -176,7 +176,7 @@
           <tbody>
             
         
-          {# hack PBLV #}
+          {# hack PBLV }
           {% if key == 'plays' and
                 program.episodeof is defined and 
                 program.episodeof.id == 3517970 %}
@@ -189,7 +189,24 @@
             <td class="tags"><span class="label label-success"></span>&nbsp;<br><span class="label label-info">PC Mac, iOS, Android, Google TV</span></td>
           </tr>
           {% endif %}
-          {# hack PBLV #}
+          { hack PBLV #}
+        
+          {# subscriptions #}
+          {% if key == 'plays' and
+                program.subscriptions is defined and 
+                program.subscriptions|length %}
+          {% for s in program.subscriptions %}
+          <tr data-id="{{ s.pass.play }}" data-play="{{ s.pass.play }}" data-play-args="{&quot;hide_sliders&quot;:1}">
+            <td class="notif"><span class="badge">0</span></td>
+            <td class="icon"><span><i class="icon-play"></i></span></td>
+            <td class="channel logo-channel-4952"><img src="http://mskstatic.com/65/medias/ico/chaines/pluzz-vad_medium.png" alt="pluzz VAD Streaming"></td>
+            <td class="price big">{{ s.pass.price }}€</td>
+            <td class="access"><span class="big">{{ s.name }}</span></td>
+            <td class="tags"></td>
+          </tr>
+          {% endfor %}
+          {% endif %}
+          {# subscriptions #}
             
           {% if key == 'theaters' %}
             <tr>
