@@ -143,7 +143,7 @@ var BaseSlider = Class.extend({
   },
   next: function(trigger) {
     var self = this;
-   
+    console.log(this);
     if (parseInt(this.container.css('left')) < parseInt(this.container.css('width')) || this.container.css('left') == 'auto') {
       self.items.animate({'left': '+=-' + self.slide_step}, 500, function() {
         console.log('pager', 'slide_step:', self.slide_step, parseInt(self.items.css('left')),  self.items.css('width'), self.elmt.data('pager-offset'));
@@ -154,6 +154,7 @@ var BaseSlider = Class.extend({
           console.log('BaseSlider.ui', 'paginate', self.elmt.data('paginate-url'));
           if (self.elmt.data('paginate-url')) {
             var offset = self.params.pager_nb_results + parseInt(self.elmt.data('pager-offset'));
+            self.items.promise().done(function(){$('.carousel-control').unbind('click.next') });
             self.elmt.data('pager-offset', offset);
             //self.items.append(self.loader.addClass('loader-pager'));
             console.log('pager-offset', 'set', offset, self.elmt, self.params.pager_nb_results, self.elmt.data('pager-offset'));
@@ -178,13 +179,11 @@ var BaseSlider = Class.extend({
                                       if (nb_programs < self.params.pager_nb_results) {
                                         self.elmt.addClass('loaded'); //le slider ne pagine plus
                                       }
+                                  
                                     },
                                     {},
                                     true);
           }
-        }
-        if (!self.elmt.hasClass('back')) {
-          self.elmt.addClass('back');
         }
       });
     }
