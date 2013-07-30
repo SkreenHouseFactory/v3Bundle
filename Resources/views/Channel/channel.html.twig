@@ -40,8 +40,13 @@
 
 {% block pagescripts %}
 {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.countdown.js'
+    filter='?yui_js' 
+    output='js/compiled/countdown.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/channel.js'
-    
     filter='?yui_js' 
     output='js/compiled/pages/channel.js'  %}
     <script src="{{ asset_url }}"></script>

@@ -34,23 +34,7 @@ UiView = {
       API.launchModal((API.config.popin + urlPopin + '&proxy=v3').replace('createIframe', ','));
     }
     
-    // TEST !
-    if (window.location.href == "http://v3.dev3.myskreen.typhon.net/app_dev.php/pluzz-vad/?preview=1"){
-           $('body').css("background-image", "url('http://mskstatic.com/medias/photos/channel/19-pluzz-vad.jpg')");
-           $('body').css("background-position", "top center");
-           $('body').css("background-repeat", "no-repeat");
-           $('#cover').css("margin-bottom","10px");
-           $('#cover .header-container').prepend('<div class="container"><div class="well"><div class="well-inner"></div><div class="actions slider"><a class="fav fav-like btn btn-large btn-primary" data-placement="left" data-original-title><i class="icon-plus-sign icon-white"></i> Suivre</a></div></div></div>');
-           $('#cover .header-container .container .well').css("background-image", "url('http://s1.mskstatic.com/245/330/medias/photos/programmes/moins_de3540000/3517970/plus-belle-la-vie.jpg?201307151412')");
-           $('#cover .header-container .container .well').css("background-repeat", "no-repeat");
-           $('#cover .header-container .container .well').css("background-position", "10px 10px");
-           $('#cover .header-container .container .well').css("background-color", "transparent");
-           $('#cover .header-container .container .well').css("margin","60px 0px");
-           $('#cover .header-container .container .well').css("background-size","150px 200px");
-           $('#cover .header-container .container .well .well-inner').prepend('<iframe frameborder="0" width="420" height="270" src="http://www.dailymotion.com/embed/video/x102q8s/?autoPlay=1&logo=0&related=0"></iframe>')
-           $('div.well').css('background-color','none');
-           $('#channel-programs').after('<p>Retrouvez sur <strong>Pluzz VAD</strong>,  toutes les vidéos en <strong>streaming</strong> et en <strong>replay</strong> de <strong>France Télévisions</strong> !</p><p>Découvrez l\'ensemble des vidéos à la demande sur <strong>Pluzz VAD</strong> : séries, cinémas, documentaires, spectacles.</p><p><strong>Pluzz VAD</strong> propose <strong>des films complets disponibles en streaming</strong>. On peut retrouver dans le catalogue :</p><p><a href="http://www.myskreen.com/film/comedies/4565741-2-days-in-new-york/">2 days in New York</a>, <a href="http://www.myskreen.com/film/drames/4726222-populaire/">Populaire</a>, <a href="http://www.myskreen.com/film/policier-thriller/4745222-le-capital/">Le capital</a>, <a href="http://www.myskreen.com/film/biographie-biopic/4653555-renoir/">Renoir</a>,  <a href="http://www.myskreen.com/film/action-aventure/4653561-summertime/">Summer time</a>  et beaucoup d’autres encore...</p></br><p>Voir toutes <strong>les séries disponibles en streaming</strong> sur <strong>Pluzz VAD</strong>:</p><p><a href="http://www.myskreen.com/serie/drames/3517970-plus-belle-la-vie/">Plus belle la vie</a>, le gros succès de <strong>France 3</strong>, <a href="http://www.myskreen.com/serie/policier-thriller/5054354-detectives/">Détectives</a> et <a href="http://www.myskreen.com/serie/policier-thriller/4956881-candice-renoir/">Candice Renoir</a> de <strong>France 2</strong>....</p></br><p>Retrouvez <strong>tous les spectacles en replay et streaming</strong>  comme les spectacles de <a href="http://www.myskreen.com/spectacle/humour/3925489-pierre-palmade-j-ai-jamais-ete-aussi-vieux/">Pierre Palmade: J\'ai jamais été aussi vieux</a>, <a href="http://www.myskreen.com/spectacle/humour/3893907-marc-jolivet-ecoutez-voir/">Marc Jolivet</a>...</p><p><strong>Pluzz VAD</strong> propose aussi un catalogue dédié aux plus petits, avec son offre de <strong>films et dessins animés en streaming</strong>. On retrouve <a href="http://www.myskreen.com/film/jeunesse/4320062-tobby-la-star-des-toutous/">Tobby, la star des Toutous</a>, <a href="http://www.myskreen.com/film/jeunesse/3615260-jack-et-le-haricot-magique/">Jack et le haricot magique</a>...</p><p><strong>mySkreen</strong> vous permet de retrouver l’ensemble de l’offre en streaming de <strong>Pluzz VAD réunit sur une seule chaîne dédiée</strong>.</p><p>Vous pouvez aussi regarder en <strong>replay</strong> et <strong>gratuitement</strong> tous les programmes de <strong>France Télévisons</strong> sur <a href="http://www.myskreen.com/france-2/">France 2</a>, <a href="http://www.myskreen.com/france-3/">France 3</a>, <a href="http://www.myskreen.com/france-4/">France 4</a>, <a href="http://www.myskreen.com/france-5/">France 5<a> et <a href="http://www.myskreen.com/france-ô/">France Ô<a>.</p></br>');
-        }
+ 
     // ui modal
     if ($('.modal').length > 0) {
       $('.modal').on('show', function(){
