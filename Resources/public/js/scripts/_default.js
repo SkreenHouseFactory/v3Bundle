@@ -50,7 +50,7 @@ $(document).ready(function(){
   });
   
   //alert bug video
- /* if(!$.cookie('myskreen_alert_video')){
+   if(!$.cookie('myskreen_alert_video')){
     UI.editSkModal('Avertissement','Une opération de maintenance est en cours pour améliorer la qualité de nos vidéos, cela peut entraîner quelques perturbations sur mySkreen. Nous nous excusons de la gêne occasionnée.','Continuer',2,3,true);
     $('body').append('<div class="modal-backdrop in"></div>');
     $('#skModal').removeClass('hide');
@@ -60,7 +60,7 @@ $(document).ready(function(){
     $('.modal-backdrop').remove();
     $('#skModal').addClass('hide');
     API.cookie('alert_video','true');
-  });*/
+  });
   
   $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
     //notifications
