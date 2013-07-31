@@ -4,7 +4,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
 {% else %}
 {% include  'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data:data, fav: 'page', trigger_fav: channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
 {% endif %}
-<div id="view-page" class="container">
+<div id="view-page" class="container channel{{ channel.id }}">
   {% for slider in data.sliders if slider.id is defined %}
     <a name="{{ slider.name }}"></a>
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
