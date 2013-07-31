@@ -175,6 +175,7 @@ class ChannelController extends Controller
         break;
       }
     }
+    print_r($play);
     $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-28.html.twig', array(
         'program'=> $play,
         'data' => $data,
