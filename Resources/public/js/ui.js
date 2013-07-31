@@ -755,14 +755,19 @@ UI = {
     }
   },
   //paywall
-  paywall: function(id, callback) {
+  paywall: function(id, subscription_id, callback) {
     var self = this;
-    console.log('UI.paywall', id);
+    console.log('UI.paywall', id, subscription_id);
     API.quickLaunchModal('signin', function() {
       if (!Skhf.session.datas.email) {
-        self.paywall(id, callback);
+        self.paywall(id, subscription_id, callback);
       }
-    },{parcours: 'anonyme_favoris', occurrence_id: id});
+    },
+    {
+      parcours: 'anonyme_favoris', 
+      occurrence_id: id, 
+      subscription_id: typeof subscription_id != 'undefined' ? subscription_id : null
+    });
   },
   // -- launch player
   play: function(id, args) {
