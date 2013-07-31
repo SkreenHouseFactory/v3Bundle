@@ -162,30 +162,30 @@ class ChannelController extends Controller
   }
   // channel PBLV
   public function header28Action($data,$channel,$fav,$trigger_fav){
-    $api   = $this->get('api');
-    $params = array(
-       'with_player' => true,
-       'with_offers' => true,
-       //'offers_type'=> 'plays'
-     );
-    $program = $api->fetch('program/3517970', $params);
+      $api   = $this->get('api');
+      $params = array(
+         'with_player' => true,
+         'with_offers' => true,
+         //'offers_type'=> 'plays'
+       );
+      $program = $api->fetch('program/3517970', $params);
+      $play = null;
     
-    foreach( $program->offers->plays as $play){
-      
-      if( isset($play->deporte) && isset($play->cost) && $play->deporte && $play->cost){
-        break;
+      foreach( $program->offers->plays as $play){
+        if( isset($play->deporte) && isset($play->cost) && $play->deporte && $play->cost){
+          break;
+        }
       }
-    }
-    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-28.html.twig', array(
-        'program'=> $play,
-        'data' => $data,
-        'fav' => $fav,
-        'trigger_fav'=> $trigger_fav,
-          'channel'=> $channel
-      ));
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-28.html.twig', array(
+          'play'=> $play,
+          'data' => $data,
+          'fav' => $fav,
+          'trigger_fav'=> $trigger_fav,
+            'channel'=> $channel
+        ));
           
-          return $response; 
-    }
+            return $response; 
+      }
   
   protected function buildFacets(Request $request) {
     //echo '$facet:'.$request->get('facet');

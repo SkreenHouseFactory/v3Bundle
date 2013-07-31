@@ -142,6 +142,7 @@ $(document).ready(function(){
 
 		
         if( (date.getHours() < 10 && date.getDay() != 6 && date.getDay() != 7) || date.getDay() == 6 || date.getDay() == 7){
+          $('.well .actions div').remove();
       	$('#countdown').countdown({
 
       		timestamp	: ts,
@@ -156,9 +157,8 @@ $(document).ready(function(){
 
       	});
         }
-        else{
-          
-        }
+        
+       
     }
   }
 });
