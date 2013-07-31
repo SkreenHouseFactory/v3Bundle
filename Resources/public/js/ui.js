@@ -755,14 +755,19 @@ UI = {
     }
   },
   //paywall
-  paywall: function(id, callback) {
+  paywall: function(id, subscription_id, callback) {
     var self = this;
-    console.log('UI.paywall', id);
+    console.log('UI.paywall', id, subscription_id);
     API.quickLaunchModal('signin', function() {
       if (!Skhf.session.datas.email) {
-        self.paywall(id, callback);
+        self.paywall(id, subscription_id, callback);
       }
-    },{parcours: 'anonyme_favoris', occurrence_id: id});
+    },
+    {
+      parcours: 'anonyme_favoris', 
+      occurrence_id: id, 
+      subscription_id: typeof subscription_id != 'undefined' ? subscription_id : null
+    });
   },
   // -- launch player
   play: function(id, args) {
@@ -1054,11 +1059,12 @@ UI = {
       }
       $('#skModal .modal-header').append('<h'+ header_size+'>'+ header + '</h'+ header_size+'>');
     }
-    
+      
     if (typeof body != 'undefined'){
-      $('#skModal .modal-body').append('<h'+ body_size+'>'+ body + '</h'+ body_size+'>');
+      $('#skModal .modal-body').append('<h'+ body_size+'>'+ body + '</h'+ body_size+'><br><div>L\'équipe de mySkreen</div>');
     }
     if (typeof footer != 'undefined'){
+      $('#skModal .modal-footer').prepend('<img src="http://mskstatic.com/150/medias/logo_white.png"/>');
       $('#skModal .modal-footer').append('<button type="button" class="btn btn-info btn-large alert_mobile" data-dismiss="modal">'+ footer +'</button>');
     }
   },

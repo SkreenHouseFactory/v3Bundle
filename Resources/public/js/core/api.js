@@ -340,7 +340,7 @@ API = {
 
     });
   },
-  play: function(id, base_args){
+  play: function(id, base_args, subscription_id){
     var args = typeof base_args != 'undefined' ? base_args : {};
     $.extend(args, {with_program: 1});
     console.log('API.play', 'id', id, 'args', args);
@@ -362,7 +362,7 @@ API = {
             });
           break;
           case 'NO_RIGHTS':
-            UI.paywall(id, function(){
+            UI.paywall(id, subscription_id, function(){
               //self.play(id);
             });
           break;

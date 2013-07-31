@@ -2,7 +2,6 @@
 
 {% block title %}{{ 'page.title.tvgrid'|trans({'%date%': data.timestamp|localizeddate('full')|replace({'00:00': '00'})}) }}{% endblock %}
 {% block description %}{{ 'page.description.tvgrid'|trans }}{% endblock %}
-{% block meta %}<meta name="robots" content="noindex,nofollow" />{% endblock %}
 
 {% block content %}
 <link rel="stylesheet" media="screen" href="{{ asset('bundles/skreenhousefactoryv3/jquery-ui/css/no-theme/jquery-ui-1.10.1.custom.min.css') }}" />

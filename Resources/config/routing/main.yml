@@ -175,26 +175,26 @@ person:
 # deprecated channel : before program !
 channel_replay:
     pattern:  /replay/{id}-{slug}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
     requirements:
         id: \d+
         slug: "[^/]+"
 channel_v2_format:
     pattern:  /{format}/sur-{slug}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
     requirements:
         format: "[^/]+"
         slug: "[^/]+"
 channel_v2_facet:
     pattern:  /{format}/{facet}/sur-{slug}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
     requirements:
         format: "[^/]+"
         slug: "[^/]+"
         facet: "[^/]+"
 channel_v2_facet2:
     pattern:  /{format}/{category}/{facet}/sur-{slug}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
     requirements:
         format: "[^/]+"
         slug: "[^/]+"
@@ -202,12 +202,12 @@ channel_v2_facet2:
         category: "[^/]+"
 channel_v2:
     pattern:  /sur-{slug}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
     requirements:
         slug: "[^/]+"
 channels_v2_replay:
     pattern:  /replay/{id}-{slug}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
     requirements:
         id: \d+
         slug: "[^/]+"
@@ -427,7 +427,7 @@ cocon_tv:
 #channel
 channel_format_facet_page:
     pattern:  /{slug}/{format}/{facet}/page-{page}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel, facet: null }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel, facet: null }
     requirements:
         slug: "[^/]+"
         facet: "[^/]+"
@@ -435,7 +435,7 @@ channel_format_facet_page:
         page: \d+
 channel_format_page:
     pattern:  /{slug}/{format}/page-{page}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel, page: null }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel, page: null }
     requirements:
         slug: "[^/]+"
         facet: "[^/]+"
@@ -443,32 +443,32 @@ channel_format_page:
         page: \d+
 channel_format_facet:
     pattern:  /{slug}/{format}/{facet}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel, facet: null }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel, facet: null }
     requirements:
         slug: "[^/]+"
         facet: "[^/]+"
         format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
 channel_format:
     pattern:  /{slug}/{format}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
     requirements:
         slug: "[^/]+"
         format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
 channel_page:
     pattern:  /{slug}/page-{page}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
     requirements:
         slug: "[^/]+"
         page: \d+
 channel_facet:
     pattern:  /{slug}/{facet}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
     requirements:
         slug: "[^/]+"
         facet: "[^/]"
 channel:
     pattern:  /{slug}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:channel }
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
     requirements:
         slug: "[^/]+"
 

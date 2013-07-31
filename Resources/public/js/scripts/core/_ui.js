@@ -158,7 +158,8 @@ UiView = {
         console.log('script', 'data-play', 'Pause current player');
         Player.pause();
       }
-      API.play($(this).data('play'), $(this).data('play-args'));
+      //console.log('UiView.initDataLive', '[data-play] play-pass', $(this).data('play-pass'));
+      API.play($(this).data('play'), $(this).data('play-args'), $(this).data('play-pass'));
       return false;
     });
     // -- couchmode
