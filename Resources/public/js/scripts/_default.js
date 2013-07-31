@@ -52,7 +52,6 @@ $(document).ready(function(){
   //alert bug video
   if(!$.cookie('myskreen_alert_video')){
     UI.editSkModal('Avertissement','Une opération de maintenance est en cours pour améliorer la qualité de nos vidéos, cela peut entraîner quelques perturbations sur mySkreen. Nous nous excusons de la gêne occasionnée.','Continuer',2,3,false);
-    $('#skModal').css('top','40%');
     $('body').append('<div class="modal-backdrop in"></div>');
     $('#skModal').removeClass('hide');
     $('#skModal .modal-footer img').css('float','left');
