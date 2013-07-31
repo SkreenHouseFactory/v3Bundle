@@ -111,55 +111,54 @@ $(document).ready(function(){
 
     if (channel_id == 28) {
       var date = new Date();
-    	var note = $('#note');
-    	// Création de l'objet 'date' (année / mois / jour) ici initialisé au : 9 mars 2012
-    	// Attention les mois commencent à 0 !
-      var ts = new Date(date.getFullYear(),date.getMonth(),date.getDate(),10,0,0);
+      	var note = $('#note');
+      	// Création de l'objet 'date' (année / mois / jour) ici initialisé au : 9 mars 2012
+      	// Attention les mois commencent à 0 !
+        var ts = new Date(date.getFullYear(),date.getMonth(),date.getDate(),10,0,0);
       
-        switch (date.getDay()) {
-        case 5:
-              ts.setDate(date.getDate() + 3); 
-              break;
-        case 6:
-              ts.setDate(date.getDate() + 2); 
-              break;
-        default:
-              if( date.getHours() >=10 ){
-                ts.setDate(date.getDate() + 1);
-              }
-          break;
-        }
+          switch (date.getDay()) {
+      
+          case 6:
+                ts.setDate(date.getDate() + 2); 
+                break;
+          case 7:
+                ts.setDate(date.getDate() + 1); 
+          }
       
       
-    	var newYear = true;
+      	var newYear = true;
     
 
-    	if((new Date()) > ts){
-    		// The new year is here! Count towards something else.
+      	if((new Date()) > ts){
+      		// The new year is here! Count towards something else.
 
-    		// Notice the *1000 at the end - time must be in milliseconds
+      		// Notice the *1000 at the end - time must be in milliseconds
 
-    		ts = (new Date()).getTime() + 10*24*60*60*1000;
+      		ts = (new Date()).getTime() + 10*24*60*60*1000;
 
-    		newYear = false;
+      		newYear = false;
 
-    	}
+      	}
 
 		
+        if( (date.getHours() < 10 && date.getDay() != 6 && date.getDay() != 7) || date.getDay() == 6 || date.getDay() == 7){
+      	$('#countdown').countdown({
 
-    	$('#countdown').countdown({
+      		timestamp	: ts,
 
-    		timestamp	: ts,
+      		callback	: function(days, hours, minutes, seconds){
 
-    		callback	: function(days, hours, minutes, seconds){
+      			var message = " Avant le prochain épisode en avant-première !";
 
-    			var message = " Avant le prochain épisode en avant-première !";
+      			note.html(message);
 
-    			note.html(message);
+      		}
 
-    		}
-
-    	});
+      	});
+        }
+        else{
+          
+        }
     }
   }
 });
