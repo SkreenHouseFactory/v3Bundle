@@ -49,7 +49,19 @@ $(document).ready(function(){
     return false;
   });
   
-  
+  //alert bug video
+  if(!$.cookie('myskreen_alert_video')){
+    UI.editSkModal('Avertissement','Une opération de maintenance est en cours pour améliorer la qualité de nos vidéos, cela peut entraîner quelques perturbations sur mySkreen. Nous nous excusons de la gêne occasionnée.','Continuer',2,3,false);
+    $('#skModal').css('top','40%');
+    $('body').append('<div class="modal-backdrop in"></div>');
+    $('#skModal').removeClass('hide');
+    $('#skModal .modal-footer img').css('float','left');
+  }
+  $('#skModal .modal-footer button').on('click', function(){
+    $('.modal-backdrop').remove();
+    $('#skModal').addClass('hide');
+    API.cookie('alert_video','true');
+  });
   
   $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
     //notifications

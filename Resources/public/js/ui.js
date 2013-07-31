@@ -1059,11 +1059,12 @@ UI = {
       }
       $('#skModal .modal-header').append('<h'+ header_size+'>'+ header + '</h'+ header_size+'>');
     }
-    
+      
     if (typeof body != 'undefined'){
-      $('#skModal .modal-body').append('<h'+ body_size+'>'+ body + '</h'+ body_size+'>');
+      $('#skModal .modal-body').append('<h'+ body_size+'>'+ body + '</h'+ body_size+'><br><div>L\'équipe de mySkreen</div>');
     }
     if (typeof footer != 'undefined'){
+      $('#skModal .modal-footer').prepend('<img src="http://mskstatic.com/150/medias/logo_white.png"/>');
       $('#skModal .modal-footer').append('<button type="button" class="btn btn-info btn-large alert_mobile" data-dismiss="modal">'+ footer +'</button>');
     }
   },
