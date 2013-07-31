@@ -171,11 +171,11 @@ class ChannelController extends Controller
     $program = $api->fetch('program/3517970', $params);
     
     foreach( $program->offers->plays as $play){
-      if( $play->deporte && $play->cost){
+      
+      if( isset($play->deporte) && isset($play->cost) && $play->deporte && $play->cost){
         break;
       }
     }
-    print_r($play);
     $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-28.html.twig', array(
         'program'=> $play,
         'data' => $data,
