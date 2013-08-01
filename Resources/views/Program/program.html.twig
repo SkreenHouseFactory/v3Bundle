@@ -447,13 +447,12 @@
     {% endif %}
 
     <div id="program-share">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}</div>
-
     {# related channels #}
     {% if program.related.channels is defined and 
           program.related.channels.programs is defined and 
           program.related.channels.programs|length == 1 %}
       {% for r in program.related.channels.programs %}
-      <a data-track-channel="{{ r.title }}" id="channel_root" href="{{ r.seo_url }}" style="background: url('{{ program.related.channels.image }}') top left no-repeat;">
+      <a data-track-channel="{{ r.title }}" id="channel_root" href="{{ r.seo_url }}" style="background: url('{{ dump(program.related.channels.image) }}') top left no-repeat;">
         <span class="texte">{{ r.title ~ ', la chaîne' }}</span>
       </a>
       {% endfor %}
@@ -500,7 +499,7 @@
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r, noheader: true} %}
     {% elseif r.name == 'chaines' %}
       {% if (program.related.channels is defined and program.related.channels.programs is defined and program.related.channels.programs|length > 1) %}
-      <a data-track-channel="{{ r.name }}" name="{{ r.name }}"></a>
+       <a data-track-channel="{{ r.name }}" name="{{ r.name }}"></a>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r} %}
       {% endif %}
     {% else %}

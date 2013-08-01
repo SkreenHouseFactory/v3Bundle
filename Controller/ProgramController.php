@@ -274,11 +274,9 @@ class ProgramController extends Controller
         if (strstr($data->title, ' - ')) {
           list($_, $data->episode_title) = explode(' - ', $data->title);
         }
-
         //footer
         list($_, $format, $__) = explode('/', $data->seo_url);
         $request->request->set('home', $format != 'programme' ? $format : null);
-
         $response = $this->render('SkreenHouseFactoryV3Bundle:Program:program.html.twig', array(
           'program' => $data,
           'offers' => array(//'deportes' => 'sur mySkreen', 
