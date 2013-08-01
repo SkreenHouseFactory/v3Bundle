@@ -90,11 +90,7 @@ API = {
   indexedDbStores: ['friends', 'social_selector'],
   init: function(callback) {
     var href = document.location.href;
-    if (typeof DEV != 'undefined' && href.indexOf('.net') != -1) {
-      API.config = $.extend(ENV.all, ? ENV.dev);
-    } else {
-      API.config = $.extend(ENV.all, href.indexOf('preprod.') != -1 ? ENV.preprod : ENV.prod);
-    }
+    API.config = $.extend(ENV.all, href.indexOf('.net') != -1 ? ENV.dev : href.indexOf('preprod.') != -1 ? ENV.preprod : ENV.prod);
     API.config.player = $('html').hasClass('video') ? 'html5' : 'flash';
 
     // console
