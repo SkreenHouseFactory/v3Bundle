@@ -91,7 +91,8 @@
     <h1 itemprop="name">{{ program.episode_title }}{% if program.popular_channel is defined %} <small>{{ program.popular_channel.name }}</small>{% endif %}</h1>
     {% elseif program.episode_title is defined and 
               program.episodeof is defined %}
-      <h1 itemprop="name">{{ program.episodeof.title }} <div>{{ program.episode_title }}{% if program.season_number is defined or program.episode_number is defined %} ({% endif %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Episode {{ program.episode_number }}{% endif %}{% if program.season_number is defined or program.episode_number is defined %}){% endif %}</div></h1>
+      {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+      <h1 itemprop="name">{{ program.episodeof.title }} <div>{{ program.episode_title }}{% if program.episode_title and program.episode_title != episode_title  %} ({{ episode_title }}){% endif %}</div></h1>
     {% else %}
     <h1>
       {{ program.title }} {% if program.id in [4750433,4225947,4802310,4802138,4827403,4325232,4301824,4653555,4750467,4348861] %}
@@ -190,8 +191,8 @@
           </tr>
           {% endfor %}
           {% endif %}
-          {# subscriptions #}
 
+          {# theaters #}
           {% if key == 'theaters' %}
             <tr>
               <td colspan="6" class="theaters">
@@ -223,6 +224,8 @@
                 {% endif %}
               </td>
             </tr>
+
+          {# par defaut #}
           {% else %}
             {% set other_episodes = '' %}
             {% for o in program.offers[key] %}
@@ -285,10 +288,11 @@
                   <span>{{ o_episode.title }}</span>
                   {% endif %}
                   <br/>
+                  {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}
                   {% if o_episode.season_number is defined or 
                         o_episode.episode_number is defined or 
                         o_episode.part_number is defined %}
-                    <span><em>{% if o_episode.season_number is defined %}Saison n° {{ o_episode.season_number }}{% endif %} {% if o_episode.episode_number is defined %}Episode n° {{ o_episode.episode_number }}{% endif %} {% if o_episode.part_number is defined %}Partie n° {{ o_episode.part_number }}{% endif %}</em></span>
+                    <span><em>{% if episode_title != o_episode.title %}{{ episode_title }}{% endif %}</em></span>
                   {% endif %}
                 {% else %}
                 <td class="tags">
@@ -453,7 +457,7 @@
           program.related.channels.programs is defined and 
           program.related.channels.programs|length == 1 %}
       {% for r in program.related.channels.programs %}
-      <a data-track-channel="{{ r.title }}" id="channel_root" href="{{ r.seo_url }}" style="background: url('{{ program.related.channels.image }}') top left no-repeat;">
+      <a data-track-channel="{{ r.title }}" id="channel_root" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}" style="background: url('{{ program.related.channels.image }}') top left no-repeat;">
         <span class="texte">{{ r.title ~ ', la chaîne' }}</span>
       </a>
       {% endfor %}
