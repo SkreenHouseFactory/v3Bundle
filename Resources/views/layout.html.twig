@@ -156,10 +156,12 @@
 {% if app.environment == 'prod' and block('nostats') is empty %}
   {% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' with {tag: 'UA-6151896-14'} %}
   {% include 'SkreenHouseFactoryV3Bundle::_chartbeat.html.twig' %}
-  {#<script type="text/javascript">
-    _gaq.push(['_setAccount', 'UA-6151896-8']);
-    _gaq.push(['_trackPageview']);
-  </script>#}
+  <script type="text/javascript">
+    {#_gaq.push(['_setAccount', 'UA-6151896-8']);
+    _gaq.push(['_trackPageview']);#}
+    ga('create', 'UA-6151896-8', 'myskreen.com');
+    ga('send', 'pageview');
+  </script>
 {% endif %}
 {% endspaceless %}
 </body>
