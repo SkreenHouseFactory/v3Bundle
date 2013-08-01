@@ -2,17 +2,21 @@
   <div id="pblv" class="header-container">
     <div class="header-content">
     <h1 data-channel="{{ channel.title }}"><a href="{{ path('channel', {slug: channel.slug }) }}">{{ channel.title }}</a></h1>
+    <div class="info_saison"><strong>En Streaming une semaine <br>avant la diffusion télé! </strong></div>
       <div class="well">
         <div class="actions slider">
-          <span class="text1">La série <strong>Plus Belle La Vie</strong> en streaming,<br> <strong>une semaine avant la diffusion télé       !</strong></span><br>
-        <span class="text2"><strong>Offre exceptionnelle</strong>: <strong>0,99€</strong> l'épisode ou <strong>3,99€</strong> le Pass Semaine.</span><br>
-        <div><iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.id }}&height=260&width=520" height="260" width="520"></iframe></div>
+          <span class="text1"><strong>DERNIER EPISODE INEDIT</strong></span><br>
+        <span class="text2"><strong>0,99€</strong> l'épisode ou <strong>3,99€</strong> le Pass Semaine.</span><br>
+        <div>
+           <a href="/serie/drames/3517970-plus-belle-la-vie/?rent">
+          <div class="bande">Voir la suite de cet épisode</div></a>
+          <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&noPub=1&program_id={{ episode_id }}&height=260&width=520&channel_header=1" height="260" width="520"></iframe></div>
         </div>
         <div id="countdown"></div>
         <p class="intro" id="note"></p><br>
       </div>
       <div class="pull-right actions" data-id="{{ channel.id }}" data-playlist="{{ fav }}">
-        <a class="fav fav-{{ fav }} btn btn-large btn-primary" data-channel-name="{{ channel.title }}" data-placement="right"><i class="icon-plus-sign icon-white"></i> {{ trigger_fav is defined and trigger_fav ? trigger_fav : 'Suivre Plus Belle La Vie en avance' }}</a>
+        <a class="btn btn-large btn-primary" data-placement="left" href="/serie/drames/3517970-plus-belle-la-vie/?rent">{{ trigger_fav is defined and trigger_fav ? trigger_fav : 'Souscrire au Pass Semaine' }}</a>
       </div>
     </div>
   </div>

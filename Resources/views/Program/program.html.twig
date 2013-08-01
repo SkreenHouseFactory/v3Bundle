@@ -451,7 +451,6 @@
     {% endif %}
 
     <div id="program-share">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}</div>
-
     {# related channels #}
     {% if program.related.channels is defined and 
           program.related.channels.programs is defined and 
@@ -504,7 +503,7 @@
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r, noheader: true} %}
     {% elseif r.name == 'chaines' %}
       {% if (program.related.channels is defined and program.related.channels.programs is defined and program.related.channels.programs|length > 1) %}
-      <a data-track-channel="{{ r.name }}" name="{{ r.name }}"></a>
+       <a data-track-channel="{{ r.name }}" name="{{ r.name }}"></a>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r} %}
       {% endif %}
     {% else %}
