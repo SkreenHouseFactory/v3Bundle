@@ -34,6 +34,10 @@ body.view-channel, body.view-channel-selections {
     #view-page.channel28 {
       margin-top: 70px;
     }
+    #view-page.channel35 {
+      margin-top: 123px;
+      
+    }
     #view-page .container {
       background: white;
     }
@@ -85,15 +89,34 @@ body.view-channel, body.view-channel-selections {
               }
             }
             ul#remote-tnt {
-              height: 290px;
+              height: 240px;
               width: 150px;
               margin: 0 0 0 15px;
               position: absolute;
-              top: 124px;
-              li {
-                float:left;
-                list-style:none;
-                margin: 5px;
+              top: 165px;
+              #carousel-chaine{
+                height: 100%;
+                .carousel-inner {
+                overflow: hidden;
+                }
+                .carousel-control{
+                  top: 94%;
+                  background: none;
+                  color: black;
+                  border: none;
+                  &.left{
+                    left: -7px;
+                  }
+                  &.right{
+                    right: 13px;
+                  }
+                }
+              }
+              .item {
+                a{
+                  margin-left: 6px;
+                  margin-top: 3px;
+                }
               }
             }
           }
@@ -122,7 +145,21 @@ body.view-channel, body.view-channel-selections {
   top: 0;
   left: 0;
   height: 450px;
-  &#pblv{
+  &#channel35{
+    height: 535px;
+    .header-content{
+      background:none;
+      .share-block{
+        top: 294px;
+        left: 620px;
+      }
+      .player-wrap{
+        position: relative;
+        left: 496px;
+      }
+     }
+  }
+  &#channel28{
     .info_saison{
       position: relative;
       top: 84px;

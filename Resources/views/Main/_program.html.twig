@@ -27,7 +27,10 @@
       {% if p.best_offer.channel_img is defined and p.best_offer.channel_name is defined %}
       <img src="{{ p.best_offer.channel_img }}" alt="{{ p.best_offer.channel_name }}">
       {% endif %}
-      {% if p.best_offer.broadcastdate is defined %}
+      
+      {% if p.best_offer.broadcastdate is defined and p.best_offer.access.name is defined and p.best_offer.access.name == "Live" and p.best_offer.broadcasttime < "now"|date('U') and "now"|date('U') < p.best_offer.endtime  %}
+      <span class="diff">En ce moment</span>    
+      {% else %}
       <span class="diff">{{ p.best_offer.broadcastdate|replace(' à', ' à') }}</span>
       {% endif %}
     </a>

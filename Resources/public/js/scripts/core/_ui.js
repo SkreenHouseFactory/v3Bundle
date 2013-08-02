@@ -142,6 +142,7 @@ UiView = {
           } else {
             $('body').removeClass('cover').addClass('no-cover');
           }
+        $('body').css('background',e.originalEvent.state.back_ground);
         });
       }
     });
@@ -185,10 +186,10 @@ UiView = {
       console.log('script', '[data-ajax]', $(this).data('ajax'));
       
       if ( history.state == null ) {
-        history.pushState({path: window.location.href , cover: $('body').hasClass('cover')}, document.title, window.location.href);
+        history.pushState({path: window.location.href ,back_ground: $('body').css('background'), cover: $('body').hasClass('cover')}, document.title, window.location.href);
       }
-      history.pushState({path: $(this).data('ajax') , cover: $('body').hasClass('cover')}, $(this).html(), $(this).data('ajax'));
-    
+      history.pushState({path: $(this).data('ajax') , back_ground: $('body').css('background'),cover: $('body').hasClass('cover')}, $(this).html(), $(this).data('ajax'));
+      $('body').css('background','');
 
       
       
