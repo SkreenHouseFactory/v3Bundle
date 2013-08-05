@@ -1,0 +1,25 @@
+<div id="cover" class="cover42">
+  <div id="channel42" class="header-container teaser">
+    <div class="header-content">
+    <h1 data-channel="{{ channel.title }}"><a href="{{ path('channel', {slug: channel.slug }) }}">{{ channel.title }}</a></h1>
+    <div class="info_saison"><strong>En Streaming une semaine <br>avant la diffusion télé! </strong></div>
+      <div class="well">
+        <div class="actions slider">
+          <span class="text1"><strong> Lancement le Mardi 6 Août à 10h00 </strong></span>
+        </div>
+        <div id="countdown"></div>
+        <p class="intro" id="note"></p><br>
+      </div>
+      <div class="pull-right actions" data-id="3517970">
+        <a class="btn btn-large btn-primary fav fav-like" data-placement="right"><i class="icon-plus-sign icon-white"></i> {{ trigger_fav is defined and trigger_fav ? trigger_fav : 'Suivre Plus Belle La Vie' }}</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% stylesheets
+    '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/css/jquery.countdown/jquery.countdown.css'
+      filter='less,?yui_css'
+      output='css/countdown.css'
+      %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+{% endstylesheets %}

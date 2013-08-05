@@ -143,7 +143,7 @@ class ContentController extends Controller
         'img_height' => 200
       ));
       //print_r($data);
-      //echo $api->url;
+      echo $api->url;
       //404
       if (isset($data->error) && $data->error) {
         throw $this->createNotFoundException('Selection does not exist');
