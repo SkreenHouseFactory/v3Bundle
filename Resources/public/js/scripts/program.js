@@ -233,7 +233,7 @@ ProgramView = {
         console.log('UI.loadProgramUsersDatas', 'svods found', '[data-play-pass="' + subscription_id + '"]' );
         if ($('[data-play-pass="' + subscription_id + '"]').length) {
           $('[data-play-pass="' + subscription_id + '"] td.access').append(
-            '<span class="btn-block badge badge-info">'+
+            '<span class="btn-block badge badge-warning inline">'+
             'Vous êtes abonné au Pass ' + 
             '</span>'
           );
@@ -261,7 +261,7 @@ ProgramView = {
               console.log('UI.loadProgramUsersDatas', 'purchased', '#program-offers [data-id="' + k + '"] td.access', $('#program-offers [data-id="' + k + '"] td.access'), k, API.formatTimestamp(datas.purchased[k]));
               if (typeof $('#program-offers [data-id="' + k + '"]').data('play-pass') == 'undefined') {
                 $('#program-offers [data-id="' + k + '"] td.access').append(
-                  '<span class="btn-block badge badge-info">'+
+                  '<span class="btn-block badge badge-warning inline">'+
                   'Loué le ' + API.formatTimestamp(datas.purchased[k]) + 
                   '</span>'
                 );
