@@ -46,6 +46,9 @@ body.view-channel, body.view-channel-selections {
       height: 450px;
       margin: 0 auto;
       padding: 0;
+      &.cover42{
+          height: 850px;
+      }
       &.cover-fournisseur {
         .header-container {
           .container {
@@ -158,6 +161,79 @@ body.view-channel, body.view-channel-selections {
         left: 496px;
       }
      }
+  }
+  &#channel42{
+    .info_saison{
+      position: relative;
+      top: 140px;
+      left: 170px;
+    }
+    .header-content{
+      background-color: transparent;
+      padding:0;
+      top: 55px;
+      >h1{
+        top: 65px;
+        position: absolute;
+        >a{
+          color: black;
+        }
+      }
+      .well{
+        -webkit-box-shadow: none;
+        position: relative;
+        left: 300px;
+        width: 690px;
+        height: 340px;
+        top: 60px;
+        border: 0;
+        margin-top: 18px;
+        background-color: transparent;
+        padding-top: 120px;
+        .slider{
+          width: 520px;
+          margin: 0 auto;
+          text-align: center;
+         height: 45px;
+          .text1{
+            font-size: 1.3em;
+          }
+          .text2{
+            font-size: 1.2em;
+          }
+          .bande{
+            margin-left: 110px;
+            position: absolute;
+            top: 310px;
+            text-align: center;
+            height: 20px;
+            width: 300px;
+            background-color: black;
+            color: white;
+          }
+          iframe{
+            border: 1px solid #999;
+          }
+        }
+        .intro{
+          text-align: center;
+        }
+      }
+      .btn{
+        position: absolute;
+        bottom: -82px;
+        left: 30px;
+      }
+      .channel-icon{
+      
+        top: 260px;
+        width: 230px;
+        height: 230px;
+        z-index: 100;
+        position: relative;
+        background-image:url('http://mskstatic.com/230/medias/photos/PBLV/saison9.jpg');
+      }
+    }
   }
   &#channel28{
     .info_saison{

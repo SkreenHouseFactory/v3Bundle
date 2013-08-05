@@ -108,7 +108,24 @@ $(document).ready(function(){
     //////////// SCRIPTS ////////////////
     //countdown setting
     var channel_id = $('.actions[data-id]').data('id');
-
+   
+    if (channel_id == 3517970) {
+    	var note = $('#note'),
+    		ts = new Date(2013,7,6,10,0,0),
+    		newYear = true;
+	
+    	if((new Date()) > ts){
+    		// The new year is here! Count towards something else.
+    		// Notice the *1000 at the end - time must be in milliseconds
+    		ts = (new Date()).getTime() + 10*24*60*60*1000;
+    		newYear = false;
+    	}
+		
+    	$('#countdown').countdown({
+    		timestamp	: ts
+    	});
+    }
+ 
     if (channel_id == 28) {
       var date = new Date();
       	var note = $('#note');
