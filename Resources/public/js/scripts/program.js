@@ -1,7 +1,7 @@
 // -- program
 
-//surcharge session sync args to get VOD :
-//Session_sync_args =  { 'with_vod': 1 };
+//surcharge session sync args to get sVOD :
+Session_sync_args =  { 'with_svod': 1 };
 
 $(document).ready(function(){
   if ($('#view-program').length) {
@@ -225,6 +225,22 @@ ProgramView = {
       });
     }
 
+    //SVOD
+    console.log('UI.loadProgramUsersDatas', 'svods', Skhf.session.datas.svods);
+    if (Skhf.session.datas.svods != 'undefined') {
+      for (k in Skhf.session.datas.svods) {
+        var subscription_id = Skhf.session.datas.svods[k].subscription_id;
+        console.log('UI.loadProgramUsersDatas', 'svods found', '[data-play-pass="' + subscription_id + '"]' );
+        if ($('[data-play-pass="' + subscription_id + '"]').length) {
+          $('[data-play-pass="' + subscription_id + '"] td.access').append(
+            '<span class="btn-block badge badge-info">'+
+            'Vous êtes abonné au Pass ' + 
+            '</span>'
+          );
+        }
+      }
+    }
+
     // VOD & notifications
     API.query(
       'GET', 
@@ -237,13 +253,19 @@ ProgramView = {
       function(datas){
         console.log('UI.loadProgramUsersDatas', 'callback', datas);
         //bought ?
-        console.log('datas.purchased ', datas.purchased );
         if (typeof datas.purchased != 'undefined' &&
             datas.purchased) {
+          console.log('UI.loadProgramUsersDatas', 'datas.purchased ', datas.purchased);
           for (k in datas.purchased) {
             if( API.formatTimestamp(datas.purchased[k]) != 'undefined' ){
               console.log('UI.loadProgramUsersDatas', 'purchased', '#program-offers [data-id="' + k + '"] td.access', $('#program-offers [data-id="' + k + '"] td.access'), k, API.formatTimestamp(datas.purchased[k]));
-              $('#program-offers [data-id="' + k + '"] td.access').append('<span class="btn-block badge badge-warning">Loué le ' + API.formatTimestamp(datas.purchased[k]) + '</span>');
+              if (typeof $('#program-offers [data-id="' + k + '"]').data('play-pass') == 'undefined') {
+                $('#program-offers [data-id="' + k + '"] td.access').append(
+                  '<span class="btn-block badge badge-info">'+
+                  'Loué le ' + API.formatTimestamp(datas.purchased[k]) + 
+                  '</span>'
+                );
+              }
             }
           }
         }

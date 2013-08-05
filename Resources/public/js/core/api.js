@@ -355,7 +355,14 @@ API = {
           case 'DISCONNECTED':
             UI.auth(function(){
               console.log('API.play', 'callback UI.auth', Skhf.session.datas);
-              $('.modal .modal-body').prepend('<p class="alert alert-success"><b>Vidéo à la demande :</b><br/>Créez votre compte pour voir ce programme sur mySkreen !</p>');
+              $('.modal .modal-body').prepend(
+                subscription_id ?
+                '<p class="alert alert-success"><b>Pass Vidéo à la demande :</b>' +
+                '<br/>Créez votre compte sur mySkreen pour accéder à votre Pass !</p>'
+                : 
+                '<p class="alert alert-success"><b>Vidéo à la demande :</b>' +
+                '<br/>Créez votre compte pour voir ce programme sur mySkreen !</p>'
+              );
               if (Skhf.session.datas.email) {
                 self.play(id);
               }

@@ -187,7 +187,7 @@
             <td class="channel logo-channel-4952"><img src="http://mskstatic.com/65/medias/ico/chaines/pluzz-vad_medium.png" alt="pluzz VAD Streaming"></td>
             <td class="price big">{{ s.pass.price }}€</td>
             <td class="access"><span class="big">{{ s.name }}</span></td>
-            <td class="tags"><br/><br/></td>
+            <td class="tags">{{ s.description }}</td>
           </tr>
           {% endfor %}
           {% endif %}
@@ -267,14 +267,14 @@
                   {% endif %}
                   {% if o_access.name == 'TV' %}
                     {% if key == 'plays'  %}
-                      <span class="label label-important">Live</span>
+                      <span class="badge badge-important">Live</span>
                     {% elseif o.has_replay and o.broadcasttime|remainingtv %}
-                      <span class="label label-info">{{ o.broadcasttime|remainingtv }}</span>
+                      <span class="badge badge-info">{{ o.broadcasttime|remainingtv }}</span>
                     {% elseif o.broadcasttime|timeleft %}
-                      <span class="label label-warning">Dans {{ o.broadcasttime|timeleft }}</span>
+                      <span class="badge badge-warning">Dans {{ o.broadcasttime|timeleft }}</span>
                     {% endif %}
                   {% elseif o.endtime is defined and o.endtime|remainingreplay %}
-                    <span class="label label-warning">{{ o.endtime|remainingreplay }}</span>
+                    <span class="badge badge-warning">{{ o.endtime|remainingreplay }}</span>
                   {% endif %}
                 </td>
                 {% if o.title is defined and o.title %}
