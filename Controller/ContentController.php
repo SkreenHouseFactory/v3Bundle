@@ -161,7 +161,6 @@ class ContentController extends Controller
           //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$data->seo_url . '/';
           return $this->redirect($data->seo_url, 301);
         }
-
         $response = $this->render('SkreenHouseFactoryV3Bundle:Content:selection.html.twig', array(
           'selection' => $data
         ));

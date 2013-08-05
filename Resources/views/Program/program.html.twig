@@ -293,6 +293,7 @@
                         o_episode.episode_number is defined or 
                         o_episode.part_number is defined %}
                     <span><em>{% if episode_title != o_episode.title %}{{ episode_title }}{% endif %}</em></span>
+                    <br>
                   {% endif %}
                 {% else %}
                 <td class="tags">
@@ -304,7 +305,6 @@
                   {% endif %}
                   
                   {% if o.tags is defined and o.tags|length %}
-                    <br/>
                     {% if o.tags.HD is defined %}
                       <span class="label label-important">HD</span><br/>
                     {% endif %}

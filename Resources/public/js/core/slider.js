@@ -143,6 +143,8 @@ var BaseSlider = Class.extend({
   },
   next: function(trigger) {
     var self = this;
+    var prev = $('.left', self.elmt);
+    prev.css('visibility','visible');
     console.log(this);
     if (parseInt(this.container.css('left')) < parseInt(this.container.css('width')) || this.container.css('left') == 'auto') {
       self.items.animate({'left': '+=-' + self.slide_step}, 500, function() {
@@ -191,6 +193,7 @@ var BaseSlider = Class.extend({
   },
   prev: function(trigger) {
     var self = this;
+    prev = $('.left', this.elmt);
     var next = $('.right', this.elmt);
     console.log('prev', parseInt(this.items.css('left')), parseInt(this.items.css('width')));
     if (-parseInt(this.items.css('left')) <= parseInt(this.items.css('width'))) {
@@ -202,6 +205,10 @@ var BaseSlider = Class.extend({
         }
         if (next.css('visibility') == 'hidden') {
           next.css({'visibility':'visible'});
+        }
+        if( parseInt(self.items.css('left')) >= 0){
+          prev.css({'visibility':'hidden'});
+          console.log('prev hide');
         }
       });
     }

@@ -28,7 +28,6 @@ $(document).ready(function(){
       console.log('script', 'Session.init', 'callback');
     }, typeof Session_sync_args != 'undefined' ? Session_sync_args : {});
   });
-  
   // -- User interactions
   UI.init(function(){
     console.log('script', 'UI.init', 'callback');

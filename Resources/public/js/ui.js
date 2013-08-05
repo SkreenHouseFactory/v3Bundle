@@ -500,7 +500,7 @@ UI = {
           }else if( $(this).data('filter') == 'replay' ){
             var classes = ['plays.catchup','plays.webcast'];
           }else if( $(this).data('filter') == 'vod' ){
-            var classes = ['plays.dvd', 'plays.location.48h', 'plays.achat.itunes']; 
+            var classes = ['plays.dvd', 'plays.location.48h', 'plays.achat.itunes','plays.achat']; 
           } else {
             var classes = [$(this).data('filter')];
           }

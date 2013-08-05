@@ -58,7 +58,7 @@
       </div>
       {% endif %}
     {% else %}
-      {% if loop.index == 2 %}<div class="container">{% else %}<hr/>{% endif %}
+      {% if loop.index == 2 %}<div class="first-container container">{% else %}<hr/>{% endif %}
       <a name="{{ slider.name }}"></a>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider } %}
     {% endif %}

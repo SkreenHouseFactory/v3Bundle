@@ -1,15 +1,25 @@
-{% set tnt_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat'] %}
+{% set tnt_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat','HD1','6Ter','numero 23','RMC découverte','Gulli','cherie 25'] %}
 <div id="cover" class="cover-fournisseur">
 <div class="header-container">
   {% if fournisseur.live.program is defined and fournisseur.live.program  %}
   <div class="container">
-
-  <ul id="remote-tnt">
+    <ul id="remote-tnt">
+  <div id="carousel-chaine" class="carousel slide" data-interval="false">
+    <div class="carousel-inner">
+      <div class="item active">
     {% for c in tnt_channels %}
     {% set slug = c|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-    <li><a data-toggle="tooltip" data-placement="top" title="" data-original-title="{{ c }}" href="{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/35/30/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ c }} Replay"></a></li>
+    {% if  loop.index == 22 %}
+      </div>
+      <div class="item pointer">
+    {% endif %}
+      <a data-toggle="tooltip" data-placement="top" title="" data-original-title="{{ c }}" href="{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/35/30/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ c }} Replay"></a>
     {% endfor %}
-  </ul>
+      </div>
+    </div>
+    <a class="carousel-control left" data-slide="prev" href="#carousel-chaine">‹</a> 
+    <a class="carousel-control right" data-slide="next" href="#carousel-chaine">›</a> </div>
+</ul>
 
     <div class="well">
     <div class="well-inner">
