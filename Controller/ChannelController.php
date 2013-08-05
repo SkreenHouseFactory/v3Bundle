@@ -168,6 +168,7 @@ class ChannelController extends Controller
          //'offers_type'=> 'plays'
        );
       $program = $api->fetch('program/3517970', $params);
+      //echo $api->url;
       $play = null;
     
       foreach( $program->offers->plays as $play){
@@ -175,7 +176,14 @@ class ChannelController extends Controller
           break;
         }
       }
+      foreach( $program->datas_offers->episodes as $episode_name){
+        if( isset($episode_name->title) && $episode_name->id == $play->episode_id ){
+          break;
+        }
+      }
+     
       $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-28.html.twig', array(
+         'episode_name' => $episode_name,
           'episode_id'=> $play->episode_id,
           'data' => $data,
           'fav' => $fav,
@@ -211,6 +219,18 @@ class ChannelController extends Controller
       
             return $response; 
       }
+      public function header42Action($data,$channel,$fav,$trigger_fav){
+     
+          $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-42.html.twig', array(
+             // 'episode_id'=> $play->episode_id,
+              'data' => $data,
+              'fav' => $fav,
+              'trigger_fav'=> $trigger_fav,
+                'channel'=> $channel
+            ));
+      
+                return $response; 
+          }
   
  
   protected function buildFacets(Request $request) {
