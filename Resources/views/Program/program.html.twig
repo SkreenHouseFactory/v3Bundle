@@ -92,7 +92,7 @@
     {% elseif program.episode_title is defined and 
               program.episodeof is defined %}
       {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
-      <h1 itemprop="name">{{ program.episodeof.title }} <div>{{ program.episode_title }}{% if program.episode_title and program.episode_title != episode_title  %} ({{ episode_title }}){% endif %}</div></h1>
+      <h1 itemprop="name">{{ program.episodeof.title }} <div>{{ program.episode_title }}{% if program.episode_title and program.episode_title != episode_title and  episode_title != '' %} ({{ episode_title }}){% endif %}</div></h1>
     {% else %}
     <h1>
       {{ program.title }} {% if program.id in [4750433,4225947,4802310,4802138,4827403,4325232,4301824,4653555,4750467,4348861] %}
@@ -287,12 +287,12 @@
                   {% if o_episode.title %}
                   <span>{{ o_episode.title }}</span>
                   {% endif %}
-                  <br/>
                   {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}
                   {% if o_episode.season_number is defined or 
                         o_episode.episode_number is defined or 
                         o_episode.part_number is defined %}
-                    <span><em>{% if episode_title != o_episode.title %}{{ episode_title }}{% endif %}</em></span>
+                   {% if episode_title != o_episode.title %}<br><span><em>{{ episode_title }}</em></span>
+                   {% endif %}
                     <br>
                   {% endif %}
                 {% else %}

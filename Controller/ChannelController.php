@@ -186,13 +186,13 @@ class ChannelController extends Controller
       }
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-28.html.twig', array(
-        'episode_name' => $episode_name,
-          'episode_id'=> $play->episode_id,
-          'data' => $data,
-          'fav' => $fav,
-          'trigger_fav'=> $trigger_fav,
+            'episode_name' => $episode_name,
+            'episode_id'=> $play->episode_id,
+            'data' => $data,
+            'fav' => $fav,
+            'trigger_fav'=> $trigger_fav,
             'channel'=> $channel,
-              'from_selection' => $from_selection
+            'from_selection' => $from_selection
         ));
               
       

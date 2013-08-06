@@ -168,21 +168,26 @@ class ContentController extends Controller
           'selection' => $data
         ));
       } else {
-        
           $custom_header = false;
-          if ( $this->get('templating')->exists('SkreenHouseFactoryV3Bundle:Channel:_header-'.$data->onglet->channel->id.'.html.twig')){
-            $custom_header = true;
-          }
           $from_selection = true;
+          $is_channel = false;
+          if ( $data->onglet->type == 'page'){
+            $is_channel = true;
+            if ( $this->get('templating')->exists('SkreenHouseFactoryV3Bundle:Channel:_header-'.$data->onglet->channel->id.'.html.twig')){
+              $custom_header = true;
+            }
+          }
+      
         //bad url
-        if ($request->getPathInfo() != $data->seo_url) {
-          //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$data->seo_url . '/';
-          return $this->redirect($data->seo_url, 301);
-        }
+          if ($request->getPathInfo() != $data->seo_url) {
+            //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$data->seo_url . '/';
+            return $this->redirect($data->seo_url, 301);
+          }
         $response = $this->render('SkreenHouseFactoryV3Bundle:Content:selection.html.twig', array(
               'selection' => $data,
               'custom_header' => $custom_header,
-              'from_selection'=> $from_selection
+              'from_selection'=> $from_selection,
+              'is_channel' => $is_channel
         ));
       }
 
