@@ -140,6 +140,7 @@ $(document).ready(function(){
                 break;
           case 7:
                 ts.setDate(date.getDate() + 1); 
+                break;
           }
       
       
@@ -160,23 +161,22 @@ $(document).ready(function(){
 		
         if( (date.getHours() < 10 && date.getDay() != 6 && date.getDay() != 7) || date.getDay() == 6 || date.getDay() == 7){
           $('.well .actions div').remove();
-      	$('#countdown').countdown({
+        	$('#countdown').countdown({
 
-      		timestamp	: ts,
+        		timestamp	: ts,
 
-      		callback	: function(days, hours, minutes, seconds){
+        		callback	: function(days, hours, minutes, seconds){
 
-      			var message = " Avant le prochain épisode en avant-première !";
+        			var message = " Avant le prochain épisode en avant-première !";
 
-      			note.html(message);
-            if (hours == 0 && minutes == 0 &&  seconds == 0 ){
-            document.location.reload();
-      		}
+        			note.html(message);
+              if (hours == 0 && minutes == 0 &&  seconds == 0 ){
+                document.location.reload();
+              }
+        		}
 
-      	});
+        	});
         }
-        
-       
     }
   }
 });
