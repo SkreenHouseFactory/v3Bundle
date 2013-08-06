@@ -105,10 +105,12 @@ class ChannelController extends Controller
     // Si on est une une page sk_channel, on redirige vers le twig correct
     if (property_exists($data, 'channel')) {
       $custom_header = false;
+      $from_selection = false;
       if ( $this->get('templating')->exists('SkreenHouseFactoryV3Bundle:Channel:_header-'.$data->channel->id.'.html.twig')){
         $custom_header = true;
       }
       $params = array(
+        'from_selection'=> $from_selection,
         'data' => $data,
         'channel' => $data->channel,
         'custom_header' => $custom_header
@@ -160,7 +162,7 @@ class ChannelController extends Controller
     return $response;
   }
   // channel PBLV
-  public function header28Action($data,$channel,$fav,$trigger_fav){
+  public function header28Action($data,$from_selection,$channel,$fav,$trigger_fav){
       $api   = $this->get('api');
       $params = array(
          'with_player' => true,
@@ -170,7 +172,7 @@ class ChannelController extends Controller
       $program = $api->fetch('program/3517970', $params);
       //echo $api->url;
       $play = null;
-    
+      
       foreach( $program->offers->plays as $play){
         if( isset($play->deporte) && isset($play->cost) && $play->deporte && $play->cost){
           break;
@@ -181,18 +183,20 @@ class ChannelController extends Controller
           break;
         }
       }
-     
+
       $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-28.html.twig', array(
-         'episode_name' => $episode_name,
+        'episode_name' => $episode_name,
           'episode_id'=> $play->episode_id,
           'data' => $data,
           'fav' => $fav,
           'trigger_fav'=> $trigger_fav,
-            'channel'=> $channel
+            'channel'=> $channel,
+              'from_selection' => $from_selection
         ));
-          
-            return $response; 
-      }
+              
+      
+      return $response; 
+  }
   public function header35Action($data,$channel,$fav,$trigger_fav){
      /* $api   = $this->get('api');
       $params = array(

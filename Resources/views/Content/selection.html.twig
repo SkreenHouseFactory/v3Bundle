@@ -22,8 +22,16 @@
 {% endblock %}
 
 {% block content %}
-{% if selection.onglet.type == 'page' %}
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {channel: selection.onglet.channel, data: selection.onglet, fav: 'page'} %}
+{% if custom_header %}
+{% render 'SkreenHouseFactoryV3Bundle:Channel:header'~ selection.onglet.channel.id with {channel: selection.onglet.channel, from_selection : from_selection ,  data: selection.onglet, fav: 'page',trigger_fav: 
+channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
+{% else %}
+  {% if selection.onglet.channel.fournisseur is defined %}
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: selection.onglet.channel , fournisseur: selection.onglet.channel.fournisseur } %}
+  {% else%}
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {channel: selection.onglet.channel, data: selection.onglet, fav: 'page'} %}
+  {% endif%}
+
 {% endif %}
 <div id="view-selection" class="container">
   {% if selection.onglet.type != 'page' %}

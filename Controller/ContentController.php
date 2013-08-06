@@ -137,13 +137,25 @@ class ContentController extends Controller
       $this->blockDomain($request);
       $api   = $this->get('api');
       $data = $api->fetch('www/slider/pack/'.$request->get('id'), array(
-        'with_programs'  => true,
+        'with_live'  => !$request->get('format') && !$request->get('page') ? true : false,
+        'with_next_live' => !$request->get('format') && !$request->get('page') ? true : false,
+        'with_description'  => true,
+        'channel_img_width' => 120,
+        'img_width' => 150,
+        'img_height' => 200,
+        'live_img_width' => 150,
+        'live_img_height' => 200,
+        'slider_img_width'  => 900,
+        'slider_img_height' => 300,
+        'live_player_width' => 450,
+        'live_player_height' => 300,
         'with_onglet'  => true,
+        'with_programs' => true,
         'img_width' => 150,
         'img_height' => 200
       ));
       //print_r($data);
-      echo $api->url;
+      //echo $api->url;
       //404
       if (isset($data->error) && $data->error) {
         throw $this->createNotFoundException('Selection does not exist');
@@ -156,13 +168,21 @@ class ContentController extends Controller
           'selection' => $data
         ));
       } else {
+        
+          $custom_header = false;
+          if ( $this->get('templating')->exists('SkreenHouseFactoryV3Bundle:Channel:_header-'.$data->onglet->channel->id.'.html.twig')){
+            $custom_header = true;
+          }
+          $from_selection = true;
         //bad url
         if ($request->getPathInfo() != $data->seo_url) {
           //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$data->seo_url . '/';
           return $this->redirect($data->seo_url, 301);
         }
         $response = $this->render('SkreenHouseFactoryV3Bundle:Content:selection.html.twig', array(
-          'selection' => $data
+              'selection' => $data,
+              'custom_header' => $custom_header,
+              'from_selection'=> $from_selection
         ));
       }
 
