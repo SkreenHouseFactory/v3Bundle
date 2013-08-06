@@ -13,7 +13,6 @@ $(document).ready(function(){
       ProgramView.unloadProgramUsersDatas($('#view-program').data('id'));
     }
     Skhf.session.callbackSignin = function() {
-      
       ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
       //theater playlist
       if ($('#program-offers #trigger-theaters-playlist').length && 
@@ -229,11 +228,11 @@ ProgramView = {
     console.log('UI.loadProgramUsersDatas', 'svods', Skhf.session.datas.svods);
     if (Skhf.session.datas.svods != 'undefined') {
       for (k in Skhf.session.datas.svods) {
-        var subscription_id = Skhf.session.datas.svods[k].subscription_id;
+        var subscription_id = Skhf.session.datas.svods[k].pass.subscription_id;
         console.log('UI.loadProgramUsersDatas', 'svods found', '[data-play-pass="' + subscription_id + '"]' );
         if ($('[data-play-pass="' + subscription_id + '"]').length) {
           $('[data-play-pass="' + subscription_id + '"] td.access').append(
-            '<span class="btn-block badge badge-warning inline">'+
+            '<span class="btn-block badge badge-warning inline remove-on-signout">'+
             'Vous êtes abonné au Pass ' + 
             '</span>'
           );
@@ -259,13 +258,15 @@ ProgramView = {
           for (k in datas.purchased) {
             if( API.formatTimestamp(datas.purchased[k]) != 'undefined' ){
               console.log('UI.loadProgramUsersDatas', 'purchased', '#program-offers [data-id="' + k + '"] td.access', $('#program-offers [data-id="' + k + '"] td.access'), k, API.formatTimestamp(datas.purchased[k]));
-              if (typeof $('#program-offers [data-id="' + k + '"]').data('play-pass') == 'undefined') {
-                $('#program-offers [data-id="' + k + '"] td.access').append(
-                  '<span class="btn-block badge badge-warning inline">'+
-                  'Loué le ' + API.formatTimestamp(datas.purchased[k]) + 
-                  '</span>'
-                );
-              }
+              $('#program-offers [data-id="' + k + '"]').each(function(){
+                if (typeof $(this).data('play-pass') == 'undefined') {
+                  $('td.access', this).append(
+                    '<span class="btn-block badge badge-warning inline remove-on-signout">'+
+                    'Loué le ' + API.formatTimestamp(datas.purchased[k]) + 
+                    '</span>'
+                  );
+                }
+              })
             }
           }
         }

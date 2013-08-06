@@ -77,7 +77,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="view-program" data-id="{{ program.id }}" class="container" itemscope itemtype="http://www.schema.org/VideoObject">
+<div id="view-program" data-id="{{ program.id }}" class="container container-root-{{ program.episodeof is defined ? program.episodeof.id : program.id }}" itemscope itemtype="http://www.schema.org/VideoObject">
 
   <div id="program-follow" class="actions add-friends" data-id="{{ program.episodeof is defined ? program.episodeof.id : program.id }}">
     <div class="container-friends"></div>
@@ -255,7 +255,7 @@
                 <td class="price big">
                   {% if o.cost is defined and o.cost > 0 %}{{ o.cost|number_format(2, ',') }}&euro;{% endif %}
                 </td>
-                <td class="access">
+                <td class="access" data-acces="{{ o_access.name }}">
                   {% if o_access.name in ['Live', 'TV'] %}
                     <span class="big"><time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time></span>
                   {% else %}

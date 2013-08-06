@@ -12,11 +12,16 @@ function skPaymentPopinEnd(action, player, occurrence_id) {
         Couchmode.init({type: 'occurrence', id: occurrence_id, hide_sliders: 1});
       break;
       case 'loadAlertUser':
-        UI.loadAlertUser('Gerez vos vidéos','Cliquez sur "Vos vidéos à la demande" pour voir ou revoir vos VOD!',6000);
+        UI.loadAlertUser(
+          'Gerez vos vidéos',
+          'Cliquez sur "Vos vidéos à la demande" pour voir ou revoir vos VOD!',
+          6000
+        );
       break;
     }
   }
- 
+  //mise à jour de la session
+  Skhf.session.sync(Skhf.session.callbackSignin);
 }
 function skPaymentPopinRefresh() {
   return skPaymentPopinEnd();
@@ -364,7 +369,7 @@ API = {
                 '<br/>Créez votre compte pour voir ce programme sur mySkreen !</p>'
               );
               if (Skhf.session.datas.email) {
-                self.play(id);
+                self.play(id, args, subscription_id);
               }
             });
           break;

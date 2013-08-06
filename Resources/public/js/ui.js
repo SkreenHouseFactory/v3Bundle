@@ -69,6 +69,9 @@ UI = {
     this.user = Skhf.session.datas.email;
     if (Skhf.session.datas.email) {
       //on
+      //load playlist
+      Skhf.session.initPlaylist();
+
       if (!update) {
         $('.user-off:not(.hide)').addClass('hide');
         $('.user-on.hide').removeClass('hide');
@@ -92,6 +95,7 @@ UI = {
                                .popover('disable');
       }
       //infos
+      $('.remove-on-signout').remove();
       $('.user-email').html(Skhf.session.datas.email);
       $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
       //fb
