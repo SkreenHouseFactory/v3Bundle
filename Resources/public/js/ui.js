@@ -70,7 +70,8 @@ UI = {
     if (Skhf.session.datas.email) {
       //on
       //load playlist
-      Skhf.session.initPlaylist();
+      //Skhf.session.initPlaylist();
+      self.loadSelector();
 
       if (!update) {
         $('.user-off:not(.hide)').addClass('hide');

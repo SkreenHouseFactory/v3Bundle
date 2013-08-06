@@ -208,6 +208,9 @@ ProgramView = {
   //load user program's infos
   loadProgramUsersDatas: function(id) {
 
+    //reset user DOM elmt
+    $('#program-offers .remove-on-signout').remove();
+
     // friends
     if ( Skhf.session.datas.fb_uid && Skhf.session.datas.fb_access_token) {
       var container_friends = $('#program-friends .share-on');

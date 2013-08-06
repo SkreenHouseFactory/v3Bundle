@@ -13,6 +13,8 @@ var Session = BaseSession.extend({
   signin: function(sessionData, callback) {
     this.__base(sessionData, callback)
 
+    this.initPlaylist();
+
     //update
     this.update();
   },
