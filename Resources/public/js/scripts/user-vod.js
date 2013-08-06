@@ -1,16 +1,15 @@
 // -- user svod
 
 $(document).ready(function(){
-  if ($('#view-svod').length || $('#view-vod').length) {
-
+  if ($('body.view-user_svod').length) {
     // filter
-    $('.unsubscribe-svod').on('click', function(){
-      console.log('scripts/user-svod', $(this).data('unsubscribe'));
+    $('[data-unsubscribe-pass]').on('click', function(){
+      console.log('scripts/user-svod', $(this).data('unsubscribe-pass'));
       API.query(
         'POST',
         'session/settings/' + Skhf.session.uid + '.json',
         {
-          unsubscribe_svod: $(this).data('code')
+          unsubscribe_svod: $(this).data('unsubscribe-pass')
         },
         function() {
           document.location.reload();
