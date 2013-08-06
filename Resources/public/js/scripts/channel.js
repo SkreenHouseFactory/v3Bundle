@@ -169,7 +169,8 @@ $(document).ready(function(){
       			var message = " Avant le prochain épisode en avant-première !";
 
       			note.html(message);
-
+            if (hours == 0 && minutes == 0 &&  seconds == 0 ){
+            document.location.reload();
       		}
 
       	});
