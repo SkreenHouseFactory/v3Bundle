@@ -76,7 +76,7 @@
     'cinema': 'Cinéma', 
     'dvd': 'Dvd, Blu-Ray'} %}
 	<div class="facets">
-  {% if app.request.get('category_slug') is null and categories|length > 1 %}
+  {% if 'format' in app.request.get('_route') and categories|length > 1 %}
   	{% for k,s in categories %}
   		<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'}) }}" class="label{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a>
   	{% endfor %}
@@ -150,9 +150,9 @@
       {% for k,a in access if a|replace({'vod': 'video-a-la-demande'}) in facet_access|keys %}
       <li>
         {% if app.request.get('category_slug') and app.request.get('format') %}
-        <a href="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) }) }}">
+        <a href="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'}) }}">
         {% elseif app.request.get('category_slug') %}
-        <a href="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) }) }}">
+        <a href="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'}) }}">
         {% endif %}
         {{ facet_access[a|replace({'vod': 'video-a-la-demande'})] }}</a></li>
       {% endfor %}
