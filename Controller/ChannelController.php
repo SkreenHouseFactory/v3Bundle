@@ -179,23 +179,22 @@ class ChannelController extends Controller
           break;
         }
       }
-      foreach( $program->datas_offers->episodes as $episode_name){
-        if( isset($episode_name->title) && $episode_name->id == $play->episode_id ){
+
+      foreach( $program->datas_offers->episodes as $episode) {
+        if( isset($episode->title) && $episode->id == $play->episode_id ){
           break;
         }
       }
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-28.html.twig', array(
-            'episode_name' => $episode_name,
-            'episode_id'=> $play->episode_id,
-            'data' => $data,
-            'fav' => $fav,
-            'trigger_fav'=> $trigger_fav,
-            'channel'=> $channel,
-            'from_selection' => $from_selection
-        ));
-              
-      
+        'episode' => $episode,
+        'data' => $data,
+        'fav' => $fav,
+        'trigger_fav'=> $trigger_fav,
+        'channel'=> $channel,
+        'from_selection' => $from_selection
+      ));
+
       return $response; 
   }
 
