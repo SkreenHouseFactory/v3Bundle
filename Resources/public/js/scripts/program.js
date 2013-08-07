@@ -13,7 +13,9 @@ $(document).ready(function(){
       ProgramView.unloadProgramUsersDatas($('#view-program').data('id'));
     }
     Skhf.session.callbackSignin = function() {
-      ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
+      if (Skhf.session.datas.email) {
+        ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
+      }
       //theater playlist
       if ($('#program-offers #trigger-theaters-playlist').length && 
           !document.location.href.match(/theater_id=/)){ //desactivé si id cinéma dans url
@@ -207,9 +209,6 @@ ProgramView = {
   },
   //load user program's infos
   loadProgramUsersDatas: function(id) {
-
-    //reset user DOM elmt
-    $('#program-offers .remove-on-signout').remove();
 
     // friends
     if ( Skhf.session.datas.fb_uid && Skhf.session.datas.fb_access_token) {

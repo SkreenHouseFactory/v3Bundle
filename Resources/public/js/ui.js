@@ -67,11 +67,12 @@ UI = {
     console.log('UI.loadUser', Skhf.session.datas.email, this.user, 'update:', update);
 
     this.user = Skhf.session.datas.email;
+    Skhf.session.initPlaylist();
+
     if (Skhf.session.datas.email) {
       //on
       //load playlist
-      //Skhf.session.initPlaylist();
-      self.loadSelector();
+      //self.loadSelector();
 
       if (!update) {
         $('.user-off:not(.hide)').addClass('hide');
@@ -96,7 +97,6 @@ UI = {
                                .popover('disable');
       }
       //infos
-      $('.remove-on-signout').remove();
       $('.user-email').html(Skhf.session.datas.email);
       $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
       //fb
@@ -135,6 +135,7 @@ UI = {
 
     } else {
       //off
+      $('.remove-on-signout').remove();
       $('.badge-placeholder').removeClass('badge badge-important')
                              .removeAttr('rel')
                              .removeAttr('data-original-title')

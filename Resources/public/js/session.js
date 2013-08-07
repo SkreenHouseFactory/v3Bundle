@@ -13,8 +13,6 @@ var Session = BaseSession.extend({
   signin: function(sessionData, callback) {
     this.__base(sessionData, callback)
 
-    this.initPlaylist();
-
     //update
     this.update();
   },
@@ -47,25 +45,31 @@ var Session = BaseSession.extend({
         }
       }
       Skhf.session.getFriendsUids(function(friends_uids) {
-        API.query('GET',
-                  'www/slider/social/' + self.uid + '.json', 
-                  {
-                    onglet: self.onglet, 
-                    nb_results: 1, 
-                    img_width: API.config.slider.width, 
-                    img_height: API.config.slider.height,
-                    friends_uids: friends_uids
-                  }, 
-                  function(datas) {
-                    if (typeof callback != 'undefined') {
-                      API.insertIndexedDb('skhf', 'IndexedDbDatas', {id: 1, 
-                                                                     social_selector: datas,
-                                                                     updated_at: (new Date()).getTime()});
-                     
-                      callback(datas);
-                      
-                    }
-                  });
+        API.query(
+          'GET',
+          'www/slider/social/' + self.uid + '.json', 
+          {
+            onglet: self.onglet, 
+            nb_results: 1, 
+            img_width: API.config.slider.width, 
+            img_height: API.config.slider.height,
+            friends_uids: friends_uids
+          }, 
+          function(datas) {
+            if (typeof callback != 'undefined') {
+              API.insertIndexedDb(
+                'skhf', 
+                'IndexedDbDatas', 
+                {
+                  id: 1, 
+                  social_selector: datas,
+                  updated_at: (new Date()).getTime()
+                }
+              );
+
+              callback(datas);
+            }
+          });
       });
     });
   },
