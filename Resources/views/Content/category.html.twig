@@ -47,7 +47,7 @@
 	<h1>{{ category.name }}{% if app.request.get('format') %}, {{ app.request.get('format') }}{% endif %}{% if app.request.get('facet') %} : {% if app.request.get('facet')|length > 1 and subcategories[app.request.get('facet')] is defined %}{{ subcategories[app.request.get('facet')] }}{% else %}{{ app.request.get('access')|replace({'video-a-la-demande': 'VOD'}) }}{% endif %}{% endif %}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
 
 	<div class="view-main view-category-main">
-		<p class="category-description">{{ category.description|raw }}</p>
+		<div class="category-description">{{ category.description|raw }}</div>
 	</div>
 
 
