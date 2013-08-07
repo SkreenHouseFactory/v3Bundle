@@ -24,7 +24,7 @@ homes:
     pattern:  /{home}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home, home: null }
     requirements:
-        home: |video-a-la-demande|cinema|tv-replay|film|serie|documentaire|emission|spectacle|films|series|documentaires|emissions|spectacles|vod|jeunesse
+        home: |video-a-la-demande|cinema|tv-replay|films|series|documentaires|emissions|spectacles|vod|jeunesse
 
 #modal
 modal_publish_playlist:
@@ -375,18 +375,12 @@ category_facet_access:
         category_slug: "[^/]+"
         facet: "[^/]+"
         access: video-a-la-demande|cinema|dvd|tv|replay|vod|svod|cuts|bonus|catchup|free|ios|recent|online|myskreen
-format_list:
-    pattern:  /{category_slug}/liste/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
-    requirements:
-        category_slug: film|documentaire|serie|spectacle|jeunesse
-        facet: "[^/]"
 format_access:
     pattern:  /{category_slug}/{access}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
         category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie
-        access: video-a-la-demande|cinema|dvd|tv|replay|vod|svod|cuts|bonus|catchup|free|ios|recent|online|myskreen
+        access: liste|video-a-la-demande|cinema|dvd|tv|replay|vod|svod|cuts|bonus|catchup|free|ios|recent|online|myskreen
 format_facet:
     pattern:  /{category_slug}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
