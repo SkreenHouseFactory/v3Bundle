@@ -21,7 +21,7 @@ function skPaymentPopinEnd(action, player, occurrence_id) {
     }
   }
   //mise à jour de la session
-  Skhf.session.sync(Skhf.session.callbackSignin);
+  Skhf.session.sync();
 }
 function skPaymentPopinRefresh() {
   return skPaymentPopinEnd();

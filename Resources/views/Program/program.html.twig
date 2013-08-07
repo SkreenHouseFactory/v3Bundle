@@ -425,7 +425,7 @@
 
       {% elseif program.episodeof is defined %}
       <a href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}" class="btn btn-block">{{ 'program.episodes.all'|trans }}</a>
-
+      {#
       {% elseif program.episode_list is defined  %}
       <div class="btn-group program-episode">
         <a class="btn btn-block dropdown-toggle" data-toggle="dropdown" href="#">
@@ -441,6 +441,7 @@
           {% endfor %}
         </ul>
       </div>
+      #}
       {% endif %}
     </div>
     {% if program.season_number is defined or 
