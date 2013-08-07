@@ -142,9 +142,12 @@ UiView = {
           } else {
             $('body').removeClass('cover').addClass('no-cover');
           }
-        $('body').css('background',e.originalEvent.state.back_ground);
         });
+        console.log('e.originalEvent.state.back_ground: ', e.originalEvent.state.back_ground);
+        $('body').css('background',e.originalEvent.state.back_ground);
+       
       }
+      
     });
   },
   initDataLive: function(elmt) {
@@ -187,8 +190,9 @@ UiView = {
       
       if ( history.state == null ) {
         history.pushState({path: window.location.href ,back_ground: $('body').css('background'), cover: $('body').hasClass('cover')}, document.title, window.location.href);
+       
       }
-      history.pushState({path: $(this).data('ajax') , back_ground: $('body').css('background'),cover: $('body').hasClass('cover')}, $(this).html(), $(this).data('ajax'));
+     
       $('body').css('background','');
 
       
@@ -237,7 +241,7 @@ UiView = {
       if ($(this).parents('li.open:first').length) {
         $(this).parents('li.open:first').removeClass('open');
       }
-
+       history.pushState({path: $(this).data('ajax'),back_ground: $('body').css('background'),cover: $('body').hasClass('cover')}, $(this).html(), $(this).data('ajax'));
       document.title = 'programmes, TV, replay | mySkreen.com';
       return false;
     });
