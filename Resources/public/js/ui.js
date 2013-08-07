@@ -67,7 +67,7 @@ UI = {
     console.log('UI.loadUser', Skhf.session.datas.email, this.user, 'update:', update);
 
     this.user = Skhf.session.datas.email;
-    Skhf.session.initPlaylist();
+
 
     if (Skhf.session.datas.email) {
       //on
@@ -75,6 +75,7 @@ UI = {
       //self.loadSelector();
 
       if (!update) {
+        Skhf.session.initPlaylist();
         $('.user-off:not(.hide)').addClass('hide');
         $('.user-on.hide').removeClass('hide');
         $('.user-on-visibility').css('visibility','visible');

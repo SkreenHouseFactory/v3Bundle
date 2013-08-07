@@ -134,6 +134,7 @@ $(document).ready(function(){
     });
 
     //episodes
+    /*
     $('#program-offers [data-content]').on('hover', function(event) {
       var trigger = $(this);
       var timeout = null;
@@ -175,6 +176,7 @@ $(document).ready(function(){
         trigger.popover('hide');
       }
     });
+    */
 
 
     //init

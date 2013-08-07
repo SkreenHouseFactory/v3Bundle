@@ -20,7 +20,7 @@ var Session = BaseSession.extend({
     //before loosing queue
     var queue = this.datas.queue;
     UI.unloadPlaylistTriggers('like', queue);
-    
+
     this.__base(callback)
 
     UI.unloadSelector();
@@ -99,25 +99,26 @@ var Session = BaseSession.extend({
     $('#playlist .items li').bind('click.loading',function(event){
       event.stopPropagation();
     }); 
-    API.query('GET', 
-              'www/slider/selector/' + this.uid + '.json', 
-              {onglet: this.onglet, 
-                with_count_favoris: 1,
-                img_width: API.config.slider.width,
-                img_height: API.config.slider.height
-              },
-              function(json) {
-                console.log('Session.initSelector', 'load', json);
-                UI.loadSelector(json);
-             // autorise le click sur les selectors et enlève le loaders si les selecteurs viennent d'être chargé.
-                if (noplaylist == true){
-                  console.log('Session.initSelector','Remove Loading Bar');
-                  $('.loading.bar').remove();
-                  UI.playlist.elmt.removeClass('slider-loading');
-                  $("#playlist .items li").unbind('click.loading');
-                  noplaylist = false;
-                }
-              });
+    API.query(
+      'GET', 
+      'www/slider/selector/' + this.uid + '.json', 
+      {onglet: this.onglet, 
+        with_count_favoris: 1,
+        img_width: API.config.slider.width,
+        img_height: API.config.slider.height
+      },
+      function(json) {
+        console.log('Session.initSelector', 'load', json);
+        UI.loadSelector(json);
+     // autorise le click sur les selectors et enlève le loaders si les selecteurs viennent d'être chargé.
+        if (noplaylist == true){
+          console.log('Session.initSelector','Remove Loading Bar');
+          $('.loading.bar').remove();
+          UI.playlist.elmt.removeClass('slider-loading');
+          $("#playlist .items li").unbind('click.loading');
+          noplaylist = false;
+        }
+      });
   },
   initPlaylist: function(url) {
     console.log('Session.initPlaylist', 'url:' + url);
