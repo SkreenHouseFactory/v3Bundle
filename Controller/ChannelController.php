@@ -196,7 +196,7 @@ class ChannelController extends Controller
 
       return $response; 
   }
-  public function header35Action($data,$channel,$fav,$trigger_fav){
+  public function header35Action($data,$from_selection,$channel,$fav,$trigger_fav){
      /* $api   = $this->get('api');
       $params = array(
          'with_player' => true,
@@ -217,7 +217,8 @@ class ChannelController extends Controller
           'data' => $data,
           'fav' => $fav,
           'trigger_fav'=> $trigger_fav,
-            'channel'=> $channel
+            'channel'=> $channel,
+            'from_selection' => $from_selection
         ));
       
             return $response; 

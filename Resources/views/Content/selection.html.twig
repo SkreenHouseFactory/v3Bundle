@@ -35,9 +35,9 @@
 channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
   {% else %}
     {% if selection.onglet.channel.fournisseur is defined %}
-      {% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: selection.onglet.channel , fournisseur: selection.onglet.channel.fournisseur } %}
+      {% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: selection.onglet.channel , fournisseur: selection.onglet.channel.fournisseur, from_selection : from_selection } %}
     {% else%}
-    {% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {channel: selection.onglet.channel, data: selection.onglet, fav: 'page'} %}
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {channel: selection.onglet.channel, data: selection.onglet, from_selection : from_selection ,fav: 'page'} %}
     {% endif%}
 
   {% endif %}
