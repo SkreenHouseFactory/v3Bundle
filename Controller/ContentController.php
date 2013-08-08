@@ -35,7 +35,15 @@ class ContentController extends Controller
     public function categoryAction(Request $request)
     {
       $this->blockDomain($request);
-//      print_r($request->get('_route'));
+
+      if ($request->get('facet') == $request->get('category_slug')) {
+        return $this->redirect(str_replace($request->get('facet').'/'.$request->get('facet'), $request->get('facet'), $request->getRequestUri()), 301);
+      } elseif ($request->get('access') == 'vod') {
+        return $this->redirect(str_replace('/vod', '/video-a-la-demande', $request->getRequestUri()), 301);
+      } elseif ($request->get('access') == 'liste') {
+        return $this->redirect($this->generateUrl('format', array('category_slug' => $request->get('category_slug'))), 301);
+      }
+
       $is_route_format = in_array($request->get('_route'), array('format', 'format_facet', 'format_page')) ? true : false;
       $api   = $this->get('api');
       $data = $api->fetch($is_route_format ? 'format' : 'category', array(

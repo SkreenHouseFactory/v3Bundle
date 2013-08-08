@@ -102,6 +102,12 @@ class ChannelController extends Controller
       return $this->redirect($data->seo_url, 301);
     }
 
+    //Si channel mais facet => view fournisseur
+    if (property_exists($data, 'channel') && 
+        ($request->get('format')  || $request->get('facet'))) {
+      $data = $data->channel->fournisseur;
+    }
+
     // Si on est une une page sk_channel, on redirige vers le twig correct
     if (property_exists($data, 'channel')) {
       $custom_header = false;
@@ -135,7 +141,7 @@ class ChannelController extends Controller
         // Alias du channel fourni
         return $this->redirect('/' . $data->channel->slug, 301);
       }
-    }else {
+    } else {
       
       $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) ? $data->programs[0]->picture : null);
       //$template = isset($data->epg) && $data->epg ? 'channel-replay' : 'channel';
