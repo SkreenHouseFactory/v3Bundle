@@ -1025,7 +1025,7 @@ UI = {
 
           //data.first().addClass('active')
           //var sort = Array('channels','theaters','real-channels','programs','persons','categories','queue');
-          var sort = Array('channels','theaters','programs','persons','categories','queue');
+          var sort = Array('channels','programs','persons','theaters','categories','queue');
           for (key in sort) {
             if (lis[sort[key]]) {
               //console.log('UI.typeahead', key, data[key], typeahead.$menu);
