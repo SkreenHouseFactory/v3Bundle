@@ -239,12 +239,12 @@
                 <tr><td colspan="6"><h6>Autres épisodes</h6></td></tr>
                 {% set other_episodes = 'ok' %}
               {% endif %}
-              <tr data-id="{{ o.id }}"{% if o.url is defined and o.url %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left"{% endif %}>
+              <tr data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {# data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left" #}{% endif %}>
                 <td class="notif"><span class="badge">0</span></td>
                 <td class="icon">
                   <span>
                   {% if o_access.name == 'TV' and key != 'plays' %}<i class="icon-calendar"></i>
-                  {% elseif o.url is defined and o.url %}<i class="icon-share"></i>
+                  {% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %}<i class="icon-share"></i>
                   {% elseif o.deporte is defined and o.deporte %}<i class="icon-play"></i>
                   {% endif %}
                   </span>
@@ -389,44 +389,44 @@
     {% endif %#}
 
     <div id="program-episodes">
-      {% if program.season_number is defined %}
+      {% if program.seasons is defined %}
       <div class="btn-group program-episode season-episode">
-        <button class="btn">Saison {{ program.season_number }}</button>
+        <button class="btn">{{ program.season_number is defined ? 'Saison ' ~ program.season_number : program.seasons|length ~ ' saisons' }}</button>
         <button class="btn dropdown-toggle" data-toggle="dropdown">
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
           {% for season in program.seasons %}
-          <li><a href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}saison-{{ season.number }}/">Saison {{ season.number }}</a></li>
+          <li><a href="{{ path('any_url', {url: season.episodes[0].seo_url|slice(1, season.episodes[0].seo_url|length-1) }) }}">Saison {{ season.number }}</a></li>
           {% endfor %}
         </ul>
       </div>
       {% endif %}
-      {% if program.episode_number is defined %}
+      {% if program.season_number is defined %}
       <div class="btn-group program-episode">
-        <button class="btn">Episode {{ program.episode_number }}</button>
+        <button class="btn">{{ program.episode_number is defined ? 'Episode ' ~ program.episode_number : 'Les épisodes' }}</button>
         <button class="btn dropdown-toggle" data-toggle="dropdown">
           <span class="caret"></span>
         </button>
-        {% if program.seasons is defined %}
+        {% if program.seasons is defined and program.episodeof is defined %}
         <ul class="dropdown-menu">
-          {% for season in program.seasons if program.season_number is not defined or season.number == program.season_number %}
-            {% for episode in season.episodes %}
+          {% for season in program.seasons if season.number == program.season_number %}
+            {% for episode in season.episodes|reverse %}
             <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
               {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
-              {{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }} <i class="icon-chevron-right"></i> <strong>{{ episode.title }}</strong>
+              <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
             </a></li>
             {% endfor %}
           {% endfor %}
         </ul>
         {% endif %}
       </div>
-      <a style="margin-top:15px;" href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}" class="btn btn-block">{{ 'program.episodes.all'|trans }}</a>
+      {#<a style="margin-top:15px;" href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}" class="btn btn-block">{{ 'program.episodes.all'|trans }}</a>#}
 
-      {% elseif program.episodeof is defined %}
+      {% elseif program.episodeof is defined and  program.episodeof %}
       <a href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}" class="btn btn-block">{{ 'program.episodes.all'|trans }}</a>
-      {#
-      {% elseif program.episode_list is defined  %}
+
+      {% elseif program.episode_list is defined and program.seasons is not defined %}
       <div class="btn-group program-episode">
         <a class="btn btn-block dropdown-toggle" data-toggle="dropdown" href="#">
           {{ program.episode_list|length }} épisodes disponibles
@@ -441,7 +441,7 @@
           {% endfor %}
         </ul>
       </div>
-      #}
+
       {% endif %}
     </div>
     {% if program.season_number is defined or 

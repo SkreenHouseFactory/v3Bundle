@@ -106,6 +106,7 @@ class ChannelController extends Controller
     if (property_exists($data, 'channel') && 
         ($request->get('format')  || $request->get('facet'))) {
       $data = $data->channel->fournisseur;
+      $data->description = null;
     }
 
     // Si on est une une page sk_channel, on redirige vers le twig correct
