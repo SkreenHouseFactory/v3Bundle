@@ -448,7 +448,8 @@ UI = {
         
         var ep_title = notifications[k].title_episode;
         var len=32;
-        if (ep_title.length > len) {
+        if (ep_title != null &&
+            ep_title.length > len) {
           var currChar = 'X';
           while (currChar != ' ' && len >= 0) {
             len--;
