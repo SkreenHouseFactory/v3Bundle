@@ -11,6 +11,7 @@ class ApiManager
   protected $format = null;
   protected $logger;
   public $url = null;
+  public $host = null;
 
   public function __construct($format = '.json', $version = 2) {
     $this->base = $this->getApiBase($version);
@@ -24,13 +25,15 @@ class ApiManager
 
   protected function getApiBase($version) {
     if (preg_match('/v3\.(\w+)\.myskreen\.typhon\.net/', $_SERVER['SERVER_NAME'], $matches)) {
-      return 'http://'.$matches[1].'.myskreen.typhon.net/api/' . $version . '/';
+      $this->host = 'http://'.$matches[1].'.myskreen.typhon.net';
     } elseif (isset($_SERVER['SERVER_NAME']) && 
               strstr($_SERVER['SERVER_NAME'], 'preprod')) {
-      return 'http://preprod.api.myskreen.com/api/' . $version . '/';
+      $this->host = 'http://preprod.api.myskreen.com';
     } else {
-      return 'http://api.myskreen.com/api/' . $version . '/';
+      $this->host = 'http://api.myskreen.com';
     }
+    
+    return $this->host.'/api/' . $version . '/';
   }
 
   public function fetch($url, $params = array(), $method = 'GET', $options = array()) {
