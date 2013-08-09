@@ -12,6 +12,12 @@ Skin = {
       $('body').prepend('<a class="background">');
       $('body').append('</a>');
       $('body .background').attr("href","http://www.myskreen.com/film/comedies/4896210-mariage-a-l-anglaise/");
+      $('#carousel-a-la-une .item a').each(function(){
+        var background_image=$(this).css('background-image');
+        background_image = background_image.replace('/1500/', '/990/');
+        console.log(background_image);
+        $(this).css('background-image',background_image);
+      });
     }
   }
 }
