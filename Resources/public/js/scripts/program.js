@@ -266,7 +266,7 @@ ProgramView = {
                 if (typeof $(this).data('play-pass') == 'undefined') {
                   $('td.access', this).append(
                     '<span class="btn-block badge badge-warning inline remove-on-signout">'+
-                    'Loué le ' + API.formatTimestamp(datas.purchased[k]) + 
+                    'Dans vos vidéos à la demande'+
                     '</span>'
                   );
                 }
