@@ -30,7 +30,7 @@
 {% endblock %}
 {% block title %}{{ page_title|trans }}{% endblock %}
 {% block description %}{{ page_description|trans }}{% endblock %}
-{% block body_class %}view-homes home{{ home.name != 'mixte' ? '-' ~ home.name : '' }}{{ 'now'|date('Y-m-d H:i:s') > '2013-08-09 23:50:00' or app.request.get('skin') ? ' skin' : '' }} cover{% endblock %}
+{% block body_class %}view-homes home{{ home.name != 'mixte' ? '-' ~ home.name : '' }} skin cover{% endblock %}
 
 {% block header_filters %}
 {% if home.filters|length %}
