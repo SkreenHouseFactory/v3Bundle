@@ -7,7 +7,7 @@ var Skin;
 Skin = {
   initHome: function() {
     console.log('initSkinHome');
-    if( $('body').hasClass('home skin')) {
+    if( $('body').hasClass('home') && $('body').hasClass('skin')) {
       $('.absolute').addClass('hide');
       $('body').prepend('<a class="background">');
       $('body').append('</a>');
