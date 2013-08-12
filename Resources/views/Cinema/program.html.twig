@@ -35,7 +35,8 @@
           {% set s = attribute(cinema.schedules, day) %}
           <tr>
             <th>{{ day }} 
-              {% if attribute(s, 'version') is defined and attribute(s, 'version') != null %} 
+              {% if attribute(s, 'version') is null %} 
+              {% else %}
               <span class="label label-success pull-right"> {{ attribute(s, 'version') }}</span>
               {% endif %}
             </th>
