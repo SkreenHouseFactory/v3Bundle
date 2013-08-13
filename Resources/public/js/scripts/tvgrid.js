@@ -137,10 +137,10 @@ $(document).ready(function(){
     });
 
     //remove channel
-    $('#channels li a').live('click', function() {
+    $(document).on('click', '#channels li a', function() {
       return false;
     })
-    $('#channels a .icon-trash').live('click', function(e) {
+    $(document).on('click', '#channels a .icon-trash', function(e) {
       e.preventDefault();
       e.stopPropagation();
       $(this).parents('li:first').remove();

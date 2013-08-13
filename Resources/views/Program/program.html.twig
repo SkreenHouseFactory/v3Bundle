@@ -211,7 +211,7 @@
                     </div>
                   {% endif %}
                   <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}">
-                    {% render 'SkreenHouseFactoryV3Bundle:Cinema:program' with {id: program.id, theater_ids: app.request.get('theater_id') ? app.request.get('theater_id') : program.datas_theaters.theaters_ids|join(',') } %}  
+                    {% render(controller('SkreenHouseFactoryV3Bundle:Cinema:program', {id: program.id, theater_ids: app.request.get('theater_id') ? app.request.get('theater_id') : program.datas_theaters.theaters_ids|join(',') })) %}  
                   </div>
                   {% if program.datas_theaters.theaters_on_demand|length %}
                     <hr/>

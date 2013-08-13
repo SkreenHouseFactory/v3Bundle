@@ -1,6 +1,6 @@
 // -- theaters
 $(document).ready(function(){
-	$('#theaters-names a').live('click', function(){
+	$(document).on('click', '#theaters-names a', function(){
 		var triggers = $('#theaters-names a');	
 		if (triggers.filter(':not(.label-info)').length == 0) {
 			triggers.removeClass('label-info');
@@ -23,7 +23,7 @@ $(document).ready(function(){
 			$(this).toggleClass('label-info');
 		}
 	});
-	$('#trigger-theaters-playlist').live('click', function(){
+	$(document).on('click', '#trigger-theaters-playlist', function(){
 		console.log('script', 'trigger-theaters-playlist');
 		var theaters = Skhf.session.datas.cinema;
 		//if (theaters && theaters.split(',').length) {
@@ -43,7 +43,7 @@ $(document).ready(function(){
 		//}
 		return false;
 	});
-	$('#trigger-theaters-geoloc').live('click', function(){
+	$(document).on('click', '#trigger-theaters-geoloc', function(){
 		console.log('script', 'trigger-theaters-geoloc');
 		var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
 		container.empty();
@@ -57,7 +57,7 @@ $(document).ready(function(){
 		return false;
 	});
 
-	$('form#theaters-search').live('submit', function(e){
+	$(document).on('submit', 'form#theaters-search', function(e){
 		e.preventDefault();
 		console.log('script', 'theaters-search');
 		if ($('.search-query', $(this)).attr('value')){
