@@ -847,7 +847,7 @@ UI = {
     
     Skhf.session.getSocialDatas(function(friends, friends_programs) {
       //console.log('UI.addFriends', 'callback Session.getSocialDatas', friends);
-      var div = $('<div class="friends"></div>');
+      var div = $('<div class="friends remove-on-signout"></div>');
       for (k in friend_uids) {
         //console.log('UI.addFriends', friend_uids[k], friends[friend_uids[k]]);
         if (typeof friends[friend_uids[k]] != 'undefined') {
