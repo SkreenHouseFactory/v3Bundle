@@ -10,10 +10,6 @@
         {
             "name": "mySkreen",
             "homepage": "http://myskreen.com"
-        },
-        {
-            "name": "Symfony Community",
-            "homepage": "http://github.com/SkreenHouseFactory/v3Bundle/contributors"
         }
     ],
 
