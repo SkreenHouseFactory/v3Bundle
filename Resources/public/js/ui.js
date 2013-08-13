@@ -478,13 +478,13 @@ UI = {
       $('.notifications .notification-filter').append('<a class="label label-info filter" data-filter="all">Tout</a>');
       
       if ($('li.tv-component.plays.broadcast,li.tv-component.broadcasts.broadcast').length) {
-        $('.notifications .notification-filter').append('<a class="label filter" data-filter="tv">Tv</a>');
+        $('.notifications .notification-filter').append('<a class="label filter" data-filter="tv">TV</a>');
       }
       if ($('li.tv-component.plays.catchup,li.tv-component.plays.webcast').length) {
         $('.notifications .notification-filter').append('<a class="label filter" data-filter="replay">Replay</a>');
       }
       if ($('.tv-component.plays.dvd, li.tv-component.plays.location.48h, li.tv-component.plays.achat').length){
-         $('.notifications .notification-filter').append('<a class="label filter" data-filter="vod">Vod</a>');
+         $('.notifications .notification-filter').append('<a class="label filter" data-filter="vod">VOD</a>');
       }
       if ($('.tv-component.theaters').length){
          $('.notifications .notification-filter').append('<a class="label filter" data-filter="theaters">Ciné</a>');

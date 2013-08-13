@@ -16,6 +16,7 @@
 {% endblock %}
 {% block title %}{{ selection.name|striptags }}{% endblock %}
 {% block description %}{{ selection.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+{#
 {% block body_class %}{% if selection.onglet.type == 'page' %}view-channel view-channel-selection cover{% endif %}{% endblock %}
 
 
@@ -25,10 +26,10 @@
   {% endif %}
 {% endblock %}
 
-
+#}
 
 {% block content %}
-
+{# 
 {% if is_channel == true %}
   {% if custom_header %}
     {% render 'SkreenHouseFactoryV3Bundle:Channel:header'~ selection.onglet.channel.id with {channel: selection.onglet.channel, from_selection : from_selection ,  data: selection.onglet, fav: 'page',trigger_fav: 
@@ -42,6 +43,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
 
   {% endif %}
 {% endif %}
+#}
 <div id="view-selection" class="container">
   {% if selection.onglet.type != 'page' %}
   <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ selection.seo_url, text: selection.name ~ ' sur mySkreen' } %}</div><br>
