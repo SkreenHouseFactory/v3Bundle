@@ -69,6 +69,7 @@
   <link rel="stylesheet" href="{{ asset('bundles/skreenhousefactoryv3/bootstrap/dist/css/bootstrap.min.css') }}" />
   {% stylesheets
 
+      '@SkreenHouseFactoryV3Bundle/Resources/public/bootstrap-glyphicons/less/bootstrap-glyphicons.less'
       '@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
       '@SkreenHouseFactoryPopinBundle/Resources/public/less/popin.less'
       '@SkreenHouseFactoryV3Bundle/Resources/public/less/slider.less'
@@ -119,10 +120,9 @@
   <footer>
   <div id="footer">
     {% render(controller('SkreenHouseFactoryV3Bundle:Main:footer', {})) %}
-    {#% include 'SkreenHouseFactoryV3Bundle:Main:_footer.html.twig' %#}
   </div>
   </footer>
-  {#% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %#}
+  {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
   <div id="fb-root"></div>
   <span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
