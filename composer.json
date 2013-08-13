@@ -30,7 +30,7 @@
 
     "autoload": {
         "psr-0": {
-          "SkreenHouseFactory\\v3Bundle": "vendor/"
+            "SkreenHouseFactory\\v3Bundle": ""
         }
     },
 
