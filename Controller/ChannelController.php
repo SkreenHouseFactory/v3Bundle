@@ -193,6 +193,7 @@ class ChannelController extends Controller
       }
       
       $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-28.html.twig', array(
+        'play' => $play,
         'episode' => $episode,
         'data' => $data,
         'fav' => $fav,
