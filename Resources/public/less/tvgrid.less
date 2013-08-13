@@ -24,6 +24,11 @@
       top: 0px;
       z-index: 15;
     }
+    .arrow{
+      position: absolute;
+      z-index: 16;
+      
+    }
   }
   ul.nav-pills {
     display: block;
@@ -56,6 +61,85 @@
           height: 26px;
         } 
       }
+    }
+  }
+  div{
+    /* create an arrow that points up */
+    .arrow-up {
+  	width: 0; 
+  	height: 0; 
+  	border-left: 7px solid transparent;  /* left arrow slant */
+  	border-right: 7px solid transparent; /* right arrow slant */
+  	border-bottom: 7px solid #2f2f2f; /* bottom, add background color here */
+  	font-size: 0;
+  	line-height: 0;
+    }
+
+    /* create an arrow that points down */
+    .arrow-down {
+    	width: 0; 
+    	height: 0; 
+    	border-left: 7px solid transparent;
+    	border-right: 7px solid transparent;
+    	border-top: 7px solid #2f2f2f;
+    	font-size: 0;
+    	line-height: 0;
+    }
+
+    /* create an arrow that points left */
+    .arrow-left {
+    	width: 0; 
+    	height: 0; 
+    	border-bottom: 7px solid transparent;  /* left arrow slant */
+    	border-top: 7px solid transparent; /* right arrow slant */
+    	border-right: 7px solid #2f2f2f; /* bottom, add background color here */
+    	font-size: 0;
+    	line-height: 0;
+    }
+
+    /* create an arrow that points right */
+    .arrow-right {
+    	width: 0; 
+    	height: 0; 
+    	border-bottom: 7px solid transparent;  /* left arrow slant */
+    	border-top: 7px solid transparent; /* right arrow slant */
+    	border-left: 7px solid #2f2f2f; /* bottom, add background color here */
+    	font-size: 0;
+    	line-height: 0;
+    }
+
+
+    /* shared with before and after */
+    .tooltip:before, div.tooltip:after {
+    	content: ' ';
+    	height: 0;
+    	position: absolute;
+    	width: 0;
+    	border: 10px solid transparent; /* arrow size */
+    }
+
+    /* these arrows will point up */
+
+    /* top-stacked, smaller arrow */
+   .tooltip:before {
+    	border-bottom-color: #fff;  /* arrow color */
+
+    	/* positioning */
+    	position: absolute;
+    	top: -19px;
+    	left: 255px;
+    	z-index: 2;
+    }
+
+    /* arrow which acts as a background shadow */
+    .tooltip:after {
+    	border-bottom-color: #333;  /* arrow color */
+
+    	/* positioning */
+    	position: absolute;
+    	top: -24px;
+    	left: 255px;
+    	z-index: 1;
     }
   }
   

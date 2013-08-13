@@ -62,6 +62,7 @@
       
     </select>
   </ul>
+  <div>
   <div class="horaire">
     <a class="btn btn-small btn-inverse btn-precedent" ><i class="icon-chevron-left icon-white"></i> Précédent</a>
    <a class="btn btn-small btn-inverse btn-suivant">Suivant <i class="icon-chevron-right icon-white"></i></a>
@@ -75,9 +76,11 @@
   </ul>
   <div class="channel-wrap">
     <div title="En direct" class="time-bar hide"></div>
+    <div class="arrow arrow-up tooltip:after hide"></div>
     <ul id="channels" class="nav nav-list">
     {% include 'SkreenHouseFactoryV3Bundle:Timeline:_channels-schedule.html.twig' with {data: data } %}
   </ul>
+</div>
 </div>
   </div>
   </div>
