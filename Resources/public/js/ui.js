@@ -448,7 +448,8 @@ UI = {
         
         var ep_title = notifications[k].title_episode;
         var len=32;
-        if (ep_title.length > len) {
+        if (ep_title != null &&
+            ep_title.length > len) {
           var currChar = 'X';
           while (currChar != ' ' && len >= 0) {
             len--;
@@ -846,7 +847,7 @@ UI = {
     
     Skhf.session.getSocialDatas(function(friends, friends_programs) {
       //console.log('UI.addFriends', 'callback Session.getSocialDatas', friends);
-      var div = $('<div class="friends"></div>');
+      var div = $('<div class="friends remove-on-signout"></div>');
       for (k in friend_uids) {
         //console.log('UI.addFriends', friend_uids[k], friends[friend_uids[k]]);
         if (typeof friends[friend_uids[k]] != 'undefined') {
