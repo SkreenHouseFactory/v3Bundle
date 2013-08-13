@@ -1,5 +1,5 @@
 {
-    "name":        "SkreenHouseFactory/v3-bundle",
+    "name":        "SkreenHouseFactory/v3Bundle",
     "type":        "symfony-bundle",
     "description": "Symfony2 main bundle mySkreen.",
     "keywords":    ["mySkreen", "bundle"],
