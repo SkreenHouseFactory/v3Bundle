@@ -1,12 +1,14 @@
 {% if app.request.get('init') %}
 <div class="theaters-modal">
   <form id="theaters-search" class="form-search modal-catchform-disable pull-left">
-    <div class="input-append">
+    <div class="input-group">
       <input type="text" class="span3 search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
-      <button type="submit" class="btn trigger-theaters"><i class="icon-search"></i> {{ 'theaters.search.submit'|trans }}</button>
+      <span class="input-group-addon">
+      <input type="submit" class="input-group-addon btn btn-default trigger-theaters" value="{{ 'theaters.search.submit'|trans }}" />
+    </span>
     </div>
   </form>
-  <a class="btn" href="javascript://" class="trigger-theaters" id="trigger-theaters-geoloc"><i class="icon-map-marker"></i> {{ 'theaters.search.geoloc'|trans }}</a>
+  <a class="btn btn-default" href="javascript://" class="trigger-theaters" id="trigger-theaters-geoloc"><i class="icon-map-marker"></i> {{ 'theaters.search.geoloc'|trans }}</a>
   <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_search') }}"></div>
 </div>
 {% endif %}

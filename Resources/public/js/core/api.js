@@ -245,7 +245,8 @@ API = {
     }
 
     //input dpad
-    $('input:visible:not(.tv-component)', elmt).addClass('tv-component tv-component-input form-control');
+    $('input:visible:not(.tv-component)', elmt).addClass('tv-component tv-component-input');
+    $('input:not([type="radio"])', elmt).addClass('form-control');
     $('.btn:visible:not(.tv-component)', elmt).addClass('tv-component');
     $('input[type="text"], input[type="email"], input[type="password"]', elmt).attr('autocomplete', 'off');
 

@@ -53,14 +53,12 @@
 {% endif %}
 </ul>
 
-<div class="pagination">
-  <ul>
-      <li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('channel', { slug: app.request.get('slug')}) }}">{{ 'nav.all'|trans }}</a></li>
-    {% for l in data.alpha %}
-      <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in data.alpha_available %} class="disabled"{% endif %}><a href="{{ path('channel_facet', {slug: app.request.get('slug'), facet: l}) }}">{{ l }}</a></li>
-    {% endfor %}
-  </ul>
-</div>
+<ul class="pagination">
+    <li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('channel', { slug: app.request.get('slug')}) }}">{{ 'nav.all'|trans }}</a></li>
+  {% for l in data.alpha %}
+    <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in data.alpha_available %} class="disabled"{% endif %}><a href="{{ path('channel_facet', {slug: app.request.get('slug'), facet: l}) }}">{{ l }}</a></li>
+  {% endfor %}
+</ul>
 
 <div class="facets">
 {% if app.request.get('format') %}
