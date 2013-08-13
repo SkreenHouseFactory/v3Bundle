@@ -6,7 +6,17 @@ var elementsPerPage = 30;
 var offset = new Array();
 
 $(document).ready(function(){
-  if ($('#view-search').length) {
+  if ($('#view-search').length || $('#view-error').length) {
+
+    //autoselection onglet 
+    if ($('input.search-query').val().toLowerCase().indexOf('documentaire') != -1) {
+      $('#trigger-documentaires').trigger('click');
+    } else if ($('input.search-query').val().toLowerCase().indexOf('série') != -1) {
+      $('#trigger-series').trigger('click');
+    } else if ($('input.search-query').val().toLowerCase().indexOf('émission') != -1) {
+      $('#trigger-emissions').trigger('click');
+    }
+
     //youtube
     var trigger = $('#youtube[data-more-streaming-query]');
     if (trigger && trigger.data('more-streaming-query')) {
