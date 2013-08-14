@@ -349,157 +349,40 @@
   </div>
 </div>
 
-
 <div class="row">
-  <div class="col-lg-6 ">
-    <div class="suggestion"><div><span> Egalement en streaming sur France 3</span>  <button type="button" class="btn btn-primary btn-xs">voir +</button></div> </div>
-    <div id="carousel-example-generic1"  data-interval="false" class="carousel slide">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#carousel-example-generic1" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-generic1" data-slide-to="1"></li>
-        <li data-target="#carousel-example-generic1" data-slide-to="2"></li>
-      </ol>
 
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner">
-        <div class="item active">
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support2">
-            <div class="image2"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
+        {% for r in program.related if r.programs is defined and r.programs|length %}
+          {% if r.name == 'same_actors' and program.casting %}
+            {#
+              <div class="person-list">
+            {% for pers in program.casting|slice(0,10) %}
+            <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" class="label label-info">{{ pers.name }}</a>
+            {% endfor %}
+            </div>
+            #}
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true, loop_index: loop.index} %}
+          {% elseif r.name == 'same_director' and program.director %}
+            
+            {#
+              <div class="person-list">
+            {% for pers in program.director %}
+            <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" class="label label-info">{{ pers.name }}</a>
+            {% endfor %}
+            </div>
+            #}
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true,loop_index: loop.index} %}
+          {% elseif r.name == 'chaines' %}
+            {% if (program.related.channels is defined and program.related.channels.programs is defined and program.related.channels.programs|length > 1) %}
+             <a data-track-channel="{{ r.name }}" name="{{ r.name }}"></a>
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r,loop_index: loop.index} %}
+            {% endif %}
+          {% else %}
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, loop_index: loop.index} %}
+          {% endif %}
+        {% endfor %}
         </div>
-        <div class="item">
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support2">
-            <div class="image2"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="support4">
-            <div class="image4"></div>
-            <div class="info_vignette4"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-        </div>
-        <a class="left carousel-control" href="#carousel-example-generic1" data-slide="prev">
-          <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic1" data-slide="next">
-          <span class="icon-next"></span>
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-6 ">
-    <div class="suggestion"><div><span> On parie que vous allez aimer ?</span><button type="button" class="btn btn-primary btn-xs">voir +</button></div></div>
-    <div id="carousel-example-generic2"  data-interval="false" class="carousel slide">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#carousel-example-generic2" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-generic2" data-slide-to="1"></li>
-        <li data-target="#carousel-example-generic2" data-slide-to="2"></li>
-      </ol>
 
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner">
-        <div class="item active">
-          <div class="support4">
-            <div class="image4"></div>
-            <div class="info_vignette4"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support2">
-            <div class="image2"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="support4">
-            <div class="image4"></div>
-            <div class="info_vignette4"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-          <div class="support1">
-            <div class="image1"></div>
-            <div class="info_vignette1"> SÃ©rie | 24min </div>
-          </div>
-        </div>
-        <a class="left carousel-control" href="#carousel-example-generic2" data-slide="prev">
-          <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic2" data-slide="next">
-          <span class="icon-next"></span>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
+        
+        
+      </section>
 {% endblock %}
