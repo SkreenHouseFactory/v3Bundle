@@ -1,14 +1,34 @@
-<div id="header">
-	<div class="navbar-wrapper">
-	  <div class="container-right">
-	    <div class="navbar navbar-inverse">
-	      <div class="navbar-inner"></div>
-			</div>
-		</div>
-	  <div class="container">
-			{% include 'SkreenHouseFactoryV3Bundle:Main:_header-nav.html.twig' %}
-	    {% block header_filters %}
-	    {% endblock %}
-		</div>
-	</div>
-</div>
+<header class="navbar navbar-fixed-top bs-docs-nav">
+  <div class="container">
+    <img src="img/logo.png" alt="mySkreen" id="logo">
+    <ul class="nav navbar-nav">
+      <li><a href="#">TV &amp; Replay</a></li>
+      <li><a href="#">WEB TV</a></li>
+      <li><a href="#">VOD</a></li>
+      <li><a href="#">En salles</a></li>
+    </ul>
+
+    <form id="nav-search" class="navbar-search">
+          <i class="glyphicon glyphicon-search" style="display:inline-block; margin-left:15px;"></i>
+          <input type="text" value="" class="search-query pull-left searchbutton" placeholder="Un programme, un acteur, un cinÃ©ma">
+          <div class=" hide mini-loading mini-bar"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+      </form>
+
+
+        <div class="headertoprighticons">
+          <span class="toprigthicons-square ms-usericon">
+            <span  class="toprigthicons-nbr glyphicon glyphicon-user"></span>
+          </span>
+          <span class="toprighticons-label toprighticons-user">Philibert</span>
+        </div>
+        <div class="separator"></div>
+        <div class="headertoprighticons">
+          <span class="toprigthicons-square ms-playlisticon">
+            <span  class="toprigthicons-nbr ">99</span>
+          </span>
+          <span class="toprighticons-label toprighticons-playlist">Mes playlists</span>
+        </div>
+
+      </div>
+    </header>

@@ -1,466 +1,106 @@
-#header {
 
-   /* Special class on .container surrounding .navbar, used for positioning it into place. */
-   .navbar-wrapper {
-     position: absolute;
-     top: 0;
-     z-index: 3;
-     width: 100%;
-     margin-top: 10px;
-     margin-bottom: -90px; /* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
+.navbar{
+  background: #fff;
+  background: rgba(255,255,255,0.85); 
+  border-bottom: 1px solid #d2d2d2;
+  text-shadow: 1px 1px 1px #ffffff;
+  filter: dropshadow(color=#ffffff, offx=1, offy=1);
+  min-height: 60px;
 
-     .container-right {
-       position: absolute;
-       width: 50%;
-       left: 50%;
-       .navbar {
-         height: 50px;
-        .navbar-inner {
-          height: 60px;
-          box-shadow: none;
-        }
-       }
-     }
-      .container {
-        width: 990px;
-     }
-   }
-   /* Remove border and change up box shadow for more contrast */
-   .navbar-inverse {
-       .nav li.dropdown > a.a-caret {
-          position: absolute;
-          right: -2px;
-          padding: 15px 2px;
-          display: none;
-         i {
-          margin-top: 9px;
-        }
-      }
-      .navbar-search {
-        margin-top: 12px;
-        i {
-          position: absolute;
-          right: 5px;
-          top: 12px;
-          opacity: 0.5;
-        }
-
-        .search-query {
-          width: 300px;
-          font-size: 1.1em;
-          color: #333;
-          background-color: #EEE;
-          padding: 8px 18px 8px 10px;
-          border: none;
-          text-shadow: none;
-          &:focus{
-            background-color: white;
-            
-          }
-        }
-     }
-   }
-
-   /* filters */
-   .dropdown-filters {
-     display: block;
-     top: 60px;
-     left: 0;
-     width: 990px;
-     opacity: 0.9;
-     z-index: 0;
-     li {
-       float: left;
-      a {
-        background: transparent;
-        color: black;
-        padding: 3px 10px;
-        &:hover {
-          color: #999;
-        }
-      }
-      &.nav-header {
-        i {
-          opacity: 0.6;
-          margin-top: -1px;
-        }
-      }
-     }
-     &:before {
-       content: '';
-       display: inline-block;
-       border-left: 7px solid transparent;
-       border-right: 7px solid transparent;
-       border-bottom: 7px solid #ccc;
-       border-bottom-color: rgba(0, 0, 0, 0.2);
-       position: absolute;
-       top: -7px;
-       left: 9px;
-     }
-     &:after {
-       content: '';
-       display: inline-block;
-       border-left: 6px solid transparent;
-       border-right: 6px solid transparent;
-       border-bottom: 6px solid #ffffff;
-       position: absolute;
-       top: -6px;
-       left: 10px;
-     }
-     &.dropdown-filters-cinema:after {
-       left: 550px;
-     }
-     &.dropdown-filters-film:after, &.dropdown-filters-documentaire:after, &.dropdown-filters-serie:after, &.dropdown-filters-jeunesse:after, &.dropdown-filters-spectacle:after {
-       left: 490px;
-     }
-   }
-
-   /* navbar */
-   .navbar {
-      .navbar-inner {
-       border: 0;
-       box-shadow: none;
-       /*
-       -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.25);
-          -moz-box-shadow: 0 2px 10px rgba(0,0,0,.25);
-               box-shadow: 0 2px 10px rgba(0,0,0,.25);
-       */
-
-       .navbar-inner-container {
-         width: 970px;
-       }
-       a.brand {
-         padding: 12px 15px 8px 15px;
-         img {
-           width: 150px;
-         }
-       }
-      .nav {
-        margin: 0;
-        &.nav-playlists {
-          width: 170px;
-        }
-        &:last-child {
-          margin: 0 5px 0 0;
-        }
-        > li {
-          > a {
-            color: #CCC;
-            padding: 22px 16px 18px 10px;
-            font-size: 1.1em;
-            text-transform: uppercase;
-
-             &.with-caret {
-              i {
-                border-right: 1px solid transparent;
-                margin-left: 3px;
-              }
-             }
-           }
-          &:hover, &.open {
-            > a {
-              color: white;
-              &.a-caret {
-                display: block;
-               }
-            }
-          }
-           &.playlists {
-            a {
-              padding: 22px 3px 18px;
-              color: #0088cc;
-            }
-             &.user-off {
-              padding-left: 35px;
-            }
-          }
-           &.with-caret:hover, &.with-caret.open {
-            a.with-caret {
-              i {
-                border-right: 1px solid #EFEFEF;
-              }
-            }
-          }
-          &.user-on {
-            > a {
-              .badge {
-                background-color: #0088cc;
-                padding-left: 6px;
-                padding-right: 6px;
-                &.badge-important {
-                  background-color: rgb(235, 14, 10);
-                }
-              }
-            }
-            &.user-menu{
-              width: 43px;
-            }
-            ul li {
-              min-width: 250px;
-            }
-          }
-        
-          &.notifications {
-            width: 40px;
-            text-align: center;
-            > a {
-              padding: 20px 5px;
-            }
-          }
-          &.dropdown {
-            .dropdown-menu {
-              .label.filter{
-                margin-right: 10px;
-              }
-              .notification-filter{
-                display: block;
-                text-align: center;
-                padding: 5px 0;
-                background: #EFEFEF;
-                height: auto;
-                margin: 5px 0;
-              }
-              .notification-scroll{
-                margin-top: 20px;
-              }
-              li {
-                a {
-                  position: relative;
-                  > .btn, .btn-group {
-                    position: absolute;
-                    right: 5px;
-                    top: -5px;
-                  }
-                }
-                &.nav-header {
-                  font-size: 1.0em;
-                  &.user-email {
-                    text-transform: none;
-                  }
-                }
-                &.tv-channels {
-                  padding-left: 15px;
-                  a {
-                    float: left;
-                    padding: 5px;
-                    display: block;
-                    clear: none;
-                    span {
-                      display: none;
-                      position: absolute;
-                      background: rgba(0,0,0,0.8);
-                      font-size: 0.8em;
-                      margin-left: 0px;
-                      margin-top: -25px;
-                      color: white;
-                      padding: 3px;
-                      border-radius: 3px;
-                    }
-                    &:hover {
-                      span {
-                        display: block;
-                      }
-                    }
-                  }
-                }
-              }
-              &.dropdown-menu-tv {
-                left: -350px;
-                width: 990px;
-                a:hover {
-                  background: transparent;
-                  color: #999;
-                }
-                &:after {
-                  left: 400px;
-                }
-              }
-            }
-            &.active-dropdown-visible.active {
-              .a-caret {
-                display: none;
-              }
-              .dropdown-menu {
-                z-index: 0;
-                background: rgba(255,255,255,0.9);
-                display: block;
-                width: 990px;
-                opacity: 0.9;
-                li {
-                  float: left;
-                  a:hover {
-                    background: none;
-                    color: #999;
-                  }
-                }
-              }
-              &.active-vod {
-                .dropdown-menu {
-                  left: -472px;
-                  li:first-child {
-                    margin-left: 250px;
-                  }
-                  &:after {
-                    left: 485px;
-                  }
-                }
-              }
-              &.active-cinema {
-                .dropdown-menu {
-                  left: -534px;
-                  li:first-child {
-                    padding-left: 270px;
-                  }
-                  &:after {
-                    left: 550px;
-                  }
-                }
-              }
-            }
-          }
-          &.active > a {
-             color: white;
-           }
-          &.divider-vertical {
-             margin: 0;
-           }
-          &.notifications {
-            ul {
-              text-align: left;
-              > div {
-                height: 315px;
-                overflow-y: auto;
-                overflow-x: hidden;
-
-                li {
-                  width: 400px;
-                  font-size: 0.9em;
-                  clear: both;
-                  overflow: hidden;
-                  
-                  a.link {
-                    color: #333;
-                    display: auto;
-                    padding: 0px;
-                    clear: none;
-                    line-height: 15px;
-                    color: #555;
-                    white-space: nowrap;
-                    filter: none; /* ie hover background */
-                    
-                    img.channel {
-                      margin-left: 7px;
-                      border-right: 3px solid white;
-                      border-top: 3px solid white;
-                    }
-                    img.ico {
-                      margin-right: 7px;
-                    }
-                    
-                    span {
-                      display: block;
-                      margin-left: 7px;
-      
-                      &.title {
-                        text-transform: uppercase;
-                      }
-                      &.label {
-                        display: inline;
-                        font-weight: normal;
-                        margin-left: 0;
-                      }
-                    }
-                    &:hover {
-                      background: transparent;
-                    }
-                  }
-                  .badge {
-                    margin: 15px 5px 0 0;
-                  }
-                  .remove {
-                    visibility: hidden;
-                    margin: 15px 15px 0 0;
-                    padding: 0;
-                    float: right;
-                    cursor: pointer;
-                  }
-                  &:hover {
-                    .remove {
-                      background: transparent;
-                      visibility: visible;
-                    }
-                  }
-                  &.empty {
-                    h6 {
-                      padding: 30px;
-                      font-size: 1.3em;
-                      small {
-                        line-height: 1.3em;
-                        display: block;
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+&.navbar-nav > li > a {
+    padding-top: 21px;
 }
 
-.playlist {
-  background: url("/bundles/skreenhousefactoryv3/images/bg-playlist.png") bottom repeat-x;
+#logo{
+  float: left;
+  margin-top: 17px;
+  margin-right: 15px;
+}
+.searchbutton{
+  display: inline-block;
+  width: 190px;
+  height: 25px;
+  border: 1px solid #d2d2d2;
+  text-align: left;
+  color: #5f5f5f;
+  font-size: 14px;
+  margin-top: 19px;
+  float:none!important;
+}
+.navbar-search{
+  display: inline-block;  
 }
 
-#top-playlist {
-  overflow: hidden;
-  position: absolute;
-  z-index: 3;
-  top: 70px;
-  width: 100%;
-  
-  .container {
-    padding: 10px 0;
-    margin-bottom: 5px;
-    width: 990px;
-    box-shadow: 0px 1px 3px rgba(0,0,0,0.7);
+.headertoprighticons{
+  float:right;
+  width: 80px;
+  text-align: center;
+  height: 40px;
+  text-shadow: none;
+  filter: dropshadow(none);
+  padding-top: 10px;
+  font-weight: bold;
+}
 
-    background-color: rgba(240, 240, 240, 0.9);
-    background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent), to(transparent));
-    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
-    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
-    background-image: -ms-linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
-    background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
-    background-image: linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
-    -webkit-background-size: 50px 50px;
-    -moz-background-size: 50px 50px;
-    background-size: 50px 50px;
-    -moz-box-shadow: 1px 1px 8px gray;
-    -webkit-box-shadow: 1px 1px 8px gray;
 
-    .breadcrumb {
-      margin: 10px;
-      font-size: 1.3em;
-      border: 1px solid #DDD;
-    }
-    
-    #playlist {
-      width: 990px;
-      ul.items {
-        left: 10px;
-      }
-    }
+.toprigthicons-square{
+  -webkit-transform:  rotate(-15deg);
+  -moz-transform: rotate(-15deg);
+  -o-transform: rotate(-15deg);
+  transform: rotate(-15deg);
+  display: block;
+  margin: auto;
+  height: 24px;
+  width: 24px;
+  text-align: center;
+}
 
-    h2 {
-      color: #017FD5;
-      font-weight: normal;
-      text-shadow: #C3C8E8 1px 1px 3px;
-      padding-left: 13px;
-      font-size: 1.3em;
-      cursor: pointer;
-      margin: 0;
-    }
-  }
+.toprigthicons-nbr{
+  -webkit-transform:  rotate(15deg);
+  -moz-transform: rotate(15deg);
+  -o-transform: rotate(15deg);
+  transform: rotate(15deg);
+  padding-top: 2px;
+  color: #fff;
+  display: block;
+
+}
+
+.ms-playlisticon{
+  background: #f39c12;
+}
+.ms-usericon{
+  background: #5d5d5d;
+}
+
+.toprighticons-label{
+  font-size: 11px;
+  text-shadow: 1px 1px 1px #ffffff;
+  filter: dropshadow(color=#ffffff, offx=1, offy=1);
+}
+.toprighticons-playlist{
+  color: #f39c12;
+}
+
+.toprighticons-user{
+  color: #5d5d5d;
+}
+
+.separator{
+  width: 1px;
+  height: 30px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  float: right;
+  background: none;
+  border-right: solid #d2d2d2 1px;
+}
+
+ul.nav>li{
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #444444;
+}
+
 }

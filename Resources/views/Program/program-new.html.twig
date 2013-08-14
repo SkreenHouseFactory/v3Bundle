@@ -1,0 +1,288 @@
+{% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
+
+{% block title %}
+{{ program.title }} {% if program.id in [4750433,4225947,4802310,4802138,4827403,4325232,4301824,4653555,4750467,4348861] %}Film complet en streaming
+{% elseif program.id in [4977242,4476408,4911399,4653895,4791542,4624174,4339164,4673973,4652360,5008693] %}Film en entier en streaming
+{% elseif program.id in [4761150,4762496,4902865,4761177,4989407,4954927,4761225,4970968,4807696,4902930] %}Bande annonce en streaming
+{% elseif program.id in [4750611,4750438,4675684,4796437,4746458,4750593,4750590,4750605,4746282,4750602] %}Film
+{% elseif program.has_vod in [5,6,7,8] %}en Replay
+{% else %} en streaming{% if program.format %} | {{ program.format.name }}{% endif %}{% endif %}
+{% endblock %}
+{% block description %}
+{{ program.description_text|replace({"\n": ''})|slice(0, 165) }} | {{ program.title }}, {{ program.id }}
+{% endblock %}
+{% block meta %}
+
+{% include 'SkreenHouseFactoryV3Bundle:Program:_program-jsonld.html.twig' with {program: program} %}
+
+{# twitter #}
+<meta name="twitter:site" value="@mySkreen" />
+<meta name="twitter:creator" content="@mySkreen">
+<meta name="twitter:url" content="http://www.myskreen.com{{ program.seo_url }}">
+<meta name="twitter:title" content="{{ program.title }}">
+<meta name="twitter:description" content="{{ program.description_text|replace({"\n": ''}) }}">
+<meta name="twitter:image:src" content="{{ program.picture }}">
+{% if program.player_iframe is defined %}
+<meta name="twitter:card" value="player" />
+<meta name="twitter:player" value="{{ program.player_iframe }}" />
+<meta name="twitter:player:stream" content="{{ program.player_stream }}">
+<meta name="twitter:player:stream:content_type" content="video/mp4">
+<meta name="twitter:player:height" value="360" />
+<meta name="twitter:player:width" value="640" />
+{% elseif program.has_vod in [1,2] %}
+<meta name="twitter:card" value="product" />
+<meta name="twitter:data1" content="€2.99">
+<meta name="twitter:label1" content="LOCATION">
+{% else %}
+<meta name="twitter:card" value="summary" />
+{% endif %}
+<meta name="twitter:domain" content="mySkreen.com">
+
+{# opengraph #}
+<meta property="og:title" content="{{ program.title }}" />
+<meta property="og:description" content="[ VIDEO ] {{ program.description_text|replace({"\n": ''}) }}" />
+<meta property="og:image" content="{{ program.picture }}" />
+<meta property="og:type" content="{% if program.format %}{% if program.format.name == 'Série' %}video.episode{% elseif program.format.name in ['Emission','Journal'] %}video.tv_show{% else %}video.movie{% endif %}{% else %}video.movie{% endif %}" />
+<meta property="og:url" content="http://www.myskreen.com{{ program.seo_url }}" />
+{% if program.player_fb is defined %}
+
+<meta property="og:video:height" content="360" />
+<meta property="og:video:width" content="640" />
+<meta property="og:video" content="{{ program.player_fb }}" />
+<meta property="og:video:type" content="application/x-shockwave-flash" />
+<meta property="og:video:secure_url" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
+<meta property="og:video" content="{{ program.player_stream }}" />
+<meta property="og:video:type" content="video/mp4" />
+<meta property="video:duration" content="{{ program.duration * 60 }}" />
+
+<meta name="video_height" content="360" />
+<meta name="video_width" content="640" />
+<link rel="video_src" href="{{ program.player_fb }}" />
+<meta name="video_type" content="application/x-shockwave-flash" />
+<meta name="video_duration" content="{{ program.duration * 60 }}" />
+<meta name="object_type" content="episode" />
+{% endif %}
+<link rel="image_src" href="{{ program.picture }}" />
+
+{% endblock %}
+
+{% block pagescripts %}
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/program.js'
+
+    filter='?yui_js' 
+    output='js/compiled/pages/program.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}
+
+{% block content %}
+
+	<section class="container scrollplayerzone">
+			<div class="row">
+
+				<div class="col-lg-9 ">
+					<div id="player"></div>
+				</div>
+				<div class="col-lg-3 ">
+					<div id="affiche"></div> 
+				</div>
+			</div>
+		</section>
+
+
+		<section class="container">
+			<div class="row">
+				<div class="col-lg-9 ">
+					<div class="row">
+						<div class="col-lg-9 videotitle">
+							<h1>Thalassa</h1>    
+							<h2>Abysses, blablablabla</h2> 
+						</div>
+						<div class="col-lg-3">
+							<button type="button" class="btn btn-suivre suivre-bouton-gros">+ Suivre</button>
+
+						</div>
+					</div>
+
+					<div class="panel">
+						<div class="panel-heading">
+							<h3 class="panel-title">Voir Thalassa sur mySkreen</h3>
+						</div>
+						<ul class="list-group">
+							<li class="list-group-item">Cras justo odio</li>
+							<li class="list-group-item">Dapibus ac facilisis in</li>
+							<li class="list-group-item">Morbi leo risus</li>
+							<li class="list-group-item">Porta ac consectetur ac</li>
+							<li class="list-group-item">Vestibulum at eros</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 ">
+					<div >
+						<span class="ms-vid-type">2012 - 85mn</span>
+						<span class="ms-cat-title">Cat&eacute;gorie:</span> 
+						<span class="ms-cat-element" ><a href="#">Documentaire</a></span> 
+						<span class="ms-cat-element" ><a href="#">Science</a></span> 
+						<span class="ms-cat-element" ><a href="#">les inconnus</a></span>
+						<p>Etat des lieux de la situation des pays en cas de &laquo;m&eacute;gas&eacute;isme&raquo;. Apr&egrave;s le s&eacute;isme de magnitude 9 et le tsunami provoquant la catastrophe nucl&eacute;aire de Fukushima au Japon le 11 mars 2011, la communaut&eacute; scientifique dresse le bilan de toutes ses connaissances pour analyser le ph&eacute;nom&egrave;ne des &laquo;m&eacute;gas&eacute;ismes&raquo;. 
+							<br><a href="#">En savoir plus...</a>
+						</p>
+					</div> 
+					<span class="ms-cat-title">Cette vid&#233;o fait parti des fanpages</span>
+					<span class="ms-cat-element" ><a href="#">Documentaire</a></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 ">
+					<div class="suggestion"><div><span> Egalement en streaming sur France 3</span> 	<button type="button" class="btn btn-primary btn-xs">voir +</button></div> </div>
+					<div id="carousel-example-generic1"  data-interval="false" class="carousel slide">
+						<!-- Indicators -->
+						<ol class="carousel-indicators">
+							<li data-target="#carousel-example-generic1" data-slide-to="0" class="active"></li>
+							<li data-target="#carousel-example-generic1" data-slide-to="1"></li>
+							<li data-target="#carousel-example-generic1" data-slide-to="2"></li>
+						</ol>
+
+						<!-- Wrapper for slides -->
+						<div class="carousel-inner">
+							<div class="item active">
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support2">
+									<div class="image2"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support2">
+									<div class="image2"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="support4">
+									<div class="image4"></div>
+									<div class="info_vignette4"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+							</div>
+							<a class="left carousel-control" href="#carousel-example-generic1" data-slide="prev">
+								<span class="icon-prev"></span>
+							</a>
+							<a class="right carousel-control" href="#carousel-example-generic1" data-slide="next">
+								<span class="icon-next"></span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 ">
+					<div class="suggestion"><div><span> On parie que vous allez aimer ?</span><button type="button" class="btn btn-primary btn-xs">voir +</button></div></div>
+					<div id="carousel-example-generic2"  data-interval="false" class="carousel slide">
+						<!-- Indicators -->
+						<ol class="carousel-indicators">
+							<li data-target="#carousel-example-generic2" data-slide-to="0" class="active"></li>
+							<li data-target="#carousel-example-generic2" data-slide-to="1"></li>
+							<li data-target="#carousel-example-generic2" data-slide-to="2"></li>
+						</ol>
+
+						<!-- Wrapper for slides -->
+						<div class="carousel-inner">
+							<div class="item active">
+								<div class="support4">
+									<div class="image4"></div>
+									<div class="info_vignette4"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support2">
+									<div class="image2"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="support4">
+									<div class="image4"></div>
+									<div class="info_vignette4"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+								<div class="support1">
+									<div class="image1"></div>
+									<div class="info_vignette1"> SÃ©rie | 24min </div>
+								</div>
+							</div>
+							<a class="left carousel-control" href="#carousel-example-generic2" data-slide="prev">
+								<span class="icon-prev"></span>
+							</a>
+							<a class="right carousel-control" href="#carousel-example-generic2" data-slide="next">
+								<span class="icon-next"></span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</section>
+{% endblock %}

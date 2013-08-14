@@ -98,25 +98,13 @@
     </div>
   </div>
   </article>
-  <header>
-    <nav>
-      <div id="header">
-        <div class="navbar-wrapper">
-          <div class="container">
+     
             {% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {'q':app.request.get('q') ? app.request.get('q') : null })) %}
             {#% include 'SkreenHouseFactoryV3Bundle:Main:_header-nav.html.twig' %#}
             {% block header_filters %}
             {% endblock %}
-          </div>
-        </div>
-      </div>
-    </nav>
-    <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
-      <div class="container">
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
-      </div>
-    </div>
-  </header>
+   
+
   <footer>
   <div id="footer">
     {% render(controller('SkreenHouseFactoryV3Bundle:Main:footer', {})) %}

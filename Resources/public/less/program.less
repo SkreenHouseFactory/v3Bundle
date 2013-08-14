@@ -1,475 +1,58 @@
-#view-program {
-  padding: 0 0 150px 0;
+/* Page programme theme************************************************************************************************************************************************/
 
-  h1 {
-    width: 78%;
-    div {
-      color: #999;
-      display: block;
-      font-size: .8em;
-      font-weight: normal;
-      line-height: 25px;
-    }
-  }
-  h5 {
-    margin: 2px 0px;
-  }
 
-  ul.breadcrumb {
-    position:absolute;
-    top: 0;
-    left: 0;
-    padding-left: 0;
-    margin-left: 0;
-  }
-    
-  .program-title {
-    margin: 35px 0 0 0;
-  }
 
-  .playlists-count {
-    background: white;
-    padding: 10px 10px 12px 10px;
-    border: 1px solid #006dcc;
-    border-radius: 2px;
-    display: inline-block;
-    margin-left: 7px;
-    color: #006dcc;
-    font-size: 1.1em;
-    i {
-      opacity: 0.6;
-    }
-    &:before {
-      content: '';
-      display: inline-block;
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-top: 7px solid #006dcc;
-      border-bottom-color: rgba(0, 0, 0, 0.2);
-      margin-left: -21px;
-      transform: rotate(90deg);
-      -moz-transform: rotate(90deg);
-      -o-transform: rotate(90deg);
-      -webkit-transform: rotate(90deg);
-    }
-  }
 
-  #program-friends {
-    .user-on, .user-off {
-      clear: both;
+.scrollplayerzone{
+  margin-top: 60px;
 
-      .progress {
-        margin: 50px 100px 0px;
-      }
-    }
-  }
 
-  #program-share {
-    padding-left: 40px;
-    line-height: 30px;
-  }
-
-  #program-follow {
-    position: absolute;
-    right: 0;
-    top: -10px;
-    .container-friends {
-      height: 45px;
-      img {
-        height: 39px;
-      }
-    }
-  }
-
-  #program-description {
-    position: absolute;
-    bottom: 0;
-
-    .description {
-      background: white;
-      color: black;
-      margin: -550px 0 0 420px;
-      width: 550px;
-      height: 180px;
-      overflow: auto;
-      font-weight: normal;
-      h2.default_description {
-        font-size: 1.0em;
-        line-height: 1.3em;
-        font-weight: normal;
-      }
-    }
-  }
-
-  #theaters {
-    #trigger-theaters-geoloc {
-      margin-left: 20px;
-    }
-    .btn-group {
-      display: inline-block;
-    }
-    .progress {
-      margin: 50px 100px 0px;
-    }
-  }
-
-  .view-program-main {
-    clear: both;
-    position: relative;
-    padding: 20px 0  30px;
-
-    .row > div.span3 {
-      width: 331px;
-    }
-
-    .view-program-block {
-      padding:10px;
-    }
-
-    #program-main-block {
-      margin-top: -10px;
-      min-height: 330px;
-
-      #program-teaser {
-        width: 720px;
-        height: 330px;
-        margin-bottom: 30px;
-        background: rgba(0,0,0,0.9);
-        
-        #program-teaser-header {
-          position: absolute;
-          color: #666;
-          z-index: 1;
-          width: 100%;
-          text-align: center;
-          top: -5px;
-          text-transform: uppercase;
-          font-size: 0.8em;
-          font-weight: bold;
-        }
-
-        .player, #program-teaser-player {
-          height: 100%;
-          background: url(/bundles/skreenhousefactoryv3/images/big-play.png) center center no-repeat;
-          cursor: pointer;
-          &.player-ad {
-            background: none !important;
-          }
-        }
-      }
-
-      #program-offers {
-        background: #FCFCFC;
-        margin-top: -10px;
-
-        .nav-pills > li > a {
-          padding-right: 8px;
-          padding-left: 8px;
-
-          span {
-            font-size: 14px;
-            color: #999;
-          }
-        }
-
-        .tab-content {
-          
-          .table-container.has-notification {
-            tr td.notif {
-              display: block;
-            }
-          }
-          
-          .table-container {
-
-            overflow-y: auto;
-            max-height: 253px;
-            overflow-x: hidden;
-
-            tr {
-              
-              td {
-                padding: 8px 4px;
-
-                .big {
-                  display: block;
-                  text-transform: uppercase;
-                  font-size: 1.5em;
-                  color: #999;
-                  font-weight: bold;
-                }
-
-                &.notif {
-                  display: none;
-                  .badge {
-                    opacity: 0.1;
-                    &.badge-important {
-                      opacity: 1;
-                    }
-                  }
-                }
-                &.icon {
-                  width: 35px;
-                  span {
-                    padding: 10px;
-                    background: #DDD;
-                    opacity: 0.8;
-                    border-radius: 20px;
-                  }
-                }
-                &.episode {
-                  min-width: 250px;
-                  img {
-                    height:50px;
-                    margin-right:10px;
-                  }
-                  em {
-                    font-size: 0.8em;
-                    font-style: normal;
-                  }
-                  .label {
-                    font-size: 0.8em;
-                    font-weight: normal;
-                  }
-                }
-                &.channel {
-                  min-width: 70px;
-                  text-align: center;
-                }
-                &.price {
-                  font-size: 1.5em;
-                }
-                &.access {
-                  min-width: 180px;
-                  .label {
-                    margin-left: 5px;
-                  }
-                }
-                &.tags {
-                  .label {
-                    margin-right: 3px;
-                  }
-                }
-              }
-              
-              &.program-theaters {
-                 margin-left: 20px;
-                 
-                 #theaters-list {
-                  clear: both;
-                 }
-              }
-            
-              &:hover {
-                td {
-                  &.icon span {
-                    background: #f89406;
-                  }
-                  .big {
-                    color: #f89406;
-                  }
-                }
-              }
-            }
-          }
-          
-          .accordion-heading {
-            a {
-              
-              &.accordion-toggle {
-                padding-bottom: 0;
-              }
-              &.pull-right {
-                margin: 10px 10px 0;
-              }
-              &.address {
-                padding-left: 15px;
-                color: #000;
-                font-size: 0.9em;
-              }
-            }
-          }
-          .carousel {
-            .carousel-inner {
-              margin-left: 45px;
-              width: auto;
-              min-height: 320px;
-
-              .carousel-control {
-                top: 45%;
-                line-height: 25px;
-
-                &.right {
-                  right: -15px;
-                }
-                &.left {
-                  left: -15px;
-                }
-              }
-              .item {
-                a {
-                  display: block;
-                  position: relative;
-                  width: 180px;
-                  height: 150px;
-                  margin: 0 12px 10px;
-                  line-height: 1em;
-                  font-size: 0.8em;
-                  color: black;
-
-                  span {
-                    position: absolute;
-                    margin: 10px;
-                    background: white;
-                    opacity: 0.8;
-                    padding: 3px;
-                  }
-
-                  img {
-                    width: 170px;
-                    height: 120px;
-                  }
-
-                  .title {
-                    position: absolute;
-                    top: 85px;
-                    margin: 3px 7px;
-                    background-color: rgba(0,0,0,0.75);
-                    color: white;
-                    height: 35px;
-                    overflow: hidden;
-                    padding: 2px 5px 0 5px;
-                    font-family: Tahoma;
-                    line-height: 1.1em;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .view-program-column {
-
-    hr {
-      margin: 10px 0;
-    }
-    .fav {
-      font-size:1.3em;
-      margin: 8px 0 17px 0;
-    }
-    .popular-channel {
-      padding: 5px;
-      background: white;
-      opacity: 0.8;
-      position: absolute;
-      right: 0px;
-      top: 0px;
-      border-bottom-left-radius: 5px;
-    }
-    .teaser {
-      position:absolute;
-      height:150px;
-      margin: 80px 0 0 45px;
-      opacity: 0.9;
-    }
-    #program-episodes {
-      margin-top: 20px;
-
-      .program-episode {
-        display: block;
-        
-        button {
-          font-size: 13px;
-        }
-        
-        &.season-episode, &:nth-child(2) {
-          display: inline-block;
-        }
-        
-        .btn-group + .btn-group {
-          margin-left: 0px;
-        }
-      }        
-      .label {
-        margin-left:20px;
-      }
-    }
-    .nav-list {
-      margin-top: 10px;
-    }
-  }
-  
-  #program-related {
-    h3, h4 {
-      padding-left: 10px;
-      margin-bottom: 5px;
-      a {
-        color: white;
-      }
-    }
-    .person-list {
-      padding:0px 10px 10px;
-    }
-    .slider-link a {
-      color: white;
-      margin-right: 5px;
-    }
-    ul.items {
-      left: 10px;
-    }
-  }
-
-  #program-infos {
-    height: 550px;
-    background: white;
-    border: 1px solid #CCC;
-    padding-right: 20px;
-
-    h2 {
-      font-size: 20px;
-      overflow: hidden;
-      max-height: 40px;
-    }
-    h3 {
-      line-height: 1em;
-    }
-
-   .img {
-    margin-right: 20px;
-    width: 400px;
-    height: 100%;
-   }
-   .inner {
-      padding: 10px;
-   }
-   #program-casting {
-    margin-top: 210px;
-    max-height: 160px;
-    overflow-y: auto;
-   }
-  }
 }
-#channel_root {
-	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
-	-moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
-	box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
-  width:245px;
-  height:120px;
-  padding: 5px;
-  display:block;
-  .texte {
-    width: 235px;
-    color: #fff;
-    background-color: rgba(0,0,0,.5);
-    padding: 5px;
-    border-radius: 5px;
-    text-align: center;
-    display: block;
-  }
+
+#player{
+  background-color:blue;
+  height: 320px; 
 }
-#channel_root:hover {
-  text-decoration: none;
+
+
+#affiche{
+  background-color:red;
+  height: 320px; 
+}
+.videotitle  h1{
+  font-size: 36px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+.videotitle  h2{
+  font-size: 26px;
+  margin-top: 5px;
+}
+
+.suivre-bouton-gros{
+  float: right;
+  margin-top: 20px;
+
+}
+
+.ms-vid-type{
+  font-size: 16px;
+  display: block;
+}
+
+.ms-cat-title{
+  font-size: 11px;
+  display: inline-block;
+}
+
+.ms-cat-element{
+  font-size: 14px;
+  display: inline-block;
+  text-align:center; 
+  background: #f3eeee;
+  padding: 2px;
+  margin: 2px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }

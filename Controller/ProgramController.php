@@ -279,7 +279,7 @@ class ProgramController extends Controller
         list($_, $format, $__) = explode('/', $data->seo_url);
         $request->request->set('home', $format != 'programme' ? $format : null);
 
-        $response = $this->render('SkreenHouseFactoryV3Bundle:Program:program.html.twig', array(
+        $response = $this->render('SkreenHouseFactoryV3Bundle:Program:program-new.html.twig', array(
           'program' => $data,
           'offers' => array(
             //'deportes' => 'sur mySkreen', 
