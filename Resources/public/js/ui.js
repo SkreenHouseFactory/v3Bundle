@@ -273,12 +273,14 @@ UI = {
   //set popover infos
   installPopover: function(trigger) {
     var content = this.getPlaylistMessage(trigger);
-
-    trigger.popover({placement: 'top',
-                      title:  function() { return 'Ajout à vos playlists'},
-                      content: content,
-                      show: 500, 
-                      hide: 100});
+    trigger.popover({
+      placement: 'top',
+      title:  function() { return 'Ajout à vos playlists'},
+      content: content,
+      html: true,
+      show: 500, 
+      hide: 100
+    });
   },
   //toggle favorite : fav-parameter
   //if actions-remove[data-id="xx"] : element deleted in this.unloadPlaylistTrigger
@@ -341,7 +343,7 @@ UI = {
     if (typeof parameter != 'undefined') {
       for (key in ids) {
         //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)');
-        var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)', elmt);
+        var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + ':not(.fav-on)', elmt);
         trigger.html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists').addClass('fav-on btn-primary');
       }
       switch(parameter) {
@@ -361,7 +363,7 @@ UI = {
         console.log('UI.loadPlaylistTriggers', 'playlist:', this.available_playlists[k], 'ids:', ids);
         for (key in ids) {
           //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
-          var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + ':not(.fav-on)', elmt);
+          var trigger = $('[data-id="' + ids[key] + '"].fav-' + this.available_playlists[k] + ':not(.fav-on)', elmt);
           trigger.html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists').addClass('fav-on btn-primary');
         }
       }
@@ -373,8 +375,8 @@ UI = {
     if (typeof parameter != 'undefined') {
       ids = ids.indexOf(',') == -1 ? ids : ids.split(',');
       for (key in ids) {
-        console.log('UI.unloadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + '.fav-on');
-        var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + '.fav-on', elmt);
+        console.log('UI.unloadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + parameter + '.fav-on');
+        var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + '.fav-on', elmt);
         trigger.html('<i class="icon-plus-sign icon-white"></i> Suivre ' + this.getTriggerName(trigger)).removeClass('fav-on btn-danger');
 
         switch(parameter) {
@@ -388,10 +390,10 @@ UI = {
                 $('#trigger-theaters-playlist').trigger('click');
               }
             }
-            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parents('.actions-remove:first').remove();
+            $('[data-id="' + ids[key] + '"].fav-' + parameter, elmt).parents('.actions-remove:first').remove();
           break;
           default:
-            $('.actions[data-id="' + ids[key] + '"] .fav-' + parameter, elmt).parents('.actions-remove:first').remove();
+            $('[data-id="' + ids[key] + '"].fav-' + parameter, elmt).parents('.actions-remove:first').remove();
           break;
         }
       }
@@ -400,7 +402,7 @@ UI = {
         var ids = Skhf.session.getPlaylistIds(this.available_playlists[k]);
         for (key in ids) {
           //console.log('UI.unloadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + '.fav-on');
-          var trigger = $('.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + '.fav-on', elmt);
+          var trigger = $('[data-id="' + ids[key] + '"].fav-' + this.available_playlists[k] + '.fav-on', elmt);
           trigger.html('<i class="icon-plus-sign icon-white"></i> Suivre').removeClass('fav-on btn-danger');
         }
       }
@@ -899,6 +901,25 @@ UI = {
       }
     });
   },
+  startSearching: function(to_focus) {
+    if (!$('body').hasClass('searching')) {
+      if (!$('#search-query-bg').length) {
+        $('body').prepend('<div id="search-query-bg"></div>');
+      } else {
+        $('#search-query-bg').fadeIn();
+      }
+      if (to_focus != false) {
+        $('.search-query').focus();
+      }
+      $('body').addClass('searching');
+    }
+  },
+  endSearching: function() {
+    if ($('body').hasClass('searching')) {
+      $('#search-query-bg').fadeOut();
+      $('body').removeClass('searching');
+    }
+  },
   getTypeaheadSuggestions: function (typeahead, query) {
     console.log('UI.getTypeaheadSuggestions', query);
 
@@ -964,64 +985,66 @@ UI = {
             }
             console.log('UI.typeahead', 'data', key, items);
             items = items.slice(0, typeahead.options.items);
-            lis[key] = $(items).map(function (i, item) {
-              i = $(typeahead.options.item).attr('data-value', JSON.stringify(item));
-              i.attr('data-id', item.id).addClass('actions');
-              btn = $('<span class="fav" data-placement="left"><i class="icon-plus-sign icon-white"></i></span>');
-              switch (key) {
-                case 'queue':
-                  i.addClass('playlist')
-                   .css('overflow','hidden')
-                   .find('a')
-                   .html((item.picture ? '<img src="' + item.picture + '" /> ' : '') + typeahead.highlighter(item.title))
-                  break;
-                case 'theaters':
-                  i.addClass('theater actions')
-                   .css('overflow','hidden')
-                   .prepend(btn.clone().addClass('fav-theater'))
-                   .find('a')
-                   .html(typeahead.highlighter(item.name + (item.ville ? ' (' + item.ville + ')' : '')))
-                  break;
-                case 'channels':
-                  i.addClass('channel actions')
-                   .css('overflow','hidden')
-                   .prepend(btn.clone().addClass('fav-channel').attr('data-channel-name', item.name))
-                   .find('a')
-                   .html((item.icon ? '<img src="' + item.icon + '" /> ' : '') + typeahead.highlighter(item.name))
-                  break;
-                  /*case 'real-channels':
-                  i.addClass('program actions')
-                   .css('overflow','hidden')
-                   .prepend(btn.addClass('fav-like'))
-                   .find('a')
-                   .html(typeahead.highlighter(item.name))
-                  break;*/
-                case 'programs':
-                  i.addClass('program actions')
-                    .css('overflow','hidden')
-                   .prepend(btn.clone().addClass('fav-program'))
-                   .find('a')
-                   .html(typeahead.highlighter(item.name))
-                  break;
-                case 'persons':
-                  i.addClass('person actions')
-                   .css('overflow','hidden')
-                   .prepend(btn.clone().addClass('fav-person'))
-                   .find('a')
-                   .html(typeahead.highlighter(item.name))
-                  break;
-                case 'categories':
-                  i.addClass('category actions')
-                   .css('overflow','hidden')
-                   .find('a')
-                   .html(typeahead.highlighter(item.name))
-                  break;
-              }
+            if (items.length) {
+              lis[key] = $(items).map(function (i, item) {
+                i = $(typeahead.options.item).attr('data-value', JSON.stringify(item));
+                i.attr('data-id', item.id).addClass('actions');
+                btn = $('<span class="fav" data-placement="left"><i class="icon-plus-sign icon-white"></i></span>');
+                switch (key) {
+                  case 'queue':
+                    i.addClass('playlist')
+                     .css('overflow','hidden')
+                     .find('a')
+                     .html((item.picture ? '<img src="' + item.picture + '" /> ' : '') + typeahead.highlighter(item.title))
+                    break;
+                  case 'theaters':
+                    i.addClass('theater actions')
+                     .css('overflow','hidden')
+                     .prepend(btn.clone().addClass('fav-theater'))
+                     .find('a')
+                     .html(typeahead.highlighter(item.name + (item.ville ? ' (' + item.ville + ')' : '')))
+                    break;
+                  case 'channels':
+                    i.addClass('channel actions')
+                     .css('overflow','hidden')
+                     .prepend(btn.clone().addClass('fav-channel').attr('data-channel-name', item.name))
+                     .find('a')
+                     .html((item.icon ? '<img src="' + item.icon + '" /> ' : '') + typeahead.highlighter(item.name))
+                    break;
+                    /*case 'real-channels':
+                    i.addClass('program actions')
+                     .css('overflow','hidden')
+                     .prepend(btn.addClass('fav-like'))
+                     .find('a')
+                     .html(typeahead.highlighter(item.name))
+                    break;*/
+                  case 'programs':
+                    i.addClass('program actions')
+                      .css('overflow','hidden')
+                     .prepend(btn.clone().addClass('fav-program'))
+                     .find('a')
+                     .html(typeahead.highlighter(item.name))
+                    break;
+                  case 'persons':
+                    i.addClass('person actions')
+                     .css('overflow','hidden')
+                     .prepend(btn.clone().addClass('fav-person'))
+                     .find('a')
+                     .html(typeahead.highlighter(item.name))
+                    break;
+                  case 'categories':
+                    i.addClass('category actions')
+                     .css('overflow','hidden')
+                     .find('a')
+                     .html(typeahead.highlighter(item.name))
+                    break;
+                }
                
-              console.log('UI.typeahead', 'add item', key,  i);
-              return i[0];
+                console.log('UI.typeahead', 'add item', key,  i);
+                return i[0];
               
-            });
+              });
+            }
           }
 
           //data.first().addClass('active')
@@ -1030,7 +1053,7 @@ UI = {
           for (key in sort) {
             if (lis[sort[key]]) {
               //console.log('UI.typeahead', key, data[key], typeahead.$menu);
-              if (typeof titles[sort[key]] != 'undefined') {
+              if (typeof titles[sort[key]] != 'undefined' && typeof lis[sort[key]] != 'undefined') {
                 typeahead.$menu.append('<li class="nav-header">' + titles[sort[key]] + '</li>');
               }
               typeahead.$menu.append(lis[sort[key]]);
@@ -1038,7 +1061,7 @@ UI = {
           }
 
           //toggle playlist
-          $('span.fav', typeahead.$menu).on('click', function(e){
+          $('span.fav-*', typeahead.$menu).on('click', function(e){
             e.preventDefault();
             e.stopPropagation();
             UI.togglePlaylist($(this));

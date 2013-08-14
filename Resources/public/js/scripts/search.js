@@ -1,4 +1,4 @@
-// -- searchloading_gif
+// -- search view
 
 var shouldDisplayMore = new Array();
 var query = $('.search-query').val();

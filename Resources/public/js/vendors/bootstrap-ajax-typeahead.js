@@ -268,7 +268,7 @@
     }
 
   , blur: function (e) {
-      console.log('HACK', 'BLUR', 'FUNCTION');
+      console.log('bootstrap-ajax-typeahead', 'blur');
       var that = this
       //e.stopPropagation()
       //e.preventDefault()
@@ -276,12 +276,14 @@
     }
 
   , click: function (e) {
+      console.log('bootstrap-ajax-typeahead', 'click');
       e.stopPropagation()
       e.preventDefault()
       this.select()
     }
 
   , mouseenter: function (e) {
+      console.log('bootstrap-ajax-typeahead', 'mouseenter');
       this.$menu.find('.active').removeClass('active')
       $(e.currentTarget).addClass('active')
     }

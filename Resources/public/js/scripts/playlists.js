@@ -2,7 +2,7 @@
 $(document).ready(function(){
   //console.log('scripts/core/playlists.js', 'load');
   // -- .fav : toggle
-  $(document).on('click', '.actions .fav', function(e){
+  $(document).on('click', '[data-id][class*=" fav-"]', function(e){
 //    console.log('scripts/core/playlists.js', '.fav click', $(this));
 //    e.preventDefault();
 //    e.stopPropagation();
@@ -11,10 +11,9 @@ $(document).ready(function(){
     return false;
   });
   // -- .fav : retirer / popover
-  $(document).on('hover', '.actions .fav:not(.fav-trash)', function(event) {
-    //console.log('scripts/core/playlists.js', '.fav:hover', event.type);
+  $(document).on('mouseover', '[data-id][class*=" fav-"]:not(.fav-trash)', function(event) {
+    //console.log('scripts/core/playlists.js', '[class*=" fav-"]:mouseover');
     var trigger = $(this);
-    if (event.type == 'mouseover' || event.type == 'mouseenter') {
       // retirer
       if (trigger.hasClass('fav-on')) {
         trigger.addClass('btn-danger')
@@ -26,11 +25,13 @@ $(document).ready(function(){
         }
         trigger.popover('show');
       }
-    } else if (event.type == 'mouseout' || event.type == 'mouseleave') {
-      trigger.popover('hide');
-      if (trigger.hasClass('btn-danger')) {
-        trigger.removeClass('btn-danger').html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists');
-      }
+  });
+  $(document).on('mouseout', '[data-id][class*=" fav-"]:not(.fav-trash)', function(event) {
+    //console.log('scripts/core/playlists.js', '[class*=" fav-"]:mouseover');
+    var trigger = $(this);
+    trigger.popover('hide');
+    if (trigger.hasClass('btn-danger')) {
+      trigger.removeClass('btn-danger').html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists');
     }
   });
 });

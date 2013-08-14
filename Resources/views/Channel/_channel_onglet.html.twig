@@ -1,11 +1,11 @@
 {% if custom_header %}
-{% render 'SkreenHouseFactoryV3Bundle:Channel:header'~ channel.id with {data:data, from_selection: from_selection, channel: channel, fav: 'page', trigger_fav: 
-channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
+{% render(controller('SkreenHouseFactoryV3Bundle:Channel:header'~ channel.id, {data:data, from_selection: from_selection, channel: channel, fav: 'page', trigger_fav: 
+channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
 {% else %}
 {% include  'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data:data, fav: 'page', trigger_fav: channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
 {% endif %}
 <div id="view-page" class="container channel{{ channel.id }}">
-  {% for slider in data.sliders if slider.id is defined %}
+  {% for slider in data.sliders|to_array if slider.id is defined %}
     <a name="{{ slider.name }}"></a>
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
   {% endfor %}
