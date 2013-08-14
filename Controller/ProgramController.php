@@ -117,7 +117,7 @@ class ProgramController extends Controller
           'with_selections' => true,
           'with_offers' => true,
           'with_teaser' => true,
-          'with_hashtags' => true,
+          'with_hashtags' => true, 
           'with_tweets' => true,
           'with_empty_player' => true,
           //'wrap_default_description' => 'h2',
