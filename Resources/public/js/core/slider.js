@@ -47,7 +47,7 @@ var BaseSlider = Class.extend({
       //console.log('BaseSlider.init', 'insertPrograms');
       this.elmt.data('paginate-url', params.url);
     }
-
+ 
     //programs
     if ($('li:not(.static)', this.items).length > 0) {
       //console.log('BaseSlider.init', 'Programs found in DOM');
