@@ -161,7 +161,6 @@
               program.subscriptions|length %}
               {% for s in program.subscriptions %}
               <tr data-id="{{ s.pass.play }}" data-play="{{ s.pass.play }}" data-play-pass="{{ s.id }}" data-play-args="{&quot;hide_sliders&quot;:1}">
-                <td class="notif"><span class="badge">0</span></td>
                 <td class="icon"><span><i class="icon-play"></i></span></td>
                 <td class="channel logo-channel-4952"><img src="http://mskstatic.com/65/medias/ico/chaines/pluzz-vad_medium.png" alt="pluzz VAD Streaming"></td>
                 <td class="price big">{{ s.pass.price }}€</td>
@@ -219,138 +218,137 @@
               {% set other_episodes = 'ok' %}
               {% endif %}
               <tr data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {# data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left" #}{% endif %}>
-                <td class="notif"><span class="badge">0</span></td>
-                <td class="icon">
-                  <span>
-                    {% if o_access.name == 'TV' and key != 'plays' %}<i class="icon-calendar"></i>
-                    {% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %}<i class="icon-share"></i>
-                    {% elseif o.deporte is defined and o.deporte %}<i class="icon-play"></i>
-                    {% endif %}
-                  </span>
-                </td>
-                <td class="channel logo-channel-{{ o_channel.id }}">
-                  <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
-                </td>
-                <td class="price big">
-                  {% if o.cost is defined and o.cost > 0 %}{{ o.cost|number_format(2, ',') }}&euro;{% endif %}
-                </td>
-                <td class="access" data-acces="{{ o_access.name }}">
-                  {% if o_access.name in ['Live', 'TV'] %}
-                  <span class="big"><time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time></span>
+
+              </td>
+              <td class="channel logo-channel-{{ o_channel.id }}">
+                <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
+              </td>
+
+              <td class="access">
+
+                {% if o_access.name == 'TV' %}
+                {% if key == 'plays'  %}
+                <span class="badge badge-important">Live</span>
+                {% elseif o.has_replay and o.broadcasttime|remainingtv %}
+                <span class="badge badge-info">{{ o.broadcasttime|remainingtv }}</span>
+                {% elseif o.broadcasttime|timeleft %}
+                <span class="badge badge-warning">Dans {{ o.broadcasttime|timeleft }}</span>
+                {% endif %}
+                {% elseif o.endtime is defined and o.endtime|remainingreplay %}
+                <span class="badge badge-warning">{{ o.endtime|remainingreplay }}</span>
+                {% endif %}
+              </td>    
+              <td class="price big">
+                {% if o.cost is defined and o.cost > 0 %}{{ o.cost|number_format(2, ',') }}&euro;{% endif %}
+              </td>
+              {% if o.title is defined and o.title %}
+              <td class="title">
+
+                <b>{{ o.title }}</b>
+                <br/>
+                {{ o.description }}
+                {% elseif o_episode %}
+                <td class="episode">
+                  {% if o_episode.title %}
+                  <span>{{ o_episode.title }}</span>
+                  {% endif %}
+                  {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}
+                  {% if o_episode.season_number is defined or 
+                  o_episode.episode_number is defined or 
+                  o_episode.part_number is defined %}
+                  {% if episode_title != o_episode.title %}<br><span><em>{{ episode_title }}</em></span>
+                  {% endif %}
+                  <br>
+                  {% endif %}
                   {% else %}
-                  <span class="big">{{ o_access.name|replace({' iTunes': ''}) }}</span>
-                  {% if o.broadcasttime is defined %}
-                  <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
-                  {% endif %}
-
-                  {% endif %}
-                  {% if o_access.name == 'TV' %}
-                  {% if key == 'plays'  %}
-                  <span class="badge badge-important">Live</span>
-                  {% elseif o.has_replay and o.broadcasttime|remainingtv %}
-                  <span class="badge badge-info">{{ o.broadcasttime|remainingtv }}</span>
-                  {% elseif o.broadcasttime|timeleft %}
-                  <span class="badge badge-warning">Dans {{ o.broadcasttime|timeleft }}</span>
-                  {% endif %}
-                  {% elseif o.endtime is defined and o.endtime|remainingreplay %}
-                  <span class="badge badge-warning">{{ o.endtime|remainingreplay }}</span>
-                  {% endif %}
-                </td>
-                {% if o.title is defined and o.title %}
-                <td class="title">
-                  <b>{{ o.title }}</b>
-                  <br/>
-                  {{ o.description }}
-                  {% elseif o_episode %}
-                  <td class="episode">
-                    {% if o_episode.title %}
-                    <span>{{ o_episode.title }}</span>
+                  <td class="tags">
                     {% endif %}
-                    {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}
-                    {% if o_episode.season_number is defined or 
-                    o_episode.episode_number is defined or 
-                    o_episode.part_number is defined %}
-                    {% if episode_title != o_episode.title %}<br><span><em>{{ episode_title }}</em></span>
+                    {% if o.deporte is defined and o.deporte and o.versions is defined %}
+                    <span class="label label-success">{{ o.versions|to_array|keys|join(', ') }}</span>&nbsp;
+                    {% elseif o.tags is defined and o.tags.version is defined %}
+                    <span class="label label-success">{{ o.tags.version|replace({',': ', '}) }}</span>
                     {% endif %}
-                    <br>
+
+                    {% if o.tags is defined and o.tags|length %}
+                    {% if o.tags.HD is defined %}
+                    <span class="label label-important">HD</span><br/>
                     {% endif %}
-                    {% else %}
-                    <td class="tags">
-                      {% endif %}
-                      {% if o.deporte is defined and o.deporte and o.versions is defined %}
-                      <span class="label label-success">{{ o.versions|to_array|keys|join(', ') }}</span>&nbsp;
-                      {% elseif o.tags is defined and o.tags.version is defined %}
-                      <span class="label label-success">{{ o.tags.version|replace({',': ', '}) }}</span>
-                      {% endif %}
+                    {% if o.tags.format is defined %}
+                    <span class="label label-important">{{ o.tags.format }}</span><br/>
+                    {% endif %}
+                    {% if o.tags.device is defined %}
+                    <span class="label label-info">{{ o.tags.device|replace({',': ', '}) }}</span>
+                    {% endif %}
+                    {% endif %}
+                  </td>
+                </tr>
+                <tr>
+                  <td  data-acces="{{ o_access.name }}">
+                   {% if o_access.name in ['Live', 'TV'] %}
+                   <span class="big"><time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time></span>
+                   {% else %}
+                   <span class="big">{{ o_access.name|replace({' iTunes': ''}) }}</span>
 
-                      {% if o.tags is defined and o.tags|length %}
-                      {% if o.tags.HD is defined %}
-                      <span class="label label-important">HD</span><br/>
-                      {% endif %}
-                      {% if o.tags.format is defined %}
-                      <span class="label label-important">{{ o.tags.format }}</span><br/>
-                      {% endif %}
-                      {% if o.tags.device is defined %}
-                      <span class="label label-info">{{ o.tags.device|replace({',': ', '}) }}</span>
-                      {% endif %}
-                      {% endif %}
-                    </td>
-                  </tr>
-                  {% endfor %}
-                  {% endif %}
-                </tbody>
-              </table>
-            </div>
-            {% endif %}
-          </div>
-        </div>
-        {% endfor %}
-        {# bonus #}
-        {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
-        <div id="carousel-bonus" class="tab-pane">
-          <div class="carousel slide">
-            <div class="carousel-inner">
-              {% for b in program.offers['bonus'] %}
-              <div class="item active"><a data-play="{{ b.id }}" data-program="{{ {'title': b.title}|json_encode }}" class="pull-left"><img class="img-polaroid" alt="{{ b.title }} bonus" src="{{ b.picture }}"><div class="title">{{ b.title }}</div></a></div>
-              {% endfor %}
-            </div>
 
-          </div>
+                   {% endif %}
+                 </td> 
+                 <td></td><td></td><td></td>
+               </tr>
+               {% endfor %}
+               {% endif %}
+             </tbody>
+           </table>
+         </div>
+         {% endif %}
+       </div>
+     </div>
+     {% endfor %}
+     {# bonus #}
+     {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
+     <div id="carousel-bonus" class="tab-pane">
+      <div class="carousel slide">
+        <div class="carousel-inner">
+          {% for b in program.offers['bonus'] %}
+          <div class="item active"><a data-play="{{ b.id }}" data-program="{{ {'title': b.title}|json_encode }}" class="pull-left"><img class="img-polaroid" alt="{{ b.title }} bonus" src="{{ b.picture }}"><div class="title">{{ b.title }}</div></a></div>
+          {% endfor %}
         </div>
-        {% endif %}
-        {# youtube #}
-        <div id="carousel-youtube" class="carousel-youtube tab-pane" data-more-streaming="{{ program.id }}">
-          <div class="carousel slide">
-            <div class="carousel-inner"></div>
-            <a class="carousel-control left" href="#carousel-youtube" data-slide="prev">&lsaquo;</a>
-            <a class="carousel-control right" href="#carousel-youtube" data-slide="next">&rsaquo;</a>
-          </div>
-        </div>
+
       </div>
-   </div>
-
-    <div class="col-lg-3 ">
-      <div >
-        <span class="ms-vid-type">2012 - 85mn</span>
-        <span class="ms-cat-title">Cat&eacute;gorie:</span> 
-        <span class="ms-cat-element" ><a href="#">Documentaire</a></span> 
-        <span class="ms-cat-element" ><a href="#">Science</a></span> 
-        <span class="ms-cat-element" ><a href="#">les inconnus</a></span>
-        <p>Etat des lieux de la situation des pays en cas de &laquo;m&eacute;gas&eacute;isme&raquo;. Apr&egrave;s le s&eacute;isme de magnitude 9 et le tsunami provoquant la catastrophe nucl&eacute;aire de Fukushima au Japon le 11 mars 2011, la communaut&eacute; scientifique dresse le bilan de toutes ses connaissances pour analyser le ph&eacute;nom&egrave;ne des &laquo;m&eacute;gas&eacute;ismes&raquo;. 
-          <br><a href="#">En savoir plus...</a>
-        </p>
-      </div> 
-      <span class="ms-cat-title">Cette vid&#233;o fait parti des fanpages</span>
-      <span class="ms-cat-element" ><a href="#">Documentaire</a></span>
     </div>
-
+    {% endif %}
+    {# youtube #}
+    <div id="carousel-youtube" class="carousel-youtube tab-pane" data-more-streaming="{{ program.id }}">
+      <div class="carousel slide">
+        <div class="carousel-inner"></div>
+        <a class="carousel-control left" href="#carousel-youtube" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#carousel-youtube" data-slide="next">&rsaquo;</a>
+      </div>
+    </div>
   </div>
+</div>
+
+<div class="col-lg-3 ">
+  <div >
+    <span class="ms-vid-type">2012 - 85mn</span>
+    <span class="ms-cat-title">Cat&eacute;gorie:</span> 
+    <span class="ms-cat-element" ><a href="#">Documentaire</a></span> 
+    <span class="ms-cat-element" ><a href="#">Science</a></span> 
+    <span class="ms-cat-element" ><a href="#">les inconnus</a></span>
+    <p>Etat des lieux de la situation des pays en cas de &laquo;m&eacute;gas&eacute;isme&raquo;. Apr&egrave;s le s&eacute;isme de magnitude 9 et le tsunami provoquant la catastrophe nucl&eacute;aire de Fukushima au Japon le 11 mars 2011, la communaut&eacute; scientifique dresse le bilan de toutes ses connaissances pour analyser le ph&eacute;nom&egrave;ne des &laquo;m&eacute;gas&eacute;ismes&raquo;. 
+      <br><a href="#">En savoir plus...</a>
+    </p>
+  </div> 
+  <span class="ms-cat-title">Cette vid&#233;o fait parti des fanpages</span>
+  <span class="ms-cat-element" ><a href="#">Documentaire</a></span>
+</div>
+
+</div>
 
 
 <div class="row">
 
-        {% for r in program.related if r.programs is defined and r.programs|length %}
-          {% if r.name == 'same_actors' and program.casting %}
+  {% for r in program.related if r.programs is defined and r.programs|length %}
+  {% if r.name == 'same_actors' and program.casting %}
             {#
               <div class="person-list">
             {% for pers in program.casting|slice(0,10) %}
@@ -359,7 +357,7 @@
             </div>
             #}
             {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true, loop_index: loop.index} %}
-          {% elseif r.name == 'same_director' and program.director %}
+            {% elseif r.name == 'same_director' and program.director %}
             
             {#
               <div class="person-list">
@@ -369,18 +367,18 @@
             </div>
             #}
             {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true,loop_index: loop.index} %}
-          {% elseif r.name == 'chaines' %}
+            {% elseif r.name == 'chaines' %}
             {% if (program.related.channels is defined and program.related.channels.programs is defined and program.related.channels.programs|length > 1) %}
-             <a data-track-channel="{{ r.name }}" name="{{ r.name }}"></a>
+            <a data-track-channel="{{ r.name }}" name="{{ r.name }}"></a>
             {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r,loop_index: loop.index} %}
             {% endif %}
-          {% else %}
+            {% else %}
             {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, loop_index: loop.index} %}
-          {% endif %}
-        {% endfor %}
-        </div>
+            {% endif %}
+            {% endfor %}
+          </div>
 
-        
-        
-      </section>
-{% endblock %}
+
+
+        </section>
+        {% endblock %}
