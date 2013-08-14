@@ -18,7 +18,7 @@
     and slider.id is defined  and slider.id != 3772205
     #}
 
-  {% for p in slider.programs %}
+  {% for p in slider.programs|to_array %}
   <div class="item pointer{% if loop.first %} active{% endif %}">
     <a href="{{ base_url }}{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}" class="mask {{ 'Slider1500' in p.sliderPicture is defined and p.sliderPicture ? 'mask-1500' : 'mask-990' }}" style="background-image: url({% if p.sliderPicture is defined %}{{ force_size is defined ? p.sliderPicture|replace({'/990': force_size }) : p.sliderPicture }}{% else %}{{ p.picture }}{% endif %});"></a>
     <div class="container">
@@ -27,7 +27,7 @@
       <a class="pull-left btn btn-large btn-primary fav fav-like" data-placement="right"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
       {% endif %}
       <h4><a href="{{ base_url }}{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">{{ p.title }}</a></h4>
-      <p class="pull-left">{{ p.format }}{% if p.duration %}, {{ p.duration }}mn{% endif %}</p>
+      <p class="pull-left">{{ p.format ? p.format.name : '' }}{% if p.duration %}, {{ p.duration }}mn{% endif %}</p>
       {% if p.pitch is defined and p.pitch %}
       <p class="clear">{{ p.pitch }}</p>
       {% endif %}
