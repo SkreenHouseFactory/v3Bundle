@@ -1,13 +1,41 @@
-{% if p.maxsize != null %}
-{% if loop_index is divisibleby(4) or loop_index == 1 %}
-  <div class="support4">
-    <div class="tv-component actions hasvod-{{ p.has_vod }} image4 root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background:url({{ p.picture | replace({"/150/200/":"/297/400/"}) }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}></div>
-    <div class="info_vignette size-4"> Série | 24min </div>
-  </div>
+{% if app.environment == 'prod' %}
+{% set base_url = 'preprod' not in app.request.httpHost  ? 'http://www.myskreen.com' : '' %}
 {% else %}
-    <div class="support1">
-      <div class="tv-component actions hasvod-{{ p.has_vod }} image1 root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background:url({{ p.picture | replace({"/150/200/":"/135/180/"}) }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}></div>
-      <div class="info_vignette size-1"> Série | 24min </div>
+{% set base_url = '/app_dev.php' %}
+{% endif %}
+{% if p is not defined or p.title is not defined %}
+{% set p = {title:'%title%',
+            id:'%id%',
+            picture:'',
+            onglet:'%onglet%',
+            seo_url:'',
+            root_id:'',
+            has_vod:'%has_vod%',
+            best_offer:'',
+            deporte:''} %}
+{% endif %}
+{% if ' - ' in p.title %}
+  {% set tmp = p.title|split(' - ') %}
+  {% set p_title = tmp[1] ~ ' / ' ~ tmp[0] %}
+{% else %}
+  {% set p_title = p.title %}
+{% endif %}
+
+{% if (loop_index is divisibleby(3) or loop_index == 0 )%}
+{% set support = 'support4'%}
+{% set image = 'image4'%}
+{% set taille_img= '/297/400/' %}
+{% else%}
+{% set support = 'support1'%}
+{% set image = 'image1'%}
+{% set taille_img= '/135/180/' %}
+{% endif %}
+  <div class="{{support}}">
+    <div class="tv-component actions hasvod-{{ p.has_vod }} {{image}} root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background:url({{ p.picture | replace({"/150/200/": taille_img }) }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
+      <div class="wrap-title">
+  <a {% if p.seo_url %}href="{{ base_url }}{{ p.seo_url }}{{ theater_id is defined and theater_id > 0 ? '?theater_id=' ~ theater_id : '' }}"{% endif %} target="_top" class="title"><i class="icon-th icon-white"></i> {{ p_title }}</a>
     </div>
-{% endif %}
-{% endif %}
+  </div>
+  <div class="info_vignette size-4"> Série | 24min </div>
+  </div>
+

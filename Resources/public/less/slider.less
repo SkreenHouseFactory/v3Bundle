@@ -10,113 +10,165 @@
 @selectorBorder:  1px solid #BBBBBB;
 @vignetteBorderEmpty:  1px dashed #BBBBBB;
 @vignetteMargin:  0 12px 0 0;
+.new-slider{
+  .col-lg-6{
+    margin-bottom: 30px;
+  }
+  .suggestion{
+  	background: #f3eeee;
+  	padding-left: 10px;
+  }
+  .suggestion span{
+  	font-size: 14px;
+  	font-family: Arial, "Helvetica Neue", Helvetica,sans-serif;
+  	text-transform: uppercase;
+  	color:#595959;
 
+  }
 
-.support4{
-  float:left;
-  height: 440px;
-  width: 66.66666666666666666666%;
-}
-.support2{
-  float:left;
-  height: 220px;
-  width: 66.66666666666666666666%;
-}
-.support1{
-  float:left;
-  height: 220px;
-  width: 33.33333333333333333333%;
+  .suggestion button{
+  	margin-right: 10px;
+  	float: right;
 
-}
-.image4{
-  margin: auto;
-  height: 400px;
-  width: 297px;
-  background-color: black;
-}
-.image2{
-  margin: auto;
-  height: 180px;
-  width: 297px;
-  background-color: black;
-}
-.image1{
-  margin: auto;
-  height: 180px;
-  width: 135px;
-  background-color: black;
-}
-.info_vignette{
-  color: grey;
-  font-size: 0.9em;
-}
-.info_vignette.size-4{
-  width: 297px;
-  margin:auto;
-}
-.info_vignette.size-1{
-  width: 135px;
-  margin:auto;
-}
-.info_vignette.size-2{
-  width: 297px;
-  margin:auto;
-}
-.carousel{
-  background: #f3eeee;
-}
-.carousel-indicators {
-  margin-left: 0%;
-  bottom: -10px;
-}
-.wrap-carousel-control{
-  position: relative;
-  left: 313px;
-  height: 40px;
-  width: 200px;
-}
-.carousel-control{
-  color: black;
-}
-.carousel-inner{
-  height: 480px;
-}
-.carousel-control.left{
-  position: absolute;
-  background: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 23px;
-  border: 1px solid grey;
-  top: 10px;
-}
-.carousel-control.right{
-  background: none;
-  right: 55px;
-  width: 30px;
-  height: 30px;
-  border-radius: 23px;
-  border: 1px solid grey;
-  top: 10px;
-}
-.carousel-control .icon-next,.carousel-control .icon-prev{
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  margin-top: 0;
-  margin-left: 0;
-  font-size: 30px;
-  top: -8px;
-  left: 0px;
-}
-.carousel-indicators li {
-  background-color: #999;
-  background-color: rgba(70,70,70,.25);
-  border: 1px solid grey;
-}
+  }
+  .wrap-title{
+    position: absolute;
+    opacity:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    -webkit-transition: background 0.7s ease;
+    -moz-transition: background 0.7s ease;
+    -ms-transition: background 0.7s ease;
+    -o-transition: background 0.7s ease;
+    transition: background 0.7s ease;
+  }
+  .wrap-title:hover{
+    position: absolute;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+  }
+  a.title{
+    display: block;
+    text-align: center;
+    padding-top: 60%;
+    width: 100%;
+    height: 100%;
+    color: white;
+    text-shadow: 1px 1px 1px #000000;
+    filter: dropshadow(color=#000000, offx=1, offy=1);
+  }
+  .support4{
+    float:left;
+    height: 440px;
+    width: 66.66666666666666666666%;
+  }
+  .support2{
+    float:left;
+    height: 220px;
+    width: 66.66666666666666666666%;
+  }
+  .support1{
+    float:left;
+    height: 220px;
+    width: 33.33333333333333333333%;
 
-.carousel-indicators .active {
-  background-color: #444;
+  }
+  .image4{
+    position: relative;
+    margin: auto;
+    height: 400px;
+    width: 297px;
+    background-color: black;
+  }
+  .image2{
+    position: relative;
+    margin: auto;
+    height: 180px;
+    width: 297px;
+    background-color: black;
+  }
+  .image1{
+    position: relative;
+    margin: auto;
+    height: 180px;
+    width: 135px;
+    background-color: black;
+  }
+  .info_vignette{
+    color: grey;
+    font-size: 0.9em;
+  }
+  .info_vignette.size-4{
+    width: 297px;
+    margin:auto;
+  }
+  .info_vignette.size-1{
+    width: 135px;
+    margin:auto;
+  }
+  .info_vignette.size-2{
+    width: 297px;
+    margin:auto;
+  }
+  .carousel{
+    background: #f3eeee;
+  }
+  .carousel-indicators {
+    margin-left: 0%;
+    bottom: -10px;
+  }
+  .wrap-carousel-control{
+    position: relative;
+    left: 313px;
+    height: 40px;
+    width: 200px;
+  }
+  .carousel-control{
+    color: black;
+  }
+  .carousel-inner{
+    height: 440px;
+  }
+  .carousel-control.left{
+    position: absolute;
+    background: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 23px;
+    border: 1px solid grey;
+    top: 10px;
+  }
+  .carousel-control.right{
+    background: none;
+    right: 55px;
+    width: 30px;
+    height: 30px;
+    border-radius: 23px;
+    border: 1px solid grey;
+    top: 10px;
+  }
+  .carousel-control .icon-next,.carousel-control .icon-prev{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    margin-top: 0;
+    margin-left: 0;
+    font-size: 30px;
+    top: -8px;
+    left: 0px;
+  }
+  .carousel-indicators li {
+    background-color: #999;
+    background-color: rgba(70,70,70,.25);
+    border: 1px solid grey;
+  }
+
+  .carousel-indicators .active {
+    background-color: #444;
+  }
 }
 
 
