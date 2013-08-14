@@ -1,16 +1,16 @@
 <header class="navbar navbar-fixed-top bs-docs-nav">
   <div class="container">
-    <img src="img/logo.png" alt="mySkreen" id="logo">
+    <a href="{{ path('homes', {home: ''}) }}"><img src="img/logo.png" alt="mySkreen" id="logo"></a>
     <ul class="nav navbar-nav">
-      <li><a href="#">TV &amp; Replay</a></li>
+      <li><a href="{{ path('tvgrid') }}">TV &amp; Replay</a></li>
       <li><a href="#">WEB TV</a></li>
-      <li><a href="#">VOD</a></li>
-      <li><a href="#">En salles</a></li>
+      <li><a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">VOD</a></li>
+      <li><a href="{{ path('homes', {home: 'cinema'}) }}">En salles</a></li>
     </ul>
 
     <form id="nav-search" class="navbar-search">
           <i class="glyphicon glyphicon-search" style="display:inline-block; margin-left:15px;"></i>
-          <input type="text" value="" class="search-query pull-left searchbutton" placeholder="Un programme, un acteur, un cinÃ©ma">
+          <input type="text"  value="{{ app.request.get('q') }}" placeholder="{{ 'search.pitch'|trans }}" class="search-query pull-left searchbutton">
           <div class=" hide mini-loading mini-bar"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div>
       </form>

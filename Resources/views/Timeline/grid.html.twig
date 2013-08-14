@@ -17,7 +17,7 @@
     <a class="btn" data-filter="series">Séries</a>
     <a class="btn" data-filter="spectacles">Spectacles</a>
   </div>
-  {% for slider in data.sliders %}
+  {% for slider in data.sliders|to_array %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
   {% endfor %}
   <hr/>
@@ -32,13 +32,9 @@
     <li class="datepicker"><a class="calendar btn"><i class="icon-calendar"></i></a></li>
     <li >
       <select id="opt-hour" class="btn hourpicker" data-current-hour="{{date[1]|date('H')}}">
-     
         {% for h in range(0, 23) %}
         <option value="{{h}}" {%if h==date[1]|date('H') %} selected{% endif %}>{{h}}h00</option>
         {% endfor %}
-        
-      
-      
       </select>
     </li>
     <li class="pull-right addchannel">

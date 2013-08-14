@@ -168,7 +168,7 @@ class ContentController extends Controller
       if (isset($data->error) && $data->error) {
         throw $this->createNotFoundException('Selection does not exist');
       }
-
+      $data->programs = (array)$data->programs;
       $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) ? $data->programs[0]->picture : null);
 
       if ($request->get('partner')) {

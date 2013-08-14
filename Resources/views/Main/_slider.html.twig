@@ -13,7 +13,7 @@
     <div class="loader static alert alert-info hide">{{ 'loading'|trans }}...</div>
     <ul class="items{% if addClass is defined %} {{ addClass }}{% endif %}">
       {% if slider.programs is defined %}
-      {% for program in slider.programs %}
+      {% for program in slider.programs|to_array %}
       {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
       {% endfor %}
       {% endif %}
