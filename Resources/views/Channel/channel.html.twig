@@ -15,6 +15,7 @@
 <meta name="object_type" content="channel" />
 {% endblock %}
 
+
 {% block title %}
 {% if data.channel.fournisseur is defined and data.channel.fournisseur.type == 'broadcast' %}
 {{ channel.title }}: REPLAY & DIRECT en STREAMING en 1 Clic GRATUIT 100% Légal
@@ -23,8 +24,14 @@
 {% endif %}
 {% endblock %}
 
+{% block description %}
+{% if data.channel.fournisseur is defined and data.channel.fournisseur.type == 'broadcast' %}
+Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la TNT en Replay et en Direct Live GRATUITEMENT et en 1 clic !
+{% else %}
+{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}
+{% endif %}
+{% endblock %}
 
-{% block description %}Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la TNT en Replay et en Direct Live GRATUITEMENT et en 1 clic !{% endblock %}
 
 {% block body_class %}view-channel cover{% endblock %}
 {% block body_background %}
@@ -39,7 +46,7 @@
 {% if channel.type == 'ChannelFournisseur' or data.channel.fournisseur is defined %}
   {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_fournisseur.html.twig' with { data: data.channel.fournisseur, sliders: data.sliders, channel: data.channel } %}
 {% elseif channel.type == 'ChannelOnglet' %}
-  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_onglet.html.twig' with {data:data , channel: channel,custom_header:custom_header} %}
+  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_onglet.html.twig' with {data:data, from_selection: from_selection, channel: channel, custom_header: custom_header} %}
 {% elseif channel.type == 'ChannelPersonne' %}
   {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_personne.html.twig' with {data:data} %}
 {% elseif channel.type == 'ChannelMyskreener' %}

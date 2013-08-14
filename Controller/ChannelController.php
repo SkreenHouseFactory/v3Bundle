@@ -102,13 +102,22 @@ class ChannelController extends Controller
       return $this->redirect($data->seo_url, 301);
     }
 
+    //Si channel mais facet => view fournisseur
+    if (property_exists($data, 'channel') && 
+        ($request->get('format')  || $request->get('facet'))) {
+      $data = $data->channel->fournisseur;
+      $data->description = null;
+    }
+
     // Si on est une une page sk_channel, on redirige vers le twig correct
     if (property_exists($data, 'channel')) {
       $custom_header = false;
+      $from_selection = false;
       if ( $this->get('templating')->exists('SkreenHouseFactoryV3Bundle:Channel:_header-'.$data->channel->id.'.html.twig')){
         $custom_header = true;
       }
       $params = array(
+        'from_selection'=> $from_selection,
         'data' => $data,
         'channel' => $data->channel,
         'custom_header' => $custom_header
@@ -133,7 +142,7 @@ class ChannelController extends Controller
         // Alias du channel fourni
         return $this->redirect('/' . $data->channel->slug, 301);
       }
-    }else {
+    } else {
       
       $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) ? $data->programs[0]->picture : null);
       //$template = isset($data->epg) && $data->epg ? 'channel-replay' : 'channel';
@@ -160,7 +169,7 @@ class ChannelController extends Controller
     return $response;
   }
   // channel PBLV
-  public function header28Action($data,$channel,$fav,$trigger_fav){
+  public function header28Action($data,$from_selection,$channel,$fav,$trigger_fav){
       $api   = $this->get('api');
       $params = array(
          'with_player' => true,
@@ -168,24 +177,34 @@ class ChannelController extends Controller
          //'offers_type'=> 'plays'
        );
       $program = $api->fetch('program/3517970', $params);
+      //echo $api->url;
       $play = null;
-    
+      
       foreach( $program->offers->plays as $play){
         if( isset($play->deporte) && isset($play->cost) && $play->deporte && $play->cost){
           break;
         }
       }
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-28.html.twig', array(
-          'episode_id'=> $play->episode_id,
-          'data' => $data,
-          'fav' => $fav,
-          'trigger_fav'=> $trigger_fav,
-            'channel'=> $channel
-        ));
-          
-            return $response; 
+
+      foreach( $program->datas_offers->episodes as $episode) {
+        if( isset($episode->title) && $episode->id == $play->episode_id ){
+          break;
+        }
       }
-  public function header35Action($data,$channel,$fav,$trigger_fav){
+      
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-28.html.twig', array(
+        'play' => $play,
+        'episode' => $episode,
+        'data' => $data,
+        'fav' => $fav,
+        'trigger_fav'=> $trigger_fav,
+        'channel'=> $channel,
+        'from_selection' => $from_selection
+      ));
+
+      return $response; 
+  }
+  public function header35Action($data,$from_selection,$channel,$fav,$trigger_fav){
      /* $api   = $this->get('api');
       $params = array(
          'with_player' => true,
@@ -206,12 +225,13 @@ class ChannelController extends Controller
           'data' => $data,
           'fav' => $fav,
           'trigger_fav'=> $trigger_fav,
-            'channel'=> $channel
+            'channel'=> $channel,
+            'from_selection' => $from_selection
         ));
       
             return $response; 
       }
-  
+    
  
   protected function buildFacets(Request $request) {
     //echo '$facet:'.$request->get('facet');

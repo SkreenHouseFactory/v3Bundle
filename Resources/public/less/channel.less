@@ -31,13 +31,6 @@ body.view-channel:not(.view-ajax) {
 
 body.view-channel, body.view-channel-selections {
   #main {
-    #view-page.channel28 {
-      margin-top: 70px;
-    }
-    #view-page.channel35 {
-      margin-top: 123px;
-      
-    }
     #view-page .container {
       background: white;
     }
@@ -46,6 +39,15 @@ body.view-channel, body.view-channel-selections {
       height: 450px;
       margin: 0 auto;
       padding: 0;
+      &.cover42{
+          height: 850px;
+      }
+      &.cover28{
+          height: 550px;
+      }
+      &.cover35{
+         height: 600px;
+      }
       &.cover-fournisseur {
         .header-container {
           .container {
@@ -71,6 +73,10 @@ body.view-channel, body.view-channel-selections {
                 text-align:center;
                 .alert {
                   margin: 10px;
+                }
+                .player-live{
+                  width: 450px;
+                  height: 300px;
                 }
               }
               .slider {
@@ -138,7 +144,6 @@ body.view-channel, body.view-channel-selections {
     }  
   }
 }
-
 /* header */
 .header-container {
   position: relative;
@@ -156,21 +161,27 @@ body.view-channel, body.view-channel-selections {
       .player-wrap{
         position: relative;
         left: 496px;
+        iframe{
+          border: none;
+        }
       }
      }
   }
   &#channel28{
     .info_saison{
+      font-size: 0.9em;
       position: relative;
-      top: 84px;
-      left: 170px;
+      top: 140px;
+      left: 140px;
+      width: 184px;
+      text-align: center;
     }
     .header-content{
       background-color: transparent;
       padding:0;
       top: 55px;
       >h1{
-        top: 30px;
+        top: 65px;
         position: absolute;
         >a{
           color: black;
@@ -182,7 +193,7 @@ body.view-channel, body.view-channel-selections {
         left: 300px;
         width: 690px;
         height: 340px;
-        top: 40px;
+        top: 58px;
         border: 0;
         margin-top: 18px;
         background-color: transparent;
@@ -198,14 +209,16 @@ body.view-channel, body.view-channel-selections {
             font-size: 1.2em;
           }
           .bande{
-            margin-left: 110px;
             position: absolute;
-            top: 310px;
-            text-align: center;
-            height: 20px;
-            width: 300px;
-            background-color: black;
-            color: white;
+            top: 286px;
+            left: 0px;
+            height: 44px;
+            width: 520px;
+            line-height: 17px;
+            font-size: 0.9em;
+            span {
+            font-size: 1.2em;
+            }
           }
           iframe{
             border: 1px solid #999;
@@ -217,8 +230,9 @@ body.view-channel, body.view-channel-selections {
       }
       .btn{
         position: absolute;
-        bottom: -40px;
-        left: 30px;
+        bottom: -82px;
+        left: 0;
+        width: 310px;
       }
       .channel-icon{
       
@@ -336,8 +350,7 @@ body.view-channel, body.view-channel-selections {
     .player-live {
       float: right;
       width: 450px;
-      height: 300px;
-      margin: 10px 0 0 30px;
+      height: 300px
     }
   }
 

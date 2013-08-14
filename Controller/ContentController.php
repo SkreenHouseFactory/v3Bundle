@@ -35,7 +35,15 @@ class ContentController extends Controller
     public function categoryAction(Request $request)
     {
       $this->blockDomain($request);
-//      print_r($request->get('_route'));
+
+      if ($request->get('facet') == $request->get('category_slug')) {
+        return $this->redirect(str_replace($request->get('facet').'/'.$request->get('facet'), $request->get('facet'), $request->getRequestUri()), 301);
+      } elseif ($request->get('access') == 'vod') {
+        return $this->redirect(str_replace('/vod', '/video-a-la-demande', $request->getRequestUri()), 301);
+      } elseif ($request->get('access') == 'liste') {
+        return $this->redirect($this->generateUrl('format', array('category_slug' => $request->get('category_slug'))), 301);
+      }
+
       $is_route_format = in_array($request->get('_route'), array('format', 'format_facet', 'format_page')) ? true : false;
       $api   = $this->get('api');
       $data = $api->fetch($is_route_format ? 'format' : 'category', array(
@@ -137,8 +145,20 @@ class ContentController extends Controller
       $this->blockDomain($request);
       $api   = $this->get('api');
       $data = $api->fetch('www/slider/pack/'.$request->get('id'), array(
-        'with_programs'  => true,
+        'with_live'  => !$request->get('format') && !$request->get('page') ? true : false,
+        'with_next_live' => !$request->get('format') && !$request->get('page') ? true : false,
+        'with_description'  => true,
+        'channel_img_width' => 120,
+        'img_width' => 150,
+        'img_height' => 200,
+        'live_img_width' => 150,
+        'live_img_height' => 200,
+        'slider_img_width'  => 900,
+        'slider_img_height' => 300,
+        'live_player_width' => 450,
+        'live_player_height' => 300,
         'with_onglet'  => true,
+        'with_programs' => true,
         'img_width' => 150,
         'img_height' => 200
       ));
@@ -156,14 +176,26 @@ class ContentController extends Controller
           'selection' => $data
         ));
       } else {
+          $custom_header = false;
+          $from_selection = true;
+          $is_channel = false;
+          if ( $data->onglet->type == 'page'){
+            $is_channel = true;
+            if ( $this->get('templating')->exists('SkreenHouseFactoryV3Bundle:Channel:_header-'.$data->onglet->channel->id.'.html.twig')){
+              $custom_header = true;
+            }
+          }
+      
         //bad url
-        if ($request->getPathInfo() != $data->seo_url) {
-          //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$data->seo_url . '/';
-          return $this->redirect($data->seo_url, 301);
-        }
-
+          if ($request->getPathInfo() != $data->seo_url) {
+            //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$data->seo_url . '/';
+            return $this->redirect($data->seo_url, 301);
+          }
         $response = $this->render('SkreenHouseFactoryV3Bundle:Content:selection.html.twig', array(
-          'selection' => $data
+              'selection' => $data,
+              'custom_header' => $custom_header,
+              'from_selection'=> $from_selection,
+              'is_channel' => $is_channel
         ));
       }
 

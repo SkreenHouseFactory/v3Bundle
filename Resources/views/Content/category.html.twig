@@ -53,7 +53,7 @@ access:
 	<h1>{{ category.name }}{% if app.request.get('format') %}, {{ app.request.get('format') }}{% endif %}{% if app.request.get('facet') %} : {% if app.request.get('facet')|length > 1 and subcategories[app.request.get('facet')] is defined %}{{ subcategories[app.request.get('facet')] }}{% else %}{{ app.request.get('access')|replace({'video-a-la-demande': 'VOD'}) }}{% endif %}{% endif %}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
 
 	<div class="view-main view-category-main">
-		<p class="category-description">{{ category.description|raw }}</p>
+		<div class="category-description">{{ category.description|raw }}</div>
 	</div>
 
 
@@ -75,9 +75,14 @@ access:
   {% endif %}
 
 	{# facets #}
-  {% set facet_access = {'video-a-la-demande': 'Vidéo à la demande', 'replay': 'Replay', 'tv': 'TV', 'cinema': 'Cinéma', 'dvd': 'Dvd, Blu-Ray'} %}
+  {% set facet_access = {
+    'video-a-la-demande': 'Vidéo à la demande', 
+    'replay': 'Replay', 
+    'tv': 'TV', 
+    'cinema': 'Cinéma', 
+    'dvd': 'Dvd, Blu-Ray'} %}
 	<div class="facets">
-  {% if app.request.get('category_slug') is null and categories|length > 1 %}
+  {% if 'format' in app.request.get('_route') and categories|length > 1 %}
   	{% for k,s in categories %}
   		<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'}) }}" class="label{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a>
   	{% endfor %}
@@ -151,9 +156,9 @@ access:
       {% for k,a in access if a|replace({'vod': 'video-a-la-demande'}) in facet_access|keys %}
       <li>
         {% if app.request.get('category_slug') and app.request.get('format') %}
-        <a href="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a }) }}">
+        <a href="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'}) }}">
         {% elseif app.request.get('category_slug') %}
-        <a href="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a }) }}">
+        <a href="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'}) }}">
         {% endif %}
         {{ facet_access[a|replace({'vod': 'video-a-la-demande'})] }}</a></li>
       {% endfor %}

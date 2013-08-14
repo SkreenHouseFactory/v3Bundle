@@ -145,7 +145,7 @@
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/playlists.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/cinema.js'
-
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/skin.js'
     
     filter='?yui_js' 
     output='js/compiled/v3.js'  %}
@@ -159,8 +159,8 @@
   {% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' with {tag: 'UA-6151896-14'} %}
   {% include 'SkreenHouseFactoryV3Bundle::_chartbeat.html.twig' %}
   <script type="text/javascript">
-    ga('create', 'UA-6151896-8', 'myskreen.com');
-    ga('send', 'pageview');
+    _gaq.push(['_setAccount', 'UA-6151896-8']);
+    _gaq.push(['_trackPageview']);
   </script>
 {% endif %}
 {% endspaceless %}

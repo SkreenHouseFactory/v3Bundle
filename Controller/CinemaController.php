@@ -68,7 +68,8 @@ class CinemaController extends Controller
           'program_id' => $request->get('id'),
           'theater_ids' => count(explode(',', $request->get('theater_ids'))) < 10 ?  $request->get('theater_ids') : null,
           'with_schedule' => true,
-          'q' => $request->get('q')
+          'q' => $request->get('q'),
+            'with_versions'=> true
         ));
       } elseif ($request->get('latlng')) {
         list ($lat, $lng) = explode(',', $request->get('latlng'));
@@ -81,7 +82,8 @@ class CinemaController extends Controller
             'fromGeoloc' => true,
             'lat' => $lat,
             'long' => $lng,
-  			    'radius' => $radius
+  			    'radius' => $radius,
+            'with_versions'=> true
           ));
           if (count($cinemas) > 0) {
             break;

@@ -25,6 +25,7 @@
 </head>
 <body>
 {% endif %}
+<div class="body_background" data-refresh-bodybackground="{% block body_background %} {% endblock %}" data-refresh-bodyclass="{% block body_class %} {% endblock %}"></div>
 {% block content %}
 {% endblock %}
 {% if app.request.isXmlHttpRequest %}

@@ -126,7 +126,7 @@ class ProgramController extends Controller
         ));
 
         //print("<pre>");print_r($data);
-       // echo $api->url;exit();
+        // echo $api->url;
         if ($this->get('kernel')->getEnvironment() == 'dev' && 
             $request->get('debug')) {
           echo $api->url;
@@ -281,15 +281,18 @@ class ProgramController extends Controller
 
         $response = $this->render('SkreenHouseFactoryV3Bundle:Program:program.html.twig', array(
           'program' => $data,
-          'offers' => array(//'deportes' => 'sur mySkreen', 
-                            'plays' => 'Replay & VOD', 
-                            'broadcasts' => 'Télé', 
-                            'itunes' => 'iTunes', 
-                            'boxs' => 'Box',
-                            'dvds' => 'DVD', 
-                            'theaters' => 'Ciné',  
-                            'cuts' => 'Extraits', 
-                            'archives' => 'Archives')
+          'offers' => array(
+            //'deportes' => 'sur mySkreen', 
+            'plays' => 'Replay & VOD', 
+            'broadcasts' => 'Télé', 
+            'itunes' => 'iTunes', 
+            'boxs' => 'Box',
+            'dvds' => 'DVD', 
+            'theaters' => 'Ciné',  
+            'cuts' => 'Extraits', 
+            'archives' => 'Archives'
+          ),
+          'player_host' => $api->host
         ));
       }
 

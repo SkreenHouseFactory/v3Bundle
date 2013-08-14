@@ -132,22 +132,33 @@ UiView = {
     }
   },
   initHistory: function(){
-
+    self = this;
     $(window).bind('popstate', function(e) {
       console.log('UiView.initHistory', 'popstate', e.originalEvent.state);
       if (e.originalEvent.state) {
         $('#content').load(window.location.pathname + '?xhr=1', function() {
-          if (e.originalEvent.state.cover) {
-            $('body').removeClass('no-cover').addClass('cover');
-          } else {
-            $('body').removeClass('cover').addClass('no-cover');
-          }
-        $('body').css('background',e.originalEvent.state.back_ground);
+           self.refreshAjax();
+           Skin.initHome();
         });
       }
     });
   },
+  refreshAjax: function(){
+    console.log('refreshAjax()')
+    if ($('a.background')) {
+       $('a.background').remove();
+    }
+    if ($('.body_background')) { 
+      $('body').removeClass();
+      body_background = $('.body_background').data('refresh-bodybackground');
+      body_class = $('.body_background').data('refresh-bodyclass');
+      $('body').css('background',body_background);
+      $('body').addClass(body_class);
+    
+    }
+  },
   initDataLive: function(elmt) {
+    var self = this;
     console.log('UiView.initDataLive', elmt);
     var elmt = typeof elmt != 'undefined' ? elmt : document;
     // -- modal
@@ -179,18 +190,19 @@ UiView = {
     });
     // -- remote data in html elmt
     $(elmt).on('click', '[data-ajax]', function(e){
-
-      
-      var trigger = $(this);
+    
+      var trigger = $(this); 
+       
       //e.preventDefault();
       console.log('script', '[data-ajax]', $(this).data('ajax'));
-      
+      console.log('History.pushStates');
       if ( history.state == null ) {
-        history.pushState({path: window.location.href ,back_ground: $('body').css('background'), cover: $('body').hasClass('cover')}, document.title, window.location.href);
+        history.pushState({path: window.location.href }, document.title, window.location.href);
       }
-      history.pushState({path: $(this).data('ajax') , back_ground: $('body').css('background'),cover: $('body').hasClass('cover')}, $(this).html(), $(this).data('ajax'));
+      history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
+       
       $('body').css('background','');
-
+      $('body').attr('class','');
       
       
       var trigger = $(this);
@@ -198,11 +210,7 @@ UiView = {
       //add body class to overload view-homes
       $('body').removeClass('view-redirect');
       $('body').addClass('view-ajax');
-      if ($(this).data('ajax').indexOf('view-cover') > 0) {
-        $('body').removeClass('no-cover').addClass('cover');
-      } else {
-        $('body').removeClass('cover').addClass('no-cover');
-      }
+     
       console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
       //load ajax
       $($(this).attr('rel')).empty();
@@ -232,12 +240,15 @@ UiView = {
           }
           API.play(trigger.data('ajax-play'), trigger.data('play-args'));
         }
+        self.refreshAjax();
       });
+     // history.pushState({path: $(this).data('ajax'), body_class:$('body').attr('class'), back_ground: $('body').css('background'),cover: $('body').hasClass('cover')}, $(this).html(), $(this).data('ajax'));
+      
       //HACK notifications
       if ($(this).parents('li.open:first').length) {
         $(this).parents('li.open:first').removeClass('open');
       }
-
+      
       document.title = 'programmes, TV, replay | mySkreen.com';
       return false;
     });

@@ -14,10 +14,10 @@
     <ul>
       {% for svod in svods %}
         {% if loop.index > 1 %}<hr/>{% endif %}
-        <a data-code="{{ svod.code }}" class="btn btn-danger pull-right"><i class="icon-remove-sign icon-white"></i> Mettre fin à cet abonnement</a>
-        <b>{{ svod.pass.name }}</b>
-        <br/>{{ svod.pass.description }}
-        <br/><i>Prochain prélèvement le {{ svod.perempted_at|date('d-m-Y') }}</i>
+        <a data-unsubscribe-pass="{{ svod.id }}" class="btn btn-danger pull-right"><i class="icon-remove-sign icon-white"></i> Mettre fin à cet abonnement</a>
+        <b>{{ svod.name }}</b>
+        <br/>{{ svod.description }}
+        <br/><i>Prochain prélèvement le {{ svod.pass.perempted_at|date('d-m-Y') }}</i>
       {% endfor %}
     </ul>
   {% else %}
@@ -43,4 +43,14 @@
 	</div>
   #}
 </div>
+{% endblock %}
+
+{% block pagescripts %}
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-vod.js'
+    
+    filter='?yui_js' 
+    output='js/compiled/pages/user-vod.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 {% endblock %}

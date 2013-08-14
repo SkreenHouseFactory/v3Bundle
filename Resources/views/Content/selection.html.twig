@@ -16,15 +16,37 @@
 {% endblock %}
 {% block title %}{{ selection.name|striptags }}{% endblock %}
 {% block description %}{{ selection.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+{#
 {% block body_class %}{% if selection.onglet.type == 'page' %}view-channel view-channel-selection cover{% endif %}{% endblock %}
 
+
+{% block body_background %}
+{% if is_channel == true %}
+  {% if selection.onglet.channel.cover %}url('{{ selection.onglet.channel.fournisseur is defined ? selection.onglet.channel.cover|replace({'/1500/450/c': ''}) : selection.onglet.channel.cover }}') top center no-repeat{% endif %}
+  {% endif %}
+{% endblock %}
+
+#}
+
 {% block content %}
-{% if selection.onglet.type == 'page' %}
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {channel: selection.onglet.channel, data: selection.onglet, fav: 'page'} %}
+{# 
+{% if is_channel == true %}
+  {% if custom_header %}
+    {% render 'SkreenHouseFactoryV3Bundle:Channel:header'~ selection.onglet.channel.id with {channel: selection.onglet.channel, from_selection : from_selection ,  data: selection.onglet, fav: 'page',trigger_fav: 
+channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
+  {% else %}
+    {% if selection.onglet.channel.fournisseur is defined %}
+      {% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: selection.onglet.channel , fournisseur: selection.onglet.channel.fournisseur, from_selection : from_selection } %}
+    {% else%}
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {channel: selection.onglet.channel, data: selection.onglet, from_selection : from_selection ,fav: 'page'} %}
+    {% endif%}
+
+  {% endif %}
 {% endif %}
+#}
 <div id="view-selection" class="container">
   {% if selection.onglet.type != 'page' %}
-  <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ selection.seo_url, text: selection.name ~ ' sur mySkreen' } %}</div>
+  <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ selection.seo_url, text: selection.name ~ ' sur mySkreen' } %}</div><br>
   {% else %}
     <ul class="breadcrumb">
       <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: selection.onglet.channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ selection.onglet.channel.title }}</span></a> <span class="divider">/</span></li>
@@ -33,8 +55,6 @@
   {% endif %}
 
   <h1>{{ selection.name|raw }}</h1>
-  <div class="clear">{{ selection.description|raw }}</div>
-
   <div id="selection-related">
   {#<a class="btn btn-large btn-inverse btn-block trigger-tv" href="#" data-couchmode="{{ {'type': 'pack', 'id': selection.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
   <br/>
@@ -52,5 +72,7 @@
     {% endfor %}
     </ul>
   </div>
+  <div class="clear">{{ selection.description|raw }}</div>
+  
 </div>
 {% endblock %}

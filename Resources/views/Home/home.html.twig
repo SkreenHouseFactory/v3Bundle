@@ -30,7 +30,7 @@
 {% endblock %}
 {% block title %}{{ page_title|trans }}{% endblock %}
 {% block description %}{{ page_description|trans }}{% endblock %}
-{% block body_class %}view-homes home{{ home.name != 'mixte' ? '-' ~ home.name : '' }} cover{% endblock %}
+{% block body_class %}view-homes home{{ home.name != 'mixte' ? '-' ~ home.name : '' }} skin cover{% endblock %}
 
 {% block header_filters %}
 {% if home.filters|length %}
@@ -70,9 +70,9 @@
     <hr/>
     <h2>mySkreen est un guide de programmes innovant qui réunit sur un seul site toutes les chaînes de télévision, tout le replay, tous les catalogues de VOD, le cinéma avec les horaires et les salles, et les web séries produites par les meilleurs sites médias. Suivez les programmes que vous aimez et soyez avertis à chaque diffusion ou nouvelle offre en streaming. Grâce à mySkreen, reprenez le pouvoir : mySkreen c’est votre télé à la carte et à la demande.</h2>
     <strong class="pull-left">Par média :&nbsp;&nbsp;&nbsp;</strong>
-    <h3><a href="/programme-tv">Tv & Replay</a></h3>
-    <h3><a href="/video-a-la-demande">Vidéo à la demande</a></h3>
-    <h3><a href="/cinema">Cinéma</a></h3>
+    <h3><a href="/programme-tv/">Tv & Replay</a></h3>
+    <h3><a href="/video-a-la-demande/">Vidéo à la demande</a></h3>
+    <h3><a href="/cinema/">Cinéma</a></h3>
     <div class="clear"></div>
     <strong class="pull-left">Par type de programme :&nbsp;&nbsp;&nbsp;</strong>
     <h3><a href="/film/liste">Films</a></h3>

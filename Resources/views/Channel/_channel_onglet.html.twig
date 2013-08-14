@@ -1,5 +1,5 @@
 {% if custom_header %}
-{% render 'SkreenHouseFactoryV3Bundle:Channel:header'~ channel.id with {data:data,channel: channel, fav: 'page', trigger_fav: 
+{% render 'SkreenHouseFactoryV3Bundle:Channel:header'~ channel.id with {data:data, from_selection: from_selection, channel: channel, fav: 'page', trigger_fav: 
 channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
 {% else %}
 {% include  'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data:data, fav: 'page', trigger_fav: channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}

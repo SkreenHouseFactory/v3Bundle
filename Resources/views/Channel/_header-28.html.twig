@@ -1,16 +1,16 @@
-<div id="cover">
+<div id="cover" class="cover28 {% if from_selection is defined and from_selection == true %}selection{% endif %}">
   <div id="channel28" class="header-container">
     <div class="header-content">
     <h1 data-channel="{{ channel.title }}"><a href="{{ path('channel', {slug: channel.slug }) }}">{{ channel.title }}</a></h1>
     <div class="info_saison"><strong>En Streaming une semaine <br>avant la diffusion télé! </strong></div>
       <div class="well">
         <div class="actions slider">
-          <span class="text1"><strong>DERNIER EPISODE INEDIT</strong></span><br>
-        <span class="text2"><strong>0,99€</strong> l'épisode ou <strong>3,99€</strong> le Pass Semaine.</span><br>
+          
+          <span class="text2">L'épisode {{ episode.episode_number }} du {{ play.starttime | localizeddate("medium","none",app.session.locale,"Europe/Paris","d MMMM") }} en <strong>avant-première :</strong></span><br>
         <div>
-           <a href="/serie/drames/3517970-plus-belle-la-vie/?rent">
-          <div class="bande">Voir la suite de cet épisode</div></a>
-          <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&noPub=1&program_id={{ episode_id }}&height=260&width=520&channel_header=1" height="260" width="520"></iframe></div>
+           <a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1)}) }}?rent">
+          <div class="bande btn btn-primary">Vous regardez un extrait gratuit. Voir en intégralité :<br><span>0,99€ l'épisode ou 3,99€ le Pass Semaine</span></div></a>
+          <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&noPub=1&program_id={{ episode.id }}&height=240&width=520&channel_header=1" height="240" width="520"></iframe></div>
         </div>
         <div id="countdown"></div>
         <p class="intro" id="note"></p><br>

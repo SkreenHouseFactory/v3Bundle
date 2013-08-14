@@ -213,6 +213,7 @@ GridView = {
   updateTimeBar: function(){
    var newPixel1 = parseInt($('.time-bar').css('left')) + 5.2;
    $('.time-bar').css('left',newPixel1);
+   $('.arrow').css('left',newPixel1 - 6);
    if(parseInt($('.time-bar').css('left')) >= 990){
       $('.time-bar').addClass('hide');
    }  
@@ -225,12 +226,13 @@ GridView = {
           $('#channels .actions .fav-on').parent().removeClass('hide');
           if( $('.now').hasClass('active') ){
             var now = new Date();
-            var time2Pixel = 87 + now.getMinutes()*5;
+            var time2Pixel =Math.round( (87 + now.getMinutes() * 5) / 10) * 10;
             $('.time-bar').css('left',time2Pixel);
-            $('.time-bar').removeClass('hide');
+            $('.arrow').css('left',time2Pixel - 6);
+            $('.time-bar,.arrow').removeClass('hide');
           }
           else{
-            $('.time-bar').addClass('hide');
+            $('.time-bar,.arrow').addClass('hide');
           }
     
           //hide .actions button
@@ -250,13 +252,14 @@ GridView = {
         $('#channels .actions .fav-on').parent().removeClass('hide');
         if( $('.now').hasClass('active') ){
           var now = new Date();
-          var time2Pixel = 89 + now.getMinutes()*5;
+          var time2Pixel =Math.round( (89 + now.getMinutes() * 5) / 10) * 10;
           $('.time-bar').css('left',time2Pixel);
-          $('.time-bar').removeClass('hide');
+          $('.arrow').css('left',time2Pixel - 6);
+          $('.time-bar,.arrow').removeClass('hide');
           
         }
         else{
-          $('.time-bar').addClass('hide');
+          $('.time-bar,.arrow').addClass('hide');
         }
     
     //hide .actions button

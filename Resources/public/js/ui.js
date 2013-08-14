@@ -67,9 +67,15 @@ UI = {
     console.log('UI.loadUser', Skhf.session.datas.email, this.user, 'update:', update);
 
     this.user = Skhf.session.datas.email;
+
+
     if (Skhf.session.datas.email) {
       //on
+      //load playlist
+      //self.loadSelector();
+
       if (!update) {
+        Skhf.session.initPlaylist();
         $('.user-off:not(.hide)').addClass('hide');
         $('.user-on.hide').removeClass('hide');
         $('.user-on-visibility').css('visibility','visible');
@@ -130,6 +136,7 @@ UI = {
 
     } else {
       //off
+      $('.remove-on-signout').remove();
       $('.badge-placeholder').removeClass('badge badge-important')
                              .removeAttr('rel')
                              .removeAttr('data-original-title')
@@ -441,7 +448,8 @@ UI = {
         
         var ep_title = notifications[k].title_episode;
         var len=32;
-        if (ep_title.length > len) {
+        if (ep_title != null &&
+            ep_title.length > len) {
           var currChar = 'X';
           while (currChar != ' ' && len >= 0) {
             len--;
@@ -470,13 +478,13 @@ UI = {
       $('.notifications .notification-filter').append('<a class="label label-info filter" data-filter="all">Tout</a>');
       
       if ($('li.tv-component.plays.broadcast,li.tv-component.broadcasts.broadcast').length) {
-        $('.notifications .notification-filter').append('<a class="label filter" data-filter="tv">Tv</a>');
+        $('.notifications .notification-filter').append('<a class="label filter" data-filter="tv">TV</a>');
       }
       if ($('li.tv-component.plays.catchup,li.tv-component.plays.webcast').length) {
         $('.notifications .notification-filter').append('<a class="label filter" data-filter="replay">Replay</a>');
       }
       if ($('.tv-component.plays.dvd, li.tv-component.plays.location.48h, li.tv-component.plays.achat').length){
-         $('.notifications .notification-filter').append('<a class="label filter" data-filter="vod">Vod</a>');
+         $('.notifications .notification-filter').append('<a class="label filter" data-filter="vod">VOD</a>');
       }
       if ($('.tv-component.theaters').length){
          $('.notifications .notification-filter').append('<a class="label filter" data-filter="theaters">Ciné</a>');
@@ -500,7 +508,7 @@ UI = {
           }else if( $(this).data('filter') == 'replay' ){
             var classes = ['plays.catchup','plays.webcast'];
           }else if( $(this).data('filter') == 'vod' ){
-            var classes = ['plays.dvd', 'plays.location.48h', 'plays.achat.itunes']; 
+            var classes = ['plays.dvd', 'plays.location.48h', 'plays.achat.itunes','plays.achat']; 
           } else {
             var classes = [$(this).data('filter')];
           }
@@ -839,7 +847,7 @@ UI = {
     
     Skhf.session.getSocialDatas(function(friends, friends_programs) {
       //console.log('UI.addFriends', 'callback Session.getSocialDatas', friends);
-      var div = $('<div class="friends"></div>');
+      var div = $('<div class="friends remove-on-signout"></div>');
       for (k in friend_uids) {
         //console.log('UI.addFriends', friend_uids[k], friends[friend_uids[k]]);
         if (typeof friends[friend_uids[k]] != 'undefined') {
@@ -1018,7 +1026,7 @@ UI = {
 
           //data.first().addClass('active')
           //var sort = Array('channels','theaters','real-channels','programs','persons','categories','queue');
-          var sort = Array('channels','theaters','programs','persons','categories','queue');
+          var sort = Array('channels','programs','persons','theaters','categories','queue');
           for (key in sort) {
             if (lis[sort[key]]) {
               //console.log('UI.typeahead', key, data[key], typeahead.$menu);

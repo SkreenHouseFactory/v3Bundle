@@ -108,7 +108,24 @@ $(document).ready(function(){
     //////////// SCRIPTS ////////////////
     //countdown setting
     var channel_id = $('.actions[data-id]').data('id');
-
+   
+    if (channel_id == 3517970) {
+    	var note = $('#note'),
+    		ts = new Date(2013,7,6,10,0,0),
+    		newYear = true;
+	
+    	if((new Date()) > ts){
+    		// The new year is here! Count towards something else.
+    		// Notice the *1000 at the end - time must be in milliseconds
+    		ts = (new Date()).getTime() + 10*24*60*60*1000;
+    		newYear = false;
+    	}
+		
+    	$('#countdown').countdown({
+    		timestamp	: ts
+    	});
+    }
+ 
     if (channel_id == 28) {
       var date = new Date();
       	var note = $('#note');
@@ -123,6 +140,7 @@ $(document).ready(function(){
                 break;
           case 7:
                 ts.setDate(date.getDate() + 1); 
+                break;
           }
       
       
@@ -143,22 +161,22 @@ $(document).ready(function(){
 		
         if( (date.getHours() < 10 && date.getDay() != 6 && date.getDay() != 7) || date.getDay() == 6 || date.getDay() == 7){
           $('.well .actions div').remove();
-      	$('#countdown').countdown({
+        	$('#countdown').countdown({
 
-      		timestamp	: ts,
+        		timestamp	: ts,
 
-      		callback	: function(days, hours, minutes, seconds){
+        		callback	: function(days, hours, minutes, seconds){
 
-      			var message = " Avant le prochain épisode en avant-première !";
+        			var message = " Avant le prochain épisode en avant-première !";
 
-      			note.html(message);
+        			note.html(message);
+              if (hours == 0 && minutes == 0 &&  seconds == 0 ){
+                document.location.reload();
+              }
+        		}
 
-      		}
-
-      	});
+        	});
         }
-        
-       
     }
   }
 });

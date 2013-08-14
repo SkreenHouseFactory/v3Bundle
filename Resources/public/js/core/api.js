@@ -12,11 +12,16 @@ function skPaymentPopinEnd(action, player, occurrence_id) {
         Couchmode.init({type: 'occurrence', id: occurrence_id, hide_sliders: 1});
       break;
       case 'loadAlertUser':
-        UI.loadAlertUser('Gerez vos vidéos','Cliquez sur "Vos vidéos à la demande" pour voir ou revoir vos VOD!',6000);
+        UI.loadAlertUser(
+          'Gerez vos vidéos',
+          'Cliquez sur "Vos vidéos à la demande" pour voir ou revoir vos VOD!',
+          6000
+        );
       break;
     }
   }
- 
+  //mise à jour de la session
+  Skhf.session.sync();
 }
 function skPaymentPopinRefresh() {
   return skPaymentPopinEnd();
@@ -355,9 +360,16 @@ API = {
           case 'DISCONNECTED':
             UI.auth(function(){
               console.log('API.play', 'callback UI.auth', Skhf.session.datas);
-              $('.modal .modal-body').prepend('<p class="alert alert-success"><b>Vidéo à la demande :</b><br/>Créez votre compte pour voir ce programme sur mySkreen !</p>');
+              $('.modal .modal-body').prepend(
+                subscription_id ?
+                '<p class="alert alert-success"><b>Pass Vidéo à la demande :</b>' +
+                '<br/>Créez votre compte sur mySkreen pour accéder à votre Pass !</p>'
+                : 
+                '<p class="alert alert-success"><b>Vidéo à la demande :</b>' +
+                '<br/>Créez votre compte pour voir ce programme sur mySkreen !</p>'
+              );
               if (Skhf.session.datas.email) {
-                self.play(id);
+                self.play(id, args, subscription_id);
               }
             });
           break;

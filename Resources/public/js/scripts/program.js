@@ -1,7 +1,7 @@
 // -- program
 
-//surcharge session sync args to get VOD :
-//Session_sync_args =  { 'with_vod': 1 };
+//surcharge session sync args to get sVOD :
+Session_sync_args =  { 'with_svod': 1 };
 
 $(document).ready(function(){
   if ($('#view-program').length) {
@@ -13,8 +13,9 @@ $(document).ready(function(){
       ProgramView.unloadProgramUsersDatas($('#view-program').data('id'));
     }
     Skhf.session.callbackSignin = function() {
-      
-      ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
+      if (Skhf.session.datas.email) {
+        ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
+      }
       //theater playlist
       if ($('#program-offers #trigger-theaters-playlist').length && 
           !document.location.href.match(/theater_id=/)){ //desactivé si id cinéma dans url
@@ -133,6 +134,7 @@ $(document).ready(function(){
     });
 
     //episodes
+    /*
     $('#program-offers [data-content]').on('hover', function(event) {
       var trigger = $(this);
       var timeout = null;
@@ -174,6 +176,7 @@ $(document).ready(function(){
         trigger.popover('hide');
       }
     });
+    */
 
 
     //init
@@ -225,6 +228,22 @@ ProgramView = {
       });
     }
 
+    //SVOD
+    console.log('UI.loadProgramUsersDatas', 'svods', Skhf.session.datas.svods);
+    if (Skhf.session.datas.svods != 'undefined') {
+      for (k in Skhf.session.datas.svods) {
+        var subscription_id = Skhf.session.datas.svods[k].pass.subscription_id;
+        console.log('UI.loadProgramUsersDatas', 'svods found', '[data-play-pass="' + subscription_id + '"]' );
+        if ($('[data-play-pass="' + subscription_id + '"]').length) {
+          $('[data-play-pass="' + subscription_id + '"] td.access').append(
+            '<span class="btn-block badge badge-warning inline remove-on-signout">'+
+            'Vous êtes abonné au Pass ' + 
+            '</span>'
+          );
+        }
+      }
+    }
+
     // VOD & notifications
     API.query(
       'GET', 
@@ -237,13 +256,21 @@ ProgramView = {
       function(datas){
         console.log('UI.loadProgramUsersDatas', 'callback', datas);
         //bought ?
-        console.log('datas.purchased ', datas.purchased );
         if (typeof datas.purchased != 'undefined' &&
             datas.purchased) {
+          console.log('UI.loadProgramUsersDatas', 'datas.purchased ', datas.purchased);
           for (k in datas.purchased) {
             if( API.formatTimestamp(datas.purchased[k]) != 'undefined' ){
               console.log('UI.loadProgramUsersDatas', 'purchased', '#program-offers [data-id="' + k + '"] td.access', $('#program-offers [data-id="' + k + '"] td.access'), k, API.formatTimestamp(datas.purchased[k]));
-              $('#program-offers [data-id="' + k + '"] td.access').append('<span class="btn-block badge badge-warning">Loué le ' + API.formatTimestamp(datas.purchased[k]) + '</span>');
+              $('#program-offers [data-id="' + k + '"]').each(function(){
+                if (typeof $(this).data('play-pass') == 'undefined') {
+                  $('td.access', this).append(
+                    '<span class="btn-block badge badge-warning inline remove-on-signout">'+
+                    'Dans vos vidéos à la demande'+
+                    '</span>'
+                  );
+                }
+              })
             }
           }
         }
