@@ -117,17 +117,16 @@ class ProgramController extends Controller
           'with_selections' => true,
           'with_offers' => true,
           'with_teaser' => true,
-          'with_hashtags' => true,
+          'with_hashtags' => true, 
           'with_tweets' => true,
           'with_empty_player' => true,
-          'with_img_maxsize'=>true
           //'wrap_default_description' => 'h2',
           //'filter_casting' => true,
           //'player' => 'flash'
         ));
 
         //print("<pre>");print_r($data);
-        //echo $api->url;
+        // echo $api->url;
         if ($this->get('kernel')->getEnvironment() == 'dev' && 
             $request->get('debug')) {
           echo $api->url;
@@ -202,15 +201,15 @@ class ProgramController extends Controller
           }
         }
         //theaters     
-        if (!$data->offers['theater'] && !$data->offers['theater_on_demand']) {
-          $data->offers['theater'] = array();
+        if (!$data->offers['theaters'] && !$data->offers['theaters_on_demand']) {
+          $data->offers['theaters'] = array();
         } else {
           $data->datas_theaters = array(
-            'theaters_ids' => $data->offers['theater'] ? explode(',', $data->offers['theater']) : array(),
-            'theaters_on_demand' => $data->offers['theater_on_demand']
+            'theaters_ids' => $data->offers['theaters'] ? explode(',', $data->offers['theaters']) : array(),
+            'theaters_on_demand' => $data->offers['theaters_on_demand']
           );
-          $data->offers['theater'] = ($data->offers['theater'] ? count($data->offers['theater']) : 0) +  
-                                       ($data->offers['theater_on_demand'] ? count($data->offers['theater_on_demand']) : 0);
+          $data->offers['theaters'] = ($data->offers['theaters'] ? count($data->offers['theaters']) : 0) +  
+                                       ($data->offers['theaters_on_demand'] ? count($data->offers['theaters_on_demand']) : 0);
         }
         //player
         if ($data->teaser) {

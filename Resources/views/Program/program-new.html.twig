@@ -68,72 +68,293 @@
 
 {% block pagescripts %}
 {% javascripts
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/program.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/program.js'
 
-    filter='?yui_js' 
-    output='js/compiled/pages/program.js'  %}
-    <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{% endblock %}
+  filter='?yui_js' 
+  output='js/compiled/pages/program.js'  %}
+  <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+  {% endblock %}
 
-{% block content %}
+  {% block content %}
 
-	<section class="container scrollplayerzone">
-			<div class="row">
+  <section class="container scrollplayerzone">
+    <div class="row">
 
-				<div class="col-lg-9 ">
-					<div id="player"></div>
-				</div>
-				<div class="col-lg-3 ">
-					<div id="affiche"></div> 
-				</div>
-			</div>
-		</section>
+      <div class="col-lg-9 ">
+        <div id="player"> {% if program.player is defined and program.player %}
+          <a name="teaser"></a>
+          <div id="program-teaser">  
+            <meta itemprop="duration" />
+            <meta itemprop="thumbnail" content="{{ program.picture }}" />
+            {% if program.player_fb is defined %}
+            <meta itemprop="embedURL" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
+            {% endif %}
+            <meta itemprop="width" content="698" />
+            <meta itemprop="height" content="320" />
+            <meta itemprop="playerType" content="Flash" />
+            {#% if program.player is defined and program.player %#}
+            <span id="program-teaser-header" class="hide" data-default-text="Votre programme en intégralité">{{ program.player.access_id is defined ? 'Votre programme en intégralité' : 'Bande annonce' }}</span>
+            {#<a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
+            <div id="program-teaser-meta" class="player-meta"></div>
+            <div id="program-teaser-player"{% if app.request.isXmlHttpRequest %}{%else%} data-play-autoload-bak="{{ program.player.id }}"{% endif %} data-play="{{ program.player.id }}" {#data-play-meta-elmt="#program-teaser-meta" data-play-muted="1"#} data-play-args="{{ {hide_sliders: 1, current_player: '#program-teaser-player'}|json_encode }}">
+              <iframe src="{{ player_host }}/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.player.id }}&height=320&width=698" style="height:320px;width:698px" scrolling="no" frameborder="0"></iframe>
+            </div>
+    {#% else %}
+    <span id="program-teaser-header">Publicité</span>
+      <div id="program-teaser-player">
+        <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=28370043&program_id={{ program.id }}&height=330&width=720" style="height:330px;width:720px" scrolling="no" frameborder="0"></iframe>
+      </div>
+      {% endif %#}
+    </div>
+    {% endif %}</div>
+  </div>
+  <div class="col-lg-3 ">
+    <div id="affiche">
+     <img src="{{ program.img }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
+   </div> 
+ </div>
+</div>
+</section>
 
 
-		<section class="container">
-			<div class="row">
-				<div class="col-lg-9 ">
-					<div class="row">
-						<div class="col-lg-9 videotitle">
-							<h1>Thalassa</h1>    
-							<h2>Abysses, blablablabla</h2> 
-						</div>
-						<div class="col-lg-3">
-							<button type="button" class="btn btn-suivre suivre-bouton-gros">+ Suivre</button>
+<section class="container">
+  <div class="row">
+    <div class="col-lg-9 ">
+      <div class="row">
+        <div class="col-lg-9 videotitle">
 
-						</div>
-					</div>
+         {% if program.episode_title is defined and 
+         program.episodeof is defined and 
+         program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
+         <h1 itemprop="name">{{ program.episode_title }}{% if program.popular_channel is defined %} </h1><h2>{{ program.popular_channel.name }}</h2>{% endif %}
+         {% elseif program.episode_title is defined and 
+         program.episodeof is defined %}
+         {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+         <h1 itemprop="name">{{ program.episodeof.title }}</h1> <h2>{{ program.episode_title }}{% if program.episode_title and program.episode_title != episode_title and  episode_title != '' %} ({{ episode_title }}){% endif %}</h2>
+         {% else %}
+         <h1 itemprop="name"> {{ program.title }} </h1>
+         {% endif %}   
+       </div>
 
-					<div class="panel">
-						<div class="panel-heading">
-							<h3 class="panel-title">Voir Thalassa sur mySkreen</h3>
-						</div>
-						<ul class="list-group">
-							<li class="list-group-item">Cras justo odio</li>
-							<li class="list-group-item">Dapibus ac facilisis in</li>
-							<li class="list-group-item">Morbi leo risus</li>
-							<li class="list-group-item">Porta ac consectetur ac</li>
-							<li class="list-group-item">Vestibulum at eros</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 ">
-					<div >
-						<span class="ms-vid-type">2012 - 85mn</span>
-						<span class="ms-cat-title">Cat&eacute;gorie:</span> 
-						<span class="ms-cat-element" ><a href="#">Documentaire</a></span> 
-						<span class="ms-cat-element" ><a href="#">Science</a></span> 
-						<span class="ms-cat-element" ><a href="#">les inconnus</a></span>
-						<p>Etat des lieux de la situation des pays en cas de &laquo;m&eacute;gas&eacute;isme&raquo;. Apr&egrave;s le s&eacute;isme de magnitude 9 et le tsunami provoquant la catastrophe nucl&eacute;aire de Fukushima au Japon le 11 mars 2011, la communaut&eacute; scientifique dresse le bilan de toutes ses connaissances pour analyser le ph&eacute;nom&egrave;ne des &laquo;m&eacute;gas&eacute;ismes&raquo;. 
-							<br><a href="#">En savoir plus...</a>
-						</p>
-					</div> 
-					<span class="ms-cat-title">Cette vid&#233;o fait parti des fanpages</span>
-					<span class="ms-cat-element" ><a href="#">Documentaire</a></span>
-				</div>
-			</div>
-			<div class="row">
+     <div class="col-lg-3">
+      <button type="button" class="btn btn-suivre suivre-bouton-gros">+ Suivre</button>
+    </div>
+  </div>
+
+
+
+<div class="tab-content">
+ {% for key in offers|keys if program.offers[key]|length %}
+ <div class="panel">
+  <div class="panel-heading">
+    <h3 class="panel-title">Voir {{ key }} </h3>
+  </div>
+  <a name="{{ key }}"></a>
+  <div id="{{ key }}" data-play-text="{{ ('player.content.text.' ~ key)|trans }}" class="tab-pane{% if key == program.offers_default or program.offers_default is null %} active{% endif %}">
+    {%  if program.offers[key]|length %}
+    <div class="table-container scroll">
+      <table class="table">
+        <tbody>
+
+          {# subscriptions #}
+          {% if key == 'plays' and
+          program.subscriptions is defined and 
+          program.subscriptions|length %}
+          {% for s in program.subscriptions %}
+          <tr data-id="{{ s.pass.play }}" data-play="{{ s.pass.play }}" data-play-pass="{{ s.id }}" data-play-args="{&quot;hide_sliders&quot;:1}">
+            <td class="notif"><span class="badge">0</span></td>
+            <td class="icon"><span><i class="icon-play"></i></span></td>
+            <td class="channel logo-channel-4952"><img src="http://mskstatic.com/65/medias/ico/chaines/pluzz-vad_medium.png" alt="pluzz VAD Streaming"></td>
+            <td class="price big">{{ s.pass.price }}€</td>
+            <td class="access"><span class="big">{{ s.name }}</span></td>
+            <td class="tags">{{ s.description }}</td>
+          </tr>
+          {% endfor %}
+          {% endif %}
+
+          {# theaters #}
+          {% if key == 'theater' %}
+          <tr>
+            <td colspan="6" class="theaters">
+              {% if program.datas_theaters.theaters_ids|length > 0 %}
+              <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
+              {% if program.datas_theaters.theaters_ids|length > 9 %}
+              <form id="theaters-search" class="form-search pull-left">
+                <div class="input-append">
+                  <input type="text" class="span3 search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
+                  <button type="submit" class="btn"><i class="icon-search"></i> {{ 'theaters.search.submit'|trans }}</button>
+                </div>
+              </form>
+              <div class="btn-group">
+                <a class="btn" href="#theaters" id="trigger-theaters-geoloc"><i class="icon-map-marker"></i> {{ 'theaters.search.geoloc'|trans }}</a>
+                <a class="btn" href="#theaters" id="trigger-theaters-playlist"><i class="icon-user"></i> {{ 'theaters.search.playlist'|trans }}</a>
+              </div>
+              {% endif %}
+              <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}">
+                {% render(controller('SkreenHouseFactoryV3Bundle:Cinema:program', {id: program.id, theater_ids: app.request.get('theater_id') ? app.request.get('theater_id') : program.datas_theaters.theaters_ids|join(',') })) %}  
+              </div>
+              {% if program.datas_theaters.theaters_on_demand|length %}
+              <hr/>
+              {% endif %}
+              {% endif %}
+              {% if program.datas_theaters.theaters_on_demand|length %}
+              {% for o in program.datas_theaters.theaters_on_demand %}
+              <p align="center"><a target="_blank" href="{{ attribute(o, 'url') }}"><img class="img-polaroid" src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema.png') }}" alt="ilikecinema" /></a></p>
+              {% endfor %}
+              {% endif %}
+            </td>
+          </tr>
+
+          {# par defaut #}
+          {% else %}
+          {% set other_episodes = '' %}
+          {% for o in attribute(program.offers, key)|to_array %}
+          {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
+          {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
+          {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
+          {% if o.episode_id is defined and 
+          program.episodeof.id is defined and 
+          o.episode_id != program.id and
+          other_episodes != 'ok' %}
+          <tr><td colspan="6"><h6>Autres épisodes</h6></td></tr>
+          {% set other_episodes = 'ok' %}
+          {% endif %}
+          <tr data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {# data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left" #}{% endif %}>
+            <td class="notif"><span class="badge">0</span></td>
+            <td class="icon">
+              <span>
+                {% if o_access.name == 'TV' and key != 'plays' %}<i class="icon-calendar"></i>
+                {% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %}<i class="icon-share"></i>
+                {% elseif o.deporte is defined and o.deporte %}<i class="icon-play"></i>
+                {% endif %}
+              </span>
+            </td>
+            <td class="channel logo-channel-{{ o_channel.id }}">
+              <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
+            </td>
+            <td class="price big">
+              {% if o.cost is defined and o.cost > 0 %}{{ o.cost|number_format(2, ',') }}&euro;{% endif %}
+            </td>
+            <td class="access" data-acces="{{ o_access.name }}">
+              {% if o_access.name in ['Live', 'TV'] %}
+              <span class="big"><time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time></span>
+              {% else %}
+              <span class="big">{{ o_access.name|replace({' iTunes': ''}) }}</span>
+              {% if o.broadcasttime is defined %}
+              <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
+              {% endif %}
+
+              {% endif %}
+              {% if o_access.name == 'TV' %}
+              {% if key == 'plays'  %}
+              <span class="badge badge-important">Live</span>
+              {% elseif o.has_replay and o.broadcasttime|remainingtv %}
+              <span class="badge badge-info">{{ o.broadcasttime|remainingtv }}</span>
+              {% elseif o.broadcasttime|timeleft %}
+              <span class="badge badge-warning">Dans {{ o.broadcasttime|timeleft }}</span>
+              {% endif %}
+              {% elseif o.endtime is defined and o.endtime|remainingreplay %}
+              <span class="badge badge-warning">{{ o.endtime|remainingreplay }}</span>
+              {% endif %}
+            </td>
+            {% if o.title is defined and o.title %}
+            <td class="title">
+              <b>{{ o.title }}</b>
+              <br/>
+              {{ o.description }}
+              {% elseif o_episode %}
+              <td class="episode">
+                {% if o_episode.title %}
+                <span>{{ o_episode.title }}</span>
+                {% endif %}
+                {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}
+                {% if o_episode.season_number is defined or 
+                o_episode.episode_number is defined or 
+                o_episode.part_number is defined %}
+                {% if episode_title != o_episode.title %}<br><span><em>{{ episode_title }}</em></span>
+                {% endif %}
+                <br>
+                {% endif %}
+                {% else %}
+                <td class="tags">
+                  {% endif %}
+                  {% if o.deporte is defined and o.deporte and o.versions is defined %}
+                  <span class="label label-success">{{ o.versions|to_array|keys|join(', ') }}</span>&nbsp;
+                  {% elseif o.tags is defined and o.tags.version is defined %}
+                  <span class="label label-success">{{ o.tags.version|replace({',': ', '}) }}</span>
+                  {% endif %}
+
+                  {% if o.tags is defined and o.tags|length %}
+                  {% if o.tags.HD is defined %}
+                  <span class="label label-important">HD</span><br/>
+                  {% endif %}
+                  {% if o.tags.format is defined %}
+                  <span class="label label-important">{{ o.tags.format }}</span><br/>
+                  {% endif %}
+                  {% if o.tags.device is defined %}
+                  <span class="label label-info">{{ o.tags.device|replace({',': ', '}) }}</span>
+                  {% endif %}
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+    {# bonus #}
+    {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
+    <div id="carousel-bonus" class="tab-pane">
+      <div class="carousel slide">
+        <div class="carousel-inner">
+          {% for b in program.offers['bonus'] %}
+          <div class="item active"><a data-play="{{ b.id }}" data-program="{{ {'title': b.title}|json_encode }}" class="pull-left"><img class="img-polaroid" alt="{{ b.title }} bonus" src="{{ b.picture }}"><div class="title">{{ b.title }}</div></a></div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+    {% endif %}
+    {# youtube #}
+    <div id="carousel-youtube" class="carousel-youtube tab-pane" data-more-streaming="{{ program.id }}">
+      <div class="carousel slide">
+        <div class="carousel-inner"></div>
+        <a class="carousel-control left" href="#carousel-youtube" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#carousel-youtube" data-slide="next">&rsaquo;</a>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  </div>
+
+  <div class="col-lg-3 ">
+    <div >
+      <span class="ms-vid-type">2012 - 85mn</span>
+      <span class="ms-cat-title">Cat&eacute;gorie:</span> 
+      <span class="ms-cat-element" ><a href="#">Documentaire</a></span> 
+      <span class="ms-cat-element" ><a href="#">Science</a></span> 
+      <span class="ms-cat-element" ><a href="#">les inconnus</a></span>
+      <p>Etat des lieux de la situation des pays en cas de &laquo;m&eacute;gas&eacute;isme&raquo;. Apr&egrave;s le s&eacute;isme de magnitude 9 et le tsunami provoquant la catastrophe nucl&eacute;aire de Fukushima au Japon le 11 mars 2011, la communaut&eacute; scientifique dresse le bilan de toutes ses connaissances pour analyser le ph&eacute;nom&egrave;ne des &laquo;m&eacute;gas&eacute;ismes&raquo;. 
+        <br><a href="#">En savoir plus...</a>
+      </p>
+    </div> 
+    <span class="ms-cat-title">Cette vid&#233;o fait parti des fanpages</span>
+    <span class="ms-cat-element" ><a href="#">Documentaire</a></span>
+  </div>
+
+</div>
+</div>
+
+<section class="container">
+<div class="row">
 
         {% for r in program.related if r.programs is defined and r.programs|length %}
           {% if r.name == 'same_actors' and program.casting %}
@@ -165,7 +386,7 @@
           {% endif %}
         {% endfor %}
 				</div>
-           </div>
+
         
         
 			</section>
