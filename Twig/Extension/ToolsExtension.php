@@ -18,6 +18,7 @@ class toolsExtension extends \Twig_Extension
         return array(
             'to_array' => new \Twig_Filter_Method($this, 'to_array'),
             'end' => new \Twig_Filter_Method($this, 'end'),
+            'keywords_from_url' => new \Twig_Filter_Method($this, 'keywordsFromUrl'),
         );
     }
 
@@ -51,5 +52,22 @@ class toolsExtension extends \Twig_Extension
     public function end($arr)
     {
 			return end($arr);
+    }
+
+    /**
+     * 404 => search
+     * 
+     * @param <object> $stdClass
+     * @return <array> 
+     */
+    public function keywordsFromUrl($url)
+    {
+      $keywords = array();
+      foreach (explode('-', $url) as $word) {
+        if (!is_numeric($word)) {
+          $keywords[] = $word;
+        }
+      }
+			return implode(' ', $keywords);
     }
 }

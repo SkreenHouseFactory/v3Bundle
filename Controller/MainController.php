@@ -153,6 +153,7 @@ class MainController extends Controller
                                  'nb_results' => 30,
                                  'with_new' => 1,
                                  'facets' => $facets));
+      //echo 'q:'.$request->get('q');
       //echo $api->url;exit;
       //print_r($datas);exit;
 
