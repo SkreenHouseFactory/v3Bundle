@@ -120,13 +120,14 @@ class ProgramController extends Controller
           'with_hashtags' => true,
           'with_tweets' => true,
           'with_empty_player' => true,
+          'with_img_maxsize'=>true
           //'wrap_default_description' => 'h2',
           //'filter_casting' => true,
           //'player' => 'flash'
         ));
 
         //print("<pre>");print_r($data);
-        // echo $api->url;
+        //echo $api->url;
         if ($this->get('kernel')->getEnvironment() == 'dev' && 
             $request->get('debug')) {
           echo $api->url;

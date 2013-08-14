@@ -1,0 +1,33 @@
+	<div class="col-lg-6 " {% if slider.id is defined %} id="{{ slider.id }}"{% endif %}{% if (slider.paginate is not defined or slider.paginate) and slider.url is defined %} data-paginate-url="{{ slider.url }}"{% endif %} class="slider" data-autoload="1" {% if slider.programs is defined and slider.programs|length  %}data-nb-results="{{ slider.programs|length }}" {% endif %}data-pager-offset="0" data-animate="width">
+    <div class="suggestion"><div><span> {{ slider.title }}</span> 	<button type="button" class="btn btn-primary btn-xs">voir +</button></div> </div>
+      <div id="carousel-{{loop_index}}"  data-interval="false" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#carousel-{{loop_index}}" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel-{{loop_index}}" data-slide-to="1"></li>
+          <li data-target="#carousel-{{loop_index}}" data-slide-to="2"></li>
+        </ol>        
+        <!-- Carousel INNER -->
+        {% if slider.programs is defined %}
+          <div class="carousel-inner">
+          <div class="item active">
+        {% for program in slider.programs | to_array %}
+        {% if (loop.index is divisibleby(3) and loop.index != 3) or loop.index == 4 %}
+        </div>
+        <div class="item">
+        {% endif %}
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program, loop_index: loop.index} %}
+        {% endfor %}
+        </div>
+      </div>
+        {% endif %}
+        <div class="wrap-carousel-control">
+          <a class="left carousel-control" href="#carousel-{{loop_index}}" data-slide="prev">
+              <span class="icon-prev"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-{{loop_index}}" data-slide="next">
+              <span class="icon-next"></span>
+            </a>
+          </div>
+        </div>
+     </div>
