@@ -15,8 +15,17 @@
 <meta name="object_type" content="channel" />
 {% endblock %}
 
-{% block title %}{{ channel.title }}{% endblock %}
-{% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+{% block title %}
+{% if data.channel.fournisseur is defined and data.channel.fournisseur.type == 'broadcast' %}
+{{ channel.title }}: REPLAY & DIRECT en STREAMING en 1 Clic GRATUIT 100% Légal
+{% else %}
+{{ data.channel.page_title ? data.channel.page_title : data.channel.title}}
+{% endif %}
+{% endblock %}
+
+
+{% block description %}Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la TNT en Replay et en Direct Live GRATUITEMENT et en 1 clic !{% endblock %}
+
 {% block body_class %}view-channel cover{% endblock %}
 {% block body_background %}
 {% if channel.cover %}url('{{ channel.fournisseur is defined ? channel.cover|replace({'/1500/450/c': ''}) : channel.cover }}') top center no-repeat{% endif %}
