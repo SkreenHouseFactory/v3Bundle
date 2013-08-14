@@ -13,7 +13,7 @@ class ApiManager
   public $url = null;
   public $host = null;
 
-  public function __construct($format = '.json', $version = 2) {
+  public function __construct($format = '.json', $version = '2,3') {
     $this->base = $this->getApiBase($version);
     $this->format = $format;
   }
@@ -60,6 +60,7 @@ class ApiManager
       case 'GET':
         $separator = strstr($url, '?') ? '&' : $this->format . '?';
         $this->url = $url . $separator . http_build_query($params);
+        //echo $this->url; exit();
         $response = $client->get($this->url)->send();
       break;
     }
