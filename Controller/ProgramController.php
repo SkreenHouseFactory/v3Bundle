@@ -110,7 +110,7 @@ class ProgramController extends Controller
           'episode_img_height' => 50,
           'episode_img_crop' => 50,
           'channel_img_width' => 65,
-          'with_img' => '245,330',
+          'with_img' => '212,286',
           'with_metadata' => true,
           'with_related' => true,
           'with_related_programs' => true,
@@ -214,7 +214,8 @@ class ProgramController extends Controller
         //player
         if ($data->teaser) {
           $data->player = $data->teaser;
-        } elseif (count($data->offers['plays']) > 0) {
+
+        }/* elseif (count($data->offers['plays']) > 0) {
           foreach ($data->offers['plays'] as $o) {
             if (isset($o->deporte) && $o->deporte && !$o->cost) {
               $data->player = $o;
@@ -239,7 +240,7 @@ class ProgramController extends Controller
               break;
             }
           }
-        }
+        }*/
         //load related programs
         $data->related = (array)$data->related;
         $data->selections = (array)$data->selections;
@@ -283,14 +284,13 @@ class ProgramController extends Controller
           'program' => $data,
           'offers' => array(
             //'deportes' => 'sur mySkreen', 
-            'plays' => 'Replay & VOD', 
-            'broadcasts' => 'Télé', 
-            'itunes' => 'iTunes', 
-            'boxs' => 'Box',
-            'dvds' => 'DVD', 
-            'theaters' => 'Ciné',  
-            'cuts' => 'Extraits', 
-            'archives' => 'Archives'
+            'live' => 'En Direct', 
+            'replay' => 'En Replay', 
+            'deporte' => 'sur mySkreen', 
+            'tv' => 'à la télé',
+           // 'theater' => 'Ciné',  
+            'external' => 'Sur d\'autres sites', 
+            'archive' => 'Archives'
           ),
           'player_host' => $api->host
         ));
