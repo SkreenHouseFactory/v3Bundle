@@ -918,6 +918,7 @@ UI = {
     if ($('body').hasClass('searching')) {
       $('#search-query-bg').fadeOut();
       $('body').removeClass('searching');
+      $('.search-query').blur();
     }
   },
   getTypeaheadSuggestions: function (typeahead, query) {
@@ -989,7 +990,7 @@ UI = {
               lis[key] = $(items).map(function (i, item) {
                 i = $(typeahead.options.item).attr('data-value', JSON.stringify(item));
                 i.attr('data-id', item.id).addClass('actions');
-                btn = $('<span class="fav" data-placement="left"><i class="icon-plus-sign icon-white"></i></span>');
+                btn = $('<span class="btn btn-xs btn-suivre" data-placement="left">+ Suivre</span>');
                 switch (key) {
                   case 'queue':
                     i.addClass('playlist')

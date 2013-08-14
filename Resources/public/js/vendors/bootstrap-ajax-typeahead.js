@@ -213,6 +213,12 @@
       console.log('typeahead.keyup', 'keyCode', e.keyCode);
 
       switch(e.keyCode) {
+        case 27: // up arrow
+          e.preventDefault()
+          this.$menu.hide();
+          UI.endSearching();
+          break
+  
         case 38: // up arrow
           e.preventDefault()
           this.prev()

@@ -58,9 +58,10 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
   <div id="selection-related">
   {#<a class="btn btn-large btn-inverse btn-block trigger-tv" href="#" data-couchmode="{{ {'type': 'pack', 'id': selection.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
   <br/>
-  <ul class="nav nav-tabs nav-stacked">
+  
+  <ul class="list-group">
     {% for pack in selection.onglet.sliders|to_array %}
-    <li><a href="{{ path('any_url', {url: pack.seo_url[1:pack.seo_url|length-1]}) }}">{{ pack.name|raw }}</a></li>
+    <li class="list-group-item"><a href="{{ path('any_url', {url: pack.seo_url[1:pack.seo_url|length-1]}) }}">{{ pack.name|raw }}</a></li>
     {% endfor %}
   </ul>
   </div>
