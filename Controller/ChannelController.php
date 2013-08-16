@@ -177,7 +177,7 @@ class ChannelController extends Controller
          //'offers_type'=> 'plays'
        );
       $program = $api->fetch('program/3517970', $params);
-      //echo $api->url;
+      echo $api->url;
       $play = null;
       
       foreach( $program->offers->plays as $play){
@@ -185,7 +185,7 @@ class ChannelController extends Controller
           break;
         }
       }
-
+      $play->starttime = $play->starttime + 604800;
       foreach( $program->datas_offers->episodes as $episode) {
         if( isset($episode->title) && $episode->id == $play->episode_id ){
           break;
