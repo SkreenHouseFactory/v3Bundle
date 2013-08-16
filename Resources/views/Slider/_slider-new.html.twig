@@ -1,3 +1,4 @@
+{% set custom_loop = 0 %}
 	<div class="col-lg-6 " >
     <div class="suggestion"><div><span> {{ slider.title }}</span> 
       <!--	<button type="button" class="btn btn-primary btn-xs">voir +</button> -->
@@ -14,11 +15,20 @@
           <div class="carousel-inner">
           <div class="item active">
         {% for program in slider.programs | to_array %}
-        {% if (loop.index0 is divisibleby(3) and loop.index0 != 0)%}
-        </div>
-        <div class="item">
-        {% endif %}
-        {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program, loop_index: loop.index0} %}
+         {% if (custom_loop is divisibleby(3))%}
+           {% if program.maxsize.width|number_format > 270 and program.maxsize.height|number_format > 380 %}
+             {% if custom_loop != 0 %}
+                </div>
+                <div class="item">
+             {% endif %}
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program, loop_index: custom_loop } %}
+            {% set custom_loop = custom_loop + 1 %}
+           {% endif %}
+         {% else %}
+          {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program, loop_index: custom_loop } %}
+          {% set custom_loop = custom_loop + 1 %}
+         {% endif %} 
+        
         {% endfor %}
         </div>
       </div>
