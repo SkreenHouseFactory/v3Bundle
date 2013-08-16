@@ -147,9 +147,9 @@ UiView = {
     console.log('refreshAjax()')
     if ($('a.background')) {
        $('a.background').remove();
-    }
+    }    
+    $('body').css('background','');
     if ($('.body_background')) { 
-      $('body').removeClass();
       body_background = $('.body_background').data('refresh-bodybackground');
       body_class = $('.body_background').data('refresh-bodyclass');
       $('body').css('background',body_background);
@@ -209,7 +209,7 @@ UiView = {
 
       //add body class to overload view-homes
       $('body').removeClass('view-redirect');
-      $('body').addClass('view-ajax');
+      $('body').addClass('view-ajax playlist-in');
      
       console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
       //load ajax

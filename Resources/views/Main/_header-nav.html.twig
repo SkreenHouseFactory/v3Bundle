@@ -6,7 +6,7 @@
   <div class="navbar-inner">
   <div class="navbar-inner-container">
     <a class="brand" href ="http://www.myskreen.com"><img src="http://mskstatic.com/150/medias/logo_black_nobaseline.png" alt="mySkreen.com"/></a>
-    <ul class="nav nav-playlists pulwl-left">
+    <ul class="nav nav-playlists pull-left">
       {# user off #}
       <li class="user-off playlists">
         <a class="auth" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même playlist !"> {{ 'playlist.yours'|trans }}</a>
@@ -56,6 +56,7 @@
           <li class="nav-header">Les chaînes mySkreen</li>
           <li class="tv-channels">
             <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'plus-belle-la-vie-en-avance'}) }}"><span class="hidden-touch">Plus Belle La Vie en avance</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/28-logo-plus-belle-la-vie-en-avance.png" alt="Plus Belle La Vie en avance"/></a>
+            <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'sport'}) }}"><span class="hidden-touch">La chaîne sport</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/12-logo-sport.jpg" alt="Sport, émissions et replay"/></a>
             <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'politique'}) }}"><span class="hidden-touch">La chaîne politique</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/12-logo-politique.jpg" alt="Politique, émissions et replay"/></a>
             <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'les-inconnus'}) }}"><span class="hidden-touch">Les Inconnus</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/1-les-inconnus.jpg" alt="Les Inconnus"/></a>
             <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'jacques-demy'}) }}"><span class="hidden-touch">Jacques Demy</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/3-jacques-demy.jpg" alt="Jacques Demy"/></a>
