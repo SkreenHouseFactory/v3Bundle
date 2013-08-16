@@ -177,7 +177,7 @@ class ChannelController extends Controller
          //'offers_type'=> 'plays'
        );
       $program = $api->fetch('program/3517970', $params);
-      echo $api->url;
+      //echo $api->url;
       $play = null;
       
       foreach( $program->offers->plays as $play){
