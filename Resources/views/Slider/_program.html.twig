@@ -38,6 +38,6 @@
   <a {% if p.seo_url %}href="{{ base_url }}{{ p.seo_url }}{{ theater_id is defined and theater_id > 0 ? '?theater_id=' ~ theater_id : '' }}"{% endif %} target="_top" class="title"><i class="icon-th icon-white"></i> {{ p_title }}</a>
     </div>
   </div>
-  <div class="info_vignette {{size}}">{% if p.onglet %} {{p.onglet}} {% endif %} | {% if p.duration %} {{p.duration}}min{% endif %} </div>
+  <div class="info_vignette {{size}}">{% if p.onglet %} {{p.onglet|title}} {% endif %} | {% if p.duration %}{{p.duration}}min{% endif %} </div>
   </div>
 
