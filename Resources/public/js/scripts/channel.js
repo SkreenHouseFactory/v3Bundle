@@ -133,17 +133,6 @@ $(document).ready(function(){
       	// Attention les mois commencent à 0 !
         var ts = new Date(date.getFullYear(),date.getMonth(),date.getDate(),10,0,0);
       
-          switch (date.getDay()) {
-      
-          case 6:
-                ts.setDate(date.getDate() + 2); 
-                break;
-          case 7:
-                ts.setDate(date.getDate() + 1); 
-                break;
-          }
-      
-      
       	var newYear = true;
     
 
@@ -159,7 +148,7 @@ $(document).ready(function(){
       	}
 
 		
-        if( (date.getHours() < 10 && date.getDay() != 6 && date.getDay() != 7) || date.getDay() == 6 || date.getDay() == 7){
+        if( date.getHours() < 10 && date.getDay() != 6 && date.getDay() != 7){
           $('.well .actions div').remove();
         	$('#countdown').countdown({
 

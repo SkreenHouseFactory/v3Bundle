@@ -185,7 +185,7 @@ class ChannelController extends Controller
           break;
         }
       }
-
+      $play->starttime = $play->starttime + 604800;
       foreach( $program->datas_offers->episodes as $episode) {
         if( isset($episode->title) && $episode->id == $play->episode_id ){
           break;
