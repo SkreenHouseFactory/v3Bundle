@@ -136,10 +136,11 @@ player_exit_with_infos:
         target: "[^/]+"
         title: "[^/]+"
 player_exit:
-    pattern:  /exit/{target}
+    pattern:  /{exit}/{target}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }
     requirements:
         target: ".*"
+        exit: exit|redirection
 player_exit_get_url:
     pattern:  /exit
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }
