@@ -135,16 +135,13 @@
       width: 200px;
       bottom: 10px;
     }
-    
-    
-    .carousel-control{
-      z-index: 15;
-      color: black;
-    }
     .carousel-inner{
       height: 440px;
     }
-    .carousel-control.left{
+    .carousel-control{
+      z-index: 15;
+      color: black;
+      &.left{
       position: absolute;
       background: none;
       width: 20px;
@@ -152,8 +149,8 @@
       border-radius: 23px;
       border: 1px solid grey;
       top: 10px;
-    }
-    .carousel-control.right{
+      }
+      &.right{
       background: none;
       right: 117px;
       width: 20px;
@@ -161,8 +158,8 @@
       border-radius: 23px;
       border: 1px solid grey;
       top: 10px;
-    }
-    .carousel-control .icon-next,.carousel-control .icon-prev{
+      }
+      .icon-next,.icon-prev{
       position: absolute;
       width: 20px;
       height: 20px;
@@ -171,6 +168,7 @@
       font-size: 20px;
       top: -6px;
       left: -1px;
+      }
     }
   }
 }
