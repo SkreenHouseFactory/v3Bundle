@@ -138,12 +138,12 @@
        </div>
 
        <div class="col-lg-3">
-        <button type="button" class="btn btn-suivre suivre-bouton-gros">+ Suivre</button>
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.id, class: 'fav-like'} %}
       </div>
     </div>
 
     <div class="tab-content">
-     {% for key in offers|keys if program.offers[key]|length %}
+     {% for key in offers|keys if program.offers[key]|to_array|length %}
      {#% for key in offers|keys if program.offers[key]|to_array|length %#}
 
 
