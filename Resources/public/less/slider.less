@@ -114,15 +114,30 @@
     }
 
     .carousel-indicators {
-      margin-left: 0%;
-      bottom: -10px;
+      margin-left: 3%;
+      bottom: 9px;
+      li {
+        width: 8px;
+        height: 8px;
+        background-color: rgba(70,70,70,.25);
+        border: 1px solid  rgba(70, 70, 70, 0.25);
+        &.active {
+          width: 9px;
+          height: 9px;
+          border: 1px solid #444;
+          background-color: #444;
+        }
+      }
     }
     .wrap-carousel-control{
       position: relative;
-      left: 313px;
+      left: 356px;
       height: 40px;
       width: 200px;
+      bottom: 10px;
     }
+    
+    
     .carousel-control{
       z-index: 15;
       color: black;
@@ -133,39 +148,30 @@
     .carousel-control.left{
       position: absolute;
       background: none;
-      width: 30px;
-      height: 30px;
+      width: 20px;
+      height: 20px;
       border-radius: 23px;
       border: 1px solid grey;
       top: 10px;
     }
     .carousel-control.right{
       background: none;
-      right: 60px;
-      width: 30px;
-      height: 30px;
+      right: 117px;
+      width: 20px;
+      height: 20px;
       border-radius: 23px;
       border: 1px solid grey;
       top: 10px;
     }
     .carousel-control .icon-next,.carousel-control .icon-prev{
       position: absolute;
-      width: 30px;
-      height: 30px;
+      width: 20px;
+      height: 20px;
       margin-top: 0;
       margin-left: 0;
-      font-size: 30px;
-      top: -9px;
+      font-size: 20px;
+      top: -6px;
       left: -1px;
-    }
-    .carousel-indicators li {
-      background-color: #999;
-      background-color: rgba(70,70,70,.25);
-      border: 1px solid grey;
-    }
-
-    .carousel-indicators .active {
-      background-color: #444;
     }
   }
 }
