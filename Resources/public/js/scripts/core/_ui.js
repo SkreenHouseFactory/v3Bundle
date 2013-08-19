@@ -200,7 +200,11 @@ UiView = {
         history.pushState({path: window.location.href }, document.title, window.location.href);
       }
       history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
-       
+      
+      if ($('body').hasClass('playlist-in')){
+      var has_playlist = true;
+      }
+      
       $('body').css('background','');
       $('body').attr('class','');
       
@@ -209,8 +213,11 @@ UiView = {
 
       //add body class to overload view-homes
       $('body').removeClass('view-redirect');
-      $('body').addClass('view-ajax playlist-in');
-     
+      $('body').addClass('view-ajax');
+      if ( has_playlist == true ){
+         $('body').addClass('playlist-in');
+      }
+      
       console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
       //load ajax
       $($(this).attr('rel')).empty();
