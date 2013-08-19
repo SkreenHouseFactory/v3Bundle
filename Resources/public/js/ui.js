@@ -11,7 +11,9 @@ UI = {
   last_notification: null,
   max_notifications: 50,
   badge_notification: '<span class="badge">%count%</span>',
-  loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
+  loader: '<div class="progress progress-striped active"><div class="progress-bar progress-bar-info" style="width: 0%"><span class="sr-only">0% Complete</span></div></div>',
+  
+  
   callbackTogglePlaylist: null,
   init: function(callback) {
     var self = this;
@@ -840,7 +842,7 @@ UI = {
   appendLoader: function(elmt, timer) {
     $('.progress', elmt).remove();
     elmt.append(this.loader);
-    $('.progress .bar', elmt).animate({'width': '100%'}, typeof timer != 'undefined' ? timer : 5000);
+    $('.progress .progress-bar', elmt).animate({'width': '100%'}, typeof timer != 'undefined' ? timer : 5000);
   },
   // -- remove loader
   removeLoader: function(elmt) {
