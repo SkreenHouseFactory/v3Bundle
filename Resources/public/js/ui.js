@@ -495,15 +495,17 @@ UI = {
          $('.notifications .notification-filter').append('<a class="label filter" data-filter="chaîne">Chaînes</a>');
       } 
      
-      $('.notifications .label.filter').on('click', function(){
+      $('.notifications .label.filter').on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
         $('.notifications .label.filter').removeClass('label-info');
-        $('.notifications .tv-component').addClass('hide');
+        $('.notifications .dropdown-menu .tv-component').addClass('hide');
         $('.notifications .divider.notification').addClass('hide');
         $('.label.filter[data-filter="' + $(this).data('filter') + '"]').addClass('label-info');
     
         if ( $(this).data('filter') == 'all' ){
-          $('.notifications .tv-component').removeClass('hide');
-          $('.notifications .divider').removeClass('hide'); 
+          $('.notifications .dropdown-menu .tv-component').removeClass('hide');
+          $('.notifications .divider.notification').removeClass('hide'); 
         } else {
           if( $(this).data('filter') == 'tv' ){
             var classes = ['plays.broadcast','broadcasts.broadcast'];
@@ -515,10 +517,11 @@ UI = {
             var classes = [$(this).data('filter')];
           }
           for (k in classes) {
-            $('.notifications .tv-component.' +  classes[k]).removeClass('hide'); 
+            $('.notifications .dropdown-menu .tv-component.' +  classes[k]).removeClass('hide'); 
             $('.notifications .divider.' +  classes[k]).removeClass('hide'); 
           }
         }
+        return false;
       });
      
       

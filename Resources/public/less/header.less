@@ -102,4 +102,100 @@
       color: #444444;
     }
 
-}
+} 
+.notifications {
+  top: 15px;
+  right: -41px;
+  display: block;
+  .notification-filter{
+    display: block;
+    text-align: center;
+    padding: 5px 0;
+    background: #EFEFEF;
+    height: auto;
+    margin: 5px 0;
+  }
+  .notification-scroll{
+    margin-top: 20px;
+  }
+            ul {
+              text-align: left;
+              > div {
+                height: 315px;
+                overflow-y: auto;
+                overflow-x: hidden;
+
+                li {
+                  width: 400px;
+                  font-size: 0.9em;
+                  clear: both;
+                  overflow: hidden;
+                  
+                  a.link {
+                    color: #333;
+                    display: auto;
+                    padding: 0px;
+                    clear: none;
+                    line-height: 15px;
+                    color: #555;
+                    white-space: nowrap;
+                    filter: none; /* ie hover background */
+                    
+                    img.channel {
+                      margin-left: 7px;
+                      border-right: 3px solid white;
+                      border-top: 3px solid white;
+                    }
+                    img.ico {
+                      margin-right: 7px;
+                    }
+                    
+                    span {
+                      display: block;
+                      margin-left: 7px;
+      
+                      &.title {
+                        text-transform: uppercase;
+                      }
+                      &.label {
+                        display: inline;
+                        font-weight: normal;
+                        margin-left: 0;
+                      }
+                    }
+                    &:hover {
+                      background: transparent;
+                    }
+                  }
+                  .badge {
+                    margin: 15px 5px 0 0;
+                  }
+                  .remove {
+                    visibility: hidden;
+                    margin: 15px 15px 0 0;
+                    padding: 0;
+                    float: right;
+                    cursor: pointer;
+                  }
+                  &:hover {
+                    .remove {
+                      background: transparent;
+                      visibility: visible;
+                    }
+                  }
+                  &.empty {
+                    h6 {
+                      padding: 30px;
+                      font-size: 1.3em;
+                      small {
+                        line-height: 1.3em;
+                        display: block;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          
+
