@@ -1,9 +1,4 @@
-{
-Error: Parse error on line 1:
-{% extends app.reques
--^
-Expecting 'STRING', '}'
-% extends app.request.isXmlHttpRequest or app.request.get('xhr') ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
+{% extends app.request.isXmlHttpRequest or app.request.get('xhr') ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% block meta %}
 {% if category.programs|length < 6 or app.request.get('facet')|length == 1 or app.request.get('page') %}
