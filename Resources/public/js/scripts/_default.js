@@ -103,7 +103,15 @@ $(document).ready(function(){
     API.publishPlaylist($(this).data('publish') == 'remove' ? true : false);
     return false;
   });
-
+  // new header nav bar
+  $(".headertoprighticons").on('click', function(e){
+    if($('.dropdown',this) && !$('.dropdown',this).hasClass('open')){  
+    $('.dropdown',this).addClass('open');
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  
+  });
   // -- ui form
   $('.navbar form.navbar-search i.icon-search').on('click', function(){
     $('.navbar form.navbar-search').submit();
