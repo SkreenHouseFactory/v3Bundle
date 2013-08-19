@@ -63,7 +63,7 @@ class toolsExtension extends \Twig_Extension
     public function keywordsFromUrl($url)
     {
       $keywords = array();
-      foreach (explode('-', $url) as $word) {
+      foreach (explode('-', urldecode($url)) as $word) {
         if (!is_numeric($word)) {
           $keywords[] = $word;
         }
