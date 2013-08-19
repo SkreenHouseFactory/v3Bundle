@@ -109,7 +109,9 @@ class broadcastdateExtension extends \Twig_Extension
 				$tomorrow = 'le ' . date('d', $time + 24*3600) . ' ' . $this->getMonth(date('m', $time + 24*3600));
 				$yesterday = 'le ' . date('d', $time - 24*3600) . ' ' . $this->getMonth(date('m', $time - 24*3600));
 				$string = 'le ' . date('d', $time) . ' ' . $month . ' à ' . date('G\hi', $time);
-        if (date('Ymd', $time) == date('Ymdd')) {
+        if (strstr(date('YmdH', $time), date('Ymd2'))) {
+			    $string = str_replace('le ' . date('d ') . $month, 'Ce soir', $string); //today
+        } elseif (date('Ymd', $time) == date('Ymd')) {
 			    $string = str_replace('le ' . date('d ') . $month, 'Aujourd\'hui', $string); //today
         }
 				if (strstr($string, $tomorrow .' 2')) {
