@@ -11,7 +11,9 @@ UI = {
   last_notification: null,
   max_notifications: 50,
   badge_notification: '<span class="badge">%count%</span>',
-  loader: '<div class="progress progress-striped active"><div class="bar" style="width:0%"></div></div>',
+  loader: '<div class="progress progress-striped active"><div class="progress-bar progress-bar-info" style="width: 0%"><span class="sr-only">0% Complete</span></div></div>',
+  
+  
   callbackTogglePlaylist: null,
   init: function(callback) {
     var self = this;
@@ -495,15 +497,17 @@ UI = {
          $('.notifications .notification-filter').append('<a class="label filter" data-filter="chaîne">Chaînes</a>');
       } 
      
-      $('.notifications .label.filter').on('click', function(){
+      $('.notifications .label.filter').on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
         $('.notifications .label.filter').removeClass('label-info');
-        $('.notifications .tv-component').addClass('hide');
+        $('.notifications .dropdown-menu .tv-component').addClass('hide');
         $('.notifications .divider.notification').addClass('hide');
         $('.label.filter[data-filter="' + $(this).data('filter') + '"]').addClass('label-info');
     
         if ( $(this).data('filter') == 'all' ){
-          $('.notifications .tv-component').removeClass('hide');
-          $('.notifications .divider').removeClass('hide'); 
+          $('.notifications .dropdown-menu .tv-component').removeClass('hide');
+          $('.notifications .divider.notification').removeClass('hide'); 
         } else {
           if( $(this).data('filter') == 'tv' ){
             var classes = ['plays.broadcast','broadcasts.broadcast'];
@@ -515,10 +519,11 @@ UI = {
             var classes = [$(this).data('filter')];
           }
           for (k in classes) {
-            $('.notifications .tv-component.' +  classes[k]).removeClass('hide'); 
+            $('.notifications .dropdown-menu .tv-component.' +  classes[k]).removeClass('hide'); 
             $('.notifications .divider.' +  classes[k]).removeClass('hide'); 
           }
         }
+        return false;
       });
      
       
@@ -837,7 +842,7 @@ UI = {
   appendLoader: function(elmt, timer) {
     $('.progress', elmt).remove();
     elmt.append(this.loader);
-    $('.progress .bar', elmt).animate({'width': '100%'}, typeof timer != 'undefined' ? timer : 5000);
+    $('.progress .progress-bar', elmt).animate({'width': '100%'}, typeof timer != 'undefined' ? timer : 5000);
   },
   // -- remove loader
   removeLoader: function(elmt) {
@@ -902,7 +907,8 @@ UI = {
     });
   },
   startSearching: function(to_focus) {
-    if (!$('body').hasClass('searching')) {
+    if (!$('body').hasClass('searching') && 
+        !$('.modal:visible').length) {
       if (!$('#search-query-bg').length) {
         $('body').prepend('<div id="search-query-bg"></div>');
       } else {
