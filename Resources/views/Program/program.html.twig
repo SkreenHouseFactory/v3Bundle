@@ -38,7 +38,7 @@
 {% endif %}
 <meta name="twitter:domain" content="mySkreen.com">
 
-{# opengraph #}
+{# opengraph #} LOLOL
 <meta property="og:title" content="{{ program.title }}" />
 <meta property="og:description" content="[ VIDEO ] {{ program.description_text|replace({"\n": ''}) }}" />
 <meta property="og:image" content="{{ program.picture }}" />
@@ -55,13 +55,13 @@
 <meta property="og:video:type" content="video/mp4" />
 <meta property="video:duration" content="{{ program.duration * 60 }}" />
 
-<meta name="video_height" content="360" />
-<meta name="video_width" content="640" />
+<meta name="video_height" content="360" /> LOLOL
+<meta name="video_width" content="640" /> LOLOL
 <link rel="video_src" href="{{ program.player_fb }}" />
-<meta name="video_type" content="application/x-shockwave-flash" />
+<meta name="video_type" content="application/x-shockwave-flash" /> LOLOL
 <meta name="video_duration" content="{{ program.duration * 60 }}" />
-<meta name="object_type" content="episode" />
-{% endif %}
+<meta name="object_type" content="episode" /> LOLOL
+{% endif %} LOLOL
 <link rel="image_src" href="{{ program.picture }}" />
 
 {% endblock %}
@@ -179,7 +179,7 @@
           {# subscriptions #}
           {% if key == 'plays' and
                 program.subscriptions is defined and 
-                program.subscriptions|length %}
+                program.subscriptions|length  %}
           {% for s in program.subscriptions %}
           <tr data-id="{{ s.pass.play }}" data-play="{{ s.pass.play }}" data-play-pass="{{ s.id }}" data-play-args="{&quot;hide_sliders&quot;:1}">
             <td class="notif"><span class="badge">0</span></td>
@@ -228,7 +228,7 @@
           {# par defaut #}
           {% else %}
             {% set other_episodes = '' %}
-            {% for o in program.offers[key] %}
+            {% for o in program.offers[key] length < 3 %}
               {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
               {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
               {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
@@ -540,60 +540,60 @@
           <h5 class="inline-block">Sous-catégories</h5>&nbsp; {% for c in program.subcategories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>{% endfor %}
         {% endif %}
      </p>
-        <div id="program-casting" class="scroll">
-        {% if program.director %}
-        <h5>{{ 'directed.by'|trans }}</h5>
-        {% for pers in program.director %}
-        <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
+     <div id="program-casting" class="scroll">
+      {% if program.director %}
+      <h5>{{ 'directed.by'|trans }}</h5>
+      {% for pers in program.director %}
+      <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
         {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
         {% if pers.programmes is defined and (pers.programmes|length > 1) %}
-          <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
-          {% if loop.first %}{% else %}, {% endif %}
-          <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
-          {% endfor %}<span style="color:#005580"> ) </span>
-        {% endif %}
-        </div>
-        {% endfor %}
-        {% endif %}
-        {% if program.presenter is defined and program.presenter %}
-        <h5>{{ 'presented.by'|trans }}</h5> 
-        {% for pers in program.presenter %}
-        <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
-        {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
-        </div>
-        {% endfor %}
-        {% endif %}
-        <br/>
-        {% if program.casting %}
-        <h5>{{ 'actors'|trans }}</h5>
-        {% for pers in program.casting %}
-        <div class="inline" itemprop="actor" itemscope itemtype="http://schema.org/Person">
-        {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
-        {% if pers.main_programs is defined and (pers.main_programs|length > 1) %}
-          <span style="color:#005580"> ( </span>{% for prog in pers.main_programs if prog.id != program.id  %}
-          {% if loop.first %}{% else %}, {% endif %}
-          <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
-          {% endfor %}<span style="color:#005580"> ) </span>
-        {% endif %}
-        </div>
-        {% endfor %}
-        {% endif %}
-        <br/>
-        {% if program.editor %}
-        <h5>{{ 'editors'|trans }}</h5>
-        {% for pers in program.editor %}
-        <div class="inline" itemprop="editor" itemscope itemtype="http://schema.org/Person">
-        {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
-        {% if pers.programmes is defined and (pers.programmes|length > 1) %}
-          <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
-          {% if loop.first %}{% else %}, {% endif %}
-          <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
-          {% endfor %}<span style="color:#005580"> ) </span>
-        {% endif %}
-        </div>
-        {% endfor %}
+        <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
+        {% if loop.first %}{% else %}, {% endif %}
+        <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
+        {% endfor %}<span style="color:#005580"> ) </span>
         {% endif %}
       </div>
+      {% endfor %}
+      {% endif %}
+      {% if program.presenter is defined and program.presenter %}
+      <h5>{{ 'presented.by'|trans }}</h5> 
+      {% for pers in program.presenter %}
+      <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
+        {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+      </div>
+      {% endfor %}
+      {% endif %}
+      <br/>
+      {% if program.casting %}
+      <h5>{{ 'actors'|trans }}</h5>
+      {% for pers in program.casting %}
+      <div class="inline" itemprop="actor" itemscope itemtype="http://schema.org/Person">
+        {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+        {% if pers.main_programs is defined and (pers.main_programs|length > 1) %}
+        <span style="color:#005580"> ( </span>{% for prog in pers.main_programs if prog.id != program.id  %}
+        {% if loop.first %}{% else %}, {% endif %}
+        <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
+        {% endfor %}<span style="color:#005580"> ) </span>
+        {% endif %}
+      </div>
+      {% endfor %}
+      {% endif %}
+      <br/>
+      {% if program.editor %}
+      <h5>{{ 'editors'|trans }}</h5>
+      {% for pers in program.editor %}
+      <div class="inline" itemprop="editor" itemscope itemtype="http://schema.org/Person">
+        {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+        {% if pers.programmes is defined and (pers.programmes|length > 1) %}
+        <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
+        {% if loop.first %}{% else %}, {% endif %}
+        <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
+        {% endfor %}<span style="color:#005580"> ) </span>
+        {% endif %}
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
     </div>
   </div>
   </hgroup>

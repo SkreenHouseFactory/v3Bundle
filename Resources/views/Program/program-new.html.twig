@@ -123,17 +123,30 @@
     <div class="col-lg-9 ">
       <div class="row">
         <div class="col-lg-9 videotitle">
-
          {% if program.episode_title is defined and 
          program.episodeof is defined and 
          program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
-         <h1 itemprop="name">{{ program.episode_title }}{% if program.popular_channel is defined %} </h1><h2>{{ program.popular_channel.name }}</h2>{% endif %}
+         <h1 itemprop="name">
+           {{ program.episode_title }}
+           {% if program.popular_channel is defined %}
+         </h1>
+         <h2>{{ program.popular_channel.name }}</h2>
+         {% endif %}
          {% elseif program.episode_title is defined and 
          program.episodeof is defined %}
-         {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
-         <h1 itemprop="name">{{ program.episodeof.title }}</h1> <h2>{{ program.episode_title }}{% if program.episode_title and program.episode_title != episode_title and  episode_title != '' %} ({{ episode_title }}){% endif %}</h2>
+         {% set episode_title %}
+         {% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}
+         {% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}
+
+
+         {% endset %}
+
+         <h1 itemprop="name">{{ program.episodeof.title }}
+         </h1>
+         <h2>{{ program.episode_title }}  {% if program.episode_title and program.episode_title != episode_title and  episode_title != '' %} ({{ episode_title }}){% endif %}</h2>
          {% else %}
-         <h1 itemprop="name"> {{ program.title }} </h1>
+         <h1 itemprop="name"> {{ program.title }} 
+         </h1>
          {% endif %}   
        </div>
 
@@ -142,50 +155,46 @@
       </div>
     </div>
 
+
+
+
+
+
+
+    <div class="row">
+      <div class="col-lg-9">
+
+
+
+
+
+      </div>
+    </div>
+
+
+
+
+
     <div class="tab-content">
 
      {% for key in offers|keys if program.offers[key]|to_array|length %}
-  
-
-
-
-
-
-
-
+     {% set variabledeboucle = loop.index  %}
 
      <div class="panel">
       <div class="panel-heading">
-        <h3 class="panel-title">Voir {{ key }} </h3>
+        <h3 class="panel-title">Voir {{ offers[key] }} </h3>
       </div>
 
 
 
-      <table class="table">
-        <tbody>
-        </tbody>
-      </table>
+
       <a name="{{ key }}"></a>
       <div id="{{ key }}" data-play-text="{{ ('player.content.text.' ~ key)|trans }}" class="tab-pane{% if key == program.offers_default or program.offers_default is null %} active{% endif %}">
         {%  if program.offers[key]|length %}
         <div class="table-container scroll ">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
           <table class="table">
             <tbody>
-
               {# subscriptions #}
               {% if key == 'plays' and
               program.subscriptions is defined and 
@@ -237,8 +246,10 @@
               {# par defaut #}
               {% else %}
               {% set other_episodes = '' %}
+              {% set btn_deploy_offers = 0 %}
 
               {% for o in attribute(program.offers, key)|to_array %}
+              {% set btn_deploy_offers = btn_deploy_offers + 1 %}
               {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
               {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
               {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
@@ -247,102 +258,111 @@
               program.episodeof.id is defined and 
               o.episode_id != program.id and
               other_episodes != 'ok' %}
-              <tr><td colspan="6"><h6>Autres épisodes</h6></td></tr>
+              <tr class="testtracker" ><td colspan="6"><h6>Autres épisodes</h6></td></tr>
+
               {% set other_episodes = 'ok' %}
               {% endif %}
 
-
-
-
-
-              <tr  data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %}>
-                <td >
-                  <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}"></td>
-
-
-
-                  <td class="episode">
-
-
-
-
-                   {% if o.title is defined and o.title %}
-                   <h4>{{ o.title }}</h4>
-                   <span>{{ o.description }}</span>
-                   {% elseif o_episode and o_episode.title %}
-                   <h4>{{ o_episode.title }}</h4>
-
-                   {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}
-                   {% if o_episode.season_number is defined or 
-                   o_episode.episode_number is defined or 
-                   o_episode.part_number is defined %}
-                   {% if episode_title != o_episode.title %}<span>{{ episode_title }}</span>
-                   {% endif %}
-                   {% endif %}
-
-
-
-                   {% endif %}
-
-                 </td>
-
-                 <td class="price big">{% if o.cost is defined and o.cost > 0 %}<b>{{ o.cost|number_format(2, ',') }}&euro;</b>{% else %}  Gratuit
-                  {% endif %}
-                </td>
-
-                <td>
-                  <button type="button" class="btn btn-voir">Voir maintenant</button>
-                </td>
-
-
-              </tr>
               <tr>
-                <td data-acces="{{ o_access.name }}">
-                  <span class="big replay_label">{{ o_access.name }}</span>
-                </td>
                 <td>
-                 <span class="ms-vidoption">
-                   {% if o.deporte is defined and o.deporte and o.versions is defined %}
-                   <strong>{{ o.versions|to_array|keys|join(', ') }}</strong>&nbsp;
-                   {% elseif o.tags is defined and o.tags.version is defined %}
-                   <strong>{{ o.tags.version|replace({',': ', '}) }}</strong>
-                   {% endif %}
+                  <table class="offertable {% if loop.index > 3 %}collapse collapsing{{ variabledeboucle }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} >
+                    <tbody>
 
-                   {% if o.tags is defined and o.tags|length %}
-                   {% if o.tags.HD is defined %}
-                   HD
-                   {% endif %}
-                   {% if o.tags.format is defined %}
-                   {{ o.tags.format }}
-                   {% endif %}
-                   {% if o.tags.device is defined %}
-                   {{ o.tags.device|replace({',': ', '}) }}
-                   {% endif %}
-                   {% endif %}
-                 </span>
-               </td>
-               <td>
 
-               </td>
-               <td class="access">                 
-                {% if o_access.name == 'TV' %}
-                {% if key == 'plays'  %}
-                <span class="ms-reminder">Live</span>
-                {% elseif o.has_replay and o.broadcasttime|remainingtv %}
-                <span class="ms-reminder">{{ o.broadcasttime|remainingtv }}</span>
-                {% elseif o.broadcasttime|timeleft %}
-                <span class="ms-reminder">Dans {{ o.broadcasttime|timeleft }}</span>
-                {% endif %}
-                {% elseif o.endtime is defined and o.endtime|remainingreplay %}
-                <span class="ms-reminder">{{ o.endtime|remainingreplay }}</span>
-                {% endif %}
+                      <tr >
+                        <td >
+                          <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}"></td>
 
+
+
+                          <td class="episode">
+
+                           {% if o.title is defined and o.title %}
+                           <h4>{{ o.title }}</h4>
+                           <span>{{ o.description }}</span>
+                           {% elseif o_episode and o_episode.title %}
+                           <h4>{{ o_episode.title }}</h4>
+
+                           {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}
+                           {% if o_episode.season_number is defined or 
+                           o_episode.episode_number is defined or 
+                           o_episode.part_number is defined %}
+                           {% if episode_title != o_episode.title %}<span>{{ episode_title }}</span>
+                           {% endif %}
+                           {% endif %}
+
+
+
+                           {% endif %}
+
+                         </td>
+
+                         <td class="price big gratuit">{% if o.cost is defined and o.cost > 0 %}<b>{{ o.cost|number_format(2, ',') }}&euro;</b>{% else %}  Gratuit
+                          {% endif %}
+                        </td>
+
+                        <td>
+                          <button type="button" class="btn btn-voir">Voir maintenant</button>
+                        </td>
+
+
+                      </tr>
+                      <tr>
+                        <td data-acces="{{ o_access.name }}">
+                          <span class="big replay_label">{{ o_access.name }}</span>
+                        </td>
+                        <td>
+                         <span class="ms-vidoption">
+                           {% if o.deporte is defined and o.deporte and o.versions is defined %}
+                           <strong>{{ o.versions|to_array|keys|join(', ') }}</strong>&nbsp;
+                           {% elseif o.tags is defined and o.tags.version is defined %}
+                           <strong>{{ o.tags.version|replace({',': ', '}) }}</strong>
+                           {% endif %}
+
+                           {% if o.tags is defined and o.tags|length %}
+                           {% if o.tags.HD is defined %}
+                           HD
+                           {% endif %}
+                           {% if o.tags.format is defined %}
+                           {{ o.tags.format }}
+                           {% endif %}
+                           {% if o.tags.device is defined %}
+                           {{ o.tags.device|replace({',': ', '}) }}
+                           {% endif %}
+                           {% endif %}
+                         </span>
+                       </td>
+                       <td>
+
+                       </td>
+                       <td class="access">                 
+                        {% if o_access.name == 'TV' %}
+                        {% if key == 'plays'  %}
+                        <span class="ms-reminder">Live</span>
+                        {% elseif o.has_replay and o.broadcasttime|remainingtv %}
+                        <span class="ms-reminder">{{ o.broadcasttime|remainingtv }}</span>
+                        {% elseif o.broadcasttime|timeleft %}
+                        <span class="ms-reminder">Dans {{ o.broadcasttime|timeleft }}</span>
+                        {% endif %}
+                        {% elseif o.endtime is defined and o.endtime|remainingreplay %}
+                        <span class="ms-reminder">{{ o.endtime|remainingreplay }}</span>
+                        {% endif %}
+
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </td>
             </tr>
+
             {% endfor %}
             {% endif %}
           </tbody>
         </table>
+        {% if btn_deploy_offers > 3 %}
+        <button type="button" class="btn " data-toggle="collapse" data-target=".collapsing{{ loop.index }}" >
+          Plus d'options 
+        </button>{% endif %}
       </div>
       {% endif %}
     </div>
@@ -353,7 +373,7 @@
   <div id="carousel-bonus" class="tab-pane">
     <div class="carousel slide">
       <div class="carousel-inner">
-        {% for b in program.offers['bonus'] %}
+        {% for b in program.offers['bonus'] | to_array %}
         <div class="item active"><a data-play="{{ b.id }}" data-program="{{ {'title': b.title}|json_encode }}" class="pull-left"><img class="img-polaroid" alt="{{ b.title }} bonus" src="{{ b.picture }}"><div class="title">{{ b.title }}</div></a></div>
         {% endfor %}
       </div>
@@ -374,18 +394,84 @@
 
 <div class="col-lg-3 ">
   <div >
-    <span class="ms-vid-type">2012 - 85mn</span>
+    <span class="ms-vid-type">{{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}</span>
     <span class="ms-cat-title">Cat&eacute;gorie:</span> 
     <span class="ms-cat-element" ><a href="#">Documentaire</a></span> 
     <span class="ms-cat-element" ><a href="#">Science</a></span> 
     <span class="ms-cat-element" ><a href="#">les inconnus</a></span>
-    <p>Etat des lieux de la situation des pays en cas de &laquo;m&eacute;gas&eacute;isme&raquo;. Apr&egrave;s le s&eacute;isme de magnitude 9 et le tsunami provoquant la catastrophe nucl&eacute;aire de Fukushima au Japon le 11 mars 2011, la communaut&eacute; scientifique dresse le bilan de toutes ses connaissances pour analyser le ph&eacute;nom&egrave;ne des &laquo;m&eacute;gas&eacute;ismes&raquo;. 
+    <div>{{ program.description_seo|raw}}
       <br><a href="#">En savoir plus...</a>
-    </p>
-  </div> 
-  <span class="ms-cat-title">Cette vid&#233;o fait parti des fanpages</span>
-  <span class="ms-cat-element" ><a href="#">Documentaire</a></span>
-</div>
+    </div>
+    <div class="inner">
+      <h3>{{ program.title }}</h3>
+
+      <p>
+        {% if program.format and program.categories|length %}
+        <h5 class="inline-block">Catégories</h5>&nbsp; {% for c in program.categories | to_array  if c.seo_url is defined %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
+        <br/>
+        {% endif %}
+        {% if program.format and program.subcategories|length %}
+        <h5 class="inline-block">Sous-catégories</h5>&nbsp; {% for c in program.subcategories | to_array  %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>{% endfor %}
+        {% endif %}
+      </p>
+      <div id="program-casting" class="scroll">
+        {% if program.director %}
+        <h5>{{ 'directed.by'|trans }}</h5>
+        {% for pers in program.director | to_array %}
+        <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
+          {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+          {% if pers.programmes is defined and (pers.programmes|length > 1) %}
+          <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
+          {% if loop.first %}{% else %}, {% endif %}
+          <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
+          {% endfor %}<span style="color:#005580"> ) </span>
+          {% endif %}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% if program.presenter is defined and program.presenter %}
+        <h5>{{ 'presented.by'|trans }}</h5> 
+        {% for pers in program.presenter | to_array  %}
+        <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
+          {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <br/>
+        {% if program.casting %}
+        <h5>{{ 'actors'|trans }}</h5>
+        {% for pers in program.casting | to_array %}
+        <div class="inline" itemprop="actor" itemscope itemtype="http://schema.org/Person">
+          {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+          {% if pers.main_programs is defined and (pers.main_programs|length > 1) %}
+          <span style="color:#005580"> ( </span>{% for prog in pers.main_programs if prog.id != program.id  %}
+          {% if loop.first %}{% else %}, {% endif %}
+          <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
+          {% endfor %}<span style="color:#005580"> ) </span>
+          {% endif %}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <br/>
+        {% if program.editor %}
+        <h5>{{ 'editors'|trans }}</h5>
+        {% for pers in program.editor | to_array %}
+        <div class="inline" itemprop="editor" itemscope itemtype="http://schema.org/Person">
+          {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+          {% if pers.programmes is defined and (pers.programmes|length > 1) %}
+          <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
+          {% if loop.first %}{% else %}, {% endif %}
+          <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
+          {% endfor %}<span style="color:#005580"> ) </span>
+          {% endif %}
+        </div>
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div> 
+    <span class="ms-cat-title">Cette vid&#233;o fait parti des fanpages</span>
+    <span class="ms-cat-element" ><a href="#">Documentaire</a></span>
+  </div>
 
 </div>
 

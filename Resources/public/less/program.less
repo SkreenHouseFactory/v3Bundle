@@ -33,19 +33,7 @@
   color: #68767c;
 }
 
-.table{
-  margin:0;  
-}
-.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
-  padding: 0; 
-  border: 0;
-}
 
-table.table td img{
-  display:block;
-  margin-left:auto;
-  margin-right:auto;
-}
 
 
 .scrollplayerzone{
@@ -69,6 +57,11 @@ table.table td img{
   font-size: 26px;
   margin-top: 5px;
 }
+
+
+
+
+/* boutons */
 
 .suivre-bouton-gros{
   float: right;
@@ -107,11 +100,17 @@ table.table td img{
  text-align: center;
 }
 
-.price.big > b{
+.price.big > b, .price.big.gratuit{
   display: block;
-  color: #166dc9!important;
+  color: #166dc9;
   font-size: 18px;
+  margin-top: 2px;
 }
+
+
+
+
+
 .btn-voir{
   float: right;
   margin-right:25px; 
@@ -124,18 +123,65 @@ table.table td img{
   margin: 0;
 }
 
-table.table > tbody > tr > td {  
+table.offertable {
+  margin:0;
+  width: 100%;
+}
+table.offertable thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
+  padding: 0; 
+  border: 0;
+}
+
+table.offertable  td img{
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+table.offertable > tbody > tr > td {  
   vertical-align: middle;
 }
 
-table.table > tbody > tr:nth-child(2n+1) > td {  
+table.offertable > tbody > tr:nth-child(2n+1) > td {  
   padding-top: 10px;
 }
+table.offertable > tbody > tr:nth-child(2n+2) > td {  
+  padding-bottom:2px; 
+}
 
-table.table > tbody > tr:nth-child(2n+2) {  
+table.offertable > tbody > tr:nth-child(2n+2) {  
   border-bottom: 1px solid #f3eeee;
 }
 
-table.table > tbody > tr:nth-child(2n+2) > td {  
-  padding-bottom:10px; 
+
+
+
+
+
+
+table.offertable > tbody > tr > td:nth-of-type(1){  
+  width: 15%;
+  vertical-align: middle;
+}
+table.offertable > tbody > tr > td:nth-of-type(2){  
+  width: 35%;
+  vertical-align: middle;
+
+}
+table.offertable > tbody > tr > td:nth-of-type(3){  
+  width: 25%;
+  vertical-align: middle; 
+}
+table.offertable > tbody > tr > td:nth-of-type(4){   
+  width: 25%;
+  vertical-align: middle;
+
+}
+
+
+
+/* DESCRIPTIONS DE DROITE*/
+
+[itemprop="name"], [itemprop="actor"], [itemprop="director"]{
+ font-weight: bold;
 }
