@@ -31,7 +31,7 @@
   {% for cinema in cinemas %}
     {% if cinema.adress is defined %}
     <tr><td class="actions" data-id="{{ cinema.id }}">
-      <a class="fav fav-cinema pull-right btn btn-primary" data-id="{{ cinema.id }}" data-name="{{ cinema.name }}" href="#"><i class="icon-plus-sign icon-white"></i> Suivre</a>
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, name: cinema.name, class: 'fav-cinema'} %}
       <a class="btn btn-default pull-right" href="{{ path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1) }) }}"> Films & horaires</a>
       <strong>{{ cinema.name }}</strong><br/>
       <em>{{ cinema.adress }} {{ cinema.city }} {{ cinema.zip_code }}</em>

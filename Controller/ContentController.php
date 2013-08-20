@@ -122,7 +122,7 @@ class ContentController extends Controller
         //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$data->seo_url;exit();
         return $this->redirect($data->seo_url, 301);
       }
-
+      $data->programs = (array)$data->programs;
       $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) && isset($data->programs[0]->picture) ? $data->programs[0]->picture : null);
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Content:person.html.twig', array(

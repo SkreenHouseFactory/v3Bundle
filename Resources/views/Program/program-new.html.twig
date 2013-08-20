@@ -211,7 +211,7 @@
               {% endif %}
 
               {# theaters #}
-              {% if key == 'theaters' %}
+              {% if key == 'theater' %}
               <tr>
                 <td colspan="6" class="theaters">
                   {% if program.datas_theaters.theaters_ids|length > 0 %}
@@ -378,7 +378,7 @@
              {% endif %}
            </tbody>
          </table>
-         {% if btn_deploy_offers > 3 %}
+         {% if btn_deploy_offers is defined and btn_deploy_offers > 3 %}
          <button type="button" class="btn " data-toggle="collapse" data-target=".collapsing{{ loop.index }}" >
           Voir les {{ attribute(program.offers, key)|to_array|length - 3 }} choix restants
         </button>{% endif %}
