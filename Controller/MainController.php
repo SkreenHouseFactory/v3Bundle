@@ -225,7 +225,7 @@ class MainController extends Controller
       $method   = $request->getMethod();
       $datas    = $method == 'POST' ? $request->request->get('data') : $request->get('data');
       $url      = $method == 'POST' ? $request->request->get('url') : $request->get('url');
-      $format   = $method == 'POST' ? '.json' : null;
+      $format   = $method == 'POST' && preg_match('/\/api\//', $request->get('url')) ? '.json' : null;
 
       if (!is_array($datas)) {
         $datas = array();

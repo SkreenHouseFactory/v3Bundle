@@ -278,8 +278,14 @@ UiView = {
     // -- remote data in html elmt
     $(elmt).on('submit', 'form[data-form-ajax]', function(e){
       e.preventDefault();
-      API.query('POST', $(this).attr('action'), $(this).serialize(), function(html){
-        $(this).data('form-ajax').html(html);
+      var form = $(this);
+      $.post(
+        $(this).attr('action'), 
+        $.extend($(this).serializeFullArray(), {dataType: 'text/html'}), 
+        function(html){
+          console.log('script', 'callback data-form-ajax', form.data('form-ajax'))
+          $(form.data('form-ajax')).html(html);
+          UI.loadPlaylistTriggers(null, null, form.data('form-ajax'), $(form.data('form-ajax')));
       });
       
     });

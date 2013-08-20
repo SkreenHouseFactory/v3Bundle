@@ -170,7 +170,7 @@
      {% for key in offers|keys if program.offers[key]|to_array|length %}
      {% set variabledeboucle = loop.index  %}
 
-     <div class="panel">
+     <div class="panel{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : '' }}">
       <div class="panel-heading">
         <h3 class="panel-title">Voir {{ offers[key] }} </h3>
       </div>
@@ -179,7 +179,7 @@
 
 
       <a name="{{ key }}"></a>
-      <div id="{{ key }}" data-play-text="{{ ('player.content.text.' ~ key)|trans }}" class="tab-pane{% if key == program.offers_default or program.offers_default is null %} active{% endif %}">
+      <div id="{{ key }}" data-play-text="{{ ('player.content.text.' ~ key)|trans }}" class="tab-pane{% if key == 'external' and program.offers['deporte'] is defined %} hide{% endif %}">
         {%  if program.offers[key]|length %}
         <div class="table-container scroll ">
 
@@ -201,15 +201,15 @@
               {% endif %}
 
               {# theaters #}
-              {% if key == 'theaters' %}
+              {% if key == 'theater' %}
               <tr>
                 <td colspan="6" class="theaters">
                   {% if program.datas_theaters.theaters_ids|length > 0 %}
                   <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
                   {% if program.datas_theaters.theaters_ids|length > 9 %}
-                  <form id="theaters-search" class="form-search pull-left">
+                  <form id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}" data-form-ajax="#theaters-list" class="form-search pull-left">
                     <div class="input-append">
-                      <input type="text" class="span3 search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
+                      <input name="q" type="text" class="span3 search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
                       <button type="submit" class="btn"><i class="icon-search"></i> {{ 'theaters.search.submit'|trans }}</button>
                     </div>
                   </form>
@@ -218,7 +218,7 @@
                     <a class="btn" href="#theaters" id="trigger-theaters-playlist"><i class="icon-user"></i> {{ 'theaters.search.playlist'|trans }}</a>
                   </div>
                   {% endif %}
-                  <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}">
+                  <div id="theaters-list" class="clear">
                     {% render(controller('SkreenHouseFactoryV3Bundle:Cinema:program', {id: program.id, theater_ids: app.request.get('theater_id') ? app.request.get('theater_id') : program.datas_theaters.theaters_ids|join(',') })) %}  
                   </div>
                   {% if program.datas_theaters.theaters_on_demand|length %}
@@ -368,7 +368,7 @@
              {% endif %}
            </tbody>
          </table>
-         {% if btn_deploy_offers > 3 %}
+         {% if btn_deploy_offers is defined and btn_deploy_offers > 3 %}
          <button type="button" class="btn " data-toggle="collapse" data-target=".collapsing{{ loop.index }}" >
           Voir les {{ attribute(program.offers, key)|to_array|length - 3 }} choix restants
         </button>{% endif %}

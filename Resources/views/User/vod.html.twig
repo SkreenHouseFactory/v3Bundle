@@ -54,7 +54,7 @@
 	      <tr data-alpha="{{ v.program.title|slice(0,1)|lower }}">
 						<td>
 							<a href="{{ path('any_url', {url: v.program.seo_url|slice(1, v.program.seo_url|length-1) }) }}">{{ v.program.title }}</a>{#<br/>Loué le {{ v.created_at|localizeddate('full', 'none') }}#}
-							<br/> {{ v.program.format }}, {{ v.program.year }}
+							<br/> {{ v.program.format ? v.program.format.name : '' }}, {{ v.program.year }}
 						</td>
 						<td>
 							<ul class="nav" id="offers-{{ v.program.id }}" class="">

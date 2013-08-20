@@ -410,7 +410,7 @@ API = {
     // Currently, proxy POST requests
     if (method == 'POST' || method == 'DELETE' || method == 'GET_PROXY') {
       method = method.replace('_PROXY', ''); //hack GET_PROXY
-      var dataType = 'text json';
+      var dataType = typeof data.dataType != 'undefined' ? data.dataType : 'text json';
       var post = {};
       post['url'] = url.replace('.json','');
       post['data'] = data;

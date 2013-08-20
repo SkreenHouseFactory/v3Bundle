@@ -56,26 +56,4 @@ $(document).ready(function(){
 		});
 		return false;
 	});
-
-	$(document).on('submit', 'form#theaters-search', function(e){
-		e.preventDefault();
-		console.log('script', 'theaters-search');
-		if ($('.search-query', $(this)).attr('value')){
-			var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
-			var input = $('.modal #theaters-search .search-query').length ? $('.modal #theaters-search .search-query') : $('#theaters-search .search-query');
-			container.empty();
-			UI.appendLoader(container, 2000);
-			API.query(
-				'GET',
-				API.config.v3_url + container.data('api-url') + '?q=' + encodeURIComponent(input.val()),
-				{dataType: 'text html'},
-				function(datas){
-					console.log('script', '#theaters-search', 'callback');
-					UI.removeLoader(container);
-					container.html(datas);
-					UI.loadPlaylistTriggers('cinema', Skhf.session.datas.cinema.split(','), container);
-			});
-		}
-		return false;
-	});
 });

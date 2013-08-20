@@ -1,1 +1,1 @@
-<a data-id="{{ id }}" class="btn btn-suivre suivre-bouton-gros {{ class }}">+ {{ text is defined ? text : 'Suivre' }}</a>
+<a data-id="{{ id }}"{{ name is defined ? ' data-name="'~ name ~'"' : '' }} class="btn btn-suivre suivre-bouton-gros {{ class }}">+ {{ text is defined ? text : 'Suivre' }}</a>

@@ -288,7 +288,7 @@ class ProgramController extends Controller
             'replay' => 'En Replay', 
             'deporte' => 'sur mySkreen', 
             'tv' => 'à la télé',
-           // 'theater' => 'Ciné',  
+            'theater' => 'En salles',  
             'external' => 'sur les plateformes de location partenaires', 
             'archive' => 'Archives'
           ),
