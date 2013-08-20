@@ -289,7 +289,7 @@ class ProgramController extends Controller
             'deporte' => 'sur mySkreen', 
             'tv' => 'à la télé',
            // 'theater' => 'Ciné',  
-            'external' => 'Sur d\'autres sites', 
+            'external' => 'sur les plateformes de location partenaires', 
             'archive' => 'Archives'
           ),
           'player_host' => $api->host

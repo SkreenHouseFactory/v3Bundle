@@ -38,7 +38,7 @@
 {% endif %}
 <meta name="twitter:domain" content="mySkreen.com">
 
-{# opengraph #} LOLOL
+{# opengraph #} 
 <meta property="og:title" content="{{ program.title }}" />
 <meta property="og:description" content="[ VIDEO ] {{ program.description_text|replace({"\n": ''}) }}" />
 <meta property="og:image" content="{{ program.picture }}" />
@@ -55,13 +55,13 @@
 <meta property="og:video:type" content="video/mp4" />
 <meta property="video:duration" content="{{ program.duration * 60 }}" />
 
-<meta name="video_height" content="360" /> LOLOL
-<meta name="video_width" content="640" /> LOLOL
+<meta name="video_height" content="360" /> 
+<meta name="video_width" content="640" /> 
 <link rel="video_src" href="{{ program.player_fb }}" />
-<meta name="video_type" content="application/x-shockwave-flash" /> LOLOL
+<meta name="video_type" content="application/x-shockwave-flash" /> 
 <meta name="video_duration" content="{{ program.duration * 60 }}" />
-<meta name="object_type" content="episode" /> LOLOL
-{% endif %} LOLOL
+<meta name="object_type" content="episode" /> 
+{% endif %} 
 <link rel="image_src" href="{{ program.picture }}" />
 
 {% endblock %}

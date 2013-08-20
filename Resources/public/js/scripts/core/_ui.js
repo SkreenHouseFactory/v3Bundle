@@ -254,8 +254,6 @@ UiView = {
       document.title = 'programmes, TV, replay | mySkreen.com';
       return false;
     });
-   
-    
     // -- redirect
     $(elmt).on('click', '[data-redirect]', function(){
       console.log('script', 'player redirect', $(this));
@@ -275,6 +273,15 @@ UiView = {
       console.log('script', 'data-remove', $(this));
       $($(this).data('remove')).slideUp().remove();
       return false;
+    });
+
+    // -- remote data in html elmt
+    $(elmt).on('submit', 'form[data-form-ajax]', function(e){
+      e.preventDefault();
+      API.query('POST', $(this).attr('action'), $(this).serialize(), function(html){
+        $(this).data('form-ajax').html(html);
+      });
+      
     });
     // -- btn-radio
     $('[data-toggle="buttons-radio"] > *').on('click', function() { //TODO Le live ne marche pas, du coup HACK en mettant on

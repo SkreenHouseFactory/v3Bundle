@@ -65,10 +65,10 @@ class broadcastdateExtension extends \Twig_Extension
 			if ($remaining < 0) {
 			} elseif ($remaining/3600 < 24 ) {
         $nb_hours = round($remaining/3600);
-				return 'Plus que ' . $nb_hours . ' heure'.($nb_hours > 1 ? 's' : null).' pour le voir';
+				return 'Encore ' . $nb_hours . ' h !';
 			} elseif ($remaining/3600 < 73 ) {
         $nb_days = round($remaining/(3600*24));
-				return 'Plus que ' . $nb_days . ' jour'.($nb_days > 1 ? 's' : null).' pour le voir';
+				return 'Encore ' . $nb_days . ' jour'.($nb_days > 1 ? 's' : null);
 			}
     }
 

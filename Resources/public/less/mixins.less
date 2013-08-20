@@ -7,18 +7,29 @@
   -o-transition: background @duration ease;
   transition: background @duration ease;
 }
-.link-border-transition (@duration: 450ms) {
-  -webkit-transition: border @duration ease;
-  -moz-transition: border @duration ease;
-  -ms-transition: border @duration ease;
-  -o-transition: border @duration ease;
-  transition: border @duration ease;
+.link-height-transition (@duration: 0.3ms) {
+  -webkit-transition: all @duration ease;
+  -moz-transition: all @duration ease;
+  -ms-transition: all @duration ease;
+  -o-transition: all @duration ease;
+  transition: all @duration ease;
 }
-
 .link-opacity-transition (@duration: 0.3s) {
   -webkit-transition: opacity @duration ease;
   -moz-transition: opacity @duration ease;
   -ms-transition: opacity @duration ease;
   -o-transition: opacity @duration ease;
   transition: opacity @duration ease;
+}
+
+// Border border-radius: 
+.border-radius(@radius: 4px){
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+.border-radius-bottom(@radius: 4px){
+  -webkit-border-radius:0 0 @radius @radius;
+  -moz-border-radius:0 0 @radius @radius;
+  border-radius:0 0 @radius @radius;
 }

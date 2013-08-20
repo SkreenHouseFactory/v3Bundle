@@ -1,15 +1,15 @@
-{% if app.request.get('init') %}
+{% if app.request.get('init') or app.request.isXmlHttpRequest == false %}
 <div class="theaters-modal">
-  <form id="theaters-search" class="form-search modal-catchform-disable pull-left">
+  <form id="theaters-search" action="{{ path('theaters_search') }}" data-form-ajax="#theaters-list" class="form-search modal-catchform-disable pull-left">
     <div class="input-group">
-      <input type="text" class="span3 search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
+      <input type="text" name="q" class="span3 search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
       <span class="input-group-addon">
       <input type="submit" class="input-group-addon btn btn-default trigger-theaters" value="{{ 'theaters.search.submit'|trans }}" />
     </span>
     </div>
   </form>
   <a class="btn btn-default" href="javascript://" class="trigger-theaters" id="trigger-theaters-geoloc"><i class="icon-map-marker"></i> {{ 'theaters.search.geoloc'|trans }}</a>
-  <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_search') }}"></div>
+  <div id="theaters-list" class="clear"></div>
 </div>
 {% endif %}
 {% if app.request.get('q') %}
@@ -32,6 +32,7 @@
     {% if cinema.adress is defined %}
     <tr><td class="actions" data-id="{{ cinema.id }}">
       <a class="fav fav-cinema pull-right btn btn-primary" data-id="{{ cinema.id }}" data-name="{{ cinema.name }}" href="#"><i class="icon-plus-sign icon-white"></i> Suivre</a>
+      <a class="btn btn-default pull-right" href="{{ path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1) }) }}"> Films & horaires</a>
       <strong>{{ cinema.name }}</strong><br/>
       <em>{{ cinema.adress }} {{ cinema.city }} {{ cinema.zip_code }}</em>
     </td></tr>
