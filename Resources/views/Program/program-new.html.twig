@@ -348,12 +348,12 @@
                          {% if key == 'plays'  %}
                          <span class="ms-reminder">Live</span>
                          <i class="glyphicon glyphicon-time"></i>{% elseif o.has_replay and o.broadcasttime|remainingtv %}
-                         <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{ o.broadcasttime|remainingtv }}</span>
+                         <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
                          {% elseif o.broadcasttime|timeleft %}
-                         <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>Dans {{ o.broadcasttime|timeleft }}</span>
+                         <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> Dans {{ o.broadcasttime|timeleft }}</span>
                          {% endif %}
                          {% elseif o.endtime is defined and o.endtime|remainingreplay %}
-                         <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{ o.endtime|remainingreplay }}</span>
+                         <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
                          {% endif %}
 
 
@@ -416,11 +416,11 @@
     <span class="ms-vid-type">{{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}</span>
     
     {% if program.format and program.categories|length | to_array %}
-    <h5  class="ms-cat-title" >Catégories</h5>&nbsp; {% for c in program.categories | to_array  if c.seo_url is defined  %}{% if loop.first %}{% else %}, {% endif %}<a class="ms-cat-element" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
+    <h5  class="ms-cat-title" >Catégories</h5> {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="ms-cat-element" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
     <br/>
     {% endif %}
     {% if program.format and program.subcategories|to_array|length %}
-    <h5 class="ms-cat-title" >Sous-catégories</h5>&nbsp; {% for c in program.subcategories | to_array  %}{% if loop.first %}{% else %}, {% endif %}<a  class="ms-cat-element"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>{% endfor %}
+    <h5 class="ms-cat-title" >Sous-catégories</h5> {% for c in program.subcategories | to_array  %}<a  class="ms-cat-element"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>{% endfor %}
     {% endif %}
 
     <div class="text-toggle-extend">

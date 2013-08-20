@@ -14,6 +14,30 @@
   </form>
 
   <ul class="nav nav-playlists headertoprighticons"> 
+    <li class="hide user-on dropdown notifications">
+      <a data-toggle="dropdown" class="dropdown-toggle tv-component notifications-count"/></a>
+      <ul id="dropdown-menu-notification" class="dropdown-menu">
+        <span class="notification-filter"></span>
+
+        <div class="scroll notification-scroll"><li class="empty"><h6>{{ 'notifications.empty.title'|trans }}<small>{{ 'notifications.empty.text'|trans }}</small></h6></li></div>
+      </ul>
+    </li>
+    <li class="user-off playlists">
+      <a class="auth user-off" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même playlist !">
+        <span class="toprigthicons-square ms-playlisticon">
+          <span  class="toprigthicons-nbr ">99</span>
+        </span>
+        <span class="toprighticons-label toprighticons-playlist">Mes playlists</span>
+      </a>
+    </li>
+    <li class="hide user-on playlists">
+      <a data-toggle="collapse" data-target="#top-playlist" class="tv-component">
+        <span class="toprigthicons-square ms-playlisticon">
+          <span  class="toprigthicons-nbr ">99</span>
+        </span>
+        <span class="toprighticons-label toprighticons-playlist">Mes playlists</span>
+      </a>
+    </li>
     <li class="hide user-on dropdown user-menu">
       <a data-toggle="dropdown" class="dropdown-toggle tv-component" class="pull-right"><span class="toprigthicons-square ms-usericon">
         <span  class="toprigthicons-nbr glyphicon glyphicon-user"></span>
@@ -43,30 +67,6 @@
         <li><a class="account" href="{{ path('user_settings') }}"><i class="glyphicon glyphicon-user"></i> {{ 'nav.account'|trans }}</a></li>
         <li class="divider"></li>
         <li><a class="signout"><i class="glyphicon glyphicon-remove"></i> {{ 'signout'|trans }}</a></li>
-      </ul>
-    </li>
-    <li class="user-off playlists">
-      <a class="auth user-off" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même playlist !">
-        <span class="toprigthicons-square ms-playlisticon">
-          <span  class="toprigthicons-nbr ">99</span>
-        </span>
-        <span class="toprighticons-label toprighticons-playlist">Mes playlists</span>
-      </a>
-    </li>
-    <li class="hide user-on playlists">
-      <a data-toggle="collapse" data-target="#top-playlist" class="tv-component">
-        <span class="toprigthicons-square ms-playlisticon">
-          <span  class="toprigthicons-nbr ">99</span>
-        </span>
-        <span class="toprighticons-label toprighticons-playlist">Mes playlists</span>
-      </a>
-    </li>
-    <li class="hide user-on dropdown notifications">
-      <a data-toggle="dropdown" class="dropdown-toggle tv-component notifications-count"/></a>
-      <ul id="dropdown-menu-notification" class="dropdown-menu">
-        <span class="notification-filter"></span>
-
-        <div class="scroll notification-scroll"><li class="empty"><h6>{{ 'notifications.empty.title'|trans }}<small>{{ 'notifications.empty.text'|trans }}</small></h6></li></div>
       </ul>
     </li>
   </ul>
