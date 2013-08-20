@@ -24,6 +24,7 @@ services:
         public: false
         tags:
             - { name: twig.extension }
+
 #twig:
 #    globals:
 #        fb_prod:
