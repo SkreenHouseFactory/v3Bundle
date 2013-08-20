@@ -18,10 +18,10 @@
 
 /* main */
 .bgbody {
-  background: @bgBody;
+  background: #ffffff;
 }
 .bgbodyfade {
-  background: @bgBodyFade;
+  background: #ffffff;
 }
 
 body.view-redirect {
@@ -40,7 +40,7 @@ body.playlist-in, body.no-cover.playlist-in, .view-redirect.playlist-in {
   }
 }
 body, body.no-cover, body.cover.view-redirect:not(.playlist-in), body.view-redirect {
-  background: @bgBody;
+  background: #ffffff;
   #main {
     padding-top: 0px;
     #content {
@@ -317,6 +317,36 @@ div.friends {
   background-position: 0 0;
   margin-top: -2px;
 }
+
+// UI class
+.show-more{
+  background: #dddddd;
+  color: #000;
+  text-align: center;
+  cursor:pointer;
+  padding: 5px;
+  display: block;
+  margin: auto;
+  .border-radius-bottom;
+}
+.show-more i{
+  color: #000;
+  font-size: 10px;
+}
+
+.text-toggle-extend{
+  height: 250px;
+  overflow: hidden;
+  padding: 3px;
+  border: 1px solid #DDDDDD;
+
+}
+.show-more-height{
+  height: 100%;
+
+
+}
+
 
 // -- typeahed
 body.searching {

@@ -61,29 +61,29 @@ $(document).ready(function(){
     $('#skModal').addClass('hide');
     API.cookie('alert_video','true');
   });*/
-  
-  $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
+
+$('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
     //notifications
     if ($(this).hasClass('tv-component')  && 
-        !$(this).parent().hasClass('open') ) { 
+      !$(this).parent().hasClass('open') ) { 
       if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
         Player.stop();
       }   
     }
     
     if ($(this).hasClass('notifications-count')  && 
-        !$(this).parent().hasClass('open') ) { 
+      !$(this).parent().hasClass('open') ) { 
       if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
         Player.stop();
       }
-	    
-		  if($('.badge-important', $(this)).length > 0) {
-	      Skhf.session.readNotifications();
-	      var current = $('.navbar .notifications li:not(.divider, .empty)').length;
-	      $('.navbar .notifications-count span.badge').removeClass('badge-important').html(current);
-	    }
-	  }
-  });
+
+      if($('.badge-important', $(this)).length > 0) {
+       Skhf.session.readNotifications();
+       var current = $('.navbar .notifications li:not(.divider, .empty)').length;
+       $('.navbar .notifications-count span.badge').removeClass('badge-important').html(current);
+     }
+   }
+ });
   //share
   $('.share .btn').on('click', function(){
     if ($(this).data('share') == 'disallow') {
@@ -106,11 +106,11 @@ $(document).ready(function(){
   // new header nav bar
   $(".headertoprighticons").on('click', function(e){
     if($('.dropdown',this) && !$('.dropdown',this).hasClass('open')){  
-    $('.dropdown',this).addClass('open');
-    e.preventDefault();
-    e.stopPropagation();
-  }
-  
+      $('.dropdown',this).addClass('open');
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
   });
   // -- ui form
   $('.navbar form.navbar-search i.icon-search').on('click', function(){
@@ -176,11 +176,29 @@ $(document).ready(function(){
       $('#top-playlist').collapse('hide');
     }
   });
+//ui text show more
 
-  /* END */
+$(".show-more").click(function () {
+  $(".text-toggle-extend").toggleClass("show-more-height");
+
+  if($(".text-toggle-extend").hasClass("show-more-height")) {
+    $(this).html('Voir moins...<i class="glyphicon glyphicon-arrow-up"></i>');
+  } else {
+    $(this).html('Voir plus...<i class="glyphicon glyphicon-arrow-down"></i>');
+  }
+
+
+
+});
+
+
+/* END */
 
   // -- playlist friends
   setTimeout(function(){
     UI.addFriendsPrograms();
   }, 700);
 });
+
+
+
