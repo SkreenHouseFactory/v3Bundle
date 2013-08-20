@@ -908,7 +908,8 @@ UI = {
   },
   startSearching: function(to_focus) {
     if (!$('body').hasClass('searching') && 
-        !$('.modal:visible').length) {
+        !$('.modal:visible').length && 
+        !$('input:focus').length) {
       if (!$('#search-query-bg').length) {
         $('body').prepend('<div id="search-query-bg"></div>');
       } else {

@@ -128,16 +128,16 @@ $(document).ready(function(){
   });
 
   // -- ui typeahead
-  UI.typeahead('.navbar-search .search-query');
+  UI.typeahead('#nav-search .search-query');
 
   // -- typeahead on keypress
   $(document).on('keypress', function(e) {
     UI.startSearching(true);
   });
-  $('.search-query').on('focus', function(e) {
+  $('#nav-search .search-query').on('focus', function(e) {
     UI.startSearching(false);
   })
-  $('.search-query').on('blur', function(e) {
+  $('#nav-search .search-query').on('blur', function(e) {
     UI.endSearching();
   });
 
