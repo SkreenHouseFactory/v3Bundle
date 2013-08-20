@@ -104,9 +104,9 @@ $(document).ready(function(){
     return false;
   });
   // new header nav bar
-  $(".headertoprighticons").on('click', function(e){
-    if($('.dropdown',this) && !$('.dropdown',this).hasClass('open')){  
-    $('.dropdown',this).addClass('open');
+  $("dropdown").on('click', function(e){
+    if($(this) && !$(this).hasClass('open')){  
+    $(this).addClass('open');
     e.preventDefault();
     e.stopPropagation();
   }
