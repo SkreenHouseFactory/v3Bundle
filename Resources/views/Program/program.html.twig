@@ -228,7 +228,7 @@
           {# par defaut #}
           {% else %}
             {% set other_episodes = '' %}
-            {% for o in program.offers[key] length < 3 %}
+            {% for o in program.offers[key] %}
               {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
               {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
               {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
@@ -387,6 +387,8 @@
       <div class="share-on"></div>
     </div>
     {% endif %#}
+
+
 
     <div id="program-episodes">
       {% if program.seasons is defined %}

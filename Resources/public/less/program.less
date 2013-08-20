@@ -76,22 +76,7 @@
   display: block;
 }
 
-.ms-cat-title{
-  font-size: 11px;
-  display: inline-block;
-}
 
-.ms-cat-element{
-  font-size: 14px;
-  display: inline-block;
-  text-align:center; 
-  background: #f3eeee;
-  padding: 2px;
-  margin: 2px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-}
 
 .tab-content{
   margin-top:20px;  
@@ -183,5 +168,59 @@ table.offertable > tbody > tr > td:nth-of-type(4){
 /* DESCRIPTIONS DE DROITE*/
 
 [itemprop="name"], [itemprop="actor"], [itemprop="director"]{
- font-weight: bold;
+  color: #166dc9;
+}
+.channel_link{
+  background:#778390;
+  text-align: center;
+  display: block;
+  padding: 1px;
+.link-background-transition;
+}
+.channel_link:hover, .channel_link:active, .channel_link:focus,{
+  background:#166dc9;
+}
+
+.channel_root{
+  width: 100%;
+  display: block;
+}
+.channel_texte{
+  font-size: 12px;
+  display: inline-block;
+  color: #fff;
+}
+.ms-cat-title{
+  font-size: 11px;
+  display: block;
+  text-transform: uppercase;
+  margin: 15px 0px 2px 0px;
+}
+
+.ms-cat-element{
+  font-size: 13px;
+  display: inline-block;
+  text-align:center; 
+  background: #778390;
+  padding: 3px;
+  margin: 2px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  color:#fff;
+.link-background-transition;
+}
+.ms-cat-element:hover, .ms-cat-element:active, .ms-cat-element:focus{
+  background: #166dc9;
+  color:#fff;
+  text-decoration: none;
+}
+
+.ms-cat-program-title, .ms-cat-program-title:hover, .ms-cat-program-title:active, {
+  text-decoration: none;
+}
+.ms-cat-program-title h3{
+  text-decoration: none;
+  font-size: 18px;
+  color: #166dc9;
 }
