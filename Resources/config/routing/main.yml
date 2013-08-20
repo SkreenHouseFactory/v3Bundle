@@ -329,7 +329,7 @@ cinema_boxoffice:
     requirements:
         alpha: "[^/]+"
 theaters_program:
-    pattern:  /cinema/progam/{id}
+    pattern:  /cinema/program/{id}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Cinema:program }
     requirements:
         id: \d+

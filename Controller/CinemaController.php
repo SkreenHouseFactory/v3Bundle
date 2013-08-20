@@ -63,13 +63,14 @@ class CinemaController extends Controller
       $cinemas = null;
       $radius = null;
 			$api = $this->get('api');
-      if ($request->get('q') || $request->get('theater_ids')) {
+      $q = $request->get('q') ? $request->get('q') : $request->request->get('q');
+      if ($q || $request->get('theater_ids')) {
         $cinemas = $api->fetch('schedule/cine', array(
           'program_id' => $request->get('id'),
           'theater_ids' => count(explode(',', $request->get('theater_ids'))) < 10 ?  $request->get('theater_ids') : null,
           'with_schedule' => true,
-          'q' => $request->get('q'),
-            'with_versions'=> true
+          'q' => $q,
+          'with_versions'=> true
         ));
       } elseif ($request->get('latlng')) {
         list ($lat, $lng) = explode(',', $request->get('latlng'));
