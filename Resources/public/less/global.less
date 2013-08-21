@@ -118,7 +118,28 @@ li.divider {
   width: 990px; /*1010px;*/
   position: relative;
 
+  .pagination {
+    text-align: left;
+    a {
+      padding: 5px 6px;
+      background-color: white;
+    }
+    li.active a {
+      color: white;
+      background: #08C;
+    }
+    &.pagination-access {
+      padding: 5px 6px;
+    }
+    >ul{
+      >li{
+      display: inline-block;
+      }
+    }
+  }
 }
+
+.pagination ul>.disabled>a { color: #c9c9c9; }
 
 
 h1 {
@@ -366,8 +387,8 @@ body.searching {
     font-weight: bold;
     padding: 10px;
     width: 900px;
+    left: -500px;
     height: auto;
-    left: 0;
     top: 55px;
     text-rendering: geometricPrecision;
     -webkit-font-smoothing: antialiased !important;
@@ -375,7 +396,9 @@ body.searching {
     border: 1px solid transparent;
     background: transparent;
     outline: none;
-    
+    &:hover{
+    border:none;
+    }
   }
 
   ul.typeahead {
