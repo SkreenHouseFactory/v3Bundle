@@ -4,7 +4,7 @@
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="fr"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->
 <head>
-{% spaceless %}
+  {% spaceless %}
 
   <title>{% block title endblock %} | mySkreen.com</title>
   <meta name="description" content="{% block description %}{% endblock %}">
@@ -49,9 +49,9 @@
   <meta name="verify-a" value="e548aa1414e42be0692f">
   <meta name="google-site-verification" content="XrGdiUEwEtqEFnxru9FgykHR9mmSCX6O1hky_g9gTDU" />
   {% if app.request.get('force_metatags') is null and (app.environment != 'prod' or 'preprod' in app.request.host or 'typhon' in app.request.host) %}
-    <meta name="robots" content="noindex,nofollow">
+  <meta name="robots" content="noindex,nofollow">
   {% else %}
-    {% block meta endblock %}
+  {% block meta endblock %}
   {% endif %}
   {% if app.request.pathinfo != app.request.requestUri %}
   
@@ -69,91 +69,94 @@
   <link rel="stylesheet" href="{{ asset('bundles/skreenhousefactoryv3/bootstrap/dist/css/bootstrap.min.css') }}" />
   {% stylesheets
 
-      '@SkreenHouseFactoryV3Bundle/Resources/public/bootstrap-glyphicons/less/bootstrap-glyphicons.less'
-      '@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
-      '@SkreenHouseFactoryPopinBundle/Resources/public/less/popin.less'
-      '@SkreenHouseFactoryV3Bundle/Resources/public/less/modal.less'
-      '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
-        filter='less,?yui_css'
-        output='css/v3.css'
-        %}
-      <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  '@SkreenHouseFactoryV3Bundle/Resources/public/bootstrap-glyphicons/less/bootstrap-glyphicons.less'
+  '@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
+  '@SkreenHouseFactoryPopinBundle/Resources/public/less/popin.less'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/less/modal.less'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
+  filter='less,?yui_css'
+  output='css/v3.css'
+  %}
+  <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
 </head>
 {% endspaceless %}
 <body class="{% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}"{% if block('body_background') %} style="background:{% block body_background %}{% endblock %};"{% endif %}{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}>
 
-{% spaceless %}
-<!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
+  {% spaceless %}
+  <!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
   <article>
-  <div id="main">
-    <div id="content" class="uiview-update">
-    {% block content %}
-    {% endblock %}
+    <div id="main">
+      <div id="content" class="uiview-update">
+        {% block content %}
+        {% endblock %}
+      </div>
+      <div id="redirect" class="collapse in">
+        {% block redirect %}
+        {% endblock %}
+      </div>
     </div>
-    <div id="redirect" class="collapse in">
-    {% block redirect %}
-    {% endblock %}
-    </div>
-  </div>
   </article>
-     
-            {% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {'q':app.request.get('q') ? app.request.get('q') : null })) %}
-            {#% include 'SkreenHouseFactoryV3Bundle:Main:_header-nav.html.twig' %#}
-            {% block header_filters %}
-            {% endblock %}
-   
+
+  {% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {'q':app.request.get('q') ? app.request.get('q') : null })) %}
+  {#% include 'SkreenHouseFactoryV3Bundle:Main:_header-nav.html.twig' %#}
+  {% block header_filters %}
+  {% endblock %}
+
 
   <footer>
-  <div id="footer">
-    {% render(controller('SkreenHouseFactoryV3Bundle:Main:footer', {})) %}
-  </div>
+    <div id="footer">
+      {% render(controller('SkreenHouseFactoryV3Bundle:Main:footer', {})) %}
+    </div>
   </footer>
   {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
   <div id="fb-root"></div>
   <span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
 
-{% if block('noscripts') is empty %}
-{% javascripts
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.10.2.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/bootstrap/dist/js/bootstrap.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap-ajax-typeahead.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/modernizr.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer-3.2.11.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.controls-3.2.10.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.ipad-3.2.11.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.debounce-1.0.5.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.serializefullarray.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
-    '@SkreenHouseFactoryTvBundle/Resources/public/js/couchmode.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/playlists.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/cinema.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/skin.js'
-    
-    filter='?yui_js' 
-    output='js/compiled/v3.js'  %}
-    <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{% endif %}
-{% block pagescripts %}
-{% endblock %}
+  {% if block('noscripts') is empty %}
+  {% javascripts
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.10.2.min.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/bootstrap/dist/js/bootstrap.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap-ajax-typeahead.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/modernizr.min.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer-3.2.11.min.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.controls-3.2.10.min.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.ipad-3.2.11.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.debounce-1.0.5.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.serializefullarray.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
+  '@SkreenHouseFactoryTvBundle/Resources/public/js/couchmode.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/playlists.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/cinema.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/skin.js'
 
-{% if app.environment == 'prod' and block('nostats') is empty %}
+  filter='?yui_js' 
+  output='js/compiled/v3.js'  %}
+  <script src="{{ asset_url }}"></script>
+  <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+  {lang: 'fr'}
+</script>
+  {% endjavascripts %}
+  {% endif %}
+  {% block pagescripts %}
+  {% endblock %}
+
+  {% if app.environment == 'prod' and block('nostats') is empty %}
   {% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' with {tag: 'UA-6151896-14'} %}
   {% include 'SkreenHouseFactoryV3Bundle::_chartbeat.html.twig' %}
   <script type="text/javascript">
     _gaq.push(['_setAccount', 'UA-6151896-8']);
     _gaq.push(['_trackPageview']);
   </script>
-{% endif %}
-{% endspaceless %}
+  {% endif %}
+  {% endspaceless %}
 
 </body>
 </html>
