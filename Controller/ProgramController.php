@@ -286,7 +286,7 @@ class ProgramController extends Controller
           'offers' => array(
             'live' => 'En Direct', 
             'replay' => 'En Replay', 
-            'deporte' => 'sur mySkreen', 
+            'deporte' => 'sur mySkreen (mettre logo)', 
             'tv' => 'à la télé',
             'theater' => 'En salles',  
             'external' => 'sur les plateformes de location partenaires', 
