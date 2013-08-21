@@ -3,10 +3,10 @@
 {% else %}
 {% set base_url = '' %}
 {% endif %}
-<div id="carousel-{{ slider.title|replace({' ': '-'})|lower }}"{% if skip_autoload is not defined %} data-carousel-autoload="1"{% endif %} class="carousel slide{{ slider.id is defined ? ' carousel-' ~ slider.id : '' }}">
+<div id="carousel-{{ slider.title|replace({' ': '-', 'é':'e'})|lower }}"{% if skip_autoload is not defined %} data-carousel-autoload="1"{% endif %} class="carousel slide{{ slider.id is defined ? ' carousel-' ~ slider.id : '' }}">
   <div class="container">
-  <a class="carousel-control left" href="#carousel-{{ slider.title|replace({' ': '-'})|lower }}" data-slide="prev">&lsaquo;</a>
-  <a class="carousel-control right" href="#carousel-{{ slider.title|replace({' ': '-'})|lower }}" data-slide="next">&rsaquo;</a>
+  <a class="carousel-control left" href="#carousel-{{ slider.title|replace({' ': '-', 'é':'e'})|lower }}" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#carousel-{{ slider.title|replace({' ': '-', 'é':'e'})|lower }}" data-slide="next">&rsaquo;</a>
   </div>
   <div class="carousel-inner">
 
@@ -22,9 +22,11 @@
   <div class="item pointer{% if loop.first %} active{% endif %}">
     <a href="{{ base_url }}{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}" class="mask {{ 'Slider1500' in p.sliderPicture is defined and p.sliderPicture ? 'mask-1500' : 'mask-990' }}" style="background-image: url({% if p.sliderPicture is defined %}{{ force_size is defined ? p.sliderPicture|replace({'/990': force_size }) : p.sliderPicture }}{% else %}{{ p.picture }}{% endif %});"></a>
     <div class="container">
-      <div class="carousel-caption actions" data-id="{{ p.id }}">
+      <div class="carousel-caption actions">
       {% if p.id < 100000000 %}
-      <a class="pull-left btn btn-large btn-primary fav fav-like" data-placement="right"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+      <div class="col-lg-3">
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: p.id , class: 'fav-like'} %}
+    </div>
       {% endif %}
       <h4><a href="{{ base_url }}{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">{{ p.title }}</a></h4>
       <p class="pull-left">{{ p.format ? p.format.name : '' }}{% if p.duration %}, {{ p.duration }}mn{% endif %}</p>
