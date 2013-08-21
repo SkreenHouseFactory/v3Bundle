@@ -425,8 +425,8 @@
   <h4>{{ program.title }}</h4> 
   {{ program.description_seo|raw}}
 </div>
-
-<span class="show-more" >Voir plus...<i class="glyphicon glyphicon-arrow-down"></i></span>
+{# 
+<span class="show-more" >Voir plus...<i class="glyphicon glyphicon-arrow-down"></i></span>#}
 {% endfor %}
 {# bonus #}
 {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
@@ -528,12 +528,12 @@
 
 
     {# related channels #}
-    <span class="ms-cat-title">Cette vid&#233;o fait parti des fanpages</span>
-
+    
     {% if program.related.channels is defined and 
     program.related.channels.programs is defined and 
-    program.related.channels.programs|length == 1 %}
-    {% for r in program.related.channels.programs | to_array %}
+    program.related.channels.programs|to_array|length %}
+    <span class="ms-cat-title">Cette vid&#233;o fait parti des fanpages</span>
+    {% for r in program.related.channels.programs|to_array %}
     <a class="channel_link" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}">
       <span class="channel_texte">{{ r.title ~ ', la chaîne' }}</span>
       <img src="{{ program.related.channels.image }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
