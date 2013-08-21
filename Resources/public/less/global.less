@@ -385,8 +385,8 @@ body.searching {
     font-weight: bold;
     padding: 10px;
     width: 900px;
+    left: -500px;
     height: auto;
-    left: 0;
     top: 55px;
     text-rendering: geometricPrecision;
     -webkit-font-smoothing: antialiased !important;
@@ -394,7 +394,9 @@ body.searching {
     border: 1px solid transparent;
     background: transparent;
     outline: none;
-    
+    &:hover{
+    border:none;
+    }
   }
 
   ul.typeahead {
