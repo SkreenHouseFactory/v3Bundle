@@ -255,6 +255,7 @@
 
 
 
+ {% set hasoffers = 2  %}
 
 
  {% for key in offers|keys if program.offers[key]|to_array|length %}
@@ -473,7 +474,7 @@
 <span class="show-more" >Voir plus...<i class="glyphicon glyphicon-arrow-down"></i></span>#}
 {% endfor %}
 {# Message alternatif, pas d'offre #}
-{% if hasoffers is not defined %}
+{% if hasoffers == 2 %}
 <div class="alert alert-danger">
   <h4> <b>Oops !</b> Désolé il n'existe pas de vidéo correspondant à <strong>{{ program.title }}</strong></h4>
   <br/>
@@ -484,6 +485,70 @@
     {% endif %}
 </div>
 {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {# description seo texte #}
 <div class="text-toggle-extend">

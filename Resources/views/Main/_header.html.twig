@@ -1,5 +1,6 @@
 <header class="navbar navbar-fixed-top bs-docs-nav">
   <div class="container">
+  {# LOGO ENTETE #}
     <a href="{{ path('homes', {home: ''}) }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" id="logo"></a>
     <ul class="nav navbar-nav">
       <li><a href="{{ path('tvgrid') }}">TV &amp; Replay</a></li>
@@ -7,6 +8,7 @@
       <li><a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">VOD</a></li>
       <li><a href="{{ path('homes', {home: 'cinema'}) }}">En salles</a></li>
     </ul>
+  {# RECHERCHE #}
 
     <form id="nav-search" class="navbar-search">
       <i class="glyphicon glyphicon-search" style="display: inline-block;position: absolute;top: 24px;right: 9px;color:#777777"></i>
@@ -14,8 +16,12 @@
   </form>
 
   <ul class="nav nav-playlists headertoprighticons"> 
-    <li class="hide user-on dropdown notifications">
-      <a data-toggle="dropdown" class="dropdown-toggle tv-component notifications-count"/></a>
+    <li class="hide user-on dropdown notifications dropdown-toggle tv-component ">
+      <span class="toprigthicons-square ms-notificon"  data-toggle="dropdown" >
+          <span  class="toprigthicons-nbr notifications-count" ></span>
+      </span>
+        <span class="toprighticons-label toprighticons-notifications">Notifications</span>
+
       <ul id="dropdown-menu-notification" class="dropdown-menu">
         <span class="notification-filter"></span>
 
@@ -27,22 +33,29 @@
         <span class="toprigthicons-square ms-playlisticon">
           <span  class="toprigthicons-nbr "></span>
         </span>
-        <span class="toprighticons-label toprighticons-playlist">Mes playlists</span>
+        <span class="toprighticons-label toprighticons-playlist">playlists</span>
       </a>
     </li>
+
+    {# MA PLAYLIST / MES FAVORIS #}
+
     <li class="hide user-on playlists">
       <a data-toggle="collapse" data-target="#top-playlist" class="tv-component">
         <span class="toprigthicons-square ms-playlisticon">
-          <span  class="toprigthicons-nbr "></span>
+          <span  class="toprigthicons-nbr glyphicon glyphicon-star"></span>
         </span>
-        <span class="toprighticons-label toprighticons-playlist">Mes playlists</span>
+        <span class="toprighticons-label toprighticons-playlist">favoris </span>
       </a>
     </li>
+
+    {# MON COMPTE #}
+
     <li class="hide user-on dropdown user-menu">
-      <a data-toggle="dropdown" class="dropdown-toggle tv-component" class="pull-right"><span class="toprigthicons-square ms-usericon">
+      <a data-toggle="dropdown" class="dropdown-toggle tv-component" class="pull-right">
+      <span class="toprigthicons-square ms-usericon">
         <span  class="toprigthicons-nbr glyphicon glyphicon-user"></span>
       </span>
-      <span class="toprighticons-label toprighticons-user">Mon compte</span></a>
+      <span class="toprighticons-label toprighticons-user">Philibert</span></a>
       <ul class="dropdown-menu">
         <li class="nav-header user-email"></li>
         <li class="fb-placeholder hide"><div id="fbconnect"><img src="{{ asset('bundles/skreenhousefactoryv3/images/fb-connect.png') }}" style="width: 180px;height: 32px;margin-left: 20px;cursor: pointer"/></div></li>
