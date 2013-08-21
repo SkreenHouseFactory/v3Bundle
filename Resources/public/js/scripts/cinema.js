@@ -44,8 +44,8 @@ $(document).ready(function(){
 		return false;
 	});
 	$(document).on('click', '#trigger-theaters-geoloc', function(){
-		console.log('script', 'trigger-theaters-geoloc');
 		var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
+		console.log('script', 'trigger-theaters-geoloc', container);
 		container.empty();
 		UI.appendLoader(container, 2000);
 		//geoloc
