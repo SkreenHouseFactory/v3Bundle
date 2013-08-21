@@ -128,8 +128,7 @@
            {% endif %}
          {% elseif program.episode_title is defined and 
          program.episodeof is defined %}
-           {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}
-           {% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+           {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
            <h1 itemprop="name">{{ program.episodeof.title }}</h1>
            <h2>{{ program.episode_title }}  {% if episode_title and program.episode_title != episode_title %} ({{ episode_title }}){% endif %}</h2>
          {% else %}
@@ -186,9 +185,7 @@
            </ul>
          </div>
          {% endif %}
-         
          {% endif %}
-
        </div>
 
        <div class="col-lg-3">
