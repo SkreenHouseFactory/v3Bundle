@@ -189,7 +189,7 @@
 
 
       <a name="{{ key }}"></a>
-      <div id="{{ key }}" data-play-text="{{ ('player.content.text.' ~ key)|trans }}" class="tab-pane{% if key == 'external' and program.offers['deporte'] is defined %} hide{% endif %}">
+      <div id="{{ key }}" data-play-text="{{ ('player.content.text.' ~ key)|trans }}" class="tab-pane{% if key == 'external' and program.offers['deporte']|to_array|length %} hide{% endif %}">
         {%  if program.offers[key]|length %}
         <div class="table-container scroll ">
 
