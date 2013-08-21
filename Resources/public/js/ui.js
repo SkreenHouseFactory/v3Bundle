@@ -11,7 +11,7 @@ UI = {
   last_notification: null,
   max_notifications: 50,
   badge_notification: '<span class="badge">%count%</span>',
-  loader: '<div class="progress progress-striped active"><div class="progress-bar progress-bar-info" style="width: 0%"><span class="sr-only">0% Complete</span></div></div>',
+  loader: '<div class="progress progress-striped active"><div class="progress-bar progress-bar-info" style="width: 0%"></div></div>',
   
   
   callbackTogglePlaylist: null,
