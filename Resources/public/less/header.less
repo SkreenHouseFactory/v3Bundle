@@ -5,9 +5,8 @@
   text-shadow: 1px 1px 1px #ffffff;
   filter: dropshadow(color=#ffffff, offx=1, offy=1);
   min-height: 60px;
-
   .navbar-nav > li > a {
-    padding-top: 21px;
+    padding: 21px 8px;
   }
 
   #logo{
@@ -25,9 +24,15 @@
     font-size: 14px;
     margin-top: 19px;
     float:none!important;
+    border-radius: 4px;
+    &:hover{
+      border: 1px solid #777777;
+    }
   }
   .navbar-search{
     display: inline-block;  
+    position: relative;
+    margin-left: 37px;
   }
 
   .headertoprighticons{
@@ -37,7 +42,7 @@
     top: 0;
     right: 0;
     text-align: center;
-    height: 60px;
+    height: 63px;
     text-shadow: none;
     filter: dropshadow(none);
     font-weight: bold;
@@ -166,7 +171,11 @@
         }
       }
     }
-
+    &.user-menu{
+      >ul{
+        left: -193px;
+      }
+    }
     &.notifications {
       width: 40px;
       height: 100%;
@@ -287,7 +296,9 @@
    }
    &.notifications {
     ul {
+      left: -225px;
       text-align: left;
+      top: 94%;
       > div {
         height: 315px;
         overflow-y: auto;

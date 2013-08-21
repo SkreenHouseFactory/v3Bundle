@@ -9,8 +9,8 @@
     </ul>
 
     <form id="nav-search" class="navbar-search">
-      <i class="glyphicon glyphicon-search" style="display:inline-block; margin-left:15px;"></i>
-      <input type="text"  value="{{ app.request.get('q') }}" placeholder="{{ 'search.pitch'|trans }}" class="search-query pull-left searchbutton">
+      <i class="glyphicon glyphicon-search" style="display: inline-block;position: absolute;top: 24px;right: 9px;color:#777777"></i>
+      <input type="text"  value="{{ app.request.get('q') }}" class="search-query pull-left searchbutton">
   </form>
 
   <ul class="nav nav-playlists headertoprighticons"> 
@@ -25,7 +25,7 @@
     <li class="user-off playlists">
       <a class="auth user-off" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même playlist !">
         <span class="toprigthicons-square ms-playlisticon">
-          <span  class="toprigthicons-nbr ">99</span>
+          <span  class="toprigthicons-nbr "></span>
         </span>
         <span class="toprighticons-label toprighticons-playlist">Mes playlists</span>
       </a>
@@ -33,7 +33,7 @@
     <li class="hide user-on playlists">
       <a data-toggle="collapse" data-target="#top-playlist" class="tv-component">
         <span class="toprigthicons-square ms-playlisticon">
-          <span  class="toprigthicons-nbr ">99</span>
+          <span  class="toprigthicons-nbr "></span>
         </span>
         <span class="toprighticons-label toprighticons-playlist">Mes playlists</span>
       </a>
