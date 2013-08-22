@@ -178,18 +178,14 @@ $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
   });
 //ui text show more
 
-$(".show-more").click(function () {
-  $(".text-toggle-extend").toggleClass("show-more-height");
 
-  if($(".text-toggle-extend").hasClass("show-more-height")) {
-    $(this).html('Voir moins...<i class="glyphicon glyphicon-arrow-up"></i>');
-  } else {
-    $(this).html('Voir plus...<i class="glyphicon glyphicon-arrow-down"></i>');
-  }
+    $(".show-more").click(function () {
+      var $this = $(this);
+      $this.text($this.text() == "(Voir moins...)" ? "(Voir plus...)" : "(Voir moins...)");
+      $(".text").toggleClass("show-more-height");
+    });
 
 
-
-});
 
 
 /* END */
