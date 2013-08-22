@@ -264,14 +264,20 @@
 
  <div class="panel{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : '' }}">
   <div class="panel-heading">
-    <h3 class="panel-title">Voir {{ offers[key] }} </h3>
-  </div>
-
-
-
-
-  <a name="{{ key }}"></a>
-  <div id="{{ key }}" data-play-text="{{ ('player.content.text.' ~ key)|trans }}" class="tab-pane{% if key == 'external' and program.offers['deporte']|to_array|length %} hide{% endif %}">
+  <h3 class="panel-title{% if key == 'external' and program.offers['deporte']|to_array|length %}
+  external-collapser  
+    {% endif %} "
+    {% if key == 'external' and program.offers['deporte']|to_array|length %}
+    data-toggle="collapse"
+    {% endif %} 
+    href="#{{ key }}">Voir {{ offers[key] }}
+    {% if key == 'external' and program.offers['deporte']|to_array|length %} 
+    <i class="glyphicon glyphicon-chevron-down"></i>
+    {% endif %}
+  </h3>
+</div>
+  {# <a name="{{ key }}"></a> #}
+  <div id="{{ key }}" data-play-text="{{ ('player.content.text.' ~ key)|trans }}" class="tab-pane{% if key == 'external' and program.offers['deporte']|to_array|length %} panel-collapse collapse {% endif %}">
     {%  if program.offers[key]|length %}
     <div class="table-container scroll ">
 
