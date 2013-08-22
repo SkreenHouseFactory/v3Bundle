@@ -233,6 +233,17 @@ div.friends {
   padding-left: 16px;
   input{
     margin-right: 16px;
+    &.trigger-theaters{
+      width: 100px;
+      border: none;
+      color: #777777;
+      background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+      border-color: #e6e6e6;
+      border-radius: 4px;
+      &:hover{
+        border: 1px solid black;
+      }
+    }
   }
 }
 #theaters-list{
@@ -249,6 +260,18 @@ div.friends {
       }
     }
   }
+  .scroll{
+    padding-top: 15px;
+    td{
+      &.actions{
+        padding: 15px;
+        .suivre-bouton-gros{
+          margin-top:0px;
+          margin-right:0px;
+        }
+      }
+    }
+  } 
 }
 /* theaters-playlist */
 #theaters-playlist {
