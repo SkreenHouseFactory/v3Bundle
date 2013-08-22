@@ -1,22 +1,3 @@
-/* ===== vendors ============================================================
-   ========================================================================== */
-
-@font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url('/bundles/skreenhousefactoryv3/bootstrap-glyphicons/fonts/glyphiconshalflings-regular.eot');
-  src: url('/bundles/skreenhousefactoryv3/bootstrap-glyphicons/fonts/glyphiconshalflings-regular.eot?#iefix') format('embedded-opentype'), url('/bundles/skreenhousefactoryv3/bootstrap-glyphicons/fonts/glyphiconshalflings-regular.woff') format('woff'), url('/bundles/skreenhousefactoryv3/bootstrap-glyphicons/fonts/glyphiconshalflings-regular.ttf') format('truetype'), url('/bundles/skreenhousefactoryv3/bootstrap-glyphicons/fonts/glyphiconshalflings-regular.svg#glyphicons_halflingsregular') format('svg');
-}
-
-/*
-@import "../bootstrap/less/variables.less";
-@import "../bootstrap/less/bootstrap.less";
-@import "../bootstrap/less/responsive.less";
-*/
-@import "scrollbars-webkit.less";
-
-/* ===== v3 =================================================================
-   ========================================================================== */
-
 /* ASSET MSKSTATIC */
 @iconSpritePath:          "http://mskstatic.com/medias/v3/bundles/skreenhousefactoryv3/bootstrap/img/glyphicons-halflings.png";
 @iconWhiteSpritePath:     "http://mskstatic.com/medias/v3/bundles/skreenhousefactoryv3/bootstrap/img/glyphicons-halflings-white.png";
@@ -26,19 +7,10 @@
 @bluemaincolor: #166dc9;
 @bluesecondarycolor: #778390;
 /* LOCAL
-@iconSpritePath:          "/bundles/skreenhousefactoryv3/bootstrap/img/glyphicons-halflings.png";
-@iconWhiteSpritePath:     "/bundles/skreenhousefactoryv3/bootstrap/img/glyphicons-halflings-white.png";
 @bgBody:   #ffffff;
 @bgBodyFade:   url("/bundles/skreenhousefactoryv3/images/header/bg-playlist-fade.png");
 @bgPlaylist: url("/bundles/skreenhousefactoryv3/images/bg-playlist.png") bottom repeat-x;
 */
-
-
-
-
-
-
-
 
 /* pages */
 @import "mixins.less";
@@ -58,9 +30,10 @@
 @import "player.less";
 @import "tvgrid.less";
 @import "helpers.less";
-@import "touch.less";
+//@import "touch.less"; bug phpless
 @import "ios.less";
 @import "error.less";
 @import "loader.less";
 @import "skin.less";
 @import "slider.less";
+@import "scrollbars-webkit.less";

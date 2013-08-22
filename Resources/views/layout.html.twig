@@ -66,15 +66,15 @@
   <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad-retina.png') }}" />
   <link rel="apple-touch-startup-image" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/startup.png') }}" />
   <meta name="viewport" content="width=1010, maximum-scale=1, user-scalable = yes" />
-  <link rel="stylesheet" href="{{ asset('bundles/skreenhousefactoryv3/bootstrap/dist/css/bootstrap.min.css') }}" />
+  {#<link rel="stylesheet" href="{{ asset('bundles/skreenhousefactoryv3/bootstrap/dist/css/bootstrap.min.css') }}" />#}
   {% stylesheets
-
+  '@SkreenHouseFactoryV3Bundle/Resources/public/bootstrap/less/bootstrap.less'
   '@SkreenHouseFactoryV3Bundle/Resources/public/bootstrap-glyphicons/less/bootstrap-glyphicons.less'
   '@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
   '@SkreenHouseFactoryPopinBundle/Resources/public/less/popin.less'
   '@SkreenHouseFactoryV3Bundle/Resources/public/less/modal.less'
   '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
-  filter='less,?yui_css'
+  filter='lessphp'
   output='css/v3.css'
   %}
   <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
