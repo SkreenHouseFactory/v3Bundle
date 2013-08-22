@@ -180,7 +180,7 @@ class ChannelController extends Controller
       //echo $api->url;
       $play = null;
       
-      foreach( $program->offers->plays as $play){
+      foreach( $program->offers->deporte as $play){
         if( isset($play->deporte) && isset($play->cost) && $play->deporte && $play->cost){
           break;
         }

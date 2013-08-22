@@ -205,7 +205,7 @@
      {% endif %}
    </div>
 
-   <div class="col-lg-3">
+   <div class="col-lg-3 suivre">
     {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.id, class: 'fav-like'} %}
   </div>
 
@@ -220,38 +220,6 @@
   </div>
 </div>
 <div class="tab-content">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
  {% set hasoffers = 2  %}
 
@@ -297,16 +265,18 @@
           {% endif %}
 
           {# theaters #}
-          {% if key == 'theaters' %}
+          {% if key == 'theater' %}
           <tr>
             <td colspan="6" class="theaters">
               {% if program.datas_theaters.theaters_ids|length > 0 %}
               <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
               {% if program.datas_theaters.theaters_ids|length > 9 %}
-              <form id="theaters-search" class="form-search pull-left">
-                <div class="input-append">
-                  <input type="text" class="span3 search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
-                  <button type="submit" class="btn"><i class="icon-search"></i> {{ 'theaters.search.submit'|trans }}</button>
+              <form role="form" class="form-inline inline-block" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}" data-form-ajax="#theaters-list"  class="form-search pull-left">
+                <div class="form-group">
+                  <input name="q" type="text" class="form-control search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary"><i class="icon-search"></i> {{ 'theaters.search.submit'|trans }}</button>
                 </div>
               </form>
               <div class="btn-group">
@@ -442,17 +412,6 @@
                      <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
                      {% endif %}
 
-
-
-
-
-
-
-
-
-
-
-
                    </td>
                  </tr>
                </tbody>
@@ -464,7 +423,7 @@
          {% endif %}
        </tbody>
      </table>
-     {% if btn_deploy_offers > 3 %}
+     {% if btn_deploy_offers is defined and btn_deploy_offers > 3 %}
      <button type="button" class="btn " data-toggle="collapse" data-target=".collapsing{{ loop.index }}" >
       Voir les {{ attribute(program.offers, key)|to_array|length - 3 }} choix restants
     </button>{% endif %}
@@ -594,7 +553,7 @@
 
 <div class="col-lg-3 ">
   <div >
-    <span class="ms-vid-type">{{ program.format.name }} de {{ program.year }}{% if program.duration %} - dur&#233;e: {{ program.duration }}mn{% endif %}</span>
+    <span class="ms-vid-type">{{ program.format.name }}, {{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}</span>
     
     {% if program.format and program.categories|length | to_array %}
     <h5  class="ms-cat-title" >Catégories</h5> {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a> {% endfor %}
@@ -676,7 +635,7 @@
     {% for r in program.related.channels.programs|to_array %}
     <a class="channel_link" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}">
       <span class="channel_texte">{{ r.title ~ ', la chaîne' }}</span>
-      <img src="{{ program.related.channels.image }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
+      <img src="{{ r.picture }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
     </a>
     {% endfor %}
     {% endif %}

@@ -17,14 +17,12 @@
 	</ul>
 	<h1><small class="indent">{{ app.request.get('type') }}</small></h1>
   {% if channels|length > 6 %}
-  <div class="pagination{% if app.request.get('type') != 'cinema' %} pagination-client-alpha{% endif %}">
-    <ul>
-        <li><a href="{{ path('sitemap_channels', {type: app.request.get('type') }) }}">{{ 'nav.all'|trans }}</a></li>
-      {% for l in alpha %}
-        <li{% if l not in alpha_available %} class="disabled"{% endif %}><a{% if l in alpha_available %} href="{{ path('sitemap_channels_page', {type: app.request.get('type'), page: l }) }}"{% endif %}>{{ l }}</a></li>
-      {% endfor %}
-    </ul>
-  </div>
+  <ul class="pagination{% if app.request.get('type') != 'cinema' %} pagination-client-alpha{% endif %}">
+      <li><a href="{{ path('sitemap_channels', {type: app.request.get('type') }) }}">{{ 'nav.all'|trans }}</a></li>
+    {% for l in alpha %}
+      <li{% if l not in alpha_available %} class="disabled"{% endif %}><a{% if l in alpha_available %} href="{{ path('sitemap_channels_page', {type: app.request.get('type'), page: l }) }}"{% endif %}>{{ l }}</a></li>
+    {% endfor %}
+  </ul>
   {% endif %}
 	<table class="table table-striped">
 		{% for c in channels if c.channel is defined or c.img or c.type in ['cinema']  %}
@@ -40,13 +38,13 @@
 			{% if app.request.get('type') == 'cinema' %}
 			<td>{{ c.adress }}<br/>{{ c.city }} {{ c.zip_code }}</td>
 			{% endif %}
-			<td class="actions" data-id="{{ c.id }}" align="right">
+			<td align="right">
 				{% if app.request.get('type') == 'broadcast' %}
-				<a class="btn btn-primary fav fav-epg" data-placement="left" href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><i class="icon-plus-sign icon-white"></i> Ajouter à votre grille TV</a>
+				{#<a class="btn btn-primary fav fav-epg" data-placement="left" href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><i class="icon-plus-sign icon-white"></i> Ajouter à votre grille TV</a>#}
 				{% elseif app.request.get('type') == 'cinema' %}
-				<a class="btn btn-primary fav fav-cinema" data-placement="left" href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }} ce cinéma</a>
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: c.id, class: 'fav-cinema', text: 'action.add.favorites'|trans ~' ce cinéma' } %}
 				{% elseif app.request.get('type') == 'thematique' %}
-				<a data-channel-name="{{ c.name }}" class="btn btn-primary fav fav-channel" data-placement="left" href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }} la chaîne</a>
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: c.id, class: 'fav-channel', text: 'action.add.favorites'|trans ~' ce cinéma', name: c.name } %}
 				{% endif %}
 			</td>
 		</tr>

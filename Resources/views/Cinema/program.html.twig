@@ -22,10 +22,10 @@
   {% endif %}
   {% for cinema in cinemas %}
     {% if cinema.adress is defined and cinema.schedules is defined %}
-    <div class="accordion-group actions actions-remove" data-id="{{ cinema.id }}" data-name="{{ cinema.name }}">
+    <div class="accordion-group">
       <div class="accordion-heading">
         <a class="btn btn-default pull-right" href="{{path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1)}) }}">Voir ce cinéma</a>
-        <a class="fav fav-cinema btn btn-primary pull-right"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, class: 'fav-cinema fav-remove', name: cinema.name} %}
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-theaters" href="#theater-{{ cinema.id }}">{{ cinema.name }}</a>
         <a target="_blank" href="https://maps.google.com/maps?hl=fr&q={{ cinema.adress ~ ' ' ~ cinema.city ~ ' ' ~ cinema.zip_code|url_encode }}" class="address"><i class="icon-map-marker"></i> {{ cinema.adress }} {{ cinema.city }} {{ cinema.zip_code }}</a>
       </div>

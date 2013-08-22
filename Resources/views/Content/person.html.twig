@@ -23,8 +23,8 @@
 {% block content %}
 <div id="view-person" data-id="{{ person.id }}" class="container">
 
-  <div class="actions pull-right" data-id="{{ person.id }}">
-      <a class="fav fav-person btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+  <div class="actions pull-right">
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: person.id, class: 'fav-person'} %}
   </div>
   
   <h1>{{ person.name }}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
