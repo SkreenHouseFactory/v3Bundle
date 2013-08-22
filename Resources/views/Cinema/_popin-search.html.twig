@@ -3,12 +3,10 @@
   <form id="theaters-search" action="{{ path('theaters_search') }}" data-form-ajax="{{ app.request.isXmlHttpRequest ? '.modal ' : '' }}#theaters-list" class="form-search modal-catchform-disable pull-left">
     <div class="input-group">
       <input type="text" name="q" class="span3 search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
-      <span class="input-group-addon">
       <input type="submit" class="input-group-addon btn btn-default trigger-theaters" value="{{ 'theaters.search.submit'|trans }}" />
-    </span>
+    <a class="btn btn-default" class="trigger-theaters" id="trigger-theaters-geoloc"><i class="glyphicon glyphicon-map-marker"></i> {{ 'theaters.search.geoloc'|trans }}</a>
     </div>
   </form>
-  <a class="btn btn-default" class="trigger-theaters" id="trigger-theaters-geoloc"><i class="icon-map-marker"></i> {{ 'theaters.search.geoloc'|trans }}</a>
   <div id="theaters-list" class="clear"></div>
 </div>
 {% endif %}

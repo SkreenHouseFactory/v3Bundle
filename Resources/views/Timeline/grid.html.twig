@@ -67,7 +67,7 @@
     <li></li>
     <li>&nbsp;{{ data.timestamp|date('H:i')|replace({':': 'h'}) }}</li>
     <li>{{ (data.timestamp + 3600)|date('H:i')|replace({':': 'h'}) }}</li>
-    <li><span class="pull-right">{{ (data.timestamp + 3*3600)|date('H:i')|replace({':': 'h'}) }}</span>{{ (data.timestamp + 2*3600)|date('H:i')|replace({':': 'h'}) }}&nbsp;</li>
+    <li>{{ (data.timestamp + 2*3600)|date('H:i')|replace({':': 'h'}) }}&nbsp;</li>
     
   </ul>
   <div class="channel-wrap">
