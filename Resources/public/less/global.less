@@ -132,7 +132,7 @@ li.divider {
     }
     >ul{
       >li{
-      display: inline-block;
+        display: inline-block;
       }
     }
   }
@@ -317,14 +317,14 @@ div.friends {
     -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
     -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
     box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
-  
+
     > li > a {
       width: 230px 9;
       display: block;
       margin: 0 0 -1px;
       padding: 8px 14px;
       border: 1px solid #E5E5E5;
-        
+
       &:hover {
         background-color: whiteSmoke;
       }
@@ -393,24 +393,25 @@ div.friends {
   margin: auto;
   .border-radius-bottom;
   i{
-  color: #000;
-  font-size: 10px;
+    color: #000;
+    font-size: 10px;
   }
 }
 
+.text-toggle-extend {
+  width: 690px; margin-top: 10px; position:relative;
 
-.text-toggle-extend{
-  padding: 15px 35px 15px 35px;
-  border: 1px solid #DDDDDD;
-  margin: 0 0 20px;
-}
-.show-more-height{
-  height: 100%;
-  background: #fff;
-  overflow: auto;
-
-}
-
+  .text {
+    width: 660px; margin-bottom: 5px;  padding: 0 15px; position:relative; display: block;
+  }
+  .show-more {
+    width: 690px; color: #777; position:relative; font-size: 12px; padding-top: 5px; height: 20px; text-align: center; background: #f1f1f1; cursor: pointer;
+  :hover { 
+      color: #1779dd;
+    }
+  }
+    .show-more-height { height: 130px; overflow:hidden; }
+  }
 
 // -- typeahed
 body.searching {
@@ -438,7 +439,7 @@ body.searching {
     background: transparent;
     outline: none;
     &:hover{
-    border:none;
+      border:none;
     }
   }
 

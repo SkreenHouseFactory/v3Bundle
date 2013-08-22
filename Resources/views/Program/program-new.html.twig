@@ -132,7 +132,7 @@
       <div class="col-lg-9 videotitle">
 {# TITRE #}
 
-{# Selecteur episodes #}
+
        {% if program.episode_title is defined and 
        program.episodeof is defined and 
        program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
@@ -149,60 +149,9 @@
        <h1 itemprop="name"> {{ program.title }} </h1>
        {% endif %}   
 
-       {% if program.episode_list is defined and program.seasons is not defined %}
-       <div class="btn-group program-episode">
-         <a class="btn btn-block dropdown-toggle" data-toggle="dropdown" href="#">
-           {{ program.episode_list|length }} épisodes disponibles
-           <span class="caret"></span>
-         </a>
-         <ul class="dropdown-menu">
-           {% for episode in program.episode_list %}
-           <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
-             {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
-             <strong>{{ episode.title }}</strong>{% if episode.year %} - {{ episode.year }}{% endif %}
-           </a></li>
-           {% endfor %}
-         </ul>
-       </div>
-       {% elseif program.seasons is defined %}
-       <div class="btn-group program-episode season-episode">
-         <button class="btn">{{ program.season_number is defined ? 'Saison ' ~ program.season_number : program.seasons|to_array|length ~ ' saisons' }}</button>
-         <button class="btn dropdown-toggle" data-toggle="dropdown">
-           <span class="caret"></span>
-         </button>
-         <ul class="dropdown-menu">
-           {% for season in program.seasons|to_array|reverse %}
-           {% set episode = season.episodes|to_array|first %}
-           <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">Saison {{ season.number }}</a></li>
-           {% endfor %}
-           {% if program.episodeof is defined %}
-           <li><a href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}">Toutes les saisons</a></li>
-           {% endif %}
-         </ul>
-       </div>
-       {% if program.episodeof is defined %}
-       &nbsp;
-       <div class="btn-group program-episode">
-        <button class="btn">{{ program.episode_number is defined ? 'Episode ' ~ program.episode_number : 'Les épisodes' }}</button>
-        <button class="btn dropdown-toggle" data-toggle="dropdown">
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-         {% for season in program.seasons|to_array if season.number == program.season_number %}
-         {% for episode in season.episodes|to_array|reverse %}
-         <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
-           {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
-          
-        {# Titre programme #}
 
-           <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
-         </a></li>
-         {% endfor %}
-         {% endfor %}
-       </ul>
-     </div>
-     {% endif %}
-     {% endif %}
+
+
    </div>
 
    <div class="col-lg-3 suivre">
@@ -489,38 +438,19 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {# description seo texte #}
-<div class="text-toggle-extend">
-  <h4>{{ program.title }}</h4> 
-  {{ program.description_seo|raw}}
-</div>
 
-<span class="show-more" >Voir plus...<i class="glyphicon glyphicon-arrow-down"></i></span>
-
-
+<div class="panel">
+  <div class="panel-heading">Synopsis</div>
+  <div class="tab-pane">
+    <div class="text-toggle-extend"  >
+      <div class="text show-more-height">
+        <h4>{{ program.title }}</h4> 
+        {{ program.description_seo|raw}}
+      </div>
+      <div class="show-more">(Voir plus...)</div>
+    </div></div>
+  </div>
 
 
 
@@ -554,6 +484,64 @@
 <div class="col-lg-3 ">
   <div >
     <span class="ms-vid-type">{{ program.format.name }}, {{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}</span>
+
+
+    
+{# Selecteur episodes #}
+       {% if program.episode_list is defined and program.seasons is not defined %}
+       <div class="btn-group program-episode">
+         <a class="btn btn-block dropdown-toggle" data-toggle="dropdown" href="#">
+           {{ program.episode_list|length }} épisodes disponibles
+           <span class="caret"></span>
+         </a>
+         <ul class="dropdown-menu">
+           {% for episode in program.episode_list %}
+           <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
+             {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
+             <strong>{{ episode.title }}</strong>{% if episode.year %} - {{ episode.year }}{% endif %}
+           </a></li>
+           {% endfor %}
+         </ul>
+       </div>
+       {% elseif program.seasons is defined %}
+       <div class="btn-group program-episode season-episode">
+         <button class="btn">{{ program.season_number is defined ? 'Saison ' ~ program.season_number : program.seasons|to_array|length ~ ' saisons' }}</button>
+         <button class="btn dropdown-toggle" data-toggle="dropdown">
+           <span class="caret"></span>
+         </button>
+         <ul class="dropdown-menu">
+           {% for season in program.seasons|to_array|reverse %}
+           {% set episode = season.episodes|to_array|first %}
+           <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">Saison {{ season.number }}</a></li>
+           {% endfor %}
+           {% if program.episodeof is defined %}
+           <li><a href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}">Toutes les saisons</a></li>
+           {% endif %}
+         </ul>
+       </div>
+       {% if program.episodeof is defined %}
+       &nbsp;
+       <div class="btn-group program-episode">
+        <button class="btn">{{ program.episode_number is defined ? 'Episode ' ~ program.episode_number : 'Les épisodes' }}</button>
+        <button class="btn dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+         {% for season in program.seasons|to_array if season.number == program.season_number %}
+         {% for episode in season.episodes|to_array|reverse %}
+         <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
+           {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
+          
+        {# Titre programme #}
+
+           <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
+         </a></li>
+         {% endfor %}
+         {% endfor %}
+       </ul>
+     </div>
+     {% endif %}
+     {% endif %}
     
     {% if program.format and program.categories|length | to_array %}
     <h5  class="ms-cat-title" >Catégories</h5> {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a> {% endfor %}
@@ -595,16 +583,28 @@
         {% if program.casting|to_array %}
         <h5 class="ms-cat-title" >{{ 'actors'|trans }}</h5>
         {% for pers in program.casting|to_array  %}
-        <div class="inline" itemprop="actor" itemscope itemtype="http://schema.org/Person">
+        <div class="inline {% if loop.index > 10 %} actors_entrop hide{% endif %}" itemprop="actor" itemscope itemtype="http://schema.org/Person">
           {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
-          {% if pers.main_programs is defined and (pers.main_programs > 1) %}
+
+       
+
+          {#% if pers.main_programs is defined and (pers.main_programs > 1) %}
           <span style="color:#005580"> ( </span>{% for prog in pers.main_programs if prog.id != program.id  %}
           {% if loop.first %}{% else %}, {% endif %}
           <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
           {% endfor %}<span style="color:#005580"> ) </span>
-          {% endif %}
+          {% endif %#}
+
+
         </div>
-        {% endfor %}  <br/>
+        {% endfor %} 
+        {% if program.casting|to_array|length > 10 %}
+        <div class="block">
+         <a class="actors_reveal" style="font-style:italic;">et {{ program.casting|to_array|length - 10 }} autre{% if program.casting|to_array|length > 11 %}s{% endif %}  acteur{% if program.casting|to_array|length > 11 %}s{% endif %}... </a>
+       </div>
+       {% endif %}
+
+         <br/>
         {% endif %}
 
         {% if program.editor|to_array  %}
