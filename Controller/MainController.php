@@ -201,7 +201,15 @@ class MainController extends Controller
     */
     public function sitemapAction(Request $request)
     {
-      return $this->redirect('http://api.myskreen.com/sitemapindex/500.xml', 301);
+      if ($request->get('video')) {
+        if ($request->get('new')) {
+          return $this->redirect('http://api.myskreen.com/sitemapvideonew/', 301);
+        } else {
+          return $this->redirect('http://api.myskreen.com/sitemapvideoindex/500.xml', 301);
+        }   
+      } else {
+        return $this->redirect('http://api.myskreen.com/sitemapindex/500.xml', 301);
+      }
     }
 
     /**

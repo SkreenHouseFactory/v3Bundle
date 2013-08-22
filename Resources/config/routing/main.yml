@@ -5,13 +5,21 @@ embed_offer:
     requirements:
         id: \d+
 
+#sitemaps
+sitemap_general:
+    pattern:  /sitemap.xml
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:sitemap }
+sitemap_video:
+    pattern:  /sitemapvideo.xml
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:sitemap, video: true }
+sitemap_video_new:
+    pattern:  /sitemapvideonew.xml
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:sitemap, video: true, new: true }
+
 #main
 postproxy:
     pattern:  /proxy
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:proxy }
-sitemap_mrss:
-    pattern:  /sitemap.xml
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:sitemap }
 header:
     pattern:  /header/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:header }
