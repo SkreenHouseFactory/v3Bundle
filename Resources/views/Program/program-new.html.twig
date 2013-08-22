@@ -79,9 +79,10 @@
 
   {% block content %}
 
+{# PLAYER #}
+
   <section class="container scrollplayerzone">
     <div class="row">
-
       <div class="col-lg-9 ">
         <div id="player"> {% if program.player is defined and program.player %}
           <a name="teaser"></a>
@@ -114,10 +115,16 @@
   <div class="col-lg-3 " style="float:right;">
 
     <div id="affiche">
+    {# social bar #}
+
       <div class="ms-social-bar">
         <span>Partagez</span>
         {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}
       </div>
+
+
+      {# affiche programme #}
+
       <img src="{{ program.img }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
     </div> 
 
@@ -125,6 +132,9 @@
   <div class="col-lg-9 ">
     <div class="row">
       <div class="col-lg-9 videotitle">
+{# TITRE #}
+
+{# Selecteur episodes #}
        {% if program.episode_title is defined and 
        program.episodeof is defined and 
        program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
@@ -184,6 +194,9 @@
          {% for episode in season.episodes|to_array|reverse %}
          <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
            {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
+          
+        {# Titre programme #}
+
            <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
          </a></li>
          {% endfor %}
@@ -202,7 +215,6 @@
 
 
 </div>
-{# description seo texte #}
 
 
 <div class="row">
@@ -211,7 +223,43 @@
 </div>
 <div class="tab-content">
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ {% set hasoffers = 2  %}
+
+
  {% for key in offers|keys if program.offers[key]|to_array|length %}
+ {% set hasoffers = 1  %}
  {% set variabledeboucle = loop.index  %}
 
  <div class="panel{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : '' }}">
@@ -245,15 +293,15 @@
           {% endif %}
 
           {# theaters #}
-          {% if key == 'theater' %}
+          {% if key == 'theaters' %}
           <tr>
             <td colspan="6" class="theaters">
               {% if program.datas_theaters.theaters_ids|length > 0 %}
               <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
               {% if program.datas_theaters.theaters_ids|length > 9 %}
-              <form id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}" data-form-ajax="#theaters-list" class="form-search pull-left">
+              <form id="theaters-search" class="form-search pull-left">
                 <div class="input-append">
-                  <input name="q" type="text" class="span3 search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
+                  <input type="text" class="span3 search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
                   <button type="submit" class="btn"><i class="icon-search"></i> {{ 'theaters.search.submit'|trans }}</button>
                 </div>
               </form>
@@ -262,8 +310,8 @@
                 <a class="btn btn-default" href="#theaters" id="trigger-theaters-playlist"><i class="glyphicon glyphicon-user"></i> {{ 'theaters.search.playlist'|trans }}</a>
               </div>
               {% endif %}
-              <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_program', {id: program.id}) }}">
-                {% render(controller('SkreenHouseFactoryV3Bundle:Cinema:program', {id: program.id, theater_ids: app.request.get('theater_id') ? app.request.get('theater_id') : program.datas_theaters.theaters_ids|join(',') })) %}  
+              <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}">
+                {% render(controller('SkreenHouseFactoryV3Bundle:Cinema:program', {id: program.id, theater_ids: app.request.get('theater_id') ? app.request.get('theater_id') : program.datas_theaters.theaters_ids|join(',') })) %}
               </div>
               {% if program.datas_theaters.theaters_on_demand|length %}
               <hr/>
@@ -412,7 +460,7 @@
          {% endif %}
        </tbody>
      </table>
-     {% if btn_deploy_offers is defined and btn_deploy_offers > 3 %}
+     {% if btn_deploy_offers > 3 %}
      <button type="button" class="btn " data-toggle="collapse" data-target=".collapsing{{ loop.index }}" >
       Voir les {{ attribute(program.offers, key)|to_array|length - 3 }} choix restants
     </button>{% endif %}
@@ -421,13 +469,99 @@
 </div>
 
 </div>
+
+{# 
+<span class="show-more" >Voir plus...<i class="glyphicon glyphicon-arrow-down"></i></span>#}
+{% endfor %}
+{# Message alternatif, pas d'offre #}
+{% if hasoffers == 2 %}
+<div class="alert alert-success">
+  <h4> <b>Oops !</b> Désolé il n'existe pas de vidéo correspondant à <strong>{{ program.title }}</strong></h4>
+  <br/>
+  <h>Pouvons nous vous suggérer les catégories correspondantes ?</p>
+    {% if program.format and program.categories|length | to_array %}
+    <h5  class="ms-cat-title" >Catégories</h5> {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="ms-cat-element" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
+    <br/>
+    {% endif %}
+</div>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{# description seo texte #}
 <div class="text-toggle-extend">
   <h4>{{ program.title }}</h4> 
   {{ program.description_seo|raw}}
 </div>
-{# 
-<span class="show-more" >Voir plus...<i class="glyphicon glyphicon-arrow-down"></i></span>#}
-{% endfor %}
+
+
+
+
+
+
+
 {# bonus #}
 {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
 <div id="carousel-bonus" class="tab-pane">
@@ -454,14 +588,14 @@
 
 <div class="col-lg-3 ">
   <div >
-    <span class="ms-vid-type">{{ program.format.name }}, {{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}</span>
+    <span class="ms-vid-type">{{ program.format.name }} de {{ program.year }}{% if program.duration %} - dur&#233;e: {{ program.duration }}mn{% endif %}</span>
     
     {% if program.format and program.categories|length | to_array %}
-    <h5  class="ms-cat-title" >Catégories</h5> {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>&nbsp;{% endfor %}
+    <h5  class="ms-cat-title" >Catégories</h5> {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="ms-cat-element" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
     <br/>
     {% endif %}
     {% if program.format and program.subcategories|to_array|length %}
-    <h5 class="ms-cat-title" >Sous-catégories</h5> {% for c in program.subcategories | to_array  %}<a  class="label label-default"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>&nbsp;{% endfor %}
+    <h5 class="ms-cat-title" >Sous-catégories</h5> {% for c in program.subcategories | to_array  %}<a  class="ms-cat-element"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>{% endfor %}
     {% endif %}
 
 
