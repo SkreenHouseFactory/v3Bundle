@@ -29,7 +29,6 @@
         <a class="accordion-toggle bold" data-toggle="collapse" data-parent="#accordion-theaters" href="#theater-{{ cinema.id }}">{{ cinema.name }}</a>
       </div>
       <div id="theater-{{ cinema.id }}" class="accordion-body collapse{% if loop.first %}  in{% endif %}">
-        <a href="{{path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1)}) }}" class="black"><i class="glyphicon glyphicon-map-marker"></i> {{ cinema.adress }} {{ cinema.city }} {{ cinema.zip_code }}</a>
         <table class="table table-striped accordion-inner">
         {% for day in days if attribute(cinema.schedules, day) is defined %}
           {% set s = attribute(cinema.schedules, day) %}
