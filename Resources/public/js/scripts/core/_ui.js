@@ -33,8 +33,17 @@ UiView = {
     if (urlPopin) {
       API.launchModal((API.config.popin + urlPopin + '&proxy=v3').replace('createIframe', ','));
     }
-    
- 
+
+    // trigger onload
+    if ($('.trigger-onload').length > 0) {
+      setTimeout(function(){
+        $('.trigger-onload').each(function(){
+          console.log('script', '.trigger-onload', $(this));
+          $(this).trigger('click');
+        });
+      }, 500);
+    }
+
     // ui modal
     if ($('.modal').length > 0) {
       $('.modal').on('show', function(){
