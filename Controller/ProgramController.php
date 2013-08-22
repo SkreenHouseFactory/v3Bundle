@@ -262,8 +262,8 @@ class ProgramController extends Controller
         }
         */
 
-        if (isset($data->sagas) && count($data->sagas) > 0) {
-          $data->related = array_merge($data->sagas, $data->related);
+        if (isset($data->sagas) && count((array)$data->sagas) > 0) {
+          $data->related = array_merge((array)$data->sagas, $data->related);
         }
 
         if (array_key_exists('chaines',$data->related) && count($data->related['chaines']->programs) == 1) {

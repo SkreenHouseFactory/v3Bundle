@@ -1,22 +1,27 @@
 {% if app.request.get('init') or app.request.isXmlHttpRequest == false %}
 <div class="theaters-modal">
-  <form id="theaters-search" action="{{ path('theaters_search') }}" data-form-ajax="{{ app.request.isXmlHttpRequest ? '.modal ' : '' }}#theaters-list" class="form-search modal-catchform-disable pull-left">
-    <div class="input-group">
-      <input type="text" name="q" class="span3 search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
-      <input type="submit" class="input-group-addon btn btn-default trigger-theaters" value="{{ 'theaters.search.submit'|trans }}" />
-    <a class="btn btn-default" class="trigger-theaters" id="trigger-theaters-geoloc"><i class="glyphicon glyphicon-map-marker"></i> {{ 'theaters.search.geoloc'|trans }}</a>
-    </div>
+  <form id="theaters-search" action="{{ path('theaters_search') }}" data-form-ajax="{{ app.request.isXmlHttpRequest ? '.modal ' : '' }}#theaters-list" role="form" class="form-search modal-catchform-disable form-inline inline-block">
+      <div class="form-group">
+      <input type="text" name="q" class="form-control search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="{{ 'theaters.search.submit'|trans }}" />
+      </div>
+    <a class="btn btn-default trigger-theaters trigger-onload" id="trigger-theaters-geoloc"><i class="glyphicon glyphicon-map-marker"></i> {{ 'theaters.search.geoloc'|trans }}</a>
   </form>
   <div id="theaters-list" class="clear"></div>
 </div>
 {% endif %}
+
+{% if app.request.isXmlHttpRequest %}
+  <hr/>
 {% if app.request.get('q') %}
   <h3>Recherche : {{ app.request.get('q') }}</h3>
-{% elseif app.request.get('init') is null %}
+{% elseif app.request.get('init') is null and app.request.isXmlHttpRequest %}
   <h3>Cinémas près d'ici</h3>
 {% endif %}
 {% if cinemas|length == 0 and app.request.get('init') is null %}
-  <p class="alert">
+  <p class="alert alert-warning">
     {% if app.request.get('q') %}
       {{ 'program.theaters.noprogram.search'|trans }}
     {% else %}
@@ -29,13 +34,14 @@
   {% for cinema in cinemas %}
     {% if cinema.adress is defined %}
     <tr><td class="actions" data-id="{{ cinema.id }}">
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, name: cinema.name, class: 'fav-cinema'} %}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, name: cinema.name, class: 'fav-cinema pull-right', text: 'Ajouter à vos cinémas'} %}
       <a class="btn btn-default pull-right" href="{{ path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1) }) }}"> Films & horaires</a>
-      <strong>{{ cinema.name }}</strong><br/>
+      <strong>{{ cinema.name }}</strong>{% if cinema.distance is defined %} distance : {{ cinema.distance < 1 ? (cinema.distance*100) ~'m' : cinema.distance ~ 'km' }}{% endif %}<br/>
       <em>{{ cinema.adress }} {{ cinema.city }} {{ cinema.zip_code }}</em>
     </td></tr>
     {% endif %}
   {% endfor %}
   </table>
   </div>
+{% endif %}
 {% endif %}

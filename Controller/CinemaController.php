@@ -116,21 +116,25 @@ class CinemaController extends Controller
       $cinemas = null;
 			$api = $this->get('api');
       if ($request->get('q')) {
-        $cinemas = $api->fetch('channel', array(
-                      'type' => 'cinema',
-                      'q' => $request->get('q')
-                    ));
+        $cinemas = $api->fetch(
+          'channel', 
+          array(
+            'type' => 'cinema',
+            'q' => $request->get('q')
+        ));
       } elseif ($request->get('latlng')) {
-        $cinemas = $api->fetch('channel', array(
-                      'type' => 'cinema',
-                      'latlng' => $request->get('latlng')
-                   ));
+        $cinemas = $api->fetch(
+          'channel',
+          array(
+            'type' => 'cinema',
+            'latlng' => $request->get('latlng')
+         ));
       }
       //echo $api->url;
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:_popin-search.html.twig', array(
-                'cinemas' => $cinemas,
-             ));
+        'cinemas' => $cinemas,
+      ));
 
       $maxage = 600;
       $response->setPublic();

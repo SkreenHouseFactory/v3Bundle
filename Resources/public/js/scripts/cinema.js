@@ -32,7 +32,7 @@ $(document).ready(function(){
 			UI.appendLoader(container, 2000);
 			API.query(
 				'GET',
-				API.config.v3_url + container.data('api-url') + '?playlist=1&theater_ids=' + theaters,
+				API.config.v3_url + $('#theaters-search').attr('action') + '?playlist=1&theater_ids=' + theaters,
 				{dataType: 'text html'},
 				function(datas){
 					console.log('script', '#theaters-playlist', 'callback');
@@ -50,7 +50,7 @@ $(document).ready(function(){
 		UI.appendLoader(container, 2000);
 		//geoloc
 		API.geolocation(function(position){
-			container.load(container.data('api-url') + '?latlng=' + position);
+			container.load($('#theaters-search').attr('action') + '?latlng=' + position);
 		}, function(msg, code){
 			container.preprend('<p class="alert alert-error">' + msg + '</p>');
 		});
