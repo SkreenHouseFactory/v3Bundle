@@ -4,7 +4,7 @@
 Session_sync_args =  { 'with_svod': 1 };
 
 $(document).ready(function(){
-  if ($('#view-program').length) {
+  if ($('#view-program, #view-program_pere').length) {
 
     //////////// CALLBACKS ////////////////
     // -- session sync
@@ -16,12 +16,16 @@ $(document).ready(function(){
       if (Skhf.session.datas.email) {
         ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
       }
-      //theater playlist
-      if ($('#program-offers #trigger-theaters-playlist').length && 
+      //theater playlist et fallback géoloc
+      if (Skhf.session.datas.email &&
+          $('#program-offers #trigger-theaters-playlist').length && 
           !document.location.href.match(/theater_id=/)){ //desactivé si id cinéma dans url
-          $('#program-offers #trigger-theaters-playlist').trigger('click');
+        $('#program-offers #trigger-theaters-playlist').trigger('click');
+      } else if ($('#program-offers #trigger-theaters-geoloc').length) {
+        $('#program-offers #trigger-theaters-geoloc').trigger('click');
       }
       //affichage bulle pendant 4s sur fiche programme
+      /*
       if (!Skhf.session.datas.email && 
           $('#program-follow .fav').length > 0) {
         setTimeout(function(){
@@ -38,6 +42,7 @@ $(document).ready(function(){
           }
         }, 2000);
       }
+      */
     }
     // -- add preference callback : incitation à suivre des related
     if (!navigator.userAgent.match(/iPhone|iPod/)) { //not optimized for iPhone

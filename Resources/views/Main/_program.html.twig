@@ -40,8 +40,8 @@
       {%- if p.popular_channel is defined -%}
       <img src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" />
       {%- endif -%}
-      <span class="diff">
-      {#%- if p.deporte == true %}<i class="icon-th icon-white"></i> {{ 'action.play.deporte'|trans }}#}
+      {#<span class="diff">
+      {#%- if p.deporte == true %}<i class="icon-th icon-white"></i> {{ 'action.play.deporte'|trans }}}
       {%- if p.has_vod == 4 %}{{ 'action.play.cine'|trans }}
       {%- elseif p.has_vod == 3 %}{{ 'action.play.dvd'|trans }}
       {%- elseif p.has_vod == 5 %}{{ 'action.play.tv'|trans }}
@@ -53,6 +53,7 @@
       {% if app.environment == 'dev' and p.nb_like is defined and p.nb_like %}
       <div class="container-friends"><i class="icon-user icon-white"></i> <big>{{ p.nb_like }}</big></div>
       {% endif%}
+      #}
     </span>
     </a>
     {% endif %}
