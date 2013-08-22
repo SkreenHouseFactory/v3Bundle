@@ -299,7 +299,7 @@
           {% endif %}
 
           {# theaters #}
-          {% if key == 'theaters' %}
+          {% if key == 'theater' %}
           <tr>
             <td colspan="6" class="theaters">
               {% if program.datas_theaters.theaters_ids|length > 0 %}
@@ -466,7 +466,7 @@
          {% endif %}
        </tbody>
      </table>
-     {% if btn_deploy_offers > 3 %}
+     {% if btn_deploy_offers is defined and btn_deploy_offers > 3 %}
      <button type="button" class="btn " data-toggle="collapse" data-target=".collapsing{{ loop.index }}" >
       Voir les {{ attribute(program.offers, key)|to_array|length - 3 }} choix restants
     </button>{% endif %}
@@ -676,7 +676,7 @@
     {% for r in program.related.channels.programs|to_array %}
     <a class="channel_link" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}">
       <span class="channel_texte">{{ r.title ~ ', la chaîne' }}</span>
-      <img src="{{ program.related.channels.image }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
+      <img src="{{ r.picture }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
     </a>
     {% endfor %}
     {% endif %}

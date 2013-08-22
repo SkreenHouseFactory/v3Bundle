@@ -285,7 +285,7 @@ UI = {
     });
   },
   //toggle favorite : fav-parameter
-  //if actions-remove[data-id="xx"] : element deleted in this.unloadPlaylistTrigger
+  //if fav-remove[data-id="xx"] : element deleted in this.unloadPlaylistTrigger
   togglePlaylist: function(trigger, with_related){
     var self = this;
     var parameter = this.getTriggerParameter(trigger);
@@ -392,10 +392,10 @@ UI = {
                 $('#trigger-theaters-playlist').trigger('click');
               }
             }
-            $('[data-id="' + ids[key] + '"].fav-' + parameter, elmt).parents('.actions-remove:first').remove();
+            $('[data-id="' + ids[key] + '"].fav-' + parameter, elmt).parents('.fav-remove:first').remove();
           break;
           default:
-            $('[data-id="' + ids[key] + '"].fav-' + parameter, elmt).parents('.actions-remove:first').remove();
+            $('[data-id="' + ids[key] + '"].fav-' + parameter, elmt).parents('.fav-remove:first').remove();
           break;
         }
       }

@@ -37,12 +37,12 @@
       <p class="alert">Le direct n'est pas disponible.</p>
     {% endif %}
     </div>
-    <div class="actions slider" data-id="{{ fournisseur.live.program.id }}">
+    <div class="slider">
       {#<small>{{ fournisseur.live.program.best_offer.broadcast_begin|date('H:i')|upper }} / {{ fournisseur.live.program.best_offer.broadcast_end|date('H:i')|upper }}</small>#}
       <ul class="items">
         {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with { p: fournisseur.live.program, class: 'hover' } %}
       </ul>
-      <a class="fav fav-like btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> Suivre ce programme</a>
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: fournisseur.live.program.id, class: 'fav-like', text: 'Suivre ce programme' } %}
     </div>
   </div>
   </div>

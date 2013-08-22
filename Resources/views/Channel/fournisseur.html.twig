@@ -34,8 +34,8 @@
 
   {# suivre #}
 	{% if channel.type in ['webcast','cinema'] %}
-	<div class="pull-right actions" data-id="{{ channel.id }}">
-		<a class="fav fav-{{ channel.type == 'broadcast' ? 'epg' : 'cinema' }} btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+	<div class="pull-right">
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'fav-' ~ (channel.type == 'broadcast' ? 'epg' : 'cinema') } %}
 	</div>
 	{% endif %}
 
