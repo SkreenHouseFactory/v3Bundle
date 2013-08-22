@@ -588,7 +588,7 @@
 
 <div class="col-lg-3 ">
   <div >
-    <span class="ms-vid-type">{{ program.format.name }} de {{ program.year }}{% if program.duration %} - dur&#233;e: {{ program.duration }}mn{% endif %}</span>
+    <span class="ms-vid-type">{{ program.format.name }}, {{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}</span>
     
     {% if program.format and program.categories|length | to_array %}
     <h5  class="ms-cat-title" >Catégories</h5> {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="ms-cat-element" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
