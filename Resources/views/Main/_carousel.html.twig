@@ -24,18 +24,16 @@
     <div class="container">
       <div class="carousel-caption actions">
       {% if p.id < 100000000 %}
-      <div class="col-lg-3">
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: p.id , class: 'fav-like'} %}
-    </div>
+      {#% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: p.id , class: 'fav-like'} %#}
       {% endif %}
       <h4><a href="{{ base_url }}{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">{{ p.title }}</a></h4>
       <p class="pull-left">{{ p.format ? p.format.name : '' }}{% if p.duration %}, {{ p.duration }}mn{% endif %}</p>
       {% if p.pitch is defined and p.pitch %}
       <p class="clear">{{ p.pitch }}</p>
       {% endif %}
-      {% if skip_like is not defined %}
+      {#% if skip_like is not defined %}
       <div id="fc{{ p.id }}" class="fb-like" data-href="http://www.myskreen.com{{ p.seo_url }}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" style="margin-left: 10px"></div>
-      {% endif %}
+      {% endif %#}
     </div>
     </div>
   </div>

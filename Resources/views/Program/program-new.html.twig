@@ -207,7 +207,7 @@
      {% endif %}
    </div>
 
-   <div class="col-lg-3">
+   <div class="col-lg-3 suivre">
     {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.id, class: 'fav-like'} %}
   </div>
 
@@ -222,38 +222,6 @@
   </div>
 </div>
 <div class="tab-content">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
  {% set hasoffers = 2  %}
 
@@ -305,10 +273,12 @@
               {% if program.datas_theaters.theaters_ids|length > 0 %}
               <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
               {% if program.datas_theaters.theaters_ids|length > 9 %}
-              <form id="theaters-search" class="form-search pull-left">
-                <div class="input-append">
-                  <input type="text" class="span3 search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
-                  <button type="submit" class="btn"><i class="icon-search"></i> {{ 'theaters.search.submit'|trans }}</button>
+              <form role="form" class="form-inline inline-block" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}" data-form-ajax="#theaters-list"  class="form-search pull-left">
+                <div class="form-group">
+                  <input name="q" type="text" class="form-control search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary"><i class="icon-search"></i> {{ 'theaters.search.submit'|trans }}</button>
                 </div>
               </form>
               <div class="btn-group">
@@ -443,17 +413,6 @@
                      {% elseif o.endtime is defined and o.endtime|remainingreplay %}
                      <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
                      {% endif %}
-
-
-
-
-
-
-
-
-
-
-
 
                    </td>
                  </tr>
