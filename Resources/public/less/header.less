@@ -1,3 +1,6 @@
+.nav > li > a:hover, .nav > li > a:focus{
+  background: transparent; 
+}
 
 .navbar{
   background:rgba(255,255,255,0.95);
@@ -40,10 +43,10 @@
   .headertoprighticons{
     position:absolute;
     padding-top: 12px;
-    width: 188px;
+    width: 235px;
     top: 0;
     right: 0;
-    text-align: center;
+    text-align: right;
     height: 63px;
     text-shadow: none;
     filter: dropshadow(none);
@@ -71,20 +74,29 @@
     padding-top: 2px;
     color: #fff;
     display: block;
-    &.glyphicon-user{
-      color: black;
+    .badge{
+      background: transparent;
     }
   }
 
   .ms-playlisticon{
     background: #f39c12;
   }
+
+  .ms-usericon{
+    background: #000;
+  }
+
   .ms-ficon{
     background: #5d5d5d;
   }
 
+  .ms-notificon{
+    background: #ed0743;
+  }
+
   .toprighticons-label{
-    font-size: 8px;
+    font-size: 10px;
     text-shadow: 1px 1px 1px #ffffff;
     filter: dropshadow(color=#ffffff, offx=1, offy=1);
   }
@@ -92,6 +104,9 @@
     color: #f39c12;
   }
 
+.toprighticons-notifications{
+  color:#ed0743;
+}
   .toprighticons-user{
     color: #5d5d5d;
   }
@@ -117,6 +132,13 @@
   }
 
 } 
+.user-on.dropdown.notifications.dropdown-toggle.tv-component:hover{
+  cursor:pointer;
+}
+
+
+
+
 
 .nav-playlists{
   z-index: 15;
@@ -127,7 +149,7 @@
   >li {
     vertical-align: top;
     display:inline-block;
-    width:33%;
+    margin-left: 20px;
     > a {
       color: #CCC;
       padding: 0;
@@ -179,7 +201,6 @@
       }
     }
     &.notifications {
-      width: 40px;
       height: 100%;
       text-align: center;
       > a {
@@ -196,7 +217,7 @@
           display: block;
           text-align: center;
           padding: 5px 0;
-          background: #EFEFEF;
+          background: #ed0743;
           height: auto;
           margin: 5px 0;
         }
