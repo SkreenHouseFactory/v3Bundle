@@ -135,9 +135,22 @@
 
   /* DESCRIPTIONS DE DROITE*/
 
-  span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal{
-    color: #166dc9;
+  a[itemprop="url"]{
+    &:hover{
+     color: @bluemaincolor;
+     text-decoration: none;
+   }
+   span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal{
+    color: #000000;
+    &:hover{
+     color: @bluemaincolor;
+     text-decoration: none;
+   }
+
   }
+}
+    
+
   .actors_reveal{
     font-style:italic;
   }
@@ -149,7 +162,7 @@
   .link-background-transition;
   }
   .channel_link:hover, .channel_link:active, .channel_link:focus,{
-    background:#166dc9;
+    background:@bluemaincolor;
   }
 
   .channel_root{
@@ -206,7 +219,7 @@
   .link-background-transition;
   }
   .ms-cat-element:hover, .ms-cat-element:active, .ms-cat-element:focus{
-    background: #166dc9;
+    background: @bluemaincolor;
     color:#fff;
     text-decoration: none;
   }
@@ -220,7 +233,7 @@
   .ms-cat-program-title h3{
     text-decoration: none;
     font-size: 18px;
-    color: #166dc9;
+    color: @bluemaincolor;
   }
 
 

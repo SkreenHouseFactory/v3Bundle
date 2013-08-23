@@ -346,7 +346,7 @@ UI = {
       for (key in ids) {
         //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)');
         var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + ':not(.fav-on)', elmt);
-        trigger.html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists').addClass('fav-on btn-primary');
+        trigger.html('<i class="glyphicon glyphicon-ok"></i> Dans vos playlists').addClass('fav-on btn-primary');
       }
       switch(parameter) {
         case 'cinema': //reload
@@ -366,7 +366,7 @@ UI = {
         for (key in ids) {
           //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
           var trigger = $('[data-id="' + ids[key] + '"].fav-' + this.available_playlists[k] + ':not(.fav-on)', elmt);
-          trigger.html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists').addClass('fav-on btn-primary');
+          trigger.html('<i class="glyphicon glyphicon-ok"></i> Dans vos playlists').addClass('fav-on btn-primary');
         }
       }
     }
@@ -379,7 +379,7 @@ UI = {
       for (key in ids) {
         console.log('UI.unloadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + parameter + '.fav-on');
         var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + '.fav-on', elmt);
-        trigger.html('<i class="icon-plus-sign icon-white"></i> Suivre ' + this.getTriggerName(trigger)).removeClass('fav-on btn-danger');
+        trigger.html('<i class="glyphicon glyphicon-plus"></i> Suivre ' + this.getTriggerName(trigger)).removeClass('fav-on btn-danger');
 
         switch(parameter) {
           case 'like':
@@ -405,7 +405,7 @@ UI = {
         for (key in ids) {
           //console.log('UI.unloadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + '.fav-on');
           var trigger = $('[data-id="' + ids[key] + '"].fav-' + this.available_playlists[k] + '.fav-on', elmt);
-          trigger.html('<i class="icon-plus-sign icon-white"></i> Suivre').removeClass('fav-on btn-danger');
+          trigger.html('<i class="glyphicon glyphicon-plus"></i> Suivre').removeClass('fav-on btn-danger');
         }
       }
     }
