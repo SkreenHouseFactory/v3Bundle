@@ -17,7 +17,7 @@ $(document).ready(function(){
       // retirer
       if (trigger.hasClass('fav-on')) {
         trigger.addClass('btn-danger')
-               .html('<i class="icon-remove-sign icon-white"></i> Retirer des playlists');
+               .html('<i class="glyphicon glyphicon-remove"></i> Retirer des playlists');
       //popover
       } else if (!trigger.hasClass('btn-danger')) {
         if (!trigger.data('content')) {
@@ -31,7 +31,7 @@ $(document).ready(function(){
     var trigger = $(this);
     trigger.popover('hide');
     if (trigger.hasClass('btn-danger')) {
-      trigger.removeClass('btn-danger').html('<i class="icon-ok-sign icon-white"></i> Dans vos playlists');
+      trigger.removeClass('btn-danger').html('<i class="glyphicon glyphicon-ok"></i> Dans vos playlists');
     }
   });
 });
