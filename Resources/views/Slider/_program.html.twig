@@ -1,3 +1,4 @@
+{#
 {% if app.environment == 'prod' %}
 {% set base_url = 'preprod' not in app.request.httpHost  ? 'http://www.myskreen.com' : '' %}
 {% else %}
@@ -81,3 +82,4 @@
   <div class="info_vignette {{size}}">{% if p.format is defined %}{{ (p.format ? p.format.name : p.onglet)|title }}{% endif %}, {% if p.duration is defined and p.duration %}{{p.duration}}mn{% endif %} </div>
   </div>
 
+#}
