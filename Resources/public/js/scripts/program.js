@@ -351,6 +351,12 @@ ProgramView = {
   }
 }
 
+//ui text show more
+$('.show-more').click(function () {
+  var $this = $(this);
+  $(".text", $(this).parent()).toggleClass("show-more-height");
+});
+
 /* Déplier la liste des acteurs */
 
 $(".actors_reveal").click(function () {

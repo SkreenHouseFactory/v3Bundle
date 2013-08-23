@@ -355,7 +355,9 @@
 
 
 {% endfor %}
+
 {# Message alternatif, pas d'offre #}
+
 {% if hasoffers == 2 %}
 <div class="alert alert-success">
   <h4> <b>Oops !</b> Désolé il n'existe pas de vidéo correspondant à <strong>{{ program.title }}</strong></h4>
@@ -378,10 +380,9 @@
         <h4>{{ program.title }}</h4> 
         {{ program.description_seo|raw}}
       </div>
-      <div class="show-more">(Voir plus...)</div>
+      <div class="show-more"><i class="glyphicon glyphicon-resize-vertical"></i></div>
     </div></div>
   </div>
-
 
 {# bonus #}
 
