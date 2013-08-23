@@ -75,9 +75,6 @@ class ProgramController extends Controller
       //API lastmodified
       //$data = $api->fetch('status/cache/program/' . $request->get('id'));
       // echo $api->url;
-      //if (isset($data->error) && $data->error) {
-      //  throw $this->createNotFoundException('Programme does not exist');
-      //}
       //$cache_date = new \DateTime($data->updated_at);
 
       //cache
@@ -120,7 +117,8 @@ class ProgramController extends Controller
           'with_hashtags' => true, 
           'with_tweets' => true,
           'with_empty_player' => true,
-          'with_img_maxsize'=>true
+          'with_img_maxsize'=>true,
+          'with_svod'=>true
           //'wrap_default_description' => 'h2',
           //'filter_casting' => true,
           //'player' => 'flash'
@@ -132,6 +130,7 @@ class ProgramController extends Controller
             $request->get('debug')) {
           echo $api->url;
         }
+
         //stop Adulte
         if (isset($data->error)) {
           throw $this->createNotFoundException('Program error : ' . $data->error);
@@ -285,8 +284,8 @@ class ProgramController extends Controller
           'program' => $data,
           'offers' => array(
             'live' => 'En Direct', 
-            'replay' => 'En Replay', 
-            'deporte' => 'sur mySkreen (mettre logo)', 
+            'replay' => 'En Replay gratuit', 
+            'deporte' => 'sur mySkreen', 
             'tv' => 'à la télé',
             'theater' => 'En salles',  
             'external' => 'sur les plateformes de location partenaires', 

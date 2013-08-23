@@ -40,11 +40,11 @@
 			{% endif %}
 			<td align="right">
 				{% if app.request.get('type') == 'broadcast' %}
-				{#<a class="btn btn-primary fav fav-epg" data-placement="left" href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><i class="icon-plus-sign icon-white"></i> Ajouter à votre grille TV</a>#}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: c.id, class: 'fav-epg', text: 'Ajouter à votre grille TV' } %}
 				{% elseif app.request.get('type') == 'cinema' %}
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: c.id, class: 'fav-cinema', text: 'action.add.favorites'|trans ~' ce cinéma' } %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: c.id, class: 'fav-cinema', text: 'Ajouter à vos cinémas' } %}
 				{% elseif app.request.get('type') == 'thematique' %}
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: c.id, class: 'fav-channel', text: 'action.add.favorites'|trans ~' ce cinéma', name: c.name } %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: c.id, class: 'fav-channel', text: 'Suivre', name: c.name } %}
 				{% endif %}
 			</td>
 		</tr>

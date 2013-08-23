@@ -1,15 +1,16 @@
 <header class="navbar navbar-fixed-top bs-docs-nav">
   <div class="container">
+
     {# LOGO ENTETE #}
     <a href="{{ path('homes', {home: ''}) }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" id="logo"></a>
     <ul class="nav navbar-nav">
       <li><a href="{{ path('tvgrid') }}">TV &amp; Replay</a></li>
-      <li><a href="#">WEB TV</a></li>
+      {#<li><a href="#">WEB TV</a></li>#}
       <li><a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">VOD</a></li>
       <li><a href="{{ path('homes', {home: 'cinema'}) }}">En salles</a></li>
     </ul>
-    {# RECHERCHE #}
 
+    {# RECHERCHE #}
     <form id="nav-search" class="navbar-search">
       <i class="glyphicon glyphicon-search" style="display: inline-block;position: absolute;top: 24px;right: 9px;color:#777777"></i>
       <input type="text"  value="{{ app.request.get('q') }}" class="search-query pull-left searchbutton">
@@ -38,7 +39,6 @@
     </li>
 
     {# MA PLAYLIST / MES FAVORIS #}
-
     <li class="hide user-on playlists">
       <a data-toggle="collapse" data-target="#top-playlist" class="tv-component">
         <span class="toprigthicons-square ms-playlisticon">
@@ -49,7 +49,6 @@
     </li>
 
     {# MON COMPTE #}
-
     <li class="hide user-on dropdown user-menu">
       <a data-toggle="dropdown" class="dropdown-toggle tv-component" class="pull-right">
         <span class="toprigthicons-square ms-usericon">
@@ -86,7 +85,7 @@
 
   </div>
   <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
-    <div class="container">
+    <div class="container playlist">
       {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
     </div>
   </div>

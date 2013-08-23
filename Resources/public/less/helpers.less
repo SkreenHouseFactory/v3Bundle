@@ -41,6 +41,21 @@
 .white {
 	color: white;
 }
+.grey {
+	color: grey;
+}
 .bold {
 	font-weight: bold;
+}
+.hover {
+	opacity: 0;
+  &.hover-fade {
+	  opacity: 0.2;
+    &:hover {
+  	  opacity: 1;
+    }
+  }
+  &:hover {
+	  opacity: 1;
+  }
 }

@@ -1,1 +1,1 @@
-<a data-id="{{ id }}"{{ name is defined ? ' data-name="'~ name ~'"' : '' }}{{ remove is defined ? ' data-remove="'~ remove ~'"' : '' }} class="btn btn-suivre suivre-bouton-gros {{ class }}">+ {{ text is defined ? text : 'Suivre' }}</a>
+<a data-id="{{ id }}"{{ name is defined ? ' data-name="'~ name ~'"' : '' }}{{ remove is defined ? ' data-remove="'~ remove ~'"' : '' }} class="btn btn-suivre {{ class }}"><i class="glyphicon glyphicon-plus"></i> {{ text is defined ? text : 'Suivre' }}</a>
