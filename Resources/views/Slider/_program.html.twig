@@ -20,18 +20,56 @@
 {% else %}
   {% set p_title = p.title %}
 {% endif %}
-
-{% if (loop_index is divisibleby(3) or loop_index == 0 )%}
-{% set support = 'support4'%}
-{% set image = 'image4'%}
-{% set taille_img= '/297/400/' %}
-{% set size = 'size-4'%}
-{% else%}
-{% set support = 'support1'%}
-{% set image = 'image1'%}
-{% set taille_img= '/135/180/' %}
-{% set size = 'size-1'%}
+{% if n_carousel == 1 %}
+  {% if (loop_index == 0 )%}
+    {% set support = 'support4'%}
+    {% set image = 'image4'%}
+    {% set taille_img= '/297/400/' %}
+    {% set size = 'size-4'%}
+  {% else %}
+    {% set support = 'support1'%}
+    {% set image = 'image1'%}
+    {% set taille_img= '/135/180/' %}
+    {% set size = 'size-1'%}
+  {% endif %}
+{% elseif n_carousel == 2 %}
+  {% if (loop_index == 0 )%}
+    {% set support = 'support4'%}
+    {% set image = 'image4'%}
+    {% set taille_img= '/297/400/' %}
+    {% set size = 'size-4'%}
+  {% else %}
+    {% set support = 'support1'%}
+    {% set image = 'image1'%}
+    {% set taille_img= '/135/180/' %}
+    {% set size = 'size-1'%}
+  {% endif %}
+{% elseif n_carousel == 4 %}
+  {% if (loop_index == 0 )%}
+    {% set support = 'support4'%}
+    {% set image = 'image4'%}
+    {% set taille_img= '/297/400/' %}
+    {% set size = 'size-4'%}
+  {% else %}
+    {% set support = 'support1'%}
+    {% set image = 'image1'%}
+    {% set taille_img= '/135/180/' %}
+    {% set size = 'size-1'%}
+  {% endif %}
+{% elseif n_carousel == 5 %}
+  {% if (loop_index == 0 )%}
+    {% set support = 'support4'%}
+    {% set image = 'image4'%}
+    {% set taille_img= '/297/400/' %}
+    {% set size = 'size-4'%}
+  {% else %}
+    {% set support = 'support1'%}
+    {% set image = 'image1'%}
+    {% set taille_img= '/135/180/' %}
+    {% set size = 'size-1'%}
+  {% endif %}
 {% endif %}
+
   <div class="{{support}}">
     <div class="tv-component actions hasvod-{{ p.has_vod }} {{image}} root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background:url({{ p.picture | replace({"/150/200/": taille_img }) }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
       <div class="wrap-title">

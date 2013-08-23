@@ -1,4 +1,24 @@
 {% set custom_loop = 0 %}
+
+{% if loop_index == 1 %}
+{% set value1 = 0 %}
+{% set value2 = 4 %}
+{% set value3 = 1 %}
+{% elseif loop_index == 2 %}
+{% set value1 = 0 %}
+{% set value2 = 4 %}
+{% set value3 = 1 %}
+{% elseif loop_index == 4 %}
+{% set value1 = 0 %}
+{% set value2 = 4 %}
+{% set value3 = 1 %}
+{% elseif loop_index == 5 %}
+{% set value1 = 0 %}
+{% set value2 = 4 %}
+{% set value3 = 1 %}
+{% endif %}
+
+
 	<div class="col-lg-6 " >
     <div class="suggestion"><div><span> {{ slider.title }}</span> 
       <!--	<button type="button" class="btn btn-primary btn-xs">voir +</button> -->
@@ -15,18 +35,27 @@
           <div class="carousel-inner">
           <div class="item active">
         {% for program in slider.programs | to_array %}
-         {% if (custom_loop is divisibleby(3))%}
+         {% if (custom_loop is divisibleby(6))%}
            {% if program.maxsize.width|number_format > 270 and program.maxsize.height|number_format > 380 %}
              {% if custom_loop != 0 %}
                 </div>
                 <div class="item">
              {% endif %}
-            {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program, loop_index: custom_loop } %}
-            {% set custom_loop = custom_loop + 1 %}
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program, loop_index: custom_loop, n_carousel: loop_index}%}
+            {% if (custom_loop == value1 )%}
+              {% set custom_loop = custom_loop + value2 %}
+            {% else %}
+              {% set custom_loop = custom_loop + value3 %}
+            {% endif %}
            {% endif %}
          {% else %}
-          {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program, loop_index: custom_loop } %}
-          {% set custom_loop = custom_loop + 1 %}
+          {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program, loop_index: custom_loop,
+          n_carousel: loop_index} %}
+          {% if (custom_loop == value1 )%}
+            {% set custom_loop = custom_loop + value2 %}
+          {% else %}
+            {% set custom_loop = custom_loop + value3 %}
+          {% endif %}
          {% endif %} 
         
         {% endfor %}
@@ -43,3 +72,4 @@
           </div>
         </div>
      </div>
+}
