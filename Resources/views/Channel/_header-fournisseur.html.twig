@@ -40,7 +40,7 @@
     <div class="slider">
       {#<small>{{ fournisseur.live.program.best_offer.broadcast_begin|date('H:i')|upper }} / {{ fournisseur.live.program.best_offer.broadcast_end|date('H:i')|upper }}</small>#}
       <ul class="items">
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with { p: fournisseur.live.program, class: 'hover' } %}
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with { p: fournisseur.live.program, class: 'li-hover' } %}
       </ul>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: fournisseur.live.program.id, class: 'fav-like', text: 'Suivre ce programme' } %}
     </div>
