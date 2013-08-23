@@ -9,7 +9,7 @@
   {{ channel.name }} : Les programmes {{ channel.fournisseur.has_replay is defined and channel.fournisseur.has_replay ? 'TV & Replay' : 'en Streaming' }}
 </h1>
 {# sliders #}
-{% for slider in sliders if slider.id is defined %}
+{% for slider in sliders|to_array if slider.id is defined %}
   <a name="{{ slider.name }}"></a>
   {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
 {% endfor %}
@@ -76,7 +76,7 @@
 <hr/>
 <div id="channel-programs" class="slider slider-list">
   <ul class="items">
-  {% for program in data.programs %}
+  {% for program in data.programs|to_array %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, theater_id: data.type == 'cinema' ? data.id : '' } %}
   {% endfor %}
   </ul>

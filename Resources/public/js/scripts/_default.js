@@ -176,16 +176,6 @@ $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
       $('#top-playlist').collapse('hide');
     }
   });
-//ui text show more
-
-
-    $(".show-more").click(function () {
-      var $this = $(this);
-      $this.text($this.text() == "(Voir moins...)" ? "(Voir plus...)" : "(Voir moins...)");
-      $(".text").toggleClass("show-more-height");
-    });
-
-
 
 
 /* END */

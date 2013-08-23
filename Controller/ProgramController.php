@@ -118,7 +118,9 @@ class ProgramController extends Controller
           'with_tweets' => true,
           'with_empty_player' => true,
           'with_img_maxsize'=>true,
-          'with_svod'=>true
+          'with_svod' => true,
+          'slider_width' => 990,
+          'slider_height' => 450
           //'wrap_default_description' => 'h2',
           //'filter_casting' => true,
           //'player' => 'flash'

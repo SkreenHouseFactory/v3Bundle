@@ -45,9 +45,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
 {% endif %}
 #}
 <div id="view-selection" class="container">
-  {% if selection.onglet.type != 'page' %}
-  <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ selection.seo_url, text: selection.name ~ ' sur mySkreen' } %}</div><br>
-  {% else %}
+  {% if selection.onglet.type == 'page' %}
     <ul class="breadcrumb">
       <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: selection.onglet.channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ selection.onglet.channel.title }}</span></a> <span class="divider">/</span></li>
       <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">{{ selection.name|raw }}</span></li>
@@ -60,6 +58,11 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
   <br/>
   
   <ul class="list-group">
+    {% if selection.onglet.type != 'page' %}
+    <li class="list-group-item list-share">
+      <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ selection.seo_url, text: selection.name ~ ' sur mySkreen' } %}</div>
+    </li>
+    {% endif %}
     {% for pack in selection.onglet.sliders|to_array %}
     <li class="list-group-item"><a href="{{ path('any_url', {url: pack.seo_url[1:pack.seo_url|length-1]}) }}">{{ pack.name|raw }}</a></li>
     {% endfor %}
