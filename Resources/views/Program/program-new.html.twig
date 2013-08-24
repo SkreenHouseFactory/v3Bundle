@@ -1,5 +1,3 @@
-
-
 {% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% block title %}
@@ -86,6 +84,7 @@
 
 
 
+{#
 
 
 
@@ -99,7 +98,8 @@
 
 
 
- <div class="row">
+
+<div class="row">
   <div class="col-lg-1" style="background:green;">
     <div style="background:red; height:30px;"></div>
   </div>
@@ -149,7 +149,6 @@
     <div style="background:red; height:30px;"></div>
   </div>
 </div>
-
 
 
 
@@ -166,19 +165,21 @@
 </div>
 
 
+
 <div class="row">  
-  <div class="col-lg-12" style="background:green;">
+  <div class="col-lg-10" style="background:green;">
     <div style="background:blue; height:30px;"></div>
   </div>
-  <div class="col-lg-4" style="background:green;">
+  <div class="col-lg-5" style="background:green;">
     <div style="background:red; height:30px;"></div>
   </div>
-
 </div>
+
+#}
 
 
     <div class="row">
-      <div class="col-lg-9 ">
+      <div class="col-lg-11 ">
         <div id="player"> {% if program.player is defined and program.player %}
           <a name="teaser"></a>
           <div id="program-teaser">  
@@ -187,15 +188,15 @@
             {% if program.player_fb is defined %}
             <meta itemprop="embedURL" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
             {% endif %}
-            <meta itemprop="width" content="698" />
-            <meta itemprop="height" content="320" />
+            <meta itemprop="width" content="637" />
+            <meta itemprop="height" content="368" />
             <meta itemprop="playerType" content="Flash" />
             {#% if program.player is defined and program.player %#}
             <span id="program-teaser-header" class="hide" data-default-text="Votre programme en intégralité">{{ program.player.access_id is defined ? 'Votre programme en intégralité' : 'Bande annonce' }}</span>
             {#<a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
             <div id="program-teaser-meta" class="player-meta"></div>
             <div id="program-teaser-player"{% if app.request.isXmlHttpRequest %}{%else%} data-play-autoload-bak="{{ program.player.id }}"{% endif %} data-play="{{ program.player.id }}" {#data-play-meta-elmt="#program-teaser-meta" data-play-muted="1"#} data-play-args="{{ {hide_sliders: 1, current_player: '#program-teaser-player'}|json_encode }}">
-              <iframe src="{{ player_host }}/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.player.id }}&height=320&width=698" style="height:320px;width:698px" scrolling="no" frameborder="0"></iframe>
+              <iframe src="{{ player_host }}/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.player.id }}&height=368&width=637" style="height:368px;width:637px" scrolling="no" frameborder="0"></iframe>
             </div>
     {#% else %}
     <span id="program-teaser-header">Publicité</span>
@@ -207,23 +208,21 @@
     {% endif %}</div>
 
   </div>
-  <div class="col-lg-3 " style="float:right;">
+  <div class="col-lg-5 ">
     <div id="affiche">
       {# affiche programme #}
       <img src="{{ program.img }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
     
 
 
-    {# social bar #}
-      <div class="ms-social-bar">
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}
+
       </div>
 
     </div> 
   </div>
-  <div class="col-lg-9 ">
+  <div class="col-lg-11 ">
     <div class="row">
-      <div class="col-lg-9 videotitle">
+      <div class="col-lg-10 videotitle">
 {# TITRE #}
 
 
@@ -248,14 +247,14 @@
 
    </div>
 
-   <div class="col-lg-3 suivre">
+   <div class="col-lg-5 suivre">
     {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.id, class: 'fav-like btn-big'} %}
   </div>
 </div>
 
 
 <div class="row">
-  <div class="col-lg-9">
+  <div class="col-lg-10">
   </div>
 </div>
 <div id="program-offers" class="tab-content">
@@ -512,7 +511,11 @@
 </div>
 </div>
 
-<div class="col-lg-3 ">
+<div class="col-lg-5 ">
+
+    {# social bar #}
+      <div class="ms-social-bar">
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}
     <div class="ms-vid-type">{{ program.format.name }}, {{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}</div>
 
 {# Selecteur episodes #}
