@@ -107,7 +107,7 @@ class ProgramController extends Controller
           'episode_img_height' => 50,
           'episode_img_crop' => 50,
           'channel_img_width' => 65,
-          'with_img' => '212,286',
+          'with_img' => '273,368',
           'with_metadata' => true,
           'with_related' => true,
           'with_related_programs' => true,
