@@ -94,16 +94,66 @@
     margin-top: 20px;
   }
 
+  .playwrapsub{
+    height: 368px;
+  }
+
+
+
+.fly-shadows{
+  .shadows-player-fly();
+  .transition-shadows();
+}
+
+  #affiche{
+  .shadows-player-land();
+  .transition-shadows();
+  }
+
   #player{
-    max-height: 320px; 
+    height: 368px; 
+  .shadows-player-land();
+  .transition-shadows();
+    
+    .ms-playertitle{
+     position: absolute;
+     width: 100%;
+     text-align: center;
+
+      h2{
+        position: relative;   
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        color: #fff;
+        padding: 5px;
+        background:rgba(0, 0, 0, 0.3);
+        text-shadow: 1px 1px 1px #000000;
+        filter: dropshadow(color=#000000, offx=1, offy=1);
+        font-size: 14px;
+        text-transform: uppercase;
+        width: 250px;
+        margin-top: 0px;
+        font-weight: bold;
+      }
+    }
   }
 
   .videotitle  {
     h1{
-      font-size: 2.5em;
+      font-size: 28px;
+      font-weight: bold;
       margin-top: 20px;
       margin-bottom: 0px;
     }
+   h2{
+      font-size: 24px;
+      font-weight: normal;
+      margin-top: 20px;
+      margin-bottom: 0px;
+    }
+
+
   }
 
 
@@ -181,6 +231,7 @@
     margin-top: 20px;
     margin-bottom: 20px;
     border: 1px solid #eeeeee;
+    text-align: center;
     > span{
       font-size: 10px;
       line-height: 10px;
@@ -251,3 +302,17 @@
     background: black;
   }
 }
+
+
+
+.view-program_pere{
+  .navbar-fixed-top, .navbar-fixed-bottom {
+     position:absolute; 
+     &.ms-navbarfixed{
+      position:fixed;
+      top: 0px;
+      z-index: 15; 
+    }
+  }
+}
+

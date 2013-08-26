@@ -79,13 +79,6 @@
 
 
     <section class="container scrollplayerzone">
-
-
-
-
-
-
-
 {# 
 
      <div class="row">
@@ -177,11 +170,22 @@
 
  #}
 
-
+<div class="row playwrapsub hide"></div>
 <div class="row playwrap">
 
   <div class="col-xs-11 ">
-    <div id="player"> {% if program.player is defined and program.player %}
+    <div id="player"> 
+
+ {#% if program.player is defined and program.player %#}
+    <div class="ms-playertitle">
+    <h2 id="program-teaser-header" data-default-text="Votre programme en intégralité">{{ program.player.access_id is defined ? 'Votre programme en intégralité' : 'Bande annonce' }}</h2>
+    </div>
+
+
+
+
+
+    {% if program.player is defined and program.player %}
       <a name="teaser"></a>
       <div id="program-teaser">  
         <meta itemprop="duration" />
@@ -576,6 +580,7 @@
   </div>
 </div>
 
+
 <div class="col-xs-5 ">
 
 
@@ -592,11 +597,7 @@
  {% if program.format and program.subcategories|to_array|length %}
  {% for c in program.subcategories | to_array  %}<a  class="label label-default"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>&nbsp;{% endfor %}
  {% endif %}
-
-
  <div class="inner">
-
-
 
   <div id="program-casting" class="scroll">
     {% if program.director|to_array %}
@@ -643,7 +644,7 @@
         {% if program.casting|to_array|length > 10 %}
         <div class="block">
          <a class="actors_reveal" style="font-style:italic;">et {{ program.casting|to_array|length - 10 }} autre{% if program.casting|to_array|length > 11 %}s{% endif %}  acteur{% if program.casting|to_array|length > 11 %}s{% endif %}... </a>
-          
+
        </div>
        {% endif %}
 
@@ -683,9 +684,10 @@
   {% endfor %}
   {% endif %}
 </div>
+</div>
 
 
-<div class="row">
+<div class="row ms-related">
   {% for r in program.related if r.programs is defined and r.programs|to_array|length %}
   {% if r.name == 'same_actors' and program.casting %}
             {#
