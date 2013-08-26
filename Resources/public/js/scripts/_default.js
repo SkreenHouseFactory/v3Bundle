@@ -62,6 +62,24 @@ $(document).ready(function(){
     API.cookie('alert_video','true');
   });*/
 
+  //Player scroll
+  var nav = $('header');
+  var playwrap = $('.playwrap')
+  var playwrap = $('.playwrap').offset();
+  alert(playwrap.top());
+      $(window).scroll(function () {
+          if ($(this).scrollTop() > playwrap-y-pos.top) {
+              nav.addClass("hide");
+              playwrap.addClass("player-fixed-top");
+          } else {
+              nav.removeClass("hide");
+              playwrap.removeClass("player-fixed-top");
+          }
+      });
+
+
+
+
 $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
     //notifications
     if ($(this).hasClass('tv-component')  && 
