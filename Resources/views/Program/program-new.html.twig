@@ -247,7 +247,7 @@
  #}
 
 <div class="row playwrapsub hide"></div>
-<div class="row playwrap">
+<div class="row playwrap ">
   <div class="col-xs-11 ">
     <div id="player"> 
       {% if program.player is defined and program.player %}
@@ -300,8 +300,10 @@
 {% if program.episode_list is defined or program.seasons is defined %}
 <div id="program-episodes" class="row collapse">
   <div class="panel">
-    <div class="panel-heading"><h3 class="panel-title">Episodes</h3></div>
+    <div class="panel-heading"><h3 class="panel-title">Tous les épisodes</h3><a data-target="#program-episodes" data-toggle="collapse" class="btn btn-default block"><i class="glyphicon glyphicon-remove"></i></a>
+</div>
     <div class="tab-pane">
+
       {% if program.seasons is defined %}
       <ul class="nav nav-pills">
       <li class="ms-nav-pills-saisons">Saison <i class="glyphicon glyphicon-play"></i></li>
@@ -309,9 +311,7 @@
         <li{{ loop.last ? ' class="active"' : '' }}><a data-season="{{ season.number }}">{{ season.number }}</a></li>
         {% endfor %}
       </ul>
-    <a style="float:right; margin-right:20px;">      
-      <a data-target="#program-episodes" data-toggle="collapse" class="btn btn-default block"><i class="glyphicon glyphicon-remove"></i></a>
-    </a>
+
 
       <ul id="episodes-list">
         {% for season in program.seasons|to_array %}

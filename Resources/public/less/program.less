@@ -36,7 +36,7 @@
     .panel {
       padding: 0 0 30px 0;
       position: relative;
-    
+
       &.panel-synopsis p {
         margin: 0;
       }
@@ -106,6 +106,20 @@
     z-index: 2;
     width: 100%;
     padding: 70px 27px 0;
+    .panel{
+      background: #FFF;
+      margin: -15px;
+      padding-bottom: 20px;
+      .shadows-player-fly();
+      .panel-heading{
+        background: #F5F5F5;
+        margin:0!important;
+        h3{
+          width:97.5%;
+          display: inline-block;
+        }
+      }
+    }
 
     a[data-season]{
       border: 1px solid #B2D3F0;
@@ -116,175 +130,207 @@
       &:hover{
         background: #b2d3f0;
         color: #fff;
-
       }
     }
 
-ul.nav nav-pills{
-  float:right;
-}
+
+
+    a.btn[data-toggle]{
+      display: inline-block;
+      height: 30px;
+      margin-right: -8px;
+      margin-top: -4px;
+      padding: 6px;
+      width: 30px;
+    }
+
+    ul.nav.nav-pills{
+      margin:20px  20px; 
+    }
 
 
     .ms-nav-pills-saisons{
       font-size: 16px;
-      margin: 3px 19px;
+      margin: 4px 19px;
+      padding-top: 3px;
+      text-transform: uppercase;
       i{
-        font-size: 12px;
-        margin-left: 15px;
-      }
-    }
-  }
-
-  .scrollplayerzone{
-    margin-top: 20px;
-    position: relative;
-  }
-
-  .playwrapsub{
-    height: 368px;
-  }
-  .playwrap {
-    #program-teaser-player iframe {
-      background: black;
-    }
-  }
-  .fly-shadows{
-    .shadows-player-fly();
-    .transition-shadows();
-  }
-
-  #affiche {
-    .shadows-player-land();
-    .transition-shadows();
-  }
-
-  #player{
-    height: 368px; 
-    .shadows-player-land();
-    .transition-shadows();
-    
-    .ms-playertitle{
-     position: absolute;
-     width: 100%;
-     text-align: center;
-
-      h2{
-        position: relative;   
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-        color: #fff;
-        padding: 5px;
-        background:rgba(0, 0, 0, 0.3);
-        text-shadow: 1px 1px 1px #000000;
-        filter: dropshadow(color=#000000, offx=1, offy=1);
-        font-size: 14px;
-        text-transform: uppercase;
-        width: 250px;
-        margin-top: 0px;
-      }
-    }
-  }
-
-  .videotitle  {
-    h1{
-      font-size: 28px;
-      font-weight: bold;
-      margin-top: 20px;
-      margin-bottom: 0px;
-    }
-   h2{
-      font-size: 24px;
-      font-weight: normal;
-      margin-top: 20px;
-      margin-bottom: 0px;
-    }
-
-
-  }
-
-
-  /* boutons */
-
-  .suivre {
-    .btn-suivre {
-      float: right;
-      margin-top: 20px;
-      min-width: 140px;
-    }
-  }
-
-  .ms-vid-type{
-    font-size: 18px;
-    display: block;
-    margin-top: 20px;
-    margin-bottom: 20px;
-
-  }
-
-  .tab-content{
-    margin-top:20px;  
-  }
-
-
-  /* DESCRIPTIONS DE DROITE */
-
-  a[itemprop="url"]{
-    &:hover{
-     color: @bluemaincolor;
-     text-decoration: none;
+       color: #CCCCCC;
+       font-size: 16px;
+       margin-left: 8px;
+     }
    }
-   span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal{
-    color: #000000;
-    display: inline-block;
-    &:hover{
-     color: @bluemaincolor;
-     text-decoration: none;
+ }
+ ul#episodes-list{
+  list-style: none;
+  padding-left: 20px;
+
+  li{
+    display: block;
+    font-size: 15px;
+    margin-top: 7px;
+    overflow: hidden;
+    padding-left: 20px;
+    width: 60%;
+    a{ 
+      color: #000;
+      &:hover{
+        color: @bluemaincolor;
+        text-decoration: none;
+      }
     }
-  }
+  } 
+}
+.scrollplayerzone{
+  margin-top: 20px;
+  position: relative;
+}
 
-
-  .actors_reveal{
-    font-style:italic;
+.playwrapsub{
+  height: 368px;
+}
+.playwrap {
+  #program-teaser-player iframe {
+    background: black;
   }
-  .channel_link{
-    background:#778390;
-    margin-bottom: 20px;
-    text-align: center;
+}
+.fly-shadows{
+  .shadows-player-fly();
+  .transition-shadows();
+}
+
+#affiche {
+  .shadows-player-land();
+  .transition-shadows();
+}
+
+#player{
+  height: 368px; 
+  .shadows-player-land();
+  .transition-shadows();
+
+  .ms-playertitle{
+   position: absolute;
+   width: 100%;
+   text-align: center;
+
+   h2{
+    position: relative;   
+    margin-left: auto;
+    margin-right: auto;
     display: block;
-    padding: 1px;
-    .link-background-transition;
-  }
-  .channel_link:hover, .channel_link:active, .channel_link:focus,{
-    background:@bluemaincolor;
-  }
-
-  .channel_root{
-    width: 100%;
-    display: block;
-  }
-  .channel_texte{
-    font-size: 12px;
-    display: inline-block;
     color: #fff;
-  }
-
-
-
-
-
-
-  .ms-cat-title{
-    font-size: 11px;
-    display: block;
+    padding: 5px;
+    background:rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 1px #000000;
+    filter: dropshadow(color=#000000, offx=1, offy=1);
+    font-size: 14px;
     text-transform: uppercase;
-    margin: 20px 0px 2px 0px;
+    width: 250px;
+    margin-top: 0px;
+  }
+}
+}
+
+.videotitle  {
+  h1{
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 0px;
+  }
+  h2{
+    font-size: 24px;
+    font-weight: normal;
+    margin-top: 20px;
+    margin-bottom: 0px;
   }
 
 
-  .label{
-    margin-right:3px; 
+}
+
+
+/* boutons */
+
+.suivre {
+  .btn-suivre {
+    float: right;
+    margin-top: 20px;
+    min-width: 140px;
   }
+}
+
+.ms-vid-type{
+  font-size: 18px;
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}
+
+.tab-content{
+  margin-top:20px;  
+}
+
+
+/* DESCRIPTIONS DE DROITE */
+
+a[itemprop="url"]{
+  &:hover{
+   color: @bluemaincolor;
+   text-decoration: none;
+ }
+ span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal{
+  color: #000000;
+  display: inline-block;
+  &:hover{
+   color: @bluemaincolor;
+   text-decoration: none;
+ }
+}
+
+
+.actors_reveal{
+  font-style:italic;
+}
+.channel_link{
+  background:#778390;
+  margin-bottom: 20px;
+  text-align: center;
+  display: block;
+  padding: 1px;
+  .link-background-transition;
+}
+.channel_link:hover, .channel_link:active, .channel_link:focus,{
+  background:@bluemaincolor;
+}
+
+.channel_root{
+  width: 100%;
+  display: block;
+}
+.channel_texte{
+  font-size: 12px;
+  display: inline-block;
+  color: #fff;
+}
+
+
+
+
+
+
+.ms-cat-title{
+  font-size: 11px;
+  display: block;
+  text-transform: uppercase;
+  margin: 20px 0px 2px 0px;
+}
+
+
+.label{
+  margin-right:3px; 
+}
   /*
 
   .ms-cat-element{
@@ -323,7 +369,7 @@ ul.nav nav-pills{
       font-size: 12px;
     }
     &:hover{
-        cursor: pointer;
+      cursor: pointer;
     }
   }
 
@@ -334,11 +380,11 @@ ul.nav nav-pills{
 
 .view-program_pere{
   .navbar-fixed-top, .navbar-fixed-bottom {
-     position:absolute; 
-     &.ms-navbarfixed{
-      position:fixed;
-      top: 0px;
-      z-index: 15; 
-    }
+   position:absolute; 
+   &.ms-navbarfixed{
+    position:fixed;
+    top: 0px;
+    z-index: 15; 
   }
+}
 }
