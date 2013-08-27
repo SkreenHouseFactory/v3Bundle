@@ -72,13 +72,6 @@ class ApiManager
 
     $json = json_decode($response->getBody(true));
 
-    //redirect !
-    if (isset($json->redirect)) {
-      header('HTTP/1.1 301 Moved Permanently', false, 301);
-      header('Location: ' . $json->redirect);
-      exit();
-    }
-
     return $json;
   }
 
