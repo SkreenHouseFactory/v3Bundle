@@ -118,7 +118,7 @@ class MainController extends Controller
       $datas = $api->fetch('www/home/' . $home, array(
         'without_footer' => true,
         'with_programs' => true,
-        'img_width' => 160,
+        'img_width' => 150,
         'img_height' => 200,
         'with_teaser' => true,
         'with_pass' => true,

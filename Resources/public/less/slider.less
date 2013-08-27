@@ -73,11 +73,21 @@
       float:left;
       height: 220px;
       width: 100%;
+      a{
+        &.title{
+          padding-top: 20%;
+        }
+      }
     }
     .support2{
       float:left;
       height: 220px;
       width: 66.66666666666666666666%;
+      a{
+        &.title{
+          padding-top: 30%;
+        }
+      }
     }
     .support1{
       float:left;
@@ -89,28 +99,28 @@
       position: relative;
       margin: auto;
       height: 400px;
-      width: 97%;
+      width: 94%;
       background-color: black;
     }
     .image3{
       position: relative;
       margin: auto;
       height: 180px;
-      width: 97%;
+      width: 95%;
       background-color: black;
     }
     .image2{
       position: relative;
       margin: auto;
       height: 180px;
-      width: 96%;
+      width: 93%;
       background-color: black;
     }
     .image1{
       position: relative;
       margin: auto;
       height: 180px;
-      width: 92%;
+      width: 86%;
       background-color: black;
     }
     .info_vignette{
@@ -119,15 +129,15 @@
       font-size: 0.9em;
     
       &.size-4,&.size-2{
-          width: 286px;
+          width: 94%;
           margin:auto;
       }
       &.size-3{
-          width: 97%;
+          width: 95%;
           margin: auto;
       }
       &.size-1{
-          width: 92%;
+          width: 86%;
           margin:auto;
       }
     }
@@ -189,14 +199,17 @@
           left: 0%;
           right: 0%;
           width: 100%;
+          padding-left: 30px;
           >h4{
             text-align: left;
+            text-shadow: 2px 1px 13px rgba(0,0,0,0.9);
           }
           .fb-like{
             float: left;
           }
           >p.pull-left{
             color: white;
+            text-shadow: 2px 1px 13px rgba(0,0,0,0.9);
           }
         }
       }
@@ -630,6 +643,22 @@
   
       &.to-animate {
         width: 0;
+      }
+    }
+  }
+}
+#view-home{
+  .container{
+    .new-slider{
+      .wrap-carousel-control{
+        left: 263px;
+        .carousel-control{
+          z-index: 15;
+          top: -14px;
+          &.right{
+            right:24px;
+          }
+        }
       }
     }
   }
