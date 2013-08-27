@@ -294,6 +294,35 @@
 
 
 
+{# Selecteur episodes #}
+{% if program.episode_list is defined or program.seasons is defined %}
+<div id="program-episodes" class="row collapse">
+  <div class="panel">
+    <div class="panel-heading"><h3 class="panel-title">Episodes</h3></div>
+    <div class="tab-pane">
+      {% if program.seasons is defined %}
+      <ul class="nav nav-pills">
+        {% for season in program.seasons|to_array %}
+        <li{{ loop.last ? ' class="active"' : '' }}><a data-season="{{ season.number }}">Saison {{ season.number }}</a></li>
+        {% endfor %}
+      </ul>
+
+      <ul id="episodes-list">
+        {% for season in program.seasons|to_array %}
+        {% set loop_season = loop %}
+        {% for episode in season.episodes|to_array|reverse %}
+        <li class="season-{{ season.number }} {{ loop_season.last ? 'in' : 'hide' }}"><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
+          {% if episode.dispo %}<span class="label label-default pull-right">{{ episode.dispo }}</span>{% endif%}
+          <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
+        </a></li>
+        {% endfor %}
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}
 
 
 <div class="row">
@@ -557,7 +586,7 @@
                               <h4>{{ program.title }}</h4> 
                               {{ program.description_seo|raw}}
                             </div>
-                            <div class="show-more">...</div>
+                            <div class="show-more"><i class="glyphicon glyphicon-resize-vertical"></i></div>
                           </div></div>
                         </div>
                       </div>
@@ -575,10 +604,9 @@
     </div>
 
 
-    {# Selecteur episodes #}
+    {# Selecteur episodes (@see #program-episodes) #}
     {% if program.episode_list is defined or program.seasons is defined %}
     <a class="btn btn-default block" data-toggle="collapse" data-target="#program-episodes">Tous les épisodes</a>
-    <div id="program-episodes">MESEPISODES</div>
     {% endif %}
     
     {#
@@ -747,12 +775,7 @@
 
 
 
-  
 
-
-
-
-<div class="container">
 <div class="row">
   {% for r in program.related if r.programs is defined and r.programs|to_array|length %}
   {% if r.name == 'same_actors' and program.casting %}
@@ -784,7 +807,6 @@
             {% endif %}
             {% endfor %}
           </div>
-</div>
 
 
 
@@ -794,7 +816,7 @@
 
 
 
-  
+
 
 
 
