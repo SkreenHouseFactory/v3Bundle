@@ -1,4 +1,4 @@
-{#
+
 {% if app.environment == 'prod' %}
 {% set base_url = 'preprod' not in app.request.httpHost  ? 'http://www.myskreen.com' : '' %}
 {% else %}
@@ -35,7 +35,12 @@
     {% set taille_img= '/135/180/' %}
     {% set size = 'size-1'%}
   {% endif %}
-{% elseif n_carousel == 2 %}
+  {% elseif n_carousel == 2 %}
+    {% set support = 'support1'%}
+    {% set image = 'image1'%}
+    {% set taille_img= '/135/180/' %}
+    {% set size = 'size-1'%}
+{% elseif n_carousel == 3 %}
   {% if (loop_index == 0 )%}
     {% set support = 'support3'%}
     {% set image = 'image3'%}
@@ -81,4 +86,3 @@
   </div>
   <div class="info_vignette {{size}}">{% if p.format is defined %}{{ (p.format ? p.format.name : p.onglet)|title }}{% endif %}, {% if p.duration is defined and p.duration %}{{p.duration}}mn{% endif %} </div>
   </div>
-#}
