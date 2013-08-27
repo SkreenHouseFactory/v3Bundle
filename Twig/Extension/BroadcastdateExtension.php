@@ -84,12 +84,16 @@ class broadcastdateExtension extends \Twig_Extension
 			if ($timeleft < 0) {
 				return;
 			}
-			if ($timeleft/3600 < 24) {
+      
+			if ($timeleft/3600 < 1) {
+        $nb_mn = round($timeleft/60);
+				return $nb_mn . ' min';
+			} elseif ($timeleft/3600 < 24) {
         $nb_hours = round($timeleft/3600);
-				return round($timeleft/3600) . ' heure'.($nb_hours > 1 ? 's' : null);
+				return $nb_hours . ' heure'.($nb_hours > 1 ? 's' : null);
 			} elseif ($timeleft/3600 < 72) {
         $nb_days = round($timeleft/(3600*24));
-				return round($timeleft/(3600*24)) . ' jour'.($nb_days > 1 ? 's' : null);
+				return $nb_days . ' jour'.($nb_days > 1 ? 's' : null);
 			}
     }
 
