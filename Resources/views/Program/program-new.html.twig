@@ -592,7 +592,7 @@
                               <h4>{{ program.title }}</h4> 
                               {{ program.description_seo|raw}}
                             </div>
-                            <div class="show-more">...</div>
+                     {% if program.description_seo|raw|length > 560 %} <div class="show-more">...</div>{% endif %}
                           </div></div>
                         </div>
                       </div>
@@ -684,7 +684,7 @@
 
   <div id="program-casting" class="scroll">
     {% if program.director|to_array %}
-    <h5 class="ms-cat-title" >{{ 'directed.by'|trans }}</h5>
+    <h5 class="ms-cat-title" ><strong>{{ 'directed.by'|trans }}</strong></h5>
     {% for pers in program.director|to_array %}
     <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
       <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.director|to_array|length %},&nbsp;{% endif %}</a> 
@@ -748,10 +748,12 @@
       </div>
       {% endfor %}
       {% endif %}
+
+ 
+
+
     </div>
-  </div>
-
-
+     <br/>
   {# categories #}
   {% if program.format and program.categories|length | to_array %}
   {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>&nbsp;{% endfor %}
@@ -760,6 +762,10 @@
   {% if program.format and program.subcategories|to_array|length %}
   {% for c in program.subcategories | to_array  %}<a  class="label label-default"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>&nbsp;{% endfor %}
   {% endif %}
+  </div>
+
+
+
 
 
 
