@@ -171,7 +171,7 @@
 #}
 
 <div class="row playwrapsub hide"></div>
-<div class="row playwrap hide">
+<div class="row playwrap">
 
   <div class="col-xs-11 ">
     <div id="player"> 
@@ -232,7 +232,7 @@
 
                     <div class="row">
                             {# TITRE #}
-                            <div class="col-xs-10 videotitle" style="padding:0; height:30px; clear:both; ">
+                            <div class="col-xs-10 videotitle" >
                               {% if program.episode_title is defined and
                               program.episodeof is defined and
                               program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
@@ -250,7 +250,7 @@
                               {% endif %}
                             </div>
 
-                            <div class="col-xs-5 suivre" style="padding:0; height:30px; clear:both; ">
+                            <div class="col-xs-6 suivre" >
                               {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.id, class: 'fav-like btn-big'} %}
                             </div>
 
@@ -646,14 +646,13 @@
       {% endif %}
     </div>
     </div>
-  </div> 
 
 
 
-  {# related channels #}
+ {# related channels #}
 
-  {% if program.related.channels is defined and 
-  program.related.channels.programs is defined and 
+{% if program.related.channels is defined and
+  program.related.channels.programs is defined and
   program.related.channels.programs|to_array|length %}
   <span class="ms-cat-title">Pages liées</span>
   {% for r in program.related.channels.programs|to_array %}
@@ -663,28 +662,38 @@
   </a>
   {% endfor %}
   {% endif %}
+    
+  </div> 
 
 
-  <div class="row ms-related">
-    {% for r in program.related if r.programs is defined and r.programs|to_array|length %}
-    {% if r.name == 'same_actors' and program.casting %}
+
+  
+
+
+</div>
+</div>
+
+
+<div class="row ms-related container">
+  {% for r in program.related if r.programs is defined and r.programs|to_array|length %}
+  {% if r.name == 'same_actors' and program.casting %}
             {#
-              <div class="person-list">
-            {% for pers in program.casting|slice(0,10) %}
-            <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" class="label label-info">{{ pers.name }}</a>
-            {% endfor %}
-            </div>
-            #}
+<div class="person-list">
+{% for pers in program.casting|slice(0,10) %}
+<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" class="label label-info">{{ pers.name }}</a>
+{% endfor %}
+</div>
+#}
             {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true, loop_index: loop.index} %}
             {% elseif r.name == 'same_director' and program.director %}
             
             {#
-              <div class="person-list">
-            {% for pers in program.director %}
-            <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" class="label label-info">{{ pers.name }}</a>
-            {% endfor %}
-            </div>
-            #}
+<div class="person-list">
+{% for pers in program.director %}
+<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" class="label label-info">{{ pers.name }}</a>
+{% endfor %}
+</div>
+#}
             {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true,loop_index: loop.index} %}
             {% elseif r.name == 'chaines' %}
             {% if (program.related.channels is defined and program.related.channels.programs is defined and program.related.channels.programs|length > 1) %}
@@ -695,37 +704,8 @@
             {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, loop_index: loop.index} %}
             {% endif %}
             {% endfor %}
-          <div class="col-xs-8 ">
-
-           {# bonus #}
-
-           {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
-           <div id="carousel-bonus" class="tab-pane">
-            <div class="carousel slide">
-              <div class="carousel-inner">
-                {% for b in program.offers['bonus'] | to_array %}
-                <div class="item active"><a data-play="{{ b.id }}" data-program="{{ {'title': b.title}|json_encode }}" class="pull-left"><img class="img-polaroid" alt="{{ b.title }} bonus" src="{{ b.picture }}"><div class="title">{{ b.title }}</div></a></div>
-                {% endfor %}
-              </div>
-
-            </div>
           </div>
-          {% endif %}
 
-        </div>
-        <div class="col-xs-8 ">
-
-          {# youtube #}
-
-          <div id="carousel-youtube" class="carousel-youtube tab-pane" data-more-streaming="{{ program.id }}">
-            <div class="carousel slide">
-              <div class="carousel-inner"></div>
-              <a class="carousel-control left" href="#carousel-youtube" data-slide="prev">&lsaquo;</a>
-              <a class="carousel-control right" href="#carousel-youtube" data-slide="next">&rsaquo;</a>
-            </div>
-          </div>
-        </div>
-        </div>
 
 
 

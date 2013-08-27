@@ -1,7 +1,9 @@
-{#
+
 {% set custom_loop = 0 %}
 {% set newArray = [] %}
 {% set nb_pages = 0 %}
+
+
 
 <!-- définit la forme des carousels avec loop_index: le numéro du carousel  -->
 {% if loop_index == 1 %}
@@ -9,6 +11,10 @@
 {% set value2 = 4 %}
 {% set value3 = 1 %}
 {% elseif loop_index == 2 %}
+{% set value1 = 0 %}
+{% set value2 = 1 %}
+{% set value3 = 1 %}
+{% elseif loop_index == 3 %}
 {% set value1 = 0 %}
 {% set value2 = 3 %}
 {% set value3 = 1 %}
@@ -76,4 +82,3 @@
         </div>
      </div>
 
-#}
