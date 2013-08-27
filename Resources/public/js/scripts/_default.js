@@ -68,70 +68,71 @@ $(document).ready(function(){
   var nav = $('.navbar.navbar-fixed-top');
   var playwrap = $('.playwrap');
   var playwrap_offset = $('.playwrap').offset();
-  var panel_synopsis= $('.panel-synopsis').offset();
-  var limit = parseInt(panel_synopsis.top) - 390;
-  var limit2 = limit - 80 ;
   var playwrapsub = $('.playwrapsub');
-
-  $(window).scroll(function(event){
-     var st = $(this).scrollTop();
-     if (st > lastScrollTop){
-       if ($(this).scrollTop() > playwrap_offset.top && $(this).scrollTop() < 3000 ) {
+  if( !$('html').hasClass('touch') && $('body').hasClass('view-program_pere')){
+      $(window).scroll(function(event){
+         var st = $(this).scrollTop();
+         var panel_synopsis= $('.panel-synopsis').offset();
+         var limit = parseInt(panel_synopsis.top) + parseInt($('.panel-synopsis').css('height')) - 365;
+         var limit2 = limit - 80 ;
+         if (st > lastScrollTop){
+           if ($(this).scrollTop() > playwrap_offset.top && $(this).scrollTop() < 3000 ) {
          
-           if($(this).scrollTop() >= limit ){
-             playwrap.removeClass("player-fixed-top");
-             playwrap.css('position','absolute');
-             playwrap.css('top',limit2);
-             playwrap.css('z-index','15');
+               if($(this).scrollTop() >= limit ){
+                 playwrap.removeClass("player-fixed-top");
+                 playwrap.css('position','absolute');
+                 playwrap.css('top',limit2);
+                 playwrap.css('z-index','15');
            
-           }
-           else{
-             playwrap.css('top', '');
-             playwrap.css('position','');
-             nav.removeClass('ms-navbarfixed');
-             playwrap.removeClass("player-fixed-top-1");
-             playwrap.addClass("player-fixed-top");
-           }
-           playwrapsub.removeClass('hide');
-           $('#player').addClass('fly-shadows');
-           $('#affiche').addClass('fly-shadows')
-       } 
-       else {
-           nav.removeClass('ms-navbarfixed');
-           playwrap.removeClass("player-fixed-top-1");
-           playwrap.removeClass("player-fixed-top");
-           playwrap.css('top', '');
-           playwrap.css('position','');
-           playwrapsub.addClass('hide');
-           $('#player').removeClass('fly-shadows');
-           $('#affiche').removeClass('fly-shadows');
+               }
+               else{
+                 playwrap.css('top', '');
+                 playwrap.css('position','');
+                 nav.removeClass('ms-navbarfixed');
+                 playwrap.removeClass("player-fixed-top-1");
+                 playwrap.addClass("player-fixed-top");
+               }
+               playwrapsub.removeClass('hide');
+               $('#player').addClass('fly-shadows');
+               $('#affiche').addClass('fly-shadows')
+           } 
+           else {
+               nav.removeClass('ms-navbarfixed');
+               playwrap.removeClass("player-fixed-top-1");
+               playwrap.removeClass("player-fixed-top");
+               playwrap.css('top', '');
+               playwrap.css('position','');
+               playwrapsub.addClass('hide');
+               $('#player').removeClass('fly-shadows');
+               $('#affiche').removeClass('fly-shadows');
          
-       }
-    }else {
+           }
+        }else if(st< lastScrollTop_2) {
       
-       if( $(this).scrollTop() > playwrap_offset.top && $(this).scrollTop() < limit2 ){
-         playwrap.addClass("player-fixed-top");
-         playwrap.css('top', '80px');
-         playwrap.css('position','fixed');
-       }
+           if( $(this).scrollTop() > playwrap_offset.top && $(this).scrollTop() < limit2 ){
+             playwrap.addClass("player-fixed-top");
+             playwrap.css('top', '80px');
+             playwrap.css('position','fixed');
+           }
        
-       if($(this).scrollTop() <= 0){
-          playwrapsub.addClass('hide');
-        playwrap.removeClass("player-fixed-top");
-        playwrap.removeClass("player-fixed-top-1");
-        playwrap.css('top', '');
-        playwrap.css('position','');
-        $('#player').removeClass('fly-shadows');
-        $('#affiche').removeClass('fly-shadows')
-       }
+           if($(this).scrollTop() <= 0){
+              playwrapsub.addClass('hide');
+            playwrap.removeClass("player-fixed-top");
+            playwrap.removeClass("player-fixed-top-1");
+            playwrap.css('top', '');
+            playwrap.css('position','');
+            $('#player').removeClass('fly-shadows');
+            $('#affiche').removeClass('fly-shadows')
+           }
        
-       nav.addClass('ms-navbarfixed');
+           nav.addClass('ms-navbarfixed');
         
-        // upscroll code
-     }
-     lastScrollTop = st;
-  });
-
+            // upscroll code
+         }
+         lastScrollTop = st;
+         lastScrollTop_2 = st - 5;
+      });
+    }
 
 
 
