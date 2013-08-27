@@ -1,38 +1,70 @@
+{#
 {% set custom_loop = 0 %}
-	<div class="col-lg-6 " >
+{% set newArray = [] %}
+{% set nb_pages = 0 %}
+
+<!-- définit la forme des carousels avec loop_index: le numéro du carousel  -->
+{% if loop_index == 1 %}
+{% set value1 = 0 %}
+{% set value2 = 4 %}
+{% set value3 = 1 %}
+{% elseif loop_index == 2 %}
+{% set value1 = 0 %}
+{% set value2 = 3 %}
+{% set value3 = 1 %}
+{% elseif loop_index == 4 %}
+{% set value1 = 0 %}
+{% set value2 = 2 %}
+{% set value3 = 1 %}
+{% elseif loop_index == 5 %}
+{% set value1 = 3 %}
+{% set value2 = 4 %}
+{% set value3 = 1 %}
+{% endif %}
+
+<!-- Réorganise les programmes en fonction de la taille des images   -->
+{% for slider_program in slider.programs | to_array %}
+  {% if slider_program.maxsize.width|number_format < 270 and slider_program.maxsize.height|number_format < 380 %}
+    {% set newArray = newArray|merge([slider_program]) %}
+  {% else %}
+    {% set newArray = [slider_program]|merge(newArray) %}
+  {% endif %}
+{% endfor %}
+
+	<div class="col-xs-8 suggester" >
     <div class="suggestion"><div><span> {{ slider.title }}</span> 
       <!--	<button type="button" class="btn btn-primary btn-xs">voir +</button> -->
       </div> </div>
       <div id="carousel-{{loop_index}}"  data-interval="false" class="carousel slide new-slider">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-          <li data-target="#carousel-{{loop_index}}" data-slide-to="0" class="active"></li>
-          <li data-target="#carousel-{{loop_index}}" data-slide-to="1"></li>
-          <li data-target="#carousel-{{loop_index}}" data-slide-to="2"></li>
-        </ol>        
         <!-- Carousel INNER -->
-        {% if slider.programs is defined %}
+        {% if newArray is defined %}
           <div class="carousel-inner">
           <div class="item active">
-        {% for program in slider.programs | to_array %}
-         {% if (custom_loop is divisibleby(3))%}
-           {% if program.maxsize.width|number_format > 270 and program.maxsize.height|number_format > 380 %}
-             {% if custom_loop != 0 %}
+        {% for program in newArray %}
+             {% if custom_loop != 0 and custom_loop is divisibleby(6) %}
                 </div>
                 <div class="item">
+                {% set nb_pages = nb_pages + 1 %}
              {% endif %}
-            {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program, loop_index: custom_loop } %}
-            {% set custom_loop = custom_loop + 1 %}
-           {% endif %}
-         {% else %}
-          {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program, loop_index: custom_loop } %}
-          {% set custom_loop = custom_loop + 1 %}
-         {% endif %} 
+
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program, loop_index: custom_loop, n_carousel: loop_index}%}
+
+            {% if (custom_loop == value1 )%}
+              {% set custom_loop = custom_loop + value2 %}
+            {% else %}
+              {% set custom_loop = custom_loop + value3 %}
+            {% endif %}
         
         {% endfor %}
         </div>
       </div>
         {% endif %}
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          {% for i in 0..nb_pages %}
+          <li data-target="#carousel-{{loop_index}}" data-slide-to="{{i}}" {% if i == 0 %}class="active"> {% endif %}</li>
+          {% endfor %}
+        </ol>        
         <div class="wrap-carousel-control">
           <a class="left carousel-control" href="#carousel-{{loop_index}}" data-slide="prev">
               <span class="glyphicon glyphicon-chevron-left"></span>
@@ -43,3 +75,5 @@
           </div>
         </div>
      </div>
+
+#}

@@ -1,4 +1,3 @@
-
 {% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% block title %}
@@ -69,33 +68,143 @@
   output='js/compiled/pages/program.js'  %}
   <script src="{{ asset_url }}"></script>
   {% endjavascripts %}
-{% endblock %}
+  {% endblock %}
 
-{% block content %}
-<div id="view-program">
-{# PLAYER #}
+  {% block content %}
+  <div id="view-program">
+    {# PLAYER #}
 
-  <section class="container scrollplayerzone">
-    <div class="row">
-      <div class="col-lg-9 ">
-        <div id="player"> {% if program.player is defined and program.player %}
-          <a name="teaser"></a>
-          <div id="program-teaser">  
-            <meta itemprop="duration" />
-            <meta itemprop="thumbnail" content="{{ program.picture }}" />
-            {% if program.player_fb is defined %}
-            <meta itemprop="embedURL" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
-            {% endif %}
-            <meta itemprop="width" content="698" />
-            <meta itemprop="height" content="320" />
-            <meta itemprop="playerType" content="Flash" />
-            {#% if program.player is defined and program.player %#}
-            <span id="program-teaser-header" class="hide" data-default-text="Votre programme en intégralité">{{ program.player.access_id is defined ? 'Votre programme en intégralité' : 'Bande annonce' }}</span>
-            {#<a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
-            <div id="program-teaser-meta" class="player-meta"></div>
-            <div id="program-teaser-player"{% if app.request.isXmlHttpRequest %}{%else%} data-play-autoload-bak="{{ program.player.id }}"{% endif %} data-play="{{ program.player.id }}" {#data-play-meta-elmt="#program-teaser-meta" data-play-muted="1"#} data-play-args="{{ {hide_sliders: 1, current_player: '#program-teaser-player'}|json_encode }}">
-              <iframe src="{{ player_host }}/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.player.id }}&height=320&width=698" style="height:320px;width:698px" scrolling="no" frameborder="0"></iframe>
-            </div>
+
+
+
+
+    <section class="container scrollplayerzone">
+{# 
+
+     <div class="row">
+      <div class="col-xs-16" style="background:green;" >
+       <div style="background:red; height:30px;">
+       </div>
+     </div>
+   </div>
+
+
+
+
+   <div class="row">
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+    <div class="col-xs-1" style="background:green;">
+      <div style="background:red; height:30px;"></div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <div class="row">
+   <div class="col-xs-16" style="background:green;">
+    <div style="background:blue; height:30px;">
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row">  
+  <div class="col-xs-10" style="background:green;">
+    <div style="background:blue; height:30px;"></div>
+  </div>
+  <div class="col-xs-5" style="background:green;">
+    <div style="background:red; height:30px;"></div>
+  </div>
+</div>
+
+
+ #}
+
+<div class="row playwrapsub hide"></div>
+<div class="row playwrap">
+
+  <div class="col-xs-11 ">
+    <div id="player"> 
+
+ {#% if program.player is defined and program.player %#}
+    <div class="ms-playertitle">
+    <h2 id="program-teaser-header" data-default-text="Votre programme en intégralité">{{ program.player.access_id is defined ? 'Votre programme en intégralité' : 'Bande annonce' }}</h2>
+    </div>
+
+
+
+
+
+    {% if program.player is defined and program.player %}
+      <a name="teaser"></a>
+      <div id="program-teaser">  
+        <meta itemprop="duration" />
+        <meta itemprop="thumbnail" content="{{ program.picture }}" />
+        {% if program.player_fb is defined %}
+        <meta itemprop="embedURL" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
+        {% endif %}
+        <meta itemprop="width" content="637" />
+        <meta itemprop="height" content="368" />
+        <meta itemprop="playerType" content="Flash" />
+        {#% if program.player is defined and program.player %#}
+        <span id="program-teaser-header" class="hide" data-default-text="Votre programme en intégralité">{{ program.player.access_id is defined ? 'Votre programme en intégralité' : 'Bande annonce' }}</span>
+        {#<a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
+        <div id="program-teaser-meta" class="player-meta">
+
+        </div>
+        <div id="program-teaser-player"{% if app.request.isXmlHttpRequest %}{%else%} data-play-autoload-bak="{{ program.player.id }}"{% endif %} data-play="{{ program.player.id }}" {#data-play-meta-elmt="#program-teaser-meta" data-play-muted="1"#} data-play-args="{{ {hide_sliders: 1, current_player: '#program-teaser-player'}|json_encode }}">
+          <iframe src="{{ player_host }}/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.player.id }}&height=368&width=637" style="height:368px;width:637px" scrolling="no" frameborder="0"></iframe>
+        </div>
     {#% else %}
     <span id="program-teaser-header">Publicité</span>
       <div id="program-teaser-player">
@@ -103,72 +212,132 @@
       </div>
       {% endif %#}
     </div>
-    {% endif %}</div>
-
+    {% endif %}
   </div>
-  <div class="col-lg-3 " style="float:right;">
-    <div id="affiche">
-      {# affiche programme #}
-      <img src="{{ program.img }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
-    
+</div>
 
-
-    {# social bar #}
-      <div class="ms-social-bar">
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}
-      </div>
-
-    </div> 
+<div class="col-xs-5 ">
+  <div id="affiche">
+    {# affiche programme #}
+    <img src="{{ program.img }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
   </div>
-  <div class="col-lg-9 ">
-    <div class="row">
-      <div class="col-lg-9 videotitle">
-{# TITRE #}
+</div> 
 
-
-       {% if program.episode_title is defined and 
-       program.episodeof is defined and 
-       program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
-       <h1 itemprop="name">{{ program.episode_title }}</h1>
-       {% if program.popular_channel is defined %}
-       <h2>{{ program.popular_channel.name }}</h2>
-       {% endif %}
-       {% elseif program.episode_title is defined and 
-       program.episodeof is defined %}
-       {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
-       <h1 itemprop="name">{{ program.episodeof.title }}</h1>
-       <h2>{{ program.episode_title }}  {% if episode_title and program.episode_title != episode_title %} ({{ episode_title }}){% endif %}</h2>
-       {% else %}
-       <h1 itemprop="name"> {{ program.title }} </h1>
-       {% endif %}   
-
-
-
-
-   </div>
-
-   <div class="col-lg-3 suivre">
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.id, class: 'fav-like btn-big'} %}
-  </div>
 </div>
 
 
 <div class="row">
-  <div class="col-lg-9">
+  
+  {# TITRE #}
+  <div class="col-xs-8 videotitle">
+    {% if program.episode_title is defined and
+    program.episodeof is defined and
+    program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
+    <h1 itemprop="name">{{ program.episode_title }}</h1>
+    {% if program.popular_channel is defined %}
+    <h2>{{ program.popular_channel.name }}</h2>
+    {% endif %}
+    {% elseif program.episode_title is defined and
+    program.episodeof is defined %}
+    {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+    <h1 itemprop="name">{{ program.episodeof.title }}</h1>
+    <h2>{{ program.episode_title }} {% if episode_title and program.episode_title != episode_title %} ({{ episode_title }}){% endif %}</h2>
+    {% else %}
+    <h1 itemprop="name"> {{ program.title }} </h1>
+    {% endif %}
   </div>
-</div>
-<div id="program-offers" class="tab-content">
 
-  {# subscriptions #}
-  {% if program.subscriptions is defined and 
-        program.subscriptions|to_array|length %}
-  {% for s in program.subscriptions|to_array %}
-  <div class="panel panel-info">
-   <div class="panel-heading">
-     <h3 class="panel-title">Pass</h3>
+  <div class="col-xs-3 suivre">
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.id, class: 'fav-like btn-big'} %}
+  </div>
+
+    {# social bar #}
+  <div class="col-xs-5">
+  <div class="ms-social-bar">
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}
+    </div>
+
+
+      {# Selecteur episodes #}
+    {% if program.episode_list is defined and program.seasons is not defined %}
+    <div class="btn-group  btn-group-xs program-episode">
+     <a class="btn btn-block dropdown-toggle" data-toggle="dropdown" href="#">
+       {{ program.episode_list|length }} épisodes disponibles
+       <span class="caret"></span>
+     </a>
+     <ul class="dropdown-menu">
+       {% for episode in program.episode_list %}
+       <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
+         {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
+         <strong>{{ episode.title }}</strong>{% if episode.year %} - {{ episode.year }}{% endif %}
+       </a></li>
+       {% endfor %}
+     </ul>
    </div>
+   {% elseif program.seasons is defined %}
+   <div class="btn-group  btn-group-xs program-episode season-episode">
+     <button class="btn">{{ program.season_number is defined ? 'Saison ' ~ program.season_number : program.seasons|to_array|length ~ ' saisons' }}</button>
+     <button class="btn dropdown-toggle" data-toggle="dropdown">
+       <span class="caret"></span>
+     </button>
+     <ul class="dropdown-menu">
+       {% for season in program.seasons|to_array|reverse %}
+       {% set episode = season.episodes|to_array|first %}
+       <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">Saison {{ season.number }}</a></li>
+       {% endfor %}
+       {% if program.episodeof is defined %}
+       <li><a href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}">Toutes les saisons</a></li>
+       {% endif %}
+     </ul>
+   </div>
+   {% if program.episodeof is defined %}
+   &nbsp;
+   <div class="btn-group  btn-group-xs program-episode">
+    <button class="btn">{{ program.episode_number is defined ? 'Episode ' ~ program.episode_number : 'Les épisodes' }}</button>
+    <button class="btn dropdown-toggle" data-toggle="dropdown">
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+     {% for season in program.seasons|to_array if season.number == program.season_number %}
+     {% for episode in season.episodes|to_array|reverse %}
+     <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
+       {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
+
+       {# Titre programme #}
+
+       <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
+     </a></li>
+     {% endfor %}
+     {% endfor %}
+   </ul>
+ </div>
+ {% endif %}
+ {% endif %}
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="row"> 
+
+<div class="col-xs-11">
+  <div id="program-offers" class="tab-content">
+    {# subscriptions #}
+    {% if program.subscriptions is defined and 
+    program.subscriptions|to_array|length %}
+    {% for s in program.subscriptions|to_array %}
+    <div class="panel panel-info">
+     <div class="panel-heading">
+       <h3 class="panel-title">Pass</h3>
+     </div>
      <table class="table table-hover" data-id="{{ s.pass.play }}" data-play="{{ s.pass.play }}" data-play-pass="{{ s.id }}" data-play-args="{&quot;hide_sliders&quot;:1}">
-        <tbody>
+      <tbody>
         <tr>
           <td class="channel">
             <img src="http://mskstatic.com/65/medias/ico/chaines/pluzz-vad_medium.png" alt="pluzz VAD Streaming">
@@ -182,22 +351,22 @@
             <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-check"></i>&nbsp;S'abonner maintenant</button>
           </td>
         </tr>
-        </tbody>
-      </table>
+      </tbody>
+    </table>
   </div>
   {% endfor %}
   {% endif %}
 
- {# offres #}
- {% set hasoffers = 2  %}
- {% for key in offers|keys if program.offers[key]|to_array|length %}
- {% set hasoffers = 1  %}
- {% set variabledeboucle = loop.index  %}
+  {# offres #}
+  {% set hasoffers = 2  %}
+  {% for key in offers|keys if program.offers[key]|to_array|length %}
+  {% set hasoffers = 1  %}
+  {% set variabledeboucle = loop.index  %}
 
- <div class="panel{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : '' }}">
-  <div class="panel-heading">
-    <h3 class="panel-title{% if key == 'external' and program.offers['deporte']|to_array|length %}
-    external-collapser  
+  <div class="panel{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : '' }}">
+    <div class="panel-heading">
+      <h3 class="panel-title{% if key == 'external' and program.offers['deporte']|to_array|length %}
+      external-collapser  
       {% endif %} "
       {% if key == 'external' and program.offers['deporte']|to_array|length %}
       data-toggle="collapse"
@@ -213,45 +382,45 @@
     {%  if program.offers[key]|length %}
     <div class="table-container scroll">
 
-          {# theaters #}
-          {% if key == 'theater' %}
-              {% if program.datas_theaters.theaters_ids|length > 0 %}
-              <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
-              {% if program.datas_theaters.theaters_ids|length > 9 %}
-              <form role="form" class="form-inline inline-block" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}" data-form-ajax="#theaters-list"  class="form-search pull-left">
-                <div class="form-group">
-                  <input name="q" type="text" class="form-control search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
-                </div>
-                <div class="form-group">
-                  <button type="submit" class="btn btn-primary"><i class="icon-search"></i> {{ 'theaters.search.submit'|trans }}</button>
-                </div>
-              </form>
-              <div class="btn-group">
-                <a class="btn btn-default" href="#theaters" id="trigger-theaters-geoloc"><i class="glyphicon glyphicon-map-marker"></i> {{ 'theaters.search.geoloc'|trans }}</a>
-                <a class="btn btn-default" href="#theaters" id="trigger-theaters-playlist"><i class="glyphicon glyphicon-user"></i> {{ 'theaters.search.playlist'|trans }}</a>
-              </div>
-              {% endif %}
-              <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}">
-                {% render(controller('SkreenHouseFactoryV3Bundle:Cinema:program', {id: program.id, theater_ids: app.request.get('theater_id') ? app.request.get('theater_id') : program.datas_theaters.theaters_ids|join(',') })) %}
-              </div>
-              {% if program.datas_theaters.theaters_on_demand|length %}
-              <hr/>
-              {% endif %}
-              {% endif %}
-              {% if program.datas_theaters.theaters_on_demand|length %}
-              {% for o in program.datas_theaters.theaters_on_demand %}
-              <p align="center"><a target="_blank" href="{{ attribute(o, 'url') }}"><img class="img-polaroid" src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema.png') }}" alt="ilikecinema" /></a></p>
-              {% endfor %}
-              {% endif %}
+      {# theaters #}
+      {% if key == 'theater' %}
+      {% if program.datas_theaters.theaters_ids|length > 0 %}
+      <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
+      {% if program.datas_theaters.theaters_ids|length > 9 %}
+      <form role="form" class="form-inline inline-block" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}" data-form-ajax="#theaters-list"  class="form-search pull-left">
+        <div class="form-group">
+          <input name="q" type="text" class="form-control search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary"><i class="icon-search"></i> {{ 'theaters.search.submit'|trans }}</button>
+        </div>
+      </form>
+      <div class="btn-group">
+        <a class="btn btn-default" href="#theaters" id="trigger-theaters-geoloc"><i class="glyphicon glyphicon-map-marker"></i> {{ 'theaters.search.geoloc'|trans }}</a>
+        <a class="btn btn-default" href="#theaters" id="trigger-theaters-playlist"><i class="glyphicon glyphicon-user"></i> {{ 'theaters.search.playlist'|trans }}</a>
+      </div>
+      {% endif %}
+      <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}">
+        {% render(controller('SkreenHouseFactoryV3Bundle:Cinema:program', {id: program.id, theater_ids: app.request.get('theater_id') ? app.request.get('theater_id') : program.datas_theaters.theaters_ids|join(',') })) %}
+      </div>
+      {% if program.datas_theaters.theaters_on_demand|length %}
+      <hr/>
+      {% endif %}
+      {% endif %}
+      {% if program.datas_theaters.theaters_on_demand|length %}
+      {% for o in program.datas_theaters.theaters_on_demand %}
+      <p align="center"><a target="_blank" href="{{ attribute(o, 'url') }}"><img class="img-polaroid" src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema.png') }}" alt="ilikecinema" /></a></p>
+      {% endfor %}
+      {% endif %}
 
-          {# par defaut #}
-          {% else %}
-          {% set other_episodes = '' %}
-          {% set btn_deploy_offers = 0 %}
+      {# par defaut #}
+      {% else %}
+      {% set other_episodes = '' %}
+      {% set btn_deploy_offers = 0 %}
 
 
-          <table class="offertable">
-            <tbody>
+      <table class="offertable">
+        <tbody>
           {% for o in attribute(program.offers, key)|to_array %}
           {% set btn_deploy_offers = btn_deploy_offers + 1 %}
           {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
@@ -266,85 +435,85 @@
 
           {% set other_episodes = 'ok' %}
           {% endif %}
-              <tr class="{% if loop.index > 3 %}collapse collapsing{{ variabledeboucle }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %}>
-                <td class="channel">
-                  <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}">
-                </td>
-                <td class="episode">
-                   {% if o.title is defined and o.title %}
-                   <h4>{{ o.title }}</h4>
-                   <span>{{ o.description }}
-                   </span>
-                   {% elseif o_episode and o_episode.title %}
-                   <h4>{{ o_episode.title }}</h4>
-                   {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}
-                   {% if o_episode.season_number is defined or 
-                   o_episode.episode_number is defined or 
-                   o_episode.part_number is defined %}
-                   {% if episode_title != o_episode.title %}<span>{{ episode_title }}</span>
-                   {% endif %}
-                   {% endif %}
-                   {% endif %}
-                   <div>
-                     {% if o_access.name not in ['Live', 'TV'] and 
-                           o.broadcasttime is defined and 
-                           o.broadcasttime and
-                           o.cost == 0 %}
-                        <time datetime="{{ o.broadcasttime }}">diffusé {{ o.broadcasttime|broadcastdate }}</time>
-                     {% endif %}
-                   </div>
-                   <div class="infos">
-                   <span class="ms-vidoption">
-                     {% if o.deporte is defined and o.deporte and o.versions is defined %}
-                     <span class="label label-default">{{ o.versions|to_array|keys|join(', ') }}</span>&nbsp;
-                     {% elseif o.tags is defined and o.tags.version is defined %}
-                     <span class="label label-default">{{ o.tags.version|replace({',': ', '}) }}</span>
-                     {% endif %}
+          <tr class="{% if loop.index > 3 %}collapse collapsing{{ variabledeboucle }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %}>
+            <td class="channel">
+              <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}">
+            </td>
+            <td class="episode">
+             {% if o.title is defined and o.title %}
+             <h4>{{ o.title }}</h4>
+             <span>{{ o.description }}
+             </span>
+             {% elseif o_episode and o_episode.title %}
+             <h4>{{ o_episode.title }}</h4>
+             {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}
+             {% if o_episode.season_number is defined or 
+             o_episode.episode_number is defined or 
+             o_episode.part_number is defined %}
+             {% if episode_title != o_episode.title %}<span>{{ episode_title }}</span>
+             {% endif %}
+             {% endif %}
+             {% endif %}
+             <div>
+               {% if o_access.name not in ['Live', 'TV'] and 
+               o.broadcasttime is defined and 
+               o.broadcasttime and
+               o.cost == 0 %}
+               <time datetime="{{ o.broadcasttime }}">diffusé {{ o.broadcasttime|broadcastdate }}</time>
+               {% endif %}
+             </div>
+             <div class="infos">
+               <span class="ms-vidoption">
+                 {% if o.deporte is defined and o.deporte and o.versions is defined %}
+                 <span class="label label-default">{{ o.versions|to_array|keys|join(', ') }}</span>&nbsp;
+                 {% elseif o.tags is defined and o.tags.version is defined %}
+                 <span class="label label-default">{{ o.tags.version|replace({',': ', '}) }}</span>
+                 {% endif %}
 
-                     {% if o.tags is defined and o.tags|length %}
-                       {% if o.tags.HD is defined %}
-                       <span class="label label-default">HD</span>
-                       {% endif %}
-                   
-                       {% if o.tags.format is defined %}
-                       {{ o.tags.format }}
-                       {% endif %}
-                       {% if o.tags.device is defined %}
-                       {{ o.tags.device|replace({',': ', '}) }}
-                       {% endif %}
-                     {% endif %}
-                   </span>
-                 </div>
-                 </td>
-                <td class="offers">
-                   {% if o_access.name in ['Live', 'TV'] %}
-                    <a class="btn btn-default">
-                      <i class="glyphicon glyphicon-calendar"></i>&nbsp;<time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
-                    </a>
-                   {% else %}
-                  <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;{{ o.cost > 0 ? o_access.name ~ ' - ' ~ o.cost|number_format(2, ',') ~ '€' : 'Voir maintenant' }}</button>
-                   {% endif %}
-                   <br/>
-                   {% if o_access.name == 'TV' %}
-                     {% if key == 'plays'  %}
-                     <span class="ms-reminder">Live</span>
-                     <i class="glyphicon glyphicon-time"></i>{% elseif o.has_replay and o.broadcasttime|remainingtv %}
-                     <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
-                     {% elseif o.broadcasttime|timeleft %}
-                     <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> Dans {{ o.broadcasttime|timeleft }}</span>
-                     {% endif %}
-                   {% elseif o.endtime is defined and o.endtime|remainingreplay %}
-                   <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
-                   {% endif %}
-                </td>
-              </tr>
+                 {% if o.tags is defined and o.tags|length %}
+                 {% if o.tags.HD is defined %}
+                 <span class="label label-default">HD</span>
+                 {% endif %}
 
-         {% endfor %}
-           </tbody>
-         </table>
-         {% endif %}
-     {% if btn_deploy_offers is defined and btn_deploy_offers > 3 %}
-     <button type="button" class="btn btn-default btn-reveal" data-toggle="collapse" data-target=".collapsing{{ loop.index }}" >
+                 {% if o.tags.format is defined %}
+                 {{ o.tags.format }}
+                 {% endif %}
+                 {% if o.tags.device is defined %}
+                 {{ o.tags.device|replace({',': ', '}) }}
+                 {% endif %}
+                 {% endif %}
+               </span>
+             </div>
+           </td>
+           <td class="offers">
+             {% if o_access.name in ['Live', 'TV'] %}
+             <a class="btn btn-default">
+              <i class="glyphicon glyphicon-calendar"></i>&nbsp;<time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
+            </a>
+            {% else %}
+            <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;{{ o.cost > 0 ? o_access.name ~ ' - ' ~ o.cost|number_format(2, ',') ~ '€' : 'Voir maintenant' }}</button>
+            {% endif %}
+            <br/>
+            {% if o_access.name == 'TV' %}
+            {% if key == 'plays'  %}
+            <span class="ms-reminder">Live</span>
+            <i class="glyphicon glyphicon-time"></i>{% elseif o.has_replay and o.broadcasttime|remainingtv %}
+            <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
+            {% elseif o.broadcasttime|timeleft %}
+            <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> Dans {{ o.broadcasttime|timeleft }}</span>
+            {% endif %}
+            {% elseif o.endtime is defined and o.endtime|remainingreplay %}
+            <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
+            {% endif %}
+          </td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+    {% if btn_deploy_offers is defined and btn_deploy_offers > 3 %}
+    <button type="button" class="btn btn-default btn-reveal" data-toggle="collapse" data-target=".collapsing{{ loop.index }}" >
       <i class="glyphicon glyphicon-resize-vertical"></i>&nbsp;Voir les {{ attribute(program.offers, key)|to_array|length - 3 }} choix restants
     </button>{% endif %}
   </div>
@@ -367,131 +536,78 @@
     <h5  class="ms-cat-title" >Catégories</h5> {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
     <br/>
     {% endif %}
-</div>
-{% endif %}
-
-{# description seo texte #}
-
-<div class="panel panel-synopsis">
-  <div class="panel-heading">Synopsis</div>
-  <div class="tab-pane">
-    <div class="text-toggle-extend"  >
-      <div class="text show-more-height">
-        <h4>{{ program.title }}</h4> 
-        {{ program.description_seo|raw}}
-      </div>
-      <div class="show-more"><i class="glyphicon glyphicon-resize-vertical"></i></div>
-    </div></div>
   </div>
+  {% endif %}
 
-{# bonus #}
+  {# description seo texte #}
 
-{% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
-<div id="carousel-bonus" class="tab-pane">
-  <div class="carousel slide">
-    <div class="carousel-inner">
-      {% for b in program.offers['bonus'] | to_array %}
-      <div class="item active"><a data-play="{{ b.id }}" data-program="{{ {'title': b.title}|json_encode }}" class="pull-left"><img class="img-polaroid" alt="{{ b.title }} bonus" src="{{ b.picture }}"><div class="title">{{ b.title }}</div></a></div>
-      {% endfor %}
+  <div class="panel panel-synopsis">
+    <div class="panel-heading">Synopsis</div>
+    <div class="tab-pane">
+      <div class="text-toggle-extend"  >
+        <div class="text show-more-height">
+          <h4>{{ program.title }}</h4> 
+          {{ program.description_seo|raw}}
+        </div>
+        <div class="show-more"><i class="glyphicon glyphicon-resize-vertical"></i></div>
+      </div></div>
     </div>
 
+    {# bonus #}
+
+    {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
+    <div id="carousel-bonus" class="tab-pane">
+      <div class="carousel slide">
+        <div class="carousel-inner">
+          {% for b in program.offers['bonus'] | to_array %}
+          <div class="item active"><a data-play="{{ b.id }}" data-program="{{ {'title': b.title}|json_encode }}" class="pull-left"><img class="img-polaroid" alt="{{ b.title }} bonus" src="{{ b.picture }}"><div class="title">{{ b.title }}</div></a></div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+    {% endif %}
+
+    {# youtube #}
+
+    <div id="carousel-youtube" class="carousel-youtube tab-pane" data-more-streaming="{{ program.id }}">
+      <div class="carousel slide">
+        <div class="carousel-inner"></div>
+        <a class="carousel-control left" href="#carousel-youtube" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#carousel-youtube" data-slide="next">&rsaquo;</a>
+      </div>
+    </div>
   </div>
 </div>
-{% endif %}
 
-{# youtube #}
 
-<div id="carousel-youtube" class="carousel-youtube tab-pane" data-more-streaming="{{ program.id }}">
-  <div class="carousel slide">
-    <div class="carousel-inner"></div>
-    <a class="carousel-control left" href="#carousel-youtube" data-slide="prev">&lsaquo;</a>
-    <a class="carousel-control right" href="#carousel-youtube" data-slide="next">&rsaquo;</a>
-  </div>
-</div>
-</div>
-</div>
+<div class="col-xs-5 ">
 
-<div class="col-lg-3 ">
+
+
+
     <div class="ms-vid-type">{{ program.format.name }}, {{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}</div>
 
-{# Selecteur episodes #}
-       {% if program.episode_list is defined and program.seasons is not defined %}
-       <div class="btn-group  btn-group-xs program-episode">
-         <a class="btn btn-block dropdown-toggle" data-toggle="dropdown" href="#">
-           {{ program.episode_list|length }} épisodes disponibles
-           <span class="caret"></span>
-         </a>
-         <ul class="dropdown-menu">
-           {% for episode in program.episode_list %}
-           <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
-             {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
-             <strong>{{ episode.title }}</strong>{% if episode.year %} - {{ episode.year }}{% endif %}
-           </a></li>
-           {% endfor %}
-         </ul>
-       </div>
-       {% elseif program.seasons is defined %}
-       <div class="btn-group  btn-group-xs program-episode season-episode">
-         <button class="btn">{{ program.season_number is defined ? 'Saison ' ~ program.season_number : program.seasons|to_array|length ~ ' saisons' }}</button>
-         <button class="btn dropdown-toggle" data-toggle="dropdown">
-           <span class="caret"></span>
-         </button>
-         <ul class="dropdown-menu">
-           {% for season in program.seasons|to_array|reverse %}
-           {% set episode = season.episodes|to_array|first %}
-           <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">Saison {{ season.number }}</a></li>
-           {% endfor %}
-           {% if program.episodeof is defined %}
-           <li><a href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}">Toutes les saisons</a></li>
-           {% endif %}
-         </ul>
-       </div>
-       {% if program.episodeof is defined %}
-       &nbsp;
-       <div class="btn-group  btn-group-xs program-episode">
-        <button class="btn">{{ program.episode_number is defined ? 'Episode ' ~ program.episode_number : 'Les épisodes' }}</button>
-        <button class="btn dropdown-toggle" data-toggle="dropdown">
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-         {% for season in program.seasons|to_array if season.number == program.season_number %}
-         {% for episode in season.episodes|to_array|reverse %}
-         <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
-           {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
-          
-        {# Titre programme #}
+  
 
-           <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
-         </a></li>
-         {% endfor %}
-         {% endfor %}
-       </ul>
-     </div>
-     {% endif %}
-     {% endif %}
+ {% if program.format and program.categories|length | to_array %}
+ {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>&nbsp;{% endfor %}
+ <br/>
+ {% endif %}
+ {% if program.format and program.subcategories|to_array|length %}
+ {% for c in program.subcategories | to_array  %}<a  class="label label-default"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>&nbsp;{% endfor %}
+ {% endif %}
+ <div class="inner">
 
-    {% if program.format and program.categories|length | to_array %}
-    {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>&nbsp;{% endfor %}
-    <br/>
-    {% endif %}
-    {% if program.format and program.subcategories|to_array|length %}
-    {% for c in program.subcategories | to_array  %}<a  class="label label-default"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>&nbsp;{% endfor %}
-    {% endif %}
-
-
-    <div class="inner">
-
-
-
-      <div id="program-casting" class="scroll">
-        {% if program.director|to_array %}
-        <h5 class="ms-cat-title" >{{ 'directed.by'|trans }}</h5>
-        {% for pers in program.director|to_array %}
-        <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
-          <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.director|to_array|length %},&nbsp;{% endif %}</a>
+  <div id="program-casting" class="scroll">
+    {% if program.director|to_array %}
+    <h5 class="ms-cat-title" >{{ 'directed.by'|trans }}</h5>
+    {% for pers in program.director|to_array %}
+    <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
+      <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.director|to_array|length %},&nbsp;{% endif %}</a> 
           {#% if pers.programmes is defined and (pers.programmes|to_array|length > 1) %}
           <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
-          {% if loop.first %}{% else %}, {% endif %}
+          
           <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
           {% endfor %}<span style="color:#005580"> ) </span>
           {% endif %#}
@@ -502,7 +618,7 @@
         <h5 class="ms-cat-title" >{{ 'presented.by'|trans }}</h5> 
         {% for pers in program.presenter | to_array  %}
         <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
-          {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+          <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
         </div>
         {% endfor %}<br/>
         {% endif %}
@@ -511,13 +627,13 @@
         <h5 class="ms-cat-title" >{{ 'actors'|trans }}</h5>
         {% for pers in program.casting|to_array  %}
         <div class="inline {% if loop.index > 10 %} actors_entrop hide{% endif %}" itemprop="actor" itemscope itemtype="http://schema.org/Person">
-          {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+          {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
 
-       
+
 
           {#% if pers.main_programs is defined and (pers.main_programs > 1) %}
           <span style="color:#005580"> ( </span>{% for prog in pers.main_programs if prog.id != program.id  %}
-          {% if loop.first %}{% else %}, {% endif %}
+          
           <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
           {% endfor %}<span style="color:#005580"> ) </span>
           {% endif %#}
@@ -528,48 +644,50 @@
         {% if program.casting|to_array|length > 10 %}
         <div class="block">
          <a class="actors_reveal" style="font-style:italic;">et {{ program.casting|to_array|length - 10 }} autre{% if program.casting|to_array|length > 11 %}s{% endif %}  acteur{% if program.casting|to_array|length > 11 %}s{% endif %}... </a>
+
        </div>
        {% endif %}
 
-         <br/>
-        {% endif %}
+       <br/>
+       {% endif %}
 
-        {% if program.editor|to_array  %}
-        <h5 class="ms-cat-title" >{{ 'editors'|trans }}</h5>
-        {% for pers in program.editor | to_array %}
-        <div class="inline" itemprop="editor" itemscope itemtype="http://schema.org/Person">
-          {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
-          {% if pers.programmes is defined and (pers.programmes|to_array|length > 1) %}
-          <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
-          {% if loop.first %}{% else %}, {% endif %}
-          <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
-          {% endfor %}<span style="color:#005580"> ) </span>
-          {% endif %}
-        </div>
-        {% endfor %}
+       {% if program.editor|to_array  %}
+       <h5 class="ms-cat-title" >{{ 'editors'|trans }}</h5>
+       {% for pers in program.editor | to_array %}
+       <div class="inline" itemprop="editor" itemscope itemtype="http://schema.org/Person">
+        {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
+        {% if pers.programmes is defined and (pers.programmes|to_array|length > 1) %}
+        <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
+        
+        <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
+        {% endfor %}<span style="color:#005580"> ) </span>
         {% endif %}
       </div>
-    </div> 
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div> 
 
 
 
-    {# related channels #}
-    
-    {% if program.related.channels is defined and 
-    program.related.channels.programs is defined and 
-    program.related.channels.programs|to_array|length %}
-    <span class="ms-cat-title">Pages liées</span>
-    {% for r in program.related.channels.programs|to_array %}
-    <a class="channel_link" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}">
-      <span class="channel_texte">{{ r.title ~ ', la chaîne' }}</span>
-      <img src="{{ r.picture }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
-    </a>
-    {% endfor %}
-    {% endif %}
+  {# related channels #}
+
+  {% if program.related.channels is defined and 
+  program.related.channels.programs is defined and 
+  program.related.channels.programs|to_array|length %}
+  <span class="ms-cat-title">Pages liées</span>
+  {% for r in program.related.channels.programs|to_array %}
+  <a class="channel_link" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}">
+    <span class="channel_texte">{{ r.title ~ ', la chaîne' }}</span>
+    <img src="{{ r.picture }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
+  </a>
+  {% endfor %}
+  {% endif %}
+</div>
 </div>
 
 
-<div class="row">
+<div class="row ms-related">
   {% for r in program.related if r.programs is defined and r.programs|to_array|length %}
   {% if r.name == 'same_actors' and program.casting %}
             {#
@@ -600,8 +718,18 @@
             {% endif %}
             {% endfor %}
           </div>
-
-        </section>
+        </div>
+      </section>
 
 </div>
-{% endblock %}
+
+
+
+
+    </div>
+
+
+
+
+
+    {% endblock %}

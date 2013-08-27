@@ -107,7 +107,7 @@ class ProgramController extends Controller
           'episode_img_height' => 50,
           'episode_img_crop' => 50,
           'channel_img_width' => 65,
-          'with_img' => '212,286',
+          'with_img' => '273,368',
           'with_metadata' => true,
           'with_related' => true,
           'with_related_programs' => true,
@@ -118,14 +118,18 @@ class ProgramController extends Controller
           'with_tweets' => true,
           'with_empty_player' => true,
           'with_img_maxsize'=>true,
-          'with_svod'=>true
+          'with_svod' => true,
+          'slider_width' => 990,
+          'slider_height' => 450
           //'wrap_default_description' => 'h2',
           //'filter_casting' => true,
           //'player' => 'flash'
         ));
 
         //print("<pre>");print_r($data);
-        //echo $api->url;
+       
+
+       // echo $api->url;
         if ($this->get('kernel')->getEnvironment() == 'dev' && 
             $request->get('debug')) {
           echo $api->url;

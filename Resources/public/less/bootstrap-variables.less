@@ -181,15 +181,15 @@
 // --------------------------------------------------
 
 // Extra small screen / phone
-@screen-xsmall:              480px;
+@screen-xsmall:               9999px;
 @screen-phone:               @screen-xsmall;
 
 // Small screen / tablet
-@screen-small:               768px;
+@screen-small:                9999px;
 @screen-tablet:              @screen-small;
 
 // Medium screen / desktop
-@screen-medium:              992px;
+@screen-medium:              1px;
 @screen-desktop:             @screen-medium;
 
 // So media queries don't overlap when required, provide a maximum
@@ -197,18 +197,18 @@
 @screen-tablet-max:          @screen-small-max;
 
 // Large screen / wide desktop
-@screen-large:               1200px;
+@screen-large:               1px;
 @screen-large-desktop:       @screen-large;
 
 // Grid system
 // --------------------------------------------------
 
 // Number of columns in the grid system
-@grid-columns:              12;
+@grid-columns:              16;
 // Padding, to be divided by two and applied to the left and right of all columns
 @grid-gutter-width:         30px;
 // Point at which the navbar stops collapsing
-@grid-float-breakpoint:     @screen-tablet;
+@grid-float-breakpoint:     1px;
 
 
 // Navbar
@@ -625,4 +625,8 @@
 
 
 /* CUSTOMISATION DU FICHIER VARIABLES */
-@grid-columns:              16;
+
+@grid-columns:         16;
+
+@gridColumnWidth: 32px;
+@gridGutterWidth: 30px
