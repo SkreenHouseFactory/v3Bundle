@@ -751,7 +751,6 @@
 
 
 
-<div class="container">
 <div class="row">
   {% for r in program.related if r.programs is defined and r.programs|to_array|length %}
   {% if r.name == 'same_actors' and program.casting %}
@@ -783,7 +782,7 @@
             {% endif %}
             {% endfor %}
           </div>
-</div>
+
 
 
 
