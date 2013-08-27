@@ -34,8 +34,15 @@ body.view-channel:not(.view-ajax) {
 
 body.view-channel, body.view-channel-selections {
   #main {
-    #view-page .container {
-      background: white;
+    #view-page {
+      .new-slider{
+        .wrap-carousel-control{
+          left: 285px;
+        }
+      }
+      .container {
+        background: white;
+      }
     }
     
     #cover {
@@ -89,11 +96,15 @@ body.view-channel, body.view-channel-selections {
                     width: 150px;
                   }
                 }
-                .fav {
+                .btn{
+                  padding: 17px 0px;
+                }
+                .fav-like{
                   position: absolute;
                   top: 210px;
                   width: 151px;
                   height: 60px;
+                  
                 }
               }
             }
@@ -118,7 +129,7 @@ body.view-channel, body.view-channel-selections {
                     left: 6px;
                   }
                   &.right{
-                    right: 3px;
+                    right: 24px;
                   }
                 }
               }
@@ -376,7 +387,9 @@ body.view-channel, body.view-channel-selections {
   }
 
   .carousel {
-    background: black;
+    .wrap-carousel-control{
+     left: 287px;
+    }
     .item {
       height: 300px;
       text-align: center;
