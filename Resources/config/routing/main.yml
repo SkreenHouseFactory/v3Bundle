@@ -462,12 +462,12 @@ channel_page:
     requirements:
         slug: "[^/]+"
         page: \d+
-channel_facet:
-    pattern:  /{slug}/{facet}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
-    requirements:
-        slug: "[^/]+"
-        facet: "[^/]"
+#channel_facet:
+#    pattern:  /{slug}/{facet}/
+#    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
+#    requirements:
+#        slug: "[^/]+"
+#        facet: "[^/]"
 channel:
     pattern:  /{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
