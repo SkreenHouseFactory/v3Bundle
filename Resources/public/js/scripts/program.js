@@ -139,6 +139,12 @@ $(document).ready(function(){
     });
 
     //episodes
+    $('#program-episodes ul li a[data-season]').on('click', function(){
+      $('#program-episodes ul li').removeClass('active');
+      $(this).addClass('active');
+      $('ul#episodes-list li:not(.hide)').addClass('hide');
+      $('ul#episodes-list li.season-' + $(this).data('season')).removeClass('hide');
+    })
     /*
     $('#program-offers [data-content]').on('hover', function(event) {
       var trigger = $(this);
