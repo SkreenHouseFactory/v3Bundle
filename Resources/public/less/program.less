@@ -1,11 +1,11 @@
 .podTitles{
-    float:left;
-    clear:none;
-    font-size:12px;
-    font-weight:bold;
-    color:#3A3938;
-    line-height:23px;
-    margin-left:10px;
+  float: left;
+  clear: none;
+  font-size: 12px;
+  font-weight: bold;
+  color: #3A3938;
+  line-height: 23px;
+  margin-left: 10px;
 }
 
 /* Page programme theme */
@@ -65,8 +65,8 @@
             &.offers {
               text-align: center;
               width: 200px;
-              button {
-                width: 190px;
+              button, a.btn {
+                width: 170px;
               }
             }
             &.episode {
@@ -74,6 +74,12 @@
                 font-size: 1.1em;
                 font-weight: bold;
                 margin: 0;
+              }
+              .rent {
+                text-transform: uppercase;
+                font-size: 1.4em;
+                color: #999;
+                font-weight: bold;
               }
               .infos {
                 font-size: 0.8em;
@@ -97,23 +103,25 @@
   .playwrapsub{
     height: 368px;
   }
+  .playwrap {
+    #program-teaser-player iframe {
+      background: black;
+    }
+  }
+  .fly-shadows{
+    .shadows-player-fly();
+    .transition-shadows();
+  }
 
-
-
-.fly-shadows{
-  .shadows-player-fly();
-  .transition-shadows();
-}
-
-  #affiche{
-  .shadows-player-land();
-  .transition-shadows();
+  #affiche {
+    .shadows-player-land();
+    .transition-shadows();
   }
 
   #player{
     height: 368px; 
-  .shadows-player-land();
-  .transition-shadows();
+    .shadows-player-land();
+    .transition-shadows();
     
     .ms-playertitle{
      position: absolute;
@@ -134,7 +142,6 @@
         text-transform: uppercase;
         width: 250px;
         margin-top: 0px;
-        font-weight: bold;
       }
     }
   }
@@ -180,7 +187,7 @@
   }
 
 
-  /* DESCRIPTIONS DE DROITE*/
+  /* DESCRIPTIONS DE DROITE */
 
   a[itemprop="url"]{
     &:hover{
@@ -193,11 +200,9 @@
     &:hover{
      color: @bluemaincolor;
      text-decoration: none;
-   }
-
+    }
   }
-}
-    
+
 
   .actors_reveal{
     font-style:italic;
@@ -208,7 +213,7 @@
     text-align: center;
     display: block;
     padding: 1px;
-  .link-background-transition;
+    .link-background-transition;
   }
   .channel_link:hover, .channel_link:active, .channel_link:focus,{
     background:@bluemaincolor;
@@ -289,8 +294,6 @@
     color: @bluemaincolor;
   }
 
-
-
   .external-collapser {
     i {
       font-size: 12px;
@@ -300,9 +303,7 @@
     }
   }
 
-  #program-teaser-player iframe {
-    background: black;
-  }
+}
 }
 
 
@@ -317,4 +318,3 @@
     }
   }
 }
-
