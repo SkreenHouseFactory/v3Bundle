@@ -42,7 +42,7 @@
 {% endfor %}
 
 	<div class="col-xs-8 suggester" >
-    <div class="suggestion"><div><span> {{ slider.title }}</span> 
+    <div class="suggestion"><div><span> {{ slider.title|striptags }}</span> 
       <!--	<button type="button" class="btn btn-primary btn-xs">voir +</button> -->
       </div> </div>
       <div id="carousel-{{loop_index}}"  data-interval="false" class="carousel slide new-slider">
