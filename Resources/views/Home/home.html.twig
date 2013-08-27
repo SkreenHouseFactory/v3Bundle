@@ -58,11 +58,13 @@
       </div>
       {% endif %}
     {% else %}
-      {% if loop.index == 2 %}<div class="first-container container">{% else %}<hr/>{% endif %}
+      {% if loop.index == 2 %}<div class="container"><div class="row"><div class="first-container container">{% else %}{% endif %}
       <a name="{{ slider.name }}"></a>
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider } %}
+      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index: loop.index } %}
     {% endif %}
   {% endfor %}
+ </div>
+  </div>
   </div>
   {% if home.name == 'mixte' %}
   <br/>
