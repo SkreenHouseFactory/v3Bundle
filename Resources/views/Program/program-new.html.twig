@@ -304,10 +304,14 @@
     <div class="tab-pane">
       {% if program.seasons is defined %}
       <ul class="nav nav-pills">
+      <li class="ms-nav-pills-saisons">Saison <i class="glyphicon glyphicon-play"></i></li>
         {% for season in program.seasons|to_array %}
-        <li{{ loop.last ? ' class="active"' : '' }}><a data-season="{{ season.number }}">Saison {{ season.number }}</a></li>
+        <li{{ loop.last ? ' class="active"' : '' }}><a data-season="{{ season.number }}">{{ season.number }}</a></li>
         {% endfor %}
       </ul>
+    <a style="float:right; margin-right:20px;">      
+      <a data-target="#program-episodes" data-toggle="collapse" class="btn btn-default block"><i class="glyphicon glyphicon-remove"></i></a>
+    </a>
 
       <ul id="episodes-list">
         {% for season in program.seasons|to_array %}
