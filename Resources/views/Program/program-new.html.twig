@@ -1,5 +1,7 @@
 {% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
+
+
 {% block title %}
 {{ program.title }}
 {% endblock %}
@@ -369,7 +371,7 @@
                       {% set variabledeboucle = loop.index  %}
 
                       <div class="panel{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : '' }}">
-                        <div class="panel-heading">
+                        <div class="panel-heading dong" >
                           <h3 class="panel-title{% if key == 'external' and program.offers['deporte']|to_array|length %}
                           external-collapser  
                           {% endif %} "

@@ -392,22 +392,29 @@ div.friends {
   margin-top: -2px;
 }
 
-// UI class
-.show-more{
-  background: #000;
-  color: #000;
+
+//Social bar
+.ms-social-bar {
+  height: 30px;
+  padding-top: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background: #eeeeee;
   text-align: center;
-  cursor:pointer;
-  padding: 5px;
-  display: block;
-  margin: auto;
-  .border-radius-bottom;
-  i{
-    color: #000;
-    font-size: 1.5em;
-    margin-top: -5px;
+  > span{
+    font-size: 10px;
+    line-height: 10px;
+    text-transform: uppercase;
+    color: @bluesecondarycolor;
+    display: block;
+    margin: 0 0 3px;
   }
 }
+
+
+
+// UI class
+
 
 .text-toggle-extend {
   width: 100%; margin-top: 10px; position:relative;
@@ -415,12 +422,39 @@ div.friends {
   .text {
     width: 100%; margin-bottom: 5px;  padding: 0 15px; position:relative; display: block;
   }
-  .show-more {
-    width: 100%; color: #777; position:relative; font-size: 12px; padding-top: 5px; height: 20px; text-align: center; background: #f1f1f1; cursor: pointer;
-  :hover { 
+
+  .show-more{
+    background: none repeat scroll 0 0 #DDDDDD;
+    border: 1px solid #CCCCCC;
+    color: #AAAAAA;
+    cursor: pointer;
+    display: block;
+    font-size: 18px;
+    height: 12px;
+    line-height: 0;
+    margin-left: 20px;
+    padding: 0px;
+    text-align: center;
+    width: 24px;
+
+    &:hover { 
       color: #1779dd;
+      cursor: pointer;
+      background: #CCCCCC;
+      border: 1px solid #BBBBBB;
+       color: #000000;
+    }
+
+    i{
+      color: #000;
+      font-size: 1.5em;
+      margin-top: -5px;
     }
   }
+
+
+
+  
     .show-more-height { height: 130px; overflow:hidden; }
   }
 
