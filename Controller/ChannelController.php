@@ -55,6 +55,7 @@ class ChannelController extends Controller
       'with_replay' => !$request->get('format') && !$request->get('page') ? true : false,
       'with_best_offer' => !$request->get('format') && !$request->get('page') ? true : false,
       'with_programs' => true,
+      'with_img_maxsize'=>true,
       'offset' => $request->get('page', 1) * 30 - 30,
       'nb_results' => 30,
       'facets' => $this->buildFacets($request),

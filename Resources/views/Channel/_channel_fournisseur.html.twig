@@ -1,18 +1,22 @@
 {% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: channel, fournisseur: data} %}
 
 <div id="view-fournisseur" data-id="{{ data.id }}" class="container">
-
+  
 {#% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: data} %#}
 
 
 <h1 data-channel="{{ channel.name }}">
   {{ channel.name }} : Les programmes {{ channel.fournisseur.has_replay is defined and channel.fournisseur.has_replay ? 'TV & Replay' : 'en Streaming' }}
 </h1>
+<div class="row">
+  <div class="col-xs-16">
 {# sliders #}
 {% for slider in sliders|to_array if slider.id is defined %}
   <a name="{{ slider.name }}"></a>
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
+  {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index: loop.index} %}
 {% endfor %}
+</div>
+</div>
 <hr/>
 <br/>
 
