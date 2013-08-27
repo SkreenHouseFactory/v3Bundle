@@ -123,7 +123,8 @@ class MainController extends Controller
         'with_teaser' => true,
         'with_pass' => true,
         'slider_width' => 1500,
-        'slider_height' => 450
+        'slider_height' => 450,
+        'with_img_maxsize'=>true
       ));
       //echo $api->url;exit;
       //print_r($datas);

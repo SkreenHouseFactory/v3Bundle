@@ -33,14 +33,32 @@
         <table class="table table-striped accordion-inner">
         {% for day in days if attribute(cinema.schedules, day) is defined %}
           {% set s = attribute(cinema.schedules, day) %}
+          {% set hasVF = 0 %}
+          {% set hasVO = 0 %}
           <tr>
             <th>{{ day }}</th>
             <td>
               {% for h in s.schedules|to_array %}
+              {% if h.version == "VO"%}
+              {% set hasVO = 1%}
+              {{ h.hour }}
+              {% if h.version %}<span class="label label-default"> {{ h.version }}</span> &nbsp;
+              {% endif %}
+              {% else %}
+              {% set hasVF = 1 %}
+              {% endif %}
+              {% endfor %}
+              {% if hasVF == 1 and hasVO == 1 %}
+            </br>
+              {% endif %}
+              {% for h in s.schedules|to_array %}
+              {% if h.version == "VF"%}
               {{ h.hour }}
               {% if h.version %}<span class="label label-default"> {{ h.version }}</span> &nbsp;{% endif %}
+              {% endif%}
               {% endfor %}
             </td>
+            
           </tr>
         {% endfor %}
         </table>
