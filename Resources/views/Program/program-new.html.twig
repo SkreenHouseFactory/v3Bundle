@@ -296,6 +296,35 @@
 
 
 
+{# Selecteur episodes #}
+{% if program.episode_list is defined or program.seasons is defined %}
+<div id="program-episodes" class="row collapse">
+  <div class="panel">
+    <div class="panel-heading"><h3 class="panel-title">Episodes</h3></div>
+    <div class="tab-pane">
+      {% if program.seasons is defined %}
+      <ul class="nav nav-pills">
+        {% for season in program.seasons|to_array %}
+        <li{{ loop.last ? ' class="active"' : '' }}><a data-season="{{ season.number }}">Saison {{ season.number }}</a></li>
+        {% endfor %}
+      </ul>
+
+      <ul id="episodes-list">
+        {% for season in program.seasons|to_array %}
+        {% set loop_season = loop %}
+        {% for episode in season.episodes|to_array|reverse %}
+        <li class="season-{{ season.number }} {{ loop_season.last ? 'in' : 'hide' }}"><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
+          {% if episode.dispo %}<span class="label label-default pull-right">{{ episode.dispo }}</span>{% endif%}
+          <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
+        </a></li>
+        {% endfor %}
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}
 
 
 <div class="row">
@@ -305,29 +334,27 @@
 
 
                     <div class="row" style="margin:0;">
-                            {# TITRE #}
-                            <div class="col-xs-10 videotitle "  style="padding:0;">
-                              {% if program.episode_title is defined and
-                              program.episodeof is defined and
-                              program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
-                              <h1 itemprop="name">{{ program.episode_title }}</h1>
-                              {% if program.popular_channel is defined %}
-                              <h2>{{ program.popular_channel.name }}</h2>
-                              {% endif %}
-                              {% elseif program.episode_title is defined and
-                              program.episodeof is defined %}
-                              {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
-                              <h1 itemprop="name">{{ program.episodeof.title }}</h1>
-                              <h2>{{ program.episode_title }} {% if episode_title and program.episode_title != episode_title %} ({{ episode_title }}){% endif %}</h2>
-                              {% else %}
-                              <h1 itemprop="name"> {{ program.title }} </h1>
-                              {% endif %}
-                            </div>
-
-                            <div class="col-xs-6 suivre"  style="padding:0;">
-                              {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.id, class: 'fav-like btn-big'} %}
-                            </div>
-
+                        {# TITRE #}
+                        <div class="col-xs-12 videotitle "  style="padding:0;">
+                          {% if program.episode_title is defined and
+                          program.episodeof is defined and
+                          program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
+                          <h1 itemprop="name">{{ program.episode_title }}</h1>
+                          {% if program.popular_channel is defined %}
+                          <h2>{{ program.popular_channel.name }}</h2>
+                          {% endif %}
+                          {% elseif program.episode_title is defined and
+                          program.episodeof is defined %}
+                          {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+                          <h1 itemprop="name">{{ program.episodeof.title }}</h1>
+                          <h2>{{ program.episode_title }} {% if episode_title and program.episode_title != episode_title %} ({{ episode_title }}){% endif %}</h2>
+                          {% else %}
+                          <h1 itemprop="name"> {{ program.title }} </h1>
+                          {% endif %}
+                        </div>
+                        <div class="col-xs-4 suivre"  style="padding:0;">
+                          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.id, class: 'fav-like btn-big'} %}
+                        </div>
                     </div>
 
 
@@ -561,7 +588,7 @@
                               <h4>{{ program.title }}</h4> 
                               {{ program.description_seo|raw}}
                             </div>
-                            <div class="show-more">...</div>
+                            <div class="show-more"><i class="glyphicon glyphicon-resize-vertical"></i></div>
                           </div></div>
                         </div>
                       </div>
@@ -579,7 +606,12 @@
     </div>
 
 
-    {# Selecteur episodes #}
+    {# Selecteur episodes (@see #program-episodes) #}
+    {% if program.episode_list is defined or program.seasons is defined %}
+    <a class="btn btn-default block" data-toggle="collapse" data-target="#program-episodes">Tous les épisodes</a>
+    {% endif %}
+    
+    {#
     {% if program.episode_list is defined and program.seasons is not defined %}
     <div class="btn-group  btn-group-xs program-episode">
      <a class="btn btn-block dropdown-toggle" data-toggle="dropdown" href="#">
@@ -623,9 +655,6 @@
      {% for episode in season.episodes|to_array|reverse %}
      <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
        {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
-
-       {# Titre programme #}
-
        <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
      </a></li>
      {% endfor %}
@@ -633,7 +662,7 @@
    </ul>
  </div>
  {% endif %}
- {% endif %}
+ {% endif %#}
 
 
 
@@ -748,10 +777,6 @@
 
 
 
-  
-
-
-
 
 <div class="row">
   {% for r in program.related if r.programs is defined and r.programs|to_array|length %}
@@ -794,7 +819,6 @@
 
 
 
-  
 
 
 
@@ -807,10 +831,5 @@
 </div>
 
 
-  </div>
-
-
-
-
-
-  {% endblock %}
+</div>
+{% endblock %}
