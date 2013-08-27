@@ -45,7 +45,7 @@
     <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">&larr; 30 préc.</a>
   </li>
   {% endif %}
-  {% if data.programs|length == 30 %}
+  {% if data.programs|to_array|length == 30 %}
   <li class="next">
     <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">30 suiv. &rarr;</a>
   </li>
@@ -53,12 +53,14 @@
 {% endif %}
 </ul>
 
+{#
 <ul class="pagination">
     <li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('channel', { slug: app.request.get('slug')}) }}">{{ 'nav.all'|trans }}</a></li>
   {% for l in data.alpha %}
     <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in data.alpha_available %} class="disabled"{% endif %}><a href="{{ path('channel_facet', {slug: app.request.get('slug'), facet: l}) }}">{{ l }}</a></li>
   {% endfor %}
 </ul>
+#}
 
 <div class="facets">
 {% if app.request.get('format') %}
