@@ -51,6 +51,7 @@
           <div class="carousel-inner">
           <div class="item active">
         {% for program in newArray %}
+        {% if nb_pages < 3 %}
              {% if custom_loop != 0 and custom_loop is divisibleby(6) %}
                 </div>
                 <div class="item">
@@ -64,24 +65,29 @@
             {% else %}
               {% set custom_loop = custom_loop + value3 %}
             {% endif %}
-        
+          {% endif %}
         {% endfor %}
         </div>
       </div>
         {% endif %}
         <!-- Indicators -->
+        
         <ol class="carousel-indicators">
+          {% if nb_pages > 1%}
           {% for i in 0..nb_pages %}
           <li data-target="#carousel-{{loop_index}}" data-slide-to="{{i}}" {% if i == 0 %}class="active"> {% endif %}</li>
           {% endfor %}
+          {% endif %}
         </ol>        
         <div class="wrap-carousel-control">
+          {% if nb_pages > 1%}
           <a class="left carousel-control" href="#carousel-{{loop_index}}" data-slide="prev">
               <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
             <a class="right carousel-control" href="#carousel-{{loop_index}}" data-slide="next">
               <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
+            {% endif %}
           </div>
         </div>
      </div>

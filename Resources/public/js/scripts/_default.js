@@ -76,7 +76,7 @@ $(document).ready(function(){
          var limit = parseInt(panel_synopsis.top) + parseInt($('.panel-synopsis').css('height')) - 365;
          var limit2 = limit - 80 ;
          if (st > lastScrollTop){
-           if ($(this).scrollTop() > playwrap_offset.top && $(this).scrollTop() < 3000 ) {
+           if ($(this).scrollTop() > playwrap_offset.top) {
          
                if($(this).scrollTop() >= limit ){
                  playwrap.removeClass("player-fixed-top");
