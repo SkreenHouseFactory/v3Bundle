@@ -115,7 +115,7 @@ $(document).ready(function(){
              playwrap.css('position','fixed');
            }
        
-           if($(this).scrollTop() <= 0){
+           if($(this).scrollTop() <= 5){
               playwrapsub.addClass('hide');
             playwrap.removeClass("player-fixed-top");
             playwrap.removeClass("player-fixed-top-1");
