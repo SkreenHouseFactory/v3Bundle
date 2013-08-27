@@ -37,14 +37,12 @@
 	  </ul>
 
 	  {% if vods|length > 6 %}
-	  <div class="pagination pagination-client-alpha">
-	    <ul>
-	        <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a href="javascript://">{{ 'nav.all'|trans }}</a></li>
-	      {% for l in alpha %}
-	        <li{% if app.request.get('alpha') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="javascript://">{{ l }}</a></li>
-	      {% endfor %}
-	    </ul>
-	  </div>
+    <ul class="pagination pagination-client-alpha">
+        <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a href="javascript://">{{ 'nav.all'|trans }}</a></li>
+      {% for l in alpha %}
+        <li{% if app.request.get('alpha') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="javascript://">{{ l }}</a></li>
+      {% endfor %}
+    </ul>
 	  {% endif %}
 		
 		<p class="alert alert-success">{{ vods|length }} vidéos à la demande. <br/><b>Astuce : </b> vous pouvez également utiliser le moteur de recherche pour retrouver un programme que vous avez loué.</p>

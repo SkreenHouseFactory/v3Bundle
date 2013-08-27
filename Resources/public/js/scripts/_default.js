@@ -204,6 +204,7 @@ $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
   UI.typeahead('#nav-search .search-query');
 
   // -- typeahead on keypress
+  /*
   $(document).on('keypress', function(e) {
     UI.startSearching(true);
   });
@@ -213,6 +214,7 @@ $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
   $('#nav-search .search-query').on('blur', function(e) {
     UI.endSearching();
   });
+  */
 
   // -- ui playlist
   $('#top-playlist').on('show', function () {

@@ -29,7 +29,7 @@
       {% if loop.index > 1 %}<hr/>{% endif %}
       <div id="theater-{{ t.id }}">
         <div class="pull-right">
-          <a class="btn" href="{{ path('any_url', {url: t.seo_url[1:t.seo_url|length-1]}) }}">Voir la programmation, y aller</a>&nbsp;
+          <a class="btn btn-default" href="{{ path('any_url', {url: t.seo_url[1:t.seo_url|length-1]}) }}">Films & horaires</a>&nbsp;
           {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: t.id, class: 'fav-cinema', remove: '#theater-{{ t.id }}', name: t.name , text: 'Ajouter à vos cinémas' } %}
         </div>
         <b>{{ t.name }}</b><br/>
