@@ -5,10 +5,7 @@
         {# LOGO ENTETE #}
         <a href="{{ path('homes', {home: ''}) }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" id="logo"></a>
         <ul class="nav navbar-nav">
-          <li>
-            <a href="{{ path('tvgrid') }}">TV &amp; Replay</a>
-            {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown-tv.html.twig' %}
-          </li>
+          <li><a href="{{ path('tvgrid') }}">TV &amp; Replay</a></li>
           {#<li><a href="#">WEB TV</a></li>#}
           <li><a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">VOD</a></li>
           <li><a href="{{ path('homes', {home: 'cinema'}) }}">En salles</a></li>
@@ -90,7 +87,6 @@
       </div>
     </div>
   </div>
-
 
   <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
     <div class="container playlist">
