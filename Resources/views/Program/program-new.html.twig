@@ -325,12 +325,14 @@
         {% endfor %}
       </ul>
       {% else %}
+       <ul id="episodes-list">
       {% for episode in program.episode_list|to_array %}
       <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
         {% if episode.dispo %}<span class="label label-default pull-right">{{ episode.dispo }}</span>{% endif%}
         <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
       </a></li>
       {% endfor %}
+      </ul>
       {% endif %}
     </div>
   </div>
