@@ -13,6 +13,21 @@
 <link rel="image_src" href="{{ data.channel.cover }}" />
 {% endif %}
 <meta name="object_type" content="channel" />
+
+{# seo canonical / prev / next #}
+{% if app.request.attributes.get('_route') == 'channel_page' %}
+  {% if data.channel.fournisseur.count > 30 and app.request.get('format') is null  %}
+    <link rel="canonical" href="{{ path('channel', {slug: app.request.get('slug')}) }}">
+    {% if app.request.get('page') > 2 %}
+    <link rel="prev" href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">
+    {% elseif app.request.get('page') == 2 %}
+    <link rel="prev" href="{{ path('channel', {slug: app.request.get('slug')}) }}">
+    {% endif %}
+    {% if data.channel.fournisseur.programs|to_array|length == 30 %}
+    <link rel="next" href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">
+    {% endif %}
+  {% endif %}
+{% endif %}
 {% endblock %}
 
 

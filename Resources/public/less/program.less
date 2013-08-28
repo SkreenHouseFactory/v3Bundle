@@ -11,6 +11,114 @@
 
 
 
+/* DESCRIPTIONS DE DROITE */
+
+a[itemprop="url"]{
+  &:hover{
+   color: @bluemaincolor;
+   text-decoration: none;
+ }
+ span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal{
+  color: #000000;
+  display: inline-block;
+  &:hover{
+   color: @bluemaincolor;
+   text-decoration: none;
+ }
+}
+}
+
+
+
+
+
+
+
+
+.label{
+  margin-right:3px;
+  display: inline-block;
+}
+
+
+.channel_link{
+  background:#778390;
+  margin-bottom: 20px;
+  text-align: center;
+  display: block;
+  padding: 1px;
+  .link-background-transition;
+}
+.channel_link:hover, .channel_link:active, .channel_link:focus,{
+  background:@bluemaincolor;
+}
+
+.channel_root{
+  width: 100%;
+  display: block;
+}
+.channel_texte{
+  font-size: 12px;
+  display: inline-block;
+  color: #fff;
+}
+
+
+
+
+
+.actors_reveal{
+  font-style:italic;
+}
+
+
+
+.ms-cat-title{
+  font-size: 11px;
+  display: block;
+  text-transform: uppercase;
+  margin: 20px 0px 2px 0px;
+}
+
+
+.ms-cat-program-title, 
+.ms-cat-program-title:hover, 
+.ms-cat-program-title:active, {
+  text-decoration: none;
+}
+.ms-cat-program-title h3{
+  text-decoration: none;
+  font-size: 18px;
+  color: @bluemaincolor;
+}
+
+.external-collapser {
+  i {
+    font-size: 12px;
+  }
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+
+
+
+.view-program_pere{
+  .navbar-fixed-top, .navbar-fixed-bottom {
+   position:absolute; 
+   &.ms-navbarfixed{
+    position:fixed;
+    top: 0px;
+    z-index: 15; 
+  }
+}
+}
+
+
+
+
+
 
 /* Page programme theme */
 #view-program {
@@ -60,6 +168,11 @@
         width: 100%;
 
         tr {
+          &:hover {
+            color: #c09853;
+            background-color: #fcf8e3;
+          }
+          
           td {
             padding-top: 8px;
             vertical-align: middle;
@@ -106,11 +219,15 @@
     z-index: 2;
     width: 100%;
     padding: 70px 27px 0;
-    .panel{
+    .panel {
       background: #FFF;
       margin: -15px;
       padding-bottom: 20px;
       .shadows-player-fly();
+      &.panel-external {
+        padding: 0;
+      }
+      
       .panel-heading{
         background: #F5F5F5;
         margin:0!important;
@@ -257,6 +374,7 @@
     float: right;
     margin-top: 20px;
     min-width: 140px;
+    height: 42px;
   }
 }
 
@@ -273,118 +391,5 @@
 }
 
 
-/* DESCRIPTIONS DE DROITE */
 
-a[itemprop="url"]{
-  &:hover{
-   color: @bluemaincolor;
-   text-decoration: none;
- }
- span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal{
-  color: #000000;
-  display: inline-block;
-  &:hover{
-   color: @bluemaincolor;
-   text-decoration: none;
- }
-}
-
-
-.actors_reveal{
-  font-style:italic;
-}
-.channel_link{
-  background:#778390;
-  margin-bottom: 20px;
-  text-align: center;
-  display: block;
-  padding: 1px;
-  .link-background-transition;
-}
-.channel_link:hover, .channel_link:active, .channel_link:focus,{
-  background:@bluemaincolor;
-}
-
-.channel_root{
-  width: 100%;
-  display: block;
-}
-.channel_texte{
-  font-size: 12px;
-  display: inline-block;
-  color: #fff;
-}
-
-
-
-
-
-
-.ms-cat-title{
-  font-size: 11px;
-  display: block;
-  text-transform: uppercase;
-  margin: 20px 0px 2px 0px;
-}
-
-
-.label{
-  margin-right:3px; 
-}
-  /*
-
-  .ms-cat-element{
-    font-size: 13px;
-    display: inline-block;
-    text-align:center; 
-    background: #778390;
-    padding: 3px;
-    margin: 2px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    color:#fff;
-  .link-background-transition;
-  }
-  .ms-cat-element:hover, .ms-cat-element:active, .ms-cat-element:focus{
-    background: @bluemaincolor;
-    color:#fff;
-    text-decoration: none;
-  }
-  */
-
-  .ms-cat-program-title, 
-  .ms-cat-program-title:hover, 
-  .ms-cat-program-title:active, {
-    text-decoration: none;
-  }
-  .ms-cat-program-title h3{
-    text-decoration: none;
-    font-size: 18px;
-    color: @bluemaincolor;
-  }
-
-  .external-collapser {
-    i {
-      font-size: 12px;
-    }
-    &:hover{
-      cursor: pointer;
-    }
-  }
-
-}
-}
-
-
-
-.view-program_pere{
-  .navbar-fixed-top, .navbar-fixed-bottom {
-   position:absolute; 
-   &.ms-navbarfixed{
-    position:fixed;
-    top: 0px;
-    z-index: 15; 
-  }
-}
 }
