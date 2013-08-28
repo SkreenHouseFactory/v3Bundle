@@ -205,7 +205,7 @@ UiView = {
       Couchmode.init(args);
       //hack close player
       if ($('#couchmode #couchmode-close').length == 0) {
-        $('#couchmode').prepend('<div id="couchmode-close"><i class="icon-remove icon-white"></i> Fermer</div>');
+        $('#couchmode').prepend('<div id="couchmode-close"><i class="glyphicon-remove glyphicon-white"></i> Fermer</div>');
       }
     });
     // -- remote data in html elmt
