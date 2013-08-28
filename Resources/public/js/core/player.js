@@ -11,7 +11,7 @@ function onPlayerReady(event) {
 // -- Player
 var Player;
 Player = {
-  config: {width: '100%', height: '100%'},
+  config: {width: '640px', height: '370px'},
   elmt: null,
   timeout: [],
   timeoutdelay: 2000,

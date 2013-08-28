@@ -220,6 +220,13 @@ class ProgramController extends Controller
         if ($data->teaser) {
           $data->player = $data->teaser;
 
+        } elseif (count($data->offers['replay']) > 0) {
+          foreach ($data->offers['replay'] as $o) {
+            if (isset($o->deporte) && $o->deporte && !$o->cost) {
+              $data->player = $o;
+              break;
+            }
+          }
         } elseif (count($data->offers['deporte']) > 0) {
           foreach ($data->offers['deporte'] as $o) {
             if (isset($o->deporte) && $o->deporte && !$o->cost) {
