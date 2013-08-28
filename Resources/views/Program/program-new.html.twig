@@ -567,46 +567,57 @@
                     </div>
 
 
-                    {% endfor %}
+      {% endfor %}
 
-                    {# Message alternatif, pas d'offre #}
+      {# Message alternatif, pas d'offre #}
+      {% if hasoffers == 2 %}
+      <div class="alert alert-success">
+        <h4><strong>{{ program.title }}</strong> n'est disponible sur aucune plateforme légale.</h4>
+        <p>Avec mySkreen, suivez ce programme pour être averti dès qu'il sera diffusé !</p>
+      </div>
+      {% endif %}
 
-                    {% if hasoffers == 2 %}
-                    <div class="alert alert-success">
-                      <h4> <b>Oops !</b> Désolé il n'existe pas de vidéo correspondant à <strong>{{ program.title }}</strong></h4>
-                      <br/>
-                      <h>Pouvons nous vous suggérer les catégories correspondantes ?</p>
-                        {% if program.format and program.categories|length | to_array %}
-                        <h5  class="ms-cat-title" >Catégories</h5> {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
-                        <br/>
-                        {% endif %}
-                      </div>
-                      {% endif %}
+      {# youtube / more streaming #}
+      <div id="program-more-streaming" class="panel" data-more-streaming="{{ program.id }}">
+        <div class="panel-heading"><h3 class="panel-title">Sur Youtube</h3></div>
+        <div class="tab-pane">
+          <div id="carousel-youtube" class="carousel slide">
+            <!-- Indicators -->
+             <ol class="carousel-indicators">
+               <li data-target="#carousel-youtube" data-slide-to="0" class="active"></li>
+               <li data-target="#carousel-youtube" data-slide-to="1"></li>
+               <li data-target="#carousel-youtube" data-slide-to="2"></li>
+             </ol>
+            <div class="carousel-inner"></div>
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-youtube" data-slide="prev">
+              <span class="icon-prev"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-youtube" data-slide="next">
+              <span class="icon-next"></span>
+            </a>
+          </div>
+        </div>
+      </div>
 
-                      {# description seo texte #}
+      {# description seo texte #}
+      <div class="panel panel-synopsis">
+        <div class="panel-heading"><h3 class="panel-title">Synopsis</h3></div>
+          <div class="tab-pane text-toggle-extend">
+            <div class="text show-more-height">
+              <h4>{{ program.title }}</h4> 
+              {{ program.description_seo|raw}}
+            </div>
+            {% if program.description_seo|raw|length > 560 %} <div class="show-more">...</div>{% endif %}
+          </div>
+        </div>
+      </div>
 
-                      <div class="panel panel-synopsis">
-                        <div class="panel-heading">Synopsis</div>
-                        <div class="tab-pane">
-                          <div class="text-toggle-extend"  >
-                            <div class="text show-more-height">
-                              <h4>{{ program.title }}</h4> 
-                              {{ program.description_seo|raw}}
-                            </div>
-
-                     {% if program.description_seo|raw|length > 560 %} <div class="show-more">...</div>{% endif %}
-
-                          </div></div>
-                        </div>
-                      </div>
-                    </div>
-
-
-</div>
-
-
+    </div>
+  </div>
 
   <div class="col-xs-5 ">
+
     {# social bar #}
     <div class="ms-social-bar">
       {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}

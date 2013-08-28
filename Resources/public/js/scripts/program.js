@@ -246,11 +246,9 @@ ProgramView = {
         var subscription_id = Skhf.session.datas.svods[k].pass.subscription_id;
         console.log('UI.loadProgramUsersDatas', 'svods found', '[data-play-pass="' + subscription_id + '"]' );
         if ($('[data-play-pass="' + subscription_id + '"]').length) {
-          $('[data-play-pass="' + subscription_id + '"] td.access').append(
-            '<span class="btn-block badge badge-warning inline remove-on-signout">'+
-            'Vous êtes abonné au Pass ' + 
-            '</span>'
-          );
+          $('[data-play-pass="' + subscription_id + '"] td .btn')
+            .addClass('btn-success')
+            .html('<i class="glyphicon glyphicon-play"></i> Abonné');
         }
       }
     }
@@ -272,14 +270,12 @@ ProgramView = {
           console.log('UI.loadProgramUsersDatas', 'datas.purchased ', datas.purchased);
           for (k in datas.purchased) {
             if( API.formatTimestamp(datas.purchased[k]) != 'undefined' ){
-              console.log('UI.loadProgramUsersDatas', 'purchased', '#program-offers [data-id="' + k + '"] td.access', $('#program-offers [data-id="' + k + '"] td.access'), k, API.formatTimestamp(datas.purchased[k]));
+              console.log('UI.loadProgramUsersDatas', 'purchased', '#program-offers [data-id="' + k + '"] td .btn', $('#program-offers [data-id="' + k + '"] td .btn'), k, API.formatTimestamp(datas.purchased[k]));
               $('#program-offers [data-id="' + k + '"]').each(function(){
                 if (typeof $(this).data('play-pass') == 'undefined') {
-                  $('td.access', this).append(
-                    '<span class="btn-block badge badge-warning inline remove-on-signout">'+
-                    'Dans vos vidéos à la demande'+
-                    '</span>'
-                  );
+                  $('td .btn', this)
+                    .addClass('btn-success')
+                    .html('<i class="glyphicon glyphicon-play"></i> Voir');
                 }
               })
             }
@@ -303,56 +299,57 @@ ProgramView = {
     });
   },
   loadMoreStreaming: function() {
-    if ($('carousel-youtube .carousel .item').length) {
-      return;
-    }
     //youtube
-    var trigger = $('#view-program [data-more-streaming]');
-    if ($('#carousel-youtube .item').length) {
-      $('#trigger-youtube').append(' (' + $('#carousel-youtube .item').length + ')');
-    } else if (trigger &&
-               trigger.data('more-streaming')) {
-      console.log('data-more-streaming', trigger);
-      var url = 'program/more-streaming/' + trigger.data('more-streaming') + '.json?nb_results=24';
-      API.query('GET',
-                url,
-                {nb_results: 24},
-                function(programs) {
-                  if (programs.length == 0 || typeof programs.length == 'undefined') {
-                    $('.carousel-youtube').remove();
-                    return;
-                  }
-                  //TODO : sort by duration ?
-                  console.log('more-streaming', ' callback', programs.length);
-                  $('#trigger-youtube').append(' (' + programs.length + ')');
-                  if ($('#triggers li').length == 1) {
-                    $('#trigger-youtube').trigger('click');
-                  }
-                  var container = $('#carousel-youtube .carousel-inner .item:first-child');
-                  var c_index = 0;
-                  var nb_page = 6;
-                  for (var i = 0; i < programs.length; i++) {
-                    //console.log('youtube callback', 'c_index:' + c_index, 'modulo:' + i%8, container);
-                    if (i%nb_page == 0) {
-                      c_index++;
-                      var item = $('<div class="item' + (i ==0 ? ' active' : '') + '"></div>')
-                      container = $('#carousel-youtube .carousel-inner').append(item);
-                    }
-                    item.append('<a href="#" data-couchmode=\'{"type": "remote", "id": "' + encodeURIComponent(url).replace(/'/g, '%27') + '", "hide_sliders": "1", "autoplay": "' + programs[i].id + '"}\' class="pull-left">' +
-                                '<span>' + programs[i].duration + ' min.</span>' +
-                                '<img class="img-polaroid" alt="' + programs[i].title + '" src="' + programs[i].picture + '" />' +
-                                '<div class="title">' + programs[i].title + '</div>' +
-                                '</a>');
-                  }
-                  if (programs.length > nb_page) {
-                    console.log('scripts/program.js', 'carousel youtube init', $('#carousel-youtube .carousel'));
-                    $('#carousel-youtube .carousel').removeClass('hide')
-                                                    .carousel({interval: 7000, pause: 'hover'})
-                                                    .carousel('cycle'); //{interval: 7000, pause: 'hover'}
-                    $('#carousel-youtube').append('<p class="alert alert-info">Ces extraits sont récupérés automatiquement sur Youtube notamment. Il se peut qu\'ils ne correspondent pas tout à fait au programme recherché et les sites référencés sont seuls responsables du contenu qu\'ils proposent.</p>');
-                  
-                  }  
-                });
+    var container = $('[data-more-streaming]');
+    if (container.length &&
+        container.data('more-streaming')) {
+      if ($('.carousel.carousel-youtube .item').length) {
+        console.log('data-more-streaming', 'already loaded');
+        return;
+      }
+
+      console.log('data-more-streaming', container);
+      var url = 'program/more-streaming/' + container.data('more-streaming') + '.json?nb_results=24';
+      API.query(
+        'GET',
+        url,
+        {nb_results: 24},
+        function(programs) {
+
+          if (programs.length == 0 || typeof programs.length == 'undefined') {
+            console.warn('data-more-streaming', 'no programs found');
+            container.remove();
+            return;
+          }
+          //TODO : sort by duration ?
+          console.log('more-streaming', ' callback', programs.length);
+          var carousel = $('.carousel-inner .item:first-child', container);
+          var c_index = 0;
+          var nb_page = 6;
+          for (var i = 0; i < programs.length; i++) {
+            //console.log('youtube callback', 'c_index:' + c_index, 'modulo:' + i%8, container);
+            if (i%nb_page == 0) {
+              c_index++;
+              var item = $('<div class="item' + (i ==0 ? ' active' : '') + '"></div>')
+              carousel = $('.carousel-inner', container).append(item);
+            }
+            item.append(
+              '<a href="#" data-couchmode=\'{"type": "remote", "id": "' + encodeURIComponent(url).replace(/'/g, '%27') + '", "hide_sliders": "1", "autoplay": "' + programs[i].id + '"}\' class="pull-left">' +
+              '<span>' + programs[i].duration + ' min.</span>' +
+              '<img class="img-polaroid" alt="' + programs[i].title + '" src="' + programs[i].picture + '" />' +
+              '<div class="title">' + programs[i].title + '</div>' +
+              '</a>'
+            );
+          }
+          if (programs.length > nb_page) {
+            console.log('scripts/program.js', 'carousel youtube init', $('#carousel-youtube .carousel'));
+            $('#carousel-youtube .carousel').removeClass('hide')
+                                            .carousel({interval: 7000, pause: 'hover'})
+                                            .carousel('cycle'); //{interval: 7000, pause: 'hover'}
+            $('#carousel-youtube').append('<p class="alert alert-info">Ces extraits sont récupérés automatiquement sur Youtube notamment. Il se peut qu\'ils ne correspondent pas tout à fait au programme recherché et les sites référencés sont seuls responsables du contenu qu\'ils proposent.</p>');
+
+          }  
+        });
     };
   }
 }
