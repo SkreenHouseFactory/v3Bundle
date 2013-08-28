@@ -325,12 +325,14 @@
         {% endfor %}
       </ul>
       {% else %}
+       <ul id="episodes-list">
       {% for episode in program.episode_list|to_array %}
       <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
         {% if episode.dispo %}<span class="label label-default pull-right">{{ episode.dispo }}</span>{% endif%}
         <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
       </a></li>
       {% endfor %}
+      </ul>
       {% endif %}
     </div>
   </div>
@@ -427,7 +429,7 @@
             {% if program.datas_theaters.theaters_ids|length > 0 %}
             <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
             {% if program.datas_theaters.theaters_ids|length > 9 %}
-            <form role="form"  class="form-search pull-left" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}" data-form-ajax="#theaters-list"  class="form-search pull-left">
+            <form role="form"  class="form-search pull-left col-xs-10" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}" data-form-ajax="#theaters-list" >
 
 
 
@@ -435,8 +437,8 @@
 
               <div class="input-group">
                 <input class="form-control" type="text" placeholder="{{ 'theaters.search.placeholder'|trans }}">
-                <div class="input-group-btn">
-                  <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i> {{ 'theaters.search.submit'|trans }}  </button>
+                <div class="input-group-btn col-xs-16">
+                  <button class="btn btn-primary " type="submit"><i class="glyphicon glyphicon-search"></i> {{ 'theaters.search.submit'|trans }}  </button>
                 </div>
               </div>
             </form>
@@ -602,11 +604,11 @@
                 {% endif %}
                 {% if attribute(program.offers, 'deporte')|to_array|length > 0 and key == 'external' %}
                 <a class="btn btn-default btn-reveal" data-toggle="collapse" href="#external" >
-                  <i class="glyphicon glyphicon-resize-vertical"></i>&nbsp;Fermer
+                  <i class="show-more" >...</i>&nbsp;Fermer
                 </a>
                 {% elseif btn_deploy_offers is defined and btn_deploy_offers > 3 %}
                 <button type="button" class="btn btn-default btn-reveal" data-toggle="collapse" data-target=".collapsing{{ loop.index }}" >
-                  <i class="glyphicon glyphicon-resize-vertical"></i>&nbsp;Voir les {{ attribute(program.offers, key)|to_array|length - 3 }} choix restants
+                  <i class="show-more" >...</i>&nbsp;Voir les {{ attribute(program.offers, key)|to_array|length - 3 }} choix restants
                 </button>
                 {% endif %}
               </div>
