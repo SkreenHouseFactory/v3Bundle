@@ -47,7 +47,7 @@
    {% set newArray = newArray|merge([slider_program]) %}
   {% endif %}
 {% endfor %}
-{% endif%}
+{% endif %}
 
 	<div class="col-xs-8 suggester" >
     <div class="suggestion"><div><a href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}"><span> {{ slider.title|striptags }}</span> </a>

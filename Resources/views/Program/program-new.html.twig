@@ -73,181 +73,12 @@
   {% endblock %}
 
   {% block content %}
-  <div id="view-program">
-    {# PLAYER #}
+  <div id="view-program" data-id="{{ program.id }}">
 
+  <section class="container scrollplayerzone">
 
-
-
-
-    <section class="container scrollplayerzone">
-
-{#
-     <div class="row">
-      <div class="col-xs-16" style="background:green;" >
-       <div style="background:red; height:30px;">
-       </div>
-     </div>
-   </div>
-
-
-
-
-
-
-
-
-
-
-
-   <div class="row">
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-   <div class="row">
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-    <div class="col-xs-1" style="background:green;">
-      <div style="background:red; height:30px;"></div>
-    </div>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="row">
-   <div class="col-xs-16" style="background:green;">
-    <div style="background:blue; height:30px;">
-
-    </div>
-  </div>
-</div>
-
-
-
-<div class="row">  
-  <div class="col-xs-10" style="background:green;">
-    <div style="background:blue; height:30px;"></div>
-  </div>
-  <div class="col-xs-5" style="background:green;">
-    <div style="background:red; height:30px;"></div>
-  </div>
-</div>
-
-
-#}
-
-<div class="row playwrapsub hide"></div>
-<div class="row playwrap ">
+  <div class="row playwrapsub hide"></div>
+  <div class="row playwrap ">
   <div class="col-xs-11 ">
     <div id="player"> 
       {% if program.player is defined and program.player %}
@@ -471,16 +302,16 @@
 
               <table class="offertable">
                 <tbody>
-                  {% for o in attribute(program.offers, key)|to_array %}
+                  {% for o in attribute(program.offers, key)|to_array if key == 'replay' or o.access_id != 2 %}
                   {% set btn_deploy_offers = btn_deploy_offers + 1 %}
                   {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
                   {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
                   {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
 
                   {% if o.episode_id is defined and 
-                  program.episodeof.id is defined and 
-                  o.episode_id != program.id and
-                  other_episodes != 'ok' %}
+                        program.episodeof.id is defined and 
+                        o.episode_id != program.id and
+                        other_episodes != 'ok' %}
                   <tr><td colspan="6"><h6>Autres épisodes</h6></td></tr>
 
                   {% set other_episodes = 'ok' %}
