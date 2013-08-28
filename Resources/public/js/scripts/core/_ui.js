@@ -130,8 +130,8 @@ UiView = {
     })
 
     // -- tooltip
-    if ($('[rel="tooltip"]').length > 0) {
-      $('[rel="tooltip"]').tooltip();
+    if ($('[data-toggle="tooltip"]').length > 0) {
+      $('[data-toggle="tooltip"]').tooltip();
     }
     
     // -- focus search
