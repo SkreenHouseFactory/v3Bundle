@@ -35,28 +35,36 @@
           {% set s = attribute(cinema.schedules, day) %}
           {% set hasVF = 0 %}
           {% set hasVO = 0 %}
+          {% for h in s.schedules|to_array %}
+          {% if h.version == "VO"%}
+          {% set hasVO = 1%}
+          {% endif %}
+          {% if h.version == "VF"%}
+          {% set hasVF = 1%}
+          {% endif %}
+          {% endfor %}
           <tr>
             <th>{{ day }}</th>
             <td>
+              {% if hasVO == 1%}
+              <span class="label label-default">VO</span>
               {% for h in s.schedules|to_array %}
               {% if h.version == "VO"%}
-              {% set hasVO = 1%}
-              {{ h.hour }}
-              {% if h.version %}<span class="label label-default"> {{ h.version }}</span> &nbsp;
-              {% endif %}
-              {% else %}
-              {% set hasVF = 1 %}
+              {{ h.hour }}&nbsp;
               {% endif %}
               {% endfor %}
+              {% endif %}
               {% if hasVF == 1 and hasVO == 1 %}
             </br>
               {% endif %}
+              {% if hasVF == 1%}
+              <span class="label label-default">VF</span>
               {% for h in s.schedules|to_array %}
               {% if h.version == "VF"%}
-              {{ h.hour }}
-              {% if h.version %}<span class="label label-default"> {{ h.version }}</span> &nbsp;{% endif %}
-              {% endif%}
+              {{ h.hour }}&nbsp;
+              {% endif %}
               {% endfor %}
+              {% endif%}
             </td>
             
           </tr>
