@@ -59,7 +59,7 @@ class TimelineController extends Controller
         'with_player' => true,
         'time' => time()
       ));
-      echo $api->url;
+      //echo $api->url;
       //print("<pre>");print_r($data->sliders);exit();
 
       // post treatment
