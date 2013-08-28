@@ -82,20 +82,20 @@
 	<div class="facets">
   {% if 'format' in app.request.get('_route') and categories|length > 1 %}
   	{% for k,s in categories %}
-  		<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'}) }}" class="label{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a>
+  		<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'}) }}" class="label {% if app.request.get('facet') == k %}label-info{% else %}label-default{% endif %}">{{ s }}</a>
   	{% endfor %}
   {% elseif app.request.get('facet') or  app.request.get('access') %}
     {% for k,s in facet_access if k|replace({'video-a-la-demande': 'vod', 'replay': 'catchup'}) in access %}
       {% if k not in facet_access|keys or app.request.get('facet') %}
-  		<a href="{{ path('category_facet_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), access: k})|replace({'//':'/'}) }}" class="label{% if app.request.get('access') == k %} label-warning"{% endif %}">
+  		<a href="{{ path('category_facet_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), access: k})|replace({'//':'/'}) }}" class="label {% if app.request.get('access') == k %}label-warning{% else %}label-default{% endif %}">
       {% else %}
-  		<a href="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: k})|replace({'//':'/'}) }}" class="label{% if app.request.get('access') == k %} label-warning"{% endif %}">
+  		<a href="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: k})|replace({'//':'/'}) }}" class="label {% if app.request.get('access') == k %}label-warning{% else %}label-default{% endif %}">
       {% endif %}
         {{ s }}</a>
   	{% endfor %}
   {% else %}
   	{% for k,s in subcategories %}
-  		<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'}) }}" class="label{% if app.request.get('facet') == k %} label-info"{% endif %}">
+  		<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'}) }}" class="label {% if app.request.get('facet') == k %}label-info{% else %}label-default{% endif %}">
         {{ s }}</a>
   	{% endfor %}
 	{% endif %}

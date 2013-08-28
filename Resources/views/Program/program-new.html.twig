@@ -497,6 +497,8 @@
                                  
                                  {% if o.cost is defined and o.cost %}
                                  <div class="rent">{{ o_access.name }}</div>
+                                 {% elseif o_access.name in ['Live', 'TV'] %}
+                                 <div class="rent"><time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time></div>
                                  {% endif %}
                                  
                                  <div>
@@ -533,7 +535,7 @@
                                <td class="offers">
                                  {% if o_access.name in ['Live', 'TV'] %}
                                  <a class="btn btn-default">
-                                  <i class="glyphicon glyphicon-calendar"></i>&nbsp;<time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
+                                  <i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier
                                 </a>
                                 {% else %}
                                 <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;{{ o.cost > 0 ? 'Voir, ' ~ o.cost|number_format(2, ',') ~ '€' : 'Voir maintenant' }}</button>
