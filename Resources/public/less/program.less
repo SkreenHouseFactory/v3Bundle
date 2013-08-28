@@ -307,8 +307,18 @@ a[itemprop="url"]{
   height: 368px;
 }
 .playwrap {
-  #program-teaser-player iframe {
-    background: black;
+  #program-teaser {
+    height: 100%;
+    width: 100%;
+    #program-teaser-player {
+      height: 100%;
+      width: 100%;
+      iframe {
+        background: black;
+        height: 100%;
+        width: 100%;
+      }
+    }
   }
 }
 .fly-shadows{
@@ -321,7 +331,7 @@ a[itemprop="url"]{
   .transition-shadows();
 }
 
-#player{
+#player {
   height: 368px; 
   .shadows-player-land();
   .transition-shadows();

@@ -708,7 +708,7 @@
         <h5 class="ms-cat-title" >{{ 'presented.by'|trans }}</h5> 
         {% for pers in program.presenter | to_array  %}
         <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
-          <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
+          <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.presenter|to_array|length %},&nbsp;{% endif %}</a> 
         </div>
         {% endfor %}<br/>
         {% endif %}
