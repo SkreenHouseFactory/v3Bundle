@@ -24,8 +24,7 @@
     {% if cinema.adress is defined and cinema.schedules is defined %}
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="btn btn-xs btn-default pull-right" href="{{path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1)}) }}">Voir ce cinéma</a>
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, class: 'fav-cinema fav-remove btn-xs pull-right', name: cinema.name, text: 'Ajouter à vos cinémas'} %}
+        <a class="btn btn-xs btn-default pull-right" href="{{path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1)}) }}">Films & horaires'</a>
         <a class="accordion-toggle bold" data-toggle="collapse" data-parent="#accordion-theaters" href="#theater-{{ cinema.id }}">{{ cinema.name }} <i class="glyphicon glyphicon-resize-vertical hover hover-fade"></i></a>
         {% if cinema.distance is defined %}<div class="grey">distance : environ {{ cinema.distance < 1 ? (cinema.distance*100)|number_format ~'m' : cinema.distance|number_format(1) ~ 'km' }}</div>{% endif %}
       </div>
@@ -70,6 +69,10 @@
           </tr>
         {% endfor %}
         </table>
+        <hr/>
+        <p>
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, class: 'fav-cinema fav-remove btn-xs', name: cinema.name, text: 'Ajouter ' ~ cinema.name ~ 'à vos cinémas'} %}
+        </p>
       </div>
     </div>
     {% endif %}
