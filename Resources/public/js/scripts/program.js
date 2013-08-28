@@ -327,14 +327,14 @@ ProgramView = {
           var c_index = 0;
           var nb_page = 6;
           for (var i = 0; i < programs.length; i++) {
-            //console.log('youtube callback', 'c_index:' + c_index, 'modulo:' + i%8, container);
+            //console.log('youtube callback', 'c_index:' + c_index, 'modulo:' + i%8, programs[i]);
             if (i%nb_page == 0) {
               c_index++;
               var item = $('<div class="item' + (i ==0 ? ' active' : '') + '"></div>')
               carousel = $('.carousel-inner', container).append(item);
             }
             item.append(
-              '<a href="#" data-couchmode=\'{"type": "remote", "id": "' + encodeURIComponent(url).replace(/'/g, '%27') + '", "hide_sliders": "1", "autoplay": "' + programs[i].id + '"}\' class="pull-left">' +
+              '<a data-play-iframe="http://www.youtube.com/embed/' + encodeURIComponent(programs[i].id) + '" class="pull-left">' +
               '<span>' + programs[i].duration + ' min.</span>' +
               '<img class="img-polaroid" alt="' + programs[i].title + '" src="' + programs[i].picture + '" />' +
               '<div class="title">' + programs[i].title + '</div>' +

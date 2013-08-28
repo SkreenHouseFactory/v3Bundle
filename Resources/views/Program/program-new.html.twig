@@ -573,7 +573,7 @@
       {% if hasoffers == 2 %}
       <div class="alert alert-success">
         <h4><strong>{{ program.title }}</strong> n'est disponible sur aucune plateforme légale.</h4>
-        <p>Avec mySkreen, suivez ce programme pour être averti dès qu'il sera diffusé !</p>
+        <p>Avec mySkreen, suivez ce programme pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !</p>
       </div>
       {% endif %}
 
@@ -781,7 +781,7 @@
 {% if program.related.channels is defined and
   program.related.channels.programs is defined and
   program.related.channels.programs|to_array|length %}
-  <span class="ms-cat-title">Pages liées</span>
+  <span class="ms-cat-title">Retrouvez ce programme ici :</span>
   {% for r in program.related.channels.programs|to_array %}
   <a class="channel_link" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}">
     <span class="channel_texte">{{ r.title ~ ', la chaîne' }}</span>
