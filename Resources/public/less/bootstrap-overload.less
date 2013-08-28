@@ -117,3 +117,45 @@
     margin-bottom: 0;
     margin-top: 0; 
 }
+
+
+
+
+
+
+
+
+
+// MODIFICATIONS POUR LE MODAL
+
+
+
+@media (min-width: 1200px) { 
+  .modal{
+    width: 800px;
+    margin-left: -400px;
+    left: 50%;
+  }
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+  .modal{
+    width: 760px;
+    margin-left: -380px;
+    left: 50%;
+
+  }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { ... }
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  .modal{
+    width: 460px;
+    margin-left: -230px;
+    left: 50%;
+  }
+}
