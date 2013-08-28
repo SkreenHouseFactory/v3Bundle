@@ -40,7 +40,7 @@
 {% endfor %}
 
 	<div class="col-xs-8 suggester" >
-    <div class="suggestion"><div><a href="{{ path('any_url', {url: slider.seo_url[1:slider.seo_url|length-1]}) }}"><span> {{ slider.title|striptags }}</span> </a>
+    <div class="suggestion"><div><a href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}"><span> {{ slider.title|striptags }}</span> </a>
       <!--	<button type="button" class="btn btn-primary btn-xs">voir +</button> -->
       </div> </div>
       <div id="carousel-{{loop_index}}"  data-interval="false" class="carousel slide new-slider">
