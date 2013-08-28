@@ -94,7 +94,7 @@ $(document).ready(function(){
                playwrapsub.removeClass('hide');
                $('#player').addClass('fly-shadows');
                $('#affiche').addClass('fly-shadows')
-               nav.slideUp( 300 );
+               nav.slideUp( 200 );
            } 
            else {
                nav.removeClass('ms-navbarfixed');
@@ -107,7 +107,7 @@ $(document).ready(function(){
                $('#affiche').removeClass('fly-shadows');
            }
            if( $('.playwrap').css('position') == "fixed" && parseInt($('.playwrap').css('top')) == 80  ){
-                  $('.playwrap').animate({top:"-=80"},300);
+                  $('.playwrap').animate({top:"-=80"},200);
                }
            
         }else if(st< lastScrollTop_2) {
@@ -119,9 +119,9 @@ $(document).ready(function(){
             }
              playwrap.css('position','fixed');
 
-             nav.slideDown( 300 );
+             nav.slideDown( 200 );
             if( parseInt($('.playwrap').css('top')) == 0 && $('.playwrap').css('position') == "fixed"){
-              $('.playwrap').animate({top:"+=80"},300);
+              $('.playwrap').animate({top:"+=80"},200);
             }
            }
 
@@ -134,9 +134,9 @@ $(document).ready(function(){
             playwrap.css('position','');
             $('#player').removeClass('fly-shadows');
             $('#affiche').removeClass('fly-shadows')
-            nav.slideDown( 300 );
+            nav.slideDown( 200 );
             if( parseInt($('.playwrap').css('top')) == 0 && $('.playwrap').css('position') == "fixed"){
-              $('.playwrap').animate({top:"+=80"},300);
+              $('.playwrap').animate({top:"+=80"},200);
             }
            }
            
