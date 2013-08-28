@@ -39,6 +39,16 @@
   {% endif %}
 {% endfor %}
 
+{% if loop_index == 3 or loop_index == 4%}
+{% for slider_program in slider.programs | to_array %}
+  {% if slider_program.sliderPicture is defined %}
+   {% set newArray = [slider_program]|merge(newArray) %}
+  {% else %}
+   {% set newArray = newArray|merge([slider_program]) %}
+  {% endif %}
+{% endfor %}
+{% endif%}
+
 	<div class="col-xs-8 suggester" >
     <div class="suggestion"><div><a href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}"><span> {{ slider.title|striptags }}</span> </a>
       <!--	<button type="button" class="btn btn-primary btn-xs">voir +</button> -->

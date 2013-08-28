@@ -429,7 +429,7 @@
             {% if program.datas_theaters.theaters_ids|length > 0 %}
             <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
             {% if program.datas_theaters.theaters_ids|length > 9 %}
-            <form role="form"  class="form-search pull-left" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}" data-form-ajax="#theaters-list"  class="form-search pull-left">
+            <form role="form"  class="form-search pull-left col-xs-10" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}" data-form-ajax="#theaters-list" >
 
 
 
@@ -437,8 +437,8 @@
 
               <div class="input-group">
                 <input class="form-control" type="text" placeholder="{{ 'theaters.search.placeholder'|trans }}">
-                <div class="input-group-btn">
-                  <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i> {{ 'theaters.search.submit'|trans }}  </button>
+                <div class="input-group-btn col-xs-16">
+                  <button class="btn btn-primary " type="submit"><i class="glyphicon glyphicon-search"></i> {{ 'theaters.search.submit'|trans }}  </button>
                 </div>
               </div>
             </form>
@@ -464,6 +464,7 @@
                   <hr/>
                   {% endif %}
                   {% endif %}
+
                   {% if program.datas_theaters.theaters_on_demand|length %}
                   {% for o in program.datas_theaters.theaters_on_demand %}
                   <p align="center"><a target="_blank" href="{{ attribute(o, 'url') }}"><img class="img-polaroid" src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema.png') }}" alt="ilikecinema" /></a></p>
@@ -493,7 +494,7 @@
                       {% set other_episodes = 'ok' %}
 
                       {% endif %}
-                      <tr class="{% if loop.index > 3 and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}collapse collapsing{{ variabledeboucle }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %}>
+                      <tr class="{% if loop.index > 3 and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}collapse collapsing{{ variabledeboucle }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %}>
                         <td class="channel">
                           <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}">
                         </td>
@@ -507,17 +508,6 @@
 
 
 
-                         <div class="infos">
-
-                          
-                         </div>
-                       </td>
-
-
-                       <td class="price big">
-                         {% if o.cost is defined and o.cost %}
-                         <div class="rent">{{ o_access.name }}</div>
-                         {% endif %}
                          {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}
                          {% if o_episode.season_number is defined or 
                          o_episode.episode_number is defined or 
@@ -536,6 +526,18 @@
                            {% endif %}
                          </div>
 
+                       </td>
+
+
+                       <td class="price big">
+                         {% if o.cost is defined and o.cost %}
+                         <div class="rent">{{ o_access.name }}</div>
+                         {% elseif o_access.name in ['Live', 'TV'] %}
+                         <div class="rent">
+                           <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
+                         </div>
+                         {% endif %}
+
 
                          {% if o.deporte is defined and o.deporte and o.versions is defined %}
 
@@ -549,9 +551,6 @@
                            {% if o.tags.HD is defined %}
                            <span class="">HD</span>
                            {% endif %}
-
-
-
 
                            {% if o.tags.format is defined %}
                            {{ o.tags.format }}
@@ -571,7 +570,7 @@
                        <td class="offers">
                          {% if o_access.name in ['Live', 'TV'] %}
                          <a class="btn btn-default">
-                          <i class="glyphicon glyphicon-calendar"></i>&nbsp;<time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
+                          <i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier
                         </a>
                         {% else %}
                         <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;{{ o.cost > 0 ? 'Voir, ' ~ o.cost|number_format(2, ',') ~ '€' : 'Voir maintenant' }}</button>

@@ -69,8 +69,9 @@ $(document).ready(function(){
   var playwrap = $('.playwrap');
   var playwrap_offset = $('.playwrap').offset();
   var playwrapsub = $('.playwrapsub');
-  if( !$('html').hasClass('touch') && $('body').hasClass('view-program_pere')){
+  if( !$('html').hasClass('touch') && $('#program-teaser-header').html() != "Publicité" && ($('body').hasClass('view-program_pere') || $('body').hasClass('view-program_fils_saison'))  ){
       $(window).scroll(function(event){
+        if ( !$('#program-episodes').hasClass('in')){
          var st = $(this).scrollTop();
          var panel_synopsis= $('.panel-synopsis').offset();
          var limit = parseInt(panel_synopsis.top) + parseInt($('.panel-synopsis').css('height')) - 365;
@@ -148,6 +149,7 @@ $(document).ready(function(){
          }
          lastScrollTop = st;
          lastScrollTop_2 = st - 10;
+       }
       });
     }
     
