@@ -16,7 +16,7 @@
 
 {% block content %}
 <div id="view-search" class="container">
-  <h1>{{ app.request.get('q') }}</h1>
+  
 
   {% if results.person is defined  and results.person %}
   <p class="actions" data-id="{{ results.person.id }}">
@@ -30,13 +30,12 @@
   {% if results.count is not defined or 
         results.count.total is not defined %}
     {% if results.count is defined %}
-      <p class="alert alert-info">{{ results.count }} {{ 'search.results'|trans }}</p>
+      <h1>{{ app.request.get('q') }}<small class="inline"> | {{ results.count }} {{ 'search.results'|trans }}</small></h1>
       {% if results.spelling|to_array|length %}
-      <p class="lead">Vouliez-vous dire : 
-      {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}
-        </p>
+      <p>Vouliez-vous dire : {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}</p>
       {% endif %}
     {% else %}
+      <h1>{{ app.request.get('q') }}</h1>
       <p class="alert">{{ 'search.noresults'|trans }}</p>
       {% if results.spelling and results.spelling|to_array|length %}
       <p class="lead">Vouliez-vous dire : 
@@ -49,18 +48,14 @@
 
   {% else %}
     {% if results.count.total %}
-      <p class="alert alert-info">{{ results.count.total }} {{ 'search.results'|trans }}</p>
-      {% if results.spelling|length %}
-      <p class="lead">Vouliez-vous dire : 
-      {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}
-        </p>
+      <h1>{{ app.request.get('q') }}<small class="inline"> | {{ results.count.total }} {{ 'search.results'|trans }}</small></h1>
+      {% if results.spelling|to_array|length %}
+      <p>Vouliez-vous dire : {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}</p>
       {% endif %}
     {% else %}
       <p class="alert">{{ 'search.noresults'|trans }}</p>
-      {% if results.spelling|length %}
-      <p class="lead">Vouliez-vous dire : 
-      {% for spelling in results.spelling %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}
-        </p>
+      {% if results.spelling|to_array|length %}
+      <p>Vouliez-vous dire : {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}</p>
       {% endif %}
     {% endif %}
 
@@ -78,12 +73,14 @@
     {% for key,val in keys %}
       {% if attribute(results.count,key) %}
       {% set nb = attribute(results.count,key) %}
-    <li{% if hasActiveTabYet == false %} class="active"{% set hasActiveTabYet = key %}{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ val }} <span>{{ nb }}</span></a></li>
+    <li{% if hasActiveTabYet == false %} class="active"{% set hasActiveTabYet = key %}{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ val }}<span>|{{ nb }}</span></a></li>
     {% endif %}
     {% endfor %}
         <li class="pull-right"><a href="#youtube" id="trigger-youtube" data-toggle="tab">YouTube</a></li>
     </ul>
 
+    <br/>
+    <br/>
     <div class="tab-content">
     {% for key,val in keys %}
     <div id="{{ key }}" class="tab-pane{% if hasActiveTabYet == key %} active{% endif %}">

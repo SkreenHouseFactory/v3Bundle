@@ -4,7 +4,7 @@
 Session_sync_args =  { 'with_svod': 1 };
 
 $(document).ready(function(){
-  if ($('#view-program, #view-program_pere').length) {
+  if ($('#view-program').length) {
 
     //////////// CALLBACKS ////////////////
     // -- session sync

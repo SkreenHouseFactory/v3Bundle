@@ -25,16 +25,20 @@
 }
 
 .btn-voir {
-  background: @bluesecondarycolor;
-  border: @bluesecondarycolor;
   color: #FFFFFF;
   min-width: 140px;
   .link-background-transition;
   
   &:hover {
+    color: #FFFFFF;
+  }
+}
+.btn-voir:not(.btn-success) {
+  background: @bluesecondarycolor;
+  border: @bluesecondarycolor;
+  &:hover {
     background: @bluemaincolor;
     border: @bluemaincolor;
-    color: #FFFFFF;
   }
 }
 

@@ -85,6 +85,13 @@
   <article>
     <div id="main">
       <div id="content" class="uiview-update">
+        
+        {% set nav = app.request.attributes.get('_route') in ['tvgrid', 'tvgrid_date'] ? 'tv' : app.request.get('home')  %}
+        {% if nav in ['cinema', 'video-a-la-demande', 'tv'] %}
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: nav} %}
+        {% endif %}
+        
+        
         {% block content %}
         {% endblock %}
       </div>
@@ -95,11 +102,11 @@
     </div>
   </article>
 
-  {% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {'q':app.request.get('q') ? app.request.get('q') : null })) %}
-  {#% include 'SkreenHouseFactoryV3Bundle:Main:_header-nav.html.twig' %#}
+  {% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {
+    q: app.request.get('q') ? app.request.get('q') : null, 
+  })) %}
   {% block header_filters %}
   {% endblock %}
-
 
   <footer>
     <div id="footer">

@@ -26,13 +26,15 @@
 {% block body_class %}view-fournisseur{% endblock %}
 
 {% block content %}
-<div id="view-fournisseur" data-id="{{ channel.id }}" class="container">
+<div id="view-fournisseur" data-id="{{ channel.id }}" class="container container-fournisseur-{{ channel.type }}">
 
   {#<div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ channel.seo_url, text: 'Je regarde ' ~ channel.name ~ ' sur mySkreen et vous ?' } %}</div>#}
+
 
   <div class="row">
     <div class="col-xs-16">
       {% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: channel} %}
+
     </div>
   </div>
   <div class="row">
@@ -71,7 +73,7 @@
         {# suivre #}
         {% if channel.type in ['webcast','cinema'] %}
         <div class="pull-right">
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'fav-' ~ (channel.type == 'broadcast' ? 'epg' : 'cinema') } %}
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'fav-' ~ (channel.type == 'broadcast' ? 'epg' : 'cinema'), text: channel.type == 'epg' ? 'Ajouter à votre programme TV' : 'Ajoutez à vos cinémas' } %}
         </div>
         {% endif %}
       </div>

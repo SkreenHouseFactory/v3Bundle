@@ -5,9 +5,13 @@
 .navbar{
   background:rgba(255,255,255,0.75);
   border-bottom: 1px solid #d2d2d2;
-  text-shadow: 1px 1px 1px #ffffff;
-  filter: dropshadow(color=#ffffff, offx=1, offy=1);
+
   min-height: 60px;
+
+ .nav.navbar-nav, .nav.nav-playlists{    text-shadow: 1px 1px 1px #ffffff;
+  filter: dropshadow(color=#ffffff, offx=1, offy=1);
+}
+
   .navbar-nav {
     margin-right: 57px;
     > li > a {
@@ -41,11 +45,11 @@
   }
 
   .headertoprighticons{
-    float:right;
-    padding-top: 12px;
-    width: 235px;
+    position: absolute;
     top: 0;
     right: 0;
+    padding-top: 12px;
+    width: 240px;
     text-align: right;
     height: 63px;
     text-shadow: none;
@@ -468,14 +472,13 @@
 }
 #playlist{
 
-
   .label.label-inverse{
     width:150px;
     height: 40px;
     margin-top: 0;
     background: rgba(0,0,0,0.8);
-
   }
+
   .badge.badge-important{
     margin-left: -35px;
     margin-top: 168px;
@@ -486,9 +489,9 @@
     height: 241px;
     background-position: bottom;
   }
+
   &.slider{
     height: 270px;
   }
-
 
 }
