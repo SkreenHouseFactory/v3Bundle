@@ -185,6 +185,15 @@ UiView = {
       API.play($(this).data('play'), $(this).data('play-args'), $(this).data('play-pass'));
       return false;
     });
+    // -- player iframe
+    $(elmt).on('click', '[data-play-iframe]', function(){
+      console.log('script', 'data-play-iframe', $(this).data('play-iframe'), Player.state);
+      iframe = $('iframe', Player.elmt);
+      if (iframe.length) {
+        iframe.attr('src', $(this).data('play-iframe'));
+      }
+      return false;
+    });
     // -- couchmode
     $(elmt).on('click', '[data-couchmode]', function(){
       if (Player.state == 'playing') {

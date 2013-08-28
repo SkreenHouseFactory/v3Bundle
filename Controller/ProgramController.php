@@ -219,8 +219,8 @@ class ProgramController extends Controller
         if ($data->teaser) {
           $data->player = $data->teaser;
 
-        }/* elseif (count($data->offers['plays']) > 0) {
-          foreach ($data->offers['plays'] as $o) {
+        } elseif (count($data->offers['deporte']) > 0) {
+          foreach ($data->offers['deporte'] as $o) {
             if (isset($o->deporte) && $o->deporte && !$o->cost) {
               $data->player = $o;
               break;
@@ -244,7 +244,7 @@ class ProgramController extends Controller
               break;
             }
           }
-        }*/
+        }
         //load related programs
         $data->related = (array)$data->related;
         $data->selections = (array)$data->selections;
