@@ -301,29 +301,35 @@
 <div id="program-episodes" class="row collapse">
   <div class="panel">
     <div class="panel-heading"><h3 class="panel-title">Tous les épisodes</h3><a data-target="#program-episodes" data-toggle="collapse" class="btn btn-default block"><i class="glyphicon glyphicon-remove"></i></a>
-</div>
+    </div>
     <div class="tab-pane">
 
       {% if program.seasons is defined %}
-      <ul class="nav nav-pills">
-      <li class="ms-nav-pills-saisons">Saison <i class="glyphicon glyphicon-play"></i></li>
-        {% for season in program.seasons|to_array %}
-        <li{{ loop.last ? ' class="active"' : '' }}><a data-season="{{ season.number }}">{{ season.number }}</a></li>
-        {% endfor %}
-      </ul>
+        <ul class="nav nav-pills">
+          <li class="ms-nav-pills-saisons">Saison <i class="glyphicon glyphicon-play"></i></li>
+          {% for season in program.seasons|to_array %}
+          <li{{ loop.last ? ' class="active"' : '' }}><a data-season="{{ season.number }}">{{ season.number }}</a></li>
+          {% endfor %}
+        </ul>
 
-
-      <ul id="episodes-list">
-        {% for season in program.seasons|to_array %}
-        {% set loop_season = loop %}
-        {% for episode in season.episodes|to_array|reverse %}
-        <li class="season-{{ season.number }} {{ loop_season.last ? 'in' : 'hide' }}"><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
+        <ul id="episodes-list">
+          {% for season in program.seasons|to_array %}
+          {% set loop_season = loop %}
+          {% for episode in season.episodes|to_array|reverse %}
+          <li class="season-{{ season.number }} {{ loop_season.last ? 'in' : 'hide' }}"><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
+            {% if episode.dispo %}<span class="label label-default pull-right">{{ episode.dispo }}</span>{% endif%}
+            <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
+          </a></li>
+          {% endfor %}
+          {% endfor %}
+        </ul>
+      {% else %}
+        {% for episode in program.episode_list|to_array %}
+        <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
           {% if episode.dispo %}<span class="label label-default pull-right">{{ episode.dispo }}</span>{% endif%}
           <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
         </a></li>
         {% endfor %}
-        {% endfor %}
-      </ul>
       {% endif %}
     </div>
   </div>
@@ -368,31 +374,31 @@
                       <div id="program-offers" class="tab-content">
                         {# subscriptions #}
                         {% if program.subscriptions is defined and 
-                        program.subscriptions|to_array|length %}
-                        {% for s in program.subscriptions|to_array %}
-                        <div class="panel panel-info">
-                         <div class="panel-heading">
-                           <h3 class="panel-title">Pass</h3>
-                         </div>
-                         <table class="table table-hover" data-id="{{ s.pass.play }}" data-play="{{ s.pass.play }}" data-play-pass="{{ s.id }}" data-play-args="{&quot;hide_sliders&quot;:1}">
-                          <tbody>
-                            <tr>
-                              <td class="channel">
-                                <img src="http://mskstatic.com/65/medias/ico/chaines/pluzz-vad_medium.png" alt="pluzz VAD Streaming">
-                              </td>
-                              <td class="episode">
-                                <b>{{ s.name }}</b><br/>
-                                {{ s.description }}
-                              </td>
-                              <td class="price big">{{ s.pass.price }}€</td>
-                              <td>
-                                <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-check"></i>&nbsp;S'abonner maintenant</button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      {% endfor %}
+                              program.subscriptions|to_array|length %}
+                          {% for s in program.subscriptions|to_array %}
+                          <div class="panel panel-info">
+                           <div class="panel-heading">
+                             <h3 class="panel-title">Pass</h3>
+                           </div>
+                           <table class="table table-hover" data-id="{{ s.pass.play }}" data-play="{{ s.pass.play }}" data-play-pass="{{ s.id }}" data-play-args="{&quot;hide_sliders&quot;:1}">
+                            <tbody>
+                              <tr>
+                                <td class="channel">
+                                  <img src="http://mskstatic.com/65/medias/ico/chaines/pluzz-vad_medium.png" alt="pluzz VAD Streaming">
+                                </td>
+                                <td class="episode">
+                                  <b>{{ s.name }}</b><br/>
+                                  {{ s.description }}
+                                </td>
+                                <td class="price big">{{ s.pass.price }}€</td>
+                                <td>
+                                  <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-check"></i>&nbsp;S'abonner maintenant</button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        {% endfor %}
                       {% endif %}
 
                       {# offres #}
@@ -473,7 +479,8 @@
 
                               {% set other_episodes = 'ok' %}
                               {% endif %}
-                              <tr class="{% if loop.index > 3 %}collapse collapsing{{ variabledeboucle }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %}>
+
+                             <tr class="{% if loop.index > 3 and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}collapse collapsing{{ variabledeboucle }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" {% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %}>
                                 <td class="channel">
                                   <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}">
                                 </td>
@@ -495,6 +502,8 @@
                                  
                                  {% if o.cost is defined and o.cost %}
                                  <div class="rent">{{ o_access.name }}</div>
+                                 {% elseif o_access.name in ['Live', 'TV'] %}
+                                 <div class="rent"><time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time></div>
                                  {% endif %}
                                  
                                  <div>
@@ -531,7 +540,7 @@
                                <td class="offers">
                                  {% if o_access.name in ['Live', 'TV'] %}
                                  <a class="btn btn-default">
-                                  <i class="glyphicon glyphicon-calendar"></i>&nbsp;<time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
+                                  <i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier
                                 </a>
                                 {% else %}
                                 <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;{{ o.cost > 0 ? 'Voir, ' ~ o.cost|number_format(2, ',') ~ '€' : 'Voir maintenant' }}</button>
@@ -566,44 +575,58 @@
                     </div>
 
 
-                    {% endfor %}
 
-                    {# Message alternatif, pas d'offre #}
+      {% endfor %}
 
-                    {% if hasoffers == 2 %}
-                    <div class="alert alert-success">
-                      <h4> <b>Oops !</b> Désolé il n'existe pas de vidéo correspondant à <strong>{{ program.title }}</strong></h4>
-                      <br/>
-                      <h>Pouvons nous vous suggérer les catégories correspondantes ?</p>
-                        {% if program.format and program.categories|length | to_array %}
-                        <h5  class="ms-cat-title" >Catégories</h5> {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
-                        <br/>
-                        {% endif %}
-                      </div>
-                      {% endif %}
+      {# Message alternatif, pas d'offre #}
+      {% if hasoffers == 2 %}
+      <div class="alert alert-success">
+        <h4><strong>{{ program.title }}</strong> n'est disponible sur aucune plateforme légale.</h4>
+        <p>Avec mySkreen, suivez ce programme pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !</p>
+      </div>
+      {% endif %}
 
-                      {# description seo texte #}
+      {# youtube / more streaming #}
+      <div id="program-more-streaming" class="panel" data-more-streaming="{{ program.id }}">
+        <div class="panel-heading"><h3 class="panel-title">Sur Youtube</h3></div>
+        <div class="tab-pane">
+          <div id="carousel-youtube" class="carousel slide">
+            <!-- Indicators -->
+             <ol class="carousel-indicators">
+               <li data-target="#carousel-youtube" data-slide-to="0" class="active"></li>
+               <li data-target="#carousel-youtube" data-slide-to="1"></li>
+               <li data-target="#carousel-youtube" data-slide-to="2"></li>
+             </ol>
+            <div class="carousel-inner"></div>
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-youtube" data-slide="prev">
+              <span class="icon-prev"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-youtube" data-slide="next">
+              <span class="icon-next"></span>
+            </a>
+          </div>
+        </div>
+      </div>
 
-                      <div class="panel panel-synopsis">
-                        <div class="panel-heading">Synopsis</div>
-                        <div class="tab-pane">
-                          <div class="text-toggle-extend"  >
-                            <div class="text show-more-height">
-                              <h4>{{ program.title }}</h4> 
-                              {{ program.description_seo|raw}}
-                            </div>
-                            <div class="show-more"><i class="glyphicon glyphicon-resize-vertical"></i></div>
-                          </div></div>
-                        </div>
-                      </div>
-                    </div>
+      {# description seo texte #}
+      <div class="panel panel-synopsis">
+        <div class="panel-heading"><h3 class="panel-title">Synopsis</h3></div>
+          <div class="tab-pane text-toggle-extend">
+            <div class="text show-more-height">
+              <h4>{{ program.title }}</h4> 
+              {{ program.description_seo|raw}}
+            </div>
+            {% if program.description_seo|raw|length > 560 %} <div class="show-more">...</div>{% endif %}
+          </div>
+        </div>
+      </div>
 
-
-</div>
-
-
+    </div>
+  </div>
 
   <div class="col-xs-5 ">
+
     {# social bar #}
     <div class="ms-social-bar">
       {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}
@@ -701,7 +724,7 @@
         <h5 class="ms-cat-title" >{{ 'presented.by'|trans }}</h5> 
         {% for pers in program.presenter | to_array  %}
         <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
-          <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
+          <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.presenter|to_array|length %},&nbsp;{% endif %}</a> 
         </div>
         {% endfor %}<br/>
         {% endif %}
@@ -768,7 +791,7 @@
 {% if program.related.channels is defined and
   program.related.channels.programs is defined and
   program.related.channels.programs|to_array|length %}
-  <span class="ms-cat-title">Pages liées</span>
+  <span class="ms-cat-title">Retrouvez ce programme ici :</span>
   {% for r in program.related.channels.programs|to_array %}
   <a class="channel_link" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}">
     <span class="channel_texte">{{ r.title ~ ', la chaîne' }}</span>
