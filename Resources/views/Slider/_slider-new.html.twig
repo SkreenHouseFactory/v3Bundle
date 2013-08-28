@@ -5,7 +5,6 @@
 
 
 
-<!-- définit la forme des carousels avec loop_index: le numéro du carousel  -->
 {% if loop_index == 1 %}
 {% set value1 = 0 %}
 {% set value2 = 4 %}
@@ -32,7 +31,6 @@
 {% set value3 = 1 %}
 {% endif %}
 
-<!-- Réorganise les programmes en fonction de la taille des images   -->
 {% for slider_program in slider.programs | to_array %}
   {% if slider_program.maxsize.width|number_format < 270 and slider_program.maxsize.height|number_format < 380 %}
     {% set newArray = newArray|merge([slider_program]) %}
@@ -42,7 +40,7 @@
 {% endfor %}
 
 	<div class="col-xs-8 suggester" >
-    <div class="suggestion"><div><span> {{ slider.title|striptags }}</span> 
+    <div class="suggestion"><div><a href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}"><span> {{ slider.title|striptags }}</span> </a>
       <!--	<button type="button" class="btn btn-primary btn-xs">voir +</button> -->
       </div> </div>
       <div id="carousel-{{loop_index}}"  data-interval="false" class="carousel slide new-slider">
