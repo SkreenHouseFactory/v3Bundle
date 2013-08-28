@@ -152,8 +152,9 @@
       {% for l in alpha %}
         {% if app.request.get('format') %}
         <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="{{ path('channel_format_facet', {slug: app.request.get('slug'), facet: l, format: app.request.get('format')}) }}">{{ l }}</a></li>
-        {% else %}
+        {#% else %}
         <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="{{ path('channel_facet', {slug: app.request.get('slug'), facet: l}) }}">{{ l }}</a></li>
+        #}
         {% endif %}
       {% endfor %}
     </ul>
