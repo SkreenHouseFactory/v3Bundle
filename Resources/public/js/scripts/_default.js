@@ -150,7 +150,7 @@ $(document).ready(function(){
          lastScrollTop_2 = st - 10;
       });
     }
-
+    
 
 
 $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
