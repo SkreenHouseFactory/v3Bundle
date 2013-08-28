@@ -86,7 +86,6 @@ $(document).ready(function(){
            
                }
                else{
-                 playwrap.css('top', '');
                  playwrap.css('position','');
                  nav.removeClass('ms-navbarfixed');
                  playwrap.removeClass("player-fixed-top-1");
@@ -95,6 +94,7 @@ $(document).ready(function(){
                playwrapsub.removeClass('hide');
                $('#player').addClass('fly-shadows');
                $('#affiche').addClass('fly-shadows')
+               nav.slideUp( 300 );
            } 
            else {
                nav.removeClass('ms-navbarfixed');
@@ -105,17 +105,28 @@ $(document).ready(function(){
                playwrapsub.addClass('hide');
                $('#player').removeClass('fly-shadows');
                $('#affiche').removeClass('fly-shadows');
-         
            }
+           if( $('.playwrap').css('position') == "fixed" && parseInt($('.playwrap').css('top')) == 80  ){
+                  $('.playwrap').animate({top:"-=80"},300);
+               }
+           
         }else if(st< lastScrollTop_2) {
       
-           if( $(this).scrollTop() > playwrap_offset.top && $(this).scrollTop() < limit2 ){
+           if( $(this).scrollTop() > playwrap_offset.top && $(this).scrollTop() <= limit2 ){
              playwrap.addClass("player-fixed-top");
-             playwrap.css('top', '80px');
+             if(playwrap.css('position') == 'absolute'){
+              playwrap.css('top',80);
+            }
              playwrap.css('position','fixed');
+
+             nav.slideDown( 300 );
+            if( parseInt($('.playwrap').css('top')) == 0 && $('.playwrap').css('position') == "fixed"){
+              $('.playwrap').animate({top:"+=80"},300);
+            }
            }
+
        
-           if($(this).scrollTop() <= 5){
+           else if($(this).scrollTop() <= 5){
               playwrapsub.addClass('hide');
             playwrap.removeClass("player-fixed-top");
             playwrap.removeClass("player-fixed-top-1");
@@ -123,14 +134,20 @@ $(document).ready(function(){
             playwrap.css('position','');
             $('#player').removeClass('fly-shadows');
             $('#affiche').removeClass('fly-shadows')
+            nav.slideDown( 300 );
+            if( parseInt($('.playwrap').css('top')) == 0 && $('.playwrap').css('position') == "fixed"){
+              $('.playwrap').animate({top:"+=80"},300);
+            }
            }
-       
+           
            nav.addClass('ms-navbarfixed');
+
         
             // upscroll code
+            
          }
          lastScrollTop = st;
-         lastScrollTop_2 = st - 5;
+         lastScrollTop_2 = st - 10;
       });
     }
 

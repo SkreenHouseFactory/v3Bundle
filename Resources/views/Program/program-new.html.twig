@@ -303,15 +303,14 @@
     <div class="panel-heading"><h3 class="panel-title">Tous les épisodes</h3><a data-target="#program-episodes" data-toggle="collapse" class="btn btn-default block"><i class="glyphicon glyphicon-remove"></i></a>
 </div>
     <div class="tab-pane">
+
       {% if program.seasons is defined %}
-      {% if program.seasons|to_array|first.number != '(autres)' %}
       <ul class="nav nav-pills">
       <li class="ms-nav-pills-saisons">Saison <i class="glyphicon glyphicon-play"></i></li>
         {% for season in program.seasons|to_array %}
         <li{{ loop.last ? ' class="active"' : '' }}><a data-season="{{ season.number }}">{{ season.number }}</a></li>
         {% endfor %}
       </ul>
-      {% endif %}
 
 
       <ul id="episodes-list">
@@ -402,10 +401,15 @@
                       {% set hasoffers = 1  %}
                       {% set variabledeboucle = loop.index  %}
 
-                      <div class="panel panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : '' }}">
+                      <div class="panel{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : '' }}">
                         <div class="panel-heading dong" >
-                          <h3 class="panel-title{% if key == 'external' and program.offers['deporte']|to_array|length %} external-collapser pointer{% endif %}"{% if key == 'external' and program.offers['deporte']|to_array|length %} data-toggle="collapse"{% endif %} href="#{{ key }}">
-                          {{ offers[key] }}
+                          <h3 class="panel-title{% if key == 'external' and program.offers['deporte']|to_array|length %}
+                          external-collapser  
+                          {% endif %} "
+                          {% if key == 'external' and program.offers['deporte']|to_array|length %}
+                          data-toggle="collapse"
+                          {% endif %} 
+                          href="#{{ key }}">{{ offers[key] }}
                           {% if key == 'external' and program.offers['deporte']|to_array|length %} 
                           <i class="glyphicon glyphicon-chevron-down"></i>
                           {% endif %}
@@ -469,7 +473,7 @@
 
                               {% set other_episodes = 'ok' %}
                               {% endif %}
-                              <tr class="{% if loop.index > 3 and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}collapse collapsing{{ variabledeboucle }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %}>
+                              <tr class="{% if loop.index > 3 %}collapse collapsing{{ variabledeboucle }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %}>
                                 <td class="channel">
                                   <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}">
                                 </td>
@@ -551,15 +555,10 @@
                           </tbody>
                         </table>
                         {% endif %}
-                        {% if attribute(program.offers, 'deporte')|to_array|length > 0 and key == 'external' %}
-                        <a class="btn btn-default btn-reveal" data-toggle="collapse" href="#external" >
-                          <i class="glyphicon glyphicon-resize-vertical"></i>&nbsp;Fermer
-                        </a>
-                        {% elseif btn_deploy_offers is defined and btn_deploy_offers > 3 %}
+                        {% if btn_deploy_offers is defined and btn_deploy_offers > 3 %}
                         <button type="button" class="btn btn-default btn-reveal" data-toggle="collapse" data-target=".collapsing{{ loop.index }}" >
                           <i class="glyphicon glyphicon-resize-vertical"></i>&nbsp;Voir les {{ attribute(program.offers, key)|to_array|length - 3 }} choix restants
-                        </button>
-                        {% endif %}
+                        </button>{% endif %}
                       </div>
                       {% endif %}
                     </div>
@@ -593,9 +592,7 @@
                               <h4>{{ program.title }}</h4> 
                               {{ program.description_seo|raw}}
                             </div>
-
-                     {% if program.description_seo|raw|length > 560 %} <div class="show-more">...</div>{% endif %}
-
+                            <div class="show-more"><i class="glyphicon glyphicon-resize-vertical"></i></div>
                           </div></div>
                         </div>
                       </div>
@@ -673,14 +670,21 @@
 
 
 
-<div class="ms-vid-type">
-  {{ program.format.name }}, {{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}
-</div>
+
+
+
+
+
+
+
+<div class="ms-vid-type">{{ program.format.name }}, {{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}</div>
+
 
 <div class="inner">
+
   <div id="program-casting" class="scroll">
     {% if program.director|to_array %}
-    <h5 class="ms-cat-title" ><strong>{{ 'directed.by'|trans }}</strong></h5>
+    <h5 class="ms-cat-title" >{{ 'directed.by'|trans }}</h5>
     {% for pers in program.director|to_array %}
     <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
       <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.director|to_array|length %},&nbsp;{% endif %}</a> 
@@ -744,12 +748,10 @@
       </div>
       {% endfor %}
       {% endif %}
-
- 
-
-
     </div>
-     <br/>
+  </div>
+
+
   {# categories #}
   {% if program.format and program.categories|length | to_array %}
   {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>&nbsp;{% endfor %}
@@ -758,10 +760,6 @@
   {% if program.format and program.subcategories|to_array|length %}
   {% for c in program.subcategories | to_array  %}<a  class="label label-default"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>&nbsp;{% endfor %}
   {% endif %}
-  </div>
-
-
-
 
 
 
