@@ -731,6 +731,7 @@
 <div class="inner">
 
   <div id="program-casting" class="scroll">
+
     {% if program.director|to_array %}
     <h5 class="ms-cat-title" >{{ 'directed.by'|trans }}</h5>
     {% for pers in program.director|to_array %}
@@ -739,13 +740,15 @@
     </div>
     {% endfor %}
     {% endif %}
+
     {% if program.presenter is defined and program.presenter|to_array|length %}
     <h5 class="ms-cat-title" >{{ 'presented.by'|trans }}</h5> 
     {% for pers in program.presenter | to_array  %}
     <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
       <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.presenter|to_array|length %},&nbsp;{% endif %}</a> 
     </div>
-    {% endfor %}<br/>
+    {% endfor %}
+    <br/>
     {% endif %}
 
     {% if program.casting|to_array %}
@@ -760,32 +763,24 @@
      <a class="actors_reveal" data-toggle-text="&laquo; retour">
        et {{ program.casting|to_array|length - 5 }} autre{% if program.casting|to_array|length > 6 %}s{% endif %}  acteur{% if program.casting|to_array|length > 6 %}s{% endif %}...</a>
      </div>
-     {% endif %}
-
-     <br/>
-     {% endif %}
+    {% endif %}
+    {% endif %}
 
      {% if program.editor|to_array  %}
      <h5 class="ms-cat-title" >{{ 'editors'|trans }}</h5>
      {% for pers in program.editor | to_array %}
      <div class="inline" itemprop="editor" itemscope itemtype="http://schema.org/Person">
       {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
-      {% if pers.programmes is defined and (pers.programmes|to_array|length > 1) %}
-      <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
-
-      <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
-      {% endfor %}<span style="color:#005580"> ) </span>
-      {% endif %}
     </div>
     {% endfor %}
     {% endif %}
-
   </div>
 </div>
 
 
 {# categories #}
 {% if program.format and program.categories|length | to_array %}
+<br/>
 {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>&nbsp;{% endfor %}
 <br/>
 {% endif %}
