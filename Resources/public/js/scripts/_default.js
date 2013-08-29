@@ -153,7 +153,26 @@ $(document).ready(function(){
       });
     }
     
+// new header nav bar
 
+  $("dropdown").on('click', function(e){
+    if($(this) && !$(this).hasClass('open')){  
+      $(this).addClass('open');
+      e.preventDefault();
+      e.stopPropagation();
+    }    
+  });
+
+  $('.navbar-nav >li').on('mouseover',function(){
+      self = $(this);
+      $('.hover-menu', self).removeClass('hide');
+    
+  });
+  $('.navbar-nav >li').on('mouseout',function(){
+      self = $(this);
+      $('.hover-menu', self).addClass('hide');
+    
+  });
 
 $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
     //notifications
@@ -196,15 +215,7 @@ $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
     API.publishPlaylist($(this).data('publish') == 'remove' ? true : false);
     return false;
   });
-  // new header nav bar
-
-  $("dropdown").on('click', function(e){
-    if($(this) && !$(this).hasClass('open')){  
-      $(this).addClass('open');
-      e.preventDefault();
-      e.stopPropagation();
-    }    
-  });
+  
   // -- ui form
   $('.navbar form.navbar-search i.icon-search').on('click', function(){
     $('.navbar form.navbar-search').submit();
