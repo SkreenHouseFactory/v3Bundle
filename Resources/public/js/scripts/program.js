@@ -355,27 +355,16 @@ ProgramView = {
 }
 
 //ui text show more
-$('.show-more').click(function () {
+$('.show-more').on('click', function () {
   var $this = $(this);
-  $(".text", $(this).parent()).toggleClass("show-more-height");
+  $('.text', $(this).parent()).toggleClass('show-more-height');
 });
 
 /* Déplier la liste des acteurs */
 
-$(".actors_reveal").click(function () {
-  $(".actors_entrop").toggleClass("hide");
-
-  /* 
-  var $actors_rvl_txt = $this.text(); 
-
-
-  if ( $actors_rvl_txt == $actors_alternate) {
-    var $actors_alternate = "Réduire";
-    $this.text() = $actors_alternate;
-  } else {
-    $this.text() = $actors_rvl_txt;
-
-  }
-
-  */
+$('.actors_reveal').on('click', function () {
+  var text = $(this).text();
+  $(this).text($(this).data('toggle-text'));
+  $(this).data('toggle-text', text);
+  $('.actors_entrop').toggleClass('hide');
 });

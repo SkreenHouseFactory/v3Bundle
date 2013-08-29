@@ -736,13 +736,7 @@
     <h5 class="ms-cat-title" >{{ 'directed.by'|trans }}</h5>
     {% for pers in program.director|to_array %}
     <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
-      <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.director|to_array|length %},&nbsp;{% endif %}</a> 
-          {#% if pers.programmes is defined and (pers.programmes|to_array|length > 1) %}
-          <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
-          
-          <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
-          {% endfor %}<span style="color:#005580"> ) </span>
-          {% endif %#}
+      <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.director|to_array|length %},&nbsp;{% endif %}</a>
         </div>
         {% endfor %}
         {% endif %}
@@ -760,23 +754,12 @@
         {% for pers in program.casting|to_array  %}
         <div class="inline {% if loop.index > 5 %} actors_entrop hide{% endif %}" itemprop="actor" itemscope itemtype="http://schema.org/Person">
           {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
-
-
-
-          {#% if pers.main_programs is defined and (pers.main_programs > 1) %}
-          <span style="color:#005580"> ( </span>{% for prog in pers.main_programs if prog.id != program.id  %}
-          
-          <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
-          {% endfor %}<span style="color:#005580"> ) </span>
-          {% endif %#}
-
-
         </div>
         {% endfor %} 
         {% if program.casting|to_array|length > 5 %}
         <div class="block">
-         <a class="actors_reveal" style="font-style:italic;">et {{ program.casting|to_array|length - 5 }} autre{% if program.casting|to_array|length > 6 %}s{% endif %}  acteur{% if program.casting|to_array|length > 6 %}s{% endif %}... </a>
-
+         <a class="actors_reveal" data-toggle-text="&laquo; retour">
+           et {{ program.casting|to_array|length - 5 }} autre{% if program.casting|to_array|length > 6 %}s{% endif %}  acteur{% if program.casting|to_array|length > 6 %}s{% endif %}...</a>
        </div>
        {% endif %}
 

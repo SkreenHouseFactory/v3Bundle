@@ -302,6 +302,8 @@ class ProgramController extends Controller
             'theater' => 'Au cinéma (horaires et salles)',
             'itunes' => 'Télécharger sur iTunes',
             'external' => 'sur les plateformes de location partenaires', 
+            'bonus' => 'Bonus',
+            'cut' => 'Extraits',
             'archive' => 'Archives'
           ),
           'player_host' => $api->host
