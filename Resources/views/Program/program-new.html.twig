@@ -77,6 +77,175 @@
 
   <section class="container scrollplayerzone">
 
+{#
+
+
+
+<div class="row">
+<div class="col-xs-16" style="background:green;" >
+<div style="background:red; height:30px;">
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+<div class="col-xs-16" style="background:green;">
+<div style="background:blue; height:30px;">
+
+</div>
+</div>
+</div>
+
+
+
+<div class="row">
+<div class="col-xs-10" style="background:green;">
+<div style="background:blue; height:30px;"></div>
+</div>
+<div class="col-xs-6" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+</div>
+
+
+
+#}
+
+
   <div class="row playwrapsub hide"></div>
   <div class="row playwrap" style="width: 970px;">
   <div class="col-xs-11">
@@ -102,6 +271,10 @@
         </div>
       </div>
       {% else %}
+
+
+
+
       <div class="ms-playertitle">
         <h2 id="program-teaser-header">Publicité</h2>
       </div>
@@ -657,7 +830,13 @@
 
 
 
-<div class="row">
+
+
+
+
+
+
+<div>
   {% for r in program.related if r.programs is defined and r.programs|to_array|length %}
   {% if r.name == 'same_actors' and program.casting %}
             {#
