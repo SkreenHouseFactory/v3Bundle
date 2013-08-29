@@ -643,8 +643,10 @@
           <div class="panel-heading"><h3 class="panel-title">Synopsis</h3></div>
           <div class="tab-pane text-toggle-extend">
             <div class="text show-more-height">
+            <div class="gradient-hide"></div> 
               <h4>{{ program.title }}</h4> 
               {{ program.description_seo|raw}}
+
             </div>
             {% if program.description_seo|raw|length > 560 %} <div class="show-more">...</div>{% endif %}
           </div>
