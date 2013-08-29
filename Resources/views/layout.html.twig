@@ -115,8 +115,14 @@
 <div id="fb-root"></div>
 <span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
 
-{% if block('noscripts') is empty %}
-{% javascripts
+
+  
+
+  <script src="https://raw.github.com/douglascrockford/JSON-js/master/json2.js"></script>
+
+
+  {% if block('noscripts') is empty %}
+  {% javascripts
   '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.10.2.min.js'
   '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
   '@SkreenHouseFactoryV3Bundle/Resources/public/bootstrap/dist/js/bootstrap.js'

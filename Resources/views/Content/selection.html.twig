@@ -55,7 +55,6 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
   <h1>{{ selection.name|raw }}</h1>
   <div id="selection-related">
   {#<a class="btn btn-large btn-inverse btn-block trigger-tv" href="#" data-couchmode="{{ {'type': 'pack', 'id': selection.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
-  <br/>
   
   <ul class="list-group">
     {% if selection.onglet.type != 'page' %}
@@ -76,7 +75,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
     {% endfor %}
     </ul>
   </div>
-  <div class="clear">{{ selection.description|raw }}</div>
+  <div class="clear jumbotron">{{ selection.description|raw }}</div>
   
 </div>
 {% endblock %}

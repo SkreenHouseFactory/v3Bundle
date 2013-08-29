@@ -7,17 +7,25 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
 <div id="view-page" class="container channel{{ channel.id }}">
   <div class="row">
     <div class="col-xs-16">
-  {% for slider in data.sliders|to_array if slider.id is defined %}
+      {% for slider in data.sliders|to_array if slider.id is defined %}
     
-    {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index:loop.index} %}
-  {% endfor %}
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index:loop.index} %}
+      {% endfor %}
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-16">
+      <br/>
+      <br/>
+      <div class="well">
+      {% if channel.personne is defined and channel.personne %}
+      <p class="description">{{ channel.personne.description|raw }}</p>
+      {% elseif channel.text is defined and channel.text %}
+      <p class="description">{{ channel.text|raw }}</p>
+      {% endif %}
+      </div>
     </div>
   </div>
 </div>
-  <br />
-  {% if channel.personne is defined and channel.personne %}
-  <p class="description">{{ channel.personne.description|raw }}</p>
-  {% elseif channel.text is defined and channel.text %}
-  <p class="description">{{ channel.text|raw }}</p>
-  {% endif %}
 </div>

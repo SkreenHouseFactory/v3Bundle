@@ -26,22 +26,21 @@
 
   {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: person.id, class: 'btn-big pull-right fav-person'} %}
   
-  <h1>{{ person.name }}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
+  <h1>{{ person.name }}{% if app.request.get('page') %} <small class="inline">| page {{ app.request.get('page') }}</small>{% endif %}</h1>
 
   <div class="view-person-main">
-    <p class="description">{{ person.description|raw }}</p>
+    <div class="description jumbotron">
+        {{ person.description|raw }}
+    </div>
   </div>
-
-
-  <hr/>
-  <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ person.seo_url, text: 'Je regarde tout ' ~ person.name ~ ' sur mySkreen et vous ?' } %}</div>
-
   <br/>
-  <h3>Ses programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
+  <hr/>
+  {#
+  <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ person.seo_url, text: 'Je regarde tout ' ~ person.name ~ ' sur mySkreen et vous ?' } %}</div>#}
 
-
+  
   {% if person.programs|length == 30 or app.request.get('page') > 1 %}
-  <ul class="pager">
+  <ul class="pager pull-right">
     {% if app.request.get('page') > 2 %}
     <li class="previous">
       <a href="{{ path('person_page', {type: app.request.get('type'), id: app.request.get('id'), slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">&larr; 30 précédents</a>
@@ -56,6 +55,7 @@
     </li>
   </ul>
   {% endif %}
+  <h2>Ses programmes</h2>
 
   {% if person.programs|length == 0 and app.request.get('page') < 2 %}
   <p class="alert alert-info">Aucun programme n'est disponible.</p>

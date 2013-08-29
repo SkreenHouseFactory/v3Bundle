@@ -75,7 +75,7 @@
   {% block content %}
   <div id="view-program" data-id="{{ program.id }}">
 
-    <section class="container scrollplayerzone">
+    <div class="container scrollplayerzone">
 
 {#
 
@@ -493,7 +493,7 @@
                   {% set other_episodes = 'ok' %}
 
                   {% endif %}
-                  <tr class="{% if loop.index > 3 and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}collapse collapsing{{ variabledeboucle }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1, width: 550, height: 360}|json_encode }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %}>
+                  <tr class="{% if loop.index > 3 and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}collapse collapsing-{{ key }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1, width: 550, height: 360}|json_encode }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %}>
                     <td class="channel">
                       <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}">
                     </td>
@@ -562,11 +562,6 @@
                     {% else %}
                     <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;{{ o.cost > 0 ? 'Voir, ' ~ o.cost|number_format(2, ',') ~ '€' : 'Voir maintenant' }}</button>
                     {% endif %}
-
-
-                    <span class="ms-vidoption">
-
-                    </span>
                     <br/>
                     {% if o_access.name == 'TV' %}
                     {% if key == 'plays'  %}
@@ -593,7 +588,7 @@
               <i class="show-more" >...</i>&nbsp;Fermer
             </a>
             {% elseif btn_deploy_offers is defined and btn_deploy_offers > 3 %}
-            <button type="button" class="btn btn-default btn-reveal" data-toggle="collapse" data-target=".collapsing{{ loop.index }}" >
+            <button type="button" class="btn btn-default btn-reveal" data-toggle="collapse" data-target=".collapsing-{{ key }}" data-toggle-text="&laquo; Fermer">
               <i class="show-more" >...</i>&nbsp;Voir les {{ attribute(program.offers, key)|to_array|length - 3 }} choix restants
             </button>
             {% endif %}
@@ -731,6 +726,7 @@
 <div class="inner">
 
   <div id="program-casting" class="scroll">
+
     {% if program.director|to_array %}
     <h5 class="ms-cat-title" >{{ 'directed.by'|trans }}</h5>
     {% for pers in program.director|to_array %}
@@ -739,13 +735,15 @@
     </div>
     {% endfor %}
     {% endif %}
+
     {% if program.presenter is defined and program.presenter|to_array|length %}
     <h5 class="ms-cat-title" >{{ 'presented.by'|trans }}</h5> 
     {% for pers in program.presenter | to_array  %}
     <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
       <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.presenter|to_array|length %},&nbsp;{% endif %}</a> 
     </div>
-    {% endfor %}<br/>
+    {% endfor %}
+    <br/>
     {% endif %}
 
     {% if program.casting|to_array %}
@@ -760,32 +758,24 @@
      <a class="actors_reveal" data-toggle-text="&laquo; retour">
        et {{ program.casting|to_array|length - 5 }} autre{% if program.casting|to_array|length > 6 %}s{% endif %}  acteur{% if program.casting|to_array|length > 6 %}s{% endif %}...</a>
      </div>
-     {% endif %}
-
-     <br/>
-     {% endif %}
+    {% endif %}
+    {% endif %}
 
      {% if program.editor|to_array  %}
      <h5 class="ms-cat-title" >{{ 'editors'|trans }}</h5>
      {% for pers in program.editor | to_array %}
      <div class="inline" itemprop="editor" itemscope itemtype="http://schema.org/Person">
       {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
-      {% if pers.programmes is defined and (pers.programmes|to_array|length > 1) %}
-      <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
-
-      <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
-      {% endfor %}<span style="color:#005580"> ) </span>
-      {% endif %}
     </div>
     {% endfor %}
     {% endif %}
-
   </div>
 </div>
 
 
 {# categories #}
 {% if program.format and program.categories|length | to_array %}
+<br/>
 {% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>&nbsp;{% endfor %}
 <br/>
 {% endif %}
@@ -864,7 +854,7 @@
 
 
 
-</section>
+</div>
 
 </div>
 

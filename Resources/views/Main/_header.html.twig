@@ -25,7 +25,7 @@
             <span class="toprigthicons-square ms-notificon"  data-toggle="dropdown" >
               <span  class="toprigthicons-nbr notifications-count" ></span>
             </span>
-            <span class="toprighticons-label toprighticons-notifications uppercase">Notifications</span>
+            {#<span class="toprighticons-label toprighticons-notifications uppercase">Notifications</span>#}
 
             <ul id="dropdown-menu-notification" class="dropdown-menu">
               <span class="notification-filter"></span>
@@ -35,9 +35,9 @@
           </li>
           <li class="user-off playlists">
             <a class="auth user-off" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même playlist !">
-             <span class="toprigthicons-square ms-usericon">
+             {#<span class="toprigthicons-square ms-usericon">
               <span  class="toprigthicons-nbr glyphicon glyphicon-user"></span>
-            </span>
+            </span>#}
             <span class="toprighticons-label toprighticons-user">Se connecter</span>
           </a>
         </li>
@@ -45,10 +45,10 @@
         {# MA PLAYLIST / MES FAVORIS #}
         <li class="hide user-on playlists">
           <a data-toggle="collapse" data-target="#top-playlist" class="tv-component">
-            <span class="toprigthicons-square ms-playlisticon">
+            {#<span class="toprigthicons-square ms-playlisticon">
               <span  class="toprigthicons-nbr glyphicon glyphicon-star"></span>
-            </span>
-            <span class="toprighticons-label toprighticons-playlist">favoris </span>
+            </span>#}
+            <span class="toprighticons-label toprighticons-playlist">Mes playlists</span>
           </a>
         </li>
 
@@ -58,7 +58,7 @@
             <span class="toprigthicons-square ms-usericon">
               <span  class="toprigthicons-nbr glyphicon glyphicon-user"></span>
             </span>
-            <span class="toprighticons-label toprighticons-user">Philibert</span></a>
+            {#<span class="toprighticons-label toprighticons-user">Philibert</span></a>#}
             <ul class="dropdown-menu">
               <li class="nav-header user-email"></li>
               <li class="fb-placeholder hide"><div id="fbconnect"><img src="{{ asset('bundles/skreenhousefactoryv3/images/fb-connect.png') }}" style="width: 180px;height: 32px;margin-left: 20px;cursor: pointer"/></div></li>

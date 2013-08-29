@@ -124,7 +124,8 @@ class MainController extends Controller
         'with_pass' => true,
         'slider_width' => 1500,
         'slider_height' => 450,
-        'with_img_maxsize'=>true
+        'with_img_maxsize'=> true,
+        'channel_img_width' => 50
       ));
       //echo $api->url;exit;
       //print_r($datas);

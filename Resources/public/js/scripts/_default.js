@@ -113,17 +113,11 @@ $(document).ready(function(){
            
         }else if(st< lastScrollTop_2) {
       
-           if( $(this).scrollTop() > playwrap_offset.top && $(this).scrollTop() <= limit2 ){
+           if( $(this).scrollTop() > playwrap_offset.top && $(this).scrollTop() <= limit ){
              playwrap.addClass("player-fixed-top");
-             if(playwrap.css('position') == 'absolute'){
-              playwrap.css('top',80);
-            }
+            
              playwrap.css('position','fixed');
-
-             nav.slideDown( 200 );
-            if( parseInt($('.playwrap').css('top')) == 0 && $('.playwrap').css('position') == "fixed"){
-              $('.playwrap').animate({top:"+=80"},200);
-            }
+             playwrap.css('top',0);
            }
 
        
@@ -139,6 +133,8 @@ $(document).ready(function(){
             if( parseInt($('.playwrap').css('top')) == 0 && $('.playwrap').css('position') == "fixed"){
               $('.playwrap').animate({top:"+=80"},200);
             }
+                         nav.css('display','block');
+
            }
            
            nav.addClass('ms-navbarfixed');
@@ -164,12 +160,12 @@ $(document).ready(function(){
   });
 
     $('.navbar-nav >li').on('mouseover',function(){
-      self = $(this);
+      var self = $(this);
       $('.hover-menu', self).removeClass('hide');
     
   });
 $('.navbar-nav >li').on('mouseout',function(){
-      self = $(this);
+      var self = $(this);
       $('.hover-menu', self).addClass('hide');
     
   });
