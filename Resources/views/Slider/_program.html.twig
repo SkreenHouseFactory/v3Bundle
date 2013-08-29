@@ -26,59 +26,59 @@
   {% if (loop_index == 0 )%}
     {% set support = 'support4'%}
     {% set image = 'image4'%}
-    {% set taille_img= '/297/400/' %}
+    {% set taille_img= '/294/400/' %}
     {% set size = 'size-4'%}
   {% else %}
     {% set support = 'support1'%}
     {% set image = 'image1'%}
-    {% set taille_img= '/135/180/' %}
+    {% set taille_img= '/143/180/' %}
     {% set size = 'size-1'%}
   {% endif %}
   {% elseif n_carousel == 2 %}
       {% set support = 'support1'%}
       {% set image = 'image1'%}
-      {% set taille_img= '/135/180/' %}
+      {% set taille_img= '/143/180/' %}
       {% set size = 'size-1'%}
   {% elseif n_carousel == 3 %}
     {% if (loop_index == 0 )%}
       {% set support = 'support3'%}
       {% set image = 'image3'%}
-      {% set taille_img= '/450/180/' %}
+      {% set taille_img= '/445/180/' %}
       {% set size = 'size-3'%}
     {% else %}
       {% set support = 'support1'%}
       {% set image = 'image1'%}
-      {% set taille_img= '/135/180/' %}
+      {% set taille_img= '/143/180/' %}
       {% set size = 'size-1'%}
     {% endif %}
   {% elseif n_carousel == 4 %}
     {% if (loop_index == 4 )%}
       {% set support = 'support2'%}
       {% set image = 'image2'%}
-      {% set taille_img= '/297/180/' %}
+      {% set taille_img= '/294/180/' %}
       {% set size = 'size-2'%}
     {% else %}
       {% set support = 'support1'%}
       {% set image = 'image1'%}
-      {% set taille_img= '/135/180/' %}
+      {% set taille_img= '/143/180/' %}
       {% set size = 'size-1'%}
     {% endif %}
   {% elseif n_carousel == 5 %}
      {% if (loop_index == 0)%}
       {% set support = 'support4'%}
       {% set image = 'image4'%}
-      {% set taille_img= '/297/400/' %}
+      {% set taille_img= '/294/400/' %}
       {% set size = 'size-4'%}
     {% else %}
       {% set support = 'support1'%}
       {% set image = 'image1'%}
-      {% set taille_img= '/135/180/' %}
+      {% set taille_img= '/143/180/' %}
       {% set size = 'size-1'%}
     {% endif %}
     {% else %}
     {% set support = 'support1'%}
     {% set image = 'image1'%}
-    {% set taille_img= '/135/180/' %}
+    {% set taille_img= '/143/180/' %}
     {% set size = 'size-1'%}
 {% endif %}
 
@@ -96,5 +96,7 @@
       </a>
     </div>
   </div>
-  <div class="info_vignette {{size}}">{% if p.format is defined %}{{ (p.format ? p.format.name : p.onglet)|title }}{% endif %}, {% if p.duration is defined and p.duration %}{{p.duration}}mn{% endif %} </div>
+  <div class="info_vignette {{size}}">
+  <!--{% if p.format is defined %}{{ (p.format ? p.format.name : p.onglet)|title }}{% endif %}, {% if p.duration is defined and p.duration %}{{p.duration}}mn{% endif %} -->
+  </div>
   </div>
