@@ -45,6 +45,12 @@
      
      .tv-component {
        overflow: hidden;
+       img {
+         position: absolute;
+         right: 2px;
+         top: 2px;
+       }
+       
        &.films:not(.missing-picture) {
          .wrap-title {
              background: none;
@@ -111,11 +117,6 @@
           filter: dropshadow(color=#000000, offx=1, offy=1);
         }
       }
-    }
-    
-    img {
-      position: absolute;
-      right: 8px;
     }
 
     .support4{
