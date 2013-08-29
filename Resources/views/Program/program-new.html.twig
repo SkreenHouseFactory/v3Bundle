@@ -562,11 +562,6 @@
                     {% else %}
                     <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;{{ o.cost > 0 ? 'Voir, ' ~ o.cost|number_format(2, ',') ~ '€' : 'Voir maintenant' }}</button>
                     {% endif %}
-
-
-                    <span class="ms-vidoption">
-
-                    </span>
                     <br/>
                     {% if o_access.name == 'TV' %}
                     {% if key == 'plays'  %}
