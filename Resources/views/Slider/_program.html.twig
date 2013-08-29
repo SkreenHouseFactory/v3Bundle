@@ -83,13 +83,16 @@
 {% endif %}
 
   <div class="{{support}}">
+    {% if p.deporte is defined %}
+      <span class="deporte"></span>
+    {% endif %}
     {% if support == "support3" or support == "support2"%}
     <div class="tv-component actions hasvod-{{ p.has_vod }} {{image}} root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.sliderPicture is defined %}background:url({{ p.sliderPicture| replace({"/1500/450/": taille_img }) | replace({"/990/450/": taille_img }) }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
     {% else %}
     <div class="tv-component actions hasvod-{{ p.has_vod }} {{image}} root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background:url({{ p.picture | replace({"/150/200/": taille_img }) }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
     {% endif %}
     {% if p.popular_channel is defined %}
-    <img src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" />
+    <img class="channel" src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" />
     {% endif %}
     <a{% if p.seo_url %} href="{{ base_url }}{{ p.seo_url }}{{ theater_id is defined and theater_id > 0 ? '?theater_id=' ~ theater_id : '' }}" target="_top"{% endif %} class="wrap-title">
       <span class="title"><i class="icon-th icon-white"></i> {{ p_title }}</span>
