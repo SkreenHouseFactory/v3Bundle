@@ -163,12 +163,12 @@ $(document).ready(function(){
     }    
   });
 
-  $('.navbar-nav >li').on('mouseover',function(){
+    $('.navbar-nav >li').on('mouseover',function(){
       self = $(this);
       $('.hover-menu', self).removeClass('hide');
     
   });
-  $('.navbar-nav >li').on('mouseout',function(){
+$('.navbar-nav >li').on('mouseout',function(){
       self = $(this);
       $('.hover-menu', self).addClass('hide');
     

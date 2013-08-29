@@ -20,16 +20,56 @@
     .hover-menu{
      position: absolute;
      background: white;
-     border: 3px solid grey;
      border-radius: 5px;
-     top: 60px;
+     top: 58px;
+     padding: 5px 0;
+     margin: 2px 0 0;
+     list-style: none;
+     border: 1px solid rgba(0,0,0,0.2);
+     .nav-header {
+      display: block;
+      padding: 3px 15px;
+      font-size: 11px;
+      font-weight: bold;
+      line-height: 20px;
+      color: #999;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+      text-transform: uppercase;
       border: 1px solid rgba(0,0,0,0.2);
-      &.hover-menu-tv{
+      
+    }
+    .tv-channels {
+      padding-left: 15px;
+      a {
+        float: left;
+        padding: 5px;
+        display: block;
+        clear: none;
+        span {
+          display: none;
+          position: absolute;
+          background: rgba(0,0,0,0.8);
+          font-size: 0.8em;
+          margin-left: 0px;
+          margin-top: -25px;
+          color: white;
+          padding: 3px;
+          border-radius: 3px;
+        }
+        &:hover {
+          span {
+            display: block;
+          }
+        }
+      }
+    }
+    
+    &.hover-menu-tv{
       width: 940px;
       left: -154px;
     }
-   }
   }
+}
 
   #logo{
     float: left;
