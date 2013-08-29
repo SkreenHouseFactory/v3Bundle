@@ -77,6 +77,175 @@
 
   <section class="container scrollplayerzone">
 
+{#
+
+
+
+<div class="row">
+<div class="col-xs-16" style="background:green;" >
+<div style="background:red; height:30px;">
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+<div class="col-xs-1" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+<div class="col-xs-16" style="background:green;">
+<div style="background:blue; height:30px;">
+
+</div>
+</div>
+</div>
+
+
+
+<div class="row">
+<div class="col-xs-10" style="background:green;">
+<div style="background:blue; height:30px;"></div>
+</div>
+<div class="col-xs-6" style="background:green;">
+<div style="background:red; height:30px;"></div>
+</div>
+</div>
+
+
+
+#}
+
+
   <div class="row playwrapsub hide"></div>
   <div class="row playwrap" style="width: 970px;">
   <div class="col-xs-11">
@@ -102,6 +271,10 @@
         </div>
       </div>
       {% else %}
+
+
+
+
       <div class="ms-playertitle">
         <h2 id="program-teaser-header">Publicité</h2>
       </div>
@@ -264,10 +437,10 @@
               <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
               {% if program.datas_theaters.theaters_ids|length > 9 %}
 
-              <form role="form"  class="form-search pull-left col-xs-10" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}" data-form-ajax="#theaters-list" >
+              <form role="form" class="form-search pull-left col-xs-10" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}" data-form-ajax="#theaters-list" >
                 <div class="input-group">
-                  <input class="form-control" type="text" placeholder="{{ 'theaters.search.placeholder'|trans }}">
-                  <div class="input-group-btn col-xs-16">
+                  <input name="q" class="form-control" type="text" placeholder="{{ 'theaters.search.placeholder'|trans }}">
+                  <div class="input-group-btn col-xs-16 nopadding">
                     <button class="btn btn-primary " type="submit"><i class="glyphicon glyphicon-search"></i>&nbsp;{{ 'theaters.search.submit'|trans }}</button>
                   </div>
                 </div>
@@ -657,7 +830,13 @@
 
 
 
-<div class="row">
+
+
+
+
+
+
+<div>
   {% for r in program.related if r.programs is defined and r.programs|to_array|length %}
   {% if r.name == 'same_actors' and program.casting %}
             {#

@@ -9,11 +9,11 @@
 {% endif %}</h3>
 {% if cinemas|length == 0 %}
   {% if app.request.get('q') %}
-    <p class="alert">{{ 'program.theaters.noprogram.search'|trans }}</p>
+    <p class="alert alert-warning">{{ 'program.theaters.noprogram.search'|trans }}</p>
   {% elseif app.request.get('playlist') %}
-    <p class="alert">{{ 'program.theaters.noprogram.playlist'|trans }} <a class="pull-right" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {'init': 1}) }}"><i class="icon-plus-sign"></i> {{ 'theaters.playlist.add'|trans }}</a></p>
+    <p class="alert alert-warning">{{ 'program.theaters.noprogram.playlist'|trans }} <a class="pull-right btn btn-suivre" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {'init': 1}) }}"><i class="glyphicon glyphicon-plus"></i> {{ 'theaters.playlist.add'|trans }}</a></p>
   {% elseif app.request.get('latlng') %}
-    <p class="alert">{{ 'program.theaters.noprogram.geoloc'|trans }}</p>
+    <p class="alert alert-warning">{{ 'program.theaters.noprogram.geoloc'|trans }}</p>
   {% endif %}
 {% else %}
   <div class="accordion" id="accordion-theaters">
@@ -24,7 +24,7 @@
     {% if cinema.adress is defined and cinema.schedules is defined %}
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="btn btn-xs btn-default pull-right" href="{{path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1)}) }}">Films & horaires'</a>
+        <a class="btn btn-xs btn-default pull-right" href="{{path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1)}) }}">Films & horaires</a>
         <a class="accordion-toggle bold" data-toggle="collapse" data-parent="#accordion-theaters" href="#theater-{{ cinema.id }}">{{ cinema.name }} <i class="glyphicon glyphicon-resize-vertical hover hover-fade"></i></a>
         {% if cinema.distance is defined %}<div class="grey">distance : environ {{ cinema.distance < 1 ? (cinema.distance*100)|number_format ~'m' : cinema.distance|number_format(1) ~ 'km' }}</div>{% endif %}
       </div>
