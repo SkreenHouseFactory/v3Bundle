@@ -1,49 +1,18 @@
 {% if app.request.get('init') or app.request.isXmlHttpRequest == false %}
 <div class="theaters-modal">
   <form id="theaters-search" action="{{ path('theaters_search') }}" data-form-ajax="{{ app.request.isXmlHttpRequest ? '.modal ' : '' }}#theaters-list" role="form" class="form-search pull-left col-xs-10 ">
-     
-
-
     <div class="input-group">
-      <input class="form-control col-xs-offset-3" type="text" placeholder="{{ 'theaters.search.placeholder'|trans }}">
-      <div class="input-group-btn col-xs-16 ">
-        <button class="btn btn-primary " type="submit"><i class="glyphicon glyphicon-search"></i> {{ 'theaters.search.submit'|trans }}  </button>
-      </div>
+    <input name="q" class="form-control col-xs-offset-3" type="text" placeholder="{{ 'theaters.search.placeholder'|trans }}">
+    <div class="input-group-btn col-xs-16 nopadding">
+    <button class="btn btn-primary " type="submit"><i class="glyphicon glyphicon-search"></i> {{ 'theaters.search.submit'|trans }}  </button>
+    </div>
     </div>
   </form>
-
-
   <div class="btn-group">
     <a id="trigger-theaters-geoloc" href="#theaters" class="btn btn-default">
-      <i class="glyphicon glyphicon-map-marker"></i > {{ 'theaters.search.geoloc'|trans }}
-      </a>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  </form>
+    <i class="glyphicon glyphicon-map-marker"></i > {{ 'theaters.search.geoloc'|trans }}
+    </a>
+  </div>
   <div id="theaters-list" class="clear"></div>
 </div>
 {% endif %}

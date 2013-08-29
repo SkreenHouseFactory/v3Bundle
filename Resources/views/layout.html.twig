@@ -85,13 +85,6 @@
   <article>
     <div id="main">
       <div id="content" class="uiview-update">
-        
-        {% set nav = app.request.attributes.get('_route') in ['tvgrid', 'tvgrid_date'] ? 'tv' : app.request.get('home')  %}
-        {% if nav in ['cinema', 'video-a-la-demande', 'tv'] %}
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: nav} %}
-        {% endif %}
-        
-        
         {% block content %}
         {% endblock %}
       </div>

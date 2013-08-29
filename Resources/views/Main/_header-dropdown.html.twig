@@ -3,14 +3,14 @@
 {% set web_channels = ['Allocine','Yahoo','Perform','Le Figaro','Europe 1','France Info','Le Monde','FranceTvSport','Marmiton','Doctissimo','Studio 4 0','Verywatch','It\'s big','Rendez-vous à Paris','Xtremevidéo','Paris Saint-Germain','La Chaîne techno','LeZapping','RMC sport','Arte Live Web'] %}
 
 {% if home == 'cinema' %}
-<ul class="dropdown-menu.bak">
+<ul class="hover-menu hide">
   <li><a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845147-a-decouvrir-dans-les-salles-cette-semaine/'}) }}">{{ 'nav.theaters.release'|trans }}</a></li>
   <li><a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845150-bientot-dans-les-salles/'}) }}">{{ 'nav.theaters.coming'|trans }}</a></li>
   <li><a href="{{ header_base }}{{ path('cinema_boxoffice', {alpha: 'a'}) }}">{{ 'nav.theaters.boxoffice'|trans }}</a></li>
 </ul>
 
 {% elseif home == 'video-a-la-demande' %}
-<ul class="dropdown-menu.bak">
+<ul class="hover-menu hide">
   <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'film'}) }}">{{ 'nav.films'|trans }}</a></li>
   <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'documentaire'}) }}">{{ 'nav.documentaires'|trans }}</a></li>
   <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'serie'}) }}">{{ 'nav.series'|trans }}</a></li>
@@ -19,7 +19,7 @@
 </ul>
 
 {% elseif home == 'tv' %}
-<ul class="dropdown-menu.bak dropdown-menu.bak-tv">
+<ul class="hover-menu hover-menu-tv">
   <li class="nav-header">La grille TV</li>
   <li class="pull-left"><a href="{{ path('tvgrid') }}">En ce moment</a></li>
   <li class="pull-left"><a href="{{ path('tvgrid_date', {date: 'ce-soir'}) }}">Ce soir</a></li>

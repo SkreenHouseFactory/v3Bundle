@@ -5,10 +5,13 @@
         {# LOGO ENTETE #}
         <a href="{{ path('homes', {home: ''}) }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" id="logo"></a>
         <ul class="nav navbar-nav">
-          <li><a href="{{ path('tvgrid') }}">TV &amp; Replay</a></li>
+          <li><a href="{{ path('tvgrid') }}">TV &amp; Replay</a>{% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "tv"} %}
+          </li>
           {#<li><a href="#">WEB TV</a></li>#}
-          <li><a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">VOD</a></li>
-          <li><a href="{{ path('homes', {home: 'cinema'}) }}">En salles</a></li>
+          <li><a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">VOD</a>{% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "video-a-la-demande"} %}
+          </li>
+          <li><a href="{{ path('homes', {home: 'cinema'}) }}">En salles</a>{% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "cinema"} %}
+          </li>
         </ul>
 
         {# RECHERCHE #}
