@@ -208,6 +208,12 @@ UiView = {
         $('#couchmode').prepend('<div id="couchmode-close"><i class="glyphicon-remove glyphicon-white"></i> Fermer</div>');
       }
     });
+    // toggle text in element
+    $(document).on('click', '[data-toggle-text]', function () {
+      var html = $(this).html();
+      $(this).html($(this).data('toggle-text'));
+      $(this).data('toggle-text', html);
+    });
     // -- remote data in html elmt
     $(elmt).on('click', '[data-ajax]', function(e){
     

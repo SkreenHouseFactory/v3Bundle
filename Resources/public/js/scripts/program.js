@@ -194,11 +194,24 @@ $(document).ready(function(){
     if (!$('#view-program').hasClass('isInitialized')) {
      ProgramView.init();
     }
+
+    // tracking
     $('[data-track-channel]').each(function() {
       //track channel
       //API.trackVar(1, 'Chaîne', $(this).data('track-channel'), 3);
       API.trackEvent('Chaîne', $(this).data('track-channel'), 'page=programme');
     });
+    
+    // ui text show more
+    $('.show-more').on('click', function () {
+      var $this = $(this);
+      $('.text', $(this).parent()).toggleClass('show-more-height');
+    });
+
+    // Déplier la liste des acteurs
+    $('.actors_reveal').on('click', function () {
+      $('.actors_entrop').toggleClass('hide');
+    });  
   }
 });
 
@@ -353,18 +366,3 @@ ProgramView = {
     };
   }
 }
-
-//ui text show more
-$('.show-more').on('click', function () {
-  var $this = $(this);
-  $('.text', $(this).parent()).toggleClass('show-more-height');
-});
-
-/* Déplier la liste des acteurs */
-
-$('.actors_reveal').on('click', function () {
-  var text = $(this).text();
-  $(this).text($(this).data('toggle-text'));
-  $(this).data('toggle-text', text);
-  $('.actors_entrop').toggleClass('hide');
-});
