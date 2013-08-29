@@ -293,7 +293,7 @@
     <div id="affiche">
       <img src="{{ program.img }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
       {% if program.popular_channel is defined %}
-      <img src="{{ program.popular_channel.img }}" alt="{{ program.popular_channel.name }}" />
+      <img class="channel" src="{{ program.popular_channel.img }}" alt="{{ program.popular_channel.name }}" />
       {% endif %}
     </div>
   </div> 
@@ -611,7 +611,7 @@
       {% endif %}
 
       {# youtube / more streaming #}
-      <div id="program-more-streaming" class="panel" data-more-streaming="{{ program.id }}">
+      <div id="program-more-streaming" class="panel panel-remove-padding-bottom" data-more-streaming="{{ program.id }}">
         <div class="panel-heading"><h3 class="panel-title">Sur Youtube</h3></div>
         <div class="tab-pane">
           <div id="carousel-youtube" class="carousel slide">

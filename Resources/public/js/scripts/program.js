@@ -323,12 +323,13 @@ ProgramView = {
 
       console.log('data-more-streaming', container);
       var url = 'program/more-streaming/' + container.data('more-streaming') + '.json?nb_results=24';
+      UI.appendLoader(container);
       API.query(
         'GET',
         url,
         {nb_results: 24},
         function(programs) {
-
+          UI.removeLoader(container);
           if (programs.length == 0 || typeof programs.length == 'undefined') {
             console.warn('data-more-streaming', 'no programs found');
             container.remove();
@@ -347,7 +348,7 @@ ProgramView = {
               carousel = $('.carousel-inner', container).append(item);
             }
             item.append(
-              '<a data-play-iframe="http://www.youtube.com/embed/' + encodeURIComponent(programs[i].id) + '" class="pull-left">' +
+              '<a data-play-iframe="http://www.youtube.com/embed/' + encodeURIComponent(programs[i].id) + '?autoplay=1" class="pull-left">' +
               '<span>' + programs[i].duration + ' min.</span>' +
               '<img class="img-polaroid" alt="' + programs[i].title + '" src="' + programs[i].picture + '" />' +
               '<div class="title">' + programs[i].title + '</div>' +
