@@ -9,11 +9,11 @@
 {% endif %}</h3>
 {% if cinemas|length == 0 %}
   {% if app.request.get('q') %}
-    <p class="alert">{{ 'program.theaters.noprogram.search'|trans }}</p>
+    <p class="alert alert-warning">{{ 'program.theaters.noprogram.search'|trans }}</p>
   {% elseif app.request.get('playlist') %}
-    <p class="alert">{{ 'program.theaters.noprogram.playlist'|trans }} <a class="pull-right" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {'init': 1}) }}"><i class="icon-plus-sign"></i> {{ 'theaters.playlist.add'|trans }}</a></p>
+    <p class="alert alert-warning">{{ 'program.theaters.noprogram.playlist'|trans }} <a class="pull-right btn btn-suivre" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {'init': 1}) }}"><i class="glyphicon glyphicon-plus"></i> {{ 'theaters.playlist.add'|trans }}</a></p>
   {% elseif app.request.get('latlng') %}
-    <p class="alert">{{ 'program.theaters.noprogram.geoloc'|trans }}</p>
+    <p class="alert alert-warning">{{ 'program.theaters.noprogram.geoloc'|trans }}</p>
   {% endif %}
 {% else %}
   <div class="accordion" id="accordion-theaters">

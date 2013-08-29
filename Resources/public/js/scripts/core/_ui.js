@@ -298,6 +298,7 @@ UiView = {
       e.preventDefault();
       var form = $(this);
       console.log('script', 'data-form-ajax', $(this).attr('action'), $.extend($(this).serializeFullArray(), {dataType: 'text/html'}));
+      UI.appendLoader($(form.data('form-ajax')).empty());
       $.post(
         $(this).attr('action'), 
         $.extend($(this).serializeFullArray(), {dataType: 'text/html'}), 
