@@ -1,9 +1,56 @@
-#theaters-list {
-  padding: 20px;
+.panel-theater {
   .alert-info {
     margin: 10px;
   }
-  .panel {
-    padding: 0;
+}
+
+/* theaters-search*/
+#theaters-search {
+  input{
+    margin-right: 16px;
+    &.trigger-theaters {
+      width: 100px;
+      border: none;
+      color: #777777;
+      background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+      border-color: #e6e6e6;
+      border-radius: 4px;
+      &:hover{
+        border: 1px solid black;
+      }
+    }
+  }
+}
+
+/* theaters-playlist */
+#theaters-list, #view-program #program-offers #theaters-list {
+  position: relative;
+  padding: 20px;
+
+  .panel-group {
+    .panel {
+      padding: 0;
+    }
+  }
+
+  .theaters-on {
+    #theaters-names {
+      margin-bottom: 10px;
+      .label {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .theaters-off {
+    height: 250px;
+    background: url(/bundles/skreenhousefactoryv3/images/vos-cinemas-sample.png) no-repeat;
+
+    .well {
+      position: absolute;
+      top: 100px;
+      left: 250px;
+      text-align: center;
+    }
   }
 }

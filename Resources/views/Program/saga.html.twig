@@ -23,7 +23,7 @@
 
   <div id="saga-programs" class="slider slider-list">
     <ul class="items">
-    {% for program in saga.programs %}
+    {% for program in saga.programs|to_array %}
     {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
     {% endfor %}
     </ul>

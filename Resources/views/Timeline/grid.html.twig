@@ -31,17 +31,16 @@
     <li class="{{ app.request.get('date') is null ? 'active ' : '' }}tonight time-change"><a href="{{ path('tvgrid') }}">Ce soir</a></li>
     <li class="datepicker"><a class="calendar btn"><i class="glyphicon glyphicon-calendar"></i></a></li>
     <li >
-      <select id="opt-hour" class="btn hourpicker" data-current-hour="{{date[1]|date('H')}}">
+      <select id="opt-hour" class="btn-default hourpicker" data-current-hour="{{date[1]|date('H')}}">
         {% for h in range(0, 23) %}
         <option value="{{h}}" {%if h==date[1]|date('H') %} selected{% endif %}>{{h}}h00</option>
         {% endfor %}
       </select>
     </li>
     <li class="pull-right addchannel">
-      <a data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="glyphicon glyphicon-plus-sign"></i> de chaînes</a>
+      <a class="btn btn-default" data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;de chaînes</a>
     </li> 
-   
-    <select class="pull-right dropdown dropdown-update" id="filter">
+    <select id="filter" class="pull-right btn-default dropdown dropdown-update">
         <option>Que voir ?</option>
         <option value="films">Films</option>
         <option value="documentaires">Documentaires</option>

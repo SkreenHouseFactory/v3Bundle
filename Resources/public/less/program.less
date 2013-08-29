@@ -22,13 +22,13 @@ a[itemprop="url"]{
    text-decoration: none;
  }
  span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal {
-    color: #000000;
-    display: inline-block;
-    &:hover{
-     color: @bluemaincolor;
-     text-decoration: none;
-   }
-  }
+  color: #000000;
+  display: inline-block;
+  &:hover{
+   color: @bluemaincolor;
+   text-decoration: none;
+ }
+}
 }
 .actors_reveal{
   font-style: italic;
@@ -72,7 +72,8 @@ a[itemprop="url"]{
 
 
 .ms-cat-title{
-  font-size: 13px;
+  color: #AAA;
+  font-size: 12px;
   display: block;
   text-transform: uppercase;
   margin: 20px 0px 2px 0px;
@@ -105,7 +106,7 @@ a[itemprop="url"]{
 .view-program_pere{
   .navbar-fixed-top, .navbar-fixed-bottom {
     min-height: 0px;
-   }
+  }
 }
 
 
@@ -148,140 +149,155 @@ a[itemprop="url"]{
     }
     .ms-versions{
      font-size: 12px; 
+   }
+   .panel {
+    padding: 0 0 30px 0;
+    position: relative;
+
+
+    span[data-toggle="tooltip"]{
+      background: @bluesecondarycolor;
+      color: #fff;
+      display: inline-block;
+      font-size: 14px;
+      height: 16px;
+      line-height: 16px;
+      text-align: center;
+      width: 16px;
+      .border-radius(25px);
     }
-    .panel {
-      padding: 0 0 30px 0;
-      position: relative;
 
-      &.panel-external {
-        padding: 0;
-      }
-      &.panel-synopsis p {
+    &.panel-external {
+      padding: 0;
+    }
+    &.panel-synopsis{ 
+      padding: 0;
+      p {
         margin: 0;
       }
+    }
 
-      .panel-heading{
-        margin: 0;
-      }
-      .btn-reveal {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        font-size: 0.9em;
-        padding: 2px 5px;
-        border-top-right-radius: 0px;
-        border-bottom-left-radius: 0px;
-        border: 0px;
-      }
+    .panel-heading{
+      margin: 0;
+    }
+    .btn-reveal {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      font-size: 0.9em;
+      padding: 0px 5px;
+      border-top-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+      border: 0px;
+    }
 
-      table {
-        margin:0;
-        width: 100%;
+    table {
+      margin:0;
+      width: 100%;
 
-        tr {
-          &:hover {
-            color: #c09853;
-            background-color: #fcf8e3;
+      tr {
+        &:hover {
+          color: #c09853;
+          background-color: #fcf8e3;
+        }
+
+        td {
+          padding-top: 8px;
+          vertical-align: middle;
+          &.channel {
+            width: 110px;
           }
-          
-          td {
-            padding-top: 8px;
-            vertical-align: middle;
-            &.channel {
-              width: 120px;
-            }
-            &.offers {
-              text-align: center;
-              width: 200px;
-              button, a.btn {
-                width: 170px;
-              }
-            }
-            &.episode {
-              h4{  
-                font-size: 1.1em;
-                font-weight: bold;
-                margin: 0;
-              }
-
-              .infos {
-                font-size: 0.8em;
-              }
+          &.offers {
+            text-align: center;
+            width: 200px;
+            button, a.btn {
+              width: 170px;
             }
           }
-          img {
-            display:block;
-            margin-left:auto;
-            margin-right:auto;
+          &.episode {
+            h4{  
+              font-size: 1.1em;
+              font-weight: bold;
+              margin: 0;
+            }
+
+            .infos {
+              font-size: 0.8em;
+            }
           }
+        }
+        img {
+          display:block;
+          margin-left:auto;
+          margin-right:auto;
         }
       }
     }
   }
+}
 
-  #program-episodes {
-    min-height: 200px;
-    position: absolute;
-    z-index: 2;
-    width: 100%;
-    padding: 70px 27px 0;
-    .panel {
-      background: #FFF;
-      margin: -15px;
-      padding-bottom: 20px;
-      .shadows-player-fly();
-      
-      .panel-heading{
-        background: #F5F5F5;
-        margin:0!important;
-        h3{
-          width:97.5%;
-          display: inline-block;
-        }
+#program-episodes {
+  min-height: 200px;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  padding: 70px 27px 0;
+  .panel {
+    background: #FFF;
+    margin: -15px;
+    padding-bottom: 20px;
+    .shadows-player-fly();
+
+    .panel-heading{
+      background: #F5F5F5;
+      margin:0!important;
+      h3{
+        width:97.5%;
+        display: inline-block;
       }
     }
+  }
 
-    a[data-season]{
-      border: 1px solid #B2D3F0;
-      height: 30px;
-      padding: 4px;
-      text-align: center;
-      width: 30px;
-      &:hover{
-        background: #b2d3f0;
-        color: #fff;
-      }
+  a[data-season]{
+    border: 1px solid #B2D3F0;
+    height: 30px;
+    padding: 4px 8px;
+    text-align: center;
+    &:hover{
+      background: #b2d3f0;
+      color: #fff;
     }
+  }
 
 
 
-    a.btn[data-toggle]{
-      display: inline-block;
-      height: 30px;
-      margin-right: -8px;
-      margin-top: -4px;
-      padding: 6px;
-      width: 30px;
-    }
+  a.btn[data-toggle]{
+    display: inline-block;
+    height: 30px;
+    margin-right: -8px;
+    margin-top: -4px;
+    padding: 6px;
+    width: 30px;
+  }
 
-    ul.nav.nav-pills{
-      margin:20px  20px; 
-    }
+  ul.nav.nav-pills{
+    margin:20px  20px; 
+  }
 
 
-    .ms-nav-pills-saisons{
-      font-size: 16px;
-      margin: 4px 19px;
-      padding-top: 3px;
-      text-transform: uppercase;
-      i{
-       color: #CCCCCC;
-       font-size: 16px;
-       margin-left: 8px;
-     }
+  .ms-nav-pills-saisons{
+    font-size: 16px;
+    margin: 4px 19px;
+    padding-top: 3px;
+    text-transform: uppercase;
+    i{
+     color: #CCCCCC;
+     font-size: 16px;
+     margin-left: 8px;
    }
  }
- ul#episodes-list{
+}
+ul#episodes-list{
   list-style: none;
   padding-left: 20px;
 

@@ -29,7 +29,9 @@
   <h1>{{ person.name }}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>
 
   <div class="view-person-main">
-    <p class="description">{{ person.description|raw }}</p>
+    <div class="description jumbotron">
+        {{ person.description|raw }}
+    </div>
   </div>
 
 
