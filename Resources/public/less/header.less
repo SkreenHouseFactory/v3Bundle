@@ -15,61 +15,85 @@
   .navbar-nav {
     margin-right: 57px;
     > li > a {
-      padding: 26px 9px 4px 9px;
+      padding: 26px 9px 17px;
     }
     .hover-menu{
-     position: absolute;
-     background: white;
-     border-radius: 5px;
-     top: 58px;
-     padding: 5px 0;
-     margin: 2px 0 0;
-     list-style: none;
-     border: 1px solid rgba(0,0,0,0.2);
-     .nav-header {
-      display: block;
-      padding: 3px 15px;
-      font-size: 11px;
-      font-weight: bold;
-      line-height: 20px;
-      color: #999;
-      text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-      text-transform: uppercase;
-      border: 1px solid rgba(0,0,0,0.2);
-      
-    }
-    .tv-channels {
-      padding-left: 15px;
-      a {
-        float: left;
-        padding: 5px;
+      background: none repeat scroll 0 0 white;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+      border-left: 2px solid rgba(0, 0, 0, 0.2);
+      border-right: 2px solid rgba(0, 0, 0, 0.2);
+      list-style: none outside none;
+      padding: 10px 0;
+      position: absolute;
+      top: 63px;
+      .allchannels_link_btn{
         display: block;
-        clear: none;
-        span {
-          display: none;
-          position: absolute;
-          background: rgba(0,0,0,0.8);
-          font-size: 0.8em;
-          margin-left: 0px;
-          margin-top: -25px;
-          color: white;
-          padding: 3px;
-          border-radius: 3px;
-        }
-        &:hover {
+        width: 200px;
+        height: 30px;
+
+      }
+
+
+      .nav-header {
+        display: block;
+        background: #EEE;
+        padding: 3px 15px;
+        font-size: 11px;
+        font-weight: bold;
+        line-height: 20px;
+        color: #999;
+        text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+        text-transform: uppercase;
+
+      }
+      .tv-channels {
+        padding-left: 15px;
+        a {
+          float: left;
+          padding: 5px;
+          display: block;
+          clear: none;
           span {
-            display: block;
+            display: none;
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            font-size: 0.8em;
+            margin-left: 0px;
+            margin-top: -25px;
+            color: white;
+            padding: 3px;
+            border-radius: 3px;
+          }
+          &:hover {
+            span {
+              display: block;
+            }
+          }
+        }
+      }
+
+      &.hover-menu-tv{
+        left: -136px;
+        width: 940px;
+        ul{
+          display: block;
+
+        }
+        li.tv-channels{
+          display: block;
+        }
+        .pull-left{
+          margin-left: 20px;
+          margin-top: 5px;
+          text-transform: none;
+          a{
+            color: #000;
+            text-decoration: none;
           }
         }
       }
     }
-    
-    &.hover-menu-tv{
-      width: 940px;
-      left: -154px;
-    }
   }
-}
 
   #logo{
     float: left;
@@ -101,7 +125,8 @@
     top: 0;
     right: 0;
     padding-top: 12px;
-    width: 240px;
+    padding-right: 12px;
+    width: 250px;
     text-align: right;
     height: 63px;
     text-shadow: none;
