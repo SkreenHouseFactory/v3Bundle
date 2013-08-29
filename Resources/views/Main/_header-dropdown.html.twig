@@ -3,14 +3,14 @@
 {% set web_channels = ['Allocine','Yahoo','Perform','Le Figaro','Europe 1','France Info','Le Monde','Marmiton','Doctissimo','Studio 4 0','Verywatch','It\'s big','Rendez-vous à Paris','Xtremevidéo','Paris Saint-Germain','La Chaîne techno','LeZapping','RMC sport','Arte Live Web'] %}
 
 {% if home == 'cinema' %}
-<ul class="hover-menu hide">
+<ul class="hover-menu hide cine">
   <li><a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845147-a-decouvrir-dans-les-salles-cette-semaine/'}) }}">{{ 'nav.theaters.release'|trans }}</a></li>
   <li><a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845150-bientot-dans-les-salles/'}) }}">{{ 'nav.theaters.coming'|trans }}</a></li>
   <li><a href="{{ header_base }}{{ path('cinema_boxoffice', {alpha: 'a'}) }}">{{ 'nav.theaters.boxoffice'|trans }}</a></li>
 </ul>
 
 {% elseif home == 'video-a-la-demande' %}
-<ul class="hover-menu hide">
+<ul class="hover-menu hide vod">
   <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'film'}) }}">{{ 'nav.films'|trans }}</a></li>
   <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'documentaire'}) }}">{{ 'nav.documentaires'|trans }}</a></li>
   <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'serie'}) }}">{{ 'nav.series'|trans }}</a></li>
@@ -30,7 +30,7 @@
     <li class="tv-channels">
       {% for channel in tv_channels %}
       {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-      <a data-tnt-name="{{ channel }}" class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
+      <a data-tnt-name="{{ channel }}" class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/32/37/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
       {% endfor %}
     </li>
   </ul>
@@ -41,7 +41,7 @@
     <li class="tv-channels">
       {% for channel in web_channels %}
       {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-      <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><span class="hidden-touch">{{ channel }}</span><img src="http://mskstatic.com/37/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
+      <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><span class="hidden-touch">{{ channel }}</span><img src="http://mskstatic.com/32/37/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
       {% endfor %}
     </li>
   </ul>
