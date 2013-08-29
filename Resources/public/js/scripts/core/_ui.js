@@ -143,7 +143,7 @@ UiView = {
     */
   },
   initHistory: function(){
-    self = this;
+    var self = this;
     $(window).bind('popstate', function(e) {
       console.log('UiView.initHistory', 'popstate', e.originalEvent.state);
       if (e.originalEvent.state) {
