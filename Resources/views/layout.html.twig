@@ -85,6 +85,9 @@
   <article>
     <div id="main">
       <div id="content" class="uiview-update">
+
+          <div class="help-sprite help-sprite-ms_btn_help"></div>
+    <img class="help-popin hide" src="{{ asset('bundles/skreenhousefactoryv3/images/help_popin_09.jpg') }}">
         {% block content %}
         {% endblock %}
       </div>
@@ -93,23 +96,25 @@
         {% endblock %}
       </div>
     </div>
+
   </article>
 
   {% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {
-    q: app.request.get('q') ? app.request.get('q') : null, 
-  })) %}
-  {% block header_filters %}
-  {% endblock %}
+  q: app.request.get('q') ? app.request.get('q') : null, 
+})) %}
+{% block header_filters %}
+{% endblock %}
 
-  <footer>
-    <div id="footer">
-      {% render(controller('SkreenHouseFactoryV3Bundle:Main:footer', {})) %}
-    </div>
-  </footer>
-  {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
-  <div id="fb-root"></div>
-  <span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
+<footer>
+  <div id="footer">
+    {% render(controller('SkreenHouseFactoryV3Bundle:Main:footer', {})) %}
+  </div>
+</footer>
+{% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
+{% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
+<div id="fb-root"></div>
+<span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
+
 
   
 
@@ -144,8 +149,8 @@
   output='js/compiled/v3.js'  %}
   <script src="{{ asset_url }}"></script>
   <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
-  {lang: 'fr'}
-</script>
+    {lang: 'fr'}
+  </script>
   {% endjavascripts %}
   {% endif %}
   {% block pagescripts %}
@@ -158,8 +163,10 @@
     _gaq.push(['_setAccount', 'UA-6151896-8']);
     _gaq.push(['_trackPageview']);
   </script>
+
+
   {% endif %}
   {% endspaceless %}
-
+      <div class="modal-backdrop in hide"></div>
 </body>
 </html>
