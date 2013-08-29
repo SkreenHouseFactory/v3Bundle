@@ -290,3 +290,12 @@ $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
 
 
 
+//-- Script  pour le helper
+
+
+  $('.help-sprite.help-sprite-ms_btn_help').on('click', function () {
+    $(this).toggleClass('help-sprite-ms_btn_help');
+    $(this).toggleClass('help-sprite-ms_btn_close');
+    $('.help-popin').toggleClass('hide');
+    $('.modal-backdrop.in').toggleClass('hide');
+   });
