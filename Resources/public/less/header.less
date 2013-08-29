@@ -24,19 +24,44 @@
       border-left: 2px solid rgba(0, 0, 0, 0.2);
       border-right: 2px solid rgba(0, 0, 0, 0.2);
       list-style: none outside none;
-      padding: 10px 0;
+      padding: 10px 10px;
       position: absolute;
       top: 63px;
-      .allchannels_link_btn{
 
-     position: absolute;
-     background: white;
-     border-radius: 5px;
-     top: 50px;
-     padding: 5px 0;
-     margin: 2px 0 0;
-     list-style: none;
-     border: 1px solid rgba(0,0,0,0.2);
+
+      &.vod li, &.cine li {
+        width:200px;
+        margin-top: 3px;
+        display: block;
+
+        a{
+          color: #5D5D5D;
+          &:hover{
+            color:@bluemaincolor;
+            text-decoration: none;
+          }
+        }
+      }
+
+      .allchannels_link_btn{
+background: none repeat scroll 0 0 #EEEEEE;
+    border: 1px solid #DDDDDD;
+    border-radius: 5px 5px 5px 5px;
+    color: #FFFFFF !important;
+    display: inline-block;
+    height: 28px;
+    list-style: none outside none;
+    margin: 14px 57px 8px;
+    padding: 3px 8px;
+    text-transform: none;
+    &:hover{background: #ddd;}
+      a{ 
+        text-shadow:none;
+        color: #5d5d5d;
+        &:hover{
+          text-decoration: none;
+         }
+        }
 
       }
 
@@ -93,9 +118,13 @@
           margin-left: 20px;
           margin-top: 5px;
           text-transform: none;
+          list-style: none;
           a{
             color: #000;
             text-decoration: none;
+            &:hover{
+              color: @bluemaincolor;
+            }
           }
         }
       }
@@ -138,15 +167,13 @@
     height: 63px;
     text-shadow: none;
     filter: dropshadow(none);
-    font-weight: bold;
+    margin-top: 10px;
+    font-weight: normal;
   }
 
 
   .toprigthicons-square{
-    -webkit-transform:  rotate(-15deg);
-    -moz-transform: rotate(-15deg);
-    -o-transform: rotate(-15deg);
-    transform: rotate(-15deg);
+
     display: block;
     margin: auto;
     height: 24px;
@@ -158,10 +185,6 @@
   }
 
   .toprigthicons-nbr{
-    -webkit-transform:  rotate(15deg);
-    -moz-transform: rotate(15deg);
-    -o-transform: rotate(15deg);
-    transform: rotate(15deg);
     padding-top: 2px;
     color: #fff;
     display: block;
@@ -175,7 +198,7 @@
   }
 
   .ms-usericon{
-    background: #000;
+    background: @bluemaincolor;
   }
 
   .ms-ficon{
@@ -184,15 +207,17 @@
 
   .ms-notificon{
     background: #ed0743;
+    border-radius: 15px;
   }
 
   .toprighticons-label{
-    font-size: 10px;
+    font-size: 14px;
+    line-height: 14px;
     text-shadow: 1px 1px 1px #ffffff;
     filter: dropshadow(color=#ffffff, offx=1, offy=1);
   }
   .toprighticons-playlist{
-    color: #f39c12;
+    color: #5D5D5D;
   }
 
   .toprighticons-notifications{
@@ -268,6 +293,7 @@
       }
     }
     &.user-on {
+      margin-left: 30px;
       > a {
         .badge {
           background-color: #0088cc;
@@ -623,3 +649,18 @@
 }
 
 } 
+
+.auth.user-off{
+ margin-top: 8px;
+ padding: 3px 7px 6px!important;
+
+ &:hover{
+   background: @bluemaincolor;
+ }
+
+ span{
+  color: #fff;
+  text-shadow:none;
+}
+
+}
