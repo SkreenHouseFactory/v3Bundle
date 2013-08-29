@@ -160,12 +160,12 @@ $(document).ready(function(){
   });
 
     $('.navbar-nav >li').on('mouseover',function(){
-      self = $(this);
+      var self = $(this);
       $('.hover-menu', self).removeClass('hide');
     
   });
 $('.navbar-nav >li').on('mouseout',function(){
-      self = $(this);
+      var self = $(this);
       $('.hover-menu', self).addClass('hide');
     
   });
