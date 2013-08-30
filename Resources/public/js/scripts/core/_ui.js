@@ -154,7 +154,7 @@ UiView = {
       }
     });
   },
-  refreshAjax: function(){
+  refreshAjax: function(has_playlist){
     console.log('refreshAjax()')
     if ($('a.background')) {
        $('a.background').remove();
@@ -165,7 +165,9 @@ UiView = {
       body_class = $('.body_background').data('refresh-bodyclass');
       $('body').css('background',body_background);
       $('body').addClass(body_class);
-    
+      if ( has_playlist == true ){
+         $('body').addClass('playlist-in');
+      }
     }
   },
   initDataLive: function(elmt) {
@@ -226,17 +228,20 @@ UiView = {
         history.pushState({path: window.location.href }, document.title, window.location.href);
       }
       history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
-       
+       if ($('body').hasClass('playlist-in')){
+      var has_playlist = true;
+      }
       $('body').css('background','');
       $('body').attr('class','');
-      
+
+     
       
       var trigger = $(this);
 
       //add body class to overload view-homes
       $('body').removeClass('view-redirect');
       $('body').addClass('view-ajax');
-     
+
       console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
       //load ajax
       $($(this).attr('rel')).empty();
@@ -266,7 +271,7 @@ UiView = {
           }
           API.play(trigger.data('ajax-play'), trigger.data('play-args'));
         }
-        self.refreshAjax();
+        self.refreshAjax(has_playlist);
       });
      // history.pushState({path: $(this).data('ajax'), body_class:$('body').attr('class'), back_ground: $('body').css('background'),cover: $('body').hasClass('cover')}, $(this).html(), $(this).data('ajax'));
       

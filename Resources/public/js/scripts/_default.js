@@ -146,29 +146,36 @@ $(document).ready(function(){
          lastScrollTop = st;
          lastScrollTop_2 = st - 5;
        }
-      });
-    }
-    
+     });
+}
+
 // new header nav bar
 
-  $(".dropdown").on('click', function(e){
-    if($(this) && !$(this).hasClass('open')){  
-      $(this).addClass('open');
-      e.preventDefault();
-      e.stopPropagation();
-    }    
-    else{
-      $(this).removeClass('open');
-      e.preventDefault();
-      e.stopPropagation();
+$(".dropdown").on('click', function(e){
+  if($(this) && !$(this).hasClass('open')){  
+    $(".dropdown").removeClass("open");
+    if($('#top-playlist').hasClass('in')){
+$('#top-playlist').toggle('hide');
     }
-  });
+    $(this).addClass('open');
+    e.preventDefault();
+    e.stopPropagation();
+  }  
+  else{
+    $(this).removeClass('open');
+    e.preventDefault();
+    e.stopPropagation();
+  }
+});
+$('.navbar-nav >li').on('mouseover',function(){
+  var self = $(this);
+  if($('#top-playlist').hasClass('in')){
+$('#top-playlist').toggle('hide');
+  }
+  $('.dropdown').removeClass('open');
+  $('.hover-menu', self).removeClass('hide');
 
-    $('.navbar-nav >li').on('mouseover',function(){
-      var self = $(this);
-      $('.hover-menu', self).removeClass('hide');
-    
-  });
+});
 $('.navbar-nav >li').on('mouseout',function(){
       var self = $(this);
       $('.hover-menu', self).addClass('hide');
@@ -249,14 +256,17 @@ $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
   */
 
   // -- ui playlist
-  $('#top-playlist').on('show', function () {
+  $('#top-playlist').on('show.bs.collapse', function () {
     console.log('script', '#top-playlist on show');
+    $(".dropdown").removeClass("open");
     $('body').addClass('playlist-in');
   });
-  $('#top-playlist').on('hide', function () {
+  $('#top-playlist').on('hide.bs.collapse', function () {
     console.log('script', '#top-playlist on hide');
     $('body').removeClass('playlist-in');
   });
+
+
   $(document).on('click', '#top-playlist .breadcrumb li:first', function(){
     Skhf.session.initSelector();
   });
