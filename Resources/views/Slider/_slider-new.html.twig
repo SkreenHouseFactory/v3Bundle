@@ -32,7 +32,9 @@
 {% endif %}
 
 {% for slider_program in slider.programs | to_array %}
-  {% if slider_program.maxsize.width|number_format < 270 and slider_program.maxsize.height|number_format < 380 %}
+  {% if slider_program.maxsize is defined and 
+        slider_program.maxsize.width|number_format < 270 and 
+        slider_program.maxsize.height|number_format < 380 %}
     {% set newArray = newArray|merge([slider_program]) %}
   {% else %}
     {% set newArray = [slider_program]|merge(newArray) %}

@@ -135,37 +135,9 @@ a[itemprop="url"]{
   }
 
   #program-offers {
-    .rent {
-      text-transform: uppercase;
-      font-size: 18px;
-      color: @bluesecondarycolor;
-      font-weight: bold;
-    }
-    .ms-vidoption{
-      display: block;
-      font-size: 14px;
-      padding: 0 15px;
-      text-align: left;
-    }
-    .ms-versions{
-     font-size: 12px; 
-   }
    .panel {
     padding: 0 0 30px 0;
     position: relative;
-
-
-    span[data-toggle="tooltip"]{
-      background: @bluesecondarycolor;
-      color: #fff;
-      display: inline-block;
-      font-size: 14px;
-      height: 16px;
-      line-height: 16px;
-      text-align: center;
-      width: 16px;
-      .border-radius(25px);
-    }
 
     &.panel-external, &.panel-remove-padding-bottom {
       padding: 0;
@@ -210,6 +182,9 @@ a[itemprop="url"]{
             color: #c09853;
             background-color: #fefbed;
             border-bottom: 1px solid #f1e7bc;
+            td.price .rent {
+              color: #c09853;
+            }
           }
 
           td {
@@ -226,7 +201,6 @@ a[itemprop="url"]{
               }
             }
             &.episode {
-
               h4{  
                 font-size: 1.1em;
                 font-weight: bold;
@@ -235,6 +209,23 @@ a[itemprop="url"]{
 
               .infos {
                 font-size: 0.8em;
+              }
+            }
+            &.price {
+              .rent {
+                text-transform: uppercase;
+                font-size: 18px;
+                color: @bluesecondarycolor;
+                font-weight: bold;
+              }
+              .ms-vidoption {
+                display: block;
+                font-size: 14px;
+                padding: 0 15px;
+                text-align: left;
+              }
+              .ms-versions {
+               font-size: 12px; 
               }
             }
           }
