@@ -12,7 +12,7 @@
   }
 }
 
-.btn-suivre:not(.btn-primary):not(.btn-danger):not(.btn-success) {
+.btn-suivre:not(.btn-primary):not(.btn-success):not(.btn-danger) {
   background-color: #f39c12;
   border-color: #f39c12;
   color: #FFFFFF;
@@ -32,13 +32,14 @@
   &:hover {
     color: #FFFFFF;
   }
-}
-.btn-voir:not(.btn-success) {
-  background: @bluesecondarycolor;
-  border: @bluesecondarycolor;
-  &:hover {
-    background: @bluemaincolor;
-    border: @bluemaincolor;
+
+  &:not(.btn-success) {
+    background: @bluesecondarycolor;
+    border: @bluesecondarycolor;
+    &:hover {
+      background: @bluemaincolor;
+      border: @bluemaincolor;
+    }
   }
 }
 
