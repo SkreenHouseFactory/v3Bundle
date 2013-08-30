@@ -10,7 +10,7 @@
 {% endif %}
 
 <div class="ms-vid-type">
-   {{ program.format.name }}, {{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}
+   {{ program.format ? program.format.name ~ ', ' : null }}{{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}
 </div>
 
 

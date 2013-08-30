@@ -136,8 +136,12 @@ a[itemprop="url"]{
 
   #program-offers {
    .panel {
-    padding: 0 0 30px 0;
     position: relative;
+      padding: 0 30px 0 0;
+
+    &:not(.panel-more) {
+      padding: 0;
+    }
 
     &.panel-external:not(.panel-more), &.panel-remove-padding-bottom {
       padding: 0;
@@ -195,9 +199,9 @@ a[itemprop="url"]{
             }
             &.offers {
               text-align: center;
-              width: 200px;
+              width: 170px;
               button, a.btn {
-                width: 170px;
+                width: 160px;
               }
             }
             &.episode {
@@ -212,6 +216,7 @@ a[itemprop="url"]{
               }
             }
             &.price {
+              min-width: 180px;
               .rent {
                 text-transform: uppercase;
                 font-size: 18px;
@@ -223,6 +228,12 @@ a[itemprop="url"]{
                 font-size: 14px;
                 padding: 0 15px;
                 text-align: left;
+              }
+              .ms-vid-type{
+                font-size: 18px;
+                display: block;
+                margin-top: 20px;
+                margin-bottom: 20px;
               }
               .ms-versions {
                font-size: 12px; 
@@ -272,10 +283,7 @@ a[itemprop="url"]{
       color: #fff;
     }
   }
-
-
-
-  a.btn[data-toggle]{
+  a.btn[data-toggle] {
     display: inline-block;
     height: 30px;
     margin-right: -8px;
@@ -283,13 +291,10 @@ a[itemprop="url"]{
     padding: 6px;
     width: 30px;
   }
-
-  ul.nav.nav-pills{
+  ul.nav.nav-pills {
     margin:20px  20px; 
   }
-
-
-  .ms-nav-pills-saisons{
+  .ms-nav-pills-saisons {
     font-size: 16px;
     margin: 4px 19px;
     padding-top: 3px;
@@ -301,6 +306,7 @@ a[itemprop="url"]{
    }
  }
 }
+
 ul#episodes-list{
   list-style: none;
   padding-left: 20px;
@@ -321,6 +327,7 @@ ul#episodes-list{
     }
   } 
 }
+
 .scrollplayerzone{
   margin-top: 20px;
   position: relative;
@@ -352,6 +359,9 @@ ul#episodes-list{
 #affiche {
   .shadows-player-land();
   .transition-shadows();
+  text-align: center;
+  background: #EEE;
+  height: 368px;
 
   img.channel {
     position: absolute;
@@ -391,13 +401,17 @@ ul#episodes-list{
 .videotitle  {
   h1{
     font-size: 28px;
-    font-weight: bold;
     margin-top: 20px;
     margin-bottom: 0px;
+    span {
+      display: block;
+      font-size: 0.8em;
+      font-weight: normal;
+      padding-top: 15px;
+    }
   }
   h2{
     font-size: 24px;
-    font-weight: normal;
     margin-top: 20px;
     margin-bottom: 0px;
   }
@@ -417,18 +431,8 @@ ul#episodes-list{
   }
 }
 
-.ms-vid-type{
-  font-size: 18px;
-  display: block;
-  margin-top: 20px;
-  margin-bottom: 20px;
-
-}
-
 .tab-content{
   margin-top:20px;  
 }
-
-
 
 }

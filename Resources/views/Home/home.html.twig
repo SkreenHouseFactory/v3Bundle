@@ -53,8 +53,12 @@
       </div>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, force_size: '/1250/370'} %}
       {% if app.request.get('home') == 'cinema' %}
-      <div class="container well well-small playlist">
-      {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
+      <div class="container playlist">
+        <div class="row">
+        <div class="col-xs-16">
+          {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
+        </div>
+        </div>
       </div>
       {% endif %}
     {% else %}
