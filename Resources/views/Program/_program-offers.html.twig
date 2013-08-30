@@ -1,28 +1,4 @@
-  <div class="row" style="margin:0;">
-    {# TITRE #}
-    <div class="col-xs-12 videotitle "  style="padding:0;">
-      {% if program.episode_title is defined and
-      program.episodeof is defined and
-      program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
-      <h1 itemprop="name">{{ program.episode_title }}</h1>
-      {% if program.popular_channel is defined %}
-      <h2>{{ program.popular_channel.name }}</h2>
-      {% endif %}
-      {% elseif program.episode_title is defined and
-      program.episodeof is defined %}
-      {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
-      <h1 itemprop="name">{{ program.episodeof.title }}</h1>
-      <h2>{{ program.episode_title }} {% if episode_title and program.episode_title != episode_title %} ({{ episode_title }}){% endif %}</h2>
-      {% else %}
-      <h1 itemprop="name"> {{ program.title }} </h1>
-      {% endif %}
-    </div>
-    <div class="col-xs-4 suivre"  style="padding:0;">
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.id, class: 'fav-like btn-big'} %}
-    </div>
-  </div>
-
-  {# offers #}
+{# offers #}
   <div class="col-xs-16" style="padding:0;">
     <div id="program-offers" class="tab-content">
 
@@ -143,7 +119,7 @@
                     <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}">
                   </td>
 
-                  <td class="episode"{% if o_access.name not in ['Vidéo'] %} colspan="2"{% endif %}>
+                  <td class="episode"{% if o_access.name not in ['Vidéo','Archive'] %} colspan="2"{% endif %}>
                    {% if o.title is defined and o.title %}
                    <h4>{{ o.title }}</h4><span>{{ o.description }}</span>
                    {% elseif o_episode and o_episode.title %}
@@ -165,7 +141,7 @@
                    </div>
                  </td>
 
-                 {% if o_access.name not in ['Vidéo'] %}
+                 {% if o_access.name not in ['Vidéo','Archive'] %}
                  <td class="price big">
                    {% if o.cost is defined and o.cost %}
                    <div class="rent">
