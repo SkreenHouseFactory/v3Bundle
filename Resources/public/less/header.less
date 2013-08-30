@@ -8,8 +8,11 @@
 
   min-height: 60px;
 
-  .nav.navbar-nav, .nav.nav-playlists{    text-shadow: 1px 1px 1px #ffffff;
+  .nav.navbar-nav, .nav.nav-playlists{    
+    /*
+    text-shadow: 1px 1px 1px #ffffff;
     filter: dropshadow(color=#ffffff, offx=1, offy=1);
+    */
   }
 
   .navbar-nav {
@@ -46,53 +49,54 @@
         }
       }
 
-      .nav-header {
-        display: block;
-        background: #EEE;
-        padding: 3px 15px;
-        font-size: 11px;
-        font-weight: bold;
-        line-height: 20px;
-        color: #999;
-        text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-        text-transform: uppercase;
-
-      }
-      .tv-channels {
-        padding-left: 15px;
-        a {
-          float: left;
-          padding: 5px;
-          display: block;
-          clear: none;
-          span {
-            display: none;
-            position: absolute;
-            background: rgba(0,0,0,0.8);
-            font-size: 0.8em;
-            margin-left: 0px;
-            margin-top: -25px;
-            color: white;
-            padding: 3px;
-            border-radius: 3px;
-          }
-          &:hover {
-            span {
-              display: block;
-            }
-          }
-        }
-      }
-
       &.hover-menu-tv{
         left: -136px;
         width: 940px;
-        ul{
+        ul {
           display: block;
+          padding: 0;
+          margin: 0;
 
-        }
-        li.tv-channels{
-          display: block;
+          li {
+            &.nav-header {
+              display: block;
+              background: #EEE;
+              padding: 3px 15px;
+              font-size: 11px;
+              font-weight: bold;
+              line-height: 20px;
+              color: #999;
+              text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+              text-transform: uppercase;
+
+            }
+            &.tv-channels{
+              display: block;
+              padding-left: 15px;
+              a {
+                float: left;
+                padding: 5px;
+                display: block;
+                clear: none;
+                span {
+                  display: none;
+                  position: absolute;
+                  background: rgba(0,0,0,0.8);
+                  font-size: 0.8em;
+                  margin-left: 0px;
+                  margin-top: -25px;
+                  color: white;
+                  padding: 3px;
+                  border-radius: 3px;
+                }
+                &:hover {
+                  span {
+                    display: block;
+                  }
+                }
+              }
+            }
+          }
         }
         .pull-left{
           margin-left: 20px;
@@ -152,11 +156,6 @@
     .auth.user-off{
       margin-top: -2px;
     }
-    .user-on.notifications{
-      .badge{
-        text-shadow: none;
-      }
-    }
   }
 
 
@@ -167,9 +166,6 @@
     height: 24px;
     width: 24px;
     text-align: center;
-    *{
-      text-shadow:none;
-    }
   }
 
   .toprigthicons-nbr{
@@ -201,8 +197,10 @@
   .toprighticons-label{
     font-size: 14px;
     line-height: 14px;
+    /*
     text-shadow: 1px 1px 1px #ffffff;
     filter: dropshadow(color=#ffffff, offx=1, offy=1);
+    */
   }
   .toprighticons-playlist{
     color: #5D5D5D;
@@ -312,26 +310,19 @@
         .label.filter{
           margin-right: 10px;
         }
-        .notification-filter{
+        .notification-filter {
           display: block;
           text-align: center;
           padding: 5px 0;
           background: #efefef;
           height: auto;
           margin: 5px 0;
-          * {
-            text-shadow:0 0 0 0!important;
-            text-shadow:none!important;
-          }
 
           a{
             &:hover{
               text-decoration: none;
             }
           }
-
-
-
           .badge.badge-important{
             box-shadow: none!important;
             background: #D9534F;
@@ -351,7 +342,6 @@
             color: #fff;
             vertical-align: baseline;
             white-space: nowrap;
-            text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
             background-color: #999;
             &.label-info{
               background-color: #3a87ad;
