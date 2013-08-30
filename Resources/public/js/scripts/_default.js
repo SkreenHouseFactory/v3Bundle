@@ -155,7 +155,7 @@ $(".dropdown").on('click', function(e){
   if($(this) && !$(this).hasClass('open')){  
     $(".dropdown").removeClass("open");
     if($('#top-playlist').hasClass('in')){
-$('#top-playlist').toggle('hide');
+    $('#top-playlist').collapse('hide');
     }
     $(this).addClass('open');
     e.preventDefault();
@@ -170,7 +170,7 @@ $('#top-playlist').toggle('hide');
 $('.navbar-nav >li').on('mouseover',function(){
   var self = $(this);
   if($('#top-playlist').hasClass('in')){
-$('#top-playlist').toggle('hide');
+$('#top-playlist').collapse('hide');
   }
   $('.dropdown').removeClass('open');
   $('.hover-menu', self).removeClass('hide');
