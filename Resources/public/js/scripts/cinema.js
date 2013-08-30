@@ -1,28 +1,42 @@
 // -- theaters
 $(document).ready(function(){
-	$(document).on('click', '#theaters-names a', function(){
-		var triggers = $('#theaters-names a');	
-		if (triggers.filter(':not(.label-info)').length == 0) {
-			triggers.removeClass('label-info');
-			$(this).addClass('label-info');
-		} else {
-			$(this).toggleClass('label-info');
-		}
-		var ids = new Array();
-		triggers.each(function(){
-			if ($(this).hasClass('label-info')) {
-				console.log('add theater id', $(this).data('id'));
-				ids.push($(this).data('id'));
-			}
-		});
-		if (ids.length > 0) {
-			var url = 'schedule/cine.json?programs_only=1&theater_ids=' + ids.join(',');
-			console.log('script', 'update url slider cinema', url);
-			UI.sliders['cinema'].reset(url);
-		} else {
-			$(this).toggleClass('label-info');
-		}
-	});
+
+  // theaters-playlist
+  if ($('#theaters-playlist').length) {
+
+    //////////// CALLBACKS ////////////////
+    Skhf.session.callbackSignin = function() {
+      if (Skhf.session.datas.email) {
+        $('a[href="#theater-playlist"]').trigger('click');
+      }
+    }
+
+  	$(document).on('click', '#theaters-names a', function(){
+  		var triggers = $('#theaters-names a');	
+  		if (triggers.filter(':not(.label-info)').length == 0) {
+  			triggers.removeClass('label-info');
+  			$(this).addClass('label-info');
+  		} else {
+  			$(this).toggleClass('label-info');
+  		}
+  		var ids = new Array();
+  		triggers.each(function(){
+  			if ($(this).hasClass('label-info')) {
+  				console.log('add theater id', $(this).data('id'));
+  				ids.push($(this).data('id'));
+  			}
+  		});
+  		if (ids.length > 0) {
+  			var url = 'schedule/cine.json?programs_only=1&theater_ids=' + ids.join(',');
+  			console.log('script', 'update url slider cinema', url);
+  			UI.sliders['cinema'].reset(url);
+  		} else {
+  			$(this).toggleClass('label-info');
+  		}
+  	});
+  }
+
+  // trigger search playlist
 	$(document).on('click', '#trigger-theaters-playlist', function(){
 		console.log('script', 'trigger-theaters-playlist');
 		var theaters = Skhf.session.datas.cinema;
@@ -43,6 +57,7 @@ $(document).ready(function(){
 		//}
 		return false;
 	});
+  // trigger search geoloc
 	$(document).on('click', '#trigger-theaters-geoloc', function(){
 		var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
 		console.log('script', 'trigger-theaters-geoloc', container);

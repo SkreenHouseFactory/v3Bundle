@@ -138,10 +138,12 @@
 
                 {% endif %}
                 <tr class="{% if loop.index > 3 and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}collapse collapsing-{{ key }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1, width: 550, height: 360}|json_encode }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %}>
+
                   <td class="channel">
                     <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}">
                   </td>
-                  <td class="episode">
+
+                  <td class="episode"{% if o_access.name not in ['Vidéo'] %} colspan="2"{% endif %}>
                    {% if o.title is defined and o.title %}
                    <h4>{{ o.title }}</h4><span>{{ o.description }}</span>
                    {% elseif o_episode and o_episode.title %}
@@ -163,7 +165,7 @@
                    </div>
                  </td>
 
-
+                 {% if o_access.name not in ['Vidéo'] %}
                  <td class="price big">
                    {% if o.cost is defined and o.cost %}
                    <div class="rent">
@@ -196,7 +198,7 @@
                      {% endif %}
                    </div>
                  </td>
-
+                 {% endif %}
 
                  <td class="offers">
                    {% if o_access.name in ['Live', 'TV'] %}
@@ -204,7 +206,7 @@
                     <i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier
                   </a>
                   {% else %}
-                  <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;{{ o.cost > 0 ? 'Voir    ' ~ o.cost|number_format(2, ',') ~ '€' : 'Voir maintenant' }}</button>
+                  <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;{{ o.cost > 0 ? 'Voir    ' ~ o.cost|number_format(2, ',') ~ '€' : 'Voir' }}</button>
                   {% endif %}
                   <br/>
                   {% if o_access.name == 'TV' %}
