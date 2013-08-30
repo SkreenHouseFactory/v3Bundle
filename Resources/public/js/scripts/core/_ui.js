@@ -229,16 +229,6 @@ UiView = {
       }
       history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
       
-      $('body').css('background','');
-      $('body').attr('class','');
-
-     
-      
-      var trigger = $(this);
-
-      //add body class to overload view-homes
-      $('body').removeClass('view-redirect');
-      $('body').addClass('view-ajax');
 
        console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
       if ($('body').hasClass('playlist-in')){
