@@ -2,7 +2,7 @@
   background: transparent; 
 }
 
-.navbar{
+.navbar {
   background:rgba(255,255,255,0.75);
   border-bottom: 1px solid #d2d2d2;
 
@@ -14,7 +14,11 @@
 
   .navbar-nav {
     margin-right: 57px;
+
     > li > a {
+        text-transform: uppercase;
+        font-size: 14px;
+        color: #444444;
       padding: 26px 9px 17px;
     }
     .hover-menu{
@@ -27,7 +31,6 @@
       padding: 10px 10px;
       position: absolute;
       top: 63px;
-
 
       &.vod li, &.cine li {
         width:200px;
@@ -42,29 +45,6 @@
           }
         }
       }
-
-      .allchannels_link_btn{
-background: none repeat scroll 0 0 #EEEEEE;
-    border: 1px solid #DDDDDD;
-    border-radius: 5px 5px 5px 5px;
-    color: #FFFFFF !important;
-    display: inline-block;
-    height: 28px;
-    list-style: none outside none;
-    margin: 14px 57px 8px;
-    padding: 3px 8px;
-    text-transform: none;
-    &:hover{background: #ddd;}
-      a{ 
-        text-shadow:none;
-        color: #5d5d5d;
-        &:hover{
-          text-decoration: none;
-         }
-        }
-
-      }
-
 
       .nav-header {
         display: block;
@@ -245,13 +225,7 @@ background: none repeat scroll 0 0 #EEEEEE;
     background: none;
     border-right: solid #d2d2d2 1px;
   }
-
-  ul.navbar-nav>li{
-    text-transform: uppercase;
-    font-size: 14px;
-    color: #444444;
-  }
-  .dropdown{
+  .dropdown {
     display: block;
   }
 

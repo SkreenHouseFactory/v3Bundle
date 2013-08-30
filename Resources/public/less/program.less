@@ -136,8 +136,12 @@ a[itemprop="url"]{
 
   #program-offers {
    .panel {
-    padding: 0 0 30px 0;
     position: relative;
+      padding: 0 30px 0 0;
+
+    &:not(.panel-more) {
+      padding: 0;
+    }
 
     &.panel-external:not(.panel-more), &.panel-remove-padding-bottom {
       padding: 0;
@@ -195,7 +199,7 @@ a[itemprop="url"]{
             }
             &.offers {
               text-align: center;
-              min-width: 170px;
+              width: 170px;
               button, a.btn {
                 width: 160px;
               }
@@ -355,6 +359,9 @@ ul#episodes-list{
 #affiche {
   .shadows-player-land();
   .transition-shadows();
+  text-align: center;
+  background: #EEE;
+  height: 368px;
 
   img.channel {
     position: absolute;
