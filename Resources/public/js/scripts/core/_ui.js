@@ -216,29 +216,25 @@ UiView = {
     });
     // -- remote data in html elmt
     $(elmt).on('click', '[data-ajax]', function(e){
-    
+
       var trigger = $(this); 
-       
-      //e.preventDefault();
+
+      //history
       console.log('script', '[data-ajax]', $(this).data('ajax'));
       console.log('History.pushStates');
       if ( history.state == null ) {
         history.pushState({path: window.location.href }, document.title, window.location.href);
       }
       history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
-       
-      $('body').css('background','');
-      $('body').attr('class','');
-      
-      
-      var trigger = $(this);
 
       //add body class to overload view-homes
-      $('body').removeClass('view-redirect');
-      $('body').addClass('view-ajax');
-     
-      console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
+      $('body').removeClass('view-redirect')
+               .addClass('view-ajax')
+               .css('background','')
+               .attr('class','');
+
       //load ajax
+      console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
       $($(this).attr('rel')).empty();
       UI.appendLoader($($(this).attr('rel')));
       if ($(this).data('ajax').indexOf('#') != -1) {
@@ -248,15 +244,13 @@ UiView = {
         var url = $(this).data('ajax') + suffix;
       }
       $($(this).attr('rel')).load(url, function() {
-        console.log('script', '[data-ajax]', 'clalback', 'ajax-play', trigger.data('ajax-play'));
+        console.log('script', '[data-ajax]', 'callback', 'ajax-play', trigger.data('ajax-play'));
         //update data body
-        
         UI.unloadRedirect();
         //trigger playlists
         UI.loadPlaylistTriggers('like', Skhf.session.datas.queue.split(','), elmt);
         //ajax play ?
         if (trigger.data('offers')) {
-          
           $('.trigger-'+ trigger.data('offers')).trigger('click');
         }
         if (trigger.data('ajax-play')) {
@@ -268,13 +262,12 @@ UiView = {
         }
         self.refreshAjax();
       });
-     // history.pushState({path: $(this).data('ajax'), body_class:$('body').attr('class'), back_ground: $('body').css('background'),cover: $('body').hasClass('cover')}, $(this).html(), $(this).data('ajax'));
-      
+
       //HACK notifications
       if ($(this).parents('li.open:first').length) {
         $(this).parents('li.open:first').removeClass('open');
       }
-      
+
       document.title = 'programmes, TV, replay | mySkreen.com';
       return false;
     });

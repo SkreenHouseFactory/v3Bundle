@@ -176,61 +176,73 @@ a[itemprop="url"]{
         margin: 0;
       }
     }
+    &.panel-more{ 
+      .tab-pane.more-offers {
+        padding-bottom: 10px;
+      }
+    }
 
     .panel-heading{
       margin: 0;
     }
-    .btn-reveal {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      font-size: 0.9em;
-      padding: 0px 5px;
-      border-top-right-radius: 0px;
-      border-bottom-left-radius: 0px;
-      border: 0px;
-    }
+    .tab-pane {      
+      padding-bottom: 0px;
 
-    table {
-      margin:0;
-      width: 100%;
+      .btn-reveal {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-size: 0.9em;
+        padding: 0px 10px 0 5px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border: 0px;
+      }
 
-      tr {
-        &:hover {
-          color: #c09853;
-          background-color: #fcf8e3;
-        }
+      table {
+        margin:0;
+        width: 100%;
 
-        td {
-          padding-top: 8px;
-          vertical-align: middle;
-          &.channel {
-            width: 110px;
+        tr {
+          min-height: 60px;
+          border-bottom: 1px solid #efefef;
+          &:hover {
+            color: #c09853;
+            background-color: #fefbed;
+            border-bottom: 1px solid #f1e7bc;
           }
-          &.offers {
-            text-align: center;
-            width: 200px;
-            button, a.btn {
-              width: 170px;
+
+          td {
+            padding-top: 8px;
+            vertical-align: middle;
+            &.channel {
+              width: 110px;
+            }
+            &.offers {
+              text-align: center;
+              width: 200px;
+              button, a.btn {
+                width: 170px;
+              }
+            }
+            &.episode {
+
+              h4{  
+                font-size: 1.1em;
+                font-weight: bold;
+                margin: 0;
+              }
+
+              .infos {
+                font-size: 0.8em;
+              }
             }
           }
-          &.episode {
-
-            h4{  
-              font-size: 1.1em;
-              font-weight: bold;
-              margin: 0;
-            }
-
-            .infos {
-              font-size: 0.8em;
-            }
+          img {
+            display:block;
+            margin-left:auto;
+            margin-right:auto;
           }
-        }
-        img {
-          display:block;
-          margin-left:auto;
-          margin-right:auto;
         }
       }
     }
