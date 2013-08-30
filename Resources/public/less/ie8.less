@@ -3,7 +3,11 @@
     > .navbar {
       .col-xs-16 ul.navbar-nav {
         height: 60px;
-        overflow: hidden;
+    		> li{
+    			white-space: nowrap;
+    			width: 100px;
+    			text-align: center;
+    		}
       }
     }
   }
@@ -29,13 +33,26 @@
 			}
 		}
 	}
-	.navbar-nav{
-		>li{
-			white-space: nowrap;
-			width: 100px;
-			text-align: center;
+	.playlists{
+		a{
+			width: 90px
 		}
 	}
+	header{
+		background-color:white;
+	}
+	.container{
+		li{
+			background: none;
+			a{
+				width: 60px;
+			}
+		}
+	}
+	.navbar{
+		background-color: white;
+	}
+
 	.headertoprighticons{
 		>li.user-on{
 			margin-left: 0px;
@@ -52,20 +69,6 @@
 			}
 		}
 
-	}
-	header{
-		background-color:white;
-	}
-	.container{
-		li{
-			background: none;
-			a{
-				width: 60px;
-			}
-		}
-	}
-	.navbar{
-		background-color: white;
 	}
 
   .btn-suivre {
