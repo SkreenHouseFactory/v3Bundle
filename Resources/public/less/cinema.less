@@ -44,7 +44,31 @@
 #theaters-list, #view-program #program-offers #theaters-list {
   position: relative;
   padding: 20px;
-
+  .horaires{
+    >td{
+      background-color: white;
+    }
+  }
+  .theater-remote{
+    text-align: center;
+     width: 12%;
+    &.live{
+      background-color: white;
+      border-bottom: 1px solid white;
+      border-right: 1px solid #ddd;
+      border-left: 1px solid #ddd;
+      a{
+        color: black;
+      }
+    }
+  }
+   .panel-collapse{
+     >p{
+      >a{
+        margin-top: 10px;
+      }
+     }
+   }
   .panel-group {
     .panel {
       padding: 0;

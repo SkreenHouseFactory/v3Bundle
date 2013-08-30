@@ -32,7 +32,14 @@
       </div>
       <div id="theater-{{ cinema.id }}" class="panel-collapse collapse in{% if loop.first %}  in{% endif %}">
         <table class="table table-striped panel-body">
-        {% for day in days if attribute(cinema.schedules, day) is defined %}
+        <tr>
+         {% for day in days if attribute(cinema.schedules, day) is defined %}
+         <td class="theater-remote{% if loop.index == 1 %} live{% endif %}" data-theater-id="theater-{{ cinema.id }}" data-day="{{ day }}"><a>{{ day }}</a></td>
+         {% endfor %}
+         </tr>
+
+         {% for day in days if attribute(cinema.schedules, day) is defined %}
+         <tr class="horaires {{ day }} {% if loop.index != 1%}hide{% endif %}">
           {% set s = attribute(cinema.schedules, day) %}
           {% set hasVF = 0 %}
           {% set hasVO = 0 %}
@@ -44,9 +51,7 @@
           {% set hasVF = 1%}
           {% endif %}
           {% endfor %}
-          <tr>
-            <th>{{ day }}</th>
-            <td>
+            <td colspan="7">
               {% if hasVO == 1%}
               <span class="label label-default">VO</span>
               {% for h in s.schedules|to_array %}
@@ -67,11 +72,10 @@
               {% endfor %}
               {% endif%}
             </td>
-            
           </tr>
-        {% endfor %}
-        </table>
-        <hr/>
+          {% endfor %}
+             </table>
+    
         <p align="center">
           {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, class: 'fav-cinema fav-remove', name: cinema.name, text: 'Ajouter ' ~ cinema.name ~ ' à vos cinémas'} %}
         </p>
