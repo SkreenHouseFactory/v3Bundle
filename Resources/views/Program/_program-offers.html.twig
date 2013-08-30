@@ -61,7 +61,7 @@
     {% set hasoffers = 1  %}
     {% set variabledeboucle = loop.index  %}
 
-    <div class="panel panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : '' }}{{ program.offers[key]|to_array|length > 3 ? 'panel-more' : '' }}">
+    <div class="panel{{ program.offers[key]|to_array|length > 3 ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : '' }}">
       <div class="panel-heading dong" >
         <h3 class="panel-title{% if key == 'external' and program.offers['deporte']|to_array|length %} external-collapser pointer{% endif %}"{% if key == 'external' and program.offers['deporte']|to_array|length %} data-toggle="collapse"{% endif %} href="#{{ key }}">
           {{ offers[key] }}
