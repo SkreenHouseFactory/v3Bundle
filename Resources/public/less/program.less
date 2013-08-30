@@ -135,39 +135,11 @@ a[itemprop="url"]{
   }
 
   #program-offers {
-    .rent {
-      text-transform: uppercase;
-      font-size: 18px;
-      color: @bluesecondarycolor;
-      font-weight: bold;
-    }
-    .ms-vidoption{
-      display: block;
-      font-size: 14px;
-      padding: 0 15px;
-      text-align: left;
-    }
-    .ms-versions{
-     font-size: 12px; 
-   }
    .panel {
     padding: 0 0 30px 0;
     position: relative;
 
-
-    span[data-toggle="tooltip"]{
-      background: @bluesecondarycolor;
-      color: #fff;
-      display: inline-block;
-      font-size: 14px;
-      height: 16px;
-      line-height: 16px;
-      text-align: center;
-      width: 16px;
-      .border-radius(25px);
-    }
-
-    &.panel-external, &.panel-remove-padding-bottom {
+    &.panel-external:not(.panel-more), &.panel-remove-padding-bottom {
       padding: 0;
     }
     &.panel-synopsis{ 
@@ -176,61 +148,92 @@ a[itemprop="url"]{
         margin: 0;
       }
     }
+    &.panel-more{ 
+      .tab-pane.more-offers {
+        padding-bottom: 10px;
+      }
+    }
 
     .panel-heading{
       margin: 0;
     }
-    .btn-reveal {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      font-size: 0.9em;
-      padding: 0px 5px;
-      border-top-right-radius: 0px;
-      border-bottom-left-radius: 0px;
-      border: 0px;
-    }
+    .tab-pane {      
+      padding-bottom: 0px;
 
-    table {
-      margin:0;
-      width: 100%;
+      .btn-reveal {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-size: 0.9em;
+        padding: 0px 10px 0 5px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border: 0px;
+      }
 
-      tr {
-        &:hover {
-          color: #c09853;
-          background-color: #fcf8e3;
-        }
+      table {
+        margin:0;
+        width: 100%;
 
-        td {
-          padding-top: 8px;
-          vertical-align: middle;
-          &.channel {
-            width: 110px;
-          }
-          &.offers {
-            text-align: center;
-            width: 200px;
-            button, a.btn {
-              width: 170px;
+        tr {
+          min-height: 60px;
+          border-bottom: 1px solid #efefef;
+          &:hover {
+            color: #c09853;
+            background-color: #fefbed;
+            border-bottom: 1px solid #f1e7bc;
+            td.price .rent {
+              color: #c09853;
             }
           }
-          &.episode {
 
-            h4{  
-              font-size: 1.1em;
-              font-weight: bold;
-              margin: 0;
+          td {
+            padding-top: 8px;
+            vertical-align: middle;
+            &.channel {
+              width: 110px;
             }
+            &.offers {
+              text-align: center;
+              width: 200px;
+              button, a.btn {
+                width: 170px;
+              }
+            }
+            &.episode {
+              h4{  
+                font-size: 1.1em;
+                font-weight: bold;
+                margin: 0;
+              }
 
-            .infos {
-              font-size: 0.8em;
+              .infos {
+                font-size: 0.8em;
+              }
+            }
+            &.price {
+              .rent {
+                text-transform: uppercase;
+                font-size: 18px;
+                color: @bluesecondarycolor;
+                font-weight: bold;
+              }
+              .ms-vidoption {
+                display: block;
+                font-size: 14px;
+                padding: 0 15px;
+                text-align: left;
+              }
+              .ms-versions {
+               font-size: 12px; 
+              }
             }
           }
-        }
-        img {
-          display:block;
-          margin-left:auto;
-          margin-right:auto;
+          img {
+            display:block;
+            margin-left:auto;
+            margin-right:auto;
+          }
         }
       }
     }

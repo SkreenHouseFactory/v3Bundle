@@ -1,0 +1,32 @@
+{% if program.player is defined and program.player %}
+<div class="ms-playertitle">
+  <h2 id="program-teaser-header" data-default-text="Votre programme en intégralité">{{ program.player.access_id is defined ? 'Votre programme en intégralité' : 'Bande annonce' }}</h2>
+</div>
+<a name="teaser"></a>
+<div id="program-teaser">  
+  <meta itemprop="duration" />
+  <meta itemprop="thumbnail" content="{{ program.picture }}" />
+  {% if program.player_fb is defined %}
+  <meta itemprop="embedURL" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
+  {% endif %}
+  <meta itemprop="width" content="637" />
+  <meta itemprop="height" content="368" />
+  <meta itemprop="playerType" content="Flash" />
+  <span id="program-teaser-header" class="hide" data-default-text="Votre programme en intégralité">{{ program.player.access_id is defined ? 'Votre programme en intégralité' : 'Bande annonce' }}</span>
+  <div id="program-teaser-meta" class="player-meta"></div>
+  <div id="program-teaser-player"{% if app.request.isXmlHttpRequest %}{%else%} data-play-autoload-bak="{{ program.player.id }}"{% endif %} data-play="{{ program.player.id }}" {#data-play-meta-elmt="#program-teaser-meta" data-play-muted="1"#} data-play-args="{{ {hide_sliders: 1, current_player: '#program-teaser-player'}|json_encode }}">
+    <iframe src="{{ player_host }}/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.player.id }}&height=368&width=637&fromWebsite=1" style="height:368px;width:637px" scrolling="no" frameborder="0"></iframe>
+  </div>
+</div>
+{% else %}
+
+<div class="ms-playertitle">
+  <h2 id="program-teaser-header">Publicité</h2>
+</div>
+<div id="program-teaser">  
+  <span id="program-teaser-header"></span>
+  <div id="program-teaser-player">
+    <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=28370043&program_id={{ program.id }}&height=368&width=637&fromWebsite=1" style="height:368px;width:637px" scrolling="no" frameborder="0"></iframe>
+  </div>
+</div>
+{% endif %}

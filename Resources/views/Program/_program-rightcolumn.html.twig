@@ -1,0 +1,91 @@
+{# social bar #}
+<div class="ms-social-bar">
+  {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}
+</div>
+
+
+{# Selecteur episodes (@see #program-episodes) #}
+{% if program.episode_list is defined or program.seasons is defined %}
+<a class="btn btn-default block" data-toggle="collapse" data-target="#program-episodes">Tous les épisodes</a>
+{% endif %}
+
+<div class="ms-vid-type">
+   {{ program.format.name }}, {{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}
+</div>
+
+
+<div class="inner">
+
+  <div id="program-casting" class="scroll">
+
+    {% if program.director|to_array %}
+    <h5 class="ms-cat-title" >{{ 'directed.by'|trans }}</h5>
+    {% for pers in program.director|to_array %}
+    <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
+      <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.director|to_array|length %},&nbsp;{% endif %}</a>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% if program.presenter is defined and program.presenter|to_array|length %}
+    <h5 class="ms-cat-title" >{{ 'presented.by'|trans }}</h5> 
+    {% for pers in program.presenter | to_array  %}
+    <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
+      <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.presenter|to_array|length %},&nbsp;{% endif %}</a> 
+    </div>
+    {% endfor %}
+    <br/>
+    {% endif %}
+
+    {% if program.casting|to_array %}
+    <h5 class="ms-cat-title" >{{ 'actors'|trans }}</h5>
+    {% for pers in program.casting|to_array  %}
+    <div class="inline {% if loop.index > 5 %} actors_entrop hide{% endif %}" itemprop="actor" itemscope itemtype="http://schema.org/Person">
+      {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
+    </div>
+    {% endfor %} 
+    {% if program.casting|to_array|length > 5 %}
+    <div class="block">
+     <a class="actors_reveal" data-toggle-text="&laquo; retour">
+       et {{ program.casting|to_array|length - 5 }} autre{% if program.casting|to_array|length > 6 %}s{% endif %}  acteur{% if program.casting|to_array|length > 6 %}s{% endif %}...</a>
+     </div>
+    {% endif %}
+    {% endif %}
+
+     {% if program.editor|to_array  %}
+     <h5 class="ms-cat-title" >{{ 'editors'|trans }}</h5>
+     {% for pers in program.editor | to_array %}
+     <div class="inline" itemprop="editor" itemscope itemtype="http://schema.org/Person">
+      {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+
+{# categories #}
+{% if program.format and program.categories|length | to_array %}
+<br/>
+{% for c in program.categories | to_array  if c.seo_url is defined  %}<a class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>&nbsp;{% endfor %}
+<br/>
+{% endif %}
+{% if program.format and program.subcategories|to_array|length %}
+{% for c in program.subcategories | to_array  %}<a  class="label label-default"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>&nbsp;{% endfor %}
+{% endif %}
+
+
+
+{# related channels #}
+
+{% if program.related.channels is defined and
+  program.related.channels.programs is defined and
+  program.related.channels.programs|to_array|length %}
+  <span class="ms-cat-title">Retrouvez ce programme ici :</span>
+  {% for r in program.related.channels.programs|to_array %}
+  <a class="channel_link" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}">
+    <span class="channel_texte">{{ r.title ~ ', la chaîne' }}</span>
+    <img src="{{ r.picture }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
+  </a>
+  {% endfor %}
+  {% endif %}
