@@ -7,6 +7,7 @@
   
   <div id="sitemap">
     <h2>mySkreen est un guide de programmes innovant qui réunit sur un seul site toutes les chaînes de télévision, tout le replay, tous les catalogues de VOD, le cinéma avec les horaires et les salles, et les web séries produites par les meilleurs sites médias. Suivez les programmes que vous aimez et soyez avertis à chaque diffusion ou nouvelle offre en streaming. Grâce à mySkreen, reprenez le pouvoir : mySkreen c’est votre télé à la carte et à la demande.</h2>
+    
     <strong class="pull-left">Par média :&nbsp;&nbsp;&nbsp;</strong>
     <h3><a href="/programme-tv/">Tv & Replay</a></h3>
     <h3><a href="/video-a-la-demande/">Vidéo à la demande</a></h3>
@@ -36,81 +37,8 @@
     <h3><a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Salles de cinéma</a></h3>
     <h3><a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">Dvd et Blu-ray</a></h3>
   </div>
-  
-<!--
-  <div class="row" style="font-size: 0.9em;">
-    <div id="footer-replay" class="col-xs-4">
-      <h5>Replay TV</h5> 
-      <a href="{{ path('tvgrid') }}">Programme TV & Replay</a>
-      <a href="{{ path('channel', {slug: 'm6'}) }}">M6 Replay</a>
-      <a href="{{ path('channel', {slug: 'tf1'}) }}">TF1 Replay</a>
-      <a href="{{ path('channel', {slug: 'w9'}) }}">W9 Replay</a>
-      <a href="{{ path('channel', {slug: 'france-2'}) }}">France 2 Replay</a>
-      <a href="{{ path('channel', {slug: 'france-3'}) }}">France 3 Replay</a>
-    </div>
-    {% if app.request.get('home') and 
-          app.request.get('home') not in ['tv-replay','cinema','video-a-la-demande','mixte'] %}
-      {% set base_footer = app.request.get('home') %}
-    {% else %}{% set base_footer = 'film' %}{% endif %}
-    <div id="cats" class="col-xs-3">
-      <h5>Catégories</h5>
-      {% set footerspin =  '' %}
-      {#% if base_footer in ['film'] %#}
-      <a href="/film/film-culte/">Film culte{{ footerspin }}</a>
-      <a href="/film/ovni-experimental/">OVNI / Expérimental{{ footerspin }}</a>
-      {#% endif %}
-      {% if base_footer in ['film','dessin-anime-et-manga','serie'] %#}
-      <a href="/film/romance/">Romance{{ footerspin }}</a>
-      <a href="/film/policier-thriller/">Policier - Thriller{{ footerspin }}</a>
-      <a href="/film/fantastique/">Fantastique{{ footerspin }}</a>
-      <a href="/film/comedies/">Comédies{{ footerspin }}</a>
-      <a href="/film/drames/">Drames{{ footerspin }}</a>
-      <a href="/film/jeunesse/">Jeunesse{{ footerspin }}</a>
-      <a href="/film/erotique/">Erotique{{ footerspin }}</a>
-      </div>
-      <div id="cats-1" class="col-xs-3">
-     
-      <a href="/film/action-aventure/">Action - Aventure{{ footerspin }}</a>
-      <a href="/film/epouvante-horreur/">Epouvante - horreur{{ footerspin }}</a>
-      {#% endif %}
-      {% if base_footer in ['film','documentaire'] %#}
-      <a href="/film/biographie-biopic/">Biographie - Biopic{{ footerspin }}</a>
-      <a href="/documentaire/societe/">Société{{ footerspin }}</a>
-      <a href="/documentaire/arts/">Arts{{ footerspin }}</a>
-      <a href="/documentaire/histoire/">Histoire{{ footerspin }}</a>
-      {#% endif %}
-      {% if base_footer in ['documentaire'] %#}
-      <a href="/documentaire/sciences/">Sciences{{ footerspin }}</a>
-      <a href="/documentaire/justice/">Justice{{ footerspin }}</a>
-      {#% endif %}
-      {% if base_footer in ['film','documentaire','serie','dessin-anime-et-manga'] %#}
-      {#% endif %}
-      {% if base_footer in ['emission','journal','documentaire'] %#}
-      <a href="/serie/science-fiction/">Science-fiction{{ footerspin }}</a>
-      
-      </div>
-      <div id="cats-2" class="col-xs-3">
-      <a href="/emission/decouverte/">Découverte{{ footerspin }}</a>
-      <a href="/emission/sport/">Sport{{ footerspin }}</a>
-      <a href="/emission/sante-bien-etre/">Santé - bien-être{{ footerspin }}</a>
-      <a href="/emission/loisirs-passions/">Loisirs - Passions{{ footerspin }}</a>
-      {#% endif %}
-      {% if base_footer in ['emission','journal'] %#}
-      <a href="/emission/divertissement-humour/">Divertissement-humour{{ footerspin }}</a>
-      <a href="/emission/archives/">Archives{{ footerspin }}</a>
-      {#% endif %}
-      {% if base_footer in ['serie'] %#}
-      <a href="/serie/series-americaines/">Séries américaines{{ footerspin }}</a>
-      <a href="/serie/series-francaises/">Séries françaises{{ footerspin }}</a>
-      <a href="/serie/serie-animee/">Série animée{{ footerspin }}</a>
-      {#% endif %#}
-    </div>
-    <div id="partners" class="col-xs-3">
-      <a href="/partenaires">Partenaires</a>
-      <a href="http://www.videofutur.fr" target="_blank">Location DVD, Blu-ray</a>
-    </div>
-  </div>
-  -->
+  <br/>
+  <br/>
   <hr/>
   <div class="row">
   <ul class="nav nav-pills nav-share">
