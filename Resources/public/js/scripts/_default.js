@@ -151,12 +151,17 @@ $(document).ready(function(){
     
 // new header nav bar
 
-  $("dropdown").on('click', function(e){
+  $(".dropdown").on('click', function(e){
     if($(this) && !$(this).hasClass('open')){  
       $(this).addClass('open');
       e.preventDefault();
       e.stopPropagation();
     }    
+    else{
+      $(this).removeClass('open');
+      e.preventDefault();
+      e.stopPropagation();
+    }
   });
 
     $('.navbar-nav >li').on('mouseover',function(){
