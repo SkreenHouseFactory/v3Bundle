@@ -95,7 +95,7 @@ $(document).ready(function(){
                playwrapsub.removeClass('hide');
                $('#player').addClass('fly-shadows');
                $('#affiche').addClass('fly-shadows')
-               nav.slideUp( 200 );
+               nav.slideUp( 100 );
            } 
            else {
                nav.removeClass('ms-navbarfixed');
@@ -108,10 +108,10 @@ $(document).ready(function(){
                $('#affiche').removeClass('fly-shadows');
            }
            if( $('.playwrap').css('position') == "fixed" && parseInt($('.playwrap').css('top')) == 80  ){
-                  $('.playwrap').animate({top:"-=80"},200);
+                  $('.playwrap').animate({top:"-=80"},100);
                }
            
-        }else if(st< lastScrollTop_2) {
+        }else if(st< lastScrollTop) {
       
            if( $(this).scrollTop() > playwrap_offset.top && $(this).scrollTop() <= limit ){
              playwrap.addClass("player-fixed-top");
@@ -129,10 +129,10 @@ $(document).ready(function(){
             playwrap.css('position','');
             $('#player').removeClass('fly-shadows');
             $('#affiche').removeClass('fly-shadows')
-            nav.slideDown( 200 );
-            if( parseInt($('.playwrap').css('top')) == 0 && $('.playwrap').css('position') == "fixed"){
-              $('.playwrap').animate({top:"+=80"},200);
-            }
+            nav.slideDown( 100 );
+            
+              $('.playwrap').animate({top:"+=80"},100);
+            
                          nav.css('display','block');
 
            }
@@ -141,22 +141,27 @@ $(document).ready(function(){
 
         
             // upscroll code
-            
+          
          }
          lastScrollTop = st;
-         lastScrollTop_2 = st - 10;
+         lastScrollTop_2 = st - 5;
        }
       });
     }
     
 // new header nav bar
 
-  $("dropdown").on('click', function(e){
+  $(".dropdown").on('click', function(e){
     if($(this) && !$(this).hasClass('open')){  
       $(this).addClass('open');
       e.preventDefault();
       e.stopPropagation();
     }    
+    else{
+      $(this).removeClass('open');
+      e.preventDefault();
+      e.stopPropagation();
+    }
   });
 
     $('.navbar-nav >li').on('mouseover',function(){

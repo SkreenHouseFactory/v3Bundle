@@ -169,6 +169,14 @@ background: none repeat scroll 0 0 #EEEEEE;
     filter: dropshadow(none);
     margin-top: 10px;
     font-weight: normal;
+    .auth.user-off{
+      margin-top: -2px;
+    }
+    .user-on.notifications{
+      .badge{
+        text-shadow: none;
+      }
+    }
   }
 
 
@@ -293,7 +301,7 @@ background: none repeat scroll 0 0 #EEEEEE;
       }
     }
     &.user-on {
-      margin-left: 30px;
+      margin-left: 28px;
       > a {
         .badge {
           background-color: #0088cc;
@@ -560,7 +568,14 @@ background: none repeat scroll 0 0 #EEEEEE;
         padding-left: 0;
         overflow-x: hidden;
       }
+      &.slider{
+        height: 242px;
+        &.navigate{
+          height:200px;
+        }
+      }
     }
+
     .selector.static{
       margin: 0 2px;
     }
@@ -584,7 +599,7 @@ background: none repeat scroll 0 0 #EEEEEE;
   background-image:none;
 }
 #playlist{
-
+ 
   .label.label-inverse, .label.label-warning{
     width:150px;
     height: 40px;
@@ -610,12 +625,11 @@ background: none repeat scroll 0 0 #EEEEEE;
   }
 
   ul.items>li{
-    height: 241px;
+    height: 242px;
     background-position: bottom;
   }
-
-  &.slider{
-    height: 270px;
+  &.navigate ul.items>li{
+    height: 201px;
   }
 
 }
