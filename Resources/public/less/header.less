@@ -342,9 +342,47 @@ background: none repeat scroll 0 0 #EEEEEE;
           display: block;
           text-align: center;
           padding: 5px 0;
-          background: #ed0743;
+          background: #efefef;
           height: auto;
           margin: 5px 0;
+          * {
+            text-shadow:0 0 0 0!important;
+            text-shadow:none!important;
+          }
+
+          a{
+            &:hover{
+              text-decoration: none;
+            }
+          }
+
+
+
+          .badge.badge-important{
+            box-shadow: none!important;
+            background: #D9534F;
+          }
+          .scroll.notification-scroll{
+            height: 385px;
+            margin-top: 5px;
+            padding-top: 15px;
+          }
+
+          >.label{
+            display: inline-block;
+            padding: 2px 4px;
+            font-size: 11.844px;
+            font-weight: bold;
+            line-height: 14px;
+            color: #fff;
+            vertical-align: baseline;
+            white-space: nowrap;
+            text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+            background-color: #999;
+            &.label-info{
+              background-color: #3a87ad;
+            }
+          }
         }
         .notification-scroll{
           margin-top: 20px;
@@ -446,8 +484,8 @@ background: none repeat scroll 0 0 #EEEEEE;
     ul {
       left: -225px;
       text-align: left;
-      top: 94%;
-      > div {
+      top: 42%;
+        > div {
         height: 315px;
         overflow-y: auto;
         overflow-x: hidden;
@@ -633,36 +671,6 @@ background: none repeat scroll 0 0 #EEEEEE;
   }
 
 }
-
-#dropdown-menu-notification {
-  * {
-    text-shadow:0 0 0 0!important;
-    text-shadow:none!important;
-  }
-
-  a{
-    &:hover{
-      text-decoration: none;
-    }
-  }
-
-
-
-  .badge.badge-important{
-    box-shadow: none!important;
-    background: #D9534F;
-  }
-  .notification-filter{
-   margin: -5px 0;
-   padding: 6px;
- }
- .scroll.notification-scroll{
-  height: 385px;
-  margin-top: 5px;
-  padding-top: 15px;
-}
-
-} 
 
 .auth.user-off{
  margin-top: 8px;
