@@ -85,7 +85,7 @@
         <ol class="carousel-indicators">
           {% if nb_pages > 1%}
           {% for i in 0..nb_pages %}
-          <li data-target="#carousel-{{loop_index}}" data-slide-to="{{i}}" {% if i == 0 %}class="active"> {% endif %}</li>
+          <li data-target="#carousel-{{loop_index}}" data-slide-to="{{i}}" {% if i == 0 %}class="active"{% endif %}></li>
           {% endfor %}
           {% endif %}
         </ol>        

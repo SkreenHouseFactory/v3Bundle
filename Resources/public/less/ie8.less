@@ -1,4 +1,10 @@
 .lt-ie9{
+  body {
+    > .navbar {
+      height: 60px;
+      overflow: hidden;
+    }
+  }
 	#carousel-a-la-une{
 		.carousel-control{
 			height: 150px;
@@ -47,5 +53,30 @@
 	.navbar{
 		background-color: white;
 	}
+
+  .btn-suivre {
+    background-color: #f39c12;
+    border-color: #f39c12;
+    color: #FFFFFF;
+    &:hover {
+      background: #ffcc7c;
+      border: #ffcc7c 1px solid;
+      color: #FFFFFF;
+    }
+  }
+
+  .btn-voir {
+    color: #FFFFFF;
+    min-width: 140px;
+    background: @bluesecondarycolor;
+    border: @bluesecondarycolor;
+  
+    &:hover {
+      color: #FFFFFF;
+      background: @bluemaincolor;
+      border: @bluemaincolor;
+    }
+  }
+
 }
 

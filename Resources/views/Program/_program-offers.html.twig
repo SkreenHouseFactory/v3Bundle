@@ -143,6 +143,7 @@
 
                  {% if o_access.name not in ['Vidéo','Archive'] %}
                  <td class="price big">
+
                    {% if o.cost is defined and o.cost %}
                    <div class="rent">
                      {{ o_access.name }}
@@ -156,9 +157,8 @@
                    </div>
                    {% endif %}
 
-
-                   {% if o.deporte is defined and o.deporte and o.versions is defined %}
-                   <div class="ms-versions"   >
+                   <div class="ms-versions">
+                     {% if o.deporte is defined and o.deporte and o.versions is defined %}
                      <span class="">{{ o.versions|to_array|keys|join(', ') }}</span>&nbsp;
                      {% elseif o.tags is defined and o.tags.version is defined %}
                      <span class="">{{ o.tags.version|replace({',': ', '}) }}</span>
