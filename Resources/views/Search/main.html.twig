@@ -36,7 +36,7 @@
       {% endif %}
     {% else %}
       <h1>{{ app.request.get('q') }}</h1>
-      <p class="alert">{{ 'search.noresults'|trans }}</p>
+      <p class="alert alert-warning">{{ 'search.noresults'|trans }}</p>
       {% if results.spelling and results.spelling|to_array|length %}
       <p class="lead">Vouliez-vous dire : 
       {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}
@@ -53,7 +53,8 @@
       <p>Vouliez-vous dire : {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}</p>
       {% endif %}
     {% else %}
-      <p class="alert">{{ 'search.noresults'|trans }}</p>
+      <h1>{{ app.request.get('q') }}</h1>
+      <p class="alert alert-warning">{{ 'search.noresults'|trans }}</p>
       {% if results.spelling|to_array|length %}
       <p>Vouliez-vous dire : {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}</p>
       {% endif %}

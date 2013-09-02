@@ -1,21 +1,17 @@
-
 {% if app.environment == 'prod' %}
 {% set base_url = 'preprod' not in app.request.httpHost  ? 'http://www.myskreen.com' : '' %}
 {% else %}
 {% set base_url = '/app_dev.php' %}
 {% endif %}
 {% if ' - ' in p.title %}
-  {% set tmp = p.title|split(' - ') %}
-  {% set p_title = tmp[1] ~ ' / ' ~ tmp[0] %}
+{% set tmp = p.title|split(' - ') %}
+{% set p_title = tmp[1] ~ ' / ' ~ tmp[0] %}
 {% else %}
-  {% set p_title = p.title %}
+{% set p_title = p.title %}
 {% endif %}
-
-  <div class="combinaison-{{p.combinaison_type}}">
-    {% if p.deporte is defined and p.deporte %}
-      <span class="ico-deporte"></span>
-    {% endif %}
-    <div class="tv-component actions hasvod-{{ p.has_vod }} {{image}} root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background:url({{ p.picture }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
+<div class="combinaison-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}}">
+  {% if p.deporte is defined and p.deporte %}<span class="ico-deporte"></span>{% endif %}
+  <div class="tv-component actions hasvod-{{ p.has_vod }} root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background:url({{ p.picture }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
     {% if p.popular_channel is defined %}
     <img class="channel" src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" />
     {% endif %}
@@ -23,7 +19,4 @@
       <span class="title"><i class="icon-th icon-white"></i> {{ p_title|raw }}</span>
     </a>
   </div>
-  <div class="info_vignette {{size}}">
-  <!--{% if p.format is defined %}{{ (p.format ? p.format.name : p.onglet)|title }}{% endif %}, {% if p.duration is defined and p.duration %}{{p.duration}}mn{% endif %} -->
-  </div>
-  </div>
+</div>

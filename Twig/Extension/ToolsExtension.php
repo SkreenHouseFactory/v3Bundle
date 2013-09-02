@@ -60,9 +60,17 @@ class toolsExtension extends \Twig_Extension
      * @param <object> $stdClass
      * @return <array> 
      */
-    public function to_array($stdClass)
+    public function to_array($stdClass, $with_id_as_key = false)
     {
-			return (array)$stdClass;
+      if ($with_id_as_key) {
+        $arr = array();
+        foreach ((array)$stdClass as $v) {
+          $arr[$v->id] = $v;
+        }
+        return $arr;
+      } else {
+			  return (array)$stdClass;
+      }
     }
 
     /**
@@ -94,60 +102,83 @@ class toolsExtension extends \Twig_Extension
     }
 
     /**
-     * 404 => search
+     * slider
      * 
      * @param <object> $stdClass
      * @return <array> 
      */
     public function prepareForSlider(Array $programs, $nb_programs_page)
     {
-        $this->slider_programs = $programs;
-        $pages = array();
-        while($page_programs = $this->getProgramsForPage($nb_programs_page)) {
-            $slider_progam = $this->getHorizontalSlider($page_programs);
-            $type = $slider_progam ? 'horizontal' : 'vertical';
-            $pages[] = $this->sortPrograms($page_programs, $type, $nb_programs_page, $slider_progam);
+      $this->slider_programs = $this->to_array($programs, true);
+      $pages = array();
+      $i=0;
+      //echo '<br/> >>>>> '.count($this->slider_programs);
+      while($page_programs = $this->getProgramsForPage($nb_programs_page)) {
+        $slider_progam = $this->getHorizontalSlider($page_programs);
+        $type = $slider_progam ? 'horizontal' : 'vertical';
+        $pages[] = $this->sortPrograms($page_programs, $nb_programs_page, $type, $slider_progam);
+        //echo '<br/> >>>>> '.count($this->slider_programs).' > '.count($page_programs);
+        //print_r($pages);
+        if (count($page_programs) < $nb_programs_page) {
+          break;
         }
-        return $pages;
+        $i++;
+      }
+      return $pages;
     }
     protected function getHorizontalSlider(&$programs){
-        foreach($programs as $key=>$program){
-            if( isset($program->sliderPicture) ){
-                unset($programs[$key]);
-                return $program;
-            }
+      foreach($programs as $key=>$program){
+        if (isset($program->sliderPicture) ){
+          unset($programs[$key]);
+          return $program;
         }
+      }
     }
     protected function getProgramsForPage($nb_programs_page) {
-        $programs = array_slice($this->slider_programs, 0, $nb_programs_page);
-        return $programs;
+      $programs = count($this->slider_programs) >= $nb_programs_page ? array_slice($this->slider_programs, 0, $nb_programs_page) : $this->slider_programs;
+      return count($programs) > 0 ? $programs : null;
     }
-    protected function sortPrograms($page_programs, $type, $nb_programs_page, $slider_progam = null){
-        $programs = array();
-        $n = 0;
-        $i = 0;
 
-        $combinaisons = $this->slider_combinaisons[$nb_programs_page][$type];
-        shuffle($combinaisons);
-        $page_programs = array_values($page_programs);
-        foreach ($combinaisons[0] as $c => $nb) {
-            $program = $page_programs[$i];
-            $i++;
-            if ($n < 6) {
-                $c = $c == 0 ? 1 : $c;
-                $picture = $nb > 1 && $type == 'horizontal' ? $program->sliderPicture : $program->picture;
-                $program->picture = str_replace($this->slider_size[$nb_programs_page][$c], '150/200', $picture);
-                $program->combinaison_type = $c;
-                $program->combinaison_size = $nb;
-                $programs[] = $nb > 1 && $type == 'horizontal' ? $slider_progam : $page_programs[$i];
-                $n = $n + $nb;
-                echo $n;
-                //print_r(array($this->slider_programs, array($program)));
-                //exit();
-                array_diff($this->slider_programs, (array)array($program));
+    protected function sortPrograms($page_programs, $nb_programs_page, $type, $slider_program = null){
+      $programs = array();
+      $n = 0;
+      $i = 0;
 
-            }
+      $page_programs = array_values($page_programs);
+      $combinaisons = $this->slider_combinaisons[$nb_programs_page][$type];
+      shuffle($combinaisons);
+      foreach ($combinaisons[0] as $c => $nb) {
+        if (!isset($page_programs[$i])) {
+          break;
         }
-        return $programs;
+        $program = $page_programs[$i];
+        $i++;
+  
+        if ($n < 6) {
+          $c = is_numeric($c) ? 1 : $c;
+
+          if ($nb > 1 && $type == 'horizontal' && isset($program->sliderPicture)) {
+            $picture = $slider_program->sliderPicture;
+            $program = $slider_program;
+          } else {
+            $picture = $program->picture;
+          }
+          if (isset($this->slider_size[$nb_programs_page][$c])) {
+            $program->picture = str_replace($this->slider_size[$nb_programs_page][$c], '150/200', $picture);
+          }
+          //echo '$c:'.$c;
+          $program->combinaison_type = $c;
+          $programs[] = $program;
+          $n = $n + $nb;
+          //echo '$slider_progam: '.($slider_progam?$slider_progam->id:null);
+          //echo 'is_array: '.is_array($this->slider_programs).' .... '.is_array(array($program));exit();
+          //print_r(array($this->slider_programs, array($program)));
+          //exit();
+          unset($this->slider_programs[$program->id]);
+          //echo ' -1';
+          //echo ' n:'.$n.'('.$c.', '.count($this->slider_programs).')';
+        }
+      }
+      return $programs;
     }
 }

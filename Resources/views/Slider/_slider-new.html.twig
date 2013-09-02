@@ -1,40 +1,39 @@
 <div class="col-xs-8 suggester" >
-    <div class="suggestion"><div><span>{% if slider.url is defined %} <a href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}">{% endif %} {{ slider.title|striptags }}{% if slider.url is defined %} </a> {% endif %}</span> 
-      <!--	<button type="button" class="btn btn-primary btn-xs">voir +</button> -->
-      </div> </div>
-      <div id="carousel-{{loop_index}}"  data-interval="false" class="carousel slide new-slider">
-        <!-- Carousel INNER -->
-        {% if slider.programs is defined %}
-        <div class="carousel-inner">
-        <div class="item active">
-        {% for page in slider.programs | to_array |slice(0, 24) | prepare_for_slider(6) %}
-            <div class="item">
-	        {% for programs in page %}
-	            {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program }%}
-	        {% endfor %}
-        	</div>
-        {% endfor %}
-        </div>
-      	</div>
+  <div class="suggestion"><div><span>{% if slider.url is defined %} <a href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}">{% endif %} {{ slider.title|striptags }}{% if slider.url is defined %} </a> {% endif %}</span> 
+  <!--	<button type="button" class="btn btn-primary btn-xs">voir +</button> -->
+  </div> </div>
+  <div id="carousel-{{loop_index}}"  data-interval="false" class="carousel slide new-slider">
+    <!-- Carousel INNER -->
+    {% if slider.programs is defined %}
+    <div class="carousel-inner">
+    {% set pages = slider.programs|to_array|slice(0, 24)|prepare_for_slider(6) %}
+    {% for page in pages %}
+      <div class="item{{ loop.index == 0 ? ' ' ~ active : '' }}">
+      {% for program in page|to_array %}
+          {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program }%}
+      {% endfor %}
+      </div>
+    {% endfor %}
+  	</div>
+    {% endif %}
+    <!-- Indicators -->
+  
+    <ol class="carousel-indicators">
+      {% if pages|length > 1 %}
+      {% for i in 0..pages|length %}
+      <li data-target="#carousel-{{loop_index}}" data-slide-to="{{i}}" {% if i == 0 %}class="active"{% endif %}></li>
+      {% endfor %}
+      {% endif %}
+    </ol>        
+    <div class="wrap-carousel-control">
+      {% if pages|length > 1 %}
+      <a class="left carousel-control" href="#carousel-{{loop_index}}" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-{{loop_index}}" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
         {% endif %}
-        <!-- Indicators -->
-        
-        <ol class="carousel-indicators">
-          {% if nb_pages > 1%}
-          {% for i in 0..nb_pages %}
-          <li data-target="#carousel-{{loop_index}}" data-slide-to="{{i}}" {% if i == 0 %}class="active"{% endif %}></li>
-          {% endfor %}
-          {% endif %}
-        </ol>        
-        <div class="wrap-carousel-control">
-          {% if nb_pages > 1%}
-          <a class="left carousel-control" href="#carousel-{{loop_index}}" data-slide="prev">
-              <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-            <a class="right carousel-control" href="#carousel-{{loop_index}}" data-slide="next">
-              <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>
-            {% endif %}
-          </div>
-        </div>
-     </div>
+    </div>
+  </div>
+</div>
