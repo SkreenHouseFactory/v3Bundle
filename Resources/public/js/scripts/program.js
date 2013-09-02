@@ -24,25 +24,6 @@ $(document).ready(function(){
       } else if ($('#program-offers #trigger-theaters-geoloc').length) {
         $('#program-offers #trigger-theaters-geoloc').trigger('click');
       }
-      //affichage bulle pendant 4s sur fiche programme
-      /*
-      if (!Skhf.session.datas.email && 
-          $('#program-follow .fav').length > 0) {
-        setTimeout(function(){
-          if (!$('#skModal').hasClass('in')) {
-            $('#program-follow .fav').each(function(){
-              var trigger = $(this);
-              UI.installPopover(trigger);
-              trigger.popover('show');
-
-              setTimeout(function(){
-                trigger.popover('hide');
-              }, 6000);
-            });
-          }
-        }, 2000);
-      }
-      */
     }
     // -- add preference callback : incitation à suivre des related
     if (!navigator.userAgent.match(/iPhone|iPod/)) { //not optimized for iPhone
@@ -145,50 +126,6 @@ $(document).ready(function(){
       $('ul#episodes-list li:not(.hide)').addClass('hide');
       $('ul#episodes-list li.season-' + $(this).data('season')).removeClass('hide');
     })
-    /*
-    $('#program-offers [data-content]').on('hover', function(event) {
-      var trigger = $(this);
-      var timeout = null;
-      if (event.type == 'mouseover' || event.type == 'mouseenter') {
-        console.log(trigger);
-        if (!trigger.data('loaded')) {
-          API.query(
-            'GET',
-            'program/' + $(this).data('episode-id') + '.json',
-            {
-              with_description: 1,
-              img_width: 200,
-              episode_only: 1
-            },
-            function(json) {
-              $('.popover:visible').hide();
-              trigger.attr('data-loaded', 1);
-              if (json.description != null) {
-                var picture = json.picture != null ? '<hr/><p align="center"><img src="' + json.picture + '" alt="' + json.title + '" />' : '';
-                var content = '<strong>' + 
-                              (json.season_number ? ' Saison ' + json.season_number : '') + 
-                              (json.episode_number ? ' Episode ' + json.episode_number : '') + 
-                              (json.season_number || json.episode_number  ? ' - ' : '') + 
-                              (json.year != null ? json.year : '') +
-                              '</strong><br/><small>' + json.description + '</small>' + picture + '</p>';
-                trigger.attr('data-content', content);
-                trigger.popover();
-                trigger.popover('show');
-              } else {
-                trigger.removeAttr('data-content');
-              }
-            });
-        } else if (trigger.attr('data-content') != 'undefined' && 
-                   trigger.attr('data-content')) {
-          $('.popover').hide();
-          trigger.popover('show');
-        }
-      } else {
-        trigger.popover('hide');
-      }
-    });
-    */
-
 
     //init
     if (!$('#view-program').hasClass('isInitialized')) {
