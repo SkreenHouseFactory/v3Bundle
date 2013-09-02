@@ -881,7 +881,9 @@ UI = {
       items: 5,
       minLength: 3,
       source: function(typeahead, query) {
-        $.debounce(self.getTypeaheadSuggestions(typeahead, query), 200);
+        if (query.length == 0)
+          return;
+        $.debounce(self.getTypeaheadSuggestions(typeahead, query), 200, false);
       },
       onselect: function(obj) {
         console.log('UI.typeahead', 'onselect', obj, typeof obj, 'blur:' + $(searchbox), API.config.v3_url + '/programmes/' + obj);
