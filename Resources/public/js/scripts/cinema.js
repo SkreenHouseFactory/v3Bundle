@@ -50,20 +50,10 @@ $(document).ready(function(){
 				{dataType: 'text html'},
 				function(datas){
 					console.log('script', '#theaters-playlist', 'callback');
+          alert('remote');
 					UI.removeLoader(container);
 					container.html(datas);
 					UI.loadPlaylistTriggers('cinema', Skhf.session.datas.cinema.split(','), container);
-
-          $('#theater .theater-remote').on('click', function(){
-           var hide_all= '#' + $(this).data('theater-id') + ' .horaires';
-           var aim = '#' + $(this).data('theater-id') + ' .horaires.' + $(this).data('day');
-           var hide_all_remote = '#' + $(this).data('theater-id')+ ' .theater-remote';
-           $(hide_all).addClass('hide');
-           $(hide_all_remote).removeClass('live');
-           $(aim).removeClass('hide');
-           $(this).addClass('live');
-
-         });
         });
 		//}
 		return false;
@@ -83,6 +73,15 @@ $(document).ready(function(){
 		return false;
 	});
 
+ $(document).on('click','#theater .theater-remote', function(){
+           var hide_all= '#' + $(this).data('theater-id') + ' .horaires';
+           var aim = '#' + $(this).data('theater-id') + ' .horaires.' + $(this).data('day');
+           var hide_all_remote = '#' + $(this).data('theater-id')+ ' .theater-remote';
+           $(hide_all).addClass('hide');
+           $(hide_all_remote).removeClass('live');
+           $(aim).removeClass('hide');
+           $(this).addClass('live');
+         });
   
 
 
