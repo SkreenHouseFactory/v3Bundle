@@ -131,7 +131,7 @@ class ProgramController extends Controller
        
 
 
-        // echo $api->url;
+        echo $api->url;
         if ($this->get('kernel')->getEnvironment() == 'dev' && 
             $request->get('debug')) {
           echo $api->url;

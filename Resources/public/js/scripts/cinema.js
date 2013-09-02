@@ -50,7 +50,6 @@ $(document).ready(function(){
 				{dataType: 'text html'},
 				function(datas){
 					console.log('script', '#theaters-playlist', 'callback');
-          alert('remote');
 					UI.removeLoader(container);
 					container.html(datas);
 					UI.loadPlaylistTriggers('cinema', Skhf.session.datas.cinema.split(','), container);

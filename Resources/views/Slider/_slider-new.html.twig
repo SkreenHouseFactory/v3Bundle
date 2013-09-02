@@ -1,84 +1,21 @@
-
-{% set custom_loop = 0 %}
-{% set newArray = [] %}
-{% set nb_pages = 0 %}
-
-
-
-{% if loop_index == 1 %}
-{% set value1 = 0 %}
-{% set value2 = 4 %}
-{% set value3 = 1 %}
-{% elseif loop_index == 2 %}
-{% set value1 = 0 %}
-{% set value2 = 1 %}
-{% set value3 = 1 %}
-{% elseif loop_index == 3 %}
-{% set value1 = 0 %}
-{% set value2 = 3 %}
-{% set value3 = 1 %}
-{% elseif loop_index == 4 %}
-{% set value1 = 0 %}
-{% set value2 = 2 %}
-{% set value3 = 1 %}
-{% elseif loop_index == 5 %}
-{% set value1 = 0 %}
-{% set value2 = 4 %}
-{% set value3 = 1 %}
-{% else %}
-{% set value1 = 0 %}
-{% set value2 = 1 %}
-{% set value3 = 1 %}
-{% endif %}
-
-{% for slider_program in slider.programs | to_array %}
-  {% if slider_program.maxsize is defined and 
-        slider_program.maxsize.width|number_format < 270 and 
-        slider_program.maxsize.height|number_format < 380 %}
-    {% set newArray = newArray|merge([slider_program]) %}
-  {% else %}
-    {% set newArray = [slider_program]|merge(newArray) %}
-  {% endif %}
-{% endfor %}
-
-{% if loop_index == 3 or loop_index == 4%}
-{% for slider_program in slider.programs | to_array %}
-  {% if slider_program.sliderPicture is defined %}
-   {% set newArray = [slider_program]|merge(newArray) %}
-  {% else %}
-   {% set newArray = newArray|merge([slider_program]) %}
-  {% endif %}
-{% endfor %}
-{% endif %}
-
-	<div class="col-xs-8 suggester" >
+<div class="col-xs-8 suggester" >
     <div class="suggestion"><div><span>{% if slider.url is defined %} <a href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}">{% endif %} {{ slider.title|striptags }}{% if slider.url is defined %} </a> {% endif %}</span> 
       <!--	<button type="button" class="btn btn-primary btn-xs">voir +</button> -->
       </div> </div>
       <div id="carousel-{{loop_index}}"  data-interval="false" class="carousel slide new-slider">
         <!-- Carousel INNER -->
-        {% if newArray is defined %}
-          <div class="carousel-inner">
-          <div class="item active">
-        {% for program in newArray %}
-        {% if nb_pages < 3 %}
-             {% if custom_loop != 0 and custom_loop is divisibleby(6) %}
-                </div>
-                <div class="item">
-                {% set nb_pages = nb_pages + 1 %}
-             {% endif %}
-
-            {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program, loop_index: custom_loop, n_carousel: loop_index}%}
-
-            {% if (custom_loop == value1 )%}
-              {% set custom_loop = custom_loop + value2 %}
-            {% else %}
-              {% set custom_loop = custom_loop + value3 %}
-            {% endif %}
-          {% endif %}
+        {% if slider.programs is defined %}
+        <div class="carousel-inner">
+        <div class="item active">
+        {% for page in slider.programs | to_array |slice(0, 24) | prepare_for_slider(6) %}
+            <div class="item">
+	        {% for programs in page %}
+	            {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program }%}
+	        {% endfor %}
+        	</div>
         {% endfor %}
         </div>
-      </div>
+      	</div>
         {% endif %}
         <!-- Indicators -->
         

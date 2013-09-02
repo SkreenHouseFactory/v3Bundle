@@ -11,7 +11,9 @@ UiView = {
     console.log('UiView.init', elmt);
 
     this.elmt = typeof elmt != 'undefined' && elmt ? elmt : $('body');
+    if (history.pushState) {
     this.initHistory();
+     }
     this.onLoad();
   },
   update: function(elmt) {
@@ -165,10 +167,11 @@ UiView = {
       body_class = $('.body_background').data('refresh-bodyclass');
       $('body').css('background',body_background);
       $('body').addClass(body_class);
-      if ( has_playlist == true ){
-         $('body').addClass('playlist-in');
-      }
     }
+     if ( has_playlist == true ){
+         $('body').addClass('playlist-in');
+         $('body').addClass('view-ajax');
+      }
   },
   initDataLive: function(elmt) {
     var self = this;
@@ -218,22 +221,23 @@ UiView = {
     });
     // -- remote data in html elmt
     $(elmt).on('click', '[data-ajax]', function(e){
-
       var trigger = $(this); 
 
       //history
       console.log('script', '[data-ajax]', $(this).data('ajax'));
       console.log('History.pushStates');
+      if (history.pushState) {
       if ( history.state == null ) {
         history.pushState({path: window.location.href }, document.title, window.location.href);
       }
       history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
-      
+      }
 
        console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
       if ($('body').hasClass('playlist-in')){
       var has_playlist = true;
       }
+      
       //add body class to overload view-homes
       $('body').removeClass('view-redirect')
                .addClass('view-ajax')
@@ -267,14 +271,13 @@ UiView = {
           }
           API.play(trigger.data('ajax-play'), trigger.data('play-args'));
         }
-        self.refreshAjax(has_playlist);
       });
 
       //HACK notifications
       if ($(this).parents('li.open:first').length) {
         $(this).parents('li.open:first').removeClass('open');
       }
-
+      self.refreshAjax(has_playlist);
       document.title = 'programmes, TV, replay | mySkreen.com';
       return false;
     });
