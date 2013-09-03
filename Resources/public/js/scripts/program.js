@@ -128,7 +128,7 @@ $(document).ready(function(){
     })
 
     //init
-    if (!$('#view-program').hasClass('isInitialized')) {
+    if ($('#view-program').hasClass('isInitialized') == false) {
      ProgramView.init();
     }
 
