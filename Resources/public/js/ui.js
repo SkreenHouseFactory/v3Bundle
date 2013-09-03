@@ -19,8 +19,7 @@ UI = {
     var self = this;
     this.playlist = new BaseSlider({ programs: [] }, function() {}, $('#playlist'));
     console.log('UI.init', 'this.playlist', this.playlist);
-    //player
-    Player.config = {width: 720, height: 330}
+
     //ios
     if (navigator.userAgent.match(/iPhone|iPod|iPad/)) {
       $('html').addClass('ios');
@@ -777,11 +776,6 @@ UI = {
     //  Player.playOccurrence(id);
     
     //} else {
-    if (typeof args.player_width == 'undefined' || 
-        typeof args.player_width == 'undefined') {
-      args.player_width = 720;
-      args.player_height = 330;
-    }
     console.log('UI.play', id, args);
 
     if (typeof args.current_player == 'undefined' && $('#program-teaser-player').length) {

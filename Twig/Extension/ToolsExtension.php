@@ -113,15 +113,12 @@ class toolsExtension extends \Twig_Extension
       $pages = array();
       $i=0;
       //echo '<br/> >>>>> '.count($this->slider_programs);
-      while($page_programs = $this->getProgramsForPage($nb_programs_page)) {
+      while ($page_programs = $this->getProgramsForPage($nb_programs_page)) {
         $slider_progam = $this->getHorizontalSlider($page_programs);
         $type = $slider_progam ? 'horizontal' : 'vertical';
         $pages[] = $this->sortPrograms($page_programs, $nb_programs_page, $type, $slider_progam);
         //echo '<br/> >>>>> '.count($this->slider_programs).' > '.count($page_programs);
         //print_r($pages);
-        if (count($page_programs) < $nb_programs_page) {
-          break;
-        }
         $i++;
       }
       return $pages;
@@ -130,12 +127,14 @@ class toolsExtension extends \Twig_Extension
       foreach($programs as $key => $program){
         if (isset($program->sliderPicture) ){
           unset($programs[$key]);
+          $programs = array_values($programs);
           //echo ' getHorizontalSlider:'.$program->title;
           return $program;
         }
       }
     }
     protected function getProgramsForPage($nb_programs_page) {
+      //echo '<br>getProgramsForPage:'.count($this->slider_programs);
       $programs = count($this->slider_programs) >= $nb_programs_page ? array_slice($this->slider_programs, 0, $nb_programs_page) : $this->slider_programs;
       return count($programs) > 0 ? $programs : null;
     }
@@ -150,12 +149,11 @@ class toolsExtension extends \Twig_Extension
       shuffle($combinaisons);
       //echo '<br/><br/>NEWPAGE '.implode('-', $combinaisons[0]);
       foreach ($combinaisons[0] as $c => $nb) {
-        //echo '<br/>';
+        //echo '<br/>'.$c;
         if (!isset($page_programs[$i])) {
-          //echo ' noprogram:'.$i;
+          //echo ' stop no more programs:'.$i;
           break;
         }
-
   
         if ($n >= $nb_programs_page) {
           //echo ' nottaken:'.$i;
@@ -172,7 +170,7 @@ class toolsExtension extends \Twig_Extension
             $i++;
           }
           if (isset($this->slider_size[$nb_programs_page][$c])) {
-            $program->picture = str_replace(array('150/200','990/450'), $this->slider_size[$nb_programs_page][$c].'/t', $picture);
+            $program->picture = str_replace(array('150/200','990/450'), $this->slider_size[$nb_programs_page][$c].'/c', $picture);
           }
           //echo '$c:'.$c;
           $program->combinaison_type = $c;

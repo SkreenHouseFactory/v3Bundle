@@ -209,45 +209,57 @@ class ProgramController extends Controller
         } else {
           $data->datas_theaters = array(
             'theaters_ids' => $data->offers['theater'] ? explode(',', $data->offers['theater']) : array(),
-            'theaters_on_demand' => $data->offers['theater_on_demand']
+            'theater_on_demand' => $data->offers['theater_on_demand']
           );
           $data->offers['theater'] = ($data->offers['theater'] ? count($data->offers['theater']) : 0) +  
-                                       ($data->offers['theater_on_demand'] ? count($data->offers['theater_on_demand']) : 0);
+                                     ($data->offers['theater_on_demand'] ? count($data->offers['theater_on_demand']) : 0);
         }
+
         //player
+        $data->player = null;
         if ($data->teaser) {
           $data->player = $data->teaser;
+          $data->player->type = 'teaser';
 
-        } elseif (count($data->offers['replay']) > 0) {
-          foreach ($data->offers['replay'] as $o) {
-            if (isset($o->deporte) && $o->deporte && !$o->cost) {
-              $data->player = $o;
-              break;
+        } else {
+          if (count($data->offers['replay']) > 0) {
+            foreach ($data->offers['replay'] as $o) {
+              if (isset($o->deporte) && $o->deporte && !$o->cost) {
+                $data->player = $o;
+                $data->player->type = 'replay';
+                break;
+              }
             }
           }
-        } elseif (count($data->offers['deporte']) > 0) {
-          foreach ($data->offers['deporte'] as $o) {
-            if (isset($o->deporte) && $o->deporte && !$o->cost) {
-              $data->player = $o;
-              break;
+          if (!$data->player && count($data->offers['deporte']) > 0) {
+            foreach ($data->offers['deporte'] as $o) {
+              if (isset($o->deporte) && $o->deporte && !$o->cost) {
+                $data->player = $o;
+                $data->player->type = 'deporte';
+                break;
+              }
             }
           }
-        } elseif (count($data->offers['bonus']) > 0) {
-          foreach ($data->offers['bonus'] as $o) {
-            if (isset($o->deporte) && 
-                $o->deporte && 
-                $o->channel_id != 5325) { //except cultcut
-              $data->player = $o;
-              break;
+          if (!$data->player && count($data->offers['bonus']) > 0) {
+            foreach ($data->offers['bonus'] as $o) {
+              if (isset($o->deporte) && 
+                  $o->deporte && 
+                  $o->channel_id != 5325) { //except cultcut
+                $data->player = $o;
+                $data->player->type = 'bonus';
+                break;
+              }
             }
           }
-        } elseif (count($data->offers['cuts']) > 0) {
-          foreach ($data->offers['cuts'] as $o) {
-            if (isset($o->deporte) && 
-                $o->deporte && 
-                $o->channel_id != 5325) { //except cultcut
-              $data->player = $o;
-              break;
+          if (!$data->player && count($data->offers['cut']) > 0) {
+            foreach ($data->offers['cut'] as $o) {
+              if (isset($o->deporte) && 
+                  $o->deporte && 
+                  $o->channel_id != 5325) { //except cultcut
+                $data->player = $o;
+                $data->player->type = 'cut';
+                break;
+              }
             }
           }
         }
@@ -295,11 +307,11 @@ class ProgramController extends Controller
           'offers' => array(
             'live' => 'En Direct', 
             'replay' => 'En Replay gratuit', 
-            'deporte' => 'Voir immédiatemment sur mySkreen', 
+            'deporte' => 'En 1 clic sur mySkreen', 
             'tv' => 'Les prochaines diffusions TV',
             'theater' => 'Au cinéma (horaires et salles)',
             'itunes' => 'Télécharger sur iTunes',
-            'external' => 'sur les plateformes de location partenaires', 
+            'external' => 'Sur les autres sites', 
             'bonus' => 'Bonus',
             'cut' => 'Extraits',
             'archive' => 'Archives'

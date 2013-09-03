@@ -9,7 +9,7 @@
 <a class="btn btn-default block" data-toggle="collapse" data-target="#program-episodes">Tous les épisodes</a>
 {% endif %}
 
-<div class="ms-vid-type">
+<div class="ms-format">
    {{ program.format ? program.format.name ~ ', ' : null }}{{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}
 </div>
 
@@ -19,7 +19,7 @@
   <div id="program-casting" class="scroll">
 
     {% if program.director|to_array %}
-    <h5 class="ms-cat-title" >{{ 'directed.by'|trans }}</h5>
+    <h5>{{ 'directed.by'|trans }}</h5>
     {% for pers in program.director|to_array %}
     <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
       <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.director|to_array|length %},&nbsp;{% endif %}</a>
@@ -28,7 +28,7 @@
     {% endif %}
 
     {% if program.presenter is defined and program.presenter|to_array|length %}
-    <h5 class="ms-cat-title" >{{ 'presented.by'|trans }}</h5> 
+    <h5>{{ 'presented.by'|trans }}</h5> 
     {% for pers in program.presenter | to_array  %}
     <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
       <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.presenter|to_array|length %},&nbsp;{% endif %}</a> 
@@ -38,7 +38,7 @@
     {% endif %}
 
     {% if program.casting|to_array %}
-    <h5 class="ms-cat-title" >{{ 'actors'|trans }}</h5>
+    <h5>{{ 'actors'|trans }}</h5>
     {% for pers in program.casting|to_array  %}
     <div class="inline {% if loop.index > 5 %} actors_entrop hide{% endif %}" itemprop="actor" itemscope itemtype="http://schema.org/Person">
       {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
@@ -53,7 +53,7 @@
     {% endif %}
 
      {% if program.editor|to_array  %}
-     <h5 class="ms-cat-title" >{{ 'editors'|trans }}</h5>
+     <h5>{{ 'editors'|trans }}</h5>
      {% for pers in program.editor | to_array %}
      <div class="inline" itemprop="editor" itemscope itemtype="http://schema.org/Person">
       {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
@@ -81,7 +81,7 @@
 {% if program.related.channels is defined and
   program.related.channels.programs is defined and
   program.related.channels.programs|to_array|length %}
-  <span class="ms-cat-title">Retrouvez ce programme ici :</span>
+  <h5 class="ms-cat-title">Les chaînes sur le même thème</h6>
   {% for r in program.related.channels.programs|to_array %}
   <a class="channel_link" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}">
     <span class="channel_texte">{{ r.title ~ ', la chaîne' }}</span>
