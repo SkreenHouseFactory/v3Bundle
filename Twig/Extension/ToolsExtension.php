@@ -22,8 +22,8 @@ class toolsExtension extends \Twig_Extension
                 array('2x2' => 4,'1','1')
             ),
            'horizontal' => array(
-                array('3x1' => 4,'1','1','1'),
-                array('1','1','1','2x1' => 4,'1')
+                array('3x1' => 3,'1','1','1'),
+                array('1','1','1','2x1' => 2,'1')
             )
         )
     );
@@ -127,9 +127,10 @@ class toolsExtension extends \Twig_Extension
       return $pages;
     }
     protected function getHorizontalSlider(&$programs){
-      foreach($programs as $key=>$program){
+      foreach($programs as $key => $program){
         if (isset($program->sliderPicture) ){
           unset($programs[$key]);
+          //echo ' getHorizontalSlider:'.$program->title;
           return $program;
         }
       }
@@ -147,24 +148,31 @@ class toolsExtension extends \Twig_Extension
       $page_programs = array_values($page_programs);
       $combinaisons = $this->slider_combinaisons[$nb_programs_page][$type];
       shuffle($combinaisons);
+      //echo '<br/><br/>NEWPAGE '.implode('-', $combinaisons[0]);
       foreach ($combinaisons[0] as $c => $nb) {
+        //echo '<br/>';
         if (!isset($page_programs[$i])) {
+          //echo ' noprogram:'.$i;
           break;
         }
-        $program = $page_programs[$i];
-        $i++;
-  
-        if ($n < 6) {
-          $c = is_numeric($c) ? 1 : $c;
 
+  
+        if ($n >= $nb_programs_page) {
+          //echo ' nottaken:'.$i;
+        } else {
+          $c = is_numeric($c) ? 1 : $c;
           if ($nb > 1 && $type == 'horizontal' && isset($program->sliderPicture)) {
+            //echo ' takeslider:'.$i;
             $picture = $slider_program->sliderPicture;
             $program = $slider_program;
           } else {
+            //echo ' takeprogram:'.$i;
+            $program = $page_programs[$i];
             $picture = $program->picture;
+            $i++;
           }
           if (isset($this->slider_size[$nb_programs_page][$c])) {
-            $program->picture = str_replace($this->slider_size[$nb_programs_page][$c], '150/200', $picture);
+            $program->picture = str_replace(array('150/200','990/450'), $this->slider_size[$nb_programs_page][$c].'/t', $picture);
           }
           //echo '$c:'.$c;
           $program->combinaison_type = $c;
