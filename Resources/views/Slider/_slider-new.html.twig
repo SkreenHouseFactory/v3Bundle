@@ -15,25 +15,31 @@
       </div>
     {% endfor %}
   	</div>
-    {% endif %}
-    <!-- Indicators -->
-  
-    <ol class="carousel-indicators">
+    {% endif %}     
+    <ul class="wrap-carousel-control">
       {% if pages|length > 1 %}
-      {% for i in 0..pages|length %}
-      <li data-target="#carousel-{{loop_index}}" data-slide-to="{{i}}" {% if i == 0 %}class="active"{% endif %}></li>
-      {% endfor %}
-      {% endif %}
-    </ol>        
-    <div class="wrap-carousel-control">
-      {% if pages|length > 1 %}
+      <li>
       <a class="left carousel-control" href="#carousel-{{loop_index}}" data-slide="prev">
           <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
+      </li>
+      <li>
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          {% if pages|length %}
+            {% for i in 0..pages|length %}
+            <li data-target="#carousel-{{loop_index}}" data-slide-to="{{i}}" {% if i == 0 %}class="active"{% endif %}></li>
+            {% endfor %}
+          {% endif %}
+        </ol>   
+      </li>
+      <li>
         <a class="right carousel-control" href="#carousel-{{loop_index}}" data-slide="next">
           <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
+      </li>
         {% endif %}
-    </div>
+        
+    </ul>
   </div>
 </div>

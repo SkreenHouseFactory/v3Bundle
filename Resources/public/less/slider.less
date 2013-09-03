@@ -202,52 +202,54 @@
       background-color: black;
     }
 
-    .carousel-indicators {
-      margin-left: 1%;
-      bottom: 3px;
-      li {
-        width: 13px;
-        height: 13px;
-        background-color: rgba(70,70,70,.25);
-        border: 1px solid  rgba(70, 70, 70, 0.25);
-        &.active {
-          margin: 1px;
-          background-color: #444;
+    .wrap-carousel-control{
+      position: relative;
+      height: 40px;
+      bottom: 9px;
+      > li {
+        float: left;
+      }
+      .carousel-control {
+        color: black;
+        background: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 23px;
+        border: 1px solid grey;
+        &.left{
+        }
+        &.right{
+          right: 59px;
+        }
+        .glyphicon{
+          width: 30px;
+          height: 30px;
+          margin-top: -15px;
+          margin-left: -15px;
+          font-size: 24px;
+        }
+      }
+      .carousel-indicators {
+        margin-left: 1%;
+        position: relative;
+        bottom:  auto;
+        left:  auto;
+        width: auto;
+        li {
+          list-style: none;
+          width: 13px;
+          height: 13px;
+          background-color: rgba(70,70,70,.25);
+          border: 1px solid  rgba(70, 70, 70, 0.25);
+          &.active {
+            margin: 1px;
+            background-color: #444;
+          }
         }
       }
     }
-    .wrap-carousel-control{
-      position: relative;
-      left: 308px;
-      height: 40px;
-      width: 200px;
-      bottom: 9px;
-    }
     .carousel-inner{
       height: 400px;
-    }
-    .carousel-control{
-      z-index: 15;
-      color: black;
-      position: absolute;
-      background: none;
-      width: 35px;
-      height: 35px;
-      border-radius: 23px;
-      border: 1px solid grey;
-      top: 6px;
-      &.left{
-      }
-      &.right{
-        right: 59px;
-      }
-      .glyphicon{
-        width: 30px;
-        height: 30px;
-        margin-top: -15px;
-        margin-left: -15px;
-        font-size: 24px;
-      }
     }
   }
 }
