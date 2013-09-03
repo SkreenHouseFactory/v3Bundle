@@ -5,14 +5,10 @@
 .navbar {
   background:rgba(255,255,255,0.75);
   border-bottom: 1px solid #d2d2d2;
-
   min-height: 60px;
-
-  .nav.navbar-nav, .nav.nav-playlists{    
-    /*
-    text-shadow: 1px 1px 1px #ffffff;
-    filter: dropshadow(color=#ffffff, offx=1, offy=1);
-    */
+  li a {
+    color: #444444;
+    text-decoration: none;
   }
 
   .navbar-nav {
@@ -20,8 +16,6 @@
 
     > li > a {
       text-transform: uppercase;
-      font-size: 14px;
-      color: #444444;
       padding: 23px 9px 17px;
       text-decoration: none;
     }
@@ -237,7 +231,7 @@
 
 
 
-.nav-playlists{
+.nav-playlists {
   z-index: 15;
   margin: 0;
   .dropdown{
@@ -460,14 +454,13 @@
           font-size: 0.9em;
           clear: both;
           overflow: hidden;
-          &:hover {
+          &:hover, &:hover a {
             background: @rowHoverBg;
             color: @rowHoverColor;
           }
 
           a.link {
 
-            display: auto;
             padding: 0px;
             clear: none;
             line-height: 15px;
