@@ -117,6 +117,9 @@ class toolsExtension extends \Twig_Extension
         $slider_progam = $this->getHorizontalSlider($page_programs);
         $type = $slider_progam ? 'horizontal' : 'vertical';
         $pages[] = $this->sortPrograms($page_programs, $nb_programs_page, $type, $slider_progam);
+        //if (count($this->slider_programs) > $nb_programs_page) {
+          break;
+          //}
         //echo '<br/> >>>>> '.count($this->slider_programs).' > '.count($page_programs);
         //print_r($pages);
         $i++;
