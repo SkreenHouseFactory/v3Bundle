@@ -19,10 +19,11 @@
     margin-right: 57px;
 
     > li > a {
-        text-transform: uppercase;
-        font-size: 14px;
-        color: #444444;
+      text-transform: uppercase;
+      font-size: 14px;
+      color: #444444;
       padding: 23px 9px 17px;
+      text-decoration: none;
     }
     .hover-menu{
 
@@ -459,14 +460,17 @@
           font-size: 0.9em;
           clear: both;
           overflow: hidden;
+          &:hover {
+            background: @rowHoverBg;
+            color: @rowHoverColor;
+          }
 
           a.link {
-            color: #333;
+
             display: auto;
             padding: 0px;
             clear: none;
             line-height: 15px;
-            color: #555;
             white-space: nowrap;
             filter: none; /* ie hover background */
 
