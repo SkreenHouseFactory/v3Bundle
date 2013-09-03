@@ -138,7 +138,6 @@ var BaseSlider = Class.extend({
            //preventDefaultEvents: true
       });
     }
-
     this.elmt.addClass('navigate initialized')
   },
   next: function(trigger) {
@@ -281,6 +280,9 @@ var BaseSlider = Class.extend({
                 if (typeof callback != 'undefined'){
                   callback(self.elmt);
                 }
+
+                $('#playlist').addClass('in-selection');
+
               });
   },
   getUrl: function(offset){

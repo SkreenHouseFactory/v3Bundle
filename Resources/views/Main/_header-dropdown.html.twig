@@ -30,7 +30,7 @@
     <li class="tv-channels">
       {% for channel in tv_channels %}
       {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-      <a data-tnt-name="{{ channel }}" class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/32/37/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
+      <a data-tnt-name="{{ channel }}" class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/36/30/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
       {% endfor %}
     </li>
   </ul>
@@ -41,7 +41,7 @@
     <li class="tv-channels">
       {% for channel in web_channels %}
       {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-      <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><span class="hidden-touch">{{ channel }}</span><img src="http://mskstatic.com/32/37/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
+      <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><span class="hidden-touch">{{ channel }}</span><img src="http://mskstatic.com/36/30/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
       {% endfor %}
     </li>
   </ul>

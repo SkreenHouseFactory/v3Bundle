@@ -636,6 +636,7 @@ UI = {
     console.log('UI.loadSelector', datas, Skhf.session.onglet);
 
     this.unloadSelector();
+    $('#playlist').removeClass('in-selection');
 
     for (key in datas) {
       var group = datas[key];

@@ -71,7 +71,7 @@ $(document).ready(function(){
   var playwrapsub = $('.playwrapsub');
   if( !$('html').hasClass('touch') && ($('body').hasClass('view-program_pere') || $('body').hasClass('view-program_fils_saison') || $('body').hasClass('view-ajax'))  ){
     $(window).scroll(function(event){
-      if(!$('body').hasClass('playlist-in') && $('#program-teaser-header').html() != "Publicité" && !$('body').hasClass('playlist-w-in') ){
+      if(!$('body').hasClass('playlist-in') && !$('body').hasClass('playlist-w-in') ){
         if ( !$('#program-episodes').hasClass('in') ){
          var st = $(this).scrollTop();
          var panel_synopsis= $('.panel-synopsis').offset();

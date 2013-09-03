@@ -150,6 +150,10 @@ UiView = {
       console.log('UiView.initHistory', 'popstate', e.originalEvent.state);
       if (e.originalEvent.state) {
         $('#content').load(window.location.pathname + '?xhr=1', function() {
+          console.log(e.originalEvent.state );
+          if(e.originalEvent.state.document_title){
+            document.title = e.originalEvent.state.document_title;
+          }
            self.refreshAjax();
            Skin.initHome();
         });
@@ -158,6 +162,7 @@ UiView = {
   },
   refreshAjax: function(has_playlist){
     console.log('refreshAjax()')
+
     if ($('a.background')) {
        $('a.background').remove();
     }
@@ -228,7 +233,7 @@ UiView = {
       console.log('History.pushStates');
       if (history.pushState) {
       if ( history.state == null ) {
-        history.pushState({path: window.location.href }, document.title, window.location.href);
+        history.pushState({path: window.location.href, document_title: document.title }, document.title, window.location.href);
       }
       history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
       }
