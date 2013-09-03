@@ -101,10 +101,12 @@ player:
         deporte: Sur mySkreen
         external: Sur d'autres sites
     content.text:
-        plays: Votre programme en intégralité
+        replay: Replay %date%
+        deporte: Votre programme en intégralité
         bonus: Bonus
-        cuts: Extrait
-        archives: Votre archive en intégralité
+        cut: Extrait
+        archive: Archive
+        teaser: Bande-annonce (après la pub)
 redirection:
     h1: Patientez quelques secondes ...
     message: mySkreen vous redirige vers votre vidéo
@@ -157,7 +159,7 @@ playlist:
     tv: A la télé
     replay: En Replay & Web
     vod: En VOD
-    channels: sur mySkreen
+    channels: sur mes chaînes
     friends: 'Vos amis regardent'
     add:
         friends: Inviter

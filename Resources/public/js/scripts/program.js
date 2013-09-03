@@ -106,9 +106,9 @@ $(document).ready(function(){
     }
 
     //handle video mention
-    $('[data-play]').on('click', function(e){
-      if ($(this).parents('[data-play-text]:first').length) {
-        $('#program-teaser-header').html($(this).parents('[data-play-text]:first').data('play-text'));
+    $('[data-play]').on('click', function(){
+      if ($(this).data('play-text')) {
+        $('#program-teaser-header').html($(this).data('play-text'));
       }
     });
 

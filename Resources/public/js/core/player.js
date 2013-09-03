@@ -440,20 +440,21 @@ Player = {
         no_paywall: 1,
         occurrence_id: id
       }, 
-      typeof args != 'undefined' ? args : {}, 
       {
         player_width: this.config.width, 
         player_height:  this.config.height
       },
+      typeof args != 'undefined' ? args : {}, 
       document.location.href.match(/forceMobileDevice/gi) ? {forceMobileDevice: 1} : {}
     );
 
+    console.log('Player.playOccurrence', 'before query', args);
     API.query(
       'GET',
       'player/' + id + '/' + Skhf.session.uid + '.json',
       args,
       function (video){
-        console.log('Player.playOccurrence', video, args);
+        console.log('Player.playOccurrence', 'callback', video, args);
         if (!video.player || typeof video.player == 'undefined' || !self.canPlay(video.player)) {
           console.error(['Player.playOccurrence', 'API.query', 'callback', video]);
           if (typeof callback != 'undefined') {
@@ -464,6 +465,7 @@ Player = {
         if (typeof video.program != 'undefined') {
           self.program = video.program;
         }
+        console.log('Player.playOccurrence', 'play', $.extend(video.player, args));
         self.play($.extend(video.player, args), callback);
         var nb_version = $.map(video.versions, function(n, i) { return i; }).length;
         if (typeof video.versions != 'undefined' && nb_version > 1) {

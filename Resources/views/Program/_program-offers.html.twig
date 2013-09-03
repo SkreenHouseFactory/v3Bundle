@@ -1,5 +1,6 @@
 {# offers #}
   <div class="col-xs-16" style="padding:0;">
+    <h5>Toutes les offres pour voir &laquo;{{ program.title }}&raquo; complet :</h5>
     <div id="program-offers" class="tab-content">
 
       {# subscriptions #}
@@ -47,7 +48,7 @@
         </h3>
       </div>
       {# <a name="{{ key }}"></a> #}
-      <div id="{{ key }}" data-play-text="{{ ('player.content.text.' ~ key)|trans }}" class="tab-pane{% if key == 'external' and program.offers['deporte']|to_array|length %} panel-collapse collapse {% endif %}">
+      <div id="{{ key }}" class="tab-pane{% if key == 'external' and program.offers['deporte']|to_array|length %} panel-collapse collapse {% endif %}">
         {%  if program.offers[key]|length %}
 
           {# theaters #}
@@ -79,13 +80,10 @@
             <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}">
               {% render(controller('SkreenHouseFactoryV3Bundle:Cinema:program', {id: program.id, theater_ids: app.request.get('theater_id') ? app.request.get('theater_id') : program.datas_theaters.theaters_ids|join(',') })) %}
             </div>
-            {% if program.datas_theaters.theaters_on_demand|length %}
-            <hr/>
             {% endif %}
-            {% endif %}
-
-            {% if program.datas_theaters.theaters_on_demand|length %}
-            {% for o in program.datas_theaters.theaters_on_demand %}
+            {% if program.datas_theaters.theater_on_demand|length %}
+            {% if program.datas_theaters.theaters_ids|length %}<hr/>{% else %}<br/>{% endif %}
+            {% for o in program.datas_theaters.theater_on_demand|to_array %}
             <p align="center"><a target="_blank" href="{{ attribute(o, 'url') }}"><img class="img-polaroid" src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema.png') }}" alt="ilikecinema" /></a></p>
             {% endfor %}
             {% endif %}
@@ -113,13 +111,13 @@
                 {% set other_episodes = 'ok' %}
 
                 {% endif %}
-                <tr class="{% if loop.index > 3 and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}collapse collapsing-{{ key }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1, width: 550, height: 360}|json_encode }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %}>
+                <tr class="{% if loop.index > 3 and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}collapse collapsing-{{ key }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~  o.broadcasttime|broadcastdate}) }}">
 
                   <td class="channel">
                     <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}">
                   </td>
 
-                  <td class="episode"{% if o_access.name not in ['Vidéo','Archive','Extrait','Bonus'] %} colspan="2"{% endif %}>
+                  <td class="episode"{% if o_access.name not in ['Replay','Vidéo','Archive','Extrait','Bonus'] or o.cost %} colspan="2"{% endif %}>
                    {% if o.title is defined and o.title %}
                    <h4>{{ o.title }}</h4><span>{{ o.description }}</span>
                    {% elseif o_episode and o_episode.title %}
@@ -141,7 +139,7 @@
                    </div>
                  </td>
 
-                 {% if o_access.name not in ['Vidéo','Archive','Extrait','Bonus'] %}
+                 {% if o_access.name not in ['Replay','Vidéo','Archive','Extrait','Bonus'] or o.cost %}
                  <td class="price big">
 
                    {% if o.cost is defined and o.cost %}
@@ -224,10 +222,23 @@
     {% endfor %}
 
     {# Message alternatif, pas d'offre #}
-    {% if hasoffers == 2 %}
+    {% if program.theater_release_date is defined %}
+      <p class="alert alert-success">Sortie en salle le <strong>{{ program.theater_release_date }}</strong>{# <a href="#" data-ics-date="{{ program.theater_release_date }}"><i class="icon-agenda"></i> Ajouter à votre agenda</a>#}</p>
+    {% elseif program.has_vod == 6 %}
+      <p class="alert alert-success">{{ program.episodeof is defined ? 'Cet épisode' : 'Ce programme' }} sera bientôt disponible en Replay. <br/>Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera mis en ligne.</p>
+    {% elseif program.has_vod == 0 %}
+
     <div class="alert alert-success">
+      {% if program.episodeof is defined %}
+      <h4>Cette épisode n'est pas diffusé pour le moment.</h4>
+      <p>Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'un épisode de <strong>{{ program.episodeof.title }}</strong> est diffusé.</p>
+      {% elseif program.format and program.format.name in ['Film','Documentaire'] %}
       <h4><strong>{{ program.title }}</strong> n'est disponible sur aucune plateforme légale.</h4>
       <p>Avec mySkreen, suivez ce programme pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !</p>
+      {% else %}
+      <h4><strong>{{ program.title }}</strong> n'est pas diffusé pour le moment.</h4>
+      <p>Avec mySkreen, suivez ce programme pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !</p>
+      {% endif %}
     </div>
     {% endif %}
 
