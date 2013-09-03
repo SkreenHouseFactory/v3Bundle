@@ -208,20 +208,25 @@
       position: relative;
       height: 40px;
       bottom: 9px;
+      margin: 0 30px 0 0;
       > li {
-        float: left;
+        list-style: none;
+        display: block;
+        float: right;
+        margin: 0 20px;
       }
+      
       .carousel-control {
         color: black;
         background: none;
         width: 35px;
         height: 35px;
-        border-radius: 23px;
-        border: 1px solid grey;
+        border: 0;
         &.left{
+          left: auto;
         }
         &.right{
-          right: 59px;
+          right: auto;
         }
         .glyphicon{
           width: 30px;
@@ -232,7 +237,7 @@
         }
       }
       .carousel-indicators {
-        margin-left: 1%;
+        margin: 10px 15px;
         position: relative;
         bottom:  auto;
         left:  auto;
@@ -299,9 +304,7 @@
     margin-left: 15px;
     width: auto;
     min-height: 320px;
-    .carousel-indicators {
-      z-index: 10;
-    }
+
     .carousel-control {
       width: 3%;
       .icon-prev,.icon-next{
@@ -314,7 +317,8 @@
         margin-left: -15px;
       }
     }
-    .carousel-indicators{
+    .carousel-indicators {
+      z-index: 10;
       bottom: 20%;
       li{
         border: 1px solid #999;
