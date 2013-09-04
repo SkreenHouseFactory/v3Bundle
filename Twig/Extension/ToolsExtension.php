@@ -111,25 +111,23 @@ class toolsExtension extends \Twig_Extension
     {
       $this->slider_programs = $this->to_array($programs, true);
       $pages = array();
-      $i=0;
       //echo '<br/> >>>>> '.count($this->slider_programs);
-      while ($page_programs = $this->getProgramsForPage($nb_programs_page)) {
+      while (count($this->slider_programs) > 0) {
+        $page_programs = $this->getProgramsForPage($nb_programs_page);
+        //echo ' page_programs count:'.count($page_programs);
         $slider_progam = $this->getHorizontalSlider($page_programs);
         $type = $slider_progam ? 'horizontal' : 'vertical';
         $pages[] = $this->sortPrograms($page_programs, $nb_programs_page, $type, $slider_progam);
-        //if (count($this->slider_programs) > $nb_programs_page) {
-          break;
-          //}
-        //echo '<br/> >>>>> '.count($this->slider_programs).' > '.count($page_programs);
+        //echo ' break count:'.count($this->slider_programs);
+        //break;
         //print_r($pages);
-        $i++;
       }
       return $pages;
     }
     protected function getHorizontalSlider(&$programs){
       foreach($programs as $key => $program){
         if (isset($program->sliderPicture) ){
-          unset($programs[$key]);
+          //unset($programs[$key]);
           $programs = array_values($programs);
           //echo ' getHorizontalSlider:'.$program->title;
           return $program;
@@ -151,6 +149,7 @@ class toolsExtension extends \Twig_Extension
       $combinaisons = $this->slider_combinaisons[$nb_programs_page][$type];
       shuffle($combinaisons);
       //echo '<br/><br/>NEWPAGE '.implode('-', $combinaisons[0]);
+      //echo '$page_programs_keys '.implode('-', array_keys($page_programs));
       foreach ($combinaisons[0] as $c => $nb) {
         //echo '<br/>'.$c;
         if (!isset($page_programs[$i])) {
@@ -166,6 +165,7 @@ class toolsExtension extends \Twig_Extension
             //echo ' takeslider:'.$i;
             $picture = $slider_program->sliderPicture;
             $program = $slider_program;
+            $i++;
           } else {
             //echo ' takeprogram:'.$i;
             $program = $page_programs[$i];
