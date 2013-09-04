@@ -1,6 +1,17 @@
-.lt-ie9{
+.lt-ie10{
 	body {
 		> .navbar {
+			#top-playlist{
+				#playlist{
+					.items{
+						.static{
+							>span{
+								background-color: black;
+							}
+						}
+					}
+				}
+			}
 			.col-xs-16 ul.navbar-nav {
 				height: 60px;
 				> li{
@@ -33,6 +44,7 @@
 			}
 		}
 	}
+
 	.playlists{
 		a{
 			width: 90px
@@ -41,7 +53,7 @@
 	header{
 		background-color:white;
 	}
-	.container{
+	.navbar .container{
 		li{
 			background: none;
 			a{
@@ -94,6 +106,13 @@
 			border: @bluemaincolor;
 		}
 	}
-
+	.nav-header{
+		background-color: lightgrey;
+	}
+}
+.lt-ie9{
+	#content{
+		padding-top: 80px;
+	}
 }
 
