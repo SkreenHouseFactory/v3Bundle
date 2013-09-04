@@ -38,7 +38,7 @@ class TimelineController extends Controller
           if (is_numeric($request->get('date'))) {
             $timestamp = $request->get('date');
           } elseif ($request->get('date')) {
-            $timestamp = strtotime(str_replace('-', ' ', $request->get('date')));
+            $timestamp = strtotime(str_replace('_', ' ', $request->get('date')));
           } else {
             $timestamp = mktime(20,0,0,date('m'),date('d'),date('Y'));
           }
