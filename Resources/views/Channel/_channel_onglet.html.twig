@@ -6,16 +6,12 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
 {% endif %}
 <div id="view-page" class="container channel{{ channel.id }}">
   <div class="row">
-    <div class="col-xs-16">
       {% for slider in data.sliders|to_array if slider.id is defined %}
     
         {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index:loop.index} %}
       {% endfor %}
-
-    </div>
   </div>
   <div class="row">
-    <div class="col-xs-16">
       <br/>
       <br/>
       <div class="well">
@@ -25,7 +21,6 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
       <p class="description">{{ channel.text|raw }}</p>
       {% endif %}
       </div>
-    </div>
   </div>
 </div>
 </div>

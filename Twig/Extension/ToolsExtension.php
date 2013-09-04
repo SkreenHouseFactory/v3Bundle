@@ -118,7 +118,7 @@ class toolsExtension extends \Twig_Extension
         $slider_progam = $this->getHorizontalSlider($page_programs);
         $type = $slider_progam ? 'horizontal' : 'vertical';
         $pages[] = $this->sortPrograms($page_programs, $nb_programs_page, $type, $slider_progam);
-        echo ' break count:'.count($this->slider_programs);
+        //echo ' break count:'.count($this->slider_programs);
         //break;
         //print_r($pages);
       }
@@ -127,7 +127,7 @@ class toolsExtension extends \Twig_Extension
     protected function getHorizontalSlider(&$programs){
       foreach($programs as $key => $program){
         if (isset($program->sliderPicture) ){
-          unset($programs[$key]);
+          //unset($programs[$key]);
           $programs = array_values($programs);
           //echo ' getHorizontalSlider:'.$program->id;
           return $program;
