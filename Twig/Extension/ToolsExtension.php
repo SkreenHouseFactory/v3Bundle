@@ -118,7 +118,7 @@ class toolsExtension extends \Twig_Extension
         $slider_progam = $this->getHorizontalSlider($page_programs);
         $type = $slider_progam ? 'horizontal' : 'vertical';
         $pages[] = $this->sortPrograms($page_programs, $nb_programs_page, $type, $slider_progam);
-        //echo ' break count:'.count($this->slider_programs);
+        echo ' break count:'.count($this->slider_programs);
         //break;
         //print_r($pages);
       }
@@ -127,9 +127,9 @@ class toolsExtension extends \Twig_Extension
     protected function getHorizontalSlider(&$programs){
       foreach($programs as $key => $program){
         if (isset($program->sliderPicture) ){
-          //unset($programs[$key]);
+          unset($programs[$key]);
           $programs = array_values($programs);
-          //echo ' getHorizontalSlider:'.$program->title;
+          //echo ' getHorizontalSlider:'.$program->id;
           return $program;
         }
       }
@@ -148,7 +148,7 @@ class toolsExtension extends \Twig_Extension
       $page_programs = array_values($page_programs);
       $combinaisons = $this->slider_combinaisons[$nb_programs_page][$type];
       shuffle($combinaisons);
-      //echo '<br/><br/>NEWPAGE '.implode('-', $combinaisons[0]);
+      //echo '<br/>NEWPAGE '.implode('-', $combinaisons[0]);
       //echo '$page_programs_keys '.implode('-', array_keys($page_programs));
       foreach ($combinaisons[0] as $c => $nb) {
         //echo '<br/>'.$c;
@@ -160,8 +160,10 @@ class toolsExtension extends \Twig_Extension
         if ($n >= $nb_programs_page) {
           //echo ' nottaken:'.$i;
         } else {
+
+          //echo ' <br/>c:'.$c;
           $c = is_numeric($c) ? 1 : $c;
-          if ($nb > 1 && $type == 'horizontal' && isset($program->sliderPicture)) {
+          if (!is_numeric($c) && $type == 'horizontal') {
             //echo ' takeslider:'.$i;
             $picture = $slider_program->sliderPicture;
             $program = $slider_program;
@@ -175,7 +177,7 @@ class toolsExtension extends \Twig_Extension
           if (isset($this->slider_size[$nb_programs_page][$c])) {
             $program->picture = str_replace(array('150/200','990/450'), $this->slider_size[$nb_programs_page][$c].'/c', $picture);
           }
-          //echo '$c:'.$c;
+          //echo ' $program:'.$program->id;
           $program->combinaison_type = $c;
           $programs[] = $program;
           $n = $n + $nb;

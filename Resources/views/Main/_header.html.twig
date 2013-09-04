@@ -5,12 +5,12 @@
         {# LOGO ENTETE #}
         <a href="{{ path('homes', {home: null}) }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" id="logo"></a>
         <ul class="nav navbar-nav">
-          <li><a href="{{ path('tvgrid') }}">TV &amp; Replay</a>{% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "tv"} %}
+          <li{{ app.request.attributes.get('_route') in ['tvgrid_date','tvgrid'] ? ' class="active"' : '' }}><a href="{{ path('tvgrid') }}">TV &amp; Replay</a>{% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "tv"} %}
           </li>
           {#<li><a href="#">WEB TV</a></li>#}
-          <li><a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">VOD</a>{% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "video-a-la-demande"} %}
+          <li{{ app.request.get('home') == 'video-a-la-demande' ? ' class="active"' : '' }}><a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">VOD</a>{% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "video-a-la-demande"} %}
           </li>
-          <li><a href="{{ path('homes', {home: 'cinema'}) }}">En salles</a>{% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "cinema"} %}
+          <li{{ app.request.get('home') == 'cinema' ? ' class="active"' : '' }}><a href="{{ path('homes', {home: 'cinema'}) }}">En salles</a>{% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "cinema"} %}
           </li>
         </ul>
 
@@ -22,10 +22,7 @@
 
         <ul class="nav nav-playlists headertoprighticons"> 
           <li class="hide user-on dropdown notifications dropdown-toggle tv-component ">
-           {# <span class="toprigthicons-square ms-notificon"  data-toggle="dropdown" >
-              
-         </span>#}
-         <span class="toprighticons-label toprighticons-notifications uppercase"><span  class="toprigthicons-nbr notifications-count ms-notificon" ></span></span>
+         <span class="uppercase notifications-count"></span>
 
          <ul id="dropdown-menu-notification" class="dropdown-menu">
           <span class="notification-filter"></span>
@@ -34,31 +31,22 @@
         </ul>
       </li>
       <li class="user-off playlists">
-        <a class="auth user-off label label-default" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même playlist !">
-             {#<span class="toprigthicons-square ms-usericon">
-              <span  class="toprigthicons-nbr glyphicon glyphicon-user"></span>
-            </span>#}
-            <span class="toprighticons-label toprighticons-user">Se connecter / s'inscrire </span>
+        <a class="auth" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même playlist !">
+            Se connecter / s'inscrire
           </a>
         </li>
 
         {# MA PLAYLIST / MES FAVORIS #}
         <li class="hide user-on playlists">
           <a data-toggle="collapse" data-target="#top-playlist" class="tv-component">
-            {#<span class="toprigthicons-square ms-playlisticon">
-              <span  class="toprigthicons-nbr glyphicon glyphicon-star"></span>
-            </span>#}
-            <span class="toprighticons-label toprighticons-playlist">Mes playlists</span>
+            Mes playlists
           </a>
         </li>
 
         {# MON COMPTE #}
         <li class="hide user-on dropdown user-menu">
           <a data-toggle="dropdown" class="dropdown-toggle tv-component pull-right">
-           {# <span class="toprigthicons-square ms-usericon">
-              <span  class="toprigthicons-nbr glyphicon glyphicon-user"></span>
-            </span>#}
-            <span class="toprighticons-label toprighticons-user glyphicon glyphicon-user ">{#Philibert#}</span>
+            <span class="glyphicon glyphicon-user"></span>
           </a>
           <ul class="dropdown-menu">
             <li class="nav-header user-email"></li>

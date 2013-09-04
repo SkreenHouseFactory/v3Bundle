@@ -4,7 +4,8 @@
 
 .navbar {
   background:rgba(255,255,255,0.75);
-  border-bottom: 1px solid #d2d2d2;
+  border-top: 5px solid #5E98FF;
+  border-bottom: 1px solid #eee;
   min-height: 60px;
   li a {
     color: #444444;
@@ -14,10 +15,18 @@
   .navbar-nav {
     margin-right: 57px;
 
-    > li > a {
-      text-transform: uppercase;
-      padding: 23px 9px 17px;
-      text-decoration: none;
+    > li {
+      &:hover {
+        border-bottom: 5px solid black;
+      }
+      &.active {
+        border-bottom: 5px solid #5E98FF;
+      }
+      > a {
+        text-transform: uppercase;
+        padding: 23px 9px 17px;
+        text-decoration: none;
+      }
     }
     .hover-menu{
 
@@ -44,7 +53,7 @@
         }
       }
 
-      &.hover-menu-tv{
+      &.hover-menu-tv {
         left: -136px;
         width: 940px;
         ul {
@@ -228,9 +237,6 @@
 }
 
 
-
-
-
 .nav-playlists {
   z-index: 15;
   margin: 0;
@@ -286,6 +292,13 @@
           text-align: center;
         }
       }
+    }
+    &.user-off{
+     font-size: 0.9em;
+     font-weight: bold;
+     a {
+       color: #333;
+     }
     }
     &.user-menu{
       >ul{
@@ -630,20 +643,5 @@
   &.in-selection ul.items>li{
     height: 201px;
   }
-
-}
-
-.auth.user-off{
- margin-top: 8px;
- padding: 3px 7px 6px!important;
-
- &:hover{
-   background: @bluemaincolor;
- }
-
- span{
-  color: #fff;
-  text-shadow:none;
-}
 
 }
