@@ -301,7 +301,6 @@ GridView = {
   loadSchedule : function(callback) {
     console.log('GridView.loadSchedule', 'timestamp', this.timestamp, new Date(this.timestamp*1000).toString());
       $('#grid >h1 time').attr('timestamp',this.timestamp);
-        alert(this.timestamp);
     var self = this;
     var channel_ids = this.getChannelsIds();
     //loader
