@@ -194,11 +194,21 @@ h5 {
           min-height: 60px;
           border-bottom: 1px solid #efefef;
           &:hover {
+            cursor: pointer;
             color: @rowHoverColor;
             background-color: @rowHoverBg;
             border-bottom: 1px solid #f1e7bc;
             td.price .rent {
               color: @rowHoverColor;
+            }
+          }
+          &.other-episodes {
+            background: #EEE;
+            td {
+              padding: 0;
+              h5 {
+                margin: 5px 15px;
+              }
             }
           }
 
@@ -235,6 +245,9 @@ h5 {
               }
               .glyphicon {
                 font-size: 1.2em;
+              }
+              .rent .glyphicon {
+                font-size: 0.9em;
               }
               .ms-vidoption {
                 display: block;
@@ -325,6 +338,10 @@ ul#episodes-list{
     overflow: hidden;
     padding-left: 20px;
     width: 60%;
+    &.hover {
+      color: @rowHoverColor;
+      background-color: @rowHoverBg;
+    }
     a{ 
       color: #000;
       &:hover{

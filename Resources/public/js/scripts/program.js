@@ -297,7 +297,7 @@ ProgramView = {
             $('#carousel-youtube .carousel').removeClass('hide')
                                             .carousel({interval: 7000, pause: 'hover'})
                                             .carousel('cycle'); //{interval: 7000, pause: 'hover'}
-            $('#carousel-youtube').append('<p class="alert alert-info">Ces extraits sont récupérés automatiquement sur Youtube notamment. Il se peut qu\'ils ne correspondent pas tout à fait au programme recherché et les sites référencés sont seuls responsables du contenu qu\'ils proposent.</p>');
+            $('#carousel-youtube').append('<p class="grey">Ces extraits sont récupérés automatiquement sur Youtube notamment. Il se peut qu\'ils ne correspondent pas tout à fait au programme recherché et les sites référencés sont seuls responsables du contenu qu\'ils proposent.</p>');
 
           }  
         });

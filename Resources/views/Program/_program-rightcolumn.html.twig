@@ -7,6 +7,8 @@
 {# Selecteur episodes (@see #program-episodes) #}
 {% if program.episode_list is defined or program.seasons is defined %}
 <a class="btn btn-default block" data-toggle="collapse" data-target="#program-episodes">Tous les épisodes</a>
+{% elseif program.episodeof is defined %}
+<a class="btn btn-default block" href="{{ program.episodeof.seo_url }}">Tous les épisodes</a>
 {% endif %}
 
 <div class="ms-format">

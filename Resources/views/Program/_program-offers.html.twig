@@ -1,6 +1,6 @@
 {# offers #}
   <div class="col-xs-16" style="padding:0;">
-    <h5>Toutes les offres pour voir &laquo;{{ program.title }}&raquo; complet :</h5>
+    <h5>Toutes les offres pour voir &laquo;{{ program.title }}&raquo;{% if program.format %}, {{ program.format.name in ['Emission'] ? program.format.name ~ ' en Replay' : program.format.name ~ ' complet' }}{% endif %} :</h5>
     <div id="program-offers" class="tab-content">
 
       {# subscriptions #}
@@ -34,11 +34,11 @@
 
     {# offres #}
     {% set hasoffers = 2  %}
-    {% for key in offers|keys if program.offers[key]|to_array|length %}
+    {% for key in offers|keys if program.offers[key]|to_array|length > 0 %}
     {% set hasoffers = 1  %}
     {% set variabledeboucle = loop.index  %}
 
-    <div class="panel{{ program.offers[key]|to_array|length > 3 ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : '' }}">
+    <div class="panel{{ program.offers[key]|to_array|length > 3 ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : '' }} count-{{ program.offers[key]|to_array|length }}">
       <div class="panel-heading dong" >
         <h3 class="panel-title{% if key == 'external' and program.offers['deporte']|to_array|length %} external-collapser pointer{% endif %}"{% if key == 'external' and program.offers['deporte']|to_array|length %} data-toggle="collapse"{% endif %} href="#{{ key }}">
           {{ offers[key] }}
@@ -49,7 +49,6 @@
       </div>
       {# <a name="{{ key }}"></a> #}
       <div id="{{ key }}" class="tab-pane{% if key == 'external' and program.offers['deporte']|to_array|length %} panel-collapse collapse {% endif %}">
-        {%  if program.offers[key]|length %}
 
           {# theaters #}
           {% if key == 'theater' %}
@@ -96,21 +95,21 @@
 
             <table class="offertable">
               <tbody>
-                {% for o in attribute(program.offers, key)|to_array if key == 'replay' or o.access_id != 2 %}
+                {% for o in attribute(program.offers, key)|to_array %}
                 {% set btn_deploy_offers = btn_deploy_offers + 1 %}
                 {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
                 {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
                 {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
 
+                {# autres episodes #}
                 {% if o.episode_id is defined and 
-                program.episodeof.id is defined and 
-                o.episode_id != program.id and
-                other_episodes != 'ok' %}
-                <tr><td colspan="6"><h6>Autres épisodes</h6></td></tr>
-
+                      program.episodeof.id is defined and 
+                      o.episode_id != program.id and
+                      other_episodes != 'ok' %}
+                <tr class="other-episodes"><td colspan="6"><h5>Autres épisodes <i class="glyphicon glyphicon-arrow-down"></i></h5></td></tr>
                 {% set other_episodes = 'ok' %}
-
                 {% endif %}
+
                 <tr class="{% if loop.index > 3 and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}collapse collapsing-{{ key }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~  o.broadcasttime|broadcastdate}) }}">
 
                   <td class="channel">
@@ -195,7 +194,6 @@
                   <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
                   {% endif %}
 
-
                 </td>
               </tr>
 
@@ -211,7 +209,6 @@
           <button type="button" class="btn btn-default btn-reveal" data-toggle="collapse" data-target=".collapsing-{{ key }}" data-toggle-text="&laquo; Fermer">
             <i class="show-more" >...</i>&nbsp;Voir les {{ attribute(program.offers, key)|to_array|length - 3 }} choix restants
           </button>
-          {% endif %}
         {% endif %}
       </div>
 
@@ -223,7 +220,7 @@
       <p class="alert alert-success">Sortie en salle le <strong>{{ program.theater_release_date }}</strong>{# <a href="#" data-ics-date="{{ program.theater_release_date }}"><i class="icon-agenda"></i> Ajouter à votre agenda</a>#}</p>
     {% elseif program.has_vod == 6 %}
       <p class="alert alert-success">{{ program.episodeof is defined ? 'Cet épisode' : 'Ce programme' }} sera bientôt disponible en Replay. <br/>Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera mis en ligne.</p>
-    {% elseif program.has_vod == 0 %}
+    {% elseif hasoffers == 2 %}
 
     <div class="alert alert-success">
       {% if program.episodeof is defined %}

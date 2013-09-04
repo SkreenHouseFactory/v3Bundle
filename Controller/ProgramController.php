@@ -191,6 +191,7 @@ class ProgramController extends Controller
             break;
           }
         }
+        
         //add other episodes offers
         //$data->offers = array_merge_recursive($data->offers, (array)$data->episodeof->offers);
         // ==> pas suffisant : il faut éviter la répetition lorsque l'on est sur un épisode
@@ -198,6 +199,7 @@ class ProgramController extends Controller
           foreach ($data->episodeof->offers as $key => $offers) {
             foreach ($offers as $offer) {
               if (isset($offer->episode_id) && $offer->episode_id != $data->id) {
+                $data->offers[$key] = (array)$data->offers[$key];
                 $data->offers[$key][] = $offer;
               }
             }
@@ -217,7 +219,8 @@ class ProgramController extends Controller
 
         //player
         $data->player = null;
-        if ($data->teaser) {
+        if ($data->teaser && 
+            (!isset($data->offers['replay'][0]) || $data->offers['replay'][0]->deporte)) {
           $data->player = $data->teaser;
           $data->player->type = 'teaser';
 

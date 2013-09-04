@@ -27,7 +27,7 @@
         <!-- Indicators -->
         <ol class="carousel-indicators">
           {% if pages|length %}
-            {% for i in 0..pages|length %}
+            {% for i in 1..pages|length %}
             <li data-target="#carousel-{{loop_index}}" data-slide-to="{{i}}" {% if i == 0 %}class="active"{% endif %}></li>
             {% endfor %}
           {% endif %}
