@@ -175,8 +175,8 @@ UiView = {
     }
      if ( has_playlist == true ){
          $('body').addClass('playlist-in');
-         $('body').addClass('view-ajax');
       }
+       $('body').addClass('view-ajax');
   },
   initDataLive: function(elmt) {
     var self = this;
@@ -227,7 +227,10 @@ UiView = {
     // -- remote data in html elmt
     $(elmt).on('click', '[data-ajax]', function(e){
       var trigger = $(this); 
-
+      if ( $('html').hasClass('lt-ie9')){
+        window.location.href = trigger.data('ajax');
+      }
+      else{
       //history
       console.log('script', '[data-ajax]', $(this).data('ajax'));
       console.log('History.pushStates');
@@ -282,6 +285,15 @@ UiView = {
           }
           API.play(trigger.data('ajax-play'), trigger.data('play-args'));
         }
+        PlayerScroll.initPlayerScroll();
+        $('#top-playlist').on('hide.bs.collapse', function () {
+          console.log('script', '#top-playlist on hide');
+          $('body').removeClass('playlist-in');
+          if( $('body').hasClass('view-program_pere') || $('body').hasClass('view-ajax') ){
+            $('body').addClass('playlist-w-in');
+          }
+        });
+
       });
 
       //HACK notifications
@@ -291,6 +303,7 @@ UiView = {
       self.refreshAjax(has_playlist);
       document.title = 'programmes, TV, replay | mySkreen.com';
       return false;
+      }
     });
     // -- redirect
     $(elmt).on('click', '[data-redirect]', function(){

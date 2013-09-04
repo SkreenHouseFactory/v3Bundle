@@ -1,38 +1,50 @@
-.lt-ie9{
-  body {
-    > .navbar {
-      .col-xs-16 ul.navbar-nav {
-        height: 60px;
-    		> li{
-    			white-space: nowrap;
-    			width: 100px;
-    			text-align: center;
-    		}
-      }
-    }
-  }
-  #grid {
-    .nav-pills {
-      white-space: nowrap;
-      li.time-change a {
-        width: 100px;
-      }
-      li.addchannel a {
-        width: 120px;
-      }
-    }
-  }
-  
+.lt-ie10{
+	body {
+		> .navbar {
+			#top-playlist{
+				#playlist{
+					.items{
+						.static{
+							>span{
+								background-color: black;
+							}
+						}
+					}
+				}
+			}
+			.col-xs-16 ul.navbar-nav {
+				height: 60px;
+				> li{
+					white-space: nowrap;
+					width: 100px;
+					text-align: center;
+				}
+			}
+		}
+	}
+	#grid {
+		.nav-pills {
+			white-space: nowrap;
+			li.time-change a {
+				width: 100px;
+			}
+			li.addchannel a {
+				width: 120px;
+			}
+		}
+	}
+
 	#carousel-a-la-une{
 		.carousel-control{
 			height: 150px;
 			filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 			color: grey;
 			&:hover{
-				 color: white;
+				color: white;
 			}
 		}
 	}
+
 	.playlists{
 		a{
 			width: 90px
@@ -41,7 +53,7 @@
 	header{
 		background-color:white;
 	}
-	.container{
+	.navbar .container{
 		li{
 			background: none;
 			a{
@@ -71,29 +83,36 @@
 
 	}
 
-  .btn-suivre {
-    background-color: #f39c12;
-    border-color: #f39c12;
-    color: #FFFFFF;
-    &:hover {
-      background: #ffcc7c;
-      border: #ffcc7c 1px solid;
-      color: #FFFFFF;
-    }
-  }
+	.btn-suivre {
+		background-color: #f39c12;
+		border-color: #f39c12;
+		color: #FFFFFF;
+		&:hover {
+			background: #ffcc7c;
+			border: #ffcc7c 1px solid;
+			color: #FFFFFF;
+		}
+	}
 
-  .btn-voir {
-    color: #FFFFFF;
-    min-width: 140px;
-    background: @bluesecondarycolor;
-    border: @bluesecondarycolor;
-  
-    &:hover {
-      color: #FFFFFF;
-      background: @bluemaincolor;
-      border: @bluemaincolor;
-    }
-  }
+	.btn-voir {
+		color: #FFFFFF;
+		min-width: 140px;
+		background: @bluesecondarycolor;
+		border: @bluesecondarycolor;
 
+		&:hover {
+			color: #FFFFFF;
+			background: @bluemaincolor;
+			border: @bluemaincolor;
+		}
+	}
+	.nav-header{
+		background-color: lightgrey;
+	}
+}
+.lt-ie9{
+	#content{
+		padding-top: 80px;
+	}
 }
 
