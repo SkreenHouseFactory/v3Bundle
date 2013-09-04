@@ -17,9 +17,6 @@
     <a class="btn btn-default" data-filter="series">Séries</a>
     <a class="btn btn-default" data-filter="spectacles">Spectacles</a>
   </div>
-  {% for slider in data.sliders|to_array %}
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
-  {% endfor %}
   <hr/>
   {% set date = data.timestamp|localizeddate('full')|split('now'|date('Y')) %}
   <h1>Programme TV du <time timestamp="{{ data.timestamp }}">{{ date[0]|capitalize}}{{ data.timestamp|date('Y')}}
@@ -40,7 +37,7 @@
     <li class="pull-right addchannel">
       <a class="btn btn-default" data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;de chaînes</a>
     </li> 
-    <select id="filter" class="pull-right btn-default dropdown dropdown-update">
+    <select id="filter" class="pull-right btn-default dropdown dropdown-update hide">
         <option>Que voir ?</option>
         <option value="films">Films</option>
         <option value="documentaires">Documentaires</option>
