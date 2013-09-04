@@ -233,8 +233,9 @@ UiView = {
       console.log('History.pushStates');
       if (history.pushState) {
       if ( history.state == null ) {
-        if( $('body').hasClass('view-tvgrid_date')) {
-          history.pushState({path: window.location.href, document_title: document.title }, document.title, window.location.href);
+        if( $('body').hasClass('view-tvgrid')) {
+          var gridPath = $('#grid >h1 time').attr('timestamp')+'/';
+          history.pushState({path: window.location.href, document_title: document.title }, document.title, gridPath);
         }
         else{
         history.pushState({path: window.location.href, document_title: document.title }, document.title, window.location.href);

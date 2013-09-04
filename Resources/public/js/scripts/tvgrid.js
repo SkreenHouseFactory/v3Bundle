@@ -103,7 +103,7 @@ $(document).ready(function(){
        onSelect: function(dateText, inst) {
         var date = (inst.selectedMonth + 1) + '/' + inst.selectedDay + '/' +  inst.selectedYear;
         var timestamp = (Date.parse(date) / 1000) + GridView.hour * 3600;
-        console.log('script/tvGridView.js', 'datepicker.onSelect', dateText, timestamp, GridView.hour, inst);
+                console.log('script/tvGridView.js', 'datepicker.onSelect', dateText, timestamp, GridView.hour, inst);
         GridView.setTime(timestamp, true);
         GridView.loadSchedule(function(){
           datepicker.fadeOut('slow');
@@ -300,6 +300,8 @@ GridView = {
   },
   loadSchedule : function(callback) {
     console.log('GridView.loadSchedule', 'timestamp', this.timestamp, new Date(this.timestamp*1000).toString());
+      $('#grid >h1 time').attr('timestamp',this.timestamp);
+        alert(this.timestamp);
     var self = this;
     var channel_ids = this.getChannelsIds();
     //loader
