@@ -220,7 +220,7 @@ class ProgramController extends Controller
         //player
         $data->player = null;
         if ($data->teaser && 
-            (!isset($data->offers['replay'][0]) || $data->offers['replay'][0]->deporte)) {
+            (!isset($data->offers['replay']->{0}) || $data->offers['replay']->{0}->deporte)) {
           $data->player = $data->teaser;
           $data->player->type = 'teaser';
 
