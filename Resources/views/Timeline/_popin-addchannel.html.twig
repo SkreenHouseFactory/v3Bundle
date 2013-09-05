@@ -18,7 +18,8 @@
   {% for channel in channels %}
     {% if channel.epg %}
     <tr><td class="actions" data-id="{{ channel.id }}">
-      <a class="fav fav-epg pull-right btn btn-primary" data-id="{{ channel.id }}" data-img="{{ channel.img }}" data-seo-url="{{ channel.seo_url }}" data-name="{{ channel.name }}" href="#"><i class="icon-plus-sign icon-white"></i> Ajouter à la grille</a>
+      {#<a class="fav fav-epg pull-right btn btn-primary" data-id="{{ channel.id }}" data-img="{{ channel.img }}" data-seo-url="{{ channel.seo_url }}" data-name="{{ channel.name }}" href="#"><i class="icon-plus-sign icon-white"></i> </a>#}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'fav-epg pull-right', text: 'Ajouter à la grille', name: channel.name } %}
       <img src="{{ channel.img }}"/> {{ channel.name }}
     </td></tr>
     {% endif %}
