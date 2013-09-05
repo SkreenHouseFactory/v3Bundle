@@ -75,9 +75,9 @@ class ProgramController extends Controller
       //API lastmodified
       //$data = $api->fetch('status/cache/program/' . $request->get('id'));
       // echo $api->url;
-      //if (isset($data->error) && $data->error) {
-      //  throw $this->createNotFoundException('Programme does not exist');
-      //}
+      if (isset($data->error) && $data->error) {
+        throw $this->createNotFoundException('Programme does not exist');
+      }
       //$cache_date = new \DateTime($data->updated_at);
 
       //cache

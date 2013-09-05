@@ -18,7 +18,7 @@
 
 {% block title %}
 {% if data.channel.fournisseur is defined and data.channel.fournisseur.type == 'broadcast' %}
-{{ channel.title }}: REPLAY & DIRECT en STREAMING en 1 Clic GRATUIT 100% Légal
+{{ data.channel.page_title ? data.channel.page_title : data.channel.title ~ 'REPLAY & DIRECT en STREAMING en 1 Clic GRATUIT 100% Légal' }}
 {% else %}
 {{ data.channel.page_title ? data.channel.page_title : data.channel.title}}
 {% endif %}

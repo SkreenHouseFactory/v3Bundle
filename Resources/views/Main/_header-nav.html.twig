@@ -1,6 +1,6 @@
 {% set header_base = app.environment == 'prod' ? 'http://www.myskreen.com' : '' %}
 {% set tv_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat'] %}
-{% set web_channels = ['Allocine','Yahoo','Perform','Le Figaro','Europe 1','France Info','Le Monde','FranceTvSport','Marmiton','Doctissimo','Studio 4 0','Verywatch','It\'s big','Rendez-vous à Paris','Xtremevidéo','Paris Saint-Germain','La Chaîne techno','LeZapping','RMC sport','Arte Live Web'] %}
+{% set web_channels = ['Allocine','Yahoo','Perform','Le Figaro','Europe 1','France Info','Le Monde','Marmiton','Doctissimo','Studio 4 0','Verywatch','It\'s big','Rendez-vous à Paris','Xtremevidéo','Paris Saint-Germain','La Chaîne techno','LeZapping','RMC sport','Arte Live Web'] %}
 
 <div class="navbar navbar-inverse">
   <div class="navbar-inner">
@@ -56,7 +56,7 @@
           <li class="nav-header">Les chaînes mySkreen</li>
           <li class="tv-channels">
             <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'plus-belle-la-vie-en-avance'}) }}"><span class="hidden-touch">Plus Belle La Vie en avance</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/28-logo-plus-belle-la-vie-en-avance.png" alt="Plus Belle La Vie en avance"/></a>
-            <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'sport'}) }}"><span class="hidden-touch">La chaîne sport</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/12-logo-sport.jpg" alt="Sport, émissions et replay"/></a>
+            <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'la-chaine-du-sport'}) }}"><span class="hidden-touch">La chaîne du sport</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/13-logo-sport.jpg" alt="Sport, émissions et replay"/></a>
             <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'politique'}) }}"><span class="hidden-touch">La chaîne politique</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/12-logo-politique.jpg" alt="Politique, émissions et replay"/></a>
             <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'les-inconnus'}) }}"><span class="hidden-touch">Les Inconnus</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/1-les-inconnus.jpg" alt="Les Inconnus"/></a>
             <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'jacques-demy'}) }}"><span class="hidden-touch">Jacques Demy</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/3-jacques-demy.jpg" alt="Jacques Demy"/></a>
