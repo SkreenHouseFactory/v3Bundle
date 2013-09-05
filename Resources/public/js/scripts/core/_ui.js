@@ -192,7 +192,10 @@ UiView = {
     $(elmt).on('click', '[data-ajax]', function(e){
     
       var trigger = $(this); 
-       
+       if ( $('html').hasClass('lt-ie9')){
+        window.location.href = trigger.data('ajax');
+      }
+      else{
       //e.preventDefault();
       console.log('script', '[data-ajax]', $(this).data('ajax'));
       console.log('History.pushStates');
@@ -258,6 +261,7 @@ UiView = {
       
       document.title = 'programmes, TV, replay | mySkreen.com';
       return false;
+      }
     });
    
     
