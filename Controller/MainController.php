@@ -34,6 +34,9 @@ class MainController extends Controller
     public function headerAction(Request $request)
     {
       return $this->render('SkreenHouseFactoryV3Bundle:Main:_header.html.twig', array(
+        'home'=> $request->get('home'),
+        'route'=> $request->get('route'),
+        'q'=> $request->get('q')
       ));
     }
 

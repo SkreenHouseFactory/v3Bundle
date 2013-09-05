@@ -102,9 +102,7 @@
 
   </article>
 
-  {% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {
-  q: app.request.get('q') ? app.request.get('q') : null, 
-})) %}
+  {% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) %}
 {% block header_filters %}
 {% endblock %}
 
