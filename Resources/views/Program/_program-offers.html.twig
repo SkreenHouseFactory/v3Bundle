@@ -116,7 +116,7 @@
                     <img src="{% if o.picture is defined %}{{ o.picture }}{% else %}{{o_channel.img}} {% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}">
                   </td>
 
-                  <td class="episode"{% if o_access.name not in ['Replay','Vidéo','Archive','Extrait','Bonus'] or o.cost %} colspan="2"{% endif %}>
+                  <td class="episode"{% if o_access.name not in ['Vidéo','Archive','Extrait','Bonus'] or o.cost %} colspan="2"{% endif %}>
                    {% if o.title is defined and o.title %}
                    <h4>{{ o.title }}</h4><span>{{ o.description }}</span>
                    {% elseif o_episode and o_episode.title %}
@@ -129,16 +129,16 @@
                    {% endif %}
                    {% endif %}
                    <div>
-                     {% if o_access.name not in ['Live', 'TV'] and 
+                     {#% if o_access.name not in ['Live', 'TV'] and 
                      o.broadcasttime is defined and 
                      o.broadcasttime and
                      o.cost == 0 %}
                      <time datetime="{{ o.broadcasttime }}">diffusé {{ o.broadcasttime|broadcastdate }}</time>
-                     {% endif %}
+                     {% endif %#}
                    </div>
                  </td>
 
-                 {% if o_access.name not in ['Replay','Vidéo','Archive','Extrait','Bonus'] or o.cost %}
+                 {% if o_access.name not in ['Vidéo','Archive','Extrait','Bonus'] or o.cost %}
                  <td class="price big">
 
                    {% if o.cost is defined and o.cost %}
@@ -148,9 +148,9 @@
                      <i class="glyphicon glyphicon-info-sign" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ o.tags.device|replace({',': ', '}) }}" ></i>
                      {% endif %}
                    </div>
-                   {% elseif o_access.name in ['Live', 'TV'] %}
+                   {% elseif o_access.name in ['Live', 'TV', 'Replay'] %}
                    <div class="rent">
-                     <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
+                     <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate(o_access.name) }}</time>
                    </div>
                    {% endif %}
 

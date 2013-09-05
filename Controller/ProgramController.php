@@ -310,7 +310,7 @@ class ProgramController extends Controller
           'offers' => array(
             'live' => 'En Direct', 
             'replay' => 'En Replay gratuit', 
-            'deporte' => 'En 1 clic sur mySkreen', 
+            'deporte' => 'En streaming sur mySkreen', 
             'tv' => 'Les prochaines diffusions TV',
             'theater' => 'Au cinéma (horaires et salles)',
             'itunes' => 'Télécharger sur iTunes',
