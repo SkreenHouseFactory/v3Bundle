@@ -11,18 +11,18 @@
   {% if app.request.get('q') %}
     <p class="alert alert-warning">{{ 'program.theaters.noprogram.search'|trans }}</p>
   {% elseif app.request.get('playlist') %}
-    <p class="alert alert-warning">{{ 'program.theaters.noprogram.playlist'|trans }} <a class="pull-right btn btn-suivre" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {'init': 1}) }}"><i class="glyphicon glyphicon-plus"></i> {{ 'theaters.playlist.add'|trans }}</a></p>
+  <p class="alert alert-warning">{{ 'program.theaters.noprogram.playlist'|trans }} <a class="pull-right btn btn-suivre" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {'init': 1}) }}"><i class="glyphicon glyphicon-plus"></i> {{ 'theaters.playlist.add'|trans }}</a></p>
   {% elseif app.request.get('latlng') %}
-    <p class="alert alert-warning">{{ 'program.theaters.noprogram.geoloc'|trans }}</p>
+  <p class="alert alert-warning">{{ 'program.theaters.noprogram.geoloc'|trans }}</p>
   {% endif %}
-{% else %}
+  {% else %}
 
 
   <div class="panel-group" id="accordion-theaters">
-  {% if radius is defined and radius > 10 %}
+    {% if radius is defined and radius > 10 %}
     <p class="alert alert-info">{{ 'program.theaters.extended.geoloc'|trans }}</p>
-  {% endif %}
-  {% for cinema in cinemas %}
+    {% endif %}
+    {% for cinema in cinemas %}
     {% if cinema.adress is defined and cinema.schedules is defined %}
     <div class="panel panel-default panel-theater">
       <div class="panel-heading">
@@ -32,50 +32,59 @@
       </div>
       <div id="theater-{{ cinema.id }}" class="panel-collapse collapse in{% if loop.first %}  in{% endif %}">
         <ul class="nav nav-tabs">
-        {% for day in days if attribute(cinema.schedules, day) is defined %}
+          {% for day in days if attribute(cinema.schedules, day) is defined %}
           <li{% if loop.index == 1%} class="active" {% endif %}><a href="#{{ day }}" data-toggle="tab">{{ day }}</a></li>
-        {% endfor %}
+          {% endfor %}
         </ul>
         <div class="tab-content">
-        {% for day in days if attribute(cinema.schedules, day) is defined %}
-        {% set s = attribute(cinema.schedules, day) %}
+          {% for day in days if attribute(cinema.schedules, day) is defined %}
+          {% set s = attribute(cinema.schedules, day) %}
           {% set hasVF = 0 %}
           {% set hasVO = 0 %}
+          {% set noV = 1 %}
+            {% for h in s.schedules|to_array %}
+            {% if h.version == "VO"%}
+            {% set hasVO = 1%}
+            {% set noV = 0 %}
+            {% endif %}
+            {% if h.version == "VF"%}
+            {% set hasVF = 1%}
+            {% set noV = 0 %}
+            {% endif %}
+            {% endfor %}
+
+          <div class="tab-pane {% if loop.index == 1%}active{% endif %}" id="#{{ day }}">
+          {% if noV == 1%}
+            {% for h in s.schedules|to_array %}
+            {{ h.hour }}&nbsp;
+            {% endfor %}
+          {% endif %}
+
+            {% if hasVO == 1%}
+            <span class="label label-default">VO</span>
+            {% for h in s.schedules|to_array %}
+            {% if h.version == "VO"%}
+            {{ h.hour }}&nbsp;
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% if hasVF == 1 and hasVO == 1 %}
+          </br>
+          {% endif %}
+          {% if hasVF == 1%}
+          <span class="label label-default">VF</span>
           {% for h in s.schedules|to_array %}
-          {% if h.version == "VO"%}
-          {% set hasVO = 1%}
-          {% endif %}
           {% if h.version == "VF"%}
-          {% set hasVF = 1%}
+          {{ h.hour }}&nbsp;
           {% endif %}
+
           {% endfor %}
+          {% endif %}
+        </div>
 
-  <div class="tab-pane {% if loop.index == 1%}active{% endif %}" id="#{{ day }}">
-  {% if hasVO == 1%}
-              <span class="label label-default">VO</span>
-              {% for h in s.schedules|to_array %}
-              {% if h.version == "VO"%}
-              {{ h.hour }}&nbsp;
-              {% endif %}
-              {% endfor %}
-              {% endif %}
-              {% if hasVF == 1 and hasVO == 1 %}
-            </br>
-              {% endif %}
-              {% if hasVF == 1%}
-              <span class="label label-default">VF</span>
-              {% for h in s.schedules|to_array %}
-              {% if h.version == "VF"%}
-              {{ h.hour }}&nbsp;
-              {% endif %}
-
-              {% endfor %}
-              {% endif %}
-  </div>
-  
         {% endfor %}
-</div>
- 
+      </div>
+
         <p align="center">
           {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, class: 'fav-cinema fav-remove', name: cinema.name, text: 'Ajouter ' ~ cinema.name ~ ' à vos cinémas'} %}
         </p>

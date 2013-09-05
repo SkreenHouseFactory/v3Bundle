@@ -261,8 +261,7 @@ GridView = {
         else{
           $('.time-bar,.arrow').addClass('hide');
         }
-    
-    //hide .actions button
+
         $('#channels li ul li').on('mouseover',function(){
           if( !$('.actions',this).children().hasClass('fav-on') ){
             $('.actions',this).removeClass('hide');
@@ -334,6 +333,17 @@ GridView = {
         if (typeof callback != 'undefined') {
           callback();
         }
+        
+        $('#channels li ul li').on('mouseover',function(){
+          if( !$('.actions',this).children().hasClass('fav-on') ){
+            $('.actions',this).removeClass('hide');
+          }
+        });
+        $('#channels li ul li').on('mouseout',function(){
+          if( !$('.actions',this).children().hasClass('fav-on') ){
+            $('.actions',this).addClass('hide');
+          }
+        });
     }); 
     
   },

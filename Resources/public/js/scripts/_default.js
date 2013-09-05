@@ -48,19 +48,14 @@ $(document).ready(function(){
     return false;
   });
   
-  //alert bug video
-  /*
-   if(!$.cookie('myskreen_alert_video')){
-    UI.editSkModal('Avertissement','Une opération de maintenance est en cours pour améliorer la qualité de nos vidéos, cela peut entraîner quelques perturbations sur mySkreen. Nous nous excusons de la gêne occasionnée.','Continuer',2,3,true);
-    $('body').append('<div class="modal-backdrop in"></div>');
-    $('#skModal').removeClass('hide');
-    $('#skModal .modal-footer img').css('float','left');
+  //alert nouveau visiteur
+  
+   if(!$.cookie('myskreen_new')){
+    $('#main .help-sprite-ms_btn_help').trigger('click');
   }
-  $('#skModal .modal-footer button').on('click', function(){
-    $('.modal-backdrop').remove();
-    $('#skModal').addClass('hide');
-    API.cookie('alert_video','true');
-  });*/
+  $('#main .help-sprite-ms_btn_close').on('click', function(){
+    API.cookie('new','true');
+  });
 
   //Player scroll sur page programme
   console.log('PlayerScroll.initPlayerScroll()')
