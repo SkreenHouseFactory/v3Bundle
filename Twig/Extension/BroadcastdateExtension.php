@@ -106,7 +106,7 @@ class broadcastdateExtension extends \Twig_Extension
     public function broadcastdate ($time, $access = null)
     {
 			if ($time) {
-        $article = $access == 'Replay' ? '' : 'le';
+        $article = $access == 'Replay' ? '' : 'le ';
 				$month = $this->getMonth(date('m', $time));
         if (date('Y', $time) != date('Y')) {
           $month .= ' '.date('Y', $time);
