@@ -27,8 +27,25 @@
 
 {% block content %}
 <div id="view-fournisseur" data-id="{{ channel.id }}" class="container container-fournisseur-{{ channel.type }}">
-
-  {#<div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ channel.seo_url, text: 'Je regarde ' ~ channel.name ~ ' sur mySkreen et vous ?' } %}</div>#}
+  {#{ dump(app.request.attributes) }#}
+  {# description #}
+  {% if app.request.get('format') is null %}
+  <div class="channel-description well">
+  {{ channel.description|raw }}
+  </div>
+  {% else %}
+  <div class="channel-description well">
+    {% set page_title_channel = 'page.title.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
+    {{ channel.name }} : regardez les {{ app.request.get('format') }} {{ app.request.get('facet') }}.
+    {%- if app.request.get('page') %}Page {{ app.request.get('page') }}{% endif -%}
+    <br/><br/>
+    <h3>{% if app.request.get('facet') %}
+      <a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('facet')}) }}">{{ subcategories[app.request.get('facet')] is defined ? subcategories[app.request.get('facet')] : app.request.get('facet') }} : tous les programmes en streaming</a>
+      {% else %}
+      <a href="{{ path('format', {category_slug: app.request.get('format') }) }}">{{ app.request.get('format') }} : tous les programmes en streaming</a>
+      {% endif %}</h3>
+    </div>
+  {% endif %}
 
 
   <div class="row">
@@ -75,26 +92,7 @@
     {% endif %}
     </div>
     <br/>
-    <div class="row">
-      <div class="col-xs-16 ms-chan-desc">
-        {# description #}
-        {% if app.request.get('format') is null %}
-        <p>{{ channel.description|raw }}</p>
-        {% else %}
-        <div class="channel-description">
-          {% set page_title_channel = 'page.title.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
-          {{ channel.name }} : regardez les {{ app.request.get('format') }} {{ app.request.get('facet') }}.
-          {%- if app.request.get('page') %}Page {{ app.request.get('page') }}{% endif -%}
-          <br/><br/>
-          <h3>{% if app.request.get('facet') %}
-            <a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('facet')}) }}">{{ subcategories[app.request.get('facet')] is defined ? subcategories[app.request.get('facet')] : app.request.get('facet') }} : tous les programmes en streaming</a>
-            {% else %}
-            <a href="{{ path('format', {category_slug: app.request.get('format') }) }}">{{ app.request.get('format') }} : tous les programmes en streaming</a>
-            {% endif %}</h3>
-          </div>
-          {% endif %}
-        </div>
-      </div>
+
 
       {# tv/replay ? #}
       {% if app.request.get('page') is null and 

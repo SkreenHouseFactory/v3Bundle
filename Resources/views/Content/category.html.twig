@@ -59,7 +59,7 @@
 	</div>
 
 
-	{% if app.request.get('facet') is null or app.request.get('facet')|length < 2 %}
+	{% if app.request.get('format') and (app.request.get('facet') is null or app.request.get('facet')|length < 2) %}
 	{# alpha #}
 	<ul class="pagination">
 		<li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">{{ 'nav.all'|trans }}</a></li>
@@ -76,14 +76,14 @@
   {% endif %}
 
 	{# facets #}
-  {% set facet_access = {
-    'video-a-la-demande': 'Vidéo à la demande', 
-    'replay': 'Replay', 
-    'tv': 'TV', 
-    'cinema': 'Cinéma', 
-    'dvd': 'Dvd, Blu-Ray'} %}
+  route: {{ app.request.attributes.get('_route') }}
+  categories: {{ categories|join(',') }}
+  facet: {{ app.request.get('facet') }}
+  access: {{ app.request.get('access') }}
+  category_slug: {{ app.request.get('category_slug') }}
+  {#
 	<div class="facets">
-  {% if 'format' in app.request.get('_route') and categories|length > 1 %}
+  {% if 'format' in app.request.attributes.get('_route') and categories|length > 1 %}
   	{% for k,s in categories %}
   		<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'}) }}" class="label {% if app.request.get('facet') == k %}label-info{% else %}label-default{% endif %}">{{ s }}</a>
   	{% endfor %}
@@ -104,6 +104,7 @@
 	{% endif %}
   </div>
 	<hr/>
+  #}
 
 	<h3 class="pager-count">{{ category.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
 
@@ -130,7 +131,7 @@
 		<li class="next">
 			{% if app.request.get('facet') %}
 				<a href="{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: app.request.get('page', 1) + 1})|replace({'//': '/'}) }}">30 suivants &rarr;</a>
-			{% else %}
+			{% elseif (app.request.get('format')) %}
 			<a href="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) + 1})|replace({'//': '/'}) }}">30 suivants &rarr;</a>
 			{% endif %}
 		</li>
@@ -150,7 +151,7 @@
       {% endfor %}
     </ul>
   </li>
-  {% if app.request.get('access') is null and app.request.get('facet') is null %}
+  {% if app.request.get('format') and app.request.get('access') is null and app.request.get('facet') is null %}
   <li class="pull-right dropdown dropdown-update">
     <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-down"></i>&nbsp;<span>Quel support ?</span></a>
     <ul class="dropdown-menu">

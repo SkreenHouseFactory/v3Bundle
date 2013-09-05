@@ -79,6 +79,13 @@ class ContentController extends Controller
       $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) ? $data->programs[0]->picture : null);
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Content:category.html.twig', array(
+        'facet_access' => array(
+          'video-a-la-demande'=> 'Vidéo à la demande', 
+          'replay'=> 'Replay', 
+          'tv'=> 'TV', 
+          'cinema'=> 'Cinéma', 
+          'dvd'=> 'Dvd, Blu-Ray'
+        ),
         'category' => $data,
         'formats' => array_combine(explode(';', $data->facets_seo_url->format),explode(';', $data->facets->format)),
         'categories' => array_combine(explode(';', $data->facets_seo_url->category),explode(';', $data->facets->category)),
