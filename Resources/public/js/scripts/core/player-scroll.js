@@ -85,6 +85,18 @@ PlayerScroll = {
           lastScrollTop = st;
           lastScrollTop_2 = st - 5;
         }
+        else{ 
+
+               nav.removeClass('ms-navbarfixed');
+               nav.slideDown( 100 );
+               playwrap.removeClass("player-fixed-top-1");
+               playwrap.removeClass("player-fixed-top");
+               playwrap.css('top', '');
+               playwrap.css('position','');
+               playwrapsub.addClass('hide');
+               $('#player').removeClass('fly-shadows');
+               $('#affiche').removeClass('fly-shadows');
+        }
       }
       else{
        if( $(this).scrollTop() <= 5){
