@@ -300,43 +300,44 @@ ProgramView = {
   },
   loadModal: function() {
     //modal
+    if ($('#program-modal').length){
       var program_id = $('.actions[data-id]').data('id');
       var cookie = API.cookie('visited_programs') ? API.cookie('visited_programs').split(',') : [];
       console.log('scripts/program.js', 'visited_programs', program_id, cookie)
-      if (!cookie || $.inArray('' + program_id, cookie) == -1) {
+      if (!cookie || $.inArray('' + program_id, cookie) == -1 || document.location.href.match(/\?follow/gi)) {
          if( $('.help-sprite-ms_btn_close').length ){
           $('.help-sprite-ms_btn_close').trigger('click');
          }
-        if ($('#program-modal').length){
-          //si modal
-          if (Skhf.session.datas.email) {
-            $('#program-modal').addClass('connected');
-          }
-          if (!Skhf.session.datas.email ||
-              !Skhf.session.isInPlaylist('like', $('.actions').data('id'))) {
-            $('#program-modal').modal('show');
-          }
-          API.cookie('visited_programs', (cookie.length ? cookie.join(',') + ',' : null) + program_id);
-          
-          $('#triggerfav').on('click', function() {
-            $('.btn-suivre[data-id].fav-like').trigger('click');
-            $('#program-modal').modal('hide');
-          })
-          $('#program-modal #fbconnect').on('click', function() {
-            Skhf.session.callbackSignin = function(sessionData) {
-              //add channel to playlist
-              if (sessionData.email) {
-                var id = $('[data-id]').data('id');
-                console.log('scripts/program.js', 'back from signin', id, sessionData.queue.split(','));
 
-                if (($('.actions[data-id] .fav-like').length && $.inArray(id, sessionData.queue.split(',')) == -1)) {
-                  $('.actions[data-id] .fav-like').trigger('click');
-                }
+        //si modal
+        if (Skhf.session.datas.email) {
+          $('#program-modal').addClass('connected');
+        }
+        if (!Skhf.session.datas.email ||
+            !Skhf.session.isInPlaylist('like', $('.actions').data('id'))) {
+          $('#program-modal').modal('show');
+        }
+        API.cookie('visited_programs', (cookie.length ? cookie.join(',') + ',' : null) + program_id);
+        
+        $('#triggerfav').on('click', function() {
+          $('.btn-suivre[data-id].fav-like').trigger('click');
+          $('#program-modal').modal('hide');
+        })
+        $('#program-modal #fbconnect').on('click', function() {
+          Skhf.session.callbackSignin = function(sessionData) {
+            //add channel to playlist
+            if (sessionData.email) {
+              var id = $('[data-id]').data('id');
+              console.log('scripts/program.js', 'back from signin', id, sessionData.queue.split(','));
+
+              if (($('.actions[data-id] .fav-like').length && $.inArray(id, sessionData.queue.split(',')) == -1)) {
+                $('.actions[data-id] .fav-like').trigger('click');
               }
             }
-          })
-        }
+          }
+        })
       }
+    }
   },
   loadMoreStreaming: function() {
     if ($('carousel-youtube .carousel .item').length) {
