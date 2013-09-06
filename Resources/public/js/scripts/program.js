@@ -24,44 +24,7 @@ $(document).ready(function(){
       } else if ($('#program-offers #trigger-theaters-geoloc').length) {
         $('#program-offers #trigger-theaters-geoloc').trigger('click');
       }
-      //modal
-      var program_id = $('.actions[data-id]').data('id');
-      var cookie = API.cookie('visited_programs') ? API.cookie('visited_programs').split(',') : [];
-      console.log('scripts/program.js', 'visited_programs', program_id, cookie)
-      if (!cookie || $.inArray('' + program_id, cookie) == -1) {
-         if( $('.help-sprite-ms_btn_close').length ){
-          $('.help-sprite-ms_btn_close').trigger('click');
-         }
-        if ($('#program-modal').length){
-          //si modal
-          if (Skhf.session.datas.email) {
-            $('#program-modal').addClass('connected');
-          }
-          if (!Skhf.session.datas.email ||
-              !Skhf.session.isInPlaylist('like', $('.actions').data('id'))) {
-            $('#program-modal').modal('show');
-          }
-          API.cookie('visited_programs', (cookie.length ? cookie.join(',') + ',' : null) + program_id);
-          
-          $('#triggerfav').on('click', function() {
-            $('.btn-suivre[data-id].fav-like').trigger('click');
-            $('#program-modal').modal('hide');
-          })
-          $('#fbconnect').on('click', function() {
-            Skhf.session.callbackSignin = function(sessionData) {
-              //add channel to playlist
-              if (sessionData.email) {
-                var id = $('[data-id]').data('id');
-                console.log('scripts/program.js', 'back from signin', id, sessionData.queue.split(','));
-
-                if (($('.btn-suivre[data-id].fav-like').length && $.inArray(id, sessionData.queue.split(',')) == -1)) {
-                  $('.btn-suivre[data-id].fav-like').trigger('click');
-                }
-              }
-            }
-          })
-        }
-      }
+      ProgramView.loadModal();
     }
     // -- add preference callback : incitation à suivre des related
     if (!navigator.userAgent.match(/iPhone|iPod/)) { //not optimized for iPhone
@@ -135,7 +98,11 @@ $(document).ready(function(){
     if (document.location.href.match(/\?rent/gi)) {
       $('#plays [data-play]:first').trigger('click');
     } else if (document.location.href.match(/\?follow/gi)) {
-      if (!$('.actions .fav').hasClass('fav-on')) {
+
+      if ($('#program-modal').length){
+        ProgramView.loadModal();
+      }
+      else if (!$('.actions .fav').hasClass('fav-on')) {
         $('.actions .fav').trigger('click');
       }
     } else if (document.location.href.match(/\?play/gi)) {
@@ -285,6 +252,46 @@ ProgramView = {
           };
         }
     });
+  },
+  loadModal: function() {
+    //modal
+      var program_id = $('.actions[data-id]').data('id');
+      var cookie = API.cookie('visited_programs') ? API.cookie('visited_programs').split(',') : [];
+      console.log('scripts/program.js', 'visited_programs', program_id, cookie)
+      if (!cookie || $.inArray('' + program_id, cookie) == -1) {
+         if( $('.help-sprite-ms_btn_close').length ){
+          $('.help-sprite-ms_btn_close').trigger('click');
+         }
+        if ($('#program-modal').length){
+          //si modal
+          if (Skhf.session.datas.email) {
+            $('#program-modal').addClass('connected');
+          }
+          if (!Skhf.session.datas.email ||
+              !Skhf.session.isInPlaylist('like', $('.actions').data('id'))) {
+            $('#program-modal').modal('show');
+          }
+          API.cookie('visited_programs', (cookie.length ? cookie.join(',') + ',' : null) + program_id);
+          
+          $('#triggerfav').on('click', function() {
+            $('.btn-suivre[data-id].fav-like').trigger('click');
+            $('#program-modal').modal('hide');
+          })
+          $('#fbconnect').on('click', function() {
+            Skhf.session.callbackSignin = function(sessionData) {
+              //add channel to playlist
+              if (sessionData.email) {
+                var id = $('[data-id]').data('id');
+                console.log('scripts/program.js', 'back from signin', id, sessionData.queue.split(','));
+
+                if (($('.btn-suivre[data-id].fav-like').length && $.inArray(id, sessionData.queue.split(',')) == -1)) {
+                  $('.btn-suivre[data-id].fav-like').trigger('click');
+                }
+              }
+            }
+          })
+        }
+      }
   },
   loadMoreStreaming: function() {
     //youtube
