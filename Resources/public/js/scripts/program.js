@@ -29,8 +29,8 @@ $(document).ready(function(){
       var cookie = API.cookie('visited_programs') ? API.cookie('visited_programs').split(',') : [];
       console.log('scripts/program.js', 'visited_programs', program_id, cookie)
       if (!cookie || $.inArray('' + program_id, cookie) == -1) {
-         if( !$(".help-popin").hasClass('hide')){
-          $(".help-popin").addClass('hide');
+         if( $('.help-sprite-ms_btn_close').length ){
+          $('.help-sprite-ms_btn_close').trigger('click');
          }
         if ($('#program-modal').length){
           //si modal
@@ -44,18 +44,18 @@ $(document).ready(function(){
           API.cookie('visited_programs', (cookie.length ? cookie.join(',') + ',' : null) + program_id);
           
           $('#triggerfav').on('click', function() {
-            $('.actions[data-id] .fav').trigger('click');
+            $('.btn-suivre[data-id].fav-like').trigger('click');
             $('#program-modal').modal('hide');
           })
           $('#fbconnect').on('click', function() {
             Skhf.session.callbackSignin = function(sessionData) {
               //add channel to playlist
               if (sessionData.email) {
-                var id = $('.actions[data-id]').data('id');
+                var id = $('[data-id]').data('id');
                 console.log('scripts/program.js', 'back from signin', id, sessionData.queue.split(','));
 
-                if (($('.actions[data-id] a.fav-like').length && $.inArray(id, sessionData.queue.split(',')) == -1)) {
-                  $('.actions[data-id] a.fav').trigger('click');
+                if (($('.btn-suivre[data-id].fav-like').length && $.inArray(id, sessionData.queue.split(',')) == -1)) {
+                  $('.btn-suivre[data-id].fav-like').trigger('click');
                 }
               }
             }
