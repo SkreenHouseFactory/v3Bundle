@@ -50,52 +50,51 @@ $(document).ready(function(){
         if (typeof return_data != 'undefined') {
           // -- réinitialisation callback pour rester sur la popin
           UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {
-            if ($('.modal .slider li').length) {
+            if ($('#skModal.modal .slider li').length) {
               trigger.parents('.actions:first').remove();
             } else {
-              $('.modal').modal('hide');
+              $('#skModal.modal').modal('hide');
             }
           }
           //related channels
           if (return_data.channels) {
-            $('.modal .modal-header h3').html('Voulez-vous suivre aussi ces chaînes ?');
-            $('.modal .modal-body').html('<p class="alert alert-info">Cliquez sur les chaînes qui vous intéressent pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p><div class="slider slider-list"><ul class="items"></ul></div>');
+            $('#skModal.modal .modal-header h3').html('Voulez-vous suivre aussi ces chaînes ?');
+            $('#skModal.modal .modal-body').html('<p class="alert alert-info">Cliquez sur les chaînes qui vous intéressent pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p><div class="slider slider-list"><ul class="items"></ul></div>');
             new BaseSlider({
               scroll: 'no',
               programs: return_data.channels
             }, function(){
               var trigger = $(this);
-              $('.modal .slider li a[href]').addClass('fav fav-channel')
+              $('#skModal.modal .slider li a[href]').addClass('fav fav-channel')
                                             .attr('href', '#')
                                             .data('ajax', '');
-              $('.modal .slider li').append('<span class="hide add-playlist btn btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre</span>')
+              $('#skModal.modal .slider li').append('<span class="hide add-playlist btn btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre</span>')
                                     .on('click', function(){
                 UI.togglePlaylist($(this).find('a.title'), false);
               });
-            }, $('.modal .slider'));
+            }, $('#skModal.modal .slider'));
 
-            $('.modal').modal();
+            $('#skModal.modal').modal();
           //related same_playlist
-          } else if (return_data.programs && 
-                     !$('.modal:visible').length) { //hack
+          } else if (return_data.programs) { //hack
             //TODO : insert programs in modal
-            $('.modal .modal-header h3').html('Programmes fréquemments suivis ensembles');
-            $('.modal .modal-body').html('<p class="alert alert-info">Suivez tous les programmes que vous aimez pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p><div class="slider slider-list"><ul class="items"></ul></div>');
+            $('#skModal.modal .modal-header h3').html('Programmes fréquemments suivis ensembles');
+            $('#skModal.modal .modal-body').html('<p class="alert alert-info">Suivez tous les programmes que vous aimez pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p><div class="slider slider-list"><ul class="items"></ul></div>');
             new BaseSlider({
               scroll: 'no',
               programs: return_data.programs
             }, function(){
               var trigger = $(this);
-              $('.modal .slider li a[href]').addClass('fav fav-like')
+              $('#skModal.modal .slider li a[href]').addClass('fav fav-like')
                                             .attr('href', '#')
                                             .data('ajax', '');
-              $('.modal .slider li').append('<span class="hide add-playlist btn btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre</span>')
+              $('#skModal.modal .slider li').append('<span class="hide add-playlist btn btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre</span>')
                                     .on('click', function(){
                 UI.togglePlaylist($(this).find('a.title'), false);
               });
-            }, $('.modal .slider'));
+            }, $('#skModal.modal .slider'));
 
-            $('.modal').modal();
+            $('#skModal.modal').modal();
           }
         }
       }
@@ -319,8 +318,8 @@ ProgramView = {
         }
         API.cookie('visited_programs', (cookie.length ? cookie.join(',') + ',' : null) + program_id);
         
-        $('#triggerfav').on('click', function() {
-          $('.btn-suivre[data-id].fav-like').trigger('click');
+        $('#program-modal #triggerfav').on('click', function() {
+          $('.actions[data-id] .fav-like').trigger('click');
           $('#program-modal').modal('hide');
         })
         $('#program-modal #fbconnect').on('click', function() {
