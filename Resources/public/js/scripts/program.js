@@ -49,7 +49,7 @@ $(document).ready(function(){
           if (Skhf.session.datas.email) {
             $('#program-modal').addClass('connected');
           }
-          if (Skhf.session.datas.email && 
+          if (!Skhf.session.datas.email && 
               !Skhf.session.isInPlaylist('like', $('.actions').data('id'))) {
             $('#program-modal').modal('show');
           }
