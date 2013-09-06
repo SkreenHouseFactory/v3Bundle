@@ -95,7 +95,7 @@
   {# affiche #}
   <div class="col-xs-5 ">
     <div id="affiche">
-      <img src="{{ program.img }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
+      <img src="{{ program.picture }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
       {% if program.popular_channel is defined %}
       <img class="channel" src="{{ program.popular_channel.img }}" alt="{{ program.popular_channel.name }}" />
       {% endif %}

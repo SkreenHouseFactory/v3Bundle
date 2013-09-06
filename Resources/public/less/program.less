@@ -104,11 +104,6 @@
   .channel{
     text-align: center;
   }
-  .ms-reminder, .ms-reminder i{
-    font-size: 0.8em;
-    font-weight: normal;
-    color:#dc2561;
-  }
   .replay_label{
     font-size: 16px;
     color: #232323;
@@ -205,7 +200,7 @@
           }
 
           td {
-            padding-top: 8px;
+            padding: 5px;
             vertical-align: middle;
             &.channel {
               width: 110px;
@@ -215,6 +210,14 @@
               width: 170px;
               button, a.btn {
                 width: 160px;
+              }
+              .ms-reminder {
+                font-size: 0.8em;
+                font-weight: normal;
+                color:#dc2561;
+                i {
+                font-size: 1.1em;
+                }
               }
             }
             &.episode {
@@ -228,10 +231,13 @@
               }
             }
             &.price {
-              min-width: 180px;
+              min-width: 120px;
+              &.price-vod {
+                min-width: 180px;
+              }
               .rent {
                 text-transform: uppercase;
-                font-size: 18px;
+                font-size: 1.2em;
                 color: @bluesecondarycolor;
                 font-weight: bold;
               }
@@ -304,7 +310,7 @@
     width: 30px;
   }
   ul.nav.nav-pills {
-    margin:20px  20px; 
+    margin: 20px; 
   }
   .ms-nav-pills-saisons {
     font-size: 16px;
@@ -445,10 +451,6 @@ ul#episodes-list{
     min-width: 140px;
     height: 42px;
   }
-}
-
-.tab-content{
-  margin-top:20px;  
 }
 
 }
