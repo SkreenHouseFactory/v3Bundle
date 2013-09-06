@@ -275,6 +275,7 @@ UiView = {
         //trigger playlists
         UI.loadPlaylistTriggers('like', Skhf.session.datas.queue.split(','), elmt);
         //ajax play ?
+        ProgramView.loadMoreStreaming();
         if (trigger.data('offers')) {
           $('.trigger-'+ trigger.data('offers')).trigger('click');
         }
@@ -300,7 +301,6 @@ UiView = {
       }
       self.refreshAjax(has_playlist);
       document.title = 'programmes, TV, replay | mySkreen.com';
-    alert('sdqsdqs');
       return false;
       }
     });
