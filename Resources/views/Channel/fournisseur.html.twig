@@ -66,22 +66,6 @@
         {{ page_h1_channel|trans({'%name%': channel.name, '%format%': format_trans|trans, '%formats%': formats_trans|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
         <small>{% if app.request.get('facet') %}{{ categories[app.request.get('facet')] is defined ? categories[app.request.get('facet')] : 'commençant par ' ~ app.request.get('facet') }}{% endif %}{% if app.request.get('page') %}{{ app.request.get('facet') ? ', ' : '' }}page {{ app.request.get('page') }}{% endif %}</small>
       </h1>
-
-      {# facets #}
-      {% if app.request.get('facet')|length and app.request.get('facet')|length < 2 %}
-      <hr/>
-      <div class="facets">
-        {% if app.request.get('format') %}
-        {% for k,s in categories %}
-        <a href="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="pull-rightlabel{% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</a>
-        {% endfor %}
-        {% else %}
-        {% for k,f in formats if k != '' %}
-        <a href="{{ path('channel_format', {format: k, slug: app.request.get('slug')}) }}" class="pull-left badge{% if app.request.get('facet') == f %} badge-info"{% endif %}">{{ f }}</a>&nbsp;
-        {% endfor %}
-        {% endif %}
-      </div>
-      {% endif %}
     </div>
 
     {# suivre #}
@@ -92,7 +76,6 @@
     {% endif %}
     </div>
     <br/>
-
 
       {# tv/replay ? #}
       {% if app.request.get('page') is null and 
@@ -132,6 +115,31 @@
       {% endif %}
       {% if app.request.get('page') %}<h3><small>page {{ app.request.get('page') }}</small>{% endif %}</h3>
       {% endif%}
+
+
+
+    	{# facets
+      route: {{ app.request.attributes.get('_route') }}
+      categories: {{ categories|join(',') }}
+      facet: {{ app.request.get('facet') }}
+      access: {{ app.request.get('access') }}
+      category_slug: {{ app.request.get('category_slug') }}
+       #}
+
+      {% if categories|length or formats|length %}
+      <hr/>
+      <div class="facets">
+        {% if app.request.get('format') %}
+        {% for k,s in categories %}
+        <a href="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="label label-default{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a> 
+        {% endfor %}
+        {% else %}
+        {% for k,f in formats if k != '' %}
+        <a href="{{ path('channel_format', {format: k, slug: app.request.get('slug')}) }}" class="pull-left badge{% if app.request.get('facet') == f %} badge-info"{% endif %}">{{ f }}</a> 
+        {% endfor %}
+        {% endif %}
+      </div>
+      {% endif %}
 
       {# pager #}
       {% if channel.count > 30  %}
