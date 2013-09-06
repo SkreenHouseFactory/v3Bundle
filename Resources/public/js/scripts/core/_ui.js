@@ -300,6 +300,7 @@ UiView = {
       }
       self.refreshAjax(has_playlist);
       document.title = 'programmes, TV, replay | mySkreen.com';
+    alert('sdqsdqs');
       return false;
       }
     });
@@ -337,10 +338,7 @@ UiView = {
           console.log('script', 'callback data-form-ajax', form.data('form-ajax'))
           $(form.data('form-ajax')).html(html);
           UI.loadPlaylistTriggers(null, null, form.data('form-ajax'), $(form.data('form-ajax')));
-          console.log('qsdqsdqsdsqdqdqsdqsdqsdqsdqsdqsdqsdqsqs');
-          ProgramView.loadMoreStreaming();
-      });
-      
+       });
     });
     // -- btn-radio
     $('[data-toggle="buttons-radio"] > *').on('click', function() { //TODO Le live ne marche pas, du coup HACK en mettant on
