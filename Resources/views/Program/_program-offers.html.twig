@@ -156,7 +156,8 @@
                    </div>
                    {% endif %}
 
-                   {% if o.versions|to_array|length or o.tags|to_array|length %}
+                   {% if (o.versions is defined and o.versions|to_array|length) or 
+                         (o.tags is defined and o.tags|to_array|length) %}
                    <div class="ms-versions">
                      {% if o.deporte is defined and o.deporte and o.versions is defined %}
                      <span>{{ o.versions|to_array|keys|join(', ') }}</span>

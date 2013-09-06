@@ -126,6 +126,15 @@ class toolsExtension extends \Twig_Extension
       echo '-->';
       return $pages;
     }
+    protected function getHorizontalSliderPosition($combinaison) {
+      $i = 0;
+      foreach ($combinaison as $c => $nb) {
+        if (!is_numeric($c)) {
+          return $i;
+        }
+        $i++;
+      }
+    }
     protected function getHorizontalSlider(&$programs){
       foreach($programs as $key => $program){
         if (isset($program->sliderPicture) ){
@@ -150,9 +159,10 @@ class toolsExtension extends \Twig_Extension
       $page_programs = array_values($page_programs);
       $combinaisons = $this->slider_combinaisons[$nb_programs_page][$type];
       shuffle($combinaisons);
-      echo "\n".'<br/>NEWPAGE '.implode('-', $combinaisons[0]);
+      $combinaison = $combinaisons[0];
+      echo "\n".'<br/>NEWPAGE '.implode('-', $combinaison);
       //echo '$page_programs_keys '.implode('-', array_keys($page_programs));
-      foreach ($combinaisons[0] as $c => $nb) {
+      foreach ($combinaison as $c => $nb) {
         if (!isset($page_programs[$i])) {
           echo "\n".'<br/>stop no more programs:'.$i;
           break;
@@ -163,7 +173,7 @@ class toolsExtension extends \Twig_Extension
           //echo ' nottaken:'.$i;
         } else {
 
-          //echo ' <br/>c:'.$c;
+          //slider horizontal
           $c = is_numeric($c) ? 1 : $c;
           if (!is_numeric($c) && $type == 'horizontal') {
             //push next current program
@@ -173,10 +183,22 @@ class toolsExtension extends \Twig_Extension
             $picture = $slider_program->sliderPicture;
             $program = $slider_program;
             echo ' -- takeslider:'.$slider_program->id;
+
+          //default
           } else {
-            $program = $page_programs[$i];
+            
+            //replace slider_program
+            if ($type == 'horizontal' &&
+                $page_programs[$i]->id == $slider_program->id) {
+              $program = $page_programs[$this->getHorizontalSliderPosition($combinaison)];
+              echo ' -- replaceslider:'.$program->id;
+            //take program
+            } else {
+              $program = $page_programs[$i];
+              echo ' -- takeprogram:'.$program->id;
+            }
+            
             $picture = $program->picture;
-            echo ' -- takeprogram:'.$program->id;
           }
           $i++;
           if (isset($this->slider_size[$nb_programs_page][$c])) {
