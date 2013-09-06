@@ -22,6 +22,7 @@ $(document).ready(function(){
           $('#program-offers #trigger-theaters-playlist').trigger('click');
       }
       //affichage bulle pendant 4s sur fiche programme
+      /*
       if (!Skhf.session.datas.email && 
           $('#program-follow .fav').length > 0) {
         setTimeout(function(){
@@ -38,42 +39,9 @@ $(document).ready(function(){
           }
         }, 2000);
       }
+      */
       //modal
-      var program_id = $('.actions[data-id]').data('id');
-      var cookie = API.cookie('visited_programs') ? API.cookie('visited_programs').split(',') : [];
-      console.log('scripts/program.js', 'visited_programs', program_id, cookie)
-      if (!cookie || $.inArray('' + program_id, cookie) == -1) {
-
-        if ($('#program-modal').length){
-          //si modal
-          if (Skhf.session.datas.email) {
-            $('#program-modal').addClass('connected');
-          }
-          if (!Skhf.session.datas.email && 
-              !Skhf.session.isInPlaylist('like', $('.actions').data('id'))) {
-            $('#program-modal').modal('show');
-          }
-          API.cookie('visited_programs', (cookie.length ? cookie.join(',') + ',' : null) + program_id);
-          
-          $('#triggerfav').on('click', function() {
-            $('.actions[data-id] .fav').trigger('click');
-            $('#program-modal').modal('hide');
-          })
-          $('#fbconnect').on('click', function() {
-            Skhf.session.callbackSignin = function(sessionData) {
-              //add channel to playlist
-              if (sessionData.email) {
-                var id = $('.actions[data-id]').data('id');
-                console.log('scripts/program.js', 'back from signin', id, sessionData.queue.split(','));
-
-                if (($('.actions[data-id] a.fav-like').length && $.inArray(id, sessionData.queue.split(',')) == -1)) {
-                  $('.actions[data-id] a.fav').trigger('click');
-                }
-              }
-            }
-          })
-        }
-      }
+      ProgramView.loadModal();
     }
     // -- add preference callback : incitation à suivre des related
     if (!navigator.userAgent.match(/iPhone|iPod/)) { //not optimized for iPhone
@@ -108,7 +76,8 @@ $(document).ready(function(){
 
             $('.modal').modal();
           //related same_playlist
-          } else if (return_data.programs) {
+          } else if (return_data.programs && 
+                     !$('.modal:visible').length) { //hack
             //TODO : insert programs in modal
             $('.modal .modal-header h3').html('Programmes fréquemments suivis ensembles');
             $('.modal .modal-body').html('<p class="alert alert-info">Suivez tous les programmes que vous aimez pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p><div class="slider slider-list"><ul class="items"></ul></div>');
@@ -147,8 +116,10 @@ $(document).ready(function(){
     if (document.location.href.match(/\?rent/gi)) {
       $('#plays [data-play]:first').trigger('click');
     } else if (document.location.href.match(/\?follow/gi)) {
-      if (!$('.actions .fav').hasClass('fav-on')) {
-        $('.actions .fav').trigger('click');
+      if ($('#program-modal').length) {
+       ProgramView.loadModal();
+      } else if (!$('.actions .fav').hasClass('fav-on')) {
+       $('.actions .fav').trigger('click');
       }
     } else if (document.location.href.match(/\?play/gi)) {
       console.log('?play', getUrlParameter('play'));
@@ -326,6 +297,46 @@ ProgramView = {
           };
         }
     });
+  },
+  loadModal: function() {
+    //modal
+      var program_id = $('.actions[data-id]').data('id');
+      var cookie = API.cookie('visited_programs') ? API.cookie('visited_programs').split(',') : [];
+      console.log('scripts/program.js', 'visited_programs', program_id, cookie)
+      if (!cookie || $.inArray('' + program_id, cookie) == -1) {
+         if( $('.help-sprite-ms_btn_close').length ){
+          $('.help-sprite-ms_btn_close').trigger('click');
+         }
+        if ($('#program-modal').length){
+          //si modal
+          if (Skhf.session.datas.email) {
+            $('#program-modal').addClass('connected');
+          }
+          if (!Skhf.session.datas.email ||
+              !Skhf.session.isInPlaylist('like', $('.actions').data('id'))) {
+            $('#program-modal').modal('show');
+          }
+          API.cookie('visited_programs', (cookie.length ? cookie.join(',') + ',' : null) + program_id);
+          
+          $('#triggerfav').on('click', function() {
+            $('.btn-suivre[data-id].fav-like').trigger('click');
+            $('#program-modal').modal('hide');
+          })
+          $('#program-modal #fbconnect').on('click', function() {
+            Skhf.session.callbackSignin = function(sessionData) {
+              //add channel to playlist
+              if (sessionData.email) {
+                var id = $('[data-id]').data('id');
+                console.log('scripts/program.js', 'back from signin', id, sessionData.queue.split(','));
+
+                if (($('.actions[data-id] .fav-like').length && $.inArray(id, sessionData.queue.split(',')) == -1)) {
+                  $('.actions[data-id] .fav-like').trigger('click');
+                }
+              }
+            }
+          })
+        }
+      }
   },
   loadMoreStreaming: function() {
     if ($('carousel-youtube .carousel .item').length) {

@@ -6,12 +6,12 @@
   <div class="modal-body">
     <img id="channel-logo" src="{{ program.img }}" class="pull-left" />
     <p>Abonnez-vous gratuitement au programme &laquo; {{ program.title }} &raquo; <br/>pour recevoir les prochaines vidéos en avant-première !</p>
-    <div id="triggerfav">
-      <a class="btn btn-large btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre {{ program.title }}</a>
+    <div class="user-on hide" id="triggerfav">
+      <a class="btn btn-large btn-primary"><i class="icon icon-plus-sign icon-white"></i> Suivre {{ program.title }}</a>
     </div>
-    <div id="fbconnect">
-    <img src="https://api.myskreen.com/skPaymentPlugin/images/connexion_facebook.jpeg" alt="Se connecter avec Facebook" data-parcours="">
-    <div id="fbconnect-infos"></div>
+    <div class="user-off" id="fbconnect">
+      <img src="https://api.myskreen.com/skPaymentPlugin/images/connexion_facebook.jpeg" alt="Se connecter avec Facebook" data-parcours="">
+      <div id="fbconnect-infos"></div>
     </div>
   </div>
   <div class="modal-footer"><a data-dismiss="modal" class="btn">Non, merci pas maintenant</a></div>
