@@ -247,7 +247,7 @@ class ChannelController extends Controller
         }
       }*/
      
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-35.html.twig', array(
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-54.html.twig', array(
          // 'episode_id'=> $play->episode_id,
           'data' => $data,
           'fav' => $fav,
