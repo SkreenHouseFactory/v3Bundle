@@ -186,7 +186,7 @@ class toolsExtension extends \Twig_Extension
 
           //default
           } else {
-            
+
             //replace slider_program
             if ($type == 'horizontal' &&
                 $page_programs[$i]->id == $slider_program->id &&
