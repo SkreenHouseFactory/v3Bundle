@@ -231,7 +231,34 @@ class ChannelController extends Controller
       
             return $response; 
       }
-    
+     public function header54Action($data,$from_selection,$channel,$fav,$trigger_fav){
+     /* $api   = $this->get('api');
+      $params = array(
+         'with_player' => true,
+         'with_offers' => true,
+         //'offers_type'=> 'plays'
+       );
+      $program = $api->fetch('program/3517970', $params);
+      $play = null;
+
+      foreach( $program->offers->plays as $play){
+        if( isset($play->deporte) && isset($play->cost) && $play->deporte && $play->cost){
+          break;
+        }
+      }*/
+     
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-35.html.twig', array(
+         // 'episode_id'=> $play->episode_id,
+          'data' => $data,
+          'fav' => $fav,
+          'trigger_fav'=> $trigger_fav,
+            'channel'=> $channel,
+            'from_selection' => $from_selection
+        ));
+      
+            return $response; 
+      }
+ 
  
   protected function buildFacets(Request $request) {
     //echo '$facet:'.$request->get('facet');
