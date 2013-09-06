@@ -83,6 +83,10 @@
 {% endblock %}
 
 {% block content %}
+{% if program.id == '5088919' %}
+{# modal #}
+{% include 'SkreenHouseFactoryV3Bundle:Program:_modal.html.twig' ignore missing with {'program': program} %}
+{% endif %}
 <div id="view-program" data-id="{{ program.id }}" class="container container-root-{{ program.episodeof is defined ? program.episodeof.id : program.id }}" itemscope itemtype="http://www.schema.org/VideoObject">
 
   <div id="program-follow" class="actions add-friends" data-id="{{ program.episodeof is defined ? program.episodeof.id : program.id }}">
