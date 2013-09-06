@@ -75,7 +75,7 @@ $(document).ready(function(){
           if (Skhf.session.datas.email) {
             $('#channel-modal').addClass('connected');
           }
-          if (Skhf.session.datas.email && 
+          if (!Skhf.session.datas.email && 
               !Skhf.session.isInPlaylist($('.actions').data('playlist'), $('.actions').data('id'))) {
             $('#channel-modal').modal('show');
           }
