@@ -109,9 +109,10 @@ class toolsExtension extends \Twig_Extension
      */
     public function prepareForSlider(Array $programs, $nb_programs_page)
     {
+      echo '<!--';
       $this->slider_programs = $this->to_array($programs, true);
       $pages = array();
-      //echo '<br/> >>>>> '.count($this->slider_programs);
+      echo "\n".'<br/> >>>>> '.count($this->slider_programs);
       while (count($this->slider_programs) > 0) {
         $page_programs = $this->getProgramsForPage($nb_programs_page);
         //echo ' page_programs count:'.count($page_programs);
@@ -122,6 +123,7 @@ class toolsExtension extends \Twig_Extension
         //break;
         //print_r($pages);
       }
+      echo '-->';
       return $pages;
     }
     protected function getHorizontalSlider(&$programs){
@@ -129,7 +131,7 @@ class toolsExtension extends \Twig_Extension
         if (isset($program->sliderPicture) ){
           //unset($programs[$key]);
           $programs = array_values($programs);
-          //echo ' getHorizontalSlider:'.$program->id;
+          echo "\n".'getHorizontalSlider:'.$program->id.' $key:'.$key;
           return $program;
         }
       }
@@ -148,14 +150,14 @@ class toolsExtension extends \Twig_Extension
       $page_programs = array_values($page_programs);
       $combinaisons = $this->slider_combinaisons[$nb_programs_page][$type];
       shuffle($combinaisons);
-      //echo '<br/>NEWPAGE '.implode('-', $combinaisons[0]);
+      echo "\n".'<br/>NEWPAGE '.implode('-', $combinaisons[0]);
       //echo '$page_programs_keys '.implode('-', array_keys($page_programs));
       foreach ($combinaisons[0] as $c => $nb) {
-        //echo '<br/>'.$c;
         if (!isset($page_programs[$i])) {
-          //echo ' stop no more programs:'.$i;
+          echo "\n".'<br/>stop no more programs:'.$i;
           break;
         }
+        echo "\n".'<br/>i:'.$i.' c:'.$c.' p:'.$page_programs[$i]->id;
   
         if ($n >= $nb_programs_page) {
           //echo ' nottaken:'.$i;
@@ -164,27 +166,25 @@ class toolsExtension extends \Twig_Extension
           //echo ' <br/>c:'.$c;
           $c = is_numeric($c) ? 1 : $c;
           if (!is_numeric($c) && $type == 'horizontal') {
-            //echo ' takeslider:'.$i;
+            //push next current program
+            if ($slider_program->id != $page_programs[$i]->id) {
+              $page_programs[$i+1] = $page_programs[$i];
+            }
             $picture = $slider_program->sliderPicture;
             $program = $slider_program;
-            $i++;
+            echo ' -- takeslider:'.$slider_program->id;
           } else {
-            //echo ' takeprogram:'.$i;
             $program = $page_programs[$i];
             $picture = $program->picture;
-            $i++;
+            echo ' -- takeprogram:'.$program->id;
           }
+          $i++;
           if (isset($this->slider_size[$nb_programs_page][$c])) {
             $program->picture = str_replace(array('150/200','990/450'), $this->slider_size[$nb_programs_page][$c].'/c', $picture);
           }
-          //echo ' $program:'.$program->id;
           $program->combinaison_type = $c;
-          $programs[] = $program;
+          $programs[$i] = $program;
           $n = $n + $nb;
-          //echo '$slider_progam: '.($slider_progam?$slider_progam->id:null);
-          //echo 'is_array: '.is_array($this->slider_programs).' .... '.is_array(array($program));exit();
-          //print_r(array($this->slider_programs, array($program)));
-          //exit();
           unset($this->slider_programs[$program->id]);
           //echo ' -1';
           //echo ' n:'.$n.'('.$c.', '.count($this->slider_programs).')';

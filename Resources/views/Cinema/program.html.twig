@@ -30,7 +30,7 @@
         <a class="accordion-toggle bold" data-toggle="collapse" data-parent="#accordion-theaters" href="#theater-{{ cinema.id }}"><i class="glyphicon glyphicon-resize-vertical hover hover-fade"></i> {{ cinema.name }}</a>
         {% if cinema.distance is defined %}<small class="grey">distance ≃ {{ cinema.distance < 1 ? (cinema.distance*100)|number_format ~'m' : cinema.distance|number_format(1) ~ 'km' }}</small>{% endif %}
       </div>
-      <div id="theater-{{ cinema.id }}" class="panel-collapse collapse in{% if loop.first %}  in{% endif %}">
+      <div id="theater-{{ cinema.id }}" class="panel-collapse {{ loop.first ? 'in' : 'collapse' }}">
         <ul class="nav nav-tabs">
           {% for day in days if attribute(cinema.schedules, day) is defined %}
           <li{% if loop.index == 1%} class="active" {% endif %}><a href="#{{ day }}" data-toggle="tab">{{ day }}</a></li>
@@ -86,7 +86,7 @@
       </div>
 
         <p align="center">
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, class: 'fav-cinema fav-remove', name: cinema.name, text: 'Ajouter ' ~ cinema.name ~ ' à vos cinémas'} %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, class: 'fav-cinema fav-remove', name: cinema.name, text: 'Ajouter à vos cinémas'} %}
         </p>
       </div>
     </div>

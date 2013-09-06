@@ -1,6 +1,6 @@
 {# offers #}
   <div class="col-xs-16" style="padding:0;">
-    <h5>Toutes les offres pour voir &laquo;{{ program.title }}&raquo;{% if program.format %}, {{ program.format.name in ['Emission'] ? program.format.name ~ ' en Replay' : program.format.name ~ ' complet' }}{% endif %} :</h5>
+    <p class="ms-surtitre">Toutes les offres pour voir &laquo;{{ program.title }}&raquo;{% if program.format %}, {{ program.format.name in ['Emission'] ? program.format.name ~ ' en Replay' : program.format.name ~ ' complet' }}{% endif %} :</p>
     <div id="program-offers" class="tab-content">
 
       {# subscriptions #}
@@ -52,6 +52,7 @@
 
           {# theaters #}
           {% if key == 'theater' %}
+          {% set btn_deploy_offers = 0 %}
           {% if program.datas_theaters.theaters_ids|length > 0 %}
 
           <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
@@ -129,19 +130,20 @@
                    {% endif %}
                    {% endif %}
                    <div>
-                     {#% if o_access.name not in ['Live', 'TV'] and 
+                     {#% if o_access.name not in ['Live', 'TV'] and #}
+                     {% if o_access.name in ['Vidéo'] and 
                      o.broadcasttime is defined and 
                      o.broadcasttime and
                      o.cost == 0 %}
-                     <time datetime="{{ o.broadcasttime }}">diffusé {{ o.broadcasttime|broadcastdate }}</time>
-                     {% endif %#}
+                     <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
+                     {% endif %}
                    </div>
                  </td>
 
-                 {% if o_access.name not in ['Vidéo','Archive','Extrait','Bonus'] or o.cost %}
-                 <td class="price big">
+                 {#% if o_access.name not in ['Vidéo','Archive','Extrait','Bonus'] or o.cost %#}
+                 <td class="price{{ o.cost is defined and o.cost ? ' price-vod' : '' }} big">
 
-                   {% if o.cost is defined and o.cost %}
+                   {% if (o.cost is defined and o.cost) or o_access.name in ['Vidéo','Archive','Extrait','Bonus']  %}
                    <div class="rent">
                      {{ o_access.name }}
                      {% if o.tags.device is defined %}
@@ -154,11 +156,12 @@
                    </div>
                    {% endif %}
 
+                   {% if o.versions|to_array|length or o.tags|to_array|length %}
                    <div class="ms-versions">
                      {% if o.deporte is defined and o.deporte and o.versions is defined %}
-                     <span class="">{{ o.versions|to_array|keys|join(', ') }}</span>&nbsp;
+                     <span>{{ o.versions|to_array|keys|join(', ') }}</span>
                      {% elseif o.tags is defined and o.tags.version is defined %}
-                     <span class="">{{ o.tags.version|replace({',': ', '}) }}</span>
+                     <span>{{ o.tags.version|replace({',': ', '}) }}</span>
                      {% endif %}
 
                      {% if o.tags is defined and o.tags|length %}
@@ -170,8 +173,9 @@
                        {% endif %}
                      {% endif %}
                    </div>
+                  {% endif %}
                  </td>
-                 {% endif %}
+                 {#% endif %#}
 
                  <td class="offers">
                    {% if o_access.name in ['Live', 'TV'] %}
