@@ -293,9 +293,7 @@ UiView = {
             $('body').addClass('playlist-w-in');
           }
         });
-
       });
-
       //HACK notifications
       if ($(this).parents('li.open:first').length) {
         $(this).parents('li.open:first').removeClass('open');
@@ -339,6 +337,8 @@ UiView = {
           console.log('script', 'callback data-form-ajax', form.data('form-ajax'))
           $(form.data('form-ajax')).html(html);
           UI.loadPlaylistTriggers(null, null, form.data('form-ajax'), $(form.data('form-ajax')));
+          console.log('qsdqsdqsdsqdqdqsdqsdqsdqsdqsdqsdqsdqsqs');
+          ProgramView.loadMoreStreaming();
       });
       
     });
