@@ -189,7 +189,8 @@ class toolsExtension extends \Twig_Extension
             
             //replace slider_program
             if ($type == 'horizontal' &&
-                $page_programs[$i]->id == $slider_program->id) {
+                $page_programs[$i]->id == $slider_program->id &&
+                isset($page_programs[$this->getHorizontalSliderPosition($combinaison)])) {
               $program = $page_programs[$this->getHorizontalSliderPosition($combinaison)];
               echo ' -- replaceslider:'.$program->id;
             //take program
