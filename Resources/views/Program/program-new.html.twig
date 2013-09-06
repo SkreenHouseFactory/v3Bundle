@@ -73,6 +73,10 @@
 {% endblock %}
 
 {% block content %}
+{% if program.id == '5088919' %}
+{# modal #}
+{% include 'SkreenHouseFactoryV3Bundle:Program:_modal.html.twig' ignore missing with {'program': program} %}
+{% endif %}
 <div id="view-program" data-id="{{ program.id }}">
 <div class="container scrollplayerzone">
 
