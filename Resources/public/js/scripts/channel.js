@@ -3,11 +3,20 @@ $(document).ready(function(){
 
   // -- track channel
   var channel_name = $('h1').data('channel');
+  var channel_id = $('.fav[data-id]').data('id');
+
   //API.trackVar(1, 'Chaîne', channel_name, 3);
   API.trackEvent('Chaîne', channel_name, 'page=chaine');
 
   // -- fournisseur
   if ($('#view-fournisseur').length) {
+    alert('sdqsdqd');
+      $('[data-original-title="'+channel_name +'"]').addClass('selected');
+      $('#carousel-chaine .item.active').removeClass('active');
+      $('[data-original-title="' + channel_name +'"]').parent().addClass('active');
+      $('[data-original-title="' + channel_name +'"]').addClass('selected');
+    }
+
     $('.trigger-channel').click(function(){
       UI.refreshChannel($(this).parent().data('channel-id'));
     });
@@ -65,7 +74,6 @@ $(document).ready(function(){
     Skhf.session.callbackSignin = function() {
 
       //modal
-      var channel_id = $('.fav[data-id]').data('id');
       var cookie = API.cookie('visited_channels') ? API.cookie('visited_channels').split(',') : [];
       console.log('scripts/channels.js', 'visited_channels', channel_id, cookie)
       if (!cookie || $.inArray('' + channel_id, cookie) == -1) {
@@ -106,8 +114,6 @@ $(document).ready(function(){
     }
 
     //////////// SCRIPTS ////////////////
-
-    var channel_id = parseInt($('.header-container').attr('id').replace('channel', ''));
 
     // -- countdown pblv
     //setting

@@ -79,6 +79,7 @@ body.view-channel, body.view-channel-selections {
                   height: 53px;
                   width: 53px;
                   border-radius: 28px;
+                  padding-left: 4px;
                 }
               }
               position: absolute;
@@ -115,10 +116,10 @@ body.view-channel, body.view-channel-selections {
             }
           }
           ul#remote-tnt {
-            height: 240px;
-            width: 150px;
+            height: 239px;
+            width: 300px;
             position: absolute;
-            top: 165px;
+            top: 131px;
             padding-left: 0px;
             #carousel-chaine{
               height: 100%;
@@ -142,8 +143,13 @@ body.view-channel, body.view-channel-selections {
             .item {
               a{
                 display: inline-block;
-                margin-left: 6px;
+                margin-left: 8px;
                 margin-top: 0px;
+                &.selected{
+                  border: 3px solid grey;
+                  border-radius: 13px;
+                  background: rgba(0,0,0,0.1);
+                }
               }
             }
           }
