@@ -271,7 +271,7 @@ UiView = {
       if ($('body').hasClass('playlist-in')){
       var has_playlist = true;
       }
-      
+      console.log('bodyRemoveClass');
       //add body class to overload view-homes
       $('body').removeClass('view-redirect')
                .addClass('view-ajax')
@@ -288,6 +288,7 @@ UiView = {
         var suffix = $(this).data('ajax').indexOf('?') == -1 ? '?skip_varnish' : '&skip_varnish';
         var url = $(this).data('ajax') + suffix;
       }
+      console.log('before Load');
       $($(this).attr('rel')).load(url, function() {
         console.log('script', '[data-ajax]', 'callback', 'ajax-play', trigger.data('ajax-play'));
         //update data body
@@ -305,7 +306,7 @@ UiView = {
           }
           API.play(trigger.data('ajax-play'), trigger.data('play-args'));
         }
-        alert('sss');
+        console.log('callback');
         ProgramView.loadMoreStreaming();
         PlayerScroll.initPlayerScroll();
         $('#top-playlist').on('hide.bs.collapse', function () {
@@ -320,7 +321,10 @@ UiView = {
       if ($(this).parents('li.open:first').length) {
         $(this).parents('li.open:first').removeClass('open');
       }
+      console.log('after load');
       self.refreshAjax(has_playlist);
+            console.log('after refresh Ajax');
+
       document.title = 'programmes, TV, replay | mySkreen.com';
       return false;
       }

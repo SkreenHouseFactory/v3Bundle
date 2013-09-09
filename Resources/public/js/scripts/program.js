@@ -1,162 +1,4 @@
 // -- program
-
-//surcharge session sync args to get sVOD :
-Session_sync_args =  { 'with_svod': 1 };
-
-$(document).ready(function(){
-  if ($('#view-program').length) {
-
-    //////////// CALLBACKS ////////////////
-    // -- session sync
-    //Skhf.session.callbackInit = null;
-    Skhf.session.callbackSignout = function() {
-      ProgramView.unloadProgramUsersDatas($('#view-program').data('id'));
-    }
-    Skhf.session.callbackSignin = function() {
-      if (Skhf.session.datas.email) {
-        ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
-      }
-      //theater playlist et fallback géoloc
-      if (Skhf.session.datas.email &&
-          $('#program-offers #trigger-theaters-playlist').length && 
-          !document.location.href.match(/theater_id=/)){ //desactivé si id cinéma dans url
-        $('#program-offers #trigger-theaters-playlist').trigger('click');
-      } else if ($('#program-offers #trigger-theaters-geoloc').length) {
-        $('#program-offers #trigger-theaters-geoloc').trigger('click');
-      }
-      ProgramView.loadModal();
-    }
-    // -- add preference callback : incitation à suivre des related
-    if (!navigator.userAgent.match(/iPhone|iPod/)) { //not optimized for iPhone
-      UI.callbackTogglePlaylist = function(parameter, value, remove, trigger, return_data) {
-        console.log('UI.callbackTogglePlaylist', 'return_data', return_data);
-        if (typeof return_data != 'undefined') {
-          // -- réinitialisation callback pour rester sur la popin
-          UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {
-            if ($('.modal .slider li').length) {
-              trigger.parents('.actions:first').remove();
-            } else {
-              $('.modal').modal('hide');
-            }
-          }
-          //related channels
-          if (return_data.channels) {
-            $('.modal .modal-header h3').html('Voulez-vous suivre aussi ces chaînes ?');
-            $('.modal .modal-body').html('<p class="alert alert-info">Cliquez sur les chaînes qui vous intéressent pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p><div class="slider slider-list"><ul class="items"></ul></div>');
-            new BaseSlider({
-              scroll: 'no',
-              programs: return_data.channels
-            }, function(){
-              var trigger = $(this);
-              $('.modal .slider li a[href]').addClass('fav fav-channel')
-                                            .attr('href', '#')
-                                            .data('ajax', '');
-              $('.modal .slider li').append('<span class="hide add-playlist btn btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre</span>')
-                                    .on('click', function(){
-                UI.togglePlaylist($(this).find('a.title'), false);
-              });
-            }, $('.modal .slider'));
-
-            $('.modal').modal();
-          //related same_playlist
-          } else if (return_data.programs) {
-            //TODO : insert programs in modal
-            $('.modal .modal-header h3').html('Programmes fréquemments suivis ensembles');
-            $('.modal .modal-body').html('<p class="alert alert-info">Suivez tous les programmes que vous aimez pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p><div class="slider slider-list"><ul class="items"></ul></div>');
-            new BaseSlider({
-              scroll: 'no',
-              programs: return_data.programs
-            }, function(){
-              var trigger = $(this);
-              $('.modal .slider li a[href]').addClass('fav fav-like')
-                                            .attr('href', '#')
-                                            .data('ajax', '');
-              $('.modal .slider li').append('<span class="hide add-playlist btn btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre</span>')
-                                    .on('click', function(){
-                UI.togglePlaylist($(this).find('a.title'), false);
-              });
-            }, $('.modal .slider'));
-
-            $('.modal').modal();
-          }
-        }
-      }
-    }
-
-    //////////// SCRIPTS ////////////////
-
-    //no deportes
-    var offers = getUrlParameter('offers');
-    if (offers) {
-      console.log('offers',  offers);
-      $('#trigger-' + offers).trigger('click');
-    } else if (!$('#trigger-plays').length ) {
-      $('#triggers li:first-child a').trigger('click');
-    }
-
-    //autoload from url
-    if (document.location.href.match(/\?rent/gi)) {
-      $('#plays [data-play]:first').trigger('click');
-    } else if (document.location.href.match(/\?follow/gi)) {
-
-      if ($('#program-modal').length){
-        ProgramView.loadModal();
-      }
-      else if (!$('.actions .fav').hasClass('fav-on')) {
-        $('.actions .fav').trigger('click');
-      }
-    } else if (document.location.href.match(/\?play/gi)) {
-      console.log('?play', getUrlParameter('play'));
-      $('[data-play="'+getUrlParameter('play')+'"]').trigger('click');
-    }
-
-    //handle video mention
-    $('[data-play]').on('click', function(){
-      if ($(this).data('play-text')) {
-        $('#program-teaser-header').html($(this).data('play-text'));
-      }
-    });
-
-    //ics
-    $('[data-ics-occurrence]').on('click', function(e){
-      e.preventDefault();
-      document.location = API.config.base + '1/icsfile/' + $(this).data('id')  + '.ics';
-      return false;
-    });
-
-    //episodes
-    $('#program-episodes ul li a[data-season]').on('click', function(){
-      $('#program-episodes ul li').removeClass('active');
-      $(this).parent().addClass('active');
-      $('ul#episodes-list li:not(.hide)').addClass('hide');
-      $('ul#episodes-list li.season-' + $(this).data('season')).removeClass('hide');
-    })
-
-    //init
-    if ($('#view-program').hasClass('isInitialized') == false) {
-     ProgramView.init();
-    }
-
-    // tracking
-    $('[data-track-channel]').each(function() {
-      //track channel
-      //API.trackVar(1, 'Chaîne', $(this).data('track-channel'), 3);
-      API.trackEvent('Chaîne', $(this).data('track-channel'), 'page=programme');
-    });
-    
-    // ui text show more
-    $('.show-more').on('click', function () {
-      var $this = $(this);
-      $('.text', $(this).parent()).toggleClass('show-more-height');
-    });
-
-    // Déplier la liste des acteurs
-    $('.actors_reveal').on('click', function () {
-      $('.actors_entrop').toggleClass('hide');
-    });  
-  }
-});
-
 // -- ProgramView
 var ProgramView;
 ProgramView = {
@@ -349,3 +191,174 @@ ProgramView = {
     };
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+//surcharge session sync args to get sVOD :
+Session_sync_args =  { 'with_svod': 1 };
+
+$(document).ready(function(){
+  if ($('#view-program').length) {
+
+    //////////// CALLBACKS ////////////////
+    // -- session sync
+    //Skhf.session.callbackInit = null;
+    Skhf.session.callbackSignout = function() {
+      ProgramView.unloadProgramUsersDatas($('#view-program').data('id'));
+    }
+    Skhf.session.callbackSignin = function() {
+      if (Skhf.session.datas.email) {
+        ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
+      }
+      //theater playlist et fallback géoloc
+      if (Skhf.session.datas.email &&
+          $('#program-offers #trigger-theaters-playlist').length && 
+          !document.location.href.match(/theater_id=/)){ //desactivé si id cinéma dans url
+        $('#program-offers #trigger-theaters-playlist').trigger('click');
+      } else if ($('#program-offers #trigger-theaters-geoloc').length) {
+        $('#program-offers #trigger-theaters-geoloc').trigger('click');
+      }
+      ProgramView.loadModal();
+    }
+    // -- add preference callback : incitation à suivre des related
+    if (!navigator.userAgent.match(/iPhone|iPod/)) { //not optimized for iPhone
+      UI.callbackTogglePlaylist = function(parameter, value, remove, trigger, return_data) {
+        console.log('UI.callbackTogglePlaylist', 'return_data', return_data);
+        if (typeof return_data != 'undefined') {
+          // -- réinitialisation callback pour rester sur la popin
+          UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {
+            if ($('.modal .slider li').length) {
+              trigger.parents('.actions:first').remove();
+            } else {
+              $('.modal').modal('hide');
+            }
+          }
+          //related channels
+          if (return_data.channels) {
+            $('.modal .modal-header h3').html('Voulez-vous suivre aussi ces chaînes ?');
+            $('.modal .modal-body').html('<p class="alert alert-info">Cliquez sur les chaînes qui vous intéressent pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p><div class="slider slider-list"><ul class="items"></ul></div>');
+            new BaseSlider({
+              scroll: 'no',
+              programs: return_data.channels
+            }, function(){
+              var trigger = $(this);
+              $('.modal .slider li a[href]').addClass('fav fav-channel')
+                                            .attr('href', '#')
+                                            .data('ajax', '');
+              $('.modal .slider li').append('<span class="hide add-playlist btn btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre</span>')
+                                    .on('click', function(){
+                UI.togglePlaylist($(this).find('a.title'), false);
+              });
+            }, $('.modal .slider'));
+
+            $('.modal').modal();
+          //related same_playlist
+          } else if (return_data.programs) {
+            //TODO : insert programs in modal
+            $('.modal .modal-header h3').html('Programmes fréquemments suivis ensembles');
+            $('.modal .modal-body').html('<p class="alert alert-info">Suivez tous les programmes que vous aimez pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p><div class="slider slider-list"><ul class="items"></ul></div>');
+            new BaseSlider({
+              scroll: 'no',
+              programs: return_data.programs
+            }, function(){
+              var trigger = $(this);
+              $('.modal .slider li a[href]').addClass('fav fav-like')
+                                            .attr('href', '#')
+                                            .data('ajax', '');
+              $('.modal .slider li').append('<span class="hide add-playlist btn btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre</span>')
+                                    .on('click', function(){
+                UI.togglePlaylist($(this).find('a.title'), false);
+              });
+            }, $('.modal .slider'));
+
+            $('.modal').modal();
+          }
+        }
+      }
+    }
+
+    //////////// SCRIPTS ////////////////
+
+    //no deportes
+    var offers = getUrlParameter('offers');
+    if (offers) {
+      console.log('offers',  offers);
+      $('#trigger-' + offers).trigger('click');
+    } else if (!$('#trigger-plays').length ) {
+      $('#triggers li:first-child a').trigger('click');
+    }
+
+    //autoload from url
+    if (document.location.href.match(/\?rent/gi)) {
+      $('#plays [data-play]:first').trigger('click');
+    } else if (document.location.href.match(/\?follow/gi)) {
+
+      if ($('#program-modal').length){
+        ProgramView.loadModal();
+      }
+      else if (!$('.actions .fav').hasClass('fav-on')) {
+        $('.actions .fav').trigger('click');
+      }
+    } else if (document.location.href.match(/\?play/gi)) {
+      console.log('?play', getUrlParameter('play'));
+      $('[data-play="'+getUrlParameter('play')+'"]').trigger('click');
+    }
+
+    //handle video mention
+    $('[data-play]').on('click', function(){
+      if ($(this).data('play-text')) {
+        $('#program-teaser-header').html($(this).data('play-text'));
+      }
+    });
+
+    //ics
+    $('[data-ics-occurrence]').on('click', function(e){
+      e.preventDefault();
+      document.location = API.config.base + '1/icsfile/' + $(this).data('id')  + '.ics';
+      return false;
+    });
+
+    //episodes
+    $('#program-episodes ul li a[data-season]').on('click', function(){
+      $('#program-episodes ul li').removeClass('active');
+      $(this).parent().addClass('active');
+      $('ul#episodes-list li:not(.hide)').addClass('hide');
+      $('ul#episodes-list li.season-' + $(this).data('season')).removeClass('hide');
+    })
+
+    //init
+    console.log('before PG init');
+    if ($('#view-program').hasClass('isInitialized') == false) {
+     ProgramView.init();
+    console.log('after PG init');
+
+    }
+
+    // tracking
+    $('[data-track-channel]').each(function() {
+      //track channel
+      //API.trackVar(1, 'Chaîne', $(this).data('track-channel'), 3);
+      API.trackEvent('Chaîne', $(this).data('track-channel'), 'page=programme');
+    });
+    
+    // ui text show more
+    $('.show-more').on('click', function () {
+      var $this = $(this);
+      $('.text', $(this).parent()).toggleClass('show-more-height');
+    });
+
+    // Déplier la liste des acteurs
+    $('.actors_reveal').on('click', function () {
+      $('.actors_entrop').toggleClass('hide');
+    });  
+  }
+});
+
