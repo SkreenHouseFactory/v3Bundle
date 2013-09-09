@@ -10,11 +10,12 @@ $(document).ready(function(){
 
   // -- fournisseur
   if ($('#view-fournisseur').length) {
-    alert('sdqsdqd');
-      $('[data-original-title="'+channel_name +'"]').addClass('selected');
+    if (channel_name) {
+      alert(channel_name.toUpperCase());
       $('#carousel-chaine .item.active').removeClass('active');
-      $('[data-original-title="' + channel_name +'"]').parent().addClass('active');
-      $('[data-original-title="' + channel_name +'"]').addClass('selected');
+      $('[data-original-title="' + channel_name.toUpperCase() +'"]').addClass('selected');
+      $('[data-original-title="' + channel_name.toUpperCase() +'"]').parent().addClass('active');
+
     }
 
     $('.trigger-channel').click(function(){
