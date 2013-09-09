@@ -328,12 +328,7 @@
 // carousel youtube
 #carousel-youtube.carousel {
   margin: 10px;
-  .carousel-inner {
-    margin-left: 15px;
-    width: auto;
-    min-height: 320px;
-
-    .carousel-control {
+   .carousel-control {
       width: 3%;
       .icon-prev,.icon-next{
        margin-left: -19px;
@@ -345,13 +340,18 @@
       margin-left: -15px;
     }
   }
-  .carousel-indicators {
-    z-index: 10;
-    bottom: 20%;
-    li{
-      border: 1px solid #999;
-      &.active{
-        background-color: #999;
+  .carousel-inner {
+    margin-left: 15px;
+    width: auto;
+    min-height: 320px;
+    .carousel-indicators {
+      z-index: 10;
+      bottom: 20%;
+      li{
+        border: 1px solid #999;
+        &.active{
+          background-color: #999;
+        }
       }
     }
   }
@@ -395,7 +395,7 @@
     }
   }
 }
-}
+
 
 
 
