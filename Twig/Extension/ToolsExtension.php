@@ -203,7 +203,7 @@ class toolsExtension extends \Twig_Extension
           }
           $i++;
           if (isset($this->slider_size[$nb_programs_page][$c])) {
-            $program->picture = str_replace(array('150/200','990/450'), $this->slider_size[$nb_programs_page][$c].'/c', $picture);
+            $program->picture = str_replace(array('150/200','990/450','1500/450'), $this->slider_size[$nb_programs_page][$c].'/c', $picture);
           }
           $program->combinaison_type = $c;
           $programs[$i] = $program;

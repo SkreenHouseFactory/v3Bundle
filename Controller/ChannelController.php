@@ -171,94 +171,90 @@ class ChannelController extends Controller
   }
   // channel PBLV
   public function header28Action($data,$from_selection,$channel,$fav,$trigger_fav){
-      $api   = $this->get('api');
-      $params = array(
-         'with_player' => true,
-         'with_offers' => true,
-         //'offers_type'=> 'plays'
-       );
-      $program = $api->fetch('program/3517970', $params);
-      //echo $api->url;
-      $play = null;
-      
-      foreach( $program->offers->deporte as $play){
-        if( isset($play->deporte) && isset($play->cost) && $play->deporte && $play->cost){
-          break;
-        }
+    $api   = $this->get('api');
+    $params = array(
+       'with_player' => true,
+       'with_offers' => true,
+       //'offers_type'=> 'plays'
+     );
+    $program = $api->fetch('program/3517970', $params);
+    //echo $api->url;
+    $play = null;
+  
+    foreach( $program->offers->deporte as $play){
+      if( isset($play->deporte) && isset($play->cost) && $play->deporte && $play->cost){
+        break;
       }
+    }
 
-      foreach( $program->datas_offers->episodes as $episode) {
-        if( isset($episode->title) && $episode->id == $play->episode_id ){
-          break;
-        }
+    foreach( $program->datas_offers->episodes as $episode) {
+      if( isset($episode->title) && $episode->id == $play->episode_id ){
+        break;
       }
-      
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-28.html.twig', array(
-        'play' => $play,
-        'episode' => $episode,
-        'data' => $data,
-        'fav' => $fav,
-        'trigger_fav'=> $trigger_fav,
-        'channel'=> $channel,
-        'from_selection' => $from_selection
-      ));
+    }
+  
+    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-28.html.twig', array(
+      'play' => $play,
+      'episode' => $episode,
+      'data' => $data,
+      'fav' => $fav,
+      'trigger_fav'=> $trigger_fav,
+      'channel'=> $channel,
+      'from_selection' => $from_selection
+    ));
 
-      return $response; 
+    return $response; 
   }
+
+  /* varda */
+  public function header8Action($data,$from_selection,$channel,$fav,$trigger_fav){
+    $api   = $this->get('api');
+    $params = array(
+      'ids' => '3051395,95090,237196,261402,413119,110631,4817914,185960,369379',
+      'with_player' => true,
+      'with_teaser' => true,
+      'allow_with'=> true
+    );
+    $programs = $api->fetch('program', $params);
+    //echo $api->url;
+    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-8.html.twig', array(
+      'programs'=> $programs,
+      'data' => $data,
+      'fav' => $fav,
+      'trigger_fav'=> $trigger_fav,
+      'channel'=> $channel,
+      'from_selection' => $from_selection
+    ));
+    return $response; 
+  }
+
+  /* mariage à l'anglaise */
   public function header35Action($data,$from_selection,$channel,$fav,$trigger_fav){
-     /* $api   = $this->get('api');
-      $params = array(
-         'with_player' => true,
-         'with_offers' => true,
-         //'offers_type'=> 'plays'
-       );
-      $program = $api->fetch('program/3517970', $params);
-      $play = null;
-
-      foreach( $program->offers->plays as $play){
-        if( isset($play->deporte) && isset($play->cost) && $play->deporte && $play->cost){
-          break;
-        }
-      }*/
      
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-35.html.twig', array(
-         // 'episode_id'=> $play->episode_id,
-          'data' => $data,
-          'fav' => $fav,
-          'trigger_fav'=> $trigger_fav,
-            'channel'=> $channel,
-            'from_selection' => $from_selection
-        ));
-      
-            return $response; 
-      }
-      public function header54Action($data,$from_selection,$channel,$fav,$trigger_fav){
-     /* $api   = $this->get('api');
-      $params = array(
-         'with_player' => true,
-         'with_offers' => true,
-         //'offers_type'=> 'plays'
-       );
-      $program = $api->fetch('program/3517970', $params);
-      $play = null;
+    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-35.html.twig', array(
+     // 'episode_id'=> $play->episode_id,
+      'data' => $data,
+      'fav' => $fav,
+      'trigger_fav'=> $trigger_fav,
+      'channel'=> $channel,
+      'from_selection' => $from_selection
+    ));
+    return $response; 
+  }
 
-      foreach( $program->offers->plays as $play){
-        if( isset($play->deporte) && isset($play->cost) && $play->deporte && $play->cost){
-          break;
-        }
-      }*/
-     
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-35.html.twig', array(
-         // 'episode_id'=> $play->episode_id,
-          'data' => $data,
-          'fav' => $fav,
-          'trigger_fav'=> $trigger_fav,
-            'channel'=> $channel,
-            'from_selection' => $from_selection
-        ));
-      
-            return $response; 
-      }
+  /* y'a pas d'age */
+  public function header54Action($data,$from_selection,$channel,$fav,$trigger_fav){
+
+    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-54.html.twig', array(
+      'data' => $data,
+      'fav' => $fav,
+      'trigger_fav'=> $trigger_fav,
+      'channel'=> $channel,
+      'from_selection' => $from_selection
+    ));
+    
+    return $response; 
+  }
  
   protected function buildFacets(Request $request) {
     //echo '$facet:'.$request->get('facet');

@@ -193,8 +193,28 @@ UiView = {
       }
       //console.log('UiView.initDataLive', '[data-play] play-pass', $(this).data('play-pass'));
       API.play($(this).data('play'), $(this).data('play-args'), $(this).data('play-pass'));
+      if ($(this).data('playlist')) {
+        console.log('script', 'data-play', 'playlist');
+        //handle end payer
+        if ($(this).data('duration')) {
+          $('[data-play]', $(this).data('playlist')).removeClass('playing');
+          $(this).addClass('playing');
+          if ($next = $(this).parent().next()) {
+            console.log('script', 'data-play', 'playlist', 'next', $next);
+            if ($play = $next.find('[data-play]')) {
+              console.log('script', 'data-play', 'playlist', 'setTimeout', $(this).data('duration'), $play);
+              setTimeout(function(){
+                $play.trigger('click');
+              }, parseInt($(this).data('duration'))*1000)
+            }
+          }
+        }
+      }
       return false;
     });
+    $('[data-autoplay]').each(function(){
+      $(this).trigger('click');
+    })
     // -- player iframe
     $(elmt).on('click', '[data-play-iframe]', function(){
       console.log('script', 'data-play-iframe', $(this).data('play-iframe'), Player.state);
@@ -448,6 +468,11 @@ UiView = {
       console.log('script', 'couchmode autoplay', $(this));
       $(this).trigger('click');
       return false;
+    });
+    // -- player autoload
+    $('[data-player="init"]', elmt).each(function(){
+      console.log('script', 'data-player="init"', $(this));
+      Player.init($(this));
     });
     // -- player autoload
     $('[data-play-autoload]', elmt).each(function(){

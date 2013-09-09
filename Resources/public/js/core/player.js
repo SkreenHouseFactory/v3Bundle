@@ -272,6 +272,7 @@ Player = {
         }
       break;
       case 'iframe':
+        console.warn('Player.play', 'iframe', player.url, this.elmt);
         this.elmt.html('<iframe src="' + player.url + '" width="100%" height="100%" frameborder="0"></iframe>');
       break;
       case 'YouTube':

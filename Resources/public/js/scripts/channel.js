@@ -65,7 +65,7 @@ $(document).ready(function(){
     Skhf.session.callbackSignin = function() {
 
       //modal
-      var channel_id = $('.actions[data-id]').data('id');
+      var channel_id = $('.fav[data-id]').data('id');
       var cookie = API.cookie('visited_channels') ? API.cookie('visited_channels').split(',') : [];
       console.log('scripts/channels.js', 'visited_channels', channel_id, cookie)
       if (!cookie || $.inArray('' + channel_id, cookie) == -1) {
@@ -76,27 +76,27 @@ $(document).ready(function(){
             $('#channel-modal').addClass('connected');
           }
           if (!Skhf.session.datas.email && 
-              !Skhf.session.isInPlaylist($('.actions').data('playlist'), $('.actions').data('id'))) {
+              !Skhf.session.isInPlaylist($('.fav').data('playlist'), $('.fav').data('id'))) {
             $('#channel-modal').modal('show');
           }
           API.cookie('visited_channels', (cookie.length ? cookie.join(',') + ',' : null) + channel_id);
           
           $('#triggerfav').on('click', function() {
-            $('.actions[data-id] .fav').trigger('click');
+            $('.fav[data-id]').trigger('click');
             $('#channel-modal').modal('hide');
           })
           $('#fbconnect').on('click', function() {
             Skhf.session.callbackSignin = function(sessionData) {
               //add channel to playlist
               if (sessionData.email) {
-                var id = $('.actions[data-id]').data('id');
+                var id = $('.fav[data-id]').data('id');
                 console.log('scripts/channels.js', 'back from signin', id, sessionData.page.split(','));
 
-                if (($('.actions[data-id] a.fav-page').length && $.inArray(id, sessionData.page.split(',')) == -1) ||
-                    ($('.actions[data-id] a.fav-person').length && $.inArray(id, sessionData.person.split(',')) == -1) ||
-                    ($('.actions[data-id] a.fav-channel').length && $.inArray(id, sessionData.channel.split(',')) == -1) ||
-                    ($('.actions[data-id] a.fav-user').length && $.inArray(id, sessionData.user.split(',')) == -1)) {
-                  $('.actions[data-id] a.fav').trigger('click');
+                if (($('.fav.fav-page').length && $.inArray(id, sessionData.page.split(',')) == -1) ||
+                    ($('.fav.fav-person').length && $.inArray(id, sessionData.person.split(',')) == -1) ||
+                    ($('.fav.fav-channel').length && $.inArray(id, sessionData.channel.split(',')) == -1) ||
+                    ($('.fav.fav-user').length && $.inArray(id, sessionData.user.split(',')) == -1)) {
+                  $('.fav[data-id]').trigger('click');
                 }
               }
             }
@@ -106,9 +106,11 @@ $(document).ready(function(){
     }
 
     //////////// SCRIPTS ////////////////
-    //countdown setting
-    var channel_id = $('.actions[data-id]').data('id');
-   
+
+    var channel_id = parseInt($('.header-container').attr('id').replace('channel', ''));
+
+    // -- countdown pblv
+    //setting
     if (channel_id == 3517970) {
     	var note = $('#note'),
     		ts = new Date(2013,7,6,10,0,0),
@@ -125,7 +127,6 @@ $(document).ready(function(){
     		timestamp	: ts
     	});
     }
- 
     if (channel_id == 28) {
       var date = new Date();
       	var note = $('#note');
@@ -133,42 +134,31 @@ $(document).ready(function(){
       	// Attention les mois commencent à 0 !
         var ts = new Date(date.getFullYear(),date.getMonth(),date.getDate(),10,0,0);
       
-          switch (date.getDay()) {
-      
+        switch (date.getDay()) {
           case 6:
-                ts.setDate(date.getDate() + 2); 
-                break;
+            ts.setDate(date.getDate() + 2); 
+          break;
           case 7:
-                ts.setDate(date.getDate() + 1); 
-                break;
-          }
-      
-      
-      	var newYear = true;
-    
+            ts.setDate(date.getDate() + 1); 
+          break;
+        }
 
+      	var newYear = true;
       	if((new Date()) > ts){
       		// The new year is here! Count towards something else.
-
       		// Notice the *1000 at the end - time must be in milliseconds
-
       		ts = (new Date()).getTime() + 10*24*60*60*1000;
-
       		newYear = false;
-
       	}
 
-		
-        if( (date.getHours() < 10 && date.getDay() != 6 && date.getDay() != 7) || date.getDay() == 6 || date.getDay() == 7){
-          $('.well .actions div').remove();
+        if ((date.getHours() < 10 && date.getDay() != 6 && date.getDay() != 7) || 
+            date.getDay() == 6 || 
+            date.getDay() == 7){
+          $('.well .fav div').remove();
         	$('#countdown').countdown({
-
         		timestamp	: ts,
-
         		callback	: function(days, hours, minutes, seconds){
-
         			var message = " Avant le prochain épisode en avant-première !";
-
         			note.html(message);
               if (hours == 0 && minutes == 0 &&  seconds == 0 ){
                 document.location.reload();

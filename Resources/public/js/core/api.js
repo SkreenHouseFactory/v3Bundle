@@ -353,7 +353,7 @@ API = {
     var self = this;
     this.query(
       'GET', 
-      '/player/' + id + '/' + Skhf.session.uid + '.json', 
+      '/player/' + id + '/' + (Skhf.session ? Skhf.session.uid  : 'undefined' )+ '.json', 
       args,
       function(datas) {
         console.log('API.play', 'callback API.query', datas);

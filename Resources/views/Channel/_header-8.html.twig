@@ -1,0 +1,27 @@
+<style>
+#playlist a {
+  color: black;
+  background: #CCC;
+}
+#playlist a.playing {
+  color: white;
+  background: black;
+}
+</style>
+{% set durations = {3051395: 141, 95090: 123, 237196: 128, 261402: 65, 413119: 147, 110631: 150, 4817914: 60, 185960: 150, 369379: 58 } %}
+<div id="cover" class="{% if from_selection is defined and from_selection == true %}selection{% endif %}">
+  <div id="channel8" class="header-container">
+    <div class="player-wrap pull-right" style="width:550px;height:300px;">
+      <div id="player" class="pull-left" data-player="init" style="width:400px;height:300px;"></div>
+      <ul id="playlist">
+      {% for program in programs|to_array %}
+      <li><a{% if loop.first %} data-autoplay="{{ program.teaser ? program.teaser.id : '' }}"{% endif %} data-play="{{ program.teaser ? program.teaser.id : '' }}" data-play-args="{{ {player_width: 400, player_height: 300, current_player: '#player', 'noControls': true}|json_encode }}" data-playlist="#playlist" data-duration="{{ attribute(durations, program.id) }}">{{ program.title }}</a></li>
+      {% endfor %}
+      </ul>
+    </div>
+    <div class="header-content">
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'pull-right', fav: 'person' } %}
+      <h1>Agnès Varda</h1>
+    </div>
+  </div>
+</div>
