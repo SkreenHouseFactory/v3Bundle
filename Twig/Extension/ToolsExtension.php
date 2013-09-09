@@ -6,6 +6,8 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 class toolsExtension extends \Twig_Extension
 {
+    protected static $slider_count;
+    protected $slider_page;
     protected $slider_programs;
     protected $slider_size = array(
         6 => array(
@@ -110,10 +112,13 @@ class toolsExtension extends \Twig_Extension
     public function prepareForSlider(Array $programs, $nb_programs_page)
     {
       echo '<!--';
+      self::$slider_count++;
+      $this->slider_page = 0;
       $this->slider_programs = $this->to_array($programs, true);
       $pages = array();
       echo "\n".'<br/> >>>>> '.count($this->slider_programs);
       while (count($this->slider_programs) > 0) {
+        $this->slider_page++;
         $page_programs = $this->getProgramsForPage($nb_programs_page);
         //echo ' page_programs count:'.count($page_programs);
         $slider_progam = $this->getHorizontalSlider($page_programs);
@@ -148,6 +153,7 @@ class toolsExtension extends \Twig_Extension
     protected function getProgramsForPage($nb_programs_page) {
       //echo '<br>getProgramsForPage:'.count($this->slider_programs);
       $programs = count($this->slider_programs) >= $nb_programs_page ? array_slice($this->slider_programs, 0, $nb_programs_page) : $this->slider_programs;
+      echo "\n".'<br/>getProgramsForPage '.implode('-', array_keys($this->to_array($programs, true)));
       return count($programs) > 0 ? $programs : null;
     }
 
@@ -158,8 +164,8 @@ class toolsExtension extends \Twig_Extension
 
       $page_programs = array_values($page_programs);
       $combinaisons = $this->slider_combinaisons[$nb_programs_page][$type];
-      shuffle($combinaisons);
-      $combinaison = $combinaisons[0];
+      //shuffle($combinaisons);
+      $combinaison = (self::$slider_count+$this->slider_page)%2 == 0 && isset($combinaisons[1]) ? $combinaisons[1] : $combinaisons[0];
       echo "\n".'<br/>NEWPAGE '.implode('-', $combinaison);
       //echo '$page_programs_keys '.implode('-', array_keys($page_programs));
       foreach ($combinaison as $c => $nb) {
@@ -183,6 +189,7 @@ class toolsExtension extends \Twig_Extension
             $picture = $slider_program->sliderPicture;
             $program = $slider_program;
             echo ' -- takeslider:'.$slider_program->id;
+            $i++;
 
           //default
           } else {
