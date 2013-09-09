@@ -18,10 +18,10 @@
     margin-top: 30px;
     .suggestion{
       background: #f3eeee;
-      min-height: 57px;
-      padding-bottom: 5px;
-      padding-left: 11px;
-      padding-top: 12px;
+      height: 30px;
+      padding-left: 5px;
+      padding-right: 5px;
+
       span{
         font-size: 14px;
         font-family: Arial, "Helvetica Neue", Helvetica,sans-serif;
@@ -29,6 +29,15 @@
         
         a{
           color:#595959;
+          display: block;
+          overflow: hidden;
+          white-space: nowrap;
+          -o-text-overflow: ellipsis; /* pour Opera 9 */
+          text-overflow: ellipsis; /* pour le reste du monde */
+          height: 30px;
+          line-height: 30px;
+          width: 100%;
+
           &:hover{
            color: #166dc9;
            text-decoration: none;
@@ -51,7 +60,7 @@
              font-size: 0.8em;
              display: block;
              width: 90px;
- 
+
            }
          }
          .ico-deporte {
@@ -120,7 +129,7 @@
 
             span.title {
               height: auto;
-              overflow: auto;
+              overflow: hidden;
               white-space: normal;
               -o-text-overflow: clip; /* pour Opera 9 */
               text-overflow: clip; /* pour le reste du monde */
@@ -328,72 +337,72 @@
 // carousel youtube
 #carousel-youtube.carousel {
   margin: 10px;
-   .carousel-control {
-      width: 3%;
-      .icon-prev,.icon-next{
-       margin-left: -19px;
-       font-size: 5em;
-       color: black;
-       top: 17%;
-     }
-     .icon-next{
-      margin-left: -15px;
-    }
+  .carousel-control {
+    width: 3%;
+    .icon-prev,.icon-next{
+     margin-left: -19px;
+     font-size: 5em;
+     color: black;
+     top: 17%;
+   }
+   .icon-next{
+    margin-left: -15px;
   }
-  .carousel-inner {
-    margin-left: 15px;
-    width: auto;
-    min-height: 320px;
-    .carousel-indicators {
-      z-index: 10;
-      bottom: 20%;
-      li{
-        border: 1px solid #999;
-        &.active{
-          background-color: #999;
-        }
-      }
-    }
-  }
-  .item {
-    a {
-      display: block;
-      position: relative;
-      width: 180px;
-      height: 150px;
-      margin: 0 8px 8px;
-      line-height: 1em;
-      font-size: 0.8em;
-      color: black;
-
-      span {
-        position: absolute;
-        margin: 10px;
-        background: white;
-        opacity: 0.8;
-        padding: 3px;
-      }
-
-      img {
-        width: 170px;
-        height: 120px;
-      }
-
-      .title {
-        position: absolute;
-        top: 85px;
-        margin: 0;
-        width: 170px;
-        background-color: rgba(0,0,0,0.75);
-        color: white;
-        height: 37px;
-        overflow: hidden;
-        padding: 2px 5px 0 5px;
-        font-family: Tahoma;
-        line-height: 1.1em;
+}
+.carousel-inner {
+  margin-left: 15px;
+  width: auto;
+  min-height: 320px;
+  .carousel-indicators {
+    z-index: 10;
+    bottom: 20%;
+    li{
+      border: 1px solid #999;
+      &.active{
+        background-color: #999;
       }
     }
   }
+}
+.item {
+  a {
+    display: block;
+    position: relative;
+    width: 180px;
+    height: 150px;
+    margin: 0 8px 8px;
+    line-height: 1em;
+    font-size: 0.8em;
+    color: black;
+
+    span {
+      position: absolute;
+      margin: 10px;
+      background: white;
+      opacity: 0.8;
+      padding: 3px;
+    }
+
+    img {
+      width: 170px;
+      height: 120px;
+    }
+
+    .title {
+      position: absolute;
+      top: 85px;
+      margin: 0;
+      width: 170px;
+      background-color: rgba(0,0,0,0.75);
+      color: white;
+      height: 37px;
+      overflow: hidden;
+      padding: 2px 5px 0 5px;
+      font-family: Tahoma;
+      line-height: 1.1em;
+    }
+  }
+}
 }
 
 

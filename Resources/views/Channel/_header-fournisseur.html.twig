@@ -9,11 +9,11 @@
       <div class="item active">
     {% for c in tnt_channels %}
     {% set slug = c|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-    {% if  loop.index == 22 %}
+    {% if  loop.index == 26 %}
       </div>
       <div class="item pointer">
     {% endif %}
-      <a data-toggle="tooltip" data-placement="top" title="" data-original-title="{{ c }}" href="{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/35/30/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ c }} Replay"></a>
+      <a data-toggle="tooltip" class="" data-placement="top" title="{{c}}" data-original-title="{{ c }}" href="{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/50/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ c }} Replay"></a>
     {% endfor %}
       </div>
     </div>
