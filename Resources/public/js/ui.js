@@ -49,6 +49,11 @@ UI = {
           console.log('UI.auth', 'Skhf.session.init callback');
           callback();
         }
+        //message popin
+        if (!$('.modal .modal-header p').length) {
+          $('.modal .modal-header').append('<p><b>Votre compte en 1 clic <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b> : Créez vos playlists et ne ratez plus vos programmes préférés : Cinéma, TV, Replay et VOD !</p>');
+        }
+        $('.modal .modal-body [data-content]').popover();
       });
     },{parcours: parcours});
   },
@@ -328,8 +333,7 @@ UI = {
 
       this.auth(function(){
         console.log('UI.togglePlaylist', 'UI.auth callback', Skhf.session.datas.email);
-        $('.modal .modal-body').prepend('<p class="alert alert-success"><b>Vos playlists <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b><br/>' + self.getPlaylistMessage(trigger) + '</p>');
-        $('.modal .modal-body [data-content]').popover();
+        $('.modal .modal-header').append('<p><b>Vos playlists <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b> : ' + self.getPlaylistMessage(trigger) + '</p>');
         if (Skhf.session.datas.email) {
           self.togglePlaylist(trigger);
         }

@@ -10,7 +10,7 @@ var BaseSlider = Class.extend({
     padding: 12,
     height: 200,
     item_margin: 7,
-    pager_nb_results: 7,
+    pager_nb_results: 6,
     type: 'scroll', 
     args: {}
   },

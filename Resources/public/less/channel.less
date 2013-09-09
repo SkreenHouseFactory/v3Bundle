@@ -50,7 +50,7 @@ body.view-channel, body.view-channel-selections {
       &.cover28{
         height: 550px;
       }
-      &.cover35,&.cover54{
+      &.cover35,&.cover54,&.cover8{
        height: 600px;
      }
      &.cover-fournisseur {
@@ -189,15 +189,64 @@ body.view-channel, body.view-channel-selections {
       }
     }
   }
-  &#channel28{
-    .info_saison{
-      font-size: 0.9em;
-      position: relative;
-      top: 140px;
-      left: 140px;
-      width: 184px;
-      text-align: center;
+  &#channel8{
+    height: 535px;
+    .share-block{
+      top: 294px;
+      left: 620px;
     }
+    .header-content{
+      top: 538px;
+      min-height: 60px;
+      background:rgba(0,0,0,0.2);
+      .share-block{
+        position: absolute;
+        top: 21px;
+        left: 645px;
+        min-width: 400px;
+      }
+    }
+    .player-wrap{
+      position: relative;
+      width: 530px;
+      height: 280px;
+      left: -175px;
+      top: 234px;
+      iframe{
+        border: none;
+      }
+      #playlist{ 
+       position: absolute;
+       bottom: 0px;
+       width: 100%;
+       margin-bottom: 0px;
+       padding-left: 0px;
+       text-align: center;
+       >li {
+        color: black;
+        background: #CCC;
+        display:none;
+      }
+      .playing {
+        background: black;
+        display: block;
+        >a{
+          color: white;
+        }
+      }
+
+    }
+  }
+}
+    &#channel28{
+      .info_saison{
+        font-size: 0.9em;
+        position: relative;
+        top: 140px;
+        left: 140px;
+        width: 184px;
+        text-align: center;
+      }
     .header-content{
       background-color: transparent;
       padding:0;
