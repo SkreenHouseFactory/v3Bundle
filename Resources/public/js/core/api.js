@@ -246,7 +246,7 @@ API = {
 
     //input dpad
     $('input:visible:not(.tv-component)', elmt).addClass('tv-component tv-component-input');
-    $('input:not([type="radio"])', elmt).addClass('form-control');
+    $('input:not([type="radio"], [type="checkbox"])', elmt).addClass('form-control');
     $('.btn:visible:not(.tv-component)', elmt).addClass('tv-component');
     $('input[type="text"], input[type="email"], input[type="password"]', elmt).attr('autocomplete', 'off');
 
@@ -361,13 +361,13 @@ API = {
           case 'DISCONNECTED':
             UI.auth(function(){
               console.log('API.play', 'callback UI.auth', Skhf.session.datas);
-              $('.modal .modal-body').prepend(
+              $('.modal .modal-message').html(
                 subscription_id ?
-                '<p class="alert alert-success"><b>Pass Vidéo à la demande :</b>' +
-                '<br/>Créez votre compte sur mySkreen pour accéder à votre Pass !</p>'
+                '<p><b>Pass Vidéo à la demande :</b> ' +
+                'Créez votre compte sur mySkreen pour accéder à votre Pass !</p>'
                 : 
-                '<p class="alert alert-success"><b>Vidéo à la demande :</b>' +
-                '<br/>Créez votre compte pour voir ce programme sur mySkreen !</p>'
+                '<p><b>Vidéo à la demande :</b> ' +
+                'Créez votre compte pour voir ce programme sur mySkreen !</p>'
               );
               if (Skhf.session.datas.email) {
                 self.play(id, args, subscription_id);

@@ -226,6 +226,7 @@ $(document).ready(function(){
       } else if ($('#program-offers #trigger-theaters-geoloc').length) {
         $('#program-offers #trigger-theaters-geoloc').trigger('click');
       }
+      //modal program
       ProgramView.loadModal();
     }
     // -- add preference callback : incitation à suivre des related
