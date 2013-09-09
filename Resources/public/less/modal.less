@@ -2,68 +2,66 @@
    Author: Benoît Bergstörm
    ========================================================================== */
 
+@media screen and (min-width: 0px) and (max-width: 299px) {
+    
+}
+
+@media screen and (min-width: 300px) and (max-width: 959px) {
+    
+}
+
+@media screen and (min-width: 960px) {
+    
+}
 
 
-
-
-    @media screen and (min-width: 0px) and (max-width: 299px) {
-        
-
-    }
-
-
-
-    @media screen and (min-width: 300px) and (max-width: 959px) {
-        
-
-    }
-
-
-
-    @media screen and (min-width: 960px) {
-        
-
-        
-    }
-
-
-
-
-
-
-
-
-
-   // MODIFICATIONS POUR LE MODAL
-
+// MODIFICATIONS POUR LE MODAL
 
 .modal{
 	overflow: hidden;
+  .modal-header {
+    h3 {
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    background: rgba(0, 143, 255, 0.1);
+    color: #5E98FF;
+    border-bottom: 5px solid #5E98FF;
+    .close {
+      color: #5E98FF;
+      opacity: 0.5;
+      font-size: 2em;
+    }
+  }
+  .modal-body {
+    min-height: 300px;
+  }
+  .modal-footer {
+    padding-right: 20px;
+  }
 }
-	@media (min-width: 1200px) { 
-	  .modal{
-	    width: 600px;
-	    margin-left: -300px;
-	    left: 50%;
-	  }
-	}
 
+@media (min-width: 1200px) { 
+  .modal{
+    width: 600px;
+    margin-left: -300px;
+    left: 50%;
+  }
+}
 
+@media screen and (min-width: 979px) and (max-width: 1200px) {
+  .modal{
+    width: 600px;
+    margin-left: -300px;
+    left: 50%;
+  }
+}
 
-    @media screen and (min-width: 979px) and (max-width: 1200px) {
-	  .modal{
-	    width: 600px;
-	    margin-left: -300px;
-	    left: 50%;
-	  }
-	}
-
-
-	/* Portrait tablet to landscape and desktop */
-	@media (min-width: 0px) and (max-width: 979px) {
-	  .modal{
-	    width: 600px;
-	    margin-left: -300px;
-	    left: 50%;
-	  }
-	}
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 0px) and (max-width: 979px) {
+  .modal{
+    width: 600px;
+    margin-left: -300px;
+    left: 50%;
+  }
+}
