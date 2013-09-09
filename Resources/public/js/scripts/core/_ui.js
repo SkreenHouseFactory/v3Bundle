@@ -197,8 +197,8 @@ UiView = {
         console.log('script', 'data-play', 'playlist');
         //handle end payer
         if ($(this).data('duration')) {
-          $('[data-play]', $(this).data('playlist')).removeClass('playing');
-          $(this).addClass('playing');
+          $('.playing', $(this).data('playlist')).removeClass('playing');
+          $(this).parent().addClass('playing');
           if ($next = $(this).parent().next()) {
             console.log('script', 'data-play', 'playlist', 'next', $next);
             if ($play = $next.find('[data-play]')) {
