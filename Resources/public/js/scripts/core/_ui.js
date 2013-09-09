@@ -275,7 +275,6 @@ UiView = {
         //trigger playlists
         UI.loadPlaylistTriggers('like', Skhf.session.datas.queue.split(','), elmt);
         //ajax play ?
-        ProgramView.loadMoreStreaming();
         if (trigger.data('offers')) {
           $('.trigger-'+ trigger.data('offers')).trigger('click');
         }
@@ -286,6 +285,8 @@ UiView = {
           }
           API.play(trigger.data('ajax-play'), trigger.data('play-args'));
         }
+        alert('sss');
+        ProgramView.loadMoreStreaming();
         PlayerScroll.initPlayerScroll();
         $('#top-playlist').on('hide.bs.collapse', function () {
           console.log('script', '#top-playlist on hide');
