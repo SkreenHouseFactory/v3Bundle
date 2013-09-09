@@ -12,8 +12,8 @@ UiView = {
 
     this.elmt = typeof elmt != 'undefined' && elmt ? elmt : $('body');
     if (history.pushState) {
-      this.initHistory();
-    }
+    this.initHistory();
+     }
     this.onLoad();
   },
   update: function(elmt) {
@@ -249,22 +249,24 @@ UiView = {
       var trigger = $(this); 
       if ( $('html').hasClass('lt-ie9')){
         window.location.href = trigger.data('ajax');
-      } else {
-        //history
-        console.log('script', '[data-ajax]', $(this).data('ajax'));
-        console.log('History.pushStates');
-        if (history.pushState) {
-        if ( history.state == null ) {
-          if( $('body').hasClass('view-tvgrid')) {
-            var gridPath = $('#grid >h1 time').attr('timestamp')+'/';
-            history.pushState({path: window.location.href, document_title: document.title }, document.title, gridPath);
-          }
-          else{
-          history.pushState({path: window.location.href, document_title: document.title }, document.title, window.location.href);
-          }
+      }
+      else{
+      //history
+      console.log('script', '[data-ajax]', $(this).data('ajax'));
+      console.log('History.pushStates');
+      if (history.pushState) {
+      if ( history.state == null ) {
+        if( $('body').hasClass('view-tvgrid')) {
+          var gridPath = $('#grid >h1 time').attr('timestamp')+'/';
+          history.pushState({path: window.location.href, document_title: document.title }, document.title, gridPath);
         }
-        history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
+        else{
+        history.pushState({path: window.location.href, document_title: document.title }, document.title, window.location.href);
         }
+      }
+      history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
+      }
+
        console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
       if ($('body').hasClass('playlist-in')){
       var has_playlist = true;
@@ -296,17 +298,11 @@ UiView = {
         //ajax play ?
         if (trigger.data('offers')) {
           $('.trigger-'+ trigger.data('offers')).trigger('click');
-
         }
-        $($(this).attr('rel')).load(url, function() {
-          console.log('script', '[data-ajax]', 'callback', 'ajax-play', trigger.data('ajax-play'));
-          //update data body
-          UI.unloadRedirect();
-          //trigger playlists
-          UI.loadPlaylistTriggers('like', Skhf.session.datas.queue.split(','), elmt);
-          //ajax play ?
-          if (trigger.data('offers')) {
-            $('.trigger-'+ trigger.data('offers')).trigger('click');
+        if (trigger.data('ajax-play')) {
+          if (Player.state == 'playing') {
+            console.log('script', 'data-play', 'Pause current player');
+            Player.pause();
           }
           API.play(trigger.data('ajax-play'), trigger.data('play-args'));
         }
@@ -319,16 +315,6 @@ UiView = {
           if( $('body').hasClass('view-program_pere') || $('body').hasClass('view-ajax') ){
             $('body').addClass('playlist-w-in');
           }
-          alert('sss');
-          ProgramView.loadMoreStreaming();
-          PlayerScroll.initPlayerScroll();
-          $('#top-playlist').on('hide.bs.collapse', function () {
-            console.log('script', '#top-playlist on hide');
-            $('body').removeClass('playlist-in');
-            if( $('body').hasClass('view-program_pere') || $('body').hasClass('view-ajax') ){
-              $('body').addClass('playlist-w-in');
-            }
-          });
         });
       });
       //HACK notifications
