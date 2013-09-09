@@ -197,8 +197,8 @@ UiView = {
         console.log('script', 'data-play', 'playlist');
         //handle end payer
         if ($(this).data('duration')) {
-          $('[data-play]', $(this).data('playlist')).removeClass('playing');
-          $(this).addClass('playing');
+          $('.playing', $(this).data('playlist')).removeClass('playing');
+          $(this).parent().addClass('playing');
           if ($next = $(this).parent().next()) {
             console.log('script', 'data-play', 'playlist', 'next', $next);
             if ($play = $next.find('[data-play]')) {
@@ -265,27 +265,38 @@ UiView = {
         }
         history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
         }
+       console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
+      if ($('body').hasClass('playlist-in')){
+      var has_playlist = true;
+      }
+      console.log('bodyRemoveClass');
+      //add body class to overload view-homes
+      $('body').removeClass('view-redirect')
+               .addClass('view-ajax')
+               .css('background','')
+               .attr('class','');
 
-         console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
-        if ($('body').hasClass('playlist-in')){
-        var has_playlist = true;
-        }
-      
-        //add body class to overload view-homes
-        $('body').removeClass('view-redirect')
-                 .addClass('view-ajax')
-                 .css('background','')
-                 .attr('class','');
+      //load ajax
+      console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
+      $($(this).attr('rel')).empty();
+      UI.appendLoader($($(this).attr('rel')));
+      if ($(this).data('ajax').indexOf('#') != -1) {
+        var url = $(this).data('ajax').replace('#', '?skip_varnish#');
+      } else {
+        var suffix = $(this).data('ajax').indexOf('?') == -1 ? '?skip_varnish' : '&skip_varnish';
+        var url = $(this).data('ajax') + suffix;
+      }
+      console.log('before Load');
+      $($(this).attr('rel')).load(url, function() {
+        console.log('script', '[data-ajax]', 'callback', 'ajax-play', trigger.data('ajax-play'));
+        //update data body
+        UI.unloadRedirect();
+        //trigger playlists
+        UI.loadPlaylistTriggers('like', Skhf.session.datas.queue.split(','), elmt);
+        //ajax play ?
+        if (trigger.data('offers')) {
+          $('.trigger-'+ trigger.data('offers')).trigger('click');
 
-        //load ajax
-        console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
-        $($(this).attr('rel')).empty();
-        UI.appendLoader($($(this).attr('rel')));
-        if ($(this).data('ajax').indexOf('#') != -1) {
-          var url = $(this).data('ajax').replace('#', '?skip_varnish#');
-        } else {
-          var suffix = $(this).data('ajax').indexOf('?') == -1 ? '?skip_varnish' : '&skip_varnish';
-          var url = $(this).data('ajax') + suffix;
         }
         $($(this).attr('rel')).load(url, function() {
           console.log('script', '[data-ajax]', 'callback', 'ajax-play', trigger.data('ajax-play'));
@@ -297,12 +308,16 @@ UiView = {
           if (trigger.data('offers')) {
             $('.trigger-'+ trigger.data('offers')).trigger('click');
           }
-          if (trigger.data('ajax-play')) {
-            if (Player.state == 'playing') {
-              console.log('script', 'data-play', 'Pause current player');
-              Player.pause();
-            }
-            API.play(trigger.data('ajax-play'), trigger.data('play-args'));
+          API.play(trigger.data('ajax-play'), trigger.data('play-args'));
+        }
+        console.log('callback');
+        ProgramView.loadMoreStreaming();
+        PlayerScroll.initPlayerScroll();
+        $('#top-playlist').on('hide.bs.collapse', function () {
+          console.log('script', '#top-playlist on hide');
+          $('body').removeClass('playlist-in');
+          if( $('body').hasClass('view-program_pere') || $('body').hasClass('view-ajax') ){
+            $('body').addClass('playlist-w-in');
           }
           alert('sss');
           ProgramView.loadMoreStreaming();
@@ -315,14 +330,17 @@ UiView = {
             }
           });
         });
-        //HACK notifications
-        if ($(this).parents('li.open:first').length) {
-          $(this).parents('li.open:first').removeClass('open');
-        }
-        self.refreshAjax(has_playlist);
-        document.title = 'programmes, TV, replay | mySkreen.com';
+      });
+      //HACK notifications
+      if ($(this).parents('li.open:first').length) {
+        $(this).parents('li.open:first').removeClass('open');
+      }
+      console.log('after load');
+      self.refreshAjax(has_playlist);
+            console.log('after refresh Ajax');
 
-        return false;
+      document.title = 'programmes, TV, replay | mySkreen.com';
+      return false;
       }
     });
     // -- redirect
