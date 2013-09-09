@@ -876,11 +876,13 @@ UI = {
         $.debounce(self.getTypeaheadSuggestions(typeahead, query), 200);
       },
       onselect: function(obj) {
-        console.log('UI.typeahead', 'onselect', obj, typeof obj, 'blur:' + $(searchbox), API.config.v3_url + '/programmes/' + obj);
-
+        console.log('UI.typeahead', 'onselect', obj, searchbox, $(searchbox).attr('value'));
+        $(searchbox).attr('value', 'chargement ...')
+        return;
         if (typeof obj != 'object') { //typeahead
           top.location = API.config.v3_url + '/programmes/' + obj;
         } else if (typeof obj.seo_url != 'undefined') { //advanced
+          //alert('VALUE'+obj.name);
           $(searchbox).attr('value', '')
           if (obj.seo_url.match(/^http:\/\//)) {
             top.location = obj.seo_url;

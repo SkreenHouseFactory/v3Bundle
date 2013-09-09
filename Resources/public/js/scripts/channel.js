@@ -10,17 +10,16 @@ $(document).ready(function(){
 
   // -- fournisseur
   if ($('#view-fournisseur').length) {
-    alert('sdqsdqd');
-      $('[data-original-title="'+channel_name +'"]').addClass('selected');
-      $('#carousel-chaine .item.active').removeClass('active');
-      $('[data-original-title="' + channel_name +'"]').parent().addClass('active');
-      $('[data-original-title="' + channel_name +'"]').addClass('selected');
-    }
+    $('[data-original-title="'+channel_name +'"]').addClass('selected');
+    $('#carousel-chaine .item.active').removeClass('active');
+    $('[data-original-title="' + channel_name +'"]').parent().addClass('active');
+    $('[data-original-title="' + channel_name +'"]').addClass('selected');
 
-    $('.trigger-channel').click(function(){
+
+    $('.trigger-channel').on('click', function(){
       UI.refreshChannel($(this).parent().data('channel-id'));
     });
-    $('.trigger-channel-date').change(function(){
+    $('.trigger-channel-date').on('change', function(){
       UI.refreshChannel($(this).data('channel-id'));
     });
     if (channel_name) {
