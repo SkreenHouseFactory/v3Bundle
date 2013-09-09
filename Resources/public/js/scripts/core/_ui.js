@@ -295,6 +295,7 @@ UiView = {
         //trigger playlists
         UI.loadPlaylistTriggers('like', Skhf.session.datas.queue.split(','), elmt);
         //ajax play ?
+        ProgramView.loadMoreStreaming();
         if (trigger.data('offers')) {
           $('.trigger-'+ trigger.data('offers')).trigger('click');
         }
@@ -313,9 +314,7 @@ UiView = {
             $('body').addClass('playlist-w-in');
           }
         });
-
       });
-
       //HACK notifications
       if ($(this).parents('li.open:first').length) {
         $(this).parents('li.open:first').removeClass('open');
@@ -359,8 +358,7 @@ UiView = {
           console.log('script', 'callback data-form-ajax', form.data('form-ajax'))
           $(form.data('form-ajax')).html(html);
           UI.loadPlaylistTriggers(null, null, form.data('form-ajax'), $(form.data('form-ajax')));
-      });
-      
+       });
     });
     // -- btn-radio
     $('[data-toggle="buttons-radio"] > *').on('click', function() { //TODO Le live ne marche pas, du coup HACK en mettant on
