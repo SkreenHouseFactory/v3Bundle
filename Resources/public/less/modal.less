@@ -2,44 +2,21 @@
    Author: Benoît Bergstörm
    ========================================================================== */
 
-@media screen and (min-width: 0px) and (max-width: 299px) {
-    
-}
+   @media screen and (min-width: 0px) and (max-width: 299px) {
 
-@media screen and (min-width: 300px) and (max-width: 959px) {
-    
-}
+   }
 
-@media screen and (min-width: 960px) {
-    
-}
+   @media screen and (min-width: 300px) and (max-width: 959px) {
+
+   }
+
+   @media screen and (min-width: 960px) {
+
+   }
 
 
 // MODIFICATIONS POUR LE MODAL
 
-.modal{
-	overflow: hidden;
-  .modal-header {
-    h3 {
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    background: rgba(0, 143, 255, 0.1);
-    color: #5E98FF;
-    border-bottom: 5px solid #5E98FF;
-    .close {
-      color: #5E98FF;
-      opacity: 0.5;
-      font-size: 2em;
-    }
-  }
-  .modal-body {
-    min-height: 300px;
-  }
-  .modal-footer {
-    padding-right: 20px;
-  }
-}
 
 @media (min-width: 1200px) { 
   .modal{
@@ -63,5 +40,198 @@
     width: 600px;
     margin-left: -300px;
     left: 50%;
+  }
+}
+
+
+
+
+
+
+/* ==========================================================================
+   Author: Benoît Bergstörm
+   ========================================================================== */
+
+   .modal {
+    overflow: hidden;
+    .modal-header {
+      h3 {
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      background: rgba(0, 143, 255, 0.1);
+      color: #5E98FF;
+      border-bottom: 5px solid #5E98FF;
+      .close {
+        color: #5E98FF;
+        opacity: 0.5;
+        font-size: 2em;
+      }
+    }
+
+    .modal-footer {
+      padding-right: 20px;
+    }
+    .modal-body {
+      min-height: 300px;
+      .form-control 
+      {
+        width: 75%;
+        margin-top: 5px;
+        margin-left: 10%;
+      }
+      .oubien{
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        margin-top: -20px;
+        margin-bottom: 20px;
+
+        span{
+          display: inline-block;
+          vertical-align: baseline;
+          zoom: 1;
+          *display: inline;
+          *vertical-align: auto;
+          position: relative;
+          padding: 0 20px;
+          color: #999999;
+
+          &:before, &:after{
+            content: '';
+            display: block;
+            width: 1000px;
+            position: absolute;
+            top: 0.73em;
+            border-top: 1px solid #D9D9D9;
+          }
+
+          &:before {
+            right: 100%;
+
+          }
+          &:after{
+            left: 100%;
+
+          } 
+        }
+      }
+      .progress {
+        margin: 30px 80px;
+      }
+      #part-header {
+        display: none !important;
+      }
+      #part-body {
+        background: white;
+        text-align: center;
+        padding: 10px 0;
+      }
+
+      h1 a {
+       text-decoration: none;
+       color: #555;
+       &:hover {
+         text-decoration: underline;
+         color: #555;
+       }
+     }
+
+     #skSignin {
+      text-align:left;
+    }
+    #fbconnect {
+      margin: 20px 0 40px;
+      text-align: center;
+    }
+
+    .alert {
+      padding: 7px;
+    }
+    .paymentPopin {
+      .btn.btn-large.btn-primary.tv-component.tv-component-input.form-control{
+        margin-top: 20px;
+      }
+
+
+      .tv-component.tv-component-force{
+        color: #999999;
+        display: block;
+        margin-left: 27%;
+        margin-top: 15px;
+      }
+
+      form {
+        margin-bottom: 0px;
+
+        ul {
+          margin: 0;
+          padding: 0;
+          &.alert{
+            padding: 7px;
+          }
+          li {
+            list-style: none;
+          }
+        }
+
+
+        table {
+          th {
+            width: 195px;
+            padding-right: 10px;
+            text-align: right;
+          }
+          tr.actions .btn {
+            margin-top: 10px;
+
+
+
+          }
+        }
+        input[type="radio"], input[type="checkbox"] {
+          float: left;
+          margin-right: 10px;
+        }
+        select.cc_expiry_date {
+          width: 75px;
+        }
+        label {
+          font-size: 11px;
+          color: #999;
+          text-transform: uppercase;
+          font-weight: bold;
+          text-rendering: optimizelegibility;
+        }
+        label[for="inscrit"], label[for="inscrit_1"] {
+          font-size: 1.0em;
+          color: black;
+          text-transform: none;
+
+        }
+      }
+
+      .loc {
+        span {
+          display: block;
+          font-weight: bold;
+        }
+        label {
+          display: inline-block;
+        }
+      }
+
+      .skVignette {
+        float: left;
+        margin-right: 20px;
+      }
+    }
+  }
+  .modal-footer {
+    padding-right: 130px;
+
+    .close {
+      display: none;
+    }
   }
 }
