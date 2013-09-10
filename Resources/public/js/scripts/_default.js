@@ -79,11 +79,6 @@ $(document).ready(function(){
   //notifications
   $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
 
-<<<<<<< HEAD
-=======
-$('.user-on.dropdown-toggle, .user-on [data-target]').on('click', function(){
-    //notifications
->>>>>>> 25ba8d482cc33f65da4df577299592ef9a939418
     if ($(this).hasClass('tv-component')  && 
       !$(this).parent().hasClass('open') ) { 
       if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
