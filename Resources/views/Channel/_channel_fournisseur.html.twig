@@ -76,7 +76,7 @@
   <hr/>
 {% else %}
   {% for k,f in data.formats %}
-    <a href="{{ path('channel_format', {format: k, slug: app.request.get('slug')}) }}" class="label{% if app.request.get('facet') == f %} label-info"{% endif %}">{{ f }}</a> 
+    <a href="{{ path('channel_format', {format: k, slug: app.request.get('slug')}) }}" class="label{% if app.request.get('facet') == f %} label-info"{% endif %} label-default">{{ f }}</a> 
   {% endfor %}
 {% endif %}
 </div>

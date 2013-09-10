@@ -10,7 +10,6 @@ $(document).ready(function(){
 
   // -- fournisseur
   if ($('#view-fournisseur').length) {
-      alert(channel_name.toUpperCase());
     if (channel_name) {
       $('#carousel-chaine .item.active').removeClass('active');
       $('[data-original-title="' + channel_name.toUpperCase() +'"]').addClass('selected');
