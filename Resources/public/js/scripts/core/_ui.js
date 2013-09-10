@@ -438,7 +438,7 @@ UiView = {
           API.catchForm($('.modal'));
           //title
           if (trigger.data('modal-title')) {
-            $('.modal .modal-header h3').html(trigger.data('modal-title'));
+            $('.modal .modal-header .modal-title').html(trigger.data('modal-title'));
           }
           //message
           if (trigger.data('modal-message')) {
