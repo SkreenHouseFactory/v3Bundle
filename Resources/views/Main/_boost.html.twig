@@ -4,7 +4,7 @@
 {% if loop.index in [12,22] %}
 </div>
 <div class="col-xs-5 span-d">
-{% endif %}
-<a href="{{ p.seo_url }}">{{ p.title }} {{ p.has_vod in [5,6,7,8] ? 'replay' : 'streaming' }}</a>
-{% endfor %}
+	{% endif %}
+	<a href="{{ p.seo_url }}">{{ p.title }} {{ p.has_vod in [5,6,7,8] ? 'replay' : 'streaming' }}</a>
+	{% endfor %}
 </div>

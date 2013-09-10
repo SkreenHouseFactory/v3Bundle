@@ -2,47 +2,6 @@
 <div class="ms-social-bar">
   {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}
 </div>
-{# Selecteur episodes #}
-{% if program.episode_list is defined or program.seasons is defined %}
-<div id="program-episodes" class="row collapse">
-  <div class="panel">
-    <div class="panel-heading"><h3 class="panel-title">Tous les épisodes</h3><a data-target="#program-episodes" data-toggle="collapse" class="btn btn-default block"><i class="glyphicon glyphicon-remove"></i></a>
-    </div>
-    <div class="tab-pane">
-      {% if program.seasons is defined %}
-      {% if program.seasons|to_array|first.number != '(autres)' %}
-      <ul class="nav nav-pills">
-        <li class="ms-nav-pills-saisons">Saison <i class="glyphicon glyphicon-play"></i></li>
-        {% for season in program.seasons|to_array %}
-        <li{{ loop.last ? ' class="active"' : '' }}><a data-season="{{ season.number }}">{{ season.number }}</a></li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-      <ul id="episodes-list">
-        {% for season in program.seasons|to_array %}
-        {% set loop_season = loop %}
-        {% for episode in season.episodes|to_array|reverse %}
-        <li class="season-{{ season.number }} {{ loop_season.last ? 'in' : 'hide' }}"><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
-          {% if episode.dispo %}<span class="label label-default pull-right">{{ episode.dispo }}</span>{% endif%}
-          <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
-        </a></li>
-        {% endfor %}
-        {% endfor %}
-      </ul>
-      {% else %}
-      <ul id="episodes-list">
-        {% for episode in program.episode_list|to_array %}
-        <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
-          {% if episode.dispo %}<span class="label label-default pull-right">{{ episode.dispo }}</span>{% endif%}
-          <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
-        </a></li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-    </div>
-  </div>
-</div>
-{% endif %}
 
 {# Selecteur episodes (@see #program-episodes) #}
 {% if program.episode_list is defined or program.seasons is defined %}
