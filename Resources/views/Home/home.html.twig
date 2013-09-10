@@ -63,7 +63,7 @@
       {% endif %}
     {% else %}
       {% if loop.index == 2 %}<div class="container"><div class="row"><div class="first-container">{% else %}{% endif %}
-      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index: loop.index } %}
+      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index } %}
     {% endif %}
   {% endfor %}
  </div>

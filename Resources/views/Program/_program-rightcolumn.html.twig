@@ -61,7 +61,7 @@
   <div id="program-casting" class="scroll">
 
     {% if program.director|to_array %}
-    <p class="ms-surtitre">{{ 'directed.by'|trans }}</p>
+    <h3 class="ms-surtitre">{{ 'directed.by'|trans }}</h3>
     {% for pers in program.director|to_array %}
     <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
       <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.director|to_array|length %},&nbsp;{% endif %}</a>
@@ -70,7 +70,7 @@
     {% endif %}
 
     {% if program.presenter is defined and program.presenter|to_array|length %}
-    <p class="ms-surtitre">{{ 'presented.by'|trans }}</p> 
+    <h3 class="ms-surtitre">{{ 'presented.by'|trans }}</h3> 
     {% for pers in program.presenter | to_array  %}
     <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
       <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.presenter|to_array|length %},&nbsp;{% endif %}</a> 
@@ -80,7 +80,7 @@
     {% endif %}
 
     {% if program.casting|to_array %}
-    <p class="ms-surtitre">{{ 'actors'|trans }}</p>
+    <h3 class="ms-surtitre">{{ 'actors'|trans }}</h3>
     {% for pers in program.casting|to_array  %}
     <div class="inline {% if loop.index > 5 %} actors_entrop hide{% endif %}" itemprop="actor" itemscope itemtype="http://schema.org/Person">
       {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
@@ -95,7 +95,7 @@
     {% endif %}
 
      {% if program.editor|to_array  %}
-    <p class="ms-surtitre">{{ 'editors'|trans }}</p>
+    <h3 class="ms-surtitre">{{ 'editors'|trans }}</h3>
      {% for pers in program.editor | to_array %}
      <div class="inline" itemprop="editor" itemscope itemtype="http://schema.org/Person">
       {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
