@@ -14,7 +14,7 @@ $(document).ready(function(){
       $('#carousel-chaine .item.active').removeClass('active');
       $('[data-original-title="' + channel_name.toUpperCase() +'"]').addClass('selected');
       $('[data-original-title="' + channel_name.toUpperCase() +'"]').parent().addClass('active');
-    )
+    }
 
 
     $('.trigger-channel').on('click', function(){
