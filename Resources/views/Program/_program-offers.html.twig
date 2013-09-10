@@ -1,6 +1,6 @@
 {# offers #}
   <div class="col-xs-16" style="padding:0;">
-    <p class="ms-surtitre">Toutes les offres pour voir &laquo;{{ program.title }}&raquo;{% if program.format %}, {{ program.format.name in ['Emission'] ? program.format.name ~ ' en Replay' : program.format.name ~ ' complet' }}{% endif %} :</p>
+    <h2>Toutes les offres pour voir &laquo;{{ program.title }}&raquo;{% if program.format %}, {{ program.format.name in ['Emission'] ? program.format.name ~ ' en Replay' : program.format.name ~ ' complet' }}{% endif %} :</h2>
     <div id="program-offers" class="tab-content">
 
       {% if program.has_vod == 6 %}
@@ -111,7 +111,7 @@
                       program.episodeof.id is defined and 
                       o.episode_id != program.id and
                       other_episodes != 'ok' %}
-                <tr class="other-episodes"><td colspan="6"><h5>Autres épisodes <i class="glyphicon glyphicon-arrow-down"></i></h5></td></tr>
+                <tr class="other-episodes"><td colspan="6"><p>Autres épisodes <i class="glyphicon glyphicon-arrow-down"></i></p></td></tr>
                 {% set other_episodes = 'ok' %}
                 {% endif %}
 
@@ -123,9 +123,9 @@
 
                   <td class="episode"{% if o_access.name not in ['Vidéo','Archive','Extrait','Bonus'] or o.cost %} colspan="2"{% endif %}>
                    {% if o.title is defined and o.title %}
-                   <h4>{{ o.title }}</h4><span>{{ o.description }}</span>
+                   <p>{{ o.title }}</p><span>{{ o.description }}</span>
                    {% elseif o_episode and o_episode.title %}
-                   <h4>{{ o_episode.title }}</h4>
+                   <p>{{ o_episode.title }}</p>
                    {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}
                    {% if o_episode.season_number is defined or 
                    o_episode.episode_number is defined or 
@@ -232,13 +232,13 @@
 
     <div class="alert alert-success">
       {% if program.episodeof is defined %}
-      <h4>Cette épisode n'est pas diffusé pour le moment.</h4>
+      <p>Cette épisode n'est pas diffusé pour le moment.</p>
       <p>Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'un épisode de <strong>{{ program.episodeof.title }}</strong> est diffusé.</p>
       {% elseif program.format and program.format.name in ['Film','Documentaire'] %}
-      <h4><strong>{{ program.title }}</strong> n'est disponible sur aucune plateforme légale.</h4>
+      <p><strong>{{ program.title }}</strong> n'est disponible sur aucune plateforme légale.</p>
       <p>Avec mySkreen, suivez ce programme pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !</p>
       {% else %}
-      <h4><strong>{{ program.title }}</strong> n'est pas diffusé pour le moment.</h4>
+      <p><strong>{{ program.title }}</strong> n'est pas diffusé pour le moment.</p>
       <p>Avec mySkreen, suivez ce programme pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !</p>
       {% endif %}
     </div>
@@ -280,11 +280,10 @@
 
   {# description seo texte #}
   <div class="panel panel-synopsis">
-    <div class="panel-heading"><h3 class="panel-title">Synopsis</h3></div>
+    <div class="panel-heading"><h2 class="panel-title">Tout sur {{ program.title }}</h2></div>
     <div class="tab-pane text-toggle-extend">
     {% if program.description_seo|striptags|length < 350 %}
       <div class="text">
-        <h4>{{ program.title }}</h4> 
         {{ program.description_seo|raw }}
       </div>
     {% else %}

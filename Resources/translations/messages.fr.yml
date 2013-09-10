@@ -32,11 +32,17 @@ page:
             spectacles: Théatre, concerts, spectacles | Streaming et VOD
         cinema.boxoffice: Films en salle commençant par %alpha% | Cinéma
         tvgrid: Programme TV du %date%
-        channel: 
+        channel:
+          cinema: %name% : Films à l'Affiche, Horaires des Séances
           tv: %name% %access% : revoir tous les programmes TV de la chaîne | Tv et Replay
-          tv_format: Retrouvez ici toutes les %formats% de %name% en %access% | Tv et Replay
+          tv_format: %formats% de %name% en %access% | Tv et Replay
           default: Découvrez %name% en %access% | Streaming
-          default_format: Retrouvez ici toutes les %formats% de %name% en %access% | Streaming
+          default_format: %formats% de %name% en %access% | Streaming
+        program :
+          default : %title% Streaming, %format% Complet %version%
+          film-anime : %title% Streaming, Film Complet %version%
+          serie-anime : %title% Streaming, Dessin Animé %version%
+          serie : %title% Streaming, Série %version%
         search: Recherche : %q% | Recherche
         user:
             settings: Vos préférences | Mon compte
@@ -70,6 +76,15 @@ page:
             emissions: Emissions : regardez vos émissions préférées en Replay.
             spectacles: Théatre, concerts, spectacles : des milliers de vidéos en un clic !
         search: Recherche : %p% : VOD, Replay, DVD, Cinéma. Retrouvez TOUTES les diffusions des programmes que vous aimez !
+        program :
+          film :
+            default : %title% (%year%) %version%: le %format% Entier %support% %quality% %deported% & 100% Légal avec mySkreen
+            cinema : La Bande Annonce & Les Horaires des Séances de %title% dans les Cinémas près de chez vous sur mySkreen. Suivez le Film pour Connaître sa Sortie en Streaming VOD & DVD
+            tv : %title% (%year%) est Diffusé à la Télé le %date%. Sur mySkreen, Restez Alerté de la Diffusion de vos Films Préférés & Retrouvez-les en Streaming VOD et DVD
+          serie : 
+            tv : %titre% : Retrouver les Horaires de Diffusion des Episodes de la Série %title% à la Télévion avec mySkreen
+            default : %title% %version% : Tous les épisodes de la %format% %title% %support% %quality% %deported% & 100% Légal avec mySkreen
+          serie-anime : %title% : les Episodes du Dessin Animé %title% %support% %qualite% *& les Horaires de leur Diffusion TV* %deporte% & 100% Légal avec mySkreen
         sitemap:
             channels:
                 broadcast: Tnt, Satellite, Cable : toutes vos chaînes sont en Replay sur mySkreen

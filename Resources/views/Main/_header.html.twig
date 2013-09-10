@@ -21,62 +21,63 @@
         </form>
 
         <ul class="nav nav-playlists headertoprighticons"> 
-          <li class="hide user-on dropdown notifications dropdown-toggle tv-component ">
-         <span class="uppercase notifications-count"></span>
+          {# NOTIFS #}
+          <li class="hide user-on dropdown notifications tv-component">
+            <a data-toggle="dropdown" class="dropdown-toggle uppercase notifications-count"></a>
+             <ul id="dropdown-menu-notification" class="dropdown-menu">
+              <span class="notification-filter"></span>
+              <div class="scroll notification-scroll"><li class="empty"><p class="ms-surtitre">{{ 'notifications.empty.title'|trans }}<small>{{ 'notifications.empty.text'|trans }}</small></p></li></div>
+            </ul>
+          </li>
+          
+          {# SE CONNECTER #}
+          <li class="user-off playlists">
+            <a class="auth" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même playlist !">
+              Se connecter / s'inscrire
+            </a>
+          </li>
 
-         <ul id="dropdown-menu-notification" class="dropdown-menu">
-          <span class="notification-filter"></span>
+          {# MA PLAYLIST / MES FAVORIS #}
+          <li class="hide user-on playlists">
+            <a data-toggle="collapse" data-target="#top-playlist" class="tv-component">
+              Mes playlists
+            </a>
+          </li>
 
-          <div class="scroll notification-scroll"><li class="empty"><h6>{{ 'notifications.empty.title'|trans }}<small>{{ 'notifications.empty.text'|trans }}</small></h6></li></div>
+          {# MON COMPTE #}
+          <li class="hide user-on dropdown user-menu">
+            <a data-toggle="dropdown" class="dropdown-toggle tv-component pull-right">
+              <span class="glyphicon glyphicon-user"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="nav-header user-email"></li>
+              <li class="divider"></li>
+              <li class="fb-placeholder hide"><div id="fbconnect"><img src="{{ asset('bundles/skreenhousefactoryv3/images/fb-connect.png') }}" style="width: 180px;height: 32px;margin-left: 20px;cursor: pointer"/></div></li>
+              <li class="share share-placeholder">
+                <a class="text share-off" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook" data-modal-message="... et suivez ce que regardent vos amis !">Facebook : activer le partage</a>
+                <a class="text share-on hide">
+                  Partage Facebook&nbsp; 
+                  <span class="btn-group" data-toggle="buttons-radio">
+                    <span class="btn btn-xs btn-info" data-share="allow">{{ 'yes'|trans }}</span>
+                    <span class="btn btn-xs btn-default" data-share="disallow">{{ 'no'|trans }}</span>
+                  </span>
+                </a>
+              </li>
+              <li class="divider"></li>
+              <li class="playlist-publish">
+                <a data-toggle="collapse" data-target="#top-playlist"><i class="glyphicon glyphicon-play-circle"></i> {{ 'playlist.yours'|trans }} {% if app.environment == 'dev' %}<span data-modal-remote="/user/modal/publish-playlist" data-modal-title="Publier ma playlist" class="btn btn-small">Publier</span>{% endif %}</a>
+              </li>
+              <li><a class="vod" href="{{ path('user_vod') }}"><i class="glyphicon glyphicon-film"></i> {{ 'nav.vod'|trans }}</a></li>
+              <li><a class="programs" href="{{ path('user_programs') }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
+              <li><a class="programs" href="{{ path('user_channels') }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.channel_favoris'|trans }} <span></span></a></li>
+              <li><a class="programs" href="{{ path('user_theaters') }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.theater_favoris'|trans }} <span></span></a></li>
+              <li><a class="programs" href="{{ path('user_persons') }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.person_favoris'|trans }} <span></span></a></li>
+              <li><a class="account" href="{{ path('user_settings') }}"><i class="glyphicon glyphicon-user"></i> {{ 'nav.account'|trans }}</a></li>
+              <li class="divider"></li>
+              <li><a class="signout"><i class="glyphicon glyphicon-remove"></i> {{ 'signout'|trans }}</a></li>
+            </ul>
+          </li>
         </ul>
-      </li>
-      <li class="user-off playlists">
-        <a class="auth" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même playlist !">
-            Se connecter / s'inscrire
-          </a>
-        </li>
-
-        {# MA PLAYLIST / MES FAVORIS #}
-        <li class="hide user-on playlists">
-          <a data-toggle="collapse" data-target="#top-playlist" class="tv-component">
-            Mes playlists
-          </a>
-        </li>
-
-        {# MON COMPTE #}
-        <li class="hide user-on dropdown user-menu">
-          <a data-toggle="dropdown" class="dropdown-toggle tv-component pull-right">
-            <span class="glyphicon glyphicon-user"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li class="nav-header user-email"></li>
-            <li class="divider"></li>
-            <li class="fb-placeholder hide"><div id="fbconnect"><img src="{{ asset('bundles/skreenhousefactoryv3/images/fb-connect.png') }}" style="width: 180px;height: 32px;margin-left: 20px;cursor: pointer"/></div></li>
-            <li class="share share-placeholder">
-              <a class="text share-off" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook" data-modal-message="... et suivez ce que regardent vos amis !">Facebook : activer le partage</a>
-              <a class="text share-on hide">
-                Partage Facebook&nbsp; 
-                <span class="btn-group" data-toggle="buttons-radio">
-                  <span class="btn btn-xs btn-info" data-share="allow">{{ 'yes'|trans }}</span>
-                  <span class="btn btn-xs btn-default" data-share="disallow">{{ 'no'|trans }}</span>
-                </span>
-              </a>
-            </li>
-            <li class="divider"></li>
-            <li class="playlist-publish">
-              <a data-toggle="collapse" data-target="#top-playlist"><i class="glyphicon glyphicon-play-circle"></i> {{ 'playlist.yours'|trans }} {% if app.environment == 'dev' %}<span data-modal-remote="/user/modal/publish-playlist" data-modal-title="Publier ma playlist" class="btn btn-small">Publier</span>{% endif %}</a>
-            </li>
-            <li><a class="vod" href="{{ path('user_vod') }}"><i class="glyphicon glyphicon-film"></i> {{ 'nav.vod'|trans }}</a></li>
-            <li><a class="programs" href="{{ path('user_programs') }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.favoris'|trans }} <span></span></a></li>
-            <li><a class="programs" href="{{ path('user_channels') }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.channel_favoris'|trans }} <span></span></a></li>
-            <li><a class="programs" href="{{ path('user_theaters') }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.theater_favoris'|trans }} <span></span></a></li>
-            <li><a class="programs" href="{{ path('user_persons') }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.person_favoris'|trans }} <span></span></a></li>
-            <li><a class="account" href="{{ path('user_settings') }}"><i class="glyphicon glyphicon-user"></i> {{ 'nav.account'|trans }}</a></li>
-            <li class="divider"></li>
-            <li><a class="signout"><i class="glyphicon glyphicon-remove"></i> {{ 'signout'|trans }}</a></li>
-          </ul>
-        </li>
-      </ul>
 
     </div>
   </div>

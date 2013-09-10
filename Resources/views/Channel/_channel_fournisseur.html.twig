@@ -6,8 +6,10 @@
 
 
 <h1 data-channel="{{ channel.name }}">
-  {{ channel.name }} : Les programmes {{ channel.fournisseur.has_replay is defined and channel.fournisseur.has_replay ? 'TV & Replay' : 'en Streaming' }}
+  {{ channel.name }} : Replay & Direct
 </h1>
+<h2>Les programmes {{ channel.fournisseur.has_replay is defined and channel.fournisseur.has_replay ? 'TV & Replay' : 'en Streaming' }}
+</h2>
 <div class="row">
   <div class="col-xs-16">
 {# sliders #}

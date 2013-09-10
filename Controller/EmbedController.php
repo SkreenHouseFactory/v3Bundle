@@ -52,10 +52,18 @@ class EmbedController extends Controller
           'height' => $request->get('height', '100%'),
         ));
 
+      //3 freres le retour
+      } elseif (in_array($datas->program->id, array(5088919))) {
+        $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/LesInconnus/player-splash-3freres-retour.jpg';
+
+      //inconnus le retour
       } elseif (in_array($datas->program->id, array(4988489))) {
         $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/LesInconnus/player-splash.jpg';
+      //inconnus le retour 2
       } elseif (in_array($datas->program->id, array(5050813))) {
         $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/LesInconnus/player-splash-video2.png';
+
+      //default
       } elseif (isset($datas->program->sliderPicture)) {
         $datas->program->picture = $datas->program->sliderPicture;
       }

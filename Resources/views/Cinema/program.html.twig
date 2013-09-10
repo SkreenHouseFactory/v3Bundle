@@ -1,12 +1,12 @@
-<h3>{% if app.request.get('q') %}
-  Recherche : {{ app.request.get('q') }}
+{% if app.request.get('q') %}
+  <h3>Recherche : {{ app.request.get('q') }}</h3>
 {% elseif app.request.get('playlist') %}
-  {{ 'theaters.playlist.title'|trans }}
+  <h3>{{ 'theaters.playlist.title'|trans }}</h3>
 {% else %}
   {% if app.request.get('theater_ids') is null %}
-  Séances près d'ici
+  <h3>Séances près d'ici</h3>
   {% endif %}
-{% endif %}</h3>
+{% endif %}
 {% if cinemas|length == 0 %}
   {% if app.request.get('q') %}
     <p class="alert alert-warning">{{ 'program.theaters.noprogram.search'|trans }}</p>
