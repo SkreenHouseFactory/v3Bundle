@@ -212,4 +212,14 @@ $('.user-on.dropdown-toggle, .user-on [data-target]').on('click', function(){
     $('.modal-backdrop.in').toggleClass('hide');
    });
   
+
+  $('.help-popin').on('click', function () {
+    $('.help-sprite').toggleClass('help-sprite-ms_btn_help');
+    $('.help-sprite').toggleClass('help-sprite-ms_btn_close');
+    $('.help-popin').toggleClass('hide');
+    $('.modal-backdrop.in').toggleClass('hide');
+   });
+  
+
+
 });
