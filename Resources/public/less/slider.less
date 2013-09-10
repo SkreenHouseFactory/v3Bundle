@@ -808,6 +808,9 @@
         }
         .title i {
           display: inline-block;
+          padding: 0 5px 3px;
+          background: #3878ff;
+          border-radius: 3px;
         }
         &.hasvod-1 .title i {
           display: none;
@@ -821,11 +824,11 @@
       &.films:not(.missing-picture) {
         a.title {
           background: transparent;
-          font-size: 0;
+          visibility: hidden;
         }
         &:hover, &.li-hover, &.tv-component-focused {
           a.title {
-            font-size: 1.0em !important;
+            visibility: visible;
             background-color: rgba(0,0,0,0.7);
           }
         }
