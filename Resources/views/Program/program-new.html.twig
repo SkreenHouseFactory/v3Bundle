@@ -18,18 +18,15 @@
 
 {% if program.format.name in ['Film','Documentaire','Téléfilm','Court-métrage','Série','Websérie'] or (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) %}
 	{% if program.has_vod == 4 %}
-		{{ 'page.description.program.film.cinema'|trans({'%title%':program.title})
-		}}
+		{{ 'page.description.program.film.cinema'|trans({'%title%':program.title}) }}
 	
 	{% elseif program.has_vod in [5,6] %}
 
 		{% if program.format.name in ['Série','Websérie'] %}
-			{{ 'page.description.program.serie.tv'|trans({'%title%':program.title})
-			}}
+			{{ 'page.description.program.serie.tv'|trans({'%title%':program.title}) }}
 
 		{% elseif program.format.name in ['Film','Documentaire','Téléfilm','Court-métrage'] or (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) %}
-			{{ 'page.description.program.film.tv'|trans({'%title%':program.title, '%year%':program.year, '%date%':program.offers.live})
-			}}
+			{{ 'page.description.program.film.tv'|trans({'%title%': program.title, '%year%':program.year }) }}
 		{% endif %}	
 	{% endif %}
 		
