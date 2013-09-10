@@ -168,7 +168,7 @@
                   program.episodeof is defined %}
           {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
           <h1 itemprop="name">{{ program.episodeof.title }}
-            <span>{{ program.episode_title }} {% if episode_title and program.episode_title != episode_title %} ({{ episode_title }}){% endif %}</span>
+            <span>{% if episode_title and program.episode_title != episode_title %}{{ episode_title }} : {% endif %}{{ program.episode_title }}</span>
           </h1>
         {% else %}
         <h1 itemprop="name">{{ program.title }} </h1>
