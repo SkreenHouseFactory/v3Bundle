@@ -344,6 +344,13 @@ GridView = {
             $('.actions',this).addClass('hide');
           }
         });
+        $('.glyphicon.glyphicon-question-sign').on('mouseover',function(){
+        $(this).parent().tooltip('show');
+        });
+        $('.glyphicon.glyphicon-question-sign').on('mouseout',function(){
+        $(this).parent().tooltip('show');
+        });
+
     }); 
     
   },

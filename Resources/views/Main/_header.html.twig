@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-xs-16">
         {# LOGO ENTETE #}
-        <a href="{{ path('homes', {home: null}) }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" id="logo"></a>
+        <a href="{{ path('homes', {home: null})|replace({'//': '/'}) }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" id="logo"></a>
         <ul class="nav navbar-nav">
           <li{{ app.request.attributes.get('_route') in ['tvgrid_date','tvgrid'] ? ' class="active"' : '' }}><a href="{{ path('tvgrid') }}">TV &amp; Replay</a>{% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "tv"} %}
           </li>

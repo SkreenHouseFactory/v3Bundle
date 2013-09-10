@@ -12,10 +12,8 @@
         {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'cinema'}, noheader: true} %}
       </div>
       <div class="theaters-off">
-    		<div class="well">
-    	    <p><strong>Retrouvez ici la programmation de vos cinémas préférés !</strong></p>
-    	    <a class="btn btn-large btn-suivre" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {'init': 1}) }}"><i class="glyphicon glyphicon-plus"></i> Ajouter un cinéma</a>
-    		</div>
+  	    <p><strong>Retrouvez ici la programmation de vos cinémas préférés !</strong></p>
+  	    <a class="btn btn-large btn-suivre" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {'init': 1}) }}"><i class="glyphicon glyphicon-plus"></i> Ajouter un cinéma</a>
       </div>
     </div>
     <div class="tab-pane active" id="theater-search">

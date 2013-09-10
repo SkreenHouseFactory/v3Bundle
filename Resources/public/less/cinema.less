@@ -1,6 +1,6 @@
 .panel-theater {
   .alert-info {
-    margin: 10px;
+    margin: 15px;
   }
 }
 
@@ -8,9 +8,15 @@
   .tab-content {
     border: 1px solid #ccc;
     border-top: none;
+    .theaters-off {
+      padding: 20px;
+    }
     .theaters-on {
       #theaters-names {
         padding: 5px;
+        .label {
+          margin-right: 5px;
+        }
       }
       .btn-suivre {
         margin: 5px;
@@ -23,6 +29,9 @@
 #theaters-search {
   input{
     margin-right: 16px;
+    width: 100%;
+    margin-top: 0px;
+    margin-left: 0%;
     &.trigger-theaters {
       width: 100px;
       border: none;
@@ -72,27 +81,6 @@
   .panel-group {
     .panel {
       padding: 0;
-    }
-  }
-
-  .theaters-on {
-    #theaters-names {
-      margin-bottom: 10px;
-      .label {
-        margin-right: 5px;
-      }
-    }
-  }
-
-  .theaters-off {
-    height: 250px;
-    background: url(/bundles/skreenhousefactoryv3/images/vos-cinemas-sample.png) no-repeat;
-
-    .well {
-      position: absolute;
-      top: 100px;
-      left: 250px;
-      text-align: center;
     }
   }
 }
