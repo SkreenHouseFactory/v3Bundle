@@ -464,7 +464,7 @@ GridView = {
     var self = this;
     var refresh = function() {
       console.log('GridView.setChannelsList', 'refresh', callback);
-      $('.modal .modal-body').prepend('<p class="alert alert-success">Créez votre compte en 1 clic pour personnaliser votre programme TV.</p>');
+      $('.modal .modal-message').html('<p>Créez votre compte en 1 clic pour personnaliser votre programme TV.</p>');
       if (Skhf.session.datas.email) {
         if (typeof callback != 'undefined') {
           callback();

@@ -72,7 +72,7 @@ var BaseSession = Class.extend({
     }
   },
   signin: function(sessionData, callback) {
-    console.log('BaseSession.signin', sessionData);
+    console.log('BaseSession.signin', sessionData, callback);
     //already logged ?
     if (this.datas.email) {
       console.error('BaseSession.signin', 'user already logged to current session', this.datas, sessionData);

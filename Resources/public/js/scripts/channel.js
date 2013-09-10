@@ -18,10 +18,11 @@ $(document).ready(function(){
 
     }
 
-    $('.trigger-channel').click(function(){
+
+    $('.trigger-channel').on('click', function(){
       UI.refreshChannel($(this).parent().data('channel-id'));
     });
-    $('.trigger-channel-date').change(function(){
+    $('.trigger-channel-date').on('change', function(){
       UI.refreshChannel($(this).data('channel-id'));
     });
     if (channel_name) {

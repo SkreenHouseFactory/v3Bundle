@@ -43,8 +43,13 @@ $(document).ready(function(){
         },
         function(){
           console.log('script fbsync', 'API.query callback');
+
           Skhf.session.sync(function(sessionDatas){
             $('.modal').modal('hide');
+            console.log('script fbsync', 'API.query callback', 'Skhf.session.sync', UI.callbackModal);
+            if (UI.callbackModal) {
+              UI.callbackModal();
+            }
             /* handled in Skhf.session.sync
             Skhf.session.signin(sessionDatas, function(){
               console.log('script fbsync', 'API.query callback', 'Skhf.session.signin callback', sessionDatas);

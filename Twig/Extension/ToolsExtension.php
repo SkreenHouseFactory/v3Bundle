@@ -11,10 +11,10 @@ class toolsExtension extends \Twig_Extension
     protected $slider_programs;
     protected $slider_size = array(
         6 => array(
-            '2x2' => '294/370',
-            '3x1' => '445/180',
-            '2x1' => '294/180',
-            '1'=> '143/180'
+          '2x2' => '294/370',
+          '3x1' => '445/180',
+          '2x1' => '294/180',
+          '1'=> '143/180'
         )
     );
     protected $slider_combinaisons = array(

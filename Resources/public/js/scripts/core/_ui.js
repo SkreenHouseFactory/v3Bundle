@@ -442,7 +442,7 @@ UiView = {
           }
           //message
           if (trigger.data('modal-message')) {
-            $('.modal .modal-body').prepend('<p class="alert alert-success">' + trigger.data('modal-message') + '</p>');
+            $('.modal .modal-message').html('<p>' + trigger.data('modal-message') + '</p>');
           }
           $('#skModal.modal').modal('show');
         })
