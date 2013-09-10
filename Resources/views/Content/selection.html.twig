@@ -14,8 +14,8 @@
 {% endif %}
 <meta name="object_type" content="website" />
 {% endblock %}
-{% block title %}{{ selection.name|striptags }}{% endblock %}
-{% block description %}{{ selection.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+{% block title %}{{ selection.name|striptags }}{% if selection.onglet.channel.fournisseur is defined %} {{ selection.onglet.channel.title }} en Replay{% endif %}{% endblock %}
+{% block description %}{% if selection.onglet.channel.fournisseur is defined %}{{ selection.name|striptags }} de {{ selection.onglet.channel.title }} et tous les Programmes des Chaines de la TNT en Replay et en Direct Live GRATUITEMENT et en 1 Clic sur mySkreen !{% else %}{{ selection.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endif %}{% endblock %}
 {#
 {% block body_class %}{% if selection.onglet.type == 'page' %}view-channel view-channel-selection cover{% endif %}{% endblock %}
 
@@ -52,7 +52,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
     </ul>
   {% endif %}
 
-  <h1>{{ selection.name|raw }}</h1>
+  <h1>{{ selection.name|raw }}{% if selection.onglet.channel.fournisseur is defined %} de {{ selection.onglet.channel.title }}{% endif %}</h1>
   <div id="selection-related">
   {#<a class="btn btn-large btn-inverse btn-block trigger-tv" href="#" data-couchmode="{{ {'type': 'pack', 'id': selection.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
   
