@@ -1,6 +1,6 @@
 {% if app.request.get('init') or app.request.isXmlHttpRequest == false %}
 <div class="theaters-modal">
-  <form id="theaters-search" action="{{ path('theaters_search') }}" data-form-ajax="{{ app.request.isXmlHttpRequest ? '.modal ' : '' }}#theaters-list" role="form" class="form-search pull-left col-xs-10 ">
+  <form id="theaters-search" action="{{ path('theaters_search') }}" data-form-ajax="{{ app.request.isXmlHttpRequest ? '.modal ' : '' }}#theaters-list" role="form" class="form-search modal-catchform-disable pull-left col-xs-10 ">
     <div class="input-group">
     <input name="q" class="form-control col-xs-offset-3" type="text" placeholder="{{ 'theaters.search.placeholder'|trans }}">
     <div class="input-group-btn col-xs-16 nopadding">
