@@ -18,7 +18,9 @@
 		<div class="nowrap"><span class="header">{{ o.broadcast_begin|date('H:i') }} {{ o.program.format ? o.program.format.name : '' }}</span></div>
 		{%- if o.is_live and c.live %}<span class="label label-warning">{#<i class="icon-{{ o.player ? 'play' : 'share' }} icon-white"></i> #}Live</span>
 		{% elseif o.url or o.player %}<span class="label label-info">{#<i class="icon-{{ o.player ? 'play' : 'share' }} icon-white"></i> #}Replay</span>
-		{% elseif o.has_replay is defined and o.has_replay %}<span class="label">{#<i class="icon-time icon-white"></i> #}Replay</span>
+		{% elseif o.has_replay is defined and o.has_replay %}<span class="label label-info">{#<i class="icon-time icon-white"></i> #}Replay</span>
+		{% elseif o.program.has_vod in [1,2,12] %}
+		<span class="label label-info"> Streaming </span>
 		{% endif -%}
 		<span class="t">{{ o.program.title|replace({' - ': '</span><span class="st">'})|raw }}</span>
 	</a>
