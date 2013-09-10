@@ -26,7 +26,7 @@
     <li class="pull-left"><a href="{{ path('tvgrid_date', {date: 'ce-soir'}) }}">Ce soir</a></li>
     <li class="pull-left"><a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir</a></li>
     <li class="clear divider"></li>
-    <li class="nav-header">Les chaînes de la Tnt</li>
+    <li class="nav-header">Les chaînes de la TNT</li>
     <li class="tv-channels">
       {% for channel in tv_channels %}
       {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
@@ -34,10 +34,10 @@
       {% endfor %}
     </li>
   </ul>
-  <div class="clear"><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}" ><span class="show-more">...</span> Toutes les chaines TV</a></div>
+  <div class="clear"><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}" > Toutes les chaines de la TNT <span class="show-more">...</span></a></div>
   <ul>
     <li class="divider clear"></li>
-    <li class="nav-header">Les chaînes Web</li>
+    <li class="nav-header">Les Web TV</li>
     <li class="tv-channels">
       {% for channel in web_channels %}
       {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
@@ -45,10 +45,10 @@
       {% endfor %}
     </li>
   </ul>
-  <div class="clear"><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}" ><span class="show-more">...</span> Toutes les chaînes web</a></div>
+  <div class="clear"><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}" >Toutes les Web TV <span class="show-more">...</span> </a></div>
   <ul>
     <li class="divider clear"></li>
-    <li class="nav-header">Les chaînes mySkreen</li>
+    <li class="nav-header">les chaines thématiques</li>
     <li class="tv-channels">
       <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'festival-de-deauville'}) }}"><span class="hidden-touch">Festival de Deauville</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/53-festival-de-deauville.jpg" alt="Festival de Deauville"/></a>
       <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'plus-belle-la-vie-en-avance'}) }}"><span class="hidden-touch">Plus Belle La Vie en avance</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/28-logo-plus-belle-la-vie-en-avance.png" alt="Plus Belle La Vie en avance"/></a>
@@ -60,5 +60,7 @@
 
     </li>
   </ul>
+  <div class="clear"><a href="{{ path('sitemap_channels', {type: 'thematique'}) }}" > Toutes les chaînes thématiques <span class="show-more">...</span></a></div>
+
 </div>
 {% endif %}
