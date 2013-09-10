@@ -153,11 +153,6 @@
 
 {% block content %}
 
-{# modal #}
-{% if program.id in ['5088919'] %}
-{% include 'SkreenHouseFactoryV3Bundle:Program:_modal.html.twig' with {'program': program} %}
-{% endif %}
-
 <div id="view-program" data-id="{{ program.id }}">
 <div class="container scrollplayerzone">
 
@@ -290,4 +285,9 @@
 </div>
 </div>
 </div>
+
+{# modal #}
+{% if program.id in ['5088919'] %}
+{% include 'SkreenHouseFactoryV3Bundle:Program:_modal.html.twig' with {'program': program} %}
+{% endif %}
 {% endblock %}
