@@ -266,7 +266,7 @@ UiView = {
       }
       history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
       }
-
+      $('.tooltip').remove();
        console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
       if ($('body').hasClass('playlist-in')){
       var has_playlist = true;
