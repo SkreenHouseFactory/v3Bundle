@@ -11,12 +11,10 @@ $(document).ready(function(){
   // -- fournisseur
   if ($('#view-fournisseur').length) {
     if (channel_name) {
-      alert(channel_name.toUpperCase());
       $('#carousel-chaine .item.active').removeClass('active');
       $('[data-original-title="' + channel_name.toUpperCase() +'"]').addClass('selected');
       $('[data-original-title="' + channel_name.toUpperCase() +'"]').parent().addClass('active');
-
-    }
+    )
 
 
     $('.trigger-channel').on('click', function(){
