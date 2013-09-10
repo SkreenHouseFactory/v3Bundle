@@ -877,13 +877,12 @@ UI = {
       },
       onselect: function(obj) {
         console.log('UI.typeahead', 'onselect', obj, searchbox, $(searchbox).attr('value'));
-        $(searchbox).attr('value', 'chargement ...')
-        return;
+        $(searchbox).attr('value', 'chargement ...').attr('placeholder', 'chargement ...')
+
         if (typeof obj != 'object') { //typeahead
           top.location = API.config.v3_url + '/programmes/' + obj;
         } else if (typeof obj.seo_url != 'undefined') { //advanced
           //alert('VALUE'+obj.name);
-          $(searchbox).attr('value', '')
           if (obj.seo_url.match(/^http:\/\//)) {
             top.location = obj.seo_url;
           } else {
@@ -1037,7 +1036,7 @@ UI = {
                
                 console.log('UI.typeahead', 'add item', key,  i);
                 return i[0];
-              
+
               });
             }
           }
