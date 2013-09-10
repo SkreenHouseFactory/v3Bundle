@@ -140,7 +140,7 @@ API = {
             API.launchModal(json.redirect, callbackOnLoad);
           } else if (json.html) {
             if (typeof json.title != 'undefined' && json.title) {
-              $('.modal .modal-header h3').html(json.title);
+              $('.modal .modal-header .modal-title').html(json.title);
             }
             body.html(json.html);
             API.catchForm($('.modal'), callbackOnLoad);
@@ -264,7 +264,7 @@ API = {
     console.log('API.v2Modal', 'enter', modal);
     //header
     if ($('#part-header h1', modal)) {
-      $('.modal-header h3', modal).html($('#part-header h1', modal).html());
+      $('.modal-header .modal-title', modal).html($('#part-header h1', modal).html());
       $('#part-header', modal).remove();
     }
     //error

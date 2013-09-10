@@ -244,7 +244,7 @@ $(document).ready(function(){
           }
           //related channels
           if (return_data.channels) {
-            $('.modal .modal-header h3').html('Voulez-vous suivre aussi ces chaînes ?');
+            $('.modal .modal-header .modal-title').html('Voulez-vous suivre aussi ces chaînes ?');
             $('.modal .modal-body').html('<p class="alert alert-info">Cliquez sur les chaînes qui vous intéressent pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p><div class="slider slider-list"><ul class="items"></ul></div>');
             new BaseSlider({
               scroll: 'no',
@@ -264,7 +264,7 @@ $(document).ready(function(){
           //related same_playlist
           } else if (return_data.programs) {
             //TODO : insert programs in modal
-            $('.modal .modal-header h3').html('Programmes fréquemments suivis ensembles');
+            $('.modal .modal-header .modal-title').html('Programmes fréquemments suivis ensembles');
             $('.modal .modal-body').html('<p class="alert alert-info">Suivez tous les programmes que vous aimez pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p><div class="slider slider-list"><ul class="items"></ul></div>');
             new BaseSlider({
               scroll: 'no',
