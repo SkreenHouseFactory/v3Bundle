@@ -73,9 +73,9 @@
   '@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
   '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
   filter='lessphp,?yui_css'
-  output='css/v3-5.css'
+  output='css/v3.css'
   %}
-  <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  <link href="{{ asset_url }}?new" rel="stylesheet" media="screen" />
   {% endstylesheets %}
 </head>
 {% endspaceless %}
@@ -145,8 +145,8 @@
   '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/skin.js'
 
   filter='?yui_js' 
-  output='js/compiled/v3-5.js'  %}
-  <script src="{{ asset_url }}"></script>
+  output='js/compiled/v3.js'  %}
+  <script src="{{ asset_url }}?new"></script>
   <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
     {lang: 'fr'}
   </script>
