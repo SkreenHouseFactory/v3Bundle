@@ -1,6 +1,6 @@
 {# offers #}
   <div class="col-xs-16" style="padding:0;">
-    <h2>Toutes les offres pour voir &laquo;{{ program.title }}&raquo;{% if program.format %}, {{ program.format.name in ['Emission'] ? program.format.name ~ ' en Replay' : program.format.name ~ ' complet' }}{% endif %} :</h2>
+    <h2 class="ms-surtitre">Toutes les offres pour voir &laquo;{{ program.title }}&raquo;{% if program.format %}, {{ program.format.name in ['Emission'] ? program.format.name ~ ' en Replay' : program.format.name ~ ' complet' }}{% endif %} :</h2>
     <div id="program-offers" class="tab-content">
 
       {% if program.has_vod == 6 %}

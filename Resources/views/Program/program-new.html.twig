@@ -1,10 +1,94 @@
 {% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% block title %}
-{{ program.title }}
+{% if program.format.name in ['Film','Documentaire','Téléfilm','Court-métrage']%} {{ 'page.title.program.default'|trans({'%title%':program.title,'%format%':program.format.name,'%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",})}}
+{% elseif (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) %} {{ 'page.title.program.film-anime'|trans({'%title%':program.title,'%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",})}}
+{% elseif (program.format.name == "Dessin Animé et Manga" and  program.duration < 65) %} {{ 'page.title.program.serie-anime'|trans({'%title%':program.title,'%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",})}}
+{% elseif program.format.name in ['Série','Websérie'] %} {{ 'page.title.program.serie'|trans({'%title%':program.title,'%format%':program.format.name, '%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",})}}
+{% elseif program.format.name in ['Emission'] %} {{ program.title }} Replay
+{% elseif program.format.name in ['Journal'] %} {{ program.title }} Replay
+
+{% elseif program.format.name in ['Théâtre'] %} {{ program.title }} Streaming {% if program.has_vod in [7,8] %} Replay {% endif %} {% if program.has_vod in [1,2,12] %} VOD {% endif %} {% if program.has_vod in [3] %} DVD {% endif %} : Pièce de Théâtre Complète
+{% elseif program.format.name in ['Spectacle','Concert'] %} {{ program.title }} Streaming {% if program.has_vod in [7,8] %} Replay {% endif %} {% if program.has_vod in [1,2,12] %} VOD {% endif %} {% if program.has_vod in [3] %} DVD {% endif %} : {{ program.format.name }} Complet
+{% endif %}
 {% endblock %}
+
+
 {% block description %}
-{{ program.description_text|replace({"\n": ''})|slice(0, 165) }} | {{ program.title }}, {{ program.id }}
+
+{% if program.format.name in ['Film','Documentaire','Téléfilm','Court-métrage','Série','Websérie'] or (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) %}
+	{% if program.has_vod == 4 %}
+		{{ 'page.description.program.film.cinema'|trans({'%title%':program.title})
+		}}
+	
+	{% elseif program.has_vod in [5,6] %}
+
+		{% if program.format.name in ['Série','Websérie'] %}
+			{{ 'page.description.program.serie.tv'|trans({'%title%':program.title})
+			}}
+
+		{% elseif program.format.name in ['Film','Documentaire','Téléfilm','Court-métrage'] or (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) %}
+			{{ 'page.description.program.film.tv'|trans({'%title%':program.title, '%year%':program.year, '%date%':program.offers.live})
+			}}
+		{% endif %}	
+	{% endif %}
+		
+		{% set hasstreaming = 0 %}
+		{% set hasreplay = 0 %}
+		{% set hasVOD = 0 %}
+		{% set hasDVD = 0 %}
+		{% if program.has_vod in [7,8] %} {% set hasreplay = 1 %} {% endif %}
+		{% if program.has_vod in [1,2,12] %} {% set hasVOD = 1 %} {% endif %}
+		{% if program.has_vod in [3] %} {% set hasDVD = 1 %} {% endif %}
+		{% if program.has_vod in [1,2,7,8,9,10,12,13] %} {% set hasstreaming = 1 %} {% endif %}
+	
+		{% set support %}
+		
+	{% if program.has_vod in [1,2,7,8,9,10,12,13] %}
+		en Streaming
+			{% if program.has_vod in [1,2,7,8,12] %}({% endif %}
+			{% if program.has_vod in [7,8] %}Replay{% endif %}
+			{% if hasreplay == 1 and hasVOD == 1 %}, {% endif %}
+			{% if program.has_vod in [1,2,12] %}VOD{% endif %}
+		)
+		{% if hasstreaming == 1 and hasDVD == 1 %} & {% endif %}
+		{% if program.has_vod in [3] %}"DVD"{% endif %}
+
+	{% endif %}
+		{% endset %}
+	
+	{% if program.format.name in ['Série','Websérie'] %}
+		{{ 'page.description.program.serie.default'|trans({
+			'%title%':program.title,
+			'%format%':program.format.name,
+			'%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",
+			'%quality%': program.hd ? "en HD" :  "en Haute Qualité",
+			'%deported%': program.has_vod in [2,8,10] ? "en 1 Clic" : "",
+			'%support%': support})
+		}}
+	
+	{% elseif program.format.name in ['Film','Documentaire','Téléfilm','Court-métrage'] or (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) %} 
+		{{ 'page.description.program.film.default'|trans({
+			'%title%': program.title,
+			'%format%': (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) ?  "Film" : program.format.name,
+			'%year%':program.year,
+			'%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",
+			'%quality%': program.hd ? "en HD" :  "en Haute Qualité",
+			'%deported%': program.has_vod in [2,8,10] ? "en 1 Clic" : "",
+			'%support%': support})
+		}}
+	
+	{% elseif (program.format.name == "Dessin Animé et Manga" and program.duration < 65) %}
+		{{  'page.description.program.serie-anime'|trans({
+			'%title%':program.title,
+			'%format%':program.format.name,
+			'%quality%': program.hd ? "en HD" :  "en Haute Qualité",
+			'%deported%': program.has_vod in [2,8,10] ? "en 1 Clic" : "",
+			'%support%': support})
+		}}
+		
+	{% endif %}
+{% endif %}
 {% endblock %}
 {% block meta %}
 
@@ -168,7 +252,7 @@
                   program.episodeof is defined %}
           {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
           <h1 itemprop="name">{{ program.episodeof.title }}
-            <span>{{ program.episode_title }} {% if episode_title and program.episode_title != episode_title %} ({{ episode_title }}){% endif %}</span>
+            <span>{% if episode_title and program.episode_title != episode_title %}{{ episode_title }} : {% endif %}{{ program.episode_title }}</span>
           </h1>
         {% else %}
         <h1 itemprop="name">{{ program.title }} </h1>
