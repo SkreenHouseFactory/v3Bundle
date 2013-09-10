@@ -1,4 +1,4 @@
-{% set tnt_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat','HD1','6Ter','numero 23','RMC découverte','Gulli','cherie 25'] %}
+{% set tnt_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat','HD1','6Ter','numéro 23','RMC découverte','Gulli','cherie 25'] %}
 <div id="cover" class="cover-fournisseur">
 <div class="header-container">
   {% if fournisseur.live.program is defined and fournisseur.live.program  %}
@@ -13,7 +13,7 @@
       </div>
       <div class="item pointer">
     {% endif %}
-      <a data-toggle="tooltip" class="" data-placement="top" title="{{c}}" data-original-title="{{ c }}" href="{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/50/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ c }} Replay"></a>
+      <a data-toggle="tooltip" class="" data-placement="top"  data-original-title="{{c|upper}}" href="{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/50/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ c }} Replay"></a>
     {% endfor %}
       </div>
     </div>

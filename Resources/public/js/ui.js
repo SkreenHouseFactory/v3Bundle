@@ -421,6 +421,7 @@ UI = {
     }
     console.log('UI.loadNotifications', notifications);
     var nb = notifications.length == this.max_notifications ? notifications.length + '+' : notifications.length;
+
     if (!$('.navbar .notifications-count').hasClass('with-badge')) {
       $('.navbar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
     }
@@ -533,12 +534,11 @@ UI = {
       
       //TOFIX : should be working in script/core/ui.js
       UiView.initDataLive(list);
-
       //new
       if (nb_new > 0) {
-        var nb = nb_new == this.max_notifications ? nb_new + '+' : nb_new;
+        var nb = nb_new >= this.max_notifications ? nb_new + '+' : nb_new;
         console.log('UI.loadNotifications', 'new', current_last_notification, this.last_notification);
-        $('.navbar .notifications-count .badge').addClass('badge-important').html(nb);
+        $('.navbar .notifications-count .badge').addClass('ms-notificon').html(nb);
 
         if (current_last_notification != this.last_notification) {
           API.cookie('last_notification', this.last_notification);

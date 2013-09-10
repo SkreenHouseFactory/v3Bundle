@@ -7,7 +7,7 @@ PlayerScroll = {
     var playwrap = $('.playwrap');
     var playwrap_offset = $('.playwrap').offset();
     var playwrapsub = $('.playwrapsub');
-    if( !$('html').hasClass('touch') && ($('body').hasClass('view-program_pere') || $('body').hasClass('view-program_fils_saison') || $('body').hasClass('view-ajax'))  ){
+    if( !$('html').hasClass('touch') && ($('body').hasClass('view-program_pere') || $('body').hasClass('view-program_fils') || $('body').hasClass('view-program_fils_saison') || $('body').hasClass('view-ajax'))  ){
       $(window).scroll(function(event){
         if(!$('body').hasClass('playlist-in') && !$('body').hasClass('playlist-w-in') ){
           if ( !$('#program-episodes').hasClass('in') ){

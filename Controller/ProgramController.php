@@ -198,7 +198,7 @@ class ProgramController extends Controller
           foreach ($data->episodeof->offers as $key => $offers) {
             foreach ($offers as $offer) {
               if (isset($offer->episode_id) && $offer->episode_id != $data->id) {
-                $data->offers[$key] = (array)$data->offers[$key];
+                               $data->offers[$key] = (array)$data->episodeof->offers->{$key};
                 $data->offers[$key][] = $offer;
               }
             }

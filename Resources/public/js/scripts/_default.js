@@ -79,6 +79,11 @@ $(document).ready(function(){
   //notifications
   $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
 
+<<<<<<< HEAD
+=======
+$('.user-on.dropdown-toggle, .user-on [data-target]').on('click', function(){
+    //notifications
+>>>>>>> 25ba8d482cc33f65da4df577299592ef9a939418
     if ($(this).hasClass('tv-component')  && 
       !$(this).parent().hasClass('open') ) { 
       if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
@@ -91,12 +96,11 @@ $(document).ready(function(){
       if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
         Player.stop();
       }
-
-      if($('.badge-important', $(this)).length > 0) {
-       Skhf.session.readNotifications();
-       var current = $('.navbar .notifications li:not(.divider, .empty)').length;
-       $('.navbar .notifications-count span.badge').removeClass('badge-important').html(current);
-     }
+    }
+    if($('.notifications-count .badge', $(this)).length) {
+     Skhf.session.readNotifications();
+     var current = $('.navbar .notifications li:not(.divider, .empty)').length;
+     $('.navbar .notifications-count span.badge').removeClass('ms-notificon').html(current);
    }
  });
   //share
