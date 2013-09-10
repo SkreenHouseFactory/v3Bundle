@@ -59,42 +59,26 @@ $(document).ready(function(){
 
   //Player scroll sur page programme
   console.log('PlayerScroll.initPlayerScroll()')
-PlayerScroll.initPlayerScroll();
-// new header nav bar
+  PlayerScroll.initPlayerScroll();
 
-$(".dropdown").on('click', function(e){
-  if($(this) && !$(this).hasClass('open')){  
-    $(".dropdown").removeClass("open");
-    if($('#top-playlist').hasClass('in')){
-    $('#top-playlist').collapse('hide');
+  // new header nav bar
+  $('.navbar-nav >li').on('mouseover',function(){
+    var self = $(this);
+    if($('#top-playlist').hasClass('in')) {
+      $('#top-playlist').collapse('hide');
     }
-    $(this).addClass('open');
-    e.preventDefault();
-    e.stopPropagation();
-  }  
-  else{
-    $(this).removeClass('open');
-    e.preventDefault();
-    e.stopPropagation();
-  }
-});
-$('.navbar-nav >li').on('mouseover',function(){
-  var self = $(this);
-  if($('#top-playlist').hasClass('in')){
-$('#top-playlist').collapse('hide');
-  }
-  $('.dropdown').removeClass('open');
-  $('.hover-menu', self).removeClass('hide');
+    $('.dropdown').removeClass('open');
+    $('.hover-menu', self).removeClass('hide');
 
-});
-$('.navbar-nav >li').on('mouseout',function(){
-      var self = $(this);
-      $('.hover-menu', self).addClass('hide');
-    
+  });
+  $('.navbar-nav >li').on('mouseout',function(){
+    var self = $(this);
+    $('.hover-menu', self).addClass('hide');
   });
 
-$('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
-    //notifications
+  //notifications
+  $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
+
     if ($(this).hasClass('tv-component')  && 
       !$(this).parent().hasClass('open') ) { 
       if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
