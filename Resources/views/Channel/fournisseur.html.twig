@@ -70,7 +70,7 @@
 
     {# suivre #}
     {% if channel.type in ['broadcast','cinema'] %}
-    <div class="col-xs-5">
+    <div class="col-xs-{{ channel.img ? 5 : 7 }}">
     {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'pull-right btn-big fav-' ~ (channel.type == 'broadcast' ? 'epg' : 'cinema'), text: channel.type == 'epg' ? 'Ajouter à votre programme TV' : 'Ajoutez à vos cinémas' } %}
     </div>
     {% endif %}

@@ -266,7 +266,7 @@ UiView = {
       }
       history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
       }
-
+      $('.tooltip').remove();
        console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
       if ($('body').hasClass('playlist-in')){
       var has_playlist = true;
@@ -438,7 +438,7 @@ UiView = {
           API.catchForm($('.modal'));
           //title
           if (trigger.data('modal-title')) {
-            $('.modal .modal-header h3').html(trigger.data('modal-title'));
+            $('.modal .modal-header .modal-title').html(trigger.data('modal-title'));
           }
           //message
           if (trigger.data('modal-message')) {

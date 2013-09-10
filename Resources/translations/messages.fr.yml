@@ -80,7 +80,7 @@ page:
           film :
             default : %title% (%year%) %version%: le %format% Entier %support% %quality% %deported% & 100% Légal avec mySkreen
             cinema : La Bande Annonce & Les Horaires des Séances de %title% dans les Cinémas près de chez vous sur mySkreen. Suivez le Film pour Connaître sa Sortie en Streaming VOD & DVD
-            tv : %title% (%year%) est Diffusé à la Télé le %date%. Sur mySkreen, Restez Alerté de la Diffusion de vos Films Préférés & Retrouvez-les en Streaming VOD et DVD
+            tv : %title% (%year%) est Diffusé à la Télé. Sur mySkreen, Restez Alerté de la Diffusion de vos Films Préférés & Retrouvez-les en Streaming VOD et DVD
           serie : 
             tv : %titre% : Retrouver les Horaires de Diffusion des Episodes de la Série %title% à la Télévion avec mySkreen
             default : %title% %version% : Tous les épisodes de la %format% %title% %support% %quality% %deported% & 100% Légal avec mySkreen

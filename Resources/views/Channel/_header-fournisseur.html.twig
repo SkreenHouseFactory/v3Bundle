@@ -42,7 +42,7 @@
       <ul class="items">
         {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with { p: fournisseur.live.program, class: 'li-hover' } %}
       </ul>
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: fournisseur.live.program.id, class: 'fav-like', text: 'Suivre ce programme' } %}
+      <a data-id="{{ fournisseur.live.program.id }}" class="btn btn-suivre fav-like"><i class="glyphicon glyphicon-plus"></i> Suivre</a>
     </div>
   </div>
   </div>

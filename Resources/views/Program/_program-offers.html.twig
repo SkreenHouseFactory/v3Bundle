@@ -3,9 +3,12 @@
     <h2 class="ms-surtitre">Toutes les offres pour voir &laquo;{{ program.title }}&raquo;{% if program.format %}, {{ program.format.name in ['Emission'] ? program.format.name ~ ' en Replay' : program.format.name ~ ' complet' }}{% endif %} :</h2>
     <div id="program-offers" class="tab-content">
 
-      {% if program.has_vod == 6 %}
+      {% if program.theater_release_date is defined %}
+        <p class="alert alert-success">Sortie en salle le <strong>{{ program.theater_release_date }}</strong>{# <a href="#" data-ics-date="{{ program.theater_release_date }}"><i class="icon-agenda"></i> Ajouter à votre agenda</a>#}</p>
+      {% elseif program.has_vod == 6 %}
         <p class="alert alert-success">{{ program.episodeof is defined ? 'Cet épisode' : 'Ce programme' }} sera bientôt disponible en Replay. <br/>Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera mis en ligne.</p>
       {% endif %}
+      
 
       {# subscriptions #}
       {% if program.subscriptions is defined and 
@@ -225,10 +228,7 @@
     {% endfor %}
 
     {# Message alternatif, pas d'offre #}
-    {% if program.theater_release_date is defined %}
-      <p class="alert alert-success">Sortie en salle le <strong>{{ program.theater_release_date }}</strong>{# <a href="#" data-ics-date="{{ program.theater_release_date }}"><i class="icon-agenda"></i> Ajouter à votre agenda</a>#}</p>
-
-    {% elseif hasoffers == 2 %}
+    {% if hasoffers == 2 %}
 
     <div class="alert alert-success">
       {% if program.episodeof is defined %}

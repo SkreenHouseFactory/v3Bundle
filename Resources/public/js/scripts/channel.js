@@ -88,7 +88,7 @@ $(document).ready(function(){
             $('#channel-modal').modal('show');
           }
           API.cookie('visited_channels', (cookie.length ? cookie.join(',') + ',' : null) + channel_id);
-          
+
           $('#triggerfav').on('click', function() {
             $('.fav[data-id]').trigger('click');
             $('#channel-modal').modal('hide');
