@@ -3,7 +3,6 @@ $(document).ready(function(){
   //console.log('scripts/core/playlists.js', 'load');
   // -- .fav : toggle
   $(document).on('click', '.slider li .fav-trash', function(e){
-    $(this).data('id', $(this).parent().data('id'));
     e.preventDefault();
     e.stopPropagation();
     UI.togglePlaylist($(this));
