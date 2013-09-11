@@ -2,8 +2,16 @@
 $(document).ready(function(){
   //console.log('scripts/core/playlists.js', 'load');
   // -- .fav : toggle
+  $(document).on('click', '.slider li .fav-trash', function(e){
+    $(this).data('id', $(this).parent().data('id'));
+    e.preventDefault();
+    e.stopPropagation();
+    UI.togglePlaylist($(this));
+
+    return false;
+  });
   $(document).on('click', '[data-id][class*=" fav-"]', function(e){
-//    console.log('scripts/core/playlists.js', '.fav click', $(this));
+    console.log('scripts/core/playlists.js', '.fav click', $(this));
 //    e.preventDefault();
 //    e.stopPropagation();
     UI.togglePlaylist($(this));

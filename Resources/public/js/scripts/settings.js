@@ -8,7 +8,7 @@ $(document).ready(function(){
         $('.nav-pills a[href=#'+url.split('#')[1]+']').tab('show') ;
     }
     //newsletter
-    $('.newsletter .btn').click(function(){
+    $('.newsletter .btn').on('click', function(){
       if ($(this).data('share') == 'disallow') {
         API.query('POST', 'session/settings/' + Skhf.session.uid + '.json', {
                     newsletter: 'unsubscribe'
@@ -20,7 +20,7 @@ $(document).ready(function(){
       }
     });
     //notifications
-    $('.notification .btn').click(function(){
+    $('.notification .btn').on('click', function(){
       if ($(this).data('notify') == 'disallow') {
         API.query('POST', 'user/blacklist.json', {
                     email: Skhf.session.datas.email,
