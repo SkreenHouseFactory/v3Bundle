@@ -118,7 +118,7 @@
 <meta property="og:title" content="{{ program.title }}" />
 <meta property="og:description" content="[ VIDEO ] {{ program.description_text|replace({"\n": ''}) }}" />
 <meta property="og:image" content="{{ program.picture }}" />
-<meta property="og:type" content="{% if program.format %}{% if program.format.name == 'Série' %}video.episode{% elseif program.format.name in ['Emission','Journal'] %}video.tv_show{% else %}video.movie{% endif %}{% else %}video.movie{% endif %}" />
+<meta property="og:type" content="movie" />
 <meta property="og:url" content="http://www.myskreen.com{{ program.seo_url }}" />
 {% if program.player_fb is defined %}
 
@@ -129,7 +129,7 @@
 <meta property="og:video:secure_url" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
 <meta property="og:video" content="{{ program.player_stream }}" />
 <meta property="og:video:type" content="video/mp4" />
-<meta property="video:duration" content="{{ program.duration * 60 }}" />
+<meta property="video:duration" content="{{ program.duration ? program.duration * 60 : '3600' }}" />
 
 <meta name="video_height" content="360" />
 <meta name="video_width" content="640" />

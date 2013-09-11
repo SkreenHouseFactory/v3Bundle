@@ -75,10 +75,15 @@ class EmbedController extends Controller
       ));
 
       $maxage = 600;
-      $response->setPublic();
-      $response->setMaxAge($maxage);
-      $response->setSharedMaxAge($maxage);
-      
+      $response->setCache(array(
+          //'etag'          => $cache_etag,
+          //'last_modified' => $cache_date,
+          'max_age'       => $maxage,
+          's_maxage'      => $maxage,
+          'public'        => true,
+          // 'private'    => true,
+      ));
+  
       return $response;
     }
 }

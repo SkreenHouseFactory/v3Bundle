@@ -245,7 +245,7 @@ $(document).ready(function(){
           //related channels
           if (return_data.channels) {
             $('#skModal.modal .modal-header .modal-title').html('Voulez-vous suivre aussi ces chaînes ?');
-            $('#skModal.modal .modal-header .modal-message').html('<p><b>Ajouté à vos playlists !</b>.<br/>Cliquez sur les chaînes qui vous intéressent pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p>');
+            $('#skModal.modal .modal-header .modal-message').html('<p><b>Ajouté à vos playlists !</b><br/>Cliquez sur les chaînes qui vous intéressent pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p>');
             $('#skModal.modal .modal-body').html('<div class="slider slider-list"><ul class="items"></ul></div>');
             new BaseSlider({
               scroll: 'no',
@@ -267,7 +267,7 @@ $(document).ready(function(){
           } else if (return_data.programs) {
             //TODO : insert programs in modal
             $('#skModal.modal .modal-header .modal-title').html('Programmes fréquemment suivis ensembles');
-            $('#skModal.modal .modal-header .modal-message').html('<p><b>Ajouté à vos playlists !</b>.<br/>Suivez tous les programmes que vous aimez pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p>');
+            $('#skModal.modal .modal-header .modal-message').html('<p><b>Ajouté à vos playlists !</b><br/>Suivez tous les programmes que vous aimez pour ne rater aucune diffusion (TV, Replay, VOD, Cinéma).</p>');
             $('#skModal.modal .modal-body').html('<div class="slider slider-list"><ul class="items"></ul></div>');
             new BaseSlider({
               scroll: 'no',
