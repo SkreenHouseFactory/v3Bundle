@@ -260,13 +260,14 @@
       <div class="tab-pane">
       {% endif %}
         <div id="carousel-youtube" class="carousel slide">
-          <!-- Indicators -->
-          <ol class="carousel-indicators">
-           <li data-target="#carousel-youtube" data-slide-to="0" class="active"></li>
-           <li data-target="#carousel-youtube" data-slide-to="1"></li>
-           <li data-target="#carousel-youtube" data-slide-to="2"></li>
-         </ol>
-         <div class="carousel-inner"></div>
+         <div class="carousel-inner">
+           <!-- Indicators -->
+           <ol class="carousel-indicators">
+            <li data-target="#carousel-youtube" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-youtube" data-slide-to="1"></li>
+            <li data-target="#carousel-youtube" data-slide-to="2"></li>
+          </ol>
+         </div>
          <!-- Controls -->
          <a class="left carousel-control" href="#carousel-youtube" data-slide="prev">
           <span class="icon-prev"></span>
@@ -288,8 +289,7 @@
       </div>
     {% else %}
       <div class="text show-more-height">
-        <div class="gradient-hide"></div>
-        <h4>{{ program.title }}</h4> 
+        <div class="gradient-hide"></div> 
         {{ program.description_seo|raw }}
       </div>
       <div class="show-more">...</div>

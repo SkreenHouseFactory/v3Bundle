@@ -119,7 +119,7 @@ $(document).ready(function(){
   });
   
   // -- ui form
-  $('.navbar form.navbar-search i.icon-search').on('click', function(){
+  $('.navbar form.navbar-search i.glyphicon').on('click', function(){
     $('.navbar form.navbar-search').submit();
     return false;
   });
