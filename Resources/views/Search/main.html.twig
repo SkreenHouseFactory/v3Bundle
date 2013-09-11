@@ -54,7 +54,7 @@
 
   {% if results.person is defined  and results.person %}
   <p>
-    <a data-placement="right" class="fav fav-person btn btn-suivre" data-id="{{ results.person.id }}"><i class="glyphicon glyphicon-plus"></i> Suivre {{ results.person.name }}</a>
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: results.person.id, name: results.person.name, fav: 'person'} %}
     &nbsp;&nbsp;
     <a class="btn" href="{{ path('any_url', {url: results.person.seo_url|slice(1, results.person.seo_url|length-1) }) }}">Voir tous ses programmes</a>
   </p>
