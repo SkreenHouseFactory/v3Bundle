@@ -71,7 +71,7 @@
     {# suivre #}
     {% if channel.type in ['broadcast','cinema'] %}
     <div class="col-xs-{{ channel.img ? 5 : 7 }}">
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'pull-right btn-big fav-' ~ (channel.type == 'broadcast' ? 'epg' : 'cinema'), text: channel.type == 'epg' ? 'Ajouter à votre programme TV' : 'Ajoutez à vos cinémas' } %}
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'pull-right btn-big fav-' ~ (channel.type == 'broadcast' ? 'epg' : 'cinema'), text: channel.type in ['epg','broadcast'] ? 'Ajouter à votre programme TV' : 'Ajoutez à vos cinémas' } %}
     </div>
     {% endif %}
     </div>
@@ -216,7 +216,7 @@
 
       {% if channel.programs|length %}
 
-      <div class="row">
+      <div class="row clear">
       <div class="col-xs-16">
           <div id="channel-programs" class="slider slider-list{% if channel.adress is defined %} clear-cancel{% endif %}">
             <ul class="items">
