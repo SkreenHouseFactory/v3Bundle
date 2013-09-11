@@ -22,75 +22,75 @@
      text-decoration: none;
    }
    span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal {
-      color: #000000;
-      display: inline-block;
-      &:hover{
-        color: @bluemaincolor;
-        text-decoration: none;
-      }
-    }
-  }
-  .actors_reveal{
-    font-style: italic;
-  }
-
-  .ms-format{
-    font-size: 18px;
-    display: block;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-
-
-
-  .label {
-    margin-right:3px;
+    color: #000000;
     display: inline-block;
-  }
-
-
-  .channel_link{
-    background:#778390;
-    margin-bottom: 20px;
-    text-align: center;
-    display: block;
-    padding: 1px;
-    .link-background-transition;
-  }
-  .channel_link:hover, .channel_link:active, .channel_link:focus,{
-    background:@bluemaincolor;
-  }
-
-  .channel_root{
-    width: 100%;
-    display: block;
-  }
-  .channel_texte{
-    font-size: 12px;
-    display: inline-block;
-    color: #fff;
-  }
-
-
-  .ms-cat-program-title, 
-  .ms-cat-program-title:hover, 
-  .ms-cat-program-title:active, {
-    text-decoration: none;
-  }
-  .ms-cat-program-title h3{
-    text-decoration: none;
-    font-size: 18px;
-    color: @bluemaincolor;
-  }
-
-  .external-collapser {
-    i {
-      font-size: 12px;
-    }
     &:hover{
-      cursor: pointer;
+      color: @bluemaincolor;
+      text-decoration: none;
     }
   }
+}
+.actors_reveal{
+  font-style: italic;
+}
+
+.ms-format{
+  font-size: 18px;
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+
+.label {
+  margin-right:3px;
+  display: inline-block;
+}
+
+
+.channel_link{
+  background:#778390;
+  margin-bottom: 20px;
+  text-align: center;
+  display: block;
+  padding: 1px;
+  .link-background-transition;
+}
+.channel_link:hover, .channel_link:active, .channel_link:focus,{
+  background:@bluemaincolor;
+}
+
+.channel_root{
+  width: 100%;
+  display: block;
+}
+.channel_texte{
+  font-size: 12px;
+  display: inline-block;
+  color: #fff;
+}
+
+
+.ms-cat-program-title, 
+.ms-cat-program-title:hover, 
+.ms-cat-program-title:active, {
+  text-decoration: none;
+}
+.ms-cat-program-title h3{
+  text-decoration: none;
+  font-size: 18px;
+  color: @bluemaincolor;
+}
+
+.external-collapser {
+  i {
+    font-size: 12px;
+  }
+  &:hover{
+    cursor: pointer;
+  }
+}
 
 }
 
@@ -131,168 +131,168 @@
   }
 
   #program-offers {
-    
+
     h5 {
       margin: 20px 0px 0px 0px;
     }
     
-   .panel {
-    position: relative;
-    padding: 0 0 30px 0;
+    .panel {
+      position: relative;
+      padding: 0 0 30px 0;
 
-    &:not(.panel-more) {
-      padding: 0;
-    }
+      &:not(.panel-more) {
+        padding: 0;
+      }
 
-    &.panel-external.panel-more, &.panel-remove-padding-bottom {
-      padding: 0;
-    }
-    &.panel-synopsis{ 
-      padding: 0;
-      h3 {
-        padding: 20px 0 10px;
+      &.panel-external.panel-more, &.panel-remove-padding-bottom {
+        padding: 0;
       }
-      p {
-        margin: 0;
-      }
-    }
-    &.panel-more{ 
-      .tab-pane {
-        padding-bottom: 30px;
-      }
-    }
-    &.panel-theater {
-      .panel-collapse {
-        padding: 10px 20px;
-        ul.nav-tabs li a {
-          padding: 5px;
+      &.panel-synopsis{ 
+        padding: 0;
+        h3 {
+          padding: 20px 0 10px;
         }
-        .tab-content {
-          border: 1px solid #ccc;
-          border-top: 0;
-          padding: 5px 20px;
+        p {
           margin: 0;
         }
       }
-    }
-    &.panel-info {
-      border-color: rgba(0, 143, 255, 0.1);
-      .panel-heading {
-        background: rgba(0, 143, 255, 0.1);
-        color: @sk-blue;
-        border-bottom: 5px solid @sk-blue;
+      &.panel-more{ 
+        .tab-pane {
+          padding-bottom: 30px;
+        }
       }
-    }
-    &.panel-danger {
-      border-color: #eed3d7;
-      .panel-heading {
-        border-bottom: 5px solid #b94a48;
-      }
-    }
-
-    .panel-heading{
-      margin: 0;
-    }
-    .tab-pane {      
-      padding-bottom: 0px;
-
-      .btn-reveal {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        font-size: 0.9em;
-        padding: 0px 10px 0 5px;
-        border-top-right-radius: 0px;
-        border-bottom-left-radius: 0px;
-        border: 0px;
-      }
-
-      table {
-        margin:0;
-        width: 100%;
-
-        tr {
-          min-height: 60px;
-          border-bottom: 1px solid #efefef;
-          &:hover {
-            cursor: pointer;
-            color: @rowHoverColor;
-            background-color: @rowHoverBg;
-            border-bottom: 1px solid #f1e7bc;
-            td.price .rent {
-              color: @rowHoverColor;
-            }
-          }
-          &.other-episodes {
-            background: #EEE;
-            td {
-              padding: 0;
-              h5 {
-                margin: 5px 15px;
-              }
-            }
-          }
-
-          td {
+      &.panel-theater {
+        .panel-collapse {
+          padding: 10px 20px;
+          ul.nav-tabs li a {
             padding: 5px;
-            vertical-align: middle;
-            &.channel {
-              width: 110px;
-            }
-            &.offers {
-              text-align: center;
-              width: 170px;
-              button, a.btn {
-                width: 160px;
+          }
+          .tab-content {
+            border: 1px solid #ccc;
+            border-top: 0;
+            padding: 5px 20px;
+            margin: 0;
+          }
+        }
+      }
+      &.panel-info {
+        border-color: rgba(0, 143, 255, 0.1);
+        .panel-heading {
+          background: rgba(0, 143, 255, 0.1);
+          color: @sk-blue;
+          border-bottom: 5px solid @sk-blue;
+        }
+      }
+      &.panel-danger {
+        border-color: #eed3d7;
+        .panel-heading {
+          border-bottom: 5px solid #b94a48;
+        }
+      }
+
+      .panel-heading{
+        margin: 0;
+      }
+      .tab-pane {      
+        padding-bottom: 0px;
+
+        .btn-reveal {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          font-size: 0.9em;
+          padding: 0px 10px 0 5px;
+          border-top-right-radius: 0px;
+          border-bottom-left-radius: 0px;
+          border: 0px;
+        }
+
+        table {
+          margin:0;
+          width: 100%;
+
+          tr {
+            min-height: 60px;
+            border-bottom: 1px solid #efefef;
+            &:hover {
+              cursor: pointer;
+              color: @rowHoverColor;
+              background-color: @rowHoverBg;
+              border-bottom: 1px solid #f1e7bc;
+              td.price .rent {
+                color: @rowHoverColor;
               }
-              .ms-reminder {
-                font-size: 0.8em;
-                font-weight: normal;
-                color:#dc2561;
-                i {
-                font-size: 1.1em;
+            }
+            &.other-episodes {
+              background: #EEE;
+              td {
+                padding: 0;
+                h5 {
+                  margin: 5px 15px;
                 }
               }
             }
-            &.episode {
-              h4{  
-                font-size: 1.1em;
-                font-weight: bold;
-                margin: 0;
+
+            td {
+              padding: 5px;
+              vertical-align: middle;
+              &.channel {
+                width: 110px;
               }
-              .infos {
-                font-size: 0.8em;
+              &.offers {
+                text-align: center;
+                width: 170px;
+                button, a.btn {
+                  width: 160px;
+                }
+                .ms-reminder {
+                  font-size: 0.8em;
+                  font-weight: normal;
+                  color:#dc2561;
+                  i {
+                    font-size: 1.1em;
+                  }
+                }
               }
-            }
-            &.price {
-              min-width: 120px;
-              &.price-vod {
-                min-width: 180px;
+              &.episode {
+                h4{  
+                  font-size: 1.1em;
+                  font-weight: bold;
+                  margin: 0;
+                }
+                .infos {
+                  font-size: 0.8em;
+                }
               }
-              .rent {
-                text-transform: uppercase;
-                font-size: 1.2em;
-                color: @bluesecondarycolor;
-                font-weight: bold;
-              }
-              .glyphicon {
-                font-size: 1.2em;
-              }
-              .rent .glyphicon {
-                font-size: 0.9em;
-              }
-              .ms-vidoption {
-                display: block;
-                font-size: 14px;
-                padding: 0 15px;
-                text-align: left;
-              }
-              .ms-versions {
-               font-size: 12px; 
-              }
-            }
-          }
-          img {
+              &.price {
+                min-width: 120px;
+                &.price-vod {
+                  min-width: 180px;
+                }
+                .rent {
+                  text-transform: uppercase;
+                  font-size: 1.2em;
+                  color: @bluesecondarycolor;
+                  font-weight: bold;
+                }
+                .glyphicon {
+                  font-size: 1.2em;
+                }
+                .rent .glyphicon {
+                  font-size: 0.9em;
+                }
+                .ms-vidoption {
+                  display: block;
+                  font-size: 14px;
+                  padding: 0 15px;
+                  text-align: left;
+                }
+                .ms-versions {
+                 font-size: 12px; 
+               }
+             }
+           }
+           img {
             display:block;
             margin-left:auto;
             margin-right:auto;
@@ -490,4 +490,12 @@ ul#episodes-list{
       margin-top: 50px;
     }
   }
+}
+
+.ms-full-link{
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index:1000;
+  position: absolute;
 }
