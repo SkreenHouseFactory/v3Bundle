@@ -4,7 +4,6 @@ $(document).ready(function(){
 
   if ($('#view-tvgrid').length) {
      //affiche la barre de temps 
-   
     //////////// CALLBACKS ////////////////
     // -- session sync
     Skhf.session.callbackInit = function() {
@@ -36,6 +35,10 @@ $(document).ready(function(){
       }
     }
     //////////// SCRIPTS ////////////////
+    //chargement Ajax
+    if($('body').hasClass('view-ajax')){
+      GridView.init($('#grid'));
+    }
     //timeslider
     var date = new Date(parseInt($('#grid').data('timestamp'))*1000);
     GridView.hour = date.getHours();
