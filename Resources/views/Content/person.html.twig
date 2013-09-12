@@ -12,6 +12,7 @@
 <link rel="image_src" href="{{ person.picture }}" />
 {% endif %}
 <meta name="object_type" content="{% if person.activity in ['director', 'Réalisateur'] %}director{% else %}actor{% endif %}" />
+<link rel="canonical" href="http://www.myskreen.com{{ person.seo_url }}"/>
 {% endblock %}
 {% block title %}
 {{ person.name }}
