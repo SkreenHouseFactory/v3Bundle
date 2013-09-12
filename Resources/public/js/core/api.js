@@ -128,7 +128,7 @@ API = {
       body.empty();
       UI.appendLoader(body, 1000);
 
-      var args = $.extend(typeof args != 'undefined' ? args : {}, {session_uid: Skhf.session.uid, proxy: 'v3'});
+      var args = $.extend(typeof args != 'undefined' ? args : {}, {session_uid: Skhf.session ? Skhf.session.uid : '', proxy: 'v3'});
 
       this.query(
         'GET_PROXY', 
