@@ -10,18 +10,18 @@
     </li>
   </ul>
 	<h1>{{ 'user.svod'|trans }}</h1>
-	{% if svods|length %}
+	{% if svods|to_array|length %}
     <ul>
-      {% for svod in svods %}
+      {% for svod in svods|to_array %}
         {% if loop.index > 1 %}<hr/>{% endif %}
-        <a data-unsubscribe-pass="{{ svod.id }}" class="btn btn-danger pull-right"><i class="icon-remove-sign icon-white"></i> Mettre fin à cet abonnement</a>
+        <a data-unsubscribe-pass="{{ svod.id }}" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-remove-sign"></i> Mettre fin à cet abonnement</a>
         <b>{{ svod.name }}</b>
         <br/>{{ svod.description }}
         <br/><i>Prochain prélèvement le {{ svod.pass.perempted_at|date('d-m-Y') }}</i>
       {% endfor %}
     </ul>
   {% else %}
-  <p class="alert">Vous n'avez pas d'abonnement VOD.</p>
+  <p class="alert alert-warning">Vous n'avez pas d'abonnement VOD.</p>
   {% endif %}
   <br/>
   <br/>
