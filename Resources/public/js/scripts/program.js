@@ -358,6 +358,12 @@ $(document).ready(function(){
     $('.show-more').on('click', function () {
       var $this = $(this);
       $('.text', $(this).parent()).toggleClass('show-more-height');
+      if($('.text', $(this).parent()).hasClass('show-more-height')){
+        $('.show-more-text').html('Voir plus');
+      }
+      else{
+        $('.show-more-text').html('Réduire le texte');
+      }    
     });
 
 
