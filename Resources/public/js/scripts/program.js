@@ -360,6 +360,7 @@ $(document).ready(function(){
       $('.text', $(this).parent()).toggleClass('show-more-height');
     });
 
+
     // Déplier la liste des acteurs
     $('.actors_reveal').on('click', function () {
       $('.actors_entrop').toggleClass('hide');
