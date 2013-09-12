@@ -1,6 +1,6 @@
-{% set tnt_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat','Lcp','HD1','6Ter','numéro 23','RMC découverte','Gulli','cherie 25'] %}
+{% set tnt_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat','HD1','6Ter','numéro 23','RMC découverte','Gulli','cherie 25'] %}
 <div id="cover" class="cover-fournisseur">
-<div class="header-container">
+<div class="header-container">s
   {% if fournisseur.live.program is defined and fournisseur.live.program  %}
   <div class="container">
     <ul id="remote-tnt">
@@ -42,7 +42,7 @@
       <ul class="items">
         {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with { p: fournisseur.live.program, class: 'li-hover' } %}
       </ul>
-      <a data-id="{{ fournisseur.live.program.id }}" class="btn btn-suivre fav-like"><i class="glyphicon glyphicon-plus"></i> Suivre</a>
+      <a dt data-id="{{ fournisseur.live.program.id }}" class="btn btn-suivre fav-like"><i class="glyphicon glyphicon-plus"></i> Suivre</a>
     </div>
   </div>
   </div>

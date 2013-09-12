@@ -10,7 +10,8 @@ $(document).ready(function(){
 
   // -- fournisseur
   if ($('#view-fournisseur').length) {
-    if (channel_name) {
+    if (channel_name && $('#carousel-chaine').length) {
+      console.log('header fournisseur', 'activate channel', channel_name);
       $('#carousel-chaine .item.active').removeClass('active');
       $('[data-original-title="' + channel_name.toUpperCase() +'"]').addClass('selected');
       $('[data-original-title="' + channel_name.toUpperCase() +'"]').parent().addClass('active');

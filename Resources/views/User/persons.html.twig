@@ -38,9 +38,9 @@
     {% for p in persons %}
       <tr id="person-{{ p.id }}" class="type-{{ p.activity|replace({'é': 'e'})|lower }}">
         <td>
-        <div class="pull-right actions" data-id="{{ p.id }}">
-          <a class="btn" href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">Tous ses programmes</a>&nbsp;
-            <a class="fav fav-person btn btn-primary" data-id="{{ p.id }}" data-name="{{ p.name }}" data-remove="#person-{{ p.id }}"><i class="icon-plus-sign icon-white"></i> Dans vos playlists</a>
+        <div class="pull-right">
+          <a class="btn btn-default" href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">Tous ses programmes</a>&nbsp;
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: p.id, name: p.name, fav: 'person', remove: '#person-' ~ p.id } %}
         </div>
         <b>{{ p.name }}</b>, {{ p.activity }}<br/>
         {#{ p.roles|join(', ') }#}
