@@ -15,22 +15,22 @@
       <table class="table table-striped">
         <tr>
           <td>
-            <form class="form-inline" action="session/settings/{{ session_uid }}.json" method="post" data-form="catch">
-                <label for="update_mail">{{ 'user.settings.email'|trans }}</label>&nbsp;
-                <input type="email" name="update_mail" value="{{ email }}" />&nbsp;
-                <input type="submit" value="{{ 'user.settings.submit'|trans }}" class="btn"/>
+            <form class="form-inline" action="session/settings/{{ session_uid }}.json" method="post" data-form="catch" role="form">
+                      <label for="update_mail">{{ 'user.settings.email'|trans }}</label>&nbsp;
+                      <input type="email" name="update_mail" value="{{ email }}" />&nbsp;
+                <input type="submit" value="{{ 'user.settings.submit'|trans }}" class="btn btn-default"/>
             </form>
           </div>
         </td>
       </tr>
       <tr>
         <td>
-            <form class="form-inline" action="session/settings/{{ session_uid }}.json" method="post" data-form="catch">
+            <form class="form-inline" action="session/settings/{{ session_uid }}.json" method="post" data-form="catch" role="form">
               <label for="update_pwd">{{ 'user.settings.newpassword'|trans }}</label>&nbsp;
               <input type="password" name="update_pwd"/>&nbsp;
               <label for="passwordconfirm">{{ 'user.settings.confirmpassword'|trans }}</label>&nbsp;
               <input type="password" name="passwordconfirm"/>&nbsp;
-              <input type="submit" value="{{ 'user.settings.change_password'|trans }}" class="btn"/>
+              <input type="submit" value="{{ 'user.settings.change_password'|trans }}" class="btn btn-default"/>
             </form>
           </td>
         </tr>
@@ -69,7 +69,7 @@
         <a href="?remove_card=1#payment" class="btn btn-danger btn-large">{{ 'card.remove'|trans }} </a>
       {% else %}
         <p class="alert alert-info">Aucune carte enregistrée.</p>
-        <a data-modal="card" data-modal-title="Enregistrer une carte de paiement" class="btn btn-large">{{ 'card.add'|trans }} </a>
+        <a data-modal="card" data-modal-title="Enregistrer une carte de paiement" class="btn btn-default btn-large">{{ 'card.add'|trans }} </a>
        {% endif %}
     </div>
   </div>
