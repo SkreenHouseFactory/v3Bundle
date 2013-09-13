@@ -155,14 +155,13 @@ UiView = {
             document.title = e.originalEvent.state.document_title;
           }
            self.refreshAjax();
-           Skin.initHome();
         });
       }
     });
   },
   refreshAjax: function(has_playlist){
     console.log('refreshAjax()')
-
+    $('html, body').animate({scrollTop:0}, 'fast');
     if ($('a.background')) {
        $('a.background').remove();
     }
@@ -180,6 +179,7 @@ UiView = {
          $('body').addClass('playlist-in');
       }
        $('body').addClass('view-ajax');
+
   },
   initDataLive: function(elmt) {
     var self = this;
@@ -280,6 +280,7 @@ UiView = {
                .addClass('view-ajax')
                .css('background','')
                .attr('class','');
+       $('html, body').animate({scrollTop:0}, 'fast');
 
       //load ajax
       console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));

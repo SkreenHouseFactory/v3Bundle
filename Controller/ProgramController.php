@@ -125,17 +125,39 @@ class ProgramController extends Controller
           //'filter_casting' => true,
           //'player' => 'flash'
         ));
+        //print("<pre>");print_r($data);exit();
 
-        //print("<pre>");print_r($data);
         //echo $api->url;
         if ($this->get('kernel')->getEnvironment() == 'dev' && 
             $request->get('debug')) {
           echo $api->url;
         }
 
+        //echo $request->attributes->get('_route');exit();
         //stop Adulte
-        if (isset($data->error)) {
-          throw $this->createNotFoundException('Program error : ' . $data->error);
+        if (!$data || isset($data->error)) {
+          switch ($request->attributes->get('_route')) {
+            case 'program_pere':
+              $response->headers->setCookie(new Cookie('myskreen_404', $request->getUri()), time()+3600);
+              return $this->redirect($this->generateUrl('category', array(
+                'format' => $request->get('format'),
+                'category_slug' => $request->get('categorie')
+              )), 301);
+            break;
+            case 'program_fils':
+            case 'program_fils_saison':
+              $response->headers->setCookie(new Cookie('myskreen_404', $request->getUri()), time()+3600);
+              return $this->redirect($this->generateUrl('program_pere', array(
+                'format' => $request->get('format'),
+                'categorie' => $request->get('categorie'),
+                'id' => $request->get('idpere'),
+                'slug' => $request->get('slugpere')
+              )), 301);
+            break;
+            default:
+              throw $this->createNotFoundException('Program error : ' . $data->error);
+            break;
+          }
         }
         //check url
         //echo $request->getPathInfo().' != '.$data->seo_url.' => '.($request->getPathInfo() != $data->seo_url);exit();
@@ -198,7 +220,7 @@ class ProgramController extends Controller
           foreach ($data->episodeof->offers as $key => $offers) {
             foreach ($offers as $offer) {
               if (isset($offer->episode_id) && $offer->episode_id != $data->id) {
-                               $data->offers[$key] = (array)$data->episodeof->offers->{$key};
+                $data->offers[$key] = (array)$data->episodeof->offers->{$key};
                 $data->offers[$key][] = $offer;
               }
             }
