@@ -1,157 +1,3 @@
-// -- tvgrid
-
-$(document).ready(function(){
-
-  if ($('#view-tvgrid').length) {
-     //affiche la barre de temps 
-    //////////// CALLBACKS ////////////////
-    // -- session sync
-    Skhf.session.callbackInit = function() {
-      GridView.init($('#grid'));
-      GridView.setTimeBar();
-    }
-    Skhf.session.callbackSignout = function() {
-      GridView.loadSchedule();
-      GridView.setTimeBar();
-    }
-    Skhf.session.callbackSignin = function() {
-      if (Skhf.session.datas.epg) {
-        console.log('scripts/tvgrid.js', 'callbackSignin', 'epg', Skhf.session.datas.epg);
-        GridView.loadSchedule();
-        GridView.setTimeBar();
-      }
-    }
-    // -- UI callback : reload grid after adding channel
-    UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {
-      if (parameter == 'epg' && !remove) {
-        Grid.loadSchedule();
-      }
-      if (parameter == 'like') {
-        if (remove) {
-          trigger.removeClass('btn-primary');
-        } else {
-          trigger.addClass('btn-primary');
-        }
-      }
-    }
-    //////////// SCRIPTS ////////////////
-    //chargement Ajax
-    if($('body').hasClass('view-ajax')){
-      GridView.init($('#grid'));
-    }
-    //timeslider
-    var date = new Date(parseInt($('#grid').data('timestamp'))*1000);
-    GridView.hour = date.getHours();
-   /* $('#timeslider').slider({
-      step: 1,
-      max: 23,
-      min: 0,
-      value: GridView.hour,
-      change: function(event, ui) {
-        var diff = GridView.hour - ui.value;
-        if (diff != 0) {
-          console.log('scripts/tvgrid.js', 'timeslider', 'change', GridView.hour, '+', diff, GridView.hour - diff);
-          GridView.setTime(GridView.timestamp_start - diff*3600);
-          GridView.loadSchedule();
-        }
-      },
-      slide: function(event, ui) {
-        //console.log('scripts/tvgrid.js', 'timeslider', 'stop', ui.value);
-        $('.ui-slider-handle').html(ui.value + 'h00');
-      },
-      create: function( event, ui ) {
-        $('.ui-slider-handle').addClass('btn')
-                              .html(GridView.hour + 'h00');
-      }
-    }); */
-   
-     //
-   
-     
-     $('#opt-hour').on('change',function(){
-       var current = $(this).data('current-hour');
-       var nhour = $(this).val();
-       var diff =  current - nhour;
-        GridView.setTime( $('#grid').data('timestamp') - diff*3600);
-        GridView.loadSchedule();
-     });
-     $('.btn-precedent').on('click', function(){
-      
-       GridView.setTime( $('#grid').data('timestamp') - 3600);
-       GridView.loadSchedule();
-     
-     });
-     $('.btn-suivant').on('click', function(){
-       GridView.setTime( $('#grid').data('timestamp') + 3600);
-       GridView.loadSchedule();
-     
-     });
-    //datepicker
-    var datepicker = $('#datepicker');
-    datepicker.hide();
-    datepicker.hover(function(){},function(){
-      datepicker.hide();
-    });
-    $('.calendar').click(function(){
-      if(!datepicker.is(':visible')) {
-        datepicker.show();
-      } else {
-        datepicker.hide();
-      }
-    });
-    $.datepicker.setDefaults($.datepicker.regional['fr']);
-    datepicker.datepicker({
-       showAnim: 'drop',
-       maxDate: '+11d',
-       onSelect: function(dateText, inst) {
-        var date = (inst.selectedMonth + 1) + '/' + inst.selectedDay + '/' +  inst.selectedYear;
-        var timestamp = (Date.parse(date) / 1000) + GridView.hour * 3600;
-                console.log('script/tvGridView.js', 'datepicker.onSelect', dateText, timestamp, GridView.hour, inst);
-        GridView.setTime(timestamp, true);
-        GridView.loadSchedule(function(){
-          datepicker.fadeOut('slow');
-        });
-       }
-    });
-    //dropdown update
-    
-    $('.btn-filters > a').on('click', function(){
-      console.log('filter', $(this).data('filter'));
-      $('#filter').val($(this).data('filter')).change();
-    });
-    
-    $('#filter').on('change',function(){
-      console.log('script/tvGridView.js', $(this).val());
-      //grid
-      GridView.filter($(this).val());
-      //sliders
-      if ($(this).val()) {
-        $('.items li').hide();
-        $('.items li.'  + $(this).val()).show();
-      } else {
-        $('.items li').show();
-      }
-      //menu update
-      if ($(this).parents('.dropdown:first').length) {
-        $(this).parents('.dropdown:first').find('a.dropdown-toggle span').text($(this).text());
-      }
-      $(this).parents('.open:first').removeClass('open');
-      return false;
-    });
-
-    //remove channel
-    $(document).on('click', '#channels li a', function() {
-      return false;
-    })
-    $(document).on('click', '#channels a .icon-trash', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      $(this).parents('li:first').remove();
-      GridView.setChannelsList();
-      return false;
-    })
-  }
-});
 
 // -- GridView
 var GridView;
@@ -493,3 +339,165 @@ GridView = {
     }
   }
 }
+
+
+
+
+
+
+
+// -- tvgrid
+
+$(document).ready(function(){
+
+  if ($('#view-tvgrid').length) {
+     //affiche la barre de temps 
+    //////////// CALLBACKS ////////////////
+    // -- session sync
+    Skhf.session.callbackInit = function() {
+      GridView.init($('#grid'));
+      GridView.setTimeBar();
+    }
+    Skhf.session.callbackSignout = function() {
+      GridView.loadSchedule();
+      GridView.setTimeBar();
+    }
+    Skhf.session.callbackSignin = function() {
+      if (Skhf.session.datas.epg) {
+        console.log('scripts/tvgrid.js', 'callbackSignin', 'epg', Skhf.session.datas.epg);
+        GridView.loadSchedule();
+        GridView.setTimeBar();
+      }
+    }
+    // -- UI callback : reload grid after adding channel
+    UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {
+      if (parameter == 'epg' && !remove) {
+        Grid.loadSchedule();
+      }
+      if (parameter == 'like') {
+        if (remove) {
+          trigger.removeClass('btn-primary');
+        } else {
+          trigger.addClass('btn-primary');
+        }
+      }
+    }
+    //////////// SCRIPTS ////////////////
+    //chargement Ajax
+    if($('body').hasClass('view-ajax')){
+      GridView.init($('#grid'));
+    }
+    //timeslider
+    var date = new Date(parseInt($('#grid').data('timestamp'))*1000);
+    GridView.hour = date.getHours();
+   /* $('#timeslider').slider({
+      step: 1,
+      max: 23,
+      min: 0,
+      value: GridView.hour,
+      change: function(event, ui) {
+        var diff = GridView.hour - ui.value;
+        if (diff != 0) {
+          console.log('scripts/tvgrid.js', 'timeslider', 'change', GridView.hour, '+', diff, GridView.hour - diff);
+          GridView.setTime(GridView.timestamp_start - diff*3600);
+          GridView.loadSchedule();
+        }
+      },
+      slide: function(event, ui) {
+        //console.log('scripts/tvgrid.js', 'timeslider', 'stop', ui.value);
+        $('.ui-slider-handle').html(ui.value + 'h00');
+      },
+      create: function( event, ui ) {
+        $('.ui-slider-handle').addClass('btn')
+                              .html(GridView.hour + 'h00');
+      }
+    }); */
+   
+     //
+   
+     
+     $('#opt-hour').on('change',function(){
+       var current = $(this).data('current-hour');
+       var nhour = $(this).val();
+       var diff =  current - nhour;
+        GridView.setTime( $('#grid').data('timestamp') - diff*3600);
+        GridView.loadSchedule();
+     });
+     $('.btn-precedent').on('click', function(){
+      
+       GridView.setTime( $('#grid').data('timestamp') - 3600);
+       GridView.loadSchedule();
+     
+     });
+     $('.btn-suivant').on('click', function(){
+       GridView.setTime( $('#grid').data('timestamp') + 3600);
+       GridView.loadSchedule();
+     
+     });
+    //datepicker
+    var datepicker = $('#datepicker');
+    datepicker.hide();
+    datepicker.hover(function(){},function(){
+      datepicker.hide();
+    });
+    $('.calendar').click(function(){
+      if(!datepicker.is(':visible')) {
+        datepicker.show();
+      } else {
+        datepicker.hide();
+      }
+    });
+    $.datepicker.setDefaults($.datepicker.regional['fr']);
+    datepicker.datepicker({
+       showAnim: 'drop',
+       maxDate: '+11d',
+       onSelect: function(dateText, inst) {
+        var date = (inst.selectedMonth + 1) + '/' + inst.selectedDay + '/' +  inst.selectedYear;
+        var timestamp = (Date.parse(date) / 1000) + GridView.hour * 3600;
+                console.log('script/tvGridView.js', 'datepicker.onSelect', dateText, timestamp, GridView.hour, inst);
+        GridView.setTime(timestamp, true);
+        GridView.loadSchedule(function(){
+          datepicker.fadeOut('slow');
+        });
+       }
+    });
+    //dropdown update
+    
+    $('.btn-filters > a').on('click', function(){
+      console.log('filter', $(this).data('filter'));
+      $('#filter').val($(this).data('filter')).change();
+    });
+    
+    $('#filter').on('change',function(){
+      console.log('script/tvGridView.js', $(this).val());
+      //grid
+      GridView.filter($(this).val());
+      //sliders
+      if ($(this).val()) {
+        $('.items li').hide();
+        $('.items li.'  + $(this).val()).show();
+      } else {
+        $('.items li').show();
+      }
+      //menu update
+      if ($(this).parents('.dropdown:first').length) {
+        $(this).parents('.dropdown:first').find('a.dropdown-toggle span').text($(this).text());
+      }
+      $(this).parents('.open:first').removeClass('open');
+      return false;
+    });
+
+    //remove channel
+    $(document).on('click', '#channels li a', function() {
+      return false;
+    })
+    $(document).on('click', '#channels a .icon-trash', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      $(this).parents('li:first').remove();
+      GridView.setChannelsList();
+      return false;
+    })
+  }
+});
+
