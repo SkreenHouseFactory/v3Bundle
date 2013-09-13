@@ -47,7 +47,7 @@ class ContentController extends Controller
       $is_route_format = in_array($request->get('_route'), array('format', 'format_facet', 'format_page')) ? true : false;
       $api   = $this->get('api');
       $data = $api->fetch($is_route_format ? 'format' : 'category', array(
-         'from_slug'  => str_replace('/', '', strlen($request->get('facet'))>1?$request->get('facet'):$request->get('category_slug')),
+         'from_slug'  => str_replace('/', '', $request->get('category_slug')),
          'with_description' => true,
          //'with_subcategories' => true,
          'with_programs'  => true,
@@ -59,13 +59,9 @@ class ContentController extends Controller
          'facets' => $this->buildFacets($request),
           'disable_search_by_format' => true
        ));
-      /*
-      echo "\n".'api:' . $api->url;
-      echo "\n".'category_slug:' . $request->get('category_slug');
-      echo "\n".'access:' . $request->get('access');
-      echo "\n".'facet:' . $request->get('facet');
-      echo "\n".'route:'  .$request->get('_route');
-      */
+      //echo "\n".'api:' . $api->url;
+      //echo "\n".'category_slug:' . $request->get('category_slug');
+      //echo "\n".'route:'  .$request->get('_route');
       //exit();
       //print_r($data->facets);
       //404
@@ -79,11 +75,10 @@ class ContentController extends Controller
         }
         //return $this->redirect($data->seo_url, 301);
       }
-      $data->programs = (array)$data->programs;
-      if (count($data->programs) == 0 && $data->root) {
-        return $this->redirect($data->root->seo_url);
+      if (count($data->programs) == 0) {
+        return $this->redirect();
       }
-
+      $data->programs = (array)$data->programs;
       $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) ? $data->programs[0]->picture : null);
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Content:category.html.twig', array(
