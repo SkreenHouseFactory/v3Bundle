@@ -1,11 +1,31 @@
 <div class="channels-modal">
-  <form id="channels-search" class="form-search pull-left" method="get" action="http://{{ app.request.httpHost() }}{{ app.request.basePath() }}{{ path('tvgrid_addchannel') }}">
+
+
+
+
+
+
+
+
+ <form id="channels-search" class="form-search pull-left form-inline" role="form" method="get" action="http://{{ app.request.httpHost() }}{{ app.request.basePath() }}{{ path('tvgrid_addchannel') }}">
     <input type="hidden" name="dataType" value="text html">
-    <div class="input-append">
-      <input type="text" name="q" class="span3 search-query" placeholder="{{ 'channels.search.placeholder'|trans }}" value="{{ app.request.get('q') }}">
-      <button type="submit" class="btn trigger-channels"><i class="icon-search"></i> {{ 'channels.search.submit'|trans }}</button>
-    </div>
-		</form
+
+
+  <div class="form-group">
+    <label class="sr-only " for="exampleInputEmail2">{{ 'channels.search.placeholder'|trans }}</label>
+    <input type="email" class="form-control search-query"  placeholder="{{ 'channels.search.placeholder'|trans }}" value="{{ app.request.get('q') }}">
+  </div>
+
+  <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"> </i>  {{ 'channels.search.submit'|trans }}</button>
+</form>
+
+
+
+
+
+
+
+
   <div id="channels-list" class="clear" data-api-url="{{ path('tvgrid_addchannel') }}"></div>
 </div>
 
