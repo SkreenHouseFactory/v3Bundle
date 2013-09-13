@@ -241,7 +241,6 @@ GridView = {
       .replace('/10/', ' Octobre ')
       .replace('/11/', ' Novembre ')
       .replace('/12/', ' Décembre ');
-    alert(navigator.userAgent);
 
     if( date.getDate() == CurrentDate.getDate() && date.getHours()==CurrentDate.getHours()){
       $('.now.time-change').addClass('active');
@@ -253,12 +252,12 @@ GridView = {
     if( date.getDate() == CurrentDate.getDate()-1 && date.getHours()>=20 ){
       $('.yesterdaynight.time-change').addClass('active');
     }
-    
+
     if(navigator.userAgent.match(/Chrome/)){
-    $('h1 time').html( day + ' ' + datestring + ' ');// + ' - ' + time);
+    $('h1 time').html( ' ' + day + ' ' + datestring + ' ');// + ' - ' + time);
     }
     else{
-    $('h1 time').html( datestring + ' ');// + ' - ' + time);
+    $('h1 time').html( ' ' +datestring + ' ');// + ' - ' + time);
     }
 
     //timeline
