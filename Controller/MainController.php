@@ -46,6 +46,9 @@ class MainController extends Controller
     public function footerAction(Request $request)
     {
       return $this->render('SkreenHouseFactoryV3Bundle:Main:_footer.html.twig', array(
+		'home'=> $request->get('home'),
+        'route'=> $request->get('route'),
+        'q'=> $request->get('q')
       ));
     }
 
