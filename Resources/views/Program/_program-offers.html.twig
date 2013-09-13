@@ -67,7 +67,7 @@
       <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
       {% if program.datas_theaters.theaters_ids|length > 9 %}
 
-      <form role="form" class="form-search pull-left col-xs-10" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}" data-form-ajax="#theaters-list" >
+      <form role="form" class="form-search pull-left col-xs-10" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-form-ajax="#theaters-list">
         <div class="input-group">
           <input name="q" class="form-control" type="text" placeholder="{{ 'theaters.search.placeholder'|trans }}">
           <div class="input-group-btn col-xs-16 nopadding">
@@ -86,7 +86,7 @@
         </div>
 
         {% endif %}
-        <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}">
+        <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_program', {id: program.id}) }}">
           {% render(controller('SkreenHouseFactoryV3Bundle:Cinema:program', {id: program.id, theater_ids: app.request.get('theater_id') ? app.request.get('theater_id') : program.datas_theaters.theaters_ids|join(',') })) %}
         </div>
         {% endif %}
