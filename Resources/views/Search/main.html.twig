@@ -71,7 +71,7 @@
     'archives': 'Archives',
     'nouveautes': 'Nouveautés'
   } %}
-    <ul id="triggers" class="nav nav-pills" style="font-size: 1.2em;">
+    <ul id="triggers" class="nav nav-pills clear" style="font-size: 1.2em;">
     {% for key,val in keys %}
       {% if attribute(results.count,key) %}
       {% set nb = attribute(results.count,key) %}
