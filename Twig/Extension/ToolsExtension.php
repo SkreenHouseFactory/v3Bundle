@@ -67,6 +67,11 @@ class toolsExtension extends \Twig_Extension
       if ($with_id_as_key) {
         $arr = array();
         foreach ((array)$stdClass as $v) {
+          //HACK programmes adultes, TOFIX in API
+          if (isset($v->error)) {
+            //print_r($v);exit();
+            continue;
+          }
           $arr[$v->id] = $v;
         }
         return $arr;

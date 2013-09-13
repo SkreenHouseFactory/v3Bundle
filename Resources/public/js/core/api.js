@@ -10,7 +10,7 @@ function skPaymentPopinEnd(action, player, occurrence_id) {
     switch(action) {
       case 'play':
         if ($('[data-play="' + occurrence_id + '"]').length) {
-          $('[data-play="' + occurrence_id + '"]').trigger('click');
+          $('[data-play="' + occurrence_id + '"]').addClass('btn-success').trigger('click');
         } else {
           Couchmode.init({type: 'occurrence', id: occurrence_id, hide_sliders: 1});
         }
@@ -99,7 +99,7 @@ API = {
   indexedDbStores: ['friends', 'social_selector'],
   init: function(callback) {
     var href = document.location.href;
-    API.config = $.extend(ENV.all, href.indexOf('.net') != -1 ? ENV.dev : href.indexOf('preprod.') != -1 ? ENV.preprod : ENV.prod);
+    API.config = $.extend(ENV.all, href.indexOf('typhon.net') != -1 ? ENV.dev : href.indexOf('preprod.') != -1 ? ENV.preprod : ENV.prod);
     API.config.player = $('html').hasClass('video') ? 'html5' : 'flash';
 
     // console
@@ -109,6 +109,8 @@ API = {
           warn: function() {},
           error: function() {}
       };
+    } else {
+      console.log('API.config', API.config);
     }
 
     //session
