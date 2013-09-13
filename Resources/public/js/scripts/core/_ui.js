@@ -260,7 +260,7 @@ UiView = {
       if (history.pushState) {
       if ( history.state == null ) {
         if( $('body').hasClass('view-tvgrid')) {
-          var gridPath = $('#grid h2 time').attr('timestamp') + '/';
+          var gridPath = $('#grid time').attr('timestamp') + '/';
           history.pushState({path: window.location.href, document_title: document.title }, document.title, gridPath);
         } else{
          history.pushState({path: window.location.href, document_title: document.title }, document.title, window.location.href);

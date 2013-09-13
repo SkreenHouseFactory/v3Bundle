@@ -148,7 +148,7 @@ GridView = {
   },
   loadSchedule : function(callback) {
     console.log('GridView.loadSchedule', 'timestamp', this.timestamp, new Date(this.timestamp*1000).toString());
-      $('#grid h2 time').attr('timestamp',this.timestamp);
+      $('#grid time').attr('timestamp',this.timestamp);
     var self = this;
     var channel_ids = this.getChannelsIds();
     //loader
@@ -245,7 +245,6 @@ GridView = {
     if( date.getDate() == CurrentDate.getDate() && date.getHours()==CurrentDate.getHours()){
       $('.now.time-change').addClass('active');
     }
-    
     if( date.getDate() == CurrentDate.getDate() && date.getHours()>=20 ){
       $('.tonight.time-change').addClass('active');
     }
@@ -253,11 +252,10 @@ GridView = {
       $('.yesterdaynight.time-change').addClass('active');
     }
 
-    if(navigator.userAgent.match(/Chrome/)){
-    $('h1 time').html( ' ' + day + ' ' + datestring + ' ');// + ' - ' + time);
-    }
-    else{
-    $('h1 time').html( ' ' +datestring + ' ');// + ' - ' + time);
+    if (navigator.userAgent.match(/Chrome/)){
+      $('#grid time').html( ' ' + day + ' ' + datestring + ' ');// + ' - ' + time);
+    } else {
+      $('#grid time').html( ' ' + datestring + ' ');// + ' - ' + time);
     }
 
     //timeline
