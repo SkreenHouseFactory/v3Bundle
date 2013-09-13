@@ -75,7 +75,7 @@
   filter='lessphp,?yui_css'
   output='css/v3.css'
   %}
-  <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  <link href="{{ asset_url }}?new" rel="stylesheet" media="screen" />
   {% endstylesheets %}
 </head>
 {% endspaceless %}
@@ -146,7 +146,7 @@
 
   filter='?yui_js' 
   output='js/compiled/v3.js'  %}
-  <script src="{{ asset_url }}"></script>
+  <script src="{{ asset_url }}?new"></script>
   <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
     {lang: 'fr'}
   </script>
@@ -156,7 +156,7 @@
   {% endblock %}
 
   {% if app.environment == 'prod' and block('nostats') is empty %}
-  {% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' with {tag: 'UA-6151896-14'} %}
+  {% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' with {tag: 'UA-6151896-17'} %}
   {% include 'SkreenHouseFactoryV3Bundle::_chartbeat.html.twig' %}
   <script type="text/javascript">
     _gaq.push(['_setAccount', 'UA-6151896-8']);

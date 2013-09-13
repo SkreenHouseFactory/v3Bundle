@@ -1,4 +1,4 @@
-{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+{% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% block title %}{{ 'page.title.tvgrid'|trans({'%date%': data.timestamp|localizeddate('full')|replace({'00:00': '00'})}) }}{% endblock %}
 {% block description %}{{ 'page.description.tvgrid'|trans }}{% endblock %}

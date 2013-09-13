@@ -417,8 +417,7 @@ var BaseSlider = Class.extend({
         $('a.title', li).attr('data-ajax', API.config.v3_root + p.seo_url + '?view-cover=1')
                         .attr('rel', '#content');
       } else {
-        //if (p.deporte) { $('.channel .diff', li).html('<i class="icon-th icon-white"></i> Sur mySkreen'); }
-        //else 
+
         if (p.has_vod == 4) { $('.channel .diff', li).html('Ciné'); }
         else if (p.has_vod == 3) { $('.channel .diff', li).html('DVD'); }
         else if (p.has_vod == 5) { $('.channel .diff', li).html('TV'); }

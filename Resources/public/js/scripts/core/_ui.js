@@ -173,6 +173,9 @@ UiView = {
       $('body').css('background',body_background);
       $('body').addClass(body_class);
     }
+    if($('.navbar').css('display') == "none"){
+      $('.navbar').css('display','block');
+    }
      if ( has_playlist == true ){
          $('body').addClass('playlist-in');
       }

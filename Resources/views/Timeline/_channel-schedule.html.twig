@@ -14,7 +14,7 @@
 	<!-- <a data-id="{{ o.program.episodeof_id is defined ? o.program.episodeof_id : o.program.id }}" class="btn-defaut fav fav-like"><i class="glyphicon glyphicon-plus-sign"></i></a>
 	-->
 	{% if o.player %}<a class="btn-defaut" data-play="{{ o.player.id }}"><i class="glyphicon glyphicon-play"></i></a>{% elseif o.url %}<a class="" target="_blank" href="{{ o.url }}"><i class="icon-share"></i></a>{% endif %}</div>
-	<a class="link" rel="#content" data-ajax-play="{{o.id}}" data-ajax="{{ path('any_url', {url: o.program.url[1:o.program.url|length-1]}) }}" >
+	<a class="link" rel="#content" data-ajax-play="{{o.id}}" data-ajax="{{ path('any_url', {url: o.program.url[1:o.program.url|length-1]}) }}" href="{{ path('any_url', {url: o.program.url[1:o.program.url|length-1]}) }}">
 		<div class="nowrap"><span class="header">{{ o.broadcast_begin|date('H:i') }} {{ o.program.format ? o.program.format.name : '' }}</span></div>
 		{% if o.is_live and c.live %}<span class="label label-warning">{#<i class="icon-{{ o.player ? 'play' : 'share' }} icon-white"></i> #}Live</span>
 		{% elseif o.url or o.player %}<span class="label label-info">{#<i class="icon-{{ o.player ? 'play' : 'share' }} icon-white"></i> #}Replay</span>
