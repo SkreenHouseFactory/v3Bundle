@@ -414,8 +414,7 @@ $(document).ready(function(){
     }); */
    
      //
-   
-     
+
      $('#opt-hour').on('change',function(){
        var current = $(this).data('current-hour');
        var nhour = $(this).val();
@@ -424,15 +423,14 @@ $(document).ready(function(){
         GridView.loadSchedule();
      });
      $('.btn-precedent').on('click', function(){
-      
        GridView.setTime( $('#grid').data('timestamp') - 3600);
        GridView.loadSchedule();
-     
+       return false;
      });
      $('.btn-suivant').on('click', function(){
        GridView.setTime( $('#grid').data('timestamp') + 3600);
        GridView.loadSchedule();
-     
+       return false;
      });
     //datepicker
     var datepicker = $('#datepicker');

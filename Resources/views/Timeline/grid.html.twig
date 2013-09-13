@@ -56,8 +56,8 @@
   </ul>
   <div class="relative">
   <div class="horaire">
-    <a class="btn btn-small btn-inverse btn-precedent" ><i class="glyphicon glyphicon-chevron-left"></i> Préc.</a>
-   <a class="btn btn-small btn-inverse btn-suivant">Suivant <i class="glyphicon glyphicon-chevron-right"></i></a>
+    <a href="{{ path('tvgrid_date', {date: data.timestamp - 36000 }) }}" class="btn btn-small btn-inverse btn-precedent" ><i class="glyphicon glyphicon-chevron-left"></i> Préc.</a>
+    <a href="{{ path('tvgrid_date', {date: data.timestamp + 36000 }) }}" class="btn btn-small btn-inverse btn-suivant">Suivant <i class="glyphicon glyphicon-chevron-right"></i></a>
  </div>
   <ul class="timeline">
     <li></li>
