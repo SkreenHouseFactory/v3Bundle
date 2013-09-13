@@ -108,7 +108,6 @@
                 {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
                 {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
                 {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
-
                 {# autres episodes #}
                 {% if o.episode_id is defined and 
                       program.episodeof.id is defined and 
@@ -121,12 +120,12 @@
                 <tr class="{% if loop.index > 3 and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}collapse collapsing-{{ key }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~  o.broadcasttime|broadcastdate}) }}">
 
                   <td class="channel">
-                    <img src="{% if o.picture is defined %}{{ o.picture }}{% else %}{{o_channel.img}} {% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}">
+                    <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% else %}{{ o_channel.img }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
                   </td>
 
                   <td class="episode"{% if o_access.name not in ['Vidéo','Archive','Extrait','Bonus'] or o.cost %} colspan="2"{% endif %}>
                    {% if o.title is defined and o.title %}
-                   <p>{{ o.title }}</p><span>{{ o.description }}</span>
+                   <p><b>{{ o.title }}</b><br/>{{ o.description }}</p>
                    {% elseif o_episode and o_episode.title %}
                    <p>{{ o_episode.title }}</p>
                    {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}

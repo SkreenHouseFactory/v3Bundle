@@ -198,10 +198,6 @@ ProgramView = {
 
 
 
-
-
-
-
 //surcharge session sync args to get sVOD :
 Session_sync_args =  { 'with_svod': 1 };
 
@@ -303,7 +299,7 @@ $(document).ready(function(){
 
     //autoload from url
     if (document.location.href.match(/\?rent/gi)) {
-      $('#plays [data-play]:first').trigger('click');
+      $('#program-offers [data-play]:first').trigger('click');
     } else if (document.location.href.match(/\?follow/gi)) {
 
       if ($('#program-modal').length){
