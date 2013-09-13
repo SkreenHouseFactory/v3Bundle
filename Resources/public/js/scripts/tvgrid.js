@@ -148,7 +148,7 @@ GridView = {
   },
   loadSchedule : function(callback) {
     console.log('GridView.loadSchedule', 'timestamp', this.timestamp, new Date(this.timestamp*1000).toString());
-      $('#grid >h1 time').attr('timestamp',this.timestamp);
+      $('#grid h2 time').attr('timestamp',this.timestamp);
     var self = this;
     var channel_ids = this.getChannelsIds();
     //loader
@@ -253,7 +253,7 @@ GridView = {
       $('.yesterdaynight.time-change').addClass('active');
     }
     
-    $('h1 time').html(day + ' ' + datestring + ' ');// + ' - ' + time);
+    $('h2 time').html(day + ' ' + datestring + ' ');// + ' - ' + time);
     
     //timeline
     $('.timeline li:nth-child(2)').html(date.getHours()%24 + 'h00');

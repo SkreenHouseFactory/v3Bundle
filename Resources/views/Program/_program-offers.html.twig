@@ -18,9 +18,10 @@
      <div class="panel-heading">
        <h3 class="panel-title">Pass</h3>
      </div>
-     <table class="table table-hover" data-id="{{ s.pass.play }}" data-play="{{ s.pass.play }}" data-play-pass="{{ s.id }}" data-play-args="{&quot;hide_sliders&quot;:1}">
+     <div class="tab-pane">
+     <table class="table table-hover">
       <tbody>
-        <tr>
+        <tr data-id="{{ s.pass.play }}" data-play="{{ s.pass.play }}" data-play-pass="{{ s.id }}" data-play-args="{&quot;hide_sliders&quot;:1}" data-play-text="{{ 'player.content.text.deporte'|trans() }}">
           <td class="channel">
             <img src="http://mskstatic.com/65/medias/ico/chaines/pluzz-vad_medium.png" alt="pluzz VAD Streaming">
           </td>
@@ -35,6 +36,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
   {% endfor %}
   {% endif %}
