@@ -9,7 +9,11 @@ function skPaymentPopinEnd(action, player, occurrence_id) {
   if (typeof action != 'undefined') {
     switch(action) {
       case 'play':
-        Couchmode.init({type: 'occurrence', id: occurrence_id, hide_sliders: 1});
+        if ($('[data-play="' + occurrence_id + '"]').length) {
+          $('[data-play="' + occurrence_id + '"]').trigger('click');
+        } else {
+          Couchmode.init({type: 'occurrence', id: occurrence_id, hide_sliders: 1});
+        }
       break;
       case 'loadAlertUser':
         UI.loadAlertUser(
@@ -128,7 +132,7 @@ API = {
       body.empty();
       UI.appendLoader(body, 1000);
 
-      var args = $.extend(typeof args != 'undefined' ? args : {}, {session_uid: Skhf.session.uid, proxy: 'v3'});
+      var args = $.extend(typeof args != 'undefined' ? args : {}, {session_uid: Skhf.session ? Skhf.session.uid : '', proxy: 'v3'});
 
       this.query(
         'GET_PROXY', 

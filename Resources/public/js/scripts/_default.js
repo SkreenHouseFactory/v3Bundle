@@ -198,7 +198,7 @@ $(document).ready(function(){
   setTimeout(function(){
     UI.addFriendsPrograms();
   }, 700);
-  
+
   //-- Script  pour le helper
   $('.help-sprite.help-sprite-ms_btn_help').on('click', function () {
     $(this).toggleClass('help-sprite-ms_btn_help');
@@ -206,15 +206,11 @@ $(document).ready(function(){
     $('.help-popin').toggleClass('hide');
     $('.modal-backdrop.in').toggleClass('hide');
    });
-  
-
   $('.help-popin').on('click', function () {
     $('.help-sprite').toggleClass('help-sprite-ms_btn_help');
     $('.help-sprite').toggleClass('help-sprite-ms_btn_close');
     $('.help-popin').toggleClass('hide');
     $('.modal-backdrop.in').toggleClass('hide');
    });
-  
-
 
 });

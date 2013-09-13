@@ -150,19 +150,23 @@ class MainController extends Controller
     public function searchAction(Request $request)
     {
       $this->blockDomain($request);
+      $request->attributes->set('q', urldecode($request->get('q')));
       $facets = $request->get('facets') ? $facets : ($request->get('format') ? 'format:' . $request->get('format') : null);
       $api = $this->get('api');
-      $datas = $api->fetch('search/' .urlencode(str_replace('.', '%2E',  $request->get('q'))), 
-                           array('img_width' => 160,
-                                 'img_height' => 200,
-                                 'nb_results' => 30,
-                                 'with_new' => 1,
-                                 'facets' => $facets));
+      $datas = $api->fetch(
+        'search/' .urlencode(str_replace('.', '%2E',  $request->get('q'))), 
+        array(
+          'img_width' => 160,
+          'img_height' => 200,
+          'nb_results' => 30,
+          'with_new' => 1,
+          'facets' => $facets
+      ));
       //echo 'q:'.$request->get('q');
       //echo $api->url;exit;
       //print_r($datas);exit;
 
-      if (is_array($datas) && array_key_exists("spelling",$datas)) {
+      if (is_array($datas) && array_key_exists('spelling',$datas)) {
         if (count($datas->spelling) > 1)
           $datas->spelling = array($datas->spelling[0]);
       }
@@ -223,8 +227,17 @@ class MainController extends Controller
     public function notfoundAction(Request $request)
     {
       if (substr($request->get('url'), 0, 1) == '/') {
-        return $this->redirect($this->generateUrl('any_url', array('url' => substr($request->get('url'), 1, strlen($request->get('url'))-1)), 301));
+        return $this->redirect($this->generateUrl(
+          'any_url', 
+          array('url' => substr($request->get('url'), 1, strlen($request->get('url'))-1)), 301)
+        );
       }
+      
+      //echo 'url:'.$request->get('url');exit();
+      if (substr($request->get('url'),0,25) == 'theatre-concert-spectacle') {
+        return $this->redirect('/'.str_replace('theatre-concert-spectacle', 'concert', $request->get('url')), 301);
+      }
+      
       throw $this->createNotFoundException('Page does not exist');
     }
 

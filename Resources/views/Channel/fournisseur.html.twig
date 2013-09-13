@@ -216,7 +216,7 @@
 
       {% if channel.programs|length %}
 
-      <div class="row clear">
+      <div class="row{{ channel.type == 'cinema' ? ' clear' : '' }}">
       <div class="col-xs-16">
           <div id="channel-programs" class="slider slider-list{% if channel.adress is defined %} clear-cancel{% endif %}">
             <ul class="items">

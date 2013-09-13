@@ -23,14 +23,14 @@
     {% if results.count is defined %}
       <h1>{{ app.request.get('q') }}<small class="inline"> | {{ results.count }} {{ 'search.results'|trans }}</small></h1>
       {% if results.spelling|to_array|length %}
-      <p>Vouliez-vous dire : {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}</p>
+      <p>Vouliez-vous dire : {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling}) }}">{{ spelling }}</a> ?{% endfor %}</p>
       {% endif %}
     {% else %}
       <h1>{{ app.request.get('q') }}</h1>
       <p class="alert alert-warning">{{ 'search.noresults'|trans }}</p>
       {% if results.spelling and results.spelling|to_array|length %}
       <p class="lead">Vouliez-vous dire : 
-      {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}
+      {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling }) }}">{{ spelling }}</a> ?{% endfor %}
         </p>
       {% endif %}
     {% endif %}
@@ -38,6 +38,15 @@
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
 
   {% else %}
+  
+    {% if results.person is defined  and results.person %}
+    <p class="pull-right">
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: results.person.id, name: results.person.name, fav: 'person'} %}
+      &nbsp;&nbsp;
+      <a class="btn btn-default" href="{{ path('any_url', {url: results.person.seo_url|slice(1, results.person.seo_url|length-1) }) }}">Voir tous ses programmes</a>
+    </p>
+    {% endif %}
+  
     {% if results.count.total %}
       <h1>{{ app.request.get('q') }}<small class="inline"> | {{ results.count.total }} {{ 'search.results'|trans }}</small></h1>
       {% if results.spelling|to_array|length %}
@@ -50,15 +59,6 @@
       <p>Vouliez-vous dire : {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}</p>
       {% endif %}
     {% endif %}
-
-
-  {% if results.person is defined  and results.person %}
-  <p>
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: results.person.id, name: results.person.name, fav: 'person'} %}
-    &nbsp;&nbsp;
-    <a class="btn" href="{{ path('any_url', {url: results.person.seo_url|slice(1, results.person.seo_url|length-1) }) }}">Voir tous ses programmes</a>
-  </p>
-  {% endif %}
 
 
   {% set hasActiveTabYet = false %}
