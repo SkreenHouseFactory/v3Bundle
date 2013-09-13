@@ -2,7 +2,7 @@
 <div class="channels-modal">
    <form id="channels-search" data-form-ajax="#channels-list" class="form-search modal-catchform-disable pull-left form-inline" role="form" method="get" action="http://{{ app.request.httpHost() }}{{ app.request.basePath() }}{{ path('tvgrid_addchannel') }}">
     <input type="hidden" name="dataType" value="text html">
-    <div class="form-group">
+    <div class="form-group inline-block" style="width: 70%;">
       <label class="sr-only">{{ 'channels.search.placeholder'|trans }}</label>
       <input class="form-control search-query" name="q" placeholder="{{ 'channels.search.placeholder'|trans }}" value="{{ app.request.get('q') }}">
     </div>
