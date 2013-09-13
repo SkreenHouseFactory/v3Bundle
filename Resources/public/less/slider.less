@@ -384,24 +384,29 @@
 // carousel youtube
 #carousel-youtube.carousel {
   margin: 10px;
-  .carousel-control {
-    width: 3%;
-    .icon-prev,.icon-next{
-     margin-left: -19px;
-     font-size: 5em;
-     color: black;
-     top: 17%;
-   }
-   .icon-next{
-    margin-left: -15px;
-  }
-}
-.carousel-inner {
-  margin-left: 15px;
-  width: auto;
-  min-height: 320px;
+ .carousel-inner {
+    padding-left: 18px;
+    width: auto;
+    min-height: 160px;
+    .carousel-control {
+      width: 3%;
+      .icon-prev,.icon-next{
+       font-size: 5em;
+       color: black;
+       line-height: 100%;
+       top: 23%;
+       z-index: 30;
+      }
+      .icon-next{
+      margin-left: -20px;
+      }
+      .icon-prev{
+      left: 30%;
+      }
+    }
   .carousel-indicators {
     z-index: 10;
+    bottom: 5px;
     li {
       border: 1px solid #999;
       &.active {
