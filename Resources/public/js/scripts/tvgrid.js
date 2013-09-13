@@ -148,7 +148,7 @@ GridView = {
   },
   loadSchedule : function(callback) {
     console.log('GridView.loadSchedule', 'timestamp', this.timestamp, new Date(this.timestamp*1000).toString());
-      $('#grid >h1 time').attr('timestamp',this.timestamp);
+      $('#grid h2 time').attr('timestamp',this.timestamp);
     var self = this;
     var channel_ids = this.getChannelsIds();
     //loader
@@ -241,7 +241,7 @@ GridView = {
       .replace('/10/', ' Octobre ')
       .replace('/11/', ' Novembre ')
       .replace('/12/', ' Décembre ');
-      
+
     if( date.getDate() == CurrentDate.getDate() && date.getHours()==CurrentDate.getHours()){
       $('.now.time-change').addClass('active');
     }
@@ -252,9 +252,14 @@ GridView = {
     if( date.getDate() == CurrentDate.getDate()-1 && date.getHours()>=20 ){
       $('.yesterdaynight.time-change').addClass('active');
     }
-    
-    $('h1 time').html(day + ' ' + datestring + ' ');// + ' - ' + time);
-    
+
+    if(navigator.userAgent.match(/Chrome/)){
+    $('h1 time').html( ' ' + day + ' ' + datestring + ' ');// + ' - ' + time);
+    }
+    else{
+    $('h1 time').html( ' ' +datestring + ' ');// + ' - ' + time);
+    }
+
     //timeline
     $('.timeline li:nth-child(2)').html(date.getHours()%24 + 'h00');
     $('.timeline li:nth-child(3)').html((date.getHours() + 1)%24 + 'h00');
@@ -414,8 +419,7 @@ $(document).ready(function(){
     }); */
    
      //
-   
-     
+
      $('#opt-hour').on('change',function(){
        var current = $(this).data('current-hour');
        var nhour = $(this).val();
@@ -424,15 +428,14 @@ $(document).ready(function(){
         GridView.loadSchedule();
      });
      $('.btn-precedent').on('click', function(){
-      
        GridView.setTime( $('#grid').data('timestamp') - 3600);
        GridView.loadSchedule();
-     
+       return false;
      });
      $('.btn-suivant').on('click', function(){
        GridView.setTime( $('#grid').data('timestamp') + 3600);
        GridView.loadSchedule();
-     
+       return false;
      });
     //datepicker
     var datepicker = $('#datepicker');

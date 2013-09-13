@@ -94,8 +94,8 @@ class TimelineController extends Controller
       //echo $api->url;
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Timeline:_popin-addchannel.html.twig', array(
-                    'channels' => $channels,
-                  ));
+        'channels' => $channels,
+      ));
 
       $maxage = 600;
       $response->setPublic();

@@ -1,35 +1,18 @@
+{% if app.request.get('q') is null %}
 <div class="channels-modal">
-
-
-
-
-
-
-
-
- <form id="channels-search" class="form-search pull-left form-inline" role="form" method="get" action="http://{{ app.request.httpHost() }}{{ app.request.basePath() }}{{ path('tvgrid_addchannel') }}">
+   <form id="channels-search" data-form-ajax="#channels-list" class="form-search modal-catchform-disable pull-left form-inline" role="form" method="get" action="http://{{ app.request.httpHost() }}{{ app.request.basePath() }}{{ path('tvgrid_addchannel') }}">
     <input type="hidden" name="dataType" value="text html">
+    <div class="form-group">
+      <label class="sr-only">{{ 'channels.search.placeholder'|trans }}</label>
+      <input class="form-control search-query" name="q" placeholder="{{ 'channels.search.placeholder'|trans }}" value="{{ app.request.get('q') }}">
+    </div>
 
-
-  <div class="form-group">
-    <label class="sr-only " for="exampleInputEmail2">{{ 'channels.search.placeholder'|trans }}</label>
-    <input type="email" class="form-control search-query"  placeholder="{{ 'channels.search.placeholder'|trans }}" value="{{ app.request.get('q') }}">
-  </div>
-
-  <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"> </i>  {{ 'channels.search.submit'|trans }}</button>
-</form>
-
-
-
-
-
-
-
-
-  <div id="channels-list" class="clear" data-api-url="{{ path('tvgrid_addchannel') }}"></div>
+    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"> </i>  {{ 'channels.search.submit'|trans }}</button>
+  </form>
 </div>
+{% endif %}
 
-<hr class="clear"/>
+<div id="channels-list" class="clear" data-api-url="{{ path('tvgrid_addchannel') }}">
 {% if channels|length == 0 and app.request.get('init') is null %}
   <p class="alert">{{ 'tvgrid.channels.noprogram.search'|trans }}</p>
 {% elseif app.request.get('init') is null %}
@@ -37,11 +20,12 @@
   <table class="table table-striped">
   {% for channel in channels %}
     {% if channel.epg %}
-    <tr><td class="actions" data-id="{{ channel.id }}">
-      {#<a class="fav fav-epg pull-right btn btn-primary" data-id="{{ channel.id }}" data-img="{{ channel.img }}" data-seo-url="{{ channel.seo_url }}" data-name="{{ channel.name }}" href="#"><i class="icon-plus-sign icon-white"></i> </a>#}
+    <tr>
+      <td>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'fav-epg pull-right', text: 'Ajouter à la grille', name: channel.name } %}
-      <img src="{{ channel.img }}"/> {{ channel.name }}
-    </td></tr>
+      <img src="{{ channel.img }}" alt="{{ channel.name }}"/> {{ channel.name }}
+      </td>
+    </tr>
     {% endif %}
   {% endfor %}
   </table>
@@ -53,3 +37,4 @@
 	}
 	</script>
 {% endif %}
+</div>
