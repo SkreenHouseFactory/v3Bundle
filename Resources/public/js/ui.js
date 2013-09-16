@@ -349,7 +349,7 @@ UI = {
       for (key in ids) {
         //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)');
         var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + ':not(.fav-on)', elmt);
-        trigger.html('<i class="glyphicon glyphicon-ok"></i> Dans vos playlists').addClass('fav-on btn-success');
+        trigger.html('<i class="glyphicon glyphicon-ok"></i> Abonné').addClass('fav-on btn-success');
       }
       switch(parameter) {
         case 'cinema': //reload
@@ -369,7 +369,7 @@ UI = {
         for (key in ids) {
           //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
           var trigger = $('[data-id="' + ids[key] + '"].fav-' + this.available_playlists[k] + ':not(.fav-on)', elmt);
-          trigger.html('<i class="glyphicon glyphicon-ok"></i> Dans vos playlists').addClass('fav-on btn-success');
+          trigger.html('<i class="glyphicon glyphicon-ok"></i> Abonné').addClass('fav-on btn-success');
         }
       }
     }
@@ -950,7 +950,7 @@ UI = {
             switch (key) {
               case 'queue':
                 var items = data[key][0].programs;
-                titles[key] = 'Dans vos playlists';
+                titles[key] = 'Abonné';
                 break;
               case 'channels':
                 var items = data[key];
