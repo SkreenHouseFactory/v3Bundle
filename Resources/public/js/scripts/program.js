@@ -342,6 +342,7 @@ $(document).ready(function(){
     console.log('after PG init');
 
     }
+     
 
     // tracking
     $('[data-track-channel]').each(function() {
@@ -361,7 +362,6 @@ $(document).ready(function(){
         $('.show-more-text').html('Réduire le texte');
       }    
     });
-
 
     // Déplier la liste des acteurs
     $('.actors_reveal').on('click', function () {

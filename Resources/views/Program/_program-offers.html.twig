@@ -128,7 +128,7 @@
 
               <td class="episode"{% if o_access.name not in ['Vidéo','Archive','Extrait','Bonus'] or o.cost %} colspan="2"{% endif %}>
                {% if o.title is defined and o.title %}
-               <p>{{ o.title }}</p><span>{{ o.description }}</span>
+               <p><strong>{{ o.title }}</strong><br><span>{% if o.description|length > 57 %}{{ o.description|slice(0, 56)}}...{% else %}{{ o.description}}{% endif %}</span></p>
                {% elseif o_episode and o_episode.title %}
                <p>{{ o_episode.title }}</p>
                {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}
