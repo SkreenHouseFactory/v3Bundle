@@ -362,9 +362,6 @@ $(document).ready(function(){
         $('.show-more-text').html('Réduire le texte');
       }    
     });
-    $('[data-play]').on('click',function(){
-      $("html, body").animate({ scrollTop: "0px"});
-    });
 
     // Déplier la liste des acteurs
     $('.actors_reveal').on('click', function () {

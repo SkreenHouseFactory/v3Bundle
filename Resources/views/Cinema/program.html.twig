@@ -32,55 +32,51 @@
       <div id="theater-{{ cinema.id }}" class="panel-collapse {{ loop.first ? 'in' : 'collapse' }}">
         <ul class="nav nav-tabs">
           {% for day in days if attribute(cinema.schedules, day) is defined %}
-          <li{% if loop.index == 1%} class="active" {% endif %}><a href="#{{ day }}" data-toggle="tab">{{ day }}</a></li>
+          <li{% if loop.index == 1%} class="active" {% endif %}><a href="#{{ day }}-{{ cinema.id }}" data-toggle="tab">{{ day }}</a></li>
           {% endfor %}
         </ul>
         <div class="tab-content">
-          {% for day in days if attribute(cinema.schedules, day) is defined %}
+        {% for day in days if attribute(cinema.schedules, day) is defined %}
           {% set s = attribute(cinema.schedules, day) %}
           {% set hasVF = 0 %}
           {% set hasVO = 0 %}
           {% set noV = 1 %}
-            {% for h in s.schedules|to_array %}
+          {% for h in s.schedules|to_array %}
             {% if h.version == "VO"%}
-            {% set hasVO = 1%}
-            {% set noV = 0 %}
+              {% set hasVO = 1%}
+              {% set noV = 0 %}
             {% endif %}
             {% if h.version == "VF"%}
-            {% set hasVF = 1%}
-            {% set noV = 0 %}
+              {% set hasVF = 1%}
+              {% set noV = 0 %}
             {% endif %}
-            {% endfor %}
-
-          <div class="tab-pane {% if loop.index == 1%}active{% endif %}" id="#{{ day }}">
+          {% endfor %}
+          <div class="tab-pane fade{% if loop.index == 1%} active in{% endif %}" id="{{ day }}-{{ cinema.id }}">
           {% if noV == 1%}
             {% for h in s.schedules|to_array %}
-            {{ h.hour }}&nbsp;
+              {{ h.hour }}&nbsp;
             {% endfor %}
           {% endif %}
-
             {% if hasVO == 1%}
-            <span class="label label-default">VO</span>
-            {% for h in s.schedules|to_array %}
-            {% if h.version == "VO"%}
-            {{ h.hour }}&nbsp;
-            {% endif %}
-            {% endfor %}
+              <span class="label label-default">VO</span>
+              {% for h in s.schedules|to_array %}
+                {% if h.version == "VO"%}
+                  {{ h.hour }}&nbsp;
+                {% endif %}
+              {% endfor %}
             {% endif %}
             {% if hasVF == 1 and hasVO == 1 %}
-          </br>
-          {% endif %}
-          {% if hasVF == 1%}
-          <span class="label label-default">VF</span>
-          {% for h in s.schedules|to_array %}
-          {% if h.version == "VF"%}
-          {{ h.hour }}&nbsp;
-          {% endif %}
-
-          {% endfor %}
-          {% endif %}
-        </div>
-
+              </br>
+            {% endif %}
+            {% if hasVF == 1%}
+              <span class="label label-default">VF</span>
+              {% for h in s.schedules|to_array %}
+                {% if h.version == "VF"%}
+                  {{ h.hour }}&nbsp;
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          </div>
         {% endfor %}
       </div>
 

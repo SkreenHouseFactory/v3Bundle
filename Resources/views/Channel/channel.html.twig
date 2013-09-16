@@ -24,7 +24,7 @@
     <link rel="prev" href="{{ path('channel', {slug: app.request.get('slug')}) }}">
     {% endif %}
     {% if data.channel.fournisseur.programs|to_array|length == 30 %}
-    <link rel="next" href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">
+    <link rel="next" href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}"
     {% endif %}
   {% endif %}
 {% endif %}

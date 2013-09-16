@@ -6,7 +6,7 @@ var BaseSlider = Class.extend({
   sample: null,
   loader: null,
   params: {
-    width: 150,
+    width: 160,
     padding: 12,
     height: 200,
     item_margin: 7,
