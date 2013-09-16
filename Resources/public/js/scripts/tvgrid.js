@@ -72,10 +72,10 @@ GridView = {
       //checking Ajax Request
       if( $.active != 0 ){
         $(document).ajaxStop(function(){
+          var diff= $.now()/1000 - parseInt($('#grid').data('timestamp'));
           $('#channels .actions .fav-on').parent().removeClass('hide');
-          if( $('.now').hasClass('active') ){
-            var now = new Date();
-            var time2Pixel =Math.round( (87 + now.getMinutes() * 5) / 10) * 10;
+          if( diff > 0 && diff < 3*3600 ){
+            var time2Pixel =Math.round( (87 + (diff/60) * 5) / 10) * 10;
             $('.time-bar').css('left',time2Pixel);
             $('.arrow').css('left',time2Pixel - 6);
             $('.time-bar,.arrow').removeClass('hide');
@@ -99,9 +99,10 @@ GridView = {
       }
       else{
         $('#channels .actions .fav-on').parent().removeClass('hide');
-        if( $('.now').hasClass('active') ){
+        var diff= $.now()/1000 - parseInt($('#grid').data('timestamp'));
+        if( diff > 0 && diff < 3*3600 ){
           var now = new Date();
-          var time2Pixel =Math.round( (89 + now.getMinutes() * 5) / 10) * 10;
+          var time2Pixel =Math.round( (89 + (diff/60) * 5) / 10) * 10;
           $('.time-bar').css('left',time2Pixel);
           $('.arrow').css('left',time2Pixel - 6);
           $('.time-bar,.arrow').removeClass('hide');

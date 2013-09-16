@@ -22,7 +22,7 @@
 <div  class="hover-menu hover-menu-tv hide">
   <ul>
     <li class="nav-header">La grille TV</li>
-    <li class="pull-left"><a href="{{ path('tvgrid') }}">En ce moment</a></li>
+    <li class="pull-left"><a href="{{ path('tvgrid_date', {date: 'en-ce-moment'}) }}">En ce moment</a></li>
     <li class="pull-left"><a href="{{ path('tvgrid_date', {date: 'ce-soir'}) }}">Ce soir</a></li>
     <li class="pull-left"><a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir</a></li>
     <li class="clear divider"></li>
