@@ -68,7 +68,7 @@ body.cover, body.playlist-in.cover:not(.view-redirect) {
 }
 body.playlist-in, body.no-cover.playlist-in, .view-redirect.playlist-in {
   #main {
-    padding-top: 400px;
+    padding-top: 360px;
   }
 }
 body, body.no-cover, body.cover.view-redirect:not(.playlist-in), body.view-redirect {
@@ -203,9 +203,17 @@ h3, h4 {
     left: 40%;
   }
 }
-
 h6 {
   color: #333;
+}
+
+.ms-surtitre {
+  color: #AAA;
+  display: block;
+  text-transform: uppercase;
+  margin: 10px 0 0;
+  padding: 0;
+  font-size: 0.9em;
 }
 
 ul.pager {
@@ -568,14 +576,35 @@ ul.typeahead {
   height: 500px;
   background: transparent;
   position: relative;
-
+  .container-redirect{
+    z-index: 10;
+    position: absolute;
+    top: 0px;
+    left: 135px;
+    background: transparent;
+    >p{
+      line-height: 2.1em;
+      width: 615px;
+      color:white;
+      .close{
+        opacity: 1;
+        font-weight: normal;
+        color: white;
+        text-shadow: none;
+      }
+      a{
+        color:white;
+      }
+    }
+  }
   .close-redirect {
     background: #3a87ad;
     color: white;
     position: absolute;
     right: 0;
+    font-size: 1.2em;
     z-index: 10;
-    padding: 10px 20px;
+    padding: 16px 24px;
     border-radius: 5px;
   }
 
@@ -588,7 +617,7 @@ ul.typeahead {
 
   iframe {
     border: 0;
-    border-top: 10px solid #3a87ad;
+    border-top: 30px solid #3a87ad;
     position: absolute;
     z-index: 1;
     height: 100%;

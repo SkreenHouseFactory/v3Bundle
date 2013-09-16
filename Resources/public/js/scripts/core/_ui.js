@@ -48,7 +48,7 @@ UiView = {
 
     // ui modal
     if ($('.modal').length > 0) {
-      $('.modal').on('show', function(){
+      $('.modal').on('shown.bs.modal', function(){
         //retrait des popover
         $('.popover').remove();
         //pause du player (retait pour iphone)
@@ -68,7 +68,7 @@ UiView = {
           });  
         }
       });
-      $('.modal').on('hidden', function(){
+      $('.modal').on('hidden.bs.modal', function(){
         $('.popover').remove();
         $('.modal .modal-body').empty();
 
@@ -244,6 +244,7 @@ UiView = {
     // toggle text in element
     $(document).on('click', '[data-toggle-text]', function () {
       var html = $(this).html();
+      console.log('script', '[data-toggle-text]', $(this).data('toggle-text'), html);
       $(this).html($(this).data('toggle-text'));
       $(this).data('toggle-text', html);
     });
@@ -252,21 +253,20 @@ UiView = {
       var trigger = $(this); 
       if ( $('html').hasClass('lt-ie9')){
         window.location.href = trigger.data('ajax');
-      }
-      else{
-      //history
-      console.log('script', '[data-ajax]', $(this).data('ajax'));
-      console.log('History.pushStates');
-      if (history.pushState) {
-      if ( history.state == null ) {
-        if( $('body').hasClass('view-tvgrid')) {
-          var gridPath = $('#grid time').attr('timestamp') + '/';
-          history.pushState({path: window.location.href, document_title: document.title }, document.title, gridPath);
-        } else{
-         history.pushState({path: window.location.href, document_title: document.title }, document.title, window.location.href);
+      } else {
+        //history
+        console.log('script', '[data-ajax]', $(this).data('ajax'));
+        console.log('History.pushStates');
+        if (history.pushState) {
+        if ( history.state == null ) {
+          if( $('body').hasClass('view-tvgrid')) {
+            var gridPath = $('#grid time').attr('timestamp') + '/';
+            history.pushState({path: window.location.href, document_title: document.title }, document.title, gridPath);
+          } else{
+           history.pushState({path: window.location.href, document_title: document.title }, document.title, window.location.href);
+          }
         }
-      }
-      history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
+        history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
       }
       $('.tooltip').remove();
        console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
