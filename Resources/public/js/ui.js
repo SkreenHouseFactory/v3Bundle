@@ -805,8 +805,7 @@ UI = {
     Player.redirect(url, $('#redirect'), $('#content'));
     $('#redirect').prepend(
       '<div class="container container-redirect collapse in">' +
-      '<p class="alert alert-info">' +
-      '<span class="close pull-right" data-toggle="collapse" data-target=".container-redirect">&times;</span>' +
+      '<p>' +
       'Vous visitez un site partenaire. ' +
       (typeof link_fiche != 'undefined' ? '<a data-ajax="' + link_fiche + '" rel="#content">› Voir le programme sur mySkreen</a>&nbsp; ' : '') +
       '<a data-redirect="unload">› Revenir à mySkreen.com</a></p>' +
