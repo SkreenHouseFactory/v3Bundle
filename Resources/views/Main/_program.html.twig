@@ -6,14 +6,14 @@
 
 {% if p is not defined or p.title is not defined %}
 {% set p = {title:'%title%',
-            id:'%id%',
-            picture:'',
-            onglet:'%onglet%',
-            seo_url:'',
-            root_id:'',
-            has_vod:'%has_vod%',
-            best_offer:'',
-            deporte:''} %}
+id:'%id%',
+picture:'',
+onglet:'%onglet%',
+seo_url:'',
+root_id:'',
+has_vod:'%has_vod%',
+best_offer:'',
+deporte:''} %}
 {% endif %}
 
 {% if ' - ' in p.title %}
@@ -22,6 +22,7 @@
 {% else %}
 {% set p_title = p.title %}
 {% endif %}
+
 
 <li class="tv-component actions hasvod-{{ p.has_vod }} image-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}} root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background:url({{ p.picture }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
 		{% if p.popular_channel is defined %}

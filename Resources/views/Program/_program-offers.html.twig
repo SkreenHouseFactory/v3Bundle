@@ -285,7 +285,7 @@
 <div class="panel panel-synopsis">
   <div class="panel-heading"><h2 class="panel-title">Tout sur {{ program.title }}</h2></div>
   <div class="tab-pane text-toggle-extend">
-    {% if program.description_seo|striptags|length < 350 %}
+    {% if program.description_seo|striptags|length < 560 %}
     <div class="text">
       {{ program.description_seo|raw }}
     </div>
