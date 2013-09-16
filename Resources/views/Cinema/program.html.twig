@@ -15,8 +15,7 @@
   {% elseif app.request.get('latlng') %}
   <p class="alert alert-warning">{{ 'program.theaters.noprogram.geoloc'|trans }}</p>
   {% endif %}
-  {% else %}
-
+{% else %}
 
   <div class="panel-group" id="accordion-theaters">
     {% if radius is defined and radius > 10 %}

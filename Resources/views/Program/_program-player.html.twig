@@ -3,7 +3,7 @@
   <p id="program-teaser-header" data-default-text="{{ ('player.content.text.' ~ program.player.type)|trans({'%date%': (program.player.broadcasttime is defined ? 'diffusé '~  program.player.broadcasttime|broadcastdate : '')}) }}">{{ ('player.content.text.' ~ program.player.type)|trans({'%date%': (program.player.broadcasttime is defined ? 'diffusé '~  program.player.broadcasttime|broadcastdate : '')}) }}</p>
 </div>
 <a name="teaser"></a>
-<div id="program-teaser">  
+<div id="program-teaser" itemprop="about" itemscope itemtype="http://www.schema.org/VideoObject">  
   <meta itemprop="duration" />
   <meta itemprop="thumbnail" content="{{ program.picture }}" />
   {% if program.player_fb is defined %}
@@ -12,6 +12,14 @@
   <meta itemprop="width" content="637" />
   <meta itemprop="height" content="368" />
   <meta itemprop="playerType" content="Flash" />
+  <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
+  <meta itemprop="name" content="{{ program.title }}" />
+  <meta itemprop="isFamilyFriendly" content=true />
+  <meta itemprop="duration" content="{{ program.duration * 60 }}" />
+  {% if program.director|to_array|length and program.director|to_array|first %}
+  <span itemprop="author" itemscope itemtype="http://schema.org/Person"><link itemprop="url" href="http://www.myskreen.com{{ program.director|to_array|first.seo_url }}" /></span>
+  {% endif %}
+  <meta itemprop="description" content="{{ program.description|striptags }}" />
   <div id="program-teaser-meta" class="player-meta"></div>
   <div id="program-teaser-player"{% if app.request.isXmlHttpRequest %}{%else%} data-play-autoload-bak="{{ program.player.id }}"{% endif %} data-play="{{ program.player.id }}" {#data-play-meta-elmt="#program-teaser-meta" data-play-muted="1"#} data-play-args="{{ {hide_sliders: 1, current_player: '#program-teaser-player'}|json_encode }}">
     <iframe src="{{ player_host }}/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.player.id }}&height=368&width=637&fromWebsite=1" style="height:368px;width:637px" scrolling="no" frameborder="0"></iframe>

@@ -260,11 +260,10 @@ UiView = {
       if (history.pushState) {
       if ( history.state == null ) {
         if( $('body').hasClass('view-tvgrid')) {
-          var gridPath = $('#grid >h1 time').attr('timestamp')+'/';
+          var gridPath = $('#grid time').attr('timestamp') + '/';
           history.pushState({path: window.location.href, document_title: document.title }, document.title, gridPath);
-        }
-        else{
-        history.pushState({path: window.location.href, document_title: document.title }, document.title, window.location.href);
+        } else{
+         history.pushState({path: window.location.href, document_title: document.title }, document.title, window.location.href);
         }
       }
       history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
