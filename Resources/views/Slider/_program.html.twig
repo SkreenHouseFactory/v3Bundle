@@ -15,7 +15,16 @@
 		<img class="channel" src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" />
 		{% endif %}
 		<a{% if p.seo_url %} href="{{ base_url }}{{ p.seo_url }}{{ theater_id is defined and theater_id > 0 ? '?theater_id=' ~ theater_id : '' }}" target="_top"{% endif %} class="wrap-title size-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}}">
-		<span class="title">{% if p.deporte is defined and p.deporte %}<span class="label label-default ico-deporte"><i class="glyphicon glyphicon-play"></i> <span>sur mySkreen</span></span>{% endif %}<i class="icon-th icon-white"></i> {{ p_title|raw }}</span>
+		<span class="title">
+			{% if p.deporte is defined and p.deporte %}
+			<span class="label label-default ico-deporte">
+				<i class="glyphicon glyphicon-play"></i> 
+				<span>sur mySkreen</span>
+			</span>
+			{% endif %}
+			<i class="icon-th icon-white"></i>
+			{{ p_title|raw }}
+		</span>
 	</a>
 </div>
 </div>
