@@ -34,8 +34,8 @@ page:
         tvgrid: Programme TV du %date%
         channel:
           cinema: %name% : Films à l'Affiche, Horaires des Séances
-          tv: %name% %access% : revoir tous les programmes TV de la chaîne | Tv et Replay
-          tv_format: %formats% de %name% en %access% | Tv et Replay
+          broadcast: %name% %access% : revoir tous les programmes TV de la chaîne | Tv et Replay
+          broadcast: %formats% de %name% en %access% | Tv et Replay
           default: Découvrez %name% en %access% | Streaming
           default_format: %formats% de %name% en %access% | Streaming
         program :

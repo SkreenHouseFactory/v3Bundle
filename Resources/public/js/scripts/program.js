@@ -72,7 +72,8 @@ ProgramView = {
                 if (typeof $(this).data('play-pass') == 'undefined') {
                   $('td .btn', this)
                     .addClass('btn-success')
-                    .html('<i class="glyphicon glyphicon-play"></i> Voir');
+                    .removeClass('btn-voir')
+                    .html('<i class="glyphicon glyphicon-play"></i> Voir (loué)');
                 }
               })
             }
@@ -85,10 +86,9 @@ ProgramView = {
           for (k in datas.boutons_notifications['new']) {
             var notifs = datas.boutons_notifications['new'][k];
             if (notifs.length > 0 && k != 'count' ) {
-              $('#trigger-' + k).append('<span class="badge badge-important">' + notifs.length + '</span>');                  
-              for(k in notifs){
-                $('#program-offers #' + k + ' .table-container').addClass('has-notification');
-                $('#program-offers [data-id="' + notifs[k] + '"] td:first-child').html('<span class="badge badge-important">1</span>');
+              $('#program-offers .panel-' + k).append('<span class="badge label-danger">' + notifs.length + ' nouveaux</span>');           
+              for (k in notifs){
+                $('#program-offers [data-id="' + notifs[k] + '"] td:first-child').append('<span class="badge label-danger">Nouveau</span>');
               };
             }
           };
@@ -247,6 +247,7 @@ $(document).ready(function(){
               scroll: 'no',
               programs: return_data.channels
             }, function(){
+              /**** click => chaine
               var trigger = $(this);
               $('#skModal.modal .slider li a[href]').addClass('fav fav-channel')
                                             .attr('href', '#')
@@ -256,6 +257,7 @@ $(document).ready(function(){
                                             .on('click', function(){
                 UI.togglePlaylist($(this).find('a.title'), false);
               });
+              */
             }, $('#skModal.modal .slider'));
 
             $('#skModal.modal').modal();
@@ -269,6 +271,7 @@ $(document).ready(function(){
               scroll: 'no',
               programs: return_data.programs
             }, function(){
+              /**** click => fiche program
               var trigger = $(this);
               $('#skModal.modal .slider li a[href]').addClass('fav fav-like')
                                             .attr('href', '#')
@@ -278,6 +281,7 @@ $(document).ready(function(){
                                             .on('click', function(){
                 UI.togglePlaylist($(this).find('a.title'), false);
               });
+              */
             }, $('#skModal.modal .slider'));
 
             $('#skModal.modal').modal();
@@ -355,10 +359,9 @@ $(document).ready(function(){
     $('.show-all').on('click', function () {
       var $this = $(this);
       $('.text', $(this).parent()).toggleClass('show-more-height');
-      if($('.text', $(this).parent()).hasClass('show-more-height')){
+      if ($('.text', $(this).parent()).hasClass('show-more-height')) {
         $('.show-more-text').html('Voir plus');
-      }
-      else{
+      } else{
         $('.show-more-text').html('Réduire le texte');
       }    
     });
@@ -369,4 +372,3 @@ $(document).ready(function(){
     });  
   }
 });
-

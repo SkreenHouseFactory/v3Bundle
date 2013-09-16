@@ -17,7 +17,7 @@
 <meta name="object_type" content="channel" />
 {% endblock %}
 {% block title %}
-{% set page_title_channel = 'page.title.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
+{% set page_title_channel = 'page.title.channel.' ~ (channel.type in ['broadcast','cinema'] ? channel.type : 'default') ~ (app.request.get('format') ? '_format' : null) %}
 {{ page_title_channel|trans({'%name%': channel.name, '%format%': format_trans|trans, '%formats%': formats_trans|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
 {%- if app.request.get('facet') %}, {{ subcategories[app.request.get('facet')] is defined ? subcategories[app.request.get('facet')] : app.request.get('facet')  }}{% endif -%}
 {%- if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif -%}
