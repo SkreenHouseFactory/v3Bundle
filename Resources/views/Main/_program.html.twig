@@ -5,41 +5,41 @@
 {% endif %}
 {% if p is not defined or p.title is not defined %}
 {% set p = {title:'%title%',
-            id:'%id%',
-            picture:'',
-            onglet:'%onglet%',
-            seo_url:'',
-            root_id:'',
-            has_vod:'%has_vod%',
-            best_offer:'',
-            deporte:''} %}
+id:'%id%',
+picture:'',
+onglet:'%onglet%',
+seo_url:'',
+root_id:'',
+has_vod:'%has_vod%',
+best_offer:'',
+deporte:''} %}
 {% endif %}
 {% if ' - ' in p.title %}
-  {% set tmp = p.title|split(' - ') %}
-  {% set p_title = tmp[1] ~ ' / ' ~ tmp[0] %}
+{% set tmp = p.title|split(' - ') %}
+{% set p_title = tmp[1] ~ ' / ' ~ tmp[0] %}
 {% else %}
-  {% set p_title = p.title %}
+{% set p_title = p.title %}
 {% endif %}
 <li class="tv-component actions hasvod-{{ p.has_vod }} root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" style="{% if p.picture %}background-image:url({{ p.picture }}){% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %} data-id="{{ p.id }}">
   {% if header is defined %}{{ header|raw }}{% endif %}
   {% if p.onglet != 'channel' %}
-    {% if p.best_offer is defined and p.best_offer.channel_id is defined %}
-    <div class="channel is-best-offer logo-channel-{{ p.best_offer.channel_id }}">
-      {% if p.best_offer.channel_img is defined and p.best_offer.channel_name is defined %}
-      <img src="{{ p.best_offer.channel_img }}" alt="{{ p.best_offer.channel_name }}">
-      {% endif %}
-      
-      {% if p.best_offer.broadcastdate is defined and p.best_offer.access.name is defined and p.best_offer.access.name == "Live" and p.best_offer.broadcasttime < "now"|date('U') and "now"|date('U') < p.best_offer.endtime  %}
-      <span class="diff">En ce moment</span>    
-      {% else %}
-      <span class="diff">{{ p.best_offer.broadcastdate|replace(' à', ' à') }}</span>
-      {% endif %}
-    </div>
-    {% elseif p.popular_channel is defined or p.has_vod %}
-    <a class="channel is-popular-channel{% if p.popular_channel is defined %} logo-channel-{{ p.popular_channel.id }}{% endif %}"{% if p.popular_channel is defined %} href="{{ base_url }}{{ p.popular_channel.seo_url }}"{% endif %}>
-      {%- if p.popular_channel is defined -%}
-      <img src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" />
-      {%- endif -%}
+  {% if p.best_offer is defined and p.best_offer.channel_id is defined %}
+  <div class="channel is-best-offer logo-channel-{{ p.best_offer.channel_id }}">
+    {% if p.best_offer.channel_img is defined and p.best_offer.channel_name is defined %}
+    <img src="{{ p.best_offer.channel_img }}" alt="{{ p.best_offer.channel_name }}">
+    {% endif %}
+
+    {% if p.best_offer.broadcastdate is defined and p.best_offer.access.name is defined and p.best_offer.access.name == "Live" and p.best_offer.broadcasttime < "now"|date('U') and "now"|date('U') < p.best_offer.endtime  %}
+    <span class="diff">En ce moment</span>    
+    {% else %}
+    <span class="diff">{{ p.best_offer.broadcastdate|replace(' à', ' à') }}</span>
+    {% endif %}
+  </div>
+  {% elseif p.popular_channel is defined or p.has_vod %}
+  <a class="channel is-popular-channel{% if p.popular_channel is defined %} logo-channel-{{ p.popular_channel.id }}{% endif %}"{% if p.popular_channel is defined %} href="{{ base_url }}{{ p.popular_channel.seo_url }}"{% endif %}>
+    {%- if p.popular_channel is defined -%}
+    <img src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" />
+    {%- endif -%}
       {#<span class="diff">
       {#%- if p.deporte == true %}<i class="icon-th icon-white"></i> {{ 'action.play.deporte'|trans }}}
       {%- if p.has_vod == 4 %}{{ 'action.play.cine'|trans }}
@@ -57,6 +57,20 @@
       #}
     </a>
     {% endif %}
-  {% endif %}
-  <a {% if p.seo_url %}href="{{ base_url }}{{ p.seo_url }}{{ theater_id is defined and theater_id > 0 ? '?theater_id=' ~ theater_id : '' }}"{% endif %} target="_top" class="title"><i class="glyphicon glyphicon-play"></i> {{ p_title }}</a>
-</li>
+    {% endif %}
+    <a {% if p.seo_url %}href="{{ base_url }}{{ p.seo_url }}{{ theater_id is defined and theater_id > 0 ? '?theater_id=' ~ theater_id : '' }}"{% endif %} target="_top" class="title">
+
+
+
+
+
+
+      <span class="label label-default ico-deporte">
+        <i class="glyphicon glyphicon-play"></i><span>sur mySkreen</span>
+      </span>
+      <i class="icon-th icon-white"></i>
+      <span class="ms-prog-title">{{ p_title }} </span>
+      <span> {%- if p.format.name is  defined -%}  {{ p.format.name }}, {%- endif -%} {%- if p.duration is  defined -%} {{ p.duration }} min {%- endif -%}</span><br>
+    </span>
+</a>
+  </li>

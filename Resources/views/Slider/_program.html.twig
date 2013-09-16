@@ -26,7 +26,7 @@
 			{% endif %}
 			<i class="icon-th icon-white"></i>
 			<span class="ms-prog-title">{{ p_title|raw }} </span>
-			<span>{{ p.format.name|raw }}, {{ p.duration|raw }} min</span><br>
+			<span>  		{% if p.format.name is defined %} {{ p.format.name|raw }},{% endif %}  {% if p.duration is defined %} {{ p.duration|raw }} min{% endif %} </span><br>
 		</span>
 	</a>
 </div>
