@@ -393,13 +393,13 @@ var BaseSlider = Class.extend({
         if (this.elmt.hasClass('slider-playlist')) {
           console.log('BaseSlider.addProgramBestOffer', 'slider-playlist', o);
           if (o.deporte) {
-            $('a.title', li).attr('data-ajax-play', o.deporte)
+            $('a.wrap-title', li).attr('data-ajax-play', o.deporte)
                             .attr('data-ajax', API.config.v3_root + p.seo_url)
                             .attr('rel', '#content');
           } else if (o.url) {
-            $('a.title', li).attr('data-redirect', o.url);
+            $('a.wrap-title', li).attr('data-redirect', o.url);
           } else {
-            $('a.title', li).attr('data-ajax', API.config.v3_root + p.seo_url)
+            $('a.wrap-title', li).attr('data-ajax', API.config.v3_root + p.seo_url)
                             .attr('rel', '#content');
           }
         }
@@ -414,7 +414,7 @@ var BaseSlider = Class.extend({
       }
     } else {
       if (p.onglet == 'channel') {
-        $('a.title', li).attr('data-ajax', API.config.v3_root + p.seo_url + '?view-cover=1')
+        $('a.wrap-title', li).attr('data-ajax', API.config.v3_root + p.seo_url + '?view-cover=1')
                         .attr('rel', '#content');
       } else {
 
@@ -428,10 +428,10 @@ var BaseSlider = Class.extend({
         //playlist seulement
         if (this.elmt.hasClass('slider-playlist')) {
           console.log('BaseSlider.addProgramBestOffer', 'slider-playlist no bestOffer', p);
-          $('a.title', li).attr('data-ajax', API.config.v3_root + p.seo_url)
+          $('a.wrap-title', li).attr('data-ajax', API.config.v3_root + p.seo_url)
                           .attr('rel', '#content');
         } else {
-          $('a.title', li).attr('href', API.config.v3_root + p.seo_url);
+          $('a.wrap-title', li).attr('href', API.config.v3_root + p.seo_url);
         }
       }
     }
