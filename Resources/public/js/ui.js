@@ -877,7 +877,7 @@ UI = {
       },
       onselect: function(obj) {
         console.log('UI.typeahead', 'onselect', obj, searchbox, $(searchbox).attr('value'));
-        $(searchbox).attr('value', 'chargement ...').attr('placeholder', 'chargement ...')
+        $(searchbox).attr('value', 'chargement ...').attr('placeholder', 'chargement ...');
 
         if (typeof obj != 'object') { //typeahead
           top.location = API.config.v3_url + '/programmes/' + obj;

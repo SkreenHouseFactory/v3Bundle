@@ -4,10 +4,6 @@
   
 {#% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: data} %#}
 
-
-<h1 data-channel="{{ channel.name }}">
-  {{ channel.name }} : Replay & Direct
-</h1>
 <h2>Les programmes {{ channel.fournisseur.has_replay is defined and channel.fournisseur.has_replay ? 'TV & Replay' : 'en Streaming' }}
 </h2>
 <div class="row">

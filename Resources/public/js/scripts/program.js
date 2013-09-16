@@ -346,6 +346,7 @@ $(document).ready(function(){
     console.log('after PG init');
 
     }
+     
 
     // tracking
     $('[data-track-channel]').each(function() {
