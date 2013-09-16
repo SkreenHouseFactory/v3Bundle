@@ -51,7 +51,6 @@
   <div class="row">
     <div class="col-xs-16">
       {% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: channel} %}
-
     </div>
   </div>
   <div class="row">
@@ -112,11 +111,9 @@
       {% endif %}
 
       {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-replay.html.twig' with {channel: channel} %}
-      {% endif %}
-      {% if app.request.get('page') %}<h3><small>page {{ app.request.get('page') }}</small>{% endif %}</h3>
-      {% endif%}
-
-
+    {% endif %}
+    {% if app.request.get('page') %}<h3><small>page {{ app.request.get('page') }}</small>{% endif %}</h3>
+    {% endif%}
 
     	{# facets
       route: {{ app.request.attributes.get('_route') }}
@@ -215,8 +212,7 @@
 
 
       {% if channel.programs|length %}
-
-      <div class="row{{ channel.type == 'cinema' ? ' clear' : '' }}">
+      <div class="row{{ channel.type != 'cinema' ? ' clear' : '' }}">
       <div class="col-xs-16">
           <div id="channel-programs" class="slider slider-list{% if channel.adress is defined %} clear-cancel{% endif %}">
             <ul class="items">
