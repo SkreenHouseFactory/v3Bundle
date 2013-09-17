@@ -1,7 +1,7 @@
 <a name="footer"></a>
 <div class="container">
   <div class="row">
-    <ul class="nav nav-pills nav-share">
+  <ul class="nav  nav-share">
       <li class="col-xs-4"><a class="pull-left" href="http://www.myskreen.com/"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-footer.png') }}" alt="mySkreen.com"></a></li>
       <li class="col-xs-4"><iframe class="facebook" frameborder="0" scrolling="no" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fmyskreen&amp;send=false&amp;layout=button_count&amp;width=215&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=tahoma&amp;height=21&amp;appId=193945860617344" style="border: none; overflow: hidden; width: 200px; height: 20px;"></iframe><a rel="nofollow" href="http://www.facebook.com/myskreen" id="fb" class="colorbox">Facebook.com/mySkreen</a></li>
       <li class="col-xs-4"><iframe class="twitter" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/follow_button.1337330192.html#_=1338538061760&amp;id=twitter-widget-0&amp;lang=fr&amp;screen_name=mySkreen&amp;show_count=true&amp;show_screen_name=true&amp;size=m" style="width: 200px; height: 20px;" title="Twitter Follow Button"></iframe><a rel="nofollow" href="http://www.twitter.com/myskreen" id="tw" class="colorbox">Twitter.com/mySkreen</a></li>
@@ -18,35 +18,37 @@
   </div>
   <hr/>  
   <div class="row" id="sitemap">
-    <p class="ms-surtitre">Tous les programmes</p>
-    <strong class="pull-left">Par média :&nbsp;&nbsp;&nbsp;</strong>
-    <p><a href="/programme-tv/">Tv & Replay</a></p>
-    <p><a href="/video-a-la-demande/">Vidéo à la demande</a></p>
-    <p><a href="/cinema/">Cinéma</a></p>
-    <div class="clear"></div>
-    <strong class="pull-left">Par type :&nbsp;&nbsp;&nbsp;</strong>
-    <p><a href="/film/">Films</a></p>
-    <p><a href="/telefilm/">Téléfilms</a></p>
-    <p><a href="/documentaire/">Documentaires</a></p>
-    <p><a href="/serie/">Séries</a></p>
-    <p><a href="/emission/">Emission</a></p>
-    <p><a href="/journal/">Journaux</a></p>
-    <p><a href="/court-metrage/">Court-métrages</a></p>
-    <p><a href="/theatre/">Pièces de théatre</a></p>
-    <p><a href="/concert/">Concerts</a></p>
-    <p><a href="/clip/">Clips musicaux</a></p>
-    <p><a href="/spectacle/">Spectacles</a></p>
-    <p><a href="/jeunesse/">Jeunesse</a></p>
-    <p><a href="/dessin-anime-et-manga/">Dessin-animés et mangas</a></p>
-    <p><a href="/webserie/">Web-séries</a></p>
-    <div class="clear"></div>
-    <strong class="pull-left">Par diffuseur :&nbsp;&nbsp;&nbsp;</strong>
-    <p><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">Chaînes TV & Replay</a></p>
-    <p><a href="{{ path('sitemap_channels', {type: 'vod'}) }}">Chaînes Vidéo à la demande</a></p>
-    <p><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}">Chaînes Web</a></p>
-    <p><a href="{{ path('sitemap_channels', {type: 'thematique'}) }}">Chaînes thématiques</a></p>
-    <p><a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Salles de cinéma</a></p>
-    <p><a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">Dvd et Blu-ray</a></p>
+    <div class="col-xs-16">
+      <p class="ms-surtitre">Tous les programmes</p>
+      <strong class="pull-left">Par média :&nbsp;&nbsp;&nbsp;</strong>
+      <p><a href="/programme-tv/">Tv & Replay</a></p>
+      <p><a href="/video-a-la-demande/">Vidéo à la demande</a></p>
+      <p><a href="/cinema/">Cinéma</a></p>
+      <div class="clear"></div>
+      <strong class="pull-left">Par type :&nbsp;&nbsp;&nbsp;</strong>
+      <p><a href="/film/">Films</a></p>
+      <p><a href="/telefilm/">Téléfilms</a></p>
+      <p><a href="/documentaire/">Documentaires</a></p>
+      <p><a href="/serie/">Séries</a></p>
+      <p><a href="/emission/">Emission</a></p>
+      <p><a href="/journal/">Journaux</a></p>
+      <p><a href="/court-metrage/">Court-métrages</a></p>
+      <p><a href="/theatre/">Pièces de théatre</a></p>
+      <p><a href="/concert/">Concerts</a></p>
+      <p><a href="/clip/">Clips musicaux</a></p>
+      <p><a href="/spectacle/">Spectacles</a></p>
+      <p><a href="/jeunesse/">Jeunesse</a></p>
+      <p><a href="/dessin-anime-et-manga/">Dessin-animés et mangas</a></p>
+      <p><a href="/webserie/">Web-séries</a></p>
+      <div class="clear"></div>
+      <strong class="pull-left">Par diffuseur :&nbsp;&nbsp;&nbsp;</strong>
+      <p><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">Chaînes TV & Replay</a></p>
+      <p><a href="{{ path('sitemap_channels', {type: 'vod'}) }}">Chaînes Vidéo à la demande</a></p>
+      <p><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}">Chaînes Web</a></p>
+      <p><a href="{{ path('sitemap_channels', {type: 'thematique'}) }}">Chaînes thématiques</a></p>
+      <p><a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Salles de cinéma</a></p>
+      <p><a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">Dvd et Blu-ray</a></p>
+    </div>
   </div>
   <hr/>
   <div id="boost" class="row">
