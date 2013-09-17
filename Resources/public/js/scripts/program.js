@@ -225,6 +225,7 @@ $(document).ready(function(){
       //modal program
       ProgramView.loadModal();
     }
+
     // -- add preference callback : incitation à suivre des related
     if (!navigator.userAgent.match(/iPhone|iPod/)) { //not optimized for iPhone
       UI.callbackTogglePlaylist = function(parameter, value, remove, trigger, return_data) {
@@ -289,8 +290,16 @@ $(document).ready(function(){
         }
       }
     }
-
+   
     //////////// SCRIPTS ////////////////
+
+     //modal des Trois Frères le Retour
+    if ($('#view-program').data('id')=='5088919'){
+      $('.modal .trigger-suivre').on('click',function(){
+        $('#program-modal').modal('hide');
+        $('.btn-suivre').trigger('click');
+      });
+    }
 
     //no deportes
     var offers = getUrlParameter('offers');
