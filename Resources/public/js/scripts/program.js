@@ -225,6 +225,14 @@ $(document).ready(function(){
       //modal program
       ProgramView.loadModal();
     }
+
+    //modal des Trois Frères le Retour
+    if ($('#view-program').data('id')='5088919'){
+      $('.modal .trigger-suivre').on('click',function(){
+        $('btn-suivre').trigger('click');
+        alert('s');
+      });
+    }
     // -- add preference callback : incitation à suivre des related
     if (!navigator.userAgent.match(/iPhone|iPod/)) { //not optimized for iPhone
       UI.callbackTogglePlaylist = function(parameter, value, remove, trigger, return_data) {
