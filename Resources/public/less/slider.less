@@ -196,8 +196,9 @@ Author: Benoît Bergstörm
       padding-top: 6px; 
     }
     h2, p{
-      font-size: 18px;
+      font-size: 14px;
       font-family: Arial, "Helvetica Neue", Helvetica,sans-serif;
+      text-transform: uppercase;
 
       a{
         color:#595959;
@@ -630,6 +631,22 @@ Author: Benoît Bergstörm
     white-space: nowrap;
     padding-left: 0px;
     li {
+      background-color: black;
+        background-position: center center;
+        cursor: pointer;
+        position: relative;
+        font-family: Helvetica, Arial;
+        width: @vignetteWidth;
+        height: @vignetteHeight;
+        display: inline-block;
+        border: @vignetteBorder;
+        margin: @vignetteMargin;
+        background-repeat: no-repeat;
+        list-style: none;
+        text-align: center;
+        box-shadow: 1px 1px 4px #999;
+        white-space: normal;
+
       &.selector {
         cursor: pointer;
         border: @selectorBorder;
