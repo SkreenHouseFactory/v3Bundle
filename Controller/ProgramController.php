@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 
+use Symfony\Component\HttpFoundation\Cookie;
+
 class ProgramController extends Controller
 {
     private function blockDomain(Request $request) {
