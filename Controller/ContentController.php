@@ -54,6 +54,8 @@ class ContentController extends Controller
          'with_onglet' => true,
          'img_width' => 150,
          'img_height' => 200,
+         'channel_img_width' => 80,
+         'channel_img_height' => 70,
          'offset' => $request->get('page', 1) * 30 - 30,
          'nb_results' => 30,
          'facets' => $this->buildFacets($request),
