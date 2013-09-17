@@ -111,6 +111,7 @@
 
 	<h3 class="pager-count">{{ category.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
 
+
   {% include 'SkreenHouseFactoryV3Bundle:Content:_category-pager.html.twig' with {facet_access: facet_access} %}
 
 	<div id="category-programs" class="slider slider-list">

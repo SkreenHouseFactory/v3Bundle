@@ -33,11 +33,11 @@
 {% block body_class %}view-homes home{{ home.name != 'mixte' ? '-' ~ home.name : '' }} cover{% endblock %}
 
 {% block header_filters %}
-{% if home.filters|length %}
+{% if home.filters|to_array|length %}
 <ul class="dropdown-menu dropdown-filters dropdown-filters-{{ app.request.get('home') }}">
   <li class="nav-header">{{ home.name|replace({'v3-cine': 'cinéma'})|upper }} <i class="icon-chevron-right"></i></li>
-  {% for f in home.filters %}
-  <li><a href="{{ path('any_url', {url: f.url|slice(1, f.url|length-1)}) }}" target="_top">{{ f.name }}</a></li>
+  {% for f in home.filters|to_array %}
+  <li><a class="label label-default label-filter" href="{{ path('any_url', {url: f.url|slice(1, f.url|length-1)}) }}" target="_top">{{ f.name }}</a></li>
   {% endfor %}
 </ul>
 {% endif %}
