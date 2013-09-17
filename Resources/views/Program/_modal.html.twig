@@ -1,22 +1,23 @@
 <div class="modal" id="program-modal">
   <div class="modal-dialog">
     <div class="modal-content">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <div class="modal-title">Suivre ce programme</div>
-  </div>
-  <div class="modal-body">
-    <img id="channel-logo" src="{{ program.picture }}" class="pull-left" />
-    <p>Abonnez-vous gratuitement au programme <br/>&laquo; {{ program.title }} &raquo; <br/>pour recevoir les prochaines vidéos en avant-première !</p>
-    <div id="triggerfav" class="user-on hide">
-      <a class="btn btn-suivre"><i class="glyphicon glyphicon-plus-sign icon-white"></i> Suivre {{ program.title }}</a>
-    </div>
-    <div id="fbconnect" class="user-off">
-    <img src="https://api.myskreen.com/skPaymentPlugin/images/connexion_facebook.jpeg" alt="Se connecter avec Facebook">
-    <div id="fbconnect-infos"></div>
-    </div>
-  </div>
-  <div class="modal-footer"><a data-dismiss="modal" class="btn btn-default">Non, merci pas maintenant</a></div>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <div class="modal-title">Suivre ce programme</div>
+        <div class="modal-message"></div>
+      </div>
+      <div class="modal-body">
+        <img id="channel-logo" src="{{ program.picture }}" class="pull-left" />
+        <p>Abonnez-vous gratuitement au programme <br/>&laquo; {{ program.title }} &raquo; <br/>pour recevoir les prochaines vidéos en avant-première !</p>
+        <div id="triggerfav" class="user-on hide">
+          <a class="btn btn-suivre"><i class="glyphicon glyphicon-plus-sign icon-white"></i> Suivre {{ program.title }}</a>
+        </div>
+        <div id="fbconnect" class="user-off">
+        <img src="https://api.myskreen.com/skPaymentPlugin/images/connexion_facebook.jpeg" alt="Se connecter avec Facebook">
+        <div id="fbconnect-infos"></div>
+        </div>
+      </div>
+      <div class="modal-footer"><a data-dismiss="modal" class="btn btn-default">Non, merci pas maintenant</a></div>
    </div>
   </div>
 </div>

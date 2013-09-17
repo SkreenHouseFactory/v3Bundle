@@ -43,7 +43,7 @@
     {% if slider.id is defined and slider.id in [4586427, 3772205] %}
     <a style="position: absolute; bottom: 15px;left: 5px;" class="btn btn-default" href="{{ path('tvgrid') }}">Voir la grille complète</a>
     {% else %}
-    <a style="position: absolute; bottom: 15px;left: 5px;" class="btn btn-default" {% if slider.url is defined %}  href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}">{% endif %} En voir plus...</a>
+    <a style="position: absolute; bottom: 15px;left: 5px;" class="btn btn-default" {% if slider.url is defined %}  href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}"{% endif %}> En voir plus...</a>
     {% endif %}
   </div>
 </div>
