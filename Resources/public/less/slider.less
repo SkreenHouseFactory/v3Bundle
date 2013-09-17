@@ -14,6 +14,15 @@ Author: Benoît Bergstörm
 @vignetteMargin:  0 5px 0 0;
 
 
+
+.ms-prog-title{
+  display: none;
+}
+.ms-prog-desc{
+  display: none;
+}
+
+
 .item > div, .slider ul.items > li {
   position: relative;
   padding-top: 2px;
@@ -30,24 +39,26 @@ Author: Benoît Bergstörm
       }
       span{
         display: inline-block;
+        font-size: 12px;
+        letter-spacing: normal;
       }
     }
   }
   .ico-deporte {
-    font-size: 0px;
     display: inline-block;
     padding: 1px 5px 4px;
     border-radius: 4px;
     background: #3878FF;
     text-shadow: none;
     margin-top: -2px;
-    font-size: 0px;
     width: 20px!important;
     i {
       font-size: 12px;
     }
     span{
       display: none;
+      font-size: 0px;
+      letter-spacing: -50px;
     }
   }
   .tv-component {
@@ -68,6 +79,12 @@ Author: Benoît Bergstörm
             background: none;
             font-size: 1em;
             height: auto;
+            .ms-prog-title{
+              display: block;
+            }
+            .ms-prog-desc{
+              display: block;
+            }
           }
         }
       }
@@ -123,11 +140,14 @@ Author: Benoît Bergstörm
             margin-left: 0px;
             margin-top: 7px;
             font-size: 14px;
-            display: block;
+            display: none;
             &:after{
               content: "";
               margin-right: 0px;
             }
+          }
+          .ms-prog-desc{
+            display: block;
           }
 
         }
@@ -632,20 +652,20 @@ Author: Benoît Bergstörm
     padding-left: 0px;
     li {
       background-color: black;
-        background-position: center center;
-        cursor: pointer;
-        position: relative;
-        font-family: Helvetica, Arial;
-        width: @vignetteWidth;
-        height: @vignetteHeight;
-        display: inline-block;
-        border: @vignetteBorder;
-        margin: @vignetteMargin;
-        background-repeat: no-repeat;
-        list-style: none;
-        text-align: center;
-        box-shadow: 1px 1px 4px #999;
-        white-space: normal;
+      background-position: center center;
+      cursor: pointer;
+      position: relative;
+      font-family: Helvetica, Arial;
+      width: @vignetteWidth;
+      height: @vignetteHeight;
+      display: inline-block;
+      border: @vignetteBorder;
+      margin: @vignetteMargin;
+      background-repeat: no-repeat;
+      list-style: none;
+      text-align: center;
+      box-shadow: 1px 1px 4px #999;
+      white-space: normal;
 
       &.selector {
         cursor: pointer;
