@@ -257,7 +257,7 @@ class ChannelController extends Controller
   }
   public function header55Action($data,$from_selection,$channel,$fav,$trigger_fav){
 
-    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-54.html.twig', array(
+    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-55.html.twig', array(
       'data' => $data,
       'fav' => $fav,
       'trigger_fav'=> $trigger_fav,
