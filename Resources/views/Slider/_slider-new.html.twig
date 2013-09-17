@@ -41,9 +41,9 @@
       {% endif %}
     </ul>
     {% if slider.id is defined and slider.id in [4586427, 3772205] %}
-    <a style="position: absolute; bottom: 15px;left: 5px;" class="btn btn-default" href="{{ path('tvgrid') }}">Voir la grille complète</a>
+    <a class="btn btn-default btn-slider" href="{{ path('tvgrid') }}">Voir la grille complète</a>
     {% else %}
-    <a style="position: absolute; bottom: 15px;left: 5px;" class="btn btn-default" {% if slider.url is defined %}  href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}"{% endif %}> En voir plus...</a>
+    {% if slider.url is defined %}<a class="btn btn-default btn-slider" href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}"> {% if slider.contenu_rss is defined %}{{slider.contenu_rss|capitalize}} {% else %}En voir plus...{% endif %}</a>{% endif %}
     {% endif %}
   </div>
 </div>
