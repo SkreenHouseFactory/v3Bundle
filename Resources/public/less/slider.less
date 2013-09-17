@@ -16,7 +16,8 @@ Author: Benoît Bergstörm
 
 
 .ms-prog-title{
-  display: none;
+  display: inline;
+  line-height: 20px;
 }
 .ms-prog-desc{
   display: none;
@@ -57,7 +58,6 @@ Author: Benoît Bergstörm
     }
     span{
       display: none;
-      font-size: 0px;
       letter-spacing: -50px;
     }
   }
@@ -69,7 +69,12 @@ Author: Benoît Bergstörm
       right: 2px;
       top: 2px;
     }
+
     &.films:not(.missing-picture):not(.image-3x1):not(.image-2x1) {
+    .ms-prog-title{
+        display: none;
+      }
+
       &:hover {
         .wrap-title {
           background-color:rgba(0,0,0,0.6);
@@ -80,7 +85,7 @@ Author: Benoît Bergstörm
             font-size: 1em;
             height: auto;
             .ms-prog-title{
-              display: block;
+              display: inline;
             }
             .ms-prog-desc{
               display: block;
@@ -100,8 +105,6 @@ Author: Benoît Bergstörm
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-8 */
         span.title {
           background: none;
-          font-size: 0;
-
         }
       }
     }
@@ -140,7 +143,7 @@ Author: Benoît Bergstörm
             margin-left: 0px;
             margin-top: 7px;
             font-size: 14px;
-            display: block;
+            display: inline;
             &:after{
               content: "";
               margin-right: 0px;
@@ -195,7 +198,7 @@ Author: Benoît Bergstörm
           font-weight: bold;
 
           &:after{
-            content: " -";
+            content: "";
             margin-right: 10px;
           }
         }

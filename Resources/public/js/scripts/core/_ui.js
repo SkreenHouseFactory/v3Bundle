@@ -94,17 +94,6 @@ UiView = {
       $(this).carousel();
     });
     */
-
-    // -- ui actions : play
-    $(document).on('click', '.slider li:not(.selector)', function(e){
-      console.log('script', '.slider li:not(.selector)', $('a.title', this));
-      if (typeof $('a.title', this).attr('href') == 'undefined') {
-        $('a.title', this).trigger('click');
-      } else {
-        document.location = $('a.title', this).attr('href');
-      }
-      return false;
-    });
     /*
       if ($(this).parent().parent().find('.badge')) {
         API.markAsRed($(this).parent().data('id'));

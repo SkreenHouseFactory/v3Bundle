@@ -19,12 +19,12 @@
 
 
   .ms-prog-rightback{
-      background: #f5f2f2; 
-  }
-  
-  /* colonne de droite */
-  .col-xs-5 {
-  
+     // un jour peut être...
+   }
+
+   /* colonne de droite */
+   .col-xs-5 {
+
     #affiche {
       width: 273px;
       height: 368px;
@@ -48,6 +48,7 @@
        text-decoration: none;
      }
      span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal {
+<<<<<<< HEAD
         color: #000000;
         display: inline-block;
         &:hover{
@@ -71,411 +72,437 @@
     }
     .label {
       margin-right:3px;
+=======
+      color: #000000;
+>>>>>>> 37ad36745f523f134f066019d9b955dba0588973
       display: inline-block;
-    }
-
-    .channel{
-      text-align: center;
-    }
-    .channel_link{
-      background:#778390;
-      margin-bottom: 20px;
-      text-align: center;
-      display: block;
-      padding: 1px;
-      .link-background-transition;
-    }
-    .channel_link:hover, .channel_link:active, .channel_link:focus,{
-      background:@bluemaincolor;
-    }
-    .channel_root{
-      width: 100%;
-      display: block;
-    }
-    .channel_texte{
-      font-size: 12px;
-      display: inline-block;
-      color: #fff;
-    }
-
-    .ms-cat-program-title, 
-    .ms-cat-program-title:hover, 
-    .ms-cat-program-title:active, {
-      text-decoration: none;
-    }
-    .ms-cat-program-title h3{
-      text-decoration: none;
-      font-size: 18px;
-      color: @bluemaincolor;
-    }
-
-    .external-collapser {
-      i {
-        font-size: 12px;
-      }
       &:hover{
-        cursor: pointer;
+        color: @bluemaincolor;
+        text-decoration: none;
       }
     }
-
   }
-  
-  /* colonne principale */
-  .col-xs-11 {
-    .videotitle  {
-      h1{
-        font-size: 28px;
-        margin-top: 20px;
-        line-height: 1.5em;
-        margin-bottom: 0px;
-        span {
-          display: block;
-          font-size: 0.8em;
-          font-weight: normal;
-          padding-top: 15px;
-        }
-      }
-    }
-    h2.ms-surtitre{
-      margin: 20px 0 0px;
-      line-height: 2.5em;
-
-    }
+  .actors_reveal{
+    font-style: italic;
+  }
+  .ms-format{
+    font-size: 18px;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .label {
+    margin-right:3px;
+    display: inline-block;
   }
 
-  .replay_label{
-    font-size: 16px;
-    color: #232323;
+  .channel{
+    text-align: center;
+  }
+  .channel_link{
+    background:#778390;
+    margin-bottom: 20px;
     text-align: center;
     display: block;
+    padding: 1px;
+    .link-background-transition;
+  }
+  .channel_link:hover, .channel_link:active, .channel_link:focus,{
+    background:@bluemaincolor;
+  }
+  .channel_root{
     width: 100%;
-
+    display: block;
+  }
+  .channel_texte{
+    font-size: 12px;
+    display: inline-block;
+    color: #fff;
   }
 
-  #program-offers {
+  .ms-cat-program-title, 
+  .ms-cat-program-title:hover, 
+  .ms-cat-program-title:active, {
+    text-decoration: none;
+  }
+  .ms-cat-program-title h3{
+    text-decoration: none;
+    font-size: 18px;
+    color: @bluemaincolor;
+  }
 
-    h5 {
-      margin: 20px 0px 0px 0px;
+  .external-collapser {
+    i {
+      font-size: 12px;
     }
-    
-    .panel {
-      position: relative;
-      padding: 0 0 0px 0;
-      &.panel-more { 
-        .tab-pane {
-          padding-bottom: 30px;
-        }
-      }
-      &.panel-synopsis{ 
-        padding: 0;
-        h3 {
-          padding: 20px 0 10px;
-        }
-        p {
-          margin: 0;
-        }
-      }
-      &.panel-theater {
-        .panel-collapse {
-          padding: 10px 20px;
-          ul.nav-tabs li a {
-            padding: 5px;
-          }
-          .tab-content {
-            border: 1px solid #ccc;
-            border-top: 0;
-            padding: 5px 20px;
-            margin: 0;
-          }
-        }
-      }
-      &.panel-info {
-        border-color: rgba(0, 143, 255, 0.1);
-        .panel-heading {
-          background: rgba(0, 143, 255, 0.1);
-          color: @sk-blue;
-          border-bottom: 5px solid @sk-blue;
-        }
-      }
-      &.panel-danger {
-        border-color: #eed3d7;
-        .panel-heading {
-          border-bottom: 5px solid #b94a48;
-        }
-      }
+    &:hover{
+      cursor: pointer;
+    }
+  }
 
-      .panel-heading{
+}
+
+/* colonne principale */
+.col-xs-11 {
+  .videotitle  {
+    h1{
+      font-size: 28px;
+      margin-top: 20px;
+      line-height: 1.5em;
+      margin-bottom: 0px;
+      span {
+        display: block;
+        font-size: 0.8em;
+        font-weight: normal;
+        padding-top: 15px;
+      }
+    }
+  }
+  h2.ms-surtitre{
+    display: block;
+    height: 30px;
+    line-height: 2.5em;
+    margin:20px 0 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+  }
+}
+
+.replay_label{
+  font-size: 16px;
+  color: #232323;
+  text-align: center;
+  display: block;
+  width: 100%;
+
+}
+
+#program-offers {
+
+  h5 {
+    margin: 20px 0px 0px 0px;
+  }
+
+  .panel {
+    position: relative;
+    padding: 0 0 0px 0;
+    &.panel-more { 
+      .tab-pane {
+        padding-bottom: 30px;
+      }
+    }
+    &.panel-synopsis{ 
+      padding: 0;
+      h3 {
+        padding: 20px 0 10px;
+      }
+      p {
         margin: 0;
       }
-      .tab-pane {      
-        padding-bottom: 0px;
+    }
+    &.panel-theater {
+      .panel-collapse {
+        padding: 10px 20px;
+        ul.nav-tabs li a {
+          padding: 5px;
+        }
+        .tab-content {
+          border: 1px solid #ccc;
+          border-top: 0;
+          padding: 5px 20px;
+          margin: 0;
+        }
+      }
+    }
+    &.panel-info {
+      border-color: rgba(0, 143, 255, 0.1);
+      .panel-heading {
+        background: rgba(0, 143, 255, 0.1);
+        color: @sk-blue;
+        border-bottom: 5px solid @sk-blue;
+      }
+    }
+    &.panel-danger {
+      border-color: #eed3d7;
+      .panel-heading {
+        border-bottom: 5px solid #b94a48;
+      }
+    }
 
-        .btn-reveal {
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          font-size: 0.9em;
-          padding: 0px 10px 0 5px;
-          border-top-right-radius: 0px;
-          border-bottom-left-radius: 0px;
-          border: 0px;
-          &:hover, &:active, &:focus{
-            background: transparent;
-            box-shadow: none;
+    .panel-heading{
+      margin: 0;
+    }
+    .tab-pane {      
+      padding-bottom: 0px;
+
+      .btn-reveal {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-size: 0.9em;
+        padding: 0px 10px 0 5px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border: 0px;
+        &:hover, &:active, &:focus{
+          background: transparent;
+          box-shadow: none;
+        }
+      }
+
+      table {
+        margin: 0;
+        width: 100%;
+
+        tr {
+          height: 70px;
+          border-bottom: 1px solid #efefef;
+          &:hover {
+            cursor: pointer;
+            color: @rowHoverColor;
+            background-color: @rowHoverBg;
+            border-bottom: 1px solid #f1e7bc;
+            td.price .rent {
+              color: @rowHoverColor;
+            }
+          }
+          &.other-episodes {
+            background: #EEE;
+            td {
+              padding: 0;
+              p {
+                padding: 5px 20px 0;
+              }
+            }
+          }
+          &:last-child {
+            border-bottom: 0;
+          }
+
+          td {
+            padding: 5px;
+            vertical-align: middle;
+            &.channel {
+              width: 110px;
+            }
+            &.offers {
+              text-align: center;
+              width: 170px;
+              button, a.btn {
+                width: 160px;
+              }
+              .ms-reminder {
+                font-size: 0.8em;
+                font-weight: normal;
+                color:#dc2561;
+                i {
+                  font-size: 1.1em;
+                }
+              }
+            }
+            &.episode {
+              h4{  
+                font-size: 1.1em;
+                font-weight: bold;
+                margin: 0;
+              }
+              .infos {
+                font-size: 0.8em;
+              }
+            }
+            &.price {
+              min-width: 120px;
+              &.price-vod {
+                min-width: 180px;
+              }
+              .rent {
+                text-transform: uppercase;
+                font-size: 1.2em;
+                color: @bluesecondarycolor;
+                font-weight: bold;
+              }
+              .glyphicon {
+                font-size: 1.2em;
+              }
+              .rent .glyphicon {
+                font-size: 0.9em;
+              }
+              .ms-vidoption {
+                display: block;
+                font-size: 14px;
+                padding: 0 15px;
+                text-align: left;
+              }
+              .ms-versions {
+               font-size: 12px;
+               .glyphicon.glyphicon-hd-video{
+                margin-left: 5px;
+
+              }
+            }
           }
         }
-
-        table {
-          margin: 0;
-          width: 100%;
-
-          tr {
-            height: 70px;
-            border-bottom: 1px solid #efefef;
-            &:hover {
-              cursor: pointer;
-              color: @rowHoverColor;
-              background-color: @rowHoverBg;
-              border-bottom: 1px solid #f1e7bc;
-              td.price .rent {
-                color: @rowHoverColor;
-              }
-            }
-            &.other-episodes {
-              background: #EEE;
-              td {
-                padding: 0;
-                p {
-                  padding: 5px 20px 0;
-                }
-              }
-            }
-            &:last-child {
-              border-bottom: 0;
-            }
-
-            td {
-              padding: 5px;
-              vertical-align: middle;
-              &.channel {
-                width: 110px;
-              }
-              &.offers {
-                text-align: center;
-                width: 170px;
-                button, a.btn {
-                  width: 160px;
-                }
-                .ms-reminder {
-                  font-size: 0.8em;
-                  font-weight: normal;
-                  color:#dc2561;
-                  i {
-                    font-size: 1.1em;
-                  }
-                }
-              }
-              &.episode {
-                h4{  
-                  font-size: 1.1em;
-                  font-weight: bold;
-                  margin: 0;
-                }
-                .infos {
-                  font-size: 0.8em;
-                }
-              }
-              &.price {
-                min-width: 120px;
-                &.price-vod {
-                  min-width: 180px;
-                }
-                .rent {
-                  text-transform: uppercase;
-                  font-size: 1.2em;
-                  color: @bluesecondarycolor;
-                  font-weight: bold;
-                }
-                .glyphicon {
-                  font-size: 1.2em;
-                }
-                .rent .glyphicon {
-                  font-size: 0.9em;
-                }
-                .ms-vidoption {
-                  display: block;
-                  font-size: 14px;
-                  padding: 0 15px;
-                  text-align: left;
-                }
-                .ms-versions {
-                 font-size: 12px;
-                 .glyphicon.glyphicon-hd-video{
-                  margin-left: 5px;
-
-                }
-              }
-            }
-          }
-          img {
-            display:block;
-            margin-left:auto;
-            margin-right:auto;
-          }
+        img {
+          display:block;
+          margin-left:auto;
+          margin-right:auto;
         }
       }
     }
   }
 }
+}
 
-  #program-episodes {
-    min-height: 200px;
-    position: absolute;
-    z-index: 2;
-    width: 100%;
-    padding: 70px 27px 0;
-    .panel {
-      background: #FFF;
-      margin: -15px;
-      padding-bottom: 20px;
-      .shadows-player-fly();
+#program-episodes {
+  min-height: 200px;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  padding: 70px 27px 0;
+  .panel {
+    background: #FFF;
+    margin: -15px;
+    padding-bottom: 20px;
+    .shadows-player-fly();
 
-      .panel-heading{
-        background: #F5F5F5;
-        margin:0!important;
-        h3{
-          width:97.5%;
-          display: inline-block;
-        }
+    .panel-heading{
+      background: #F5F5F5;
+      margin:0!important;
+      h3{
+        width:97.5%;
+        display: inline-block;
       }
     }
+  }
 
-    a[data-season]{
-      border: 1px solid #B2D3F0;
-      height: 30px;
-      padding: 4px 8px;
-      text-align: center;
-      &:hover{
-        background: #b2d3f0;
-        color: #fff;
-      }
+  a[data-season]{
+    border: 1px solid #B2D3F0;
+    height: 30px;
+    padding: 4px 8px;
+    text-align: center;
+    &:hover{
+      background: #b2d3f0;
+      color: #fff;
     }
-    a.btn[data-toggle] {
-      display: inline-block;
-      height: 30px;
-      margin-right: -8px;
-      margin-top: -4px;
-      padding: 6px;
-      width: 30px;
-    }
-    ul.nav.nav-pills {
-      margin: 20px; 
-    }
-    .ms-nav-pills-saisons {
-      font-size: 16px;
-      margin: 4px 19px;
-      padding-top: 3px;
-      text-transform: uppercase;
-      i{
-       color: #CCCCCC;
-       font-size: 16px;
-       margin-left: 8px;
-     }
+  }
+  a.btn[data-toggle] {
+    display: inline-block;
+    height: 30px;
+    margin-right: -8px;
+    margin-top: -4px;
+    padding: 6px;
+    width: 30px;
+  }
+  ul.nav.nav-pills {
+    margin: 20px; 
+  }
+  .ms-nav-pills-saisons {
+    font-size: 16px;
+    margin: 4px 19px;
+    padding-top: 3px;
+    text-transform: uppercase;
+    i{
+     color: #CCCCCC;
+     font-size: 16px;
+     margin-left: 8px;
    }
-  }
+ }
+}
 
-  ul#episodes-list{
-    list-style: none;
+ul#episodes-list{
+  list-style: none;
+  padding-left: 20px;
+
+  li{
+    display: block;
+    font-size: 15px;
+    margin-top: 7px;
+    overflow: hidden;
     padding-left: 20px;
-
-    li{
-      display: block;
-      font-size: 15px;
-      margin-top: 7px;
-      overflow: hidden;
-      padding-left: 20px;
-      width: 60%;
-      &.hover {
-        color: @rowHoverColor;
-        background-color: @rowHoverBg;
+    width: 60%;
+    &.hover {
+      color: @rowHoverColor;
+      background-color: @rowHoverBg;
+    }
+    a{ 
+      color: #000;
+      &:hover{
+        color: @bluemaincolor;
+        text-decoration: none;
       }
-      a{ 
-        color: #000;
-        &:hover{
-          color: @bluemaincolor;
-          text-decoration: none;
-        }
-      }
-    } 
-  }
+    }
+  } 
+}
 
-  .scrollplayerzone{
-    margin-top: 20px;
-    position: relative;
-  }
+.scrollplayerzone{
+  margin-top: 20px;
+  position: relative;
+}
 
-  .playwrapsub{
-    height: 368px;
-  }
-  .playwrap {
-    #program-teaser {
+.playwrapsub{
+  height: 368px;
+}
+.playwrap {
+  #program-teaser {
+    height: 100%;
+    width: 100%;
+    #program-teaser-player {
       height: 100%;
       width: 100%;
-      #program-teaser-player {
+      background: black;
+      iframe {
         height: 100%;
         width: 100%;
-        background: black;
-        iframe {
-          height: 100%;
-          width: 100%;
-        }
       }
     }
   }
-  .fly-shadows{
-    .shadows-player-fly();
-    .transition-shadows();
-  }
+}
+.fly-shadows{
+  .shadows-player-fly();
+  .transition-shadows();
+}
 
-  #player {
-    height: 368px; 
-    .shadows-player-land();
-    .transition-shadows();
+#player {
+  height: 368px; 
+  .shadows-player-land();
+  .transition-shadows();
 
-    .ms-playertitle{
-      position: absolute;
-      width: 100%;
-      text-align: center;
-      margin-top: -20px;
+  .ms-playertitle{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    margin-top: -20px;
 
-      >p{
-        position: relative;   
-        margin: 0 auto;
-        display: block;
-        color: #555;
-        padding: 5px;
-        /*background:rgba(0, 0, 0, 0.3);*/
-        text-shadow: 1px 1px 1px #ffffff;
-        filter: dropshadow(color=#ffffff, offx=1, offy=1);
-        font-size: 0.9em;
-        text-transform: uppercase;
-        display: inline-block;
-        font-weight: normal;
-      }
+    >p{
+      position: relative;   
+      margin: 0 auto;
+      display: block;
+      color: #555;
+      padding: 5px;
+      /*background:rgba(0, 0, 0, 0.3);*/
+      text-shadow: 1px 1px 1px #ffffff;
+      filter: dropshadow(color=#ffffff, offx=1, offy=1);
+      font-size: 0.9em;
+      text-transform: uppercase;
+      display: inline-block;
+      font-weight: normal;
     }
   }
+}
 
 
-  /* boutons */
+/* boutons */
 
-  .suivre {
-    .btn-suivre {
-      float: right;
-      margin-top: 20px;
-      min-width: 140px;
-      height: 42px;
-    }
+.suivre {
+  .btn-suivre {
+    float: right;
+    margin-top: 20px;
+    min-width: 140px;
+    height: 42px;
   }
+}
 
 }
 /* modal */
