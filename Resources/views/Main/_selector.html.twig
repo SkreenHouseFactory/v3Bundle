@@ -8,8 +8,8 @@
     
     {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' %}
     <li id="tv" class="selector static empty" data-name="{{ 'playlist.name.tv'|trans }}" data-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.tv'|trans }}</small>" data-content="{{ 'playlist.popover.tv'|trans }}" data-placement="top" data-trigger="hover">
+     <p class="teaser">{{ 'playlist.teaser.tv'|trans }}</p>
       <span class="label label-inverse opacity"><span></span> {{ 'playlist.tv'|trans|lower }}</span>
-      <p class="teaser">{{ 'playlist.teaser.tv'|trans }}</p>
       <a class="btn btn-large" href="{{ path('tvgrid') }}"><i class="icon-plus-sign"></i> {{ 'playlist.add.programs.tv'|trans }}</a>
     </li>
     <li id="replay" class="selector static empty" data-name="{{ 'playlist.name.replay'|trans }}" data-title="{{ 'playlist.yours'|trans }}<br/><small>{{ 'playlist.replay'|trans }}</small>" data-content="{{ 'playlist.popover.replay'|trans }}" data-placement="top" data-trigger="hover">
