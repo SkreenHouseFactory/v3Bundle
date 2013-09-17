@@ -108,66 +108,7 @@
 
 	<h3 class="pager-count">{{ category.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
 
-	<ul class="pager">
-	{% if category.count > 30 %}
-		{% if app.request.get('page') > 2 %}
-		<li class="previous">
-			{% if app.request.get('facet') %}
-				<a href="{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: app.request.get('page', 1) - 1})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
-			{% else %}
-				<a href="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) - 1})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
-			{% endif %}
-		</li>
-		{% elseif app.request.get('page') == 2 %}
-		<li class="previous">
-			{% if app.request.get('facet') %}
-				<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet')})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
-			{% else %}
-			<a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
-			{% endif %}
-		</li>
-		{% endif %}
-		{% if category.programs|length > 0 %}
-		<li class="next">
-			{% if app.request.get('facet') %}
-				<a href="{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: app.request.get('page', 1) + 1})|replace({'//': '/'}) }}">30 suivants &rarr;</a>
-			{% elseif (app.request.get('format')) %}
-			<a href="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) + 1})|replace({'//': '/'}) }}">30 suivants &rarr;</a>
-			{% endif %}
-		</li>
-		{% endif %}
-	{% endif %}
-  <li class="pull-right dropdown dropdown-update">
-    <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-down"></i>&nbsp;<span>Sur quelle chaîne ?</span></a>
-    <ul class="dropdown-menu">
-      {% for k,c in channels %}
-      <li>
-        {% if app.request.get('category_slug') and app.request.get('format') %}
-        <a href="{{ path('channel_format_facet', {slug: k|replace({'-+': ''}), format: app.request.get('format'), facet: app.request.get('category_slug') }) }}">
-        {% elseif app.request.get('category_slug') %}
-        <a href="{{ path('channel_format', {slug: k|replace({'-+': ''}), format: app.request.get('category_slug')}) }}">
-        {% endif %}
-        {{ c }}</a></li>
-      {% endfor %}
-    </ul>
-  </li>
-  {% if app.request.get('format') and app.request.get('access') is null and app.request.get('facet') is null %}
-  <li class="pull-right dropdown dropdown-update">
-    <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-down"></i>&nbsp;<span>Quel support ?</span></a>
-    <ul class="dropdown-menu">
-      {% for k,a in access if a|replace({'vod': 'video-a-la-demande'}) in facet_access|keys %}
-      <li>
-        {% if app.request.get('category_slug') and app.request.get('format') %}
-        <a href="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'}) }}">
-        {% elseif app.request.get('category_slug') %}
-        <a href="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'}) }}">
-        {% endif %}
-        {{ facet_access[a|replace({'vod': 'video-a-la-demande'})] }}</a></li>
-      {% endfor %}
-    </ul>
-  </li>
-  {% endif %}
-	</ul>
+	
 
 	<div id="category-programs" class="slider slider-list">
 		<ul class="items">
