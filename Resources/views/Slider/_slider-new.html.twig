@@ -1,20 +1,20 @@
 <div class="col-xs-8 suggester">
   <div class="suggestion"><{{h_title is defined ? h_title : "h3"}}>{% if slider.url is defined %} <a href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}">{% endif %} {{ slider.title|striptags }}{% if slider.url is defined %} </a> {% endif %}</{{h_title is defined ? h_title : "h3"}}> 
-  {#	<button type="button" class="btn btn-primary btn-xs">voir +</button> #}
+    {#	<button type="button" class="btn btn-primary btn-xs">voir +</button> #}
   </div>
   <div id="carousel-{{loop_index}}"  data-interval="false" class="carousel slide new-slider">
     {# Carousel INNER #}
     {% if slider.programs is defined %}
     <div class="carousel-inner">
-    {% set pages = slider.programs|to_array|slice(0, 24)|prepare_for_slider(6) %}
-    {% for page in pages %}
+      {% set pages = slider.programs|to_array|slice(0, 24)|prepare_for_slider(6) %}
+      {% for page in pages %}
       <div class="item{{ loop.index == 1 ? ' ' ~ 'active' : '' }}">
-      {% for program in page|to_array %}
-          {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program }%}
-      {% endfor %}
+        {% for program in page|to_array %}
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program }%}
+        {% endfor %}
       </div>
-    {% endfor %}
-  	</div>
+      {% endfor %}
+    </div>
     {% endif %}     
     <ul class="wrap-carousel-control">
       {% if pages|length > 1 %}
@@ -27,9 +27,9 @@
         <!-- Indicators -->
         <ol class="carousel-indicators">
           {% if pages|length %}
-            {% for i in 0..(pages|length-1) %}
-            <li data-target="#carousel-{{loop_index}}" data-slide-to="{{i}}" {% if i == 0 %}class="active"{% endif %}></li>
-            {% endfor %}
+          {% for i in 0..(pages|length-1) %}
+          <li data-target="#carousel-{{loop_index}}" data-slide-to="{{i}}" {% if i == 0 %}class="active"{% endif %}></li>
+          {% endfor %}
           {% endif %}
         </ol>   
       </li>
@@ -41,7 +41,9 @@
       {% endif %}
     </ul>
     {% if slider.id is defined and slider.id in [4586427, 3772205] %}
-    <a style="position: absolute;bottom: 15px;left: 5px;" class="btn btn-default" href="{{ path('tvgrid') }}">Voir la grille complète</a>
+    <a style="position: absolute; bottom: 15px;left: 5px;" class="btn btn-default" href="{{ path('tvgrid') }}">Voir la grille complète</a>
+    {% else %}
+    <a style="position: absolute; bottom: 15px;left: 5px;" class="btn btn-default" {% if slider.url is defined %}  href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}">{% endif %} En voir plus...</a>
     {% endif %}
   </div>
 </div>
