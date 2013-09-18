@@ -118,6 +118,11 @@ $(document).ready(function(){
 
     // -- countdown pblv
     //setting
+      $('.modal .trigger-suivre').on('click',function(){
+          $('#channel-modal').modal('hide');
+          $('.btn-suivre').trigger('click');
+        });
+   
 
     if (channel_id == 28) {
       var date = new Date();

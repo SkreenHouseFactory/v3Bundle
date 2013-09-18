@@ -56,10 +56,19 @@ body.view-channel, body.view-channel-selections {
           position: absolute;
           left: 336px;
           bottom: 90px;
+          z-index: 1; 
         }
       }
       &.cover56{
-        height: 510px;
+        .wrap-follow{
+          position: absolute;
+          left: 190px;
+          bottom: 36px;
+          z-index: 1;        
+        }
+        .share-block{
+          left: 660px;
+        }
       }
       &.cover35,&.cover54,&.cover8{
        height: 600px;
@@ -181,6 +190,7 @@ body.view-channel, body.view-channel-selections {
   top: -25px;
   left: 10px;
   min-width: 400px;
+  z-index: 1; 
   .fb-like {
     float: left;
   }
@@ -196,7 +206,7 @@ body.view-channel, body.view-channel-selections {
   top: 0;
   left: 0;
   height: 450px;
-  &#channel35, &#channel54,&#channel56, &#channel55{
+  &#channel35, &#channel54, &#channel55{
     height: 535px;
     .header-content{
       background:none;
@@ -208,6 +218,25 @@ body.view-channel, body.view-channel-selections {
         position: relative;
         left: 497px;
         width: 440px;
+        iframe{
+          border: none;
+        }
+      }
+    }
+  }
+  &#channel56{
+    height: 535px;
+    .header-content{
+      background:none;
+      top: 167px;
+      .share-block{
+        top: 294px;
+        left: 620px;
+      }
+      .player-wrap{
+        position: relative;
+        left: 563px;
+        width: 367px;
         iframe{
           border: none;
         }
