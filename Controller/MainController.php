@@ -161,6 +161,8 @@ class MainController extends Controller
         array(
           'img_width' => 160,
           'img_height' => 200,
+          'channel_img_width' => 80,
+          'channel_img_height' => 70,
           'nb_results' => 30,
           'with_new' => 1,
           'facets' => $facets
