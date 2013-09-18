@@ -34,13 +34,39 @@
 
 {% block header_filters %}
 {% if home.filters|to_array|length %}
-<ul class="dropdown-menu dropdown-filters dropdown-filters-{{ app.request.get('home') }}">
-  <li class="nav-header">{{ home.name|replace({'v3-cine': 'cinéma'})|upper }} <i class="icon-chevron-right"></i></li>
+
+<div class="dropdown-filters2">
+ {#  TRIANGLE <i class="ms-top-triangle ms_triangle_position_a"></i>#}
+
+<ul class="dropdown-menu  dropdown-filters-{{ app.request.get('home') }}">
+  <li class="nav-header">catégories dans {{ home.name|replace({'v3-cine': 'cinéma'}) }} <i class="glyphicon glyphicon-chevron-right"></i></li>
   {% for f in home.filters|to_array %}
   <li><a class="label label-default label-filter" href="{{ path('any_url', {url: f.url|slice(1, f.url|length-1)}) }}" target="_top">{{ f.name }}</a></li>
   {% endfor %}
 </ul>
+</div>
 {% endif %}
+
+
+
+{#
+
+{% if home.filters|to_array|length %}
+<div class="dropdown-filters">
+<ul class="dropdown-menu  dropdown-filters-{{ app.request.get('home') }}">
+  <li class="nav-header">VOD > {{ home.name|replace({'v3-cine': 'cinéma'})|upper }} <i class="icon-chevron-right"></i></li>
+  {% for f in home.filters|to_array %}
+  <li><a class="label label-default label-filter" href="{{ path('any_url', {url: f.url|slice(1, f.url|length-1)}) }}" target="_top">{{ f.name }}</a></li>
+  {% endfor %}
+</ul>
+</div>
+{% endif %}
+
+
+#}
+
+
+
 {% endblock %}
 {% block content %}
 

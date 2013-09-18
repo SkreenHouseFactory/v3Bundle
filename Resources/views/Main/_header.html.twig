@@ -8,7 +8,11 @@
           <li{{ app.request.attributes.get('_route') in ['tvgrid_date','tvgrid'] ? ' class="active"' : '' }}><a href="{{ path('tvgrid') }}">TV &amp; Replay</a>{% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "tv"} %}
           </li>
           {#<li><a href="#">WEB TV</a></li>#}
-          <li{{ app.request.get('home') == 'video-a-la-demande' ? ' class="active"' : '' }}><a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">VOD</a>{% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "video-a-la-demande"} %}
+          <li{{ app.request.get('home') == 'video-a-la-demande' ? ' class="active"' : '' }}><a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">VOD</a>
+          {#  {% if home.filters|to_array|length %}
+            <i class="ms-top-triangle ms_triangle_position_a"></i>
+            {% endif %} #}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "video-a-la-demande"} %}
           </li>
           <li{{ app.request.get('home') == 'cinema' ? ' class="active"' : '' }}><a href="{{ path('homes', {home: 'cinema'}) }}">En salles</a>{% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "cinema"} %}
           </li>
