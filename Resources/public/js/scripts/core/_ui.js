@@ -144,10 +144,8 @@ UiView = {
             document.title = e.originalEvent.state.document_title;
           }
           if(e.originalEvent.state.has_filter == true){
-            alert('zz');
             $('.dropdown-filters2').removeClass('hide');
           }
-          alert('sss');
            self.refreshAjax();
           
           });
