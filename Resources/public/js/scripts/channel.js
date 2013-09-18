@@ -3,7 +3,7 @@ $(document).ready(function(){
 
   // -- track channel
   var channel_name = $('h1').data('channel');
-  var channel_id = $('.fav[data-id]').data('id');
+  var channel_id = $('.actions[data-id]').data('id');
 
   //API.trackVar(1, 'Chaîne', channel_name, 3);
   API.trackEvent('Chaîne', channel_name, 'page=chaine');
@@ -118,22 +118,7 @@ $(document).ready(function(){
 
     // -- countdown pblv
     //setting
-    if (channel_id == 3517970) {
-    	var note = $('#note'),
-    		ts = new Date(2013,7,6,10,0,0),
-    		newYear = true;
-	
-    	if((new Date()) > ts){
-    		// The new year is here! Count towards something else.
-    		// Notice the *1000 at the end - time must be in milliseconds
-    		ts = (new Date()).getTime() + 10*24*60*60*1000;
-    		newYear = false;
-    	}
-		
-    	$('#countdown').countdown({
-    		timestamp	: ts
-    	});
-    }
+
     if (channel_id == 28) {
       var date = new Date();
       	var note = $('#note');
