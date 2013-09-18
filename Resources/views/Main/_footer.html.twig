@@ -16,48 +16,48 @@
       <li><a class="pull-left" href="{{ app.environment == 'dev' ? '/m' : 'http://m.myskreen.com' }}">Site mobile</a></li>
     </ul>
   </div>
-  <hr/>  
-  <div class="row" id="sitemap">
-    <div class="col-xs-16">
-      <p class="ms-surtitre">Tous les programmes</p>
-      <strong class="pull-left">Par média :&nbsp;&nbsp;&nbsp;</strong>
-      <p><a href="/programme-tv/">Tv & Replay</a></p>
-      <p><a href="/video-a-la-demande/">Vidéo à la demande</a></p>
-      <p><a href="/cinema/">Cinéma</a></p>
-      <div class="clear"></div>
-      <strong class="pull-left">Par type :&nbsp;&nbsp;&nbsp;</strong>
-      <p><a href="/film/">Films</a></p>
-      <p><a href="/telefilm/">Téléfilms</a></p>
-      <p><a href="/documentaire/">Documentaires</a></p>
-      <p><a href="/serie/">Séries</a></p>
-      <p><a href="/emission/">Emission</a></p>
-      <p><a href="/journal/">Journaux</a></p>
-      <p><a href="/court-metrage/">Court-métrages</a></p>
-      <p><a href="/theatre/">Pièces de théatre</a></p>
-      <p><a href="/concert/">Concerts</a></p>
-      <p><a href="/clip/">Clips musicaux</a></p>
-      <p><a href="/spectacle/">Spectacles</a></p>
-      <p><a href="/jeunesse/">Jeunesse</a></p>
-      <p><a href="/dessin-anime-et-manga/">Dessin-animés et mangas</a></p>
-      <p><a href="/webserie/">Web-séries</a></p>
-      <div class="clear"></div>
-      <strong class="pull-left">Par diffuseur :&nbsp;&nbsp;&nbsp;</strong>
-      <p><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">Chaînes TV & Replay</a></p>
-      <p><a href="{{ path('sitemap_channels', {type: 'vod'}) }}">Chaînes Vidéo à la demande</a></p>
-      <p><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}">Chaînes Web</a></p>
-      <p><a href="{{ path('sitemap_channels', {type: 'thematique'}) }}">Chaînes thématiques</a></p>
-      <p><a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Salles de cinéma</a></p>
-      <p><a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">Dvd et Blu-ray</a></p>
-    </div>
-  </div>
-  <hr/>
-  <div id="boost" class="row">
     {% if app.request.get('route') == 'homes' and app.request.get('home') == '' %}
-    <div class="col-xs-16">
-      <p class="ms-surtitre">mySkreen c'est...</p>
-      Un <strong>guide de programmes innovant</strong> qui réunit sur un seul site toutes les <strong>chaînes de télévision</strong>, tout le <strong>replay</strong>, tous les catalogues de <strong>VOD</strong>, le </strong>cinéma avec <strong>les horaires et les salles</strong>, et les <strong>web séries</strong> produites par les meilleurs sites médias. Suivez les programmes que vous aimez et soyez avertis à chaque diffusion ou nouvelle offre en streaming. Grâce à mySkreen, reprenez le pouvoir : mySkreen c’est <strong>votre télé à la carte et à la demande</strong>.
+    <hr/>  
+    <div class="row" id="sitemap">
+      <div class="col-xs-16">
+        <p class="ms-surtitre">Tous les programmes</p>
+        <strong class="pull-left">Par média :&nbsp;&nbsp;&nbsp;</strong>
+        <p><a href="/programme-tv/">Tv & Replay</a></p>
+        <p><a href="/video-a-la-demande/">Vidéo à la demande</a></p>
+        <p><a href="/cinema/">Cinéma</a></p>
+        <div class="clear"></div>
+        <strong class="pull-left">Par type :&nbsp;&nbsp;&nbsp;</strong>
+        <p><a href="/film/">Films</a></p>
+        <p><a href="/telefilm/">Téléfilms</a></p>
+        <p><a href="/documentaire/">Documentaires</a></p>
+        <p><a href="/serie/">Séries</a></p>
+        <p><a href="/emission/">Emission</a></p>
+        <p><a href="/journal/">Journaux</a></p>
+        <p><a href="/court-metrage/">Court-métrages</a></p>
+        <p><a href="/theatre/">Pièces de théatre</a></p>
+        <p><a href="/concert/">Concerts</a></p>
+        <p><a href="/clip/">Clips musicaux</a></p>
+        <p><a href="/spectacle/">Spectacles</a></p>
+        <p><a href="/jeunesse/">Jeunesse</a></p>
+        <p><a href="/dessin-anime-et-manga/">Dessin-animés et mangas</a></p>
+        <p><a href="/webserie/">Web-séries</a></p>
+        <div class="clear"></div>
+        <strong class="pull-left">Par diffuseur :&nbsp;&nbsp;&nbsp;</strong>
+        <p><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">Chaînes TV & Replay</a></p>
+        <p><a href="{{ path('sitemap_channels', {type: 'vod'}) }}">Chaînes Vidéo à la demande</a></p>
+        <p><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}">Chaînes Web</a></p>
+        <p><a href="{{ path('sitemap_channels', {type: 'thematique'}) }}">Chaînes thématiques</a></p>
+        <p><a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Salles de cinéma</a></p>
+        <p><a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">Dvd et Blu-ray</a></p>
+      </div>
     </div>
-    {% render(controller('SkreenHouseFactoryV3Bundle:Main:boost',{})) %}
+    <hr/>
+    <div id="boost" class="row">
+      <div class="col-xs-16">
+        <p class="ms-surtitre">mySkreen c'est...</p>
+        Un <strong>guide de programmes innovant</strong> qui réunit sur un seul site toutes les <strong>chaînes de télévision</strong>, tout le <strong>replay</strong>, tous les catalogues de <strong>VOD</strong>, le </strong>cinéma avec <strong>les horaires et les salles</strong>, et les <strong>web séries</strong> produites par les meilleurs sites médias. Suivez les programmes que vous aimez et soyez avertis à chaque diffusion ou nouvelle offre en streaming. Grâce à mySkreen, reprenez le pouvoir : mySkreen c’est <strong>votre télé à la carte et à la demande</strong>.
+      </div>
+      {% render(controller('SkreenHouseFactoryV3Bundle:Main:boost',{})) %}
+    </div>
     {% endif %}
-  </div>
 </div>

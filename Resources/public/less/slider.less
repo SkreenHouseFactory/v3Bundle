@@ -1,4 +1,4 @@
-/* ===== v3 =================================================================
+  /* ===== v3 =================================================================
 Author: Benoît Bergstörm
 ========================================================================== */
 @import "mixins.less";
@@ -71,7 +71,7 @@ Author: Benoît Bergstörm
     }
 
     &.films:not(.missing-picture):not(.image-3x1):not(.image-2x1) {
-    .ms-prog-title{
+      .ms-prog-title{
         display: none;
       }
 
@@ -390,9 +390,13 @@ Author: Benoît Bergstörm
       height: 400px;
     }
     .btn-slider{
-      position: absolute;
+      position: absolute; 
       bottom: 15px;
       left: 5px;
+      max-width: 258px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }
