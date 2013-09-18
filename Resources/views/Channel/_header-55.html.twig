@@ -5,6 +5,9 @@
         <div class="player-wrap">
           <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&noPub=1&program_id=5068063&height=270&width=440&channel_header=1" height="270" width="440"></iframe>
       </div>
+      <div class="wrap-follow" data-playlist="{{ fav }}">
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'fav-' ~ fav, name: channel.title, text: trigger_fav is defined and trigger_fav ? trigger_fav : 'Suivre ' ~ channel.title|trans } %}
+    </div>
        <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' est sur @mySkreen   ' } %}</div>
    
       </div>

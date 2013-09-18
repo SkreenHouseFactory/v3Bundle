@@ -13,7 +13,12 @@
 <link rel="image_src" href="{{ data.channel.cover }}" />
 {% endif %}
 <meta name="object_type" content="channel" />
-
+{% if app.request.get('page') is defined %}
+<link rel="next" href="http://www.myskreen.com/{{app.request.get('slug')}}/page-{{app.request.get('page') + 1}}/">
+  {% if app.request.get('page') > 1 %}
+  <link rel="prev" href="http://www.myskreen.com/{{app.request.get('slug')}}/page-{{app.request.get('page') - 1}}/">
+  {% endif %}
+{% endif %}
 {# seo canonical / prev / next #}
 {% if app.request.attributes.get('_route') == 'channel_page' %}
   {% if data.channel.fournisseur.count > 30 and app.request.get('format') is null  %}
