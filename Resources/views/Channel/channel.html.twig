@@ -37,10 +37,11 @@
 
 
 {% block title %}
+
 {% if data.channel.fournisseur is defined and data.channel.fournisseur.type == 'broadcast' %}
-{{ channel.title }}: REPLAY & DIRECT en STREAMING en 1 Clic GRATUIT 100% Légal
+{{ 'page.title.channel.broadcast'|trans({'%name%': channel.title, '%access%': 'Replay' }) }}
 {% else %}
-{{ data.channel.page_title ? data.channel.page_title : data.channel.title}}
+{{ 'page.title.channel.default'|trans({'%name%': data.channel.page_title ? data.channel.page_title : data.channel.title, '%access%': 'Streaming' }) }}
 {% endif %}
 {% endblock %}
 
@@ -71,7 +72,7 @@ Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la
 {% endif %}
 
 {# modal #}
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_modal.html.twig' ignore missing with {'data': data} %}
+{% include 'SkreenHouseFactoryV3Bundle:Channel:_modal.html.twig' with {'data': data} %}
 
 {% endblock %}
 
