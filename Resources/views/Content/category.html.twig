@@ -12,6 +12,14 @@
 <meta property="og:image" content="{{ category.picture }}" />
 <link rel="image_src" href="{{ category.picture }}" />
 {% endif %}
+<!--
+{% if app.request.get('page') is defined %}
+<link rel="next" href="http://www.myskreen.com/{{app.request.get('access')}}/page-{{app.request.get('page') + 1}}/">
+	{% if app.request.get('page') > 1 %}
+	<link rel="prev" href="http://www.myskreen.com/{{app.request.get('access')}}/page-{{app.request.get('page') - 1}}/">
+	{% endif %}
+{% endif %}-->
+
 <meta name="object_type" content="website" />
 {% endblock %}
 {% block title %}

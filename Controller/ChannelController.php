@@ -79,11 +79,15 @@ class ChannelController extends Controller
       return $this->redirect($data->redirect, 301);
     }
 
+    //bad page
+    if ($request->get('page') && count((array)$data->programs) == 0) {
+      //return $this->redirect(str_replace('/page-'.$request->get('page'), '', $request->getPathInfo()), 301);
+    
     //bad url
-    if (($request->getPathInfo() != $data->seo_url &&
+    } elseif (($request->getPathInfo() != $data->seo_url &&
         $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' &&
         $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' &&
-        $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' . $request->get('facet') .  'page-' . $request->get('page') . '/' &&
+        $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' . $request->get('facet') .  '/page-' . $request->get('page') . '/' &&
         $request->getPathInfo() != $data->seo_url . 'page-' . $request->get('page') . '/' &&
         $request->getPathInfo() != $data->seo_url . $request->get('facet') . '/') &&
         (!property_exists($data,'channel') || str_replace('/','',$request->getPathInfo()) != $data->channel->slug)
@@ -94,7 +98,7 @@ class ChannelController extends Controller
         echo "\n".'facet: ' . $data->seo_url . $request->get('facet') . '/';
         echo "\n".'format: ' . $data->seo_url . $request->get('format') . '/';
         echo "\n".'format+cat: ' . $data->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' ;
-        echo "\n".'format+cat+page: ' . $data->seo_url . $request->get('format') . '/' . $request->get('facet') .  'page-' . $request->get('page') . '/';
+        echo "\n".'format+cat+page: ' . $data->seo_url . $request->get('format') . '/' . $request->get('facet') .  '/page-' . $request->get('page') . '/';
         echo "\n".'page: ' . $data->seo_url . 'page-' . $request->get('page') . '/';
         echo "\n".'default '.$request->getPathInfo().' != '.$data->seo_url.' => '.($request->getPathInfo() != $data->seo_url);
         echo "\n".'redirect '.$data->seo_url;
@@ -289,7 +293,7 @@ class ChannelController extends Controller
     } elseif (in_array($request->get('facet'), array('video-a-la-demande', 'cinema'))) {
       $facets[] = 'access:' . str_replace(array('video-a-la-demande'), array('vod'), $request->get('facet'));
     } elseif ($request->get('facet')) {
-      if (in_array($request->get('_route'), array('channel_format_facet'))) {
+      if (in_array($request->get('_route'), array('channel_format_facet', 'channel_format_facet_page'))) {
         $facets[] = 'category:' . $request->get('facet');
       } else {
         $facets[] = 'subcategory:' . $request->get('facet');
