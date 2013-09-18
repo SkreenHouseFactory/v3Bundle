@@ -35,7 +35,7 @@ page:
         channel:
           cinema: %name% : Films à l'Affiche, Horaires des Séances
           broadcast: %name% %access% : revoir tous les programmes TV de la chaîne | Tv et Replay
-          broadcast: %formats% de %name% en %access% | Tv et Replay
+          broadcast_format: %formats% de %name% en %access% | Tv et Replay
           default: Découvrez %name% en %access% | Streaming
           default_format: %formats% de %name% en %access% | Streaming
         program :
@@ -87,7 +87,7 @@ page:
           serie-anime: %title% : les Episodes du Dessin Animé %title% %support% %qualite% *& les Horaires de leur Diffusion TV* %deporte% & 100% Légal avec mySkreen
         sitemap:
             channels:
-                broadcast: Tnt, Satellite, Cable : toutes vos chaînes sont en Replay sur mySkreen
+                broadcast: Tnt, Satellite, Câble : toutes vos chaînes sont en Replay sur mySkreen
                 webcast: Web séries, émissions sur le Web en streaming
                 cinema: Tous les horaires de cinéma sont sur mySkreen
                 dvd: Tous les Dvds sont sur mySkreen

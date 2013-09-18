@@ -95,9 +95,11 @@ class ProgramController extends Controller
            $this->get('kernel')->getEnvironment() != 'dev' && 
           $response->isNotModified($request)) {
           // Retourner immédiatement un objet 304 Response
-          mail('benoit@myskreen.com',
-               '[v3][program isNotModified] program-' . $request->get('id') . '-'. $data->updated_at,
-               print_r($response, true));
+          mail(
+            'benoit@myskreen.com',
+            '[v3][program isNotModified] program-' . $request->get('id') . '-'. $data->updated_at,
+            print_r($response, true)
+          );
       } else {
         //$response->expire();
 
@@ -137,7 +139,7 @@ class ProgramController extends Controller
 
         //echo $request->attributes->get('_route');exit();
         //stop Adulte
-        if (!$data || isset($data->error)) {
+        if ($this->get('kernel')->getEnvironment() == 'prod' && (!$data || isset($data->error))) {
           switch ($request->attributes->get('_route')) {
             case 'program_pere':
               $response->headers->setCookie(new Cookie('myskreen_404', $request->getUri()), time()+3600);
