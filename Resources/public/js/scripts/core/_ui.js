@@ -143,12 +143,18 @@ UiView = {
           if(e.originalEvent.state.document_title){
             document.title = e.originalEvent.state.document_title;
           }
+          if(e.originalEvent.state.has_filter == true){
+            alert('zz');
+            $('.dropdown-filters2').removeClass('hide');
+          }
+          alert('sss');
            self.refreshAjax();
-        });
+          
+          });
       }
     });
   },
-  refreshAjax: function(has_playlist){
+  refreshAjax: function(has_playlist,has_dropdown_filter){
     console.log('refreshAjax()')
     $('html, body').animate({scrollTop:0}, 'fast');
     if ($('a.background')) {
@@ -168,7 +174,9 @@ UiView = {
          $('body').addClass('playlist-in');
       }
        $('body').addClass('view-ajax');
-
+      if(has_dropdown_filter == true){
+        $('.dropdown-filters2').addClass('hide');
+      }
   },
   initDataLive: function(elmt) {
     var self = this;
@@ -240,6 +248,13 @@ UiView = {
     // -- remote data in html elmt
     $(elmt).on('click', '[data-ajax]', function(e){
       var trigger = $(this); 
+      var has_dropdown_filter = false;
+      if ($('body').hasClass('playlist-in')){
+      var has_playlist = true;
+      }
+      if($('.dropdown-filters2').length > 0 && !$('.dropdown-filters2').hasClass('hide') ){
+      var has_dropdown_filter = true;
+      }
       if ( $('html').hasClass('lt-ie9')){
         window.location.href = trigger.data('ajax');
       } else {
@@ -252,16 +267,13 @@ UiView = {
             var gridPath = $('#grid time').attr('timestamp') + '/';
             history.pushState({path: window.location.href, document_title: document.title }, document.title, gridPath);
           } else{
-           history.pushState({path: window.location.href, document_title: document.title }, document.title, window.location.href);
+           history.pushState({path: window.location.href, document_title: document.title ,has_filter : has_dropdown_filter }, document.title, window.location.href);
           }
         }
         history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
       }
       $('.tooltip').remove();
        console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
-      if ($('body').hasClass('playlist-in')){
-      var has_playlist = true;
-      }
       console.log('bodyRemoveClass');
       //add body class to overload view-homes
       $('body').removeClass('view-redirect')
@@ -314,7 +326,7 @@ UiView = {
         $(this).parents('li.open:first').removeClass('open');
       }
       console.log('after load');
-      self.refreshAjax(has_playlist);
+      self.refreshAjax(has_playlist,has_dropdown_filter);
             console.log('after refresh Ajax');
 
       document.title = 'programmes, TV, replay | mySkreen.com';
