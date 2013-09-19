@@ -21,10 +21,10 @@ page:
     title:
         home: 
             mixte: Programmes Télé, Replay TV, VOD
-            v3-vod: Video à la demande | Streaming
+            video-a-la-demande: Video à la demande | Streaming
             v3-tv-replay: Replay TV
-            v3-cine: Les films et les horaires | Cinéma
-            v3-jeunesse: Des programmes pour toute la famille | Streaming jeunesse
+            cinema: Les films et les horaires | Cinéma
+            jeunesse: Des programmes pour toute la famille | Streaming jeunesse
             films: Films | Streaming et VOD
             series: Séries | Streaming et Replay
             documentaires: Documentaires | Streaming et VOD
