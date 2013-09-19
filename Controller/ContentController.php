@@ -238,7 +238,6 @@ class ContentController extends Controller
       } elseif (in_array($request->get('facet'), array('video-a-la-demande', 'cinema'))) {
         $facets[] = 'access:' . str_replace(array('video-a-la-demande'), array('vod'), $request->get('facet'));
       } elseif ($request->get('facet')) {
-        echo 'route:'.$request->get('_route');exit();
         if (in_array($request->get('_route'), array('channel_format_facet', 'channel_format_facet_page'))) {
           $facets[] = 'category:' . $request->get('facet');
         } else {
