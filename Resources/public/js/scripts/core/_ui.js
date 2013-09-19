@@ -336,6 +336,7 @@ UiView = {
       console.log('script', 'player redirect', $(this));
       if ($(this).data('redirect') == 'unload') {
         UI.unloadRedirect();
+        $('#redirect').attr('style','');
       } else {
         UI.loadRedirect($(this).data('redirect'), $(this).data('seo-url'));
       }

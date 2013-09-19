@@ -4,17 +4,17 @@ $(document).ready(function(){
   // -- track channel
   var channel_name = $('h1').data('channel');
   var channel_id = $('.actions[data-id]').data('id');
-
+  var channel_slug = $('h1').data('channel-slug');
   //API.trackVar(1, 'Chaîne', channel_name, 3);
   API.trackEvent('Chaîne', channel_name, 'page=chaine');
 
   // -- fournisseur
   if ($('#view-fournisseur').length) {
-    if (channel_name && $('#carousel-chaine').length) {
-      console.log('header fournisseur', 'activate channel', channel_name);
+    if (channel_slug && $('#carousel-chaine').length) {
+      console.log('header fournisseur', 'activate channel', channel_slug);
       $('#carousel-chaine .item.active').removeClass('active');
-      $('[data-original-title="' + channel_name.toUpperCase() +'"]').addClass('selected');
-      $('[data-original-title="' + channel_name.toUpperCase() +'"]').parent().addClass('active');
+      $('#carousel-chaine .item [data-channel-slug="' + channel_slug +'"]').addClass('selected');
+      $('#carousel-chaine .item [data-channel-slug="' + channel_slug +'"]').parent().addClass('active');
     }
 
 
