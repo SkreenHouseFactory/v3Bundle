@@ -169,7 +169,7 @@ en Streaming
     <div id="affiche">
       <img src="{{ program.picture }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
       {% if program.popular_channel is defined %}
-      <img class="channel" src="{{ program.popular_channel.img }}" alt="{{ program.popular_channel.name }}" />
+      <a href="{{ path('any_url', program.popular_channel.seo_url|slice(1, program.popular_channel.seo_url|length-1) }}"><img class="channel" src="{{ program.popular_channel.img }}" alt="{{ program.popular_channel.name }} Replay" /></a>
       {% endif %}
     </div>
   </div> 

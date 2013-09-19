@@ -13,17 +13,6 @@ Author: Benoît Bergstörm
 @vignetteBorderEmpty:  1px dashed #BBBBBB;
 @vignetteMargin:  0 5px 0 0;
 
-
-
-.ms-prog-title{
-  display: inline;
-  line-height: 20px;
-}
-.ms-prog-desc{
-  display: none;
-}
-
-
 .item > div:not(.tooltip), .slider ul.items > li {
   position: relative;
   padding-top: 2px;
@@ -196,11 +185,19 @@ Author: Benoît Bergstörm
         .ms-prog-title{
           margin-left: 5px;
           font-weight: bold;
-
+          display: inline;
+          line-height: 20px;
           &:after{
             content: "";
             margin-right: 10px;
           }
+        }
+        .ms-prog-desc{
+          display: none;
+        }
+        .ms-prog-diff{
+          display: block;
+          margin-top: 15px;
         }
       }
     }

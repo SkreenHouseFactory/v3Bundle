@@ -379,31 +379,34 @@ var BaseSlider = Class.extend({
         o.dispo) {
       //channel & diff
       if (typeof o.channel.name != 'undefined') {
-        if ($('.channel img', li).length > 0) {
-          $('.channel img', li).attr('src', o.channel.img).attr('title', o.channel.name);
+        if ($('img.channel', li).length > 0) {
+          $('img.channel', li).attr('src', o.channel.img).attr('alt', o.channel.name);
         } else if (o.channel.img) {
-          $('.channel', li).prepend('<img src="' + o.channel.img + '" alt="' + o.channel.name + '" />');
+          $('.tv-component', li).prepend('<img class="channel" src="' + o.channel.img + '" alt="' + o.channel.name + '" />');
+        }
+        if (p.deporte) {
+          $('.title', li).prepend('<span class="label label-default ico-deporte"><i class="glyphicon glyphicon-play"></i><span>sur mySkreen</span></span>');
         }
         if (o.broadcastdate) {
-          $('.channel .diff', li).html(o.broadcastdate.replace(' à ', '<br/>')).removeClass('hide');
-        } else if (p.deporte) {
-          $('.channel .diff', li).html('sur mySkreen').removeClass('hide');
+          $('.title', li).append('<span class="ms-prog-diff"></span>');
+          $('.ms-prog-diff', li).append('sur ' + o.channel.name + '<br/>' + o.broadcastdate.replace(' à ', '<br/>'));
         }
         //playlist seulement
         if (this.elmt.hasClass('slider-playlist')) {
           console.log('BaseSlider.addProgramBestOffer', 'slider-playlist', o);
           if (o.deporte) {
-            $('a.wrap-title', li).attr('data-ajax-play', o.deporte)
-                            .attr('data-ajax', API.config.v3_root + p.seo_url)
-                            .attr('rel', '#content');
+            $('a.wrap-title', li)
+              .attr('data-ajax-play', o.deporte)
+              .attr('data-ajax', API.config.v3_root + p.seo_url)
+              .attr('rel', '#content');
           } else if (o.url) {
             $('a.wrap-title', li).attr('data-redirect', o.url);
           } else {
-            $('a.wrap-title', li).attr('data-ajax', API.config.v3_root + p.seo_url)
-                            .attr('rel', '#content');
+            $('a.wrap-title', li)
+              .attr('data-ajax', API.config.v3_root + p.seo_url)
+              .attr('rel', '#content');
           }
         }
-        $('.channel', li).removeClass('hide');
         //title bonus / extrait
         /*
         console.log('o.title', o.title);
@@ -414,22 +417,26 @@ var BaseSlider = Class.extend({
       }
     } else {
       if (p.onglet == 'channel') {
-        $('a.wrap-title', li).attr('data-ajax', API.config.v3_root + p.seo_url + '?view-cover=1')
-                        .attr('rel', '#content');
+        $('a.wrap-title', li)
+          .attr('data-ajax', API.config.v3_root + p.seo_url + '?view-cover=1')
+          .attr('rel', '#content');
       } else {
 
-        if (p.has_vod == 4) { $('.channel .diff', li).html('Ciné'); }
-        else if (p.has_vod == 3) { $('.channel .diff', li).html('DVD'); }
-        else if (p.has_vod == 5) { $('.channel .diff', li).html('TV'); }
-        else if (p.has_vod == 6) { $('.channel .diff', li).html('Bientôt en Replay'); }
-        else if (p.has_vod == 13) { $('.channel .diff', li).html('Archive'); }
-        else if (p.has_vod == 7 || p.has_vod == 8 || p.has_vod == 9 || p.has_vod == 10) { $('.channel .diff', li).html('Replay'); }
-        else if (p.has_vod) { $('.channel .diff', li).html('VOD'); }
+        $('.title', li).append('<span class="ms-prog-diff"></span>');
+        if (p.has_vod == 4) { $('.ms-prog-diff', li).html('Ciné'); }
+        else if (p.has_vod == 3) { $('.ms-prog-diff', li).html('DVD'); }
+        else if (p.has_vod == 5) { $('.ms-prog-diff', li).html('TV'); }
+        else if (p.has_vod == 6) { $('.ms-prog-diff', li).html('Bientôt en Replay'); }
+        else if (p.has_vod == 13) { $('.ms-prog-diff', li).html('Archive'); }
+        else if (p.has_vod == 7 || p.has_vod == 8 || p.has_vod == 9 || p.has_vod == 10) { $('.ms-prog-diff', li).html('Replay'); }
+        else if (p.has_vod) { $('.ms-prog-diff', li).html('VOD'); }
+
         //playlist seulement
         if (this.elmt.hasClass('slider-playlist')) {
           console.log('BaseSlider.addProgramBestOffer', 'slider-playlist no bestOffer', p);
-          $('a.wrap-title', li).attr('data-ajax', API.config.v3_root + p.seo_url)
-                          .attr('rel', '#content');
+          $('a.wrap-title', li)
+            .attr('data-ajax', API.config.v3_root + p.seo_url)
+            .attr('rel', '#content');
         } else {
           $('a.wrap-title', li).attr('href', API.config.v3_root + p.seo_url);
         }
