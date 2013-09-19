@@ -62,7 +62,7 @@ Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la
 {% block content %}
 
 {% if channel.type == 'ChannelFournisseur' or data.channel.fournisseur is defined %}
-  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_fournisseur.html.twig' with { data: data.channel.fournisseur, sliders: data.sliders, channel: data.channel } %}
+  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_fournisseur.html.twig' with { data: data.channel.fournisseur, sliders: data.sliders is defined ? data.sliders : [], channel: data.channel } %}
 {% elseif channel.type == 'ChannelOnglet' %}
   {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_onglet.html.twig' with {data:data, from_selection: from_selection, channel: channel, custom_header: custom_header} %}
 {% elseif channel.type == 'ChannelPersonne' %}

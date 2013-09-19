@@ -1,25 +1,33 @@
 {% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: channel, fournisseur: data,slug: app.request.get('slug')} %}
 
-<div id="view-fournisseur" data-id="{{ data.id }}" class="container">
-  
-{#% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: data} %#}
+<div id="view-fournisseur" data-id="{{ data.id }}" class="container"padding-bottom: 100px; style="padding-bottom: 100px;">
+
+  <div class="row">
+    <div class="col-xs-16">
+      {% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: data, skip_root: true} %}
+    </div>
+  </div>
 
 <h2>Les programmes {{ channel.fournisseur.has_replay is defined and channel.fournisseur.has_replay ? 'TV & Replay' : 'en Streaming' }}
 </h2>
+
+{# sliders #}
+{% if sliders|to_array|length %}
 <div class="row">
   <div class="col-xs-16">
-{# sliders #}
-{% for slider in sliders|to_array if slider.id is defined %}
-  <a name="{{ slider.name }}"></a>
-  {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index: loop.index} %}
-{% endfor %}
-</div>
+    {% for slider in sliders|to_array if slider.id is defined %}
+      <a name="{{ slider.name }}"></a>
+      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index: loop.index} %}
+    {% endfor %}
+  </div>
 </div>
 <hr/>
 <br/>
+{% endif %}
 
 {# fournisseur #}
-{% if app.request.get('page') is null and 
+{% if sliders|to_array|length and
+      app.request.get('page') is null and 
       app.request.get('format') is null and 
       app.request.get('facet') is null %}
   {#% if data.epg is defined and data.epg %}
@@ -27,49 +35,17 @@
   {% endif %#}
   <h2>
     {{ data.name }}, TV & Replay 
-    {#<select id="access" class="btn btn-large">
-      <option value="all">Replay & TV</option>
-      <option value="replay">Replay</option>
-      <option value="tv">TV</option>
-    </select>#}
     {% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}
   </h2>
 {% endif %}
 
-<ul class="pager pull-right" style="margin: 10px 0">
-{% if data.count > 30 and app.request.get('format') is null  %}
-  {% if app.request.get('page') > 2 %}
-  <li class="previous">
-    <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">&larr; 30 préc.</a>
-  </li>
-  {% elseif app.request.get('page') == 2 %}
-  <li class="previous">
-    <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">&larr; 30 préc.</a>
-  </li>
-  {% endif %}
-  {% if data.programs|to_array|length == 30 %}
-  <li class="next">
-    <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">30 suiv. &rarr;</a>
-  </li>
-  {% endif %}
-{% endif %}
-</ul>
+{% include 'SkreenHouseFactoryV3Bundle:Channel:_pager.html.twig' with {data: data} %}
 
-{#
-<ul class="pagination">
-    <li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('channel', { slug: app.request.get('slug')}) }}">{{ 'nav.all'|trans }}</a></li>
-  {% for l in data.alpha %}
-    <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in data.alpha_available %} class="disabled"{% endif %}><a href="{{ path('channel_facet', {slug: app.request.get('slug'), facet: l}) }}">{{ l }}</a></li>
-  {% endfor %}
-</ul>
-#}
-
-<div class="facets">
+<div class="facets" stylle="height: 40px;">
 {% if app.request.get('format') %}
   {% for k,s in data.subcategories %}
-    <a href="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="label{% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</a> 
+    <a href="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="label label-default {% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</a> 
   {% endfor %}
-  <hr/>
 {% else %}
   {% for k,f in data.formats %}
     <a href="{{ path('channel_format', {format: k, slug: app.request.get('slug')}) }}" class="label{% if app.request.get('facet') == f %} label-info"{% endif %} label-default">{{ f }}</a> 
@@ -86,9 +62,11 @@
   </ul>
 </div>
 
-<p class="channel-description">
+{% include 'SkreenHouseFactoryV3Bundle:Channel:_pager.html.twig' with {data: data} %}
+
+<div class="channel-description">
   {{ data.description|raw }}
-</p>
+</div>
 
 
 	</div>
