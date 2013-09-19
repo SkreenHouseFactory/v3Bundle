@@ -183,7 +183,7 @@ GridView = {
         if (typeof callback != 'undefined') {
           callback();
         }
-        
+
         $('#channels li ul li').on('mouseover',function(){
           if( !$('.actions',this).children().hasClass('fav-on') ){
             $('.actions',this).removeClass('hide');
@@ -195,14 +195,12 @@ GridView = {
           }
         });
         $('.glyphicon.glyphicon-question-sign').on('mouseover',function(){
-        $(this).parent().tooltip('show');
+          $(this).parent().tooltip('show');
         });
         $('.glyphicon.glyphicon-question-sign').on('mouseout',function(){
-        $(this).parent().tooltip('show');
+          $(this).parent().tooltip('show');
         });
-
-    }); 
-    
+    });
   },
   setTime: function(timestamp, resetDate) {
     console.log('GridView.setTime', timestamp);
@@ -394,30 +392,6 @@ $(document).ready(function(){
     //timeslider
     var date = new Date(parseInt($('#grid').data('timestamp'))*1000);
     GridView.hour = date.getHours();
-   /* $('#timeslider').slider({
-      step: 1,
-      max: 23,
-      min: 0,
-      value: GridView.hour,
-      change: function(event, ui) {
-        var diff = GridView.hour - ui.value;
-        if (diff != 0) {
-          console.log('scripts/tvgrid.js', 'timeslider', 'change', GridView.hour, '+', diff, GridView.hour - diff);
-          GridView.setTime(GridView.timestamp_start - diff*3600);
-          GridView.loadSchedule();
-        }
-      },
-      slide: function(event, ui) {
-        //console.log('scripts/tvgrid.js', 'timeslider', 'stop', ui.value);
-        $('.ui-slider-handle').html(ui.value + 'h00');
-      },
-      create: function( event, ui ) {
-        $('.ui-slider-handle').addClass('btn')
-                              .html(GridView.hour + 'h00');
-      }
-    }); */
-   
-     //
 
      $('#opt-hour').on('change',function(){
        var current = $(this).data('current-hour');
@@ -463,8 +437,8 @@ $(document).ready(function(){
         });
        }
     });
+
     //dropdown update
-    
     $('.btn-filters > a').on('click', function(){
       console.log('filter', $(this).data('filter'));
       $('#filter').val($(this).data('filter')).change();
@@ -493,7 +467,7 @@ $(document).ready(function(){
     $(document).on('click', '#channels li a', function() {
       return false;
     })
-    $(document).on('click', '#channels a .icon-trash', function(e) {
+    $(document).on('click', '#channels a .glyphicon.glyphicon-trash', function(e) {
       e.preventDefault();
       e.stopPropagation();
       $(this).parents('li:first').remove();
@@ -502,4 +476,3 @@ $(document).ready(function(){
     })
   }
 });
-

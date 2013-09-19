@@ -6,13 +6,13 @@ UI = {
   available_playlists: ['like','cinema','channel','page','person','user'],
   os: null,
   playlist: null,
-  callbackModal: null,
   sliders: [],
   last_notification: null,
   max_notifications: 50,
   badge_notification: '<span class="badge">%count%</span>',
   loader: '<div class="progress progress-striped active"><div class="progress-bar progress-bar-info" style="width: 0%"></div></div>',
   callbackTogglePlaylist: null,
+  callbackModal: null,
   init: function(callback) {
     var self = this;
     this.playlist = new BaseSlider({ programs: [] }, function() {}, $('#playlist'));
@@ -35,7 +35,6 @@ UI = {
   },
     
   //auth
-  
   auth: function(callback, parcours) {
       //fbconnect ne passe pas par le callback !
       if (typeof callback != 'undefined') {
@@ -51,7 +50,10 @@ UI = {
         }
         //message popin
         if (!$('.modal .modal-message').html()) {
-          $('.modal .modal-message').html('<p><b>Votre compte en 1 clic <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b> : Créez vos playlists et ne ratez plus vos programmes préférés : Cinéma, TV, Replay et VOD !</p>');
+          $('.modal .modal-message').html(
+            '<p><b>Votre compte GRATUIT en 1 clic :</b> ' +
+            'Créez vos playlists et ne ratez plus vos programmes préférés : Cinéma, TV, Replay et VOD !</p>'
+          );
         }
         $('.modal .modal-message [data-content]').popover();
       });
@@ -280,12 +282,14 @@ UI = {
   installPopover: function(trigger) {
     var content = this.getPlaylistMessage(trigger);
     trigger.popover({
-      placement: 'top',
-      title:  function() { return 'Ajout à vos playlists'},
+      title:  function() { 
+        return 'Ajout à vos playlists'
+      },
       content: content,
       html: true,
       show: 500, 
-      hide: 100
+      hide: 100,
+      container: 'body'
     });
   },
   //toggle favorite : fav-parameter

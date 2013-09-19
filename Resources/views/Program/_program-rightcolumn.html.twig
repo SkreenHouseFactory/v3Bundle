@@ -23,7 +23,7 @@
     <h3 class="ms-surtitre">{{ 'directed.by'|trans }}</h3>
     {% for pers in program.director|to_array %}
     <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
-      <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.director|to_array|length %},&nbsp;{% endif %}</a>
+      <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name" class="fav fav-person" data-name="{{ pers.name }}" data-placement="left">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.director|to_array|length %},&nbsp;{% endif %}</a>
     </div>
     {% endfor %}
     {% endif %}
@@ -32,7 +32,7 @@
     <h3 class="ms-surtitre">{{ 'presented.by'|trans }}</h3> 
     {% for pers in program.presenter | to_array  %}
     <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
-      <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.presenter|to_array|length %},&nbsp;{% endif %}</a> 
+      <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name" class="fav fav-person" data-name="{{ pers.name }}" data-placement="left">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.presenter|to_array|length %},&nbsp;{% endif %}</a> 
     </div>
     {% endfor %}
     <br/>
@@ -42,7 +42,7 @@
     <h3 class="ms-surtitre">{{ 'actors'|trans }}</h3>
     {% for pers in program.casting|to_array  %}
     <div class="inline {% if loop.index > 5 %} actors_entrop hide{% endif %}" itemprop="actor" itemscope itemtype="http://schema.org/Person">
-      {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
+      {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url" class="fav fav-person" data-name="{{ pers.name }}" data-placement="left"><span itemprop="name">{{ pers.name }}</span></a> 
     </div>
     {% endfor %} 
     {% if program.casting|to_array|length > 5 %}
@@ -57,10 +57,13 @@
     <h3 class="ms-surtitre">{{ 'editors'|trans }}</h3>
      {% for pers in program.editor | to_array %}
        <div class="inline" itemprop="editor" itemscope itemtype="http://schema.org/Person">
-      {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a> 
+      {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url" class="fav fav-person" data-name="{{ pers.name }}" data-placement="left"><span itemprop="name">{{ pers.name }}</span></a> 
       </div>
       {% endfor %}
     {% endif %}
+    
+    <br/>
+    <p><a href="#synopsis">Voir le synopsis</a></p>
   </div>
 </div>
 

@@ -11,7 +11,6 @@ Author: Benoît Bergstörm
 @vignetteBorder:  1px solid transparent;
 @selectorBorder:  1px solid #BBBBBB;
 @vignetteBorderEmpty:  1px dashed #BBBBBB;
-@vignetteMargin:  0 5px 0 0;
 
 .item > div:not(.tooltip), .slider ul.items > li {
   position: relative;
@@ -664,6 +663,8 @@ Author: Benoît Bergstörm
     white-space: nowrap;
     padding-left: 0px;
     li {
+      padding: 0;
+      margin: 0;
       background-color: black;
       background-position: center center;
       cursor: pointer;
@@ -673,7 +674,6 @@ Author: Benoît Bergstörm
       height: @vignetteHeight;
       display: inline-block;
       border: @vignetteBorder;
-      margin: @vignetteMargin;
       background-repeat: no-repeat;
       list-style: none;
       box-shadow: 1px 1px 4px #999;

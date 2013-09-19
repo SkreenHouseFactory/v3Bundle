@@ -18,7 +18,7 @@ $(document).ready(function(){
     return false;
   });
   // -- .fav : retirer / popover
-  $(document).on('mouseover', '[data-id][class*=" fav-"]:not(.fav-trash)', function(event) {
+  $(document).on('mouseover', '[class*=" fav-"]:not(.fav-trash)', function(event) {
     //console.log('scripts/core/playlists.js', '[class*=" fav-"]:mouseover');
     var trigger = $(this);
       // retirer
@@ -34,7 +34,7 @@ $(document).ready(function(){
         trigger.popover('show');
       }
   });
-  $(document).on('mouseout', '[data-id][class*=" fav-"]:not(.fav-trash)', function(event) {
+  $(document).on('mouseout', '[class*=" fav-"]:not(.fav-trash)', function(event) {
     //console.log('scripts/core/playlists.js', '[class*=" fav-"]:mouseover');
     var trigger = $(this);
     trigger.popover('hide');
