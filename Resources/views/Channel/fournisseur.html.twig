@@ -61,7 +61,7 @@
     <div class="col-xs-2"><img class="channel-logo inline-block" src="{{ channel.img }}" /></div>
     {% endif %}
     {% set page_h1_channel = 'page.h1.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
-    <div class="col-xs-14">
+    <div class="col-xs-9">
       <h1 class="inline-block" data-channel="{{ channel.name }}">
         {{ page_h1_channel|trans({'%name%': channel.name, '%format%': format_trans|trans, '%formats%': formats_trans|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
         <small>{% if app.request.get('facet') %}{{ categories[app.request.get('facet')] is defined ? categories[app.request.get('facet')] : 'commençant par ' ~ app.request.get('facet') }}{% endif %}{% if app.request.get('page') %}{{ app.request.get('facet') ? ', ' : '' }}page {{ app.request.get('page') }}{% endif %}</small>

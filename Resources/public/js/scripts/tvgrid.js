@@ -374,7 +374,7 @@ $(document).ready(function(){
     // -- UI callback : reload grid after adding channel
     UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {
       if (parameter == 'epg' && !remove) {
-        Grid.loadSchedule();
+        GridView.loadSchedule();
       }
       if (parameter == 'like') {
         if (remove) {
@@ -416,7 +416,7 @@ $(document).ready(function(){
     datepicker.hover(function(){},function(){
       datepicker.hide();
     });
-    $('.calendar').click(function(){
+    $('.calendar').on('click',function(){
       if(!datepicker.is(':visible')) {
         datepicker.show();
       } else {
