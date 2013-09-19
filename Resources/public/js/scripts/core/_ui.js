@@ -146,13 +146,13 @@ UiView = {
           if(e.originalEvent.state.has_filter == true){
             $('.dropdown-filters2').removeClass('hide');
           }
-           self.refreshAjax();
+           self.refreshAjax(null,null,e.originalEvent.state.has_skin);
           
           });
       }
     });
   },
-  refreshAjax: function(has_playlist,has_dropdown_filter){
+  refreshAjax: function(has_playlist,has_dropdown_filter,has_skin){
     console.log('refreshAjax()')
     $('html, body').animate({scrollTop:0}, 'fast');
     if ($('a.background')) {
@@ -164,6 +164,12 @@ UiView = {
       body_class = $('.body_background').data('refresh-bodyclass');
       $('body').css('background',body_background);
       $('body').addClass(body_class);
+    }
+    if(has_skin){
+      $('body').addClass('skin');
+       $(document).ajaxStop(function(){
+        Skin.initHome();
+      });
     }
     if($('.navbar').css('display') == "none"){
       $('.navbar').css('display','block');
@@ -250,6 +256,9 @@ UiView = {
       if ($('body').hasClass('playlist-in')){
       var has_playlist = true;
       }
+      if ($('body').hasClass('skin')){
+        has_skin = true;
+      }
       if($('.dropdown-filters2').length > 0 && !$('.dropdown-filters2').hasClass('hide') ){
       var has_dropdown_filter = true;
       }
@@ -265,7 +274,7 @@ UiView = {
             var gridPath = $('#grid time').attr('timestamp') + '/';
             history.pushState({path: window.location.href, document_title: document.title }, document.title, gridPath);
           } else{
-           history.pushState({path: window.location.href, document_title: document.title ,has_filter : has_dropdown_filter }, document.title, window.location.href);
+           history.pushState({path: window.location.href, document_title: document.title ,has_filter : has_dropdown_filter, has_skin: has_skin}, document.title, window.location.href);
           }
         }
         history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
