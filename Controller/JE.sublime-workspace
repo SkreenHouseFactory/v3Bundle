@@ -19,6 +19,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/Volumes/dev.juniorisep.com/.htaccess",
+			"settings":
+			{
+				"buffer_size": 264,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -56,6 +64,7 @@
 	},
 	"file_history":
 	[
+		"/Volumes/dev.juniorisep.com/src/.htaccess",
 		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_channel_fournisseur.html.twig",
 		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_channel_fournisseur.html.twig",
 		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/channel.html.twig",
@@ -182,8 +191,7 @@
 		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-old/vendor/bundles/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/core/_ui.js",
 		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/tvBundle/SkreenHouseFactory/tvBundle/Resources/public/js/couchmode.js",
 		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/config/routing/main.yml",
-		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Twig/Extension/ToolsExtension.php",
-		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Controller/SessionController.php"
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Twig/Extension/ToolsExtension.php"
 	],
 	"find":
 	{
@@ -348,8 +356,36 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/Volumes/dev.juniorisep.com/.htaccess",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 264,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								168,
+								168
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
