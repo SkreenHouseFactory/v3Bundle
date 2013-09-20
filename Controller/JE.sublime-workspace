@@ -1,0 +1,437 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"mouse",
+				"mouseover"
+			],
+			[
+				"sh",
+				"shuffle"
+			],
+			[
+				"pro",
+				"programs"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 67.0,
+		"selected_items":
+		[
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_channel_fournisseur.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_channel_fournisseur.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/channel.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/channel.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_modal.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/layout.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/tvgrid.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Timeline/grid.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/selection.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/category.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/channel.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_header-56.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_header-55.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/skin.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/skin.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/tvgrid.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_header-54.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/core/_ui.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/tvgrid-scrollview.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_header-fournisseur.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/channel.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Controller/ChannelController.php",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/slider.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/global.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/fournisseur.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Controller/CinemaController.php",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/header.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/program.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Program/_modal.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/translations/messages.fr.yml",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Main/_btn-suivre.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Slider/_slider-new.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Slider/_program.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Content/category.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_channel_onglet.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-old/vendor/bundles/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/channel.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Controller/MainController.php",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Home/home.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_breadcrumb-fournisseur.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Main/_header.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/bundles/SkreenHouseFactory/v3Bundle/Resources/views/Main/_header.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/bundles/SkreenHouseFactory/v3Bundle/Resources/views/Main/_header-nav.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/bundles/SkreenHouseFactory/v3Bundle/Resources/views/layout.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/bundles/SkreenHouseFactory/v3Bundle/Resources/views/Main/_header-filters.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/bundles/SkreenHouseFactory/v3Bundle/Resources/views/Home/home.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Controller/ContentController.php",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Main/_selector.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/ui.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Controller/SitemapController.php",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/program.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Controller/ProgramController.php",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_channel_personne.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/_default.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/trunk/plugins/skRestWebServicePlugin/lib/model/bdd2api.class.php",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Program/_program-offers.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/home.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/core/slider.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/session.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/cinema.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Cinema/program.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/touch.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Program/_program-jsonld.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Main/_header-dropdown.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_header-35.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/core/api.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/empty.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Main/_footer.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/user.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/User/settings.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/modal.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Home/header.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Main/_modal.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Controller/ModalController.php",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Program/program-new.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/_default.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/User/theaters.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Main/_header-filters.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Main/_header-nav.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Content/selection.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_header.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/slider.less",
+		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/tvgrid.js",
+		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/channel.less",
+		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_header-fournisseur.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/core/_ui.js",
+		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Timeline/_channel-schedule.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Controller/TimelineController.php",
+		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Main/_btn-suivre.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/channel.js",
+		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/program.less",
+		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/config/routing/main.yml",
+		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Controller/MainController.php",
+		"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Main/_header.html.twig",
+		"/Volumes/ftp.cluster015.ovh.net/www/index2.html",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Main/_boost.html.twig",
+		"/Volumes/ftp.cluster015.ovh.net/www/index.html",
+		"/Volumes/ftp.cluster015.ovh.net/www/style.css",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_header-8.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/core/player-scroll.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Controller/TimelineController.php",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Timeline/_channel-schedule.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-old/vendor/bundles/SkreenHouseFactory/v3Bundle/Resources/public/less/channel.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-old/vendor/bundles/SkreenHouseFactory/v3Bundle/Controller/ChannelController.php",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-old/vendor/bundles/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_header-54.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-old/vendor/bundles/SkreenHouseFactory/v3Bundle/Resources/public/less/program.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-old/vendor/bundles/SkreenHouseFactory/v3Bundle/Resources/views/Main/_header-nav.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-old/vendor/bundles/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/program.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-old/vendor/bundles/SkreenHouseFactory/v3Bundle/Controller/ProgramController.php",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-bundles/v3Bundle/Controller/ProgramController.php",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-bundles/v3Bundle/Resources/views/Program/program.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-new/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Program/program-new.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-new/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Program/_modal.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-bundles/v3Bundle/Resources/public/less/program.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-new/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/program.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-bundles/v3Bundle/Resources/public/js/scripts/program.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-bundles/v3Bundle/Controller/ChannelController.php",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-bundles/v3Bundle/Resources/views/Channel/_header-54.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-new/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Controller/ChannelController.php",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-bundles/v3Bundle/Resources/views/Program/_modal.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-new/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/Channel/_header-54.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-new/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/cocon.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/public/less/ie8.less",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/views/cocon.html.twig",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3-old/vendor/bundles/SkreenHouseFactory/v3Bundle/Resources/public/js/scripts/core/_ui.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/tvBundle/SkreenHouseFactory/tvBundle/Resources/public/js/couchmode.js",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Resources/config/routing/main.yml",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Twig/Extension/ToolsExtension.php",
+		"/Volumes/dev-new.myskreen.typhon.net/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle/Controller/SessionController.php"
+	],
+	"find":
+	{
+		"height": 46.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Volumes/dev-new.myskreen.typhon.net 1/dev/v3/vendor/SkreenHouseFactory/v3Bundle/SkreenHouseFactory/v3Bundle"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"$custom_header\n",
+			"$custom_header",
+			"$custom_header\n",
+			"channels",
+			"callbackMod",
+			"callback",
+			"UI.call",
+			"nav nav-pills",
+			"UI.Callback",
+			"width: 65%;",
+			".clear",
+			"clear",
+			"alert",
+			"row ms-channel-headtitle",
+			"view-fournisseur",
+			"data",
+			"close-redirect",
+			"#content",
+			"channel_name",
+			"channel_four",
+			"follow",
+			"trans",
+			"tran",
+			"|tran",
+			"|tra",
+			"popin",
+			"page",
+			"prev",
+			"rel=\"prev",
+			"next",
+			"channel_id",
+			"channels",
+			"filter",
+			"dropdown-filters",
+			"filter",
+			"dropdown-filters",
+			"sub",
+			"pager",
+			"next",
+			"next`",
+			"next",
+			"channel.count",
+			"ms-format",
+			"#playlist",
+			"static",
+			"statix",
+			"selector-sta",
+			"playlist\n",
+			"playlist",
+			"fb",
+			"75px",
+			"css('pos",
+			"addClass('btn",
+			"a",
+			"program-modal",
+			"modal",
+			"view-fournisseur",
+			"next",
+			"vod",
+			"next",
+			"image-default",
+			"selection-programs",
+			"loadPlaylist",
+			"fav",
+			".playlist-in",
+			"#playlist-in",
+			"#playlist",
+			"redirect",
+			"collap",
+			"redirect",
+			"iframe",
+			"data('toggle",
+			"data('to",
+			"data-toggle",
+			"data-togle",
+			"animate",
+			"inline",
+			"remote",
+			"150",
+			"width",
+			"150",
+			"loadRemo",
+			"loadR",
+			"load",
+			"load-remote",
+			"width",
+			"width: 148px",
+			"width: 148px;",
+			"scroll",
+			"animate",
+			"scrollTop",
+			"offers",
+			"En streaming",
+			"En streaming sur ",
+			"panel-title",
+			"hd",
+			"player-program",
+			"redi",
+			"en ce",
+			"search-query",
+			"typeahead",
+			"typehead",
+			"datepicker",
+			"view-",
+			"view-pro",
+			"view",
+			"affiche",
+			"tab-pane",
+			".btn.btn-large",
+			"view-settings",
+			"time",
+			"show-more",
+			"you",
+			"app.request.isXmlHttp",
+			"page",
+			"app.request.isXmlHttpRequest",
+			"lauch",
+			"lunch",
+			"session",
+			"uid",
+			"query",
+			"json",
+			"skin",
+			"s",
+			"show-mo",
+			"remove",
+			"show-mo",
+			"render"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"	\n"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"project": "JE.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"v3Bundle/Resources/public/js/ui.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"~/Desktop/myskreen.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 259.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
