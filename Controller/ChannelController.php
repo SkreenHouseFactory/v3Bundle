@@ -144,7 +144,9 @@ class ChannelController extends Controller
       if ( $this->get('templating')->exists('SkreenHouseFactoryV3Bundle:Channel:_header-'.$data->channel->id.'.html.twig')){
         $custom_header = true;
       }
-      $data->channel->fournisseur = (object)array_merge($params, (array)$data->channel->fournisseur);
+      if(isset($data->channel->fournisseur)){
+        $data->channel->fournisseur = (object)array_merge($params, (array)$data->channel->fournisseur);
+      }
       $params = array_merge($params, array(
         'from_selection'=> $from_selection,
         'data' => $data,
