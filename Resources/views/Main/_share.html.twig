@@ -1,9 +1,19 @@
-{#Facebook#}
+{#
 <div class="fb-like" data-href="{{ url }}" data-width="130" data-layout="button_count" data-show-faces="false" data-send="false"></div>
 
-{#twitter#}
+
 <a href="https://twitter.com/share" class="twitter-share-button" data-lang="fr" data-count="none">Tweeter</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-{#google+#}
+
 <div class="g-plusone" data-size="medium" data-annotation="none"></div>
+
+#}
+
+
+<iframe class="pull-left" src="//www.facebook.com/plugins/like.php?href={{ url|url_encode }}&amp;width=80&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false&amp;appId=422066694500806" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:21px; margin-left:10px;" allowTransparency="true"></iframe>
+
+<iframe class="pull-left" style="height: 20px;width: 94px; margin-right:0px; margin-left:10px;" allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer={{ url|url_encode }}&amp;size=m&amp;text={{ text|url_encode|replace({'+': '%20'}) }}&amp;url={{ url|url_encode }}" class="block-twitter" data-twttr-rendered="true"></iframe>
+
+<iframe frameborder="0" scrolling="no" style="position: static; width: 69px; margin: 0px; border-style: none; height: 20px;margin-left:10px" id="I0_share" name="I0_share" src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=fr&amp;url={{ url|url_encode }}&amp;id=I0_share" allowtransparency="true" data-gapiattached="true" title="+1"></iframe>
+
