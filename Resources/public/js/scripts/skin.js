@@ -16,7 +16,7 @@ Skin = {
         var background_image = $(this).css('background-image');
         background_image = background_image.replace('/1500/', '/970/');
         console.log(background_image);
-        $('.carousel-caption a:contains("Les Conquérants")').parent().parent().addClass('hide');
+        $('.carousel-caption a:contains("Les conquérants")').parent().parent().addClass('hide');
         $(this).css('background-image',background_image);
       });
     }
