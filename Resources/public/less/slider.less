@@ -96,6 +96,53 @@ Author: Benoît Bergstörm
         }
       }
     }
+    &:hover, &.hover, &.tv-component-focused {
+        .wrap-title {
+          background-color:rgba(0,0,0,0.6);
+          .transition(0.3s, ease-out);
+
+
+          span.title {
+            height: auto;
+            overflow: hidden;
+            white-space: normal;
+            -o-text-overflow: clip; /* pour Opera 9 */
+            text-overflow: clip; /* pour le reste du monde */
+            line-height: auto;
+            display: block;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            margin-left:auto;
+            margin-right: auto;
+            margin-top:10px;
+            span:not(.ico-deporte span){
+            //    margin-bottom: 10px;
+            //     display: block;
+          }
+          .ico-deporte{
+            .glyphicon {
+              margin-right: 7px;
+              margin-left:-4px;
+            }
+          }
+          .ms-prog-title{
+            margin-left: 0px;
+            margin-top: 7px;
+            font-size: 14px;
+            display: inline;
+            &:after{
+              content: "";
+              margin-right: 0px;
+            }
+          }
+          .ms-prog-desc{
+            display: block;
+          }
+
+        }
+      }
+    }
 
     .wrap-title {
       position: absolute;
@@ -686,53 +733,7 @@ Author: Benoît Bergstörm
 html:not(.touch){
   .new-slider{
     .tv-component {
-      &:hover, &.hover, &.tv-component-focused {
-        .wrap-title {
-          background-color:rgba(0,0,0,0.6);
-          .transition(0.3s, ease-out);
-
-
-          span.title {
-            height: auto;
-            overflow: hidden;
-            white-space: normal;
-            -o-text-overflow: clip; /* pour Opera 9 */
-            text-overflow: clip; /* pour le reste du monde */
-            line-height: auto;
-            display: block;
-            position: absolute;
-            text-align: center;
-            top: 0;
-            margin-left:auto;
-            margin-right: auto;
-            margin-top:10px;
-            span:not(.ico-deporte span){
-            //    margin-bottom: 10px;
-            //     display: block;
-          }
-          .ico-deporte{
-            .glyphicon {
-              margin-right: 7px;
-              margin-left:-4px;
-            }
-          }
-          .ms-prog-title{
-            margin-left: 0px;
-            margin-top: 7px;
-            font-size: 14px;
-            display: inline;
-            &:after{
-              content: "";
-              margin-right: 0px;
-            }
-          }
-          .ms-prog-desc{
-            display: block;
-          }
-
-        }
-      }
-    }
+      
   }
 }
 }
