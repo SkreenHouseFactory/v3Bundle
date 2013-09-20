@@ -118,6 +118,7 @@ player:
     content.text:
         replay: Replay %date%
         deporte: Votre programme en intégralité
+        live: Le direct
         bonus: Bonus
         cut: Extrait
         archive: Archive

@@ -21,8 +21,12 @@
   {% endif %}
   <meta itemprop="description" content="{{ program.description|striptags }}" />
   <div id="program-teaser-meta" class="player-meta"></div>
-  <div id="program-teaser-player"{% if app.request.isXmlHttpRequest %}{%else%} data-play-autoload-bak="{{ program.player.id }}"{% endif %} data-play="{{ program.player.id }}" {#data-play-meta-elmt="#program-teaser-meta" data-play-muted="1"#} data-play-args="{{ {hide_sliders: 1, current_player: '#program-teaser-player'}|json_encode }}">
+  <div id="program-teaser-player"{% if app.request.isXmlHttpRequest %}{%else%} data-play-autoload-bak="{{ program.player.id }}"{% endif %}{% if program.player.id is defined %} data-play="{{ program.player.id }}"{% elseif program.player.iframe is defined %} data-play-iframe="{{ program.player.iframe }}"{% endif %} data-play-args="{{ {hide_sliders: 1, current_player: '#program-teaser-player'}|json_encode }}">
+    {% if program.player.iframe is defined %}
+    <iframe src="{{ program.player.iframe }}" style="height:368px;width:637px" scrolling="no" frameborder="0"></iframe>
+    {% else %}
     <iframe src="{{ player_host }}/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.player.id }}&height=368&width=637&fromWebsite=1" style="height:368px;width:637px" scrolling="no" frameborder="0"></iframe>
+    {% endif %}
   </div>
 </div>
 {% else %}

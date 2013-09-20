@@ -120,7 +120,7 @@
             {% set other_episodes = 'ok' %}
             {% endif %}
 
-            <tr class="{% if loop.index > 3 and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}collapse collapsing-{{ key }}{% endif %}" data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~  o.broadcasttime|broadcastdate}) }}">
+            <tr class="{% if loop.index > 3 and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}collapse collapsing-{{ key }}{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['TV'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~  o.broadcasttime|broadcastdate}) }}">
 
               <td class="channel">
                 <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% else %}{{ o_channel.img }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
@@ -139,11 +139,10 @@
                {% endif %}
                {% endif %}
                <div>
-                 {#% if o_access.name not in ['Live', 'TV'] and #}
                  {% if o_access.name in ['Vidéo'] and 
-                 o.broadcasttime is defined and 
-                 o.broadcasttime and
-                 o.cost == 0 %}
+                       o.broadcasttime is defined and 
+                       o.broadcasttime and
+                       o.cost == 0 %}
                  <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
                  {% endif %}
                </div>
@@ -188,10 +187,13 @@
              {#% endif %#}
 
              <td class="offers">
-               {% if o_access.name in ['Live', 'TV'] %}
-               <a class="btn btn-default">
-                <i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier
-              </a>
+              {% if o_access.name in ['TV'] and 
+                    o_channel.live is defined and 
+                    o_channel.live.player is defined and 
+                    o_channel.live.player  %}
+              <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir le direct</button>
+              {% elseif o_access.name in ['TV'] %}
+              <a class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier</a>
               {% else %}
               <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;{{ o.cost ? 'Voir    ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }}</button>
               {% endif %}
@@ -199,10 +201,11 @@
               {% if o_access.name == 'TV' %}
               {% if key == 'plays'  %}
               <span class="ms-reminder">Live</span>
-              <i class="glyphicon glyphicon-time"></i>{% elseif o.has_replay and o.broadcasttime|remainingtv %}
+              <i class="glyphicon glyphicon-time"></i>
+              {% elseif o.has_replay and o.broadcasttime|remainingtv %}
               <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
               {% elseif o.broadcasttime|timeleft %}
-              <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> Dans {{ o.broadcasttime|timeleft }}</span>
+              <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o_access.name == 'TV' ? 'Encore' : 'Dans' }} {{ o.broadcasttime|timeleft }}</span>
               {% endif %}
               {% elseif o.endtime is defined and o.endtime|remainingreplay %}
               <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
