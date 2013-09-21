@@ -1,5 +1,6 @@
 $(document).ready(function(){
   Skin.initHome();
+  Skinema.initHome();
 });
 
 
@@ -7,7 +8,7 @@ var Skin;
 Skin = {
   initHome: function() {
     console.log('initSkinHome');
-    if( ($('body').hasClass('home') || $('body').hasClass('home-v3-cine')) && $('body').hasClass('skin')) {
+    if( ($('body').hasClass('home') || $('body').hasClass('home-cinema')) && $('body').hasClass('skin')) {
       $('.absolute').addClass('hide');
       $('body').prepend('<a class="background">');
       $('body').append('</a>');
