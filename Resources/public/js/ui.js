@@ -745,6 +745,13 @@ UI = {
     //    onglet != Skhf.session.onglet) {
     //  Skhf.session.initPlaylist('/' + onglet);
     //}
+     $('li:not(.static)', this.playlist.elmt).animate({'width':0}, 500, function() {
+      //$('li.static', self.playlist.elmt).show().animate({'width': self.playlist.item_width}, 500);
+      self.playlist.remove();
+      if (typeof callback != 'undefined') {
+         callback();
+      }
+    });
     $('#top-playlist .breadcrumb li:not(:first)').empty();
     
 
