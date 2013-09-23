@@ -23,7 +23,7 @@
 			{% endif %}
 			<i class="icon-th icon-white"></i>
 			<span class="ms-prog-title">{{ p_title|raw }} </span>
-			<span class="ms-prog-desc">  {% if p.format.name is defined %} {{ p.format.name|raw }},{% endif %}  {% if p.duration is defined and p.duration !="" %} {{ p.duration|raw }} min {% endif %} </span></span>
+			<span class="ms-prog-desc">  {% if p.format.name is defined %} {{ p.format.name|raw }}{% if p.year is defined and p.year != null %} ({{p.year}}){% endif %}{% endif %}{% if p.duration is defined and p.duration !="" %},<br> {{ p.duration|raw }} min {% endif %} </span></span>
 			<br>
 		</span>
 		</a>

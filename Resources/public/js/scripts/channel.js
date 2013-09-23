@@ -116,7 +116,6 @@ $(document).ready(function(){
 
     //////////// SCRIPTS ////////////////
 
-    // -- countdown pblv
     //setting
       $('.modal .trigger-suivre').on('click',function(){
           $('#channel-modal').modal('hide');

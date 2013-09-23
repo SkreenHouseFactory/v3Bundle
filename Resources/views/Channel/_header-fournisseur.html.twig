@@ -1,7 +1,6 @@
 {% set tnt_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat','HD1','6Ter','numéro 23','RMC découverte','Gulli','cherie 25','KTO'] %}
 <div id="cover" class="cover-fournisseur">
 <div class="header-container">
-  {% if fournisseur.live.program is defined and fournisseur.live.program  %}
   <div class="container">
   <h1 data-channel="{{ channel.name }}" data-channel-slug="{{ slug }}">
   {{ channel.name }} : Replay & Direct
@@ -10,25 +9,25 @@
   <div id="carousel-chaine" class="carousel slide" data-interval="false">
     <div class="carousel-inner">
       <div class="item active">
-    {% for c in tnt_channels %}
-    {% set slug = c|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-    {% if  loop.index == 26 %}
-      </div>
-      <div class="item pointer">
-    {% endif %}
-      <a data-toggle="tooltip" class="" data-placement="{{ loop.index in [1,2,3,4,5,26,27,28,29,30] ?'bottom':'top' }}"  data-original-title="{{c|upper}}" data-channel-slug="{{slug}}" href="{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/50/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ c }} Replay"></a>
-    {% endfor %}
+        {% for c in tnt_channels %}
+          {% set slug = c|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', "\'": '-'})|raw %}
+          {% if  loop.index == 26 %}
+            </div>
+            <div class="item pointer">
+          {% endif %}
+          <a data-toggle="tooltip" class="" data-placement="{{ loop.index in [1,2,3,4,5,26,27,28,29,30] ?'bottom':'top' }}"  data-original-title="{{c|upper}}" data-channel-slug="{{slug}}" href="{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/50/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ c }} Replay"></a>
+        {% endfor %}
       </div>
     </div>
     <a class="carousel-control left" data-slide="prev" href="#carousel-chaine">‹</a> 
     <a class="carousel-control right" data-slide="next" href="#carousel-chaine">›</a> </div>
-</ul>
+  </ul>
 
     <div class="well">
-    <div class="well-inner">
-    {% if fournisseur.live.player is defined %}
-      <iframe class="player-live" frameborder="0" scrolling="no" src="{{ fournisseur.live.player }}"></iframe>
-    {% elseif fournisseur.live.url is defined %}
+      <div class="well-inner">
+        {% if fournisseur.live.player is defined %}
+          <iframe class="player-live" frameborder="0" scrolling="no" src="{{ fournisseur.live.player }}"></iframe>
+        {% elseif fournisseur.live.url is defined %}
       <br/>
       <br/>
       <p class="alert alert-info">Le direct est disponible sur le site de {{ fournisseur.name }}.</p>
@@ -40,6 +39,7 @@
       <p class="alert alert-warning">Le direct n'est pas disponible.</p>
     {% endif %}
     </div>
+    {% if fournisseur.live.program is defined and fournisseur.live.program  %}
     <div class="slider">
       {#<small>{{ fournisseur.live.program.best_offer.broadcast_begin|date('H:i')|upper }} / {{ fournisseur.live.program.best_offer.broadcast_end|date('H:i')|upper }}</small>#}
       <ul class="items">
@@ -47,8 +47,8 @@
       </ul>
       <a dt data-id="{{ fournisseur.live.program.id }}" class="btn btn-suivre fav-like"><i class="glyphicon glyphicon-plus"></i> Suivre</a>
     </div>
+    {% endif %}
   </div>
   </div>
-  {% endif %}
 </div>
 </div>
