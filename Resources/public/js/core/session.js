@@ -186,9 +186,13 @@ var BaseSession = Class.extend({
       case 'user':
         var ids = this.datas.user;
       break;
+
+      default:
+        var ids = null;
+
     }
     //console.log('getPlaylistIds', playlist, ids.indexOf(',') ? ids.split(',') : [parseInt(ids)]);
-    return ids.length > 0 ? ids.split(',') : [];
+    return ids != null ? ids.split(',') : [];
   },
   getSocialDatas: function(callback){
     var self = this;
