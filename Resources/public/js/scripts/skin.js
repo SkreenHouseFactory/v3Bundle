@@ -1,6 +1,8 @@
 $(document).ready(function(){
   Skin.initHome();
-  Skinema.initHome();
+  if (typeof Skinema != 'undefined') {
+    Skinema.initHome();
+  }
 });
 
 
