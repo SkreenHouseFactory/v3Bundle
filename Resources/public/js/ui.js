@@ -641,7 +641,6 @@ UI = {
   loadSelector: function(datas) {
     var self = this;
     console.log('UI.loadSelector', datas, Skhf.session.onglet);
-
     this.unloadSelector();
     $('#playlist').removeClass('in-selection');
 
@@ -649,7 +648,7 @@ UI = {
       var group = datas[key];
       //console.log('UI.loadSelector', key, group);
       var li = $('li#' + key, this.playlist.elmt);
-      
+
       li.removeClass('empty');
       li.css('background-image', 'url('+group.img+')').css('background-repeat', 'no-repeat');
       li.find('.label').removeClass('opacity').addClass('label-inverse');
@@ -661,7 +660,7 @@ UI = {
       li.find('a, h6').hide();
       li.popover('disable');
     }
-     
+
     //show selector
     this.unloadPlaylist(Skhf.session.onglet, function() {
           $('#top-playlist li.selector').animate({'width': API.config.slider.width}, 500, function(){
@@ -688,6 +687,7 @@ UI = {
     var lis = $('li.selector', this.playlist.elmt);
     lis.addClass('empty').css('background-image', '');
     lis.find('.label').addClass('opacity').find('span').empty();
+
     lis.find('span.badge').remove();
     lis.find('a, h6').show();
     $('#top-playlist .breadcrumb li:not(:first)').empty();
@@ -747,13 +747,7 @@ UI = {
     //}
     $('#top-playlist .breadcrumb li:not(:first)').empty();
     
-    $('li:not(.static)', this.playlist.elmt).animate({'width':0}, 500, function() {
-      //$('li.static', self.playlist.elmt).show().animate({'width': self.playlist.item_width}, 500);
-      self.playlist.remove();
-      if (typeof callback != 'undefined') {
-         callback();
-      }
-    });
+
   },
   markAsRed: function(id) {
     $('.notifications ul li[data-id="' + id + '"] .badge').remove();

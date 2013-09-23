@@ -36,11 +36,6 @@ var BaseSlider = Class.extend({
       this.elmt.addClass('no-scroll');
     }
 
-    //li sample
-    if (this.sample == null) {
-      this.sample = $('<div>').append($('li.slider-sample:first').clone().removeClass('slider-sample')).html();
-      //console.log('BaseSlider.init', 'this.sample', this.sample);
-    }
 
     //paginate ?
     if (typeof params.url != 'undefined') {
