@@ -67,7 +67,7 @@ class ChannelController extends Controller
     $data = $api->fetch('channel', $params);
 
     //print("<pre>");print_r($data);
-    //echo $api->url;
+    echo $api->url;
     //echo "\n".'category_slug:' . $request->get('category_slug');
     //echo "\n".'route:'  .$request->get('_route');
     //exit;
@@ -178,6 +178,7 @@ class ChannelController extends Controller
       $data->programs = (array)$data->programs;
       $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) ? $data->programs[0]->picture : null);
       //$template = isset($data->epg) && $data->epg ? 'channel-replay' : 'channel';
+
       $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:fournisseur.html.twig', $params);
     }
 
