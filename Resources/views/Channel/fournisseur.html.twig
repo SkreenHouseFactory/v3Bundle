@@ -31,11 +31,11 @@
   {#{ dump(app.request.attributes) }#}
   {# description #}
   {% if app.request.get('format') is null %}
-  <div class="channel-description well ">
+  <div class="channel-description-seo-placement well ">
   {{ channel.description|raw }}
   </div>
   {% else %}
-  <div class="channel-description well">
+  <div class="channel-description-seo-placement well">
     {% set page_title_channel = 'page.title.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
     {{ channel.name }} : regardez les {{ app.request.get('format') }} {{ app.request.get('facet') }}.
     {%- if app.request.get('page') %}Page {{ app.request.get('page') }}{% endif -%}
