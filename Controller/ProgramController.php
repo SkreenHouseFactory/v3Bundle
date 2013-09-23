@@ -178,7 +178,7 @@ class ProgramController extends Controller
           }
           return $this->redirect($data->seo_url, 301);
         }
-        if ($request->getPathInfo() != $data->seo_url) {
+        if  ($request->getPathInfo() != $data->seo_url) {
           if ($this->get('kernel')->getEnvironment() == 'dev') {
             return $this->redirect('/app_dev.php' . $data->seo_url, 301);;
           //  return new Response('redirect '.$request->getPathInfo().' != '.$data->seo_url.' => '.($request->getPathInfo() != $data->seo_url));
