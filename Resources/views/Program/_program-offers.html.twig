@@ -190,7 +190,9 @@
               {% if o_access.name in ['TV'] and 
                     o_channel.live is defined and 
                     o_channel.live.player is defined and 
-                    o_channel.live.player  %}
+                    o_channel.live.player and
+                    o.is_live is defined and
+                    o.is_live  %}
               <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir le direct</button>
               {% elseif o_access.name in ['TV'] %}
               <a class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier</a>
