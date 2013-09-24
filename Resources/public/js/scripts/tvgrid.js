@@ -369,6 +369,7 @@ $(document).ready(function(){
         console.log('scripts/tvgrid.js', 'callbackSignin', 'epg', Skhf.session.datas.epg);
         GridView.loadSchedule();
         GridView.setTimeBar();
+        $('#view-tvgrid .description').addClass('hide');
       }
     }
     // -- UI callback : reload grid after adding channel
