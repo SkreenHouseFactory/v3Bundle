@@ -332,7 +332,7 @@ var BaseSlider = Class.extend({
       //  li.prepend(UI.badge_notification.replace('%count%', 'nouveau'));
       //}
 
-      /* add friends : desactived */
+      /* add friends : desactived 
       if (this.elmt.hasClass('slider-playlist') || API.config.env == 'dev') {
         Skhf.session.getSocialDatas(function (friends, friends_programs) {
           console.log('BaseSlider.insertPrograms', 'getSocialDatas callback', friends_programs);
@@ -342,6 +342,7 @@ var BaseSlider = Class.extend({
           }
         });
       }
+      */
       li.addClass('to-animate').css('display', 'inline-block'); //attention : .show() > list-item
       //console.log('BaseSlider.load', 'add', li, $('ul.items', this.elmt));
       $('ul.items', this.elmt).append(li);

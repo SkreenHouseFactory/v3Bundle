@@ -182,7 +182,7 @@ class ChannelController extends Controller
       $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:fournisseur.html.twig', $params);
     }
 
-    $maxage = 120;
+    $maxage = 60;
     $response->setPublic();
     $response->setMaxAge($maxage);
     $response->setSharedMaxAge($maxage);

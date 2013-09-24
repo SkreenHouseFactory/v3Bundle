@@ -44,6 +44,7 @@
       var val = this.$menu.find('.active').length > 0 ? JSON.parse(this.$menu.find('.active').attr('data-value')) : this.$element.val()
         , text
 
+
       if (!this.strings) text = val[this.options.property]
       else text = val
 
@@ -170,8 +171,13 @@
       var active = this.$menu.find('.active').removeClass('active')
         , next = active.next()
       console.log('typeahead.next', active, next);
+      
       if (!next.length) {
         next = $(this.$menu.find('li')[0])
+      }
+
+      if (next.hasClass('nav-header')) {
+        next = next.next();
       }
 
       next.addClass('active')
@@ -184,6 +190,10 @@
 
       if (!prev.length) {
         prev = this.$menu.find('li').last()
+      }
+
+      if (prev.hasClass('nav-header')) {
+        prev = prev.prev();
       }
 
       prev.addClass('active')
