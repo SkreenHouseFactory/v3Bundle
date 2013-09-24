@@ -35,11 +35,10 @@ var BaseSlider = Class.extend({
     if (this.params.scroll == 'no') {
       this.elmt.addClass('no-scroll');
     }
-
-    //li sample
+     //li sample
     if (this.sample == null) {
       this.sample = $('<div>').append($('li.slider-sample:first').clone().removeClass('slider-sample')).html();
-      //console.log('BaseSlider.init', 'this.sample', this.sample);
+     //console.log('BaseSlider.init', 'this.sample', this.sample);
     }
 
     //paginate ?

@@ -167,6 +167,7 @@
                {% if (o.versions is defined and o.versions|to_array|length) or 
                (o.tags is defined and o.tags|to_array|length) %}
                <div class="ms-versions">
+                  <span>{{program.duration}} min, </span>
                  {% if o.deporte is defined and o.deporte and o.versions is defined %}
                  <span>{{ o.versions|to_array|keys|join(', ') }}</span>
                  {% elseif o.tags is defined and o.tags.version is defined %}
