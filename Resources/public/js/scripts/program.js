@@ -3,7 +3,7 @@
 var ProgramView;
 ProgramView = {
   init: function() {
-     
+
     //hack player pas initialisé
     if ($('#program-teaser-player iframe').length && 
         !Player.elmt) {

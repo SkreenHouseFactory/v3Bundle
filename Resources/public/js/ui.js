@@ -905,11 +905,12 @@ UI = {
       items: 5,
       minLength: 3,
       source: function(typeahead, query) {
-        $.debounce(self.getTypeaheadSuggestions(typeahead, query), 200);
+        self.getTypeaheadSuggestions(typeahead, query);
+        //$.debounce(self.getTypeaheadSuggestions(typeahead, query), 200);
       },
       onselect: function(obj) {
-        console.log('UI.typeahead', 'onselect', obj, searchbox, $(searchbox).attr('value'));
-        $(searchbox).attr('value', 'chargement ...').attr('placeholder', 'chargement ...');
+        console.log('UI.typeahead', 'onselect', obj, $(searchbox), $(searchbox).val());
+        $(searchbox).val(' chargement ...');
 
         if (typeof obj != 'object') { //typeahead
           top.location = API.config.v3_url + '/programmes/' + obj;
@@ -1097,7 +1098,12 @@ UI = {
           });
           $('.mini-loading.mini-bar').addClass('hide');
           //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
-          typeahead.show();
+          console.log('UI.typeahead', 'show ?', $('li', typeahead.$menu).length);
+          if ($('li', typeahead.$menu).length) {
+            typeahead.show();
+          } else {
+            typeahead.hide();
+          }
         } else {
           $('.mini-loading.mini-bar').addClass('hide');
           return typeahead.shown ? typeahead.hide() : typeahead
