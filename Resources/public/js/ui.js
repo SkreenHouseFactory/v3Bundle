@@ -988,7 +988,7 @@ UI = {
             switch (key) {
               case 'queue':
                 var items = data[key][0].programs;
-                titles[key] = 'Abonné';
+                titles[key] = 'Vos playlists';
                 break;
               case 'channels':
                 var items = data[key];
