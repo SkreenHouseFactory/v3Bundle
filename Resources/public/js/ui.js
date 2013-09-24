@@ -486,7 +486,7 @@ UI = {
           '<li class="divider notification'+' '+ notifications[k].offers+ ' ' + notifications[k].access+ ' ' + notifications[k].type_ajout + '"></li>'
         );
       }
-      $('.notifications .label.filter').remove();
+    /*  $('.notifications .label.filter').remove();
       $('.notifications .notification-filter').append('<a class="label label-info filter" data-filter="all">Tout</a>');
       
       if ($('li.tv-component.plays.broadcast,li.tv-component.broadcasts.broadcast').length) {
@@ -504,32 +504,88 @@ UI = {
       if ($('.tv-component.chaîne').length){
          $('.notifications .notification-filter').append('<a class="label filter" data-filter="chaîne">Chaînes</a>');
       } 
-     
+     */
       $('.notifications .label.filter').on('click', function(e){
         e.preventDefault();
         e.stopPropagation();
-        $('.notifications .label.filter').removeClass('label-info');
-        $('.notifications .dropdown-menu .tv-component').addClass('hide');
-        $('.notifications .divider.notification').addClass('hide');
-        $('.label.filter[data-filter="' + $(this).data('filter') + '"]').addClass('label-info');
-    
-        if ( $(this).data('filter') == 'all' ){
-          $('.notifications .dropdown-menu .tv-component').removeClass('hide');
-          $('.notifications .divider.notification').removeClass('hide'); 
-        } else {
-          if( $(this).data('filter') == 'tv' ){
-            var classes = ['plays.broadcast','broadcasts.broadcast'];
-          }else if( $(this).data('filter') == 'replay' ){
-            var classes = ['plays.catchup','plays.webcast'];
-          }else if( $(this).data('filter') == 'vod' ){
-            var classes = ['plays.dvd', 'plays.location.48h', 'plays.achat.itunes','plays.achat']; 
-          } else {
-            var classes = [$(this).data('filter')];
-          }
-          for (k in classes) {
-            $('.notifications .dropdown-menu .tv-component.' +  classes[k]).removeClass('hide'); 
-            $('.notifications .divider.' +  classes[k]).removeClass('hide'); 
-          }
+        self = $(this);
+        if($(this).data('reload-notif') != "done"){
+          Skhf.session.sync(function(data){
+                              console.log('reload datas notifications filter',data.notifications);
+                              for ( k in data.notifications){
+
+                                if($('.notifications .dropdown-menu .tv-component a[data-id="'+data.notifications[k].id+'"]').length == 0){
+
+                                      if (data.notifications[k].type == 'broadcast') {
+                                        var attrs = 'data-ajax="' + API.config.v3_root + data.notifications[k].program.seo_url +'?offers='+data.notifications[k].offers +'" rel="#content" data-seo-url="' + data.notifications[k].program.seo_url + '"';
+                                        
+                                      } else if (data.notifications[k].player) {
+                                        var attrs = 'data-ajax-play="' + data.notifications[k].player + '" data-ajax="' + API.config.v3_root + data.notifications[k].program.seo_url + '?offers='+data.notifications[k].offers + '" rel="#content" data-seo-url="' + data.notifications[k].program.seo_url + '"' 
+                                        
+                                      } else if ( data.notifications[k].access == 'extrait'|| data.notifications[k].type == 'ajout' || data.notifications[k].program.deporte) {
+                                        var attrs = 'data-ajax="' + API.config.v3_root + data.notifications[k].program.seo_url + '?offers='+data.notifications[k].offers +  '" data-offers="' + data.notifications[k].offers + '" rel="#content" data-seo-url="' + data.notifications[k].program.seo_url + '"';
+                                        
+                                      } else {
+                                        var attrs = 'data-redirect="' + data.notifications[k].link + '" data-seo-url="' + data.notifications[k].program.seo_url + '"';
+                                      }
+                                      
+                                      var ep_title = data.notifications[k].title_episode;
+                                      var len=32;
+                                      if (ep_title != null &&
+                                          ep_title.length > len) {
+                                        var currChar = 'X';
+                                        while (currChar != ' ' && len >= 0) {
+                                          len--;
+                                          currChar = ep_title.charAt(len);
+                                        }
+                                        if (len > 0) {
+                                          ep_title = ep_title.substring(0,len) + '...';
+                                        } else {
+                                          ep_title = ep_title.substring(0,32);
+                                        }
+                                      }
+                                      list.append(
+                                      '<li class="tv-component '+ data.notifications[k].offers+' '+ data.notifications[k].access+ ' ' + data.notifications[k].type_ajout + '"><a data-id="' + data.notifications[k].id + '" class="remove">' + 
+                                      '<i class="glyphicon glyphicon-trash"></i></a>' + (data.notifications[k]['new'] ? '<span id="new-notif'+ data.notifications[k].id + '" class="pull-right badge badge-important">Nouveau</span>' : '') + 
+                                      '<a ' + attrs + (data.notifications[k]['new'] ? ' data-remove="#new-notif'+ data.notifications[k].id + '"' : '')+' class="link">' + 
+                                      (data.notifications[k].channel_ico ? '<img src="' + data.notifications[k].channel_ico + '" alt="' + data.notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
+                                      '<img src="' + data.notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
+                                      '<span class="title">' + data.notifications[k].title + '</span>' +
+                                      '<span class="subtitle">' + ep_title + '</span>' +
+                                      '<span class="label label-' + (data.notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + data.notifications[k].subtitle + '</span></a>' +
+                                      '</li>' +
+                                      '<li class="divider notification'+' '+ data.notifications[k].offers+ ' ' + data.notifications[k].access+ ' ' + data.notifications[k].type_ajout + '"></li>'
+                                      
+                                      );
+                                  }
+                                }
+                              $('.notifications .label.filter').removeClass('label-info');
+                              $('.notifications .dropdown-menu .tv-component').addClass('hide');
+                              $('.notifications .divider.notification').addClass('hide');
+                              $('.label.filter[data-filter="' + self.data('filter') + '"]').addClass('label-info');
+                          
+                              if ( self.data('filter') == 'all' ){
+                                $('.notifications .dropdown-menu .tv-component').removeClass('hide');
+                                $('.notifications .divider.notification').removeClass('hide'); 
+                              } else {
+                                if( self.data('filter') == 'tv' ){
+                                  var classes = ['plays.broadcast','broadcasts.broadcast'];
+                                }else if( self.data('filter') == 'replay' ){
+                                  var classes = ['plays.catchup','plays.webcast'];
+                                }else if( self.data('filter') == 'vod' ){
+                                  var classes = ['plays.dvd', 'plays.location.48h', 'plays.achat.itunes','plays.achat']; 
+                                } else {
+                                  var classes = [self.data('filter')];
+                                }
+                                for (k in classes) {
+                                  $('.notifications .dropdown-menu .tv-component.' +  classes[k]).removeClass('hide'); 
+                                  $('.notifications .divider.' +  classes[k]).removeClass('hide'); 
+                                }
+                              }
+                          }
+                    ,{ with_notifications : self.data('filter')}
+              );
+       
         }
         return false;
       });
