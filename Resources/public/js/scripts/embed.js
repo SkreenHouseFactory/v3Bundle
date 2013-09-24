@@ -4,8 +4,8 @@ $(document).ready(function(){
     $('.player-cover').fadeOut();
   })
 
-  if (navigator.userAgent.match(/iPhone|iPod|iPad|Android/gi)) {
+  //if (navigator.userAgent.match(/iPhone|iPod|iPad|Android/gi)) {
     //console.log(['scripts/embed.js', 'iPhone|iPod|iPad|Android', 'default click']);
     $('#trigger').trigger('click');
-  }
+    //}
 })

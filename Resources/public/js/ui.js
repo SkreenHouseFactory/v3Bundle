@@ -915,7 +915,7 @@ UI = {
       },
       onselect: function(obj) {
         console.log('UI.typeahead', 'onselect', obj, searchbox, $(searchbox).attr('value'));
-        $(searchbox).attr('value', 'chargement ...').attr('placeholder', 'chargement ...');
+        $(searchbox).val(' chargement ...');
 
         if (typeof obj != 'object') { //typeahead
           top.location = API.config.v3_url + '/programmes/' + obj;
@@ -988,7 +988,7 @@ UI = {
             switch (key) {
               case 'queue':
                 var items = data[key][0].programs;
-                titles[key] = 'Abonné';
+                titles[key] = 'Vos playlists';
                 break;
               case 'channels':
                 var items = data[key];
