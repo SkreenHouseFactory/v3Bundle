@@ -15,9 +15,9 @@ page:
             documentaires: Documentaire streaming
             series: Séries streaming
             spectacles: Spectacles, concerts, théatre streaming
-            v3-cine: Cinéma : les horaires et les salles
-            v3-vod: Vidéo à la demande (VOD) en streaming
-            v3-jeunesse: Cartoons, animation et dessins animés en streaming
+            cinema: Cinéma : les horaires et les salles
+            video-a-la-demande: Vidéo à la demande (VOD) en streaming
+            jeunesse: Cartoons, animation et dessins animés en streaming
     title:
         home: 
             mixte: Programmes Télé, Replay TV, VOD

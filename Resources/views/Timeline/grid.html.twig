@@ -73,15 +73,16 @@
     {% include 'SkreenHouseFactoryV3Bundle:Timeline:_channels-schedule.html.twig' with {data: data } %}
   </ul>
 </div>
+  </div>
+</div>
 <ul class="nav nav-pills">
    <li class="addchannel-bottom">
       <a class="btn btn-default" data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;de chaînes</a>
     </li>
   </ul>
-</div>
-  </div>
   {% if periode == null or periode == 'ce-soir' %}
-    <div>
+  <hr>
+    <div class="ms-description">
       <h3> Votre programme t&eacute;l&eacute; avec mySkreen</h3>
       <p>mySkreen est un guide innovant qui permet de consulter le programme t&eacute;l&eacute; du moment, du soir et de la journ&eacute;e.</p>
       <p>Vous avez rat&eacute; votre &eacute;mission ou vous souhaitez connaitre la derni&egrave;re diffusion de votre s&eacute;rie f&eacute;tiche&nbsp;? Vous avez le pouvoir de revenir dans les jours pr&eacute;c&eacute;dents.</p>
