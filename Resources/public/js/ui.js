@@ -419,6 +419,7 @@ UI = {
   },
   //notify
   loadNotifications: function(notifications) {
+    global = this;
     if (typeof notifications == 'undefined') {
       console.error('UI.loadNotifications', 'notifications undefined!');
       return;
@@ -436,57 +437,8 @@ UI = {
       list.find('li.empty').hide();
       list.find('li:not(.empty)').remove();
       var current_last_notification = this.last_notification ? this.last_notification : API.cookie('last_notification');
-      var nb_new = 0;
-      for (k in notifications) {
-        if (notifications[k]['new'] == true) {
-          nb_new++;
-          if (notifications[k].id > this.last_notification) {
-            this.last_notification = notifications[k].id;
-          }
-          //console.log('new', notifications[k]['new'], nb_new);
-        }
-        if (notifications[k].type == 'broadcast') {
-          var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url +'?offers='+notifications[k].offers +'" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"';
-          
-        } else if (notifications[k].player) {
-          var attrs = 'data-ajax-play="' + notifications[k].player + '" data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?offers='+notifications[k].offers + '" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"' 
-          
-        } else if ( notifications[k].access == 'extrait'|| notifications[k].type == 'ajout' || notifications[k].program.deporte) {
-          var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?offers='+notifications[k].offers +  '" data-offers="' + notifications[k].offers + '" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"';
-          
-        } else {
-          var attrs = 'data-redirect="' + notifications[k].link + '" data-seo-url="' + notifications[k].program.seo_url + '"';
-        }
-        
-        var ep_title = notifications[k].title_episode;
-        var len=32;
-        if (ep_title != null &&
-            ep_title.length > len) {
-          var currChar = 'X';
-          while (currChar != ' ' && len >= 0) {
-            len--;
-            currChar = ep_title.charAt(len);
-          }
-          if (len > 0) {
-            ep_title = ep_title.substring(0,len) + '...';
-          } else {
-            ep_title = ep_title.substring(0,32);
-          }
-        }
-        list.append(
-          '<li class="tv-component '+ notifications[k].offers+' '+ notifications[k].access+ ' ' + notifications[k].type_ajout + '"><a data-id="' + notifications[k].id + '" class="remove">' + 
-          '<i class="glyphicon glyphicon-trash"></i></a>' + (notifications[k]['new'] ? '<span id="new-notif'+ notifications[k].id + '" class="pull-right badge badge-important">Nouveau</span>' : '') + 
-          '<a ' + attrs + (notifications[k]['new'] ? ' data-remove="#new-notif'+ notifications[k].id + '"' : '')+' class="link">' + 
-          (notifications[k].channel_ico ? '<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
-          '<img src="' + notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
-          '<span class="title">' + notifications[k].title + '</span>' +
-          '<span class="subtitle">' + ep_title + '</span>' +
-          '<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span></a>' +
-          '</li>' +
-          '<li class="divider notification'+' '+ notifications[k].offers+ ' ' + notifications[k].access+ ' ' + notifications[k].type_ajout + '"></li>'
-        );
-      }
-      $('.notifications .label.filter').remove();
+      this.appendNotifications(notifications,list);
+    /*  $('.notifications .label.filter').remove();
       $('.notifications .notification-filter').append('<a class="label label-info filter" data-filter="all">Tout</a>');
       
       if ($('li.tv-component.plays.broadcast,li.tv-component.broadcasts.broadcast').length) {
@@ -504,33 +456,25 @@ UI = {
       if ($('.tv-component.chaîne').length){
          $('.notifications .notification-filter').append('<a class="label filter" data-filter="chaîne">Chaînes</a>');
       } 
-     
+     */
       $('.notifications .label.filter').on('click', function(e){
         e.preventDefault();
         e.stopPropagation();
-        $('.notifications .label.filter').removeClass('label-info');
-        $('.notifications .dropdown-menu .tv-component').addClass('hide');
-        $('.notifications .divider.notification').addClass('hide');
-        $('.label.filter[data-filter="' + $(this).data('filter') + '"]').addClass('label-info');
-    
-        if ( $(this).data('filter') == 'all' ){
-          $('.notifications .dropdown-menu .tv-component').removeClass('hide');
-          $('.notifications .divider.notification').removeClass('hide'); 
-        } else {
-          if( $(this).data('filter') == 'tv' ){
-            var classes = ['plays.broadcast','broadcasts.broadcast'];
-          }else if( $(this).data('filter') == 'replay' ){
-            var classes = ['plays.catchup','plays.webcast'];
-          }else if( $(this).data('filter') == 'vod' ){
-            var classes = ['plays.dvd', 'plays.location.48h', 'plays.achat.itunes','plays.achat']; 
-          } else {
-            var classes = [$(this).data('filter')];
-          }
-          for (k in classes) {
-            $('.notifications .dropdown-menu .tv-component.' +  classes[k]).removeClass('hide'); 
-            $('.notifications .divider.' +  classes[k]).removeClass('hide'); 
-          }
+        self = $(this);
+        if($(this).data('reload-notif') != "done"){
+          Skhf.session.sync(function(data){
+                              console.log('reload datas notifications filter',data.notifications);
+                              global.appendNotifications(data.notifications,list);
+                              global.notificationsFilter(self);
+                              self.attr('data-reload-notif','done');
+                          }
+                    ,{ with_notifications : self.data('filter')}
+                    );
         }
+        else{
+            global.notificationsFilter(self);                
+        }
+
         return false;
       });
      
@@ -607,6 +551,90 @@ UI = {
       });
     }
   },
+  // filter
+  notificationsFilter : function(self){
+    $('.notifications .empty').css('display','none');
+    $('.notifications .label.filter').removeClass('label-info');
+    $('.notifications .dropdown-menu .tv-component').addClass('hide');
+    $('.notifications .divider.notification').addClass('hide');
+    $('.label.filter[data-filter="' + self.data('filter') + '"]').addClass('label-info');
+
+    if ( self.data('filter') == 'all' ){
+      $('.notifications .dropdown-menu .tv-component').removeClass('hide');
+      $('.notifications .divider.notification').removeClass('hide'); 
+    } else {
+      if( self.data('filter') == 'tv' ){
+        var classes = ['plays.broadcast','broadcasts.broadcast'];
+      }else if( self.data('filter') == 'replay' ){
+        var classes = ['plays.catchup','plays.webcast'];
+      }else if( self.data('filter') == 'vod' ){
+        var classes = ['plays.dvd', 'plays.location.48h', 'plays.achat.itunes','plays.achat']; 
+      } else {
+        var classes = [self.data('filter')];
+      }
+      for (k in classes) {
+        $('.notifications .dropdown-menu .tv-component.' +  classes[k]).removeClass('hide'); 
+        $('.notifications .divider.' +  classes[k]).removeClass('hide'); 
+      }
+    }
+    if( $('.notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
+      $('.notifications .empty').css('display','block');
+    }
+
+  },
+  //appendNotif
+  appendNotifications : function(notifications,list){
+          var nb_new = 0;
+    for (k in notifications) {
+        if (notifications[k]['new'] == true) {
+          nb_new++;
+          if (notifications[k].id > this.last_notification) {
+            this.last_notification = notifications[k].id;
+          }
+          //console.log('new', notifications[k]['new'], nb_new);
+        }
+        if (notifications[k].type == 'broadcast') {
+          var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url +'?offers='+notifications[k].offers +'" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"';
+          
+        } else if (notifications[k].player) {
+          var attrs = 'data-ajax-play="' + notifications[k].player + '" data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?offers='+notifications[k].offers + '" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"' 
+          
+        } else if ( notifications[k].access == 'extrait'|| notifications[k].type == 'ajout' || notifications[k].program.deporte) {
+          var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?offers='+notifications[k].offers +  '" data-offers="' + notifications[k].offers + '" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"';
+          
+        } else {
+          var attrs = 'data-redirect="' + notifications[k].link + '" data-seo-url="' + notifications[k].program.seo_url + '"';
+        }
+        
+        var ep_title = notifications[k].title_episode;
+        var len=32;
+        if (ep_title != null &&
+            ep_title.length > len) {
+          var currChar = 'X';
+          while (currChar != ' ' && len >= 0) {
+            len--;
+            currChar = ep_title.charAt(len);
+          }
+          if (len > 0) {
+            ep_title = ep_title.substring(0,len) + '...';
+          } else {
+            ep_title = ep_title.substring(0,32);
+          }
+        }
+        list.append(
+          '<li class="tv-component '+ notifications[k].offers+' '+ notifications[k].access+ ' ' + notifications[k].type_ajout + '"><a data-id="' + notifications[k].id + '" class="remove">' + 
+          '<i class="glyphicon glyphicon-trash"></i></a>' + (notifications[k]['new'] ? '<span id="new-notif'+ notifications[k].id + '" class="pull-right badge badge-important">Nouveau</span>' : '') + 
+          '<a ' + attrs + (notifications[k]['new'] ? ' data-remove="#new-notif'+ notifications[k].id + '"' : '')+' class="link">' + 
+          (notifications[k].channel_ico ? '<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
+          '<img src="' + notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
+          '<span class="title">' + notifications[k].title + '</span>' +
+          '<span class="subtitle">' + ep_title + '</span>' +
+          '<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span></a>' +
+          '</li>' +
+          '<li class="divider notification'+' '+ notifications[k].offers+ ' ' + notifications[k].access+ ' ' + notifications[k].type_ajout + '"></li>'
+        );
+  }
+},
   //playlist theaters
   loadTheatersPlaylist: function(){
     if (Skhf.session.datas.cinema && 
@@ -877,11 +905,12 @@ UI = {
       items: 5,
       minLength: 3,
       source: function(typeahead, query) {
-        $.debounce(self.getTypeaheadSuggestions(typeahead, query), 200);
+        self.getTypeaheadSuggestions(typeahead, query);
+        //$.debounce(self.getTypeaheadSuggestions(typeahead, query), 200);
       },
       onselect: function(obj) {
-        console.log('UI.typeahead', 'onselect', obj, searchbox, $(searchbox).attr('value'));
-        $(searchbox).attr('value', 'chargement ...').attr('placeholder', 'chargement ...');
+        console.log('UI.typeahead', 'onselect', obj, $(searchbox), $(searchbox).val());
+        $(searchbox).val(' chargement ...');
 
         if (typeof obj != 'object') { //typeahead
           top.location = API.config.v3_url + '/programmes/' + obj;
@@ -1069,7 +1098,12 @@ UI = {
           });
           $('.mini-loading.mini-bar').addClass('hide');
           //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
-          typeahead.show();
+          console.log('UI.typeahead', 'show ?', $('li', typeahead.$menu).length);
+          if ($('li', typeahead.$menu).length) {
+            typeahead.show();
+          } else {
+            typeahead.hide();
+          }
         } else {
           $('.mini-loading.mini-bar').addClass('hide');
           return typeahead.shown ? typeahead.hide() : typeahead
