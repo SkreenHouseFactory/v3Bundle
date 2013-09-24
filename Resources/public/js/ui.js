@@ -436,8 +436,20 @@ UI = {
       var list = $('.navbar .notifications ul .scroll');
       list.find('li.empty').hide();
       list.find('li:not(.empty)').remove();
+      var nb_new = 0;
       var current_last_notification = this.last_notification ? this.last_notification : API.cookie('last_notification');
-      this.appendNotifications(notifications,list);
+      for (k in notifications) {
+        if (notifications[k]['new'] == true) {
+          nb_new++;
+          if (notifications[k].id > this.last_notification) {
+            this.last_notification = notifications[k].id;
+          }
+          //console.log('new', notifications[k]['new'], nb_new);
+
+        }
+      }
+      this.appendNotifications(notifications,list,true);
+
     /*  $('.notifications .label.filter').remove();
       $('.notifications .notification-filter').append('<a class="label label-info filter" data-filter="all">Tout</a>');
       
@@ -464,7 +476,7 @@ UI = {
         if($(this).data('reload-notif') != "done"){
           Skhf.session.sync(function(data){
                               console.log('reload datas notifications filter',data.notifications);
-                              global.appendNotifications(data.notifications,list);
+                              global.appendNotifications(data.notifications,list,false);
                               global.notificationsFilter(self);
                               self.attr('data-reload-notif','done');
                           }
@@ -584,15 +596,9 @@ UI = {
   },
   //appendNotif
   appendNotifications : function(notifications,list){
-          var nb_new = 0;
+
     for (k in notifications) {
-        if (notifications[k]['new'] == true) {
-          nb_new++;
-          if (notifications[k].id > this.last_notification) {
-            this.last_notification = notifications[k].id;
-          }
-          //console.log('new', notifications[k]['new'], nb_new);
-        }
+      
         if (notifications[k].type == 'broadcast') {
           var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url +'?offers='+notifications[k].offers +'" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"';
           
@@ -905,12 +911,11 @@ UI = {
       items: 5,
       minLength: 3,
       source: function(typeahead, query) {
-        self.getTypeaheadSuggestions(typeahead, query);
-        //$.debounce(self.getTypeaheadSuggestions(typeahead, query), 200);
+        $.debounce(self.getTypeaheadSuggestions(typeahead, query), 200);
       },
       onselect: function(obj) {
-        console.log('UI.typeahead', 'onselect', obj, $(searchbox), $(searchbox).val());
-        $(searchbox).val(' chargement ...');
+        console.log('UI.typeahead', 'onselect', obj, searchbox, $(searchbox).attr('value'));
+        $(searchbox).attr('value', 'chargement ...').attr('placeholder', 'chargement ...');
 
         if (typeof obj != 'object') { //typeahead
           top.location = API.config.v3_url + '/programmes/' + obj;
@@ -1098,12 +1103,7 @@ UI = {
           });
           $('.mini-loading.mini-bar').addClass('hide');
           //$('li:first-child:not(.nav-header)', typeahead.$menu).addClass('active');
-          console.log('UI.typeahead', 'show ?', $('li', typeahead.$menu).length);
-          if ($('li', typeahead.$menu).length) {
-            typeahead.show();
-          } else {
-            typeahead.hide();
-          }
+          typeahead.show();
         } else {
           $('.mini-loading.mini-bar').addClass('hide');
           return typeahead.shown ? typeahead.hide() : typeahead
