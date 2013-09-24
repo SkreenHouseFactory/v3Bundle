@@ -76,6 +76,25 @@
   %}
   <link href="{{ asset_url }}?20130917" rel="stylesheet" media="screen" />
   {% endstylesheets %}
+
+
+<!--[if IE 8]>
+
+  {% javascripts
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/json2.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/ie8.js'
+
+
+  filter='?yui_js' 
+  output='js/compiled/ie8.js'  %}
+  <script src="{{ asset_url }}?20130917"></script>
+  {% endjavascripts %}
+
+<![endif]-->
+
+
+   <script src="{{ asset('bundles/skreenhousefactoryv3//js/vendors/modernizr.min.js') }}"></script>
+
 </head>
 {% endspaceless %}
 <body class="skin {% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}"{% if block('body_background') %} style="background:{% block body_background %}{% endblock %};"{% endif %}{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}>
@@ -105,11 +124,11 @@
 {% block header_filters %}
 {% endblock %}
 
-<footer>
+<div>
   <div id="footer">
     {% render(controller('SkreenHouseFactoryV3Bundle:Main:footer', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route')})) %}
   </div>
-</footer>
+</div>
 {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
 {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
 <div id="fb-root"></div>
@@ -118,8 +137,9 @@
 
   
 
-  <script src="{{ asset('bundles/skreenhousefactoryv3//js/vendors/json2.js') }}"></script>
+  
 
+{# '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/modernizr.min.js' #}
 
   {% if block('noscripts') is empty %}
   {% javascripts
@@ -128,7 +148,6 @@
   '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.min.js'
   '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap-ajax-typeahead.js'
   '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/respond.min.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/modernizr.min.js'
   '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
   '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer-3.2.11.min.js'
   '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.controls-3.2.10.min.js'
@@ -148,10 +167,8 @@
   filter='?yui_js' 
   output='js/compiled/v3.js'  %}
   <script src="{{ asset_url }}?20130917"></script>
-  <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
-    {lang: 'fr'}
-  </script>
   {% endjavascripts %}
+
   {% endif %}
   {% block pagescripts %}
   {% endblock %}
