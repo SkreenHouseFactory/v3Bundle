@@ -57,7 +57,7 @@ class TimelineController extends Controller
         'with_related_sliders' => $request->get('schedule-only') ? false : true,
         'with_best_offer' => true,
         'with_player' => true,
-        'time' => time()
+        'time' => time(),
       ));
       //echo $api->url;
       //print("<pre>");print_r($data->sliders);exit();
@@ -67,7 +67,9 @@ class TimelineController extends Controller
 
       $template = $request->get('schedule-only') ? '_channels-schedule' : 'grid';
       $response = $this->render('SkreenHouseFactoryV3Bundle:Timeline:' . $template . '.html.twig', array(
-        'data' => (array)$data
+        'data' => (array)$data,
+      'periode' => $request->get('date')
+
       ));
 
       $maxage = 3600;
