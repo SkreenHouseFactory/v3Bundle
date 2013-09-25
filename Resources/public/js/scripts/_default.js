@@ -47,7 +47,6 @@ $(document).ready(function(){
     Skhf.session.signout();
     return false;
   });
-  
   //alert nouveau visiteur
   
    if(!$.cookie('myskreen_new')){
@@ -162,7 +161,19 @@ $(document).ready(function(){
     $('body').addClass('playlist-w-in');
      }
   });
-
+  //swipe
+	$('.carousel').hammer().on('swipeleft', function(){
+		$(this).carousel('next'); 
+	});
+	$('.carousel').hammer().on('swiperight', function(){
+		$(this).carousel('prev'); 
+	});
+      
+  
+    
+      	
+	
+	
 
   $(document).on('click', '#top-playlist .breadcrumb li:first', function(){
     Skhf.session.initSelector();
