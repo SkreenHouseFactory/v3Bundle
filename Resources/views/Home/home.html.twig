@@ -50,7 +50,6 @@
 <div id="view-home">
   {% for slider in home.sliders|to_array if slider.id is defined %}
     {% if loop.first %}
-
       <div class="description">
         <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1> 
         {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
@@ -65,30 +64,32 @@
         </div>
         </div>
       </div>
-      {% elseif app.request.get('home') == 'video-a-la-demande' %}
-      <div class="container">
-        <div class="row">
-        <div class="col-xs-16">
-          <div class="panel panel-info nomargin">
-            <div class="panel-heading"><b>Le meilleur de la VOD</b></div>
-            <div class="panel-body">
-              <p>Louez vos vidéos sur mySkreen :</p>
-              <ul class="noliststyle nopadding">
-                <li><b><i class="glyphicon glyphicon-hd-video"></i> Haute définition :</b> vos film en haute qualité : HD ou Full HD.</li>
-                <li><b><i class="glyphicon glyphicon-sound-stereo"></i> Sur tous vos écrans :</b> PC, Mac, iOs et Android.</li>
-                <li><b><i class="glyphicon glyphicon-hand-up"></i> En 1 clic :</b> renseignez votre moyen de paiement la première fois et regardez vos films en 1 clic pour valider votre commande par la suite.</li>
-                <li><b><i class="glyphicon glyphicon-lock"></i> Paiement sécurisé :</b> mySkreen ne garde pas vos informations bancaire et interroge votre banque à chaque location.</li>
-              </ul>
-              <hr/>
-              <div class="item inline-block"><div class="emulate-hover"><span class="label label-default ico-deporte"><i class="glyphicon glyphicon-play"></i><span>&nbsp;sur mySkreen</span></span></div></div> Cette mention indique que vous pouvez voir ce film sur mySkreen en 1 clic.
-            </div>
+      {% endif %}
+    {% else %}
+      {% if loop.index == 2 %}
+        <div class="container"><div class="row"><div class="first-container">
+      {% elseif loop.index == 3 %}
+      
+      {% if app.environment == 'dev' and app.request.get('home') == 'video-a-la-demande' %}
+      <div class="col-xs-8 suggester">
+        <div class="panel panel-info nomargin">
+          <div class="panel-heading"><b>Le meilleur de la VOD</b></div>
+          <div class="panel-body">
+            <p>Louez vos vidéos sur mySkreen :</p>
+            <ul class="noliststyle nopadding">
+              <li><b><i class="glyphicon glyphicon-hd-video"></i> Haute définition :</b> vos film en haute qualité : HD ou Full HD.</li>
+              <li><b><i class="glyphicon glyphicon-sound-stereo"></i> Sur tous vos écrans :</b> PC, Mac, iOs et Android.</li>
+              <li><b><i class="glyphicon glyphicon-hand-up"></i> En 1 clic :</b> renseignez votre moyen de paiement la première fois et regardez vos films en 1 clic pour valider votre commande par la suite.</li>
+              <li><b><i class="glyphicon glyphicon-lock"></i> Paiement sécurisé :</b> mySkreen ne garde pas vos informations bancaire et interroge votre banque à chaque location.</li>
+            </ul>
+            <hr/>
+            <div class="item inline-block"><div class="emulate-hover"><span class="label label-default ico-deporte"><i class="glyphicon glyphicon-play"></i><span>&nbsp;sur mySkreen</span></span></div></div> Cette mention indique que vous pouvez voir ce film sur mySkreen en 1 clic.
           </div>
-        </div>
         </div>
       </div>
       {% endif %}
-    {% else %}
-      {% if loop.index == 2 %}<div class="container"><div class="row"><div class="first-container">{% else %}{% endif %}
+      
+      {% endif %}
       {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index } %}
     {% endif %}
   {% endfor %}
