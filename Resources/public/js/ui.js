@@ -803,6 +803,10 @@ UI = {
     console.log('UI.paywall', id, subscription_id);
     API.quickLaunchModal('signin', function() {
       console.log('UI.paywall', 'callback', Skhf.session.datas);
+      $('.modal .modal-message').html(
+        '<p><b>Votre vidéo en 1 clic et en Haute Qualité.</b><br/>' +
+        'Regardez vos vidéos sur tous vos écrans : PC, Mac, iOs et Android</p>'
+      );
       if (!Skhf.session.datas.email) {
         self.paywall(id, subscription_id, callback);
       }

@@ -47,7 +47,7 @@
   {% set hasoffers = 1  %}
   {% set variabledeboucle = loop.index  %}
 
-  <div class="panel{{ program.offers[key]|to_array|length > 3 or (key == 'external' and program.offers['deporte']|to_array|length) ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : '' }} count-{{ program.offers[key]|to_array|length }}">
+  <div class="panel{{ program.offers[key]|to_array|length > 3 or (key == 'external' and program.offers['deporte']|to_array|length) ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : ' panel-default' }} count-{{ program.offers[key]|to_array|length }}">
     <div class="panel-heading dong" >
       <h3 class="panel-title{% if key == 'external' and program.offers['deporte']|to_array|length %} external-collapser pointer{% endif %}"{% if key == 'external' and program.offers['deporte']|to_array|length %} data-toggle="collapse"{% endif %} href="#{{ key }}">
         {{ offers[key] }}
@@ -260,7 +260,7 @@
   {% endif %}
 
   {# youtube / more streaming #}
-  <div id="program-more-streaming" class="panel panel-remove-padding-bottom" data-more-streaming="{{ program.id }}">
+  <div id="program-more-streaming" class="panel panel-default panel-remove-padding-bottom" data-more-streaming="{{ program.id }}">
     <div class="panel-heading">
       {% if program.offers['deporte']|to_array|length %}
       <h3 class="panel-title youtube-collapser pointer collapsed" data-toggle="collapse" href="#youtube">Sur Youtube <i class="glyphicon glyphicon-chevron-down"></i></h3>
@@ -296,7 +296,7 @@
 
 {# description seo texte #}
 <a name="synopsis"></a>
-<div class="panel panel-synopsis">
+<div class="panel panel-default panel-synopsis">
   <div class="panel-heading"><h2 class="panel-title">Tout sur {{ program.title }}</h2></div>
   <div class="tab-pane text-toggle-extend">
     {% if program.description_seo|striptags|length < 560 %}
