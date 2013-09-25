@@ -519,13 +519,15 @@
         }
 
         a.link {
-
+          width: 100%;
+          height: 100%;
+          display: block;
           padding: 0px;
           clear: none;
           line-height: 15px;
           white-space: nowrap;
           filter: none; /* ie hover background */
-
+          z-index: 1030;
           img.channel {
             margin-left: 7px;
             border-right: 3px solid white;
@@ -560,12 +562,6 @@
           float: right;
           cursor: pointer;
         }
-        &:hover {
-          .remove {
-            background: transparent;
-            visibility: visible;
-          }
-        }
         &.empty {
           h6 {
             padding: 30px;
@@ -581,6 +577,18 @@
   }
 }
 }
+}
+html:not(.touch){
+  .notifications{
+    li{
+      &:hover {
+          .remove {
+            background: transparent;
+            visibility: visible;
+          }
+        }
+    }
+  }
 }
 
 .playlist {

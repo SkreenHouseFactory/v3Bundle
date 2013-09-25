@@ -167,7 +167,8 @@
                {% if (o.versions is defined and o.versions|to_array|length) or 
                (o.tags is defined and o.tags|to_array|length) %}
                <div class="ms-versions">
-                  <span>{{program.duration}} min, </span>
+                  {% if o.cost is defined and o.cost and o.cost != null %}<span>{{program.duration}} min, </span> 
+                  {% endif %}
                  {% if o.deporte is defined and o.deporte and o.versions is defined %}
                  <span>{{ o.versions|to_array|keys|join(', ') }}</span>
                  {% elseif o.tags is defined and o.tags.version is defined %}
@@ -303,8 +304,9 @@
     </div>
     <div class="show-all">
       <span class="show-more">...</span><span class="show-more-text">Voir plus</span>
+    </div> 
     </div>
     {% endif %}
-  </div>
+
 </div>
 </div>

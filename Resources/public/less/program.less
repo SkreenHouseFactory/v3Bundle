@@ -238,15 +238,6 @@
         tr {
           height: 70px;
           border-bottom: 1px solid #efefef;
-          &:hover {
-            cursor: pointer;
-            color: @rowHoverColor;
-            background-color: @rowHoverBg;
-            border-bottom: 1px solid #f1e7bc;
-            td.price .rent {
-              color: @rowHoverColor;
-            }
-          }
           &.other-episodes {
             background: #EEE;
             td {
@@ -332,6 +323,23 @@
     }
   }
 }
+}
+html:not(.touch){
+  .tab-pane{
+    table {
+        tr {
+          &:hover {
+            cursor: pointer;
+            color: @rowHoverColor;
+            background-color: @rowHoverBg;
+            border-bottom: 1px solid #f1e7bc;
+            td.price .rent {
+              color: @rowHoverColor;
+            }
+          }
+        }
+      }
+    }
 }
 
 #program-episodes {
