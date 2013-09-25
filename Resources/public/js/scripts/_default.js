@@ -147,6 +147,8 @@ $(document).ready(function(){
     UI.endSearching();
   });
   */
+  //focus
+    $('.search-query').trigger('focus');
 
   // -- ui playlist
   $('#top-playlist').on('show.bs.collapse', function () {
