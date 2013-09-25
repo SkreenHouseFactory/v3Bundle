@@ -47,7 +47,7 @@
   {% set hasoffers = 1  %}
   {% set variabledeboucle = loop.index  %}
 
-  <div class="panel{{ program.offers[key]|to_array|length > 3 or (key == 'external' and program.offers['deporte']|to_array|length) ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : '' }} count-{{ program.offers[key]|to_array|length }}">
+  <div class="panel{{ program.offers[key]|to_array|length > 3 or (key == 'external' and program.offers['deporte']|to_array|length) ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : ' panel-default' }} count-{{ program.offers[key]|to_array|length }}">
     <div class="panel-heading dong" >
       <h3 class="panel-title{% if key == 'external' and program.offers['deporte']|to_array|length %} external-collapser pointer{% endif %}"{% if key == 'external' and program.offers['deporte']|to_array|length %} data-toggle="collapse"{% endif %} href="#{{ key }}">
         {{ offers[key] }}
@@ -56,6 +56,13 @@
         {% endif %}
       </h3>
     </div>
+      		{% if key == "itunes" %}
+            {% set loop_offset = 1 %}
+            {% elseif key == "external"%}
+            {% set loop_offset = 2 %}
+            {% else %}
+            {% set loop_offset = 3 %}
+            {% endif %}
     {# <a name="{{ key }}"></a> #}
     <div id="{{ key }}" class="tab-pane{% if key == 'external' and program.offers['deporte']|to_array|length %} panel-collapse collapse {% endif %}">
 
@@ -116,11 +123,10 @@
             program.episodeof.id is defined and 
             o.episode_id != program.id and
             other_episodes != 'ok' %}
-            <tr class="other-episodes"><td colspan="6"><p>Autres épisodes <i class="glyphicon glyphicon-arrow-down"></i></p></td></tr>
+            <tr class="other-episodes {{o_access.name}}"><td colspan="6"><p>Autres épisodes <i class="glyphicon glyphicon-arrow-down"></i></p></td></tr>
             {% set other_episodes = 'ok' %}
             {% endif %}
-
-            <tr class="{% if loop.index > 3 and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}collapse collapsing-{{ key }}{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['TV'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~  o.broadcasttime|broadcastdate}) }}">
+            <tr class="{% if loop.index > loop_offset and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}collapse collapsing-{{ key }}{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['TV'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~  o.broadcasttime|broadcastdate}) }}">
 
               <td class="channel">
                 <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% else %}{{ o_channel.img }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
@@ -254,7 +260,7 @@
   {% endif %}
 
   {# youtube / more streaming #}
-  <div id="program-more-streaming" class="panel panel-remove-padding-bottom" data-more-streaming="{{ program.id }}">
+  <div id="program-more-streaming" class="panel panel-default panel-remove-padding-bottom" data-more-streaming="{{ program.id }}">
     <div class="panel-heading">
       {% if program.offers['deporte']|to_array|length %}
       <h3 class="panel-title youtube-collapser pointer collapsed" data-toggle="collapse" href="#youtube">Sur Youtube <i class="glyphicon glyphicon-chevron-down"></i></h3>
@@ -290,7 +296,7 @@
 
 {# description seo texte #}
 <a name="synopsis"></a>
-<div class="panel panel-synopsis">
+<div class="panel panel-default panel-synopsis">
   <div class="panel-heading"><h2 class="panel-title">Tout sur {{ program.title }}</h2></div>
   <div class="tab-pane text-toggle-extend">
     {% if program.description_seo|striptags|length < 560 %}
