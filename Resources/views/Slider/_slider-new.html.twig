@@ -2,16 +2,18 @@
   <div class="suggestion"><{{h_title is defined ? h_title : "h3"}}>{% if slider.url is defined %} <a href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}">{% endif %} {{ slider.title|striptags }}{% if slider.url is defined %} </a> {% endif %}</{{h_title is defined ? h_title : "h3"}}> 
     {#	<button type="button" class="btn btn-primary btn-xs">voir +</button> #}
   </div>
-  <div id="carousel-{{loop_index}}"  data-interval="false" class="carousel slide new-slider">
+  <div id="carousel-{{ loop_index }}"  data-interval="false" class="carousel slide new-slider"{% if slider.api_url is defined %} data-api-url="{{ slider.api_url }}"{% endif %}>
     {# Carousel INNER #}
     {% if slider.programs is defined %}
     <div class="carousel-inner">
-      {% set pages = slider.programs|to_array|slice(0, 24)|prepare_for_slider(6) %}
+      {% set pages = slider.programs|to_array|slice(0, 24)|prepare_for_slider(6, slider.count is defined ? slider.count : 0) %}
       {% for page in pages %}
-      <div class="item{{ loop.index == 1 ? ' ' ~ 'active' : '' }}">
-        {% for program in page|to_array %}
-        {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program }%}
-        {% endfor %}
+      <div class="item{{ loop.index == 1 ? ' active' : '' }}">
+        {% if slider.count is not defined or loop.index == 1 %}
+          {% for program in page|to_array %}
+          {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program }%}
+          {% endfor %}
+        {% endif %}
       </div>
       {% endfor %}
     </div>
@@ -27,9 +29,9 @@
         <!-- Indicators -->
         <ol class="carousel-indicators">
           {% if pages|length %}
-          {% for i in 0..(pages|length-1) %}
-          <li data-target="#carousel-{{loop_index}}" data-slide-to="{{i}}" {% if i == 0 %}class="active"{% endif %}></li>
-          {% endfor %}
+            {% for i in 0..(pages|length-1) %}
+            <li data-target="#carousel-{{loop_index}}" data-slide-to="{{i}}" {% if i == 0 %}class="active"{% endif %}></li>
+            {% endfor %}
           {% endif %}
         </ol>   
       </li>
