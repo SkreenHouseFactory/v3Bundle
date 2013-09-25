@@ -14,7 +14,7 @@ Author: Benoît Bergstörm
 .item > div:not(.tooltip), .slider ul.items > li {
   position: relative;
   padding-top: 2px;
-  &:hover {
+  &:hover, &.emulate-hover {
     .ico-deporte {
       font-size: 0.8em;
       display: block;
@@ -352,6 +352,10 @@ Author: Benoît Bergstörm
 // carousel youtube
 #carousel-youtube.carousel {
   margin: 10px;
+  > .grey {
+    font-size: 0.8em;
+    color: #CCC;
+  }
   .carousel-inner {
     padding-left: 18px;
     width: auto;

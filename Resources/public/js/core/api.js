@@ -236,9 +236,9 @@ API = {
             }
             //handle errors : {error: {message: 'error mesage ...', fields: {field1: error_name, field2: error_name, …}}}
             else if (json.error) {
-              form.prepend('<p class="alert alert-error post-form-display">' + json.error.message + '</p>');
+              form.prepend('<p class="alert alert-warning post-form-display">' + json.error.message + '</p>');
               for (k in json.error.fields) {
-                $('[name="'+k+'"]').after('<span class="alert alert-error post-form-display">'+ json.error.fields[k] +'</span>');
+                $('[name="'+k+'"]').after('<span class="alert alert-warning post-form-display">'+ json.error.fields[k] +'</span>');
               }
             }
             if (typeof(callbackOnLoad) != 'undefined') {
@@ -274,7 +274,7 @@ API = {
       $('#part-header', modal).remove();
     }
     //error
-    $('.error_list', modal).addClass('alert alert-error').removeClass('error_list');
+    $('.error_list', modal).addClass('alert alert-warning').removeClass('error_list');
     //input
     $('form input[type="submit"]', modal).addClass('btn-large btn-primary').removeClass('primary');
     console.log('API.v2Modal', 'exit', modal);

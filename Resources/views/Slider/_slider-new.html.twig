@@ -9,7 +9,7 @@
       {% set pages = slider.programs|to_array|slice(0, 24)|prepare_for_slider(6, slider.count is defined ? slider.count : 0) %}
       {% for page in pages %}
       <div class="item{{ loop.index == 1 ? ' active' : '' }}">
-        {% if slider.count is not defined or loop.index == 1 %}
+        {% if slider.api_url is not defined or slider.count is not defined or loop.index == 1 %}
           {% for program in page|to_array %}
           {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program }%}
           {% endfor %}

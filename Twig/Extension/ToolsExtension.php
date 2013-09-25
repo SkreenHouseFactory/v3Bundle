@@ -116,18 +116,18 @@ class toolsExtension extends \Twig_Extension
      */
     public function prepareForSlider(Array $programs, $nb_programs_page, $nb_programs_total = null, $slider_page = 0)
     {
-     //echo '<!--';
+     echo '<!--';
       self::$slider_count++;
       $this->slider_page = $slider_page;
       $this->slider_programs = $this->to_array($programs, true);
       $pages = array();
-      //echo "\n".'<br/> $this->slider_programs > '.count($this->slider_programs);
+      echo "\n".'<br/> $this->slider_programs > '.count($this->slider_programs);
       while (count($this->slider_programs) > 0 || (count($pages) < $nb_programs_total/6 && count($pages) <= 4) ) {
-        //echo "\n".'<br/> $pages > '.count($pages);
-        //echo "\n".'<br/> $nb_pages_total > '.($nb_programs_total/6);
+        echo "\n".'<br/> $pages > '.count($pages);
+        echo "\n".'<br/> $nb_pages_total > '.($nb_programs_total/6);
         $this->slider_page++;
         if ($page_programs = $this->getProgramsForPage($nb_programs_page)) {
-          //echo ' page_programs count:'.count($page_programs);
+          echo ' page_programs count:'.count($page_programs);
           $slider_progam = $this->getHorizontalSlider($page_programs);
           $type = $slider_progam ? 'horizontal' : 'vertical';
           $pages[] = $this->sortPrograms($page_programs, $nb_programs_page, $type, $slider_progam);
@@ -138,7 +138,7 @@ class toolsExtension extends \Twig_Extension
         //break;
         //print_r($pages);
       }
-      //echo '-->';
+      echo '-->';
       return $pages;
     }
     protected function getHorizontalSliderPosition($combinaison) {
