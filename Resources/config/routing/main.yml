@@ -125,6 +125,11 @@ user_blacklist_notifications:
     pattern:  /notifications/unsubscribe/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:blacklist, notifications: 1 }
 
+#slider
+page_slider:
+    pattern:  /slider/page/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:pageslider }
+
 #player
 player_live:
     pattern:  /les-chaines-en-direct

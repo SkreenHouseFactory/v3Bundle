@@ -114,26 +114,31 @@ class toolsExtension extends \Twig_Extension
      * @param <object> $stdClass
      * @return <array> 
      */
-    public function prepareForSlider(Array $programs, $nb_programs_page)
+    public function prepareForSlider(Array $programs, $nb_programs_page, $nb_programs_total = null, $slider_page = 0)
     {
      //echo '<!--';
       self::$slider_count++;
-      $this->slider_page = 0;
+      $this->slider_page = $slider_page;
       $this->slider_programs = $this->to_array($programs, true);
       $pages = array();
-     //echo "\n".'<br/> >>>>> '.count($this->slider_programs);
-      while (count($this->slider_programs) > 0) {
+      //echo "\n".'<br/> $this->slider_programs > '.count($this->slider_programs);
+      while (count($this->slider_programs) > 0 || (count($pages) < $nb_programs_total/6 && count($pages) <= 4) ) {
+        //echo "\n".'<br/> $pages > '.count($pages);
+        //echo "\n".'<br/> $nb_pages_total > '.($nb_programs_total/6);
         $this->slider_page++;
-        $page_programs = $this->getProgramsForPage($nb_programs_page);
-        //echo ' page_programs count:'.count($page_programs);
-        $slider_progam = $this->getHorizontalSlider($page_programs);
-        $type = $slider_progam ? 'horizontal' : 'vertical';
-        $pages[] = $this->sortPrograms($page_programs, $nb_programs_page, $type, $slider_progam);
+        if ($page_programs = $this->getProgramsForPage($nb_programs_page)) {
+          //echo ' page_programs count:'.count($page_programs);
+          $slider_progam = $this->getHorizontalSlider($page_programs);
+          $type = $slider_progam ? 'horizontal' : 'vertical';
+          $pages[] = $this->sortPrograms($page_programs, $nb_programs_page, $type, $slider_progam);
+        } else {
+          $pages[] = array();
+        }
         //echo ' break count:'.count($this->slider_programs);
         //break;
         //print_r($pages);
       }
-     //echo '-->';
+      //echo '-->';
       return $pages;
     }
     protected function getHorizontalSliderPosition($combinaison) {
@@ -214,8 +219,9 @@ class toolsExtension extends \Twig_Extension
             $picture = $program->picture;
           }
           $i++;
+          //echo 'picture : $this->slider_size['.$nb_programs_page.']['.$c.']';
           if (isset($this->slider_size[$nb_programs_page][$c])) {
-            $program->picture = str_replace(array('150/200','990/450','1500/450'), $this->slider_size[$nb_programs_page][$c].'/c', $picture);
+            $program->picture = str_replace(array('143/180','150/200','990/450','1500/450'), $this->slider_size[$nb_programs_page][$c].'/c', $picture);
           }
           $program->combinaison_type = $c;
           $programs[$i] = $program;

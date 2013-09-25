@@ -87,19 +87,29 @@ UiView = {
       });
     }
    
-    // -- carousel
-    /*
-    $('[data-carousel="autoload"]').each(function(){
-      console.log('script', '[data-carousel="autoload"]', $(this));
-      $(this).carousel();
-    });
-    */
-    /*
-      if ($(this).parent().parent().find('.badge')) {
-        API.markAsRed($(this).parent().data('id'));
-      }
-    });
-    */
+    // -- carousel pagnination ajax
+    $('.carousel[data-api-url]').on('slide.bs.carousel', function(e){
+      console.log('scripts/program.js', 'on slide.bs.carousel', e);
+      var carousel = $(this);
+      var current_slide = $('.carousel-inner .item.active', carousel);
+      var idx = current_slide.index('.item');
+      var ids = new Array();
+      $('.tv-component', carousel).each(function(){
+        ids.push($(this).data('id'));
+      })
+      $('.carousel-inner .item:empty', carousel).each(function(){
+        UI.appendLoader($(this), 100);
+      })
+      setTimeout(function() {
+        var new_slide = $('.carousel-inner .item.active', carousel);
+        if ($('.tv-component', new_slide).length) {
+          console.log('scripts/program.js', 'on slide.bs.carousel', 'already loaded');
+          return;
+        }
+        new_slide.load(API.config.v3_url + '/slider/page?api-url=' + escape(carousel.data('api-url')) + '&page='+(idx+1)+'&img_width=143&img_height=180&slider_img_width=445&slider_img_height=180&offset='+(idx*6)+'&nb_results=6&exclude_ids='+ids.join(','));
+      }, 700);
+    })
+
     // -- nav-alpha-client
     $('.pagination-client-alpha li').click(function(){
       console.log('script', 'nav-alpha-client', '[data-alpha="' + $('a', this).html() + '"]', $('[data-alpha="' + $('a', this).html() + '"]'));

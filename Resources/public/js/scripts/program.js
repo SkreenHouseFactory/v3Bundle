@@ -349,13 +349,12 @@ $(document).ready(function(){
     })
 
     //init
-    console.log('before PG init');
+    console.log('scripts/program.js', 'before PG init');
     if ($('#view-program').hasClass('isInitialized') == false) {
      ProgramView.init();
-    console.log('after PG init');
+    console.log('scripts/program.js', 'after PG init');
 
     }
-     
 
     // tracking
     $('[data-track-channel]').each(function() {
@@ -363,7 +362,7 @@ $(document).ready(function(){
       //API.trackVar(1, 'Chaîne', $(this).data('track-channel'), 3);
       API.trackEvent('Chaîne', $(this).data('track-channel'), 'page=programme');
     });
-    
+
     // ui text show more
     $('.show-all').on('click', function () {
       var $this = $(this);
@@ -382,9 +381,7 @@ $(document).ready(function(){
   }
 });
 
-
-  //Scroll to player quand on est sur un Touch device
-
-  $('html.touch .glyphicon-play').parent().on('click', function () {
-    $('html,body').animate({'scrollTop' : 0},1000);
-  });  
+//Scroll to player quand on est sur un Touch device
+$('html.touch .glyphicon-play').parent().on('click', function () {
+  $('html,body').animate({'scrollTop' : 0},1000);
+});  

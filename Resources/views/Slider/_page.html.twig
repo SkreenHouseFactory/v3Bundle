@@ -1,0 +1,4 @@
+{% set pages = programs|to_array|slice(0, 24)|prepare_for_slider(6, 0, app.request.get('page')) %}
+{% for program in pages[0]|to_array %}
+{% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program} %}
+{% endfor %}

@@ -148,6 +148,28 @@ class MainController extends Controller
     }
 
     /**
+    * page slider
+    */
+    public function pagesliderAction(Request $request)
+    {
+      $api = $this->get('api');
+      $programs = $api->fetch($request->get('api-url'), array(
+        'programs_only' => true,
+        'offset' => 0, //$request->get('offset', 0),
+        'nb_results' => 6, //$request->get('nb_results', 6),
+        'exclude_ids' => $request->get('exclude_ids'),
+        'img_width' => $request->get('img_width'),
+        'img_height' => $request->get('img_height'),
+        'slider_img_width' => $request->get('slider_img_width'),
+        'slider_img_height' => $request->get('slider_img_height')
+      ));
+      //echo $api->url;
+      return $this->render('SkreenHouseFactoryV3Bundle:Slider:_page.html.twig', array(
+		    'programs'=> $programs
+      ));
+    }
+
+    /**
     * search
     */
     public function searchAction(Request $request)
