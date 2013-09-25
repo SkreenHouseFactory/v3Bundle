@@ -38,7 +38,7 @@
   {% for cinema in cinemas %}
     {% if cinema.adress is defined %}
     <tr><td class="actions" data-id="{{ cinema.id }}">
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, name: cinema.name, class: 'fav-cinema pull-right', text: 'Ajouter à vos cinémas'} %}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, name: cinema.name, class: 'fav-cinema pull-right', text: 'Ajouter à vos cinémas', placement: 'left'} %}
       <a class="btn btn-default pull-right" href="{{ path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1) }) }}"> Films & horaires</a>
       <strong>{{ cinema.name }}</strong>{% if cinema.distance is defined %} distance : environ {{ cinema.distance < 1 ? (cinema.distance*100)|number_format ~'m' : cinema.distance|number_format(1) ~ 'km' }}{% endif %}<br/>
       <em>{{ cinema.adress }} {{ cinema.city }} {{ cinema.zip_code }}</em>
