@@ -379,8 +379,6 @@ API = {
                 self.play(id, args, subscription_id);
               }
             });
-            
-            
           break;
           case 'NO_RIGHTS':
             UI.paywall(id, subscription_id, function(){

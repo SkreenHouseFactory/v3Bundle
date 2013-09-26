@@ -229,6 +229,13 @@ UiView = {
     $('[data-autoplay]').each(function(){
       $(this).trigger('click');
     })
+    // -- player channel
+    $(elmt).on('click', '[data-play-channel]', function(){
+      console.log('script', 'data-play-channel', $(this).data('play-channel'), Player.state);
+      var args = $.extend({type: 'channel', id: $(this).data('play-channel'), session_uid: Skhf.session.uid, hide_sliders: 1}, args);
+      Couchmode.init(args);
+      return false;
+    });
     // -- player iframe
     $(elmt).on('click', '[data-play-iframe]', function(){
       console.log('script', 'data-play-iframe', $(this).data('play-iframe'), Player.state);
