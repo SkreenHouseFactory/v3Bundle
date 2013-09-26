@@ -186,7 +186,7 @@
                  <i class="glyphicon glyphicon-hd-video"></i>
                  {% endif %}
                  {% if o.tags.format is defined %}
-                 {{ o.tags.format }}
+                 {{ o.tags.format|replace({'SD': '<i class="glyphicon glyphicon-sd-video"></i>'}) }}
                  {% endif %}
                  {% endif %}
                </div>
@@ -299,14 +299,14 @@
 <div class="panel panel-default panel-synopsis">
   <div class="panel-heading"><h2 class="panel-title">Tout sur {{ program.title }}</h2></div>
   <div class="tab-pane text-toggle-extend">
-    {% if program.description_seo|striptags|length < 560 %}
+    {% if program.description|striptags|length < 560 %}
     <div class="text">
-      {{ program.description_seo|raw }}
+      {{ program.description|raw }}
     </div>
     {% else %}
     <div class="text show-more-height">
       <div class="gradient-hide"></div> 
-      {{ program.description_seo|raw }}
+      {{ program.description|raw }}
     </div>
     <div class="show-all">
       <span class="show-more">...</span><span class="show-more-text">Voir plus</span>
