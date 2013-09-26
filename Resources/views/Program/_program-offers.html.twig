@@ -186,7 +186,7 @@
                  <i class="glyphicon glyphicon-hd-video"></i>
                  {% endif %}
                  {% if o.tags.format is defined %}
-                 {{ o.tags.format|replace({'SD': '<i class="glyphicon glyphicon-sd-video"></i>'}) }}
+                 {{ o.tags.format|replace({'SD': '<i class="glyphicon glyphicon-sd-video"></i>'})|raw }}
                  {% endif %}
                  {% endif %}
                </div>
