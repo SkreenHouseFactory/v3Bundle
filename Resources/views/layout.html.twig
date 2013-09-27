@@ -102,12 +102,34 @@
 
 
   {% spaceless %}
-  <!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
+  <!--[if lt IE 8]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
   <article>
     <img class="help-popin hide" src="{{ asset('bundles/skreenhousefactoryv3/images/help_popin_2_09.png') }}">
     <div id="main">
       <div id="content" class="uiview-update">
-
+       <!--[if lt IE 8]><div class="lt-ie8-pop hide">
+         <div class="ie-head"><img></div>
+         <div class="ie-body">
+           <div class="text">Votre navigateur est obsolète et ne permet pas de profiter <br>de myskreen de manière optimale.<br><br>Pour une meilleure navigation nous vous conseillons de le mettre à jour ou de choisir un navigateur récent en cliquant ci-dessous:<br>
+           </div>
+           <ul class="logo">
+             <a href="http://getfirefox.com/"><li class="sprite-popin_under_ie8_07"></li></a>
+             <a href="http://www.google.com/chrome/"><li class="sprite-popin_under_ie8_09"></li></a>
+             <a href="http://www.opera.com/‎"><li class="sprite-popin_under_ie8_11"></li></a>
+             <a href="http://windows.microsoft.com/fr-fr/internet-explorer/download-ie"><li class="sprite-popin_under_ie8_13"></li></a>
+             <a href="http://support.apple.com/downloads/#safari"><li class="sprite-popin_under_ie8_15"></li></a>
+           </ul>
+           <ul class="name">
+             <li>Firefox</li>
+             <li>Chrome</li>
+             <li>Opéra</li>
+             <li>Internet Explorer</li>
+             <li>Safari</li>
+           </ul>
+         <button class="btn btn-default">Non merci, pas pour l'instant</button>
+         </div>
+       </div>
+         <![endif]-->
         <div class="help-sprite help-sprite-ms_btn_help"></div>
         {% block content %}
         {% endblock %}

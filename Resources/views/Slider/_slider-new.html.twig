@@ -1,5 +1,8 @@
 <div class="col-xs-8 suggester">
-  <div class="suggestion"><{{h_title is defined ? h_title : "h3"}}>{% if slider.url is defined %} <a href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}">{% endif %} {{ slider.title|striptags }}{% if slider.url is defined %} </a> {% endif %}</{{h_title is defined ? h_title : "h3"}}> 
+  <div class="suggestion"><{{h_title is defined ? h_title : "h3"}}>{% if slider.url is defined %} <a href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}">{% endif %} {{ slider.title|striptags }}
+    <span class="label label-warning">
+      Promo
+    </span>{% if slider.url is defined %} </a> {% endif %}</{{h_title is defined ? h_title : "h3"}}>
     {#	<button type="button" class="btn btn-primary btn-xs">voir +</button> #}
   </div>
   <div id="carousel-{{ loop_index }}"  data-interval="false" class="carousel slide new-slider"{% if slider.api_url is defined %} data-api-url="{{ slider.api_url }}"{% endif %}>
