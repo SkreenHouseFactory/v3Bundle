@@ -369,11 +369,11 @@ API = {
               console.log('API.play', 'callback UI.auth', Skhf.session.datas);
               $('.modal .modal-message').html(
                 subscription_id ?
-                '<p><b>Pass Vidéo à la demande :</b> ' +
-                'Créez votre compte sur mySkreen pour accéder à votre Pass !</p>'
+                '<p><b>Pass Vidéo à la demande :</b> Créez votre compte sur mySkreen pour accéder à votre Pass.</p>' +
+                '<p>Accédez au meilleur de la VOD en 1 clic et en Haute Définition et regardez vos films et séries sur tous vos écrans : PC, Mac, Apple iOs et Android</p>'
                 : 
-                '<p><b>Vidéo à la demande :</b> ' +
-                'Créez votre compte pour voir ce programme sur mySkreen !</p>'
+                '<p><b>Vidéo à la demande :</b> Créez votre compte pour voir ce programme sur mySkreen.</p>' +
+                '<p>Accédez au meilleur de la VOD en 1 clic et en Haute Définition et regardez vos films sur tous vos écrans : PC, Mac, Apple iOs et Android</p>'
               );
               if (Skhf.session.datas.email) {
                 self.play(id, args, subscription_id);

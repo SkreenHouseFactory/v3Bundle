@@ -49,8 +49,6 @@ GridView = {
           });
       
         });
-        //hide actions
-        $('#channels .actions').addClass('hide');
       }
       clearTimeout(this.timeout);
       this.timeout = setTimeout(function(){
@@ -79,22 +77,9 @@ GridView = {
             $('.time-bar').css('left',time2Pixel);
             $('.arrow').css('left',time2Pixel - 6);
             $('.time-bar,.arrow').removeClass('hide');
-          }
-          else{
+          } else {
             $('.time-bar,.arrow').addClass('hide');
           }
-    
-          //hide .actions button
-          $('#channels li ul li').on('mouseover',function(){
-            if( !$('.actions',this).children().hasClass('fav-on') ){
-              $('.actions',this).removeClass('hide');
-            }
-          });
-          $('#channels li ul li').on('mouseout',function(){
-            if( !$('.actions',this).children().hasClass('fav-on') ){
-              $('.actions',this).addClass('hide');
-            }
-          });
         });
       }
       else{
@@ -107,21 +92,9 @@ GridView = {
           $('.arrow').css('left',time2Pixel - 6);
           $('.time-bar,.arrow').removeClass('hide');
           
-        }
-        else{
+        } else {
           $('.time-bar,.arrow').addClass('hide');
         }
-
-        $('#channels li ul li').on('mouseover',function(){
-          if( !$('.actions',this).children().hasClass('fav-on') ){
-            $('.actions',this).removeClass('hide');
-          }
-        });
-        $('#channels li ul li').on('mouseout',function(){
-          if( !$('.actions',this).children().hasClass('fav-on') ){
-            $('.actions',this).addClass('hide');
-          }
-        });
       }
   },
   load: function(timestamp, callback) {
@@ -184,22 +157,7 @@ GridView = {
           callback();
         }
 
-        $('#channels li ul li').on('mouseover',function(){
-          if( !$('.actions',this).children().hasClass('fav-on') ){
-            $('.actions',this).removeClass('hide');
-          }
-        });
-        $('#channels li ul li').on('mouseout',function(){
-          if( !$('.actions',this).children().hasClass('fav-on') ){
-            $('.actions',this).addClass('hide');
-          }
-        });
-        $('.glyphicon.glyphicon-question-sign').on('mouseover',function(){
-          $(this).parent().tooltip('show');
-        });
-        $('.glyphicon.glyphicon-question-sign').on('mouseout',function(){
-          $(this).parent().tooltip('show');
-        });
+        $('.glyphicon.glyphicon-question-sign').tooltip();
     });
   },
   setTime: function(timestamp, resetDate) {
