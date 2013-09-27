@@ -66,7 +66,7 @@ $(document).ready(function(){
        $('.lt-ie8-pop').toggleClass('hide');
        $('.modal-backdrop.in').toggleClass('hide');
     });
-  }
+ }
   //Player scroll sur page programme
   console.log('PlayerScroll.initPlayerScroll()')
   PlayerScroll.initPlayerScroll();
