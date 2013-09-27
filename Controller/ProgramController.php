@@ -199,12 +199,12 @@ class ProgramController extends Controller
         // -- post treatments
         $data->offers = (array)$data->offers;
         //description with html_entity_decode
-        $data->description_text = strip_tags(html_entity_decode($data->description_seo));
+        $data->description_text = strip_tags(html_entity_decode($data->description));
         //episodes list
         if (!isset($data->episodeof) && 
             isset($data->datas_offers->episodes) && count((array)$data->datas_offers->episodes) > 1) {
           foreach ((array)$data->datas_offers->episodes as $e) {
-            $data->episode_list[$e->title] = $e;
+            $data->episode_list[isset($e->episode_number) && $e->episode_number ? (int)$e->episode_number : $e->title] = $e;
           }
           ksort($data->episode_list);
         }

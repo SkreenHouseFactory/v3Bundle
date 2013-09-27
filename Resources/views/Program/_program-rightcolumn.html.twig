@@ -14,6 +14,19 @@
    {% if program.format %}<a itemprop="url" href="{{ path('any_url', {url: program.format.seo_url|slice(1, program.format.seo_url|length-1) }) }}"><span itemprop="title">{{ program.format.name }}</span></a>, {% endif %}{{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}
 </div>
 
+{# related channels #}
+{% if program.related.channels is defined and
+  program.related.channels.programs is defined and
+  program.related.channels.programs|to_array|length %}
+  <p class="ms-surtitre">Les chaînes sur le même thème</p>
+  {% for r in program.related.channels.programs|to_array %}
+  <a class="channel_link" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}">
+    <span class="channel_texte">{{ r.title ~ ', la chaîne' }}</span>
+    <img src="{{ r.picture }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
+  </a>
+  {% endfor %}
+{% endif %}
+
 
 <div class="inner">
 
@@ -78,20 +91,4 @@
 {% for c in program.subcategories | to_array  %}<div class="inline" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" class="label label-default"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}"><span itemprop="title">{{ c.name }}</span></a></div>&nbsp;{% endfor %}
 {% endif %}
 
-{# related channels #}
-{% if program.related.channels is defined and
-  program.related.channels.programs is defined and
-  program.related.channels.programs|to_array|length %}
-  <p class="ms-surtitre">Les chaînes sur le même thème</p>
-  {% for r in program.related.channels.programs|to_array %}
-  <a class="channel_link" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}">
-    <span class="channel_texte">{{ r.title ~ ', la chaîne' }}</span>
-    <img src="{{ r.picture }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
-  </a>
 
-
-
-
-  {% endfor %}
-
-{% endif %}
