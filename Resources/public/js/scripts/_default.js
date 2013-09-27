@@ -55,7 +55,18 @@ $(document).ready(function(){
   $('#main .help-sprite-ms_btn_close').on('click', function(){
     API.cookie('new','true');
   });
-
+  //Warning IE7
+ if($('html').hasClass('lt-ie8')){
+    if(!$.cookie('myskreen_ie7')){
+      $('.lt-ie8-pop').toggleClass('hide');
+      $('.modal-backdrop.in').toggleClass('hide');
+    }
+    $('.lt-ie8-pop .ie-body .btn').on('click', function(){
+       API.cookie('ie7','true');
+       $('.lt-ie8-pop').toggleClass('hide');
+       $('.modal-backdrop.in').toggleClass('hide');
+    });
+ }
   //Player scroll sur page programme
   console.log('PlayerScroll.initPlayerScroll()')
   PlayerScroll.initPlayerScroll();
