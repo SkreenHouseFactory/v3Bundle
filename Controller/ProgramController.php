@@ -349,6 +349,7 @@ class ProgramController extends Controller
             'external' => 'Sur les autres sites', 
             'bonus' => 'Bonus',
             'cut' => 'Extraits',
+            'dvd' => 'DVD & Blu-Ray',
             'archive' => 'Archives'
           ),
           'player_host' => $api->host

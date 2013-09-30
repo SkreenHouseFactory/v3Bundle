@@ -54,7 +54,7 @@ Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la
 {% endblock %}
 
 
-{% block body_class %}view-channel cover{% endblock %}
+{% block body_class %}view-channel cover{{ channel.fournisseur is defined ? ' beead' : '' }}{% endblock %}
 {% block body_background %}
 {% if channel.cover %}url('{{ channel.fournisseur is defined ? channel.cover|replace({'/1500/450/c': ''}) : channel.cover }}') top center no-repeat{% endif %}
 {% endblock %}
