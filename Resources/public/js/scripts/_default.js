@@ -39,7 +39,6 @@ $(document).ready(function(){
   // -- ui user
   $('a.auth').on('click', function(){
     Player.stop();
-    
     UI.auth();    
     return false;
   });
@@ -67,10 +66,7 @@ $(document).ready(function(){
        $('.modal-backdrop.in').toggleClass('hide');
     });
  }
-  //Player scroll sur page programme
-  console.log('PlayerScroll.initPlayerScroll()')
-  PlayerScroll.initPlayerScroll();
-
+  
   // new header nav bar
   $('.navbar-nav >li').on('mouseover',function(){
     var self = $(this);

@@ -248,7 +248,11 @@
       </a>
       {% elseif btn_deploy_offers is defined and btn_deploy_offers > 3 %}
       <button type="button" class="btn btn-default btn-reveal" data-toggle="collapse" data-target=".collapsing-{{ key }}" data-toggle-text="&laquo; Fermer">
-        <i class="show-more" >...</i>&nbsp;Voir les {{ attribute(program.offers, key)|to_array|length - 3 }} choix restants
+        <i class="show-more" >...</i>{% if  attribute(program.offers, key)|to_array|length - 3 > 1 %}
+        &nbsp;Voir les {{ attribute(program.offers, key)|to_array|length - 3 }} choix restants
+        {% else %}
+        Voir le choix restant
+        {% endif %}
       </button>
       {% endif %}
     </div>
