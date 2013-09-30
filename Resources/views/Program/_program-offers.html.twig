@@ -49,9 +49,9 @@
 
   <div class="panel{{ program.offers[key]|to_array|length > 3 or (key == 'external' and program.offers['deporte']|to_array|length) ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : ' panel-default' }} count-{{ program.offers[key]|to_array|length }}">
     <div class="panel-heading dong" >
-      <h3 class="panel-title{% if key == 'external' and program.offers['deporte']|to_array|length %} external-collapser pointer{% endif %}"{% if key == 'external' and program.offers['deporte']|to_array|length %} data-toggle="collapse"{% endif %} href="#{{ key }}">
+      <h3 class="panel-title {% if key in ['external','dvd'] and program.offers['deporte']|to_array|length %} external-collapser pointer{% endif %}"{% if key in ['external','dvd'] and program.offers['deporte']|to_array|length %} data-toggle="collapse"{% endif %} href="#{{ key }}">
         {{ offers[key] }}
-        {% if key == 'external' and program.offers['deporte']|to_array|length %} 
+        {% if key in ['external','dvd'] and program.offers['deporte']|to_array|length %} 
         <i class="glyphicon glyphicon-chevron-down"></i>
         {% endif %}
       </h3>
@@ -64,7 +64,7 @@
             {% set loop_offset = 3 %}
             {% endif %}
     {# <a name="{{ key }}"></a> #}
-    <div id="{{ key }}" class="tab-pane{% if key == 'external' and program.offers['deporte']|to_array|length %} panel-collapse collapse {% endif %}">
+    <div id="{{ key }}" class="tab-pane{% if key in ['external','dvd'] and program.offers['deporte']|to_array|length %} panel-collapse collapse {% endif %}">
 
       {# theaters #}
       {% if key == 'theater' %}
