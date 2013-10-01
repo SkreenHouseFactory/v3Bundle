@@ -53,6 +53,7 @@
       <div class="description">
         <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1> 
         {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
+        {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
       </div>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une', force_size: '/1250/370'} %}
       {% if app.environment == 'dev' and app.request.get('home') == 'video-a-la-demande' %}
@@ -82,7 +83,7 @@
             </div>
             
             <div class="col-xs-8 first-col">
-              <img class="hand" src="#"></img><div class="click-title">Vidéo en 1 click</div>
+              <div class="click-title"><img class="hand" src="#"></img>Vidéo en 1 click</div>
               <div class="lato click-description">Certains programmes sont disponibles directement dans notre catalogue VOD. Cliquez sur l'éclair pour enregistrer vos coordonnées bancaires et les regarder en un click</div>
             </div>
             
