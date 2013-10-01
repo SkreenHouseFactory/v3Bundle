@@ -325,23 +325,6 @@
   }
 }
 }
-html:not(.touch){
-  .tab-pane{
-    table {
-        tr {
-          &:hover {
-            cursor: pointer;
-            color: @rowHoverColor;
-            background-color: @rowHoverBg;
-            border-bottom: 1px solid #f1e7bc;
-            td.price .rent {
-              color: @rowHoverColor;
-            }
-          }
-        }
-      }
-    }
-}
 
 #program-episodes {
   min-height: 200px;
@@ -545,4 +528,21 @@ ul#episodes-list{
     margin-top: 15px;
     margin-right:15px;
   }
+}
+html:not(.touch){
+  .tab-pane{
+    table {
+        tr {
+          &:hover {
+            cursor: pointer;
+            color: @rowHoverColor;
+            background-color: @rowHoverBg;
+            border-bottom: 1px solid #f1e7bc;
+            td.price .rent {
+              color: @rowHoverColor;
+            }
+          }
+        }
+      }
+    }
 }

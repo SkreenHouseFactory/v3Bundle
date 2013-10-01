@@ -1,6 +1,8 @@
 {% if program.player is defined and program.player %}
 <div class="ms-playertitle">
-  <p id="program-teaser-header" data-default-text="{{ ('player.content.text.' ~ program.player.type)|trans({'%date%': (program.player.broadcasttime is defined ? 'diffusé '~  program.player.broadcasttime|broadcastdate : '')}) }}">{{ ('player.content.text.' ~ program.player.type)|trans({'%date%': (program.player.broadcasttime is defined ? 'diffusé '~  program.player.broadcasttime|broadcastdate : '')}) }}</p>
+  <p id="program-teaser-header" data-default-text="{% if program.deporte == false %}{{ ('player.content.text.' ~ program.player.type)|trans({'%date%': (program.player.broadcasttime is defined ? 'diffusé '~  program.player.broadcasttime|broadcastdate : '')}) }} {% endif %}">{% if program.deporte == true and ('player.content.text.' ~ program.player.type)|trans({'%date%': (program.player.broadcasttime is defined ? 'diffusé '~  program.player.broadcasttime|broadcastdate : '')}) == 'Bande-annonce (après la pub)' %} BANDE-ANNONCE{% else %}
+    {{ ('player.content.text.' ~ program.player.type)|trans({'%date%': (program.player.broadcasttime is defined ? 'diffusé '~  program.player.broadcasttime|broadcastdate : '')}) }}
+    {% endif %}</p>
 </div>
 <a name="teaser"></a>
 <div id="program-teaser" itemprop="about" itemscope itemtype="http://www.schema.org/VideoObject">  
