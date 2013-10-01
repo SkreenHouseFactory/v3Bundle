@@ -9,8 +9,5 @@ $(document).ready(function(){
   	$('.carousel').hammer().on('swiperight', function(){
   		$(this).carousel('prev'); 
   	});
-
-    //beead touch
-    $('body').append('<script type="text/javascript" src="http://as.ebz.io/api/choixPubJS.htm?pid=305331&screenLayer=1&mode=NONE&home=http://www.myskreen.com"></script>'); 
   }
 });
