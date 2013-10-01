@@ -1,0 +1,22 @@
+{% extends app.request.isXmlHttpRequest or app.request.get('xhr') ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
+
+{% set page_title = 'page.title.apps.install' %}
+{% set page_description = 'page.description.apps.install' %}
+{% set keywords = 'application mySkreen' %}
+
+{% block meta %}
+<meta property="og:title" content="{{ page_title|trans }}" />
+<meta property="og:description" content="{{ page_description|trans }}" />
+<meta property="og:image" content="http://medias.myskreen.com/logo.png" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://www.myskreen.com" />
+{% endblock %}
+{% block title %}{{ page_title|trans }}{% endblock %}
+{% block description %}{{ page_description|trans }}{% endblock %}
+
+{% block content %}
+<div id="view-appsinstall" class="container">
+  <h1>l'application mySkreen</h1>
+  <p>installation...</p>
+</div>
+{% endblock %}

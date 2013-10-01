@@ -170,8 +170,10 @@
 
              {#% if o_access.name not in ['Vidéo','Archive','Extrait','Bonus'] or o.cost %#}
              <td class="price{{ o.cost is defined and o.cost ? ' price-vod' : '' }} big">
-
-               {% if (o.cost is defined and o.cost) or o_access.name in ['Vidéo','Archive','Extrait','Bonus']  %}
+               {% if (o.cost is defined and o.cost) or 
+                      o_access.name in ['Vidéo','Archive','Extrait','Bonus'] or
+                      'dvd' in o_access.name|lower or
+                      'bluray' in o_access.name|lower  %}
                <div class="rent">
                  {{ o_access.name }}
                  {% if o.tags.device is defined %}
