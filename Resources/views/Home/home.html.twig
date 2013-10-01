@@ -53,7 +53,6 @@
       <div class="description">
         <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1> 
         {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
-        {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
       </div>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une', force_size: '/1250/370'} %}
       {% if app.request.get('home') == 'cinema' %}
