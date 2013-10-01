@@ -1,11 +1,19 @@
-{% if data.type in ['broadcast'] %}
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: channel, fournisseur: data, slug: app.request.get('slug')} %}
+{% if custom_header %}
+{% render(controller('SkreenHouseFactoryV3Bundle:Channel:header'~ channel.id, {data:data, from_selection: from_selection, channel: channel, fav: 'page', trigger_fav: 
+channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
+{% elseif channel.fournisseur is defined and channel.fournisseur.type in  ['broadcast'] %}
+{% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: channel, fournisseur: data,slug: app.request.get('slug')} %}
+{% else %}
+{% include  'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data:data, fav: 'page', trigger_fav: channel.personne is defined ? 'Suivre ' ~ data.name : '', skip_content: true} %}
 {% endif %}
 
-<div id="view-fournisseur" data-id="{{ data.id }}" class="container" style="padding-bottom: 100px;">
+<div id="view-fournisseur" data-id="{{ data.id }}" class="container{% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null %} container-seo-placement{% endif %}">
 
-  {% if data.type not in ['broadcast'] %}
-  <h1>{{ data.name }}</h1>
+  {% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null  %}
+  <div class="channel-description channel-description-seo-placement">
+    <h1>{{ data.name }}</h1>
+    {{ data.description|raw }}
+  </div>
   {% endif %}
 
   <div class="row">
@@ -14,64 +22,59 @@
     </div>
   </div>
 
-<h2>Les programmes {{ channel.fournisseur.has_replay is defined and channel.fournisseur.has_replay ? 'TV & Replay' : 'en Streaming' }}
-</h2>
+  <h2>Les programmes {{ channel.fournisseur.has_replay is defined and channel.fournisseur.has_replay ? 'TV & Replay' : 'en Streaming' }}</h2>
 
-{# sliders #}
-{% if sliders|to_array|length %}
-<div class="row">
-  <div class="col-xs-16">
-    {% for slider in sliders|to_array if slider.id is defined %}
-      <a name="{{ slider.name }}"></a>
-      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index: loop.index} %}
+  {# sliders #}
+  {% if sliders|to_array|length %}
+  <div class="row">
+    <div class="col-xs-16">
+      {% for slider in sliders|to_array if slider.id is defined %}
+        <a name="{{ slider.name }}"></a>
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index: loop.index} %}
+      {% endfor %}
+    </div>
+  </div>
+  <hr/>
+  <br/>
+  {% endif %}
+
+  {# fournisseur #}
+  {% if sliders|to_array|length and
+        app.request.get('page') is null and 
+        app.request.get('format') is null and 
+        app.request.get('facet') is null %}
+    {#% if data.epg is defined and data.epg %}
+      {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-replay.html.twig' with {channel: data} %}
+    {% endif %#}
+    <h2>
+      {{ data.name }}, TV & Replay 
+      {% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}
+    </h2>
+  {% endif %}
+
+  {% include 'SkreenHouseFactoryV3Bundle:Channel:_pager.html.twig' with {data: data} %}
+
+  <div class="facets" stylle="height: 40px;">
+  {% if app.request.get('format') %}
+    {% for k,s in data.subcategories %}
+      <a href="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="label label-default {% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</a> 
     {% endfor %}
+  {% else %}
+    {% for k,f in data.formats %}
+      <a href="{{ path('channel_format', {format: k, slug: app.request.get('slug')}) }}" class="label{% if app.request.get('facet') == f %} label-info"{% endif %} label-default">{{ f }}</a> 
+    {% endfor %}
+  {% endif %}
   </div>
-</div>
-<hr/>
-<br/>
-{% endif %}
 
-{# fournisseur #}
-{% if sliders|to_array|length and
-      app.request.get('page') is null and 
-      app.request.get('format') is null and 
-      app.request.get('facet') is null %}
-  {#% if data.epg is defined and data.epg %}
-    {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-replay.html.twig' with {channel: data} %}
-  {% endif %#}
-  <h2>
-    {{ data.name }}, TV & Replay 
-    {% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}
-  </h2>
-{% endif %}
-
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_pager.html.twig' with {data: data} %}
-
-<div class="facets" stylle="height: 40px;">
-{% if app.request.get('format') %}
-  {% for k,s in data.subcategories %}
-    <a href="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="label label-default {% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</a> 
-  {% endfor %}
-{% else %}
-  {% for k,f in data.formats %}
-    <a href="{{ path('channel_format', {format: k, slug: app.request.get('slug')}) }}" class="label{% if app.request.get('facet') == f %} label-info"{% endif %} label-default">{{ f }}</a> 
-  {% endfor %}
-{% endif %}
-</div>
-
-<hr/>
-<div id="channel-programs" class="slider slider-list">
-  <ul class="items">
-  {% for program in data.programs|to_array %}
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, theater_id: data.type == 'cinema' ? data.id : '' } %}
-  {% endfor %}
-  </ul>
-</div>
-
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_pager.html.twig' with {data: data} %}
-
-  <div class="channel-description">
-    {{ data.description|raw }}
+  <hr/>
+  <div id="channel-programs" class="slider slider-list">
+    <ul class="items">
+    {% for program in data.programs|to_array %}
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, theater_id: data.type == 'cinema' ? data.id : '' } %}
+    {% endfor %}
+    </ul>
   </div>
+
+  {% include 'SkreenHouseFactoryV3Bundle:Channel:_pager.html.twig' with {data: data} %}
 	</div>
 </div>

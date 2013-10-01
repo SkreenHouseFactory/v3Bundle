@@ -1,5 +1,6 @@
 <div id="cover"{#% if channel.cover %} style="background: url('{{ channel.cover }}') top center no-repeat;"{% endif %#}>
 <div class="header-container">
+  {% if skip_content is not defined %}
   <div class="header-content">
     <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' est sur @mySkreen   ' } %}</div>
     <div class="pull-right" data-playlist="{{ fav }}">
@@ -17,5 +18,6 @@
     <p class="lead channel-description">{{ channel.description|raw }}</p>
     {% endif %}
   </div>
+  {% endif %}
 </div>
 </div>
