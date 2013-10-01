@@ -136,8 +136,9 @@ $(document).ready(function(){
   });
   */
   //focus
+  if(!$('html').hasClass('touch')){
     $('.search-query').trigger('focus');
-
+  }
   // -- ui playlist
   $('#top-playlist').on('show.bs.collapse', function () {
     console.log('script', '#top-playlist on show');
