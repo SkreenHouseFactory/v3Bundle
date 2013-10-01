@@ -2,7 +2,7 @@
   <div class="suggestion"><{{h_title is defined ? h_title : "h3"}}>{% if slider.url is defined %} <a href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}">{% endif %} {{ slider.title|striptags }}
   {% if slider.is_promo is defined and slider.is_promo %}
     <span class="label label-warning">
-      Publicités
+      Publicité
     </span>
   {% endif %}
     {% if slider.url is defined %} </a> {% endif %}</{{h_title is defined ? h_title : "h3"}}>

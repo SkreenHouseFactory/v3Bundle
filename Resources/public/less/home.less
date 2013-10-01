@@ -4,7 +4,110 @@
 #view-home {
   position: relative;
   padding-bottom: 500px;
-
+  .lato{
+    font-family: 'Lato', sans-serif;
+    font-weight:300;
+  }
+  .encart-vod{
+    display:block;
+    height:922px; 
+    width:100%; 
+    overflow:hidden;
+    color: white;
+    .encart-header{
+      .row{
+        padding-left: 120px;
+        padding-top: 17px;
+      }
+      background-color:#4E96C5;
+      height:91px;
+      .title{
+        font-size: 28px;
+        line-height: 40px;
+      }
+      .subtitle{
+        font-size: 14px;
+      }
+      .btn{
+        display: block;
+        background: white;
+        width: 170px;
+        height: 44px;
+        left: 572px;
+        top: 24px;
+        position: absolute;
+        font-size: 17px;
+        padding-top: 9px;
+        padding-left: 26px;
+        >i{
+          position: absolute;
+          left: 14px;
+          top: 8px;
+          font-size: 1.3em;
+        }
+      }
+    }
+    .encart-body{
+      height: 343px;
+      background-color:#2980B9;
+      .title{
+        font-size: 28px;
+        line-height: 60px;
+        padding-top: 83px;
+      }
+    }
+    .encart-footer{
+      height: 488px;
+      padding-top: 40px;
+      background-color: #1C699C;
+      .col-xs-16{
+        .title{
+          font-size: 28px;
+          line-height: 60px;
+        }
+      }
+      .col-xs-8{
+        margin-top: 55px;
+        &.first-col{
+          .hand{
+            position: absolute;
+            height: 40px;
+            width: 40px;
+            display: block;
+            left: 0px;
+          }
+          padding-left: 56px;
+          .click-title{
+            font-size: 24px;
+            line-height: 32px;
+          }
+          .click-description{
+            font-size: 16px;
+            line-height: 44px;
+          }
+        }
+        .content{
+          min-height: 80px;
+          .title{
+            font-weight: bold;
+            font-size: 15px;
+          }
+          div{
+            font-size: 12px;
+          }
+        }
+      }
+      .btn{
+        font-size: 16px;
+        color: white;
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        left: 0px;
+        margin-top: 116px;
+      }
+    }
+  }
   .description {
     bottom: 0;
     left: 50%;
