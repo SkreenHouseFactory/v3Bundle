@@ -1,6 +1,12 @@
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: channel, fournisseur: data,slug: app.request.get('slug')} %}
+{% if data.type in ['broadcast'] %}
+{% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: channel, fournisseur: data, slug: app.request.get('slug')} %}
+{% endif %}
 
 <div id="view-fournisseur" data-id="{{ data.id }}" class="container" style="padding-bottom: 100px;">
+
+  {% if data.type not in ['broadcast'] %}
+  <h1>{{ data.name }}</h1>
+  {% endif %}
 
   <div class="row">
     <div class="col-xs-16">
