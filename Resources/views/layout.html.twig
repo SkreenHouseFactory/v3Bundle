@@ -97,7 +97,7 @@
 
 </head>
 {% endspaceless %}
-<body class="skin {% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}"{% if block('body_background') %} style="background:{% block body_background %}{% endblock %};"{% endif %}{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}>
+<body class="{% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}"{% if block('body_background') %} style="background:{% block body_background %}{% endblock %};"{% endif %}{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}>
 
 
 
@@ -107,6 +107,7 @@
     <img class="help-popin hide" src="{{ asset('bundles/skreenhousefactoryv3/images/help_popin_2_09.png') }}">
     <div id="main">
       <div id="content" class="uiview-update">
+        <div class="help-sprite help-sprite-ms_btn_help"></div>
      <!--[if lt IE 8]>  <div class="lt-ie8-pop hide">
          <div class="ie-head"><img></div>
          <div class="ie-body">
@@ -130,8 +131,6 @@
          </div>
        </div>
        <![endif]-->
-        
-        <div class="help-sprite help-sprite-ms_btn_help"></div>
         {% block content %}
         {% endblock %}
       </div>
