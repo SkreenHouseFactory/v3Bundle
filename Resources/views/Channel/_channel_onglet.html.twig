@@ -7,7 +7,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
 <div id="view-page" class="container channel{{ channel.id }}">
   <div class="row">
       {% for slider in data.sliders|to_array if slider.id is defined %}
-      {% if loop.index == 2%}
+      {% if loop.index == 2 and channel.id == 55 %}
         {% include 'SkreenHouseFactoryV3Bundle:Slider:social-slider.html.twig' with {slider: slider, loop_index:loop.index, h_title: "h2",channel: channel} %}
       {% endif %}
         {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index:loop.index, h_title: "h2",channel: channel} %}

@@ -677,14 +677,44 @@ Author: Benoît Bergstörm
     height: 425px;
     background:#C13221;
   }
-  .nav-tabs{
-    border-bottom: none;
-    position: absolute;
-    top: 30px;
-    right: 40px;
-    >li>a{
-      height: 36px;
-      width: 43px;
+    .nav-tabs{
+      border-bottom: none;
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      >li{
+        >a{
+          border:none;
+          height: 36px;
+          width: 43px;
+          &:hover{
+            border:none;
+            background: #EB513F;
+          }
+          >div{
+            margin-top: -5px;
+            i{
+              color:#FFFFFF;
+              font-size: 1.6em;
+              margin-left: -11px;
+            }
+          }
+        }
+      &.active{
+        >a{
+          &:hover{
+            background:white;
+          }
+          >div{
+          margin-top: -5px;
+            i{
+              color:#C13221;
+              font-size: 1.6em;
+              margin-left: -11px;
+            }
+          }
+        }
+      }
     }
   }
 }
