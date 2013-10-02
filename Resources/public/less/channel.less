@@ -1,10 +1,10 @@
 /* hack channel mySkreen : hide Logo */
 /*
 .logo-channel-4634 img {
-  display: none;
+display: none;
 }
 td.logo-channel-4634 {
-  width: 10px;
+width: 10px;
 }
 */
 /* Ancien CSS *****************************************************************************************/
@@ -39,7 +39,6 @@ body.view-channel, body.view-channel-selections {
         background: white;
       }
     }
-    
     #cover {
       height: 450px;
       margin: 0 auto;
@@ -50,7 +49,25 @@ body.view-channel, body.view-channel-selections {
       &.cover28{
         height: 550px;
       }
-      &.cover56,&.cover55{
+      &.cover55{
+        height: 425px;
+         .cover-wrap{
+          display: block;
+        height: 500px;
+        width: 100%;
+        position: absolute;
+        }
+      .wrap-follow{
+        position: absolute;
+        left: 804px;
+        bottom: 87px;
+        z-index: 1;
+      }
+      .share-block{
+        left: 660px;
+      }
+    }
+      &.cover56,&.cover60{
          .cover-wrap{
           display: block;
         height: 500px;
@@ -61,7 +78,7 @@ body.view-channel, body.view-channel-selections {
           position: absolute;
           left: 190px;
           bottom: 36px;
-          z-index: 1;        
+          z-index: 1;
         }
         .share-block{
           left: 660px;
@@ -76,7 +93,7 @@ body.view-channel, body.view-channel-selections {
           >h1{
             margin-top: 0px;
           }
-          height: 450px; 
+          height: 450px;
           border-bottom: 1px solid #EEE;
           padding-top: 80px;
           .well {
@@ -145,7 +162,7 @@ body.view-channel, body.view-channel-selections {
             #carousel-chaine{
               height: 100%;
               .item.pointer.active{
-               min-height:150px; 
+               min-height:150px;
              }
              .carousel-inner {
               overflow: hidden;
@@ -187,14 +204,14 @@ body.view-channel, body.view-channel-selections {
       top: -25px;
       left: 10px;
       min-width: 400px;
-      z-index: 1; 
+      z-index: 1;
       .fb-like {
         float: left;
       }
     }
     .description {
       font-size: 1.1em;
-    }  
+    }
   }
 }
 /* header */
@@ -240,6 +257,44 @@ body.view-channel, body.view-channel-selections {
       }
     }
   }
+  &#channel60{
+    height: 535px;
+    .btn-upload{
+      position: absolute;
+      top: 88px;
+      left: 86px;
+      .gradient(#FFFFFF,#DBDEE0,#ECEFF1);
+      color: #A2296B;
+      font-size: 16px;
+      font-weight: bold;
+      min-height: 55px;
+      min-width: 288px;
+      line-height: 2.6em;
+      >i{
+        margin-right: 10px;
+      }
+      &:hover{
+        color:#FFFFFF;
+        background:#A2296B;
+      }
+    }
+    .header-content{
+      background:none;
+      top: 202px;
+      .share-block{
+        top: 294px;
+        left: 620px;
+      }
+      .player-wrap{
+        position: relative;
+        left: 535px;
+        width: 408px;
+        iframe{
+          border: none;
+        }
+      }
+    }
+  }
   &#channel8{
     height: 535px;
     .share-block{
@@ -266,7 +321,7 @@ body.view-channel, body.view-channel-selections {
       iframe{
         border: none;
       }
-      #playlist{ 
+      #playlist{
        position: absolute;
        bottom: 0px;
        width: 100%;
@@ -495,12 +550,12 @@ body.view-channel, body.view-channel-selections {
   }
 
     .channel-description {
-      position: relative; 
+      position: relative;
       bottom: 0px;
       width: 100%;
     }
     .channel-description-seo-placement {
-    position: absolute; 
+    position: absolute;
     bottom: 0px;
     width: 100%;
     max-height: 450px;
@@ -597,7 +652,7 @@ body.view-channel, body.view-channel-selections {
 
 .ms-channel-headtitle{
   .col-xs-14 >h1{
-    max-width: 100%!important;   
+    max-width: 100%!important;
 
   }
 }
@@ -605,5 +660,3 @@ body.view-channel, body.view-channel-selections {
 .ms-margin-top-seo{
   min-height: 1550px;
 }
-
-

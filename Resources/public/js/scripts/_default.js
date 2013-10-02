@@ -124,7 +124,20 @@ $(document).ready(function(){
     }
     return false;
   });
-
+  //ENCART VOD
+  $('.encart-vod .encart-header .btn').on('click', function(e){
+    $('.encart-vod').toggleClass('in','addOrRemove');
+    if($('.encart-vod').hasClass('in')){
+      $('.encart-vod .encart-header .btn i').attr('class','glyphicon glyphicon-remove')
+      $('.encart-vod .encart-header .btn span').html('Fermer');
+    }
+    else{
+      $('.encart-vod .encart-header .btn i').attr('class','glyphicon glyphicon-info-sign')
+       $('.encart-vod .encart-header .btn span').html('En savoir plus');
+    }
+    e.preventDefault();
+    e.stopPropagation();
+  });
   // -- ui typeahead
   UI.typeahead('#nav-search .search-query');
 

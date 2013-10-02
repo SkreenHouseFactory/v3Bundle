@@ -1,0 +1,19 @@
+<div id="cover" class="cover60 {% if from_selection is defined and from_selection == true %}selection{% endif %}">
+    <div id="channel60" class="header-container">
+      <div class="header-content">
+        <div class="player-wrap">
+          <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&noPub=1&program_id=5068063&height= 255&width=408&channel_header=1" height="255" width="408"></iframe>
+
+
+      </div>
+       <a class="btn btn-defaut btn-upload"><i class="glyphicon glyphicon-play"></i>ENVOYEZ NOUS VOS VID&Eacute;OS</a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="wrap-follow hide" data-playlist="{{ fav }}">
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'fav-' ~ fav, name: channel.title, text: trigger_fav is defined and trigger_fav ? trigger_fav : 'Suivre ' ~ channel.title|trans } %}
+        </div>
+      </div>
+    </div>
+</div>

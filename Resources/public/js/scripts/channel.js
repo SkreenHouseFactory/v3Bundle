@@ -121,8 +121,10 @@ $(document).ready(function(){
           $('#channel-modal').modal('hide');
           $('.btn-suivre').trigger('click');
         });
-   
-
+        //background pour les vrais inconnus
+     if (channel_id == 4938680) {
+       $('body').css('background-color','#0B1E30');
+     }
     if (channel_id == 28) {
       var date = new Date();
       	var note = $('#note');

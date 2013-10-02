@@ -69,6 +69,12 @@ var BaseSlider = Class.extend({
       this.elmt.removeClass('slider-loading');
       this.loadRemotePrograms(0, callback);
     }
+    if($('.social [data-toggle="tab"]').length){
+      $('.social [data-toggle="tab"]').on('click',function(){
+        var titre = $(this).data('titre');
+        $('.social .social-suggestion h2').html(titre);
+          });
+    }
 
     return this;
   },
