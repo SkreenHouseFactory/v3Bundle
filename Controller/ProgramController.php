@@ -347,6 +347,8 @@ class ProgramController extends Controller
             'theater' => 'Au cinéma (horaires et salles)',
             'itunes' => 'Télécharger sur iTunes',
             'external' => 'Sur les autres sites', 
+            'box' => 'Sur les Box', 
+            'console' => 'Sur les consoles', 
             'bonus' => 'Bonus',
             'cut' => 'Extraits',
             'dvd' => 'DVD & Blu-Ray',

@@ -33,7 +33,6 @@ body.view-channel, body.view-channel-selections {
         background: white;
       }
     }
-    
     #cover {
       height: 450px;
       margin: 0 auto;
@@ -44,9 +43,27 @@ body.view-channel, body.view-channel-selections {
       &.cover28 {
         height: 550px;
       }
-      &.cover56,&.cover55 {
-       .cover-wrap {
-        display: block;
+      &.cover55{
+        height: 425px;
+         .cover-wrap{
+          display: block;
+        height: 500px;
+        width: 100%;
+        position: absolute;
+        }
+      .wrap-follow{
+        position: absolute;
+        left: 804px;
+        bottom: 87px;
+        z-index: 1;       
+      }
+      .share-block{
+        left: 660px;
+      }
+    }
+      &.cover56,&.cover60{
+         .cover-wrap{
+          display: block;
         height: 500px;
         width: 100%;
         position: absolute;
@@ -246,6 +263,44 @@ body.view-channel, body.view-channel-selections {
         position: relative;
         left: 563px;
         width: 367px;
+        iframe{
+          border: none;
+        }
+      }
+    }
+  }
+  &#channel60{
+    height: 535px;
+    .btn-upload{
+      position: absolute;
+      top: 88px;
+      left: 86px;
+      .gradient(#FFFFFF,#DBDEE0,#ECEFF1);
+      color: #A2296B;
+      font-size: 16px;
+      font-weight: bold;
+      min-height: 55px;
+      min-width: 288px;
+      line-height: 2.6em;
+      >i{
+        margin-right: 10px;
+      }
+      &:hover{
+        color:#FFFFFF;
+        background:#A2296B;
+      }
+    }
+    .header-content{
+      background:none;
+      top: 202px;
+      .share-block{
+        top: 294px;
+        left: 620px;
+      }
+      .player-wrap{
+        position: relative;
+        left: 535px;
+        width: 408px;
         iframe{
           border: none;
         }
