@@ -1,6 +1,15 @@
+/* hack channel mySkreen : hide Logo */
+/*
+.logo-channel-4634 img {
+display: none;
+}
+td.logo-channel-4634 {
+width: 10px;
+}
+*/
 /* Ancien CSS *****************************************************************************************/
 
-/*  CHANNEL SPECIAUX   */
+
 
 /* channel PBLV */
 body.view-channel .channel28 {
@@ -16,10 +25,7 @@ body.view-channel .channel28 {
 }
 
 
-
-
-/*  CHANNEL GENERAL STYLE   */
-
+/* channel page */
 body.view-channel:not(.view-ajax) {
   #main {
    padding: 0;
@@ -37,10 +43,10 @@ body.view-channel, body.view-channel-selections {
       height: 450px;
       margin: 0 auto;
       padding: 0;
-      &.cover42 {
+      &.cover42{
         height: 850px;
       }
-      &.cover28 {
+      &.cover28{
         height: 550px;
       }
       &.cover55{
@@ -55,7 +61,7 @@ body.view-channel, body.view-channel-selections {
         position: absolute;
         left: 804px;
         bottom: 87px;
-        z-index: 1;       
+        z-index: 1;
       }
       .share-block{
         left: 660px;
@@ -67,165 +73,147 @@ body.view-channel, body.view-channel-selections {
         height: 500px;
         width: 100%;
         position: absolute;
-      }
-      .wrap-follow {
-        position: absolute;
-        left: 190px;
-        bottom: 36px;
-        z-index: 1;        
-      }
-      .share-block {
-        left: 660px;
-      }
-    }
-    &.cover35,&.cover54,&.cover8 {
-     height: 600px;
-   }
-   &.cover-fournisseur {
-    .header-container {
-      .container {
-        >h1 {
-          margin-top: 0px;
         }
-        height: 450px; 
-        border-bottom: 1px solid #EEE;
-        padding-top: 80px;
-        .well {
-          top: 120px;
-          width: 600px;
+        .wrap-follow{
           position: absolute;
-          border: none;
-          box-shadow: none;
-          right: 0px;
-          margin: 0 20px;
-          height: 290px;
-          padding: 10px;
-          .well-inner {
-            .b-play {
-              color: white;
-              font-size: 2.5em;
-              >i {
-                border: 3px solid white;
-                height: 53px;
-                width: 53px;
-                border-radius: 28px;
-                padding-left: 4px;
-              }
-            }
+          left: 190px;
+          bottom: 36px;
+          z-index: 1;
+        }
+        .share-block{
+          left: 660px;
+        }
+      }
+      &.cover35,&.cover54,&.cover8{
+       height: 600px;
+     }
+     &.cover-fournisseur {
+      .header-container {
+        .container {
+          >h1{
+            margin-top: 0px;
+          }
+          height: 450px;
+          border-bottom: 1px solid #EEE;
+          padding-top: 80px;
+          .well {
+            top: 120px;
+            width: 600px;
             position: absolute;
-            left: 170px;
-            width: 420px;
-            height: 270px;
-            background: rgba(0,0,0,0.9);
-            text-align:center;
-            .alert {
-              margin: 10px;
-            }
-            .player-live {
+            border: none;
+            box-shadow: none;
+            right: 0px;
+            margin: 0 20px;
+            height: 290px;
+            padding: 10px;
+            .well-inner {
+              .b-play{
+                color: white;
+                font-size: 2.5em;
+                >i{
+                  border: 3px solid white;
+                  height: 53px;
+                  width: 53px;
+                  border-radius: 28px;
+                  padding-left: 4px;
+                }
+              }
+              position: absolute;
+              left: 170px;
               width: 420px;
               height: 270px;
-            }
-          }
-          .slider {
-            width: 160px;
-            ul.items {
-              li {
-                width: 150px;
+              background: rgba(0,0,0,0.9);
+              text-align:center;
+              .alert {
+                margin: 10px;
+              }
+              .player-live{
+                width: 420px;
+                height: 270px;
               }
             }
-            .btn{
-              padding: 17px 0px;
-              font-size: 1.3em;
-            }
-            .fav-like{
-              position: absolute;
-              top: 210px;
-              width: 151px;
-              height: 60px;
+            .slider {
+              width: 160px;
+              ul.items {
+                li {
+                  width: 150px;
+                }
+              }
+              .btn{
+                padding: 17px 0px;
+                font-size: 1.3em;
+              }
+              .fav-like{
+                position: absolute;
+                top: 210px;
+                width: 151px;
+                height: 60px;
 
+              }
             }
           }
-        }
-        ul#remote-tnt {
-          background: #F7F7F3;
-          height: 239px;
-          width: 335px;
-          position: absolute;
-          top: 131px;
-          padding-left: 0px;
-          #carousel-chaine{
-            height: 100%;
-            .item.pointer.active{
-             min-height:150px; 
-           }
-           .carousel-inner {
-            overflow: hidden;
-          }
-          .carousel-control{
-            top: 100%;
-            background: none;
-            color: black;
-            border: none;
-            font-size: 2em;
-            &.left{
-              left: 6px;
+          ul#remote-tnt {
+            background: #F7F7F3;
+            height: 239px;
+            width: 335px;
+            position: absolute;
+            top: 131px;
+            padding-left: 0px;
+            #carousel-chaine{
+              height: 100%;
+              .item.pointer.active{
+               min-height:150px;
+             }
+             .carousel-inner {
+              overflow: hidden;
             }
-            &.right{
-              right: 50px;
+            .carousel-control{
+              top: 100%;
+              background: none;
+              color: black;
+              border: none;
+              font-size: 2em;
+              &.left{
+                left: 6px;
+              }
+              &.right{
+                right: 50px;
+              }
             }
           }
-        }
-        .item {
-          a{
-            display: inline-block;
-            margin-left: 8px;
-            margin-top: 0px;
-            &.selected{
-              border: 3px solid grey;
-              border-radius: 13px;
-              background: rgba(0,0,0,0.1);
+          .item {
+            a{
+              display: inline-block;
+              margin-left: 8px;
+              margin-top: 0px;
+              &.selected{
+                border: 3px solid grey;
+                border-radius: 13px;
+                background: rgba(0,0,0,0.1);
+              }
             }
           }
         }
       }
     }
   }
-}
-<<<<<<< HEAD
-
-
-
-.share-block {
-  position: absolute;
-  top: -25px;
-  left: 10px;
-  min-width: 400px;
-  z-index: 1; 
-  .fb-like {
-    float: left;
-  }
-}
-
 
 }
-}
-=======
     .share-block {
       position: absolute;
       top: -25px;
       left: 10px;
       min-width: 400px;
-      z-index: 1; 
+      z-index: 1;
       .fb-like {
         float: left;
       }
     }
     .description {
       font-size: 1.1em;
-    }  
+    }
   }
 }
->>>>>>> 5e6efa0c575e344b1207a6edb88407514a9c3726
 /* header */
 .header-container {
   position: relative;
@@ -333,7 +321,7 @@ body.view-channel, body.view-channel-selections {
       iframe{
         border: none;
       }
-      #playlist{ 
+      #playlist{
        position: absolute;
        bottom: 0px;
        width: 100%;
@@ -561,14 +549,13 @@ body.view-channel, body.view-channel-selections {
     }
   }
 
-
     .channel-description {
-      position: relative; 
+      position: relative;
       bottom: 0px;
       width: 100%;
     }
     .channel-description-seo-placement {
-    position: absolute; 
+    position: absolute;
     bottom: 0px;
     width: 100%;
     max-height: 450px;
@@ -665,7 +652,7 @@ body.view-channel, body.view-channel-selections {
 
 .ms-channel-headtitle{
   .col-xs-14 >h1{
-    max-width: 100%!important;   
+    max-width: 100%!important;
 
   }
 }
@@ -673,5 +660,3 @@ body.view-channel, body.view-channel-selections {
 .ms-margin-top-seo{
   min-height: 1550px;
 }
-
-
