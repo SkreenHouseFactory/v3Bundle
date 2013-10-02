@@ -60,6 +60,7 @@
   <link rel="author" href="https://plus.google.com/106555719800030017985" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <link rel="search" type="application/opensearchdescription+xml" href="http://www.myskreen.com/opensearch.xml" title="Recherche de vidéos mySkreen"/>
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
   <link rel="apple-touch-icon" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone.png') }}" />
   <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad.png') }}" />
   <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone-retina.png') }}" />
@@ -68,13 +69,14 @@
   {# <meta name="viewport" content="width=1010, maximum-scale=1, user-scalable = yes" />#}
   
   {% stylesheets
+  '@SkreenHouseFactoryV3Bundle/Resources/public/font/fontello.less'
   '@SkreenHouseFactoryV3Bundle/Resources/public/less/bootstrap-overload.less'
   '@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
   '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
   filter='lessphp,?yui_css'
   output='css/v3.css'
   %}
-  <link href="{{ asset_url }}?20130925" rel="stylesheet" media="screen" />
+  <link href="{{ asset_url }}?20130930" rel="stylesheet" media="screen" />
   {% endstylesheets %}
 
 
@@ -87,7 +89,7 @@
 
   filter='?yui_js' 
   output='js/compiled/ie8.js'  %}
-  <script src="{{ asset_url }}?20130925"></script>
+  <script src="{{ asset_url }}?20130930"></script>
   {% endjavascripts %}
 
 <![endif]-->
@@ -97,18 +99,40 @@
 
 </head>
 {% endspaceless %}
-<body class="skin {% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}"{% if block('body_background') %} style="background:{% block body_background %}{% endblock %};"{% endif %}{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}>
+<body class="{% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}"{% if block('body_background') %} style="background:{% block body_background %}{% endblock %};"{% endif %}{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}>
 
 
 
   {% spaceless %}
-  <!--[if lt IE 7]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
+  <!--[if lt IE 8]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
   <article>
     <img class="help-popin hide" src="{{ asset('bundles/skreenhousefactoryv3/images/help_popin_2_09.png') }}">
     <div id="main">
       <div id="content" class="uiview-update">
-
         <div class="help-sprite help-sprite-ms_btn_help"></div>
+     <!--[if lt IE 8]>  <div class="lt-ie8-pop hide">
+         <div class="ie-head"><img></div>
+         <div class="ie-body">
+           <div class="text">Votre navigateur est obsolète et ne permet pas de profiter <br>de myskreen de manière optimale.<br><br>Pour une meilleure navigation nous vous conseillons de le mettre à jour ou de choisir un navigateur récent en cliquant ci-dessous:<br>
+           </div>
+           <ul class="logo">
+             <a href="http://getfirefox.com/"><li class="sprite-popin_under_ie8_07"></li></a>
+             <a href="http://www.google.com/chrome/"><li class="sprite-popin_under_ie8_09"></li></a>
+             <a href="http://www.opera.com/‎"><li class="sprite-popin_under_ie8_11"></li></a>
+             <a href="http://windows.microsoft.com/fr-fr/internet-explorer/download-ie"><li class="sprite-popin_under_ie8_13"></li></a>
+             <a href="http://support.apple.com/downloads/#safari"><li class="sprite-popin_under_ie8_15"></li></a>
+           </ul>
+           <ul class="name">
+             <li>Firefox</li>
+             <li>Chrome</li>
+             <li>Opéra</li>
+             <li>Internet Explorer</li>
+             <li>Safari</li>
+           </ul>
+         <button class="btn btn-default">Non merci, pas pour l'instant</button>
+         </div>
+       </div>
+       <![endif]-->
         {% block content %}
         {% endblock %}
       </div>
@@ -170,7 +194,7 @@
 
   filter='?yui_js' 
   output='js/compiled/v3.js'  %}
-  <script src="{{ asset_url }}?20130925"></script>
+  <script src="{{ asset_url }}?20130930"></script>
   {% endjavascripts %}
 
   {% endif %}

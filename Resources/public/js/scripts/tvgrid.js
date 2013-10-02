@@ -38,15 +38,22 @@ GridView = {
         //todo refresh
         window.refresh();
       } else {
-        cache.animate({width: mn * 5 }, 3000, function(){
-          console.log('GridView.idle', 'animate cache', mn + 'mn');
+       cache.animate({width: mn * 5 }, 3000, function(){
+          console.log('Grid.idle', 'animate cache', mn + 'mn');
+
           //update is live
           $('ul', div).each(function(){
             var live = $(this).find('li.is-live:first');
-            //console.log('GridView.idle', 'animate .is-live ' + $(this).attr('id'), parseInt(live.data('end')), '<=', time);
+            //console.log('Grid.idle', 'animate .is-live ' + $(this).attr('id'), parseInt(live.data('end')), '<=', time);
             //move live class + label
-            
-          });
+            if (parseInt(live.data('end')) <= time) {
+              $('.label-warning', live).appendTo($('a ruby rt', live.next()));
+              live.removeClass('is-live').next().addClass('is-live');
+              if (live.hasClass('has-live')) {
+                live.removeClass('has-live').next().addClass('has-live');
+              }
+            }
+          })
       
         });
       }

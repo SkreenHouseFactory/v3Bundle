@@ -56,6 +56,63 @@
         {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
       </div>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une', force_size: '/1250/370'} %}
+      {% if app.environment == 'dev' and app.request.get('home') == 'video-a-la-demande' %}
+      <div class="encart-vod">
+          <div class="encart-header">
+            <div class="container">
+            <div class="row">
+              <div class="title lato">Accedez au meilleur de la VOD</div>
+              <div class="subtitle">en HD et multi-écran directement sur mySkreen et en 1 clic</div>
+              <a class="btn btn-defaut"><i class="glyphicon glyphicon-info-sign"></i><span>En savoir plus</span></a>
+            </div>
+          </div>
+          </div>
+          <div class="encart-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-8 lato title">Comparez les prix des meilleures offres pour visionner tous vos programmes en VOD.</div>
+                <div class="col-xs-8 "><span class="vod-multiple"></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="encart-footer">
+            <div class="container">
+              <div class="row">
+            <div class="col-xs-16">
+              <div class="title lato"><span class="picture sprite-blockVOD4_03"></span><span class="lato text" >Les programmes directement sur </span><span class="picture sprite-blockVOD4_05"></span></div>
+            </div>
+            
+            <div class="col-xs-8 first-col">
+              <div class="click-title"><a class="picture sprite-blockVOD4_09"></a>Vidéo en 1 click</div>
+              <div class="lato click-description">Certains programmes sont disponibles directement dans notre catalogue VOD. Cliquez sur l'éclair pour enregistrer vos coordonnées bancaires et les regarder en un click</div>
+            </div>
+            
+            <div class="col-xs-8">
+              <div class="content">
+                <span class="col-xs-3 picture sprite-blockVOD4_12"></span>
+                <div class="title">Sur tous vos écrans</div>
+                <div class="">PC, Mac, tablettes, téléphone et même votre télévision.</div>
+              </div>
+              <div class="content">
+                <span class="col-xs-3 picture sprite-blockVOD4_16"></span>
+                  <div class="title">Paiement sécurisé</div>
+                  <div class="">mySkreen ne garde pas vos informations bancaire et interroge votre banque à chaque location.</div>
+                </img>
+              </div>
+              <div class="content">
+                <span class="col-xs-3 picture sprite-blockVOD4_18"></span>
+                  <div class="title">Haute Définition</div>
+                  <div class="">Vos films en haute qualité en HD ou full HD</div>
+                </img>
+              </div>
+            </div>
+          </div>
+        </div>
+         <span class="lien lato">Les offres VOD <i class="glyphicon glyphicon-chevron-down"></i></span>
+          </div>
+        </div>
+      </div>
+      {% endif %}
       {% if app.request.get('home') == 'cinema' %}
       <div class="container playlist">
         <div class="row">
@@ -68,27 +125,6 @@
     {% else %}
       {% if loop.index == 2 %}
         <div class="container"><div class="row"><div class="first-container">
-      {% elseif loop.index == 3 %}
-      
-      {% if app.environment == 'dev' and app.request.get('home') == 'video-a-la-demande' %}
-      <div class="col-xs-8 suggester">
-        <div class="panel panel-info nomargin">
-          <div class="panel-heading"><b>Le meilleur de la VOD</b></div>
-          <div class="panel-body">
-            <p>Louez vos vidéos sur mySkreen :</p>
-            <ul class="noliststyle nopadding">
-              <li><b><i class="glyphicon glyphicon-hd-video"></i> Haute définition :</b> vos film en haute qualité : HD ou Full HD.</li>
-              <li><b><i class="glyphicon glyphicon-sound-stereo"></i> Sur tous vos écrans :</b> PC, Mac, iOs et Android.</li>
-              <li><b><i class="glyphicon glyphicon-hand-up"></i> En 1 clic :</b> renseignez votre moyen de paiement la première fois et regardez vos films en 1 clic pour valider votre commande par la suite.</li>
-              <li><b><i class="glyphicon glyphicon-lock"></i> Paiement sécurisé :</b> mySkreen ne garde pas vos informations bancaire et interroge votre banque à chaque location.</li>
-            </ul>
-            <hr/>
-            <div class="item inline-block"><div class="emulate-hover"><span class="label label-default ico-deporte"><i class="glyphicon glyphicon-play"></i><span>&nbsp;sur mySkreen</span></span></div></div> Cette mention indique que vous pouvez voir ce film sur mySkreen en 1 clic.
-          </div>
-        </div>
-      </div>
-      {% endif %}
-      
       {% endif %}
       {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index } %}
     {% endif %}

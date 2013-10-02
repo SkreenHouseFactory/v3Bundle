@@ -29,6 +29,15 @@ class MainController extends Controller
     }
 
     /**
+    * apps
+    */
+    public function appsinstallAction(Request $request)
+    {
+      return $this->render('SkreenHouseFactoryV3Bundle:Main:appsinstall.html.twig', array(
+      ));
+    }
+
+    /**
     * header
     */
     public function headerAction(Request $request)

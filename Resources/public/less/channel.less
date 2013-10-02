@@ -39,7 +39,6 @@ body.view-channel, body.view-channel-selections {
         background: white;
       }
     }
-    
     #cover {
       height: 450px;
       margin: 0 auto;
@@ -50,7 +49,25 @@ body.view-channel, body.view-channel-selections {
       &.cover28{
         height: 550px;
       }
-      &.cover56,&.cover55{
+      &.cover55{
+        height: 425px;
+         .cover-wrap{
+          display: block;
+        height: 500px;
+        width: 100%;
+        position: absolute;
+        }
+      .wrap-follow{
+        position: absolute;
+        left: 804px;
+        bottom: 87px;
+        z-index: 1;       
+      }
+      .share-block{
+        left: 660px;
+      }
+    }
+      &.cover56{
          .cover-wrap{
           display: block;
         height: 500px;
@@ -182,20 +199,20 @@ body.view-channel, body.view-channel-selections {
   }
 
 }
-.share-block {
-  position: absolute;
-  top: -25px;
-  left: 10px;
-  min-width: 400px;
-  z-index: 1; 
-  .fb-like {
-    float: left;
+    .share-block {
+      position: absolute;
+      top: -25px;
+      left: 10px;
+      min-width: 400px;
+      z-index: 1; 
+      .fb-like {
+        float: left;
+      }
+    }
+    .description {
+      font-size: 1.1em;
+    }  
   }
-}
-.description {
-  font-size: 1.1em;
-}  
-}
 }
 /* header */
 .header-container {
@@ -437,6 +454,10 @@ body.view-channel, body.view-channel-selections {
 #view-fournisseur {
   position: relative;
 
+  &.container-seo-placement {
+    padding-bottom: 500px;
+  }
+
   .btn.btn-suivre.fav-cinema{
     margin-top: 15px;
   }
@@ -490,15 +511,17 @@ body.view-channel, body.view-channel-selections {
     }
   }
 
-  .channel-description {
-    position: relative; 
-    bottom: 0px;
-    width: 100%;
-  }
+    .channel-description {
+      position: relative; 
+      bottom: 0px;
+      width: 100%;
+    }
     .channel-description-seo-placement {
     position: absolute; 
     bottom: 0px;
     width: 100%;
+    max-height: 450px;
+    overflow: auto;
   }
 
   img.channel-logo {
@@ -599,3 +622,5 @@ body.view-channel, body.view-channel-selections {
 .ms-margin-top-seo{
   min-height: 1550px;
 }
+
+

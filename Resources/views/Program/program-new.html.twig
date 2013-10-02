@@ -265,10 +265,10 @@ en Streaming
       {% elseif r.name == 'same_director' and program.director %}
       {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true,loop_index: loop.index, h_title: "p"} %}
       {% elseif r.name == 'chaines' %}
-      {% if (program.related.channels is defined and program.related.channels.programs is defined and program.related.channels.programs|length > 1) %}
-      <a data-track-channel="{{ r.name }}" name="{{ r.name }}"></a>
-      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r,loop_index: loop.index, h_title: "p"} %}
-      {% endif %}
+        {% if (program.related.channels is defined and program.related.channels.programs is defined and program.related.channels.programs|length > 1) %}
+        <a data-track-channel="{{ r.name }}" name="{{ r.name }}"></a>
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r,loop_index: loop.index, h_title: "p"} %}
+        {% endif %}
       {% else %}
       {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, loop_index: loop.index, h_title: "p"} %}
       {% endif %}

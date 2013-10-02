@@ -76,7 +76,7 @@ class ProgramController extends Controller
 
       //API lastmodified
       //$data = $api->fetch('status/cache/program/' . $request->get('id'));
-      // echo $api->url;
+      //echo $api->url;
       //$cache_date = new \DateTime($data->updated_at);
 
       //cache
@@ -131,7 +131,7 @@ class ProgramController extends Controller
         ));
         //print("<pre>");print_r($data);exit();
 
-        //echo $api->url;
+        //echo $api->url;exit;
         if ($this->get('kernel')->getEnvironment() == 'dev' && 
             $request->get('debug')) {
           echo $api->url;
@@ -351,6 +351,7 @@ class ProgramController extends Controller
             'console' => 'Sur les consoles', 
             'bonus' => 'Bonus',
             'cut' => 'Extraits',
+            'dvd' => 'DVD & Blu-Ray',
             'archive' => 'Archives'
           ),
           'player_host' => $api->host

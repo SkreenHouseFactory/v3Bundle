@@ -39,7 +39,6 @@ $(document).ready(function(){
   // -- ui user
   $('a.auth').on('click', function(){
     Player.stop();
-    
     UI.auth();    
     return false;
   });
@@ -47,18 +46,7 @@ $(document).ready(function(){
     Skhf.session.signout();
     return false;
   });
-  //alert nouveau visiteur
   
-   if(!$.cookie('myskreen_new')){
-    $('#main .help-sprite-ms_btn_help').trigger('click');
-  }
-  $('#main .help-sprite-ms_btn_close').on('click', function(){
-    API.cookie('new','true');
-  });
-
-  //Player scroll sur page programme
-  console.log('PlayerScroll.initPlayerScroll()')
-  PlayerScroll.initPlayerScroll();
 
   // new header nav bar
   $('.navbar-nav >li').on('mouseover',function(){
@@ -96,7 +84,7 @@ $(document).ready(function(){
      var current = $('.navbar .notifications li:not(.divider, .empty)').length;
      $('.navbar .notifications-count span.badge').removeClass('ms-notificon').html(current);
    }
- });
+  });
   //share
   $('.share .btn').on('click', function(){
     if ($(this).data('share') == 'disallow') {
@@ -131,7 +119,20 @@ $(document).ready(function(){
     }
     return false;
   });
-
+  //ENCART VOD
+  $('.encart-vod .encart-header .btn').on('click', function(e){
+    $('.encart-vod').toggleClass('in','addOrRemove');
+    if($('.encart-vod').hasClass('in')){
+      $('.encart-vod .encart-header .btn i').attr('class','glyphicon glyphicon-remove')
+      $('.encart-vod .encart-header .btn span').html('Fermer');
+    }
+    else{
+      $('.encart-vod .encart-header .btn i').attr('class','glyphicon glyphicon-info-sign')
+       $('.encart-vod .encart-header .btn span').html('En savoir plus');
+    }
+    e.preventDefault();
+    e.stopPropagation();
+  });
   // -- ui typeahead
   UI.typeahead('#nav-search .search-query');
 
@@ -148,8 +149,9 @@ $(document).ready(function(){
   });
   */
   //focus
+  if(!$('html').hasClass('touch')){
     $('.search-query').trigger('focus');
-
+  }
   // -- ui playlist
   $('#top-playlist').on('show.bs.collapse', function () {
     console.log('script', '#top-playlist on show');
@@ -195,26 +197,58 @@ $(document).ready(function(){
 
 /* END */
 
-  // -- playlist friends
-  setTimeout(function(){
-    UI.addFriendsPrograms();
-  }, 700);
-
   //-- Script  pour le helper
   $('.help-sprite.help-sprite-ms_btn_help').on('click', function () {
     $(this).toggleClass('help-sprite-ms_btn_help');
     $(this).toggleClass('help-sprite-ms_btn_close');
     $('.help-popin').toggleClass('hide');
     $('.modal-backdrop.in').toggleClass('hide');
-   });
+  });
   $('.help-popin').on('click', function () {
     $('.help-sprite').toggleClass('help-sprite-ms_btn_help');
     $('.help-sprite').toggleClass('help-sprite-ms_btn_close');
     $('.help-popin').toggleClass('hide');
     $('.modal-backdrop.in').toggleClass('hide');
-   });
+    API.cookie('new','true');
+  });
+  
+  //alert nouveau visiteur
+  
+   if(!$.cookie('myskreen_new')){
+    $('#main .help-sprite-ms_btn_help').trigger('click');
+  }
+  $('#main .help-sprite-ms_btn_close').on('click', function(){
+    API.cookie('new','true');
+  });
 
+  //Warning IE7
+  if($('html').hasClass('lt-ie8')){
+    if(!$.cookie('myskreen_ie7')){
+      $('.lt-ie8-pop').toggleClass('hide');
+      $('.modal-backdrop.in').toggleClass('hide');
+      if( !$('.help-popin').hasClass('hide') ){
+        $('#main .help-sprite-ms_btn_close').trigger('click');
+        API.cookie('new',null);
+      }
+    }
+    $('.lt-ie8-pop .ie-body .btn').on('click', function(){
+       API.cookie('ie7','true');
+       $('.lt-ie8-pop').toggleClass('hide');
+       $('.modal-backdrop.in').toggleClass('hide');
+       if(!$.cookie('myskreen_new')){
+        $('#main .help-sprite-ms_btn_help').trigger('click');
+      }
+    });
+ }
+
+   // -- beead
+   if ($('#program-teaser-player').length == 0) {
+     console.log('script', 'beead', 'load');
+     $('body').append('<script type="text/javascript" src="http://as.ebz.io/api/choixPubJS.htm?pid=305331&screenLayer=1&mode=NONE&home=http://www.myskreen.com"></script>');
+   }
+
+  // -- playlist friends
+  setTimeout(function(){
+   UI.addFriendsPrograms();
+  }, 700);
 });
-
-
-

@@ -6,8 +6,8 @@
 <div class="container">
   <h1>{{ 'cinema.boxoffice.h1'|trans }}</h1>
   
-  <div class="pagination">
-    <ul>
+  <div>
+    <ul class="pagination">
       {% for l in alpha %}
         <li{% if app.request.get('alpha') == l %} class="active"{% endif %}><a title="{{ 'cinema.alpha'|trans({alpha: l}) }}" href="{{ path('cinema_boxoffice', {alpha: l}) }}">{{ l }}</a></li>
       {% endfor %}

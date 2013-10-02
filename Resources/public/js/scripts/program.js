@@ -300,6 +300,11 @@ $(document).ready(function(){
         $('.btn-suivre').trigger('click');
       });
     }
+    
+    //Player scroll sur page programme
+    console.log('PlayerScroll.initPlayerScroll()')
+    PlayerScroll.initPlayerScroll();
+
 
     //no deportes
     var offers = getUrlParameter('offers');

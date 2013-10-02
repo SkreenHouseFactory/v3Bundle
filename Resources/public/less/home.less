@@ -4,7 +4,134 @@
 #view-home {
   position: relative;
   padding-bottom: 500px;
-
+  .lato{
+    font-family: 'Lato', sans-serif;
+    font-weight:300;
+  }
+  .encart-vod{
+    margin-top: -10px;
+    .picture{
+      margin-top: -6px;
+      background: url(/bundles/skreenhousefactoryv3/images/csg-524ac533624e0.png) no-repeat top left;
+      &.sprite-blockVOD4_03{ background-position: 0 0; width: 171px; height: 48px; } 
+      &.sprite-blockVOD4_05{ background-position: 0 -58px; width: 127px; height: 48px; } 
+      &.sprite-blockVOD4_09{ background-position: 0 -116px; width: 43px; height: 51px; } 
+      &.sprite-blockVOD4_12{ background-position: 0 -177px; width: 76px; height: 51px; } 
+      &.sprite-blockVOD4_16{ background-position: 0 -238px; width: 76px; height: 51px; } 
+      &.sprite-blockVOD4_18{ background-position: 0 -299px; width: 76px; height: 51px; } 
+    }
+    display:block;
+    height:91px; 
+    width:100%; 
+    overflow:hidden;
+    color: white;
+    &.in{
+      height: 922px;
+    }
+    .encart-header{
+      .row{
+        padding-left: 120px;
+        padding-top: 17px;
+      }
+      background-color:#4E96C5;
+      height:91px;
+      .title{
+        font-size: 28px;
+        line-height: 40px;
+      }
+      .subtitle{
+        font-size: 14px;
+      }
+      .btn{
+        display: block;
+        background: white;
+        width: 189px;
+        height: 44px;
+        left: 572px;
+        top: 24px;
+        position: absolute;
+        font-size: 17px;
+        padding-top: 9px;
+        padding-left: 26px;
+        >i{
+          position: absolute;
+          left: 14px;
+          top: 8px;
+          font-size: 1.3em;
+        }
+      }
+    }
+    .encart-body{
+      height: 343px;
+      background-color:#2980B9;
+      .title{
+        font-size: 28px;
+        line-height: 60px;
+        padding-top: 83px;
+      }
+      .vod-multiple{
+        background: url(/bundles/skreenhousefactoryv3/images/vod_multiple.png) no-repeat top left;
+        width: 100%;
+        display: block;
+        height: 300px;
+        margin-top: 46px;
+      }
+    }
+    .encart-footer{
+      height: 488px;
+      padding-top: 40px;
+      background-color: #1C699C;
+      .text{
+        margin-left: 25px;
+        font-weight: 300px;
+      }
+      .col-xs-16{
+        .title{
+          font-size: 28px;
+          line-height: 60px;
+        }
+      }
+      .col-xs-8{
+        margin-top: 55px;
+        &.first-col{
+          padding-right: 145px;
+          .hand{
+            height: 40px;
+            width: 40px;
+            left: 0px;
+            margin-right: 15px;
+            }
+            .click-title{
+            font-size: 24px;
+            line-height: 32px;
+          }
+          .click-description{
+            font-size: 14px;
+            line-height: 32px;
+          }
+        }
+        .content{
+          min-height: 80px;
+          .title{
+            font-weight: bold;
+            font-size: 15px;
+          }
+          div{
+            font-size: 12px;
+          }
+        }
+      }
+      .lien{
+        font-size: 16px;
+        color: white;
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        left: 0px;
+        margin-top: 60px;
+      }
+    }
+  }
   .description {
     bottom: 0;
     left: 50%;
