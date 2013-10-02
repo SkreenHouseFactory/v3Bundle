@@ -1,0 +1,14 @@
+<ul class="pager pull-right">
+  {% if app.request.get('page') > 2 %}
+  <li class="previous">
+    <a href="{{ path('person_page', {type: app.request.get('type'), id: app.request.get('id'), slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">&larr; 30 précédents</a>
+  </li>
+  {% elseif app.request.get('page') == 2 %}
+  <li class="previous">
+    <a href="{{ path('person', {type: app.request.get('type'), id: app.request.get('id'), slug: app.request.get('slug')}) }}">&larr; 30 précédents</a>
+  </li>
+  {% endif %}
+  <li class="next">
+    <a href="{{ path('person_page', {type: app.request.get('type'), id: app.request.get('id'), slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">30 suivants &rarr;</a>
+  </li>
+</ul>

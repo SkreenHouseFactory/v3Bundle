@@ -12,13 +12,18 @@ $(window).unload(function() {
 });
 
 $(document).ready(function(){
+
   // -- API init
   API.init(function(){
 
     //tjs après ci-dessus : pas de console sur ie
     console.log('script', 'API.init callback');
 
-    //Modernizr.load();
+    //load player APIs
+    var tag = document.createElement('script');
+    tag.src = API.config.base.replace('api/', '') + 'skPlayerPlugin/js/skPlayer.js';
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
     // -- DOM interactions
     UiView.init();
