@@ -3,7 +3,7 @@
   <h2 class="ms-surtitre">Toutes les offres pour voir &laquo;{{ program.title }}&raquo;{% if program.format %}, {{ program.format.name in ['Emission'] ? program.format.name ~ ' en Replay' : program.format.name ~ ' complet' }}{% endif %} :</h2>
   <div id="program-offers" class="tab-content">
 
-    {% if program.theater_release_date is defined %}
+    {% if program.theater_release_date is defined and program.theater_release_date_timestamp > "now"|date('U') %}
     <p class="alert alert-success">Sortie en salle le <strong>{{ program.theater_release_date }}</strong>{# <a href="#" data-ics-date="{{ program.theater_release_date }}"><i class="icon-agenda"></i> Ajouter à votre agenda</a>#}</p>
     {% elseif program.has_vod == 6 %}
     <p class="alert alert-success">{{ program.episodeof is defined ? 'Cet épisode' : 'Ce programme' }} sera bientôt disponible en Replay. <br/>Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera mis en ligne.</p>
@@ -46,7 +46,6 @@
   {% for key in offers|keys if program.offers[key]|to_array|length > 0 %}
   {% set hasoffers = 1  %}
   {% set variabledeboucle = loop.index  %}
-
   <div class="panel{{ program.offers[key]|to_array|length > 3 or (key == 'external' and program.offers['deporte']|to_array|length) ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : ' panel-default' }} count-{{ program.offers[key]|to_array|length }}">
     <div class="panel-heading dong" >
       <h3 class="panel-title {% if key in ['external','dvd'] and program.offers['deporte']|to_array|length %} external-collapser pointer{% endif %}"{% if key in ['external','dvd'] and program.offers['deporte']|to_array|length %} data-toggle="collapse"{% endif %} href="#{{ key }}">
@@ -131,7 +130,6 @@
             {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
             {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
             {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
-
             {# autres episodes #}
             {% if o.episode_id is defined and 
             program.episodeof.id is defined and 

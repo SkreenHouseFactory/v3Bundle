@@ -174,6 +174,7 @@ body.view-channel, body.view-channel-selections {
     }
   }
 }
+<<<<<<< HEAD
 
 
 
@@ -191,6 +192,23 @@ body.view-channel, body.view-channel-selections {
 
 }
 }
+=======
+    .share-block {
+      position: absolute;
+      top: -25px;
+      left: 10px;
+      min-width: 400px;
+      z-index: 1; 
+      .fb-like {
+        float: left;
+      }
+    }
+    .description {
+      font-size: 1.1em;
+    }  
+  }
+}
+>>>>>>> 5e6efa0c575e344b1207a6edb88407514a9c3726
 /* header */
 .header-container {
   position: relative;
@@ -431,6 +449,10 @@ body.view-channel, body.view-channel-selections {
 #view-fournisseur {
   position: relative;
 
+  &.container-seo-placement {
+    padding-bottom: 500px;
+  }
+
   .btn.btn-suivre.fav-cinema{
     margin-top: 15px;
   }
@@ -484,15 +506,18 @@ body.view-channel, body.view-channel-selections {
     }
   }
 
-  .channel-description {
-    position: relative; 
-    bottom: 0px;
-    width: 100%;
-  }
-  .channel-description-seo-placement {
+
+    .channel-description {
+      position: relative; 
+      bottom: 0px;
+      width: 100%;
+    }
+    .channel-description-seo-placement {
     position: absolute; 
     bottom: 0px;
     width: 100%;
+    max-height: 450px;
+    overflow: auto;
   }
 
   img.channel-logo {

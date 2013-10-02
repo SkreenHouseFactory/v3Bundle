@@ -119,7 +119,20 @@ $(document).ready(function(){
     }
     return false;
   });
-
+  //ENCART VOD
+  $('.encart-vod .encart-header .btn').on('click', function(e){
+    $('.encart-vod').toggleClass('in','addOrRemove');
+    if($('.encart-vod').hasClass('in')){
+      $('.encart-vod .encart-header .btn i').attr('class','glyphicon glyphicon-remove')
+      $('.encart-vod .encart-header .btn span').html('Fermer');
+    }
+    else{
+      $('.encart-vod .encart-header .btn i').attr('class','glyphicon glyphicon-info-sign')
+       $('.encart-vod .encart-header .btn span').html('En savoir plus');
+    }
+    e.preventDefault();
+    e.stopPropagation();
+  });
   // -- ui typeahead
   UI.typeahead('#nav-search .search-query');
 
@@ -229,7 +242,7 @@ $(document).ready(function(){
  }
 
    // -- beead
-   if ($('body').hasClass('beead')) {
+   if ($('#program-teaser-player').length == 0) {
      console.log('script', 'beead', 'load');
      $('body').append('<script type="text/javascript" src="http://as.ebz.io/api/choixPubJS.htm?pid=305331&screenLayer=1&mode=NONE&home=http://www.myskreen.com"></script>');
    }
