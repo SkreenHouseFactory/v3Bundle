@@ -23,8 +23,8 @@ body {
 
 {% block content %}
 
-<a class="player-cover" target="_blank" style="position:absolute;top:3%;left:{{ width-120 }}px;z-index:3;padding:5px;border-radius:3px;background:rgba(0,0,0,0.6);" href="http://www.myskreen.com"><img src="http://mskstatic.com/100/medias/logo_black_nobaseline.png" alt="mySkreen : Guide Replay, Vod, Ciné"></a>
-<a class="player-cover" id="trigger" data-play="{{ offer.id }}" data-play-meta-elmt="#program-teaser-meta" data-play-args="{{ {hide_sliders:1, current_player: "#player", is_embed: true, noPub: app.request.get('noPub'), skKey: app.request.get('skKey') }|json_encode }}"></a>
+<a class="player-cover" target="_blank" style="position:absolute;top:3%;left:{{ width-120 }}px;z-index:3;" href="http://www.myskreen.com"><img src="http://mskstatic.com/medias/logo_player.png" alt="mySkreen : Guide Replay, Vod, Ciné"></a>
+<a class="player-cover" id="trigger" data-play="{{ offer.id }}"></a>
 <div id="player" data-player-config="{{ {width: width, height: height}|json_encode }}" style="background: url({{ offer.program.picture }}) center no-repeat;width:{{ width }}px;height:{{ height }}px;" class="player on"></div>
 
 {% javascripts
