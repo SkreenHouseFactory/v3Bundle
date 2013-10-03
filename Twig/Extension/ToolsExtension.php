@@ -153,7 +153,7 @@ class toolsExtension extends \Twig_Extension
     protected function getHorizontalSlider(&$programs){
       foreach ($programs as $key => $program) {
         if (isset($program->sliderPicture) || 
-            (isset($program->maxsize) && $program->maxsize->width > $program->maxsize->height)) {
+            (isset($program->maxsize) && $program->maxsize->width > $program->maxsize->height && $program->maxsize->width > 250)) {
           //unset($programs[$key]);
           $programs = array_values($programs);
           //echo "\n".'getHorizontalSlider:'.$program->id.' $key:'.$key;

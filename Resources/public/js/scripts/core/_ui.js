@@ -53,9 +53,9 @@ UiView = {
         $('.popover').remove();
         //pause du player (retait pour iphone)
         if (navigator.userAgent.match(/iPhone|iPod/)) {
-          Player.stop();
+          Skhf.Player.pause();
         } else {
-          Player.stop(); 
+          Skhf.Player.pause(); 
           // on est en iframe, le player ne peut plus etre en pause.
           // Player.pause();
         }
@@ -226,9 +226,23 @@ UiView = {
       }
       return false;
     });
-    $('[data-autoplay]').each(function(){
-      $(this).trigger('click');
-    })
+    // -- player channel
+    $(elmt).on('click', '[data-play-api]', function(){
+      var trigger = $(this);
+      window.onSkPlayerIframeApiReady = function(){
+        console.log('script', 'data-play-api', trigger.attr('id'), trigger.data('play-api'), Player.state);
+        var params = $.extend(trigger.data('play-api'), {events: {
+          'onStart': function(){
+          },
+          'onLoad': function(){
+          },
+          'onFinish': function(){
+          }
+        }});
+        Skhf.Player = new Skhf.BasePlayer(trigger.attr('id'), params);
+      }
+      return false;
+    });
     // -- player channel
     $(elmt).on('click', '[data-play-channel]', function(){
       console.log('script', 'data-play-channel', $(this).data('play-channel'), Player.state);
@@ -259,6 +273,10 @@ UiView = {
         $('#couchmode').prepend('<div id="couchmode-close"><i class="glyphicon-remove glyphicon-white"></i> Fermer</div>');
       }
     });
+    //autoplay
+    $('[data-autoplay]').each(function(){
+      $(this).trigger('click');
+    })
     // toggle text in element
     $(document).on('click', '[data-toggle-text]', function () {
       var html = $(this).html();

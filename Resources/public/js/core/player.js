@@ -1,6 +1,6 @@
 // -- YouTube Player API
 var tag = document.createElement('script');
-tag.src = "//www.youtube.com/iframe_api";
+tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 function onPlayerReady(event) {
@@ -20,6 +20,7 @@ Player = {
   playing: null,
   program: null,
   elmt_meta: null,
+  ytplayer: null,
   //player
   init: function(elmt, elmt_meta) {
     this.reset();
