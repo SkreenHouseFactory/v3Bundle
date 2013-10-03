@@ -18,8 +18,12 @@
       </div>
 
       <div class="header-content">
-        <h1>Les Inconnus</h1><div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' est sur @mySkreen   ' } %}
+        <h1>Les Inconnus</h1>
+        <div class="share-block">
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' est sur @mySkreen   ' } %}
         </div>
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'suivre-btn', fav: 'person' } %}
+
         <p class="lead channel-description">Bienvenue sur la chaîne des Inconnus ! Retrouvez en exclusivité les nouvelles vidéos des Inconnus... Et bien plus encore !</p>
 
 
