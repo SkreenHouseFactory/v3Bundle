@@ -88,9 +88,6 @@
 
         {% if channel.live.player is defined %}
         <iframe class="player-live" frameborder="0" scrolling="no" src="{{ channel.live.player }}"></iframe>
-        {% elseif channel.hashtags|length %}
-        <a class="twitter-timeline" href="https://twitter.com/search?q={{ channel.hashtags|join(' ')|url_encode }}" data-widget-id="345502983871672320">Tweets concernant "{{ channel.hashtags|join(' ') }}"</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
         {% endif %}
         <div class="actions" data-id="{{ channel.live.program.id }}">
@@ -110,7 +107,6 @@
         </div>
       </div>
       {% endif %}
-
       {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-replay.html.twig' with {channel: channel} %}
     {% endif %}
     {% if app.request.get('page') %}<h3><small>page {{ app.request.get('page') }}</small>{% endif %}</h3>
