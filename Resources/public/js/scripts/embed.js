@@ -12,7 +12,7 @@ window.addEventListener('load', function(){
   //console.log('scripts/embed.js');
   var trigger = document.getElementById('trigger');
   var covers = document.getElementsByClassName('player-cover');
-  var playId = trigger.getAttribute('data-play');
+  var playId = trigger.getAttribute('data-play-embed');
   //console.log('covers', covers);
   trigger.onclick = function(){
     //hide cover
