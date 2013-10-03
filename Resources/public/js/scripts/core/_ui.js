@@ -156,8 +156,9 @@ UiView = {
           if(e.originalEvent.state.has_filter == true){
             $('.dropdown-filters2').removeClass('hide');
           }
+          if(e.originalEvent.state.has_skin){
            self.refreshAjax(null,null,e.originalEvent.state.has_skin);
-          
+         }
           });
       }
     });
@@ -308,8 +309,9 @@ UiView = {
           if( $('body').hasClass('view-tvgrid')) {
             var gridPath = $('#grid time').attr('timestamp') + '/';
             history.pushState({path: window.location.href, document_title: document.title }, document.title, gridPath);
-          } else{
-           history.pushState({path: window.location.href, document_title: document.title ,has_filter : has_dropdown_filter, has_skin: has_skin}, document.title, window.location.href);
+          } else{            
+            
+           history.pushState({path: window.location.href, document_title: document.title ,has_filter : has_dropdown_filter, has_skin: typeof has_skin !="undefined"? has_skin : ''}, document.title, window.location.href);  
           }
         }
         history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
