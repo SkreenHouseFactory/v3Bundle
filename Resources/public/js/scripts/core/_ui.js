@@ -53,11 +53,9 @@ UiView = {
         $('.popover').remove();
         //pause du player (retait pour iphone)
         if (navigator.userAgent.match(/iPhone|iPod/)) {
-          Skhf.Player.pause();
-        } else {
+          Player.pause();
+        } else if (typeof Skhf.Player != 'undefined') {
           Skhf.Player.pause(); 
-          // on est en iframe, le player ne peut plus etre en pause.
-          // Player.pause();
         }
         //pause carousels
         carousels = $('.carousel');
