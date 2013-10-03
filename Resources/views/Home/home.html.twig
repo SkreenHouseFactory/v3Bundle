@@ -19,7 +19,7 @@
 {% elseif app.request.get('home') is null %}
 {% set keywords = 'replay, vidéo à la demande, streaming, cinéma' %}
 {% endif %}
-
+{% set seo_description_hauteur = ('%.0f'|format(home.sliders|to_array|length//2))*490 %}
 {% block meta %}
 {% if keywords is defined %}<meta name="keywords" content="{{ keywords }}">{% endif %}
 <meta property="og:title" content="{{ page_title|trans }}" />

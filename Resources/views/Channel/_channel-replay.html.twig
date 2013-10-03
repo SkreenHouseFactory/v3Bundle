@@ -41,15 +41,15 @@
   </div>
   {% endif %#}
   
-  {% if channel.programs_replay|length or channel.programs_epg|length %}
+ {# {% if channel.programs_replay|length or channel.programs_epg|length %}
   <br/>
   <h2>TV & Replay</h2>
   
-  {#<div data-channel-id="{{ channel.id }}" id="access" class="btn-group" data-toggle="buttons-radio" style="z-index: 10;">
+  <div data-channel-id="{{ channel.id }}" id="access" class="btn-group" data-toggle="buttons-radio" style="z-index: 10;">
     <button data-access="" type="button" class="trigger-channel btn btn-info active">Tout</button>
     <button data-access="deporte" type="button" class="trigger-channel btn">Sur mySkreen</button>
     <button data-access="ios" type="button" class="trigger-channel btn">Sur iOS</button>
-  </div>#}
+  </div>
   <div data-channel-id="{{ channel.id }}" id="onglet" class="pull-right btn-group" data-toggle="buttons-radio">
     <button data-onglet="" type="button" class="trigger-channel btn btn-info active">Tout</button>
     <button data-onglet="films" type="button" class="trigger-channel btn">Films</button>
@@ -71,14 +71,15 @@
     <option data-show="epg">Au delà</option>
   </select>
   {% endif %}
+  #}
   
-  {% if channel.has_replay and channel.programs_replay|length %}
+  {#}{% if channel.has_replay and channel.programs_replay|length %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {title: 'channel.replay'|trans({'%website%': channel.has_replay}), 
                                                                                 programs: channel.programs_replay, 
                                                                                 id: 'channel-replay', 
                                                                                 url: '/recommend/from_channel/' ~ channel.id ~ '.json?with_method=epg&date=Replay'}} %}
   {% endif %}
-  
+  #}
   {% if channel.epg and channel.programs_epg|length %}
   {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {title: 'channel.epg'|trans({'%name%': channel.name}), 
                                                                                 programs: channel.programs_epg, 

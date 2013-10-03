@@ -130,10 +130,12 @@ $(document).ready(function(){
     if($('.encart-vod').hasClass('in')){
       $('.encart-vod .encart-header .btn i').attr('class','glyphicon glyphicon-remove')
       $('.encart-vod .encart-header .btn span').html('Fermer');
+      $('#view-home').addClass('encart-in');
     }
     else{
       $('.encart-vod .encart-header .btn i').attr('class','glyphicon glyphicon-info-sign')
        $('.encart-vod .encart-header .btn span').html('En savoir plus');
+       $('#view-home').removeClass('encart-in');
     }
     e.preventDefault();
     e.stopPropagation();
