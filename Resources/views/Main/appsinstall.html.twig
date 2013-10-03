@@ -1,22 +1,30 @@
 {% extends app.request.isXmlHttpRequest or app.request.get('xhr') ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
-{% set page_title = 'page.title.apps.install' %}
-{% set page_description = 'page.description.apps.install' %}
-{% set keywords = 'application mySkreen' %}
-
 {% block meta %}
-<meta property="og:title" content="{{ page_title|trans }}" />
-<meta property="og:description" content="{{ page_description|trans }}" />
+<meta property="og:title" content="{{ 'page.title.apps.install'|trans }}" />
+<meta property="og:description" content="{{ 'page.description.apps.install'|trans }}" />
 <meta property="og:image" content="http://medias.myskreen.com/logo.png" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://www.myskreen.com" />
 {% endblock %}
-{% block title %}{{ page_title|trans }}{% endblock %}
-{% block description %}{{ page_description|trans }}{% endblock %}
+{% block title %}{{ 'page.title.apps.install'|trans }}{% endblock %}
+{% block description %}{{ 'page.description.apps.install'|trans }}{% endblock %}
 
 {% block content %}
 <div id="view-appsinstall" class="container">
   <h1>l'application mySkreen</h1>
+  <br/>
   <p>installation...</p>
+    <script>
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf('android') != -1 && ua.indexOf('mobile')) {
+      // Redirect to Android-site
+      window.location = 'https://play.google.com/store/apps/details?id=com.myskreen.android&hl=fr';
+    }
+    if(ua.indexOf('ios') != -1 && (ua.indexOf('iphone') ||  ua.indexOf('ipod'))) {
+      // Redirect to iTunes-site
+      //window.location = 'https://play.google.com/store/apps/details?id=com.myskreen.android&hl=fr';
+    }
+  </script>
 </div>
 {% endblock %}

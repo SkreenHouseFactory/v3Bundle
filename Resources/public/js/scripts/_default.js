@@ -21,7 +21,7 @@ $(document).ready(function(){
 
     //load player APIs
     var tag = document.createElement('script');
-    tag.src = API.config.base.replace('api/', '') + 'skPlayerPlugin/js/skPlayer.js';
+    tag.src = API.config.base.replace('api/', '') + 'skPlayerPlugin/js/SkhfPlayerIframeApi.js';
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
