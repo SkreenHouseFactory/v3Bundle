@@ -1,0 +1,30 @@
+<div id="cover" class="cover1{% if from_selection is defined and from_selection == true %}selection{% endif %}">
+  <div id="channel1" class="header-container">
+    <div class="player-wrap pull-right">
+      <div id="player" class="pull-left" data-player="init" style="width:530px;height:280px;"></div>
+      <ul id="playlist">
+
+      </ul>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-16">     
+          <div id="inconnusvolant">
+            <a href="../les-vrais-inconnus-chaine-parodies-streaming/">
+              <img src="{{ asset('bundles/skreenhousefactoryv3/images/skins/pastille_vraisinconnus.png') }}" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-content">
+        <h1>Les Inconnus</h1><div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' est sur @mySkreen   ' } %}
+        </div>
+        <p class="lead channel-description">Bienvenue sur la chaîne des Inconnus ! Retrouvez en exclusivité les nouvelles vidéos des Inconnus... Et bien plus encore !</p>
+
+
+      </div> 
+    </div>
+  </div>
+</div>
+</div>

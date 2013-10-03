@@ -144,7 +144,8 @@ class ChannelController extends Controller
       $from_selection = false;
       if ( $this->get('templating')->exists('SkreenHouseFactoryV3Bundle:Channel:_header-'.$data->channel->id.'.html.twig')){
         $custom_header = true;
-      }
+      } 
+
       if(isset($data->channel->fournisseur)){
         $data->channel->fournisseur = (object)array_merge($params, (array)$data->channel->fournisseur);
       }
@@ -303,6 +304,20 @@ class ChannelController extends Controller
   public function header60Action($data,$from_selection,$channel,$fav,$trigger_fav){
 
     $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-60.html.twig', array(
+      'data' => $data,
+      'fav' => $fav,
+      'trigger_fav'=> $trigger_fav,
+      'channel'=> $channel,
+      'from_selection' => $from_selection
+    ));
+    
+    return $response; 
+  }
+
+
+    public function header1Action($data,$from_selection,$channel,$fav,$trigger_fav){
+
+    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-1.html.twig', array(
       'data' => $data,
       'fav' => $fav,
       'trigger_fav'=> $trigger_fav,

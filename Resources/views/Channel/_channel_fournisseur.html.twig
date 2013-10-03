@@ -11,6 +11,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
 
   {% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null  %}
   <div class="channel-description channel-description-seo-placement">
+  
     <h1>{{ data.name }}</h1>
     {{ data.description|raw }}
   </div>

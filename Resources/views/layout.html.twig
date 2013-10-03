@@ -95,7 +95,13 @@
 <![endif]-->
 
 
-   <script src="{{ asset('bundles/skreenhousefactoryv3//js/vendors/modernizr.min.js') }}"></script>
+  <script src="{{ asset('bundles/skreenhousefactoryv3//js/vendors/modernizr.min.js') }}"></script>
+
+{#LIVE REFRESH#}
+  {% if app.environment == 'dev' %}
+    <script type="text/javascript" src="http://livejs.com/live.js"></script>
+  {% endif %}
+
 
 </head>
 {% endspaceless %}
