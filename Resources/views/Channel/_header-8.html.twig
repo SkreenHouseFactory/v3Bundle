@@ -2,14 +2,23 @@
 {% set durations = {3051395: 141, 95090: 123, 237196: 128, 261402: 65, 413119: 147, 110631: 150, 4817914: 60, 185960: 150, 369379: 58 } %}
 <div id="cover" class="cover8{% if from_selection is defined and from_selection == true %}selection{% endif %}">
   <div id="channel8" class="header-container">
-    <div class="player-wrap pull-right">
-      <div id="player" class="pull-left" data-player="init" style="width:530px;height:280px;"></div>
-      <ul id="playlist">
-        {% for program in programs|to_array %}
-        <li><a{% if loop.first %} data-autoplay="{{ program.teaser ? program.teaser.id : '' }}"{% endif %} data-play="{{ program.teaser ? program.teaser.id : '' }}" data-play-args="{{ {player_width: 530, player_height: 280, current_player: '#player', 'noControls': true}|json_encode }}" data-playlist="#playlist" data-duration="{{ attribute(durations, program.id) }}">{{ program.title }}</a></li>
-        {% endfor %}
-      </ul>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-16">
+        <div class="player-wrap">
+            <div id="player" class="pull-left" data-player="init" style="width:530px;height:280px;"></div>
+            <ul id="playlist">
+              {% for program in programs|to_array %}
+              <li><a{% if loop.first %} data-autoplay="{{ program.teaser ? program.teaser.id : '' }}"{% endif %} data-play="{{ program.teaser ? program.teaser.id : '' }}" data-play-args="{{ {player_width: 530, player_height: 280, current_player: '#player', 'noControls': true}|json_encode }}" data-playlist="#playlist" data-duration="{{ attribute(durations, program.id) }}">{{ program.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+
+        </div>
+      </div>
     </div>
+
     <div class="header-content">
       {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'pull-right', fav: 'person' } %}
       <h1>Agnès Varda</h1>
