@@ -78,12 +78,23 @@ Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la
 {% endblock %}
 
 {% block pagescripts %}
+{% if data.channel.id == 28 %}
 {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.countdown.js'
     filter='?yui_js' 
     output='js/compiled/countdown.js'  %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
+{% elseif data.channel.id == 60 %}
+{% javascripts
+  '@SkreenHouseFactorylesVraisInconnusBundle/Resources/public/js/jquery.form.min.js'
+  '@SkreenHouseFactorylesVraisInconnusBundle/Resources/public/js/lesvraisinconnus.js'
+    
+    filter='?yui_js' 
+    output='js/compiled/pages/lesvraisinconnus.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endif %}
 {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/channel.js'
     filter='?yui_js' 

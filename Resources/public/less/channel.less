@@ -1,10 +1,10 @@
 /* hack channel mySkreen : hide Logo */
 /*
 .logo-channel-4634 img {
-display: none;
+  display: none;
 }
 td.logo-channel-4634 {
-width: 10px;
+  width: 10px;
 }
 */
 /* Ancien CSS *****************************************************************************************/
@@ -43,42 +43,14 @@ body.view-channel, body.view-channel-selections {
       height: 450px;
       margin: 0 auto;
       padding: 0;
-      &.cover1{
-        .header-content{
-          position: absolute;
-          bottom: 0;
-          h1{
-            width: 300px;
-            display: inline-block;   
-          }
-          .share-block{
-           display: inline-block;
-              margin-left: 241px;
-              position: absolute;
-              top: 23px;
-          }
-          .lead{
-            font-size: 1.15em;
-          }
-
-            }
-        .container {
-          min-height: 450px;     
-        }
-        #inconnusvolant{
-          a{
-            position: absolute;
-            right: 0;
-            margin-top:90px;
-          }
-        }
-
-      }
       &.cover42{
         height: 850px;
       }
       &.cover28{
         height: 550px;
+      }
+      &.cover60{
+        height:495px;
       }
       &.cover55{
         height: 425px;
@@ -92,12 +64,13 @@ body.view-channel, body.view-channel-selections {
         position: absolute;
         left: 804px;
         bottom: 87px;
-        z-index: 1;
+        z-index: 1;       
       }
       .share-block{
         left: 660px;
       }
     }
+    
       &.cover56,&.cover60{
          .cover-wrap{
           display: block;
@@ -109,7 +82,7 @@ body.view-channel, body.view-channel-selections {
           position: absolute;
           left: 190px;
           bottom: 36px;
-          z-index: 1;
+          z-index: 1;        
         }
         .share-block{
           left: 660px;
@@ -124,7 +97,7 @@ body.view-channel, body.view-channel-selections {
           >h1{
             margin-top: 0px;
           }
-          height: 450px;
+          height: 450px; 
           border-bottom: 1px solid #EEE;
           padding-top: 80px;
           .well {
@@ -193,7 +166,7 @@ body.view-channel, body.view-channel-selections {
             #carousel-chaine{
               height: 100%;
               .item.pointer.active{
-               min-height:150px;
+               min-height:150px; 
              }
              .carousel-inner {
               overflow: hidden;
@@ -235,14 +208,14 @@ body.view-channel, body.view-channel-selections {
       top: -25px;
       left: 10px;
       min-width: 400px;
-      z-index: 1;
+      z-index: 1; 
       .fb-like {
         float: left;
       }
     }
     .description {
       font-size: 1.1em;
-    }
+    }  
   }
 }
 /* header */
@@ -290,6 +263,29 @@ body.view-channel, body.view-channel-selections {
   }
   &#channel60{
     height: 535px;
+    #logo{
+      position: absolute;
+      top: 419px;
+      width: 100%;
+      padding-left: 330px;
+      >a{
+        display: inline-block;
+        height: 80px;
+        width: 67px;
+        &.logo03{
+          background: url(/bundles/skreenhousefactoryv3/images/logo_03.png) no-repeat top left;
+        }
+        &.logo04{
+          width: 178px;
+          background: url(/bundles/skreenhousefactoryv3/images/logo_04.png) no-repeat top left;
+        }
+        &.logo05{
+          width: 102px;
+          background: url(/bundles/skreenhousefactoryv3/images/logo_05.png) no-repeat top left;
+        }
+      }
+    }
+    
     .btn-upload{
       position: absolute;
       top: 88px;
@@ -344,15 +340,15 @@ body.view-channel, body.view-channel-selections {
       }
     }
     .player-wrap{
-        height: 280px;
-        position: absolute;
-        right: 23px;
-        top: 207px;
-        width: 530px;
+      position: relative;
+      width: 530px;
+      height: 280px;
+      left: -175px;
+      top: 234px;
       iframe{
         border: none;
       }
-      #playlist{
+      #playlist{ 
        position: absolute;
        bottom: 0px;
        width: 100%;
@@ -581,12 +577,12 @@ body.view-channel, body.view-channel-selections {
   }
 
     .channel-description {
-      position: relative;
+      position: relative; 
       bottom: 0px;
       width: 100%;
     }
     .channel-description-seo-placement {
-    position: absolute;
+    position: absolute; 
     bottom: 0px;
     width: 100%;
     max-height: 450px;
@@ -683,7 +679,7 @@ body.view-channel, body.view-channel-selections {
 
 .ms-channel-headtitle{
   .col-xs-14 >h1{
-    max-width: 100%!important;
+    max-width: 100%!important;   
 
   }
 }
@@ -691,3 +687,5 @@ body.view-channel, body.view-channel-selections {
 .ms-margin-top-seo{
   min-height: 1550px;
 }
+
+
