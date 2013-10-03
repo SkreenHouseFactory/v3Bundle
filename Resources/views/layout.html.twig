@@ -69,33 +69,29 @@
   {# <meta name="viewport" content="width=1010, maximum-scale=1, user-scalable = yes" />#}
   
   {% stylesheets
-  '@SkreenHouseFactoryV3Bundle/Resources/public/font/fontello.less'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/less/bootstrap-overload.less'
-  '@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
-  filter='lessphp,?yui_css'
-  output='css/v3.css'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/font/fontello.less'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/bootstrap-overload.less'
+    '@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
+    filter='lessphp,?yui_css'
+    output='css/v3.css'
   %}
-  <link href="{{ asset_url }}?20130930" rel="stylesheet" media="screen" />
+  <link href="{{ asset_url }}?{{ 'now'|date('dm') }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
 
+  <!--[if IE 8]>
 
-<!--[if IE 8]>
+    {% javascripts
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/json2.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/ie8.js'
+      filter='?yui_js' 
+      output='js/compiled/ie8.js'  %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
-  {% javascripts
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/json2.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/ie8.js'
+  <![endif]-->
 
-
-  filter='?yui_js' 
-  output='js/compiled/ie8.js'  %}
-  <script src="{{ asset_url }}?20130930"></script>
-  {% endjavascripts %}
-
-<![endif]-->
-
-
-   <script src="{{ asset('bundles/skreenhousefactoryv3//js/vendors/modernizr.min.js') }}"></script>
+  <script src="{{ asset('bundles/skreenhousefactoryv3//js/vendors/modernizr.min.js') }}"></script>
 
 </head>
 {% endspaceless %}
@@ -158,46 +154,36 @@
 <div id="fb-root"></div>
 <span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
 
-
-  
-
-  
-
-{# '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/modernizr.min.js' #}
-
   {% if block('noscripts') is empty %}
   {% javascripts
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.10.2.min.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.min.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap-ajax-typeahead.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/respond.min.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery.hammer.min.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer-3.2.11.min.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.controls-3.2.10.min.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.ipad-3.2.11.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.debounce-1.0.5.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.serializefullarray.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
-  '@SkreenHouseFactoryTvBundle/Resources/public/js/couchmode.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/playlists.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/cinema.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/skin.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/touch.js'
-
-  
-
-  filter='?yui_js' 
-  output='js/compiled/v3.js'  %}
-  <script src="{{ asset_url }}?20130930"></script>
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.10.2.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap-ajax-typeahead.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/respond.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery.hammer.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer-3.2.11.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.controls-3.2.10.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.ipad-3.2.11.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.debounce-1.0.5.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.serializefullarray.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
+    '@SkreenHouseFactoryTvBundle/Resources/public/js/couchmode.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/playlists.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/cinema.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/skin.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/touch.js'
+    filter='?yui_js' 
+    output='js/compiled/v3.js'  %}
+  <script src="{{ asset_url }}?{{ 'now'|date('dm') }}"></script>
   {% endjavascripts %}
-
   {% endif %}
+
   {% block pagescripts %}
   {% endblock %}
 
@@ -208,8 +194,6 @@
     _gaq.push(['_setAccount', 'UA-6151896-8']);
     _gaq.push(['_trackPageview']);
   </script>
-
-
   {% endif %}
   {% endspaceless %}
       <div class="modal-backdrop in hide"></div>

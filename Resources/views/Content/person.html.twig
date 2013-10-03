@@ -29,6 +29,7 @@
   
   <h1>{{ person.name }}{% if app.request.get('page') %} <small class="inline">| page {{ app.request.get('page') }}</small>{% endif %}</h1>
 
+  {% if app.request.get('page') < 2 %}
   <div class="view-person-main">
     <div class="description jumbotron">
         {{ person.description|raw }}
@@ -36,27 +37,16 @@
   </div>
   <br/>
   <hr/>
+  {% endif %}
   {#
   <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ person.seo_url, text: 'Je regarde tout ' ~ person.name ~ ' sur mySkreen et vous ?' } %}</div>#}
 
   
   {% if person.programs|length == 30 or app.request.get('page') > 1 %}
-  <ul class="pager pull-right">
-    {% if app.request.get('page') > 2 %}
-    <li class="previous">
-      <a href="{{ path('person_page', {type: app.request.get('type'), id: app.request.get('id'), slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">&larr; 30 précédents</a>
-    </li>
-    {% elseif app.request.get('page') == 2 %}
-    <li class="previous">
-      <a href="{{ path('person', {type: app.request.get('type'), id: app.request.get('id'), slug: app.request.get('slug')}) }}">&larr; 30 précédents</a>
-    </li>
-    {% endif %}
-    <li class="next">
-      <a href="{{ path('person_page', {type: app.request.get('type'), id: app.request.get('id'), slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">30 suivants &rarr;</a>
-    </li>
-  </ul>
+    {% include 'SkreenHouseFactoryV3Bundle:Content:_person-pager.html.twig' %}
   {% endif %}
-  <h2>Ses programmes</h2>
+
+  <h2>Les programmes de {{ person.name }}</h2>
 
   {% if person.programs|length == 0 and app.request.get('page') < 2 %}
   <p class="alert alert-info">Aucun programme n'est disponible.</p>
@@ -68,6 +58,10 @@
     {% endfor %}
     </ul>
   </div>
+  {% endif %}
+
+  {% if person.programs|length == 30 or app.request.get('page') > 1 %}
+    {% include 'SkreenHouseFactoryV3Bundle:Content:_person-pager.html.twig' %}
   {% endif %}
 
 	{% if person.tweets is defined %}
