@@ -57,7 +57,7 @@
       </div>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une', force_size: '/1250/370'} %}
       {% if 'video-a-la-demande' in app.request.uri %}
-        {% include 'SkreenHouseFactoryV3Bundle:Home:_encartvod.html.twig' %}
+        {#{% include 'SkreenHouseFactoryV3Bundle:Home:_encartvod.html.twig' %} #}
       {% endif %}
       {% if app.request.get('home') == 'cinema' %}
       <div class="container playlist">
