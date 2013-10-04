@@ -68,7 +68,7 @@ class ChannelController extends Controller
     $data = $api->fetch('channel', $params);
 
     //print("<pre>");print_r($data);
-    //echo $api->url;
+    //echo $api->url;exit;
     //echo "\n".'category_slug:' . $request->get('category_slug');
     //echo "\n".'route:'  .$request->get('_route');
     //exit;

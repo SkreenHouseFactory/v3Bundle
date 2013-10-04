@@ -72,9 +72,10 @@ Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la
 {% endif %}
 
 
-{# modal #}
+{# modal / pas de modal pour la chaine parodie des inconnus#}
+{% if data.id != 82 %}
 {% include 'SkreenHouseFactoryV3Bundle:Channel:_modal.html.twig' with {'data': data} %}
-
+{% endif %}
 {% endblock %}
 
 {% block pagescripts %}
