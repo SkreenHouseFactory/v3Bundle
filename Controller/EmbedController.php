@@ -37,10 +37,10 @@ class EmbedController extends Controller
 
       $api = $this->get('api');
       $datas = $api->fetch('player/' . $request->get('id'), array(
-        'img_width' => $request->get('width'),
-        'img_height' => $request->get('height'),
-        'slider_width' => $request->get('width'),
-        'slider_height' => $request->get('height'),
+        'img_width' => (int)$request->get('width'),
+        'img_height' => (int)$request->get('height'),
+        'slider_width' => (int)$request->get('width'),
+        'slider_height' => (int)$request->get('height'),
         'with_program' => true
       ));
       //echo $api->url;

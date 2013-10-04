@@ -24,8 +24,8 @@ body {
 {% block content %}
 
 <a class="player-cover" target="_blank" style="position:absolute;top:3%;left:{{ width-120 }}px;z-index:3;" href="http://www.myskreen.com"><img src="http://mskstatic.com/medias/logo_player.png" alt="mySkreen : Guide Replay, Vod, Ciné"></a>
-<a class="player-cover" id="trigger" data-play-embed="{{ offer.id }}"></a>
-<div id="player" data-player-config="{{ {width: width, height: height}|json_encode }}" style="background: url({{ offer.program.picture }}) center no-repeat;width:{{ width }}px;height:{{ height }}px;" class="player on"></div>
+<a class="player-cover" id="trigger" data-play-embed="{{ {playId: offer.id, width: width, height: height, forceMobileDevice: app.request.get('forceMobileDevice'), env: app.environment }|json_encode }}"></a>
+<div id="player" style="background: url({{ offer.program.picture }}) center no-repeat;width:{{ width }}px;height:{{ height }}px;" class="player on"></div>
 
 {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/embed.js'

@@ -12,8 +12,8 @@ window.addEventListener('load', function(){
   //console.log('scripts/embed.js');
   var trigger = document.getElementById('trigger');
   var covers = document.getElementsByClassName('player-cover');
-  var playId = trigger.getAttribute('data-play-embed');
-  //console.log('covers', covers);
+  var params = JSON.parse(trigger.getAttribute('data-play-embed'));
+  //console.log('covers', covers, 'params', params);
   trigger.onclick = function(){
     //hide cover
     for (i=0;i<covers.length;i++) {
@@ -21,7 +21,7 @@ window.addEventListener('load', function(){
     }
     //load player
     var player;
-    player = new Skhf.BasePlayer('player', {playId: playId});
+    player = new Skhf.BasePlayer('player', params);
   }
 
   if (navigator.userAgent.match(/iPhone|iPod|iPad|Android/gi)) {
