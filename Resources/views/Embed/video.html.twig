@@ -27,7 +27,14 @@ body {
 <a class="player-cover" id="trigger" data-play-embed="{{ {playId: offer.id, width: width, height: height, forceMobileDevice: app.request.get('forceMobileDevice'), env: app.environment }|json_encode }}"></a>
 <div id="player" style="background: url({{ offer.program.picture }}) center no-repeat;width:{{ width }}px;height:{{ height }}px;" class="player on"></div>
 
-
+<!--[if IE 8]>
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/json2.js'
+    filter='?yui_js' 
+    output='js/compiled/json2.js'  %}
+  <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+<![endif]-->
 <script src="http://api.myskreen.com/skPlayerPlugin/js/SkhfPlayerIframeApi.js"></script>
 {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/embed.js'
