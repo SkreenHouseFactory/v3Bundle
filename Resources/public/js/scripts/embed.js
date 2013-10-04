@@ -1,3 +1,6 @@
+var addEvent =  window.attachEvent||window.addEventListener;
+
+
 if (!document.getElementsByClassName) {
     document.getElementsByClassName=function(cn) {
         var allT=document.getElementsByTagName('*'), allCN=[], i=0, a;
@@ -8,11 +11,12 @@ if (!document.getElementsByClassName) {
     }
 }
 
-window.addEventListener('load', function(){
+addEvent('load', function(){
   //console.log('scripts/embed.js');
   var trigger = document.getElementById('trigger');
   var covers = document.getElementsByClassName('player-cover');
-  console.log('covers', covers);
+  var params = JSON.parse(trigger.getAttribute('data-play-embed'));
+  //console.log('covers', covers, 'params', params);
   trigger.onclick = function(){
     //hide cover
     for (i=0;i<covers.length;i++) {
@@ -20,7 +24,7 @@ window.addEventListener('load', function(){
     }
     //load player
     var player;
-    player = new Skhf.BasePlayer('player', {playId: 31516622});
+    player = new Skhf.BasePlayer('player', params);
   }
 
   if (navigator.userAgent.match(/iPhone|iPod|iPad|Android/gi)) {

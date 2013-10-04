@@ -23,16 +23,24 @@ body {
 
 {% block content %}
 
-<a class="player-cover" target="_blank" style="position:absolute;top:3%;left:{{ width-120 }}px;z-index:3;padding:5px;border-radius:3px;background:rgba(0,0,0,0.6);" href="http://www.myskreen.com"><img src="http://mskstatic.com/100/medias/logo_black_nobaseline.png" alt="mySkreen : Guide Replay, Vod, Ciné"></a>
-<a class="player-cover" id="trigger" data-play="{{ offer.id }}" data-play-meta-elmt="#program-teaser-meta" data-play-args="{{ {hide_sliders:1, current_player: "#player", is_embed: true, noPub: app.request.get('noPub'), skKey: app.request.get('skKey') }|json_encode }}"></a>
-<div id="player" data-player-config="{{ {width: width, height: height}|json_encode }}" style="background: url({{ offer.program.picture }}) center no-repeat;width:{{ width }}px;height:{{ height }}px;" class="player on"></div>
+<a class="player-cover" target="_blank" style="position:absolute;top:3%;left:{{ width-120 }}px;z-index:3;" href="http://www.myskreen.com"><img src="http://mskstatic.com/medias/logo_player.png" alt="mySkreen : Guide Replay, Vod, Ciné"></a>
+<a class="player-cover" id="trigger" data-play-embed="{{ {playId: offer.id, width: width, height: height, forceMobileDevice: app.request.get('forceMobileDevice'), env: app.environment }|json_encode }}"></a>
+<div id="player" style="background: url({{ offer.program.picture }}) center no-repeat;width:{{ width }}px;height:{{ height }}px;" class="player on"></div>
 
+<!--[if IE 8]>
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/json2.js'
+    filter='?yui_js' 
+    output='js/compiled/json2.js'  %}
+  <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+<![endif]-->
+<script src="http://api.myskreen.com/skPlayerPlugin/js/SkhfPlayerIframeApi.js"></script>
 {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/embed.js'
 
     filter='?yui_js' 
-    output='js/compiled/embed.js'  %}
-    <script src="http://benoit.myskreen.typhon.net/skPlayerPlugin/js/SkhfPlayerIframeApi.js"></script>
+    output='js/compiled/embed-video.js'  %}
     <script src="{{ asset_url }}?v2"></script>
 {% endjavascripts %}
 
