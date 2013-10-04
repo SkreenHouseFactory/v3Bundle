@@ -17,7 +17,6 @@ $(document).ready(function(){
       $('#carousel-chaine .item [data-channel-slug="' + channel_slug +'"]').parent().addClass('active');
     }
 
-
     $('.trigger-channel').on('click', function(){
       UI.refreshChannel($(this).parent().data('channel-id'));
     });
@@ -122,7 +121,7 @@ $(document).ready(function(){
           $('.btn-suivre').trigger('click');
         });
         //background pour les vrais inconnus
-     if (channel_id == 4938680) {
+     if (channel_id == 4941177) {
        $('body').css('background-color','#0B1E30');
      }
     if (channel_id == 28) {
