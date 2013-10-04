@@ -1,3 +1,6 @@
+var addEvent =  window.attachEvent||window.addEventListener;
+
+
 if (!document.getElementsByClassName) {
     document.getElementsByClassName=function(cn) {
         var allT=document.getElementsByTagName('*'), allCN=[], i=0, a;
@@ -8,7 +11,7 @@ if (!document.getElementsByClassName) {
     }
 }
 
-window.addEventListener('load', function(){
+addEvent('load', function(){
   //console.log('scripts/embed.js');
   var trigger = document.getElementById('trigger');
   var covers = document.getElementsByClassName('player-cover');
