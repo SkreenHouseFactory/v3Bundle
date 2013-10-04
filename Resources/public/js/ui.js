@@ -473,6 +473,9 @@ UI = {
         e.preventDefault();
         e.stopPropagation();
         self = $(this);
+        $('.notifications .label.filter').removeClass('label-info');
+        $('.label.filter[data-filter="' + self.data('filter') + '"]').addClass('label-info');
+        
         if($(this).data('reload-notif') != "done"){
           Skhf.session.sync(function(data){
                               console.log('reload datas notifications filter',data.notifications);
@@ -566,10 +569,9 @@ UI = {
   // filter
   notificationsFilter : function(self){
     $('.notifications .empty').css('display','none');
-    $('.notifications .label.filter').removeClass('label-info');
     $('.notifications .dropdown-menu .tv-component').addClass('hide');
     $('.notifications .divider.notification').addClass('hide');
-    $('.label.filter[data-filter="' + self.data('filter') + '"]').addClass('label-info');
+    
 
     if ( self.data('filter') == 'all' ){
       $('.notifications .dropdown-menu .tv-component').removeClass('hide');

@@ -1,6 +1,6 @@
 {# social bar #}
 <div class="ms-social-bar">
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}
+  {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: program.twitter_msg is defined ? program.twitter_msg : 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}
 </div>
 
 {# Selecteur episodes (@see #program-episodes) #}
@@ -26,7 +26,6 @@
   </a>
   {% endfor %}
 {% endif %}
-
 
 <div class="inner">
 
@@ -90,5 +89,3 @@
 {% if program.format and program.subcategories|to_array|length %}
 {% for c in program.subcategories | to_array  %}<div class="inline" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" class="label label-default"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}"><span itemprop="title">{{ c.name }}</span></a></div>&nbsp;{% endfor %}
 {% endif %}
-
-
