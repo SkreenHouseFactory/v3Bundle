@@ -435,7 +435,7 @@ UI = {
     } else {
       var list = $('.navbar .notifications ul .scroll');
       list.find('li.empty').hide();
-      list.find('li:not(.empty)').remove();
+      //list.find('li:not(.empty)').remove();
       var nb_new = 0;
       var current_last_notification = this.last_notification ? this.last_notification : API.cookie('last_notification');
       for (k in notifications) {
@@ -582,7 +582,7 @@ UI = {
       }else if( self.data('filter') == 'replay' ){
         var classes = ['plays.catchup','plays.webcast'];
       }else if( self.data('filter') == 'vod' ){
-        var classes = ['plays.dvd', 'plays.location.48h', 'plays.achat.itunes','plays.achat']; 
+        var classes = ['plays.dvd', 'plays.location.48h','plays.location.itunes', 'plays.achat.itunes','plays.achat','plays.téléchargement','plays.télécharger','plays.abonnement','plays.louer']; 
       } else {
         var classes = [self.data('filter')];
       }
@@ -600,7 +600,7 @@ UI = {
   appendNotifications : function(notifications,list){
 
     for (k in notifications) {
-      
+      if($('.tv-component [data-id="'+notifications[k].id+'"]').length == 0){
         if (notifications[k].type == 'broadcast') {
           var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url +'?offers='+notifications[k].offers +'" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"';
           
@@ -630,7 +630,7 @@ UI = {
           }
         }
         list.append(
-          '<li class="tv-component '+ notifications[k].offers+' '+ notifications[k].access+ ' ' + notifications[k].type_ajout + '"><a data-id="' + notifications[k].id + '" class="remove">' + 
+          '<li class="tv-component '+ notifications[k].offers+' '+ notifications[k].access.replace("(windows)","")+ '"><a data-id="' + notifications[k].id + '" class="remove">' + 
           '<i class="glyphicon glyphicon-trash"></i></a>' + (notifications[k]['new'] ? '<span id="new-notif'+ notifications[k].id + '" class="pull-right badge badge-important">Nouveau</span>' : '') + 
           '<a ' + attrs + (notifications[k]['new'] ? ' data-remove="#new-notif'+ notifications[k].id + '"' : '')+' class="link">' + 
           (notifications[k].channel_ico ? '<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
@@ -639,8 +639,9 @@ UI = {
           '<span class="subtitle">' + ep_title + '</span>' +
           '<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span></a>' +
           '</li>' +
-          '<li class="divider notification'+' '+ notifications[k].offers+ ' ' + notifications[k].access+ ' ' + notifications[k].type_ajout + '"></li>'
+          '<li class="divider notification'+' '+ notifications[k].offers+ ' ' + notifications[k].access.replace("(windows)","")+ '"></li>'
         );
+      }
   }
 },
   //playlist theaters
