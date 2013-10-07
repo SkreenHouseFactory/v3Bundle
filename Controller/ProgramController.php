@@ -208,26 +208,20 @@ class ProgramController extends Controller
           }
           ksort($data->episode_list);
         }
-        //list episode offers
-        $data->offers_default = null;
-        foreach ($data->offers as $type => $offers) {
-          if (count($offers) > 0) {
-            $data->offers_default = $type;
-            break;
-          }
-        }
         
         //add other episodes offers
         //$data->offers = array_merge_recursive($data->offers, (array)$data->episodeof->offers);
         // ==> pas suffisant : il faut éviter la répetition lorsque l'on est sur un épisode
         if (isset($data->episodeof->offers)) {
           foreach ($data->episodeof->offers as $key => $offers) {
+            $data->offers[$key] = (array)$data->offers[$key];
             foreach ($offers as $offer) {
               if (isset($offer->episode_id) && $offer->episode_id != $data->id) {
-                $data->offers[$key] = (array)$data->episodeof->offers->{$key};
+                //$data->offers[$key] = (array)$data->episodeof->offers->{$key};
                 $data->offers[$key][] = $offer;
               }
             }
+            $data->offers[$key] = (object)$data->offers[$key];
           }
         }
         //theaters     
