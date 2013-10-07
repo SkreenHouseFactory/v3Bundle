@@ -103,7 +103,7 @@ class broadcastdateExtension extends \Twig_Extension
      * @param string $string
      * @return int 
      */
-    public function broadcastdate ($time, $access = null)
+    public function broadcastdate ($time, $access = null, $format = null)
     {
 			if ($time) {
         $article = $access == 'Replay' ? '' : 'le ';
@@ -113,7 +113,7 @@ class broadcastdateExtension extends \Twig_Extension
         }
 				$tomorrow = $article . date('d', $time + 24*3600) . ' ' . $this->getMonth(date('m', $time + 24*3600));
 				$yesterday = $article . date('d', $time - 24*3600) . ' ' . $this->getMonth(date('m', $time - 24*3600));
-				$string = $article . date('d', $time) . ' ' . $month . ' à ' . date('G\hi', $time);
+				$string = $article . date('d', $time) . ' ' . $month . ($format != 'date' ? ' à ' . date('G\hi', $time) : null);
         if (date('Ymd', $time) == date('Ymdd')) {
 			    $string = str_replace('le ' . date('d ') . $month, 'Aujourd\'hui', $string); //today
         }
