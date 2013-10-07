@@ -643,6 +643,9 @@ UI = {
         );
       }
   }
+  if( $('.notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
+    $('.notifications .empty').css('display','block');
+  }
 },
   //playlist theaters
   loadTheatersPlaylist: function(){
