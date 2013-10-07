@@ -78,7 +78,7 @@ $(document).ready(function(){
         fbsync();
       } else {
         // cancelled
-        $('#fbconnect-infos').html('<span class="alert alert-error nowrap">La connexion a échoué !</span>');
+        $('#fbconnect-infos').html('<span class="alert alert-danger nowrap">La connexion a échoué !</span>');
       }
 //    },{scope:'email,read_friendlists,publish_stream,offline_access,publish_actions'});
     },{scope:'offline_access,user_birthday,user_online_presence,email,read_friendlists,publish_stream,friends_likes,friends_online_presence,publish_actions'});

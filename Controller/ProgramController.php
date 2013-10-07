@@ -107,8 +107,8 @@ class ProgramController extends Controller
         $data = $api->fetch('program/'.$request->get('id'), array(
           'img_width' => 273,
           'img_height' => 368,
-          'episode_img_width' => 80,
-          'episode_img_height' => 50,
+          'episode_img_width' => 120,
+          'episode_img_height' => 80,
           'episode_img_crop' => 50,
           'channel_img_width' => 60,
           'channel_img_height' => 60,
