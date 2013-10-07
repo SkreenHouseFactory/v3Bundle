@@ -59,9 +59,15 @@ class EmbedController extends Controller
       //inconnus le retour
       } elseif (in_array($datas->program->id, array(4988489))) {
         $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/LesInconnus/player-splash.jpg';
+
       //inconnus le retour 2
       } elseif (in_array($datas->program->id, array(5050813))) {
         $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/LesInconnus/player-splash-video2.png';
+        //et moi et moi
+        } elseif (in_array($datas->program->id, array(5298568))) {
+          $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/etmoietmoi/splash.jpg';
+
+
 
       //default
       } elseif (isset($datas->program->sliderPicture)) {
