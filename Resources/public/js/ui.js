@@ -633,7 +633,7 @@ UI = {
           '<li class="tv-component '+ notifications[k].offers+' '+ notifications[k].access.replace("(windows)","")+ '"><a data-id="' + notifications[k].id + '" class="remove">' + 
           '<i class="glyphicon glyphicon-trash"></i></a>' + (notifications[k]['new'] ? '<span id="new-notif'+ notifications[k].id + '" class="pull-right badge badge-important">Nouveau</span>' : '') + 
           '<a ' + attrs + (notifications[k]['new'] ? ' data-remove="#new-notif'+ notifications[k].id + '"' : '')+' class="link">' + 
-          (notifications[k].channel_ico ? '<img src="' + notifications[k].channel_ico + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
+          (notifications[k].channel_ico ? '<img src="' + notifications[k].channel_ico.replace("/39/35/","/39/") + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
           '<img src="' + notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
           '<span class="title">' + notifications[k].title + '</span>' +
           '<span class="subtitle">' + ep_title + '</span>' +
