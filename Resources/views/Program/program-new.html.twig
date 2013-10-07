@@ -248,7 +248,7 @@ en Streaming
               {% endif %}
             </div>
             <div class="col-xs-4 suivre"  style="padding:0;">
-              {% if program.popular_channel is defined and program.popular_channel.id not in [5573] %}
+              {% if program.popular_channel is not defined or program.popular_channel.id not in [5573] %}
               {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.id, class: 'fav-like btn-big'} %}
               {% endif %}
             </div>
