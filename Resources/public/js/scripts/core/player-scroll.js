@@ -5,7 +5,7 @@ PlayerScroll = {
     var lastScrollTop = 0;
     var nav = $('.navbar.navbar-fixed-top');
     var playwrap = $('.playwrap');
-    var playwrap_offset = $('.playwrap').offset();
+    var playwrap_offset = 80;  //$('.playwrap').offset();
     var playwrapsub = $('.playwrapsub');
     if( !$('html').hasClass('touch') && ($('body').hasClass('view-program_pere') || $('body').hasClass('view-program_fils') || $('body').hasClass('view-program_fils_saison') || $('body').hasClass('view-ajax'))  ){
       $(window).scroll(function(event){
@@ -16,7 +16,7 @@ PlayerScroll = {
            var limit = parseInt(panel_synopsis.top) + parseInt($('.panel-synopsis').css('height')) - 365;
            var limit2 = limit - 80 ;
            if (st > lastScrollTop){
-             if ($(this).scrollTop() > playwrap_offset.top) {
+             if ($(this).scrollTop() > playwrap_offset) {
 
                if($(this).scrollTop() >= limit ){
                  playwrap.removeClass("player-fixed-top");
@@ -52,7 +52,7 @@ PlayerScroll = {
 
           }else if(st< lastScrollTop) {
 
-           if( $(this).scrollTop() > playwrap_offset.top && $(this).scrollTop() <= limit ){
+           if( $(this).scrollTop() > playwrap_offset && $(this).scrollTop() <= limit ){
              playwrap.addClass("player-fixed-top");
 
              playwrap.css('position','fixed');
