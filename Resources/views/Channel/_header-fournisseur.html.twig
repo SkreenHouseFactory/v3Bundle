@@ -15,7 +15,8 @@
             </div>
             <div class="item pointer">
           {% endif %}
-          <a data-toggle="tooltip" class="" data-placement="{{ loop.index in [1,2,3,4,5,26,27,28,29,30] ?'bottom':'top' }}"  data-original-title="{{c|upper}}" data-channel-slug="{{slug}}" href="{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/50/40/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ c }} Replay"></a>
+          <a data-toggle="tooltip" class="" data-placement="{{ loop.index in [1,2,3,4,5,26,27,28,29,30] ?'bottom':'top' }}"  data-original-title="{{c|upper}}" data-channel-slug="{{slug}}" href="{{ path('channel', {slug: slug}) }}">
+            <p class="wrap-tv-remote"><img style="vertical-align: middle" src="http://mskstatic.com/50/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ c }} Replay"></p></a>
         {% endfor %}
       </div>
     </div>

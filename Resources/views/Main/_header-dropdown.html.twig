@@ -30,7 +30,7 @@
     <li class="tv-channels">
       {% for channel in tv_channels %}
       {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-      <a data-tnt-name="{{ channel }}" class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><img src="http://mskstatic.com/36/30/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></a>
+      <a data-tnt-name="{{ channel }}" class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><p class="header-remote-dropdown"><img src="http://mskstatic.com/36/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></p></a>
       {% endfor %}
     </li>
   </ul>

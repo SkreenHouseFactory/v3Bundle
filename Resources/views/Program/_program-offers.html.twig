@@ -55,7 +55,11 @@
         {% endif %}
       </h3>
     </div>
-		{% if key == "itunes" %}
+    {% set inconnus_ids = [4941177,4938680,5300091,5300092,5300093,5300095,5300097,4941165,4941207] %}
+		{% if program.id in inconnus_ids or 
+         (program.episodeof is defined and program.episodeof.id in inconnus_ids) %}
+    {% set loop_offset = 100 %}
+		{% elseif key == "itunes" %}
     {% set loop_offset = 1 %}
     {% elseif key == "external"%}
     {% set loop_offset = 2 %}
@@ -148,13 +152,14 @@
                {% if o.title is defined and o.title %}
                <p><strong>{{ o.title }}</strong><br><span>{% if o.description|length > 57 %}{{ o.description|slice(0, 56)}}...{% else %}{{ o.description}}{% endif %}</span></p>
                {% elseif o_episode and o_episode.title %}
-               <p>{{ o_episode.title }}</p>
+               <p><strong>{{ o_episode.title }}</strong>
                {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}
                {% if o_episode.season_number is defined or 
                o_episode.episode_number is defined or 
                o_episode.part_number is defined %}
-               {% if episode_title != o_episode.title %}<span>{{ episode_title }}</span>{% endif %}
+               {% if episode_title != o_episode.title %}<br>{{ episode_title }}{% endif %}
                {% endif %}
+               </p>
                {% endif %}
                <div>
                  {% if o_access.name in ['Vidéo'] and 
