@@ -323,11 +323,13 @@
 </div>
 
 {# description seo texte #}
+{{ program.description|raw }}
+
 <a name="synopsis"></a>
 <div class="panel panel-default panel-synopsis">
   <div class="panel-heading"><h2 class="panel-title">Tout sur {{ program.title }}</h2></div>
   <div class="tab-pane text-toggle-extend">
-    {% if program.description|striptags|length < 560 %}
+    {% if program.description|striptags|length < 570 %}
     <div class="text">
       {{ program.description|raw }}
     </div>
