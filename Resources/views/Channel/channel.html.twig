@@ -72,21 +72,23 @@ Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la
 {% endif %}
 
 
-{# modal / pas de modal pour la chaine parodie des inconnus#}
-{% if data.id != 82 %}
+{# modal / pas de modal pour la chaine parodie des inconnus #}
+{% if data.channel.id != 60 %}
 {% include 'SkreenHouseFactoryV3Bundle:Channel:_modal.html.twig' with {'data': data} %}
 {% endif %}
 {% endblock %}
 
 
 {% block pagestyles %}
-{% stylesheets
-  '@SkreenHouseFactorylesvraisinconnusBundle/Resources/public/less/promo.less'
-  filter='lessphp,?yui_css'
-  output='css/vraisinconnus.css'
-%}
-<link href="{{ asset_url }}" rel="stylesheet" media="screen" />
-{% endstylesheets %}
+{% if data.channel.id == 60 %}
+  {% stylesheets
+    '@SkreenHouseFactorylesvraisinconnusBundle/Resources/public/less/promo.less'
+    filter='lessphp,?yui_css'
+    output='css/vraisinconnus.css'
+  %}
+  <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
+{% endif %}
 {% endblock %}
 
 
