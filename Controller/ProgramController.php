@@ -198,6 +198,7 @@ class ProgramController extends Controller
 
         // -- post treatments
         $data->offers = (array)$data->offers;
+
         //description with html_entity_decode
         $data->description_text = strip_tags(html_entity_decode($data->description));
         //episodes list
@@ -208,7 +209,17 @@ class ProgramController extends Controller
           }
           ksort($data->episode_list);
         }
-        
+
+        //add live
+        $data->offers['live'] = array();
+        foreach ((array)$data->offers['tv'] as $o) {
+          if ($o->broadcasttime < time() &&
+              $o->endtime > time()) {
+            //echo "\n".'addLive broadcasttime:'.date('Ymd H:i:s', $o->broadcasttime).' endtime:'.date('Ymd H:i:s', $o->endtime).' time:'.date('Ymd H:i:s', time());
+            $data->offers['live'][] = $o;
+          }
+        }
+
         //add other episodes offers
         //$data->offers = array_merge_recursive($data->offers, (array)$data->episodeof->offers);
         // ==> pas suffisant : il faut éviter la répetition lorsque l'on est sur un épisode

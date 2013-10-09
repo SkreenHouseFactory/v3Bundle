@@ -79,6 +79,9 @@
   <link href="{{ asset_url }}?{{ 'now'|date('dm') }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
 
+  {% block pagestyles %}
+  {% endblock %}
+
   <!--[if IE 8]>
 
     {% javascripts
