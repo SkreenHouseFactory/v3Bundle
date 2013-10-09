@@ -78,6 +78,18 @@ Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la
 {% endif %}
 {% endblock %}
 
+
+{% block pagestyles %}
+{% stylesheets
+  '@SkreenHouseFactorylesvraisinconnusBundle/Resources/public/less/promo.less'
+  filter='lessphp,?yui_css'
+  output='css/vraisinconnus.css'
+%}
+<link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+{% endstylesheets %}
+{% endblock %}
+
+
 {% block pagescripts %}
 {% if data.channel.id == 28 %}
 {% javascripts
