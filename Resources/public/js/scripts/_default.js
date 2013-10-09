@@ -203,8 +203,8 @@ $(document).ready(function(){
 
 
 /* END */
-
-  //-- Script  pour le helper
+  if( $('#channel60').length == 0){
+  //-- Script  pour le helper première visite
   $('.help-sprite.help-sprite-ms_btn_help').on('click', function () {
     $(this).toggleClass('help-sprite-ms_btn_help');
     $(this).toggleClass('help-sprite-ms_btn_close');
@@ -218,6 +218,7 @@ $(document).ready(function(){
     $('.modal-backdrop.in').toggleClass('hide');
     API.cookie('new','true');
   });
+}
   
   //alert nouveau visiteur
   
