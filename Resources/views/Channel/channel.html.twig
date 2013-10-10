@@ -89,6 +89,22 @@ Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la
   <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
 {% endif %}
+
+<!--[if lt IE 9]> 
+
+{% if data.channel.id == 60 %}
+  {% stylesheets
+    '@SkreenHouseFactorylesVraisInconnusBundle/Resources/public/less/ie8_ie9.less'
+    filter='lessphp,?yui_css'
+    output='css/vraisinconnus.css'
+  %}
+  <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
+{% endif %}
+
+
+ <![endif]-->
+
 {% endblock %}
 
 
