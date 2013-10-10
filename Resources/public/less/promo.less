@@ -1,5 +1,3 @@
-/* Chaines les inconnus */
-
 
 #channel1{
 
@@ -41,6 +39,54 @@ body.view-channel #main #channel1 .share-block{
 	position: absolute!important;
 	top: 18px!important;
 	z-index: 1!important;
+}
+/* Chaines les inconnus */
+
+#channel8{
+    height: 535px;
+    .container{
+      top: 208px;
+    }
+    .header-content{
+      top: 538px;
+      min-height: 60px;
+      background:rgba(0,0,0,0.2);
+      .share-block{
+        position: absolute!important;
+        top: 21px!important;
+        left: 626px!important;
+        min-width: 400px!important;
+      }
+    }
+    .player-wrap{
+      width: 530px;
+      height: 280px;
+      margin-left: 42%;
+      iframe{
+        border: none;
+      }
+      #playlist{ 
+       position: absolute;
+       bottom: 0px;
+       width: 530px;
+       margin-bottom: 0px;
+       padding-left: 0px;
+       text-align: center;
+       >li {
+        color: black;
+        background: #CCC;
+        display:none;
+      }
+      .playing {
+        background: black;
+        display: block;
+        >a{
+          color: white;
+        }
+      }
+
+    }
+  }
 }
 
 /* ----- */
