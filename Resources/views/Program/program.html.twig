@@ -1,0 +1,623 @@
+{% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
+
+{% block title %}
+{% if program.format.name in ['Film','Téléfilm','Court-métrage','Documentaire','Spectacle','Concert','Clip'] %} {{ program.title }} Streaming : {{ program.format.name }} Complet
+{% elseif program.format.name in ['Théâtre'] %} {{ program.title }} Streaming {% if program.has_vod in [7,8] %} Replay {% endif %} {% if program.has_vod in [1,2,12] %} VOD {% endif %} {% if program.has_vod in [3] %} DVD {% endif %} : Pièce de Théâtre Complète
+{% elseif program.format.name in ['Série','Websérie','Dessin Animé et Manga'] %} {{ program.title }} Streaming {% if program.has_vod in [7,8] %} Replay {% endif %} {% if program.has_vod in [1,2,12] %} VOD {% endif %} {% if program.has_vod in [3] %} DVD {% endif %} : {{ program.format.name }} en ligne
+{% elseif program.format.name in ['Emission','Journal'] %} {{ program.title }} Replay : {{ program.format.name }} en ligne
+{% endif %}
+{% endblock %}
+{% block description %}
+{% if program.format.name in ['Film','Téléfilm','Court-métrage','Documentaire','Spectacle','Concert','Clip'] %} Regarder le {{ program.format.name }} Entier {{ program.title }} ({% if program.director %}{% for pers in program.director %}{{ pers.name }}{% endfor %}{% endif %}, {{ program.year }}) en {% for key in offers|keys if program.offers[key]|length %} {{ offers[key] }} {% endfor %} : {{ program.format.name }} en Excellente Qualité & 100% Légal sur mySkreen.com
+{% elseif program.format.name in ['Théâtre'] %}  Regarder la Pièce de Théâtre Entière {{ program.title }} en {% for key in offers|keys if program.offers[key]|length %} {{ offers[key] }} {% endfor %} : Pièce en Excellente Qualité & 100% Légal sur mySkreen.com
+{% elseif program.format.name in ['Série','Websérie','Dessin Animé et Manga'] %} Regarder les Episodes de {{ program.title }} Entiers en {% for key in offers|keys if program.offers[key]|length %} {{ offers[key] }} {% endfor %} : {{ program.format.name }} en Excellente Qualité & 100% Légal sur mySkreen.com
+{% elseif program.format.name in ['Emission'] %} Regarder l'Emission Entière {{ program.title }} en {% for key in offers|keys if program.offers[key]|length %} {{ offers[key] }} {% endfor %} : {{ program.format.name }} en Excellente Qualité & 100% Légal sur mySkreen.com
+{% elseif program.format.name in ['Journal'] %} Regarder le {{ program.title }} en {% for key in offers|keys if program.offers[key]|length %} {{ offers[key] }} {% endfor %} : JT en ligne en Excellente Qualité & 100% Légal sur mySkreen.com
+{% else %}
+{{ program.description_text|replace({"\n": ''})|slice(0, 165) }} | {{ program.title }}, {{ program.id }}
+{% endif %}
+{% endblock %}
+{% block meta %}
+
+{% include 'SkreenHouseFactoryV3Bundle:Program:_program-jsonld.html.twig' with {program: program} %}
+
+{# twitter #}
+<meta name="twitter:site" value="@mySkreen" />
+<meta name="twitter:creator" content="@mySkreen">
+<meta name="twitter:url" content="http://www.myskreen.com{{ program.seo_url }}">
+<meta name="twitter:title" content="{{ program.title }}">
+<meta name="twitter:description" content="{{ program.description_text|replace({"\n": ''}) }}">
+<meta name="twitter:image:src" content="{{ program.picture }}">
+{% if program.player_iframe is defined %}
+<meta name="twitter:card" value="player" />
+<meta name="twitter:player" value="{{ program.player_iframe }}" />
+<meta name="twitter:player:stream" content="{{ program.player_stream }}">
+<meta name="twitter:player:stream:content_type" content="video/mp4">
+<meta name="twitter:player:height" value="360" />
+<meta name="twitter:player:width" value="640" />
+{% elseif program.has_vod in [1,2] %}
+<meta name="twitter:card" value="product" />
+<meta name="twitter:data1" content="€2.99">
+<meta name="twitter:label1" content="LOCATION">
+{% else %}
+<meta name="twitter:card" value="summary" />
+{% endif %}
+<meta name="twitter:domain" content="mySkreen.com">
+
+{# opengraph #}
+<meta property="og:title" content="{{ program.title }}" />
+<meta property="og:description" content="[ VIDEO ] {{ program.description_text|replace({"\n": ''}) }}" />
+<meta property="og:image" content="{{ program.picture }}" />
+<meta property="og:type" content="movie" />
+<meta property="og:url" content="http://www.myskreen.com{{ program.seo_url }}" />
+{% if program.player_fb is defined %}
+
+<meta property="og:video:height" content="360" />
+<meta property="og:video:width" content="640" />
+<meta property="og:video" content="{{ program.player_fb }}" />
+<meta property="og:video:type" content="application/x-shockwave-flash" />
+<meta property="og:video:secure_url" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
+<meta property="og:video" content="{{ program.player_stream }}" />
+<meta property="og:video:type" content="video/mp4" />
+<meta property="video:duration" content="{{ program.duration * 60 }}" />
+
+<meta name="video_height" content="360" />
+<meta name="video_width" content="640" />
+<link rel="video_src" href="{{ program.player_fb }}" />
+<meta name="video_type" content="application/x-shockwave-flash" />
+<meta name="video_duration" content="{{ program.duration * 60 }}" />
+<meta name="object_type" content="episode" />
+{% endif %}
+<link rel="image_src" href="{{ program.picture }}" />
+
+{% endblock %}
+
+{% block pagescripts %}
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/program.js'
+
+    filter='?yui_js' 
+    output='js/compiled/pages/program.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}
+
+{% block content %}
+{# modal #}
+{% if program.id in ['5088919'] %}
+{% include 'SkreenHouseFactoryV3Bundle:Program:_modal.html.twig' ignore missing with {'program': program} %}
+{% endif %}
+<div id="view-program" data-id="{{ program.id }}" class="container container-root-{{ program.episodeof is defined ? program.episodeof.id : program.id }}" itemscope itemtype="http://www.schema.org/VideoObject">
+
+  <div id="program-follow" class="actions add-friends" data-id="{{ program.episodeof is defined ? program.episodeof.id : program.id }}">
+    <div class="container-friends"></div>
+    <a class="fav fav-like btn btn-large btn-primary" data-placement="left"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>{% if app.environment == 'dev' and program.nb_like %} <span class="playlists-count"><i class="icon-user"></i>{{ program.nb_like }}</span>{% endif %}
+  </div>
+  
+  <div class="program-title">
+    {% if program.episode_title is defined and 
+          program.episodeof is defined and 
+          program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
+    <h1 itemprop="name">{{ program.episode_title }}{% if program.popular_channel is defined %} <small>{{ program.popular_channel.name }}</small>{% endif %}</h1>
+    {% elseif program.episode_title is defined and 
+              program.episodeof is defined %}
+      {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+      <h1 itemprop="name">{{ program.episodeof.title }} <div>{{ program.episode_title }}{% if program.episode_title and program.episode_title != episode_title and  episode_title != '' %} ({{ episode_title }}){% endif %}</div></h1>
+    {% else %}
+    <h1>
+      {{ program.title }} {% if program.id in [4750433,4225947,4802310,4802138,4827403,4325232,4301824,4653555,4750467,4348861] %}
+      <small>le film complet en streaming</small>
+      {% elseif program.id in [4977242,4476408,4911399,4653895,4791542,4624174,4339164,4673973,4652360,5008693] %}
+      <small>le film en entier en streaming</small>
+      {% elseif program.id in [4761150,4762496,4902865,4761177,4989407,4954927,4761225,4970968,4807696,4902930] %}
+      <small>le film et sa bande annonce en streaming</small>
+      {% elseif program.id in [4750611,4750438,4675684,4796437,4746458,4750593,4750590,4750605,4746282,4750602] %}
+      <small>le film</small>{% endif %}</h1>
+    {% endif %}
+  </div>
+  <div id="program-description">
+    <div class="description scroll">{{ program.description_seo|raw }}</div>
+  </div>
+
+  <div class="view-main view-program-main pull-right">
+
+    <div id="program-main-block">
+    {% if program.player is defined and program.player %}
+    <a name="teaser"></a>
+    <div id="program-teaser">  
+      <meta itemprop="duration" />
+      <meta itemprop="thumbnail" content="{{ program.picture }}" />
+      {% if program.player_fb is defined %}
+      <meta itemprop="embedURL" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
+      {% endif %}
+      <meta itemprop="width" content="640" />
+      <meta itemprop="height" content="390" />
+      <meta itemprop="playerType" content="Flash" />
+    {#% if program.player is defined and program.player %#}
+      <span id="program-teaser-header" data-default-text="Votre programme en intégralité">{{ program.player.access_id is defined ? 'Votre programme en intégralité' : 'Bande annonce' }}</span>
+      {#<a style="margin:10px" class="btn btn-large btn-inverse pull-right trigger-tv" href="#" data-couchmode="{{ {'type': 'program', 'id': program.id, 'hide_sliders': true}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
+      <div id="program-teaser-meta" class="player-meta"></div>
+      <div id="program-teaser-player"{% if app.request.isXmlHttpRequest %}{%else%} data-play-autoload-bak="{{ program.player.id }}"{% endif %} data-play="{{ program.player.id }}" {#data-play-meta-elmt="#program-teaser-meta" data-play-muted="1"#} data-play-args="{{ {hide_sliders: 1, current_player: '#program-teaser-player'}|json_encode }}">
+        <iframe src="{{ player_host }}/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.player.id }}&height=330&width=720" style="height:330px;width:720px" scrolling="no" frameborder="0"></iframe>
+      </div>
+    {#% else %}
+    <span id="program-teaser-header">Publicité</span>
+      <div id="program-teaser-player">
+        <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=28370043&program_id={{ program.id }}&height=330&width=720" style="height:330px;width:720px" scrolling="no" frameborder="0"></iframe>
+      </div>
+    {% endif %#}
+    </div>
+    {% endif %}
+
+    <a name="program-offers"></a>
+    <div id="program-offers" class="view-program-block">
+      {% if program.theater_release_date is defined %}
+        <p class="alert alert-success">Sortie en salle le <strong>{{ program.theater_release_date }}</strong>{# <a href="#" data-ics-date="{{ program.theater_release_date }}"><i class="icon-agenda"></i> Ajouter à votre agenda</a>#}</p>
+      {% elseif program.has_vod == 6 %}
+        <p class="alert alert-success">{{ program.episodeof is defined ? 'Cet épisode' : 'Ce programme' }} sera bientôt disponible en Replay. <br/>Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera mis en ligne.</p>
+      {% elseif program.has_vod == 0 %}
+        {% if program.episodeof is defined %}
+        <p class="alert alert-success">Cette épisode n'est pas diffusé pour le moment.<br/>Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera disponible.</p>
+        {% else %}
+        <p class="alert alert-success">Ce programme n'est pas diffusé pour le moment.<br/>Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera disponible.</p>
+        {% endif %}
+      {% endif %}
+      <ul id="triggers" class="nav nav-pills" style="font-size: 1.2em;">
+        {% for key in offers|keys if program.offers[key]|length %}
+          {% if key == 'theaters' %}
+            {% if program.datas_theaters.theaters_ids|length %}{% set nb = program.datas_theaters.theaters_ids|length %}{% else %}{% set nb = 1 %}{% endif %}
+          {% elseif program.offers[key]|length %}
+            {% set nb = program.offers[key]|length %}
+          {% endif %}
+          <li{% if key == program.offers_default or program.offers_default is null %} class="active"{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ offers[key] }} ({{ nb }})</a></li>
+        {% endfor %}
+        {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
+        <li><a href="#carousel-bonus" id="trigger-bonus" data-toggle="tab">Bonus ({{ program.offers['bonus']|length }})</a></li>
+        {% endif %}
+        <li><a href="#carousel-youtube" id="trigger-youtube" class="carousel-youtube" data-toggle="tab">YouTube</a></li>
+      </ul>
+      <div class="tab-content">
+        
+        {% for key in offers|keys if program.offers[key]|length %}
+        <a name="{{ key }}"></a>
+        <div id="{{ key }}" data-play-text="{{ ('player.content.text.' ~ key)|trans }}" class="tab-pane{% if key == program.offers_default or program.offers_default is null %} active{% endif %}">
+        {%  if program.offers[key]|length %}
+        <div class="table-container scroll">
+        <table class="table">
+          <tbody>
+
+          {# subscriptions #}
+          {% if key == 'plays' and
+                program.subscriptions is defined and 
+                program.subscriptions|length %}
+          {% for s in program.subscriptions %}
+          <tr data-id="{{ s.pass.play }}" data-play="{{ s.pass.play }}" data-play-pass="{{ s.id }}" data-play-args="{&quot;hide_sliders&quot;:1}">
+            <td class="notif"><span class="badge">0</span></td>
+            <td class="icon"><span><i class="icon-play"></i></span></td>
+            <td class="channel logo-channel-4952"><img src="http://mskstatic.com/65/medias/ico/chaines/pluzz-vad_medium.png" alt="pluzz VAD Streaming"></td>
+            <td class="price big">{{ s.pass.price }}€</td>
+            <td class="access"><span class="big">{{ s.name }}</span></td>
+            <td class="tags">{{ s.description }}</td>
+          </tr>
+          {% endfor %}
+          {% endif %}
+
+          {# theaters #}
+          {% if key == 'theaters' %}
+            <tr>
+              <td colspan="6" class="theaters">
+                {% if program.datas_theaters.theaters_ids|length > 0 %}
+                  <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined %} en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
+                  {% if program.datas_theaters.theaters_ids|length > 9 %}
+                    <form id="theaters-search" class="form-search pull-left">
+                      <div class="input-append">
+                        <input type="text" class="span3 search-query" placeholder="{{ 'theaters.search.placeholder'|trans }}">
+                        <button type="submit" class="btn"><i class="icon-search"></i> {{ 'theaters.search.submit'|trans }}</button>
+                      </div>
+                    </form>
+                    <div class="btn-group">
+                      <a class="btn" href="#theaters" id="trigger-theaters-geoloc"><i class="icon-map-marker"></i> {{ 'theaters.search.geoloc'|trans }}</a>
+                      <a class="btn" href="#theaters" id="trigger-theaters-playlist"><i class="icon-user"></i> {{ 'theaters.search.playlist'|trans }}</a>
+                    </div>
+                  {% endif %}
+                  <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_program', {id: program.id}) }}" data-theaters-ids="{{ program.datas_theaters.theaters_ids|join(',')  }}">
+                    {% render 'SkreenHouseFactoryV3Bundle:Cinema:program' with {id: program.id, theater_ids: app.request.get('theater_id') ? app.request.get('theater_id') : program.datas_theaters.theaters_ids|join(',') } %}  
+                  </div>
+                  {% if program.datas_theaters.theaters_on_demand|length %}
+                    <hr/>
+                  {% endif %}
+                {% endif %}
+                {% if program.datas_theaters.theaters_on_demand|length %}
+                  {% for o in program.datas_theaters.theaters_on_demand %}
+                  <p align="center"><a target="_blank" href="{{ attribute(o, 'url') }}"><img class="img-polaroid" src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema.png') }}" alt="ilikecinema" /></a></p>
+                  {% endfor %}
+                {% endif %}
+              </td>
+            </tr>
+
+          {# par defaut #}
+          {% else %}
+            {% set other_episodes = '' %}
+            {% for o in program.offers[key] %}
+              {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
+              {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
+              {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
+              {% if o.episode_id is defined and 
+                    program.episodeof.id is defined and 
+                    o.episode_id != program.id and
+                    other_episodes != 'ok' %}
+                <tr><td colspan="6"><h6>Autres épisodes</h6></td></tr>
+                {% set other_episodes = 'ok' %}
+              {% endif %}
+              <tr data-id="{{ o.id }}"{% if o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}" data-play-args="{{ {hide_sliders: 1}|json_encode }}"{% elseif key == 'broadcasts' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {# data-content="{{ 'loading'|trans }}" data-original-title="<a class='close pull-right'>&times;</a>{{ o_episode.title }}" data-toggle="hover" data-placement="left" #}{% endif %}>
+                <td class="notif"><span class="badge">0</span></td>
+                <td class="icon">
+                  <span>
+                  {% if o_access.name == 'TV' and key != 'plays' %}<i class="icon-calendar"></i>
+                  {% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %}<i class="icon-share"></i>
+                  {% elseif o.deporte is defined and o.deporte %}<i class="icon-play"></i>
+                  {% endif %}
+                  </span>
+                </td>
+                <td class="channel logo-channel-{{ o_channel.id }}">
+                  <img src="{{ o_channel.img }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
+                </td>
+                <td class="price big">
+                  {% if o.cost is defined and o.cost > 0 %}{{ o.cost|number_format(2, ',') }}&euro;{% endif %}
+                </td>
+                <td class="access" data-acces="{{ o_access.name }}">
+                  {% if o_access.name in ['Live', 'TV'] %}
+                    <span class="big"><time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time></span>
+                  {% else %}
+                      <span class="big">{{ o_access.name|replace({' iTunes': ''}) }}</span>
+                    {% if o.broadcasttime is defined %}
+                      <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate }}</time>
+                    {% endif %}
+
+                  {% endif %}
+                  {% if o_access.name == 'TV' %}
+                    {% if key == 'plays'  %}
+                      <span class="badge badge-important">Live</span>
+                    {% elseif o.has_replay and o.broadcasttime|remainingtv %}
+                      <span class="badge badge-info">{{ o.broadcasttime|remainingtv }}</span>
+                    {% elseif o.broadcasttime|timeleft %}
+                      <span class="badge badge-warning">Dans {{ o.broadcasttime|timeleft }}</span>
+                    {% endif %}
+                  {% elseif o.endtime is defined and o.endtime|remainingreplay %}
+                    <span class="badge badge-warning">{{ o.endtime|remainingreplay }}</span>
+                  {% endif %}
+                </td>
+                {% if o.title is defined and o.title %}
+                <td class="title">
+                  <b>{{ o.title }}</b>
+                  <br/>
+                  {{ o.description }}
+                {% elseif o_episode %}
+                <td class="episode">
+                  {% if o_episode.title %}
+                  <span>{{ o_episode.title }}</span>
+                  {% endif %}
+                  {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}
+                  {% if o_episode.season_number is defined or 
+                        o_episode.episode_number is defined or 
+                        o_episode.part_number is defined %}
+                   {% if episode_title != o_episode.title %}<br><span><em>{{ episode_title }}</em></span>
+                   {% endif %}
+                    <br>
+                  {% endif %}
+                {% else %}
+                <td class="tags">
+                {% endif %}
+                  {% if o.deporte is defined and o.deporte and o.versions is defined %}
+                    <span class="label label-success">{{ o.versions|to_array|keys|join(', ') }}</span>&nbsp;
+                  {% elseif o.tags is defined and o.tags.version is defined %}
+                    <span class="label label-success">{{ o.tags.version|replace({',': ', '}) }}</span>
+                  {% endif %}
+                  
+                  {% if o.tags is defined and o.tags|length %}
+                    {% if o.tags.HD is defined %}
+                      <span class="label label-important">HD</span><br/>
+                    {% endif %}
+                    {% if o.tags.format is defined %}
+                      <span class="label label-important">{{ o.tags.format }}</span><br/>
+                    {% endif %}
+                    {% if o.tags.device is defined %}
+                      <span class="label label-info">{{ o.tags.device|replace({',': ', '}) }}</span>
+                    {% endif %}
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+          </tbody>
+        </table>
+        </div>
+        {% endif %}
+        </div>
+        {% endfor %}
+        {# bonus #}
+        {% if program.offers['bonus'] is defined and program.offers['bonus']|length %}
+        <div id="carousel-bonus" class="tab-pane">
+          <div class="carousel slide">
+            <div class="carousel-inner">
+                {% for b in program.offers['bonus'] %}
+                <div class="item active"><a data-play="{{ b.id }}" data-program="{{ {'title': b.title}|json_encode }}" class="pull-left"><img class="img-polaroid" alt="{{ b.title }} bonus" src="{{ b.picture }}"><div class="title">{{ b.title }}</div></a></div>
+                {% endfor %}
+            </div>
+            {#<a class="carousel-control left" href="#carousel-bonus" data-slide="prev">&lsaquo;</a>
+            <a class="carousel-control right" href="#carousel-bonus" data-slide="next">&rsaquo;</a>#}
+          </div>
+        </div>
+        {% endif %}
+        {# youtube #}
+        <div id="carousel-youtube" class="carousel-youtube tab-pane" data-more-streaming="{{ program.id }}">
+          <div class="carousel slide">
+            <div class="carousel-inner"></div>
+            <a class="carousel-control left" href="#carousel-youtube" data-slide="prev">&lsaquo;</a>
+            <a class="carousel-control right" href="#carousel-youtube" data-slide="next">&rsaquo;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  {% if program.format %}
+  <ul class="breadcrumb">
+    {% if program.popular_channel is defined %}
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: program.popular_channel.seo_url|slice(1, program.popular_channel.seo_url|length-1) }) }}"><span itemprop="title">{{ program.popular_channel.name }}</span></a> <span class="divider">/</span></li>
+    {% endif %}
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''})}) }}/"><span itemprop="title">{{ program.format.name }}</span></a> <span class="divider">/</span></li>
+    {% if program.categories|length %}
+    <li{% if program.subcategories|length == 0 and program.episode_title is not defined %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb">{% for c in program.categories|slice(0,1) %}{% if loop.first %}{% else %}, {% endif %}<a itemprop="url" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ c.name }}</span></a>{% endfor %}{% if program.subcategories|length or program.episode_title is defined %}  <span class="divider">/</span>{% endif %}</li>
+    {% endif %}
+    {% if program.subcategories|length %}
+    <li{% if program.episode_title is not defined %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb">{% for c in program.subcategories|slice(0,1) %}{% if loop.first %}{% else %}, {% endif %}<a itemprop="url" href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}"><span itemprop="title">{{ c.name }}</span></a>{% endfor %}{% if program.episode_title is defined %} <span class="divider">/</span>{% endif %}</li>
+    {% endif %}
+    {% if program.episode_title is defined and program.episodeof is defined %}
+    <li{% if program.season_number is not defined %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}"><span itemprop="title">{{ program.episodeof.title }}</span></a> {% if program.season_number is defined %} <span class="divider">/</span>{% endif %}</li>
+    {% endif %}
+    {% if program.season_number is defined %}
+    <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) ~ 'saison-' ~ program.season_number }) }}"><span itemprop="title">Saison {{ program.season_number }}</span></a></li>
+    {% endif %}
+  </ul>
+  {% endif %}
+
+  <div class="view-program-column view-column pull-left actions" data-id="{{ program.id }}">
+    <div style="position:relative;">
+      {% if program.popular_channel is defined %}
+      <a class="popular-channel logo-channel-{{ program.popular_channel.id }}" href="{{ path('any_url', {url: program.popular_channel.seo_url|slice(1, program.popular_channel.seo_url|length-1) }) }}"><img src="{{ program.popular_channel.img }}" alt="{{ program.popular_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" /></a>
+      {% endif %}
+      <img src="{{ program.img }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
+    </div>
+
+    {#% if app.environment == 'dev' %}
+    <div id="program-friends">
+      <div class="share-off">{% include 'SkreenHouseFactoryV3Bundle:Main:_fb-connect.html.twig' with {popover: 'program.friends.popover.content'|trans, placement: 'left', text: 'Vos amis le regardent-il ?' } %}</div>
+      <div class="share-on"></div>
+    </div>
+    {% endif %#}
+
+    <div id="program-episodes">
+      {% if program.seasons is defined %}
+      <div class="btn-group program-episode season-episode">
+        <button class="btn">{{ program.season_number is defined ? 'Saison ' ~ program.season_number : program.seasons|length ~ ' saisons' }}</button>
+        <button class="btn dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          {% for season in program.seasons %}
+          <li><a href="{{ path('any_url', {url: season.episodes[0].seo_url|slice(1, season.episodes[0].seo_url|length-1) }) }}">Saison {{ season.number }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      {% if program.season_number is defined %}
+      <div class="btn-group program-episode">
+        <button class="btn">{{ program.episode_number is defined ? 'Episode ' ~ program.episode_number : 'Les épisodes' }}</button>
+        <button class="btn dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+        </button>
+        {% if program.seasons is defined and program.episodeof is defined %}
+        <ul class="dropdown-menu">
+          {% for season in program.seasons if season.number == program.season_number %}
+            {% for episode in season.episodes|reverse %}
+            <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
+              {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
+              <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number : '' }}</strong> <i class="icon-chevron-right"></i> {{ episode.title }}
+            </a></li>
+            {% endfor %}
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      {#<a style="margin-top:15px;" href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}" class="btn btn-block">{{ 'program.episodes.all'|trans }}</a>#}
+
+      {% elseif program.episodeof is defined and  program.episodeof %}
+      <a href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}" class="btn btn-block">{{ 'program.episodes.all'|trans }}</a>
+
+      {% elseif program.episode_list is defined and program.seasons is not defined %}
+      <div class="btn-group program-episode">
+        <a class="btn btn-block dropdown-toggle" data-toggle="dropdown" href="#">
+          {{ program.episode_list|length }} épisodes disponibles
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          {% for episode in program.episode_list %}
+          <li><a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
+            {% if episode.dispo %}<span class="label pull-right">{{ episode.dispo }}</span>{% endif%}
+            <strong>{{ episode.title }}</strong>{% if episode.year %} - {{ episode.year }}{% endif %}
+          </a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      {% endif %}
+    </div>
+    {% if program.season_number is defined or 
+          program.episode_number is defined or 
+          program.episodeof is defined or 
+          program.episode_list is defined  %}
+    <hr/>
+    {% endif %}
+
+    <div id="program-share">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}</div>
+    {# related channels #}
+    {% if program.related.channels is defined and 
+          program.related.channels.programs is defined and 
+          program.related.channels.programs|length == 1 %}
+      {% for r in program.related.channels.programs %}
+      <a data-track-channel="{{ r.title }}" id="channel_root" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}" style="background: url('{{ program.related.channels.image }}') top left no-repeat;">
+        <span class="texte">{{ r.title ~ ', la chaîne' }}</span>
+      </a>
+      {% endfor %}
+    {% endif %}
+
+    <ul class="nav nav-list bs-docs-sidenav">
+      {% if program.selections|length %}
+        {% for s in program.selections %}
+        <li><a href="{{ s.seo_url }}"><i class="icon-chevron-right"></i> {{ s.name }}</a></li>
+        {% endfor %}
+      {% endif %}
+      {% if program.related|length %}
+      <li><a href="#related"><i class="icon-chevron-right"></i> {{ 'program.related'|trans }}</a></li>
+      {% endif %}
+      <li><a href="#infos"><i class="icon-chevron-right"></i> {{ 'program.infos'|trans }}</a></li>
+    </ul>
+  </div>
+
+  {% if program.related|length %}
+  <hgroup>
+  <br class="clear"/>
+  <a name="related"></a>
+  <div id="program-related" class="inverse">
+  {% for r in program.related if r.programs is defined and r.programs|length %}
+    {% if r.name == 'same_actors' and program.casting %}
+      <h4 id="same-actors-title" class="user-on-visibility">{{ r.title }}</h4>
+      {#
+        <div class="person-list">
+      {% for pers in program.casting|slice(0,10) %}
+      <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" class="label label-info">{{ pers.name }}</a>
+      {% endfor %}
+      </div>
+      #}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r, noheader: true} %}
+    {% elseif r.name == 'same_director' and program.director %}
+      <h4 id="same-director-title" class="user-on-visibility">{{ r.title }}</h4>
+      {#
+        <div class="person-list">
+      {% for pers in program.director %}
+      <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" class="label label-info">{{ pers.name }}</a>
+      {% endfor %}
+      </div>
+      #}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r, noheader: true} %}
+    {% elseif r.name == 'chaines' %}
+      {% if (program.related.channels is defined and program.related.channels.programs is defined and program.related.channels.programs|length > 1) %}
+       <a data-track-channel="{{ r.name }}" name="{{ r.name }}"></a>
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r} %}
+      {% endif %}
+    {% else %}
+      <a name="{{ r.name }}"></a>
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: r} %}
+    {% endif %}
+  {% endfor %}
+  </div>
+  </hgroup>
+  {% endif %}
+
+  <br class="clear"/>
+  <hgroup>
+  <a name="infos"></a>
+  <div id="program-infos" itemprop="about" itemscope itemtype="http://schema.org/Movie">
+    <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
+    <meta itemprop="name" content="{{ program.title }}" />
+    <div class="img pull-left">
+      <img src="{{ program.picture }}" alt="{{ program.title }} {{ program.format ? program.format.name : '' }} {{ program.has_vod is divisibleby(2) ? 'complet' : 'en entier' }}" />
+    </div>
+    <div class="inner">
+      <h2>Présentation de {{ program.title }} complet</h2>
+      <h3>{{ program.title }}</h3>
+      <p>
+        {{ program.year }}{% if program.duration %} - {{ program.duration }}mn{% endif %}
+      </p>
+      <p>
+        {% if program.format and program.categories|length %}
+          <h5 class="inline-block">Catégories</h5>&nbsp; {% for c in program.categories if c.seo_url is defined %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}">{{ c.name }}</a>{% endfor %}
+          <br/>
+        {% endif %}
+        {% if program.format and program.subcategories|length %}
+          <h5 class="inline-block">Sous-catégories</h5>&nbsp; {% for c in program.subcategories %}{% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}">{{ c.name }}</a>{% endfor %}
+        {% endif %}
+     </p>
+        <div id="program-casting" class="scroll">
+        {% if program.director %}
+        <h5>{{ 'directed.by'|trans }}</h5>
+        {% for pers in program.director %}
+        <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
+        {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+        {% if pers.programmes is defined and (pers.programmes|length > 1) %}
+          <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
+          {% if loop.first %}{% else %}, {% endif %}
+          <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
+          {% endfor %}<span style="color:#005580"> ) </span>
+        {% endif %}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% if program.presenter is defined and program.presenter %}
+        <h5>{{ 'presented.by'|trans }}</h5> 
+        {% for pers in program.presenter %}
+        <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
+        {% if loop.first %}{% else %}, {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <br/>
+        {% if program.casting %}
+        <h5>{{ 'actors'|trans }}</h5>
+        {% for pers in program.casting %}
+        <div class="inline" itemprop="actor" itemscope itemtype="http://schema.org/Person">
+        {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+        {% if pers.main_programs is defined and (pers.main_programs|length > 1) %}
+          <span style="color:#005580"> ( </span>{% for prog in pers.main_programs if prog.id != program.id  %}
+          {% if loop.first %}{% else %}, {% endif %}
+          <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
+          {% endfor %}<span style="color:#005580"> ) </span>
+        {% endif %}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <br/>
+        {% if program.editor %}
+        <h5>{{ 'editors'|trans }}</h5>
+        {% for pers in program.editor %}
+        <div class="inline" itemprop="editor" itemscope itemtype="http://schema.org/Person">
+        {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ pers.name }}</span></a>
+        {% if pers.programmes is defined and (pers.programmes|length > 1) %}
+          <span style="color:#005580"> ( </span>{% for prog in pers.programmes if prog.id != program.id  %}
+          {% if loop.first %}{% else %}, {% endif %}
+          <a style="font-style:italic" href="{{ path('any_url', {url: prog.seo_url|slice(1,prog.seo_url|length-1) }) }}">{{ prog.titre }}</a>
+          {% endfor %}<span style="color:#005580"> ) </span>
+        {% endif %}
+        </div>
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  </hgroup>
+</div>
+
+{% if program.tweets is defined and program.tweets|length %}
+<div class="container">
+  <hr/>
+  {% if program.hashtags %}
+  <h4>{{ program.title }} sur Twitter</h4>
+  {% else %}
+  <h4>mySkreen sur Twitter</h4>
+  {% endif %}
+  {% include 'SkreenHouseFactoryV3Bundle:Main:_tweets.html.twig' with {tweets: program.tweets } %}
+</div>
+{% endif %}
+{% endblock %}

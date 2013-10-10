@@ -166,9 +166,9 @@ UiView = {
     $('html, body').animate({scrollTop:0}, 'fast');
     if ($('a.background')) {
        $('a.background').remove();
-    }
+    }    
+    $('body').css('background','');
     if ($('.body_background')) { 
-      $('body').removeClass();
       body_background = $('.body_background').data('refresh-bodybackground');
       body_class = $('.body_background').data('refresh-bodyclass');
       $('body').css('background',body_background);
@@ -286,6 +286,7 @@ UiView = {
     // -- remote data in html elmt
     $(elmt).on('click', '[data-ajax]', function(e){
       var trigger = $(this); 
+<<<<<<< HEAD
       var has_dropdown_filter = false;
       if ($('body').hasClass('playlist-in')){
       var has_playlist = true;
@@ -324,6 +325,38 @@ UiView = {
                .attr('class','');
        $('html, body').animate({scrollTop:0}, 'fast');
 
+=======
+       if ( $('html').hasClass('lt-ie9')){
+        window.location.href = trigger.data('ajax');
+      }
+      else{
+      //e.preventDefault();
+      console.log('script', '[data-ajax]', $(this).data('ajax'));
+      console.log('History.pushStates');
+      if ( history.state == null ) {
+        history.pushState({path: window.location.href }, document.title, window.location.href);
+      }
+      history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
+      
+      if ($('body').hasClass('playlist-in')){
+      var has_playlist = true;
+      }
+      
+      $('body').css('background','');
+      $('body').attr('class','');
+      
+      
+      var trigger = $(this);
+
+      //add body class to overload view-homes
+      $('body').removeClass('view-redirect');
+      $('body').addClass('view-ajax');
+      if ( has_playlist == true ){
+         $('body').addClass('playlist-in');
+      }
+      
+      console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
+>>>>>>> f564d1e42fe6a72e294531b77cbf642a0d7ef7a4
       //load ajax
       console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
       $($(this).attr('rel')).empty();

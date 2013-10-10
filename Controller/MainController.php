@@ -248,7 +248,11 @@ class MainController extends Controller
     {
       if ($request->get('video')) {
         if ($request->get('new')) {
+<<<<<<< HEAD
           return $this->redirect('http://api.myskreen.com/sitemapvideonewindex/500.xml', 301);
+=======
+          return $this->redirect('http://api.myskreen.com/sitemapvideonew/', 301);
+>>>>>>> f564d1e42fe6a72e294531b77cbf642a0d7ef7a4
         } else {
           return $this->redirect('http://api.myskreen.com/sitemapvideoindex/500.xml', 301);
         }   

@@ -111,10 +111,19 @@ class broadcastdateExtension extends \Twig_Extension
         if (date('Y', $time) != date('Y')) {
           $month .= ' '.date('Y', $time);
         }
+<<<<<<< HEAD
 				$tomorrow = $article . date('d', $time + 24*3600) . ' ' . $this->getMonth(date('m', $time + 24*3600));
 				$yesterday = $article . date('d', $time - 24*3600) . ' ' . $this->getMonth(date('m', $time - 24*3600));
 				$string = $article . date('d', $time) . ' ' . $month . ($format != 'date' ? ' à ' . date('G\hi', $time) : null);
         if (date('Ymd', $time) == date('Ymdd')) {
+=======
+				$tomorrow = 'le ' . date('d', $time + 24*3600) . ' ' . $this->getMonth(date('m', $time + 24*3600));
+				$yesterday = 'le ' . date('d', $time - 24*3600) . ' ' . $this->getMonth(date('m', $time - 24*3600));
+				$string = 'le ' . date('d', $time) . ' ' . $month . ' à ' . date('G\hi', $time);
+        if (strstr(date('YmdH', $time), date('Ymd2'))) {
+			    $string = str_replace('le ' . date('d ') . $month, 'Ce soir', $string); //today
+        } elseif (date('Ymd', $time) == date('Ymd')) {
+>>>>>>> f564d1e42fe6a72e294531b77cbf642a0d7ef7a4
 			    $string = str_replace('le ' . date('d ') . $month, 'Aujourd\'hui', $string); //today
         }
 				if (strstr($string, $tomorrow .' 2')) {
