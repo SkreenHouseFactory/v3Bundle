@@ -997,17 +997,13 @@ UI = {
           for (key in data) {
             switch (key) {
               case 'queue':
-                var items = data[key][0].programs;
+                var items = data[key].programs;
                 titles[key] = 'Vos playlists';
                 break;
               case 'channels':
                 var items = data[key];
                 titles[key] = 'Chaînes';
                 break;
-                /*case 'real-channels':
-                var items = data[key];
-                titles[key] = 'Chaînes mySkreen';
-                break;*/
               case 'theaters':
                 var items = data[key];
                 titles[key] = 'Salles de cinéma';
