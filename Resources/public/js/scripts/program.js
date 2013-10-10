@@ -110,7 +110,7 @@ ProgramView = {
             $('#program-modal').addClass('connected');
           }
           if (!Skhf.session.datas.email ||
-              !Skhf.session.isInPlaylist('like', $('.actions').data('id'))) {
+              !Skhf.session.isInPlaylist('like', $('.btn-suivre[data-id]').data('id'))) {
             $('#program-modal').modal('show');
           }
           API.cookie('visited_programs', (cookie.length ? cookie.join(',') + ',' : null) + program_id);
@@ -234,7 +234,7 @@ $(document).ready(function(){
           // -- réinitialisation callback pour rester sur la popin
           UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {
             if ($('#skModal.modal .slider li').length) {
-              trigger.parents('.actions:first').remove();
+              trigger.parents('.btn-suivre[data-id]:first').remove();
             } else {
               $('#skModal.modal').modal('hide');
             }
@@ -319,12 +319,10 @@ $(document).ready(function(){
     if (document.location.href.match(/\?rent/gi)) {
       $('#program-offers [data-play]:first').trigger('click');
     } else if (document.location.href.match(/\?follow/gi)) {
-
       if ($('#program-modal').length){
         ProgramView.loadModal();
-      }
-      else if (!$('.actions .fav').hasClass('fav-on')) {
-        $('.actions .fav').trigger('click');
+      } else if (!$('.btn-suivre[data-id]').hasClass('fav-on')) {
+        $('.btn-suivre[data-id]').trigger('click');
       }
     } else if (document.location.href.match(/\?play/gi)) {
       console.log('?play', getUrlParameter('play'));
