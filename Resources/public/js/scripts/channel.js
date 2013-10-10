@@ -84,7 +84,11 @@ $(document).ready(function(){
             $('#channel-modal').addClass('connected');
           }
           if (!Skhf.session.datas.email && 
+<<<<<<< HEAD
               !Skhf.session.isInPlaylist($('.fav').data('playlist'), $('.fav').data('id'))) {
+=======
+              !Skhf.session.isInPlaylist($('.actions').data('playlist'), $('.actions').data('id'))) {
+>>>>>>> f564d1e42fe6a72e294531b77cbf642a0d7ef7a4
             $('#channel-modal').modal('show');
           }
           API.cookie('visited_channels', (cookie.length ? cookie.join(',') + ',' : null) + channel_id);
@@ -131,6 +135,7 @@ $(document).ready(function(){
       	// Attention les mois commencent à 0 !
         var ts = new Date(date.getFullYear(),date.getMonth(),date.getDate(),10,0,0);
       
+<<<<<<< HEAD
         switch (date.getDay()) {
           case 6:
             ts.setDate(date.getDate() + 2); 
@@ -139,6 +144,10 @@ $(document).ready(function(){
             ts.setDate(date.getDate() + 1); 
           break;
         }
+=======
+      	var newYear = true;
+    
+>>>>>>> f564d1e42fe6a72e294531b77cbf642a0d7ef7a4
 
       	var newYear = true;
       	if((new Date()) > ts){
@@ -148,10 +157,16 @@ $(document).ready(function(){
       		newYear = false;
       	}
 
+<<<<<<< HEAD
         if ((date.getHours() < 10 && date.getDay() != 6 && date.getDay() != 7) || 
             date.getDay() == 6 || 
             date.getDay() == 7){
           $('.well .fav div').remove();
+=======
+		
+        if( date.getHours() < 10 && date.getDay() != 6 && date.getDay() != 7){
+          $('.well .actions div').remove();
+>>>>>>> f564d1e42fe6a72e294531b77cbf642a0d7ef7a4
         	$('#countdown').countdown({
         		timestamp	: ts,
         		callback	: function(days, hours, minutes, seconds){

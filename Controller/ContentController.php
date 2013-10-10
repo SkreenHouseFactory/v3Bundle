@@ -141,6 +141,7 @@ class ContentController extends Controller
       if (isset($data->error) && $data->error) {
         throw $this->createNotFoundException('Person does not exist');
       }
+      
       //bad url
       if (!strstr($request->getPathInfo(), $data->seo_url)) {
         //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$data->seo_url;exit();

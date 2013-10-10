@@ -23,20 +23,19 @@
 <meta name="object_type" content="website" />
 {% endblock %}
 {% block title %}
-{% if app.request.get('format') %}{{ app.request.get('format')|capitalize }} {% endif %}
-{% if app.request.get('facet') %}{% if app.request.get('facet')|length > 1 and subcategories[app.request.get('facet')] is defined %}{{ subcategories[app.request.get('facet')] }}{% else %}{{ app.request.get('facet') }}{% endif %}{% endif %}
- {{ category.name }}
-{% if app.request.get('access') %}{% if app.request.get('access') == 'video-a-la-demande' %} en {% endif %}{{ ('access.' ~ app.request.get('access'))|trans}} {% endif %}
+{% if app.request.get('format') %}{{ app.request.get('format') }} - {% endif %}
+{% if app.request.get('access') %}{{ ('access.' ~ app.request.get('access'))|trans }} - {% endif %}
+{{ category.name }}
+{% if app.request.get('facet') %}, {% if app.request.get('facet')|length > 1 and subcategories[app.request.get('facet')] is defined %}{{ subcategories[app.request.get('facet')] }}{% else %}{{ app.request.get('facet') }}{% endif %}{% endif %}
 {% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}
 {% endblock %}
-{% block description %}
-{% if app.request.get('format') %}{{ app.request.get('format') }} {% endif %}
-{% if app.request.get('facet') %}{{ app.request.get('facet') }} {% endif %}
-{% if app.request.get('category.name') %}{{ app.request.get('category.name') }} {% endif %}
-{% if app.request.get('access') %}{{ app.request.get('access') }} {% endif %}
-{{ category.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
-{% block content %}
+{% block description %}{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ category.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
+{% block content %}
+<<<<<<< HEAD
+
+=======
+>>>>>>> f564d1e42fe6a72e294531b77cbf642a0d7ef7a4
 <div id="view-category" data-id="{{ category.id }}" class="container view-category-{{ app.request.get('format') }}">
 	
 	<div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ category.seo_url, text: 'Je regarde des ' ~ category.name ~ ' sur mySkreen et vous ?' } %}</div>

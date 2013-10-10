@@ -5,11 +5,14 @@ embed_offer:
     requirements:
         id: \d+
 
+<<<<<<< HEAD
 #apps
 apps_install:
     pattern:  /apps/install/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:appsinstall }
 
+=======
+>>>>>>> f564d1e42fe6a72e294531b77cbf642a0d7ef7a4
 #sitemaps
 sitemap_general:
     pattern:  /sitemap.xml
@@ -154,10 +157,11 @@ player_exit_with_infos:
         target: "[^/]+"
         title: "[^/]+"
 player_exit:
-    pattern:  /exit/{target}
+    pattern:  /{exit}/{target}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }
     requirements:
         target: ".*"
+        exit: exit|redirection
 player_exit_get_url:
     pattern:  /exit
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }

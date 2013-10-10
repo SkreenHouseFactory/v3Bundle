@@ -211,11 +211,19 @@ class ChannelController extends Controller
       if( isset($play->deporte) && isset($play->cost) && $play->deporte && $play->cost){
         break;
       }
+<<<<<<< HEAD
     }
 
     foreach( $program->datas_offers->episodes as $episode) {
       if( isset($episode->title) && $episode->id == $play->episode_id ){
         break;
+=======
+      $play->starttime = $play->starttime + 604800;
+      foreach( $program->datas_offers->episodes as $episode) {
+        if( isset($episode->title) && $episode->id == $play->episode_id ){
+          break;
+        }
+>>>>>>> f564d1e42fe6a72e294531b77cbf642a0d7ef7a4
       }
     }
   
@@ -257,6 +265,7 @@ class ChannelController extends Controller
   /* mariage à l'anglaise */
   public function header35Action($data,$from_selection,$channel,$fav,$trigger_fav){
      
+<<<<<<< HEAD
     $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-35.html.twig', array(
      // 'episode_id'=> $play->episode_id,
       'data' => $data,
@@ -331,6 +340,47 @@ class ChannelController extends Controller
     
     return $response; 
   }
+=======
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-35.html.twig', array(
+         // 'episode_id'=> $play->episode_id,
+          'data' => $data,
+          'fav' => $fav,
+          'trigger_fav'=> $trigger_fav,
+            'channel'=> $channel,
+            'from_selection' => $from_selection
+        ));
+      
+            return $response; 
+      }
+     public function header54Action($data,$from_selection,$channel,$fav,$trigger_fav){
+     /* $api   = $this->get('api');
+      $params = array(
+         'with_player' => true,
+         'with_offers' => true,
+         //'offers_type'=> 'plays'
+       );
+      $program = $api->fetch('program/3517970', $params);
+      $play = null;
+
+      foreach( $program->offers->plays as $play){
+        if( isset($play->deporte) && isset($play->cost) && $play->deporte && $play->cost){
+          break;
+        }
+      }*/
+     
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-54.html.twig', array(
+         // 'episode_id'=> $play->episode_id,
+          'data' => $data,
+          'fav' => $fav,
+          'trigger_fav'=> $trigger_fav,
+            'channel'=> $channel,
+            'from_selection' => $from_selection
+        ));
+      
+            return $response; 
+      }
+ 
+>>>>>>> f564d1e42fe6a72e294531b77cbf642a0d7ef7a4
  
   protected function buildFacets(Request $request) {
     //echo '$facet:'.$request->get('facet');

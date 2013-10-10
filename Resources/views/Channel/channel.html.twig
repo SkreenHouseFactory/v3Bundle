@@ -4,7 +4,7 @@
 <meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ data.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}" />
 <meta property="og:description" content="{{ data.description|striptags }}" />
 <meta property="og:type" content="video.movie" />
-<meta property="og:url" content="http://www.myskreen.com{{ data.seo_url }}/" />
+<meta property="og:url" content="http://www.myskreen.com{{ data.seo_url }}" />
 {% if data.channel.img is defined %}
 <meta property="og:image" content="{{ data.channel.img }}" />
 <link rel="image_src" href="{{ data.channel.img }}" />
@@ -39,7 +39,11 @@
 {% block title %}
 
 {% if data.channel.fournisseur is defined and data.channel.fournisseur.type == 'broadcast' %}
+<<<<<<< HEAD
 {{ 'page.title.channel.broadcast'|trans({'%name%': channel.title, '%access%': 'Replay' }) }}
+=======
+{{ data.channel.page_title ? data.channel.page_title : data.channel.title ~ 'REPLAY & DIRECT en STREAMING en 1 Clic GRATUIT 100% Légal' }}
+>>>>>>> f564d1e42fe6a72e294531b77cbf642a0d7ef7a4
 {% else %}
 {{ 'page.title.channel.default'|trans({'%name%': data.channel.page_title ? data.channel.page_title : data.channel.title, '%access%': 'Streaming' }) }}
 {% endif %}

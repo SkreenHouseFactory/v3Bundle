@@ -23,11 +23,20 @@
     {% endif %}
     {% for cinema in cinemas %}
     {% if cinema.adress is defined and cinema.schedules is defined %}
+<<<<<<< HEAD
     <div class="panel panel-default panel-theater">
       <div class="panel-heading">
         <a class="btn btn-xs btn-default pull-right" href="{{path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1)}) }}">Films & horaires</a>
         <a class="accordion-toggle bold" data-toggle="collapse" data-parent="#accordion-theaters" href="#theater-{{ cinema.id }}"><i class="glyphicon glyphicon-resize-vertical hover hover-fade"></i> {{ cinema.name }} ({{ cinema.zip_code }})</a>
         {% if cinema.distance is defined %}<small class="grey">distance ≃ {{ cinema.distance < 1 ? (cinema.distance*100)|number_format ~'m' : cinema.distance|number_format(1) ~ 'km' }}</small>{% endif %}
+=======
+    <div class="accordion-group actions actions-remove" data-id="{{ cinema.id }}" data-name="{{ cinema.name }}">
+      <div class="accordion-heading">
+        <a class="btn btn-default pull-right" href="{{path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1)}) }}">Voir ce cinéma</a>
+        <a class="fav fav-cinema btn btn-primary pull-right"><i class="icon-plus-sign icon-white"></i> {{ 'action.add.favorites'|trans }}</a>
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-theaters" href="#theater-{{ cinema.id }}">{{ cinema.name }}</a>
+        <a target="_blank" href="https://maps.google.com/maps?hl=fr&q={{ cinema.adress ~ ' ' ~ cinema.city ~ ' ' ~ cinema.zip_code|url_encode }}" class="address"><i class="icon-map-marker"></i> {{ cinema.adress }} {{ cinema.city }} {{ cinema.zip_code }}</a>
+>>>>>>> f564d1e42fe6a72e294531b77cbf642a0d7ef7a4
       </div>
       <div id="theater-{{ cinema.id }}" class="panel-collapse {{ loop.first ? 'in' : 'collapse' }}">
         <ul class="nav nav-tabs">
@@ -38,6 +47,7 @@
         <div class="tab-content">
         {% for day in days if attribute(cinema.schedules, day) is defined %}
           {% set s = attribute(cinema.schedules, day) %}
+<<<<<<< HEAD
           {% set hasVF = 0 %}
           {% set hasVO = 0 %}
           {% set noV = 1 %}
@@ -77,6 +87,17 @@
               {% endfor %}
             {% endif %}
           </div>
+=======
+          <tr>
+            <th>{{ day }} 
+              {% if attribute(s, 'version') is null  and (attribute(s, 'version') != 'VF' or attribute(s, 'version') != 'VO')  %} 
+              {% else %}
+              <span class="label label-success pull-right"> {{ attribute(s, 'version') }}</span>
+              {% endif %}
+            </th>
+            <td> {{ attribute(s, 'schedules')|join (', ') }}</td>
+          </tr>
+>>>>>>> f564d1e42fe6a72e294531b77cbf642a0d7ef7a4
         {% endfor %}
       </div>
 
