@@ -10,7 +10,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
 <div id="view-fournisseur" data-id="{{ data.id }}" class="container{% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null %} container-seo-placement{% endif %}">
 
   {% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null  %}
-  <div class="channel-description channel-description-seo-placement">
+  <div id="description-seo">
   
     <h1>{{ data.name }}</h1>
     {{ data.description|raw }}
