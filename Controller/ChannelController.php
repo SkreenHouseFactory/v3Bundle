@@ -39,6 +39,11 @@ class ChannelController extends Controller
   {
     $this->blockDomain($request);
 
+    //hack seo
+    if ($request->get('slug') == 'tv-en-direct') {
+      return $this->redirect('http://www.myskreen.com', 301);
+    }
+
     $api   = $this->get('api');
     $params = array(
       'from_slug'  => $request->get('slug'),
