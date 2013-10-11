@@ -5,7 +5,7 @@
     <ul class="nav nav-tabs" id="myTab">
       {% if channel.facebook_uid is defined and channel.facebook_uid != null and channel.facebook_uid != '' %}
       <li class="active">
-        <a data-titre="Facebook officiel du film" href="#facebook" data-toggle="tab">
+        <a data-titre="Facebook officiel" href="#facebook" data-toggle="tab">
           <div title="Code: 0xe801" class="the-icons span3">
             <i class="icon-facebook"></i>
           </div>
@@ -14,7 +14,7 @@
        {% endif %}
       {% if channel.twitter_id and channel.twitter_id != null and channel.twitter_id != '' %}
       <li {% if channel.facebook_uid is defined and channel.facebook_uid == null and channel.facebook_uid != '' %}class="active"{% endif %}>
-        <a data-titre="Twitter officiel du film" href="#twitter" data-toggle="tab">
+        <a data-titre="Twitter officiel" href="#twitter" data-toggle="tab">
           <div title="Code: 0xe800" class="the-icons span3">
             <i class="icon-twitter"></i>
           </div>
