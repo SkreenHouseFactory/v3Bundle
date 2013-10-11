@@ -5,10 +5,13 @@
 {% endif %}
 <div id="carousel-{{ slider.title|replace({' ': '-', 'é':'e'})|lower }}"{% if skip_autoload is not defined %} data-carousel-autoload="1"{% endif %} class="carousel slide{{ class is defined ? ' ' ~ class : '' }}{{ slider.id is defined ? ' carousel-' ~ slider.id : '' }}">
   <div class="container">
-  
-  </div>
+    <div class="row">
+  <div class="col-xs-16">
   <a class="carousel-control left" href="#carousel-{{ slider.title|replace({' ': '-', 'é':'e'})|lower }}" data-slide="prev">&lsaquo;</a>
   <a class="carousel-control right" href="#carousel-{{ slider.title|replace({' ': '-', 'é':'e'})|lower }}" data-slide="next">&rsaquo;</a>
+</div>
+</div>
+ </div>
   <div class="carousel-inner">
 
   {#% if slider.id is defined and slider.id == 3772205 %}

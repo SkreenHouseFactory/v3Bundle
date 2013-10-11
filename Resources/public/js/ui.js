@@ -450,25 +450,7 @@ UI = {
       }
       this.appendNotifications(notifications,list,true);
 
-    /*  $('.notifications .label.filter').remove();
-      $('.notifications .notification-filter').append('<a class="label label-info filter" data-filter="all">Tout</a>');
-      
-      if ($('li.tv-component.plays.broadcast,li.tv-component.broadcasts.broadcast').length) {
-        $('.notifications .notification-filter').append('<a class="label filter" data-filter="tv">TV</a>');
-      }
-      if ($('li.tv-component.plays.catchup,li.tv-component.plays.webcast').length) {
-        $('.notifications .notification-filter').append('<a class="label filter" data-filter="replay">Replay</a>');
-      }
-      if ($('.tv-component.plays.dvd, li.tv-component.plays.location.48h, li.tv-component.plays.achat').length){
-         $('.notifications .notification-filter').append('<a class="label filter" data-filter="vod">VOD</a>');
-      }
-      if ($('.tv-component.theaters').length){
-         $('.notifications .notification-filter').append('<a class="label filter" data-filter="theaters">Ciné</a>');
-      }
-      if ($('.tv-component.chaîne').length){
-         $('.notifications .notification-filter').append('<a class="label filter" data-filter="chaîne">Chaînes</a>');
-      } 
-     */
+      //filter notifs
       $('.notifications .label.filter').on('click', function(e){
         e.preventDefault();
         e.stopPropagation();
@@ -478,25 +460,23 @@ UI = {
         
         if($(this).data('reload-notif') != "done"){
           Skhf.session.sync(function(data){
-                              console.log('reload datas notifications filter',data.notifications);
-                              global.appendNotifications(data.notifications,list,false);
-                              global.notificationsFilter(self);
-                              self.attr('data-reload-notif','done');
-                          }
-                    ,{ with_notifications : self.data('filter')}
-                    );
-        }
-        else{
-            global.notificationsFilter(self);                
+            console.log('reload datas notifications filter',data.notifications);
+            global.appendNotifications(data.notifications,list,false);
+            global.notificationsFilter(self);
+            self.attr('data-reload-notif','done');
+          },{
+            with_notifications : self.data('filter')
+          });
+        } else {
+          global.notificationsFilter(self);                
         }
 
         return false;
       });
-     
-      
-      
+
       //TOFIX : should be working in script/core/ui.js
       UiView.initDataLive(list);
+
       //new
       if (nb_new > 0) {
         var nb = nb_new >= this.max_notifications ? nb_new + '+' : nb_new;
@@ -505,6 +485,7 @@ UI = {
 
         if (current_last_notification != this.last_notification) {
           API.cookie('last_notification', this.last_notification);
+          //notification HTML5
           if (nb_new == 1) {
             API.notification('mySkreen', 'Vous avez ' + nb_new + ' nouvelle notification');
           } else {
@@ -984,7 +965,7 @@ UI = {
       function(data) {
        
         console.log('UI.typeahead', query, data);
-        if (data.channels || data.theaters || data.programs || data.persons || data.queue || data.categories) {
+        if (data.channels || data.theaters || data.programs || data.persons || data.queue || data.categories || data.sagas) {
           var lis = new Array;
           var titles = new Array;
           typeahead.query = typeahead.$element.val();
@@ -1003,6 +984,10 @@ UI = {
               case 'channels':
                 var items = data[key];
                 titles[key] = 'Chaînes';
+                break;
+              case 'sagas':
+                var items = data[key];
+                titles[key] = 'Sagas';
                 break;
               case 'theaters':
                 var items = data[key];
@@ -1036,42 +1021,41 @@ UI = {
                      .html((item.picture ? '<img src="' + item.picture + '" /> ' : '') + typeahead.highlighter(item.title))
                     break;
                   case 'theaters':
-                    i.addClass('theater actions')
+                    i.addClass('theater')
                      .css('overflow','hidden')
                      .prepend(btn.clone().addClass('fav-theater'))
                      .find('a')
                      .html(typeahead.highlighter(item.name + (item.ville ? ' (' + item.ville + ')' : '')))
                     break;
                   case 'channels':
-                    i.addClass('channel actions')
+                    i.addClass('channel')
                      .css('overflow','hidden')
                      .prepend(btn.clone().addClass('fav-channel').attr('data-channel-name', item.name))
                      .find('a')
                      .html((item.icon ? '<img src="' + item.icon + '" /> ' : '') + typeahead.highlighter(item.name))
                     break;
-                    /*case 'real-channels':
-                    i.addClass('program actions')
+                  case 'sagas':
+                    i.addClass('saga')
                      .css('overflow','hidden')
-                     .prepend(btn.addClass('fav-like'))
                      .find('a')
                      .html(typeahead.highlighter(item.name))
-                    break;*/
+                    break;
                   case 'programs':
-                    i.addClass('program actions')
+                    i.addClass('program')
                       .css('overflow','hidden')
                      .prepend(btn.clone().addClass('fav-program'))
                      .find('a')
                      .html(typeahead.highlighter(item.name))
                     break;
                   case 'persons':
-                    i.addClass('person actions')
+                    i.addClass('person')
                      .css('overflow','hidden')
                      .prepend(btn.clone().addClass('fav-person'))
                      .find('a')
                      .html(typeahead.highlighter(item.name))
                     break;
                   case 'categories':
-                    i.addClass('category actions')
+                    i.addClass('category')
                      .css('overflow','hidden')
                      .find('a')
                      .html(typeahead.highlighter(item.name))
@@ -1087,7 +1071,7 @@ UI = {
 
           //data.first().addClass('active')
           //var sort = Array('channels','theaters','real-channels','programs','persons','categories','queue');
-          var sort = Array('channels','programs','persons','theaters','categories','queue');
+          var sort = Array('channels','programs','sagas','persons','theaters','categories','queue');
           for (key in sort) {
             if (lis[sort[key]]) {
               //console.log('UI.typeahead', key, data[key], typeahead.$menu);
