@@ -460,16 +460,15 @@ UI = {
         
         if($(this).data('reload-notif') != "done"){
           Skhf.session.sync(function(data){
-                              console.log('reload datas notifications filter',data.notifications);
-                              global.appendNotifications(data.notifications,list,false);
-                              global.notificationsFilter(self);
-                              self.attr('data-reload-notif','done');
-                          }
-                    ,{ with_notifications : self.data('filter')}
-                    );
-        }
-        else{
-            global.notificationsFilter(self);                
+            console.log('reload datas notifications filter',data.notifications);
+            global.appendNotifications(data.notifications,list,false);
+            global.notificationsFilter(self);
+            self.attr('data-reload-notif','done');
+          },{
+            with_notifications : self.data('filter')
+          });
+        } else {
+          global.notificationsFilter(self);                
         }
 
         return false;
@@ -486,6 +485,7 @@ UI = {
 
         if (current_last_notification != this.last_notification) {
           API.cookie('last_notification', this.last_notification);
+          //notification HTML5
           if (nb_new == 1) {
             API.notification('mySkreen', 'Vous avez ' + nb_new + ' nouvelle notification');
           } else {
