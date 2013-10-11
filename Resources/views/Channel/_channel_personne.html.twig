@@ -3,7 +3,8 @@
   <h2>Sa filmographie{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
 
 
-  <p id="description-seo">{{ data.description|raw }}</p>
+  <p id="description-seo">  {% if data.description is defined %} {{ data.description|raw }}  {% endif %}
+</p>
 
   {% if data.programs|length == 30 or app.request.get('page') > 1 %}
   <ul class="pager">
