@@ -50,7 +50,7 @@
 <div id="view-home">
   {% for slider in home.sliders|to_array if slider.id is defined %}
     {% if loop.first %}
-      <div class="description">
+      <div id="description-seo">
         <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1> 
         {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
         {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
