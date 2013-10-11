@@ -450,25 +450,7 @@ UI = {
       }
       this.appendNotifications(notifications,list,true);
 
-    /*  $('.notifications .label.filter').remove();
-      $('.notifications .notification-filter').append('<a class="label label-info filter" data-filter="all">Tout</a>');
-      
-      if ($('li.tv-component.plays.broadcast,li.tv-component.broadcasts.broadcast').length) {
-        $('.notifications .notification-filter').append('<a class="label filter" data-filter="tv">TV</a>');
-      }
-      if ($('li.tv-component.plays.catchup,li.tv-component.plays.webcast').length) {
-        $('.notifications .notification-filter').append('<a class="label filter" data-filter="replay">Replay</a>');
-      }
-      if ($('.tv-component.plays.dvd, li.tv-component.plays.location.48h, li.tv-component.plays.achat').length){
-         $('.notifications .notification-filter').append('<a class="label filter" data-filter="vod">VOD</a>');
-      }
-      if ($('.tv-component.theaters').length){
-         $('.notifications .notification-filter').append('<a class="label filter" data-filter="theaters">Ciné</a>');
-      }
-      if ($('.tv-component.chaîne').length){
-         $('.notifications .notification-filter').append('<a class="label filter" data-filter="chaîne">Chaînes</a>');
-      } 
-     */
+      //filter notifs
       $('.notifications .label.filter').on('click', function(e){
         e.preventDefault();
         e.stopPropagation();
@@ -492,11 +474,10 @@ UI = {
 
         return false;
       });
-     
-      
-      
+
       //TOFIX : should be working in script/core/ui.js
       UiView.initDataLive(list);
+
       //new
       if (nb_new > 0) {
         var nb = nb_new >= this.max_notifications ? nb_new + '+' : nb_new;
