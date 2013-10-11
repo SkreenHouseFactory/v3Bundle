@@ -11,7 +11,7 @@
             <div id="player" class="pull-left" data-player="init" style="width:530px;height:280px;"></div>
             <ul id="player-playlist">
               {% for program in programs|to_array %}
-              <li><a{% if loop.first %} data-autoplay="{{ program.teaser ? program.teaser.id : '' }}"{% endif %} data-play="{{ program.teaser ? program.teaser.id : '' }}" data-play-args="{{ {player_width: 530, player_height: 280, current_player: '#player', 'noControls': true}|json_encode }}" data-playlist="#playlist" data-duration="{{ attribute(durations, program.id) }}">{{ program.title }}</a></li>
+              <li><a{% if loop.first %} data-autoplay="{{ program.teaser ? program.teaser.id : '' }}"{% endif %} data-play="{{ program.teaser ? program.teaser.id : '' }}" data-play-args="{{ {player_width: 530, player_height: 280, current_player: '#player', 'noControls': true}|json_encode }}" data-playlist="#player-playlist" data-duration="{{ attribute(durations, program.id) }}">{{ program.title }}</a></li>
               {% endfor %}
             </ul>
           </div>

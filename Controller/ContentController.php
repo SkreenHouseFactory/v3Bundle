@@ -169,19 +169,11 @@ class ContentController extends Controller
       $this->blockDomain($request);
       $api   = $this->get('api');
       $data = $api->fetch('www/slider/pack/'.$request->get('id'), array(
-        'with_live'  => !$request->get('format') && !$request->get('page') ? true : false,
-        'with_next_live' => !$request->get('format') && !$request->get('page') ? true : false,
         'with_description'  => true,
         'channel_img_width' => 60,
         'channel_img_height' => 60,
         'img_width' => 150,
         'img_height' => 200,
-        'live_img_width' => 150,
-        'live_img_height' => 200,
-        'slider_img_width'  => 900,
-        'slider_img_height' => 300,
-        'live_player_width' => 450,
-        'live_player_height' => 300,
         'with_onglet'  => true,
         'with_programs' => true,
         'img_width' => 150,

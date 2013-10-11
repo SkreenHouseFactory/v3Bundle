@@ -965,7 +965,7 @@ UI = {
       function(data) {
        
         console.log('UI.typeahead', query, data);
-        if (data.channels || data.theaters || data.programs || data.persons || data.queue || data.categories) {
+        if (data.channels || data.theaters || data.programs || data.persons || data.queue || data.categories || data.sagas) {
           var lis = new Array;
           var titles = new Array;
           typeahead.query = typeahead.$element.val();
@@ -984,6 +984,10 @@ UI = {
               case 'channels':
                 var items = data[key];
                 titles[key] = 'Chaînes';
+                break;
+              case 'sagas':
+                var items = data[key];
+                titles[key] = 'Sagas';
                 break;
               case 'theaters':
                 var items = data[key];
@@ -1017,42 +1021,41 @@ UI = {
                      .html((item.picture ? '<img src="' + item.picture + '" /> ' : '') + typeahead.highlighter(item.title))
                     break;
                   case 'theaters':
-                    i.addClass('theater actions')
+                    i.addClass('theater')
                      .css('overflow','hidden')
                      .prepend(btn.clone().addClass('fav-theater'))
                      .find('a')
                      .html(typeahead.highlighter(item.name + (item.ville ? ' (' + item.ville + ')' : '')))
                     break;
                   case 'channels':
-                    i.addClass('channel actions')
+                    i.addClass('channel')
                      .css('overflow','hidden')
                      .prepend(btn.clone().addClass('fav-channel').attr('data-channel-name', item.name))
                      .find('a')
                      .html((item.icon ? '<img src="' + item.icon + '" /> ' : '') + typeahead.highlighter(item.name))
                     break;
-                    /*case 'real-channels':
-                    i.addClass('program actions')
+                  case 'sagas':
+                    i.addClass('saga')
                      .css('overflow','hidden')
-                     .prepend(btn.addClass('fav-like'))
                      .find('a')
                      .html(typeahead.highlighter(item.name))
-                    break;*/
+                    break;
                   case 'programs':
-                    i.addClass('program actions')
+                    i.addClass('program')
                       .css('overflow','hidden')
                      .prepend(btn.clone().addClass('fav-program'))
                      .find('a')
                      .html(typeahead.highlighter(item.name))
                     break;
                   case 'persons':
-                    i.addClass('person actions')
+                    i.addClass('person')
                      .css('overflow','hidden')
                      .prepend(btn.clone().addClass('fav-person'))
                      .find('a')
                      .html(typeahead.highlighter(item.name))
                     break;
                   case 'categories':
-                    i.addClass('category actions')
+                    i.addClass('category')
                      .css('overflow','hidden')
                      .find('a')
                      .html(typeahead.highlighter(item.name))
@@ -1068,7 +1071,7 @@ UI = {
 
           //data.first().addClass('active')
           //var sort = Array('channels','theaters','real-channels','programs','persons','categories','queue');
-          var sort = Array('channels','programs','persons','theaters','categories','queue');
+          var sort = Array('channels','programs','sagas','persons','theaters','categories','queue');
           for (key in sort) {
             if (lis[sort[key]]) {
               //console.log('UI.typeahead', key, data[key], typeahead.$menu);
