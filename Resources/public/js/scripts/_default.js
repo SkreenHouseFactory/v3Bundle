@@ -221,9 +221,8 @@ $(document).ready(function(){
 }
   
   //alert nouveau visiteur
-  
-   if(!$.cookie('myskreen_new')){
-    $('#main .help-sprite-ms_btn_help').trigger('click');
+  if(!$.cookie('myskreen_new')){
+    //$('#main .help-sprite-ms_btn_help').trigger('click');
   }
   $('#main .help-sprite-ms_btn_close').on('click', function(){
     API.cookie('new','true');

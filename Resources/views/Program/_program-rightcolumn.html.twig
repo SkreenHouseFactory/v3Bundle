@@ -81,11 +81,11 @@
 </div>
 
 {# categories #}
-{% if program.format and program.categories|length | to_array %}
+{% if program.format and program.categories|length|to_array %}
 <br/>
-{% for c in program.categories | to_array  if c.seo_url is defined  %}<div class="inline" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ c.name }}</span></a></div>&nbsp;{% endfor %}
+{% for c in program.categories|to_array if c.seo_url is defined  %}<div class="inline" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ c.name }}</span></a></div>&nbsp;{% endfor %}
 <br/>
 {% endif %}
 {% if program.format and program.subcategories|to_array|length %}
-{% for c in program.subcategories | to_array  %}<div class="inline" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" class="label label-default"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}"><span itemprop="title">{{ c.name }}</span></a></div>&nbsp;{% endfor %}
+{% for c in program.subcategories|to_array if c.seo_url is defined %}<div class="inline" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" class="label label-default"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}"><span itemprop="title">{{ c.name }}</span></a></div>&nbsp;{% endfor %}
 {% endif %}
