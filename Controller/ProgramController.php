@@ -129,7 +129,14 @@ class ProgramController extends Controller
           //'filter_casting' => true,
           //'player' => 'flash'
         ));
-        //print("<pre>");print_r($data);exit();
+
+        //hack bug API renvoie rien
+        if (!is_object($data)) {
+          if ($this->get('kernel')->getEnvironment() == 'dev') {
+            print("<pre style='position:absolute;'>NON OBJECT RESPONSE");print_r($data);print("</pre>");exit();
+          }
+          return $this->programAction($request);
+        }
 
         //echo $api->url;exit;
         if ($this->get('kernel')->getEnvironment() == 'dev' && 
