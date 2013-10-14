@@ -6,14 +6,12 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
   <title>{% block title endblock %} | {{ 'service.name'|trans }}</title>
   <meta name="description" content="{% block description %}{% endblock %}">
   <meta name="author" content="mySkreen">
   <meta name="language" content="fr-FR" />
   <meta name="viewport" content="width=device-width">
   <meta name="robots" content="noindex,nofollow">
-
   {% stylesheets
       '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
         filter='less,?yui_css'
@@ -33,85 +31,13 @@
   {% include 'SkreenHouseFactoryV3Bundle::_chartbeat.html.twig' %}
 {% endif %}
 
-{# beead #}
-{% javascripts
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.8.3.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*'
-    filter='?yui_js' 
-    output='js/compiled/v3-redirect.js'  %}
-    <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-<script src="http://www.beead.fr/scripts/api/beead_apiV4.js"></script>
 <script>
-  BeeadAds.init({pid:2751,
-                jsCallback: "beeadCallbackSuccess", 
-                noPubCallback: "beeadCallbackEmpty", 
-                onCloseCallback: "beeadCallbackSuccess"});
-
-API.init();
-
 function ad() {
   setTimeout(function() {
-    document.location= "{{ url|raw }}";
-  }, 4000)
+    document.location = "{{ url|raw }}";
+  }, {{ app.request.get('timeout', 3000) }})
   return false;
 }
-
-
-/*****
-function beeadCallbackSuccess() {
-  _gaq.push(['_trackEvent', 
-            'beead', 
-            'beead-redirect-completed', 
-            document.location.pathname]);
-  setTimeout(function() {
-    document.location= '{{ url }}';
-  }, 4000);
-}
-function beeadCallbackEmpty(){
-  _gaq.push(['_trackEvent', 
-      'beead', 
-      'beead-redirect-ploof', 
-      document.location.pathname]);
-  setTimeout(function() {
-    document.location= '{{ url }}';
-  }, 4000)
-}
-
-function ad() {
-  _gaq.push(['_trackEvent', 
-            'beead', 
-            'beead-called', 
-            document.location.pathname]);
-
-  var cookie = API.cookie('ad');
-  if ((document.referrer && document.referrer.match(/myskreen/) == null) || 
-      (cookie && cookie != null)) {
-    console.log('BeeAd', 'disabled');
-    _gaq.push(['_trackEvent', 
-              'beead', 
-              'beead-has-cookie', 
-              document.location.pathname]);
-    setTimeout(function() {
-      document.location= '{{ url }}';
-    }, 4000);
-  
-  } else {
-    console.log('BeeAd', 'enabled');
-
-    var date = new Date();
-    date.setTime(date.getTime() + (12 * 3600 * 1000));
-    API.cookie('ad', 'hascookie',  date);
-    console.log('setCookie', date);
-    BeeadAds.gateway();
-    _gaq.push(['_trackEvent', 
-              'beead', 
-              'beead-redirect-displayed', 
-              document.location.pathname]);
-  }
-}
-*/  </script>
+</script>
 </body>
 </html>
