@@ -32,7 +32,7 @@ class ApiManager
     } else {
       $this->host = 'http://api.myskreen.com';
     }
-    
+
     return $this->host.'/api/' . $version . '/';
   }
 
