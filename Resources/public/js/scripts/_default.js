@@ -203,7 +203,7 @@ $(document).ready(function(){
 
 
 /* END */
-  if( $('#channel60').length == 0){
+  if( $('#channel60').length == 0 && !$('#program-modal').length){
   //-- Script  pour le helper première visite
   $('.help-sprite.help-sprite-ms_btn_help').on('click', function () {
     $(this).toggleClass('help-sprite-ms_btn_help');
