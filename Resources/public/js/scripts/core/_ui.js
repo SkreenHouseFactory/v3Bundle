@@ -206,6 +206,8 @@ UiView = {
       }
       $('.is-playing').removeClass('is-playing');
       $(this).addClass('is-playing');
+      $('.is-playing > .btn').addClass('disabled');
+      $('.is-playing > .btn').html('Lecture en cours');
       //console.log('UiView.initDataLive', '[data-play] play-pass', $(this).data('play-pass'));
       API.play($(this).data('play'), $(this).data('play-args'), $(this).data('play-pass'));
       if ($(this).data('playlist')) {
