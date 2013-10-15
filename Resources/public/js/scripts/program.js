@@ -382,9 +382,25 @@ $(document).ready(function(){
       $('.actors_entrop').toggleClass('hide');
     });  
   }
+  //Scroll to player quand on est sur un Touch device
+  $('html.touch tr[data-play]').on('click', function () {
+    $('html,body').animate({'scrollTop' : 0},1000);
+  });  
+
+  $(document).on('click', '[data-play]', function(){
+    //remove
+    $('.is-playing').each(function(){
+      $(this).removeClass('is-playing');
+      var btn = $('.btn', $(this));
+      btn.removeClass('disabled');
+      btn.html(btn.data('text-save'));
+    });
+    //Add
+    $(this).addClass('is-playing');
+    var btn = $('.is-playing .btn');
+    btn.addClass('disabled');
+    btn.data('text-save', btn.html());
+    btn.html('Lecture en cours');
+  });
 });
 
-//Scroll to player quand on est sur un Touch device
-$('html.touch tr[data-play]').on('click', function () {
-  $('html,body').animate({'scrollTop' : 0},1000);
-});  

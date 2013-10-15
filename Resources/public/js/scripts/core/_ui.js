@@ -204,8 +204,9 @@ UiView = {
         console.log('script', 'data-play', 'Pause current player');
         Player.pause();
       }
-      $('.is-playing').removeClass('is-playing');
-      $(this).addClass('is-playing');
+
+  
+      
       //console.log('UiView.initDataLive', '[data-play] play-pass', $(this).data('play-pass'));
       API.play($(this).data('play'), $(this).data('play-args'), $(this).data('play-pass'));
       if ($(this).data('playlist')) {
@@ -285,6 +286,9 @@ UiView = {
       $(this).html($(this).data('toggle-text'));
       $(this).data('toggle-text', html);
     });
+
+
+
     // -- remote data in html elmt
     $(elmt).on('click', '[data-ajax]', function(e){
       var trigger = $(this); 
