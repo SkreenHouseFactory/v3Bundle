@@ -151,11 +151,9 @@
 {% block header_filters %}
 {% endblock %}
 
-<div>
   <div id="footer">
     {% render(controller('SkreenHouseFactoryV3Bundle:Main:footer', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route')})) %}
   </div>
-</div>
 {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
 {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
 <div id="fb-root"></div>
