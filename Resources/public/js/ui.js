@@ -36,6 +36,14 @@ UI = {
     
   //auth
   auth: function(callback, parcours) {
+    // si connecté, on execute directement le callback
+    if( Skhf.session.datas.email ){
+      if (typeof callback != 'undefined') {
+        console.log('UI.auth', 'UI.callbackModal set', callback);
+        callback();
+      }
+      return;
+    }
       //fbconnect ne passe pas par le callback !
       if (typeof callback != 'undefined') {
         console.log('UI.auth', 'UI.callbackModal set', callback);
