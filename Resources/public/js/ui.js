@@ -328,7 +328,8 @@ UI = {
             self.loadAlertUser(
               'Bravo ! vous avez commencé vos playlists !',
               'Gérez les ici !',
-              6000
+              6000,
+              '.user-on.playlists'
             );
           }
         }
