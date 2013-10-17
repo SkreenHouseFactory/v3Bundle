@@ -340,9 +340,9 @@ class ProgramController extends Controller
           $data->related['chaines']->programs[0] = $p;
         }
 
-        if (strstr($data->title, ' - ')) {
+       /* if (strstr($data->title, ' - ')) {
           list($_, $data->episode_title) = explode(' - ', $data->title);
-        }
+        }*/
 
         //footer
         list($_, $format, $__) = explode('/', $data->seo_url);
