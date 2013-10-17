@@ -20,7 +20,7 @@
       <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}  
 </head>
-<body class="exit" onload="ad();">
+<body class="exit{{ app.request.get('timeout') == 1 ? ' hide' : '' }}" onload="ad();">
 
 {% block content %}
 {% endblock %}
