@@ -13,7 +13,7 @@ window.onload = function(){
   var trigger = document.getElementById('trigger');
   var covers = document.getElementsByClassName('player-cover');
   var params = JSON.parse(trigger.getAttribute('data-play-embed'));
-  console.log('covers', covers, 'params', params);
+  //console.log('covers', covers, 'params', params);
   trigger.onclick = function(){
     //hide cover
     for (i=0;i<covers.length;i++) {
@@ -25,7 +25,7 @@ window.onload = function(){
   }
 
   if (navigator.userAgent.match(/iPhone|iPod|iPad|Android/gi)) {
-    console.log(['scripts/embed.js', 'iPhone|iPod|iPad|Android', 'default click']);
+    //console.log(['scripts/embed.js', 'iPhone|iPod|iPad|Android', 'default click']);
     trigger.click();
   }
 }
