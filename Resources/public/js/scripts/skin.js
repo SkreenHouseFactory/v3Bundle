@@ -1,5 +1,6 @@
 $(document).ready(function(){
-  Skin_malavita.initHome();
+ Skin_malavita.initHome();
+ // Skin_cut.initHome();
 
 });
 
@@ -14,9 +15,11 @@ Skin_malavita = {
       $('#view-home').css('background-repeat','no-repeat');         
       $('#view-home').css('background-position','center top');   
       $('.absolute').addClass('hide');
-      $('#view-home').prepend('<a class="background">');
-      $('#view-home').append('</a>');
+      $('#view-home').prepend('<a class="background"></a>');
       $('#view-home .background').attr("href","http://www.myskreen.com/malavita/");
+      $( ".carousel-caption > p > a:contains('Malavita'), .carousel-caption > p:contains('111mn')").hide();  
+    }
+     if( $('body').hasClass('home')) {
       $( ".carousel-caption > p > a:contains('Malavita'), .carousel-caption > p:contains('111mn')").hide();  
     }
   }
@@ -24,6 +27,28 @@ Skin_malavita = {
 
 
 
+var Skin_cut;
+Skin_cut = {
+  initHome: function() {  
+    if( $('body').hasClass('home-cinema')) {
+      $('#view-home').css('background-image','url("http://mskstatic.com/medias/ftp/home-cinema/cut/background.jpg")');
+      $('#view-home').css('background-repeat','no-repeat');         
+      $('#view-home').css('background-position','center top');   
+      $('.absolute').addClass('hide');
+      $('#view-home').prepend('<a class="background"></a>');
+      $('#view-home .background').attr("href","http://www.myskreen.com/cut/");
+      $( ".carousel-caption > p > a:contains('Cut'), .carousel-caption > p:contains('########')").hide();  
+    }
+     if( $('body').hasClass('home')) {
+      $('#view-home').css('background-image','url("http://mskstatic.com/medias/ftp/home-cinema/cut/background.jpg")');
+      $('#view-home').css('background-repeat','no-repeat');         
+      $('#view-home').css('background-position','center top');   
+      $('.absolute').addClass('hide');
+      $('#view-home').prepend('<a class="background"></a>');
+      $('#view-home .background').attr("href","http://www.myskreen.com/cut/");
+      $( ".carousel-caption > p > a:contains('Cut'), .carousel-caption > p:contains('########')").hide();      }
+    }
+}
 
 
 
