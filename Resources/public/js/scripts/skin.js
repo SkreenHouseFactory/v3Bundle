@@ -1,5 +1,5 @@
 $(document).ready(function(){
- Skin_malavita.initHome();
+// Skin_malavita.initHome();
  // Skin_cut.initHome();
 
 });
