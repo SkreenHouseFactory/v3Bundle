@@ -17,7 +17,7 @@ Skin_malavita = {
       $('#view-home').prepend('<a class="background">');
       $('#view-home').append('</a>');
       $('#view-home .background').attr("href","http://www.myskreen.com/malavita/");
-      $( ".carousel-caption > p > a:contains('Prisoners'), .carousel-caption > p:contains('146mn')").hide();  
+      $( ".carousel-caption > p > a:contains('Malavita'), .carousel-caption > p:contains('111mn')").hide();  
     }
   }
 }
