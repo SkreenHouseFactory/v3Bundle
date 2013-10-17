@@ -1,3 +1,6 @@
+@malavita55:#C13221;
+@cut62: #2C2F38;
+
 #cover{
   &.cover42{
      height: 850px;
@@ -87,25 +90,51 @@
     }
   }
 .channel55{
+    .social{
+      .social-suggestion{
+        background:@malavita55;
+      }
+      .wrap-tab{
+        background:@malavita55;
+      }
+      .nav-tabs{
+        >li{
+          >a{
+             &:hover{
+               background: lighten(@malavita55,10%);
+          }
+        }
+      }
+        >li{
+          &.active{
+          i{
+            color:@malavita55;
+          }
+        }
+      }
+    }
+  }
+}
+.channel62{
   .social{
     .social-suggestion{
-      background:#C13221;
+      background:@cut62;
     }
     .wrap-tab{
-      background:#C13221;
+      background:@cut62;
     }
     .nav-tabs{
       >li{
         >a{
            &:hover{
-             background: #EB513F;
+             background: lighten(@cut62,10%);
         }
       }
     }
       >li{
         &.active{
         i{
-          color:#C13221;
+          color:@cut62;
         }
       }
     }
@@ -199,7 +228,7 @@
 		height: 100px;
 		margin-left: -470px;
 		position: absolute;
-		top: 350px;
+		top: 340px;
 		width: 940px;
 		background: none repeat scroll 0 0 rgba(0, 0, 0, 0.65);
 	}

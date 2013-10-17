@@ -24,7 +24,7 @@
         </div>
         {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'suivre-btn', fav: 'person' } %}
 
-        <p class="lead channel-description">Bienvenue sur la chaîne des Inconnus ! Retrouvez en exclusivité les nouvelles vidéos des Inconnus... Et bien plus encore !</p>
+        {% if channel.description is defined %}<p class="lead channel-description">{{channel.description}}</p> {% endif %}
 
 
       </div> 

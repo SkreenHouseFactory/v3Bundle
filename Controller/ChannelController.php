@@ -334,6 +334,18 @@ class ChannelController extends Controller
     
     return $response; 
   }
+  public function header62Action($data,$from_selection,$channel,$fav,$trigger_fav){
+
+    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-62.html.twig', array(
+      'data' => $data,
+      'fav' => $fav,
+      'trigger_fav'=> $trigger_fav,
+      'channel'=> $channel,
+      'from_selection' => $from_selection
+    ));
+    
+    return $response; 
+  }
     public function header1Action($data,$from_selection,$channel,$fav,$trigger_fav){
 
     $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-1.html.twig', array(

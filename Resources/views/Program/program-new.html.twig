@@ -231,19 +231,19 @@ en Streaming
               {% if program.episode_title is defined and
               program.episodeof is defined and
               program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
-              <h1 itemprop="name">
-                {{ program.episode_title }}
-                {% if program.popular_channel is defined %}
-                <span>{{ program.popular_channel.name }}</span>
-                {% endif %}
-              </h1>
+                <h1 itemprop="name">
+                  {{ program.episode_title }}
+                  {% if program.popular_channel is defined %}
+                  <span>{{ program.popular_channel.name }}</span>
+                  {% endif %}
+                </h1>
               {% elseif program.episode_title is defined and
               program.episodeof is defined %}
-              {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
-              <h1 itemprop="name">{{ program.episodeof.title }}
-              </h1>
+                <h1 itemprop="name">
+                  {{ program.episodeof.title }}
+                </h1>
               {% else %}
-              <h1 itemprop="name">{{ program.title }} </h1>
+                <h1 itemprop="name">{{ program.title }} </h1>
               {% endif %}
             </div>
             <div class="col-xs-4 suivre"  style="padding:0;">
@@ -255,10 +255,12 @@ en Streaming
             <div class="col-xs-16 videotitle"  style="padding:0;" itemscope itemtype="http://schema.org/Movie">
               {% if program.episode_title is defined and
               program.episodeof is defined %}
-              {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
-              <h1 itemprop="name">
-                <span>{% if episode_title and program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}{{ episode_title }} : {% endif %}{{ program.episode_title }}</span>
-              </h1>
+              
+                {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+                <h1 itemprop="name">
+                  <span>{% if episode_title and program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}{{ episode_title }} : {% endif %}{{ program.episode_title }}</span>
+                </h1>
+                
               {% endif %}
             </div>
             
