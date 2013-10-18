@@ -1,7 +1,6 @@
 $(document).ready(function(){
-// Skin_malavita.initHome();
- // Skin_cut.initHome();
-
+   Skin_malavita.initHome();
+   Skin_cut.initHome();
 });
 
 
@@ -15,8 +14,8 @@ Skin_malavita = {
       $('#view-home').css('background-repeat','no-repeat');         
       $('#view-home').css('background-position','center top');   
       $('.absolute').addClass('hide');
-      $('#view-home').prepend('<a class="background"></a>');
-      $('#view-home .background').attr("href","http://www.myskreen.com/malavita/");
+      $('#view-home').prepend('<a class="background-clickable"></a>');
+      $('#view-home .background-clickable').attr("href","http://www.myskreen.com/malavita/");
       $( ".carousel-caption > p > a:contains('Malavita'), .carousel-caption > p:contains('111mn')").hide();  
     }
      if( $('body').hasClass('home')) {
@@ -30,23 +29,23 @@ Skin_malavita = {
 var Skin_cut;
 Skin_cut = {
   initHome: function() {  
-    if( $('body').hasClass('home-cinema')) {
+    if( $('body').hasClass('home-video-a-la-demande')) {
       $('#view-home').css('background-image','url("http://mskstatic.com/medias/ftp/home-cinema/cut/background.jpg")');
       $('#view-home').css('background-repeat','no-repeat');         
       $('#view-home').css('background-position','center top');   
       $('.absolute').addClass('hide');
-      $('#view-home').prepend('<a class="background"></a>');
-      $('#view-home .background').attr("href","http://www.myskreen.com/cut/");
-      $( ".carousel-caption > p > a:contains('Cut'), .carousel-caption > p:contains('########')").hide();  
+      $('#view-home').prepend('<a class="background-clickable"></a>');
+      $('#view-home .background-clickable').attr("href","http://www.myskreen.com/cut/");
+      $( ".carousel-caption > p > a:contains('Cut'), .carousel-caption > p:contains('36min')").hide();  
     }
      if( $('body').hasClass('home')) {
       $('#view-home').css('background-image','url("http://mskstatic.com/medias/ftp/home-cinema/cut/background.jpg")');
       $('#view-home').css('background-repeat','no-repeat');         
       $('#view-home').css('background-position','center top');   
       $('.absolute').addClass('hide');
-      $('#view-home').prepend('<a class="background"></a>');
-      $('#view-home .background').attr("href","http://www.myskreen.com/cut/");
-      $( ".carousel-caption > p > a:contains('Cut'), .carousel-caption > p:contains('########')").hide();      }
+      $('#view-home').prepend('<a class="background-clickable"></a>');
+      $('#view-home .background-clickable').attr("href","http://www.myskreen.com/cut/");
+      $( ".carousel-caption > p > a:contains('Cut'), .carousel-caption > p:contains('36min')").hide();      }
     }
 }
 

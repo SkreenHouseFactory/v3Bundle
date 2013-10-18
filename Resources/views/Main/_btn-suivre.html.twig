@@ -1,2 +1,2 @@
 <a data-id="{{ id }}" rel="popover" {% if name is defined %} data-channel-name="{{ name }}"{% endif%}{% if fav is defined %} data-playlist="{{ fav }}"{% endif%}{% if remove is defined %} data-remove="{{ remove }}"{% endif%}
-data-placement="{{ placement is defined ? placement : 'left' }}" class="btn btn-suivre{% if fav is defined %} fav fav-{{ fav }}{% endif%}{% if class is defined %} {{ class }}{% endif %}">{{ text is defined ? text : ' Suivre' }} </a>
+data-placement="{{ placement is defined ? placement : 'left' }}" class="btn btn-suivre btn-plus{% if fav is defined %} fav fav-{{ fav }}{% endif%}{% if class is defined %} {{ class }}{% endif %}">{{ text is defined ? text : ' Suivre' }} </a>
