@@ -186,9 +186,9 @@ class ContentController extends Controller
         throw $this->createNotFoundException('Selection does not exist');
       }
       $data->programs = (array)$data->programs;
-      $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) ? $data->programs[0]->picture : null);
-
-      if ($request->get('partner')) {
+       $program = array_pop($data->programs) ;
+      $data->picture = str_replace('150/200', '240/320', isset($program) && is_object($program) ? $program->picture : null);
+        if ($request->get('partner')) {
         $response = $this->render('SkreenHouseFactoryPartnersBundle:'.$request->get('partner').':selection.html.twig', array(
           'selection' => $data
         ));
