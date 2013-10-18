@@ -181,31 +181,29 @@
          </ul>
          {% endif %}
 
-      {# map #}
-      {% if channel.adress is defined %}
-      <div id="map-container" class="well">
-        {% if channel.city is defined and channel.city %}
-        {{ channel.adress }}<br/>{{ channel.zip_code }} {{ channel.city }}
-        {% endif %}
-        {% if channel.tel %}tél : {{ channel.tel }}<br/>{% endif %}
-        {% if channel.web %}<a href="http://{{ channel.web }}" target="_blank">{{ channel.web }}</a>{% endif %}
-        <hr/>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-        <div id="map-canvas" data-name="{{ channel.name }}" data-adress="{{ channel.adress }} {{ channel.zip_code }} {{ channel.city }}"></div>
-      </div>
-      {% endif %}
-
       {# programs #}
       {% if channel.programs|length %}
       <div class="row{{ channel.type != 'cinema' ? ' clear' : '' }}">
-      <div class="col-xs-16">
-        <div id="channel-programs" class="slider slider-list{% if channel.adress is defined %} clear-cancel{% endif %} ms-margin-top-seo">
+        <div id="channel-programs" class="col-xs-11 slider slider-list{% if channel.adress is defined %} clear-cancel{% endif %} ms-margin-top-seo">
           <ul class="items">
             {% for program in channel.programs %}
             {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, theater_id: channel.type == 'cinema' ? channel.id : '' } %}
             {% endfor %}
           </ul>
-        </div></div>
+        </div>
+        {# map #}
+        {% if channel.adress is defined %}
+        <div id="map-container" class="well col-xs-4">
+          {% if channel.city is defined and channel.city %}
+          {{ channel.adress }}<br/>{{ channel.zip_code }} {{ channel.city }}
+          {% endif %}
+          {% if channel.tel %}tél : {{ channel.tel }}<br/>{% endif %}
+          {% if channel.web %}<a href="http://{{ channel.web }}" target="_blank">{{ channel.web }}</a>{% endif %}
+          <hr/>
+          <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+          <div id="map-canvas" data-name="{{ channel.name }}" data-adress="{{ channel.adress }} {{ channel.zip_code }} {{ channel.city }}"></div>
+        </div>
+        {% endif %}
       </div>
       {% else %}
       <div class="row">
