@@ -52,7 +52,6 @@ class ChannelController extends Controller
       //'with_prev_live' => true,
       'with_description'  => true,
       'channel_img_width' => 60,
-      'channel_img_height' => 60,
       'img_width' => 150,
       'img_height' => 200,
       'live_img_width' => 150,
