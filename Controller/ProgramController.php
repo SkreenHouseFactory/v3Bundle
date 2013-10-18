@@ -137,7 +137,7 @@ class ProgramController extends Controller
           return $this->programAction($request);
         }
 
-        //echo $api->url;exit;
+        echo $api->url;exit;
         if ($this->get('kernel')->getEnvironment() == 'dev' && 
             $request->get('debug')) {
           echo $api->url;
@@ -145,7 +145,7 @@ class ProgramController extends Controller
 
         //echo $request->attributes->get('_route');exit();
         //stop Adulte
-        if ($this->get('kernel')->getEnvironment() == 'prod' && (!$data || isset($data->error))) {
+        if (!$data || isset($data->error)) {
           switch ($request->attributes->get('_route')) {
             case 'program_pere':
               $response->headers->setCookie(new Cookie('myskreen_404', $request->getUri()), time()+3600);
@@ -175,7 +175,9 @@ class ProgramController extends Controller
         if ($request->get('season_number')) {
           foreach ($data->seasons as $s) {
             if ($s->number == $request->get('season_number')) {
-              return $this->redirect($s->episodes[0]->seo_url, 301);
+              foreach ($s->episodes as $episode) {
+                return $this->redirect($episode->seo_url, 301);
+              }
             }
           }
           if ($this->get('kernel')->getEnvironment() == 'dev') {

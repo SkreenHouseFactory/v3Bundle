@@ -254,6 +254,20 @@ program_v1:
         id: \d+
         slug: "[^/]+"
         rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine|avertir|undefined
+program_v1_hack_souscategorie:
+    pattern:  /{format}/{souscategorie}/{id}-{slug}/{rubrique}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program }
+    requirements:
+        id: \d+
+        slug: "[^/]+"
+        rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine|avertir|undefined
+program_v1_hack_doubleslash:
+    pattern:  /{format}/{souscategorie}/{idpere}-{slugpere}/{id}-{slug}//{rubrique}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program }
+    requirements:
+        id: \d+
+        slug: "[^/]+"
+        rubrique: seo|enligne|dvdbluray|bandeannonce|box|alatele|aucine|avertir|undefined
 program_v2_pere:
     pattern:  /{format}/{idpere}-{slugpere}/{id}-{slug}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program }
