@@ -13,7 +13,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
   <div id="description-seo">
   
     <h1>{{ data.name }}</h1>
-    {{ data.description|raw }}
+    {{ data.description is defined ? data.description|raw : '' }}
   </div>
   {% endif %}
 
