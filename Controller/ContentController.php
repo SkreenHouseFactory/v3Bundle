@@ -171,7 +171,6 @@ class ContentController extends Controller
       $data = $api->fetch('www/slider/pack/'.$request->get('id'), array(
         'with_description'  => true,
         'channel_img_width' => 60,
-        'channel_img_height' => 60,
         'img_width' => 150,
         'img_height' => 200,
         'with_onglet'  => true,
