@@ -221,7 +221,7 @@
               {% elseif o_access.name in ['TV'] %}
               <a class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier</a>
               {% else %}
-              <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;{{ o.cost ? 'Voir    ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }}</button>
+              <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;{% if key == "dvd"%} {{ o.cost ? 'Acheter    ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Acheter' }} {% else %}{{ o.cost ? 'Voir    ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }} {% endif %}</button>
               {% endif %}
               <br/>
               {% if o_access.name == 'TV' %}
