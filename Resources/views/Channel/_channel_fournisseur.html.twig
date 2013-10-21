@@ -11,9 +11,8 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
 
   {% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null  %}
   <div id="description-seo">
-  
     <h1>{{ data.name }}</h1>
-    {{ data.description is defined ? data.description|raw : '' }}
+    {{ channel.fournisseur.description is defined ? channel.fournisseur.description|raw : (data.description is defined ? data.description|raw : '') }}
   </div>
   {% endif %}
 
