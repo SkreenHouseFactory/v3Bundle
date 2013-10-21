@@ -54,7 +54,7 @@ UiView = {
         //pause du player (retait pour iphone)
         if (navigator.userAgent.match(/iPhone|iPod/)) {
           Player.pause();
-        } else if (typeof Skhf.Player != 'undefined') {
+        } else if (typeof Skhf.Player != 'undefined' && typeof Skhf.session.email != 'undefined') {
           Skhf.Player.pause(); 
         }
         //pause carousels
