@@ -90,7 +90,9 @@ class ChannelController extends Controller
     }
 
     //bad page
-    if ($request->get('page') && count((array)$data->programs) == 0) {
+    if ($request->get('page') 
+        && isset($data->programs) 
+        && count((array)$data->programs) == 0) {
       //return $this->redirect(str_replace('/page-'.$request->get('page'), '', $request->getPathInfo()), 301);
     
     //bad url
