@@ -42,7 +42,7 @@
   <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ person.seo_url, text: 'Je regarde tout ' ~ person.name ~ ' sur mySkreen et vous ?' } %}</div>#}
 
   
-  {% if person.programs|length == 30 or app.request.get('page') > 1 %}
+  {% if person.programs|length == 30 or (app.request.get('page') > 1 and person.programs|length > 0) %}
     {% include 'SkreenHouseFactoryV3Bundle:Content:_person-pager.html.twig' %}
   {% endif %}
 
@@ -60,7 +60,7 @@
   </div>
   {% endif %}
 
-  {% if person.programs|length == 30 or app.request.get('page') > 1 %}
+  {% if person.programs|length == 30 or (app.request.get('page') > 1 and person.programs|length > 0) %}
     {% include 'SkreenHouseFactoryV3Bundle:Content:_person-pager.html.twig' %}
   {% endif %}
 
