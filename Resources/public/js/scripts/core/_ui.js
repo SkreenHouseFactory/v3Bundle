@@ -198,41 +198,18 @@ UiView = {
     // -- modal
     this.initDataModalTriggers(elmt);
     // -- play deporte
-    $(elmt).on('click', '[data-play]', function(){
+    $(elmt).on('click', '[data-play],[data-play-api]', function(){
       console.log('script', 'data-play', $(this).data('play'), $(this).data('play-args'), Player.state);
       if (Player.state == 'playing') {
         console.log('script', 'data-play', 'Pause current player');
         Player.pause();
       }
 
-  
-      
       //console.log('UiView.initDataLive', '[data-play] play-pass', $(this).data('play-pass'));
       API.play($(this).data('play'), $(this).data('play-args'), $(this).data('play-pass'));
-      if ($(this).data('playlist')) {
-        console.log('script', 'data-play', 'playlist');
-        //handle end payer
-        if ($(this).data('duration')) {
-          $('.playing', $(this).data('playlist')).removeClass('playing');
-          $(this).parent().addClass('playing');
-          if ($next = $(this).parent().next()) {
-            console.log('script', 'data-play', 'playlist', 'next', $next);
-            if ($play = $next.find('[data-play]')) {
-              console.log('script', 'data-play', 'playlist', 'setTimeout', $(this).data('duration'), $play);
-              setTimeout(function(){
-                $play.trigger('click');
-              }, parseInt($(this).data('duration'))*1000)
-            }
-          }
-        }
-      }
-      return false;
-    });
-    // -- player channel
-    $(elmt).on('click', '[data-play-api]', function(){
+
       var trigger = $(this);
       window.onSkPlayerIframeApiReady = function(){
-        console.log('script', 'data-play-api', trigger.attr('id'), trigger.data('play-api'), Player.state);
         var params = $.extend(trigger.data('play-api'), {events: {
           'onStart': function(){
           },
