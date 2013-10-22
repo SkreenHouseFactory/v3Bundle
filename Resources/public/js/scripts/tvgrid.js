@@ -357,6 +357,17 @@ $(document).ready(function(){
     if($('body').hasClass('view-ajax')){
       GridView.init($('#grid'));
     }
+    // LIVE
+    
+    $('[data-live="player"] .actions >a').on('click',function(){
+      $('#tvgrid-player').addClass('in');
+      $('body').append('<div class="modal-backdrop  in"></div>');
+    });
+    $(document).on('click', '#tvgrid-player .close', function() {
+      $('.modal-backdrop').remove();
+      $('#tvgrid-player').html('');
+      $('#tvgrid-player').removeClass('in');
+    })
     //timeslider
     var date = new Date(parseInt($('#grid').data('timestamp'))*1000);
     GridView.hour = date.getHours();

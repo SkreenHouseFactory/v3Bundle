@@ -363,7 +363,7 @@ UI = {
         //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)');
         var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + ':not(.fav-on)', elmt);
         trigger.removeClass('btn-plus');
-        trigger.html(' Abonné').addClass('fav-on btn-success');
+        trigger.html('<i class="glyphicon glyphicon-ok"></i> Abonné').addClass('fav-on btn-success');
       }
       switch(parameter) {
         case 'cinema': //reload
