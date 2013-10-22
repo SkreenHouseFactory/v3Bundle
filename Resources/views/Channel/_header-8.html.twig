@@ -1,5 +1,3 @@
-
-{% set durations = {3051395: 141, 95090: 123, 237196: 128, 261402: 65, 413119: 147, 110631: 150, 4817914: 60, 185960: 150, 369379: 58 } %}
 <div id="cover" class="cover8{% if from_selection is defined and from_selection == true %}selection{% endif %}">
  
   <div id="channel8" class="header-container">
@@ -8,12 +6,8 @@
       <div class="row">
         <div class="col-xs-16">
         <div class="player-wrap">
-            <div id="player" class="pull-left" data-player="init" style="width:530px;height:280px;"></div>
-            <ul id="player-playlist">
-              {% for program in programs|to_array %}
-              <li><a{% if loop.first %} data-autoplay="{{ program.teaser ? program.teaser.id : '' }}"{% endif %} data-play="{{ program.teaser ? program.teaser.id : '' }}" data-play-args="{{ {player_width: 530, player_height: 280, current_player: '#player', 'noControls': true}|json_encode }}" data-playlist="#player-playlist" data-duration="{{ attribute(durations, program.id) }}">{{ program.title }}</a></li>
-              {% endfor %}
-            </ul>
+            <iframe id="player" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=26875162
+&playlist=26875162,26875211,26875168,26875169,26875171,26875184,26875188,26875175,26875198&height=280&width=530&noControls=1" height="280" width="530" style="width:530px;height:280px;"></iframe>
           </div>
 
         </div>

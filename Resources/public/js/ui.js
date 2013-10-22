@@ -308,6 +308,7 @@ UI = {
     var name = this.getTriggerName(trigger);
     if (Skhf.session.datas.email) {
       console.log('UI.togglePlaylist', parameter, value, 'remove:' + remove, trigger);
+      trigger.removeClass('btn-plus');
       trigger.html('Chargement ...').removeClass('btn-danger');
       var value = trigger.data('id') ? trigger.data('id') : trigger.parents('.actions:first').data('id');
       var remove = trigger.hasClass('fav-on') ? true : false;
@@ -355,14 +356,14 @@ UI = {
   },
   //toggle btn
   loadPlaylistTriggers: function(parameter, ids, elmt) {
-
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
     console.log('UI.loadPlaylistTriggers', parameter, ids);
     if (typeof parameter != 'undefined') {
       for (key in ids) {
         //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)');
         var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + ':not(.fav-on)', elmt);
-        trigger.html('<i class="glyphicon glyphicon-ok"></i> Abonné').addClass('fav-on btn-success');
+        trigger.removeClass('btn-plus');
+        trigger.html(' Abonné').addClass('fav-on btn-success');
       }
       switch(parameter) {
         case 'cinema': //reload
@@ -382,6 +383,7 @@ UI = {
         for (key in ids) {
           //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
           var trigger = $('[data-id="' + ids[key] + '"].fav-' + this.available_playlists[k] + ':not(.fav-on)', elmt);
+          trigger.removeClass('btn-plus');
           trigger.html('<i class="glyphicon glyphicon-ok"></i> Abonné').addClass('fav-on btn-success');
         }
       }
@@ -395,7 +397,8 @@ UI = {
       for (key in ids) {
         console.log('UI.unloadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + parameter + '.fav-on');
         var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + '.fav-on', elmt);
-        trigger.html('<i class="glyphicon glyphicon-plus"></i> Suivre ' + this.getTriggerName(trigger)).removeClass('fav-on btn-danger');
+        trigger.addClass('btn-plus');
+        trigger.html('Suivre ' + this.getTriggerName(trigger)).removeClass('fav-on btn-danger');
 
         switch(parameter) {
           case 'like':
