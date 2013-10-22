@@ -17,6 +17,8 @@ GridView = {
     this.timestamp = this.elmt.data('timestamp');
     this.timestamp_start = this.elmt.data('timestamp');
     this.load();
+    
+    Player.elmt = $('#tvgrid-player');
   },  
   idle: function(initialized) {
   

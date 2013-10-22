@@ -305,16 +305,6 @@ $(document).ready(function(){
     console.log('PlayerScroll.initPlayerScroll()')
     PlayerScroll.initPlayerScroll();
 
-
-    //no deportes
-    var offers = getUrlParameter('offers');
-    if (offers) {
-      console.log('offers',  offers);
-      $('#trigger-' + offers).trigger('click');
-    } else if (!$('#trigger-plays').length ) {
-      $('#triggers li:first-child a').trigger('click');
-    }
-
     //autoload from url
     if (document.location.href.match(/\?rent/gi)) {
       $('#program-offers [data-play]:first').trigger('click');
@@ -354,8 +344,8 @@ $(document).ready(function(){
     //init
     console.log('scripts/program.js', 'before PG init');
     if ($('#view-program').hasClass('isInitialized') == false) {
-     ProgramView.init();
-    console.log('scripts/program.js', 'after PG init');
+      ProgramView.init();
+      console.log('scripts/program.js', 'after PG init');
 
     }
 

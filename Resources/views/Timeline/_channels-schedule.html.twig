@@ -1,6 +1,6 @@
 {% for c in data.channels %}
-	<li data-id="{{ c.id }}"{% if c.live.player is defined %} data-live="player"{% elseif c.live.url is defined %} data-live="url"{% endif %}>
-		<a href="{{ c.seo_url }}"><i class="icon-trash"></i><img src="{{ c.img }}" alt="{{ c.name }}" /></a>
-		<ul>{% include 'SkreenHouseFactoryV3Bundle:Timeline:_channel-schedule.html.twig' with {c: c} %}</ul>
-	</li>
+<li data-id="{{ c.id }}"{% if c.live.player is defined %} data-live="player"{% elseif c.live.url is defined %} data-live="url"{% endif %}>
+	<a href="{{ c.seo_url }}"{% if c.live and c.live.player is defined %} data-play-iframe="{{ c.live.player }}"{% endif%}><i class="icon-trash"></i><img src="{{ c.img }}" alt="{{ c.name }}" /></a>
+	<ul>{% include 'SkreenHouseFactoryV3Bundle:Timeline:_channel-schedule.html.twig' with {c: c} %}</ul>
+</li>
 {% endfor %}

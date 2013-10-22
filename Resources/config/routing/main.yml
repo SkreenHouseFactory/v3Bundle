@@ -295,7 +295,7 @@ program_fils_saison:
         categorie: "[^/]+"
 
 program_fils_saison_undefined:
-    pattern:  /{format}/{categorie}/{idpere}-{slugpere}/saison-{saison_num}/{id}-{slug}/{rubrique}
+    pattern:  /{format}/{categorie}/{idpere}-{slugpere}/saison-{saison_num}/{id}-{slug}/{rubrique}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:program }
     requirements:
         id: \d+

@@ -57,7 +57,7 @@ class TimelineController extends Controller
         'with_related_sliders' => $request->get('schedule-only') ? false : true,
         'with_best_offer' => true,
         'with_player' => true,
-        'time' => time(),
+        'time' => time()
       ));
       //echo $api->url;
       //print("<pre>");print_r($data->sliders);exit();
