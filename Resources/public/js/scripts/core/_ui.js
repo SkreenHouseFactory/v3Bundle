@@ -232,9 +232,20 @@ UiView = {
     // -- player iframe
     $(elmt).on('click', '[data-play-iframe]', function(){
       console.log('script', 'data-play-iframe', $(this).data('play-iframe'), Player.state);
-      iframe = $('iframe', Player.elmt);
-      if (iframe.length) {
-        iframe.attr('src', $(this).data('play-iframe'));
+      
+      var trigger = $(this);
+      window.onSkPlayerIframeApiReady = function(){
+        var params = $.extend({
+          url: trigger.data('play-iframe'),
+          events: {
+          'onStart': function(){
+          },
+          'onLoad': function(){
+          },
+          'onFinish': function(){
+          }
+        }});
+        Skhf.Player = new Skhf.BasePlayer(Player.elmt.attr('id'), params);
       }
       return false;
     });
