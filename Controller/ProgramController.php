@@ -41,7 +41,7 @@ class ProgramController extends Controller
         'img_width' => 150,
         'img_height' => 200,
       ));
-      //echo $api->url;
+      //echo $api->url;exit;
       $response = $this->render('SkreenHouseFactoryV3Bundle:Program:saga.html.twig', array(
         'saga' => $data
       ));

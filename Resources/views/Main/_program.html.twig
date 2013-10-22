@@ -16,9 +16,9 @@ best_offer:'',
 deporte:''} %}
 {% endif %}
 
-{% if ' - ' in p.title %}
-{% set tmp = p.title|split(' - ') %}
-{% set p_title = tmp[1] ~ ' / ' ~ tmp[0] %}
+{% if p.episodeof is defined and ' - ' in p.title%}
+{% set tmp = p.title|replace({(p.episodeof.title) ~ ' - ': '' }) %}
+{% set p_title = tmp ~ ' / ' ~ p.episodeof.title %}
 {% else %}
 {% set p_title = p.title %}
 {% endif %}
@@ -37,7 +37,7 @@ deporte:''} %}
 			{% endif %}
 			<i class="icon-th icon-white"></i>
 			<span class="ms-prog-title">{{ p_title|raw }} </span>
-			<span class="ms-prog-desc">  {% if p.format.name is defined %} {{ p.format.name|raw }},{% endif %}  {% if p.duration is defined and p.duration !="" %} {{ p.duration|raw }} min {% endif %} </span></span>
+			<span class="ms-prog-desc">  {% if p.format.name is defined %} {{ p.format.name|raw }}{% endif %}  {% if p.duration is defined and p.duration !="" %}, {{ p.duration|raw }} min {% endif %} </span></span>
 			<br>
 		</span>
 		</a>
