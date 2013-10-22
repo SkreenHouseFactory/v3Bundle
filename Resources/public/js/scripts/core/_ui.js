@@ -232,10 +232,22 @@ UiView = {
     // -- player iframe
     $(elmt).on('click', '[data-play-iframe]', function(){
       console.log('script', 'data-play-iframe', $(this).data('play-iframe'), Player.state);
-      iframe = $('iframe', Player.elmt);
-      if (iframe.length) {
-        iframe.attr('src', $(this).data('play-iframe'));
+      
+      var trigger = $(this);
+      var params = {
+        url: trigger.data('play-iframe'),
+        env: API.config.env,
+        reload: true,
+        events: {
+          'onStart': function(){
+          },
+          'onLoad': function(){
+          },
+          'onFinish': function(){
+          }
+        }
       }
+      Skhf.Player = new Skhf.BasePlayer(Player.elmt.attr('id'), params);
       return false;
     });
     // -- couchmode
@@ -264,7 +276,11 @@ UiView = {
       $(this).data('toggle-text', html);
     });
 
-
+    // -- remote data in html elmt
+    $(elmt).on('click', '[data-trigger-click]', function(){
+      $($(this).data('trigger-click')).trigger('click');
+      return false;
+    });
 
     // -- remote data in html elmt
     $(elmt).on('click', '[data-ajax]', function(e){
@@ -324,10 +340,6 @@ UiView = {
         UI.unloadRedirect();
         //trigger playlists
         UI.loadPlaylistTriggers('like', Skhf.session.datas.queue.split(','), elmt);
-        //ajax play ?
-        if (trigger.data('offers')) {
-          $('.trigger-'+ trigger.data('offers')).trigger('click');
-        }
         if (trigger.data('ajax-play')) {
           if (Player.state == 'playing') {
             console.log('script', 'data-play', 'Pause current player');

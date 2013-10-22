@@ -14,7 +14,7 @@
 	{% if o.player %}
     <a class="btn btn-default" data-play="{{ o.player.id }}"><i class="glyphicon glyphicon-play"></i></a>
   {% elseif c.live.player is defined and o.is_live %}
-    <a class="btn btn-default" data-play-channel="{{ c.id }}"><i class="glyphicon glyphicon-play"></i></a>
+    <a class="btn btn-default" data-trigger-click="#player-{{ c.id }}"><i class="glyphicon glyphicon-play"></i></a>
   {% elseif o.url %}
     <a class="btn btn-default" data-redirect="{{ o.url }}"><i class="glyphicon glyphicon-share"></i></a>
   {% endif %}

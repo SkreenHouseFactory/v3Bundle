@@ -134,7 +134,11 @@ class ProgramController extends Controller
           if ($this->get('kernel')->getEnvironment() == 'dev') {
             print("<pre style='position:absolute;'>NON OBJECT RESPONSE");print_r($data);print("</pre>");exit();
           }
-          return $this->programAction($request);
+          //on réessaie un fois
+          if (!$request->get('is_retry_api')) {
+            $request->request->set('is_retry_api', true);
+            return $this->programAction($request);
+          }
         }
 
         //echo $api->url;exit;
