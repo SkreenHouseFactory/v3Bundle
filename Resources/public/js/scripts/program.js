@@ -300,7 +300,11 @@ $(document).ready(function(){
         $('.btn-suivre').trigger('click');
       });
     }
-    
+    $('[data-play-text]').on('click', function(){
+      if($('#program-teaser-header').length ){
+        $('#program-teaser-header').html($(this).data('play-text'));
+      }
+    });
     //Player scroll sur page programme
     console.log('PlayerScroll.initPlayerScroll()')
     PlayerScroll.initPlayerScroll();

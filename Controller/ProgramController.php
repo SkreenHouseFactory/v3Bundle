@@ -257,15 +257,15 @@ class ProgramController extends Controller
 
         //player
         $data->player = null;
-        if (isset($data->offers['live']->{0}) &&
-            isset($data->datas_offers->channels->{$data->offers['live']->{0}->channel_id}) &&
-            isset($data->datas_offers->channels->{$data->offers['live']->{0}->channel_id}->live->player)) {
-          $data->player = $data->offers['live']->{0};
+        if (isset($data->offers['live'][0]) &&
+            isset($data->datas_offers->channels->{$data->offers['live'][0]->channel_id}) &&
+            isset($data->datas_offers->channels->{$data->offers['live'][0]->channel_id}->live->player)) {
+          $data->player = $data->offers['live'][0];
           $data->player->type = 'live';
-          $data->player->iframe = $data->datas_offers->channels->{$data->offers['live']->{0}->channel_id}->live->player;
+          $data->player->iframe = $data->datas_offers->channels->{$data->offers['live'][0]->channel_id}->live->player;
         } elseif ($data->teaser && 
-            (!isset($data->offers['replay']->{0}) || !$data->offers['replay']->{0}->deporte) && 
-            (!isset($data->offers['deporte']->{0}) || $data->offers['deporte']->{0}->cost)) {
+            (!isset($data->offers['replay'][0]) || !$data->offers['replay'][0]->deporte) && 
+            (!isset($data->offers['deporte'][0]) || $data->offers['deporte'][0]->cost)) {
           $data->player = $data->teaser;
           $data->player->type = 'teaser';
 
