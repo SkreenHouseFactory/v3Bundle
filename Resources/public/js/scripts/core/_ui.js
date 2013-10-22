@@ -237,6 +237,7 @@ UiView = {
       var params = {
         url: trigger.data('play-iframe'),
         env: API.config.env,
+        reload: true,
         events: {
           'onStart': function(){
           },
