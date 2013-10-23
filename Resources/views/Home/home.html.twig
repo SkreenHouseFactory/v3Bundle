@@ -38,7 +38,7 @@
  {#  TRIANGLE <i class="ms-top-triangle ms_triangle_position_a"></i>#}
 <ul class="dropdown-menu  dropdown-filters-{{ app.request.get('home') }}">
   <li class="nav-header">catégories dans {{ home.name|replace({'v3-cine': 'cinéma','video-a-la-demande':'VOD'}) }} <i class="glyphicon glyphicon-chevron-right"></i></li>
-  {% for f in home.filters|to_array %}
+  {% for f in home.filters|to_array|sort %}
   <li><a class="label label-default label-filter" href="{{ path('any_url', {url: f.url|slice(1, f.url|length-1)}) }}" target="_top">{{ f.name }}</a></li>
   {% endfor %}
 </ul>

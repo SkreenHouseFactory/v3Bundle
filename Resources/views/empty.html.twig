@@ -21,7 +21,7 @@
         %}
       <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
-  {% block meta endblock %}
+  
 </head>
 <body>
 {% endif %}
@@ -33,6 +33,7 @@
   <script>
   UiView.update($('.uiview-update'));
   </script>
+  
   {% block pagescripts %}
   {% endblock %}
 {% else %}
