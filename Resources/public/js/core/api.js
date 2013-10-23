@@ -76,7 +76,7 @@ ENV = {
     console: false
   },
   all: {
-    api_version: '2',
+    api_version: '2,3',
     slider: {
       width: 150,
       height: 200

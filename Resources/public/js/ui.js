@@ -1019,6 +1019,8 @@ UI = {
                 break;
             }
             console.log('UI.typeahead', 'data', key, items);
+            //cast as array
+            items = $.map(items, function (value, key) { return value; });
             items = items.slice(0, typeahead.options.items);
             if (items.length) {
               lis[key] = $(items).map(function (i, item) {
