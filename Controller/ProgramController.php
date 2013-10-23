@@ -229,10 +229,11 @@ class ProgramController extends Controller
               $o->endtime > time()) {
             //echo "\n".'addLive broadcasttime:'.date('Ymd H:i:s', $o->broadcasttime).' endtime:'.date('Ymd H:i:s', $o->endtime).' time:'.date('Ymd H:i:s', time());
             $data->offers['live'][] = $o;
+          
           }
         }
         $data->offers['live'] = (object)$data->offers['live'];
-
+     
         //add other episodes offers
         //$data->offers = array_merge_recursive($data->offers, (array)$data->episodeof->offers);
         // ==> pas suffisant : il faut éviter la répetition lorsque l'on est sur un épisode
@@ -262,12 +263,13 @@ class ProgramController extends Controller
 
         //player
         $data->player = null;
-        if (isset($data->offers['live']->{0}) &&
-            isset($data->datas_offers->channels->{$data->offers['live']->{0}->channel_id}) &&
-            isset($data->datas_offers->channels->{$data->offers['live']->{0}->channel_id}->live->player)) {
-          $data->player = $data->offers['live']->{0};
+        $live= (array)$data->offers['live'];
+        if (isset($live[0]) &&
+            isset($data->datas_offers->channels->{$live[0]->channel_id}) &&
+            isset($data->datas_offers->channels->{$live[0]->channel_id}->live->player)) {
+          $data->player = $live[0];
           $data->player->type = 'live';
-          $data->player->iframe = $data->datas_offers->channels->{$data->offers['live']->{0}->channel_id}->live->player;
+          $data->player->iframe = $data->datas_offers->channels->{$live[0]->channel_id}->live->player;
         } elseif ($data->teaser && 
             (!isset($data->offers['replay']->{0}) || !$data->offers['replay']->{0}->deporte) && 
             (!isset($data->offers['deporte']->{0}) || $data->offers['deporte']->{0}->cost)) {
