@@ -358,11 +358,11 @@ $(document).ready(function(){
       GridView.init($('#grid'));
     }
     // LIVE
-    
-    $('[data-live="player"] .actions >a').on('click',function(){
+    $(document).on('click','[data-live="player"] .actions >a',function(){
       $('#tvgrid-player').addClass('in');
       $('body').append('<div class="modal-backdrop  in"></div>');
     });
+    
     $(document).on('click', '#tvgrid-player .close', function() {
       $('.modal-backdrop').remove();
       $('#tvgrid-player').html('');
