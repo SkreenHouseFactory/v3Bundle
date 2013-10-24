@@ -1,6 +1,5 @@
 
 {% extends app.request.isXmlHttpRequest or app.request.get('xhr') ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
-
 {% set format_trans = 'format.singulier.' ~ app.request.get('format') %}
 {% set formats_trans = 'format.pluriel.' ~ app.request.get('format') %}
 {% block meta %}
@@ -25,31 +24,28 @@
 {%- endblock %}
 {% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 {% block body_class %}view-fournisseur{% endblock %}
-
 {% block content %}
-
-
 <div id="view-fournisseur" data-id="{{ channel.id }}" class="container container-fournisseur-{{ channel.type }}">
-{# description #}
-{% if app.request.get('format') is null %}
-<div id="description-seo">
-  {{ channel.description|raw }}
-</div>
-{% else %}
-<div id="description-seo">
-  {% set page_title_channel = 'page.title.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
-  {{ channel.name }} : regardez les {{ app.request.get('format') }} {{ app.request.get('facet') }}.
-  {%- if app.request.get('page') %}Page {{ app.request.get('page') }}{% endif -%}
-  <br/><br/>
-  <h3>
+  {# description #}
+  {% if app.request.get('format') is null %}
+  <div id="description-seo">
+    {{ channel.description|raw }}
+  </div>
+  {% else %}
+  <div id="description-seo">
+    {% set page_title_channel = 'page.title.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
+    {{ channel.name }} : regardez les {{ app.request.get('format') }} {{ app.request.get('facet') }}.
+    {%- if app.request.get('page') %}Page {{ app.request.get('page') }}{% endif -%}
+    <br/><br/>
+    <h3>
       {% if app.request.get('facet') %}
       <a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('facet')}) }}">{{ subcategories[app.request.get('facet')] is defined ? subcategories[app.request.get('facet')] : app.request.get('facet') }} : tous les programmes en streaming</a>
       {% else %}
       <a href="{{ path('format', {category_slug: app.request.get('format') }) }}">{{ app.request.get('format') }} : tous les programmes en streaming</a>
       {% endif %}
-  </h3>
+    </h3>
   </div>
-{% endif %}
+  {% endif %}
   {#{ dump(app.request.attributes) }#}
   <div class="row">
     <div class="col-xs-16">
@@ -57,7 +53,6 @@
     </div>
   </div>
   <div class="row ms-channel-headtitle">
-
     {# title #}
     {% if channel.img %}
     <div class="col-xs-2"><img class="channel-logo inline-block" src="{{ channel.img }}" /></div>
@@ -69,61 +64,64 @@
         <small>{% if app.request.get('facet') %}{{ categories[app.request.get('facet')] is defined ? categories[app.request.get('facet')] : 'commençant par ' ~ app.request.get('facet') }}{% endif %}{% if app.request.get('page') %}{{ app.request.get('facet') ? ', ' : '' }}page {{ app.request.get('page') }}{% endif %}</small>
       </h1>
     </div>
-
     {# suivre #}
     {% if channel.type in ['broadcast','cinema'] %}
     <div class="col-xs-{{ channel.img ? 5 : 7 }}">
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'pull-right btn-big fav-' ~ (channel.type == 'broadcast' ? 'epg' : 'cinema'), text: channel.type in ['epg','broadcast'] ? 'Ajouter à votre programme TV' : 'Ajoutez à vos cinémas' } %}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'pull-right fav-' ~ (channel.type == 'broadcast' ? 'epg' : 'cinema'), text: channel.type in ['epg','broadcast'] ? 'Ajouter à votre programme TV' : 'Ajoutez à vos cinémas' } %}
     </div>
     {% endif %}
+  </div>
+  <br/>
+  {# tv/replay ? #}
+  {% if app.request.get('page') is null and 
+  app.request.get('format') is null and 
+  app.request.get('facet') is null %}
+  {% if channel.epg is defined and channel.epg %}
+  {% if channel.live.program is defined and channel.live.program  %}
+  <div class="well">     <div class="row">
+        <div class="col-xs-16">
+    {% if channel.live.player is defined %}
+    <iframe class="player-live" frameborder="0" scrolling="no" src="{{ channel.live.player }}"></iframe>
+    {% elseif channel.live.program.id is defined %}
+    <div style="height:196px;width:340px; margin-left:20px; margin-top:60px;" class="pull-right" data-autoplay="1" data-play-api="{&quot;AdOnly&quot;:true,&quot;programId&quot;:{{ channel.live.program.id }}}" id="program-teaser-player">
+      <iframe scrolling="no" frameborder="0" style="height:196px;width:340px" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&amp;play=28370043&amp;program_id={{ channel.live.program.id }}&amp;fromWebsite=1&amp;env=dev&amp;height=196&amp;width=340"></iframe>
     </div>
-    <br/>
+    {% endif %}
+    <div class="container">
 
-      {# tv/replay ? #}
-      {% if app.request.get('page') is null and 
-      app.request.get('format') is null and 
-      app.request.get('facet') is null %}
-      {% if channel.epg is defined and channel.epg %}
-
-      {% if channel.live.program is defined and channel.live.program  %}
-      <div class="well">
-
-        {% if channel.live.player is defined %}
-        <iframe class="player-live" frameborder="0" scrolling="no" src="{{ channel.live.player }}"></iframe>
-
-        {% endif %}
-        <div class="actions" data-id="{{ channel.live.program.id }}">
-          <h3><strong>En direct : {{ channel.live.program.title }}</strong>&nbsp; <small>de {{ channel.live.program.best_offer.broadcast_begin|date('H:i') }} à {{ channel.live.program.best_offer.broadcast_end|date('H:i') }}</small></h3>
-          <br/>
-          <img src="{{ channel.live.program.picture }}" alt="{{ channel.live.program.title }} en direct sur {{ channel.name }}">
-          <p>
-            {{ channel.live.program.description|striptags|slice(0,600)|raw }}
-            <br/><br/>
-            <a class="fav fav-like btn btn-primary" data-placement="right"><i class="icon-plus-sign icon-white"></i> Suivre</a>
-            &nbsp;
-            <a href="{{ channel.live.program.seo_url }}" class="btn">Tout sur ce programme</a>
-          </p>
-          {% if channel.live.program.best_offer.has_replay %}
-          <p class="alert alert-success">Bientôt disponible en Replay. Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera disponible.</p>
-          {% endif %}
+          <div class="actions" data-id="{{ channel.live.program.id }}">
+            <h3><strong>En direct : {{ channel.live.program.title }}</strong>&nbsp; <small><br>de {{ channel.live.program.best_offer.broadcast_begin|date('H:i') }} à {{ channel.live.program.best_offer.broadcast_end|date('H:i') }}</small></h3>
+            <br/>
+            <img src="{{ channel.live.program.picture }}" alt="{{ channel.live.program.title }} en direct sur {{ channel.name }}">
+            <p>
+              {{ channel.live.program.description|striptags|slice(0,600)|raw }}
+              <br/><br/>
+              <a class="fav fav-like btn btn-suivre btn-plus" data-placement="right"> Suivre</a>
+              &nbsp;
+              <a href="{{ channel.live.program.seo_url }}" class="btn">Tout sur ce programme</a>
+            </p>
+            {% if channel.live.program.best_offer.has_replay %}
+            <p class="alert alert-success">Bientôt disponible en Replay. Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'il sera disponible.</p>
+            {% endif %}
+          </div>
         </div>
       </div>
-      {% endif %}
-      {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-replay.html.twig' with {channel: channel} %}
-    {% endif %}
-    {% if app.request.get('page') %}<h3><small>page {{ app.request.get('page') }}</small>{% endif %}</h3>
-    {% endif%}
-
-    {# debug facets 
-          route: {{ app.request.attributes.get('_route') }}
-          categories: {{ categories|join(',') }}
-          facet: {{ app.request.get('facet') }}
-          access: {{ app.request.get('access') }}
-          category_slug: {{ app.request.get('category_slug') }}
-          slug: {{ app.request.get('slug') }}
-          page: {{ app.request.get('page') }}
-          #}
-
+    </div>
+  </div>
+  {% endif %}
+  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-replay.html.twig' with {channel: channel} %}
+  {% endif %}
+  {% if app.request.get('page') %}<h3><small>page {{ app.request.get('page') }}</small>{% endif %}</h3>
+  {% endif%}
+{# debug facets 
+    route: {{ app.request.attributes.get('_route') }}
+    categories: {{ categories|join(',') }}
+    facet: {{ app.request.get('facet') }}
+    access: {{ app.request.get('access') }}
+    category_slug: {{ app.request.get('category_slug') }}
+    slug: {{ app.request.get('slug') }}
+    page: {{ app.request.get('page') }}
+    #}
     {% if categories|length or formats|length %}
     <hr/>
     <div class="facets">
@@ -142,124 +140,123 @@
       {% endif %}
     </div>
     {% endif %}
-
     {# pager #}
-     {% if channel.count > 30  %}
-     <ul class="pager pull-right">
-       {% if app.request.get('page') > 2 %}
-       <li class="previous">
-         {% if app.request.get('facet') %}
-         <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
+    {% if channel.count > 30  %}
+    <ul class="pager pull-right">
+     {% if app.request.get('page') > 2 %}
+     <li class="previous">
+       {% if app.request.get('facet') %}
+       <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
          {% elseif app.request.get('format') %}
          <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
-         {% else %}
-         <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">
-         {% endif %}&larr; 30 préc.</a>
-         </li>
-         {% elseif app.request.get('page') == 2 %}
-         <li class="previous">
-           {% if app.request.get('facet') %}
-           <a href="{{ path('channel_format_facet', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format')}) }}">
-           {% elseif app.request.get('format') %}
-           <a href="{{ path('channel_format', {slug: app.request.get('slug'), format: app.request.get('format')}) }}">
            {% else %}
-           <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">
-           {% endif %}&larr; 30 préc.</a>
+           <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">
+             {% endif %}&larr; 30 préc.</a>
            </li>
-           {% endif %}
-           {% if channel.programs|length == 30 %}
-           <li class="next">
+           {% elseif app.request.get('page') == 2 %}
+           <li class="previous">
              {% if app.request.get('facet') %}
-             <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
-             {% elseif app.request.get('format') %}
-             <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
-             {% else %}
-             <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">
-             {% endif %}30 suiv. &rarr;</a>
-           </li>
-           {% endif %}
-         </ul>
-         {% endif %}
+             <a href="{{ path('channel_format_facet', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format')}) }}">
+               {% elseif app.request.get('format') %}
+               <a href="{{ path('channel_format', {slug: app.request.get('slug'), format: app.request.get('format')}) }}">
+                 {% else %}
+                 <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">
+                   {% endif %}&larr; 30 préc.</a>
+                 </li>
+                 {% endif %}
+                 {% if channel.programs|length == 30 %}
+                 <li class="next">
+                   {% if app.request.get('facet') %}
+                   <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
+                     {% elseif app.request.get('format') %}
+                     <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
+                       {% else %}
+                       <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">
+                         {% endif %}30 suiv. &rarr;</a>
+                       </li>
+                       {% endif %}
+                     </ul>
+                     {% endif %}
 
-      {# programs #}
-      {% if channel.programs|length %}
-      <div class="row{{ channel.type != 'cinema' ? ' clear' : '' }}">
-        <div id="channel-programs" class="col-xs-11 slider slider-list{% if channel.adress is defined %} clear-cancel{% endif %} ms-margin-top-seo">
-          <ul class="items">
-            {% for program in channel.programs %}
-            {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, theater_id: channel.type == 'cinema' ? channel.id : '' } %}
-            {% endfor %}
-          </ul>
-        </div>
-        {# map #}
-        {% if channel.adress is defined %}
-        <div id="map-container" class="well col-xs-4">
-          {% if channel.city is defined and channel.city %}
-          {{ channel.adress }}<br/>{{ channel.zip_code }} {{ channel.city }}
-          {% endif %}
-          {% if channel.tel %}tél : {{ channel.tel }}<br/>{% endif %}
-          {% if channel.web %}<a href="http://{{ channel.web }}" target="_blank">{{ channel.web }}</a>{% endif %}
-          <hr/>
-          <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-          <div id="map-canvas" data-name="{{ channel.name }}" data-adress="{{ channel.adress }} {{ channel.zip_code }} {{ channel.city }}"></div>
-        </div>
-        {% endif %}
-      </div>
-      {% else %}
-      <div class="row">
-        <div class="col-xs-16"><p class="alert alert-info">Désolé : {{ channel.name }} ne diffuse aucun programme en ce moment !</p>
+                     {# programs #}
+                     {% if channel.programs|length %}
+                     <div class="row{{ channel.type != 'cinema' ? ' clear' : '' }}">
+                      <div id="channel-programs" class="col-xs-11 slider slider-list{% if channel.adress is defined %} clear-cancel{% endif %} ms-margin-top-seo">
+                        <ul class="items">
+                          {% for program in channel.programs %}
+                          {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, theater_id: channel.type == 'cinema' ? channel.id : '' } %}
+                          {% endfor %}
+                        </ul>
+                      </div>
+                      {# map #}
+                      {% if channel.adress is defined %}
+                      <div id="map-container" class="well col-xs-4">
+                        {% if channel.city is defined and channel.city %}
+                        {{ channel.adress }}<br/>{{ channel.zip_code }} {{ channel.city }}
+                        {% endif %}
+                        {% if channel.tel %}tél : {{ channel.tel }}<br/>{% endif %}
+                        {% if channel.web %}<a href="http://{{ channel.web }}" target="_blank">{{ channel.web }}</a>{% endif %}
+                        <hr/>
+                        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+                        <div id="map-canvas" data-name="{{ channel.name }}" data-adress="{{ channel.adress }} {{ channel.zip_code }} {{ channel.city }}"></div>
+                      </div>
+                      {% endif %}
+                    </div>
+                    {% else %}
+                    <div class="row">
+                      <div class="col-xs-16"><p class="alert alert-info">Désolé : {{ channel.name }} ne diffuse aucun programme en ce moment !</p>
 
-        </div>
-      </div>
-      {% endif %}
+                      </div>
+                    </div>
+                    {% endif %}
 
-      {# pager #}
-      {% if channel.count > 30  %}
-      <ul class="pager pull-right">
-        {% if app.request.get('page') > 2 %}
-        <li class="previous">
-          {% if app.request.get('facet') %}
-          <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
-          {% elseif app.request.get('format') %}
-          <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
-          {% else %}
-          <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">
-          {% endif %}&larr; 30 préc.</a>
-        </li>
-        {% elseif app.request.get('page') == 2 %}
-        <li class="previous">
-          {% if app.request.get('facet') %}
-          <a href="{{ path('channel_format_facet', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format')}) }}">
-          {% elseif app.request.get('format') %}
-          <a href="{{ path('channel_format', {slug: app.request.get('slug'), format: app.request.get('format')}) }}">
-          {% else %}
-          <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">
-          {% endif %}&larr; 30 préc.</a>
-        </li>
-        {% endif %}
-        {% if channel.programs|length == 30 %}
-        <li class="next">
-          {% if app.request.get('facet') %}
-          <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
-          {% elseif app.request.get('format') %}
-          <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
-          {% else %}
-          <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">
-          {% endif %}30 suiv. &rarr;</a>
-        </li>
-        {% endif %}
-      </ul>
-      {% endif %}
-  </div>
-</div>
-{% endblock %}
+                    {# pager #}
+                    {% if channel.count > 30  %}
+                    <ul class="pager pull-right">
+                      {% if app.request.get('page') > 2 %}
+                      <li class="previous">
+                        {% if app.request.get('facet') %}
+                        <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
+                          {% elseif app.request.get('format') %}
+                          <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
+                            {% else %}
+                            <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">
+                              {% endif %}&larr; 30 préc.</a>
+                            </li>
+                            {% elseif app.request.get('page') == 2 %}
+                            <li class="previous">
+                              {% if app.request.get('facet') %}
+                              <a href="{{ path('channel_format_facet', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format')}) }}">
+                                {% elseif app.request.get('format') %}
+                                <a href="{{ path('channel_format', {slug: app.request.get('slug'), format: app.request.get('format')}) }}">
+                                  {% else %}
+                                  <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">
+                                    {% endif %}&larr; 30 préc.</a>
+                                  </li>
+                                  {% endif %}
+                                  {% if channel.programs|length == 30 %}
+                                  <li class="next">
+                                    {% if app.request.get('facet') %}
+                                    <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
+                                      {% elseif app.request.get('format') %}
+                                      <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
+                                        {% else %}
+                                        <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">
+                                          {% endif %}30 suiv. &rarr;</a>
+                                        </li>
+                                        {% endif %}
+                                      </ul>
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                                  {% endblock %}
 
-{% block pagescripts %}
-{% javascripts
-'@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/channel.js'
+                                  {% block pagescripts %}
+                                  {% javascripts
+                                  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/channel.js'
 
-filter='?yui_js' 
-output='js/compiled/pages/channel.js'  %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{% endblock %}
+                                  filter='?yui_js' 
+                                  output='js/compiled/pages/channel.js'  %}
+                                  <script src="{{ asset_url }}"></script>
+                                  {% endjavascripts %}
+                                  {% endblock %}
