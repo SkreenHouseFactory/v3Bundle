@@ -305,10 +305,6 @@ $(document).ready(function(){
         $('#program-teaser-header').html($(this).data('play-text'));
       }
     });
-    //Player scroll sur page programme
-    console.log('PlayerScroll.initPlayerScroll()')
-    PlayerScroll.initPlayerScroll();
-
     //autoload from url
     if (document.location.href.match(/\?rent/gi)) {
       $('#program-offers [data-play]:first').trigger('click');
@@ -385,6 +381,7 @@ $(document).ready(function(){
     //remove
     $('.is-playing').each(function(){
       $(this).removeClass('is-playing');
+      $('.offers',$(this)).html('<button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir </button>');
       var btn = $('.btn', $(this));
       btn.removeClass('disabled');
       btn.html(btn.data('text-save'));
