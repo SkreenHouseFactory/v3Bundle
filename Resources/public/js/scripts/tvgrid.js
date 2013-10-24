@@ -364,8 +364,8 @@ $(document).ready(function(){
     });
     
     $(document).on('click', '#tvgrid-player .close', function() {
-      $('.modal-backdrop').remove();
-      $('#tvgrid-player').html('');
+      $('.modal-backdrop').hide();
+      $('#tvgrid-player iframe').remove();
       $('#tvgrid-player').removeClass('in');
     })
     //timeslider
