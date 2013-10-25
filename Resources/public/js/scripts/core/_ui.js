@@ -349,7 +349,6 @@ UiView = {
         }
         console.log('callback');
         ProgramView.loadMoreStreaming();
-        PlayerScroll.initPlayerScroll();
         $('#top-playlist').on('hide.bs.collapse', function () {
           console.log('script', '#top-playlist on hide');
           $('body').removeClass('playlist-in');

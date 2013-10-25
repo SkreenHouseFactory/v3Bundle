@@ -282,7 +282,7 @@ class ProgramController extends Controller
               if (isset($o->deporte) && $o->deporte && !$o->cost) {
                 $data->player = $o;
                 $data->player->type = 'replay';
-                break;
+                break;                
               }
             }
           }
