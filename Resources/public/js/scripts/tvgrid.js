@@ -354,7 +354,7 @@ $(document).ready(function(){
     }
     //////////// SCRIPTS ////////////////
     //chargement Ajax
-    if($('body').hasClass('view-ajax')){
+    if($('body').hasClass('view-ajax') || !API.cookie('session_uid')){
       GridView.init($('#grid'));
     }
     // LIVE
