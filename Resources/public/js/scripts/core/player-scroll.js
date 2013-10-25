@@ -1,4 +1,4 @@
-/* 
+
 var PlayerScroll;
 PlayerScroll = {
   initPlayerScroll: function() {
@@ -106,4 +106,4 @@ PlayerScroll = {
    });
   }
  }
-} /*
+} 
