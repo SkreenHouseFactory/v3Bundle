@@ -39,14 +39,18 @@
 
 #view-tvgrid {
   min-height: 800px;
-  #tvgrid-player.in{
-    position: fixed;
-    z-index: 1040;
-    margin-right: auto;
-    left: 50%;
-    margin-left: -300px;
-    width: 600px;
-    height: 400px;
+  #tvgrid-player{
+    display:none;
+    &.in{
+      position: fixed;
+      display: block;
+      z-index: 1040;
+      margin-right: auto;
+      left: 50%;
+      margin-left: -300px;
+      width: 600px;
+      height: 400px;
+    }
   }
   .btn-filters {
     margin: 20px 195px;
