@@ -24,13 +24,20 @@ $(document).ready(function(){
     tag.src = API.config.base.replace('api/', '') + 'skPlayerPlugin/js/SkhfPlayerIframeApi.js';
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
+    
+    if(!API.cookie('session_uid')){
+      $('.headertoprighticons').removeClass('hide');
+    }
+    
     // -- DOM interactions
     UiView.init();
-
+    
     // -- session
     Skhf.session = new Session(function(){
       console.log('script', 'Session.init', 'callback');
+      if(Skhf.session.datas.email){
+        $('.headertoprighticons').removeClass('hide');
+      }
     }, typeof Session_sync_args != 'undefined' ? Session_sync_args : {});
   });
   // -- User interactions

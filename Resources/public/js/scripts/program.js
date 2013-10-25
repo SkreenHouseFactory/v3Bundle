@@ -377,7 +377,7 @@ $(document).ready(function(){
     $('html,body').animate({'scrollTop' : 0},1000);
   });  
 
-  $(document).on('click', '[data-play]', function(){
+  $(document).on('click', '.no-cost[data-play]', function(){
     //remove
     $('.is-playing').each(function(){
       $(this).removeClass('is-playing');
