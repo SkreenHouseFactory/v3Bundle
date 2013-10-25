@@ -319,8 +319,8 @@ class ProgramController extends Controller
           }
         }
         //load related programs
-        $data->related = (array)$data->related;
-        $data->selections = (array)$data->selections;
+        $data->related = isset($data->related) ? (array)$data->related : array();
+        $data->selections = isset($data->selections) ? (array)$data->selections : array();
         /* now loaded in API
         foreach ($data->related as $key => $r) {
           $data->related[$key]->programs = (array)$api->fetch(str_replace('&onglet', '&_onglet', $r->url), array(

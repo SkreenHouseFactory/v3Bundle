@@ -176,6 +176,9 @@
                       'bluray' in o_access.name|lower  %}
                <div class="rent">
                  {{ o_access.name }}
+                 {% if o.buy_id is defined and o.buy_id %}
+                 & Achat
+                 {% endif %}
                  {% if o.tags.device is defined %}
                  <i class="glyphicon glyphicon-info-sign" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ o.tags.device|replace({',': ', '}) }}" ></i>
                  {% endif %}
@@ -221,7 +224,15 @@
               {% elseif o_access.name in ['TV'] %}
               <a class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier</a>
               {% else %}
-              <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;{% if key == "dvd"%} {{ o.cost ? 'Acheter    ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Acheter' }} {% else %}{{ o.cost ? 'Voir    ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }} {% endif %}</button>
+              <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;
+                {% if key == "dvd"%}
+                {{ o.cost ? 'Acheter ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Acheter' }} 
+                {% elseif o.buy_id is defined and o.buy_id %}
+                {{ o.cost ? 'A partir de ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }} 
+                {% else %}
+                {{ o.cost ? 'Voir ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }} 
+                {% endif %}
+              </button>
               {% endif %}
               <br/>
               {% if o_access.name == 'TV' %}

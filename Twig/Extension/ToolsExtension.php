@@ -9,6 +9,12 @@ class toolsExtension extends \Twig_Extension
     protected static $slider_count;
     protected $slider_page;
     protected $slider_programs;
+    protected $input_slider_size = array(
+      '143/180',
+      '150/200',
+      '990/450',
+      '1500/450'
+    );
     protected $slider_size = array(
         6 => array(
           '2x2' => '294/370',
@@ -217,13 +223,16 @@ class toolsExtension extends \Twig_Extension
               $program = $page_programs[$i];
              //echo ' -- takeprogram:'.$program->id;
             }
-            
             $picture = $program->picture;
           }
           $i++;
           //echo 'picture : $this->slider_size['.$nb_programs_page.']['.$c.']';
           if (isset($this->slider_size[$nb_programs_page][$c])) {
-            $program->picture = str_replace(array('143/180','150/200','990/450','1500/450'), $this->slider_size[$nb_programs_page][$c].'/c', $picture);
+            $program->picture = str_replace('/medias', '/c/medias', str_replace(
+              $this->input_slider_size, 
+              $this->slider_size[$nb_programs_page][$c], 
+              $picture
+            ));
           }
           $program->combinaison_type = $c;
           $programs[$i] = $program;

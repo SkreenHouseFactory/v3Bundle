@@ -14,21 +14,23 @@ var BaseSession = Class.extend({
   init: function(callback, args) {
     console.log('BaseSession.init', args);
     var self = this;
-    this.uid = API.cookie('uid');
+    this.uid = API.cookie('session_uid');
     //update default sync args & launch sync
-    $.extend(this.sync_args, typeof args == 'undefined' ? {} : args);
-    this.sync(function(sessionData){
-      //console.log('BaseSession.init', 'callback Session.sync', sessionData);
-      //callbackInit : called only once
-      if (self.callbackInit) {
-        self.callbackInit();
-        self.callbackInit = null;
-      }
-      //callback
-      if (typeof callback != 'undefined') {
-        callback(sessionData)
-      }
-    }, args);
+    if (this.uid) {
+      $.extend(this.sync_args, typeof args == 'undefined' ? {} : args);
+      this.sync(function(sessionData){
+        //console.log('BaseSession.init', 'callback Session.sync', sessionData);
+        //callbackInit : called only once
+        if (self.callbackInit) {
+          self.callbackInit();
+          self.callbackInit = null;
+        }
+        //callback
+        if (typeof callback != 'undefined') {
+          callback(sessionData)
+        }
+      }, args);
+    }
   },
   sync: function(callback, args) {
     var self = this;
