@@ -15,6 +15,7 @@ CinemaView = {
 				UI.removeLoader(container);
 				container.html(datas);
 				UI.loadPlaylistTriggers('cinema', Skhf.session.datas.cinema.split(','), container);
+        $('#theaters-list').children().addClass('remove-on-signout');
       });
   }
 }
