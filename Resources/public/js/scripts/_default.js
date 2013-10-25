@@ -35,9 +35,7 @@ $(document).ready(function(){
     // -- session
     Skhf.session = new Session(function(){
       console.log('script', 'Session.init', 'callback');
-      if(Skhf.session.datas.email){
-        $('.headertoprighticons').removeClass('hide');
-      }
+      $('.headertoprighticons').removeClass('hide');
     }, typeof Session_sync_args != 'undefined' ? Session_sync_args : {});
   });
   // -- User interactions

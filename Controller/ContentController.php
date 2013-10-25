@@ -185,33 +185,33 @@ class ContentController extends Controller
         throw $this->createNotFoundException('Selection does not exist');
       }
       $data->programs = (array)$data->programs;
-       $program = array_pop($data->programs) ;
+      $programs = array_values($data->programs);
+      $program = isset($programs[0]) ? $programs[0] : null;
       $data->picture = str_replace('150/200', '240/320', isset($program) && is_object($program) ? $program->picture : null);
         if ($request->get('partner')) {
         $response = $this->render('SkreenHouseFactoryPartnersBundle:'.$request->get('partner').':selection.html.twig', array(
           'selection' => $data
         ));
       } else {
-          $custom_header = false;
-          $from_selection = true;
-          $is_channel = false;
-          if ( $data->onglet->type == 'page'){
-            $is_channel = true;
-            if ( $this->get('templating')->exists('SkreenHouseFactoryV3Bundle:Channel:_header-'.$data->onglet->channel->id.'.html.twig')){
-              $custom_header = true;
-            }
+        $custom_header = false;
+        $from_selection = true;
+        $is_channel = false;
+        if ( $data->onglet->type == 'page'){
+          $is_channel = true;
+          if ( $this->get('templating')->exists('SkreenHouseFactoryV3Bundle:Channel:_header-'.$data->onglet->channel->id.'.html.twig')){
+            $custom_header = true;
           }
-      
+        }
         //bad url
-          if ($request->getPathInfo() != $data->seo_url) {
-            //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$data->seo_url . '/';
-            return $this->redirect($data->seo_url, 301);
-          }
+        if ($request->getPathInfo() != $data->seo_url) {
+          //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$data->seo_url . '/';
+          return $this->redirect($data->seo_url, 301);
+        }
         $response = $this->render('SkreenHouseFactoryV3Bundle:Content:selection.html.twig', array(
-              'selection' => $data,
-              'custom_header' => $custom_header,
-              'from_selection'=> $from_selection,
-              'is_channel' => $is_channel
+          'selection' => $data,
+          'custom_header' => $custom_header,
+          'from_selection'=> $from_selection,
+          'is_channel' => $is_channel
         ));
       }
 
