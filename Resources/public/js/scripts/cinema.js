@@ -1,3 +1,23 @@
+// -- CinemaView
+var CinemaView;
+CinemaView = {
+  appendSearchResult: function(){
+		var theaters = Skhf.session.datas.cinema;
+		var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
+		container.empty();
+		UI.appendLoader(container, 2000);
+		API.query(
+			'GET',
+			API.config.v3_url + $('#theaters-search').attr('action') + '?playlist=1&theater_ids=' + theaters,
+			{dataType: 'text html'},
+			function(datas){
+				console.log('script', '#theaters-playlist', 'callback');
+				UI.removeLoader(container);
+				container.html(datas);
+				UI.loadPlaylistTriggers('cinema', Skhf.session.datas.cinema.split(','), container);
+      });
+  }
+}
 // -- theaters
 $(document).ready(function(){
 
@@ -39,21 +59,18 @@ $(document).ready(function(){
   // trigger search playlist
 	$(document).on('click', '#trigger-theaters-playlist', function(){
 		console.log('script', 'trigger-theaters-playlist');
-		var theaters = Skhf.session.datas.cinema;
 		//if (theaters && theaters.split(',').length) {
-			var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
-			container.empty();
-			UI.appendLoader(container, 2000);
-			API.query(
-				'GET',
-				API.config.v3_url + $('#theaters-search').attr('action') + '?playlist=1&theater_ids=' + theaters,
-				{dataType: 'text html'},
-				function(datas){
-					console.log('script', '#theaters-playlist', 'callback');
-					UI.removeLoader(container);
-					container.html(datas);
-					UI.loadPlaylistTriggers('cinema', Skhf.session.datas.cinema.split(','), container);
+      if( Skhf.session.datas.email){
+			CinemaView.appendSearchResult();
+      }
+      else{
+        UI.auth(
+          function(){
+            if(Skhf.session.datas.email){
+              CinemaView.appendSearchResult();
+            }
         });
+      }
 		//}
 		return false;
 	});
