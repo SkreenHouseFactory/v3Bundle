@@ -438,7 +438,11 @@ UI = {
     }
     console.log('UI.loadNotifications', notifications);
     var nb = notifications.length == this.max_notifications ? notifications.length + '+' : notifications.length;
-
+    
+    // 1ere connexion: valeur de nb par defaut
+    if(typeof notifications.length == "undefined"){
+      var nb = 0;
+    }
     if (!$('.navbar .notifications-count').hasClass('with-badge')) {
       $('.navbar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
     }
@@ -505,6 +509,7 @@ UI = {
           }
         }
       }
+      
 
       $('.navbar .notifications-count').data('count-new', nb_new);
       $('[rel="tooltip"]', list).tooltip({placement: 'bottom'});
