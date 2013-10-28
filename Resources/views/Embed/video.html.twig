@@ -10,11 +10,16 @@ body {
 }
 #player { height: 100%; }
 #trigger {
+  opacity: 0.8;
   position: absolute;
   z-index: 2;
   width: {{ width }}px;
   height: {{ height }}px;
   background: url({{ asset('bundles/skreenhousefactoryv3/images/big-play-shadow.png') }}) no-repeat center;
+
+}
+#trigger:hover{
+  opacity: 1;
 }
 </style>
 {% endblock %}
