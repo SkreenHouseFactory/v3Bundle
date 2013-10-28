@@ -373,7 +373,7 @@ $(document).ready(function(){
     });  
   }
   //Scroll to player quand on est sur un Touch device
-  $('html.touch tr[data-play]').on('click', function () {
+  $('html tr[data-play]').on('click', function () {
     $('html,body').animate({'scrollTop' : 0},1000);
   });  
 
