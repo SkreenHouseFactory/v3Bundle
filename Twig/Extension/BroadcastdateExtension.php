@@ -18,6 +18,7 @@ class broadcastdateExtension extends \Twig_Extension
         return array(
             'broadcastdate' => new \Twig_Filter_Method($this, 'broadcastdate'),
             'remainingtv' => new \Twig_Filter_Method($this, 'remainingtv'),
+            'comingsoon' => new \Twig_Filter_Method($this, 'comingsoon'),
             'remainingreplay' => new \Twig_Filter_Method($this, 'remainingreplay'),
             'timeleft' => new \Twig_Filter_Method($this, 'timeleft'),
         );
@@ -52,7 +53,24 @@ class broadcastdateExtension extends \Twig_Extension
 				return 'En Replay dans ' . $nb_days . ' jour'.($nb_days > 1 ? 's' : null);
 			}
     }
-
+    /**
+     * get remaining time message
+     * 
+     * @param string $string
+     * @return int 
+     */
+    public function comingsoon ($time)
+    {
+			$remaining = $time - time() + 3600;
+			if ($remaining < 0) {
+			} elseif ($remaining/3600 < 24 ) {
+        $nb_hours = round($remaining/3600);
+				return ' Disponible dans ' . $nb_hours . ' h !';
+			} elseif ($remaining/3600 < 73 ) {
+        $nb_days = round($remaining/(3600*24));
+				return ' Disponible dans ' . $nb_days . ' jour'.($nb_days > 1 ? 's' : null);
+			}
+    }
     /**
      * get remaining time message
      * 

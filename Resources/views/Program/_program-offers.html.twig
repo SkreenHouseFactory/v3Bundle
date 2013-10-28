@@ -42,7 +42,7 @@
 
   {# offres #}
   {% set hasoffers = 2  %}
-  {% for key in offers|keys if program.offers[key]|to_array|length > 0 %}
+  {% for key in offers|keys if program.offers[key]|to_array|length > 0%}
   {% set hasoffers = 1  %}
   {% set variabledeboucle = loop.index  %}
   <div class="panel{{ program.offers[key]|to_array|length > 3 or (key == 'external' and program.offers['deporte']|to_array|length) ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : ' panel-default' }} count-{{ program.offers[key]|to_array|length }}">
@@ -230,25 +230,32 @@
                   <button type="button" class="btn btn-voir disabled">Lecture en cours</button>
               {% else %}
               <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;
-                {% if key == "dvd"%}
-                {{ o.cost ? 'Acheter ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Acheter' }} 
+                {% if key == "dvd" %}
+                {{ o.cost is defined and o.cost != null ? 'Acheter ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Acheter' }} 
                 {% elseif o.buy_id is defined and o.buy_id %}
-                {{ o.cost ? 'A partir de ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }} 
+                {{ o.cost is defined and o.cost != null ? 'A partir de ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }} 
                 {% else %}
-                {{ o.cost ? 'Voir ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }} 
+                {{ o.cost is defined and o.cost != null ? 'Voir ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }} 
                 {% endif %}
               </button>
               {% endif %}
               <br/>
-              {% if o_access.name == 'TV' %}
-              {% if key == 'plays'  %}
-              <span class="ms-reminder">Live</span>
-              <i class="glyphicon glyphicon-time"></i>
-              {% elseif o.has_replay and o.broadcasttime|remainingtv %}
-              <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
-              {% elseif o.broadcasttime|timeleft %}
-              <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o_access.name == 'TV' ? 'Encore' : 'Dans' }} {{ o.broadcasttime|timeleft }}</span>
+              {% if key == 'coming_soon' %}
+                {% if o.starttime is defined %}
+                  <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{o.starttime|comingsoon}}</span>
+                {% elseif o.broadcasttime is defined %}
+                  <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{o.broadcasttime|comingsoon}}</span>
+                {% endif %}
               {% endif %}
+              {% if o_access.name == 'TV' %}
+                {% if key == 'plays'  %}
+                  <span class="ms-reminder">Live</span>
+                  <i class="glyphicon glyphicon-time"></i>
+                {% elseif o.has_replay and o.broadcasttime|remainingtv %}
+                  <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
+                {% elseif o.broadcasttime|timeleft %}
+                  <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o_access.name == 'TV' ? 'Encore' : 'Dans' }} {{ o.broadcasttime|timeleft }}</span>
+                {% endif %}
               {% elseif o.endtime is defined and o.endtime|remainingreplay %}
               <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
               {% endif %}
