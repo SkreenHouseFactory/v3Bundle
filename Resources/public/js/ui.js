@@ -491,7 +491,7 @@ UI = {
       });
 
       //TOFIX : should be working in script/core/ui.js
-      UiView.initDataLive(list);
+      //UiView.initDataLive(list);
 
       //new
       if (nb_new > 0) {

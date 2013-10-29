@@ -12,9 +12,47 @@
 
 {% block content %}
 <div id="view-appsinstall" class="container">
-  <h1>l'application mySkreen</h1>
-  <br/>
-  <p>installation...</p>
+  <div class="row">
+    <div class="col-xs-10">
+      <span class="lato title-1">
+        Retrouvez
+      </span>
+      <span class="mk_logo"/></span>
+      <span class="lato title-2">
+        sur votre mobile !
+      </span>
+      <a href="#" class="btn large gray bAppStore">
+          <h5 class="branding">
+            Disponible dans la boutique <span class="store">App Store</span>
+          </h5>
+       </a>
+          
+      <a href="#" class="btn large black bGooglePlay">
+        <h6 class="branding">
+          A télécharger dans la boutique <span class="store">Google Play</span>
+        </h6>
+    </a>
+    </div>
+    <div class="col-xs-6">
+      <span class="img_mobile" ></span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-8">
+      <h2 class="lato title-3">
+        Disponible sur iOs et android
+      </h2>
+      <p>
+      </p>
+    </div>
+    <div class="col-xs-8">
+      <h2 class="lato">
+        VOD, Séries, Replay
+      </h2>
+      <p>
+      </p>
+    </div>
+  </div>
     <script>
     var ua = navigator.userAgent.toLowerCase();
     if(ua.indexOf('android') != -1 && ua.indexOf('mobile')) {

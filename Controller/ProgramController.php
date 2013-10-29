@@ -122,6 +122,7 @@ class ProgramController extends Controller
           'with_empty_player' => true,
           'with_img_maxsize'=>true,
           'with_svod' => true,
+          'with_coming_soon'=> true,
           'slider_width' => 990,
           'slider_height' => 450
           //'wrap_default_description' => 'h2',
@@ -372,7 +373,8 @@ class ProgramController extends Controller
             'bonus' => 'Bonus',
             'cut' => 'Extraits',
             'dvd' => 'DVD & Blu-Ray',
-            'archive' => 'Archives'
+            'archive' => 'Archives',
+            'coming_soon'=> 'Bientôt disponible',
           ),
           'player_host' => $api->host
         ));

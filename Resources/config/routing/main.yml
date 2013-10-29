@@ -9,7 +9,6 @@ embed_offer:
 apps_install:
     pattern:  /apps/install/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:appsinstall }
-
 #sitemaps
 sitemap_general:
     pattern:  /sitemap.xml
