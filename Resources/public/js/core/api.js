@@ -184,7 +184,8 @@ API = {
       $('[type="submit"]', elmt).on('click',function(e){
         e.preventDefault();
         console.warn('API.catchForm', 'submit');
-        //$(this).attr('disabled', 'disabled');
+        $(this).attr('disabled', 'disabled');
+        $(this).attr('value','Chargement...');
         var form = $(this).parents('form:first');
         var o = {};
         var a = form.serializeArray();
