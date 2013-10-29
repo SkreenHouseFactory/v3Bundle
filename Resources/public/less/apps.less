@@ -1,14 +1,90 @@
-#view-appsinstall{
-  .title-1{
-    
-  }
-  .mk_logo{
-    display: inline-block;
-    height:50px;
-    width: 100px;
-    background: url(/bundles/skreenhousefactoryv3/images/apps_logo.png) no-repeat top left;
-  }
-  .img_mobile{
-    background: url(/bundles/skreenhousefactoryv3/images/mobiles_apps.png) no-repeat top left;
+
+.view-apps_install{
+  #main{
+    padding-top: 0;
   }
 }
+
+#view-appsinstall{
+  .title-1, .title-2{
+   color: #fff;
+   text-shadow: 2px 2px 0px #2371a4;
+ } 
+ .title-1{
+  font-size: 48px;
+  display: inline-block;
+  margin-top: 50px;
+}
+.title-2{
+  font-size: 62px;
+  display: block;
+  margin-left: 30px;
+}
+.title-3{
+ color: #2980b9;
+ font-size: 30px;
+ font-weight: 400; 
+ margin-top:40px;
+ margin-bottom: 40px; 
+}
+.mk_logo{
+  display: inline-block;
+  height:50px;
+  width: 195px;
+  background: url(/bundles/skreenhousefactoryv3/images/apps_logo.png) no-repeat bottom left;
+  margin-top: 50px;
+  margin-bottom: -12px;
+  margin-left: 15px;
+}
+.img_mobile{
+  background: url(/bundles/skreenhousefactoryv3/images/mobiles_apps.png) no-repeat top left;
+  width: 410px;
+  height: 368px;
+  display: block;
+}
+
+.myworldisblue{
+  background: #2980b9;
+  overflow: hidden;
+  padding-top: 70px;
+
+
+  &:before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    margin-left: -450px;
+    width: 900px; 
+    height: 500px;
+    background: #45bce1; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover,  #45bce1 0%, #2980b9 72%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#45bce1), color-stop(72%,#2980b9)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  #45bce1 0%,#2980b9 72%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  #45bce1 0%,#2980b9 72%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  #45bce1 0%,#2980b9 72%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  #45bce1 0%,#2980b9 72%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45bce1', endColorstr='#2980b9',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */   
+  }
+}
+.textbgcol{
+  background: #fff;
+  min-height: 350px;
+  p{
+    font-size: 16px;
+    line-height: 26px;
+    color: #373a3b;
+  }
+}
+.store{
+  display: inline-block;
+  margin-left: 15px;
+  margin-top: 40px;
+  &:hover{
+    opacity: 0.8;
+  }
+
+}
+}
+

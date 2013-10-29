@@ -11,51 +11,54 @@
 {% block description %}{{ 'page.description.apps.install'|trans }}{% endblock %}
 
 {% block content %}
-<div id="view-appsinstall" class="container">
-  <div class="row">
-    <div class="col-xs-10">
-      <span class="lato title-1">
-        Retrouvez
-      </span>
-      <span class="mk_logo"/></span>
-      <span class="lato title-2">
-        sur votre mobile !
-      </span>
-      <a href="#" class="btn large gray bAppStore">
-          <h5 class="branding">
-            Disponible dans la boutique <span class="store">App Store</span>
-          </h5>
-       </a>
-          
-      <a href="#" class="btn large black bGooglePlay">
-        <h6 class="branding">
-          A télécharger dans la boutique <span class="store">Google Play</span>
-        </h6>
-    </a>
-    </div>
-    <div class="col-xs-6">
-      <span class="img_mobile" ></span>
+<div id="view-appsinstall" >
+  <div class="myworldisblue">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-9">
+          <span class="lato title-1">
+            Retrouvez
+          </span>
+          <span class="mk_logo"/></span>
+          <span class="lato title-2">
+            sur votre mobile !
+          </span>
+          <a href="#" class="store">
+           <img src="{{ asset('bundles/skreenhousefactoryv3/images/apps_apple.png') }}" alt="Retrouvez l’appli myskreen sur l'app store">
+         </a>
+         <a href="https://play.google.com/store/apps/details?id=com.myskreen.android&hl=fr" class="store">
+           <img src="{{ asset('bundles/skreenhousefactoryv3/images/apps_google.png') }}" alt="Retrouvez l’appli myskreen sur google play">
+           </a>
+       </div>
+       <div class="col-xs-7">
+        <span class="img_mobile" ></span>
+      </div>
     </div>
   </div>
+</div>
+<div class="container textbgcol"> 
   <div class="row">
-    <div class="col-xs-8">
-      <h2 class="lato title-3">
-        Disponible sur iOs et android
-      </h2>
-      <p>
-      </p>
-    </div>
-    <div class="col-xs-8">
-      <h2 class="lato">
-        VOD, Séries, Replay
-      </h2>
-      <p>
-      </p>
-    </div>
-  </div>
-    <script>
-    var ua = navigator.userAgent.toLowerCase();
-    if(ua.indexOf('android') != -1 && ua.indexOf('mobile')) {
+   <div class="col-xs-8">
+     <h2 class="lato title-3">
+       Disponible sur iOs et android
+     </h2>
+     <p>
+       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis venenatis lacus at leo gravida, vitae convallis risus tempor. Suspendisse in elit dui. Aenean vitae augue quam. Donec quis pellentesque justo. In hac habitasse platea dictumst. Donec ac erat consectetur, egestas urna eu, vulputate justo.
+     </p>
+   </div>
+   <div class="col-xs-8">
+     <h2 class="lato title-3">
+       VOD, Séries, Replay
+     </h2>
+     <p>
+       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis venenatis lacus at leo gravida, vitae convallis risus tempor. Suspendisse in elit dui. Aenean vitae augue quam. Donec quis pellentesque justo. In hac habitasse platea dictumst. Donec ac erat consectetur, egestas urna eu, vulputate justo.
+     </p>
+   </div>
+ </div>
+</div>
+<script>
+  var ua = navigator.userAgent.toLowerCase();
+  if(ua.indexOf('android') != -1 && ua.indexOf('mobile')) {
       // Redirect to Android-site
       window.location = 'https://play.google.com/store/apps/details?id=com.myskreen.android&hl=fr';
     }
@@ -64,5 +67,11 @@
       //window.location = 'https://play.google.com/store/apps/details?id=com.myskreen.android&hl=fr';
     }
   </script>
+
+
+
 </div>
+
+
+
 {% endblock %}
