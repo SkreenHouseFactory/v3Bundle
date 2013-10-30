@@ -13,13 +13,15 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
         {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index:loop.index, h_title: "h2",channel: channel} %}
       {% endfor %}
   </div>
+  {% if (channel.personne is defined and channel.personne) or (channel.text is defined and channel.text) %}
+  <div id="description-seo">
+    {% if channel.personne is defined and channel.personne %}
+    <p>{{ channel.personne.description|raw }}</p>
+    {% elseif channel.text is defined and channel.text %}
+    <p>{{ channel.text|raw }}</p>
+    {% endif %}
+  </div>
+  {% endif %}
 
-   <div id="description-seo">
-      {% if channel.personne is defined and channel.personne %}
-      <p>{{ channel.personne.description|raw }}</p>
-      {% elseif channel.text is defined and channel.text %}
-      <p>{{ channel.text|raw }}</p>
-      {% endif %}
-      </div>
 </div>
 </div>

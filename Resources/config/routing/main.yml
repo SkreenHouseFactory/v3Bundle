@@ -5,11 +5,7 @@ embed_offer:
     requirements:
         id: \d+
 
-#apps
-apps_install:
-    pattern:  /apps/install/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:appsinstall }
-#sitemaps
+
 sitemap_general:
     pattern:  /sitemap.xml
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:sitemap }
