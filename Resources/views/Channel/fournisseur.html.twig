@@ -52,7 +52,7 @@
       {% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: channel} %}
     </div>
   </div>
-  <div class="row ms-channel-headtitle {% if channel.live.player is defined %}with_live{% endof %}">
+  <div class="row ms-channel-headtitle {% if channel.live.player is defined %}with_live{% endif %}">
     {# title #}
     {% if channel.img %}
     <div class="col-xs-2"><img class="channel-logo inline-block" src="{{ channel.img }}" /></div>

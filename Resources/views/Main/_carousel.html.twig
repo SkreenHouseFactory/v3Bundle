@@ -29,9 +29,9 @@
       <div class="row">
         <div class="col-xs-16">
       <div class="carousel-caption actions">
-      {% if p.id < 100000000 %}
-      {#% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: p.id , class: 'fav-like'} %#}
-      {% endif %}
+      {#% if p.id < 100000000 %}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: p.id , class: 'fav-like'} %}
+      {% endif %#}
       <p><a href="{{ base_url }}{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">{{ p.title }}</a></p>
       <p class="pull-left">{{ p.format ? p.format.name : '' }}{% if p.duration %}, {{ p.duration }}mn{% endif %}</p>
       {% if p.pitch is defined and p.pitch %}
