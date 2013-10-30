@@ -138,7 +138,7 @@
             <tr class="other-episodes {{ o_access.name }}"><td colspan="6"><p>Autres épisodes <i class="glyphicon glyphicon-arrow-down"></i></p></td></tr>
             {% set other_episodes = 'ok' %}
             {% endif %}
-            <tr class="{{ o.cost is defined and o.cost ? '' : 'no-cost '}}{% if o.id == program.player.id %}is-playing{% endif %}{% if loop.index > loop_offset and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %}{% else %}collapse{% endif %} collapsing-{{ key }}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['TV'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte %} data-play="{{ o.id }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~ (o.broadcasttime is defined ? o.broadcasttime|broadcastdate : '')}) }}">
+            <tr class="{{ o.cost is defined and o.cost ? '' : 'no-cost '}}{% if o.id == program.player.id %}is-playing{% endif %}{% if loop.index > loop_offset and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %}{% else %}collapse{% endif %} collapsing-{{ key }}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['TV'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ o.url }}"{% elseif o.deporte is defined and o.deporte and key != "coming_soon" %} data-play="{{ o.id }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~ (o.broadcasttime is defined ? o.broadcasttime|broadcastdate : '')}) }}">
 
               <td class="channel">
                 <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture }}{% else %}{{ o_channel.img }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
@@ -221,14 +221,14 @@
                     o.is_live  %}
               <button type="button" class="btn btn-voir"  ><i class="glyphicon glyphicon-play" ></i>&nbsp;Voir le direct</button>
               {% elseif o_access.name in ['TV'] %}
-                {% if key == "live"%}
+                {% if key == "live" %}
                   <a class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir</a>
                 {% else %}
                   <a class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier</a>
                 {% endif %}
               {% elseif o.id == program.player.id %}
                   <button type="button" class="btn btn-voir disabled">Lecture en cours</button>
-              {% else %}
+              {% elseif key != "coming_soon"%}
               <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;
                 {% if key == "dvd" %}
                 {{ o.cost is defined and o.cost != null ? 'Acheter ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Acheter' }} 
@@ -241,7 +241,7 @@
               {% endif %}
               <br/>
               {% if key == 'coming_soon' %}
-                {% if o.starttime is defined %}
+                {% if o.starttime is defined and o.starttime|comingsoon %}
                   <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{o.starttime|comingsoon}}</span>
                 {% elseif o.broadcasttime is defined %}
                   <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{o.broadcasttime|comingsoon}}</span>
