@@ -42,7 +42,7 @@
 
   {# offres #}
   {% set hasoffers = 2  %}
-  {% for key in offers|keys if program.offers[key]|to_array|length > 0%}
+  {% for key in offers|keys if program.offers[key] is defined and program.offers[key]|to_array|length > 0%}
   {% set hasoffers = 1  %}
   {% set variabledeboucle = loop.index  %}
   <div class="panel{{ program.offers[key]|to_array|length > 3 or (key == 'external' and program.offers['deporte']|to_array|length) ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : ' panel-default' }} count-{{ program.offers[key]|to_array|length }}">
