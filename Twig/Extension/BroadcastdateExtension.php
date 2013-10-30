@@ -66,7 +66,7 @@ class broadcastdateExtension extends \Twig_Extension
 			} elseif ($remaining/3600 < 24 ) {
         $nb_hours = round($remaining/3600);
 				return ' Disponible dans ' . $nb_hours . ' h !';
-			} elseif ($remaining/3600 < 73 ) {
+			} else{
         $nb_days = round($remaining/(3600*24));
 				return ' Disponible dans ' . $nb_days . ' jour'.($nb_days > 1 ? 's' : null);
 			}
