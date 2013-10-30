@@ -23,12 +23,12 @@
     #}
 
   {% for p in slider.programs|to_array %}
-  <div class="item pointer{% if loop.first %} active{% endif %}">
+  <div class="item pointer{% if loop.first %} active{% endif %} ">
     <a href="{{ base_url }}{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}" class="mask {{ 'Slider1500' in p.sliderPicture is defined and p.sliderPicture ? 'mask-1500' : 'mask-990' }}" style="background-image: url({% if p.sliderPicture is defined %}{{ force_size is defined ? p.sliderPicture|replace({'/990': force_size }) : p.sliderPicture }}{% else %}{{ p.picture }}{% endif %});"></a>
     <div class="container">
       <div class="row">
         <div class="col-xs-16">
-      <div class="carousel-caption actions">
+      <div class="carousel-caption actions {% if p.id is defined %} item-{{ p.id }} {% endif %}">
       {% if p.id < 100000000 %}
       {#% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: p.id , class: 'fav-like'} %#}
       {% endif %}
