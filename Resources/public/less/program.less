@@ -78,29 +78,7 @@
     display: inline-block;
   }
 
-  .channel{
-    text-align: center;
-  }
-  .channel_link{
-    background:#778390;
-    margin-bottom: 20px;
-    text-align: center;
-    display: block;
-    padding: 1px;
-    .link-background-transition;
-  }
-  .channel_link:hover, .channel_link:active, .channel_link:focus,{
-    background:@bluemaincolor;
-  }
-  .channel_root{
-    width: 100%;
-    display: block;
-  }
-  .channel_texte{
-    font-size: 12px;
-    display: inline-block;
-    color: #fff;
-  }
+
 
   .ms-cat-program-title, 
   .ms-cat-program-title:hover, 
@@ -539,19 +517,19 @@ ul#episodes-list{
   }
 }
 html:not(.touch){
-  .tab-pane{
+  .tab-pane:not(#coming_soon){
     table {
-        tr {
-          &:hover {
-            cursor: pointer;
+      tr {
+        &:hover {
+          cursor: pointer;
+          color: @rowHoverColor;
+          background-color: @rowHoverBg;
+          border-bottom: 1px solid #f1e7bc;
+          td.price .rent {
             color: @rowHoverColor;
-            background-color: @rowHoverBg;
-            border-bottom: 1px solid #f1e7bc;
-            td.price .rent {
-              color: @rowHoverColor;
-            }
           }
         }
       }
     }
+  }
 }

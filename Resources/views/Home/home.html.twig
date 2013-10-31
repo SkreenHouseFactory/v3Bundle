@@ -36,7 +36,7 @@
 {% if home.filters|to_array|length %}
 <div class="dropdown-filters2">
  {#  TRIANGLE <i class="ms-top-triangle ms_triangle_position_a"></i>#}
-<ul class="dropdown-menu  dropdown-filters-{{ app.request.get('home') }}">
+ <ul class="dropdown-menu  dropdown-filters-{{ app.request.get('home') }}">
   <li class="nav-header">catégories dans {{ home.name|replace({'v3-cine': 'cinéma','video-a-la-demande':'VOD'}) }} <i class="glyphicon glyphicon-chevron-right"></i></li>
   {% for f in home.filters|to_array|sort %}
   <li><a class="label label-default label-filter" href="{{ path('any_url', {url: f.url|slice(1, f.url|length-1)}) }}" target="_top">{{ f.name }}</a></li>
@@ -49,35 +49,246 @@
 {% block content %}
 <div id="view-home">
   {% for slider in home.sliders|to_array if slider.id is defined %}
-    {% if loop.first %}
-      <div id="description-seo">
-        <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1> 
-        {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
-        {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
+  {% if loop.first %}
+  <div id="description-seo">
+    <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1> 
+    {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
+    {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
+  </div>
+  {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une', force_size: '/1250/370'} %}
+  {% if 'video-a-la-demande' in app.request.uri %}
+  {% include 'SkreenHouseFactoryV3Bundle:Home:_encartvod.html.twig' %}
+  {% endif %}
+  {% if app.request.get('home') == 'cinema' %}
+  <div class="container playlist">
+    <div class="row">
+      <div class="col-xs-16">
+        {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
       </div>
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une', force_size: '/1250/370'} %}
-      {% if 'video-a-la-demande' in app.request.uri %}
-        {% include 'SkreenHouseFactoryV3Bundle:Home:_encartvod.html.twig' %}
-      {% endif %}
-      {% if app.request.get('home') == 'cinema' %}
-      <div class="container playlist">
-        <div class="row">
-        <div class="col-xs-16">
-          {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
-        </div>
-        </div>
+    </div>
+  </div>
+
+  {% endif %}
+  {% else %}
+  {% if loop.index == 3 %}
+
+  <div class="container">
+    <div class="row hometop">
+      <div class="col-xs-4">
+        <div class="prog-list">   
+         <h2> 
+           <a href="#">Ce soir à la télé</a>
+         </h2>
+         <a  href="#channel_carousel" data-slide="prev">
+          <button type="button" class="btn btn-default fleches">  
+            <span class="glyphicon glyphicon-chevron-up"></span>
+          </button>
+        </a>
+        <div id="channel_carousel" class="carousel slide vertical" data-interval="false">
+          <!-- Carousel items -->
+          <div class="carousel-inner">
+            <div class="active item">
+             <div class="channel-program">
+               <div class="icon_chaine"> 
+                 <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+               </div>
+               <h3>Joséphine Ange gardien</h3>
+               <span><b>20:50</b> - Film</span>
+             </div>
+             <div class="hr-like"></div>
+             <div class="channel-program">
+               <div class="icon_chaine"> 
+                 <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+               </div>
+               <h3>Joséphine Ange gardien</h3>
+               <span><b>20:50</b> - Film</span>
+             </div>
+             <div class="hr-like"></div>
+             <div class="channel-program">
+               <div class="icon_chaine"> 
+                 <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+               </div>
+               <h3>Joséphine Ange gardien</h3>
+               <span><b>20:50</b> - Film</span>
+             </div>
+             <div class="hr-like"></div>
+             <div class="channel-program">
+               <div class="icon_chaine"> 
+                 <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+               </div>
+               <h3>Joséphine Ange gardien</h3>
+               <span><b>20:50</b> - Film</span>
+             </div>
+             <div class="hr-like"></div>
+             <div class="channel-program">
+               <div class="icon_chaine"> 
+                 <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+               </div>
+               <h3>Joséphine Ange gardien</h3>
+               <span><b>20:50</b> - Film</span>
+             </div>
+             <div class="hr-like"></div>       
+             <div class="channel-program">
+               <div class="icon_chaine"> 
+                 <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+               </div>
+               <h3>Joséphine Ange gardien</h3>
+               <span><b>20:50</b> - Film</span>
+             </div>
+           </div>
+           <div class="item">
+             <div class="channel-program">
+               <div class="icon_chaine"> 
+                 <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+               </div>
+               <h3>Joséphine Ange gardien</h3>
+               <span><b>20:50</b> - Film</span>
+             </div>
+             <div class="hr-like"></div>
+             <div class="channel-program">
+               <div class="icon_chaine"> 
+                 <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+               </div>
+               <h3>Joséphine Ange gardien</h3>
+               <span><b>20:50</b> - Film</span>
+             </div>
+             <div class="hr-like"></div>
+             <div class="channel-program">
+               <div class="icon_chaine"> 
+                 <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+               </div>
+               <h3>Joséphine Ange gardien</h3>
+               <span><b>20:50</b> - Film</span>
+             </div>
+             <div class="hr-like"></div>
+             <div class="channel-program">
+               <div class="icon_chaine"> 
+                 <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+               </div>
+               <h3>Joséphine Ange gardien</h3>
+               <span><b>20:50</b> - Film</span>
+             </div>
+             <div class="hr-like"></div>
+             <div class="channel-program">
+               <div class="icon_chaine"> 
+                 <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+               </div>
+               <h3>Joséphine Ange gardien</h3>
+               <span><b>20:50</b> - Film</span>
+             </div>
+             <div class="hr-like"></div>       
+             <div class="channel-program">
+               <div class="icon_chaine"> 
+                 <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+               </div>
+               <h3>Joséphine Ange gardien</h3>
+               <span><b>20:50</b> - Film</span>
+             </div>          </div>
+             <div class="item">
+               <div class="channel-program">
+                 <div class="icon_chaine"> 
+                   <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+                 </div>
+                 <h3>Joséphine Ange gardien</h3>
+                 <span><b>20:50</b> - Film</span>
+               </div>
+               <div class="hr-like"></div>
+               <div class="channel-program">
+                 <div class="icon_chaine"> 
+                   <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+                 </div>
+                 <h3>Joséphine Ange gardien</h3>
+                 <span><b>20:50</b> - Film</span>
+               </div>
+               <div class="hr-like"></div>
+               <div class="channel-program">
+                 <div class="icon_chaine"> 
+                   <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+                 </div>
+                 <h3>Joséphine Ange gardien</h3>
+                 <span><b>20:50</b> - Film</span>
+               </div>
+               <div class="hr-like"></div>
+               <div class="channel-program">
+                 <div class="icon_chaine"> 
+                   <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+                 </div>
+                 <h3>Joséphine Ange gardien</h3>
+                 <span><b>20:50</b> - Film</span>
+               </div>
+               <div class="hr-like"></div>
+               <div class="channel-program">
+                 <div class="icon_chaine"> 
+                   <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+                 </div>
+                 <h3>Joséphine Ange gardien</h3>
+                 <span><b>20:50</b> - Film</span>
+               </div>
+               <div class="hr-like"></div>       
+               <div class="channel-program">
+                 <div class="icon_chaine"> 
+                   <img src="http://mskstatic.com/36/medias/ico/chaines/tf1_medium.png" alt="regarder TF1 en replay">
+                 </div>
+                 <h3>Joséphine Ange gardien</h3>
+                 <span><b>20:50</b> - Film</span>
+               </div>          </div>
+             </div>
+
+
+           </div>
+
+
+
+
+
+
+           <a href="#channel_carousel" data-slide="next">
+             <button type="button" class="btn btn-default fleches">  
+               <span class="glyphicon glyphicon-chevron-down"></span>
+             </button>
+           </a>
+           <button type="button" class="btn btn-default">Voir la grille télé complète</button>
+         </div>
+
+       </div>
+       {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index } %}
+       <div class="col-xs-4">
+         <div class="channelselect">
+           <h2><a href="#">Nos chaines thématiques</a> </h2>
+
+           <a href="/france-3/" class="channel_link">
+             <span class="channel_texte">France 3, la chaîne</span>
+             <img alt="France 3" data-track-channel="France 3" class="channel_root" src="http://mskstatic.com/225/110/c/medias/photos/channel/16-france-3-s.png?2013103115">
+           </a>
+
+           <a href="/france-3/" class="channel_link">
+             <span class="channel_texte">France 3, la chaîne</span>
+             <img alt="France 3" data-track-channel="France 3" class="channel_root" src="http://mskstatic.com/225/110/c/medias/photos/channel/16-france-3-s.png?2013103115">
+           </a>
+
+           <a href="/france-3/" class="channel_link">
+             <span class="channel_texte">France 3, la chaîne</span>
+             <img alt="France 3" data-track-channel="France 3" class="channel_root" src="http://mskstatic.com/225/110/c/medias/photos/channel/16-france-3-s.png?2013103115">
+           </a>
+
+         </div>
+       </div>
+     </div>
+   </div>
+   {% endif %}
+   {% if loop.index == 3 %}
+   <div class="container">
+     <div class="row">
+       <div class="first-container">
+        {% endif %}
+        {% if loop.index >= 3 %} 
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index } %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
       </div>
-    {% endif %}
-    {% else %}
-      {% if loop.index == 2 %}
-        <div class="container"><div class="row"><div class="first-container">
-      {% endif %}
-      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index } %}
-    {% endif %}
-  {% endfor %}
- </div>
-</div>
-</div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 
@@ -88,5 +299,5 @@
     filter='?yui_js' 
     output='js/compiled/pages/home.js'  %}
     <script src="{{ asset_url }}"></script>
-{% endjavascripts %#}
-{% endblock %}
+    {% endjavascripts %#}
+    {% endblock %}
