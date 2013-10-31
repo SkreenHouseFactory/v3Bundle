@@ -831,6 +831,8 @@ html:not(.touch){
 }
 }
 
+// Carousel vertical de la home
+
 
 .carousel.vertical {
     .active {
@@ -864,4 +866,91 @@ html:not(.touch){
 }
 .carousel.vertical .next.left,.carousel.vertical .prev.right {
     top: 0;
+}
+
+
+
+// transition par transparence sur le carousel de la home
+
+
+
+
+.carousel.transchange .next, .carousel.transchange .prev {
+    left:0;
+    opacity:1;
+    z-index:1;
+}
+.carousel.transchange {
+    height: 400px;
+    overflow: hidden;
+    .item {
+        -webkit-transition: opacity 0.7s;
+        -moz-transition: opacity 0.7s;
+        -ms-transition: opacity 0.7s;
+        -o-transition: opacity 0.7s;
+        transition: opacity 0.7s;
+    }
+}
+.carousel.transchange .active.left, .carousel.transchange .active.right {
+    left:0;
+    opacity:0;
+    z-index:2;
+}
+
+
+
+
+.channelselect{
+.wrap-carousel-control{
+      position: relative;
+      height: 40px;
+      bottom: 9px;
+      margin: 0 15px 0 0;
+      > li {
+        list-style: none;
+        display: block;
+        float: right;
+        margin: 0 20px;
+      }
+
+      .carousel-control {
+        color: black;
+        background: none;
+        width: 35px;
+        height: 35px;
+        border: 0;
+        &.left{
+          left: auto;
+        }
+        &.right{
+          right: auto;
+        }
+        .glyphicon{
+          width: 30px;
+          height: 30px;
+          margin-top: -15px;
+          margin-left: -15px;
+          font-size: 24px;
+        }
+      }
+      .carousel-indicators {
+        z-index: 0;
+        margin: 10px 15px;
+        position: relative;
+        bottom:  auto;
+        left:  auto;
+        width: auto;
+        li {
+          list-style: none;
+          width: 13px;
+          height: 13px;
+          background-color: rgba(70,70,70,.25);
+          border: 1px solid  rgba(70, 70, 70, 0.25);
+          &.active {
+            margin: 1px;
+            background-color: #444;
+          }
+        }
+      }
+    }
 }
