@@ -423,9 +423,13 @@ var BaseSlider = Class.extend({
       }
     } else {
       if (p.onglet == 'channel') {
-        $('a.wrap-title', li)
-          .attr('data-ajax', API.config.v3_root + p.seo_url + '?view-cover=1')
-          .attr('rel', '#content');
+        if (this.elmt.hasClass('slider-playlist')) {
+          $('a.wrap-title', li)
+            .attr('data-ajax', API.config.v3_root + p.seo_url + '?view-cover=1')
+            .attr('rel', '#content');
+          } else {
+            $('a.wrap-title', li).attr('href', API.config.v3_root + p.seo_url);
+          }
       } else {
 
         $('.title', li).append('<span class="ms-prog-diff"></span>');

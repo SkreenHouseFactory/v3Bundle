@@ -1,0 +1,64 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}{{ 'page.title.playlists.tonight'|trans }}{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  {# TODO POUR PUBLIER LA PLAYLIST
+  <div class="btn-group pull-right" data-toggle="buttons-radio" style="margin:20px;">
+    <a href="#" class="btn btn-primary" data-placement="bottom" data-title="{{ 'playlist.publish.private.popover.title'|trans }}" data-content="{{ 'playlist.publish.private.popover.content'|trans }}" data-trigger="hover">{{ 'playlist.publish.private.link'|trans }}</a>
+    <a href="#" class="btn" data-placement="bottom" data-title="{{ 'playlist.publish.public.popover.title'|trans }}" data-content="{{ 'playlist.publish.public.popover.content'|trans }}" data-trigger="hover">{{ 'playlist.publish.public.link'|trans }}</a>
+  </div>
+  #}
+
+  <h1>{{ onglet == 'channel' ? 'user.channels'|trans : 'user.programs'|trans }}</h1>
+  {% if programs|length == 0 %}
+    <p class="alert alert-info">Vous ne suivez {{ onglet == 'channel' ? 'aucune chaîne' : 'aucun programme' }}.</p>
+    <br/>
+    <h3>Ajoutez des chaînes à vos playlists</h3>
+    <div class="slider slider-list">
+      <div class="slider-container">
+        <ul class="items">
+          <li class="tv-component actions channel" data-id="200000001" data-play-program-id="200000001" style="background-image:url(http://mskstatic.com/150/200/c/medias/photos/channel/1-logo-les-inconnus.png)"><a href="/les-inconnus" target="_top" class="title"><i class="glyphicon glyphicon-th"></i> Les Inconnus</a></li>
+          <li class="tv-component actions channel" data-id="200000002" data-play-program-id="200000002" style="background-image:url(http://mskstatic.com/150/200/c/medias/photos/channel/3-jacques-demy.jpg)"><a href="/jacques-demy/" target="_top" class="title"><i class="glyphicon glyphicon-th"></i> Jacques Demy</a></li>
+        </ul>
+      </div>
+    </div>
+  
+  {% else %}
+
+    {% if (onglet != 'channel') %}
+    <ul class="nav nav-pills nav-alpha-client uppercase">
+      <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
+        <a href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
+      </li>
+      {% for o in onglets %}
+        <li{% if app.request.get('onglet') == o %} class="active"{% endif %}>
+          <a href="{{ path('user_programs', {onglet: o}) }}">{{ ['category.',o]|join|trans }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <br />
+    {% endif %}
+
+    {% if programs|length > 6 %}
+    <ul class="pagination pagination-client-alpha">
+        <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a>{{ 'nav.all'|trans }}</a></li>
+      {% for l in alpha %}
+        <li{% if app.request.get('alpha') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a>{{ l }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div id="user-programs" class="slider slider-list">
+      <ul class="items">
+      {% for p in programs %}
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, 'header': '<span class="fav fav-like fav-on fav-trash badge badge-important" data-id="' ~ p.id ~ '"><i class="glyphicon glyphicon-trash"></i></span>'} %}
+      {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
