@@ -9,81 +9,101 @@
 // Partie supérieure de la home, cesoir télé , premier slider et vignette chaine
 .hometop{
   min-height: 480px;
-  h2{   
-    font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
-    font-size: 14px;
-    text-transform: uppercase;
-    text-align: center;
-    
+  .vertical{
+   .carousel-inner{
+    height:335px !important;
   }
-  .prog-list{
-    .btn.fleches{
-      padding: 0px 5px;
-      margin-left:45%;
-      margin-bottom: 5px;
-      margin-top: 5px;
-      border: 1px solid #fff;
-      &:hover{
-              border: 1px solid #ccc;
+}
+  .vertical.new-slider{
+   .carousel-inner{
+    height:375px !important;
+  }
+}
+h2{   
+  font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-align: center;
 
-      }
-    }
-    .btn-grille{
-      margin-top: 11px;
-    }
+}
+.btn.fleches{
+  padding: 0px 5px;
+  margin-left:45%;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  border: 1px solid rgba(255,255,255,0);
+  background: rgba(255,255,255,0);
+  &:hover{
+    border: 1px solid #ccc;
+    background: #EBEBEB;
+
+
+  }
+}
+.btn-grille{
+  margin-top: 11px;
+}
+
+.hr-like{
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(left,  #ffffff 0%, #ebeaea 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(100%,#ebeaea)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left,  #ffffff 0%,#ebeaea 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left,  #ffffff 0%,#ebeaea 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left,  #ffffff 0%,#ebeaea 100%); /* IE10+ */
+  background: linear-gradient(to right,  #ffffff 0%,#ebeaea 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ebeaea',GradientType=1 ); /* IE6-9 */
+  height: 1px; 
+  width: 100%;
+  clear: both;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
+.col-xs-8.suggester{
+  margin-top: 0;
+  h2{
+    margin: 0
   }
 
-  .hr-like{
-    background: #ffffff; /* Old browsers */
-    background: -moz-linear-gradient(left,  #ffffff 0%, #ebeaea 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(100%,#ebeaea)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(left,  #ffffff 0%,#ebeaea 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(left,  #ffffff 0%,#ebeaea 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(left,  #ffffff 0%,#ebeaea 100%); /* IE10+ */
-    background: linear-gradient(to right,  #ffffff 0%,#ebeaea 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ebeaea',GradientType=1 ); /* IE6-9 */
-    height: 1px; 
-    width: 100%;
-    clear: both;
-    margin-top: 5px;
+}
+.prog-list, .channelselect{
+
+  h2{
+    padding-top:8px;
+    margin: 0;
     margin-bottom: 5px;
-  }
-
-
-  .col-xs-8.suggester{
-    margin-top: 0;
-    h2{
-      margin: 0
-    }
-
-  }
-  .prog-list, .channelselect{
-
-    h2{
-      padding-top:8px;
-      margin: 0;
-      margin-bottom: 5px;
-      a{
-        color: #595959;
-        &:hover{
-          color: #166DC9;
-          text-decoration: none;
-        }
+    a{
+      color: #595959;
+      &:hover{
+        color: #166DC9;
+        text-decoration: none;
       }
     }
-
   }
 
-  .channelselect{
-    background: #f3eeee;
-    height: 470px;
-    .channel_link{
-      margin-left: 10px;
-      margin-right: 10px;
-      margin-bottom: 10px;
+}
 
+.channelselect{
+  background: #f3eeee;
+  height: 470px;
+  h2{
+    a{
+      width: 100%;
+      display:block;
+      padding-right:10px;
+      padding-left: 10px;
+      .ellipsis();
     }
   }
+  .channel_link{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+  }
+}
 
 }
 
@@ -115,22 +135,20 @@
     color: #595959;
     float: left;
     font-size: 14px;
-    height: 14px;
+    height: 16px;
     line-height: 14px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     width: 61%;
+    .ellipsis();
   }
   span{
     float: left;
-    height: 15px;
+    height: 16px;
     color: #a19d9d;
     font-size: 15px;
     line-height: 15px;
+    width: 70%;
+    .ellipsis();
   }
-
-
 }
 
 

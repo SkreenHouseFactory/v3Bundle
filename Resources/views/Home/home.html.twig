@@ -70,9 +70,9 @@
 
   {% endif %}
   {% else %}
-  {% if loop.index == 3 %}
+  {% if loop.index == 3 and home.more is defined %}
         {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more } %}
-</div>
+
 {% endif %}
 {% if loop.index == 3 %}
 <div class="container">

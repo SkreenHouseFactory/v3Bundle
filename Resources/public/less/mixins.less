@@ -65,8 +65,12 @@
 
 
 
-
-
+// ELLIPSIS
+.ellipsis(){
+text-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+}
 
 
 
@@ -79,6 +83,31 @@
     A set of useful LESS mixins
     More info at: http://lesselements.com
   ---------------------------------------------------*/
+
+
+
+
+// VERSION ORIGINALE DU GRADIENT J'AI ENLEVER LE DERNIER FILTRE QUI POSE DES PBMS SUR IE8
+
+// .gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
+//   background: @color;
+//   background: -webkit-gradient(linear,
+//                                left bottom,
+//                                left top,
+//                                color-stop(0, @start),
+//                                color-stop(1, @stop));
+//   background: -ms-linear-gradient(bottom,
+//                                   @start,
+//                                   @stop);
+//   background: -moz-linear-gradient(center bottom,
+//                                    @start 0%,
+//                                    @stop 100%);
+//   background: -o-linear-gradient(@stop,
+//                                  @start);
+//   filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@stop,@start));
+// }
+
+
 
 .gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
   background: @color;
@@ -95,8 +124,13 @@
                                    @stop 100%);
   background: -o-linear-gradient(@stop,
                                  @start);
-  filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@stop,@start));
 }
+
+
+
+
+
+
 .bw-gradient(@color: #F5F5F5, @start: 0, @stop: 255) {
   background: @color;
   background: -webkit-gradient(linear,
