@@ -49,6 +49,8 @@ class toolsExtension extends \Twig_Extension
             'end' => new \Twig_Filter_Method($this, 'end'),
             'keywords_from_url' => new \Twig_Filter_Method($this, 'keywordsFromUrl'),
             'prepare_for_slider' => new \Twig_Filter_Method($this, 'prepareForSlider'),
+            'round_up' => new \Twig_Filter_Method($this, 'roundUp'),
+
         );
     }
 
@@ -84,6 +86,18 @@ class toolsExtension extends \Twig_Extension
       } else {
 			  return (array)$stdClass;
       }
+    }
+
+
+    /**
+     * cast object as array
+     * 
+     * @param <object> $stdClass
+     * @return <array> 
+     */
+    public function roundUp($number)
+    {
+        return ceil($number);
     }
 
     /**

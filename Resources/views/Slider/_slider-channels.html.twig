@@ -1,19 +1,43 @@
- <div class="channelselect">
-   <h2><a href="#">{{ channels.name }}</a> </h2>
+ {% set nb_indicator = 0  %}
+ {% for item in channels.programs | to_array %}
+ {% set nb_indicator = nb_indicator + 1 %}
+ {% endfor %}
+ {% set nb_indicator = (nb_indicator / 4)|round_up %}
+ <div class="channelselect {{ nb_indicator }}">
+   <h2><a href="#">{{ channels.name }}</a></h2>
    <div id="carousel-channel" class="carousel slide new-slider" data-interval="false" >
     <div class="carousel-inner">
       <div class="item active">
         {% for item in channels.programs | to_array %}
-          {% if loop.index is divisibleby(3) %}
-            </div>
-            <div class="item">
-          {% endif %}
+        {% if loop.index0 is divisibleby(4) and loop.index0 != 0 %}
+      </div>
+      <div class="item">
+        {% endif %}
         <a href="{{ item.url }}" class="channel_link">
          <span class="channel_texte">{{ item.title }}</span>
          <img alt="{{ item.title }}" data-track-channel="France 3" class="channel_root" src="{{ item.picture }}">
        </a>       
        {% endfor %}
      </div>
-   </div>
- </div>
+     
+     <ul class="wrap-carousel-control">
+      <li><a data-slide="next" href="#carousel-channel" class="right carousel-control"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+      <li><!-- Indicators -->
+        <ol class="carousel-indicators">
+          {% for i in 1..nb_indicator %}
+          {% if loop.first  %}
+          <li class="active" data-slide-to="0" data-target="#carousel-channel"></li>
+          {% else %}
+
+          <li data-slide-to="{{ loop.index0 }}" data-target="#carousel-channel"></li>.
+          {% endif %}
+          {% endfor %}  
+
+        </ol>
+      </li>
+      <li><a data-slide="prev" href="#carousel-channel" class="left carousel-control"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      </li>
+    </ul> 
+
+  </div>
 </div>
