@@ -1,0 +1,19 @@
+ <div class="channelselect">
+   <h2><a href="#">{{ channels.name }}</a> </h2>
+   <div id="carousel-channel" class="carousel slide new-slider" data-interval="false" >
+    <div class="carousel-inner">
+      <div class="item active">
+        {% for item in channels.programs | to_array %}
+          {% if loop.index is divisibleby(3) %}
+            </div>
+            <div class="item">
+          {% endif %}
+        <a href="{{ item.url }}" class="channel_link">
+         <span class="channel_texte">{{ item.title }}</span>
+         <img alt="{{ item.title }}" data-track-channel="France 3" class="channel_root" src="{{ item.picture }}">
+       </a>       
+       {% endfor %}
+     </div>
+   </div>
+ </div>
+</div>

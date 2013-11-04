@@ -10,71 +10,20 @@
           <span class="glyphicon glyphicon-chevron-up"></span>
         </button>
       </a>
-
-
- {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-tonight.html.twig' with { live:top_home.live } %}
-
-
-
-
-
-     <a href="#channel_prog-list" data-slide="next">
+      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-tonight.html.twig' with { live:top_home.live } %}
+      <a href="#channel_prog-list" data-slide="next">
        <button type="button" class="btn btn-default fleches">  
          <span class="glyphicon glyphicon-chevron-down"></span>
        </button>
      </a>
      <button type="button" class="btn btn-default btn-grille">Voir la grille télé complète</button>
    </div>
-
  </div>
  {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index } %}
  <div class="col-xs-4">
-   <div class="channelselect">
-     <h2><a href="#">Nos chaines thématiques</a> </h2>
-
-
-
-     <div id="carousel-channel" class="carousel slide new-slider" data-interval="false" >
-      <div class="carousel-inner">
-        <div class="item active">
-          <a href="/france-3/" class="channel_link">
-           <span class="channel_texte">France 3, la chaîne</span>
-           <img alt="France 3" data-track-channel="France 3" class="channel_root" src="http://mskstatic.com/225/110/c/medias/photos/channel/16-france-3-s.png?2013103115">
-         </a>            <a href="/france-3/" class="channel_link">
-         <span class="channel_texte">France 3, la chaîne</span>
-         <img alt="France 3" data-track-channel="France 3" class="channel_root" src="http://mskstatic.com/225/110/c/medias/photos/channel/16-france-3-s.png?2013103115">
-       </a>            <a href="/france-3/" class="channel_link">
-       <span class="channel_texte">France 3, la chaîne</span>
-       <img alt="France 3" data-track-channel="France 3" class="channel_root" src="http://mskstatic.com/225/110/c/medias/photos/channel/16-france-3-s.png?2013103115">
-     </a>
-   </div>
-   <div class="item ">
-    <a href="/france-3/" class="channel_link">
-     <span class="channel_texte">France 3, la chaîne</span>
-     <img alt="France 3" data-track-channel="France 3" class="channel_root" src="http://mskstatic.com/225/110/c/medias/photos/channel/16-france-3-s.png?2013103115">
-   </a>            <a href="/france-3/" class="channel_link">
-   <span class="channel_texte">France 3, la chaîne</span>
-   <img alt="France 3" data-track-channel="France 3" class="channel_root" src="http://mskstatic.com/225/110/c/medias/photos/channel/16-france-3-s.png?2013103115">
- </a>            <a href="/france-3/" class="channel_link">
- <span class="channel_texte">France 3, la chaîne</span>
- <img alt="France 3" data-track-channel="France 3" class="channel_root" src="http://mskstatic.com/225/110/c/medias/photos/channel/16-france-3-s.png?2013103115">
-</a>
-</div>
-<div class="item ">
-  <a href="/france-3/" class="channel_link">
-   <span class="channel_texte">France 3, la chaîne</span>
-   <img alt="France 3" data-track-channel="France 3" class="channel_root" src="http://mskstatic.com/225/110/c/medias/photos/channel/16-france-3-s.png?2013103115">
- </a>            <a href="/france-3/" class="channel_link">
- <span class="channel_texte">France 3, la chaîne</span>
- <img alt="France 3" data-track-channel="France 3" class="channel_root" src="http://mskstatic.com/225/110/c/medias/photos/channel/16-france-3-s.png?2013103115">
-</a>            <a href="/france-3/" class="channel_link">
-<span class="channel_texte">France 3, la chaîne</span>
-<img alt="France 3" data-track-channel="France 3" class="channel_root" src="http://mskstatic.com/225/110/c/medias/photos/channel/16-france-3-s.png?2013103115">
-</a>
-</div>
-</div>
-</div>
-<ul class="wrap-carousel-control">
+   {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels.html.twig' with { channels:top_home.pack_channel } %}
+ </div>
+ <ul class="wrap-carousel-control">
   <li><a data-slide="next" href="#carousel-channel" class="right carousel-control"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
   <li><!-- Indicators -->
     <ol class="carousel-indicators">

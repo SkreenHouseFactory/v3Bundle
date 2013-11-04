@@ -1,6 +1,5 @@
 $(document).ready(function(){
    Skin_malavita.initHome();
-   Skin_cut.initHome();
 });
 
 
@@ -32,24 +31,22 @@ Skin_malavita = {
 
 
 
-var Skin_cut;
-Skin_cut = {
-  initHome: function() {  
-    if( $('body').hasClass('home-video-a-la-demande')) {
-      $('#view-home').css('background-image','url("http://mskstatic.com/medias/ftp/home-cinema/cut/background.jpg")');
-      $('#view-home').css('background-repeat','no-repeat');         
-      $('#view-home').css('background-position','center top');   
-      $('.absolute').addClass('hide');
-      $('#view-home').prepend('<a class="background-clickable"></a>');
-      $('#view-home .background-clickable').attr("href","http://www.myskreen.com/cut/");
-      $( ".carousel-caption > p > a:contains('Cut'), .carousel-caption > p:contains('36min')").hide();  
-    }
+// Exemple de skin pour la home VOD
+// var Skin_cut;
+// Skin_cut = {
+//   initHome: function() {  
+//     if( $('body').hasClass('home-video-a-la-demande')) {
+//       $('#view-home').css('background-image','url("http://mskstatic.com/medias/ftp/home-cinema/cut/background.jpg")');
+//       $('#view-home').css('background-repeat','no-repeat');         
+//       $('#view-home').css('background-position','center top');   
+//       $('.absolute').addClass('hide');
+//       $('#view-home').prepend('<a class="background-clickable"></a>');
+//       $('#view-home .background-clickable').attr("href","http://www.myskreen.com/cut/");
+//       $( ".carousel-caption > p > a:contains('Cut'), .carousel-caption > p:contains('36min')").hide();  
+//     }
 
-    }
-}
-
-
-
+//     }
+// }
 
 
 
