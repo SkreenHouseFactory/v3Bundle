@@ -5,6 +5,9 @@
 //onload
 $(document).ready(function(){
 
+  var fb_permissions = 'offline_access,user_birthday,user_online_presence,email,read_friendlists,' + 
+                       'publish_stream,friends_likes,friends_online_presence,publish_actions,status_update'; //,manage_pages
+
   // Additional JS functions here
   window.fbAsyncInit = function() {
     FB.init({
@@ -81,7 +84,9 @@ $(document).ready(function(){
         $('#fbconnect-infos').html('<span class="alert alert-danger nowrap">La connexion a échoué !</span>');
       }
 //    },{scope:'email,read_friendlists,publish_stream,offline_access,publish_actions'});
-    },{scope:'offline_access,user_birthday,user_online_presence,email,read_friendlists,publish_stream,friends_likes,friends_online_presence,publish_actions'});
+    },{
+      scope: fb_permissions
+    });
   }
 
   /* on shown
