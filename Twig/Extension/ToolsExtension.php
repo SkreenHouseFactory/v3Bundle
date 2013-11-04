@@ -45,6 +45,7 @@ class toolsExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
+            'pic_filter' => new \Twig_Filter_Method($this, 'picFilter'),
             'to_array' => new \Twig_Filter_Method($this, 'to_array'),
             'end' => new \Twig_Filter_Method($this, 'end'),
             'keywords_from_url' => new \Twig_Filter_Method($this, 'keywordsFromUrl'),
@@ -87,8 +88,6 @@ class toolsExtension extends \Twig_Extension
 			  return (array)$stdClass;
       }
     }
-
-
     /**
      * cast object as array
      * 
@@ -98,6 +97,13 @@ class toolsExtension extends \Twig_Extension
     public function roundUp($number)
     {
         return ceil($number);
+    }
+
+
+    public function picFilter($test)
+    {
+      preg_match('#(?<title>medias(\/\w{1,}){1,}\-{0,}\w{1,}.)#i', $test, $matches);
+      return $matches['title'];
     }
 
     /**

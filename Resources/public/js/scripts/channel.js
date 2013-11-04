@@ -3,7 +3,7 @@ $(document).ready(function(){
 
   // -- track channel
   var channel_name = $('h1').data('channel');
-  var channel_id = $('.actions[data-id]').data('id');
+  var channel_id = $('.fav[data-id]').data('id');
   var channel_slug = $('h1').data('channel-slug');
   //API.trackVar(1, 'Chaîne', channel_name, 3);
   API.trackEvent('Chaîne', channel_name, 'page=chaine');
@@ -116,14 +116,10 @@ $(document).ready(function(){
     //////////// SCRIPTS ////////////////
 
     //setting
-      $('.modal .trigger-suivre').on('click',function(){
-          $('#channel-modal').modal('hide');
-          $('.btn-suivre').trigger('click');
-        });
-        //background pour les vrais inconnus
-     if (channel_id == 4941177) {
-       $('body').css('background-color','#0B1E30');
-     }
+    $('.modal .trigger-suivre').on('click',function(){
+      $('#channel-modal').modal('hide');
+      $('.btn-suivre').trigger('click');
+    });
     if (channel_id == 28) {
       var date = new Date();
       	var note = $('#note');
