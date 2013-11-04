@@ -36,13 +36,12 @@
         <option value="is-popular">Les plus suivis</option>
         <option class="divider">-----------------</option>
         <option value="">Tout</option>
-      
     </select>
+    <div id="datepicker"></div>
   </ul>
 
   <h2 class="inline-block">Programme TV</h2>
   <h1 class="inline-block"><time timestamp="{{ data.timestamp }}">{{ date[0]|capitalize}}{{ data.timestamp|date('Y')}} à {{ date[1]|date('H') }}h</time></h1>
-  <div id="datepicker"></div>
   <div id="grid" data-timestamp="{{ data.timestamp }}" data-reload-ajax="{{ path('tvgrid') }}">
   <div class="btn-group btn-filters" data-toggle="buttons-radio">
     <a class="btn btn-default btn-info" data-filter="">Tout</a>
