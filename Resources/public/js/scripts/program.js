@@ -301,9 +301,9 @@ $(document).ready(function(){
       });
     }
     $('[data-play-text]').on('click', function(){
-      if($('#program-teaser-header').length ){
-        $('#program-teaser-header').html($(this).data('play-text'));
-      }
+        if($('#program-teaser-header').length ){
+          $('#program-teaser-header').html($(this).data('play-text'));
+        }
     });
     //autoload from url
     if (document.location.href.match(/\?rent/gi)) {

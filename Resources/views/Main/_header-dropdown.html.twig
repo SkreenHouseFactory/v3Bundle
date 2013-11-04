@@ -21,11 +21,6 @@
 {% elseif home == 'tv' %}
 <div  class="hover-menu hover-menu-tv hide">
   <ul>
-    <li class="nav-header">La grille TV</li>
-    <li class="pull-left"><a href="{{ path('tvgrid_date', {date: 'en-ce-moment'}) }}">En ce moment</a></li>
-    <li class="pull-left"><a href="{{ path('tvgrid_date', {date: 'ce-soir'}) }}">Ce soir</a></li>
-    <li class="pull-left"><a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir</a></li>
-    <li class="clear divider"></li>
     <li class="nav-header">Les chaînes de la TNT</li>
     <li class="tv-channels">
       {% for channel in tv_channels %}
@@ -46,26 +41,6 @@
     </li>
   </ul>
   <div class="clear"><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}" >Toutes les Web TV <span class="show-more">...</span> </a></div>
-  <ul>
-    <li class="divider clear"></li>
-    <li class="nav-header">les chaines thématiques</li>
-    <li class="tv-channels">
-     <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'y-a-pas-d-age'}) }}"><span class="hidden-touch">Y'a pas d'âge</span><img src="http://s2.mskstatic.com/55/55/c/medias/photos/programmes/moins_de5220000/5210357/y-a-pas-d-age.jpg" alt="Y'a pas d'âge"/></a>
-     <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'plus-belle-la-vie-en-avance'}) }}"><span class="hidden-touch">Plus Belle La Vie en avance</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/28-logo-plus-belle-la-vie-en-avance.png" alt="Plus Belle La Vie en avance"/></a>
-     <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'la-chaine-du-sport'}) }}"><span class="hidden-touch">La chaîne du sport</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/13-logo-sport.jpg" alt="Sport, émissions et replay"/></a>
-     <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'politique'}) }}"><span class="hidden-touch">La chaîne politique</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/12-logo-politique.jpg" alt="Politique, émissions et replay"/></a>
-     <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'les-inconnus'}) }}"><span class="hidden-touch">Les Inconnus</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/1-les-inconnus.jpg" alt="Les Inconnus"/></a>
-     <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'jacques-demy'}) }}"><span class="hidden-touch">Jacques Demy</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/3-jacques-demy.jpg" alt="Jacques Demy"/></a>
-     <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'agnes-varda'}) }}"><span class="hidden-touch">Agnès Varda</span><img src="http://mskstatic.com/medias/ftp/home-cinema/agnes-varda/logo_chaine.jpg" alt="Agnès Varda"/></a>
-     <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'les-vrais-inconnus-chaine-parodies-streaming'}) }}"><span class="hidden-touch">Les vrais inconnus</span><img src="http://mskstatic.com/50/50/c/medias/photos/channel/60-logo-les-vrais-inconnus-chaine-parodies-streaming.jpg" alt="les vrais inconnus chaine parodies streaming"/></a>
-     <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'malavita'}) }}"><span class="hidden-touch">Malavita</span><img src="http://s2.mskstatic.com/50/50/medias/photos/programmes/moins_de5070000/5068063/malavita.jpg?2013101515" alt="Malavita"/></a>
-     <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: 'cut'}) }}"><span class="hidden-touch">Cut</span><img src="http://mskstatic.com/medias/ftp/home-cinema/cut/logo_chaine.jpg" alt="Cut"/></a>
-
-
-
-    </li>
-  </ul>
-  <div class="clear"><a href="{{ path('sitemap_channels', {type: 'thematique'}) }}" > Toutes les chaînes thématiques <span class="show-more">...</span></a></div>
 
 </div>
 {% endif %}
