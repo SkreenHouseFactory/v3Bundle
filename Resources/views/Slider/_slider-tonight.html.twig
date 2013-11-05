@@ -1,3 +1,4 @@
+{# définition de variable incrémentée#}
 {% set custom_l = 0 %}
 {% set custom_ltest = 0 %}
 {% set page = 0 %}
@@ -22,6 +23,7 @@
                   <div class="carousel-inner">
                     <div class="active item">
                       {% for item in live | to_array %}     
+                      {# évite les répétitions des items #}
                       {% if custom_l is divisibleby(6)  and custom_l != 0 and custom_l != item_loop %}
                       {% set item_loop = custom_l %}
                     </div>
