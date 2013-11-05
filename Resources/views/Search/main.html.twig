@@ -22,20 +22,27 @@
         results.count.total is not defined %}
     {% if results.count is defined %}
       <h1>{{ app.request.get('q') }}<small class="inline"> | {{ results.count }} {{ 'search.results'|trans }}</small></h1>
+   
       {% if results.spelling|to_array|length %}
       <p class="alert alert-warning">Vouliez-vous dire : {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling}) }}">{{ spelling }}</a> ?{% endfor %}</p>
       {% endif %}
+
+
     {% else %}
       <h1>{{ app.request.get('q') }}</h1>
       <p class="alert alert-warning">{{ 'search.noresults'|trans }}</p>
-      {% if results.spelling and results.spelling|to_array|length %}
-      <p class="alert alert-warning">Vouliez-vous dire : 
-      {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling }) }}">{{ spelling }}</a> ?{% endfor %}
-        </p>
+        {% if results.spelling is defined%}
+          {% if results.spelling and results.spelling|to_array|length %}
+              <p class="alert alert-warning">Vouliez-vous dire : 
+              {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling }) }}">{{ spelling }}</a> ?{% endfor %}
+              </p>
+          {% endif %}
       {% endif %}
     {% endif %}
-    {% set slider = {title: '', programs: results.programs, url: results.paginate ~ '.json?format=' ~ app.request.get('format')} %}
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
+    {% if results.programs is defined %}
+      {% set slider = {title: '', programs: results.programs, url: results.paginate ~ '.json?format=' ~ app.request.get('format')} %}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
+    {% endif %}
 
   {% else %}
   
@@ -75,13 +82,12 @@
     {% for key,val in keys %}
       {% if attribute(results.count,key) %}
       {% set nb = attribute(results.count,key) %}
-    <li{% if hasActiveTabYet == false %} class="active"{% set hasActiveTabYet = key %}{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ val }}<span>|{{ nb }}</span></a></li>
+    <li{% if hasActiveTabYet == false %} class="active"{% set hasActiveTabYet = key %}{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ val }}<span>{{ nb }}</span></a></li>
     {% endif %}
     {% endfor %}
         <li class="pull-right"><a href="#youtube" id="trigger-youtube" data-toggle="tab">YouTube</a></li>
     </ul>
 
-    <br/>
     <br/>
     <div class="tab-content">
     {% for key,val in keys %}
