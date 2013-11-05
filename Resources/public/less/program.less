@@ -1,6 +1,6 @@
 .is-playing{
-    background:  #FFF6CE;
-    border: 1px solid #D4CFB8;
+  background:  #FFF6CE;
+  border: 1px solid #D4CFB8;
 }
 
 
@@ -51,27 +51,27 @@
        text-decoration: none;
      }
      span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal {
-        color: #000000;
-        display: inline-block;
-        &:hover{
-          color: @bluemaincolor;
-          text-decoration: none;
-        }
-      }
-    }
-    .actors_reveal{
-      font-style: italic;
-    }
-    .ms-format{
-      font-size: 18px;
-      display: block;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      >a{
+      color: #000000;
+      display: inline-block;
+      &:hover{
+        color: @bluemaincolor;
         text-decoration: none;
-        color: #333333;
       }
     }
+  }
+  .actors_reveal{
+    font-style: italic;
+  }
+  .ms-format{
+    font-size: 18px;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    >a{
+      text-decoration: none;
+      color: #333333;
+    }
+  }
 
   .label {
     margin-right:3px;
@@ -502,12 +502,12 @@ ul#episodes-list{
 }
 
 .ilikemycinema{
-      margin-left:15px;
-      margin-right: 15px;
+  margin-left:15px;
+  margin-right: 15px;
   .panel-body{
     .row{
       .col-xs-7{
-      padding-top: 15px;
+        padding-top: 15px;
       }
     }
   }
@@ -534,21 +534,60 @@ html:not(.touch){
   }
 }
 
-// #search-programs{
-//   #triggers{
-//     li{ 
-//       a{
-//         line-height: 25px;
-//         text-align: center;
-//         vertical-align: middle;
-//         letter-spacing: 2px;
-//         span{
-//           font-size: 20px;
-//           line-height: 25px;
-//           text-align: center;
-//           vertical-align: middle;
-//         }
-//       }
-//     }
-//   }
-// }
+
+
+#search-programs{
+  h1{
+    font-size: 1.4em;
+    padding-bottom: 25px;
+    padding-top: 5px;
+    small{
+          font-size: 1em;
+        }
+  }
+  #triggers{
+    border-bottom: 2px solid #428BCA;
+ 
+    li{ 
+      a{
+        letter-spacing: 1px;
+        line-height: 25px;
+        text-align: center;
+        vertical-align: middle;
+        // border radius que sur le haut ne pas mixiner
+        -webkit-border-radius: 5px;
+        -webkit-border-bottom-right-radius: 0px;
+        -webkit-border-bottom-left-radius: 0px;
+        -moz-border-radius: 5px;
+        -moz-border-radius-bottomright: 0px;
+        -moz-border-radius-bottomleft: 0px;
+        border-radius: 5px;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        &:hover{
+          background: #EDEDED;
+          .transition();
+        }
+        &:not(#trigger-youtube){
+          margin-right: 10px;
+
+        }
+
+        span{
+          font-size: 30px;
+          font-weight: bold;
+          line-height: 25px;
+          margin-left: 15px;
+          text-align: center;
+          vertical-align: middle;
+          color: inherit;
+        }
+      }
+    }
+    li.active{
+      a:hover{
+        background: #2f70a8;
+      }
+    }
+  }
+}
