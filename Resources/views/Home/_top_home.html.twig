@@ -2,21 +2,13 @@
   <div class="row hometop">
     <div class="col-xs-4">
       <div class="prog-list">   
-       <h2> 
-         <a href="#">Ce soir à la télé</a>
-       </h2>
-
-      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-tonight.html.twig' with { live:top_home.live } %}
-
-     <button type="button" class="btn btn-default btn-grille">Voir la grille télé complète</button>
+          {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-tonight.html.twig' with { live:top_home.live, pack_live:top_home.pack_live} %}
+     </div>
+   </div>
+   {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index } %}
+   <div class="col-xs-4">
+     {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels.html.twig' with { channels:top_home.pack_channel } %}
    </div>
  </div>
- {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index } %}
- <div class="col-xs-4">
-   {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels.html.twig' with { channels:top_home.pack_channel } %}
- </div>
-
-
-</div>
 </div>
 </div>

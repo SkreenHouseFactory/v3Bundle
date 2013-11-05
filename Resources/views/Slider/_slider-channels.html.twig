@@ -4,7 +4,7 @@
  {% endfor %}
  {% set nb_indicator = (nb_indicator / 3)|round_up %}
  <div class="channelselect">
-   <h2><a href="#">{{ channels.name }}</a></h2>
+   <h2><a href="{{ channels.url }}">{{ channels.title }}</a></h2>
     <a  href="#carousel-channel" data-slide="prev">
   <button type="button" class="btn btn-default fleches">  
     <span class="glyphicon glyphicon-chevron-up"></span>
