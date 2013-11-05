@@ -2,10 +2,10 @@
   <div class="row hometop">
     <div class="col-xs-4">
       <div class="prog-list">   
-        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-tonight.html.twig' with { live:top_home.live, pack_live:top_home.pack_live} %}
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-tonight.html.twig' with { live:top_home.live} %}
       </div>
     </div>
-    {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: top_home.pack_live ,h_title:"h2", loop_index: loop.index } %}
+    {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: top_home.pack_live ,h_title:"h2", loop_index: loop_index } %}
     <div class="col-xs-4">
      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels.html.twig' with { channels:top_home.pack_channel } %}
    </div>

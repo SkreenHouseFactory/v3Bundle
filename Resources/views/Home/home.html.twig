@@ -71,15 +71,20 @@
     {% endif %}
     {% else %}
       {% if loop.index == 3 and home.more is defined %}
-        {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more } %}
+        {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more , loop_index: loop.index } %}
       {% endif %}
        {% if loop.index == 3 %}
           <div class="container">
           <div class="row">
           <div class="first-container">
         {% endif %}
-        {% if loop.index > 3 %} 
-          {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index } %}
+        {% if loop.index >= 3 %} 
+          {% if home.more is defined %}
+          {% set loop2 = loop.index+1 %}
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop2 } %}
+          {% else %}
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index} %}
+          {% endif %}
         {% endif %}
       {% endif %}
     {% endfor %}
