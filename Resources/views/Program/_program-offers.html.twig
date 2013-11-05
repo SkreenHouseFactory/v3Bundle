@@ -144,7 +144,7 @@
                 <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture }}{% elseif o_episode and o_access.name in ['Replay'] and o_episode.picture and o_episode.picture|pic_filter != program.picture | pic_filter %}{{o_episode.picture}} {% else %}{{ o_channel.img|replace({'/60//':'/120/'}) }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
               </td>
 
-              <td class="episode"{% if o_access.name not in ['Vidéo','Archive','Extrait','Bonus'] or o.cost %} colspan="2"{% endif %}>
+              <td class="episode" colspan="2">
                {% if o.title is defined and o.title %}
                <p><strong>{{ o.title }}</strong><br><span>{% if o.description|length > 57 %}{{ o.description|slice(0, 56)}}...{% else %}{{ o.description}}{% endif %}</span></p>
                {% elseif o_episode and o_episode.title %}

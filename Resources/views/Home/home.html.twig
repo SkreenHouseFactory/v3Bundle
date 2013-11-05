@@ -80,8 +80,7 @@
         {% endif %}
         {% if loop.index >= 3 %} 
           {% if home.more is defined %}
-          {% set loop2 = loop.index+1 %}
-            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop2 } %}
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index+1 } %}
           {% else %}
             {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index} %}
           {% endif %}
