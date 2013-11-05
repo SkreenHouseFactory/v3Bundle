@@ -26,7 +26,7 @@
     <div class="panel panel-default panel-theater">
       <div class="panel-heading">
         <a class="btn btn-xs btn-default pull-right" href="{{path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1)}) }}">Films & horaires</a>
-        <a class="accordion-toggle bold" data-toggle="collapse" data-parent="#accordion-theaters" href="#theater-{{ cinema.id }}"><i class="glyphicon glyphicon-resize-vertical hover hover-fade"></i> {{ cinema.name }} ({{ cinema.zip_code }})</a>
+        <a class="accordion-toggle bold" data-toggle="collapse" data-parent="#accordion-theaters" href="#theater-{{ cinema.id }}"><i class="glyphicon glyphicon-resize-vertical hover hover-fade"></i> {{ cinema.name }} ({{ cinema.zip_code }}{% if cinema.city is defined and cinema.city %} {{cinema.city}} {% endif %})</a>
         {% if cinema.distance is defined %}<small class="grey">distance ≃ {{ cinema.distance < 1 ? (cinema.distance*100)|number_format ~'m' : cinema.distance|number_format(1) ~ 'km' }}</small>{% endif %}
       </div>
       <div id="theater-{{ cinema.id }}" class="panel-collapse {{ loop.first ? 'in' : 'collapse' }}">

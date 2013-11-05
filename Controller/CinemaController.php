@@ -92,7 +92,7 @@ class CinemaController extends Controller
         }
       }
       //echo 'theater_ids:' . $request->get('theater_ids');
-      //cho $api->url;
+      //echo $api->url;exit;
       $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:program.html.twig', array(
 			  'cinemas' => $cinemas,
 			  'radius' => $radius,
