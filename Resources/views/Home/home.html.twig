@@ -70,10 +70,9 @@
 
     {% endif %}
     {% else %}
-  
       {% if loop.index == 3 and home.more is defined %}
-            {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more } %}
-       {% endif %}
+        {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more } %}
+      {% endif %}
        {% if loop.index == 3 %}
           <div class="container">
           <div class="row">
@@ -98,4 +97,4 @@
     output='js/compiled/pages/home.js'  %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %#}
-    {% endblock %}
+{% endblock %}
