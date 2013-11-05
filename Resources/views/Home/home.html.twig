@@ -49,40 +49,40 @@
 {% block content %}
 <div id="view-home">
   {% for slider in home.sliders|to_array if slider.id is defined %}
-  {% if loop.first %}
-  <div id="description-seo">
-    <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1> 
-    {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
-    {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
-  </div>
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une transchange', force_size: '/1250/370'} %}
-  {% if 'video-a-la-demande' in app.request.uri %}
-  {% include 'SkreenHouseFactoryV3Bundle:Home:_encartvod.html.twig' %}
-  {% endif %}
-  {% if app.request.get('home') == 'cinema' %}
-  <div class="container playlist">
-    <div class="row">
-      <div class="col-xs-16">
-        {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
+    {% if loop.first %}
+    <div id="description-seo">
+      <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1> 
+      {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
+      {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
+    </div>
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une transchange', force_size: '/1250/370'} %}
+    {% if 'video-a-la-demande' in app.request.uri %}
+    {% include 'SkreenHouseFactoryV3Bundle:Home:_encartvod.html.twig' %}
+    {% endif %}
+    {% if app.request.get('home') == 'cinema' %}
+    <div class="container playlist">
+      <div class="row">
+        <div class="col-xs-16">
+          {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
+        </div>
       </div>
     </div>
-  </div>
 
-  {% endif %}
-  {% else %}
-  {% if loop.index == 3 and home.more is defined %}
-        {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more } %}
-
-{% endif %}
-{% if loop.index == 3 %}
-<div class="container">
- <div class="row">
-   <div class="first-container">
     {% endif %}
-    {% if loop.index >= 3 %} 
-    {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index } %}
-    {% endif %}
-    {% endif %}
+    {% else %}
+  
+      {% if loop.index == 3 and home.more is defined %}
+            {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more } %}
+       {% endif %}
+       {% if loop.index == 3 %}
+          <div class="container">
+          <div class="row">
+          <div class="first-container">
+        {% endif %}
+        {% if loop.index > 3 %} 
+          {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index } %}
+        {% endif %}
+      {% endif %}
     {% endfor %}
   </div>
 </div>
