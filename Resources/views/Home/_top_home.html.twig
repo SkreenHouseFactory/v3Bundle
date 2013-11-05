@@ -7,7 +7,7 @@
         <button type="button" class="btn btn-default btn-grille">Voir la grille télé complète</button>
       </div>
     </div>
-    {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index } %}
+    {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: top_home.pack_live ,h_title:"h2", loop_index: loop.index } %}
     <div class="col-xs-4">
       {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels.html.twig' with { channels:top_home.pack_channel } %}
     </div>
