@@ -16,6 +16,7 @@
 {% endif %}
 <meta name="object_type" content="channel" />
 {% endblock %}
+
 {% block title %}
 {% set page_title_channel = 'page.title.channel.' ~ (channel.type in ['broadcast','cinema'] ? channel.type : 'default') ~ (app.request.get('format') ? '_format' : null) %}
 {{ page_title_channel|trans({'%name%': channel.name, '%format%': format_trans|trans, '%formats%': formats_trans|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
@@ -25,6 +26,7 @@
 {% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 {% block body_class %}view-fournisseur{% endblock %}
 {% block content %}
+{% set page_count = channel.count %}
 <div id="view-fournisseur" data-id="{{ channel.id }}" class="container-fournisseur-{{ channel.type }}">
   {# description #}
 
@@ -228,7 +230,7 @@
                     </div>
                     </div>
                     {% endif %}
-
+ {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-fournisseur-pagination.html.twig' with {data: channel.count, page :  app.request.get('page', 1)} %}
                     {# pager #}
                     {% if channel.count > 30  %}
                     <ul class="pager pull-right">

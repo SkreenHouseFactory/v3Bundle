@@ -46,6 +46,7 @@ class toolsExtension extends \Twig_Extension
             'keywords_from_url' => new \Twig_Filter_Method($this, 'keywordsFromUrl'),
             'prepare_for_slider' => new \Twig_Filter_Method($this, 'prepareForSlider'),
             'round_up' => new \Twig_Filter_Method($this, 'roundUp'),
+            'pagination' => new \Twig_Filter_Method($this, 'pagination',array('page','pagination'))
 
         );
     }
@@ -107,11 +108,41 @@ class toolsExtension extends \Twig_Extension
      * @param <object> $stdClass
      * @return <array> 
      */
+    public function pagination($count,$page,$page_offset)
+    {
+      $total_page = ceil($count/$page_offset);
+      $response = Array();
+      
+      if( $total_page < 10){
+        for($i = 1;$i <= $total_page; $i++){
+          $response[$i]= true;
+        }
+      }
+      else{
+        $dizaine_inf = floor($page/10)*10;
+        for($i = 1; $i <= $total_page; $i++){
+          if($i === 1 || $i%10 === 0){
+            $response[$i] = false;
+          }
+          else if( $i > $dizaine_inf && $i < $dizaine_inf + 10  ){
+            $response[$i] = true;
+          }
+        }        
+      }
+			return $response;
+    }
+    
+    /**
+     * 
+     * 
+     * @param <object> $stdClass
+     * @return <array> 
+     */
     public function end($arr)
     {
 			return end($arr);
     }
-
+    
     /**
      * 404 => search
      * 
