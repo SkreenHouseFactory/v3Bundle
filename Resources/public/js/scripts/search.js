@@ -40,7 +40,7 @@ $(document).ready(function(){
           }
           var container = $('#ytCarousel .carousel-inner .item:first-child');
           var c_index = 0;
-          var nb_page = 10;
+          var nb_page = 12;
           for (var i = 0; i < programs.length; i++) {
             //console.log('youtube callback', 'c_index:' + c_index, 'modulo:' + i%8, container);
             if (i%nb_page == 0) {

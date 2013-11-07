@@ -43,7 +43,7 @@ class broadcastdateExtension extends \Twig_Extension
     public function remainingtv ($time)
     {
 			$remaining = $time - time() + 3600;
-			if ($remaining < 0) {
+			if ($remaining/3600 < 1) {
 				return 'Bientôt disponible en Replay';
 			} elseif ($remaining/3600 < 24 ) {
         $nb_hours = round($remaining/3600);
