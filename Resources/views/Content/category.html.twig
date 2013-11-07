@@ -131,5 +131,6 @@
 	</div>
 
   {% include 'SkreenHouseFactoryV3Bundle:Content:_category-pager.html.twig' with {facet_access: facet_access} %}
+   {% include 'SkreenHouseFactoryV3Bundle:Content:_category-pagination.html.twig' with {data: category.count, page :  app.request.get('page', 1)} %}
 </div>
 {% endblock %}

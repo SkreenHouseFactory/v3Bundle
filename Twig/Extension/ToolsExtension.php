@@ -109,11 +109,11 @@ class toolsExtension extends \Twig_Extension
      * @return <array> 
      */
     public function pagination($count,$page,$page_offset)
-    {
+    { 
       $total_page = ceil($count/$page_offset);
       $response = Array();
       
-      if( $total_page < 10){
+      if( $total_page <= 10){
         for($i = 1;$i <= $total_page; $i++){
           $response[$i]= true;
         }
@@ -121,11 +121,11 @@ class toolsExtension extends \Twig_Extension
       else{
         $dizaine_inf = floor($page/10)*10;
         for($i = 1; $i <= $total_page; $i++){
-          if($i === 1 || $i%10 === 0){
-            $response[$i] = false;
-          }
-          else if( $i > $dizaine_inf && $i < $dizaine_inf + 10  ){
+          if( $i > $dizaine_inf && $i <= $dizaine_inf + 10  ){
             $response[$i] = true;
+          }
+          else if(($i === 1 || $i%10 === 0) ){
+            $response[$i] = false;
           }
         }        
       }

@@ -1,0 +1,14 @@
+{% set counts = data|pagination(page,30) %}
+<ul class="pagination">
+  {% for keys,count in counts%}
+    {% if count %}
+      <li {% if keys == page %}class="active" {% endif %}><a href="{% if app.request.get('facet') %}{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: keys}) }}{% elseif app.request.get('format') %}{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: keys }) }}{% else %}{{ path('category_page', {category_slug: app.request.get('category_slug'), page: keys}) }}{% endif %}">{{keys}}</a></li>
+    {% else %}
+      <li>
+        <span data-link-to-replace="{% if app.request.get('facet') %}{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: keys}) }}{% elseif app.request.get('format') %}{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: keys }) }}{% else %}{{ path('category_page', {category_slug: app.request.get('category_slug'), page: keys}) }}{% endif %}">
+          {{keys}}
+        </span>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
