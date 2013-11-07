@@ -417,6 +417,12 @@ $(document).ready(function(){
        }
     });
 
+
+    // $('#datepicker').datetimepicker({
+    //   controlType: 'select',
+    //   timeFormat: 'hh:mm tt'
+    // });
+
     //dropdown update
     $('.btn-filters > a').on('click', function(){
       console.log('filter', $(this).data('filter'));
