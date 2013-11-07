@@ -84,6 +84,14 @@ class ChannelController extends Controller
     if (isset($data->error) && $data->error) {
       throw $this->createNotFoundException('Channel does not exist');
     }
+    
+    //seo
+    if (!in_array($request->get('facet'), (array)$data->facets_seo_url->category) && 
+        !in_array($request->get('facet'), (array)$data->facets_seo_url->subcategory) && 
+        strlen($request->get('facet')) > 1) {
+      return $this->redirect($data->seo_url, 301);
+    }
+    
     //redirect fournisseur synonyme
     if (isset($data->redirect) && $data->redirect) {
       return $this->redirect($data->redirect, 301);

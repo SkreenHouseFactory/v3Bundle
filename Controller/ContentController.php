@@ -61,7 +61,7 @@ class ContentController extends Controller
          'facets' => $this->buildFacets($request),
           'disable_search_by_format' => true
        ));
-      
+
       //echo "\n".'api:' . $api->url;
       //echo "\n".'category_slug:' . $request->get('category_slug');
       //echo "\n".'facet:' . $request->get('facet');
