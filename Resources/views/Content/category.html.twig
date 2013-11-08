@@ -128,8 +128,8 @@
 		{% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
 		{% endfor %}
 		</ul>
+    <ul class="pager_to_replace"></ul>
+    {% include 'SkreenHouseFactoryV3Bundle:Content:_category-pagination.html.twig' with {data: category.count, page :  app.request.get('page', 1)} %}
 	</div>
-  <ul class="pager_to_replace"></ul>
-   {% include 'SkreenHouseFactoryV3Bundle:Content:_category-pagination.html.twig' with {data: category.count, page :  app.request.get('page', 1)} %}
 </div>
 {% endblock %}
