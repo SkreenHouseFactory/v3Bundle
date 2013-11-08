@@ -6,4 +6,8 @@ $(document).ready(function(){
 		$(this).replaceWith(node);
     
 	});
+  $('.pager').each(function(){
+		var node = $(this).html();
+    $('.pager_to_replace').addClass('pager').html(node);
+  });
 });

@@ -231,43 +231,7 @@
                     </div>
                     {% endif %}
  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-fournisseur-pagination.html.twig' with {data: channel.count, page :  app.request.get('page', 1)} %}
-                    {# pager #}
-                    {% if channel.count > 30  %}
-                    <ul class="pager pull-right">
-                      {% if app.request.get('page') > 2 %}
-                      <li class="previous">
-                        {% if app.request.get('facet') %}
-                        <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
-                          {% elseif app.request.get('format') %}
-                          <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
-                            {% else %}
-                            <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">
-                              {% endif %}&larr; 30 préc.</a>
-                            </li>
-                            {% elseif app.request.get('page') == 2 %}
-                            <li class="previous">
-                              {% if app.request.get('facet') %}
-                              <a href="{{ path('channel_format_facet', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format')}) }}">
-                                {% elseif app.request.get('format') %}
-                                <a href="{{ path('channel_format', {slug: app.request.get('slug'), format: app.request.get('format')}) }}">
-                                  {% else %}
-                                  <a href="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">
-                                    {% endif %}&larr; 30 préc.</a>
-                                  </li>
-                                  {% endif %}
-                                  {% if channel.programs|length == 30 %}
-                                  <li class="next">
-                                    {% if app.request.get('facet') %}
-                                    <a href="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
-                                      {% elseif app.request.get('format') %}
-                                      <a href="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
-                                        {% else %}
-                                        <a href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">
-                                          {% endif %}30 suiv. &rarr;</a>
-                                        </li>
-                                        {% endif %}
-                                      </ul>
-                                      {% endif %}
+                    <ul class="pager_to_replace"></ul>
                                     </div>
                                   </div>
                                   {% endblock %}
