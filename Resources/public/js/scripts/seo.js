@@ -8,6 +8,6 @@ $(document).ready(function(){
 	});
   $('.pager').each(function(){
 		var node = $(this).html();
-    $('.pager_to_replace').addClass('pager').html(node);
+    $('.pager_to_replace').addClass('pager').removeClass('pager_to_replace').html(node);
   });
 });
