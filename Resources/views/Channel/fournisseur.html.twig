@@ -207,6 +207,8 @@
                           {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, theater_id: channel.type == 'cinema' ? channel.id : '' } %}
                           {% endfor %}
                         </ul>
+                        {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-fournisseur-pagination.html.twig' with {data: channel.count, page :  app.request.get('page', 1)} %}
+                         <ul class="pager_to_replace"></ul>
                       </div>
                       {# map #}
                       {% if channel.adress is defined %}
@@ -230,8 +232,6 @@
                     </div>
                     </div>
                     {% endif %}
- {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-fournisseur-pagination.html.twig' with {data: channel.count, page :  app.request.get('page', 1)} %}
-                    <ul class="pager_to_replace"></ul>
                                     </div>
                                   </div>
                                   {% endblock %}
