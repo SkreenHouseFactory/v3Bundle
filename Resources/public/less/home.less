@@ -6,29 +6,34 @@
   padding-bottom: 500px;
 
 
-.hometop{
-  min-height: 480px;
-  .vertical{
+  .hometop{
+    min-height: 480px;
+    .vertical{
+     .carousel-inner{
+      height:350px  !important;
+    }
+  }
+  .vertical.new-slider{
    .carousel-inner{
-    height:335px !important;
+    height:375px !important;
   }
 }
-    .vertical.new-slider{
-         .carousel-inner{
-          height:375px !important;
-        }
-    }
 h2{   
   font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
   font-size: 14px;
   text-transform: uppercase;
   text-align: center;
 }
+.controlersbtn{
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ margin-top: 5px;
+ text-align: center;
+ width: 60px;
+}
 .btn.fleches{
   padding: 0px 5px;
-  margin-left:45%;
-  margin-bottom: 5px;
-  margin-top: 5px;
   border: 1px solid rgba(255,255,255,0);
   background: rgba(255,255,255,0);
   &:hover{
@@ -39,23 +44,22 @@ h2{
   }
 }
 .btn-grille{
-  margin-top: 11px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 14px;
+    &:hover{
+        text-decoration: none;
+    }
 }
 
 .hr-like{
-  background: #ffffff; /* Old browsers */
-  background: -moz-linear-gradient(left,  #ffffff 0%, #ebeaea 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(100%,#ebeaea)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(left,  #ffffff 0%,#ebeaea 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(left,  #ffffff 0%,#ebeaea 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(left,  #ffffff 0%,#ebeaea 100%); /* IE10+ */
-  background: linear-gradient(to right,  #ffffff 0%,#ebeaea 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ebeaea',GradientType=1 ); /* IE6-9 */
-  height: 1px; 
-  width: 100%;
+  background:#f2f2f2;
   clear: both;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  height: 1px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  width: 100%;
 }
 
 
@@ -64,6 +68,11 @@ h2{
   h2{
     margin: 0
   }
+
+}
+.prog-list{
+  border: 1px solid #cacaca;
+  min-height:470px;
 
 }
 .prog-list, .channelselect{
@@ -124,6 +133,7 @@ h2{
     text-align: center;
     line-height: 43px;
     margin-right: 5px;
+    margin-left: 5px;
     .gradient(rgba(255,255,255,0), #EDEDED,  rgba(255,255,255,0));
     .border-radius(5px, 5px, 5px, 5px);
     img{
@@ -136,17 +146,18 @@ h2{
   h3{
     color: #595959;
     float: left;
-    font-size: 14px;
-    height: 16px;
-    line-height: 14px;
-    width: 74%;
-    .ellipsis();
+    font-size: 13px;
+    max-height: 30px;
+    line-height: 15px;
+    width: 73%;
+    margin: 0;
+    overflow: hidden;
   }
   span{
     float: left;
     height: 16px;
     color: #a19d9d;
-    font-size: 15px;
+    font-size: 12px;
     line-height: 15px;
     width: 70%;
     .ellipsis();

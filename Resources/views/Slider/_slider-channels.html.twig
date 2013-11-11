@@ -5,11 +5,7 @@
  {% set nb_indicator = (nb_indicator / 3)|round_up %}
  <div class="channelselect">
    <h2><a href="{{ channels.url }}">{{ channels.title }}</a></h2>
-    <a  href="#carousel-channel" data-slide="prev">
-  <button type="button" class="btn btn-default fleches">  
-    <span class="glyphicon glyphicon-chevron-up"></span>
-  </button>
-</a>
+
    <div id="carousel-channel" class="carousel slide  new-slider vertical" data-interval="false" >
     <div class="carousel-inner">
       <div class="item active">
@@ -22,9 +18,9 @@
          <span class="channel_texte">{{ item.title }}</span>
          {% if '225/110' in item.picture %}
          <img alt="{{ item.title }}" data-track-channel="{{ item.title }}" class="channel_root" src="{{ item.picture }}">
-        {% else %}
-        <img alt="{{ item.title }}" data-track-channel="{{ item.title }}" class="channel_root" src="{{ item.picture|replace({'mskstatic.com/': 'mskstatic.com/225/110/'}) }}">
-        {% endif %}
+         {% else %}
+         <img alt="{{ item.title }}" data-track-channel="{{ item.title }}" class="channel_root" src="{{ item.picture|replace({'mskstatic.com/': 'mskstatic.com/225/110/'}) }}">
+         {% endif %}
        </a>       
        {% endfor %}
      </div>
@@ -51,12 +47,15 @@
   </div>
 </div>
 
-
-
-
-           <a href="#carousel-channel" data-slide="next">
-             <button type="button" class="btn btn-default fleches">  
-               <span class="glyphicon glyphicon-chevron-down"></span>
-             </button>
-           </a>
-
+<div class="controlersbtn">
+  <a  href="#carousel-channel" data-slide="prev">
+    <button type="button" class="btn btn-default fleches">  
+      <span class="glyphicon glyphicon-chevron-up"></span>
+    </button>
+  </a>
+  <a href="#carousel-channel" data-slide="next">
+   <button type="button" class="btn btn-default fleches">  
+     <span class="glyphicon glyphicon-chevron-down"></span>
+   </button>
+   </a>
+</div>
