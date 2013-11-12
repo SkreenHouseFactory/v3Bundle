@@ -219,9 +219,9 @@ GridView = {
     }
 
     if (navigator.userAgent.match(/Chrome/)){
-      $('#grid time').html( ' ' + day + ' ' + datestring + ' ');// + ' - ' + time);
+      $('.view-tvgrid time').html( ' ' + day + ' ' + datestring + ' ');// + ' - ' + time);
     } else {
-      $('#grid time').html( ' ' + datestring + ' ');// + ' - ' + time);
+      $('.view-tvgrid time').html( ' ' + datestring + ' ');// + ' - ' + time);
     }
 
     //timeline
