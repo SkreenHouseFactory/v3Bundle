@@ -1,13 +1,21 @@
 $(document).ready(function(){
-   // Skin_malavita.initHome();
+   Skin_bfmtv.initHome();
 });
 
+var Skin_bfmtv;
+Skin_bfmtv = {
+  initHome: function() {
 
-
-
-
-
-
+     if( $('body').hasClass('home')) {
+      $('#view-home').css('background-image','url("http://mskstatic.com/medias/ftp/habillages/bfm/background.jpg")');
+      $('#view-home').css('background-repeat','no-repeat');         
+      $('#view-home').css('background-position','center top');   
+      $('.absolute').addClass('hide');
+      $('#view-home').prepend('<a class="background-clickable"></a>');
+      $('#view-home .background-clickable').attr("href","http://www.myskreen.com/bfm-tv/");
+    }
+  }
+}
 
 
 
