@@ -1,33 +1,40 @@
 $(document).ready(function(){
-   Skin_malavita.initHome();
+   // Skin_malavita.initHome();
 });
 
 
 
 
-var Skin_malavita;
-Skin_malavita = {
-  initHome: function() {
-    if( $('body').hasClass('home-cinema')) {
-      $('#view-home').css('background-image','url("http://mskstatic.com/medias/ftp/home-cinema/malavita/background.jpg")');
-      $('#view-home').css('background-repeat','no-repeat');         
-      $('#view-home').css('background-position','center top');   
-      $('.absolute').addClass('hide');
-      $('#view-home').prepend('<a class="background-clickable"></a>');
-      $('#view-home .background-clickable').attr("href","http://www.myskreen.com/malavita/");
-      $( ".carousel-caption > p > a:contains('Malavita'), .carousel-caption > p:contains('111mn')").hide();  
-    }
-     if( $('body').hasClass('home')) {
-      $('#view-home').css('background-image','url("http://mskstatic.com/medias/ftp/home-cinema/malavita/background.jpg")');
-      $('#view-home').css('background-repeat','no-repeat');         
-      $('#view-home').css('background-position','center top');   
-      $('.absolute').addClass('hide');
-      $('#view-home').prepend('<a class="background-clickable"></a>');
-      $('#view-home .background-clickable').attr("href","http://www.myskreen.com/malavita/");
-      $( ".carousel-caption > p > a:contains('Malavita'), .carousel-caption > p:contains('111mn')").hide();    
-    }
-  }
-}
+
+
+
+
+
+
+
+// var Skin_malavita;
+// Skin_malavita = {
+//   initHome: function() {
+//     if( $('body').hasClass('home-cinema')) {
+//       $('#view-home').css('background-image','url("http://mskstatic.com/medias/ftp/home-cinema/malavita/background.jpg")');
+//       $('#view-home').css('background-repeat','no-repeat');         
+//       $('#view-home').css('background-position','center top');   
+//       $('.absolute').addClass('hide');
+//       $('#view-home').prepend('<a class="background-clickable"></a>');
+//       $('#view-home .background-clickable').attr("href","http://www.myskreen.com/malavita/");
+//       $( ".carousel-caption > p > a:contains('Malavita'), .carousel-caption > p:contains('111mn')").hide();  
+//     }
+//      if( $('body').hasClass('home')) {
+//       $('#view-home').css('background-image','url("http://mskstatic.com/medias/ftp/home-cinema/malavita/background.jpg")');
+//       $('#view-home').css('background-repeat','no-repeat');         
+//       $('#view-home').css('background-position','center top');   
+//       $('.absolute').addClass('hide');
+//       $('#view-home').prepend('<a class="background-clickable"></a>');
+//       $('#view-home .background-clickable').attr("href","http://www.myskreen.com/malavita/");
+//       $( ".carousel-caption > p > a:contains('Malavita'), .carousel-caption > p:contains('111mn')").hide();    
+//     }
+//   }
+// }
 
 
 
