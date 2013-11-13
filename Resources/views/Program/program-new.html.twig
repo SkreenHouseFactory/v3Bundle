@@ -275,7 +275,7 @@ en Streaming
         {% include 'SkreenHouseFactoryV3Bundle:Program:_program-rightcolumn.html.twig' %}
       </div> 
     </div>
-    <div id="program-related">
+    <div id="program-related" class="row">
       {% for r in program.related if r.programs is defined and r.programs|to_array|length %}
       {% if r.name == 'same_actors' and program.casting %}
       {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true, loop_index: loop.index, h_title: "p"} %}
