@@ -33,8 +33,10 @@
          <div class="icon_chaine"> 
            <img src="{{ item.channel.img | replace({50:36}) }}" alt="regarder {{ item.channel.name }} en replay">
          </div>
-         <h3>{{ offer.program.title }}</h3>
-         <span><b>{{ offer.broadcasttime | date("H:i") }}</b>  {{ offer.program.format ? " - "~offer.program.format.name : "" }}</span>
+         <div class="desc_chaine">
+           <h3>{{ offer.program.title }}</h3>
+           <span><b>{{ offer.broadcasttime | date("H:i") }}</b>  {{ offer.program.format ? " - "~offer.program.format.name : "" }}</span>
+         </div>
        </div>
      </a>
      <div class="hr-like"></div>
