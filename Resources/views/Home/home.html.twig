@@ -3,21 +3,21 @@
 {% set page_title = 'page.title.home.' ~ home.name %}
 {% set page_description = 'page.description.home.' ~ home.name %}
 {% if app.request.get('home') == 'jeunesse' %}
-{% set keywords = 'dessin animé, manga, film d\'animation, cartoon, enfants, junior, disney, pixar, série animée, kids' %}
+  {% set keywords = 'dessin animé, manga, film d\'animation, cartoon, enfants, junior, disney, pixar, série animée, kids' %}
 {% elseif app.request.get('home') == 'tv-replay' %}
-{% set keywords = 'émission, rattrapage, à la demande, programme tv, reportage, divertissement, télé réalité, JT, talk show, sports' %}
+  {% set keywords = 'émission, rattrapage, à la demande, programme tv, reportage, divertissement, télé réalité, JT, talk show, sports' %}
 {% elseif app.request.get('home') == 'film' %}
-{% set keywords = 'long métrage, cinéma, vidéo à la demande, fantastique, horreur, comédie, drame' %}
+  {% set keywords = 'long métrage, cinéma, vidéo à la demande, fantastique, horreur, comédie, drame' %}
 {% elseif app.request.get('home') == 'spectacle' %}
-{% set keywords = 'divertissement, théatre, concert, musique, one man show, humour, pièce, classique, scène' %}
+  {% set keywords = 'divertissement, théatre, concert, musique, one man show, humour, pièce, classique, scène' %}
 {% elseif app.request.get('home') == 'documentaire' %}
-{% set keywords = 'reportage, société, découvertes, voyages, arts, biographies, histoire' %}
+  {% set keywords = 'reportage, société, découvertes, voyages, arts, biographies, histoire' %}
 {% elseif app.request.get('home') == 'serie' %}
-{% set keywords = 'feuilleton, policier, télé, soap, à suivre, house, experts, ncis, saison' %}
+  {% set keywords = 'feuilleton, policier, télé, soap, à suivre, house, experts, ncis, saison' %}
 {% elseif app.request.get('home') == 'cinema' %}
-{% set keywords = 'grand écran, séance, films, projection, salles, horaires, sorties, bandes-annonces' %}
+  {% set keywords = 'grand écran, séance, films, projection, salles, horaires, sorties, bandes-annonces' %}
 {% elseif app.request.get('home') is null %}
-{% set keywords = 'replay, vidéo à la demande, streaming, cinéma' %}
+  {% set keywords = 'replay, vidéo à la demande, streaming, cinéma' %}
 {% endif %}
 {% set seo_description_hauteur = ('%.0f'|format(home.sliders|to_array|length//2))*490 %}
 {% block meta %}
@@ -47,7 +47,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="view-home">
+<d  iv id="view-home">
   {% for slider in home.sliders|to_array if slider.id is defined %}
     {% if loop.first %}
     <div id="description-seo">
