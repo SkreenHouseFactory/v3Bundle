@@ -110,7 +110,7 @@ class toolsExtension extends \Twig_Extension
      */
     public function pagination($count,$page,$page_offset)
     { 
-      $total_page = ceil($count/$page_offset);
+     $total_page = ceil($count/$page_offset);
       $response = Array();
       
       if( $total_page <= 10){
@@ -119,15 +119,21 @@ class toolsExtension extends \Twig_Extension
         }
       }
       else{
+        $dizaine_inf_tot = floor($total_page/10)*10;
+        
         $dizaine_inf = floor($page/10)*10;
-        for($i = 1; $i <= $total_page; $i++){
-          if( $i > $dizaine_inf && $i <= $dizaine_inf + 10  ){
+        for($i = 1; $i <= $total_page; $i++){      
+          var_dump($i > $dizaine_inf  && $i == $dizaine_inf_tot+1);    
+          if( $i > $dizaine_inf  && $i == $dizaine_inf_tot+1 ){
+            $response[$i] = null;
+          }
+          else if( $i > $dizaine_inf && $i <= $dizaine_inf + 10  ){
             $response[$i] = true;
           }
           else if(($i === 1 || $i%10 === 0) ){
             $response[$i] = false;
           }
-        }        
+        }   
       }
 			return $response;
     }

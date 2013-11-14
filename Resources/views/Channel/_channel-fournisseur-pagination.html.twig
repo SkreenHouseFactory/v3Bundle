@@ -1,9 +1,15 @@
 {% set counts = data|pagination(page,30) %}
 <ul class="pagination">
   {% for keys,count in counts%}
-    {% if count %}
-      <li {% if keys == page %}class="active" {% endif %}><a href="{{ path('channel_page', {slug: app.request.get('slug'), page: keys }) }}">{{keys}}</a></li>
-    {% else %}
+    {% if count != "..."%}
+      <li>
+        <span data-link-to-replace="{{ path('channel_page', {slug: app.request.get('slug'), page: keys}) }}">
+          ...
+        </span>
+      </li>
+    {% elseif count == true %}
+        <li {% if keys == page %}class="active" {% endif %}><a href="{{ path('channel_page', {slug: app.request.get('slug'), page: keys }) }}">{{keys}}</a></li>
+    {% elseif count == false%}
       <li>
         <span data-link-to-replace="{{ path('channel_page', {slug: app.request.get('slug'), page: keys}) }}">
           {{keys}}
