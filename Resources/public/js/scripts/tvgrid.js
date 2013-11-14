@@ -372,6 +372,7 @@ $(document).ready(function(){
     var date = new Date(parseInt($('#grid').data('timestamp'))*1000);
     GridView.hour = date.getHours();
 
+
      $('#opt-hour').on('change',function(){
        var current = $(this).data('current-hour');
        var nhour = $(this).val();
@@ -407,23 +408,15 @@ $(document).ready(function(){
        showAnim: 'drop',
        maxDate: '+11d',
        onSelect: function(dateText, inst) {
-        var date = (inst.selectedMonth + 1) + '/' + inst.selectedDay + '/' +  inst.selectedYear;
-        var timestamp = (Date.parse(date) / 1000) + GridView.hour * 3600;
-                console.log('script/tvGridView.js', 'datepicker.onSelect', dateText, timestamp, GridView.hour, inst);
-        GridView.setTime(timestamp, true);
-        GridView.loadSchedule(function(){
-          datepicker.fadeOut('slow');
-        });
-       }
+          var date = (inst.selectedMonth + 1) + '/' + inst.selectedDay + '/' +  inst.selectedYear;
+          var timestamp = (Date.parse(date) / 1000) + GridView.hour * 3600;
+          console.log('script/tvGridView.js', 'datepicker.onSelect', dateText, timestamp, GridView.hour, inst);
+          GridView.setTime(timestamp, true);
+          GridView.loadSchedule(function(){
+            datepicker.fadeOut('slow');
+          });
+      }
     });
-
-
-    // $('#datepicker').datetimepicker({
-    //   controlType: 'select',
-    //   timeFormat: 'hh:mm tt'
-    // });
-
-    //dropdown update
     $('.btn-filters > a').on('click', function(){
       console.log('filter', $(this).data('filter'));
       $('#filter').val($(this).data('filter')).change();
@@ -447,7 +440,6 @@ $(document).ready(function(){
       $(this).parents('.open:first').removeClass('open');
       return false;
     });
-
     //remove channel
     $(document).on('click', '#channels li a', function() {
       return false;
