@@ -20,7 +20,7 @@ GridView = {
     
     Player.elmt = $('#tvgrid-player');
   },  
-  idle: function(initialized) {
+  idle: function(initialized) { 
   
     var self = this;
     var div = this.elmt;
