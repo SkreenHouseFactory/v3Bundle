@@ -123,7 +123,6 @@ class toolsExtension extends \Twig_Extension
         
         $dizaine_inf = floor($page/10)*10;
         for($i = 1; $i <= $total_page; $i++){      
-          var_dump($i > $dizaine_inf  && $i == $dizaine_inf_tot+1);    
           if( $i > $dizaine_inf  && $i == $dizaine_inf_tot+1 ){
             $response[$i] = null;
           }
