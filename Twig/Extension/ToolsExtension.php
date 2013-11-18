@@ -48,6 +48,7 @@ class toolsExtension extends \Twig_Extension
             'round_up' => new \Twig_Filter_Method($this, 'roundUp'),
             'pagination' => new \Twig_Filter_Method($this, 'pagination',array('page','pagination')),
             'rot13' => new \Twig_Filter_Method($this, 'rot13')
+            'is_bot' => new \Twig_Filter_Method($this, 'isBot')
         );
     }
 
@@ -153,6 +154,17 @@ class toolsExtension extends \Twig_Extension
 			return end($arr);
     }
     
+    public function isBot($string)
+    {
+      preg_match('#googlebot#i',$string,$matches);     
+      if (isset($matches[0])){
+        $response = true;
+      }else{
+        $response = false;
+      }
+            return $response;
+    }
+
     /**
      * 404 => search
      * 
