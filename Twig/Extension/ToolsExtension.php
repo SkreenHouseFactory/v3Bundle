@@ -46,7 +46,7 @@ class toolsExtension extends \Twig_Extension
             'keywords_from_url' => new \Twig_Filter_Method($this, 'keywordsFromUrl'),
             'prepare_for_slider' => new \Twig_Filter_Method($this, 'prepareForSlider'),
             'round_up' => new \Twig_Filter_Method($this, 'roundUp'),
-
+            'is_bot' => new \Twig_Filter_Method($this, 'isBot')
         );
     }
 
@@ -110,6 +110,16 @@ class toolsExtension extends \Twig_Extension
     public function end($arr)
     {
 			return end($arr);
+    }
+    public function isBot($string)
+    {
+      preg_match('#googlebot#i',$string,$matches);     
+      if (isset($matches[0])){
+        $response = true;
+      }else{
+        $response = false;
+      }
+            return $response;
     }
 
     /**
