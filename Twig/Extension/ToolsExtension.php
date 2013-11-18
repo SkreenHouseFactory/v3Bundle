@@ -46,8 +46,8 @@ class toolsExtension extends \Twig_Extension
             'keywords_from_url' => new \Twig_Filter_Method($this, 'keywordsFromUrl'),
             'prepare_for_slider' => new \Twig_Filter_Method($this, 'prepareForSlider'),
             'round_up' => new \Twig_Filter_Method($this, 'roundUp'),
-            'pagination' => new \Twig_Filter_Method($this, 'pagination',array('page','pagination'))
-
+            'pagination' => new \Twig_Filter_Method($this, 'pagination',array('page','pagination')),
+            'rot13' => new \Twig_Filter_Method($this, 'rot13')
         );
     }
 
@@ -101,7 +101,10 @@ class toolsExtension extends \Twig_Extension
       preg_match('#(?<title>medias(\/\w{1,}){1,}\-{0,}\w{1,}.)#i', $test, $matches);
       return $matches['title'];
     }
-
+    public function rot13($string)
+    { 
+      return str_rot13($string);
+    }
     /**
      * last item of array
      * 
@@ -110,7 +113,7 @@ class toolsExtension extends \Twig_Extension
      */
     public function pagination($count,$page,$page_offset)
     { 
-     $total_page = ceil($count/$page_offset);
+      $total_page = ceil($count/$page_offset);
       $response = Array();
       
       if( $total_page <= 10){
@@ -119,20 +122,22 @@ class toolsExtension extends \Twig_Extension
         }
       }
       else{
-        $dizaine_inf_tot = floor($total_page/10)*10;
-        
         $dizaine_inf = floor($page/10)*10;
-        for($i = 1; $i <= $total_page; $i++){      
-          if( $i > $dizaine_inf  && $i == $dizaine_inf_tot+1 ){
-            $response[$i] = null;
+        for($i = 1; $i <= $total_page; $i++){
+          if($page <= 9){
+            if( $i > $dizaine_inf && ($i <= $dizaine_inf + 9 || $i%10 == 0 )  ){
+              $response[$i] = true;
+            } else if (($i === 1 || $i%10 === 0) ){
+              $response[$i] = false;
+            }
+          } else {
+            if( $i > $dizaine_inf && $i <= $dizaine_inf + 9 ){
+              $response[$i] = true;
+            } else if (($i === 1 || $i%10 === 0) ){
+              $response[$i] = false;
+            }
           }
-          else if( $i > $dizaine_inf && $i <= $dizaine_inf + 10  ){
-            $response[$i] = true;
-          }
-          else if(($i === 1 || $i%10 === 0) ){
-            $response[$i] = false;
-          }
-        }   
+        }        
       }
 			return $response;
     }

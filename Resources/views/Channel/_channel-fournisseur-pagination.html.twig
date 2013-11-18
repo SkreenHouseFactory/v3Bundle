@@ -3,7 +3,7 @@
   {% for keys,count in counts%}
     {% if count != "..."%}
       <li>
-        <span data-link-to-replace="{{ path('channel_page', {slug: app.request.get('slug'), page: keys}) }}">
+        <span data-link-to-replace="{{ path('channel_page', {slug: app.request.get('slug'), page: keys})|rot13 }}">
           ...
         </span>
       </li>
@@ -11,7 +11,7 @@
         <li {% if keys == page %}class="active" {% endif %}><a href="{{ path('channel_page', {slug: app.request.get('slug'), page: keys }) }}">{{keys}}</a></li>
     {% elseif count == false%}
       <li>
-        <span data-link-to-replace="{{ path('channel_page', {slug: app.request.get('slug'), page: keys}) }}">
+        <span data-link-to-replace="{{ path('channel_page', {slug: app.request.get('slug'), page: keys})|rot13 }}">
           {{keys}}
         </span>
       </li>
