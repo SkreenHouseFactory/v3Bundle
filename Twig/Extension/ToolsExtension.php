@@ -47,7 +47,7 @@ class toolsExtension extends \Twig_Extension
             'prepare_for_slider' => new \Twig_Filter_Method($this, 'prepareForSlider'),
             'round_up' => new \Twig_Filter_Method($this, 'roundUp'),
             'pagination' => new \Twig_Filter_Method($this, 'pagination',array('page','pagination')),
-            'rot13' => new \Twig_Filter_Method($this, 'rot13')
+            'rot13' => new \Twig_Filter_Method($this, 'rot13'),
             'is_bot' => new \Twig_Filter_Method($this, 'isBot')
         );
     }
