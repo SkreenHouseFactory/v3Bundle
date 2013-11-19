@@ -92,6 +92,7 @@
   access: {{ app.request.get('access') }}
   category_slug: {{ app.request.get('category_slug') }}
    #}
+   {% if app.request.server.get('HTTP_USER_AGENT')|is_bot == false %}
 
 	<div class="facets">
   {% if 'format' in app.request.attributes.get('_route') and categories|length > 1 %}
@@ -114,6 +115,7 @@
   	{% endfor %}
 	{% endif %}
   </div>
+  {% endif %}
 	<hr/>
 
 

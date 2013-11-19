@@ -144,6 +144,7 @@
     #}
     {% if categories|length or formats|length %}
     <hr/>
+    {% if app.request.server.get('HTTP_USER_AGENT')|is_bot == false %}
     <div class="facets">
       {% if app.request.get('format') and app.request.get('facet') and app.request.get('page') %}
       {% for k,s in categories %}
@@ -159,6 +160,7 @@
       {% endfor %}
       {% endif %}
     </div>
+    {% endif %}
     {% endif %}
     {# pager #}
     {% if channel.count > 30  %}
