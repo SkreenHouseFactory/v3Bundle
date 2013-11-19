@@ -155,7 +155,13 @@ class MainController extends Controller
       
       return $response;
     }
-
+    public function homeEsiAction($home)
+    {
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Home:home_esi.html.twig', array('home'=> $home ));
+      $response->setPublic();
+      $response->setSharedMaxAge(600);
+      return $response;
+    }
     /**
     * page slider
     */
