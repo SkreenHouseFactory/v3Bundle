@@ -30,7 +30,7 @@
 {{ 'page.description.program.serie.tv'|trans({'%title%':program.title}) }}
 {% elseif program.format.name in ['Film','Documentaire','Téléfilm','Court-métrage'] or (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) %}
 {{ 'page.description.program.film.tv'|trans({'%title%': program.title, '%year%':program.year }) }}
-{% endif %}	
+{% endif %} 
 {% endif %}
 {% set hasstreaming = 0 %}{% set hasreplay = 0 %}{% set hasVOD = 0 %}{% set hasDVD = 0 %}
 {% if program.has_vod in [7,8] %} {% set hasreplay = 1 %} {% endif %}
@@ -51,32 +51,32 @@ en Streaming
 {% endset %}
 {% if program.format.name in ['Série','Websérie'] %}
 {{ 'page.description.program.serie.default'|trans({
-'%title%':program.title,
-'%format%':program.format.name,
-'%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",
-'%quality%': program.hd ? "en HD" :  "en Haute Qualité",
-'%deported%': program.has_vod in [2,8,10] ? "en 1 Clic" : "",
-'%support%': support
+  '%title%':program.title,
+  '%format%':program.format.name,
+  '%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",
+  '%quality%': program.hd ? "en HD" :  "en Haute Qualité",
+  '%deported%': program.has_vod in [2,8,10] ? "en 1 Clic" : "",
+  '%support%': support
 })
 }}
 {% elseif program.format.name in ['Film','Documentaire','Téléfilm','Court-métrage'] or (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) %} 
 {{ 'page.description.program.film.default'|trans({
-'%title%': program.title,
-'%format%': (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) ?  "Film" : program.format.name,
-'%year%':program.year,
-'%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",
-'%quality%': program.hd ? "en HD" :  "en Haute Qualité",
-'%deported%': program.has_vod in [2,8,10] ? "en 1 Clic" : "",
-'%support%': support
+  '%title%': program.title,
+  '%format%': (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) ?  "Film" : program.format.name,
+  '%year%':program.year,
+  '%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",
+  '%quality%': program.hd ? "en HD" :  "en Haute Qualité",
+  '%deported%': program.has_vod in [2,8,10] ? "en 1 Clic" : "",
+  '%support%': support
 })
 }}
 {% elseif (program.format.name == "Dessin Animé et Manga" and program.duration < 65) %}
 {{  'page.description.program.serie-anime'|trans({
-'%title%':program.title,
-'%format%':program.format.name,
-'%quality%': program.hd ? "en HD" :  "en Haute Qualité",
-'%deported%': program.has_vod in [2,8,10] ? "en 1 Clic" : "",
-'%support%': support
+    '%title%':program.title,
+    '%format%':program.format.name,
+    '%quality%': program.hd ? "en HD" :  "en Haute Qualité",
+    '%deported%': program.has_vod in [2,8,10] ? "en 1 Clic" : "",
+    '%support%': support
 })
 }}
 {% endif %}
@@ -154,27 +154,7 @@ en Streaming
 
   <div id="view-program" data-id="{{ program.id }}">
     <div class="container scrollplayerzone">
-      {# description seo texte #}
-      <a name="synopsis"></a>
-      <div class="panel panel-default panel-synopsis">
-        <div class="panel-heading"><h2 class="panel-title">Tout sur {{ program.title }}</h2></div>
-        <div class="tab-pane text-toggle-extend">
-          {% if program.description|striptags|length < 570 %}
-          <div class="text">
-            {{ program.description|raw }}
-          </div>
-          {% else %}
-          <div class="text show-more-height">
-            <div class="gradient-hide"></div> 
-            {{ program.description|raw }}
-          </div>
-          <div class="show-all">
-            <span class="show-more">...</span><span class="show-more-text">Voir plus</span>
-          </div> 
-          {% endif %}
 
-      </div>
-      </div>
       {#% include 'SkreenHouseFactoryV3Bundle:Main:_bootstrap-grid-test.html.twig' %#}
 
       {# player + affiche #}
@@ -251,19 +231,19 @@ en Streaming
               {% if program.episode_title is defined and
               program.episodeof is defined and
               program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
-              <h1 itemprop="name">
-                {{ program.episode_title }}
-                {% if program.popular_channel is defined %}
-                <span>{{ program.popular_channel.name }}</span>
-                {% endif %}
-              </h1>
+                <h1 itemprop="name">
+                  {{ program.episode_title }}
+                  {% if program.popular_channel is defined %}
+                  <span>{{ program.popular_channel.name }}</span>
+                  {% endif %}
+                </h1>
               {% elseif program.episode_title is defined and
               program.episodeof is defined %}
-              <h1 itemprop="name">
-                {{ program.episodeof.title }}
-              </h1>
+                <h1 itemprop="name">
+                  {{ program.episodeof.title }}
+                </h1>
               {% else %}
-              <h1 itemprop="name">{{ program.title }} </h1>
+                <h1 itemprop="name">{{ program.title }} </h1>
               {% endif %}
             </div>
             <div class="col-xs-4 suivre"  style="padding:0;">
@@ -271,47 +251,48 @@ en Streaming
               {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.id, class: 'fav-like btn-big'} %}
               {% endif %}
             </div>
-          </div>
-          <div class="row" style="margin:0;">
+            
             <div class="col-xs-16 videotitle"  style="padding:0;" itemscope itemtype="http://schema.org/Movie">
               {% if program.episode_title is defined and
               program.episodeof is defined %}
-              {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
-              <h2 itemprop="name">
-                <span>{% if episode_title and program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}{{ episode_title }} : {% endif %}{{ program.episode_title }}</span>
-              </h2>
+              
+                {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+                <h1 itemprop="name">
+                  <span>{% if episode_title and program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}{{ episode_title }} : {% endif %}{{ program.episode_title }}</span>
+                </h1>
+                
+              {% endif %}
             </div>
-            {% endif %}
+            
+            
+            
           </div>
+          {% include 'SkreenHouseFactoryV3Bundle:Program:_program-offers.html.twig' %}
         </div>
-        {% include 'SkreenHouseFactoryV3Bundle:Program:_program-offers.html.twig' %}
       </div>
+      </div>
+      <div class="col-xs-5 ms-prog-rightback">
+        {% include 'SkreenHouseFactoryV3Bundle:Program:_program-rightcolumn.html.twig' %}
+      </div> 
     </div>
-  </div>
-  <div class="col-xs-5 ms-prog-rightback">
-    {% include 'SkreenHouseFactoryV3Bundle:Program:_program-rightcolumn.html.twig' %}
-  </div> 
-</div>
-</div>
-<div class="container">
-<div id="program-related" class="row">
-  {% for r in program.related if r.programs is defined and r.programs|to_array|length %}
-  {% if r.name == 'same_actors' and program.casting %}
-  {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true, loop_index: loop.index, h_title: "p"} %}
-  {% elseif r.name == 'same_director' and program.director %}
-  {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true,loop_index: loop.index, h_title: "p"} %}
-  {% elseif r.name == 'chaines' %}
-  {% if (program.related.channels is defined and program.related.channels.programs is defined and program.related.channels.programs|length > 1) %}
-  <a data-track-channel="{{ r.name }}" name="{{ r.name }}"></a>
-  {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r,loop_index: loop.index, h_title: "p"} %}
-  {% endif %}
-  {% else %}
-  {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, loop_index: loop.index, h_title: "p"} %}
-  {% endif %}
-  {% endfor %}
-</div>
+    <div id="program-related" class="row">
+      {% for r in program.related if r.programs is defined and r.programs|to_array|length %}
+      {% if r.name == 'same_actors' and program.casting %}
+      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true, loop_index: loop.index, h_title: "p"} %}
+      {% elseif r.name == 'same_director' and program.director %}
+      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true,loop_index: loop.index, h_title: "p"} %}
+      {% elseif r.name == 'chaines' %}
+        {% if (program.related.channels is defined and program.related.channels.programs is defined and program.related.channels.programs|length > 1) %}
+        <a data-track-channel="{{ r.name }}" name="{{ r.name }}"></a>
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r,loop_index: loop.index, h_title: "p"} %}
+        {% endif %}
+      {% else %}
+      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, loop_index: loop.index, h_title: "p"} %}
+      {% endif %}
+      {% endfor %}
+    </div>
 
-</div>
+  </div>
 </div>
 </div>
 </div>
