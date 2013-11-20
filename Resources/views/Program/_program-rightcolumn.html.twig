@@ -24,9 +24,10 @@
   <a class="channel_link" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}">
     <span class="channel_texte">{{ r.title ~ ', la chaîne' }}</span>
     {% if '225/110' in r.picture %}
-      <img src="{{ r.picture }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
+      <img src="{{ r.picture|replace({'225/110': '300/147'}) }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
+
     {% else %}
-      <img src="{{ r.picture|replace({'mskstatic.com/': 'mskstatic.com/225/110/'}) }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
+      <img src="{{ r.picture|replace({'mskstatic.com/': 'mskstatic.com/300/147/'}) }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
     {% endif %}
 
   </a>

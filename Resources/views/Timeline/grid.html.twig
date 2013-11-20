@@ -7,22 +7,49 @@
 <link rel="stylesheet" media="screen" href="{{ asset('bundles/skreenhousefactoryv3/jquery-ui/css/no-theme/jquery-ui-1.10.1.custom.min.css') }}" />
 <link rel="stylesheet" media="screen" href="{{ asset('bundles/skreenhousefactoryv3/jquery-ui/css/flick/jquery-ui-1.10.1.custom.min.css') }}" />
 {% set date = data.timestamp|localizeddate('full')|split('now'|date('Y')) %}
-
-<div id="view-tvgrid" class="container">
-  <div id="tvgrid-player" class="fly-shadows"><a class="btn btn-default close">Fermer</a></div>
-  <ul class="nav nav-pills">
-    <li class="{{ app.request.get('date') == 'hier-soir' ? 'active ' : '' }}yesterdaynight time-change"><a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir</a></li>
-    <li class="{{ app.request.get('date') == 'en-ce-moment' ? 'active ' : '' }}now time-change"><a href="{{ path('tvgrid_date',{date:'en-ce-moment'}) }}">En ce moment</a></li>
-    <li class="{{ app.request.get('date') is null ? 'active ' : '' }}tonight time-change"><a href="{{ path('tvgrid') }}">Ce soir</a></li>
-    <li class="datepicker"><a class="calendar btn"><i class="glyphicon glyphicon-calendar"></i></a></li>
-    <li >
-      <select id="opt-hour" class="btn-default hourpicker" data-current-hour="{{date[1]|date('H')}}">
-        {% for h in range(0, 23) %}
-        <option value="{{h}}" {%if h==date[1]|date('H') %} selected{% endif %}>{{h}}h00</option>
-        {% endfor %}
-      </select>
-    </li>
-    <select id="filter" class="pull-right btn-default dropdown dropdown-update hide">
+ 
+<div id="view-tvgrid" >
+{% if periode == null or periode == 'ce-soir' %}
+<div id="description-seo">
+  <h2>Votre programme t&eacute;l&eacute; avec mySkreen</h2>
+  <p>mySkreen est un guide innovant qui permet de consulter le programme t&eacute;l&eacute; du moment, du soir et de la journ&eacute;e.</p>
+  <p>Vous avez rat&eacute; votre &eacute;mission ou vous souhaitez connaitre la derni&egrave;re diffusion de votre s&eacute;rie f&eacute;tiche&nbsp;? Vous avez le pouvoir de revenir dans les jours pr&eacute;c&eacute;dents.</p>
+  <p>Choisissez votre tranche horaire, vos chaines TV pr&eacute;f&eacute;r&eacute;es et par genre (<strong>films</strong>, <strong>documentaires</strong>, <strong>&eacute;missions</strong>, <strong>sports</strong>, <strong>s&eacute;ries</strong>, <strong>spectacles</strong>), ajoutez vos programmes dans votre playlist, soyez avertis de la diffusions. Avec mySkreen cr&eacute;ez votre <strong>guide t&eacute;l&eacute; et replay&nbsp;</strong>100%&nbsp;personnalisable.</p>
+  <h3>Les programmes tant attendus&nbsp;!</h3>
+  <p>Tous les ans, chaque saison nous attendons avec impatience les diffusions de nos programmes pr&eacute;f&eacute;r&eacute;es sur les plus grandes chaines de t&eacute;l&eacute;vision fran&ccedil;aise. Retrouvez sur le programme t&eacute;l&eacute; tous les programmes des chaines <a href="http://www.myskreen.com/tf1/" target="_self">TF1 replay</a>, <strong>France 2 replay</strong>, <strong>France 3 replay</strong>, <a href="http://www.myskreen.com/canal/" target="_self">Canal plus replay</a>, <a href="http://www.myskreen.com/arte/" target="_self">Arte replay</a>, <strong>M6 replay</strong>.</p>
+  <p>C&rsquo;est avec gourmandise et admirations que nous allons suivre les &eacute;missions de cuisine. Qui va&nbsp;devenir&nbsp;le nouveau chef prodige ? R&eacute;ponse avec Master Chef (<strong>TF1</strong>) Qui sera le prochain grand p&acirc;tissier&nbsp;(<strong>France 2</strong>), Top Chef (<strong>M6</strong>),&nbsp;La meilleure boulangerie de France (<strong>M6</strong>)</p>
+  <p>Apr&egrave;s l&rsquo;app&eacute;tit&nbsp;Rendez-vous en terre inconnue (<strong>France 2</strong>) divertissons-nous avec des &eacute;missions suivies par des millions de fran&ccedil;ais avec L&rsquo;amour est dans le pr&eacute; (<strong>M6</strong>),Koh-Lanta (<strong>TF1</strong>) Thalassa (<strong>France 3</strong>), The Voice, la plus belle voix (<strong>TF1</strong>),La parenth&egrave;se inattendue (<strong>France 2</strong>) Secret Story (<strong>TF1</strong>).</p>
+  <p>Retrouvez sur les chaines hertziennes les magazines d&rsquo;informations, d&rsquo;actualit&eacute;s et de soci&eacute;t&eacute;s avec Capital (<strong>M6</strong>), Envoy&eacute; sp&eacute;cial (<strong>France 2</strong>), Le Grand journal (<strong>Canal +</strong>) Sept &agrave; huit (<strong>TF1</strong>), 66 minutes (<strong>M6</strong>), Secrets d&rsquo;histoire (<strong>France 2</strong>).</p>
+  <p>Suivez l&rsquo;actualit&eacute; sportive sur la chaine du sport et sur les diff&eacute;rents programmes propos&eacute;s en replay et gratuitement avec Auto-moto (<strong>TF1</strong>) Stade 2 (<strong>France 2</strong>) Tout le sport (<strong>France 3</strong>), Canal Football Club (<strong>Canal +</strong>), T&eacute;l&eacute;foot (<strong>TF1</strong>), ne manquez pas les &eacute;v&egrave;nements de l&rsquo;ann&eacute;e avec le Tour de France et Roland Garros sur <strong>France 2 replay</strong>.</p>
+  <p>Ajoutez vos s&eacute;ries &agrave; votre playlist pour ne jamais rater un seul moment de votre s&eacute;rie culte, Les feux de l&rsquo;amour sur <strong>TF1 replay</strong>, Y&rsquo;a pas d&rsquo;&acirc;ge sur <strong>France 2 replay</strong>, Plus belle la vie sur <strong>France 3 replay</strong> et en avance sur mySkreen. Retrouvez &eacute;galement FBI&nbsp;: duo tr&egrave;s sp&eacute;cial sur <strong>M6 replay</strong>, La Gifle sur <strong>arte replay</strong> ou encore Engrenages sur <strong>Canal + replay</strong>.</p>
+  <h3>Mais aussi sur les cha&icirc;nes TNT&hellip;</h3>
+  <p>Retrouvez sur mySkreen les s&eacute;ries en <strong>replay et en streaming</strong>, vous en avez pour tous les gouts avec notre s&eacute;lection : B.R.I.G.A.D sur <strong>Numero 23 replay,</strong>&nbsp;VDM sur <strong>NT1 replay</strong>,&nbsp;Les myst&egrave;res de l&rsquo;amour sur <strong>TMC replay</strong>, 90210 Beverly Hills : nouvelle g&eacute;n&eacute;ration sur <strong>6 ter replay</strong>, Franklin &amp; Bash sur <strong>Cherie 25 replay</strong>, Julie Lescaut sur <strong>HD1 replay</strong> ainsi que les s&eacute;ries et mangas sur <strong>Gulli replay</strong> et <strong>D17 replay</strong>.</p>
+  <p>Partez en voyage &agrave; la d&eacute;couverte de la France et du monde avec&nbsp;&nbsp;J'irai dormir chez vous&nbsp;sur <strong>France 5 replay</strong>, Expl&Ocirc; grand format sur <strong>France &Ocirc;</strong>,&nbsp;Littoral, entre ciel, terre et mer sur <strong>RMC d&eacute;couverte</strong> ou encore Le clan des suricates : l'aventure commence sur <strong>Numero 23</strong>.</p>
+  <p>Il y en a pour tous les gouts avec les magazines et les divertissements<strong> en replay et en streaming gratuit sur mySkreen</strong> avec les c&eacute;l&egrave;bres &eacute;missions Tellement vrai sur <strong>NRJ 12 replay</strong>, Cauchemar en cuisine sur <strong>W9 replay</strong>,&nbsp;B&ecirc;tes mais dr&ocirc;le sur <strong>France 4 replay</strong> ou encore l&rsquo;&eacute;mission phare de <strong>Cyril Hanouna</strong> avec son Touche pas &agrave; mon poste sur <strong>D8 replay</strong>.</p>
+  <p>Restez inform&eacute; sur mySkreen, toute l'actualit&eacute;, les &eacute;missions politiques ou d'&eacute;conomie sont disponibles sur BFMTV, BFM Business, iT&eacute;l&eacute;, Public S&eacute;nat, France 24, KTO et TV5 monde<strong> en replay et en streaming gratuit</strong>.</p>
+  <p>Ajoutez vos programmes pr&eacute;f&eacute;r&eacute;s &agrave; vos playlists en cliquant sur "+<strong>suivre</strong>". Vous serez avertis &agrave; chaque nouvelle diffusion ou mise en ligne. Avec votre playlist, mySkreen devient votre t&eacute;l&eacute; personnelle &agrave; la carte et &agrave; la demande, compos&eacute;e uniquement des programmes que vous aimez, quelle que soit leur cha&icirc;ne et &agrave; l'heure que vous voudrez.</p>
+</div>
+{% endif %}
+  <div class="container">
+    <div id="tvgrid-player" class="fly-shadows">
+      <a class="btn btn-default close">Fermer</a>
+    </div>
+  </div>
+  <div class="container">
+  <div class="row marger">
+   <div class="col-xs-8">
+    <ul class="nav nav-pills">
+      <li class="{{ app.request.get('date') == 'hier-soir' ? 'active ' : '' }}yesterdaynight time-change ">
+        <a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}" >Hier soir</a>
+      </li>
+      <li class="{{ app.request.get('date') == 'en-ce-moment' ? 'active ' : '' }}now time-change">
+        <a href="{{ path('tvgrid_date',{date:'en-ce-moment'}) }}">En ce moment 
+        </a>
+      </li>
+      <li class="{{ app.request.get('date') is null ? 'active ' : '' }}tonight time-change ">
+        <a href="{{ path('tvgrid') }}" >Ce soir <br> </a>
+      </li>
+      <select id="filter" class="pull-right btn-default dropdown dropdown-update hide">
         <option>Que voir ?</option>
         <option value="films">Films</option>
         <option value="documentaires">Documentaires</option>
@@ -36,85 +63,79 @@
         <option value="is-popular">Les plus suivis</option>
         <option class="divider">-----------------</option>
         <option value="">Tout</option>
-    </select>
-    <div id="datepicker"></div>
-  </ul>
-
-  <h2 class="inline-block">Programme TV</h2>
-  <h1 class="inline-block"><time timestamp="{{ data.timestamp }}">{{ date[0]|capitalize}}{{ data.timestamp|date('Y')}} à {{ date[1]|date('H') }}h</time></h1>
-  <div id="grid" data-timestamp="{{ data.timestamp }}" data-reload-ajax="{{ path('tvgrid') }}">
-  <div class="btn-group btn-filters" data-toggle="buttons-radio">
-    <a class="btn btn-default btn-info" data-filter="">Tout</a>
-    <a class="btn btn-default" data-filter="films">Films</a>
-    <a class="btn btn-default" data-filter="documentaires">Documentaires</a>
-    <a class="btn btn-default" data-filter="emissions">Emissions</a>
-    <a class="btn btn-default" data-filter="sports">Sports</a>
-    <a class="btn btn-default" data-filter="series">Séries</a>
-    <a class="btn btn-default" data-filter="spectacles">Spectacles</a>
+      </select>
+      <div id="datepicker"></div>
+    </ul>
   </div>
-  <div class="pull-right addchannel">
-    <a class="btn btn-default" data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;de chaînes</a>
-  </div> 
-  <div class="relative">
-  <div class="horaire">
-    <a href="{{ path('tvgrid_date', {date: data.timestamp - 36000 }) }}" class="btn btn-small btn-inverse btn-precedent" ><i class="glyphicon glyphicon-chevron-left"></i> Préc.</a>
-    <a href="{{ path('tvgrid_date', {date: data.timestamp + 36000 }) }}" class="btn btn-small btn-inverse btn-suivant">Suivant <i class="glyphicon glyphicon-chevron-right"></i></a>
- </div>
-  <ul class="timeline">
-    <li></li>
-    <li>&nbsp;{{ data.timestamp|date('H:i')|replace({':': 'h'}) }}</li>
-    <li>{{ (data.timestamp + 3600)|date('H:i')|replace({':': 'h'}) }}</li>
-    <li>{{ (data.timestamp + 2*3600)|date('H:i')|replace({':': 'h'}) }}&nbsp;</li>
-    
-  </ul>
-  <div class="channel-wrap">
-    <div title="En direct" class="time-bar hide"></div>
-    <div class="arrow arrow-up tooltip:after hide"></div>
-    <ul id="channels" class="nav nav-list">
-    {% include 'SkreenHouseFactoryV3Bundle:Timeline:_channels-schedule.html.twig' with {data: data } %}
-  </ul>
-</div>
-  </div>
-</div>
-<ul class="nav nav-pills">
-   <li class="addchannel-bottom">
-      <a class="btn btn-default" data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;de chaînes</a>
+  <div class="col-xs-8 text-right">
+    <ul class="nav nav-pills">
+       <li class="datepicker">
+       <span>Choisir une date</span>
+        <a class="calendar btn ">
+         <time timestamp="{{ data.timestamp }}">{{ date[0]|capitalize}}{{ data.timestamp|date('Y')}} </time> <i class="glyphicon glyphicon-calendar"></i>
+        </a>
+      <select id="opt-hour" class="btn-default hourpicker" data-current-hour="{{date[1]|date('H')}}">
+        {% for h in range(0, 23) %}
+        <option value="{{h}}" {%if h==date[1]|date('H') %} selected{% endif %}>{{h}}h00</option>
+        {% endfor %}
+      </select>
     </li>
-  </ul>
-  {% if periode == null or periode == 'ce-soir' %}
-  <hr>
-    <div id="description-seo">
-      <h2>Votre programme t&eacute;l&eacute; avec mySkreen</h2>
-      <p>mySkreen est un guide innovant qui permet de consulter le programme t&eacute;l&eacute; du moment, du soir et de la journ&eacute;e.</p>
-      <p>Vous avez rat&eacute; votre &eacute;mission ou vous souhaitez connaitre la derni&egrave;re diffusion de votre s&eacute;rie f&eacute;tiche&nbsp;? Vous avez le pouvoir de revenir dans les jours pr&eacute;c&eacute;dents.</p>
-      <p>Choisissez votre tranche horaire, vos chaines TV pr&eacute;f&eacute;r&eacute;es et par genre (<strong>films</strong>, <strong>documentaires</strong>, <strong>&eacute;missions</strong>, <strong>sports</strong>, <strong>s&eacute;ries</strong>, <strong>spectacles</strong>), ajoutez vos programmes dans votre playlist, soyez avertis de la diffusions. Avec mySkreen cr&eacute;ez votre <strong>guide t&eacute;l&eacute; et replay&nbsp;</strong>100%&nbsp;personnalisable.</p>
-      <h3>Les programmes tant attendus&nbsp;!</h3>
-      <p>Tous les ans, chaque saison nous attendons avec impatience les diffusions de nos programmes pr&eacute;f&eacute;r&eacute;es sur les plus grandes chaines de t&eacute;l&eacute;vision fran&ccedil;aise. Retrouvez sur le programme t&eacute;l&eacute; tous les programmes des chaines <a href="http://www.myskreen.com/tf1/" target="_self">TF1 replay</a>, <strong>France 2 replay</strong>, <strong>France 3 replay</strong>, <a href="http://www.myskreen.com/canal/" target="_self">Canal plus replay</a>, <a href="http://www.myskreen.com/arte/" target="_self">Arte replay</a>, <strong>M6 replay</strong>.</p>
-      <p>C&rsquo;est avec gourmandise et admirations que nous allons suivre les &eacute;missions de cuisine. Qui va&nbsp;devenir&nbsp;le nouveau chef prodige ? R&eacute;ponse avec Master Chef (<strong>TF1</strong>) Qui sera le prochain grand p&acirc;tissier&nbsp;(<strong>France 2</strong>), Top Chef (<strong>M6</strong>),&nbsp;La meilleure boulangerie de France (<strong>M6</strong>)</p>
-      <p>Apr&egrave;s l&rsquo;app&eacute;tit&nbsp;Rendez-vous en terre inconnue (<strong>France 2</strong>) divertissons-nous avec des &eacute;missions suivies par des millions de fran&ccedil;ais avec L&rsquo;amour est dans le pr&eacute; (<strong>M6</strong>),Koh-Lanta (<strong>TF1</strong>) Thalassa (<strong>France 3</strong>), The Voice, la plus belle voix (<strong>TF1</strong>),La parenth&egrave;se inattendue (<strong>France 2</strong>) Secret Story (<strong>TF1</strong>).</p>
-      <p>Retrouvez sur les chaines hertziennes les magazines d&rsquo;informations, d&rsquo;actualit&eacute;s et de soci&eacute;t&eacute;s avec Capital (<strong>M6</strong>), Envoy&eacute; sp&eacute;cial (<strong>France 2</strong>), Le Grand journal (<strong>Canal +</strong>) Sept &agrave; huit (<strong>TF1</strong>), 66 minutes (<strong>M6</strong>), Secrets d&rsquo;histoire (<strong>France 2</strong>).</p>
-      <p>Suivez l&rsquo;actualit&eacute; sportive sur la chaine du sport et sur les diff&eacute;rents programmes propos&eacute;s en replay et gratuitement avec Auto-moto (<strong>TF1</strong>) Stade 2 (<strong>France 2</strong>) Tout le sport (<strong>France 3</strong>), Canal Football Club (<strong>Canal +</strong>), T&eacute;l&eacute;foot (<strong>TF1</strong>), ne manquez pas les &eacute;v&egrave;nements de l&rsquo;ann&eacute;e avec le Tour de France et Roland Garros sur <strong>France 2 replay</strong>.</p>
-      <p>Ajoutez vos s&eacute;ries &agrave; votre playlist pour ne jamais rater un seul moment de votre s&eacute;rie culte, Les feux de l&rsquo;amour sur <strong>TF1 replay</strong>, Y&rsquo;a pas d&rsquo;&acirc;ge sur <strong>France 2 replay</strong>, Plus belle la vie sur <strong>France 3 replay</strong> et en avance sur mySkreen. Retrouvez &eacute;galement FBI&nbsp;: duo tr&egrave;s sp&eacute;cial sur <strong>M6 replay</strong>, La Gifle sur <strong>arte replay</strong> ou encore Engrenages sur <strong>Canal + replay</strong>.</p>
-      <h3>Mais aussi sur les cha&icirc;nes TNT&hellip;</h3>
-      <p>Retrouvez sur mySkreen les s&eacute;ries en <strong>replay et en streaming</strong>, vous en avez pour tous les gouts avec notre s&eacute;lection : B.R.I.G.A.D sur <strong>Numero 23 replay,</strong>&nbsp;VDM sur <strong>NT1 replay</strong>,&nbsp;Les myst&egrave;res de l&rsquo;amour sur <strong>TMC replay</strong>, 90210 Beverly Hills : nouvelle g&eacute;n&eacute;ration sur <strong>6 ter replay</strong>, Franklin &amp; Bash sur <strong>Cherie 25 replay</strong>, Julie Lescaut sur <strong>HD1 replay</strong> ainsi que les s&eacute;ries et mangas sur <strong>Gulli replay</strong> et <strong>D17 replay</strong>.</p>
-      <p>Partez en voyage &agrave; la d&eacute;couverte de la France et du monde avec&nbsp;&nbsp;J'irai dormir chez vous&nbsp;sur <strong>France 5 replay</strong>, Expl&Ocirc; grand format sur <strong>France &Ocirc;</strong>,&nbsp;Littoral, entre ciel, terre et mer sur <strong>RMC d&eacute;couverte</strong> ou encore Le clan des suricates : l'aventure commence sur <strong>Numero 23</strong>.</p>
-      <p>Il y en a pour tous les gouts avec les magazines et les divertissements<strong> en replay et en streaming gratuit sur mySkreen</strong> avec les c&eacute;l&egrave;bres &eacute;missions Tellement vrai sur <strong>NRJ 12 replay</strong>, Cauchemar en cuisine sur <strong>W9 replay</strong>,&nbsp;B&ecirc;tes mais dr&ocirc;le sur <strong>France 4 replay</strong> ou encore l&rsquo;&eacute;mission phare de <strong>Cyril Hanouna</strong> avec son Touche pas &agrave; mon poste sur <strong>D8 replay</strong>.</p>
-      <p>Restez inform&eacute; sur mySkreen, toute l'actualit&eacute;, les &eacute;missions politiques ou d'&eacute;conomie sont disponibles sur BFMTV, BFM Business, iT&eacute;l&eacute;, Public S&eacute;nat, France 24, KTO et TV5 monde<strong> en replay et en streaming gratuit</strong>.</p>
-      <p>Ajoutez vos programmes pr&eacute;f&eacute;r&eacute;s &agrave; vos playlists en cliquant sur "+<strong>suivre</strong>". Vous serez avertis &agrave; chaque nouvelle diffusion ou mise en ligne. Avec votre playlist, mySkreen devient votre t&eacute;l&eacute; personnelle &agrave; la carte et &agrave; la demande, compos&eacute;e uniquement des programmes que vous aimez, quelle que soit leur cha&icirc;ne et &agrave; l'heure que vous voudrez.</p>
-    </div>
-  {% endif %}
+    </ul>
   </div>
 </div>
+</div>
+<div class="container">
+  <div id="grid" data-timestamp="{{ data.timestamp }}" data-reload-ajax="{{ path('tvgrid') }}">
+    <div class="btn-group btn-filters" data-toggle="buttons-radio">
+      <a class="btn btn-default btn-info btn-group-sm" data-filter="">Tout</a>
+      <a class="btn btn-default btn-group-sm" data-filter="films">Films</a>
+      <a class="btn btn-default btn-group-sm" data-filter="documentaires">Documentaires</a>
+      <a class="btn btn-default btn-group-sm" data-filter="emissions">Emissions</a>
+      <a class="btn btn-default btn-group-sm" data-filter="sports">Sports</a>
+      <a class="btn btn-default btn-group-sm" data-filter="series">Séries</a>
+      <a class="btn btn-default btn-group-sm" data-filter="spectacles">Spectacles</a>
+    </div>
+    <div class="pull-right addchannel">
+      <a class="btn btn-default btn-xs" data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;de chaînes</a>
+    </div>
+    <div class="relative">
+      <div class="horaire">
+        <a href="{{ path('tvgrid_date', {date: data.timestamp - 36000 }) }}" class="btn btn-small btn-inverse btn-precedent" ><i class="glyphicon glyphicon-chevron-left"></i> Préc.</a>
+        <a href="{{ path('tvgrid_date', {date: data.timestamp + 36000 }) }}" class="btn btn-small btn-inverse btn-suivant">Suivant <i class="glyphicon glyphicon-chevron-right"></i></a>
+      </div>
+      <ul class="timeline">
+        <li></li>
+        <li>&nbsp;{{ data.timestamp|date('H:i')|replace({':': 'h'}) }}</li>
+        <li>{{ (data.timestamp + 3600)|date('H:i')|replace({':': 'h'}) }}</li>
+        <li>{{ (data.timestamp + 2*3600)|date('H:i')|replace({':': 'h'}) }}&nbsp;</li>
+
+      </ul>
+      <div class="channel-wrap">
+        <div title="En direct" class="time-bar hide"></div>
+        <div class="arrow arrow-up tooltip:after hide"></div>
+        <ul id="channels" class="nav nav-list">
+          {% include 'SkreenHouseFactoryV3Bundle:Timeline:_channels-schedule.html.twig' with {data: data } %}
+        </ul>
+      </div>
+    </div>
+  </div>
+   <div class="addchannel-bottom">
+    <a class="btn btn-default" data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;de chaînes</a>
+  </div>
+</div>
+
+</div>
+
 
 {% endblock %}
 
 {% block pagescripts %}
 {% javascripts
-    '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery-ui-1.10.1.custom.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery.ui.datepicker-fr.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/tvgrid.js'
-    filter='?yui_js' 
-    output='js/compiled/tvgrid.js'  %}
-    <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{% endblock %}
+  '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery-ui-1.10.1.custom.min.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery.ui.datepicker-fr.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/tvgrid.js'
+  filter='?yui_js' 
+  output='js/compiled/tvgrid.js'  %}
+  <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+  {% endblock %}

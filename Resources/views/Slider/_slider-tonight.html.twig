@@ -1,54 +1,62 @@
+{# définition de variable incrémentée#}
 {% set custom_l = 0 %}
 {% set custom_ltest = 0 %}
 {% set page = 0 %}
 {% set item_loop = 0 %} 
 {% for item in live | to_array %} 
-  {% if item.live is defined and item.live %}
-    {% set custom_ltest = custom_ltest + 1 %}
-  {% endif %}
+{% if item.live is defined and item.live %}
+{% set custom_ltest = custom_ltest + 1 %}
+{% endif %}
 {% endfor %}
-{% set page = (custom_ltest / 6)|round_up %}
+{% set page = (custom_ltest / 7)|round_up %}
 
-                <h2> 
-                  <a href="{{ path('tvgrid') }}">Ce soir à la télé</a>
-                </h2>
-                <a  href="#channel_prog-list" data-slide="prev">
-                  <button type="button" class="btn btn-default fleches">  
-                    <span class="glyphicon glyphicon-chevron-up"></span>
-                  </button>
-                </a>
-                <div id="channel_prog-list" class="carousel slide vertical" data-interval="false">
-                  <!-- Carousel items -->
-                  <div class="carousel-inner">
-                    <div class="active item">
-                      {% for item in live | to_array %}     
-                      {% if custom_l is divisibleby(6)  and custom_l != 0 and custom_l != item_loop %}
-                      {% set item_loop = custom_l %}
-                    </div>
-                    <div class="item">
-                      {% endif %}
-                      {% for offer in item.live|to_array if item.live is defined and item.live %}
-                      {% set custom_l = custom_l + 1 %}
-                      <a href="{{ path('any_url', {url: offer.program.url|slice(1, offer.program.url|length-1)}) }}">
-                        <div class="channel-program">
-                         <div class="icon_chaine"> 
-                           <img src="{{ item.channel.img | replace({50:36}) }}" alt="regarder {{ item.channel.name }} en replay">
-                         </div>
-                         <h3>{{ offer.program.title }}</h3>
-                         <span><b>{{ offer.broadcasttime | date("H:i") }}</b>  {{ offer.program.format ? " - "~offer.program.format.name : "" }}</span>
-                       </div>
-                     </a>
-                     <div class="hr-like"></div>
-                     {% endfor %}
-                     {% endfor %}
-                   </div>
-                 </div>
-               </div>
-               <a href="#channel_prog-list" data-slide="next">
-                 <button type="button" class="btn btn-default fleches">  
-                   <span class="glyphicon glyphicon-chevron-down"></span>
-                 </button>
-               </a>
-               <a href="{{ path('tvgrid') }}">
-                 <button type="button" class="btn btn-default btn-grille">Voir la grille télé complète</button>
-               </a>
+<h2> 
+  <a href="{{ path('tvgrid') }}">Ce soir à la télé</a>
+</h2>
+
+<div id="channel_prog-list" class="carousel slide vertical" data-interval="false">
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <div class="active item">
+      {% for item in live | to_array %}     
+      {# évite les répétitions des items #}
+      {% if custom_l is divisibleby(7)  and custom_l != 0 and custom_l != item_loop %}
+      {% set item_loop = custom_l %}
+    </div>
+    <div class="item">
+      {% endif %}
+      {% for offer in item.live|to_array if item.live is defined and item.live %}
+      {% set custom_l = custom_l + 1 %}
+
+      <a href="{{ path('any_url', {url: offer.program.url|slice(1, offer.program.url|length-1)}) }}">
+        <div class="channel-program">
+         <div class="icon_chaine"> 
+           <img src="{{ item.channel.img | replace({50:36}) }}" alt="regarder {{ item.channel.name }} en replay">
+         </div>
+         <div class="desc_chaine">
+           <h3>{{ offer.program.title }}</h3>
+           <span><b>{{ offer.broadcasttime | date("H:i") }}</b>  {{ offer.program.format ? " - "~offer.program.format.name : "" }}</span>
+         </div>
+       </div>
+     </a>
+     <div class="hr-like"></div>
+     {% endfor %}
+     {% endfor %}
+   </div>
+ </div>
+</div>
+<div class="controlersbtn">
+  <a  href="#channel_prog-list" data-slide="prev">
+    <button type="button" class="btn btn-default fleches">  
+      <span class="glyphicon glyphicon-chevron-up"></span>
+    </button>
+  </a>
+  <a href="#channel_prog-list" data-slide="next">
+   <button type="button" class="btn btn-default fleches">  
+     <span class="glyphicon glyphicon-chevron-down"></span>
+   </button>
+ </a>
+</div>
+<a href="{{ path('tvgrid') }}" class="undernot">
+ <button type="button" class="btn btn-default btn-grille">Voir la grille télé complète</button>
+</a>

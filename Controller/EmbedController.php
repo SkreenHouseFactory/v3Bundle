@@ -47,10 +47,12 @@ class EmbedController extends Controller
 
       //post streatment
       if (!isset($datas->program)) {
-        return $this->render('SkreenHouseFactoryV3Bundle:Embed:error.html.twig', array(
+        $response = $this->render('SkreenHouseFactoryV3Bundle:Embed:error.html.twig', array(
           'width' => $request->get('width', '100%'),
           'height' => $request->get('height', '100%'),
-        ));
+          ));
+        $response->setStatusCode(404);
+        return $response;
 
       //3 freres le retour
       } elseif (in_array($datas->program->id, array(5088919))) {

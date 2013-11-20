@@ -101,18 +101,37 @@
 {% endspaceless %}
 <body class="{% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}"{% if block('body_background') %} style="background:{% block body_background %}{% endblock %};"{% endif %}{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}>
 
-
+{# <div class="container">
+  <div class="row" style="height:30px;">
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+    <div class="col-xs-1" ><div style="background:red; height:30px;" ></div></div>
+  </div>
+</div> #}
 
   {% spaceless %}
   <!--[if lt IE 8]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
   <article>
-    <img class="help-popin hide" src="{{ asset('bundles/skreenhousefactoryv3/images/help_popin_2_09.png') }}">
+    {# <img class="help-popin hide" src="{{ asset('bundles/skreenhousefactoryv3/images/help_popin_2_09.png') }}"> #}
     <div id="main">
 
 
     
       <div id="content" class="uiview-update">
-        <div class="help-sprite help-sprite-ms_btn_help"></div>
+        {# <div class="help-sprite help-sprite-ms_btn_help"></div>#}
      <!--[if lt IE 8]>  <div class="lt-ie8-pop hide">
          <div class="ie-head"><img></div>
          <div class="ie-body">

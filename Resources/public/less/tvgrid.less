@@ -8,21 +8,26 @@
 #grid{
   min-height: 600px;
   .addchannel{
-    padding-top: 20px;
+    margin-bottom: -16px;
   }
-}
-#channels-search{
-    width: 100%;
-    margin-bottom: 10px;
-    .input-append{
-      .search-query.form-control{
-        display: inline-block;
-        width: 30%;
-      }
-    }
+  .btn-info{
+    background: #4c4c4c;
+    border-color: #4c4c4c;
   }
 
-  .channels-modal{
+}
+#channels-search{
+  width: 100%;
+  margin-bottom: 10px;
+  .input-append{
+    .search-query.form-control{
+      display: inline-block;
+      width: 30%;
+    }
+  }
+}
+
+.channels-modal{
 
   .form-inline .form-group {
     display: inline-block;
@@ -42,6 +47,11 @@
 
 #view-tvgrid {
   min-height: 800px;
+  position: relative;
+  .marger{
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
   #tvgrid-player{
     display: none;
     &.in{
@@ -56,240 +66,327 @@
     }
   }
   .btn-filters {
-    margin: 20px 135px;
-    margin-left: 0px;
+    margin-bottom:-10px;
+    margin-left: 22%;
+    &:before{
+      color: #BBBBBB;
+      content: "Filtres";
+      font-size: 12px;
+      margin-left: -589px;
+      margin-right: 5px;
+      margin-top: 8px;
+      position: absolute;
+    }
   }
   h1 {
-    font-size: 1.3em;
-    margin-left: 20px;
+   font-size: 1.3em;
+   line-height: 50px;
+   margin: 0;
+   padding: 0;
+   vertical-align: middle;
+ }
+ h2 {
+  font-size: 1.7em;
+}
+.channel-wrap{
+  position: relative;
+  .time-bar{
+    background-color: black;
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    z-index: 15;
   }
-  h2 {
-    font-size: 1.7em;
+  .arrow{
+    position: absolute;
+    z-index: 16;
+
   }
-  .channel-wrap{
-    position: relative;
-    .time-bar{
-      background-color: black;
-      width: 1px;
-      height: 100%;
-      position: absolute;
-      top: 0px;
-      z-index: 15;
-    }
-    .arrow{
-      position: absolute;
-      z-index: 16;
-      
+}
+.addchannel-bottom{
+    margin: 15px auto auto;
+    text-align: center;
+    width: 150px;
+  >li{
+    a{
+      display: inline-block;
+      margin-top: 5px;
+      padding: 5px 15px!important;
+      position: relative;
+      text-align: center;
+      font-size: 18px;
+      line-height: 38px;
+      min-height: 45px; 
+      margin-right: 15px;
+      background: #f4f2f3;
+      border: 1px solid #e4e4e4;
+      &:hover{
+        background: #e4e4e4;  
+      }
     }
   }
-  ul.nav-pills {
-    display: block;
-    padding: 15px;
-    margin: 20px 220px;
-    background: #EEEEEE;
-    .addchannel-bottom{
-      margin: auto;
-      left: 44%;
-      margin-top: 15px;
+}
+ul.nav-pills {
+  display: inline-block;
+  padding: 0;
+
+  >li{
+    a{
+      display: inline-block;
+      margin-top: 5px;
+      padding: 5px 15px!important;
+      position: relative;
+      text-align: center;
+      font-size: 18px;
+      line-height: 38px;
+      min-height: 45px; 
+      margin-right: 15px;
+      background: #f4f2f3;
+      border: 1px solid #e4e4e4;
+      &:hover{
+        background: #e4e4e4;  
+      }
     }
-    > li {
-      &.active {
-        > a {
-          background: rgba(0, 0, 0, 0.5);
-        }
+  }
+  > li {
+    &.active {
+      > a {
+        background: rgba(0, 0, 0, 0.5);
+
       }
-      &.active.time-change {
-        > a {
-          background: rgba(0, 136, 204, 1);
-        }
+    }
+    &.active.time-change {
+      > a {
+        background: rgba(0, 136, 204, 1);
       }
-      &.calendar {
-        padding-bottom: 7px;
-        padding-top: 7px;
+    }
+    &.calendar {
+      padding-bottom: 7px;
+      padding-top: 7px;
+    }
+    &.datepicker{
+      margin-top:-22px;
+      text-align: center;
+      span{
+        font-size: 16px;
+        color: #989898;
+        display: block;
       }
-      &.datepicker{
-        > a {
-          &.calendar{
-            padding-bottom: 6px;
-            i {
-              font-size: 2em;
-              margin-top: -8px;
-            }
+      time{
+        font-size: 16px;
+        color: #0088cc;
+        display: inline;
+        font-weight: bold;
+      }
+      > a {
+        &.calendar{
+          padding-bottom: 6px;
+          margin-right: 0;
+
+          i {
+            font-size: 1em;
+            margin-top: -8px;
+            margin-left:5px;
           }
         }
       }
-      &.pull-right.addchannel{
-        > a {
-          height: 35px;
-          padding-top: 7px;
-        } 
-      }
+    }
+    &.pull-right.addchannel{
+      > a {
+        height: 35px;
+        padding-top: 7px;
+      } 
     }
   }
-  div{
-    /* create an arrow that points up */
-    .arrow-up {
-  	width: 0; 
-  	height: 0; 
-  	border-left: 7px solid transparent;  /* left arrow slant */
-  	border-right: 7px solid transparent; /* right arrow slant */
-  	border-bottom: 7px solid #2f2f2f; /* bottom, add background color here */
-  	font-size: 0;
-  	line-height: 0;
-    }
-
-    /* create an arrow that points down */
-    .arrow-down {
-    	width: 0; 
-    	height: 0; 
-    	border-left: 7px solid transparent;
-    	border-right: 7px solid transparent;
-    	border-top: 7px solid #2f2f2f;
-    	font-size: 0;
-    	line-height: 0;
-    }
-
-    /* create an arrow that points left */
-    .arrow-left {
-    	width: 0; 
-    	height: 0; 
-    	border-bottom: 7px solid transparent;  /* left arrow slant */
-    	border-top: 7px solid transparent; /* right arrow slant */
-    	border-right: 7px solid #2f2f2f; /* bottom, add background color here */
-    	font-size: 0;
-    	line-height: 0;
-    }
-
-    /* create an arrow that points right */
-    .arrow-right {
-    	width: 0; 
-    	height: 0; 
-    	border-bottom: 7px solid transparent;  /* left arrow slant */
-    	border-top: 7px solid transparent; /* right arrow slant */
-    	border-left: 7px solid #2f2f2f; /* bottom, add background color here */
-    	font-size: 0;
-    	line-height: 0;
-    }
-
-
-    /* shared with before and after */
-    .tooltip:before, div.tooltip:after {
-    	content: ' ';
-    	height: 0;
-    	position: absolute;
-    	width: 0;
-    	border: 10px solid transparent; /* arrow size */
-    }
-
-    /* these arrows will point up */
-
-    /* top-stacked, smaller arrow */
-   .tooltip:before {
-    	border-bottom-color: #fff;  /* arrow color */
-
-    	/* positioning */
-    	position: absolute;
-    	top: -19px;
-    	left: 255px;
-    	z-index: 2;
-    }
-
-    /* arrow which acts as a background shadow */
-    .tooltip:after {
-    	border-bottom-color: #333;  /* arrow color */
-
-    	/* positioning */
-    	position: absolute;
-    	top: -24px;
-    	left: 255px;
-    	z-index: 1;
-    }
+}
+div{
+  /* create an arrow that points up */
+  .arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 7px solid transparent;  /* left arrow slant */
+    border-right: 7px solid transparent; /* right arrow slant */
+    border-bottom: 7px solid #2f2f2f; /* bottom, add background color here */
+    font-size: 0;
+    line-height: 0;
   }
-  
-  #timeslider {
-    width: 230px;
-    position: absolute;
-    left: 320px;
-    height: 12px;
-    margin-top: 13px;
-    background: #999;
-    a {
-      cursor: pointer;
-      text-decoration: none;
-      margin: -5px 0 0 -5px;
-      padding: 5px 0 10px 0;
-      width: 44px;
-      height: 30px;
-      font-size: 0.8em;
-      font-weight: normal;
-      color: black;
-      border-radius: 4px;
-      &.ui-state-hover {
-        background: #f6f6f6 url(images/ui-bg_highlight-soft_100_f6f6f6_1x100.png) 50% 50% repeat-x;
-      }
-    }
-  }
-  #datepicker {
-    position: absolute;
-    z-index: 18;
-    box-shadow: 1px 3px 3px rgba(0,0,0,0.3);
-    margin: 38px 0px 0px 30px;
-    width: 300px;
-    .ui-datepicker {
-      width: 100%;
-    }
-  }  
-  ul.timeline {
-    position: relative;
-    background: rgba(0,0,0,0.7);
-    color: white;
-    list-style: none;
-    margin: 10px 0 0 0;
-    height: 23px;
-    li {
-      display: inline-block;
-      width: 300px;
-      color: white;
-      padding: 2px 0px;
-      &:first-child {
-        width: 38px;
-      }
-      &:nth-child(2){
-        padding-left: 10px;
-      }
-      &:nth-child(4){
-        width: 262px;
-      }
-    }
-  }
-  #opt-hour{
-    width: 92px;
-    height: 35px;
-    margin-top: 2px;
-  }
-  #filter{
-    height: 35px;
-  }
-  
-  .horaire{
-    position: absolute;
-    top: -5px;
-    width: 960px;
-    >i{
-      color:white;
-    }
-  }
-  .btn-precedent{
-   padding: 3px 0px;
+
+  /* create an arrow that points down */
+  .arrow-down {
+   width: 0; 
+   height: 0; 
+   border-left: 7px solid transparent;
+   border-right: 7px solid transparent;
+   border-top: 7px solid #2f2f2f;
+   font-size: 0;
+   line-height: 0;
+ }
+
+ /* create an arrow that points left */
+ .arrow-left {
+   width: 0; 
+   height: 0; 
+   border-bottom: 7px solid transparent;  /* left arrow slant */
+   border-top: 7px solid transparent; /* right arrow slant */
+   border-right: 7px solid #2f2f2f; /* bottom, add background color here */
+   font-size: 0;
+   line-height: 0;
+ }
+
+ /* create an arrow that points right */
+ .arrow-right {
+   width: 0; 
+   height: 0; 
+   border-bottom: 7px solid transparent;  /* left arrow slant */
+   border-top: 7px solid transparent; /* right arrow slant */
+   border-left: 7px solid #2f2f2f; /* bottom, add background color here */
+   font-size: 0;
+   line-height: 0;
+ }
+
+
+ /* shared with before and after */
+ .tooltip:before, div.tooltip:after {
+   content: ' ';
+   height: 0;
+   position: absolute;
+   width: 0;
+   border: 10px solid transparent; /* arrow size */
+ }
+
+ /* these arrows will point up */
+
+ /* top-stacked, smaller arrow */
+ .tooltip:before {
+   border-bottom-color: #fff;  /* arrow color */
+
+   /* positioning */
+   position: absolute;
+   top: -19px;
+   left: 255px;
+   z-index: 2;
+ }
+
+ /* arrow which acts as a background shadow */
+ .tooltip:after {
+   border-bottom-color: #333;  /* arrow color */
+
+   /* positioning */
+   position: absolute;
+   top: -24px;
+   left: 255px;
    z-index: 1;
-   position: relative;
-   left: 0;
-   top: 2px;
-   width: 90px;
-   height: 24px;
-   color: white;
-   }
- .btn-suivant{
+ }
+}
+
+#timeslider {
+  width: 230px;
+  position: absolute;
+  left: 320px;
+  height: 12px;
+  margin-top: 13px;
+  background: #999;
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    margin: -5px 0 0 -5px;
+    padding: 5px 0 10px 0;
+    width: 44px;
+    height: 30px;
+    font-size: 0.8em;
+    font-weight: normal;
+    color: black;
+    border-radius: 4px;
+    &.ui-state-hover {
+      background: #f6f6f6 url(images/ui-bg_highlight-soft_100_f6f6f6_1x100.png) 50% 50% repeat-x;
+    }
+  }
+}
+#datepicker {
+  position: absolute;
+  z-index: 18;
+  box-shadow: 1px 3px 3px rgba(0,0,0,0.3);
+  margin: 53px 0 0 550px;
+  width: 300px;
+  .ui-datepicker {
+    width: 100%;
+  }
+}  
+ul.timeline {
+  position: relative;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  list-style: none;
+  margin: 10px 0 0 0;
+  height: 23px;
+  li {
+    display: inline-block;
+    width: 300px;
+    color: white;
+    padding: 2px 0px;
+    &:first-child {
+      width: 38px;
+    }
+    &:nth-child(2){
+      padding-left: 10px;
+    }
+    &:nth-child(4){
+      width: 262px;
+    }
+  }
+}
+
+
+
+.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+ border-bottom-left-radius: 0;
+}
+
+.btn-group > .btn:last-child:not(:first-child), .btn-group > .dropdown-toggle:not(:first-child) {
+ border-bottom-right-radius: 0;
+
+}
+
+#opt-hour{
+  width: 92px;
+  display: inline-block;
+  border: 1px solid rgb(228, 228, 228);
+  background: none repeat scroll 0% 0% rgb(238, 238, 238);
+  margin-top: 5px;
+  float: right;
+  margin-left: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 24px;
+  padding: 13px 8px;
+  color: #428bca;
+  -webkit-appearance: button;
+  .rounded(3px);
+}
+#filter{
+  height: 35px;
+}
+
+.horaire{
+  position: absolute;
+  top: -5px;
+  width: 960px;
+  >i{
+    color:white;
+  }
+}
+.btn-precedent{
+ padding: 3px 0px;
+ z-index: 1;
+ position: relative;
+ left: 0;
+ top: 2px;
+ width: 90px;
+ height: 24px;
+ color: white;
+}
+.btn-suivant{
   padding: 3px 8px;
   position: absolute;
   right: 10px;
@@ -298,204 +395,203 @@
   width: 90px;
   height: 24px;
   color: white;
-  }
-  #channels {
-    padding: 0;
-    margin: 0;
-    background: #FAFAFA;
-    border-top: 1px solid #EEE;
-    display: none;
-    border-right: 1px solid #e5e5e5;
+}
+#channels {
+  padding: 0;
+  margin: 0;
+  background: #FAFAFA;
+  border-top: 1px solid #EEE;
+  display: none;
+  border-right: 1px solid #e5e5e5;
 
-    > li, > li:hover {
-      
-      line-height: @lineheightchannel;
-      height: @lineheightchannel;
-      text-align: center;
-      border-bottom: 1px solid #E5E5E5;
-      border-left: 1px solid #E5E5E5;
-      position: relative;
-      overflow: hidden;
-      > .progress {
-        margin: 3% 30% !important;
+  > li, > li:hover {
+
+    line-height: @lineheightchannel;
+    height: @lineheightchannel;
+    text-align: center;
+    border-bottom: 1px solid #E5E5E5;
+    border-left: 1px solid #E5E5E5;
+    position: relative;
+    overflow: hidden;
+    > .progress {
+      margin: 3% 30% !important;
+    }
+    > a {
+      padding: 0;
+      margin: 0;
+      float: left;
+      width: 87px;
+      background: #2B2B2B;
+      background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+      background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
+      background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eeeeee), to(#cccccc));
+      background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+      background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+      background-image: linear-gradient(top, #eeeeee, #cccccc);
+      background-repeat: repeat-x;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EEEEEE', endColorstr='#CCCCCC', GradientType=0);
+
+      i {
+        position: absolute;
+        display: none;
+        opacity: 0.5;
+        cursor: pointer;
+        top: 30px;
       }
-      > a {
-        padding: 0;
-        margin: 0;
-        float: left;
-        width: 87px;
-        background: #2B2B2B;
-        background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
-        background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
-        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eeeeee), to(#cccccc));
-        background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
-        background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
-        background-image: linear-gradient(top, #eeeeee, #cccccc);
-        background-repeat: repeat-x;
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EEEEEE', endColorstr='#CCCCCC', GradientType=0);
-
+      &:hover {
+        cursor: move;
         i {
-          position: absolute;
-          display: none;
-          opacity: 0.5;
-          cursor: pointer;
-          top: 30px;
+          display: block;
         }
+      }
+    }
+
+    ul {
+      position: relative;
+      height: @lineheight;
+      margin: 0 0 0 87px;
+
+      li.diff {
+        position: absolute;
+        line-height: @lineheight;
+        height: @lineheight;
+        display: block;
+        overflow: hidden;
+        border-left: 1px solid #E5E5E5;
+        border-bottom: 1px solid #E5E5E5;
+        text-align: left;
+        cursor: pointer;
+        background: white;
+
         &:hover {
-          cursor: move;
-          i {
+          .actions {
             display: block;
           }
         }
-      }
 
-      ul {
-        position: relative;
-        height: @lineheight;
-        margin: 0 0 0 87px;
+        .glyphicon-question-sign {
+          color: #CCC;
+          margin: 5px;
+        }
 
-        li.diff {
+        .actions {
           position: absolute;
-          line-height: @lineheight;
-          height: @lineheight;
-          display: block;
-          overflow: hidden;
-          border-left: 1px solid #E5E5E5;
-          border-bottom: 1px solid #E5E5E5;
-          text-align: left;
-          cursor: pointer;
-          background: white;
+          z-index: 1;
+          right: 5px;
+          top: 5px;
+          line-height: 30px;
+          display: none;
+          .btn {
+            color: black;
+          }
+        }
 
-          &:hover {
-            .actions {
+        a.link {
+          color: #333;
+          display: block;
+          padding: 5px;
+          line-height: 16px;
+          min-width: 120px;
+          overflow: hidden;
+          height: 100%;
+          span {
+            &.header {
+              font-size: 0.7em;
+              color: #999;
+              text-transform: uppercase;
+              margin-right: 5px;
+              float: left;
+            }
+            &.label {
+              font-size: 0.8em;
+              display: inline-block;
+              font-weight: normal;
+              padding: 0 4px;
+              opacity: 0.5;
+              color: black;
+
+              &.label-info, &.label-warning {
+                opacity: 1;
+                color: white;
+              }
+            }
+            &.t {
+              clear: both;
               display: block;
             }
+            &.st {
+              color: #999;
+              font-size: 0.9em;
+            }
           }
+        }
 
-          .glyphicon-question-sign {
-            color: #CCC;
-            margin: 5px;
+        &.is-short {
+          a {
+            padding: 0;
+            .label {
+              margin: 10px 0 0 2px;
+              display: inline-block;
+            }
           }
+        }
 
-          .actions {
-            position: absolute;
-            z-index: 1;
-            right: 5px;
-            top: 5px;
-            line-height: 30px;
+        &.is-live {
+          background: rgba(254, 255, 231, 1);
+        }
+
+        &.has-live {
+          .label-info {
             display: none;
-            .btn {
-              color: black;
-            }
-          }
-
-          a.link {
-            color: #333;
-            display: block;
-            padding: 5px;
-            line-height: 16px;
-            min-width: 120px;
-            overflow: hidden;
-            height: 100%;
-            span {
-              &.header {
-                font-size: 0.7em;
-                color: #999;
-                text-transform: uppercase;
-                margin-right: 5px;
-                float: left;
-              }
-              &.label {
-                font-size: 0.8em;
-                display: inline-block;
-                font-weight: normal;
-                padding: 0 4px;
-                opacity: 0.5;
-                color: black;
-                  
-                &.label-info, &.label-warning {
-                  opacity: 1;
-                  color: white;
-                }
-              }
-              &.t {
-                clear: both;
-                display: block;
-              }
-              &.st {
-                color: #999;
-                font-size: 0.9em;
-              }
-            }
-          }
-
-          &.is-short {
-            a {
-              padding: 0;
-              .label {
-                margin: 10px 0 0 2px;
-                display: inline-block;
-              }
-            }
-          }
-
-          &.is-live {
-            background: rgba(254, 255, 231, 1);
-          }
-
-          &.has-live {
-            .label-info {
-              display: none;
-            }
           }
         }
       }
     }
   }
+}
 
-  #schedule {
-    min-height: 800px;
-    margin-left: 87px;
-    padding-bottom: 30px;
-    background: white; /*url(/bundles/skreenhousefactoryv3/images/tvgrid-bg.png);*/
-    border-right: 1px solid #DDD;
-    
-    .schedule {
-      position: relative;
-      cursor: pointer;
-      overflow-y: hidden;
-      padding-bottom: 22px;
-      
+#schedule {
+  min-height: 800px;
+  margin-left: 87px;
+  padding-bottom: 30px;
+  background: white; /*url(/bundles/skreenhousefactoryv3/images/tvgrid-bg.png);*/
+  border-right: 1px solid #DDD;
+
+  .schedule {
+    position: relative;
+    cursor: pointer;
+    overflow-y: hidden;
+    padding-bottom: 22px;
+
+    .schedule-cache {
+      position: absolute;
+      z-index: 1;
+      height: 100%;
+      width: 0;
+      border-right: 1px solid white;
+      background-color: rgba(150,150,150,0.1);
+      background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+      background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+      background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+      background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+      background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+      -webkit-background-size: 10px 10px;
+      -moz-background-size: 10px 10px;
+      -o-background-size: 10px 10px;
+      background-size: 10px 10px;
+      background-repeat: repeat;
+    }
+
+    &.current {
+      ul.timeline.fixed {
+        position: fixed;
+      }
+    }
+    &.schedule-prev {
       .schedule-cache {
-        position: absolute;
-        z-index: 1;
-        height: 100%;
-        width: 0;
-        border-right: 1px solid white;
-
-        background-color: rgba(150,150,150,0.1);
-        background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
-        background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-        background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-        background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-        background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-        -webkit-background-size: 10px 10px;
-        -moz-background-size: 10px 10px;
-        -o-background-size: 10px 10px;
-        background-size: 10px 10px;
-        background-repeat: repeat;
-      }
-
-      &.current {
-        ul.timeline.fixed {
-          position: fixed;
-        }
-      }
-      &.schedule-prev {
-        .schedule-cache {
-          width: 100% !important;
-        }
+        width: 100% !important;
       }
     }
   }
+}
 }
