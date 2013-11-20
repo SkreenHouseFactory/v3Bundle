@@ -199,9 +199,7 @@
 
   {% if app.environment == 'prod' and block('nostats') is empty %}
   {% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' with {tag: 'UA-6151896-17'} %}
-  {% if app.request.server.get('HTTP_USER_AGENT')|is_bot == false %}
-    {% include 'SkreenHouseFactoryV3Bundle::_chartbeat.html.twig' %}
-  {% endif %}
+  {% include 'SkreenHouseFactoryV3Bundle::_chartbeat.html.twig' %}
   <script type="text/javascript">
     _gaq.push(['_setAccount', 'UA-6151896-8']);
     _gaq.push(['_trackPageview']);
