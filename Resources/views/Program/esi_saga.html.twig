@@ -1,0 +1,32 @@
+{% extends app.request.get('layout_partner') ? 'SkreenHouseFactoryPartnersBundle::' ~ app.request.get('layout_partner') ~ '.html.twig' : 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block meta %}
+<meta property="og:title" content="{{ saga.name }}" />
+<meta property="og:description" content="{{ saga.description }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://www.myskreen.com{{ saga.seo_url }}" />
+{% if saga.img %}
+<meta property="og:image" content="{{ saga.img }}" />
+<link rel="image_src" href="{{ saga.img }}" />
+{% endif %}
+<meta name="object_type" content="website" />
+{% endblock %}
+{% block title %}{{ saga.name|striptags }}{% endblock %}
+{% block description %}{{ saga.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+
+{% block content %}
+
+<div id="view-saga" class="container">
+
+  <h1>{{ saga.name|raw }}</h1>
+  <div class="clear saga_description">{{ saga.description|raw }}</div>
+
+  <div id="saga-programs" class="slider slider-list">
+    <ul class="items">
+    {% for program in saga.programs|to_array %}
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

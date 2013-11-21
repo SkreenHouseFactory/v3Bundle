@@ -46,11 +46,20 @@ class ProgramController extends Controller
         'saga' => $data
       ));
 
+
+    
+      return $response;
+    }
+    
+    public function esiSagaAction(Request $request, $data) 
+    {
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Program:esi_saga.html.twig', array('saga' => $data));
+      
       $maxage = 3600;
       $response->setPublic();
       $response->setMaxAge($maxage);
       $response->setSharedMaxAge($maxage);
-    
+      
       return $response;
     }
 
@@ -380,15 +389,27 @@ class ProgramController extends Controller
         ));
       }
 
-      $response->setCache(array(
-          //'etag'          => $cache_etag,
-          //'last_modified' => $cache_date,
-          'max_age'       => $cache_maxage,
-          's_maxage'      => $cache_maxage,
-          'public'        => true,
-          // 'private'    => true,
-      ));
+//      $response->setCache(array(
+//          //'etag'          => $cache_etag,
+//          //'last_modified' => $cache_date,
+//          'max_age'       => $cache_maxage,
+//          's_maxage'      => $cache_maxage,
+//          'public'        => true,
+//          // 'private'    => true,
+//      ));
 
+      return $response;
+    }
+    
+    public function esiProgramAction(Request $request, $program, $offers, $playerHost) 
+    {
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Program:esi_program.html.twig', array('program' => $program, 'offers' => $offers, 'player_host'=> $playerHost));
+      
+      $maxage = 600;
+      $response->setPublic();
+      $response->setMaxAge($maxage);
+      $response->setSharedMaxAge($maxage);
+      
       return $response;
     }
 }

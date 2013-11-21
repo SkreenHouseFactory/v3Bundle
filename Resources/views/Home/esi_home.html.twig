@@ -1,0 +1,103 @@
+{% extends app.request.isXmlHttpRequest or app.request.get('xhr') ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
+
+{% set page_title = 'page.title.home.' ~ home.name %}
+{% set page_description = 'page.description.home.' ~ home.name %}
+{% if app.request.get('home') == 'jeunesse' %}
+{% set keywords = 'dessin animé, manga, film d\'animation, cartoon, enfants, junior, disney, pixar, série animée, kids' %}
+{% elseif app.request.get('home') == 'tv-replay' %}
+{% set keywords = 'émission, rattrapage, à la demande, programme tv, reportage, divertissement, télé réalité, JT, talk show, sports' %}
+{% elseif app.request.get('home') == 'film' %}
+{% set keywords = 'long métrage, cinéma, vidéo à la demande, fantastique, horreur, comédie, drame' %}
+{% elseif app.request.get('home') == 'spectacle' %}
+{% set keywords = 'divertissement, théatre, concert, musique, one man show, humour, pièce, classique, scène' %}
+{% elseif app.request.get('home') == 'documentaire' %}
+{% set keywords = 'reportage, société, découvertes, voyages, arts, biographies, histoire' %}
+{% elseif app.request.get('home') == 'serie' %}
+{% set keywords = 'feuilleton, policier, télé, soap, à suivre, house, experts, ncis, saison' %}
+{% elseif app.request.get('home') == 'cinema' %}
+{% set keywords = 'grand écran, séance, films, projection, salles, horaires, sorties, bandes-annonces' %}
+{% elseif app.request.get('home') is null %}
+{% set keywords = 'replay, vidéo à la demande, streaming, cinéma' %}
+{% endif %}
+{% set seo_description_hauteur = ('%.0f'|format(home.sliders|to_array|length//2))*490 %}
+{% block meta %}
+{% if keywords is defined %}<meta name="keywords" content="{{ keywords }}">{% endif %}
+<meta property="og:title" content="{{ page_title|trans }}" />
+<meta property="og:description" content="{{ page_description|trans }}" />
+<meta property="og:image" content="http://medias.myskreen.com/logo.png" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://www.myskreen.com" />
+{% endblock %}
+{% block title %}{{ page_title|trans }}{% endblock %}
+{% block description %}{{ page_description|trans }}{% endblock %}
+{% block body_class %}view-homes home{{ home.name != 'mixte' ? '-' ~ home.name : '' }} cover{% endblock %}
+
+{% block header_filters %}
+{% if home.filters|to_array|length %}
+<div class="dropdown-filters2">
+ {#  TRIANGLE <i class="ms-top-triangle ms_triangle_position_a"></i>#}
+ <ul class="dropdown-menu  dropdown-filters-{{ app.request.get('home') }}">
+  <li class="nav-header">catégories dans {{ home.name|replace({'v3-cine': 'cinéma','video-a-la-demande':'VOD'}) }} <i class="glyphicon glyphicon-chevron-right"></i></li>
+  {% for f in home.filters|to_array|sort %}
+  <li><a class="label label-default label-filter" href="{{ path('any_url', {url: f.url|slice(1, f.url|length-1)}) }}" target="_top">{{ f.name }}</a></li>
+  {% endfor %}
+</ul>
+</div>
+{% endif %}
+{% endblock %}
+{% block content %}
+<div id="view-home">
+  {% for slider in home.sliders|to_array if slider.id is defined %}
+    {% if loop.first %}
+        <div id="description-seo">
+            <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1> 
+      {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
+      {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
+        </div>
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une transchange', force_size: '/1250/370'} %}
+    {% if 'video-a-la-demande' in app.request.uri %}
+    {% include 'SkreenHouseFactoryV3Bundle:Home:_encartvod.html.twig' %}
+    {% endif %}
+    {% if app.request.get('home') == 'cinema' %}
+        <div class="container playlist">
+            <div class="row">
+                <div class="col-xs-16">
+          {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
+                    </div>
+                </div>
+            </div>
+
+    {% endif %}
+    {% else %}
+      {% if loop.index == 2 and home.more is defined %}
+        {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more , loop_index: loop.index } %}
+      {% endif %}
+       {% if loop.index == 2 %}
+            <div class="container">
+                <div class="row">
+                    <div class="first-container">
+        {% endif %}
+        {% if loop.index >= 2 %} 
+          {% if home.more is defined %}
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index+1 } %}
+          {% else %}
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index} %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block pagescripts %}
+{#% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/home.js'
+
+    filter='?yui_js' 
+    output='js/compiled/pages/home.js'  %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %#}
+{% endblock %}

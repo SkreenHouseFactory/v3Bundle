@@ -3,36 +3,5 @@
 {% block title %}{{ 'page.title.cinema.boxoffice'|trans({'%alpha%': app.request.get('alpha')}) }}{% endblock %}
 
 {% block content %}
-<div class="container">
-  <h1>{{ 'cinema.boxoffice.h1'|trans }}</h1>
-  
-  <div>
-    <ul class="pagination">
-      {% for l in alpha %}
-        <li{% if app.request.get('alpha') == l %} class="active"{% endif %}><a title="{{ 'cinema.alpha'|trans({alpha: l}) }}" href="{{ path('cinema_boxoffice', {alpha: l}) }}">{{ l }}</a></li>
-      {% endfor %}
-    </ul>
-  </div>
-  
-  <div id="user-programs" class="slider slider-list">
-    <ul class="items">
-    {% for p in programs %}
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p} %}
-    {% endfor %}
-    </ul>
-  </div>
-  
-  
-  {% if app.request.get('alpha') == 'a' %}
-  <div id="description-seo">
-    <h2>Le Top du Box-Office</h2>
-    <p>Vous adorez le cinéma mais ne savez pas quoi aller voir ? Faites confiance au Box-Office et ne ratez pas les films dont tout le monde parle !</p
-    <p>A moins que vous ne préfériez faire confiance à la <a href="http://www.myskreen.com/cinema/selection/8030213-cinema-la-selection-de-la-presse/">Sélection de la presse</a>.</p>
-    <p>Vous n’avez toujours pas trouvé le film qui vous correspond ? Si vous alliez faire un tour sur <a href="http://www.myskreen.com/cinema/selection/7845147-les-sorties-cinema-de-la-semaine/">Les sorties ciné de la semaine</a> ou <a href="http://www.myskreen.com/cinema/selection/8238809-les-films-toujours-a-l-affiche/">Les films toujours à l’affiche</a> ? Ils vous diront ce qui passe en ce moment au cinéma.</p>
-    <p>Ca y est, vous avez choisi un film ? Regardez maintenant s’il passe dans votre salle préférée… C’est bon ?
-    Ajoutez-la à vos cinémas et soyez immédiatement averti de sa programmation !</p>
-    <p>Vous ne voulez surtout pas passer à côté d’un film vous a tapé dans l’oeil ? Cliquez sur Suivre, le film se retrouve dans votre playlist et vous êtes averti immédiatement de toutes ses diffusions, au cinéma, à la télé, en replay ou encore en VOD !</p>
-  </div>
-  {% endif %}
-</div>
+ {{ render_esi(controller('SkreenHouseFactoryV3Bundle:Cinema:esiBoxOffice', { 'menus': menus, 'alpha': alpha, 'programs': programs })) }}
 {% endblock %}

@@ -60,6 +60,18 @@ class MainController extends Controller
         'q'=> $request->get('q')
       ));
     }
+    
+    public function esiHomeAction(Request $request, $home)
+    {
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Home:esi_home.html.twig', array('home' => $home));
+       
+      $maxage = 600;
+      $response->setPublic();
+      $response->setMaxAge($maxage);
+      $response->setSharedMaxAge($maxage);
+      
+      return $response;
+    }
 
     /**
     * homes
@@ -148,10 +160,10 @@ class MainController extends Controller
         'home' => $datas
       ));
 
-      $maxage = 600;
-      $response->setPublic();
-      $response->setMaxAge($maxage);
-      $response->setSharedMaxAge($maxage);
+//      $maxage = 600;
+//      $response->setPublic();
+//      $response->setMaxAge($maxage);
+//      $response->setSharedMaxAge($maxage);
       
       return $response;
     }
