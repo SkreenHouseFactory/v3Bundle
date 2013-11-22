@@ -4,62 +4,62 @@
 	{% if app.request.get('page') > 2 %}
 	<li class="previous">
 		{% if app.request.get('facet') %}
-			<a href="{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: app.request.get('page', 1) - 1})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
+			<span data-link-to-replace="{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: app.request.get('page', 1) - 1})|replace({'//': '/'})|rot13 }}">&larr; 30 précédents</span>
 		{% elseif app.request.get('format') %}
-			<a href="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) - 1})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
+			<span data-link-to-replace="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) - 1})|replace({'//': '/'})|rot13 }}">&larr; 30 précédents</a>
 		{% else %}
-		<a href="{{ path('format_page', {category_slug: app.request.get('category_slug'), page: app.request.get('page')-1})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
+		<span data-link-to-replace="{{ path('format_page', {category_slug: app.request.get('category_slug'), page: app.request.get('page')-1})|replace({'//': '/'})|rot13 }}">&larr; 30 précédents</span>
 		{% endif %}
 	</li>
 	{% elseif app.request.get('page') == 2 %}
 	<li class="previous">
 		{% if app.request.get('facet') %}
-			<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet')})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
+			<span data-link-to-replace="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet')})|replace({'//': '/'})|rot13 }}">&larr; 30 précédents</a>
 		{% elseif app.request.get('format') %}
-		<a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
+		<span data-link-to-replace="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'})|rot13 }}">&larr; 30 précédents</span>
 		{% else %}
-		<a href="{{ path('format', {category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">&larr; 30 précédents</a>
+		<span data-link-to-replace="{{ path('format', {category_slug: app.request.get('category_slug')})|replace({'//': '/'})|rot13 }}">&larr; 30 précédents</span>
 		{% endif %}
 	</li>
 	{% endif %}
 	{% if category.programs|to_array|length > 0 %}
 	<li class="next">
 		{% if app.request.get('facet') %}
-			<a href="{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: app.request.get('page', 1) + 1})|replace({'//': '/'}) }}">30 suivants &rarr;</a>
+			<span data-link-to-replace="{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: app.request.get('page', 1) + 1})|replace({'//': '/'})|rot13 }}">30 suivants &rarr;</span>
 		{% elseif (app.request.get('format')) %}
-		<a href="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) + 1})|replace({'//': '/'}) }}">30 suivants &rarr;</a>
+		<span data-link-to-replace="{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) + 1})|replace({'//': '/'})|rot13 }}">30 suivants &rarr;</a>
 		{% else %}
-		<a href="{{ path('format_page', {category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) + 1})|replace({'//': '/'}) }}">30 suivants &rarr;</a>
+		<span data-link-to-replace="{{ path('format_page', {category_slug: app.request.get('category_slug'), page: app.request.get('page', 1) + 1})|replace({'//': '/'})|rot13 }}">30 suivants &rarr;</span>
 		{% endif %}
 	</li>
 	{% endif %}
 {% endif %}
 <li class="pull-right dropdown dropdown-update">
-  <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-down"></i>&nbsp;<span>Sur quelle chaîne ?</span></a>
+  <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-down"></i>&nbsp;<span>Sur quelle chaîne ?</span></span>
   <ul class="dropdown-menu">
     {% for k,c in channels %}
     <li>
       {% if app.request.get('category_slug') and app.request.get('format') %}
-      <a href="{{ path('channel_format_facet', {slug: k|replace({'-+': ''}), format: app.request.get('format'), facet: app.request.get('category_slug') }) }}">
+      <span data-link-to-replace="{{ path('channel_format_facet', {slug: k|replace({'-+': ''}), format: app.request.get('format'), facet: app.request.get('category_slug') })|rot13 }}">
       {% elseif app.request.get('category_slug') %}
-      <a href="{{ path('channel_format', {slug: k|replace({'-+': ''}), format: app.request.get('category_slug')}) }}">
+      <span data-link-to-replace="{{ path('channel_format', {slug: k|replace({'-+': ''}), format: app.request.get('category_slug')})|rot13 }}">
       {% endif %}
-      {{ c }}</a></li>
+      {{ c }}</span></li>
     {% endfor %}
   </ul>
 </li>
 {% if app.request.get('format') and app.request.get('access') is null and app.request.get('facet') is null %}
 <li class="pull-right dropdown dropdown-update">
-  <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-down"></i>&nbsp;<span>Quel support ?</span></a>
+  <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-down"></i>&nbsp;<span>Quel support ?</span></span>
   <ul class="dropdown-menu">
     {% for k,a in access if a|replace({'vod': 'video-a-la-demande'}) in facet_access|keys %}
     <li>
       {% if app.request.get('category_slug') and app.request.get('format') %}
-      <a href="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'}) }}">
+      <span data-link-to-replace="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'})|rot13 }}">
       {% elseif app.request.get('category_slug') %}
-      <a href="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'}) }}">
+      <span data-link-to-replace="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'})|rot13 }}">
       {% endif %}
-      {{ facet_access[a|replace({'vod': 'video-a-la-demande'})] }}</a></li>
+      {{ facet_access[a|replace({'vod': 'video-a-la-demande'})] }}</spans></li>
     {% endfor %}
   </ul>
 </li>
