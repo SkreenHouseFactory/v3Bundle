@@ -104,7 +104,12 @@ class toolsExtension extends \Twig_Extension
     }
     public function rot13($string)
     { 
-      return str_rot13($string);
+      $string2 = $this->replaceLink($string);
+      return str_rot13($string2);
+    }
+    public function replaceLink($string)
+    {
+      return str_replace('/','/',$string);
     }
     /**
      * last item of array
@@ -128,15 +133,20 @@ class toolsExtension extends \Twig_Extension
         
         for($i = 1; $i <= $total_page; $i++){
           if ($page == 1) {
-            if( $i > $dizaine_inf  && $i == $dizaine_inf + 11 && $i == $dizaine_inf_tot+1  && $dizaine_inf_tot+1 != $page){
+            if( $i == 1 ){
+              $response[$i] = false;
+            } else if ( 
+            $i > $dizaine_inf  && $i == $dizaine_inf + 11 && $i == $dizaine_inf_tot+1  && $dizaine_inf_tot+1 != $page){
                $response[$i] = null;
             } else if ( $i > $dizaine_inf && ($i <= $dizaine_inf + 9 || $i%10 == 0 )) {
               $response[$i] = true;
             } 
           } else {
-            if( $i > $dizaine_inf && $i <= $dizaine_inf + 9 ){
+            if( $i == 1 ){
+              $response[$i] = false;
+            } else if ( $i > $dizaine_inf && $i <= $dizaine_inf + 9 ){
               $response[$i] = true;
-            } else if( $i%10 == 0) {
+            } else if( $i == 1 || $i%10 == 0) {
               $response[$i] = false;
             }
           }

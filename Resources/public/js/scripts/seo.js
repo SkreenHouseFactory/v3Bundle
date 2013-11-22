@@ -5,7 +5,6 @@ $(document).ready(function(){
     var link = seo.rot13($(this).data('link-to-replace'));
 		var node = '<a href="'+ link +'">'+$(this).html()+'</a>';
 		$(this).replaceWith(node);
-    
 	});
   $('.pager').each(function(){
 		var node = $(this).html();
