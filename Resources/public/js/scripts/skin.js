@@ -1,5 +1,5 @@
 $(document).ready(function(){
-   Skin_bfmtv.initHome();
+  // Skin_bfmtv.initHome();
 });
 
 var Skin_bfmtv;
