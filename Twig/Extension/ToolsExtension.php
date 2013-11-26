@@ -104,8 +104,7 @@ class toolsExtension extends \Twig_Extension
     }
     public function rot13($string)
     { 
-      $string2 = $this->replaceLink($string);
-      return str_rot13($string2);
+      return str_rot13(urlencode($string));
     }
     public function replaceLink($string)
     {
