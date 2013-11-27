@@ -1,0 +1,46 @@
+{% for firstslider in selection_sketches | to_array %}
+ {% if loop.first %}
+   {% for program in firstslider.programs | to_array %}
+     {% if loop.first %}
+        <div class="col-xs-11 player-block">
+          <iframe frameborder="0" scrolling="no" width="100%" height="370" src="{{program.player.player.url}}"></iframe>
+        </div>
+        <div class="col-xs-5 myskreen-block">
+          <div>
+            <span>
+              <img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-footer.png') }}" alt="myskreen">
+            </span>
+            <img src="http://mskstatic.com/275/160/c/medias/photos/channel/1-les-inconnus-s.jpg?2013112216" alt="">
+            <p>Suivez <strong>les Inconnus</strong> sur myskreen et tenez vous ainsi informé de leurs nouvelles vidéos et de leurs actualités cinéma.</p>
+            <a href="#" class="btn-suivre-b">
+              <button type="button" class="btn btn-default">+ Suivre</button>
+            </a>
+          </div>
+        </div>
+         <div class="row">
+          <div class="col-xs-16 ">
+            <h2 class="lato"><strong>{{program.title}}</strong></h2>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+    <div class="row">
+     <div class="col-xs-16 ">
+      <div class="vidplaylist"> 
+        <ul>
+          <span class="left_b">
+            <i class="glyphicon glyphicon-play"></i>
+          </span>
+          {% for program in firstslider.programs | to_array %}
+            <li class="playing">
+              <div class="img-small" style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat"></div>
+              <span><mark>1</mark>Biouman</span>
+            </li>
+          {% endfor %}
+          <span class="right_b">
+            <i class="glyphicon glyphicon-play"></i>
+          </span>
+        </ul>
+      </div>
+    {% endif %}
+{% endfor %}

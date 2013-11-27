@@ -392,15 +392,19 @@ public function header65Action($data,$from_selection,$channel,$fav,$trigger_fav)
     'channel_img_width' => 60,
     'img_width' => 150,
     'img_height' => 200,
-    'with_onglet'  => true,
     'with_programs' => true,
+    'with_offers' => true,
+    //'offers_type' => 'play',
+    'with_player' => true,
+    'player' => 'iframe',
     'img_width' => 150,
-    'img_height' => 200
+    'img_height' => 200,
+    'allow_with' => true
     );
 
-  $selection_sketches[1] = $api->fetch('www/slider/pack/11256160', $params);
-  $selection_sketches[2]  = $api->fetch('www/slider/pack/12106676', $params);
-  $selection_sketches[3]  = $api->fetch('www/slider/pack/12107027', $params);
+  $selection_sketches[1] = $api->fetch('www/slider/pack/10855312', $params);
+  $selection_sketches[2]  = $api->fetch('www/slider/pack/10855358', $params);
+  $selection_sketches[3]  = $api->fetch('www/slider/pack/12021377', $params);
 
   $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-65.html.twig', array(
     'data' => $data,

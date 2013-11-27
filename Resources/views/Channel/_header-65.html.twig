@@ -2,68 +2,16 @@
   <div class="container">
     <div class="row">
       <h1 class="lato"> <img src="http://mskstatic.com/medias/ftp/chaines/mediacenter-inconnus/player.png" alt="integrale">L’intégrale des Inconnus</h1>
-      <div class="col-xs-11 player-block">
-        <iframe frameborder="0" scrolling="no" width="100%" height="370" src="http://embed.myskreen.com/video/27054014/?width=638&height=370&fromWebsite="></iframe>
-      </div>
-      <div class="col-xs-5 myskreen-block">
-        <div>
-          <span>
-            <img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-footer.png') }}" alt="myskreen">
-          </span>
-          <img src="http://mskstatic.com/275/160/c/medias/photos/channel/1-les-inconnus-s.jpg?2013112216" alt="">
-          <p>Suivez <strong>les Inconnus</strong> sur myskreen et tenez vous ainsi informé de leurs nouvelles vidéos et de leurs actualités cinéma.</p>
-          <a href="#" class="btn-suivre-b">
-            <button type="button" class="btn btn-default">+ Suivre</button>
-          </a>
-        </div>
-      </div>
-
+      {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-player.html.twig' %}
     </div>
-    <div class="row">
-     <div class="col-xs-16 ">
-       <h2 class="lato"><strong>RAP_TOUT(Vampire)</strong></h2>
-     </div>
-   </div>
-   <div class="row">
-    <div class="col-xs-16 ">
-     <div class="vidplaylist"> 
-       <ul>
-         <span class="left_b">
-           <i class="glyphicon glyphicon-play"></i>
-         </span>
-         <li class="playing">
-           <div class="img-small" style="background:url('http://s4.mskstatic.com/165/165/medias/photos/programmes/moins_de4950000/4939467/les-chansons-les-inconnus-clayderman-au-coin-du-feu.jpg') top center no-repeat"></div>
-           <span><mark>1</mark>Biouman</span>
-         </li>
-         <li>
-           <div class="img-small" style="background:url('http://s4.mskstatic.com/165/165/medias/photos/programmes/moins_de4950000/4939467/les-chansons-les-inconnus-clayderman-au-coin-du-feu.jpg') top center no-repeat"></div>
-           <span><mark>1</mark>Biouman</span>
-         </li>
-         <li>
-           <div class="img-small" style="background:url('http://s4.mskstatic.com/165/165/medias/photos/programmes/moins_de4950000/4939467/les-chansons-les-inconnus-clayderman-au-coin-du-feu.jpg') top center no-repeat"></div>
-           <span><mark>1</mark>Biouman</span>
-         </li>   
-         <li>
-           <div class="img-small" style="background:url('http://s4.mskstatic.com/165/165/medias/photos/programmes/moins_de4950000/4939467/les-chansons-les-inconnus-clayderman-au-coin-du-feu.jpg') top center no-repeat"></div>
-           <span><mark>1</mark>Biouman</span>
-         </li>   
-         <li>
-           <div class="img-small" style="background:url('http://s4.mskstatic.com/165/165/medias/photos/programmes/moins_de4950000/4939467/les-chansons-les-inconnus-clayderman-au-coin-du-feu.jpg') top center no-repeat"></div>
-           <span><mark>1</mark>Biouman</span>
-         </li>
-         <span class="right_b">
-           <i class="glyphicon glyphicon-play"></i>
-         </span>
-       </ul>
-     </div>
    </div>
  </div>
  {% for mediadisplay in selection_sketches | to_array %}
  <div class="packgroup">  
    <div class="row">
      <div class="col-xs-16 ">
-       <h2 class="lato ">Les meilleurs sketchs</h2>
-       <span class="rightlnk">Voir tous les sketchs</span>
+       <h2 class="lato ">{{mediadisplay.title|replace({' (tous)' : '' , ' (toutes)': ''})}}</h2>
+       <a href="{{mediadisplay.url}}" class="rightlnk">Voir tous les sketchs</a>
      </div>
    </div>
    <div class="row">
@@ -71,18 +19,18 @@
        {% for program in mediadisplay.programs | to_array %}
        {% if loop.index <= 10 %}
        {% if loop.index == 1 %}
-       <div class="block-big">                                                    
+       <div class="block-big" data-play-iframe="{{program.player.player.url}}">                                                    
          <div class="img-big" style="background:url('{{ program.picture|replace({'/150/200/':'/394/394/'}) }}') top center no-repeat;">
          </div>
-         <h3>{{ program.title }}</h3>
+         <h3>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}</h3>
          <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget euismod urna. Fusce ut est ut neque cursus pellentesque eget in magna. Integer a imperdiet aliquam. Etiam venenatis adipiscing nunc, sed cursus dolor
          </p>
        </div>
        {% else %}
-       <div class="block-small">
+       <div class="block-small" data-play-iframe="{{program.player.player.url}}">
          <div class="img-small" style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat;">
          </div>
-         <h3>{{ program.title|replace({'Les chansons -':''}) }}</h3>
+         <h3>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</h3>
        </div>  
        {% endif %}
        {% endif %}
@@ -91,7 +39,7 @@
    </div>
    <div class="row">
      <div class="col-xs-16">
-       <button type="button" class="btn btn-default btn-plusdesketch"> + de sketches</button>
+       <a href="{{mediadisplay.url}}" ><button type="button" class="btn btn-default btn-plusdesketch"> + de sketches</button></a>
      </div>
    </div>
  </div> 
