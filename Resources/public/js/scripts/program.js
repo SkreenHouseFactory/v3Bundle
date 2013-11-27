@@ -293,8 +293,8 @@ $(document).ready(function(){
    
     //////////// SCRIPTS ////////////////
 
-     //modal des Trois Frères le Retour
-    if ($('#view-program').data('id') == '5088919'){
+     //modal
+    if ($('#program-modal').length){
       $('.modal .trigger-suivre').on('click',function(){
         $('#program-modal').modal('hide');
         $('.btn-suivre').trigger('click');
