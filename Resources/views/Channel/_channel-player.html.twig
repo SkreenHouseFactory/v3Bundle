@@ -19,7 +19,7 @@
         </div>
          <div class="row">
           <div class="col-xs-16 ">
-            <h2 class="lato"><strong>{{program.title}}</strong></h2>
+            <h2 class="lato"><strong>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</strong></h2>
           </div>
         </div>
       {% endif %}
@@ -34,7 +34,7 @@
           {% for program in firstslider.programs | to_array %}
             <li {% if loop.first %}class="playing"{% endif %}>
               <div class="img-small" style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat"></div>
-              <span><mark>1</mark>Biouman</span>
+              <span><mark>{{loop.index}}</mark>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</span>
             </li>
           {% endfor %}
           <span class="right_b">
