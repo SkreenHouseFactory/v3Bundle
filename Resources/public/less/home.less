@@ -153,7 +153,11 @@ h2{
     }
   }
   .desc_chaine{
-    display: table-cell;
+    //solution 1 sans centrage vertical
+    display: inline-block;
+    width: 70%;
+    //solution 2 bug webkits
+    // display: table-cell;
     height: 43px;
     line-height: 60px;
     vertical-align: middle;

@@ -1,0 +1,366 @@
+@playlistback:#4b5962;
+@white:#fff;
+@retourcolor:#c2bdab;
+
+.mediacenter-inconnus{
+    padding-top: 60px;
+    background: url("http://mskstatic.com/medias/ftp/chaines/mediacenter-inconnus/mc-bg.jpg") top center no-repeat ; 
+    background-color: #dddddd;
+    h1{
+      font-size: 52px;
+      color: #6d6d6d;
+      text-align: center;
+      line-height: 120px;
+      margin-top:10px;
+      img{
+        margin-bottom: 11px;
+        margin-right: 20px;
+      }
+    }
+
+    .img-small{
+      width: 165px;
+      height: 105px;
+    }
+
+    .img-big{
+      width: 394px;
+      height: 255px;
+    }
+    .player-block{
+      height: 370px;
+    }
+    .myskreen-block{
+      div{
+        background: #fff;
+        height: 370px;
+        img{
+          max-width: 100%;
+        }
+        span{
+          background: #2980b9;
+          display: block;
+          height: 30px;
+          padding-top: 3px;
+          padding-bottom: 3px;
+          text-align: center;
+          img{
+            max-width: 100%;
+            height: 25px;
+          }
+        }
+        p{
+          color: #828282;
+          line-height: 20px;
+          padding: 15px;
+        }
+        a{
+          display: block;
+          width: 100px;
+          margin-left: auto;
+          margin-right: auto;
+          button{
+            background: #f39c12;
+            .box-shadow( 0px 4px 0px 0px #ac7825);
+            font-size: 18px;
+            color: #FFF;
+            margin: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+            border: 0;
+            &:hover{
+              background: #ac7825;
+              margin-top: 4px;
+              .box-shadow( 0px -4px 0px 0px  darken(#ac7825, 5%));
+            }
+          }
+        }
+      }
+    }
+    .vidplaylist{
+      background: @playlistback;
+      padding-top: 10px;
+      margin-top: 20px;
+      ul{
+        list-style: none;
+        padding: 0;
+        text-align: center;
+        overflow: hidden;
+
+        //création des fleches de la playlist à l'aide des glyph bootstrap
+
+        .left_b, .right_b{
+          background: lighten(@playlistback, 20%); 
+          color: @playlistback;
+          display: block;
+          height: 50px;
+          line-height: 43px;
+          width: 50px;
+          text-align: left;
+          padding-left: 5px;
+          margin-top: 32px;
+          .rounded(50px);
+          &:hover{
+            background: lighten(@playlistback, 30%);
+            cursor: pointer; 
+          }
+        }
+
+        .left_b{
+          .rotation(180deg); 
+          margin-left: -30px;
+          float: left;
+        }
+        .right_b{
+          margin-right: -30px;
+          float: right;
+        }
+        li{
+          .transition-duration(0.3s);
+          display: inline-block;
+          margin-left: 6px;
+          margin-right: 6px;
+          &:not(.playing):hover{
+            opacity: 1;
+            cursor: pointer;
+            div{   
+              border: lighten(@playlistback, 30%) 1px solid;
+              .box-shadow(0px 0px 5px 5px rgba(0, 0, 0, 0.2));
+            }
+          }
+          &.playing{
+           div{
+             border: lighten(@playlistback, 30%) 1px solid;
+             &:after{
+              content: '';
+              display: block;
+              font-family: 'Glyphicons Halflings';
+              font-style: normal;
+              font-weight: normal;
+              line-height: 1;
+              position: relative;
+              font-size: 20px;
+              color: #fff;
+              text-align: left;
+              float: left;
+              width: 50px;
+              margin-top: 74px;
+              margin-left: 5px;
+            }
+          }
+        }
+        div{  
+          border: @playlistback 1px solid;
+        }
+        &:not(.playing){
+          opacity: 0.4;
+        }
+      }
+      mark{
+        background: @white;
+        color: @playlistback;
+        display: inline-block;
+        height: 15px;
+        line-height: 15px;
+        margin-right: 5px;
+        text-align: center;
+        width: 15px;
+        .rounded(15px);
+      }
+      span{
+        color: @white;
+        width: 100%;
+        text-align: left;
+        display: inline-block;
+        padding-top: 3px;
+        padding-bottom: 3px;
+      }
+    }
+  }
+
+  .packgroup{ 
+    margin-top: 40px;
+    margin-bottom: 40px;
+    h2{
+      font-size: 20px;
+      text-transform: uppercase;
+      display: inline-block;
+      width: 50%;
+      text-align: left;
+    }
+
+
+    .img-small{
+      &:after{
+        content: '';
+        display: inline-block;
+        font-family: 'Glyphicons Halflings';
+        font-style: normal;
+        font-weight: normal;
+        line-height: 57px;
+        position: relative;
+        font-size: 33px;
+        color: #fff;
+        text-align: left;
+        width: 65px;
+        background: rgba(0,0,0,0.8);
+        text-align: center;
+        height: 65px;
+        margin-left: 49px;
+        margin-top: 20px;
+        .rounded(100px);
+        .transition-duration(0.3s);
+        opacity: 0;
+      }
+    }
+  //création des symboles play
+
+  .img-big{
+    &:after{
+      content: '';
+      display: inline-block;
+      font-family: 'Glyphicons Halflings';
+      font-style: normal;
+      font-weight: normal;
+      line-height: 86px;
+      position: relative;
+      font-size: 67px;
+      color: #fff;
+      text-align: left;
+      width: 100px;
+      background: rgba(0,0,0,0.8);
+      text-align: center;
+      height: 100px;
+      margin-left: 150px;
+      margin-top: 74px;
+      .rounded(100px);
+      .transition-duration(0.3s);
+      opacity: 0;
+    }
+  }
+  .rightlnk{
+    text-align: right;
+    width:50%;
+    display: inline-block;
+  }
+
+  .block-big{
+    width: 394px;
+    height: 406px;
+    background: #fff;
+    float: left;
+    font-size: 14px;
+    line-height: 24px;
+    color: #898989;
+    h3{
+      font-size: 16px;
+      color: #494949;
+      font-weight: bold;
+      padding: 10px;
+      padding: 10px 10px 0px;
+    }
+    p{
+      padding:5px 10px 10px;
+    }
+  }
+  .block-small{
+    width: 165px;
+    height: 125px;
+    float: left;
+    background: #fff;
+    margin-left:16px;
+    margin-bottom: 16px;
+    h3{
+      font-size: 14px;
+      color: #898989;
+      padding-bottom: 2px;
+      padding-left:3px;
+    }
+  }
+  .block-small, .block-big{
+    &:hover{
+      cursor: pointer;
+      .box-shadow(0px 0px 5px 5px rgba(0, 0, 0, 0.1));
+      .transition-duration(0.3s);
+      .img-small, .img-big{
+       opacity: 0.8;
+       .transition-duration(0.3s);
+       &:after{
+        opacity: 1;
+      }
+    }
+
+  }
+  }
+  }
+
+  .btn-plusdesketch{
+    margin-left: auto;
+    margin-right:auto;
+    display: block;
+    .rounded(15px);
+  }
+
+
+
+
+  //partie pour le film le retour
+  .pretitle{
+    span{
+      color:@retourcolor;
+      font-size: 35px;
+      text-transform: uppercase; 
+      font-weight: normal;
+      text-align: center;
+      display: block;
+      img{
+        margin-right:20px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  #leretour{
+    background:@retourcolor;
+    width: 100%;
+    padding-top: 10px;
+    h4{
+      color: darken(@retourcolor, 20%);
+      font-size: 30px;
+      text-transform: uppercase;
+    }
+    h5{
+      color: darken(@retourcolor, 20%);
+      font-size: 12px;
+      letter-spacing: 1.2px;
+      text-align: center;
+    }
+  }
+  .edito{
+    background: lighten(@retourcolor, 10%);
+    margin-top: 13px;
+    padding: 25px;
+    p{
+      font-size: 16px;
+      line-height: 27px;
+      color: #5f5c4f;
+    }
+    button{
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top:30px;
+      .rounded(10px);
+    }
+  }
+  .tiers{
+    width: 33.33333%;
+    float: left;
+    h3{
+      font-size: 14px;
+      color: darken(@retourcolor, 30%);
+      font-weight: bold;
+    }
+  }
+
+}
