@@ -32,7 +32,7 @@
             <i class="glyphicon glyphicon-play"></i>
           </span>
           {% for program in firstslider.programs | to_array %}
-            <li class="playing">
+            <li {% if loop.first %}class="playing"{% endif %}>
               <div class="img-small" style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat"></div>
               <span><mark>1</mark>Biouman</span>
             </li>
