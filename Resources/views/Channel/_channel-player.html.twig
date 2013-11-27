@@ -23,7 +23,7 @@
         
          <div class="row">
           <div class="col-xs-16 ">
-            <h2 class="lato"><strong>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</strong></h2>
+            <h2 class="lato isplaying-title"><strong>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</strong></h2>
           </div>
         </div>
       {% endif %}
@@ -31,21 +31,26 @@
     {% endif %}
     <div class="row {% if loop.index != 1 %}hide{% endif %}" data-selection-id="{{slider.id}}">
      <div class="col-xs-16 ">
-      <div class="vidplaylist"> 
-        <ul>
-          <span class="left_b">
+      <div id="carousel-{{slider.id}}" class="vidplaylist carousel slide" data-ride="carousel"> 
+        <div class="carousel-inner">
+          <div class="item active">
+            {% for program in slider.programs | to_array %}
+                {% if loop.index%5 == 0 and loop.index != 1 %}
+                  </div>
+                  <div class="item">
+                {% endif %}
+                <div class="img-small" data-id="{{program.id}}" data-selection="{{slider.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}" style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat"></div>
+                <span><mark>{{loop.index}}</mark>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</span>
+            {% endfor %}
+          </div>
+        </div>
+          
+          <a class="left_b left carousel-control" href="#carousel-{{slider.id}}" data-slide="prev">
             <i class="glyphicon glyphicon-play"></i>
-          </span>
-          {% for program in slider.programs | to_array %}
-            <li {% if loop.first %}class="playing"{% endif %}>
-              <div class="img-small" style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat"></div>
-              <span><mark>{{loop.index}}</mark>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</span>
-            </li>
-          {% endfor %}
-          <span class="right_b">
+          </a>
+          <a class="right_b right carousel-control" href="#carousel-{{slider.id}}" data-slide="next">
             <i class="glyphicon glyphicon-play"></i>
-          </span>
-        </ul>
+          </a>
       </div>
     </div>
    </div>
