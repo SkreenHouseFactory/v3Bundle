@@ -241,7 +241,7 @@
                 {% endif %}
               </button>
                 {% if o.tags.originalprice is defined and o.tags.originalprice %}
-                  <span> au lieu de <del>{{o.tags.originalprice|number_format(2, ',') ~ '€'}}</del></span>
+                  <span class="sold"> au lieu de <del>{{o.tags.originalprice|number_format(2, ',') ~ '€'}}</del></span>
                 {% endif %}
               {% endif %}
               <br/>
