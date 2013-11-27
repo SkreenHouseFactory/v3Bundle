@@ -1,11 +1,6 @@
 <div class="mediacenter-inconnus">
   <div class="container">
-    <div class="row">
-      <h1 class="lato"> <img src="http://mskstatic.com/medias/ftp/chaines/mediacenter-inconnus/player.png" alt="integrale">L’intégrale des Inconnus</h1>
       {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-player.html.twig' %}
-    </div>
-   </div>
- </div>
  {% for mediadisplay in selection_sketches | to_array %}
  <div class="packgroup">  
    <div class="row">
@@ -39,7 +34,7 @@
    </div>
    <div class="row">
      <div class="col-xs-16">
-       <a href="{{mediadisplay.url}}" ><button type="button" class="btn btn-default btn-plusdesketch"> + de sketches</button></a>
+       <a href="{{mediadisplay.url}}"><button type="button" class="btn btn-default btn-plusdesketch"> + de sketches</button></a>
      </div>
    </div>
  </div> 
