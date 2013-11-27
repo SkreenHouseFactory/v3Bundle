@@ -21,10 +21,10 @@
     </div>
     <div class="row">
      <div class="col-xs-16 ">
-      <h2 class="lato"><strong>RAP_TOUT(Vampire)</strong></h2>
-    </div>
-  </div>
-  <div class="row">
+       <h2 class="lato"><strong>RAP_TOUT(Vampire)</strong></h2>
+     </div>
+   </div>
+   <div class="row">
     <div class="col-xs-16 ">
      <div class="vidplaylist"> 
        <ul>
@@ -58,7 +58,7 @@
      </div>
    </div>
  </div>
-
+ {% for mediadisplay in selection_sketches | to_array %}
  <div class="packgroup">  
    <div class="row">
      <div class="col-xs-16 ">
@@ -68,68 +68,25 @@
    </div>
    <div class="row">
      <div class="col-xs-16">
-       <div class="block-big">
-         <div class="img-big" style="background:url('http://s1.mskstatic.com/394/394/medias/photos/programmes/moins_de4950000/4938680/les-sketchs-les-inconnus.jpg') top center no-repeat;">
-
+       {% for program in mediadisplay.programs | to_array %}
+       {% if loop.index <= 10 %}
+       {% if loop.index == 1 %}
+       <div class="block-big">                                                    
+         <div class="img-big" style="background:url('{{ program.picture|replace({'/150/200/':'/394/394/'}) }}') top center no-repeat;">
          </div>
-         <h3>Jesus II le retour</h3>
-         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget euismod urna. Fusce ut est ut neque cursus pellentesque eget in magna. Integer a imperdiet aliquam. Etiam venenatis adipiscing nunc, sed cursus dolor
+         <h3>{{ program.title }}</h3>
+         <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget euismod urna. Fusce ut est ut neque cursus pellentesque eget in magna. Integer a imperdiet aliquam. Etiam venenatis adipiscing nunc, sed cursus dolor
          </p>
        </div>
+       {% else %}
        <div class="block-small">
-         <div class="img-small" style="background:url('http://s1.mskstatic.com/195/195/medias/photos/programmes/moins_de4950000/4938680/les-sketchs-les-inconnus.jpg') top center no-repeat;">
-
+         <div class="img-small" style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat;">
          </div>
-         <h3>Biouman</h3>
-       </div>   
-       <div class="block-small">
-         <div class="img-small" style="background:url('http://s1.mskstatic.com/194/194/medias/photos/programmes/moins_de5310000/5300095/les-series-les-inconnus.jpg') top center no-repeat;">
-
-         </div>
-         <h3>Biouman</h3>
-       </div>     
-       <div class="block-small">
-         <div class="img-small" style="background:url('http://s1.mskstatic.com/195/195/medias/photos/programmes/moins_de4950000/4938680/les-sketchs-les-inconnus.jpg') top center no-repeat;">
-
-         </div>
-         <h3>Biouman</h3>
-       </div>   
-       <div class="block-small">
-         <div class="img-small" style="background:url('http://s1.mskstatic.com/194/194/medias/photos/programmes/moins_de5310000/5300093/les-emissions-tv-les-inconnus.jpg') top center no-repeat;">
-
-         </div>
-         <h3>Biouman</h3>
-       </div>     
-       <div class="block-small">
-         <div class="img-small" style="background:url('http://s1.mskstatic.com/195/195/medias/photos/programmes/moins_de4950000/4938680/les-sketchs-les-inconnus.jpg') top center no-repeat;">
-
-         </div>
-         <h3>Biouman</h3>
-       </div>     
-       <div class="block-small">
-         <div class="img-small" style="background:url('http://s1.mskstatic.com/195/195/medias/photos/programmes/moins_de4950000/4938680/les-sketchs-les-inconnus.jpg') top center no-repeat;">
-
-         </div>
-         <h3>Biouman</h3>
-       </div>   
-       <div class="block-small">
-         <div class="img-small" style="background:url('http://s1.mskstatic.com/195/195/medias/photos/programmes/moins_de4950000/4938680/les-sketchs-les-inconnus.jpg') top center no-repeat;">
-
-         </div>
-         <h3>Biouman</h3>
+         <h3>{{ program.title|replace({'Les chansons -':''}) }}</h3>
        </div>  
-       <div class="block-small">
-         <div class="img-small" style="background:url('http://s1.mskstatic.com/195/195/medias/photos/programmes/moins_de4950000/4938680/les-sketchs-les-inconnus.jpg') top center no-repeat;">
-
-         </div>
-         <h3>Biouman</h3>
-       </div>    
-       <div class="block-small">
-         <div class="img-small" style="background:url('http://s1.mskstatic.com/195/195/medias/photos/programmes/moins_de4950000/4938680/les-sketchs-les-inconnus.jpg') top center no-repeat;">
-
-         </div>
-         <h3>Biouman</h3>
-       </div>
+       {% endif %}
+       {% endif %}
+       {% endfor %} 
      </div>
    </div>
    <div class="row">
@@ -137,7 +94,10 @@
        <button type="button" class="btn btn-default btn-plusdesketch"> + de sketches</button>
      </div>
    </div>
- </div>
+ </div> 
+ {% endfor %} 
+
+
 </div>
 <div class="container pretitle">
   <div class="row">
