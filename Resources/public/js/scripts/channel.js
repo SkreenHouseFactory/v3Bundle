@@ -116,6 +116,14 @@ $(document).ready(function(){
     //////////// SCRIPTS ////////////////
 
     //setting
+    $('[data-play-url]').on('click',function(){
+      $('.row[data-selection-id]').addClass('hide');
+      $('.row[data-selection-id='+$(this).data('selection')+']').removeClass('hide');
+      $('.isplaying-title strong').html($(this).data('play-title'));
+      $('.player-block iframe').attr('src',$(this).data('play-url'));
+      $('.vidplaylist .img-small').parent().removeClass('playing');
+      $('.vidplaylist .img-small[data-id='+$(this).data('id')+']').parent().addClass('playing');
+    });
     $('.modal .trigger-suivre').on('click',function(){
       $('#channel-modal').modal('hide');
       $('.btn-suivre').trigger('click');
