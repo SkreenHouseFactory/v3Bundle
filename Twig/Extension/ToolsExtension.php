@@ -46,7 +46,7 @@ class toolsExtension extends \Twig_Extension
             'keywords_from_url' => new \Twig_Filter_Method($this, 'keywordsFromUrl'),
             'prepare_for_slider' => new \Twig_Filter_Method($this, 'prepareForSlider'),
             'round_up' => new \Twig_Filter_Method($this, 'roundUp'),
-
+            'sold_perc' => new \Twig_Filter_Method($this, 'soldPerc')
         );
     }
 
@@ -110,6 +110,11 @@ class toolsExtension extends \Twig_Extension
     public function end($arr)
     {
 			return end($arr);
+    }
+    public function soldPerc($price,$sold_price){
+       $perc = $price/$sold_price;
+       $perc = $perc * 100;
+      return ceil($perc);
     }
 
     /**
