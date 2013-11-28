@@ -131,7 +131,9 @@
 		{% endfor %}
 		</ul>
     <ul class="pager_to_replace"></ul>
-    {% include 'SkreenHouseFactoryV3Bundle:Content:_category-pagination.html.twig' with {data: category.count, page :  app.request.get('page', 1)} %}
+    {% if app.request.get('category_slug') is not null and app.request.get('format') is not null and app.request.get('access') is null and app.request.get('facet') is null %}
+      {% include 'SkreenHouseFactoryV3Bundle:Content:_category-pagination.html.twig' with {data: category.count, page :  app.request.get('page', 1)} %}
+    {% endif %}
 	</div>
 </div>
 {% endblock %}
