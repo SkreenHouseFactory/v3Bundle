@@ -178,13 +178,13 @@ $(document).ready(function(){
      }
   });
   
-  if(!API.cookie('session_uid')){
+  if (!API.cookie('session_uid')){
       $('.headertoprighticons').removeClass('hide');
       setTimeout( function(){
         if (typeof Skhf.session.callbackSignin == 'function') {
           Skhf.session.callbackSignin();
         }
-      },700);
+      }, 700);
     }
     
   $(document).on('click', '#top-playlist .breadcrumb li:first', function(){

@@ -148,7 +148,7 @@ class MainController extends Controller
         'home' => $datas
       ));
 
-      $maxage = 600;
+      $maxage = 300;
       $response->setPublic();
       $response->setMaxAge($maxage);
       $response->setSharedMaxAge($maxage);
