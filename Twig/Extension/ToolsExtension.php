@@ -131,24 +131,28 @@ class toolsExtension extends \Twig_Extension
         $dizaine_inf_tot = floor($total_page/10)*10;
         
         for($i = 1; $i <= $total_page; $i++){
-          if ($page == 1) {
+          if ($page == 1 || $page%10 == 0) {
             if( $i == 1 ){
               $response[$i] = false;
             } else if ( 
             $i > $dizaine_inf  && $i == $dizaine_inf + 11 && $i == $dizaine_inf_tot+1  && $dizaine_inf_tot+1 != $page){
                $response[$i] = null;
-            } else if ( $i > $dizaine_inf && ($i <= $dizaine_inf + 9 || $i%10 == 0 )) {
+            }else if ( $i%10 == 0 && $i > $dizaine_inf){
+              if($page == 1){
+                 $response[$i] = true;
+               }
+               else{
+                 $response[$i] = false;
+               }
+            } else if ( $i > $dizaine_inf && $i <= $dizaine_inf + 9 ) {
               $response[$i] = true;
             } 
           } else {
-            if( $i < 10 || $page%10 != 0){
+            if( $i%10 == 0 || $i == 1 ){
               $response[$i] = false;
-            } else if ( 
-               $i > $dizaine_inf  && $i == $dizaine_inf + 11 && $i == $dizaine_inf_tot+1  && $dizaine_inf_tot+1 != $page){
+            } else if ( $i > $dizaine_inf  && $i == $dizaine_inf + 11 && $i == $dizaine_inf_tot+1  && $dizaine_inf_tot+1 != $page){
               $response[$i] = null;
             } else if ( $i > $dizaine_inf && $i <= $dizaine_inf + 9 ){
-              $response[$i] = true;
-            } else if( $i == 1 || $i%10 == 0) {
               $response[$i] = false;
             }
           }
