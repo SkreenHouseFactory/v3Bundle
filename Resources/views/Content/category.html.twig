@@ -72,14 +72,14 @@
 	{% if app.request.get('format') and (app.request.get('facet') is null or app.request.get('facet')|length < 2) %}
 	{# alpha #}
 	<ul class="pagination">
-		<li{% if app.request.get('facet') is null %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">{{ 'nav.all'|trans }}</a></li>
+		<li{% if app.request.get('facet') is null %} class="active"{% endif %}><span data-link-to-replace="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'})|rot13 }}">{{ 'nav.all'|trans }}</span></li>
 		{# 
 			<li{% if app.request.get('access') == 'vod' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">En VOD</a></li>
 		<li{% if app.request.get('access') == 'cinema' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">Au cinéma</a></li>
 		<li{% if app.request.get('access') == 'tv' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">TV & Replay</a></li>
 		#}
 		{% for l in alpha %}
-		<li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: l})|replace({'//': '/'}) }}">{{ l }}</a></li>
+		<li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><span data-link-to-replace="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: l})|replace({'//': '/'})|rot13 }}">{{ l }}</span></li>
 		{% endfor %}
 	</ul>
 
@@ -102,16 +102,16 @@
   {% elseif app.request.get('facet') or  app.request.get('access') %}
     {% for k,s in facet_access if k|replace({'video-a-la-demande': 'vod', 'replay': 'catchup'}) in access %}
       {% if k not in facet_access|keys or app.request.get('facet') %}
-  		<a href="{{ path('category_facet_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), access: k})|replace({'//':'/'}) }}" class="label {% if app.request.get('access') == k %}label-warning{% else %}label-default{% endif %}">
+  		<span data-link-to-replace="{{ path('category_facet_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), access: k})|replace({'//':'/'})|rot13 }}" class="label {% if app.request.get('access') == k %}label-warning{% else %}label-default{% endif %}">
       {% else %}
-  		<a href="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: k})|replace({'//':'/'}) }}" class="label {% if app.request.get('access') == k %}label-warning{% else %}label-default{% endif %}">
+  		<span data-link-to-replace="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: k})|replace({'//':'/'})|rot13 }}" class="label {% if app.request.get('access') == k %}label-warning{% else %}label-default{% endif %}">
       {% endif %}
-        {{ s }}</a>
+        {{ s }}</span>
   	{% endfor %}
   {% else %}
   	{% for k,s in subcategories %}
-  		<a href="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'}) }}" class="label {% if app.request.get('facet') == k %}label-info{% else %}label-default{% endif %}">
-        {{ s }}</a>
+  		<span data-link-to-replace="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'})|rot13 }}" class="label {% if app.request.get('facet') == k %}label-info{% else %}label-default{% endif %}">
+        {{ s }}</span>
   	{% endfor %}
 	{% endif %}
   </div>

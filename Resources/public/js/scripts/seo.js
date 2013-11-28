@@ -3,7 +3,7 @@
 $(document).ready(function(){
 	$('[data-link-to-replace]').each(function(){
     var link = unescape(seo.rot13($(this).data('link-to-replace')));
-		var node = '<a href="'+ link +'">'+$(this).html()+'</a>';
+		var node = '<a href="'+ link +'" class="'+$(this).attr('class')+'">'+$(this).html()+'</a>';
 		$(this).replaceWith(node);
 	});
   $('.pager').each(function(){

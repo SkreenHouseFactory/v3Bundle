@@ -141,8 +141,11 @@ class toolsExtension extends \Twig_Extension
               $response[$i] = true;
             } 
           } else {
-            if( $i == 1 ){
+            if( $i < 10 || $page%10 != 0){
               $response[$i] = false;
+            } else if ( 
+               $i > $dizaine_inf  && $i == $dizaine_inf + 11 && $i == $dizaine_inf_tot+1  && $dizaine_inf_tot+1 != $page){
+              $response[$i] = null;
             } else if ( $i > $dizaine_inf && $i <= $dizaine_inf + 9 ){
               $response[$i] = true;
             } else if( $i == 1 || $i%10 == 0) {

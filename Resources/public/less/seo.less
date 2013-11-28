@@ -1,0 +1,29 @@
+.container {
+  width: 990px; /*1010px;*/
+  position: relative;
+
+  .pagination {
+    text-align: left;
+    span {
+      padding: 5px 6px;
+      background-color: white;
+    }
+    li.active span {
+      color: white;
+      background: #08C;
+    }
+    &.pagination-access {
+      padding: 5px 6px;
+    }
+    .disabled{
+      >span{
+        color: #c9c9c9;
+      }
+    }
+    >ul{
+      >li{
+        display: inline-block;
+      }
+    }
+  }
+}
