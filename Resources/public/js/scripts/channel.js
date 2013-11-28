@@ -116,8 +116,8 @@ $(document).ready(function(){
     //////////// SCRIPTS ////////////////
 
     //setting
-    //Scroll to player quand on est sur un Touch device
-    
+    //Scroll to player 
+
     $('html [data-play-url]').on('click', function () {
       $('html,body').animate({'scrollTop' : 60},1000);
     });  
@@ -127,6 +127,8 @@ $(document).ready(function(){
       $('.row[data-selection-id='+$(this).data('selection')+']').removeClass('hide');
       $('.isplaying-title strong').html($(this).data('play-title'));
       $('.player-block iframe').attr('src',$(this).data('play-url'));
+      $('.row[data-selection-id='+$(this).data('selection')+'] .item').removeClass('active');
+      $('.vidplaylist .img-small[data-id='+$(this).data('id')+']').parent().addClass('active');
       $('.vidplaylist .img-small').removeClass('playing');
       $('.vidplaylist .img-small[data-id='+$(this).data('id')+']').addClass('playing');
     });

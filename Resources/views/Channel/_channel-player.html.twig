@@ -1,57 +1,64 @@
 <div class="row">
   <h1 class="lato"> <img src="http://mskstatic.com/medias/ftp/chaines/mediacenter-inconnus/player.png" alt="integrale">L’intégrale des Inconnus</h1>
-{% for slider in selection_sketches | to_array %}
- {% if loop.first %}
-   {% for program in slider.programs | to_array %}
-     {% if loop.first %}
-        <div class="col-xs-11 player-block">
-          <iframe frameborder="0" scrolling="no" width="100%" height="370" src="{{program.player.player.url}}"></iframe>
-        </div>
-        <div class="col-xs-5 myskreen-block">
-          <div>
-            <span>
-              <img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-footer.png') }}" alt="myskreen">
-            </span>
-            <img src="http://mskstatic.com/275/160/c/medias/photos/channel/1-les-inconnus-s.jpg?2013112216" alt="">
-            <p>Suivez <strong>les Inconnus</strong> sur myskreen et tenez vous ainsi informé de leurs nouvelles vidéos et de leurs actualités cinéma.</p>
-            <a href="#" class="btn-suivre-b">
-              <button type="button" class="btn btn-default">+ Suivre</button>
-            </a>
-          </div>
-        </div>
-      </div>
-        
-         <div class="row">
-          <div class="col-xs-16 ">
-            <h2 class="lato isplaying-title"><strong>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</strong></h2>
-          </div>
-        </div>
-      {% endif %}
-    {% endfor %}
-    {% endif %}
-    <div class="row {% if loop.index != 1 %}hide{% endif %}" data-selection-id="{{slider.id}}">
-     <div class="col-xs-16 ">
-      <div id="carousel-{{slider.id}}" class="vidplaylist carousel slide" data-ride="carousel"> 
-        <div class="carousel-inner">
-          <div class="item active">
-            {% for program in slider.programs | to_array %}
-                {% if loop.index%5 == 0 and loop.index != 1 %}
-                  </div>
-                  <div class="item">
-                {% endif %}
-                <div class="img-small" data-id="{{program.id}}" data-selection="{{slider.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}" style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat"></div>
-                <span><mark>{{loop.index}}</mark>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</span>
-            {% endfor %}
-          </div>
-        </div>
-          
-          <a class="left_b left carousel-control" href="#carousel-{{slider.id}}" data-slide="prev">
-            <i class="glyphicon glyphicon-play"></i>
-          </a>
-          <a class="right_b right carousel-control" href="#carousel-{{slider.id}}" data-slide="next">
-            <i class="glyphicon glyphicon-play"></i>
-          </a>
-      </div>
+  {% for slider in selection_sketches | to_array %}
+  {% if loop.first %}
+  {% for program in slider.programs | to_array %}
+  {% if loop.first %}
+  <div class="col-xs-11 player-block">
+    <iframe frameborder="0" scrolling="no" width="100%" height="370" src="{{program.player.player.url}}"></iframe>
+  </div>
+  <div class="col-xs-5 myskreen-block">
+    <div>
+      <span>
+        <img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-footer.png') }}" alt="myskreen">
+      </span>
+      <img src="http://mskstatic.com/275/160/c/medias/photos/channel/1-les-inconnus-s.jpg?2013112216" alt="">
+      <p>Suivez <strong>les Inconnus</strong> sur myskreen et tenez vous ainsi informé de leurs nouvelles vidéos et de leurs actualités cinéma.</p>
+      <a href="#" class="btn-suivre-b">
+        <button type="button" class="btn btn-default">+ Suivre</button>
+      </a>
     </div>
-   </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-16 ">
+    <h2 class="lato isplaying-title"><strong>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</strong></h2>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+<div class="row {% if loop.index != 1 %}hide{% endif %}" data-selection-id="{{slider.id}}">
+ <div class="col-xs-16 ">
+  <div id="carousel-{{slider.id}}" class="vidplaylist carousel slide" data-ride="carousel" data-interval="0"> 
+
+    <div class="btn-wrap">   
+       <a class="left_b" href="#carousel-{{slider.id}}" data-slide="prev">
+        <i class="glyphicon glyphicon-play"></i>
+      </a>
+      <a class="right_b " href="#carousel-{{slider.id}}" data-slide="next">
+        <i class="glyphicon glyphicon-play"></i>
+      </a>
+  </div>
+
+  <div class="carousel-inner">
+    <div class="item active">
+      {% for program in slider.programs | to_array %}
+
+      <div class="vignette"  data-play-url="{{program.player.player.url}}"  data-id="{{program.id}}" data-selection="{{slider.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}">
+        <div class="img-small"  style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat"></div>
+        <span><mark>{{loop.index}}</mark>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</span>
+      </div>
+      {% if loop.index%5 == 0 and loop.index != 1 %}
+    </div>
+    <div class="item">
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+
+</div>
+</div>
+</div>
 {% endfor %}

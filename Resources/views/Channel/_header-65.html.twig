@@ -15,12 +15,12 @@
        {% if loop.index <= 10 %}
        {% if loop.index == 1 %}
        <div class="block-big" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}">                                                    
-         <div class="img-big" style="background:url('{{ program.picture|replace({'/150/200/':'/394/394/'}) }}') top center no-repeat;">
+           <div class="img-big" style="background:url('{{ program.picture|replace({'/150/200/':'/394/394/'}) }}') top center no-repeat;">
+           </div>
+           <h3>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}</h3>
+           <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget euismod urna. Fusce ut est ut neque cursus pellentesque eget in magna. Integer a imperdiet aliquam. Etiam venenatis adipiscing nunc, sed cursus dolor
+           </p>
          </div>
-         <h3>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}</h3>
-         <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget euismod urna. Fusce ut est ut neque cursus pellentesque eget in magna. Integer a imperdiet aliquam. Etiam venenatis adipiscing nunc, sed cursus dolor
-         </p>
-       </div>
        {% else %}
        <div class="block-small" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}">
          <div class="img-small" style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat;">
@@ -38,9 +38,7 @@
      </div>
    </div>
  </div> 
- {% endfor %} 
-
-
+ {% endfor %}
 </div>
 <div class="container pretitle">
   <div class="row">
@@ -83,4 +81,3 @@
 </div>
 </div>
 </div>
-
