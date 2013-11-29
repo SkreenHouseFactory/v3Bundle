@@ -46,19 +46,21 @@ $(document).ready(function(){
     console.log(['script fbsync', 'fetching information...']);
     FB.api('/me', function(response) {
       console.log(['script fbsync', 'success: ' + response.name, response, FB.getAuthResponse()]);
-      API.query(
-        'POST', 
-        'user', 
-        {
-          session_uid: Skhf.session.uid,
-          fbuid: response.id,
-          username: response.email,
-          access_token: FB.getAuthResponse()['accessToken']
-        },
-        function(){
-          console.log('script fbsync', 'API.query callback');
 
-          Skhf.session.sync(function(sessionDatas){
+      Skhf.session.sync(function(sessionDatas){
+        $('.modal').modal('hide');
+        console.log('script fbsync', 'API.query callback', 'Skhf.session.sync', UI.callbackModal);
+        API.query(
+          'POST', 
+          'user', 
+          {
+            session_uid: Skhf.session.uid,
+            fbuid: response.id,
+            username: response.email,
+            access_token: FB.getAuthResponse()['accessToken']
+          },
+          function(){
+            console.log('script fbsync', 'API.query callback');
             $('.modal').modal('hide');
             console.log('script fbsync', 'API.query callback', 'Skhf.session.sync', UI.callbackModal);
             if (UI.callbackModal) {
