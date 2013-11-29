@@ -241,7 +241,7 @@
                 {% endif %}
               </button>
                 {% if o.tags.originalprice is defined and o.tags.originalprice and o.cost %}
-                  <span class="sold">au lieu de <del>{{o.tags.originalprice|number_format(2, ',') ~ '€'}}</del><br><mark> -{{o.cost|sold_perc(o.tags.originalprice)~'%' }}</mark> en avant-première</span>
+                  <span class="sold">au lieu de <del>{{o.tags.originalprice|number_format(2, ',') ~ '€'}}</del><br><mark>      avant-première -{{o.cost|sold_perc(o.tags.originalprice)~'%' }}</mark> </span>
                 {% endif %}
               {% endif %}
               <br/>
