@@ -811,7 +811,7 @@ UI = {
         '<p><b>Votre vidéo en 1 clic et en Haute Qualité.</b><br/>' +
         'Regardez vos vidéos sur tous vos écrans : PC, Mac, iOs et Android</p>'
       );
-      if (!Skhf.session.datas.email) {
+      if (!Skhf.session.datas.email && Skhf.session.uid) {
         self.paywall(id, subscription_id, callback);
       }
     },
