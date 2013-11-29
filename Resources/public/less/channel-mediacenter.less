@@ -115,26 +115,36 @@
               line-height: 20px;
               padding: 15px;
             }
-            a{
-              display: block;
+
+//parti concernant le bouton suivre permetant de le hacker pour remplacer son style sans changer le bouton suivre actuel
+
+            .btn-plus:before{
+              left: 0!important;
+              margin-right: 3px!important;
+            }
+            a.btn-suivre-b{
+              display: inline-block!important;
               width: 100px;
-              margin-left: auto;
-              margin-right: auto;
-              button{
-                background: #f39c12;
-                .box-shadow( 0px 4px 0px 0px #ac7825);
-                font-size: 18px;
-                color: #FFF;
-                margin: auto;
-                padding-left: 15px;
-                padding-right: 15px;
-                border: 0;
-                &:hover{
-                  background: #ac7825;
-                  margin-top: 4px;
-                  .box-shadow( 0px -4px 0px 0px  darken(#ac7825, 5%));
-                }
+              margin-left: auto!important;
+              margin-right: auto!important;
+              background: #f39c12;
+              .box-shadow( 0px 4px 0px 0px #ac7825);
+              font-size: 18px;
+              color: #FFF;
+              margin: auto;
+              padding-left: 15px;
+              padding-right: 15px;
+              border: 0;
+              &:hover{
+                padding-left: 15px!important;
+                padding-right: 15px!important;
+                display: inline-block!important;
+                background: #ac7825!important;
+                margin-top: 4px!important;
+                border: 0!important;
+                .box-shadow( 0px -4px 0px 0px  darken(#ac7825, 5%));
               }
+              
             }
           }
         }
@@ -339,11 +349,17 @@
 }
 
 .btn-plusdesketch{
+  &:hover{
+    text-decoration: none;
+  }
   button{
     margin-left: auto;
     margin-right:auto;
     display: block;
     .rounded(15px);
+    &:hover{
+      text-decoration: none;
+    }
   }
 }
 

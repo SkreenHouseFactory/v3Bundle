@@ -16,7 +16,9 @@
       <img src="http://mskstatic.com/275/160/c/medias/photos/channel/1-les-inconnus-s.jpg?2013112216" alt="">
       <p>Suivez <strong>les Inconnus</strong> sur myskreen et tenez vous ainsi informé de leurs nouvelles vidéos et de leurs actualités cinéma.</p>
       <a href="#" class="btn-suivre-b">
-        <button type="button" class="btn btn-default">+ Suivre</button>
+{#         <button type="button" class="btn btn-default">+ Suivre</button>
+ #}
+              {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.id, class: 'btn-suivre-b btn btn-default'} %}
       </a>
     </div>
   </div>
