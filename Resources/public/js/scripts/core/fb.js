@@ -46,10 +46,7 @@ $(document).ready(function(){
     console.log(['script fbsync', 'fetching information...']);
     FB.api('/me', function(response) {
       console.log(['script fbsync', 'success: ' + response.name, response, FB.getAuthResponse()]);
-
       Skhf.session.sync(function(sessionDatas){
-        $('.modal').modal('hide');
-        console.log('script fbsync', 'API.query callback', 'Skhf.session.sync', UI.callbackModal);
         API.query(
           'POST', 
           'user', 
@@ -61,18 +58,21 @@ $(document).ready(function(){
           },
           function(){
             console.log('script fbsync', 'API.query callback');
-            $('.modal').modal('hide');
-            console.log('script fbsync', 'API.query callback', 'Skhf.session.sync', UI.callbackModal);
-            if (UI.callbackModal) {
-              UI.callbackModal();
-            }
-            /* handled in Skhf.session.sync
-            Skhf.session.signin(sessionDatas, function(){
-              console.log('script fbsync', 'API.query callback', 'Skhf.session.signin callback', sessionDatas);
+
+            Skhf.session.sync(function(sessionDatas){
+              $('.modal').modal('hide');
+              console.log('script fbsync', 'API.query callback', 'Skhf.session.sync', UI.callbackModal);
+              if (UI.callbackModal) {
+                UI.callbackModal();
+              }
+              /* handled in Skhf.session.sync
+              Skhf.session.signin(sessionDatas, function(){
+                console.log('script fbsync', 'API.query callback', 'Skhf.session.signin callback', sessionDatas);
+              });
+              */
             });
-            */
           });
-        });
+      });
     });
   }
   function fblogin() {
