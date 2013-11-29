@@ -23,7 +23,11 @@
 </div>
 <div class="row">
   <div class="col-xs-16 ">
-    <h2 class="lato isplaying-title"><strong>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</strong></h2>
+  <h2 class="lato isplaying-title"><strong  class="pull-left">{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</strong>
+      <div class="share-block">
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'L intégrale des sketches des inconnus est sur @mySkreen en streaming gratuit.' } %}
+      </div>
+    </h2>
   </div>
 </div>
 {% endif %}
