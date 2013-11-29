@@ -130,14 +130,16 @@ API = {
     console.log('API.launchModal enter', url, typeof callbackOnLoad);
 
     //if (url != this.currentModalUrl) {
-      var body = $('.modal .modal-body');
-      var footer = $('.modal .modal-footer');
+      var body = $('#skModal.modal .modal-body');
+      var footer = $('#skModal.modal .modal-footer');
       body.empty();
       footer.empty();
       UI.appendLoader(body, 1000);
 
-      var args = $.extend(typeof args != 'undefined' ? args : {}, {session_uid: Skhf.session ? Skhf.session.uid : '', proxy: 'v3'});
-
+      var args = $.extend(typeof args != 'undefined' ? args : {}, {
+        session_uid: Skhf.session ? Skhf.session.uid : '', 
+        proxy: 'v3'}
+      );
       this.query(
         'GET_PROXY', 
          url,
@@ -148,7 +150,7 @@ API = {
             API.launchModal(json.redirect, callbackOnLoad);
           } else if (json.html) {
             if (typeof json.title != 'undefined' && json.title) {
-              $('.modal .modal-header .modal-title').html(json.title);
+              $('#skModal.modal .modal-header .modal-title').html(json.title);
             }
             body.html(json.html);
             API.catchForm($('.modal'), callbackOnLoad);
@@ -370,7 +372,7 @@ API = {
           case 'DISCONNECTED':
             UI.auth(function(){
               console.log('API.play', 'callback UI.auth', Skhf.session.datas);
-              $('.modal .modal-message').html(
+              $('#skModal.modal .modal-message').html(
                 subscription_id ?
                 '<p><b>Pass Vidéo à la demande :</b> Créez votre compte sur mySkreen pour accéder à votre Pass.</p>' +
                 '<p>Accédez au meilleur de la VOD en 1 clic et en Haute Définition et regardez vos films et séries sur tous vos écrans : PC, Mac, Apple iOs et Android</p>'

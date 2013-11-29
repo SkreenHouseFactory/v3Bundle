@@ -44,26 +44,26 @@ UI = {
       }
       return;
     }
-      //fbconnect ne passe pas par le callback !
-      if (typeof callback != 'undefined') {
-        console.log('UI.auth', 'UI.callbackModal set', callback);
-        UI.callbackModal = callback;
-      }
-      API.quickLaunchModal('signup', function() {
+
+    //fbconnect ne passe pas par le callback !
+    if (typeof callback != 'undefined') {
+      console.log('UI.auth', 'UI.callbackModal set', callback);
+      UI.callbackModal = callback;
+    }
+    API.quickLaunchModal('signup', function() {
       Skhf.session.sync(function() {
-        
         if (typeof callback != 'undefined') {
           console.log('UI.auth', 'Skhf.session.init callback');
           callback();
         }
-        //message popin
-        if (!$('.modal .modal-message').html()) {
-          $('.modal .modal-message').html(
+        //message popin default
+        if (!$('#skModal .modal .modal-message').html()) {
+          $('#skModal .modal .modal-message').html(
             '<p><b>Votre compte GRATUIT en 1 clic :</b> ' +
             'Créez vos playlists et ne ratez plus vos programmes préférés : Cinéma, TV, Replay et VOD !</p>'
           );
         }
-        $('.modal .modal-message [data-content]').popover();
+        $('#skModal .modal .modal-message [data-content]').popover();
       });
     },{parcours: parcours});
   },
@@ -347,7 +347,7 @@ UI = {
 
       this.auth(function(){
         console.log('UI.togglePlaylist', 'UI.auth callback', Skhf.session.datas.email);
-        $('.modal .modal-message').html('<p><b>Vos playlists <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b> : ' + self.getPlaylistMessage(trigger) + '</p>');
+        $('#skModal .modal .modal-message').html('<p><b>Vos playlists <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b> : ' + self.getPlaylistMessage(trigger) + '</p>');
         if (Skhf.session.datas.email) {
           self.togglePlaylist(trigger);
         }
@@ -805,21 +805,23 @@ UI = {
   paywall: function(id, subscription_id, callback) {
     var self = this;
     console.log('UI.paywall', id, subscription_id);
+
     API.quickLaunchModal('signin', function() {
       console.log('UI.paywall', 'callback', Skhf.session.datas);
-      $('.modal .modal-message').html(
+      $('#skModal .modal .modal-message').html(
         '<p><b>Votre vidéo en 1 clic et en Haute Qualité.</b><br/>' +
         'Regardez vos vidéos sur tous vos écrans : PC, Mac, iOs et Android</p>'
       );
-      if (!Skhf.session.datas.email && Skhf.session.uid) {
-        self.paywall(id, subscription_id, callback);
-      }
+      //if (!Skhf.session.datas.email) {
+      //  self.paywall(id, subscription_id, callback);
+      //}
     },
     {
       parcours: 'anonyme_favoris', 
       occurrence_id: id, 
       subscription_id: typeof subscription_id != 'undefined' ? subscription_id : null
     });
+    
   },
   // -- launch player
   play: function(id, args) {
