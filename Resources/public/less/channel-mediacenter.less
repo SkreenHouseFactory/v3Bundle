@@ -45,6 +45,7 @@
     top: 4px!important;
     z-index: 1;
   }
+  
 
         //création des fleches de la playlist à l'aide des glyph bootstrap
 
@@ -231,7 +232,35 @@
 
       .packgroup{ 
         margin-top: 20px;
-
+        
+        // pour les carousels media
+        .carousel-list{
+          min-height : 425px;
+          .carousel-inner{
+            min-height : 420px;
+          }
+          .carousel-control {
+            height: 96%;
+            width: 8%;
+            .glyphicon{
+              font-size: 2em;
+              &.glyphicon-chevron-left{
+                left: 0;
+              }
+              &.glyphicon-chevron-right{
+                right: 3px;
+              }
+            }
+            &.left{
+              background-image: linear-gradient(to right,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.0001) 100%);
+            }
+            &.right{
+              right: 3px;
+              background-image: linear-gradient(to left,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.0001) 100%);
+            }
+          }
+        }
+        
         h2{
           font-size: 20px;
           text-transform: uppercase;

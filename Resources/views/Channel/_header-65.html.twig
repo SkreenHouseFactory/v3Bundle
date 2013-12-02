@@ -2,6 +2,111 @@
   <div class="container">
       {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-player.html.twig' %}
  {% for mediadisplay in selection_sketches | to_array %}
+   {% set current_loop = loop.index %}
+     <div class="packgroup">  
+       <div class="row">
+         <div class="col-xs-16 ">
+           <h2 class="lato ">{{mediadisplay.title|replace({' (tous)' : '' , ' (toutes)': ''})}}</h2>
+           <a href="{{mediadisplay.url}}" class="rightlnk">Voir tous les sketchs</a>
+         </div>
+       </div>
+       <div id="carousel-media-{{current_loop}}" class="carousel slide carousel-list" data-ride="carousel" data-interval="0">
+       
+       <div class="carousel-inner"> 
+         <div class="item active"> 
+           <div class="row">
+             <div class="col-xs-16">
+               {% for program in mediadisplay.programs | to_array %}
+                 {% if loop.index%10 == 1 and loop.index != 1%}
+                   </div>
+                   </div>
+                   </div>
+                   <div class="item"> 
+                     <div class="row">
+                       <div class="col-xs-16">
+                 {% endif %}
+                 {% if loop.index == 1%}
+                   <div class="block-big" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}">           
+                     <div class="img-big" style="background:url('{{ program.picture|replace({'/150/200/':'/394/394/'}) }}') top center no-repeat;">
+                         </div>
+                         <h3>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}</h3>
+                         <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget euismod urna. Fusce ut est ut neque cursus pellentesque eget in magna. Integer a imperdiet aliquam. Etiam venenatis adipiscing nunc, sed cursus dolor
+                        </p>
+                      </div>
+                 {% else %}
+                   <div class="block-small" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}">
+                     <div class="img-small" style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat;">
+                     </div>
+                     <h3>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</h3>
+                   </div>  
+                 {% endif %}
+               {% endfor %} 
+           </div>
+         </div>
+     </div>
+   </div>
+   {# Controls #}
+    <a class="left carousel-control" href="#carousel-media-{{current_loop}}" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-media-{{current_loop}}" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+  </div> 
+    
+       <div class="row">
+         <div class="col-xs-16">
+           <a href="{{mediadisplay.url}}" class="btn-plusdesketch"><button type="button" class="btn btn-default "> + de sketches</button></a>
+         </div>
+       </div>
+  </div>
+ {% endfor %}
+</div>
+<div class="container pretitle">
+  <div class="row">
+    <div class="col-xs-16">
+      <span class="lato"><img src="http://mskstatic.com/medias/ftp/chaines/mediacenter-inconnus/horloge.png" alt="integrale">15 ans apres le PREMIER,  ILS REVIENNENT.</span>
+    </div>
+  </div>
+</div>
+<div id="leretour">
+ <div class="container ">
+  <div class="row ">
+    <div class="col-xs-9">
+      <iframe frameborder="0" scrolling="no" width="514" height="296" src="http://embed.myskreen.com/video/30823443/?width=514&height=296&fromWebsite="></iframe>
+    </div>
+    <div class="col-xs-7">
+      <h4>les 3 frères le retour</h4>
+      <h5>découvrez les premières images de leur retour au cinéma</h5>
+      <div class="edito">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget euismod urna. Fusce ut est ut neque cursus pellentesque eget in magna. Integer a imperdiet elit, vel sodales risus. </p>
+        <button type="button" class="btn btn-default">Voir sur myskreen</button>
+      </div>
+    </div>
+  </div>
+  <div class="row ">
+    <div class="col-xs-16">
+      <div class="tiers">
+        <h3>titre 1</h3>
+        <iframe frameborder="0" scrolling="no" width="298" height="172" src="http://embed.myskreen.com/video/30823443/?width=298&height=172&fromWebsite="></iframe>
+      </div>
+      <div class="tiers">
+        <h3>titre 2</h3>
+        <iframe frameborder="0" scrolling="no" width="298" height="172" src="http://embed.myskreen.com/video/30823443/?width=298&height=172&fromWebsite="></iframe>
+      </div>    
+      <div class="tiers">
+        <h3>titre 3</h3>
+        <iframe frameborder="0" scrolling="no" width="298" height="172" src="http://embed.myskreen.com/video/30823443/?width=298&height=172&fromWebsite="></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+{# <div class="mediacenter-inconnus">
+  <div class="container">
+      {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-player.html.twig' %}
+ {% for mediadisplay in selection_sketches | to_array %}
  <div class="packgroup">  
    <div class="row">
      <div class="col-xs-16 ">
@@ -14,7 +119,7 @@
        {% for program in mediadisplay.programs | to_array %}
        {% if loop.index <= 10 %}
        {% if loop.index == 1 %}
-       <div class="block-big" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}">                                                    
+       <div class="block-big" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}">           
            <div class="img-big" style="background:url('{{ program.picture|replace({'/150/200/':'/394/394/'}) }}') top center no-repeat;">
            </div>
            <h3>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}</h3>
@@ -81,3 +186,4 @@
 </div>
 </div>
 </div>
+#}
