@@ -132,7 +132,7 @@ class toolsExtension extends \Twig_Extension
         
         for($i = 1; $i <= $total_page; $i++){
           if ($page == 1 || $page%10 == 0) {
-            if( $i == 1 ){
+            if( $i == 1 || $i == $page){
               $response[$i] = false;
             } else if ( 
             $i > $dizaine_inf  && $i == $dizaine_inf + 11 && $i == $dizaine_inf_tot+1  && $dizaine_inf_tot+1 != $page){
