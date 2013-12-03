@@ -46,7 +46,8 @@ class toolsExtension extends \Twig_Extension
             'keywords_from_url' => new \Twig_Filter_Method($this, 'keywordsFromUrl'),
             'prepare_for_slider' => new \Twig_Filter_Method($this, 'prepareForSlider'),
             'round_up' => new \Twig_Filter_Method($this, 'roundUp'),
-            'sold_perc' => new \Twig_Filter_Method($this, 'soldPerc')
+            'sold_perc' => new \Twig_Filter_Method($this, 'soldPerc'),
+            'count_nb_page'=> new \Twig_Filter_Method($this, 'countNbPage')
         );
     }
 
@@ -59,7 +60,7 @@ class toolsExtension extends \Twig_Extension
     {
         return 'tools';
     }
-
+    
     /**
      * cast object as array
      * 
@@ -133,7 +134,13 @@ class toolsExtension extends \Twig_Extension
       }
 			return implode(' ', $keywords);
     }
-
+    public function countNbPage($array){
+      $length = count($array);
+      
+     $nb_page = ceil(($length-1)/9);
+      
+      return $nb_page;
+    }
     /**
      * slider
      * 

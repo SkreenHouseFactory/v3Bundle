@@ -7,17 +7,34 @@
        <div class="row">
          <div class="col-xs-16 ">
            <h2 class="lato ">{{mediadisplay.title|replace({' (tous)' : '' , ' (toutes)': ''})}}</h2>
-           <a href="{{mediadisplay.url}}" class="rightlnk">Voir tous les sketchs</a>
+           <a class="voir-sketch" href="{{mediadisplay.url}}" class="rightlnk">Voir tous les sketchs</a>
          </div>
        </div>
-       <div id="carousel-media-{{current_loop}}" class="carousel slide carousel-list" data-ride="carousel" data-interval="0">
        
+       <div class="row">
+         <div class="col-xs-6 ">
+           {% for program in mediadisplay.programs | to_array %}
+           {% if loop.index == 1 %}
+                   <div class="block-big" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}">           
+                     <div class="img-big" style="background:url('{{ program.picture|replace({'/150/200/':'/368/368/'}) }}') top center no-repeat;">
+                         </div>
+                         <h3>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}</h3>
+                         <p >{% if current_loop == 1 %}Retrouvez l’ensemble des sketches tirés de La Télé des Inconnus et toutes leurs répliques cultes : « La chasse, c’est l‘esprit de camaraderie, c’est la fraternité dans l’effort contre la rudesse de Dame nature »{% elseif current_loop == 2 %}Regardez pour le plaisir toutes les parodies des publicités du trio : « La Seinoise est riche en protéines, en calcium, en fibres, en nétronium, en urinium, en nitrates de prostate, en oligos excréments »
+{% elseif current_loop == 3 %}Ecoutez et réécoutez les paroles mythiques des chansons des Inconnus : « Eh les keufs eh les meufs dans le RER, la banlieue c’est pas rose, la banlieue c’est morose, alors prends-toi en main » {% endif%}
+                        </p>
+                      </div>
+                      {% endif %}
+              {% endfor %}
+         </div>
+            <div class="col-xs-10">
+       <div id="carousel-media-{{current_loop}}" class="carousel slide carousel-list" data-ride="carousel" data-interval="0">
+         {% set loop_custom = 0 %}
        <div class="carousel-inner"> 
          <div class="item active"> 
            <div class="row">
              <div class="col-xs-16">
                {% for program in mediadisplay.programs | to_array %}
-                 {% if loop.index%10 == 1 and loop.index != 1%}
+                 {% if loop_custom%9 == 0 and loop_custom != 0%}
                    </div>
                    </div>
                    </div>
@@ -25,20 +42,13 @@
                      <div class="row">
                        <div class="col-xs-16">
                  {% endif %}
-                 {% if loop.index == 1%}
-                   <div class="block-big" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}">           
-                     <div class="img-big" style="background:url('{{ program.picture|replace({'/150/200/':'/394/394/'}) }}') top center no-repeat;">
-                         </div>
-                         <h3>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}</h3>
-                         <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget euismod urna. Fusce ut est ut neque cursus pellentesque eget in magna. Integer a imperdiet aliquam. Etiam venenatis adipiscing nunc, sed cursus dolor
-                        </p>
-                      </div>
-                 {% else %}
+                 {% if loop.index != 1%}
                    <div class="block-small" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}">
                      <div class="img-small" style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat;">
                      </div>
                      <h3>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</h3>
                    </div>  
+                   {% set loop_custom = loop_custom + 1 %}
                  {% endif %}
                {% endfor %} 
            </div>
@@ -46,16 +56,30 @@
      </div>
    </div>
    {# Controls #}
-    <a class="left carousel-control" href="#carousel-media-{{current_loop}}" data-slide="prev">
+   <ul class="wrap-carousel-control">
+    <li class="li-glyph"><a class="left carousel-control" href="#carousel-media-{{current_loop}}" data-slide="prev">
       <span class="glyphicon glyphicon-chevron-left"></span>
     </a>
-    <a class="right carousel-control" href="#carousel-media-{{current_loop}}" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-    </a>
+    </li>
+    <li>
+       <ol class="carousel-indicators">
+         {% for i in 1..mediadisplay.programs|to_array|count_nb_page %}
+            <li data-target="#carousel-media-{{current_loop}}" data-slide-to="{{loop.index}}" class="{% if loop.index == 1 %}active{% endif %}">
+            </li>
+          {% endfor%}
+      </ol>
+    </li>
+    <li class="li-glyph">
+      <a class="right carousel-control" href="#carousel-media-{{current_loop}}" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
+    </li>
+  </ul> 
   </div> 
-    
+  </div>
+</div>
        <div class="row">
-         <div class="col-xs-16">
+         <div class="col-xs-6">
            <a href="{{mediadisplay.url}}" class="btn-plusdesketch"><button type="button" class="btn btn-default "> + de sketches</button></a>
          </div>
        </div>
@@ -65,7 +89,7 @@
 <div class="container pretitle">
   <div class="row">
     <div class="col-xs-16">
-      <span class="lato"><img src="http://mskstatic.com/medias/ftp/chaines/mediacenter-inconnus/horloge.png" alt="integrale">15 ans apres le PREMIER,  ILS REVIENNENT.</span>
+      <span class="lato"><img src="http://mskstatic.com/medias/ftp/chaines/mediacenter-inconnus/horloge.png" alt="integrale">15 ANS APRES LE PREMIER, ILS REVIENNENT…</span>
     </div>
   </div>
 </div>
@@ -73,13 +97,15 @@
  <div class="container ">
   <div class="row ">
     <div class="col-xs-9">
+      <div class="toc">
+       <h3>1er extrait du film : le funérarium</h3>
+     </div>
       <iframe frameborder="0" scrolling="no" width="514" height="296" src="http://embed.myskreen.com/video/30823443/?width=514&height=296&fromWebsite="></iframe>
     </div>
     <div class="col-xs-7">
-      <h4>les 3 frères le retour</h4>
-      <h5>découvrez les premières images de leur retour au cinéma</h5>
+      <h4>LES TROIS FRERES, LE RETOUR </h4>
       <div class="edito">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget euismod urna. Fusce ut est ut neque cursus pellentesque eget in magna. Integer a imperdiet elit, vel sodales risus. </p>
+        <p>Découvrez les premières images inédites du grand retour au cinéma de Pascal Légitimus, Bernard Campan et Didier Bourdon gratuitement en 1 clic : extraits, bonus, making-of, bande-annonce…</p>
         <button type="button" class="btn btn-default">Voir sur myskreen</button>
       </div>
     </div>
@@ -87,103 +113,141 @@
   <div class="row ">
     <div class="col-xs-16">
       <div class="tiers">
-        <h3>titre 1</h3>
-        <iframe frameborder="0" scrolling="no" width="298" height="172" src="http://embed.myskreen.com/video/30823443/?width=298&height=172&fromWebsite="></iframe>
+        <h3>Les coulisses du tournage : sans Bernard Campan ?</h3>
+        <iframe frameborder="0" scrolling="no" width="298" height="172" src="http://embed.myskreen.com/video/31729904/?width=298&height=172&fromWebsite="></iframe>
       </div>
       <div class="tiers">
-        <h3>titre 2</h3>
-        <iframe frameborder="0" scrolling="no" width="298" height="172" src="http://embed.myskreen.com/video/30823443/?width=298&height=172&fromWebsite="></iframe>
+        <h3>Les coulisses du tournage : Pascal la star ?</h3>
+        <iframe frameborder="0" scrolling="no" width="298" height="172" src="http://embed.myskreen.com/video/32252094/?width=298&height=172&fromWebsite="></iframe>
       </div>    
       <div class="tiers">
-        <h3>titre 3</h3>
-        <iframe frameborder="0" scrolling="no" width="298" height="172" src="http://embed.myskreen.com/video/30823443/?width=298&height=172&fromWebsite="></iframe>
+        <h3>La suite des délires des Inconnus</h3>
+        <div style=" background-color:black;width:298px; height:172px;"></div>
       </div>
     </div>
   </div>
 </div>
 </div>
-</div>
-{# <div class="mediacenter-inconnus">
-  <div class="container">
-      {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-player.html.twig' %}
- {% for mediadisplay in selection_sketches | to_array %}
- <div class="packgroup">  
-   <div class="row">
-     <div class="col-xs-16 ">
-       <h2 class="lato ">{{mediadisplay.title|replace({' (tous)' : '' , ' (toutes)': ''})}}</h2>
-       <a href="{{mediadisplay.url}}" class="rightlnk">Voir tous les sketchs</a>
-     </div>
-   </div>
-   <div class="row">
-     <div class="col-xs-16">
-       {% for program in mediadisplay.programs | to_array %}
-       {% if loop.index <= 10 %}
-       {% if loop.index == 1 %}
-       <div class="block-big" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}">           
-           <div class="img-big" style="background:url('{{ program.picture|replace({'/150/200/':'/394/394/'}) }}') top center no-repeat;">
+</div>{# 
+  
+  <div class="mediacenter-inconnus">
+    <div class="container">
+        {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-player.html.twig' %}
+   {% for mediadisplay in selection_sketches | to_array %}
+     {% set current_loop = loop.index %}
+       <div class="packgroup">  
+         <div class="row">
+           <div class="col-xs-16 ">
+             <h2 class="lato ">{{mediadisplay.title|replace({' (tous)' : '' , ' (toutes)': ''})}}</h2>
+             <a href="{{mediadisplay.url}}" class="rightlnk">Voir tous les sketchs</a>
            </div>
-           <h3>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}</h3>
-           <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget euismod urna. Fusce ut est ut neque cursus pellentesque eget in magna. Integer a imperdiet aliquam. Etiam venenatis adipiscing nunc, sed cursus dolor
-           </p>
          </div>
-       {% else %}
-       <div class="block-small" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}">
-         <div class="img-small" style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat;">
+         <div id="carousel-media-{{current_loop}}" class="carousel slide carousel-list" data-ride="carousel" data-interval="0">
+       
+         <div class="carousel-inner"> 
+           <div class="item active"> 
+             <div class="row">
+               <div class="col-xs-16">
+                 {% for program in mediadisplay.programs | to_array %}
+                   {% if loop.index%10 == 1 and loop.index != 1%}
+                     </div>
+                     </div>
+                     </div>
+                     <div class="item"> 
+                       <div class="row">
+                         <div class="col-xs-16">
+                   {% endif %}
+                   {% if loop.index == 1%}
+                     <div class="block-big" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}">           
+                       <div class="img-big" style="background:url('{{ program.picture|replace({'/150/200/':'/394/394/'}) }}') top center no-repeat;">
+                           </div>
+                           <h3>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}</h3>
+                           <p >{% if current_loop == 1 %}Retrouvez l’ensemble des sketches tirés de La Télé des Inconnus et toutes leurs répliques cultes : « La chasse, c’est l‘esprit de camaraderie, c’est la fraternité dans l’effort contre la rudesse de Dame nature »{% elseif current_loop == 2 %}Regardez pour le plaisir toutes les parodies des publicités du trio : « La Seinoise est riche en protéines, en calcium, en fibres, en nétronium, en urinium, en nitrates de prostate, en oligos excréments »
+  {% elseif current_loop == 3 %}Ecoutez et réécoutez les paroles mythiques des chansons des Inconnus : « Eh les keufs eh les meufs dans le RER, la banlieue c’est pas rose, la banlieue c’est morose, alors prends-toi en main » {% endif%}
+                          </p>
+                        </div>
+                   {% else %}
+                     <div class="block-small" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}">
+                       <div class="img-small" style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat;">
+                       </div>
+                       <h3>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</h3>
+                     </div>  
+                   {% endif %}
+                 {% endfor %} 
+             </div>
+           </div>
+       </div>
+     </div>
+     <ul class="wrap-carousel-control">
+      <li class="li-glyph"><a class="left carousel-control" href="#carousel-media-{{current_loop}}" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      </li>
+      <li>
+         <ol class="carousel-indicators">
+           {% for i in 1..mediadisplay.programs|to_array|count_nb_page %}
+              <li data-target="#carousel-media-{{current_loop}}" data-slide-to="{{loop.index}}" class="{% if loop.index == 1 %}active{% endif %}">
+              </li>
+            {% endfor%}
+        </ol>
+      </li>
+      <li class="li-glyph">
+        <a class="right carousel-control" href="#carousel-media-{{current_loop}}" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+      </li>
+    </ul> 
+    </div> 
+    
+         <div class="row">
+           <div class="col-xs-16">
+             <a href="{{mediadisplay.url}}" class="btn-plusdesketch"><button type="button" class="btn btn-default "> + de sketches</button></a>
+           </div>
          </div>
-         <h3>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</h3>
-       </div>  
-       {% endif %}
-       {% endif %}
-       {% endfor %} 
-     </div>
-   </div>
-   <div class="row">
-     <div class="col-xs-16">
-       <a href="{{mediadisplay.url}}" class="btn-plusdesketch"><button type="button" class="btn btn-default "> + de sketches</button></a>
-     </div>
-   </div>
- </div> 
- {% endfor %}
-</div>
-<div class="container pretitle">
-  <div class="row">
-    <div class="col-xs-16">
-      <span class="lato"><img src="http://mskstatic.com/medias/ftp/chaines/mediacenter-inconnus/horloge.png" alt="integrale">15 ans apres le PREMIER,  ILS REVIENNENT.</span>
     </div>
+   {% endfor %}
   </div>
-</div>
-<div id="leretour">
- <div class="container ">
-  <div class="row ">
-    <div class="col-xs-9">
-      <iframe frameborder="0" scrolling="no" width="514" height="296" src="http://embed.myskreen.com/video/30823443/?width=514&height=296&fromWebsite="></iframe>
-    </div>
-    <div class="col-xs-7">
-      <h4>les 3 frères le retour</h4>
-      <h5>découvrez les premières images de leur retour au cinéma</h5>
-      <div class="edito">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget euismod urna. Fusce ut est ut neque cursus pellentesque eget in magna. Integer a imperdiet elit, vel sodales risus. </p>
-        <button type="button" class="btn btn-default">Voir sur myskreen</button>
+  <div class="container pretitle">
+    <div class="row">
+      <div class="col-xs-16">
+        <span class="lato"><img src="http://mskstatic.com/medias/ftp/chaines/mediacenter-inconnus/horloge.png" alt="integrale">15 ANS APRES LE PREMIER, ILS REVIENNENT…</span>
       </div>
     </div>
   </div>
-  <div class="row ">
-    <div class="col-xs-16">
-      <div class="tiers">
-        <h3>titre 1</h3>
-        <iframe frameborder="0" scrolling="no" width="298" height="172" src="http://embed.myskreen.com/video/30823443/?width=298&height=172&fromWebsite="></iframe>
+  <div id="leretour">
+   <div class="container ">
+    <div class="row ">
+      <div class="col-xs-9">
+        <div class="toc">
+         <h3>1er extrait du film : le funérarium</h3>
+       </div>
+        <iframe frameborder="0" scrolling="no" width="514" height="296" src="http://embed.myskreen.com/video/30823443/?width=514&height=296&fromWebsite="></iframe>
       </div>
-      <div class="tiers">
-        <h3>titre 2</h3>
-        <iframe frameborder="0" scrolling="no" width="298" height="172" src="http://embed.myskreen.com/video/30823443/?width=298&height=172&fromWebsite="></iframe>
-      </div>    
-      <div class="tiers">
-        <h3>titre 3</h3>
-        <iframe frameborder="0" scrolling="no" width="298" height="172" src="http://embed.myskreen.com/video/30823443/?width=298&height=172&fromWebsite="></iframe>
+      <div class="col-xs-7">
+        <h4>LES TROIS FRERES, LE RETOUR </h4>
+        <div class="edito">
+          <p>Découvrez les premières images inédites du grand retour au cinéma de Pascal Légitimus, Bernard Campan et Didier Bourdon gratuitement en 1 clic : extraits, bonus, making-of, bande-annonce…</p>
+          <button type="button" class="btn btn-default">Voir sur myskreen</button>
+        </div>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-xs-16">
+        <div class="tiers">
+          <h3>Les coulisses du tournage : sans Bernard Campan ?</h3>
+          <iframe frameborder="0" scrolling="no" width="298" height="172" src="http://embed.myskreen.com/video/31729904/?width=298&height=172&fromWebsite="></iframe>
+        </div>
+        <div class="tiers">
+          <h3>Les coulisses du tournage : Pascal la star ?</h3>
+          <iframe frameborder="0" scrolling="no" width="298" height="172" src="http://embed.myskreen.com/video/32252094/?width=298&height=172&fromWebsite="></iframe>
+        </div>    
+        <div class="tiers">
+          <h3>La suite des délires des Inconnus</h3>
+          <div style=" background-color:black;width:298px; height:172px;"></div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-</div>
-</div>
-#}
+  </div>
+  </div>
+  #}

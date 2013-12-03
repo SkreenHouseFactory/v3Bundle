@@ -6,6 +6,9 @@
   padding-top: 60px;
   background: url("http://mskstatic.com/medias/ftp/chaines/mediacenter-inconnus/mc-bg.jpg") top center no-repeat ; 
   background-color: #dddddd;
+  .voir-sketch{
+    padding-right: 13px;
+  }
   h1{
     color: #6D6D6D;
     font-size: 52px;
@@ -86,7 +89,7 @@
         }
 
         .img-big{
-          width: 394px;
+          width: 368px;
           height: 255px;
         }
         .player-block{
@@ -237,28 +240,62 @@
         
         // pour les carousels media
         .carousel-list{
+          position : relative;
           min-height : 425px;
+          .wrap-carousel-control{
+            position: absolute;
+            bottom: -40px;
+            right: 0px;
+            margin: 0;
+            .li-glyph{
+              width: 30px;
+              height: 30px;
+            }
+            >li{
+              list-style: none;
+              display: block;
+              float: right;
+              margin: 0 10px;
+              .carousel-indicators{
+                z-index: 0;
+                margin: 10px 15px;
+                position: relative;
+                bottom: auto;
+                left: auto;
+                width: auto;
+                >li{
+                  list-style: none;
+                  width: 13px;
+                  height: 13px;
+                  border: 1px solid rgba(70,70,70,0.25);
+                  background-color: rgba(70,70,70,0.25);
+                  &.active{
+                    margin: 1px;
+                    background-color: #444;
+                  }
+                }
+              }
+            }
+          }
           .carousel-inner{
+            margin-left: 20px;
             min-height : 420px;
           }
           .carousel-control {
-            height: 96%;
-            width: 8%;
+            color: black;
+            background: none;
+            &.right{
+              right: 66px;
+            }
             .glyphicon{
-              font-size: 2em;
               &.glyphicon-chevron-left{
-                left: 0;
+                left: 65px;
+                top: 6px;
               }
               &.glyphicon-chevron-right{
-                right: 3px;
+                right: -65px;
+                top: 6px;
               }
-            }
-            &.left{
-              background-image: linear-gradient(to right,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.0001) 100%);
-            }
-            &.right{
-              right: 3px;
-              background-image: linear-gradient(to left,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.0001) 100%);
             }
           }
         }
@@ -328,7 +365,7 @@
   }
 
   .block-big{
-    width: 394px;
+    width: 368px;
     height: 406px;
     background: #fff;
     float: left;
@@ -344,7 +381,7 @@
 
     }
     p{
-      padding:5px 10px 10px;
+      padding:0px 10px 10px;
     }
   }
   .block-small{
@@ -418,9 +455,17 @@
     background:@retourcolor;
     width: 100%;
     padding-top: 10px;
+    .toc{
+      h3{
+        font-size: 14px;
+        color: #7b7459;
+        font-weight: bold;
+      }
+    }
     h4{
+      padding-top: 30px;
       color: darken(@retourcolor, 20%);
-      font-size: 30px;
+      font-size: 25px;
       text-transform: uppercase;
     }
     h5{
@@ -444,7 +489,7 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
-      margin-top:30px;
+      margin-top:15px;
       .rounded(10px);
     }
   }
@@ -453,6 +498,7 @@
     float: left;
     margin-top: 30px;
     h3{
+      min-height: 30px;
       font-size: 14px;
       color: darken(@retourcolor, 30%);
       font-weight: bold;
