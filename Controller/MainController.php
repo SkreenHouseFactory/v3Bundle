@@ -43,9 +43,9 @@ class MainController extends Controller
     public function headerAction(Request $request)
     {
       return $this->render('SkreenHouseFactoryV3Bundle:Main:_header.html.twig', array(
-        'home'=> $request->get('home'),
-        'route'=> $request->get('route'),
-        'q'=> $request->get('q')
+        'home' => $request->get('home'),
+        'route' => $request->get('route'),
+        'q' => $request->get('q')
       ));
     }
 
@@ -55,9 +55,9 @@ class MainController extends Controller
     public function footerAction(Request $request)
     {
       return $this->render('SkreenHouseFactoryV3Bundle:Main:_footer.html.twig', array(
-		'home'=> $request->get('home'),
-        'route'=> $request->get('route'),
-        'q'=> $request->get('q')
+		    'home' => $request->get('home'),
+        'route' => $request->get('route'),
+        'q' => $request->get('q')
       ));
     }
 
@@ -315,11 +315,14 @@ class MainController extends Controller
 //      print_r($datas);
 
       $api   = new ApiManager($format);
-      $response = $api->fetch($url, 
-                              $datas, 
-                              $method, 
-                              array('curl.CURLOPT_SSL_VERIFYHOST' => 0, 
-                                    'curl.CURLOPT_SSL_VERIFYPEER' => 0));
+      $response = $api->fetch(
+        $url, 
+        $datas, 
+        $method, 
+        array(
+          'curl.CURLOPT_SSL_VERIFYHOST' => 0, 
+          'curl.CURLOPT_SSL_VERIFYPEER' => 0
+      ));
 
       //echo 'HERE:'.$api->url;exit();
       return new Response(json_encode($response));
