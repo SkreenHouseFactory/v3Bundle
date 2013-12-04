@@ -5,8 +5,8 @@
 //onload
 $(document).ready(function(){
 
-  var fb_permissions = 'offline_access,user_birthday,user_online_presence,email,read_friendlists,' + 
-                       'publish_stream,friends_likes,friends_online_presence,publish_actions,status_update'; //,manage_pages
+  var fb_permissions = 'user_birthday,friends_birthday,email,friends_likes,' + 
+                       'publish_stream,publish_actions,status_update'; //read_friendlists
 
   // Additional JS functions here
   window.fbAsyncInit = function() {
@@ -17,29 +17,18 @@ $(document).ready(function(){
       cookie     : true, // enable cookies to allow the server to access the session
       xfbml      : true  // parse XFBML
     });
-  
+
     // Additional init code here
- 
   };
+
   // Load the SDK Asynchronously
-  /*
-  (function(d){
-      var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement('script'); js.id = id; js.async = true;
-      js.src = "//connect.facebook.net/fr_FR/all.js";
-      ref.parentNode.insertBefore(js, ref);
-    }(document));
-  */
   (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=422066694500806";
+      js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=" + API.config.fb.app_id;
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-
-
 
   // fb connect
   function fbsync() {
@@ -85,7 +74,6 @@ $(document).ready(function(){
         // cancelled
         $('#fbconnect-infos').html('<span class="alert alert-danger nowrap">La connexion a échoué !</span>');
       }
-//    },{scope:'email,read_friendlists,publish_stream,offline_access,publish_actions'});
     },{
       scope: fb_permissions
     });
