@@ -362,11 +362,7 @@ $(document).ready(function(){
       $('.text', $(this).parent()).toggleClass('show-more-height');
       if ($('.text', $(this).parent()).hasClass('show-more-height')) {
         $('.show-more-text').html('Voir plus');
-        $('.container.scrollplayerzone').css('padding-bottom','270px');
       } else{
-        var height = $('.panel-synopsis').css('height');
-        height = parseInt($('.panel-synopsis').css('height')) + 23;
-        $('.container.scrollplayerzone').css('padding-bottom',height);
         $('.show-more-text').html('Réduire le texte');
       }    
     });

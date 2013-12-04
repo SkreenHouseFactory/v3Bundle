@@ -154,26 +154,6 @@ en Streaming
 
   <div id="view-program" data-id="{{ program.id }}">
     <div class="container scrollplayerzone">
-      {# description seo texte #}
-      <a name="synopsis"></a>
-      <div class="panel panel-default panel-synopsis">
-        <div class="panel-heading"><h2 class="panel-title">Tout sur {{ program.title }}</h2></div>
-        <div class="tab-pane text-toggle-extend">
-          {% if program.description|striptags|length < 570 %}
-          <div class="text">
-            {{ program.description|raw }}
-          </div>
-          {% else %}
-          <div class="text show-more-height">
-            <div class="gradient-hide"></div> 
-            {{ program.description|raw }}
-          </div>
-          <div class="show-all">
-            <span class="show-more">...</span><span class="show-more-text">Voir plus</span>
-          </div> 
-          {% endif %}
-        </div>
-      </div>
       {#% include 'SkreenHouseFactoryV3Bundle:Main:_bootstrap-grid-test.html.twig' %#}
 
       {# player + affiche #}
@@ -293,8 +273,6 @@ en Streaming
         {% include 'SkreenHouseFactoryV3Bundle:Program:_program-rightcolumn.html.twig' %}
       </div> 
     </div>
-  </div>
-  <div class="container">
     <div id="program-related" class="row">
       {% for r in program.related if r.programs is defined and r.programs|to_array|length %}
       {% if r.name == 'same_actors' and program.casting %}
