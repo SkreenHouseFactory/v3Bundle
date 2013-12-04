@@ -8,7 +8,16 @@
 {% endif %}
 <meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ channel.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}" />
 <meta property="og:description" content="{{ channel.description|striptags }}" />
+{% if channel.type is defined and channel.type == "cinema" %}
+<meta property="og:type" content="place" />
+{% else %}
 <meta property="og:type" content="channel" />
+{% endif %}
+{% if channel.lat is defined and channel.lng is defined %}
+<meta property="place:location:latitude"  content="{{channel.lat}}"> 
+<meta property="place:location:longitude" content="{{channel.lng}}"> 
+<meta property="place:location:altitude"  content="42">
+{% endif %}
 <meta property="og:url" content="http://www.myskreen.com/{{ channel.seo_url }}" />
 {% if channel.picture %}
 <meta property="og:image" content="{{ channel.picture }}" />

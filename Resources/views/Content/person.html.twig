@@ -4,7 +4,7 @@
 <meta name="robots" content="noindex,follow" />
 {% endif %}
 <meta property="og:title" content="{{ person.name }}" />
-<meta property="og:description" content="{{ person.description }}" />
+<meta property="og:description" content="{{ person.description|striptags }}" />
 <meta property="og:type" content="{% if person.activity in ['director', 'Réalisateur'] %}director{% else %}actor{% endif %}" />
 <meta property="og:url" content="http://www.myskreen.com{{ person.seo_url }}" />
 {% if person.picture %}

@@ -4,7 +4,12 @@
 <meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ data.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}" />
 <meta property="og:description" content="{{ data.channel is defined and data.channel.description is defined ? data.channel.description : data.description|striptags }}" />
 <meta property="og:type" content="video.movie" />
-<meta property="og:url" content="http://www.myskreen.com{{ data.seo_url }}/" />
+<meta property="og:url" content="http://www.myskreen.com{{ data.seo_url }}" />
+{% if data.lat is defined and data.lng is defined %}
+<meta property="place:location:latitude"  content="{{data.lat}}"> 
+<meta property="place:location:longitude" content="{{data.lng}}"> 
+<meta property="place:location:altitude"  content="42">
+{% endif %}
 {% if data.channel.img is defined %}
 <meta property="og:image" content="{{ data.channel.img }}" />
 <link rel="image_src" href="{{ data.channel.img }}" />
