@@ -1,48 +1,43 @@
-{# SEO #}
-{% if app.request.get('home') == '' and app.request.get('home') is defined %}
-  {% set header_base = app.environment == 'prod' ? 'http://www.myskreen.com' : '' %}
-  {% set tv_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat','HD1','6Ter','numero 23','RMC découverte','Gulli','cherie 25','KTO'] %}
-  {% set web_channels = ['Allocine','Yahoo','Perform','Le Figaro','Europe 1','France Info','Le Monde','Marmiton','Doctissimo','Studio 4 0','Verywatch','It\'s big','Rendez-vous à Paris','Xtremevidéo','psg-tv','La Chaîne techno','LeZapping','RMC sport','Arte Live Web','rtl'] %}
-  {% if home == 'cinema' %}
-  <ul class="hover-menu hide cine">
-    <li><a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845147-a-decouvrir-dans-les-salles-cette-semaine/'}) }}">{{ 'nav.theaters.release'|trans }}</a></li>
-    <li><a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845150-bientot-dans-les-salles/'}) }}">{{ 'nav.theaters.coming'|trans }}</a></li>
-    <li><a href="{{ header_base }}{{ path('cinema_boxoffice', {alpha: 'a'}) }}">{{ 'nav.theaters.boxoffice'|trans }}</a></li>
+{% set header_base = app.environment == 'prod' ? 'http://www.myskreen.com' : '' %}
+{% set tv_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat','HD1','6Ter','numero 23','RMC découverte','Gulli','cherie 25','KTO'] %}
+{% set web_channels = ['Allocine','Yahoo','Perform','Le Figaro','Europe 1','France Info','Le Monde','Marmiton','Doctissimo','Studio 4 0','Verywatch','It\'s big','Rendez-vous à Paris','Xtremevidéo','psg-tv','La Chaîne techno','LeZapping','RMC sport','Arte Live Web','rtl'] %}
+{% if home == 'cinema' %}
+<ul class="hover-menu hide cine">
+  <li><a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845147-a-decouvrir-dans-les-salles-cette-semaine/'}) }}">{{ 'nav.theaters.release'|trans }}</a></li>
+  <li><a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845150-bientot-dans-les-salles/'}) }}">{{ 'nav.theaters.coming'|trans }}</a></li>
+  <li><a href="{{ header_base }}{{ path('cinema_boxoffice', {alpha: 'a'}) }}">{{ 'nav.theaters.boxoffice'|trans }}</a></li>
+</ul>
+
+{% elseif home == 'video-a-la-demande' %}
+<ul class="hover-menu hide vod">
+  <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'film'}) }}">{{ 'nav.films'|trans }}</a></li>
+  <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'documentaire'}) }}">{{ 'nav.documentaires'|trans }}</a></li>
+  <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'serie'}) }}">{{ 'nav.series'|trans }}</a></li>
+  <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'spectacle'}) }}">{{ 'nav.spectacles'|trans }}</a></li>
+  <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'jeunesse'}) }}">{{ 'nav.jeunesse'|trans }}</a></li>
+</ul>
+
+{% elseif home == 'tv' %}
+<div  class="hover-menu hover-menu-tv hide">
+  <ul>
+    <li class="nav-header">Les chaînes de la TNT</li>
+    <li class="tv-channels">
+      {% for channel in tv_channels %}
+      {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
+      <a data-tnt-name="{{ channel }}" class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><p class="header-remote-dropdown"><img src="http://mskstatic.com/36/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></p></a>
+      {% endfor %}
+    </li>
   </ul>
-
-  {% elseif home == 'video-a-la-demande' %}
-  <ul class="hover-menu hide vod">
-    <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'film'}) }}">{{ 'nav.films'|trans }}</a></li>
-    <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'documentaire'}) }}">{{ 'nav.documentaires'|trans }}</a></li>
-    <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'serie'}) }}">{{ 'nav.series'|trans }}</a></li>
-    <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'spectacle'}) }}">{{ 'nav.spectacles'|trans }}</a></li>
-    <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'jeunesse'}) }}">{{ 'nav.jeunesse'|trans }}</a></li>
+  <div class="clear"><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}" > Toutes les chaînes TV <span class="show-more">...</span></a></div>
+  <ul>
+    <li class="divider clear"></li>
+    <li class="nav-header">Les Web TV</li>
+    <li class="tv-channels">
+      {% for channel in web_channels %}
+      {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
+      <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><span class="hidden-touch">{{ channel }}</span><p class="header-remote-dropdown"><img src="http://mskstatic.com/36/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></p></a>
+      {% endfor %}
+    </li>
   </ul>
-
-  {% elseif home == 'tv' %}
-  <div  class="hover-menu hover-menu-tv hide">
-    <ul>
-      <li class="nav-header">Les chaînes de la TNT</li>
-      <li class="tv-channels">
-        {% for channel in tv_channels %}
-        {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-        <a data-tnt-name="{{ channel }}" class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><p class="header-remote-dropdown"><img src="http://mskstatic.com/36/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></p></a>
-        {% endfor %}
-      </li>
-    </ul>
-    <div class="clear"><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}" > Toutes les chaînes TV <span class="show-more">...</span></a></div>
-    <ul>
-      <li class="divider clear"></li>
-      <li class="nav-header">Les Web TV</li>
-      <li class="tv-channels">
-        {% for channel in web_channels %}
-        {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-        <a class="tv-component" href="{{ header_base }}{{ path('channel', {slug: slug}) }}"><span class="hidden-touch">{{ channel }}</span><p class="header-remote-dropdown"><img src="http://mskstatic.com/36/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></p></a>
-        {% endfor %}
-      </li>
-    </ul>
-    <div class="clear"><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}" >Toutes les Web TV <span class="show-more">...</span> </a></div>
-
-  </div>
-  {% endif %}
-{% endif %}
+  <div class="clear"><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}" >Toutes les Web TV <span class="show-more">...</span> </a></div>
+</div>
