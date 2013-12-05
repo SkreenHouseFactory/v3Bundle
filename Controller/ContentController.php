@@ -130,7 +130,6 @@ class ContentController extends Controller
         'img_width' => 150,
         'img_height' => 200,
         'channel_img_width' => 60,
-        'channel_img_height' => 60,
         'advanced' => true,
         'offset' => $request->get('page', 1) * 30 - 30,
         'nb_results' => 30,
