@@ -46,8 +46,10 @@ class toolsExtension extends \Twig_Extension
             'keywords_from_url' => new \Twig_Filter_Method($this, 'keywordsFromUrl'),
             'prepare_for_slider' => new \Twig_Filter_Method($this, 'prepareForSlider'),
             'round_up' => new \Twig_Filter_Method($this, 'roundUp'),
+            'pagination' => new \Twig_Filter_Method($this, 'pagination',array('page','pagination')),
+            'rot13' => new \Twig_Filter_Method($this, 'rot13'),
             'sold_perc' => new \Twig_Filter_Method($this, 'soldPerc'),
-            'count_nb_page'=> new \Twig_Filter_Method($this, 'countNbPage')
+#            'is_bot' => new \Twig_Filter_Method($this, 'isBot')
         );
     }
 
@@ -101,9 +103,92 @@ class toolsExtension extends \Twig_Extension
       preg_match('#(?<title>medias(\/\w{1,}){1,}\-{0,}\w{1,}.)#i', $test, $matches);
       return $matches['title'];
     }
-
+    public function rot13($string)
+    { 
+      return str_rot13(urlencode($string));
+    }
+    public function replaceLink($string)
+    {
+      return str_replace('/','/',$string);
+    }
     /**
      * last item of array
+     * 
+     * @param <object> $stdClass
+     * @return <array> 
+     */
+    public function pagination($count,$page,$page_offset)
+    { 
+      $total_page = ceil($count/$page_offset);
+      $response = Array();
+      
+      if( $total_page <= 10){
+        for($i = 1;$i <= $total_page; $i++){
+          $response[$i]= true;
+        }
+      }
+      else{
+        $dizaine_inf = floor($page/10)*10;
+        $dizaine_inf_tot = floor($total_page/10)*10;
+        
+        for($i = 1; $i <= $total_page; $i++){
+          if ($page == 1 || $page%10 == 0) {
+            if( $i == 1 || $i == $page){
+              $response[$i] = false;
+            } else if ( 
+            $i > $dizaine_inf  && $i == $dizaine_inf + 11 && $i == $dizaine_inf_tot+1  && $dizaine_inf_tot+1 != $page){
+               $response[$i] = null;
+            }else if ( $i%10 == 0 && $i > $dizaine_inf){
+              if($page == 1){
+                 $response[$i] = true;
+               }
+               else{
+                 $response[$i] = false;
+               }
+            } else if ( $i > $dizaine_inf && $i <= $dizaine_inf + 9 ) {
+              $response[$i] = true;
+            } 
+          } else {
+            if( $i%10 == 0 || $i == 1 ){
+              $response[$i] = false;
+            } else if ( $i > $dizaine_inf  && $i == $dizaine_inf + 11 && $i == $dizaine_inf_tot+1  && $dizaine_inf_tot+1 != $page){
+              $response[$i] = null;
+            } else if ( $i > $dizaine_inf && $i <= $dizaine_inf + 9 ){
+              $response[$i] = false;
+            }
+          }
+        }
+        
+        
+        
+        
+        
+     /*   
+        for($i = 1; $i <= $total_page; $i++){
+          if( $i > $dizaine_inf  && $i == $dizaine_inf + 11 && $i == $dizaine_inf_tot+1  && $dizaine_inf_tot+1 != $page){
+             $response[$i] = null;
+            }
+          else if($page <= 9){
+            if( $i > $dizaine_inf && ($i <= $dizaine_inf + 9 || $i%10 == 0 )  ){
+              $response[$i] = true;
+            } else if (($i === 1 || $i%10 === 0) ){
+              $response[$i] = false;
+            }
+          } else {
+            if( $i > $dizaine_inf && $i <= $dizaine_inf + 9 ){
+              $response[$i] = true;
+            } else if (($i === 1 || $i%10 === 0) ){
+              $response[$i] = false;
+            }
+          }
+        }
+     */        
+      }
+			return $response;
+    }
+    
+    /**
+     * 
      * 
      * @param <object> $stdClass
      * @return <array> 
@@ -112,12 +197,24 @@ class toolsExtension extends \Twig_Extension
     {
 			return end($arr);
     }
+
     public function soldPerc($price,$sold_price){
        $perc = $price/$sold_price;
        $perc = $perc * 100;
       return ceil($perc);
     }
-
+/*
+    public function isBot($string)
+    {
+      preg_match('#googlebot#i',$string,$matches);     
+      if (isset($matches[0])){
+        $response = true;
+      }else{
+        $response = false;
+      }
+            return $response;
+    }
+*/
     /**
      * 404 => search
      * 
