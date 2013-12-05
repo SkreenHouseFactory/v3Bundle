@@ -358,12 +358,17 @@ $(document).ready(function(){
 
     // ui text show more
     $('.show-all').on('click', function () {
-      var $this = $(this);
+      var self = $(this);
       $('.text', $(this).parent()).toggleClass('show-more-height');
       if ($('.text', $(this).parent()).hasClass('show-more-height')) {
         $('.show-more-text').html('Voir plus');
+        $('.marge-synopsis').css('padding-bottom','270px');
       } else{
+        var height = $('.panel-synopsis').css('height');
+        height = parseInt($('.panel-synopsis').css('height'))+19;
+        $('.marge-synopsis').css('padding-bottom',height);
         $('.show-more-text').html('Réduire le texte');
+        
       }    
     });
 
