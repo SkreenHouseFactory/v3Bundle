@@ -26,10 +26,10 @@ body {
 {% block description %}embed{% endblock %}
 
 {% block content %}
-<div style="position:relative;display:block">
+<div style="display:block">
 <a class="player-cover" target="_blank" style="position:absolute;top:3%;right: 20px;z-index:3;" href="http://www.myskreen.com"><img src="http://mskstatic.com/medias/logo_player.png" alt="mySkreen : Guide Replay, Vod, Ciné" style="border:none"></a>
 <a class="player-cover" id="trigger" data-play-embed="{{ {playId: offer.id, width: "100%", height: "100%", skKey: app.request.get('skKey'), forceMobileDevice: app.request.get('forceMobileDevice'), noPub: app.request.get('noPub'), env: app.environment }|json_encode }}"></a>
-<div id="player" style="background: black url({{ offer.program.picture }}) center no-repeat;width:100%;height:100%;" class="player on"></div>
+<div id="player" style="background: black url({{ offer.program.picture }}) center no-repeat;width:100%;height:100%;background-size: auto 100%;position:absolute;" class="player on"></div>
 </div>
 
 <!--[if lt IE 9]>

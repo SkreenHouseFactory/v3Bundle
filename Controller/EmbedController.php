@@ -37,8 +37,8 @@ class EmbedController extends Controller
 
       $api = $this->get('api');
       $datas = $api->fetch('player/' . $request->get('id'), array(
-        'img_width' => $request->get('width') ? (int)$request->get('width'): '',
-        'img_height' => $request->get('height') ? (int)$request->get('height'): '',
+        'img_width' => $request->get('width') ? (int)$request->get('width'): 'x',
+        'img_height' => $request->get('height') ? (int)$request->get('height'): '500',
         'slider_width' => (int)$request->get('width'),
         'slider_height' => (int)$request->get('height'),
         'with_program' => true
@@ -73,9 +73,10 @@ class EmbedController extends Controller
 
       //default
       } elseif (isset($datas->program->sliderPicture)) {
+        
         $datas->program->picture = $datas->program->sliderPicture;
       }
-
+      
       $response = $this->render('SkreenHouseFactoryV3Bundle:Embed:video.html.twig', array(
         'offer' => $datas,
         'width' => $request->get('width', '100%'),
