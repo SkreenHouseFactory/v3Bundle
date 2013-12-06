@@ -49,6 +49,7 @@ class toolsExtension extends \Twig_Extension
             'pagination' => new \Twig_Filter_Method($this, 'pagination',array('page','pagination')),
             'rot13' => new \Twig_Filter_Method($this, 'rot13'),
             'sold_perc' => new \Twig_Filter_Method($this, 'soldPerc'),
+            'count_nb_page'=> new \Twig_Filter_Method($this, 'countNbPage'),
 #            'is_bot' => new \Twig_Filter_Method($this, 'isBot')
         );
     }

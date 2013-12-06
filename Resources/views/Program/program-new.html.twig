@@ -227,7 +227,7 @@ en Streaming
           <div class="panel panel-default panel-synopsis">
             <div class="panel-heading"><h2 class="panel-title">Tout sur {{ program.title }}</h2></div>
             <div class="tab-pane text-toggle-extend">
-              {% if program.description|striptags|length < 570 %}
+              {% if program.description|striptags|length < 907 %}
               <div class="text">
                 {{ program.description|raw }}
               </div>
@@ -316,7 +316,7 @@ en Streaming
 </div>
 
 {# modal #}
-{% if program.id in ['5088919','5187962'] %}
+{% if program.id in ['5088919'] %}
 {% include 'SkreenHouseFactoryV3Bundle:Program:_modal.html.twig' with {'program': program} %}
 {% endif %}
 {% endblock %}

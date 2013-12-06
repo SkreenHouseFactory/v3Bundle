@@ -9,8 +9,6 @@
       <div class="modal-body">
         <img id="channel-logo" src="{{ program.picture }}" class="pull-left" />
         {% if program.id == 5088919 or (program.episodeof is defined and program.episodeof.id == 5088919) %}<p>Pour voir cette vidéo inédite et recevoir les prochaines en<br>avant-première, connectez-vous !</p>
-        {% elseif program.id == 5187962 %}
-        <p class="lato" style="text-align:center; font-size:1.5em;">Pour voir <br><strong style="color:red;font-weight:normal;text-transform: uppercase;">Les Gars</strong><br>en avant-première à prix réduit,<br> connectez-vous.</p>
          {% else %}<p>Abonnez-vous gratuitement au programme <br/>&laquo; {{program.title}} &raquo; <br/>pour recevoir les prochaines vidéos en avant-première !</p>
         {% endif %}
         <div id="triggerfav" class="user-on hide">
