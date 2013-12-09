@@ -56,26 +56,24 @@ class EmbedController extends Controller
 
       //3 freres le retour
       } elseif (in_array($datas->program->id, array(5088919))) {
-        $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/LesInconnus/player-splash-3freres-retour.jpg';
+        $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/LesInconnus/player-splash-3freres-retour.jpg';
 
       //inconnus le retour
       } elseif (in_array($datas->program->id, array(4988489))) {
-        $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/LesInconnus/player-splash.jpg';
+        $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/LesInconnus/player-splash.jpg';
 
       //inconnus le retour 2
       } elseif (in_array($datas->program->id, array(5050813))) {
-        $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/LesInconnus/player-splash-video2.png';
-        //et moi et moi
-        } elseif (in_array($datas->program->id, array(5298568))) {
-          $datas->program->picture = 'http://mskstatic.com/'.$request->get('width').'/'.$request->get('height').'/b/medias/photos/etmoietmoi/splash.jpg';
-
-
+        $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/LesInconnus/player-splash-video2.png';
+      //et moi et moi
+      } elseif (in_array($datas->program->id, array(5298568))) {
+          $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/etmoietmoi/splash.jpg';
 
       //default
       } elseif (isset($datas->program->sliderPicture)) {
         $datas->program->picture = $datas->program->sliderPicture;
       }
-      
+      //die($datas->program->picture);
       $response = $this->render('SkreenHouseFactoryV3Bundle:Embed:video.html.twig', array(
         'offer' => $datas,
         'width' => $request->get('width', '100%'),

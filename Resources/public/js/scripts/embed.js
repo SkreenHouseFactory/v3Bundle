@@ -9,7 +9,7 @@ if (!document.getElementsByClassName) {
 }
 
 window.onload = function(){
-  console.log('scripts/embed.js');
+  //console.log('scripts/embed.js');
   var trigger = document.getElementById('trigger');
   var covers = document.getElementsByClassName('player-cover');
   var params = JSON.parse(trigger.getAttribute('data-play-embed'));

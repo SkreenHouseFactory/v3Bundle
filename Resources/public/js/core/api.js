@@ -84,6 +84,11 @@ ENV = {
   }
 }
 
+//session
+Skhf = {
+  session: {}
+}
+
 // -- API
 $.support.cors = true;
 var API;
@@ -111,11 +116,6 @@ API = {
       };
     } else {
       console.log('API.config', API.config);
-    }
-
-    //session
-    Skhf = {
-      session: null
     }
 
     //callback

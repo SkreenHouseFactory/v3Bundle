@@ -73,7 +73,7 @@ class ChannelController extends Controller
       'preview' => $request->get('preview')
       );
 
-$data = $api->fetch('channel', $params);
+      $data = $api->fetch('channel', $params);
 
     //print("<pre>");print_r($data);
     //echo $api->url;exit;
@@ -81,9 +81,9 @@ $data = $api->fetch('channel', $params);
     //echo "\n".'route:'  .$request->get('_route');
     //exit;
     //404
-if (isset($data->error) && $data->error) {
-  throw $this->createNotFoundException('Channel does not exist');
-}
+    if (isset($data->error) && $data->error) {
+      throw $this->createNotFoundException('Channel does not exist');
+    }
    /* 
     //seo
     if (!in_array($request->get('facet'), (array)$data->facets_seo_url->category) && 
@@ -98,13 +98,14 @@ if (isset($data->error) && $data->error) {
     }
 
     //bad page
-    if ($request->get('page') 
-      && isset($data->programs) 
-      && count((array)$data->programs) == 0) {
+    if ($request->get('page') && 
+        isset($data->programs) && 
+        count((array)$data->programs) == 0) {
       //return $this->redirect(str_replace('/page-'.$request->get('page'), '', $request->getPathInfo()), 301);
 
     //bad url
-    } elseif (($request->getPathInfo() != $data->seo_url &&
+    } elseif (!strstr($request->getPathInfo(), '/partners/') &&
+      ($request->getPathInfo() != $data->seo_url &&
       $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' &&
       $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' &&
       $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' . $request->get('facet') .  '/page-' . $request->get('page') . '/' &&
@@ -139,75 +140,75 @@ if (isset($data->error) && $data->error) {
   if (property_exists($data, 'channel') && 
     $data->channel->type == 'ChannelFournisseur') {
     $data->channel->fournisseur = $data;
-}
-
-$params = array();
-if (isset($data->facets)) {
- $params = array(
-  'formats' => array_combine(explode(';', $data->facets_seo_url->format),explode(';', $data->facets->format)),
-  'categories' => array_combine(explode(';', $data->facets_seo_url->category),explode(';', $data->facets->category)),
-  'subcategories' => array_combine(explode(';', $data->facets_seo_url->subcategory),explode(';', $data->facets->subcategory)),
-  'access' => explode(';', isset($data->facets->access) ? $data->facets->access : null),
-  'alpha_available' => explode(';', $data->facets->alpha),
-  'alpha' => array(
-    1,2,3,4,5,6,7,8,9,
-    'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
-    )
-  );
-}
-
-    // Si on est une une page sk_channel, on redirige vers le twig correct
-if (property_exists($data, 'channel')) {
-  $custom_header = false;
-  $from_selection = false;
-  if ( $this->get('templating')->exists('SkreenHouseFactoryV3Bundle:Channel:_header-'.$data->channel->id.'.html.twig')){
-    $custom_header = true;
-  } 
-
-  if(isset($data->channel->fournisseur)){
-    $data->channel->fournisseur = (object)array_merge($params, (array)$data->channel->fournisseur);
   }
-  $params = array_merge($params, array(
-    'from_selection'=> $from_selection,
-    'data' => $data,
-    'channel' => $data->channel,
-    'custom_header' => $custom_header
-    ));
-//      print_r($params['data']);exit();
-  if ($data->channel->type == 'ChannelFournisseur' ||
-    property_exists($data->channel, 'fournisseur')) {
-        //$data->channel->description = $data->channel->fournisseur->description;
-    $data->channel->fournisseur->formats = array_combine(explode(';', $data->channel->fournisseur->facets_seo_url->format),explode(';', $data->channel->fournisseur->facets->format));
-  $data->channel->fournisseur->alpha_available = explode(';', $data->channel->fournisseur->facets->alpha);
-  $data->channel->fournisseur->alpha = array(
-    1,2,3,4,5,6,7,8,9,
-    'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
+
+  $params = array();
+  if (isset($data->facets)) {
+   $params = array(
+    'formats' => array_combine(explode(';', $data->facets_seo_url->format),explode(';', $data->facets->format)),
+    'categories' => array_combine(explode(';', $data->facets_seo_url->category),explode(';', $data->facets->category)),
+    'subcategories' => array_combine(explode(';', $data->facets_seo_url->subcategory),explode(';', $data->facets->subcategory)),
+    'access' => explode(';', isset($data->facets->access) ? $data->facets->access : null),
+    'alpha_available' => explode(';', $data->facets->alpha),
+    'alpha' => array(
+      1,2,3,4,5,6,7,8,9,
+      'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
+      )
     );
+  }
 
-  unset($data->channel->fournisseur->facets);
-  unset($data->channel->fournisseur->facets_seo_url);
-}
+      // Si on est une une page sk_channel, on redirige vers le twig correct
+  if (property_exists($data, 'channel')) {
+    $custom_header = false;
+    $from_selection = false;
+    if ( $this->get('templating')->exists('SkreenHouseFactoryV3Bundle:Channel:_header-'.$data->channel->id.'.html.twig')){
+      $custom_header = true;
+    } 
 
-$response = $this->render('SkreenHouseFactoryV3Bundle:Channel:channel.html.twig', $params);
-if ($request->get('slug') != $data->channel->slug) {
-        // Alias du channel fourni
-  return $this->redirect('/' . $data->channel->slug, 301);
-}
-} else {
-  $params = array_merge($params, array('channel' => $data));
-  $data->programs = (array)$data->programs;
-  $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) ? $data->programs[0]->picture : null);
-      //$template = isset($data->epg) && $data->epg ? 'channel-replay' : 'channel';
+    if(isset($data->channel->fournisseur)){
+      $data->channel->fournisseur = (object)array_merge($params, (array)$data->channel->fournisseur);
+    }
+    $params = array_merge($params, array(
+      'from_selection'=> $from_selection,
+      'data' => $data,
+      'channel' => $data->channel,
+      'custom_header' => $custom_header
+      ));
+  //      print_r($params['data']);exit();
+    if ($data->channel->type == 'ChannelFournisseur' ||
+      property_exists($data->channel, 'fournisseur')) {
+          //$data->channel->description = $data->channel->fournisseur->description;
+      $data->channel->fournisseur->formats = array_combine(explode(';', $data->channel->fournisseur->facets_seo_url->format),explode(';', $data->channel->fournisseur->facets->format));
+    $data->channel->fournisseur->alpha_available = explode(';', $data->channel->fournisseur->facets->alpha);
+    $data->channel->fournisseur->alpha = array(
+      1,2,3,4,5,6,7,8,9,
+      'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
+      );
 
-  $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:fournisseur.html.twig', $params);
-}
+    unset($data->channel->fournisseur->facets);
+    unset($data->channel->fournisseur->facets_seo_url);
+  }
 
-$maxage = 60;
-$response->setPublic();
-$response->setMaxAge($maxage);
-$response->setSharedMaxAge($maxage);
+  $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:channel.html.twig', $params);
+  if ($request->get('slug') != $data->channel->slug) {
+          // Alias du channel fourni
+    return $this->redirect('/' . $data->channel->slug, 301);
+  }
+  } else {
+    $params = array_merge($params, array('channel' => $data));
+    $data->programs = (array)$data->programs;
+    $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) ? $data->programs[0]->picture : null);
+        //$template = isset($data->epg) && $data->epg ? 'channel-replay' : 'channel';
 
-return $response;
+    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:fournisseur.html.twig', $params);
+  }
+
+  $maxage = 60;
+  $response->setPublic();
+  $response->setMaxAge($maxage);
+  $response->setSharedMaxAge($maxage);
+
+  return $response;
 }
   // channel PBLV
 public function header28Action($data,$from_selection,$channel,$fav,$trigger_fav){
