@@ -28,7 +28,15 @@
   <div class="col-xs-16 ">
   <h2 class="lato isplaying-title"><strong  class="pull-left">{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</strong>
       <div class="share-block">
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'L intégrale des sketches des inconnus est sur @mySkreen en streaming gratuit.' } %}
+        {% for slider_share in selection_sketches | to_array %}
+          {% if loop.first %}
+            {% for program_share in slider_share.programs | to_array %}
+              {% if loop.first %}
+                {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ program_share.seo_url, text: program_share.title|replace({ (program.episodeof.title ~ ' - '):''}) ~ ' - L intégrale des sketches des inconnus est sur @mySkreen en streaming gratuit.' } %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %} 
       </div>
     </h2>
   </div>
@@ -53,7 +61,8 @@
     <div class="item active">
       {% for program in slider.programs | to_array %}
 
-      <div class="vignette"  data-play-url="{{program.player.player.url}}"  data-id="{{program.id}}" data-selection="{{slider.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}">
+      <div class="vignette"  data-play-url="{{program.player.player.url}}"  data-id="{{program.id}}" data-selection="{{slider.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}"
+      data-share-text="{{ (program.title ~ ' - L intégrale des sketches des inconnus est sur @mySkreen en streaming gratuit.')|replace({ (program.episodeof.title ~ ' - '):''})|url_encode|replace({'+': '%20'})}}" data-play-seo-url="{{('http://www.myskreen.com/' ~ program.seo_url)|url_encode}}">
         <div class="img-small"  style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat"></div>
         <span><mark>{{loop.index}}</mark>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</span>
       </div>

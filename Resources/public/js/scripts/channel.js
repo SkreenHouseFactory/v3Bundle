@@ -114,13 +114,14 @@ $(document).ready(function(){
     }
 
     //////////// SCRIPTS ////////////////
-
+    https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=fr&amp;url=http%3A%2F%2Fwww.myskreen.com%2F%2Fprogramme%2Fhumour%2F4938680-les-sketchs-les-inconnus%2F4938708-les-chasseurs-ou-l-art-de-la-chasse%2F&amp;id=I0_share
     //setting
     //Scroll to player 
 
     $('html [data-play-url]').on('click', function () {
       $('html,body').animate({'scrollTop' : 60},1000);
     });  
+    //----- channel 65 media center les inconnus
     $('[data-play-url]').on('click',function(){
       $('.row[data-selection-id]').addClass('hide');
       $('.row[data-selection-id='+$(this).data('selection')+']').removeClass('hide');
@@ -130,12 +131,20 @@ $(document).ready(function(){
       $('.vidplaylist .vignette[data-id='+$(this).data('id')+']').parent().addClass('active');
       $('.vidplaylist .vignette').removeClass('playing');
       $('.vidplaylist .vignette[data-id='+$(this).data('id')+']').addClass('playing');
-    });
+      $('.share-block').html(
+        '<iframe class="pull-left fbshare"  src="http://www.facebook.com/plugins/like.php?locale=fr_FR&amp;app_id=422066694500806&amp;href='+$(this).data('play-seo-url')+'&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35" scrolling="no" frameborder="0" style="border:none; height:21px; margin-left:5px; overflow:hidden; width:93px;" allowTransparency="true"></iframe>'
+      + '<iframe class="pull-left twitter-share" style="height: 20px;width: 94px; margin-right:0px; margin-left:5px;" allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer='+$(this).data('play-seo-url')+'&amp;size=m&amp;text='+$(this).data('share-text')+'&amp;url='+$(this).data('play-seo-url')+'" class="block-twitter" data-twttr-rendered="true"></iframe>'
+      + '<iframe  class="g-plus-share" frameborder="0" scrolling="no" style="border-style:none; height:30px; margin: 0px 3px 0; visibility:visible; width:70px;" id="I0_share" name="I0_share" src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=fr&amp;url='+$(this).data('play-seo-url')+'&amp;id=I0_share" allowtransparency="true" data-gapiattached="true" title="+1"></iframe>'
+    );
+     /* $('iframe.fbshare').attr('src','http://www.facebook.com/plugins/like.php?locale=fr_FR&amp;app_id=422066694500806&amp;href='+$(this).data('play-seo-url')+'&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35')
+    $('iframe.twitter-share').attr('src','http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer='+$(this).data('play-seo-url')+'&amp;size=m&amp;text='+$(this).data('play-title-encoded')+'%20-%20L%20int%C3%A9grale%20des%20sketches%20des%20inconnus%20est%20sur%20%40mySkreen%20en%20streaming%20gratuit.&amp;url='+$(this).data('play-seo-url'));
+    $('iframe.g-plus-share').attr('src','https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=fr&amp;url='+$(this).data('play-seo-url')+'&amp;id=I0_share');
+  */ });
     $('.modal .trigger-suivre').on('click',function(){
       $('#channel-modal').modal('hide');
       $('.btn-suivre').trigger('click');
     });
-    
+    //---------------------------------------------
     if (channel_id == 28) {
       var date = new Date();
       	var note = $('#note');

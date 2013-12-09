@@ -73,7 +73,6 @@ class EmbedController extends Controller
 
       //default
       } elseif (isset($datas->program->sliderPicture)) {
-        
         $datas->program->picture = $datas->program->sliderPicture;
       }
       
