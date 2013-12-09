@@ -117,11 +117,10 @@ $(document).ready(function(){
 
     //setting
     //Scroll to player 
-
-    $('html [data-play-url]').on('click', function () {
-      $('html,body').animate({'scrollTop' : 60},1000);
-    });  
     $('[data-play-url]').on('click',function(){
+      //scroll
+      $('html,body').animate({'scrollTop' : 60},1000);
+      //play
       $('.row[data-selection-id]').addClass('hide');
       $('.row[data-selection-id='+$(this).data('selection')+']').removeClass('hide');
       $('.isplaying-title strong').html($(this).data('play-title'));
