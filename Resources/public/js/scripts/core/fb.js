@@ -5,19 +5,18 @@
 //onload
 $(document).ready(function(){
 
-  var fb_permissions = 'user_birthday,friends_birthday,email,friends_likes,' + 
-                       'publish_stream,publish_actions,status_update'; //read_friendlists
+  var fb_permissions = 'email,user_birthday,friends_birthday,friends_likes,publish_stream,publish_actions'; 
+  //read_friendlists
 
-
-
-   window.fbAsyncInit = function() {
-     // init the FB JS SDK
-     FB.init({
-       appId      : API.config.fb.app_id,                 // App ID from the app dashboard
-       status     : true,                                 // Check Facebook Login status
-     });
-     // Additional initialization code such as adding Event Listeners goes here
-   };
+  window.fbAsyncInit = function() {
+   // init the FB JS SDK
+   FB.init({
+     appId  : API.config.fb.app_id,                 // App ID from the app dashboard
+     status : true,                                 // Check Facebook Login status
+     cookie : true, // enable cookies to allow the server to access the session
+   });
+   // Additional initialization code such as adding Event Listeners goes here
+  };
 
    // Load the SDK asynchronously
    (function(){
@@ -36,9 +35,13 @@ $(document).ready(function(){
 
   // fb connect
   function fbsync() {
-    console.log(['script fbsync', 'fetching information...']);
+    console.log(['scripts/fb.js', 'fetching information...']);
     FB.api('/me', function(response) {
-      console.log(['script fbsync', 'success: ' + response.name, response, FB.getAuthResponse()]);
+      console.log('scripts/fb.js', 'success', FB.getAuthResponse());
+      var authresponse = FB.getAuthResponse();
+      for (k in response) {
+        console.log('scripts/fb.js', k, response[k]);
+      }
       Skhf.session.sync(function(sessionDatas){
         API.query(
           'POST', 
@@ -46,21 +49,27 @@ $(document).ready(function(){
           {
             session_uid: Skhf.session.uid,
             fbuid: response.id,
-            username: response.email,
-            access_token: FB.getAuthResponse()['accessToken']
+            username: typeof response.email != 'undefined' ? response.email : response.id + '@facebook.com',
+            nickname: response.username,
+            firstname: response.first_name,
+            lastname: response.last_name,
+            gender: typeof response.gender != 'undefined' ? response.gender : null,
+            birthday: response.birthday,
+            access_token: authresponse['accessToken'],
+            expires: authresponse['expiresIn']
           },
           function(){
-            console.log('script fbsync', 'API.query callback');
+            console.log('scripts/fb.js', 'API.query callback');
 
             Skhf.session.sync(function(sessionDatas){
               $('.modal').modal('hide');
-              console.log('script fbsync', 'API.query callback', 'Skhf.session.sync', UI.callbackModal);
+              console.log('scripts/fb.js', 'API.query callback', 'Skhf.session.sync', UI.callbackModal);
               if (UI.callbackModal) {
                 UI.callbackModal();
               }
               /* handled in Skhf.session.sync
               Skhf.session.signin(sessionDatas, function(){
-                console.log('script fbsync', 'API.query callback', 'Skhf.session.signin callback', sessionDatas);
+                console.log('scripts/fb.js', 'API.query callback', 'Skhf.session.signin callback', sessionDatas);
               });
               */
             });
