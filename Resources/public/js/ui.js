@@ -307,6 +307,7 @@ UI = {
     var parameter = this.getTriggerParameter(trigger);
     var name = this.getTriggerName(trigger);
     if (Skhf.session.datas.email) {
+      API.trackEvent('Playlist', 'connected-' + (remove ? 'remove-' : 'add-') + parameter, value);
       console.log('UI.togglePlaylist', parameter, value, 'remove:' + remove, trigger);
       trigger.removeClass('btn-plus');
       trigger.html('Chargement ...').removeClass('btn-danger');
@@ -345,6 +346,7 @@ UI = {
       }
     } else {
 
+      API.trackEvent('Playlist', 'notconnected-add-' + parameter, value);
       this.auth(function(){
         console.log('UI.togglePlaylist', 'UI.auth callback', Skhf.session.datas.email);
         $('#skModal .modal .modal-message').html('<p><b>Vos playlists <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b> : ' + self.getPlaylistMessage(trigger) + '</p>');
@@ -433,7 +435,7 @@ UI = {
   loadNotifications: function(notifications) {
     global = this;
     if (typeof notifications == 'undefined') {
-      console.error('UI.loadNotifications', 'notifications undefined!');
+      console.warn('UI.loadNotifications', 'notifications undefined!');
       return;
     }
     console.log('UI.loadNotifications', notifications);
@@ -535,7 +537,7 @@ UI = {
   //update friends
   loadSocialSelector: function() {
     var self = this;
-    
+
     if (Skhf.session.datas.fb_uid && Skhf.session.datas.fb_access_token) {
       console.log("-------------",Skhf.session);
       this.appendLoader($('li#friends'));
@@ -543,8 +545,10 @@ UI = {
         console.log('UI.loadSocialSelector', 'Session.loadSocialSelector callback', datas);
         self.removeLoader($('li#friends'));
         if (typeof datas.error == 'undefined' ||
-            datas.programs.length > 0) { //Warning : Error sent by API even if results ?!
-          if (datas.programs.length > 0) {
+            typeof datas.programs == 'undefined' ||
+            datas.programs .length > 0) { //Warning : Error sent by API even if results ?!
+          if (typeof datas.programs != 'undefined' &&
+              datas.programs.length > 0) {
             var program = datas.programs.pop();
             var li = $('li#friends', this.playlist.elmt);
             li.removeClass('empty');
