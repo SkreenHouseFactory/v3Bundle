@@ -130,6 +130,7 @@ GridView = {
     
   },
   loadSchedule : function(callback) {
+    API.trackEvent('Grid', 'timestamp', this.timestamp);
     console.log('GridView.loadSchedule', 'timestamp', this.timestamp, new Date(this.timestamp*1000).toString());
       $('#grid time').attr('timestamp',this.timestamp);
     var self = this;
@@ -238,6 +239,7 @@ GridView = {
     
    },
   filter: function(onglet) {
+    API.trackEvent('Grid', 'filter', onglet);
     console.log('GridView.filter', onglet);
     if (onglet == 'in-playlists' && 
         !Skhf.session.datas.email) {
@@ -445,6 +447,7 @@ $(document).ready(function(){
       return false;
     })
     $(document).on('click', '#channels a .glyphicon.glyphicon-trash', function(e) {
+      API.trackEvent('Grid', 'remove-channel', $(this).parents('li:first').data('id'));
       e.preventDefault();
       e.stopPropagation();
       $(this).parents('li:first').remove();

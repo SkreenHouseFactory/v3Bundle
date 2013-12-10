@@ -5,7 +5,6 @@ $(document).ready(function(){
   var channel_name = $('h1').data('channel');
   var channel_id = $('.fav[data-id]').data('id');
   var channel_slug = $('h1').data('channel-slug');
-  //API.trackVar(1, 'Chaîne', channel_name, 3);
   API.trackEvent('Chaîne', channel_name, 'page=chaine');
 
   // -- fournisseur

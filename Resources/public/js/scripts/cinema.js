@@ -33,6 +33,7 @@ $(document).ready(function(){
     }
 
   	$(document).on('click', '#theaters-names a', function(){
+      API.trackEvent('Cinémas', 'playlists-filter', Skhf.session.datas.email ? 'connected' : 'notconnected');
   		var triggers = $('#theaters-names a');	
   		if (triggers.filter(':not(.label-info)').length == 0) {
   			triggers.removeClass('label-info');
@@ -62,14 +63,14 @@ $(document).ready(function(){
 		console.log('script', 'trigger-theaters-playlist');
 		//if (theaters && theaters.split(',').length) {
       if( Skhf.session.datas.email){
-			CinemaView.appendSearchResult();
-      }
-      else{
-        UI.auth(
-          function(){
-            if(Skhf.session.datas.email){
-              CinemaView.appendSearchResult();
-            }
+        API.trackEvent('Cinémas', 'search-playlists', 'connected');
+			  CinemaView.appendSearchResult();
+      } else {
+        UI.auth(function(){
+          API.trackEvent('Cinémas', 'search-playlists', 'notconnected');
+          if(Skhf.session.datas.email){
+            CinemaView.appendSearchResult();
+          }
         });
       }
 		//}
@@ -77,6 +78,7 @@ $(document).ready(function(){
 	});
   // trigger search geoloc
 	$(document).on('click', '#trigger-theaters-geoloc', function(){
+    API.trackEvent('Cinémas', 'search-geoloc', Skhf.session.datas.email ? 'connected' : 'notconnected');
 		var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
 		console.log('script', 'trigger-theaters-geoloc', container);
 		container.empty();
@@ -91,15 +93,12 @@ $(document).ready(function(){
 	});
 
  $(document).on('click','#theater .theater-remote', function(){
-           var hide_all= '#' + $(this).data('theater-id') + ' .horaires';
-           var aim = '#' + $(this).data('theater-id') + ' .horaires.' + $(this).data('day');
-           var hide_all_remote = '#' + $(this).data('theater-id')+ ' .theater-remote';
-           $(hide_all).addClass('hide');
-           $(hide_all_remote).removeClass('live');
-           $(aim).removeClass('hide');
-           $(this).addClass('live');
-         });
-  
-
-
+   var hide_all= '#' + $(this).data('theater-id') + ' .horaires';
+   var aim = '#' + $(this).data('theater-id') + ' .horaires.' + $(this).data('day');
+   var hide_all_remote = '#' + $(this).data('theater-id')+ ' .theater-remote';
+   $(hide_all).addClass('hide');
+   $(hide_all_remote).removeClass('live');
+   $(aim).removeClass('hide');
+   $(this).addClass('live');
+ });
 });
