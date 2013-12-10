@@ -18,7 +18,11 @@
 {#         <button type="button" class="btn btn-default">+ Suivre</button>
  #}
    <div class="suivre-media">
+       {% if partner == true%}
+         <a href="http://myskreen.com/les-inconnus/?follow" target="_blank" rel="popover" data-channel-name="Les Inconnus" data-placement="left" class="btn btn-suivre fav fav-person btn-suivre-b btn btn-default fav-on btn-success" data-original-title="Les Inconnus">+ Suivre les Inconnus</a>
+       {% else %}
           {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: 1,name:"Les Inconnus", class: 'btn-suivre-b btn btn-default', fav: 'person' } %}
+       {% endif %}
       </a>
     </div>
     </div>

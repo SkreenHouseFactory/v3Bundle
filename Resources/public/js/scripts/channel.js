@@ -115,7 +115,9 @@ $(document).ready(function(){
     //////////// SCRIPTS ////////////////
     //setting
     //Scroll to player 
-
+    if (document.location.href.match(/\?follow/gi) && !$('.btn-suivre[data-id]').hasClass('fav-on')) {
+      $('.btn-suivre[data-id]').trigger('click');
+    }
     $('html [data-play-url]').on('click', function () {
       $('html,body').animate({'scrollTop' : 60},1000);
     });  

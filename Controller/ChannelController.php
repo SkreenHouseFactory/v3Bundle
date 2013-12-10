@@ -161,6 +161,11 @@ class ChannelController extends Controller
   if (property_exists($data, 'channel')) {
     $custom_header = false;
     $from_selection = false;
+    if($request->get('partner')){
+      $partner = true;
+    } else {
+      $partner = false;
+    }
     if ( $this->get('templating')->exists('SkreenHouseFactoryV3Bundle:Channel:_header-'.$data->channel->id.'.html.twig')){
       $custom_header = true;
     } 
@@ -172,7 +177,8 @@ class ChannelController extends Controller
       'from_selection'=> $from_selection,
       'data' => $data,
       'channel' => $data->channel,
-      'custom_header' => $custom_header
+      'custom_header' => $custom_header,
+      'partner' => $partner
       ));
   //      print_r($params['data']);exit();
     if ($data->channel->type == 'ChannelFournisseur' ||
@@ -385,7 +391,7 @@ public function header1Action($data,$from_selection,$channel,$fav,$trigger_fav){
 
 
 
-public function header65Action($data,$from_selection,$channel,$fav,$trigger_fav){
+public function header65Action($data,$from_selection,$channel,$fav,$trigger_fav,$partner){
   $api   = $this->get('api');
   $selection_sketches = array();
   $params =  array(
@@ -430,7 +436,8 @@ public function header65Action($data,$from_selection,$channel,$fav,$trigger_fav)
     'trigger_fav'=> $trigger_fav,
     'channel'=> $channel,
     'from_selection' => $from_selection,
-    'selection_sketches'=>(object)$selection_sketches
+    'selection_sketches'=>(object)$selection_sketches,
+    'partner' => $partner
     ));
 
   return $response; 
