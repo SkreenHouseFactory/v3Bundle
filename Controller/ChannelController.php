@@ -402,10 +402,27 @@ public function header65Action($data,$from_selection,$channel,$fav,$trigger_fav)
     'img_height' => 200,
     'allow_with' => true
     );
-
-  $selection_sketches[1] = $api->fetch('www/slider/pack/10855312', $params);
-  $selection_sketches[2]  = $api->fetch('www/slider/pack/10855358', $params);
-  $selection_sketches[3]  = $api->fetch('www/slider/pack/12021377', $params);
+    /*-------------------------------------------------------------------- Les Sketches*/
+    $obj1 = $api->fetch('www/slider/pack/10855312', $params);
+    $ajout1 = $api->fetch('www/slider/pack/10855202', $params);
+    $ajout2 = $api->fetch('www/slider/pack/12021382', $params);
+    $ajout3 = $api->fetch('www/slider/pack/12021387', $params);
+    $ajout4 = $api->fetch('www/slider/pack/12021394', $params);
+    $ajout5 = $api->fetch('www/slider/pack/10855277', $params);
+    $obj1->programs = (object)array_merge(array_values((array)$obj1->programs),array_values((array)$ajout1->programs),array_values((array)$ajout2->programs),array_values((array)$ajout3->programs),array_values((array)$ajout4->programs),array_values((array)$ajout5->programs));
+    /*-------------------------------------------------------------------- Les Pubs*/
+    
+    
+    $obj2 = $api->fetch('www/slider/pack/10855358', $params);
+    /*-------------------------------------------------------------------- Les Chansons*/
+    $obj3 = $api->fetch('www/slider/pack/12021377', $params);
+    $ajout1 = $api->fetch('www/slider/pack/10855241', $params);
+   
+    $obj3->programs = (object)array_merge(array_values((array)$obj3->programs),array_values((array)$ajout1->programs));
+     
+  $selection_sketches[1]  = $obj1;
+  $selection_sketches[2]  = $obj2;
+  $selection_sketches[3]  = $obj3;
 
   $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-65.html.twig', array(
     'data' => $data,
