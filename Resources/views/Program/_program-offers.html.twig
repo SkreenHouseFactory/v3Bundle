@@ -149,11 +149,17 @@
                <p><strong>{{ o.title }}</strong><br><span>{% if o.description|length > 57 %}{{ o.description|slice(0, 56)}}...{% else %}{{ o.description}}{% endif %}</span></p>
                {% elseif o_episode and o_episode.title %}
                <p><strong>{{ o_episode.title }}</strong>
-               {% set episode_title %}{% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}{% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}{% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}{% endset %}
+               {%  if o_access.name not in ['Bonus','Extrait'] %}
+               {% set episode_title %}
+                 {% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}
+                 {% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}
+                 {% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}
+               {% endset %}
                {% if o_episode.season_number is defined or 
                o_episode.episode_number is defined or 
                o_episode.part_number is defined %}
-               {% if episode_title != o_episode.title %}<br>{{ episode_title }}{% endif %}
+                  {% if episode_title != o_episode.title %}<br>{{ episode_title }}{% endif %}
+               {% endif %}
                {% endif %}
                </p>
                {% endif %}

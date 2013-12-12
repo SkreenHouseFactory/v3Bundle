@@ -45,13 +45,62 @@
     {% endif %}
 
   {% else %}
+
+
+    {# categories #}
+    {% if results.categories is defined and results.categories|length %}
+    {% for categorie in results.categories|to_array %}
+    <div class="panel panel-default pull-right">
+      <div class="panel-heading">Catégorie : {{ categorie.name }}</div>
+        <div class="panel-body">
+          <a class="btn btn-default" href="{{ path('any_url', {url: categorie.seo_url|slice(1, categorie.seo_url|length-1) }) }}">Voir la catégorie</a>
+        </div>
+    </div>
+    {% endfor%}
+    {% endif %}
   
-    {% if results.person is defined  and results.person %}
-    <p class="pull-right">
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: results.person.id, name: results.person.name, fav: 'person'} %}
-      &nbsp;&nbsp;
-      <a class="btn btn-default" href="{{ path('any_url', {url: results.person.seo_url|slice(1, results.person.seo_url|length-1) }) }}">Voir tous ses programmes</a>
-    </p>
+  
+    {# cinéma #}
+    {% if results.theaters is defined and results.theaters|length %}
+    {% for theater in results.theaters|to_array %}
+    <div class="panel panel-default pull-right">
+      <div class="panel-heading"><i class="glyphicon glyphicon-asterisk"></i> {{ theater.name }}, {{ theater.ville }} {{ theater.zipcode }}</div>
+        <div class="panel-body">
+          <a class="btn btn-default" href="{{ path('any_url', {url: theater.seo_url|slice(1, theater.seo_url|length-1) }) }}">Voir le cinéma et sa programmation</a>
+        </div>
+    </div>
+    {% endfor%}
+    {% endif %}
+
+    {# channel #}
+    {% if results.channels is defined and results.channels|length %}
+    {% for channel in results.channels|to_array %}
+    <div class="panel panel-default pull-right">
+      <div class="panel-heading">
+        <a class="btn btn-default" href="{{ path('any_url', {url: channel.seo_url|slice(1, channel.seo_url|length-1) }) }}">Voir la chaîne</a>
+        <h3 class="pull-left"><i class="glyphicon glyphicon-asterisk"></i> {{ channel.name }}</h3>
+      </div>
+      <div class="panel-body">
+        <img src="{{ channel.icon|replace({'75/100': '100/50'}) }}">
+      </div>
+    </div>
+    {% endfor%}
+    {% endif %}
+
+    {# person #}
+    {% if results.persons is defined and results.persons|length %}
+    {% for person in results.persons|to_array if person.is_valid %}
+    <div class="panel panel-default pull-right">
+      <div class="panel-heading"><h3><i class="glyphicon glyphicon-asterisk"></i> {{ person.name }}</h3></div>
+        <div class="panel-body">
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: person.id, name: person.name, fav: 'person'} %}
+          {% if person.nb_programs %}
+          &nbsp;&nbsp;
+          <a class="btn btn-default" href="{{ path('any_url', {url: person.seo_url|slice(1, person.seo_url|length-1) }) }}">Voir ses {{ person.nb_programs }} programmes</a>
+          {% endif %}
+        </div>
+    </div>
+    {% endfor%}
     {% endif %}
   
     {% if results.count.total %}
