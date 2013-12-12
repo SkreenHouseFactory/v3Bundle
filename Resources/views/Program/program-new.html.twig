@@ -229,11 +229,17 @@ en Streaming
             <div class="tab-pane text-toggle-extend">
               {% if program.description|striptags|length < 907 %}
               <div class="text">
+                {% if program.copyright is defined %}
+                  {{program.copyright}}
+                {% endif %}
                 {{ program.description|raw }}
               </div>
               {% else %}
               <div class="text show-more-height">
                 <div class="gradient-hide"></div> 
+                {% if program.copyright is defined %}
+                  {{program.copyright}}
+                {% endif %}
                 {{ program.description|raw }}
               </div>
               <div class="show-all">
