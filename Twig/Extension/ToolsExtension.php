@@ -39,19 +39,18 @@ class toolsExtension extends \Twig_Extension
      */
     public function getFilters()
     {
-        return array(
-            'pic_filter' => new \Twig_Filter_Method($this, 'picFilter'),
-            'to_array' => new \Twig_Filter_Method($this, 'to_array'),
-            'end' => new \Twig_Filter_Method($this, 'end'),
-            'keywords_from_url' => new \Twig_Filter_Method($this, 'keywordsFromUrl'),
-            'prepare_for_slider' => new \Twig_Filter_Method($this, 'prepareForSlider'),
-            'round_up' => new \Twig_Filter_Method($this, 'roundUp'),
-            'pagination' => new \Twig_Filter_Method($this, 'pagination',array('page','pagination')),
-            'rot13' => new \Twig_Filter_Method($this, 'rot13'),
-            'sold_perc' => new \Twig_Filter_Method($this, 'soldPerc'),
-            'count_nb_page'=> new \Twig_Filter_Method($this, 'countNbPage'),
-#            'is_bot' => new \Twig_Filter_Method($this, 'isBot')
-        );
+      return array(
+        'pic_filter' => new \Twig_Filter_Method($this, 'picFilter'),
+        'to_array' => new \Twig_Filter_Method($this, 'to_array'),
+        'end' => new \Twig_Filter_Method($this, 'end'),
+        'keywords_from_url' => new \Twig_Filter_Method($this, 'keywordsFromUrl'),
+        'prepare_for_slider' => new \Twig_Filter_Method($this, 'prepareForSlider'),
+        'round_up' => new \Twig_Filter_Method($this, 'roundUp'),
+        'pagination' => new \Twig_Filter_Method($this, 'pagination',array('page','pagination')),
+        'rot13' => new \Twig_Filter_Method($this, 'rot13'),
+        'sold_perc' => new \Twig_Filter_Method($this, 'soldPerc'),
+        'count_nb_page'=> new \Twig_Filter_Method($this, 'countNbPage'),
+      );
     }
 
     /**
@@ -158,32 +157,7 @@ class toolsExtension extends \Twig_Extension
               $response[$i] = false;
             }
           }
-        }
-        
-        
-        
-        
-        
-     /*   
-        for($i = 1; $i <= $total_page; $i++){
-          if( $i > $dizaine_inf  && $i == $dizaine_inf + 11 && $i == $dizaine_inf_tot+1  && $dizaine_inf_tot+1 != $page){
-             $response[$i] = null;
-            }
-          else if($page <= 9){
-            if( $i > $dizaine_inf && ($i <= $dizaine_inf + 9 || $i%10 == 0 )  ){
-              $response[$i] = true;
-            } else if (($i === 1 || $i%10 === 0) ){
-              $response[$i] = false;
-            }
-          } else {
-            if( $i > $dizaine_inf && $i <= $dizaine_inf + 9 ){
-              $response[$i] = true;
-            } else if (($i === 1 || $i%10 === 0) ){
-              $response[$i] = false;
-            }
-          }
-        }
-     */        
+        }       
       }
 			return $response;
     }
@@ -204,18 +178,7 @@ class toolsExtension extends \Twig_Extension
        $perc = $perc * 100;
       return ceil($perc);
     }
-/*
-    public function isBot($string)
-    {
-      preg_match('#googlebot#i',$string,$matches);     
-      if (isset($matches[0])){
-        $response = true;
-      }else{
-        $response = false;
-      }
-            return $response;
-    }
-*/
+
     /**
      * 404 => search
      * 
@@ -247,29 +210,29 @@ class toolsExtension extends \Twig_Extension
      */
     public function prepareForSlider(Array $programs, $nb_programs_page, $nb_programs_total = null, $slider_page = 0)
     {
-     //echo '<!--';
+      //echo '<!--';
       self::$slider_count++;
       $this->slider_page = $slider_page;
       $this->slider_programs = $this->to_array($programs, true);
       $pages = array();
-      //echo "\n".'<br/> $this->slider_programs > '.count($this->slider_programs);
+       //echo "\n".'<br/> $this->slider_programs > '.count($this->slider_programs);
       while (count($this->slider_programs) > 0 || (count($pages) < $nb_programs_total/6 && count($pages) <= 4) ) {
-        //echo "\n".'<br/> $pages > '.count($pages);
-        //echo "\n".'<br/> $nb_pages_total > '.($nb_programs_total/6);
+         //echo "\n".'<br/> $pages > '.count($pages);
+         //echo "\n".'<br/> $nb_pages_total > '.($nb_programs_total/6);
         $this->slider_page++;
         if ($page_programs = $this->getProgramsForPage($nb_programs_page)) {
-          //echo ' page_programs count:'.count($page_programs);
+           //echo ' page_programs count:'.count($page_programs);
           $slider_progam = $this->getHorizontalSlider($page_programs);
           $type = $slider_progam ? 'horizontal' : 'vertical';
           $pages[] = $this->sortPrograms($page_programs, $nb_programs_page, $type, $slider_progam);
         } else {
           $pages[] = array();
         }
-        //echo ' break count:'.count($this->slider_programs);
+         //echo ' break count:'.count($this->slider_programs);
         //break;
         //print_r($pages);
       }
-      //echo '-->';
+       //echo '-->';
       return $pages;
     }
     protected function getHorizontalSliderPosition($combinaison) {
@@ -287,16 +250,16 @@ class toolsExtension extends \Twig_Extension
             (isset($program->maxsize) && $program->maxsize->width > $program->maxsize->height && $program->maxsize->width > 250)) {
           //unset($programs[$key]);
           $programs = array_values($programs);
-          //echo "\n".'getHorizontalSlider:'.$program->id.' $key:'.$key;
+           //echo "\n".'getHorizontalSlider:'.$program->id.' $key:'.$key;
           if (!isset($program->sliderPicture)) $program->sliderPicture = $program->picture;
           return $program;
         }
       }
     }
     protected function getProgramsForPage($nb_programs_page) {
-      //echo '<br>getProgramsForPage:'.count($this->slider_programs);
+       //echo '<br>getProgramsForPage:'.count($this->slider_programs);
       $programs = count($this->slider_programs) >= $nb_programs_page ? array_slice($this->slider_programs, 0, $nb_programs_page) : $this->slider_programs;
-     //echo "\n".'<br/>getProgramsForPage '.implode('-', array_keys($this->to_array($programs, true)));
+      //echo "\n".'<br/>getProgramsForPage '.implode('-', array_keys($this->to_array($programs, true)));
       return count($programs) > 0 ? $programs : null;
     }
 
@@ -308,18 +271,29 @@ class toolsExtension extends \Twig_Extension
       $page_programs = array_values($page_programs);
       $combinaisons = $this->slider_combinaisons[$nb_programs_page][$type];
       //shuffle($combinaisons);
-      $combinaison = (self::$slider_count+$this->slider_page)%2 == 0 && isset($combinaisons[1]) ? $combinaisons[1] : $combinaisons[0];
-     //echo "\n".'<br/>NEWPAGE '.implode('-', $combinaison);
-      //echo '$page_programs_keys '.implode('-', array_keys($page_programs));
+
+      if (isset($this->slider_combinaisons[$nb_programs_page]['vertical'][1]) && count($page_programs) < 4) {
+        $combinaison = $this->slider_combinaisons[$nb_programs_page]['vertical'][1];
+        $type = 'vertical';
+        //echo "\n".'<br/>force combinaison nb_program < 4';
+      } else
+
+      if (isset($combinaisons[1]) && (self::$slider_count+$this->slider_page)%2 == 0) {
+        $combinaison = $combinaisons[1];
+      } else {
+        $combinaison = $combinaisons[0];
+      }
+      //echo "\n".'<br/>NEWPAGE '.implode('-', $combinaison);
+       //echo '$page_programs_keys '.implode('-', array_keys($page_programs));
       foreach ($combinaison as $c => $nb) {
         if (!isset($page_programs[$i])) {
-         //echo "\n".'<br/>stop no more programs:'.$i;
+          //echo "\n".'<br/>stop no more programs:'.$i;
           break;
         }
-       //echo "\n".'<br/>i:'.$i.' c:'.$c.' p:'.$page_programs[$i]->id;
+         //echo "\n".'<br/>i:'.$i.' c:'.$c.' p:'.$page_programs[$i]->id;
   
         if ($n >= $nb_programs_page) {
-          //echo ' nottaken:'.$i;
+           //echo ' nottaken:'.$i;
         } else {
 
           //slider horizontal
@@ -331,7 +305,7 @@ class toolsExtension extends \Twig_Extension
             }
             $picture = $slider_program->sliderPicture;
             $program = $slider_program;
-           //echo ' -- takeslider:'.$slider_program->id;
+            //echo ' -- takeslider:'.$slider_program->id;
             $i++;
 
           //default
@@ -342,16 +316,16 @@ class toolsExtension extends \Twig_Extension
                 $page_programs[$i]->id == $slider_program->id &&
                 isset($page_programs[$this->getHorizontalSliderPosition($combinaison)])) {
               $program = $page_programs[$this->getHorizontalSliderPosition($combinaison)];
-             //echo ' -- replaceslider:'.$program->id;
+              //echo ' -- replaceslider:'.$program->id;
             //take program
             } else {
               $program = $page_programs[$i];
-             //echo ' -- takeprogram:'.$program->id;
+              //echo ' -- takeprogram:'.$program->id;
             }
             $picture = $program->picture;
           }
           $i++;
-          //echo 'picture : $this->slider_size['.$nb_programs_page.']['.$c.']';
+           //echo 'picture : $this->slider_size['.$nb_programs_page.']['.$c.']';
           if (isset($this->slider_size[$nb_programs_page][$c])) {
     $program->picture = str_replace($this->input_slider_size, $this->slider_size[$nb_programs_page][$c].'/c', $picture);
            /* $program->picture = str_replace('/medias', '/c/medias', str_replace(
@@ -364,8 +338,8 @@ class toolsExtension extends \Twig_Extension
           $programs[$i] = $program;
           $n = $n + $nb;
           unset($this->slider_programs[$program->id]);
-          //echo ' -1';
-          //echo ' n:'.$n.'('.$c.', '.count($this->slider_programs).')';
+           //echo ' -1';
+           //echo ' n:'.$n.'('.$c.', '.count($this->slider_programs).')';
         }
       }
       return $programs;
