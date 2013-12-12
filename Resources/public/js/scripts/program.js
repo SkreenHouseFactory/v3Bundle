@@ -362,7 +362,7 @@ $(document).ready(function(){
       $('.text', $(this).parent()).toggleClass('show-more-height');
       if ($('.text', $(this).parent()).hasClass('show-more-height')) {
         $('.show-more-text').html('Voir plus');
-        $('.marge-synopsis').css('padding-bottom','287px');
+        $('.marge-synopsis').css('padding-bottom','290px');
       } else{
         var height = $('.panel-synopsis').css('height');
         height = parseInt($('.panel-synopsis').css('height'))+19;
