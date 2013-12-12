@@ -33,7 +33,7 @@ $(document).ready(function(){
     }
 
   	$(document).on('click', '#theaters-names a', function(){
-      API.trackEvent('Cinémas', 'playlists-filter', Skhf.session.datas.email ? 'connected' : 'notconnected');
+      API.trackEvent('Cinémas', 'playlists-filter', Skhf.session.user ? 'connected' : 'notconnected');
   		var triggers = $('#theaters-names a');	
   		if (triggers.filter(':not(.label-info)').length == 0) {
   			triggers.removeClass('label-info');
@@ -78,7 +78,7 @@ $(document).ready(function(){
 	});
   // trigger search geoloc
 	$(document).on('click', '#trigger-theaters-geoloc', function(){
-    API.trackEvent('Cinémas', 'search-geoloc', Skhf.session.datas.email ? 'connected' : 'notconnected');
+    API.trackEvent('Cinémas', 'search-geoloc', Skhf.session.user ? 'connected' : 'notconnected');
 		var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
 		console.log('script', 'trigger-theaters-geoloc', container);
 		container.empty();
