@@ -217,10 +217,25 @@ class ProgramController extends Controller
         //episodes list
         if (!isset($data->episodeof) && 
             isset($data->datas_offers->episodes) && count((array)$data->datas_offers->episodes) > 1) {
+          $ksort = false;
           foreach ((array)$data->datas_offers->episodes as $e) {
-            $data->episode_list[isset($e->episode_number) && $e->episode_number ? (int)$e->episode_number : $e->title] = $e;
+            $key = null;
+            if (isset($e->season_number) && $e->season_number) {
+              $key .= $e->season_number.',';
+            }
+            if (isset($e->episode_number) && $e->episode_number) {
+              $key .= $e->episode_number;
+            }
+            if (!$key) {
+              $key .= $e->title;
+              $ksort = true;
+            }
+            //echo "\n:".$key;
+            $data->episode_list[$key] = $e;
           }
-          ksort($data->episode_list);
+          if ($ksort) {
+            ksort($data->episode_list);
+          }
         }
 
         //add live

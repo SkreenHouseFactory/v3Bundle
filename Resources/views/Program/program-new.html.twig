@@ -316,7 +316,7 @@ en Streaming
 </div>
 
 {# modal #}
-{% if program.id in ['5088919'] or program.episodeof.id in ['5088919'] %}
+{% if program.id in ['5088919'] or (program.episodeof.id is defined and program.episodeof.id in ['5088919']) %}
     {% include 'SkreenHouseFactoryV3Bundle:Program:_modal.html.twig' with {'program': program} %}
 {% endif %}
 {% endblock %}
