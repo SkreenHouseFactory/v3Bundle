@@ -7,7 +7,7 @@
         <div class="modal-message"></div>
       </div>
       <div class="modal-body">
-        <img id="channel-logo" src="{{ program.picture }}" class="pull-left" />
+        <img id="channel-logo" src="{{ program.episodeof.picture is defined ? program.episodeof.picture : program.picture }}" class="pull-left" />
         {% if program.id == 5088919 or (program.episodeof is defined and program.episodeof.id == 5088919) %}<p>Pour voir cette vidéo inédite et recevoir les prochaines en<br>avant-première, connectez-vous !</p>
          {% else %}<p>Abonnez-vous gratuitement au programme <br/>&laquo; {{program.title}} &raquo; <br/>pour recevoir les prochaines vidéos en avant-première !</p>
         {% endif %}
