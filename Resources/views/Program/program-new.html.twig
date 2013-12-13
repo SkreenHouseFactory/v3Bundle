@@ -272,11 +272,9 @@ en Streaming
               {% endif %}
             </div>
             <div class="col-xs-4 suivre"  style="padding:0;">
-
               {% if program.popular_channel is not defined or program.popular_channel.id not in [5573] %}
               {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.id, class: 'fav-like btn-big'} %}
               {% endif %}
-              
             </div>
           </div>
           {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
@@ -290,7 +288,6 @@ en Streaming
              </div>
           </div>
           {% endif %}
-          
           {% include 'SkreenHouseFactoryV3Bundle:Program:_program-offers.html.twig' %}
         </div>
       </div>
@@ -301,9 +298,9 @@ en Streaming
     </div>
     <div id="program-related" class="row">
       {% for r in program.related if r.programs is defined and r.programs|to_array|length %}
-      {% if r.name == 'same_actors' and program.casting %}
+      {% if r.name == 'same_actors' %}
       {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true, loop_index: loop.index, h_title: "p"} %}
-      {% elseif r.name == 'same_director' and program.director %}
+      {% elseif r.name == 'same_director' %}
       {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true,loop_index: loop.index, h_title: "p"} %}
       {% elseif r.name == 'chaines' %}
         {% if (program.related.channels is defined and program.related.channels.programs is defined and program.related.channels.programs|length > 1) %}
@@ -315,7 +312,6 @@ en Streaming
       {% endif %}
       {% endfor %}
     </div>
-
   </div>
 </div>
 </div>
