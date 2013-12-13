@@ -275,6 +275,11 @@ UiView = {
       $(this).html($(this).data('toggle-text'));
       $(this).data('toggle-text', html);
     });
+    // toggle display
+    $(document).on('click', '[data-toggle-display]', function () {
+      console.log('script', '[data-toggle-display]', $(this).data('toggle-display'));
+      $($(this).data('toggle-display')).toggle();
+    });
 
     // -- remote data in html elmt
     $(elmt).on('click', '[data-trigger-click]', function(){

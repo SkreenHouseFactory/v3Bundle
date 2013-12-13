@@ -128,7 +128,7 @@ API = {
   },
   launchModal: function(url, callbackOnLoad, args) {
     trackurl = url.replace(this.config.popin, '').split('?');
-    API.trackEvent('Modal', trackurl[0], Skhf.session.datas.email ? 'connected' : 'notconnected');
+    API.trackEvent('Modal', trackurl[0], Skhf.session.user ? 'connected' : 'notconnected');
     console.log('API.launchModal enter', url, typeof callbackOnLoad);
 
     //if (url != this.currentModalUrl) {
