@@ -51,8 +51,8 @@
   margin-left: 15px;
 }
 .img_mobile{
-  background: url(/bundles/skreenhousefactoryv3/images/mobiles_apps.png) no-repeat top left;
-  width: 410px;
+  background: url(/bundles/skreenhousefactoryv3/images/mobiles_apps.jpg) no-repeat top left;
+  width: 100%;
   height: 368px;
   display: block;
 }
@@ -67,29 +67,11 @@
   }
 }
 .myworldisblue{
-  background: #2980b9;
+  height: 373px;
+  background: url(/bundles/skreenhousefactoryv3/images/mobiles_apps.jpg) no-repeat top left;
   overflow: hidden;
   padding-top: 70px;
-
-
-  &:before{
-    content: "";
-    display: block;
-    position: absolute;
-    top: 120px;
-    left: 50%;
-    margin-left: -450px;
-    width: 900px; 
-    height: 500px;
-    background: #45bce1; /* Old browsers */
-    background: -moz-radial-gradient(center, ellipse cover,  #45bce1 0%, #2980b9 72%); /* FF3.6+ */
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#45bce1), color-stop(72%,#2980b9)); /* Chrome,Safari4+ */
-    background: -webkit-radial-gradient(center, ellipse cover,  #45bce1 0%,#2980b9 72%); /* Chrome10+,Safari5.1+ */
-    background: -o-radial-gradient(center, ellipse cover,  #45bce1 0%,#2980b9 72%); /* Opera 12+ */
-    background: -ms-radial-gradient(center, ellipse cover,  #45bce1 0%,#2980b9 72%); /* IE10+ */
-    background: radial-gradient(ellipse at center,  #45bce1 0%,#2980b9 72%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45bce1', endColorstr='#2980b9',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */   
-  }
+  background-position: -150px 0px;
 }
 .textbgcol{
   background: #fff;
@@ -102,11 +84,20 @@
 
 }
 .store{
-  display: inline-block;
-  margin-left: 15px;
-  margin-top: 40px;
+  width: 237px;
+  position: absolute;
+  height: 60px;
+  &.store1{
+    top: 215px;
+    left: 407px;
+  }
+  &.store2{
+    top: 215px;
+    left: 164px;
+  }
   &:hover{
-    opacity: 0.8;
+    background: white;
+    opacity: 0.3;
   }
 
 }
