@@ -13,7 +13,7 @@ Skin_apps = {
       $('#view-home').css('background-color','#4385B9');
       $('.absolute').addClass('hide');
       $('#view-home').prepend('<a class="background-clickable"></a>');
-      $('#view-home .background-clickable').attr("href","http://www.myskreen.com/bfm-tv/");
+      $('#view-home .background-clickable').attr("href","http://www.myskreen.com/apps/");
     }
   }
 }
