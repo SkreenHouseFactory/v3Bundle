@@ -39,7 +39,25 @@
 
   <div id="program-casting" class="scroll">
 
-    {% if program.director|to_array %}
+    {% if program.casting is defined and program.casting|to_array|length %}
+    {% for relation,persons in program.casting|to_array if persons|to_array|length %}
+    <h3 class="ms-surtitre">{{ relation|trans }}</h3>
+    {% for pers in persons|to_array   %}
+    <div class="{% if loop.index >= 5 %}{{ relation|replace({' ': ''})|lower }}_entrop collapse{% else %}in{% endif %}" itemprop="actor" itemscope itemtype="http://schema.org/Person">
+      <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url" class="fav fav-person" data-name="{{ pers.name }}" data-placement="left"><span itemprop="name">{{ pers.name }}</span></a> 
+    </div>
+    {% endfor %}
+    {% if persons|to_array|length > 5 %}
+    <div class="block">
+     <a class="{{ relation|replace({' ': ''})|lower }}_reveal" data-toggle-text="&laquo; retour" data-toggle-display=".{{ relation|replace({' ': ''})|lower }}_entrop">
+       et {{ persons|to_array|length - 5 }} autre{% if persons|to_array|length > 6 %}s{% endif %} {{ relation|lower }}{% if persons|to_array|length > 6 %}s{% endif %}...</a> 
+     </div>
+    {% endif %}
+    {% endfor %}
+    <br/>
+    {% endif %}
+
+    {#% if program.director|to_array %}
     <h3 class="ms-surtitre">{{ 'directed.by'|trans }}</h3>
     {% for pers in program.director|to_array %}
     <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
@@ -50,7 +68,7 @@
 
     {% if program.presenter is defined and program.presenter|to_array|length %}
     <h3 class="ms-surtitre">{{ 'presented.by'|trans }}</h3> 
-    {% for pers in program.presenter | to_array  %}
+    {% for pers in program.presenter|to_array  %}
     <div class="inline" itemprop="director" itemscope itemtype="http://schema.org/Person">
       <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name" class="fav fav-person" data-name="{{ pers.name }}" data-placement="left">{{ pers.name }}</span>{% if loop.index > 0 and loop.index < program.presenter|to_array|length %},&nbsp;{% endif %}</a> 
     </div>
@@ -80,7 +98,7 @@
       {% if loop.first %}{% else %}<br /> {% endif %}<a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url" class="fav fav-person" data-name="{{ pers.name }}" data-placement="left"><span itemprop="name">{{ pers.name }}</span></a> 
       </div>
       {% endfor %}
-    {% endif %}
+    {% endif %#}
     
     <br/>
     <br/>
