@@ -54,10 +54,10 @@ class ChannelController extends Controller
       'channel_img_width' => 60,
       'img_width' => 150,
       'img_height' => 200,
-      'live_img_width' => 150,
-      'live_img_height' => 200,
-      'slider_img_width'  => 900,
-      'slider_img_height' => 300,
+      // 'live_img_width' => 150,
+      // 'live_img_height' => 200,
+      // 'slider_img_width'  => 900,
+      // 'slider_img_height' => 300,
       'live_player_width' => 420,
       'live_player_height' => 270,
       'with_epg' => !$request->get('format') && !$request->get('page') ? true : false,
@@ -71,12 +71,11 @@ class ChannelController extends Controller
       'disable_search_by_format' => true,
       'sorter' => 'year',
       'preview' => $request->get('preview')
-      );
-
-      $data = $api->fetch('channel', $params);
+    );
+    $data = $api->fetch('channel'.($request->get('id')?'/'.$request->get('id'):null), $params);
 
     //print("<pre>");print_r($data);
-    //echo $api->url;exit;
+    //die($api->url);
     //echo "\n".'category_slug:' . $request->get('category_slug');
     //echo "\n".'route:'  .$request->get('_route');
     //exit;
