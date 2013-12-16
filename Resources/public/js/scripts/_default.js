@@ -89,11 +89,11 @@ $(document).ready(function(){
         Player.stop();
       }
     }
-    if($('.notifications-count .badge', $(this)).length) {
+    if($('.user-on .notifications-count .badge').length) {
      Skhf.session.readNotifications();
      var current = $('.navbar .notifications li:not(.divider, .empty)').length;
      $('.navbar .notifications-count span.badge').removeClass('ms-notificon').html(current);
-   }
+    }
   });
   //share
   $('.share .btn').on('click', function(){

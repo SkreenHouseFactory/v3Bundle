@@ -529,11 +529,19 @@ UI = {
         if (current == 0) {
           $('.navbar .notifications li.empty').show();
         }
-
+        
         return false;
-      })
+      });
+      global.notificationBadge();
     }
   },
+   notificationBadge: function() {
+     if($('notifications ul li .badge-important').length ){
+       $('.notifications-count .badge').addClass('badge-important').html($('notifications ul li.tv-component .badge-important').length);
+     } else {
+       $('.notifications-count .badge').removeClass('badge-important').html($('.notifications ul li.tv-component').length);
+     }
+   },
   //update friends
   loadSocialSelector: function() {
     var self = this;
@@ -802,7 +810,7 @@ UI = {
     $('.notifications ul li[data-id="' + id + '"] .badge').remove();
     var remaining = parseInt($('.notifications-count .badge-important').html())-1;
     if (remaining > 0) {
-      $('.notifications-count .badge-important').html(remaining);
+      $('.notifications-count .badge').addClass('badge-important').html(remaining);
     }
   },
   //paywall
@@ -988,7 +996,7 @@ UI = {
       function(data) {
        
         console.log('UI.typeahead', query, data);
-        if (data.channels || data.theaters || data.programs || data.persons || data.queue || data.categories || data.sagas) {
+        if (data.channels || data.theaters || data.programs || data.persons || data.queue || data.categories || data.sagas || data.packs) {
           var lis = new Array;
           var titles = new Array;
           typeahead.query = typeahead.$element.val();
@@ -1011,6 +1019,10 @@ UI = {
               case 'sagas':
                 var items = data[key];
                 titles[key] = 'Sagas';
+                break;
+              case 'packs':
+                var items = data[key];
+                titles[key] = 'Sélections';
                 break;
               case 'theaters':
                 var items = data[key];
@@ -1065,6 +1077,12 @@ UI = {
                      .find('a')
                      .html(typeahead.highlighter(item.name))
                     break;
+                  case 'packs':
+                    i.addClass('pack')
+                     .css('overflow','hidden')
+                     .find('a')
+                     .html(typeahead.highlighter(item.name))
+                    break;
                   case 'programs':
                     i.addClass('program')
                       .css('overflow','hidden')
@@ -1096,7 +1114,7 @@ UI = {
 
           //data.first().addClass('active')
           //var sort = Array('channels','theaters','real-channels','programs','persons','categories','queue');
-          var sort = Array('channels','programs','sagas','persons','theaters','categories','queue');
+          var sort = Array('queue','channels','programs','sagas','persons','theaters','categories','packs');
           for (key in sort) {
             if (lis[sort[key]]) {
               //console.log('UI.typeahead', key, data[key], typeahead.$menu);
