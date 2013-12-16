@@ -529,11 +529,19 @@ UI = {
         if (current == 0) {
           $('.navbar .notifications li.empty').show();
         }
-
+        
         return false;
-      })
+      });
+      global.notificationBadge();
     }
   },
+   notificationBadge: function() {
+     if($('notifications ul li .badge-important').length ){
+       $('.notifications-count .badge').addClass('badge-important').html($('notifications ul li.tv-component .badge-important').length);
+     } else {
+       $('.notifications-count .badge').removeClass('badge-important').html($('.notifications ul li.tv-component').length);
+     }
+   },
   //update friends
   loadSocialSelector: function() {
     var self = this;
@@ -802,7 +810,7 @@ UI = {
     $('.notifications ul li[data-id="' + id + '"] .badge').remove();
     var remaining = parseInt($('.notifications-count .badge-important').html())-1;
     if (remaining > 0) {
-      $('.notifications-count .badge-important').html(remaining);
+      $('.notifications-count .badge').addClass('badge-important').html(remaining);
     }
   },
   //paywall

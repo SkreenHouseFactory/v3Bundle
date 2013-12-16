@@ -178,7 +178,7 @@ class ChannelController extends Controller
       'data' => $data,
       'channel' => $data->channel,
       'custom_header' => $custom_header,
-      'partner' => $partner
+      'partner' => $partner 
       ));
   //      print_r($params['data']);exit();
     if ($data->channel->type == 'ChannelFournisseur' ||
