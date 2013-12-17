@@ -5,14 +5,16 @@ $(document).ready(function(){
 var Skin_apps;
 Skin_apps = {
   initHome: function() {
-    if( $('body').hasClass('home') && $('#item-200000064').length) {
-      $('#view-home').css('background-image','url("http://mskstatic.com/medias/ftp/habillages/apps/habillage-apps.jpg")');
-      $('#view-home').css('background-repeat','no-repeat');         
-      $('#view-home').css('background-position','center top');
-      $('#view-home').css('background-color','#4385B9');
+    if( $('body').hasClass('home-mixte') && 
+        $('#item-200000064').length) {
+      $('body')
+        .css('background-repeat','no-repeat')
+        .css('background-position','center top')
+        .css('background-color','#4385B9')
+        .css('background-image','url("http://mskstatic.com/medias/ftp/habillages/apps/habillage-apps.jpg")');
       $('.absolute').addClass('hide');
-      $('#view-home').prepend('<a class="background-clickable"></a>');
-      $('#view-home .background-clickable').attr("href","http://www.myskreen.com/apps/");
+      $('body.home-mixte').prepend('<a class="background-clickable"></a>');
+      $('body.home-mixte .background-clickable').attr("href","http://www.myskreen.com/apps/");
     }
   }
 }
