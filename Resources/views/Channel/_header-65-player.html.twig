@@ -1,0 +1,85 @@
+<div class="row">
+  <h1 class="lato"> <img src="http://mskstatic.com/medias/ftp/chaines/mediacenter-inconnus/player.png" alt="integrale">L’Intégrale des Inconnus</h1>
+  <h2 class="lato subtitleex">Tous les sketches cultes en streaming gratuit !</h2>
+  {% for slider in selection_sketches | to_array %}
+  {% if loop.first %}
+  {% for program in slider.programs | to_array %}
+  {% if loop.first %}
+  <div class="col-xs-11 player-block">
+    <iframe frameborder="0"  scrolling="no" width="100%" height="370" src="{{program.player.player.url}}"></iframe>
+  </div>
+  <div class="col-xs-5 myskreen-block">
+    <div>
+      <span>
+        <img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-footer.png') }}" alt="myskreen">
+      </span>
+      <img src="http://mskstatic.com/275/160/c/medias/photos/channel/1-les-inconnus-s.jpg?2013112216" alt="">
+      <p>Suivez <strong>les Inconnus</strong> sur myskreen et tenez vous ainsi informé de leurs nouvelles vidéos et de leurs actualités cinéma.</p>
+{#         <button type="button" class="btn btn-default">+ Suivre</button>
+ #}
+   <div class="suivre-media">
+       {#% if partner == true%#}
+         <a href="http://myskreen.com/les-inconnus/?follow" target="_blank" rel="popover" data-channel-name="Les Inconnus" data-placement="left" class="btn btn-suivre fav fav-person btn-suivre-b btn btn-default fav-on btn-success" data-original-title="Les Inconnus">+ Suivre les Inconnus</a>
+       {#% else %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: 1,name:"Les Inconnus", class: 'btn-suivre-b btn btn-default', fav: 'person' } %}
+       {% endif %#}
+      </a>
+    </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-16 ">
+  <h2 class="lato isplaying-title"><strong  class="pull-left">{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</strong>
+      <div class="share-block">
+        {% for slider_share in selection_sketches | to_array %}
+          {% if loop.first %}
+            {% for program_share in slider_share.programs | to_array %}
+              {% if loop.first %}
+                {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ program_share.seo_url, text: program_share.title|replace({ (program.episodeof.title ~ ' - '):''}) ~ ' - L intégrale des sketches des inconnus est sur @mySkreen en streaming gratuit.' } %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %} 
+      </div>
+    </h2>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+<div class="row {% if loop.index != 1 %}hide{% endif %}" data-selection-id="{{slider.id}}">
+ <div class="col-xs-16 ">
+  <div id="carousel-{{slider.id}}" class="vidplaylist carousel slide" data-ride="carousel" data-interval="0"> 
+
+    <div class="btn-wrap">   
+       <a class="left_b" href="#carousel-{{slider.id}}" data-slide="prev">
+        <i class="glyphicon glyphicon-play"></i>
+      </a>
+      <a class="right_b " href="#carousel-{{slider.id}}" data-slide="next">
+        <i class="glyphicon glyphicon-play"></i>
+      </a>
+  </div>
+
+  <div class="carousel-inner">
+    <div class="item active">
+      {% for program in slider.programs | to_array %}
+
+      <div class="vignette"  data-play-url="{{program.player.player.url}}"  data-id="{{program.id}}" data-selection="{{slider.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}"
+      data-share-text="{{ (program.title ~ ' - L intégrale des sketches des inconnus est sur @mySkreen en streaming gratuit.')|replace({ (program.episodeof.title ~ ' - '):''})|url_encode|replace({'+': '%20'})}}" data-play-seo-url="{{('http://www.myskreen.com/' ~ program.seo_url)|url_encode}}">
+        <div class="img-small"  style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat"></div>
+        <span><mark>{{loop.index}}</mark>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</span>
+      </div>
+      {% if loop.index%5 == 0 and loop.index != 1 %}
+    </div>
+    <div class="item">
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+
+</div>
+</div>
+</div>
+{% endfor %}
