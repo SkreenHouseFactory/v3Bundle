@@ -23,7 +23,7 @@
     #}
 
   {% for p in slider.programs|to_array %}
-  <div class="item pointer{% if loop.first %} active{% endif %} ">
+  <div class="item pointer{% if loop.first %} active{% endif %}" id="item-{{ p.id }}">
     <a href="{{ base_url }}{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}" class="mask {{ 'Slider1500' in p.sliderPicture is defined and p.sliderPicture ? 'mask-1500' : 'mask-990' }}" style="background-image: url({% if p.sliderPicture is defined %}{{ force_size is defined ? p.sliderPicture|replace({'/990': force_size }) : p.sliderPicture }}{% else %}{{ p.picture }}{% endif %});"></a>
     <div class="container">
       <div class="row">
