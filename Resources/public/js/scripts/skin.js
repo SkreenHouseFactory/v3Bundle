@@ -13,7 +13,7 @@ Skin_apps = {
         .css('background-color','#4385B9')
         .css('background-image','url("http://mskstatic.com/medias/ftp/habillages/apps/habillage-apps.jpg")');
       $('.absolute').addClass('hide');
-      $('body.home-mixte').prepend('<a class="background-clickable"></a>');
+      $('body.home-mixte #view-home').prepend('<a class="background-clickable"></a>');
       $('body.home-mixte .background-clickable').attr("href","http://www.myskreen.com/apps/");
     }
   }
