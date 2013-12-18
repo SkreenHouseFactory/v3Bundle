@@ -60,7 +60,7 @@ Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la
 
 {% block body_class %}view-channel view-channel-{{ data.channel.id }} cover{% endblock %}
 {% block body_background %}
-{% if channel.cover %}url('{{ channel.fournisseur is defined ? channel.cover|replace({'/1500/450/c': ''}) : channel.cover }}') top center no-repeat{% endif %}
+{% if channel.cover %}url('{{ channel.fournisseur is defined ? channel.cover|replace({'/1500/450/c': ''}) : channel.cover }}') top center no-repeat, url('{{ channel.cover|extract_bgd }}') top left repeat-x{% endif %}
 {% endblock %}
 
 {% block content %}

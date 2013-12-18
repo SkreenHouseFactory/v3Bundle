@@ -50,7 +50,16 @@ class toolsExtension extends \Twig_Extension
         'rot13' => new \Twig_Filter_Method($this, 'rot13'),
         'sold_perc' => new \Twig_Filter_Method($this, 'soldPerc'),
         'count_nb_page'=> new \Twig_Filter_Method($this, 'countNbPage'),
+        'extract_bgd'=> new \Twig_Filter_Method($this, 'extract_bgd'),
       );
+    }
+
+    /*
+    Generate background image for channel-cover
+    */
+    public function extract_bgd($src, $width = 1)
+    {
+      return 'http://mskstatic.com/extract-background.php?src='.$src.'&x=1&y=1&width='.$width.'';
     }
 
     /**

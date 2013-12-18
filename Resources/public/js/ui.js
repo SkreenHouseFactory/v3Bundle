@@ -996,7 +996,7 @@ UI = {
       function(data) {
        
         console.log('UI.typeahead', query, data);
-        if (data.channels || data.theaters || data.programs || data.persons || data.queue || data.categories || data.sagas) {
+        if (data.channels || data.theaters || data.programs || data.persons || data.queue || data.categories || data.sagas || data.packs) {
           var lis = new Array;
           var titles = new Array;
           typeahead.query = typeahead.$element.val();
@@ -1019,6 +1019,10 @@ UI = {
               case 'sagas':
                 var items = data[key];
                 titles[key] = 'Sagas';
+                break;
+              case 'packs':
+                var items = data[key];
+                titles[key] = 'Sélections';
                 break;
               case 'theaters':
                 var items = data[key];
@@ -1073,6 +1077,12 @@ UI = {
                      .find('a')
                      .html(typeahead.highlighter(item.name))
                     break;
+                  case 'packs':
+                    i.addClass('pack')
+                     .css('overflow','hidden')
+                     .find('a')
+                     .html(typeahead.highlighter(item.name))
+                    break;
                   case 'programs':
                     i.addClass('program')
                       .css('overflow','hidden')
@@ -1104,7 +1114,7 @@ UI = {
 
           //data.first().addClass('active')
           //var sort = Array('channels','theaters','real-channels','programs','persons','categories','queue');
-          var sort = Array('channels','programs','sagas','persons','theaters','categories','queue');
+          var sort = Array('queue','channels','programs','sagas','persons','theaters','categories','packs');
           for (key in sort) {
             if (lis[sort[key]]) {
               //console.log('UI.typeahead', key, data[key], typeahead.$menu);

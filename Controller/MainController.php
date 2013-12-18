@@ -137,8 +137,8 @@ class MainController extends Controller
         'img_height' => 200,
         'with_teaser' => true,
         'with_pass' => true,
-        'slider_width' => 1500,
-        'slider_height' => 450,
+        'slider_width' => 'auto',
+        //'slider_height' => 450,
         'with_img_maxsize'=> true,
         'channel_img_width' => 50
       ));
