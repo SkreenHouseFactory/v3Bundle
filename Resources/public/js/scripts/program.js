@@ -292,7 +292,17 @@ $(document).ready(function(){
     }
    
     //////////// SCRIPTS ////////////////
-
+    $('#affiche .btn').on("click", function(){
+      $('#couchmode').empty();
+      $('#couchmode').prepend('<div class="#couchmode-program-img" style="height:100%;top: 90px;margin-left:-225px;left: 50%;position: fixed;"><a class="close-btn" style="color:white;float:right"><i class="glyphicon glyphicon-remove"></i></a>'+$(this).data('big-picture')+'</div>');
+      $('#couchmode-program-img').attr('style','height:75%;');
+      $('#couchmode').show();
+      $('.close-btn').on('click', function(){
+        $('#couchmode-program-img').remove();
+        $('#couchmode').hide();
+      });
+    });
+    
      //modal
     if ($('#program-modal').length){
       $('.modal .trigger-suivre').on('click',function(){
