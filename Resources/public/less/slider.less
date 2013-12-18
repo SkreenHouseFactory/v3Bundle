@@ -359,33 +359,34 @@ Author: Benoît Bergstörm
     font-size: 0.8em;
     color: #CCC;
   }
+  .carousel-indicators {
+    z-index: 10;
+    bottom: 20px;
+    li {
+      border: 1px solid #999;
+      &.active {
+        background-color: #999;
+      }
+    }
+  }
+  .carousel-control {
+    width: 3%;
+    z-index: 100;
+    .left{
+      
+    }
+    .icon-prev,.icon-next{
+      font-size: 5em;
+      color: black;
+      top: 23%;
+      z-index: 30;
+      left: -51px;
+    }
+  }
   .carousel-inner {
     padding-left: 18px;
     width: auto;
     min-height: 160px;
-    .carousel-control {
-      width: 3%;
-      .left{
-        
-      }
-      .icon-prev,.icon-next{
-        font-size: 5em;
-        color: black;
-        top: 23%;
-        z-index: 30;
-        left: -51px;
-      }
-    }
-    .carousel-indicators {
-      z-index: 10;
-      bottom: 5px;
-      li {
-        border: 1px solid #999;
-        &.active {
-          background-color: #999;
-        }
-      }
-    }
   }
   .item {
     a {
