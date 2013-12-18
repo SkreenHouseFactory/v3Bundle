@@ -169,6 +169,9 @@ en Streaming
         {# affiche #}
         <div class="col-xs-5  ms-prog-rightback ">
           <div id="affiche">
+            {% if 'missing' not in program.picture %}
+            <a class="btn" data-big-picture="{{ ('<img src="' ~ (program.picture|replace({'273/368/' : '450/'})) ~ '" alt="' ~ program.title ~ '" />')|escape }}"><i class="glyphicon glyphicon-zoom-in"></i></a>
+            {% endif %}
             <img src="{{ program.picture }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
             {% if program.popular_channel is defined %}
             <a href="{{ program.popular_channel.seo_url }}"><img class="channel" src="{{ program.popular_channel.img }}" alt="{{ program.popular_channel.name }} Replay" /></a>

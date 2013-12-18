@@ -336,7 +336,17 @@ class toolsExtension extends \Twig_Extension
           $i++;
            //echo 'picture : $this->slider_size['.$nb_programs_page.']['.$c.']';
           if (isset($this->slider_size[$nb_programs_page][$c])) {
-    $program->picture = str_replace($this->input_slider_size, $this->slider_size[$nb_programs_page][$c].'/c', $picture);
+            $program->picture = str_replace(
+              $this->input_slider_size, 
+              $this->slider_size[$nb_programs_page][$c].'/c', 
+              $picture
+            );
+            //hack si pas de dimension
+            $program->picture = str_replace(
+              '.com/medias', 
+              '.com/'.$this->slider_size[$nb_programs_page][$c].'/c/medias', 
+              $picture
+            );
            /* $program->picture = str_replace('/medias', '/c/medias', str_replace(
               $this->input_slider_size, 
               $this->slider_size[$nb_programs_page][$c], 
