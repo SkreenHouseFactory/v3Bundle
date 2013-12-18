@@ -102,7 +102,6 @@ class ProgramController extends Controller
           );
       } else {
         //$response->expire();
-
         //echo $request->get('id');echo $request->get('_route');exit();
         $data = $api->fetch('program/'.$request->get('id'), array(
           'img_width' => 273,
@@ -111,6 +110,8 @@ class ProgramController extends Controller
           'episode_img_height' => 90,
           'episode_img_crop' => 50,
           'channel_img_width' => 60,
+          'channel_slider_width' => 300,
+          'channel_slider_height' => 147,
           'with_metadata' => true,
           'with_related' => true,
           'with_related_programs' => true,

@@ -135,6 +135,8 @@ class MainController extends Controller
         'with_programs' => true,
         'img_width' => 150,
         'img_height' => 200,
+        'channel_slider_width' => 225,
+        'channel_slider_height' => 110,
         'with_teaser' => true,
         'with_pass' => true,
         'slider_width' => 'auto',
