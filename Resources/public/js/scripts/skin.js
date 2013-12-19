@@ -14,6 +14,7 @@ Skin = {
        $('body.home-mixte #view-home').prepend('<a class="background-clickable"></a>');
        $('body.home-mixte #view-home').prepend('<a href="https://www.facebook.com/supercondriaque?fref=ts" target="_blank" class="fb-link"></a>');
        $('body.home-mixte #view-home').prepend('<a href="https://twitter.com/Supercondriaque" class="twitter-link" target="_blank" ></a>');
+       $('body.home-mixte #view-home .container').css('z-index','2');
        $('body.home-mixte .background-clickable').attr("href","http://www.myskreen.com//film/comedies/5200318-supercondriaque/");
      }
    }
