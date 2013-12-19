@@ -342,11 +342,13 @@ class toolsExtension extends \Twig_Extension
               $picture
             );
             //hack si pas de dimension
-            $program->picture = str_replace(
-              '.com/medias', 
-              '.com/'.$this->slider_size[$nb_programs_page][$c].'/c/medias', 
-              $picture
-            );
+            if ($type == 'horizontal') {
+              $program->picture = str_replace(
+                '.com/medias', 
+                '.com/'.$this->slider_size[$nb_programs_page][$c].'/c/medias', 
+                $picture
+              );
+            }
            /* $program->picture = str_replace('/medias', '/c/medias', str_replace(
               $this->input_slider_size, 
               $this->slider_size[$nb_programs_page][$c], 
