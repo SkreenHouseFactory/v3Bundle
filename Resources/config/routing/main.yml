@@ -170,6 +170,9 @@ playlist_load:
         type: "[^/]+"
 
 #persons
+person_invalid_page:
+    pattern:  /corbeille/{id}-{slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:notfound }
 person_page:
     pattern:  /{type}/{id}-{slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:person }
