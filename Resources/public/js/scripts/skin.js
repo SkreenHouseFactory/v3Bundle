@@ -6,7 +6,7 @@ Skin = {
    initHomeSuper: function(){
      var item_id = 'item-5200318';
      if( $('#' + item_id).length && 
-         $('#carousel-a-la-une .item:first').attr('id') == item_id) {
+         $('.carousel-a-la-une .item:first').attr('id') == item_id) {
        $('#'+item_id+' .carousel-caption').hide();
        $('body')
          .css('background-repeat','no-repeat')
