@@ -29,6 +29,7 @@ class ChannelController extends Controller
       !strstr($request->getHost(), 'replay.') && 
       !strstr($request->getHost(), 'preprod.') && 
       !strstr($request->getHost(), 'myskreen.com') && 
+      !strstr($request->getHost(), 'inconnus') && 
       !strstr($request->getHost(), '.typhon.net')) {
       throw $this->createNotFoundException('Page does not exist');
   }
