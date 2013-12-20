@@ -5,18 +5,17 @@ var Skin;
 Skin = {
    initHomeSuper: function(){
      var item_id = 'item-5200318';
-     if( $('body').hasClass('home-mixte') && 
-         $('#' + item_id).length && 
+     if( $('#' + item_id).length && 
          $('#carousel-a-la-une .item:first').attr('id') == item_id) {
-       $('#item-5200318 .carousel-caption').hide();
+       $('#'+item_id+' .carousel-caption').hide();
        $('body')
          .css('background-repeat','no-repeat')
          .css('background-position','center top')
          .css('background-image','url("http://mskstatic.com/medias/ftp/habillages/supercondriaques/super.jpg")');
        $('.absolute').addClass('hide');
        $('#view-home').prepend('<a class="background-clickable"></a>');
-       $('#view-home').prepend('<a href="https://www.facebook.com/supercondriaque?fref=ts" target="_blank" class="fb-link"></a>');
-       $('#view-home').prepend('<a href="https://twitter.com/Supercondriaque" class="twitter-link" target="_blank" ></a>');
+       $('#view-home .container .hometop').prepend('<a href="https://www.facebook.com/supercondriaque?fref=ts" target="_blank" class="fb-link"></a>');
+       $('#view-home .container .hometop').prepend('<a href="https://twitter.com/Supercondriaque" class="twitter-link" target="_blank" ></a>');
        $('#view-home .container').css('z-index','2');
        $('.background-clickable').attr("href","http://www.myskreen.com//film/comedies/5200318-supercondriaque/");
      }
