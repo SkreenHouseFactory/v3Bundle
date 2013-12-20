@@ -402,7 +402,7 @@ public function header65Action($data,$from_selection,$channel,$fav,$trigger_fav,
   $api   = $this->get('api');
   $selection_sketches = array();
   $params =  array(
-    'with_description'  => true,
+//    'with_description'  => true,
     'channel_img_width' => 60,
     'img_width' => 150,
     'img_height' => 200,
@@ -415,6 +415,7 @@ public function header65Action($data,$from_selection,$channel,$fav,$trigger_fav,
     'img_height' => 200,
     'allow_with' => true
     );
+    
     /*-------------------------------------------------------------------- Les Sketches*/
     $obj1 = $api->fetch('www/slider/pack/10855312', $params);
     $ajout1 = $api->fetch('www/slider/pack/10855202', $params);
