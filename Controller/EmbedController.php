@@ -58,6 +58,10 @@ class EmbedController extends Controller
       } elseif (in_array($datas->program->id, array(5088919))) {
         $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/LesInconnus/player-splash-3freres-retour.jpg';
 
+      //supercondriaque
+      } elseif (in_array($datas->program->id, array(5200318))) {
+        $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/ftp/embed/supercondriaque.jpg';
+
       //inconnus le retour
       } elseif (in_array($datas->program->id, array(4988489))) {
         $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/LesInconnus/player-splash.jpg';
