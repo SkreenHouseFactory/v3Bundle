@@ -9,11 +9,7 @@
     <div class="container">
       <div class="row" >
         <div class="col-xs-8">     
-          <div id="inconnusvolant">
-            <a href="../les-vrais-inconnus-chaine-parodies-streaming/">
-              <img src="{{ asset('bundles/skreenhousefactoryv3/images/skins/pastille_vraisinconnus.png') }}" alt="">
-            </a>
-          </div>
+          
         </div>
         <div class="col-xs-8">
           <iframe  class="pull-right" frameborder="0" scrolling="no" width="400" height="260" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&amp;play=33200994&amp;fromWebsite=1&amp;default_version=VOST&amp;height=260&amp;width=400"></iframe>
@@ -24,13 +20,20 @@
 
         </div>
       </div>
+      <div id="channel1_sponsors">
+        <a id="fr2" class="liens_sponsors" href="http://www.france2.fr/" target="_blank" title="France 2"></a>
+        <a id="myskreen" class="liens_sponsors" href="http://www.myskreen.com/" target="_blank" title="mySkreen.com"></a>
+        <a id="venteprivee" class="liens_sponsors" href="http://fr.vente-privee.com/‎" target="_blank" title="Vente Privée"></a>
+        <a id="parisien" class="liens_sponsors" href="http://www.leparisien.fr/" target="_blank" title="Le Parisien"></a>
+        <a id="rtl" class="liens_sponsors" href="http://www.rtl.fr/" target="_blank" title="RTL"></a>
+      </div>
       <div class="header-content">
-        <h1>Les Inconnus</h1>
         <div class="share-block">
           {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' est sur @mySkreen   ' } %}
         </div>
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'suivre-btn', fav: 'person' } %}
-        {% if channel.description is defined %}<p class="lead channel-description">{{channel.description}}</p> {% endif %}
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'suivre-btn', fav: 'channel', name: 'Les Inconnus' } %}
+        <a class="btn btn-default">L'Intégrale</a>
+        <a class="btn btn-default">Les Parodies</a>
       </div> 
     </div>
   </div>
