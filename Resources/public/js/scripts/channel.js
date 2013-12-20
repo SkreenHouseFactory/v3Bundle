@@ -77,7 +77,7 @@ $(document).ready(function(){
       console.log('scripts/channels.js', 'visited_channels', channel_id, cookie)
       if (!cookie || $.inArray('' + channel_id, cookie) == -1) {
 
-        if ($('#channel-modal').length){
+        if ($('#channel-modal').length && !document.location.href.match(/\?follow/gi)){
           //si modal
           if (Skhf.session.datas.email) {
             $('#channel-modal').addClass('connected');
