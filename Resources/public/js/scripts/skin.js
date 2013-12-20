@@ -4,8 +4,10 @@ $(document).ready(function(){
 var Skin;
 Skin = {
    initHomeSuper: function(){
+     var item_id = 'item-5200318';
      if( $('body').hasClass('home-mixte') && 
-         $('#item-5200318').length) {
+         $('#' + item_id).length && 
+         $('#carousel-a-la-une .item:first').attr('id') == item_id) {
        $('#item-5200318 .carousel-caption').hide();
        $('body')
          .css('background-repeat','no-repeat')
