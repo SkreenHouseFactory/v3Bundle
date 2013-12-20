@@ -19,20 +19,15 @@ $(document).ready(function(){
   };
 
    // Load the SDK asynchronously
-   (function(){
-      // If we've already installed the SDK, we're done
-      if (document.getElementById('facebook-jssdk')) {return;}
-      // Get the first script element, which we'll use to find the parent node
-      var firstScriptElement = document.getElementsByTagName('script')[0];
-      // Create a new script element and set its id
-      var facebookJS = document.createElement('script'); 
-      facebookJS.id = 'facebook-jssdk';
-      // Set the new script's source to the source of the Facebook JS SDK
-      facebookJS.src = '//connect.facebook.net/fr_FR/all.js';
-      // Insert the Facebook JS SDK into the DOM
-      firstScriptElement.parentNode.insertBefore(facebookJS, firstScriptElement);
-    }());
-
+   (function(d, s, id) {
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) return;
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+   
+   
   // fb connect
   function fbsync() {
     console.log(['scripts/fb.js', 'fetching information...']);

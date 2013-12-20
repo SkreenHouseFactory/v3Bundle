@@ -28,6 +28,8 @@ class ChannelController extends Controller
       !strstr($request->getHost(), 'www.') && 
       !strstr($request->getHost(), 'replay.') && 
       !strstr($request->getHost(), 'preprod.') && 
+      !strstr($request->getHost(), 'myskreen.com') && 
+      !strstr($request->getHost(), 'inconnus') && 
       !strstr($request->getHost(), '.typhon.net')) {
       throw $this->createNotFoundException('Page does not exist');
   }
@@ -101,7 +103,7 @@ class ChannelController extends Controller
         isset($data->programs) && 
         count((array)$data->programs) == 0) {
       //return $this->redirect(str_replace('/page-'.$request->get('page'), '', $request->getPathInfo()), 301);
-
+      
     //bad url
     } elseif (!strstr($request->getPathInfo(), '/partners/') &&
       ($request->getPathInfo() != $data->seo_url &&
@@ -126,7 +128,7 @@ class ChannelController extends Controller
       }
       return $this->redirect($data->seo_url, 301);
     }
-
+ 
     //Si channel mais facet => view fournisseur
     if (property_exists($data, 'channel') && 
       property_exists($data->channel, 'fournisseur') && 
@@ -155,7 +157,6 @@ class ChannelController extends Controller
       )
     );
   }
-
       // Si on est une une page sk_channel, on redirige vers le twig correct
   if (property_exists($data, 'channel')) {
     $custom_header = false;
@@ -179,6 +180,13 @@ class ChannelController extends Controller
       'custom_header' => $custom_header,
       'partner' => $partner 
       ));
+      if($request->get('css') && $request->get('header') && $request->get('footer')){
+        $params = array_merge($params,array(
+          'css' => $request->get('css'),
+          'header' => $request->get('header'),
+          'footer' => $request->get('footer')
+        ));
+      }
   //      print_r($params['data']);exit();
     if ($data->channel->type == 'ChannelFournisseur' ||
       property_exists($data->channel, 'fournisseur')) {
@@ -394,7 +402,7 @@ public function header65Action($data,$from_selection,$channel,$fav,$trigger_fav,
   $api   = $this->get('api');
   $selection_sketches = array();
   $params =  array(
-    'with_description'  => true,
+//    'with_description'  => true,
     'channel_img_width' => 60,
     'img_width' => 150,
     'img_height' => 200,
@@ -407,6 +415,7 @@ public function header65Action($data,$from_selection,$channel,$fav,$trigger_fav,
     'img_height' => 200,
     'allow_with' => true
     );
+    
     /*-------------------------------------------------------------------- Les Sketches*/
     $obj1 = $api->fetch('www/slider/pack/10855312', $params);
     $ajout1 = $api->fetch('www/slider/pack/10855202', $params);

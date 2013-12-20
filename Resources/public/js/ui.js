@@ -57,13 +57,13 @@ UI = {
           callback();
         }
         //message popin default
-        if (!$('#skModal .modal .modal-message').html()) {
-          $('#skModal .modal .modal-message').html(
+        if (!$('#skModal.modal .modal-message').html()) {
+          $('#skModal.modal .modal-message').html(
             '<p><b>Votre compte GRATUIT en 1 clic :</b> ' +
             'Créez vos playlists et ne ratez plus vos programmes préférés : Cinéma, TV, Replay et VOD !</p>'
           );
         }
-        $('#skModal .modal .modal-message [data-content]').popover();
+        $('#skModal.modal .modal-message [data-content]').popover();
       });
     },{parcours: parcours});
   },
@@ -349,7 +349,7 @@ UI = {
       API.trackEvent('Playlist', 'notconnected-add-' + parameter, value);
       this.auth(function(){
         console.log('UI.togglePlaylist', 'UI.auth callback', Skhf.session.datas.email);
-        $('#skModal .modal .modal-message').html('<p><b>Vos playlists <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b> : ' + self.getPlaylistMessage(trigger) + '</p>');
+        $('#skModal.modal .modal-message').html('<p><b>Vos playlists <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b> : ' + self.getPlaylistMessage(trigger) + '</p>');
         if (Skhf.session.datas.email) {
           self.togglePlaylist(trigger);
         }
@@ -820,7 +820,7 @@ UI = {
 
     API.quickLaunchModal('signin', function() {
       console.log('UI.paywall', 'callback', Skhf.session.datas);
-      $('#skModal .modal .modal-message').html(
+      $('#skModal.modal .modal-message').html(
         '<p><b>Votre vidéo en 1 clic et en Haute Qualité.</b><br/>' +
         'Regardez vos vidéos sur tous vos écrans : PC, Mac, iOs et Android</p>'
       );

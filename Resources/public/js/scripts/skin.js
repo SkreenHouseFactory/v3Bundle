@@ -1,23 +1,42 @@
 $(document).ready(function(){
-  Skin_apps.initHome();
+  Skin.initHomeSuper();
 });
-
-var Skin_apps;
-Skin_apps = {
-  initHome: function() {
-    if( $('body').hasClass('home-mixte') && 
-        $('#item-200000064').length) {
-      $('body')
-        .css('background-repeat','no-repeat')
-        .css('background-position','center top')
-        .css('background-color','#4385B9')
-        .css('background-image','url("http://mskstatic.com/medias/ftp/habillages/apps/habillage-apps.jpg")');
-      $('.absolute').addClass('hide');
-      $('body.home-mixte #view-home').prepend('<a class="background-clickable"></a>');
-      $('body.home-mixte .background-clickable').attr("href","http://www.myskreen.com/apps/");
-    }
-  }
+var Skin;
+Skin = {
+   initHomeSuper: function(){
+     var item_id = 'item-5200318';
+     if( $('#' + item_id).length && 
+         $('.carousel-a-la-une .item:first').attr('id') == item_id) {
+       $('#'+item_id+' .carousel-caption').hide();
+       $('body')
+         .css('background-repeat','no-repeat')
+         .css('background-position','center top')
+         .css('background-image','url("http://mskstatic.com/medias/ftp/habillages/supercondriaques/super.jpg")');
+       $('.absolute').addClass('hide');
+       $('#view-home').prepend('<a class="background-clickable"></a>');
+       $('#view-home >.container').first().prepend('<a href="https://www.facebook.com/supercondriaque?fref=ts" target="_blank" class="fb-link"></a>');
+       $('#view-home >.container').first().prepend('<a href="https://twitter.com/Supercondriaque" class="twitter-link" target="_blank" ></a>');
+       $('#view-home .container').css('z-index','2');
+       $('.background-clickable').attr("href","http://www.myskreen.com//film/comedies/5200318-supercondriaque/");
+     }
+   }
 }
+// var Skin_apps;
+// Skin_apps = {
+//   initHome: function() {
+//     if( $('body').hasClass('home-mixte') && 
+//         $('#item-200000064').length) {
+//       $('body')
+//         .css('background-repeat','no-repeat')
+//         .css('background-position','center top')
+//         .css('background-color','#4385B9')
+//         .css('background-image','url("http://mskstatic.com/medias/ftp/habillages/apps/habillage-apps.jpg")');
+//       $('.absolute').addClass('hide');
+//       $('body.home-mixte #view-home').prepend('<a class="background-clickable"></a>');
+//       $('body.home-mixte .background-clickable').attr("href","http://www.myskreen.com/apps/");
+//     }
+//   }
+// }
 
 // 
 // var Skin_bfmtv;

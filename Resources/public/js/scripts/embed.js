@@ -24,6 +24,16 @@ window.onload = function(){
     player = new Skhf.BasePlayer('player', params);
   }
 
+
+  //autoplay
+  var d = new Date();
+  //console.log('autolay', window.document.referrer.indexOf('lesinconnus.fr'), d.getTime(), Date.parse('2013-12-20T07:00:00'))
+  if (window.document.referrer.indexOf('lesinconnus.fr') == -1 &&
+      d.getTime() < Date.parse('2013-12-20T07:00:00')) {
+    trigger.click();
+  } else
+
+  //autoclick mobile
   if (navigator.userAgent.match(/iPhone|iPod|iPad|Android/gi)) {
     //console.log(['scripts/embed.js', 'iPhone|iPod|iPad|Android', 'default click']);
     trigger.click();
