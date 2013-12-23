@@ -112,7 +112,7 @@ $(document).ready(function(){
       }
     }
 
-    //////////// SCRIPTS ////////////////
+    //////////// SCRIPTS GENERAUX ////////////////
     //setting
     //Scroll to player 
     if (document.location.href.match(/\?follow/gi) && !$('.btn-suivre[data-id]').hasClass('fav-on')) {
@@ -120,71 +120,96 @@ $(document).ready(function(){
     }
     $('html [data-play-url]').on('click', function () {
       $('html,body').animate({'scrollTop' : 60},1000);
-    });  
-    //----- channel 65 media center les inconnus
-    $('[data-play-url]').on('click',function(){
-       //scroll
-       $('html,body').animate({'scrollTop' : 60},1000);
-       //play
-      $('.row[data-selection-id]').addClass('hide');
-      $('.row[data-selection-id='+$(this).data('selection')+']').removeClass('hide');
-      $('.isplaying-title strong').html($(this).data('play-title'));
-      $('.player-block iframe').attr('src',$(this).data('play-url'));
-      $('.row[data-selection-id='+$(this).data('selection')+'] .item').removeClass('active');
-      $('.vidplaylist .vignette[data-id='+$(this).data('id')+']').parent().addClass('active');
-      $('.vidplaylist .vignette').removeClass('playing');
-      $('.vidplaylist .vignette[data-id='+$(this).data('id')+']').addClass('playing');
-      $('.share-block').html(
-        '<iframe class="pull-left fbshare"  src="http://www.facebook.com/plugins/like.php?locale=fr_FR&amp;app_id=422066694500806&amp;href='+$(this).data('play-seo-url')+'&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35" scrolling="no" frameborder="0" style="border:none; height:21px; margin-left:5px; overflow:hidden; width:93px;" allowTransparency="true"></iframe>'
-      + '<iframe class="pull-left twitter-share" style="height: 20px;width: 94px; margin-right:0px; margin-left:5px;" allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer='+$(this).data('play-seo-url')+'&amp;size=m&amp;text='+$(this).data('share-text')+'&amp;url='+$(this).data('play-seo-url')+'" class="block-twitter" data-twttr-rendered="true"></iframe>'
-      + '<iframe  class="g-plus-share" frameborder="0" scrolling="no" style="border-style:none; height:30px; margin: 0px 3px 0; visibility:visible; width:70px;" id="I0_share" name="I0_share" src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=fr&amp;url='+$(this).data('play-seo-url')+'&amp;id=I0_share" allowtransparency="true" data-gapiattached="true" title="+1"></iframe>'
-    );
-     });
-    $('.modal .trigger-suivre').on('click',function(){
-      $('#channel-modal').modal('hide');
-      $('.btn-suivre').trigger('click');
     });
-    //---------------------------------------------
-    if (channel_id == 28) {
-      var date = new Date();
-      	var note = $('#note');
-      	// Création de l'objet 'date' (année / mois / jour) ici initialisé au : 9 mars 2012
-      	// Attention les mois commencent à 0 !
-        var ts = new Date(date.getFullYear(),date.getMonth(),date.getDate(),10,0,0);
+
+
+    //////////// SCRIPTS SPECIFIQUES ////////////////
+    switch (channel_id) {
+
+      //APPS
+      case 64:
+        if (!API.cookie('redirect_apps')) {
+          API.cookie('redirect_apps', 1, 1);
+          var ua = navigator.userAgent.toLowerCase();
+          // Redirect to Android-site
+          if(ua.indexOf('android') != -1 && ua.indexOf('mobile')) {
+            window.location = 'https://play.google.com/store/apps/details?id=com.myskreen.android&hl=fr';
+          }
+          // Redirect to iTunes-site
+          if(ua.indexOf('ios') != -1  || ua.indexOf('iphone') != -1 ||  ua.indexOf('ipod') != -1) {
+            window.location = 'https://itunes.apple.com/us/app/myskreen/id714308898?l=fr&ls=1&mt=8';
+          }
+        }
+      break;
+
+      //INTEGRALE INCONNUS
+      case 65:
+        $('[data-play-url]').on('click',function(){
+           //scroll
+           $('html,body').animate({'scrollTop' : 60},1000);
+           //play
+          $('.row[data-selection-id]').addClass('hide');
+          $('.row[data-selection-id='+$(this).data('selection')+']').removeClass('hide');
+          $('.isplaying-title strong').html($(this).data('play-title'));
+          $('.player-block iframe').attr('src',$(this).data('play-url'));
+          $('.row[data-selection-id='+$(this).data('selection')+'] .item').removeClass('active');
+          $('.vidplaylist .vignette[data-id='+$(this).data('id')+']').parent().addClass('active');
+          $('.vidplaylist .vignette').removeClass('playing');
+          $('.vidplaylist .vignette[data-id='+$(this).data('id')+']').addClass('playing');
+          $('.share-block').html(
+            '<iframe class="pull-left fbshare"  src="http://www.facebook.com/plugins/like.php?locale=fr_FR&amp;app_id=422066694500806&amp;href='+$(this).data('play-seo-url')+'&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35" scrolling="no" frameborder="0" style="border:none; height:21px; margin-left:5px; overflow:hidden; width:93px;" allowTransparency="true"></iframe>'
+          + '<iframe class="pull-left twitter-share" style="height: 20px;width: 94px; margin-right:0px; margin-left:5px;" allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer='+$(this).data('play-seo-url')+'&amp;size=m&amp;text='+$(this).data('share-text')+'&amp;url='+$(this).data('play-seo-url')+'" class="block-twitter" data-twttr-rendered="true"></iframe>'
+          + '<iframe  class="g-plus-share" frameborder="0" scrolling="no" style="border-style:none; height:30px; margin: 0px 3px 0; visibility:visible; width:70px;" id="I0_share" name="I0_share" src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=fr&amp;url='+$(this).data('play-seo-url')+'&amp;id=I0_share" allowtransparency="true" data-gapiattached="true" title="+1"></iframe>'
+        );
+         });
+        $('.modal .trigger-suivre').on('click',function(){
+          $('#channel-modal').modal('hide');
+          $('.btn-suivre').trigger('click');
+        });
+      break;
+
+      //PBLV
+      case 28:
+        var date = new Date();
+        	var note = $('#note');
+        	// Création de l'objet 'date' (année / mois / jour) ici initialisé au : 9 mars 2012
+        	// Attention les mois commencent à 0 !
+          var ts = new Date(date.getFullYear(),date.getMonth(),date.getDate(),10,0,0);
       
-        switch (date.getDay()) {
-          case 6:
-            ts.setDate(date.getDate() + 2); 
-          break;
-          case 7:
-            ts.setDate(date.getDate() + 1); 
-          break;
-        }
+          switch (date.getDay()) {
+            case 6:
+              ts.setDate(date.getDate() + 2); 
+            break;
+            case 7:
+              ts.setDate(date.getDate() + 1); 
+            break;
+          }
 
-      	var newYear = true;
-      	if((new Date()) > ts){
-      		// The new year is here! Count towards something else.
-      		// Notice the *1000 at the end - time must be in milliseconds
-      		ts = (new Date()).getTime() + 10*24*60*60*1000;
-      		newYear = false;
-      	}
+        	var newYear = true;
+        	if((new Date()) > ts){
+        		// The new year is here! Count towards something else.
+        		// Notice the *1000 at the end - time must be in milliseconds
+        		ts = (new Date()).getTime() + 10*24*60*60*1000;
+        		newYear = false;
+        	}
 
-        if ((date.getHours() < 10 && date.getDay() != 6 && date.getDay() != 7) || 
-            date.getDay() == 6 || 
-            date.getDay() == 7){
-          $('.well .fav div').remove();
-        	$('#countdown').countdown({
-        		timestamp	: ts,
-        		callback	: function(days, hours, minutes, seconds){
-        			var message = " Avant le prochain épisode en avant-première !";
-        			note.html(message);
-              if (hours == 0 && minutes == 0 &&  seconds == 0 ){
-                document.location.reload();
-              }
-        		}
+          if ((date.getHours() < 10 && date.getDay() != 6 && date.getDay() != 7) || 
+              date.getDay() == 6 || 
+              date.getDay() == 7){
+            $('.well .fav div').remove();
+          	$('#countdown').countdown({
+          		timestamp	: ts,
+          		callback	: function(days, hours, minutes, seconds){
+          			var message = " Avant le prochain épisode en avant-première !";
+          			note.html(message);
+                if (hours == 0 && minutes == 0 &&  seconds == 0 ){
+                  document.location.reload();
+                }
+          		}
 
-        	});
-        }
+          	});
+          }
+      break;
     }
   }
 });

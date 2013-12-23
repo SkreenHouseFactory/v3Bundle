@@ -33,7 +33,7 @@
   <div class="row">
 
    <div class="col-xs-8">
-     <h2 class="lato title-3">
+     <h2 class="lato title-3 fav" data-id="64">
        Disponible sur iOS et Android
      </h2>
      <p>
@@ -101,18 +101,4 @@
 </div>
 </div>
 
-</div> 
-
-
-<script>
-  var ua = navigator.userAgent.toLowerCase();
-  if(ua.indexOf('android') != -1 && ua.indexOf('mobile')) {
-      // Redirect to Android-site
-      window.location = 'https://play.google.com/store/apps/details?id=com.myskreen.android&hl=fr';
-    }
-    if(ua.indexOf('ios') != -1  || ua.indexOf('iphone') != -1 ||  ua.indexOf('ipod') != -1) {
-      // Redirect to iTunes-site
-      window.location = 'https://itunes.apple.com/us/app/myskreen/id714308898?l=fr&ls=1&mt=8';
-    }
-
-  </script>
+</div>
