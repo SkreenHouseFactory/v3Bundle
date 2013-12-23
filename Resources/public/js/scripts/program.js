@@ -303,7 +303,7 @@ $(document).ready(function(){
       });
     });
     
-     //modal
+    //modal
     if ($('#program-modal').length){
       $('.modal .trigger-suivre').on('click',function(){
         $('#program-modal').modal('hide');
@@ -324,9 +324,6 @@ $(document).ready(function(){
       } else if (!$('.btn-suivre[data-id]').hasClass('fav-on')) {
         $('.btn-suivre[data-id]').trigger('click');
       }
-    } else if (document.location.href.match(/\?play/gi)) {
-      console.log('?play', getUrlParameter('play'));
-      $('[data-play="'+getUrlParameter('play')+'"]').trigger('click');
     }
 
     //handle video mention

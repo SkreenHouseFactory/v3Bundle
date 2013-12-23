@@ -35,6 +35,16 @@ UiView = {
     if (urlPopin) {
       API.launchModal((API.config.popin + urlPopin + '&proxy=v3').replace('createIframe', ','));
     }
+    if (document.location.href.match(/\?play/gi)) {
+      console.log('?play', getUrlParameter('play'));
+      $('[data-play="'+getUrlParameter('play')+'"]').trigger('click');
+    }
+    if (document.location.href.match(/\?click=/gi)) {
+      setTimeout(function(){
+        console.log('?click', getUrlParameter('click'), $(getUrlParameter('click')));
+        $(getUrlParameter('click')).trigger('click');
+      }, 500);
+    }
 
     // trigger onload
     if ($('.trigger-onload').length > 0) {
