@@ -39,6 +39,12 @@ UiView = {
       console.log('?play', getUrlParameter('play'));
       $('[data-play="'+getUrlParameter('play')+'"]').trigger('click');
     }
+    if (document.location.href.match(/\?click=/gi)) {
+      setTimeout(function(){
+        console.log('?click', getUrlParameter('click'), $(getUrlParameter('click')));
+        $(getUrlParameter('click')).trigger('click');
+      }, 500);
+    }
 
     // trigger onload
     if ($('.trigger-onload').length > 0) {

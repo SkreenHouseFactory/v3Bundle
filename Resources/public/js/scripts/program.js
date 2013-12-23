@@ -303,7 +303,7 @@ $(document).ready(function(){
       });
     });
     
-     //modal
+    //modal
     if ($('#program-modal').length){
       $('.modal .trigger-suivre').on('click',function(){
         $('#program-modal').modal('hide');
@@ -315,7 +315,7 @@ $(document).ready(function(){
           $('#program-teaser-header').html($(this).data('play-text'));
         }
     });
-    //autoload from url (data-play handled in scripts/core/_ui.js)
+    //autoload from url
     if (document.location.href.match(/\?rent/gi)) {
       $('#program-offers [data-play]:first').trigger('click');
     } else if (document.location.href.match(/\?follow/gi)) {

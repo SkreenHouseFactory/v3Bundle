@@ -17,14 +17,8 @@
         <img src="http://mskstatic.com/275/160/c/medias/photos/channel/1-les-inconnus-s.jpg?2013112216" alt="">
       </a>
       <p><a href="http://www.myskreen.com/les-inconnus/">Suivez <strong>les Inconnus</strong> sur myskreen et recevez gratuitement les prochaines vidéos en avant-première et les images exclusives du film Les Trois Frères, le retour !</a></p>
-{#         <button type="button" class="btn btn-default">+ Suivre</button>
- #}
    <div class="suivre-media">
-       {#% if partner == true%#}
-         <a href="http://www.myskreen.com/les-inconnus/?follow" target="_blank" rel="popover" data-channel-name="Les Inconnus" data-placement="left" class="btn btn-suivre btn-suivre-b" data-original-title="Les Inconnus">+ Suivre les Inconnus</a>
-       {#% else %}
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: 1,name:"Les Inconnus", class: 'btn-suivre-b btn btn-default', fav: 'person' } %}
-       {% endif %#}
+    <a href="http://www.myskreen.com/les-inconnus/?follow" target="_blank" data-id="65" class="fav btn btn-suivre btn-suivre-b" data-original-title="Les Inconnus">+ Suivre les Inconnus</a>
       </a>
     </div>
     </div>
