@@ -315,7 +315,7 @@ $(document).ready(function(){
           $('#program-teaser-header').html($(this).data('play-text'));
         }
     });
-    //autoload from url
+    //autoload from url (data-play handled in scripts/core/_ui.js)
     if (document.location.href.match(/\?rent/gi)) {
       $('#program-offers [data-play]:first').trigger('click');
     } else if (document.location.href.match(/\?follow/gi)) {
@@ -324,9 +324,6 @@ $(document).ready(function(){
       } else if (!$('.btn-suivre[data-id]').hasClass('fav-on')) {
         $('.btn-suivre[data-id]').trigger('click');
       }
-    } else if (document.location.href.match(/\?play/gi)) {
-      console.log('?play', getUrlParameter('play'));
-      $('[data-play="'+getUrlParameter('play')+'"]').trigger('click');
     }
 
     //handle video mention
