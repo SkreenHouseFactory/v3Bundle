@@ -16,6 +16,18 @@ $(document).ready(function(){
   // -- API init
   API.init(function(){
 
+    //mobile alerte app
+    var ua = navigator.userAgent.toLowerCase();
+    // Redirect to Android-site
+    if((ua.indexOf('android') != -1 && ua.indexOf('mobile')) ||
+       (ua.indexOf('ios') != -1  || ua.indexOf('iphone') != -1 ||  ua.indexOf('ipod') != -1)) {
+      if (!API.cookie('alert_apps') && 
+          confirm("Voulez-vous installer l'application myskreen ?")) { 
+        window.location = 'https://www.myskreen.com/apps';
+      }
+      API.cookie('alert_apps', 1);
+    }
+
     //tjs après ci-dessus : pas de console sur ie
     console.log('script', 'API.init callback');
 
