@@ -73,9 +73,9 @@ $(document).ready(function(){
     Skhf.session.callbackSignin = function() {
 
       //modal
-      var cookie = API.cookie('visited_channels') ? API.cookie('visited_channels').split(',') : [];
-      console.log('scripts/channels.js', 'visited_channels', channel_id, cookie)
-      if (!cookie || $.inArray('' + channel_id, cookie) == -1) {
+      var cookie_visited_channels = API.cookie('visited_channels') ? API.cookie('visited_channels').split(',') : [];
+      console.log('scripts/channels.js', 'visited_channels', channel_id, cookie_visited_channels)
+      if (!cookie_visited_channels || $.inArray('' + channel_id, cookie_visited_channels) == -1) {
 
         if ($('#channel-modal').length && !document.location.href.match(/\?follow/gi)){
           //si modal
@@ -86,7 +86,10 @@ $(document).ready(function(){
               !Skhf.session.isInPlaylist($('.fav').data('playlist'), $('.fav').data('id'))) {
             $('#channel-modal').modal('show');
           }
-          API.cookie('visited_channels', (cookie.length ? cookie.join(',') + ',' : null) + channel_id);
+          API.cookie(
+            'visited_channels', 
+            (cookie_visited_channels.length ? cookie_visited_channels.join(',') + ',' : null) + channel_id
+          );
 
           $('#triggerfav').on('click', function() {
             $('.fav[data-id]').trigger('click');
@@ -166,6 +169,7 @@ $(document).ready(function(){
           $('#channel-modal').modal('hide');
           $('.btn-suivre').trigger('click');
         });
+        channel_id = 1; //hack modal
       break;
 
       //PBLV
