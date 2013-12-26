@@ -20,6 +20,23 @@
 </div>
 </div>
 <style type="text/css">
+<<<<<<< HEAD
+.countdown-info {
+  position: absolute;
+  width: 100%;
+  bottom: 2%;
+  text-align: center;
+  z-index: 10;
+  font-size: 1.1em;
+}
+.countdown-info a {
+  color: white;
+  display: inline-block;
+  background-color: rgba(0,0,0,0.7);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+=======
   .countdown-info {
     position: absolute;
     width: 100%;
@@ -35,6 +52,7 @@
     padding: 5px 10px;
     border-radius: 5px;
   }
+>>>>>>> 322eda8618db8389f4fbd0a51eaca709cb4f08f3
   #logo {
     position: absolute;
     bottom: 2%;
