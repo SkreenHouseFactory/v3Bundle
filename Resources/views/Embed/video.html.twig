@@ -29,8 +29,8 @@ body {
 {% block content %}
 <div style="display:block">
 <a class="player-cover" target="_blank" style="position:absolute;top:3%;right: 20px;z-index:3;" href="http://www.myskreen.com"><img src="http://mskstatic.com/{{ app.request.get('width') and app.request.get('width') < 300 ? '100/' : '' }}medias/logo_player.png" alt="mySkreen : Guide Replay, Vod, Ciné" style="border:none"></a>
-{% if offer.countdown is defined and offer.countdown %}
-{% include 'SkreenHouseFactoryV3Bundle:Embed:_countdown.html.twig' with {player: offer} %}
+{% if countdown %}
+{% include 'SkreenHouseFactoryV3Bundle:Embed:_countdown.html.twig' with {player: offer, countdown: countdown} %}
 {% if offer.id == 33505825 %}
 <p class="countdown-info"><a target="_blank" href="http://www.myskreen.com/emission/humour/5421499-les-inconnus-c-est-leur-destin/?fromPackshotWithCountdown">&raquo; et en direct sur France 2 samedi 28/12 à 20h45</a></p>
 {% endif %}

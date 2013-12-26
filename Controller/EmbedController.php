@@ -77,9 +77,25 @@ class EmbedController extends Controller
       } elseif (isset($datas->program->sliderPicture)) {
         $datas->program->picture = $datas->program->sliderPicture;
       }
+      
+      //countdown
+      $countdown = null;
+      if (isset($datas->countdown) && $datas->countdown) {
+        $a = new \DateTime($datas->countdown);
+        $b = new \DateTime();
+        $interval = $a->diff($b);
+        $countdown = array(
+          'd' => $interval->d < 10 ? '0'.$interval->d : $interval->d,
+          'h' => $interval->h < 10 ? '0'.$interval->h : $interval->h,
+          'm' => $interval->m < 10 ? '0'.$interval->m : $interval->m,
+          's' => $interval->s < 10 ? '0'.$interval->s : $interval->s
+        );
+      }
+      
       //die($datas->program->picture);
       $response = $this->render('SkreenHouseFactoryV3Bundle:Embed:video.html.twig', array(
         'offer' => $datas,
+        'countdown' => $countdown,
         'width' => $request->get('width', '100%'),
         'height' => $request->get('height', '100%'),
       ));

@@ -100,9 +100,7 @@
 </style>
 <script>
   $('#counter').countdown({
-    stepTime: 60,
-    format: 'hh:mm:ss',
-    startTime: "{{ (player.countdown-24*3600)|date('d') }}:{{ player.countdown|date('H') }}:{{ player.countdown|date('i') }}:{{ player.countdown|date('s') }}",
+    startTime: "{{ countdown['d'] }}:{{ countdown['h'] }}:{{ countdown['m'] }}:{{ countdown['s'] }}",
     digitImages: 6,
     digitWidth: 45,
     digitHeight: 67,
