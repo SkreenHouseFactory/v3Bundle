@@ -33,9 +33,9 @@ jQuery.fn.countdown = function(userOptions)
       if (parseInt(options.startTime[i]) >= 0) 
       {
         elem = $('<div id="cnt_' + i + '" class="cntDigit" />').css({
-          height: options.digitHeight * options.digitImages * 10, 
-          float: 'left', background: 'url(\'' + options.image + '\')',
-          width: options.digitWidth});
+          'height': options.digitHeight * options.digitImages * 10, 
+          'float': 'left', background: 'url(\'' + options.image + '\')',
+          'width': options.digitWidth});
         digits.push(elem);
         margin(c, -((parseInt(options.startTime[i]) * options.digitHeight *
                               options.digitImages)));
@@ -59,7 +59,7 @@ jQuery.fn.countdown = function(userOptions)
         ++c;
       }
       else 
-        elem = $('<div class="cntSeparator"/>').css({float: 'left'})
+        elem = $('<div class="cntSeparator"/>').css({'float': 'left'})
                 .text(options.startTime[i]);
 
       where.append(elem)
