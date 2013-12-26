@@ -131,6 +131,7 @@ class ProgramController extends Controller
           //'player' => 'flash'
         ));
 
+
         //hack bug API renvoie rien
         if (!is_object($data)) {
           if ($this->get('kernel')->getEnvironment() == 'dev') {
@@ -141,6 +142,13 @@ class ProgramController extends Controller
             $request->request->set('is_retry_api', true);
             return $this->programAction($request);
           }
+        }
+
+        //hack 301 sketch inconnus
+        if (isset($data->episodeof) && 
+            isset($data->episodeof->id) && 
+            in_array($data->episodeof->id, array(4941177,4938680,5300091,5300092,5300093,5300095,5300097,4941165,4941207))) {
+          return $this->redirect('/l-integrale-des-inconnus/?click=[data-id=%22'.$data->id.'%22]', 301);
         }
 
         //echo $api->url;exit;
