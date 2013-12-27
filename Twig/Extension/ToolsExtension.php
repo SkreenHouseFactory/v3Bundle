@@ -51,11 +51,46 @@ class toolsExtension extends \Twig_Extension
         'sold_perc' => new \Twig_Filter_Method($this, 'soldPerc'),
         'count_nb_page'=> new \Twig_Filter_Method($this, 'countNbPage'),
         'extract_bgd'=> new \Twig_Filter_Method($this, 'extract_bgd'),
+        'accessFromHasvod'=> new \Twig_Filter_Method($this, 'accessFromHasvod'),
       );
     }
 
-    /*
-    Generate background image for channel-cover
+
+    /**
+    * accessFromHasvod
+    */
+    public function accessFromHasvod($has_vod)
+    {
+      switch ($has_vod) {
+        case 3:
+          return ' en dvd';
+        break;
+        case 4:
+          return 'au cinéma';
+        break;
+        case 5:
+          return 'à la Télé';
+        break;
+        case 6:
+        case 7:
+        case 8:
+          return 'en Replay';
+        break;
+        case 1:
+        case 2:
+        case 9:
+        case 10:
+        case 11:
+        case 12:
+        case 13:
+        default:
+          return 'en streaming';
+        break;
+      }
+    }
+
+    /**
+    * Generate background image for channel-cover
     */
     public function extract_bgd($src, $width = 1)
     {
