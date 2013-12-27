@@ -71,13 +71,13 @@ class EmbedController extends Controller
         $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/LesInconnus/player-splash-video2.png';
       //et moi et moi
       } elseif (in_array($datas->program->id, array(5298568))) {
-          $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/etmoietmoi/splash.jpg';
+        $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/etmoietmoi/splash.jpg';
 
       //default
       } elseif (isset($datas->program->sliderPicture)) {
         $datas->program->picture = $datas->program->sliderPicture;
       }
-      
+
       //countdown
       $countdown = null;
       if (isset($datas->countdown) && $datas->countdown) {
@@ -91,7 +91,7 @@ class EmbedController extends Controller
           's' => $interval->s < 10 ? '0'.$interval->s : $interval->s
         );
       }
-      
+
       //die($datas->program->picture);
       $response = $this->render('SkreenHouseFactoryV3Bundle:Embed:video.html.twig', array(
         'offer' => $datas,
@@ -100,16 +100,13 @@ class EmbedController extends Controller
         'height' => $request->get('height', '100%'),
       ));
 
-      $maxage = 600;
+      $maxage = $countdown ? 60 : 600;
       $response->setCache(array(
-          //'etag'          => $cache_etag,
-          //'last_modified' => $cache_date,
           'max_age'       => $maxage,
           's_maxage'      => $maxage,
           'public'        => true,
-          // 'private'    => true,
       ));
-  
+
       return $response;
     }
 }
