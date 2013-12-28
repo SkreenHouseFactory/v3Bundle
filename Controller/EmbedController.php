@@ -103,7 +103,7 @@ class EmbedController extends Controller
       //die($datas->program->picture);
       $response = $this->render('SkreenHouseFactoryV3Bundle:Embed:video.html.twig', array(
         'offer' => $datas,
-        'countdown' => null,//$countdown,
+        'countdown' => $countdown,
         'width' => $request->get('width', '100%'),
         'height' => $request->get('height', '100%'),
       ));
