@@ -155,7 +155,7 @@ UiView = {
     var self = this;
     $(window).bind('popstate', function(e) {
       console.log('UiView.initHistory', 'popstate', e.originalEvent.state);
-      if (e.originalEvent.state) {
+      if (e.originalEvent.state && typeof e.originalEvent.state.custom != 'undefined') {
         $('#content').load(window.location.pathname + '?xhr=1', function() {
           console.log(e.originalEvent.state );
           if(e.originalEvent.state.document_title){
