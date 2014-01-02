@@ -16,7 +16,7 @@
            {% for program in mediadisplay.programs | to_array %}
            {% if loop.index == 1 %}
                    <div class="block-big" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}"
-                   data-share-text="{{ ('Les Inconnus / ' ~ program.title ~ ' est sur @mySkreen en streaming gratuit.')|replace({ (program.episodeof.title ~ ' - '):''})|url_encode|replace({'+': '%20'})}}" data-play-url="{{program.player.player.url}}"  data-play-seo-url="{{ ('http://www.myskreen.com/' ~ program.seo_url)|url_encode}}">           
+                   data-share-text="{{ ('Les Inconnus / ' ~ program.title ~ ' est sur @mySkreen en streaming gratuit.')|replace({ (program.episodeof.title ~ ' - '):''})|url_encode|replace({'+': '%20'})}}" data-play-url="{{program.player.player.url}}"  data-play-seo-url="{{ ('http://www.myskreen.com' ~ program.seo_url)|url_encode}}">           
                      <div class="img-big" style="background:url('{{ program.picture|replace({'/150/200/':'/368/368/'}) }}') top center no-repeat;">
                          </div>
                          <h3>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}</h3>
@@ -44,7 +44,7 @@
                        <div class="col-xs-16">
                  {% endif %}
                  {% if loop.index != 1%}
-                   <div class="block-small" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}" data-play-seo-url="{{ ('http://www.myskreen.com/' ~ program.seo_url)|url_encode}}" data-share-text="{{ ('Les Inconnus / '~program.title ~ '
+                   <div class="block-small" data-id="{{program.id}}" data-selection="{{mediadisplay.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-play-url="{{program.player.player.url}}" data-play-seo-url="{{ ('http://www.myskreen.com' ~ program.seo_url)|url_encode}}" data-share-text="{{ ('Les Inconnus / '~program.title ~ '
                     est sur @mySkreen en streaming gratuit.')|replace({ (program.episodeof.title ~ ' - '):''})|url_encode|replace({'+': '%20'})}}">
                      <div class="img-small" style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat;">
                      </div>

@@ -32,7 +32,7 @@
           {% if loop.first %}
             {% for program_share in slider_share.programs | to_array %}
               {% if loop.first %}
-                {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ program_share.seo_url, text: program_share.title|replace({ (program.episodeof.title ~ ' - '):''}) ~ ' est sur @mySkreen en streaming gratuit.' } %}
+                {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program_share.seo_url, text: program_share.title|replace({ (program.episodeof.title ~ ' - '):''}) ~ ' est sur @mySkreen en streaming gratuit.' } %}
               {% endif %}
             {% endfor %}
           {% endif %}
@@ -62,7 +62,7 @@
       {% for program in slider.programs | to_array %}
 
       <div class="vignette"  data-play-url="{{program.player.player.url}}"  data-id="{{program.id}}" data-selection="{{slider.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}"
-      data-share-text="{{ ('Les Inconnus / ' ~ program.title ~ ' sur @mySkreen en streaming gratuit.')|replace({ (program.episodeof.title ~ ' - '):''})|url_encode|replace({'+': '%20'})}}" data-play-seo-url="{{('http://www.myskreen.com/' ~ program.seo_url)|url_encode}}">
+      data-share-text="{{ ('Les Inconnus / ' ~ program.title ~ ' sur @mySkreen en streaming gratuit.')|replace({ (program.episodeof.title ~ ' - '):''})|url_encode|replace({'+': '%20'})}}" data-play-seo-url="{{('http://www.myskreen.com' ~ program.seo_url)|url_encode}}">
         <div class="img-small"  style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat"></div>
         <span><mark>{{loop.index}}</mark>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</span>
       </div>
