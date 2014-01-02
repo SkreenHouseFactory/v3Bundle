@@ -175,7 +175,7 @@
                      {# programs #}
                      {% if channel.programs|length %}
                      <div class="row{{ channel.type != 'cinema' ? ' clear' : '' }}">
-                       <div class="col-xs-11">
+                       <div class="col-xs-{{ channel.type != 'cinema' ? '16' : '11' }}">
                         <div id="channel-programs" class="slider slider-list{% if channel.adress is defined %} clear-cancel{% endif %} ms-margin-top-seo">
                           <ul class="items">
                             {% for program in channel.programs %}

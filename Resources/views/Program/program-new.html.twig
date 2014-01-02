@@ -226,7 +226,7 @@ en Streaming
 
           {# description seo texte #}
           <a name="synopsis"></a>
-          <div class="panel panel-default panel-synopsis">
+          <div class="panel panel-default panel-synopsis{{ program.description|striptags|length < 907 ? ' forced-height':'' }}">
             <div class="panel-heading"><h2 class="panel-title">Tout sur {{ program.title }} {{ program.has_vod|accessFromHasvod }}</h2></div>
             <div class="tab-pane text-toggle-extend">
               {% if program.description|striptags|length < 907 %}

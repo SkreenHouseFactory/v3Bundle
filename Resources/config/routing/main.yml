@@ -64,7 +64,7 @@ sitemap_channels:
     pattern:  /channels/{type}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Sitemap:channels }
     requirements:
-        type: broadcast|vod|webcast|cinema|dvd|thematique
+        type: broadcast|vod|webcast|cinema|dvd|thematique|archive
 
 #selections
 selections:
