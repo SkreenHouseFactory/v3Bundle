@@ -148,10 +148,9 @@ en Streaming
   output='js/compiled/pages/program.js'  %}
   <script src="{{ asset_url }}"></script>
   {% endjavascripts %}
-  {% endblock %}
+{% endblock %}
 
-  {% block content %}
-
+{% block content %}
   <div id="view-program" data-id="{{ program.id }}">
     <div class="container scrollplayerzone">
       {#% include 'SkreenHouseFactoryV3Bundle:Main:_bootstrap-grid-test.html.twig' %#}

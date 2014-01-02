@@ -384,9 +384,9 @@ $(document).ready(function(){
       $('.actors_entrop').toggleClass('hide');
     });  
   }
-  //Scroll to player quand on est sur un Touch device
-  $('html tr[data-play]').on('click', function () {
-    $('html,body').animate({'scrollTop' : 0},1000);
+  //Scroll to player
+  $(document).on('click', '[data-play], [data-play-iframe]', function(){
+    $('html,body').animate({'scrollTop' : 0}, 1000);
   });  
 
   $(document).on('click', '.no-cost[data-play]', function(){
