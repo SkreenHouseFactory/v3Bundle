@@ -60,7 +60,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
       <a href="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="label label-default {% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</a> 
     {% endfor %}
   {% else %}
-    {% for k,f in data.formats %}
+    {% for k,f in data.formats if k|length %}
       <a href="{{ path('channel_format', {format: k, slug: app.request.get('slug')}) }}" class="label{% if app.request.get('facet') == f %} label-info"{% endif %} label-default">{{ f }}</a> 
     {% endfor %}
   {% endif %}

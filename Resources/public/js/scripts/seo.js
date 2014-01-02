@@ -2,9 +2,10 @@
 
 $(document).ready(function(){
 	$('[data-link-to-replace]').each(function(){
+    console.log('scripts/seo.js', '[data-link-to-replace]', $(this));
     var link = unescape(seo.rot13($(this).data('link-to-replace')));
-		var node = '<a href="'+ link +'" class="'+$(this).attr('class')+'">'+$(this).html()+'</a>';
-		$(this).replaceWith(node);
+		var node = '<a href="'+ link +'" '+(typeof $(this).attr('class') != 'undefined' ? 'class="'+$(this).attr('class')+'"' : '')+'>'+$(this).html()+'</a>';
+    $(this).replaceWith(node);
 	});
   $('.pager').each(function(){
 		var node = $(this).html();
