@@ -155,7 +155,7 @@ UiView = {
     var self = this;
     $(window).bind('popstate', function(e) {
       console.log('UiView.initHistory', 'popstate', e.originalEvent.state);
-      if (e.originalEvent.state) {
+      if (e.originalEvent.state && typeof e.originalEvent.state.custom != 'undefined') {
         $('#content').load(window.location.pathname + '?xhr=1', function() {
           console.log(e.originalEvent.state );
           if(e.originalEvent.state.document_title){
@@ -171,8 +171,8 @@ UiView = {
       }
     });
   },
-  refreshAjax: function(has_playlist,has_dropdown_filter,has_skin){
-    console.log('refreshAjax()')
+  refreshAjax: function(has_playlist, has_dropdown_filter, has_skin){
+    console.log('UIView.refreshAjax', has_playlist, has_dropdown_filter, has_skin, 'body_background:', $('.body_background'))
     $('html, body').animate({scrollTop:0}, 'fast');
     if ($('a.background')) {
        $('a.background').remove();
@@ -184,22 +184,22 @@ UiView = {
       $('body').css('background',body_background);
       $('body').addClass(body_class);
     }
-    if(has_skin){
+    if (has_skin){
       $('body').addClass('skin');
-       $(document).ajaxStop(function(){
+       $(document).ajaxStop(function() {
         Skin.initHome();
       });
     }
-    if($('.navbar').css('display') == "none"){
+    if ($('.navbar').css('display') == "none") {
       $('.navbar').css('display','block');
     }
-     if ( has_playlist == true ){
-         $('body').addClass('playlist-in');
-      }
-       $('body').addClass('view-ajax');
-      if(has_dropdown_filter == true){
-        $('.dropdown-filters2').addClass('hide');
-      }
+   if (has_playlist == true) {
+       $('body').addClass('playlist-in');
+    }
+     $('body').addClass('view-ajax');
+    if(has_dropdown_filter == true) {
+      $('.dropdown-filters2').addClass('hide');
+    }
   },
   initDataLive: function(elmt) {
     var self = this;
@@ -299,89 +299,89 @@ UiView = {
 
     // -- remote data in html elmt
     $(elmt).on('click', '[data-ajax]', function(e){
-      var trigger = $(this); 
-      var has_dropdown_filter = false;
-      if ($('body').hasClass('playlist-in')){
-      var has_playlist = true;
-      }
-      if ($('body').hasClass('skin')){
-        has_skin = true;
-      }
-      if($('.dropdown-filters2').length > 0 && !$('.dropdown-filters2').hasClass('hide') ){
-      var has_dropdown_filter = true;
-      }
       if ( $('html').hasClass('lt-ie9')){
         window.location.href = trigger.data('ajax');
       } else {
+        //
+        var trigger = $(this); 
+        var has_dropdown_filter = false;
+        if ($('body').hasClass('playlist-in')){
+          var has_playlist = true;
+        }
+        if ($('body').hasClass('skin')){
+          has_skin = true;
+        }
+        if($('.dropdown-filters2').length > 0 && !$('.dropdown-filters2').hasClass('hide') ){
+          var has_dropdown_filter = true;
+        }
         //history
         console.log('script', '[data-ajax]', $(this).data('ajax'));
         console.log('History.pushStates');
         if (history.pushState) {
-        if ( history.state == null ) {
-          if( $('body').hasClass('view-tvgrid')) {
-            var gridPath = $('#view-tvgrid time').attr('timestamp') + '/';
-            history.pushState({path: window.location.href, document_title: document.title }, document.title, gridPath);
-          } else{            
-            
-           history.pushState({path: window.location.href, document_title: document.title ,has_filter : has_dropdown_filter, has_skin: typeof has_skin !="undefined"? has_skin : ''}, document.title, window.location.href);  
-          }
+         if ( history.state == null ) {
+           if( $('body').hasClass('view-tvgrid')) {
+             var gridPath = $('#view-tvgrid time').attr('timestamp') + '/';
+             history.pushState({path: window.location.href, document_title: document.title }, document.title, gridPath);
+           } else{            
+     
+            history.pushState({path: window.location.href, document_title: document.title ,has_filter : has_dropdown_filter, has_skin: typeof has_skin !="undefined"? has_skin : ''}, document.title, window.location.href);  
+           }
+         }
+         history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
         }
-        history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
-      }
-      $('.tooltip').remove();
-       console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
-      console.log('bodyRemoveClass');
-      //add body class to overload view-homes
-      $('body').removeClass('view-redirect')
+        $('.tooltip').remove();
+        console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
+        console.log('bodyRemoveClass');
+        //add body class to overload view-homes
+        $('body').removeClass('view-redirect')
                .addClass('view-ajax')
                .css('background','')
                .attr('class','');
-       $('html, body').animate({scrollTop:0}, 'fast');
+        $('html, body').animate({scrollTop:0}, 'fast');
 
-      //load ajax
-      console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
-      $($(this).attr('rel')).empty();
-      UI.appendLoader($($(this).attr('rel')));
-      if ($(this).data('ajax').indexOf('#') != -1) {
-        var url = $(this).data('ajax').replace('#', '?skip_varnish#');
-      } else {
-        var suffix = $(this).data('ajax').indexOf('?') == -1 ? '?skip_varnish' : '&skip_varnish';
-        var url = $(this).data('ajax') + suffix;
-      }
-      console.log('before Load');
-      $($(this).attr('rel')).load(url, function() {
-        console.log('script', '[data-ajax]', 'callback', 'ajax-play', trigger.data('ajax-play'));
-        //update data body
-        UI.unloadRedirect();
-        //trigger playlists
-        UI.loadPlaylistTriggers('like', Skhf.session.datas.queue.split(','), elmt);
-        if (trigger.data('ajax-play')) {
-          if (Player.state == 'playing') {
-            console.log('script', 'data-play', 'Pause current player');
-            Player.pause();
-          }
-          API.play(trigger.data('ajax-play'), trigger.data('play-args'));
+        //load ajax
+        console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
+        $($(this).attr('rel')).empty();
+        UI.appendLoader($($(this).attr('rel')));
+        if ($(this).data('ajax').indexOf('#') != -1) {
+          var url = $(this).data('ajax').replace('#', '?skip_varnish#');
+        } else {
+          var suffix = $(this).data('ajax').indexOf('?') == -1 ? '?skip_varnish' : '&skip_varnish';
+          var url = $(this).data('ajax') + suffix;
         }
-        console.log('callback');
-        ProgramView.loadMoreStreaming();
-        $('#top-playlist').on('hide.bs.collapse', function () {
-          console.log('script', '#top-playlist on hide');
-          $('body').removeClass('playlist-in');
-          if( $('body').hasClass('view-program_pere') || $('body').hasClass('view-ajax') ){
-            $('body').addClass('playlist-w-in');
+        $($(this).attr('rel')).load(url, function() {
+          console.log('script', '[data-ajax]', 'callback', 'ajax-play', trigger.data('ajax-play'));
+          //update data body
+          UI.unloadRedirect();
+          //trigger playlists
+          UI.loadPlaylistTriggers('like', Skhf.session.datas.queue.split(','), elmt);
+          if (trigger.data('ajax-play')) {
+            if (Player.state == 'playing') {
+              console.log('script', 'data-play', 'Pause current player');
+              Player.pause();
+            }
+            API.play(trigger.data('ajax-play'), trigger.data('play-args'));
           }
-        });
-      });
-      //HACK notifications
-      if ($(this).parents('li.open:first').length) {
-        $(this).parents('li.open:first').removeClass('open');
-      }
-      console.log('after load');
-      self.refreshAjax(has_playlist,has_dropdown_filter);
-            console.log('after refresh Ajax');
+          if (typeof ProgramView != 'undefined') {
+            ProgramView.loadMoreStreaming();
+          }
+          $('#top-playlist').on('hide.bs.collapse', function () {
+            console.log('script', '#top-playlist on hide');
+            $('body').removeClass('playlist-in');
+            if( $('body').hasClass('view-program_pere') || $('body').hasClass('view-ajax') ){
+              $('body').addClass('playlist-w-in');
+            }
+          });
 
-      document.title = 'programmes, TV, replay | mySkreen.com';
-      return false;
+          self.refreshAjax(has_playlist, has_dropdown_filter);
+        });
+        //HACK notifications
+        if ($(this).parents('li.open:first').length) {
+          $(this).parents('li.open:first').removeClass('open');
+        }
+
+        document.title = 'programmes, TV, replay | mySkreen.com';
+        return false;
       }
     });
     // -- redirect

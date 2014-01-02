@@ -31,12 +31,11 @@
 {% block content %}
 {% endblock %}
 {% if app.request.isXmlHttpRequest %}
+  {% block pagescripts %}
+  {% endblock %}
   <script>
   UiView.update($('.uiview-update'));
   </script>
-  
-  {% block pagescripts %}
-  {% endblock %}
 {% else %}
   </body>
 </html>

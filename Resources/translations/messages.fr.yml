@@ -251,11 +251,11 @@ nav:
         boxoffice: Tous les films en salle
     playlist: Mes programmes
     replay.channels: Replay par chaîne
-    films: Film
-    emissions: Emission et sport
-    series: Série
-    documentaires: Documentaire
-    spectacles: Spectacle
+    films: Films
+    emissions: Emissions et sports
+    series: Séries
+    documentaires: Documentaires
+    spectacles: Spectacles
     jeunesse: Jeunesse
 date.month:
     jan: Janvier

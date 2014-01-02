@@ -45,7 +45,7 @@
 		{% if app.request.get('format') %}
 		<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('format', {category_slug: app.request.get('format')}) }}"><span itemprop="title">{{ app.request.get('format')|upper }}</span></a></li>
 		{% endif %}
-		<li{% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: app.request.get('format') ~ category.seo_url })|replace({'//':'/'})  }}"><span itemprop="title">{{ category.name }}</span></a></li>
+		<li{% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: app.request.get('format') ~ (category.root is defined ? category.root.seo_url : category.seo_url) })|replace({'//':'/'})  }}"><span itemprop="title">{{ category.root is defined ? category.root.name : category.name }}</span></a></li>
 		{% if app.request.get('facet') and subcategories[app.request.get('facet')] is defined %}
 		<li{% if app.request.get('page') is null and app.request.get('access') is null %} class="active"{% endif%} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})}) }}{{ app.request.get('facet') }}/"><span itemprop="title">{{ subcategories[app.request.get('facet')] }}</span></a></li>
 		{% endif %}

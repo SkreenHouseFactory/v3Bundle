@@ -4,32 +4,32 @@
  {% if app.request.get('page') > 2 %}
  <li class="previous">
    {% if app.request.get('facet') %}
-   <span data-link-to-replace="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
+   <span data-link-to-replace="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) - 1})|rot13 }}">
      {% elseif app.request.get('format') %}
-     <span data-link-to-replace="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) - 1}) }}">
+     <span data-link-to-replace="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) - 1})|rot13 }}">
        {% else %}
-       <span data-link-to-replace="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">
+       <span data-link-to-replace="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1})|rot13 }}">
          {% endif %}&larr; 30 préc.</span>
        </li>
        {% elseif app.request.get('page') == 2 %}
        <li class="previous">
          {% if app.request.get('facet') %}
-         <span data-link-to-replace="{{ path('channel_format_facet', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format')}) }}">
+         <span data-link-to-replace="{{ path('channel_format_facet', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format')})|rot13 }}">
            {% elseif app.request.get('format') %}
-           <span data-link-to-replace="{{ path('channel_format', {slug: app.request.get('slug'), format: app.request.get('format')}) }}">
+           <span data-link-to-replace="{{ path('channel_format', {slug: app.request.get('slug'), format: app.request.get('format')})|rot13 }}">
              {% else %}
-             <span data-link-to-replace="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')}) }}">
+             <span data-link-to-replace="{{ path('channel', {format: app.request.get('format'), slug: app.request.get('slug')})|rot13 }}">
                {% endif %}&larr; 30 préc.</span>
              </li>
              {% endif %}
              {% if channel.programs|length == 30 %}
              <li class="next">
                {% if app.request.get('facet') %}
-               <span data-link-to-replace="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
+               <span data-link-to-replace="{{ path('channel_format_facet_page', {slug: app.request.get('slug'), facet: app.request.get('facet'), format: app.request.get('format'), page: app.request.get('page', 1) + 1})|rot13 }}">
                  {% elseif app.request.get('format') %}
-                 <span data-link-to-replace="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) + 1}) }}">
+                 <span data-link-to-replace="{{ path('channel_format_page', {slug: app.request.get('slug'), format: app.request.get('format'), page: app.request.get('page', 1) + 1})|rot13 }}">
                    {% else %}
-                   <span data-link-to-replace="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}">
+                   <span data-link-to-replace="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1})|rot13 }}">
                      {% endif %}30 suiv. &rarr;</span>
                    </li>
                    {% endif %}

@@ -39,7 +39,8 @@ class EmbedController extends Controller
       $datas = $api->fetch('player/' . $request->get('id'), array(
         'img_width' => $request->get('width') ? (int)$request->get('width'): 'x',
         'img_height' => $request->get('height') ? (int)$request->get('height'): '500',
-        'slider_width' => 1500,
+        'slider_width' => 1200,
+        'slider_height' => 450,
         'with_program' => true
       ));
       //echo $api->url;
@@ -70,29 +71,50 @@ class EmbedController extends Controller
         $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/LesInconnus/player-splash-video2.png';
       //et moi et moi
       } elseif (in_array($datas->program->id, array(5298568))) {
-          $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/etmoietmoi/splash.jpg';
+        $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/etmoietmoi/splash.jpg';
 
       //default
       } elseif (isset($datas->program->sliderPicture)) {
         $datas->program->picture = $datas->program->sliderPicture;
       }
+
+      //countdown
+      $countdown = null;
+      if (isset($datas->countdown) && $datas->countdown) {
+        $start = strtotime($datas->countdown);
+        $diff = $start-time();
+        $d = round($diff/(24*3600));
+        $diff = $diff - $d*24*3600;
+        $h = round($diff/(3600));
+        $diff = $diff - $h*3600;
+        $i = round($diff/(60));
+        $diff = $diff - $h*60;
+        $s = round($diff);
+
+        $countdown = array(
+          'd' => $d < 10 ? '0'.$d : $d,
+          'h' => $h < 10 ? '0'.$h : $h,
+          'm' => $i < 10 ? '0'.$i : $i,
+          's' => '00'
+        );
+      }
+
+      //print_r($countdown);
       //die($datas->program->picture);
       $response = $this->render('SkreenHouseFactoryV3Bundle:Embed:video.html.twig', array(
         'offer' => $datas,
+        'countdown' => $countdown,
         'width' => $request->get('width', '100%'),
         'height' => $request->get('height', '100%'),
       ));
 
-      $maxage = 600;
+      $maxage = $countdown ? 60 : 600;
       $response->setCache(array(
-          //'etag'          => $cache_etag,
-          //'last_modified' => $cache_date,
           'max_age'       => $maxage,
           's_maxage'      => $maxage,
           'public'        => true,
-          // 'private'    => true,
       ));
-  
+
       return $response;
     }
 }

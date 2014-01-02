@@ -51,11 +51,46 @@ class toolsExtension extends \Twig_Extension
         'sold_perc' => new \Twig_Filter_Method($this, 'soldPerc'),
         'count_nb_page'=> new \Twig_Filter_Method($this, 'countNbPage'),
         'extract_bgd'=> new \Twig_Filter_Method($this, 'extract_bgd'),
+        'accessFromHasvod'=> new \Twig_Filter_Method($this, 'accessFromHasvod'),
       );
     }
 
-    /*
-    Generate background image for channel-cover
+
+    /**
+    * accessFromHasvod
+    */
+    public function accessFromHasvod($has_vod)
+    {
+      switch ($has_vod) {
+        case 3:
+          return ' en dvd';
+        break;
+        case 4:
+          return 'au cinéma';
+        break;
+        case 5:
+          return 'à la Télé';
+        break;
+        case 6:
+        case 7:
+        case 8:
+          return 'en Replay';
+        break;
+        case 1:
+        case 2:
+        case 9:
+        case 10:
+        case 11:
+        case 12:
+        case 13:
+        default:
+          return 'en streaming';
+        break;
+      }
+    }
+
+    /**
+    * Generate background image for channel-cover
     */
     public function extract_bgd($src, $width = 1)
     {
@@ -314,7 +349,7 @@ class toolsExtension extends \Twig_Extension
             }
             $picture = $slider_program->sliderPicture;
             $program = $slider_program;
-            //echo ' -- takeslider:'.$slider_program->id;
+            //echo ' -- takeslider:'.$slider_program->id.'($slider_program:'.$slider_program->sliderPicture.')';
             $i++;
 
           //default
@@ -334,26 +369,29 @@ class toolsExtension extends \Twig_Extension
             $picture = $program->picture;
           }
           $i++;
-           //echo 'picture : $this->slider_size['.$nb_programs_page.']['.$c.']';
+          //echo 'picture : $this->slider_size['.$nb_programs_page.']['.$c.']';
           if (isset($this->slider_size[$nb_programs_page][$c])) {
             $program->picture = str_replace(
               $this->input_slider_size, 
               $this->slider_size[$nb_programs_page][$c].'/c', 
               $picture
             );
-            //hack si pas de dimension
             if ($type == 'horizontal') {
+              //hack si pas de dimension
               $program->picture = str_replace(
                 '.com/medias', 
                 '.com/'.$this->slider_size[$nb_programs_page][$c].'/c/medias', 
                 $picture
               );
+              //si pas de slider resize photo
+              if (!strstr($slider_program->sliderPicture, '/Slider')) {
+                $program->picture = str_replace('/medias', '/c/medias', str_replace(
+                  $this->input_slider_size, 
+                  $this->slider_size[$nb_programs_page][$c], 
+                  $picture
+                ));
+              }
             }
-           /* $program->picture = str_replace('/medias', '/c/medias', str_replace(
-              $this->input_slider_size, 
-              $this->slider_size[$nb_programs_page][$c], 
-              $picture
-            ));*/
           }
           $program->combinaison_type = $c;
           $programs[$i] = $program;

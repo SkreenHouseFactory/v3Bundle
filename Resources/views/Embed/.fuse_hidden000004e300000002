@@ -1,0 +1,133 @@
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.10.2.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.countdown.js'
+    filter='?yui_js' 
+    output='js/compiled/pages/countdown.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<div id="counter-container">
+<h1>{{ player.program.title }}</h1>
+<h2>{{ player.access.name == 'Teaser' ? 'Bande annonce' : 'Vidéo' }} dans</h2>
+<div id="counter-inner">
+<div id="counter"></div>
+<div class="desc">
+  <div>Jours</div>
+  <div>Heures</div>
+  <div>Minutes</div>
+  <div>Secondes</div>
+</div>
+</div>
+</div>
+<style type="text/css">
+<<<<<<< HEAD
+.countdown-info {
+  position: absolute;
+  width: 100%;
+  bottom: 2%;
+  text-align: center;
+  z-index: 10;
+  font-size: 1.1em;
+}
+.countdown-info a {
+  color: white;
+  display: inline-block;
+  background-color: rgba(0,0,0,0.7);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+=======
+  .countdown-info {
+    position: absolute;
+    width: 100%;
+    bottom: 2%;
+    text-align: center;
+    z-index: 10;
+    font-size: 1.1em;
+  }
+  .countdown-info a {
+    color: white;
+    display: inline-block;
+    background-color: rgba(0,0,0,0.7);
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+>>>>>>> 322eda8618db8389f4fbd0a51eaca709cb4f08f3
+  #logo {
+    position: absolute;
+    bottom: 2%;
+    display:block;
+    text-align: center;
+    width: 100%;
+  }
+  #counter-container {
+    position: absolute;
+    z-index: 10;
+    padding: 5% 10%;
+    text-align:center;
+    color: white;
+    width: 100%;
+  }
+  #counter-container h1, #counter-container h2 {
+    text-shadow: 1px 1px 7px black;
+  }
+  #counter-container h1 {
+    font-size: 1.7em;
+  }
+  #counter-container h2 {
+    font-size: 1.3em;
+  }
+  #counter-inner {
+/*    zoom: 0.7;*/
+    display: inline-block;
+    background: white;
+    position: relative;
+    padding: 5px 5px 20px;
+    border: 10px solid white;
+    text-align:center;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px #CCCCCC;
+  }
+  br {
+    clear: both;
+  }
+  #counter .cntDigit {
+    background-size: cover !important;
+    width: 45px;
+  }
+  .cntSeparator {
+    font-size: 44px;
+    margin: 10px 5px;
+    color: black;
+  }
+  .desc {
+    margin: 0;
+    position: absolute;
+    top: 80px;
+    color: black;
+    min-width: 620px;
+  }
+  .desc div {
+    float: left;
+    font-family: Arial;
+    width: 55px;
+    margin-right: 65px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+</style>
+<script>
+  $('#counter').countdown({
+    stepTime: 60,
+    format: 'hh:mm:ss',
+    startTime: "{{ (player.countdown-24*3600)|date('d') }}:{{ player.countdown|date('H') }}:{{ player.countdown|date('i') }}:{{ player.countdown|date('s') }}",
+    digitImages: 6,
+    digitWidth: 45,
+    digitHeight: 67,
+    timerEnd: function() {
+      //reload
+      document.location.reload();
+    },
+    image: "{{ asset('bundles/skreenhousefactoryv3/images/countdown/digits.png') }}"
+  });
+</script>

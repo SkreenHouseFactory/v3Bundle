@@ -996,7 +996,7 @@ UI = {
       function(data) {
        
         console.log('UI.typeahead', query, data);
-        if (data.channels || data.theaters || data.programs || data.persons || data.queue || data.categories || data.sagas || data.packs) {
+        if (data.channels || data.theaters || data.programs || data.episodes || data.persons || data.queue || data.categories || data.sagas || data.packs) {
           var lis = new Array;
           var titles = new Array;
           typeahead.query = typeahead.$element.val();
@@ -1031,6 +1031,10 @@ UI = {
               case 'programs':
                 var items = data[key];
                 titles[key] = 'Programmes';
+                break;
+              case 'episodes':
+                var items = data[key];
+                titles[key] = 'Episodes';
                 break;
               case 'persons':
                 var items = data[key];
@@ -1090,6 +1094,13 @@ UI = {
                      .find('a')
                      .html(typeahead.highlighter(item.name))
                     break;
+                  case 'episodes':
+                    i.addClass('episode')
+                      .css('overflow','hidden')
+                     .prepend(btn.clone())
+                     .find('a')
+                     .html(typeahead.highlighter(item.name))
+                    break;
                   case 'persons':
                     i.addClass('person')
                      .css('overflow','hidden')
@@ -1114,7 +1125,7 @@ UI = {
 
           //data.first().addClass('active')
           //var sort = Array('channels','theaters','real-channels','programs','persons','categories','queue');
-          var sort = Array('queue','channels','programs','sagas','persons','theaters','categories','packs');
+          var sort = Array('queue','channels','sagas','programs','episodes','persons','theaters','categories','packs');
           for (key in sort) {
             if (lis[sort[key]]) {
               //console.log('UI.typeahead', key, data[key], typeahead.$menu);
