@@ -45,7 +45,7 @@
   {% for key in offers|keys if program.offers[key] is defined and program.offers[key]|to_array|length > 0%}
   {% set hasoffers = 1  %}
   {% set variabledeboucle = loop.index  %}
-  <div class="panel{{ program.offers[key]|to_array|length > 3 or (key == 'external' and program.offers['deporte']|to_array|length) ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : ' panel-default' }} count-{{ program.offers[key]|to_array|length }}">
+  <div class="panel{{ program.offers[key]|to_array|length >= 3 or (key == 'external' and program.offers['deporte']|to_array|length) ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : ' panel-default' }} count-{{ program.offers[key]|to_array|length }}">
     <div class="panel-heading dong" >
       <h3 class="panel-title {% if key in ['external','dvd'] and program.offers['deporte']|to_array|length %} external-collapser pointer{% endif %}"{% if key in ['external','dvd'] and program.offers['deporte']|to_array|length %} data-toggle="collapse"{% endif %} href="#{{ key }}">
         {{ offers[key] }}
@@ -282,7 +282,7 @@
       <a class="btn btn-default btn-reveal" data-toggle="collapse" href="#external" >
         <i class="show-more" >...</i>&nbsp;Fermer
       </a>
-        {% elseif btn_deploy_offers is defined and btn_deploy_offers > 3 %}
+        {% elseif btn_deploy_offers is defined and btn_deploy_offers >= 3 %}
           {% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %}
             <button type="button" class="btn btn-default btn-reveal" data-toggle="collapse" data-target=".collapsing-deporte" data-toggle-text="<i class='show-more' >...</i>{% if  attribute(program.offers, key)|to_array|length - 3 > 1 %}
         &nbsp;Voir les {{ attribute(program.offers, key)|to_array|length - 3 }} choix restants
