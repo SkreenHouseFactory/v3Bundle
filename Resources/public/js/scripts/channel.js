@@ -124,6 +124,11 @@ $(document).ready(function(){
     $('html [data-play-url]').on('click', function () {
       $('html,body').animate({'scrollTop' : 60},1000);
     });
+    $('.modal .trigger-suivre').on('click',function(){
+          $('#channel-modal').modal('hide');
+          $('.btn-suivre').trigger('click');
+          console.log('scripts/channel.js', 'trigger-suivre', $('.btn-suivre'));
+        });
 
 
     //////////// SCRIPTS SPECIFIQUES ////////////////
@@ -193,10 +198,6 @@ $(document).ready(function(){
         
         $('[data-play-url]').on('click',function(){
           switchVideo($(this));
-        });
-        $('.modal .trigger-suivre').on('click',function(){
-          $('#channel-modal').modal('hide');
-          $('.btn-suivre').trigger('click');
         });
         channel_id = 1; //hack modal
       break;

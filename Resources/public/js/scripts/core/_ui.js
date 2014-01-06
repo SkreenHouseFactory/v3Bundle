@@ -277,6 +277,7 @@ UiView = {
     //autoplay
     $('[data-autoplay]').each(function(){
       $(this).trigger('click');
+      Player.elmt=$(this);
     })
     // toggle text in element
     $(document).on('click', '[data-toggle-text]', function () {

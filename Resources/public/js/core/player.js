@@ -329,6 +329,7 @@ Player = {
   },
   stop: function() {
       this.state = 'stopped';
+      console.log('Player.stop', this);
       switch(this.type) {
         case 'android':
           if (typeof Webview != 'undefined') {

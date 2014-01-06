@@ -4,12 +4,7 @@ var ProgramView;
 ProgramView = {
   init: function() {
 
-    //hack player pas initialisé
-    //if ($('#program-teaser-player iframe').length && 
-    //    !Player.elmt) {
-      Player.elmt = $('#program-teaser-player');
-    //}
-
+    
     this.loadMoreStreaming();
     $('#view-program').addClass('isInitialized');
       
