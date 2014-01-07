@@ -123,13 +123,13 @@ $(document).ready(function(){
     //Scroll to player 
     
     $('html [data-play-url]').on('click', function () {
-      $('html,body').animate({'scrollTop' : 60},1000);
+      $('html,body').animate({'scrollTop' : 60}, 1000);
     });
     $('.modal .trigger-suivre').on('click',function(){
-          $('#channel-modal').modal('hide');
-          $('.btn-suivre').trigger('click');
-          console.log('scripts/channel.js', 'trigger-suivre', $('.btn-suivre'));
-        });
+      $('#channel-modal').modal('hide');
+      $('.btn-suivre').trigger('click');
+      console.log('scripts/channel.js', 'trigger-suivre', $('.btn-suivre'));
+    });
 
 
     //////////// SCRIPTS SPECIFIQUES ////////////////

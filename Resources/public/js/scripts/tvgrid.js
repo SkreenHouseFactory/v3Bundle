@@ -343,15 +343,17 @@ $(document).ready(function(){
     }
     // -- UI callback : reload grid after adding channel
     UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {
-      if (parameter == 'epg' && !remove) {
-        GridView.loadSchedule();
-      }
-      if (parameter == 'like') {
-        if (remove) {
-          trigger.removeClass('btn-primary');
-        } else {
-          trigger.addClass('btn-primary');
-        }
+      switch (parameter) {
+        case 'epg':
+          GridView.loadSchedule();
+        break;
+        case 'like':
+          if (remove) {
+            trigger.removeClass('btn-primary');
+          } else {
+            trigger.addClass('btn-primary');
+          }
+        break;
       }
     }
     //////////// SCRIPTS ////////////////

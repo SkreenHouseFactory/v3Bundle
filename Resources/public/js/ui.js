@@ -891,7 +891,7 @@ UI = {
   },
   // -- remove loader
   removeLoader: function(elmt) {
-    elmt.find('.progress').remove();
+    elmt.find('.progress, .loader').remove();
   },
   // -- add friends
   addFriends: function(container, friend_uids){
