@@ -322,4 +322,30 @@ class UserController extends Controller
 
       return $response;
     }
+
+    /**
+    *
+    */
+    public function suggestAction(Request $request)
+    {
+      $api = $this->get('api');
+      $pack = $api->fetch('www/slider/pack/12193165', array(
+        'with_programs' => true
+      ));
+
+      foreach ($pack->programs as $key => $p) {
+        $p->seo_url = $p->seo_url . '?follow';
+        $pack->programs->{$key} = $p;
+      }
+
+      //print_r(array($session_uid, $vods));
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:suggest.html.twig', array(
+        'pack'  => $pack
+      ));
+      $response->setPublic();
+      $response->setMaxAge(3600);
+      $response->setSharedMaxAge(3600);
+
+      return $response;
+    }
 }
