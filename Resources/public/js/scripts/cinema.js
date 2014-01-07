@@ -9,14 +9,16 @@ CinemaView = {
 		API.query(
 			'GET',
 			API.config.v3_url + $('#theaters-search').attr('action') + '?playlist=1&theater_ids=' + theaters,
-			{dataType: 'text html'},
+			{
+        dataType: 'text html'
+      },
 			function(datas){
 				console.log('script', '#theaters-playlist', 'callback');
 				UI.removeLoader(container);
 				container.html(datas);
 				UI.loadPlaylistTriggers('cinema', Skhf.session.datas.cinema.split(','), container);
         $('#theaters-list').children().addClass('remove-on-signout');
-      });
+    });
   }
 }
 // -- theaters
@@ -85,7 +87,15 @@ $(document).ready(function(){
 		UI.appendLoader(container, 2000);
 		//geoloc
 		API.geolocation(function(position){
-			container.load($('#theaters-search').attr('action') + '?latlng=' + position);
+			container.load($('#theaters-search').attr('action') + '?latlng=' + position, function(){
+        if (Skhf.session.user) {
+          UI.loadPlaylistTriggers(
+            'cinema', 
+            Skhf.session.datas.cinema.split(','), 
+            $('.modal #theaters-list')
+          );
+        }
+			});
 		}, function(msg, code){
 			container.preprend('<p class="alert alert-error">' + msg + '</p>');
 		});

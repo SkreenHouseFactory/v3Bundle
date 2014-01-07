@@ -423,7 +423,7 @@ UiView = {
         function(html){
           console.log('script', 'callback data-form-ajax', form.data('form-ajax'))
           $(form.data('form-ajax')).html(html);
-          UI.loadPlaylistTriggers(null, null, form.data('form-ajax'), $(form.data('form-ajax')));
+          UI.loadPlaylistTriggers(null, null, $(form.data('form-ajax')));
        });
     });
     // -- btn-radio
@@ -441,10 +441,10 @@ UiView = {
       API.catchForm(form, function(json){
         //callback
         console.log('ui form catched', form);
-        // Modification préférences utilisateur
+        // Modification préférences utilisateur : TODO => place in scripts/settings.js
         if (form.attr('name') == 'user_settings_profile_form') {
           if ((typeof(json) != 'undefined') && (typeof(json.success) != 'undefined')) {
-    //          console.log("la value",$('input[name="update_mail"]').attr('value'));
+            //console.log("la value",$('input[name="update_mail"]').attr('value'));
             $('.username').html($('input[name="update_mail"]',form).attr('value'));
           }
         } else if (form.attr('name') == 'user_settings_password_form') {

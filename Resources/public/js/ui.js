@@ -81,9 +81,7 @@ UI = {
       }
     }
     console.log('UI.loadUser', Skhf.session.datas.email, this.user, 'update:', update);
-
     this.user = Skhf.session.datas.email;
-
 
     if (Skhf.session.datas.email) {
       //on
@@ -359,8 +357,8 @@ UI = {
   //toggle btn
   loadPlaylistTriggers: function(parameter, ids, elmt) {
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
-    console.log('UI.loadPlaylistTriggers', parameter, ids);
-    if (typeof parameter != 'undefined') {
+    console.log('UI.loadPlaylistTriggers', parameter, ids, elmt);
+    if (typeof parameter != 'undefined' && parameter) {
       for (key in ids) {
         //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)');
         var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + ':not(.fav-on)', elmt);
@@ -394,7 +392,7 @@ UI = {
   unloadPlaylistTriggers: function(parameter, ids, elmt) {
     var elmt = typeof elmt != 'undefined' ? elmt : $('body');
     console.log('UI.unloadPlaylistTriggers', parameter, ids, elmt);
-    if (typeof parameter != 'undefined') {
+    if (typeof parameter != 'undefined' && parameter) {
       ids = ids.indexOf(',') == -1 ? ids : ids.split(',');
       for (key in ids) {
         console.log('UI.unloadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + parameter + '.fav-on');
