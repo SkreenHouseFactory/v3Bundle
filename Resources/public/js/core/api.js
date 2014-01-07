@@ -136,7 +136,12 @@ API = {
       var footer = $('#skModal.modal .modal-footer');
       body.empty();
       footer.empty();
-      UI.appendLoader(body, 1000);
+      UI.appendLoader(body, 2000);
+      setTimeout(function(){
+        if ($('.progress:visible', body).length) {
+          body.append('<p align="center" class="loader"><br/><br/><i>Chargement en cours ... patientez un instant...<i></p>');
+        }
+      }, 2000)
 
       var args = $.extend(typeof args != 'undefined' ? args : {}, {
         session_uid: Skhf.session ? Skhf.session.uid : '', 

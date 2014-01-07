@@ -209,18 +209,20 @@ UiView = {
     this.initDataModalTriggers(elmt);
     // -- play deporte
     $(elmt).on('click', '[data-play],[data-play-api]', function(){
-      console.log('script', 'data-play', $(this).data('play'), $(this).data('play-args'), Player.state);
+      var playapi = $(this).data('play-api');
+      var id = playapi && typeof playapi.playId != 'undefined' ? playapi.playId :  $(this).data('play');
+      console.log('script', 'data-play', id, $(this).data('play-args'), Player.state);
       if (Player.state == 'playing') {
         console.log('script', 'data-play', 'Pause current player');
         Player.pause();
       }
 
       //console.log('UiView.initDataLive', '[data-play] play-pass', $(this).data('play-pass'));
-      API.play($(this).data('play'), $(this).data('play-args'), $(this).data('play-pass'));
+      API.play(id, $(this).data('play-args'), $(this).data('play-pass'));
 
       var trigger = $(this);
       window.onSkPlayerIframeApiReady = function(){
-        var params = $.extend(trigger.data('play-api'), {events: {
+        var params = $.extend(playapi, {events: {
           'onStart': function(){
           },
           'onLoad': function(){
@@ -276,7 +278,9 @@ UiView = {
     });
     //autoplay
     $('[data-autoplay]').each(function(){
-      $(this).trigger('click');
+      if (!$('iframe', $(this)).length) {
+        $(this).trigger('click');
+      }
       Player.elmt=$(this);
     })
     // toggle text in element
