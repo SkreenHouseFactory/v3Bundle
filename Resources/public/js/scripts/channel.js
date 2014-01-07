@@ -71,7 +71,10 @@ $(document).ready(function(){
     //////////// CALLBACKS ////////////////
     // -- session sync
     Skhf.session.callbackSignin = function() {
-
+      //follow
+      if (document.location.href.match(/\?follow/gi) && !$('.btn-suivre[data-id]').hasClass('fav-on')) {
+        $('.btn-suivre[data-id]').trigger('click');
+      }
       //modal
       var cookie_visited_channels = API.cookie('visited_channels') ? API.cookie('visited_channels').split(',') : [];
       console.log('scripts/channels.js', 'visited_channels', channel_id, cookie_visited_channels)
@@ -118,9 +121,7 @@ $(document).ready(function(){
     //////////// SCRIPTS GENERAUX ////////////////
     //setting
     //Scroll to player 
-    if (document.location.href.match(/\?follow/gi) && !$('.btn-suivre[data-id]').hasClass('fav-on')) {
-      $('.btn-suivre[data-id]').trigger('click');
-    }
+    
     $('html [data-play-url]').on('click', function () {
       $('html,body').animate({'scrollTop' : 60}, 1000);
     });
