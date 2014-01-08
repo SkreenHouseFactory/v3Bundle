@@ -381,10 +381,12 @@ UI = {
         var ids = Skhf.session.getPlaylistIds(this.available_playlists[k]);
         console.log('UI.loadPlaylistTriggers', 'playlist:', this.available_playlists[k], 'ids:', ids);
         for (key in ids) {
-          //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
           var trigger = $('[data-id="' + ids[key] + '"].fav-' + this.available_playlists[k] + ':not(.fav-on)', elmt);
-          trigger.removeClass('btn-plus');
-          trigger.html('<i class="glyphicon glyphicon-ok"></i> Abonné').addClass('fav-on btn-success');
+          if (trigger.length) {
+            trigger.removeClass('btn-plus');
+            trigger.html('<i class="glyphicon glyphicon-ok"></i> Abonné').addClass('fav-on btn-success');
+            //console.log('UI.loadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + this.available_playlists[k] + ':not(.fav-on)', trigger);
+          }
         }
       }
     }
