@@ -12,7 +12,7 @@
     {# Carousel INNER #}
     {% if slider.programs is defined %}
     <div class="carousel-inner">
-      {% set pages = slider.programs|to_array|slice(0, 24)|prepare_for_slider(6, slider.count is defined ? slider.count : 0, 0, first_combinaison is defined ? first_combinaison : '') %}
+      {% set pages = slider.programs|to_array|slice(0, 24)|prepare_for_slider(6, slider.count is defined ? slider.count : 0, 0, slider_combinaisons is defined ? slider_combinaisons : '') %}
       {% for page in pages %}
       <div class="item{{ loop.index == 1 ? ' active' : '' }}">
         {% if slider.api_url is not defined or slider.count is not defined or loop.index == 1 %}

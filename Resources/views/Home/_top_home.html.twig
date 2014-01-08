@@ -5,7 +5,8 @@
         {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-tonight.html.twig' with { live:top_home.live} %}
       </div>
     </div>
-    {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: top_home.pack_live ,h_title:"h2", loop_index: loop_index, first_combinaison: [1,1,1,1,1,1] } %}
+    {% set combinaisons = {6: {'vertical': [[1,1,1,1,1,1]], 'horizontal': []}|to_array }|to_array %}
+    {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: top_home.pack_live ,h_title:"h2", loop_index: loop_index, slider_combinaisons: combinaisons } %}
     <div class="col-xs-4">
      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels.html.twig' with { channels:top_home.pack_channel } %}
    </div>
