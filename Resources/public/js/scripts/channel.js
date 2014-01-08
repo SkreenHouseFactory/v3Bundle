@@ -72,8 +72,10 @@ $(document).ready(function(){
     // -- session sync
     Skhf.session.callbackSignin = function() {
       //follow
-      if (document.location.href.match(/\?follow/gi) && !$('.btn-suivre[data-id]').hasClass('fav-on')) {
-        $('.btn-suivre[data-id]').trigger('click');
+      if (document.location.href.match(/\?follow/gi) && 
+          !$('.btn-suivre[data-id]').hasClass('fav-on') && 
+          !$('.btn-suivre[data-id]').hasClass('triggered')) {
+        $('.btn-suivre[data-id]').trigger('click').addClass('triggered');
       }
       //modal
       var cookie_visited_channels = API.cookie('visited_channels') ? API.cookie('visited_channels').split(',') : [];
