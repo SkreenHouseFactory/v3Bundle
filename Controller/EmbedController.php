@@ -55,8 +55,8 @@ class EmbedController extends Controller
         return $response;
 
       //3 freres le retour
-      } elseif (in_array($datas->program->id, array(5088919))) {
-        $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/LesInconnus/player-splash-3freres-retour.jpg';
+      //} elseif (in_array($datas->program->id, array(5088919))) {
+      //  $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/LesInconnus/player-splash-3freres-retour.jpg';
 
       //supercondriaque
       } elseif (in_array($datas->program->id, array(5200318))) {
@@ -69,6 +69,7 @@ class EmbedController extends Controller
       //inconnus le retour 2
       } elseif (in_array($datas->program->id, array(5050813))) {
         $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/LesInconnus/player-splash-video2.png';
+
       //et moi et moi
       } elseif (in_array($datas->program->id, array(5298568))) {
         $datas->program->picture = 'http://mskstatic.com/x/500/b/medias/photos/etmoietmoi/splash.jpg';
