@@ -233,21 +233,21 @@ UI = {
   },
   getTriggerName: function(trigger) {
     if (trigger.hasClass('fav-cinema')) {
-      return 'ce cinéma';
+      return ' ce cinéma';
     } else if (trigger.hasClass('fav-epg')) {
-      return 'cette chaîne TV';
+      return ' cette chaîne TV';
     } else if (trigger.hasClass('fav-channel')) {
-      return 'cette chaîne';
+      return ' cette chaîne';
     } else if (trigger.hasClass('fav-page')) {
-      return 'cette chaîne';
+      return ' cette chaîne';
     } else if (trigger.hasClass('fav-person')) {
-      return 'cette personne';
+      return ' cette personne';
     } else if (trigger.hasClass('fav-user')) {
-      return 'ce skreener';
+      return ' ce skreener';
     } else if (trigger.hasClass('fav-search')) {
-      return 'cette recherche';
+      return ' cette recherche';
     } else {
-      return 'ce programme';
+      return '';
     }
   },
   getPlaylistMessage: function(trigger) {
@@ -381,10 +381,12 @@ UI = {
         var ids = Skhf.session.getPlaylistIds(this.available_playlists[k]);
         console.log('UI.loadPlaylistTriggers', 'playlist:', this.available_playlists[k], 'ids:', ids);
         for (key in ids) {
-          //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav:not(.fav-on)');
           var trigger = $('[data-id="' + ids[key] + '"].fav-' + this.available_playlists[k] + ':not(.fav-on)', elmt);
-          trigger.removeClass('btn-plus');
-          trigger.html('<i class="glyphicon glyphicon-ok"></i> Abonné').addClass('fav-on btn-success');
+          if (trigger.length) {
+            trigger.removeClass('btn-plus');
+            trigger.html('<i class="glyphicon glyphicon-ok"></i> Abonné').addClass('fav-on btn-success');
+            //console.log('UI.loadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + this.available_playlists[k] + ':not(.fav-on)', trigger);
+          }
         }
       }
     }
@@ -398,7 +400,7 @@ UI = {
         console.log('UI.unloadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + parameter + '.fav-on');
         var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + '.fav-on', elmt);
         trigger.addClass('btn-plus');
-        trigger.html('Suivre ' + this.getTriggerName(trigger)).removeClass('fav-on btn-danger');
+        trigger.html('Suivre' + this.getTriggerName(trigger)).removeClass('fav-on btn-danger');
 
         switch(parameter) {
           case 'like':

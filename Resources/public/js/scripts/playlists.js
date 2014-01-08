@@ -25,7 +25,7 @@ $(document).ready(function(){
       if (trigger.hasClass('fav-on')) {
         trigger.removeClass('btn-success')
                .addClass('btn-danger')
-               .html('<i class="glyphicon glyphicon-remove"></i> Annuler');
+               .html('Annuler');
       //popover
       } else if (!trigger.hasClass('btn-danger')) {
         if (!trigger.data('content')) {

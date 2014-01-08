@@ -256,8 +256,8 @@ en Streaming
               <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
               <meta itemprop="name" content="{{ program.title }}" />
               {% if program.episode_title is defined and
-              program.episodeof is defined and
-              program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
+                    program.episodeof is defined and
+                    program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
                 <h1 itemprop="name">
                   {{ program.episode_title }}
                   {% if program.popular_channel is defined %}
@@ -275,7 +275,7 @@ en Streaming
             </div>
             <div class="col-xs-4 suivre"  style="padding:0;">
               {% if program.popular_channel is not defined or program.popular_channel.id not in [5573] %}
-              {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.id, class: 'fav-like btn-big'} %}
+              {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.episodeof is defined ? program.episodeof.id : program.id, class: 'fav-like btn-big'} %}
               {% endif %}
             </div>
           </div>
