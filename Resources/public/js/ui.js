@@ -233,21 +233,21 @@ UI = {
   },
   getTriggerName: function(trigger) {
     if (trigger.hasClass('fav-cinema')) {
-      return 'ce cinéma';
+      return ' ce cinéma';
     } else if (trigger.hasClass('fav-epg')) {
-      return 'cette chaîne TV';
+      return ' cette chaîne TV';
     } else if (trigger.hasClass('fav-channel')) {
-      return 'cette chaîne';
+      return ' cette chaîne';
     } else if (trigger.hasClass('fav-page')) {
-      return 'cette chaîne';
+      return ' cette chaîne';
     } else if (trigger.hasClass('fav-person')) {
-      return 'cette personne';
+      return ' cette personne';
     } else if (trigger.hasClass('fav-user')) {
-      return 'ce skreener';
+      return ' ce skreener';
     } else if (trigger.hasClass('fav-search')) {
-      return 'cette recherche';
+      return ' cette recherche';
     } else {
-      return 'ce programme';
+      return '';
     }
   },
   getPlaylistMessage: function(trigger) {
@@ -398,7 +398,7 @@ UI = {
         console.log('UI.unloadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + parameter + '.fav-on');
         var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + '.fav-on', elmt);
         trigger.addClass('btn-plus');
-        trigger.html('Suivre ' + this.getTriggerName(trigger)).removeClass('fav-on btn-danger');
+        trigger.html('Suivre' + this.getTriggerName(trigger)).removeClass('fav-on btn-danger');
 
         switch(parameter) {
           case 'like':
