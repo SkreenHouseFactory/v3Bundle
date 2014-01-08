@@ -106,6 +106,8 @@ class ProgramController extends Controller
         $data = $api->fetch('program/'.$request->get('id'), array(
           'img_width' => 273,
           'img_height' => 368,
+          'related_img_width' => 150,
+          'related_img_height' => 200,
           'episode_img_width' => 100,
           'episode_img_height' => 90,
           'episode_img_crop' => 50,
@@ -123,14 +125,8 @@ class ProgramController extends Controller
           'with_empty_player' => true,
           'with_img_maxsize'=>true,
           'with_svod' => true,
-          'with_coming_soon'=> true,
-          'slider_width' => 990,
-          'slider_height' => 450
-          //'wrap_default_description' => 'h2',
-          //'filter_casting' => true,
-          //'player' => 'flash'
+          'with_coming_soon'=> true
         ));
-
 
         //hack bug API renvoie rien
         if (!is_object($data)) {
