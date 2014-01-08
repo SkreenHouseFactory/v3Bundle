@@ -1,0 +1,15 @@
+<br/>
+<div class="well">
+<h3>Ajoutez des chaînes à vos playlists</h3>
+<p>Ne ratez plus vos programmes préférés! Abonnez-vous aux chaînes pour être notifié dès qu'un programme est disponible.</p>
+<br/>
+<div class="slider slider-list">
+  <div class="slider-container">
+    <ul class="items">
+      {% for p in pack.programs|to_array %}
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p } %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+</div>

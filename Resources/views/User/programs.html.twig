@@ -15,16 +15,6 @@
   <h1>{{ onglet == 'channel' ? 'user.channels'|trans : 'user.programs'|trans }}</h1>
   {% if programs|length == 0 %}
     <p class="alert alert-info">Vous ne suivez {{ onglet == 'channel' ? 'aucune chaîne' : 'aucun programme' }}.</p>
-    <br/>
-    <h3>Ajoutez des chaînes à vos playlists</h3>
-    <div class="slider slider-list">
-      <div class="slider-container">
-        <ul class="items">
-          <li class="tv-component actions channel" data-id="200000001" data-play-program-id="200000001" style="background-image:url(http://mskstatic.com/150/200/c/medias/photos/channel/1-logo-les-inconnus.png)"><a href="/les-inconnus" target="_top" class="title"><i class="glyphicon glyphicon-th"></i> Les Inconnus</a></li>
-          <li class="tv-component actions channel" data-id="200000002" data-play-program-id="200000002" style="background-image:url(http://mskstatic.com/150/200/c/medias/photos/channel/3-jacques-demy.jpg)"><a href="/jacques-demy/" target="_top" class="title"><i class="glyphicon glyphicon-th"></i> Jacques Demy</a></li>
-        </ul>
-      </div>
-    </div>
   
   {% else %}
 
@@ -60,5 +50,9 @@
       </ul>
     </div>
   {% endif %}
+
+  <br/>
+  {{ render_esi(controller('SkreenHouseFactoryV3Bundle:User:suggest', { type: 'channel' })) }}
+  
 </div>
 {% endblock %}
