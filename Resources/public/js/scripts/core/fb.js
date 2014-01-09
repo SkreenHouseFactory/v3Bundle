@@ -6,28 +6,7 @@
 $(document).ready(function(){
 
   var fb_permissions = 'email,user_birthday,friends_birthday,friends_likes,publish_stream,publish_actions'; 
-  //read_friendlists
 
-  window.fbAsyncInit = function() {
-   // init the FB JS SDK
-   FB.init({
-     appId  : API.config.fb.app_id,                 // App ID from the app dashboard
-     status : true,                                 // Check Facebook Login status
-     cookie : true, // enable cookies to allow the server to access the session
-   });
-   // Additional initialization code such as adding Event Listeners goes here
-  };
-
-   // Load the SDK asynchronously
-   (function(d, s, id) {
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) return;
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-   
-   
   // fb connect
   function fbsync() {
     console.log(['scripts/fb.js', 'fetching information...']);
@@ -72,6 +51,8 @@ $(document).ready(function(){
       });
     });
   }
+
+  /* login */
   function fblogin() {
     FB.login(function(response) {
       if (response.authResponse) {
@@ -87,25 +68,48 @@ $(document).ready(function(){
     });
   }
 
-  /* on shown
-  FB.getLoginStatus(function(response) {
-    if (response.status === 'connected') {
-      FB.api('/me', function(response) {
-        console.log('Good to see you, ' + response.name + '.', response);
-        $('#fbconnect-infos').html('<small>(' + response.name + ')</small>');
-      });
-    }
-  });
-  */
-  //trigger
-  $('#fbconnect').on('click', function(){
-    console.log(['script', 'trigger FB']);
-    fblogin();
-    return false;
-  });
-  $(document).on('click', '#fbconnect', function(){
-    console.log(['script', 'trigger FB']);
-    fblogin();
-    return false;
-  });
+  window.fbAsyncInit = function() {
+   // init the FB JS SDK
+   /*
+   FB.init({
+     appId  : API.config.fb.app_id,                 // App ID from the app dashboard
+     status : true,                                 // Check Facebook Login status
+     cookie : true, // enable cookies to allow the server to access the session
+   });
+   */
+   // Additional initialization code such as adding Event Listeners goes here
+   
+   //trigger
+   $('#fbconnect').on('click', function(){
+     console.log(['script', 'trigger FB']);
+     fblogin();
+     return false;
+   });
+   $(document).on('click', '#fbconnect', function(){
+     console.log(['script', 'trigger FB']);
+     fblogin();
+     return false;
+   });
+   
+   /* on shown */
+   if (API.config.env == 'dev') {
+     FB.getLoginStatus(function(response) {
+       if (response.status === 'connected') {
+         FB.api('/me', function(response) {
+           console.log('Good to see you, ' + response.name + '.', response);
+           //$('#fbconnect-infos').html('<small>(' + response.name + ')</small>');
+         });
+       }
+     });
+   }
+  };
+
+   // Load the SDK asynchronously
+   (function(d, s, id) {
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) return;
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&status=1&cookie=1&appId="+API.config.fb.app_id;
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
 });
