@@ -41,7 +41,8 @@ class EmbedController extends Controller
         'img_height' => $request->get('height') ? (int)$request->get('height'): '500',
         'slider_width' => 1200,
         'slider_height' => 450,
-        'with_program' => true
+        'with_program' => true,
+        'with_img_size' => true
       ));
       //echo $api->url;
 
