@@ -28,7 +28,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
         id: 'channel-epg', 
         url: '/recommend/from_channel/' ~ data.id ~ '.json?with_method=epg&date=Epg'}} %}
   {% endif %}
-  <h2>Les programmes {{ channel.fournisseur.has_replay is defined and channel.fournisseur.has_replay ? 'TV & Replay' : 'en Streaming' }}</h2>
+  <h4>Les programmes {{ channel.fournisseur.has_replay is defined and channel.fournisseur.has_replay ? 'TV & Replay' : 'en Streaming' }}</h4>
 
   {# sliders #}
   {% if sliders|to_array|length %}
