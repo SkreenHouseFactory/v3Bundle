@@ -127,7 +127,9 @@ Player = {
     this.stop();
     console.log('Player.redirect', url, elmt, url.indexOf('/exit/') != -1);
     if (typeof url != 'undefined') {
-      if (url.indexOf('/exit/') != -1 || url.indexOf('m6replay') != -1 || url.indexOf('play.google') != -1) { //url.match(/\/exit\//)) {
+      if (url.indexOf('/exit/') != -1 || 
+          url.indexOf('m6replay') != -1 || 
+          url.indexOf('play.google') != -1) { //url.match(/\/exit\//)) {
         window.open(url.replace('/redirection/', '/exit/')); //hack m6
         return false;
       } else {
