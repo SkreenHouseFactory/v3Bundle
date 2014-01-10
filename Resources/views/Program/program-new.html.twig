@@ -227,10 +227,22 @@ en Streaming
           {# description seo texte #}
           <a name="synopsis"></a>
           <div class="panel panel-default panel-synopsis{{ program.description|striptags|length < 907 ? ' forced-height':'' }}">
-            <div class="panel-heading"><h2 class="panel-title">Tout sur {{ program.title }} {{ program.has_vod|accessFromHasvod }}</h2></div>
+            <div class="panel-heading"><h1 class="panel-title">Tout sur {{ program.title }} {{ program.has_vod|accessFromHasvod }}</h1></div>
             <div class="tab-pane text-toggle-extend">
               {% if program.description|striptags|length < 907 %}
               <div class="text">
+                {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+                {% if program.episode_title is defined and
+                  program.episodeof is defined  and
+                  episode_title and
+                  program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}
+                  <h2>
+                    {% if episode_title and
+                          program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}
+                      {{ episode_title|replace({"Ep.":"Episode"}) }}
+                    {% endif %}
+                  </h2>
+                {% endif %}
                 {% if program.copyright is defined %}
                   {{program.copyright}}
                 {% endif %}
@@ -258,19 +270,19 @@ en Streaming
               {% if program.episode_title is defined and
                     program.episodeof is defined and
                     program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
-                <h1 itemprop="name">
+                <div id="fake_h1" itemprop="name">
                   {{ program.episode_title }}
                   {% if program.popular_channel is defined %}
                   <span>{{ program.popular_channel.name }}</span>
                   {% endif %}
-                </h1>
+                </div>
               {% elseif program.episode_title is defined and
               program.episodeof is defined %}
-                <h1 itemprop="name">
+                <div id="fake_h1" itemprop="name">
                   {{ program.episodeof.title }}
-                </h1>
+                </div>
               {% else %}
-                <h1 itemprop="name">{{ program.title }} </h1>
+                <div id="fake_h1" itemprop="name">{{ program.title }} </div>
               {% endif %}
             </div>
             <div class="col-xs-4 suivre"  style="padding:0;">
@@ -281,14 +293,16 @@ en Streaming
           </div>
           {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
           {% if program.episode_title is defined and
-          program.episodeof is defined  and episode_title and program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}
-          <div class="row" style="margin:0;">
-            <div class="col-xs-16 videotitle"  style="padding:0;" itemscope itemtype="http://schema.org/Movie">
-                <h1 itemprop="name">
+                program.episodeof is defined  and
+                episode_title and
+                program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}
+            <div class="row" style="margin:0;">
+              <div class="col-xs-16 videotitle"  style="padding:0;" itemscope itemtype="http://schema.org/Movie">
+                <div id="fake_h1" itemprop="name">
                   <span>{% if episode_title and program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}{{ episode_title }} : {% endif %}{{ program.episode_title }}</span>
-                </h1>
-             </div>
-          </div>
+                </div>
+              </div>
+            </div>
           {% endif %}
           {% include 'SkreenHouseFactoryV3Bundle:Program:_program-offers.html.twig' %}
         </div>
