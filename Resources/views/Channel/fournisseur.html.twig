@@ -107,14 +107,14 @@
   app.request.get('facet') is null %}
   {% if channel.epg is defined and channel.epg %}
   {% if channel.live.program is defined and channel.live.program  %}
-  <div class="well">     <div class="row">
+    <div class="well">     <div class="row">
         <div class="col-xs-16">
     {% if channel.live.player is defined %}
-    <iframe class="player-live" frameborder="0" scrolling="no" src="{{ channel.live.player }}"></iframe>
+      <iframe class="player-live" frameborder="0" scrolling="no" src="{{ channel.live.player }}"></iframe>
     {% elseif channel.live.program.id is defined %}
-    <div style="height:196px;width:340px; margin-left:20px; margin-top:60px;" class="pull-right" data-autoplay="1" data-play-api="{&quot;AdOnly&quot;:true,&quot;programId&quot;:{{ channel.live.program.id }}}" id="program-teaser-player">
-      <iframe scrolling="no" frameborder="0" style="height:196px;width:340px" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&amp;play=28370043&amp;program_id={{ channel.live.program.id }}&amp;fromWebsite=1&amp;env=dev&amp;height=196&amp;width=340"></iframe>
-    </div>
+      <div style="height:196px;width:340px; margin-left:20px; margin-top:60px;" class="pull-right" data-autoplay="1" data-play-api="{&quot;AdOnly&quot;:true,&quot;programId&quot;:{{ channel.live.program.id }}}" id="program-teaser-player">
+        <iframe scrolling="no" frameborder="0" style="height:196px;width:340px" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&amp;play=28370043&amp;program_id={{ channel.live.program.id }}&amp;fromWebsite=1&amp;env=dev&amp;height=196&amp;width=340"></iframe>
+      </div>
     {% endif %}
     <div class="container">
 

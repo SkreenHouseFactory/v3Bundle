@@ -21,7 +21,13 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
       {% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: data, skip_root: true} %}
     </div>
   </div>
-
+  {% if data.epg and data.programs_epg|length %}
+  {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {
+        title: 'channel.epg'|trans({'%name%': data.name}), 
+        programs: data.programs_epg, 
+        id: 'channel-epg', 
+        url: '/recommend/from_channel/' ~ data.id ~ '.json?with_method=epg&date=Epg'}} %}
+  {% endif %}
   <h2>Les programmes {{ channel.fournisseur.has_replay is defined and channel.fournisseur.has_replay ? 'TV & Replay' : 'en Streaming' }}</h2>
 
   {# sliders #}

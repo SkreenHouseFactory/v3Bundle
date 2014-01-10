@@ -1,20 +1,31 @@
 {% set tnt_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL +','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat'] %}
 <ul class="breadcrumb">
   {% if skip_root is not defined %}
-  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('sitemap_channels', {type: channel.type}) }}"><span itemprop="title">{% if channel.type == 'cinema' %}Tous les cinémas{% else %}Chaînes {{ channel.type|replace({'broadcast': 'TV', 'catchup': 'Replay', 'webcast': 'Web TV'}) }}{% endif %}</span></a></li>
-  {% endif %}
-  {% if channel.city is defined and channel.city %}
-  <li class="active"><a>{{ channel.city }}</a></li>
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a itemprop="url" href="{{ path('sitemap_channels', {type: channel.type}) }}">
+        <span itemprop="title">{% if channel.type == 'cinema' %}Tous les cinémas{% else %}Chaînes {{ channel.type|replace({'broadcast': 'TV', 'catchup': 'Replay', 'webcast': 'Web TV'}) }}{% endif %}</span>
+      </a>
+    </li>
+  {% elseif channel.city is defined and channel.city %}
+    <li class="active">
+      <a>{{ channel.city }}</a>
+    </li>
   {% elseif channel.name in tnt_channels %}
-  <li class="dropdown dropdown-update">
-    <a class="dropdown-toggle" data-toggle="dropdown">TNT <i class="icon-chevron-down"></i></a>
-    <ul class="dropdown-menu">
-      {% for channel in tnt_channels %}
-      {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-      <li><a href="{{ path('channel', {slug: slug}) }}">{{ channel }}</a></li>
-      {% endfor %}
-    </ul>
-  </li>
+    <li class="dropdown dropdown-update">
+      <a class="dropdown-toggle" data-toggle="dropdown">TNT <i class="icon-chevron-down"></i></a>
+      <ul class="dropdown-menu">
+        {% for channel in tnt_channels %}
+          {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
+          <li>
+            <a href="{{ path('channel', {slug: slug}) }}">{{ channel }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% else %}
+    <li class="dropdown dropdown-update">
+      <a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">Chaînes TV <i class="icon-chevron-down"></i></a>
+    </li>
   {% endif %}
   <li{% if app.request.get('facet') is null and app.request.get('page') is null and app.request.get('format') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: channel.seo_url|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }}</span></a></li>
   {% if app.request.get('format') %}
