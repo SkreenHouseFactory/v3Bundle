@@ -25,10 +25,9 @@ var BaseSlider = Class.extend({
 //    this.slide_step = parseInt(this.container.css('width')) - this.params.width;  // Euh, pas sûr, le calcul, là !!
     this.slide_step = (this.params.width + this.params.padding) * (this.params.pager_nb_results - 1);
     // TODO : extend BAseSlider to make it works
-    //if (this.elmt.data('nb-results') > 0) {
-    //  this.params.pager_nb_results = this.elmt.data('nb-results');
-    //  console.log('BaseSlider.init', 'pager_nb_results', this.params.pager_nb_results, this.elmt.data('nb-results'));
-    //}
+    if (this.elmt.data('nb-results') > 0) {
+      this.params.pager_nb_results = this.elmt.data('nb-results');
+    }
     //console.log('BaseSlider.init', this.loader, this.items);
 
     //scroll ?
@@ -164,32 +163,34 @@ var BaseSlider = Class.extend({
             self.elmt.data('pager-offset', offset);
             //self.items.append(self.loader.addClass('loader-pager'));
             console.log('pager-offset', 'set', offset, self.elmt, self.params.pager_nb_results, self.elmt.data('pager-offset'));
-            self.loadRemotePrograms(offset,
-                                    function(nb_programs){
-                                      //self.items.find('.loader-pager').remove();
-                                      // nb total elements charges [inclus suivant]
-                                      var nb_total = self.items[0].childElementCount - 1;
-                                      // On masque le bouton next si on ne charge plus de nouveaux programmes et qu'on ne deborde
-                                      // pas deja du slider
-                                      console.log(nb_total , " - " , offset);
-                                      if (nb_total < (offset + 7)) {
-                                        if (Math.floor(nb_total/6) <= Math.floor(offset/6))
-                                          trigger.css('visibility','hidden');
-                                        else{
-                                       trigger.css('visibility','visible');
-                                     }
-                                      } else {
-                                        trigger.css('visibility','visible');
-                                      }
-                                      $('.loading.bar').remove();
-                                      self.elmt.removeClass('slider-loading');
-                                      if (nb_programs < self.params.pager_nb_results) {
-                                        self.elmt.addClass('loaded'); //le slider ne pagine plus
-                                      }
-                                  
-                                    },
-                                    {},
-                                    true);
+            self.loadRemotePrograms(
+              offset,
+              function(nb_programs){
+                //self.items.find('.loader-pager').remove();
+                // nb total elements charges [inclus suivant]
+                var nb_total = self.items[0].childElementCount - 1;
+                // On masque le bouton next si on ne charge plus de nouveaux programmes et qu'on ne deborde
+                // pas deja du slider
+                console.log(nb_total , " - " , offset);
+                if (nb_total < (offset + 7)) {
+                  if (Math.floor(nb_total/6) <= Math.floor(offset/6))
+                    trigger.css('visibility','hidden');
+                  else{
+                 trigger.css('visibility','visible');
+               }
+                } else {
+                  trigger.css('visibility','visible');
+                }
+                $('.loading.bar').remove();
+                self.elmt.removeClass('slider-loading');
+                if (nb_programs < self.params.pager_nb_results) {
+                  self.elmt.addClass('loaded'); //le slider ne pagine plus
+                }
+            
+              },
+              {},
+              true
+            );
           }
         }
       });
