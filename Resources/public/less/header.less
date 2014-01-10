@@ -30,18 +30,25 @@
   }
 }
 .hover-menu{
-  background: none repeat scroll 0 0 white;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
-  border-left: 2px solid rgba(0, 0, 0, 0.2);
-  border-right: 2px solid rgba(0, 0, 0, 0.2);
   list-style: none outside none;
-  padding-bottom: 10px;
-  padding-top: 20px;
+  padding-top: 10px;
+  padding-left: 0px;
   position: absolute;
   top: 47px;
   z-index: 1032;
-  >ul{
+  div>ul{
     list-style-type: none;
+  }
+  div.dropdown-borders{
+    background: none repeat scroll 0 0 white;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    border-left: 2px solid rgba(0, 0, 0, 0.2);
+    border-right: 2px solid rgba(0, 0, 0, 0.2);
+  }
+  div.vod-cine{
+    padding: 10px 20px 15px 20px;
+    margin-top: 4px;
+    margin-left: -12px;
   }
   div.clear{
     text-align: right;
@@ -74,7 +81,10 @@
   &.hover-menu-tv {
     left: -136px;
     width: 940px;
-    padding-top: 0;
+    padding-top: 14px;
+    .programme-tv a {
+      margin: 20px;
+    }
     ul {
       display: block;
       padding: 0;
@@ -101,6 +111,13 @@
         &.tv-channels{
           display: block;
           padding-left: 15px;
+          .thema{
+            margin-right: 25px;
+            padding: 1px;
+            p{
+              margin-bottom: 0px;
+            }
+          }
           a {
             .header-remote-dropdown{
               height:40px;

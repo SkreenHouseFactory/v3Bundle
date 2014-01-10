@@ -1,0 +1,9 @@
+<ul>
+  <li class="nav-header">Chaînes thématiques</li>
+  <li class="tv-channels">
+	{% for p in pack.programs|to_array %}
+	  <a class="channel_link thema" href="{{ path('any_url', {url: p.url|slice(1, p.url|length-1)}) }}"><p class="channel_texte">{{ p.title }}</p><img class="channel_root" alt="{{ p.title }}" data-track-channel="{{ p.title }}" src="{{ p.picture|replace({'mskstatic.com/225/110/': 'mskstatic.com/90/44/'}) }}"></a>
+	{% endfor %}
+  </li>
+</ul>
+<div class="clear"></div>

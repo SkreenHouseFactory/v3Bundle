@@ -72,19 +72,76 @@ $(document).ready(function(){
   
 
   // new header nav bar
-  $('.navbar-nav >li').on('mouseover',function(){
-    var self = $(this);
-    if($('#top-playlist').hasClass('in')) {
-      $('#top-playlist').collapse('hide');
-    }
-    $('.dropdown').removeClass('open');
-    $('.hover-menu', self).removeClass('hide');
+  if ($('html').hasClass('no-touch')) {
+    $('.navbar-nav >li').on('mouseover',function(){
+      var self = $(this);
+      if($('#top-playlist').hasClass('in')) {
+        $('#top-playlist').collapse('hide');
+      }
+      $('.dropdown').removeClass('open');
+      $('.hover-menu', self).removeClass('hide');
 
-  });
-  $('.navbar-nav >li').on('mouseout',function(){
-    var self = $(this);
-    $('.hover-menu', self).addClass('hide');
-  });
+    });
+    $('.navbar-nav >li').on('mouseout',function(){
+      var self = $(this);
+      $('.hover-menu', self).addClass('hide');
+    });
+  } else { //Touch devices
+    // on créé des variables
+    var tv_href = $('.navbar-nav > li:first-child > a').attr('href');
+    var vod_href = $('.navbar-nav > li+li > a').attr('href');
+    var cine_href = $('.navbar-nav > li+li+li > a').attr('href');
+    console.log('scripts/core', '_default.js', 'navbar-nav Touch', tv_href, vod_href, cine_href);
+    // on vide les href des a pour ne pas engendrer de redirection directe au touch/click
+    $('.navbar-nav > li:first-child > a').attr("href","#");
+    $('.navbar-nav > li:first-child+li > a').attr("href","#");
+    $('.navbar-nav > li:first-child+li+li > a').attr("href","#");
+    // on gère chaque menu du header
+    // tv
+    $('.navbar-nav >li:first-child').on('click',function(){
+      if ($('.navbar-nav > li:first-child .hover-menu-tv').hasClass("hide")) {
+        $('.navbar-nav > li:first-child+li .vod, .navbar-nav > li:first-child+li+li .cine').removeClass("show-touch");
+        $('.navbar-nav > li:first-child+li .vod, .navbar-nav > li:first-child+li+li .cine').addClass("hide");
+        $('.navbar-nav > li:first-child .hover-menu-tv').removeClass("hide");
+        $('.navbar-nav > li:first-child .hover-menu-tv').addClass("show-touch");
+      }
+    });
+    $('.navbar-nav >li:first-child >a').on('click',function(){
+      if ($('.navbar-nav >li:first-child >div.hover-menu.hover-menu-tv').hasClass('show-touch')) {
+        window.location = tv_href;
+      }
+    });
+    // vod
+    $('.navbar-nav > li:first-child+li').on('click',function(){
+      if ($('.navbar-nav >li:first-child+li .vod').hasClass("hide")) {
+        $('.navbar-nav > li:first-child .hover-menu-tv, .navbar-nav > li:first-child+li+li .cine').removeClass("show-touch");
+        $('.navbar-nav > li:first-child .hover-menu-tv, .navbar-nav > li:first-child+li+li .cine').addClass("hide");
+        $('.navbar-nav > li:first-child+li .vod').removeClass("hide");
+        $('.navbar-nav > li:first-child+li .vod').addClass("show-touch");
+      }
+    });
+    $('.navbar-nav >li:first-child+li >a').on('click',function(){
+      if ($('.navbar-nav >li:first-child+li .vod').hasClass('show-touch')) {
+        //console.log('plop vod');
+        window.location = vod_href;
+      }
+    });
+    // cine
+    $('.navbar-nav > li:first-child+li+li').on('click',function(){
+      if ($('.navbar-nav >li:first-child+li+li .cine').hasClass("hide")) {
+        $('.navbar-nav > li:first-child .hover-menu-tv, .navbar-nav > li:first-child+li .vod').removeClass("show-touch");
+        $('.navbar-nav > li:first-child .hover-menu-tv, .navbar-nav > li:first-child+li .vod').addClass("hide");
+        $('.navbar-nav > li:first-child+li+li .cine').removeClass("hide");
+        $('.navbar-nav > li:first-child+li+li .cine').addClass("show-touch");
+      }
+    });
+    $('.navbar-nav >li:first-child+li+li >a').on('click',function(){
+      if ($('.navbar-nav >li:first-child+li+li .cine').hasClass('show-touch')) {
+        //console.log('plop cine');
+        window.location = cine_href;
+      }
+    });
+  }
 
   //notifications
   $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
