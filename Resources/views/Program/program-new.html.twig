@@ -251,6 +251,18 @@ en Streaming
               {% else %}
               <div class="text show-more-height">
                 <div class="gradient-hide"></div> 
+                {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+                {% if program.episode_title is defined and
+                  program.episodeof is defined  and
+                  episode_title and
+                  program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}
+                  <h2>
+                    {% if episode_title and
+                          program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}
+                      {{ episode_title|replace({"Ep.":"Episode"}) }}
+                    {% endif %}
+                  </h2>
+                {% endif %}
                 {% if program.copyright is defined %}
                   {{program.copyright}}
                 {% endif %}
