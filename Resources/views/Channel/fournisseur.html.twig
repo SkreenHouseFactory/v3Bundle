@@ -159,7 +159,7 @@
       <a href="{{ path('channel_format_facet_page', {format: app.request.get('format'), slug: app.request.get('slug'), facet: app.request.get('facet'), page: app.request.get('page')}) }}" class="label label-default{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a> 
       {% endfor %}
       {% elseif app.request.get('format') %}
-      {% for k,s in categories if s is not null %}
+      {% for k,s in categories if s is not null and k|length > 0 %}
       <a href="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k}) }}" class="label label-default{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</a> 
       {% endfor %}
       {% else %}
@@ -170,56 +170,56 @@
     </div>
     {% endif %}
     
-       {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-pager.html.twig' %}
-       
-                     {# programs #}
-                     {% if channel.programs|length %}
-                     <div class="row{{ channel.type != 'cinema' ? ' clear' : '' }}">
-                       <div class="col-xs-{{ channel.type != 'cinema' ? '16' : '11' }}">
-                        <div id="channel-programs" class="slider slider-list{% if channel.adress is defined %} clear-cancel{% endif %} ms-margin-top-seo">
-                          <ul class="items">
-                            {% for program in channel.programs %}
-                            {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, theater_id: channel.type == 'cinema' ? channel.id : '' } %}
-                            {% endfor %}
-                          </ul>
-                          {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-fournisseur-pagination.html.twig' with {data: channel.count, page :  app.request.get('page', 1)} %}
-                           <ul class="pager_to_replace"></ul>
-                        </div>
-                       </div>
-                      {# map #}
-                      {% if channel.adress is defined %}
-                      <div class="col-xs-5">
-                        <div id="map-container" class="well">
-                          {% if channel.city is defined and channel.city %}
-                          {{ channel.adress }}<br/>{{ channel.zip_code }} {{ channel.city }}
-                          {% endif %}
-                          {% if channel.tel %}tél : {{ channel.tel }}<br/>{% endif %}
-                          {% if channel.web %}<a href="http://{{ channel.web }}" target="_blank">{{ channel.web }}</a>{% endif %}
-                          <hr/>
-                          <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-                          <div id="map-canvas" data-name="{{ channel.name }}" data-adress="{{ channel.adress }} {{ channel.zip_code }} {{ channel.city }}"></div>
-                        </div>
-                      </div>
-                      {% endif %}
-                    </div>
-                    {% else %}
-                    <div class="row">
-                      <div class="col-xs-16"><p class="alert alert-info">Désolé : {{ channel.name }} ne diffuse aucun programme en ce moment !</p>
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-pager.html.twig' %}
 
-                      </div>
-                    </div>
-                    </div>
-                    {% endif %}
-                                    </div>
-                                  </div>
-                                  {% endblock %}
+    {# programs #}
+    {% if channel.programs|length %}
+    <div class="row{{ channel.type != 'cinema' ? ' clear' : '' }}">
+     <div class="col-xs-{{ channel.type != 'cinema' ? '16' : '11' }}">
+      <div id="channel-programs" class="slider slider-list{% if channel.adress is defined %} clear-cancel{% endif %} ms-margin-top-seo">
+        <ul class="items">
+          {% for program in channel.programs %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, theater_id: channel.type == 'cinema' ? channel.id : '' } %}
+          {% endfor %}
+        </ul>
+        {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-fournisseur-pagination.html.twig' with {data: channel.count, page :  app.request.get('page', 1)} %}
+         <ul class="pager_to_replace"></ul>
+      </div>
+     </div>
+    {# map #}
+    {% if channel.adress is defined %}
+    <div class="col-xs-5">
+      <div id="map-container" class="well">
+        {% if channel.city is defined and channel.city %}
+        {{ channel.adress }}<br/>{{ channel.zip_code }} {{ channel.city }}
+        {% endif %}
+        {% if channel.tel %}tél : {{ channel.tel }}<br/>{% endif %}
+        {% if channel.web %}<a href="http://{{ channel.web }}" target="_blank">{{ channel.web }}</a>{% endif %}
+        <hr/>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+        <div id="map-canvas" data-name="{{ channel.name }}" data-adress="{{ channel.adress }} {{ channel.zip_code }} {{ channel.city }}"></div>
+      </div>
+    </div>
+    {% endif %}
+    </div>
+    {% else %}
+    <div class="row">
+    <div class="col-xs-16"><p class="alert alert-info">Désolé : {{ channel.name }} ne diffuse aucun programme en ce moment !</p>
 
-                                  {% block pagescripts %}
-                                  {% javascripts
-                                  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/channel.js'
+    </div>
+    </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
 
-                                  filter='?yui_js' 
-                                  output='js/compiled/pages/channel.js'  %}
-                                  <script src="{{ asset_url }}"></script>
-                                  {% endjavascripts %}
-                                  {% endblock %}
+{% block pagescripts %}
+{% javascripts
+'@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/channel.js'
+
+filter='?yui_js' 
+output='js/compiled/pages/channel.js'  %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}
