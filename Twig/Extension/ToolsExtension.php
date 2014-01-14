@@ -266,10 +266,10 @@ class toolsExtension extends \Twig_Extension
       $this->slider_page = $slider_page;
       $this->slider_programs = $this->to_array($programs, true);
       $pages = array();
-       //echo "\n".'<br/> $this->slider_programs > '.count($this->slider_programs);
+      //echo "\n".'<br/> $this->slider_programs > '.count($this->slider_programs);
       while (count($this->slider_programs) > 0 || (count($pages) < $nb_programs_total/6 && count($pages) <= 4) ) {
-         //echo "\n".'<br/> $pages > '.count($pages);
-         //echo "\n".'<br/> $nb_pages_total > '.($nb_programs_total/6);
+        //echo "\n".'<br/> $pages > '.count($pages);
+        //echo "\n".'<br/> $nb_pages_total > '.($nb_programs_total/6);
         $this->slider_page++;
         if ($page_programs = $this->getProgramsForPage($nb_programs_page)) {
            //echo ' page_programs count:'.count($page_programs);
@@ -302,11 +302,18 @@ class toolsExtension extends \Twig_Extension
     }
     protected function getHorizontalSlider(&$programs){
       foreach ($programs as $key => $program) {
+        //si image force
+        if (isset($program->popular_channel) && 
+            $program->popular_channel->img_override_program) {
+              continue;
+        }
+        //default
         if (isset($program->sliderPicture) || 
-            (isset($program->maxsize) && $program->maxsize->width > $program->maxsize->height && $program->maxsize->width > 250)) {
-          //unset($programs[$key]);
+            (isset($program->maxsize) && 
+             $program->maxsize->width > $program->maxsize->height && 
+             $program->maxsize->width > 250)) {
           $programs = array_values($programs);
-           //echo "\n".'getHorizontalSlider:'.$program->id.' $key:'.$key;
+          //echo "\n".'getHorizontalSlider:'.$program->id.' $key:'.$key;
           if (!isset($program->sliderPicture)) $program->sliderPicture = $program->picture;
           return $program;
         }
@@ -315,7 +322,7 @@ class toolsExtension extends \Twig_Extension
     protected function getProgramsForPage($nb_programs_page) {
        //echo '<br>getProgramsForPage:'.count($this->slider_programs);
       $programs = count($this->slider_programs) >= $nb_programs_page ? array_slice($this->slider_programs, 0, $nb_programs_page) : $this->slider_programs;
-      //echo "\n".'<br/>getProgramsForPage '.implode('-', array_keys($this->to_array($programs, true)));
+     //echo "\n".'<br/>getProgramsForPage '.implode('-', array_keys($this->to_array($programs, true)));
       return count($programs) > 0 ? $programs : null;
     }
 
@@ -335,21 +342,21 @@ class toolsExtension extends \Twig_Extension
       if (isset($this->slider_combinaisons[$nb_programs_page]['vertical'][1]) && count($page_programs) < 4) {
         $combinaison = $this->slider_combinaisons[$nb_programs_page]['vertical'][1];
         $type = 'vertical';
-        //echo "\n".'<br/>force combinaison nb_program < 4';
+       //echo "\n".'<br/>force combinaison nb_program < 4';
       } elseif (isset($combinaisons[1]) && (self::$slider_count+$this->slider_page)%2 == 0) {
         $combinaison = $combinaisons[1];
       } else {
         $combinaison = $combinaisons[0];
       }
 
-      //echo "\n".'<br/>NEWPAGE '.implode('-', $combinaison);
+     //echo "\n".'<br/>NEWPAGE '.implode('-', $combinaison);
        //echo '$page_programs_keys '.implode('-', array_keys($page_programs));
       foreach ($combinaison as $c => $nb) {
         if (!isset($page_programs[$i])) {
-          //echo "\n".'<br/>stop no more programs:'.$i;
+         //echo "\n".'<br/>stop no more programs:'.$i;
           break;
         }
-         //echo "\n".'<br/>i:'.$i.' c:'.$c.' p:'.$page_programs[$i]->id;
+        //echo "\n".'<br/>i:'.$i.' c:'.$c.' p:'.$page_programs[$i]->id;
   
         if ($n >= $nb_programs_page) {
            //echo ' nottaken:'.$i;

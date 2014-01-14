@@ -30,6 +30,9 @@ deporte:''} %}
 		{% endif %}
 		<a {% if p.seo_url %} href="{{ base_url }}{{ p.seo_url }}{{ theater_id is defined and theater_id > 0 ? '?theater_id=' ~ theater_id : '' }}" target="_top"{% endif %} class="wrap-title size-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}}">
 		<span class="title">
+      {% if p.best_offer is defined and p.best_offer %}
+      <span class="ms-prog-diff">sur {{ p.best_offer.channel.name }}<br>{{ p.best_offer.broadcastdate|replace({' à ': '<br/>'})|raw }}</span>
+      {% endif %}
 			{% if p.deporte is defined and p.deporte %}
 			<span class="label label-default ico-deporte">
 				<i class="glyphicon glyphicon-play"></i><span>sur mySkreen</span>
@@ -38,9 +41,6 @@ deporte:''} %}
 			<i class="icon-th icon-white"></i>
 			<span class="ms-prog-title">{{ p_title|raw }} </span>
 			<span class="ms-prog-desc">  {% if p.format.name is defined %} {{ p.format.name|raw }}{% endif %}  {% if p.duration is defined and p.duration !="" %}, {{ p.duration|raw }} min {% endif %} </span>
-      {% if p.best_offer is defined and p.best_offer %}
-      <span class="ms-prog-diff">sur {{ p.best_offer.channel.name }}<br>{{ p.best_offer.broadcastdate|replace({' à ': '<br/>'})|raw }}</span>
-      {% endif %}
       </span>
 			<br>
 		</span>

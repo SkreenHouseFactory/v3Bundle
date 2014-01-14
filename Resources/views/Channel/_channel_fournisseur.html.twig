@@ -21,7 +21,10 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
       {% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: data, skip_root: true} %}
     </div>
   </div>
+  
+  {# a venir sur la chaine #}
   {% if data.epg and data.programs_epg|length %}
+  <a class="pull-right btn btn-default btn-sm" href="{{ path('tvgrid') }}">&raquo Tout le programme TV</a>
   {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {
         title: 'channel.epg'|trans({'%name%': data.name}), 
         programs: data.programs_epg, 

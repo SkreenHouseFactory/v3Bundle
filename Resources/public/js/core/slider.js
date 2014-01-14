@@ -391,12 +391,11 @@ var BaseSlider = Class.extend({
         } else if (o.channel.img) {
           $('.tv-component', li).prepend('<img class="channel" src="' + o.channel.img + '" alt="' + o.channel.name + '" />');
         }
+        if (o.broadcastdate) {
+          $('.title', li).append('<span class="ms-prog-diff">sur ' + o.channel.name + '<br/>' + o.broadcastdate.replace(' à ', '<br/></span>'));
+        }
         if (p.deporte) {
           $('.title', li).prepend('<span class="label label-default ico-deporte"><i class="glyphicon glyphicon-play"></i><span>sur mySkreen</span></span>');
-        }
-        if (o.broadcastdate) {
-          $('.title', li).append('<span class="ms-prog-diff"></span>');
-          $('.ms-prog-diff', li).append('sur ' + o.channel.name + '<br/>' + o.broadcastdate.replace(' à ', '<br/>'));
         }
         //playlist seulement
         if (this.elmt.hasClass('slider-playlist')) {
