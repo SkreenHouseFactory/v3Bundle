@@ -60,7 +60,7 @@ $(document).ready(function(){
           	myInfoWindow.open(map, marker);
           });
         } else {
-          console.error("Geocode was not successful for the following reason: " + status);
+          console.error('scripts/channel.js', 'Geocode was not successful for the following reason: ' + status);
         }
       });
     }
@@ -185,8 +185,7 @@ $(document).ready(function(){
             + '<iframe  class="g-plus-share" frameborder="0" scrolling="no" style="border-style:none; height:30px; margin: 0px 3px 0; visibility:visible; width:70px;" id="I0_share" name="I0_share" src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=fr&amp;url='+trigger.data('play-seo-url')+'&amp;id=I0_share" allowtransparency="true" data-gapiattached="true" title="+1"></iframe>'
           );
         }
-        
-        
+
         //popstate
         $(window).bind('popstate', function(e) {
           e.preventDefault();
@@ -198,7 +197,7 @@ $(document).ready(function(){
             //$('[data-id="' + e.originalEvent.state.program_id + '"]').trigger('click');
           }
         });
-        
+
         $('[data-play-url]').on('click',function(){
           switchVideo($(this));
         });

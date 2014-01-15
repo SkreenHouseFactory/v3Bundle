@@ -9,10 +9,10 @@
 <div class="container">
 	<ul class="nav nav-pills">
 		<li{{ app.request.get('type') == 'broadcast' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">TV & Replay</a></li>
-		<li{{ app.request.get('type') == 'vod' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'vod'}) }}">VOD</a></li>
-		<li{{ app.request.get('type') == 'webcast' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}">Web TV</a></li>
+		<li{{ app.request.get('type') == 'vod' ? ' class="active"' : '' }}><span data-link-to-replace="{{ path('sitemap_channels', {type: 'vod'})|rot13 }}">VOD</span></li>
+		<li{{ app.request.get('type') == 'webcast' ? ' class="active"' : '' }}><span data-link-to-replace="{{ path('sitemap_channels', {type: 'webcast'})|rot13 }}">Web TV</span></li>
 		<li{{ app.request.get('type') == 'cinema' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Cinéma</a></li>
-		<li{{ app.request.get('type') == 'dvd' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">DVD</a></li>
+		<li{{ app.request.get('type') == 'dvd' ? ' class="active"' : '' }}><span data-link-to-replace="{{ path('sitemap_channels', {type: 'dvd'})|rot13 }}">DVD</span></li>
 		<li{{ app.request.get('type') == 'thematique' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'thematique'}) }}">Thématique</a></li>
 	</ul>
 	<h1><small class="indent">{{ app.request.get('type') }}</small></h1>

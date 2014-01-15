@@ -304,8 +304,9 @@ class toolsExtension extends \Twig_Extension
       foreach ($programs as $key => $program) {
         //si image force
         if (isset($program->popular_channel) && 
+            isset($program->popular_channel->img_override_program) && 
             $program->popular_channel->img_override_program) {
-              continue;
+          continue;
         }
         //default
         if (isset($program->sliderPicture) || 

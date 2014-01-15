@@ -11,9 +11,21 @@
 {% set date = data.timestamp|localizeddate('full')|split('now'|date('Y')) %}
  
 <div id="view-tvgrid" >
-{% if periode == null or periode == 'ce-soir' %}
 <div id="description-seo">
+{% if periode == 'hier-soir' %}
+  <h1>Hier soir à la télé</h1>
+  <h2>Tout le programme TV</h2>
+  <br/>
+  <p>Voir aussi : <a href="{{ path('tvgrid_date', {date: 'en-ce-moment'}) }}">En ce moment : programme TV</a> : <a href="{{ path('tvgrid') }}">Ce soir : programme TV</a></p>
+{% elseif periode == 'en-ce-moment' %}
+  <h1>En ce moment à la télé</h1>
+  <h2>Tout le programme TV</h2>
+  <br/>
+  <p>Voir aussi : <a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir : programme TV</a> : <a href="{{ path('tvgrid') }}">Ce soir : programme TV</a></p>
+{% elseif periode == null or periode == 'ce-soir' %}
+  <h1>Ce soir à la télé</h1>
   <h2>Votre programme t&eacute;l&eacute; avec mySkreen</h2>
+  <p>Voir aussi : <a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir : programme TV</a> : <a href="{{ path('tvgrid_date', {date: 'en-ce-moment'}) }}">En ce moment : programme TV</a></p>
   <p>mySkreen est un guide innovant qui permet de consulter le programme t&eacute;l&eacute; du moment, du soir et de la journ&eacute;e.</p>
   <p>Vous avez rat&eacute; votre &eacute;mission ou vous souhaitez connaitre la derni&egrave;re diffusion de votre s&eacute;rie f&eacute;tiche&nbsp;? Vous avez le pouvoir de revenir dans les jours pr&eacute;c&eacute;dents.</p>
   <p>Choisissez votre tranche horaire, vos chaines TV pr&eacute;f&eacute;r&eacute;es et par genre (<strong>films</strong>, <strong>documentaires</strong>, <strong>&eacute;missions</strong>, <strong>sports</strong>, <strong>s&eacute;ries</strong>, <strong>spectacles</strong>), ajoutez vos programmes dans votre playlist, soyez avertis de la diffusions. Avec mySkreen cr&eacute;ez votre <strong>guide t&eacute;l&eacute; et replay&nbsp;</strong>100%&nbsp;personnalisable.</p>
@@ -30,8 +42,8 @@
   <p>Il y en a pour tous les gouts avec les magazines et les divertissements<strong> en replay et en streaming gratuit sur mySkreen</strong> avec les c&eacute;l&egrave;bres &eacute;missions Tellement vrai sur <strong>NRJ 12 replay</strong>, Cauchemar en cuisine sur <strong>W9 replay</strong>,&nbsp;B&ecirc;tes mais dr&ocirc;le sur <strong>France 4 replay</strong> ou encore l&rsquo;&eacute;mission phare de <strong>Cyril Hanouna</strong> avec son Touche pas &agrave; mon poste sur <strong>D8 replay</strong>.</p>
   <p>Restez inform&eacute; sur mySkreen, toute l'actualit&eacute;, les &eacute;missions politiques ou d'&eacute;conomie sont disponibles sur BFMTV, BFM Business, iT&eacute;l&eacute;, Public S&eacute;nat, France 24, KTO et TV5 monde<strong> en replay et en streaming gratuit</strong>.</p>
   <p>Ajoutez vos programmes pr&eacute;f&eacute;r&eacute;s &agrave; vos playlists en cliquant sur "+<strong>suivre</strong>". Vous serez avertis &agrave; chaque nouvelle diffusion ou mise en ligne. Avec votre playlist, mySkreen devient votre t&eacute;l&eacute; personnelle &agrave; la carte et &agrave; la demande, compos&eacute;e uniquement des programmes que vous aimez, quelle que soit leur cha&icirc;ne et &agrave; l'heure que vous voudrez.</p>
-</div>
 {% endif %}
+</div>
   <div class="container">
     <div id="tvgrid-player" class="fly-shadows">
       <a class="btn btn-default close">Fermer</a>
