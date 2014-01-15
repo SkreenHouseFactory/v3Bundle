@@ -26,4 +26,31 @@ class ModalController extends Controller
       return $this->render('SkreenHouseFactoryV3Bundle:Modal:publish-playlist.html.twig', array(
       ));
     }
+
+    /**
+    * signup
+    */
+    public function signupAction(Request $request)
+    {
+      return $this->render('SkreenHouseFactoryV3Bundle:Modal:signup.html.twig', array(
+      ));
+    }
+
+    /**
+    * signin
+    */
+    public function signinAction(Request $request)
+    {
+      return $this->render('SkreenHouseFactoryV3Bundle:Modal:signin.html.twig', array(
+      ));
+    }
+
+    /**
+    * checkout
+    */
+    public function checkoutAction(Request $request)
+    {
+      return $this->render('SkreenHouseFactoryV3Bundle:Modal:checkout.html.twig', array(
+      ));
+    }
 }

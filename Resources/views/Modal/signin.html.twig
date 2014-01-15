@@ -1,0 +1,123 @@
+{% extends 'SkreenHouseFactoryV3Bundle::empty.html.twig' %}
+
+{% block nostats %}nostat{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="noindex,nofollow" />
+{% endblock %}
+
+{% block title %}embed{% endblock %}
+{% block description %}embed{% endblock %}
+
+{% block css %}
+  {% stylesheets
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/bootstrap-overload.less'
+    filter='lessphp,?yui_css'
+    output='css/bootstrap.css'
+    %}
+    <link href="{{ asset_url }}?{{ 'now'|date('dm') }}" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+    <style>
+		body {
+		  margin: 0;
+		  padding: 0;
+		  width: 100%;
+		  height: 100%;
+		}
+		.entete{
+			background-color: #428bca;
+			color: white;
+			padding-bottom: 10px;
+			margin-bottom: 30px;
+		}
+		.text-left{
+		  padding-left: 20px;
+		  border-left: 20px solid #428bca;
+		  border-right: 20px solid #428bca;
+		  font-size: 38px;
+		  font-weight: bold;
+		  margin-bottom: 30px;
+		}
+		.message{
+			padding: 0 40px;
+		}
+		.conteneur-form{
+			padding: 0 40px;
+		}
+		.form-control{
+			height: 55px;
+			font-size: 16px;
+			background-color: rgba(66,139,202,0.2);
+		}
+		.btn-default{
+			background-color: #428bca;
+			color: white;
+			height: 55px;
+			font-size: 16px;
+		}
+		.form-group:nth-child(2){
+			margin-bottom: 40px;
+		}
+		input[type="email"], input[type="password"]{
+			-moz-appearance: textfield;
+			-webkit-appearance: textfield;
+			appearance: textfield;
+		}
+		.form-group input::-webkit-input-placeholder {
+   			color: black;
+		}
+		.form-group input:-moz-placeholder { /* Firefox 18- */
+			color: black;
+		}
+		.form-group input::-moz-placeholder {  /* Firefox 19+ */
+			color: black;
+		}
+		.form-group input:-ms-input-placeholder {  
+			color: black;
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+	<div class="entete">
+		<p class="text-center"><img src="http://mskstatic.com/medias/logo_white.png?ghg" alt="mySkreen" /></p>
+	</div>
+	<p class="text-left">SE CONNECTER</p>
+	<div class="conteneur-form">
+		<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<label for="inputEmail" class="sr-only">E-mail</label>
+				<div class="col-xs-16">
+					<input type="email" class="form-control" id="inputEmail" placeholder="E-MAIL">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputPass" class="sr-only">Mot de Passe</label>
+				<div class="col-xs-16">
+					<input type="password" class="form-control" id="inputPass" placeholder="MOT DE PASSE">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-16">
+					<button type="submit" class="col-xs-16 btn btn-default">VALIDER</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	{% javascripts
+	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.10.2.min.js'
+	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
+	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.min.js'
+	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
+	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.serializefullarray.js'
+	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*'
+	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
+	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
+	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
+	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/embed.js'
+	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
+	    filter='?yui_js' 
+	    output='js/compiled/moviepush.js'  %}
+	  	<script src="{{ asset_url }}?{{ 'now'|date('dm') }}"></script>
+  	{% endjavascripts %}
+{% endblock %}

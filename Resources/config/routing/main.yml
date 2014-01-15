@@ -39,6 +39,12 @@ homes:
         home: |video-a-la-demande|cinema|tv-replay|films|series|documentaires|emissions|spectacles|vod|jeunesse
 
 #modal
+modal_signup:
+    pattern:  /modal/signup/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:signup }
+modal_signin:
+    pattern:  /modal/signin/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:signin }
 modal_publish_playlist:
     pattern:  /user/modal/publish-playlist
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:publishplaylist }
