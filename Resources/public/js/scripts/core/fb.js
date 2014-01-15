@@ -41,6 +41,11 @@ $(document).ready(function(){
               if (UI.callbackModal) {
                 UI.callbackModal();
               }
+              console.log('scripts/core/fb.js', Skhf.session.user);
+              console.log('scripts/core/fb.js', Skhf.session.callbackSignin);
+              if(Skhf.session.user && Skhf.session.callbackSignin){
+                Skhf.session.callbackSignin();
+              }
               /* handled in Skhf.session.sync
               Skhf.session.signin(sessionDatas, function(){
                 console.log('scripts/fb.js', 'API.query callback', 'Skhf.session.signin callback', sessionDatas);

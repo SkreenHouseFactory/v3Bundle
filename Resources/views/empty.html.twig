@@ -29,7 +29,8 @@
   {% block meta %}
   {% endblock %}
 </head>
-<body>
+<body{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}>
+  <div id="fb-root"></div>
 {% endif %}
 
 <div class="body_background" data-refresh-bodybackground="{% block body_background %} {% endblock %}" data-refresh-bodyclass="{% block body_class %} {% endblock %}"></div>

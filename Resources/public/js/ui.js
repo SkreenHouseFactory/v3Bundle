@@ -93,7 +93,9 @@ UI = {
         $('.user-off:not(.hide)').addClass('hide');
         $('.user-on.hide').removeClass('hide');
         $('.user-on-visibility').css('visibility','visible');
-        $('li.selector:not(.empty)').popover('disable').popover('hide');
+        if($('li.selector').length>0){
+          $('li.selector:not(.empty)').popover('disable').popover('hide');
+        }
         //share on
         if (Skhf.session.datas.disallow_share) {
           $('.share [data-share="disallow"]').trigger('click');
@@ -689,6 +691,9 @@ UI = {
   },
   //update selector
   loadSelector: function(datas) {
+    if($('#playlist').length==0){
+      return;
+    }
     var self = this;
     console.log('UI.loadSelector', datas, Skhf.session.onglet);
     this.unloadSelector();
@@ -929,6 +934,9 @@ UI = {
   typeahead: function(searchbox){
     var self = this;
     //console.log('UI.typeahead', searchbox);
+    if($(searchbox).length == 0){
+      return;
+    }
     $(searchbox).typeahead({
       items: 5,
       minLength: 3,

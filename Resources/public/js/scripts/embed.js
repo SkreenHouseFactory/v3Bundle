@@ -10,6 +10,18 @@ if (!document.getElementsByClassName) {
 
 window.onload = function(){
   //console.log('scripts/embed.js');
+
+  //////////// CALLBACKS ////////////////
+  // -- session sync
+  Skhf.session.callbackSignin = function() {
+    if(Skhf.session.user){
+      console.log('scripts/embed.js', 'callbackSignin');
+      $('.connect').addClass('hide');
+      $('.share').removeClass('hide');
+    }
+  }
+
+
   var trigger = document.getElementById('trigger');
   if (trigger) {
     var covers = document.getElementsByClassName('player-cover');
