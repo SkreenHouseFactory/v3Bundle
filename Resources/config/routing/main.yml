@@ -4,7 +4,11 @@ embed_offer:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Embed:video }
     requirements:
         id: \d+
-
+embed_moviepush:
+    pattern:  /moviepush/{id}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Embed:moviepush }
+    requirements:
+        id: \d+
 
 sitemap_general:
     pattern:  /sitemap.xml
