@@ -46,6 +46,15 @@ class ModalController extends Controller
     }
 
     /**
+    * mdp oublié
+    */
+    public function mdpAction(Request $request)
+    {
+      return $this->render('SkreenHouseFactoryV3Bundle:Modal:mdp.html.twig', array(
+      ));
+    }
+
+    /**
     * checkout
     */
     public function checkoutAction(Request $request)

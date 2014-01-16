@@ -45,6 +45,9 @@ modal_signup:
 modal_signin:
     pattern:  /modal/signin/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:signin }
+modal_mdp:
+    pattern:  /modal/mdp/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:mdp }
 modal_publish_playlist:
     pattern:  /user/modal/publish-playlist
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:publishplaylist }

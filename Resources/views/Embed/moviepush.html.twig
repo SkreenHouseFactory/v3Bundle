@@ -74,7 +74,7 @@
 		.connect, .share{
 			border-radius: 5px;
 			background-color: rgba(255,255,255,0.95);
-			padding-bottom: 30px;
+			padding: 10px 0 30px 0;
 		}
 		.share p{
 			font-size: 18px;
@@ -87,6 +87,9 @@
 			font-size: 12px;
 			cursor: pointer;
 		}
+		.message{
+			color: #428bca;
+		}
 	</style>
 {% endblock %}
 
@@ -95,22 +98,22 @@
 		<div class="player-cover">
 			<div class="container">
 				<div class="connect row">
-					<p class="col-xs-16 text-center"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png')}}" alt="mySkreen" /></p>
-					<p class="col-xs-16 text-center">Pour voir les 10 premières minutes du film, il faut vous connecter à mySkreen.com.</p>
+					<p class="col-xs-16 text-center"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo_bleu_transparent.png')}}" alt="mySkreen" /></p>
+					<p class="col-xs-16 text-center message">Pour voir les 10 premières minutes du film, il faut vous connecter à mySkreen.com.</p>
 					<div class="col-xs-16 text-center" id="fbconnect"><img src="{{ asset('bundles/skreenhousefactoryv3/images/connexion_facebook_mp.png')}}" alt="Se connecter avec Facebook" /></div>
 					<div class="col-xs-16 text-center" id="fbconnect-infos"></div>
 					<div class="col-xs-16 text-center">
 						<div class="row">
 							<div class="col-xs-2"></div>
-							<a class="col-xs-5 btn btn-default btn-xs" onclick="window.open('{{ path('modal_signup') }}','mySkreen_signup','width=580,height=520,top=200,left=400')">Créer un compte</a>
+							<a class="col-xs-5 btn btn-default btn-xs" onclick="window.open('{{ path('modal_signup') }}','mySkreen_sign','width=580,height=650,top=200,left=400')">Créer un compte</a>
 							<div class="col-xs-2"></div>
-							<a class="col-xs-5 btn btn-default btn-xs" onclick="window.open('{{ path('modal_signin') }}','mySkreen_signin','width=580,height=520,top=200,left=400')">J'ai déjà un compte</a>
+							<a class="col-xs-5 btn btn-default btn-xs" onclick="window.open('{{ path('modal_signin') }}','mySkreen_sign','width=580,height=650,top=200,left=400')">J'ai déjà un compte</a>
 							<div class="col-xs-2"></div>
 						</div>
 					</div>
 				</div>
 				<div class="share row hide">
-					<p class="col-xs-16 text-center"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png')}}" alt="mySkreen" /></p>
+					<p class="col-xs-16 text-center"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo_bleu_transparent.png')}}" alt="mySkreen" /></p>
 					<p class="col-xs-16 text-center">Partager cette vidéo avec vos amis.</p>
 					<div class="fb-like col-xs-16 text-center" data-href="http://www.myskreen.com{{ offer.program.seo_url }}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
 					<div class="col-xs-16 text-center">
