@@ -33,6 +33,8 @@ window.onload = function(){
       for (i=0;i<covers.length;i++) {
         covers[i].style.display = 'none';
       }
+      var player_elmt = document.getElementById('player');
+      player_elmt.style.display = 'block';
       //load player
       var player;
       player = new Skhf.BasePlayer('player', params);

@@ -46,15 +46,15 @@ $(document).ready(function(){
     UiView.init();
     
     // -- session
-    console.log('scripts/_default.js', 'callbackSignin', callbackSignin);
-    Skhf.session = new Session(function(){
+    Skhf.session = new Session(function(sessionData, self){
       console.log('script', 'Session.init', 'callback');
       $('.headertoprighticons').removeClass('hide');
       if (typeof callbackSignin != 'undefined') {
-        console.log('scripts', '_default.js', 'Skhf.session', Skhf.session.callbackSignin);
-        Skhf.session.callbackSignin = callbackSignin;
+        self.callbackSignin = callbackSignin;
+        console.log('scripts', '_default.js', 'Skhf.session', self);
       };
     }, typeof Session_sync_args != 'undefined' ? Session_sync_args : {});
+
   });
   // -- User interactions
   UI.init(function(){

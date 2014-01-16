@@ -29,9 +29,14 @@ var BaseSession = Class.extend({
        }
        //callback
        if (typeof callback != 'undefined') {
-         callback(sessionData)
+         callback(sessionData, self)
        }
      }, args);
+   } else {
+     //callback
+       if (typeof callback != 'undefined') {
+         callback({}, this)
+       }
    }
  },
  sync: function(callback, args) {
@@ -50,14 +55,14 @@ var BaseSession = Class.extend({
          console.log('BaseSession.sync', 'Session.signin callback', callback);
          if (typeof callback != 'undefined' && callback) {
             console.log('BaseSession.sync', 'Session.signin callback sessionData', sessionData);
-           callback(sessionData)
+           callback(sessionData, this)
          }
        });
      } else {
        Skhf.session.datas = sessionData;
        UI.loadUser();
        if (typeof callback != 'undefined' && callback) {
-         callback(sessionData)
+         callback(sessionData, this)
        }
      }
    }
@@ -94,7 +99,6 @@ var BaseSession = Class.extend({
    }
 
    if (typeof callback != 'undefined') {
-
      //console.log('BaseSession.signin callback', callback);
      callback(sessionData);
    }
