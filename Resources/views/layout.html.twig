@@ -172,8 +172,8 @@
 
   </article>
 
-  {% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) %}
-  {#{ render_esi(controller('SkreenHouseFactoryV3Bundle:Main:header', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) }#}
+  {#% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) %#}
+  {{ render_esi(controller('SkreenHouseFactoryV3Bundle:Main:header', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) }}
   {% block header_filters %}
   {% endblock %}
 
