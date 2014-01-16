@@ -17,6 +17,7 @@ var BaseSession = Class.extend({
    var self = this;
    this.uid = API.cookie('session_uid');
    //update default sync args & launch sync
+   console.log('core/session.js', 'this.uid', this.uid);
    if (this.uid) {
      $.extend(this.sync_args, typeof args == 'undefined' ? {} : args);
      this.sync(function(sessionData){
@@ -48,6 +49,7 @@ var BaseSession = Class.extend({
        self.signin(sessionData, function(){
          console.log('BaseSession.sync', 'Session.signin callback', callback);
          if (typeof callback != 'undefined' && callback) {
+            console.log('BaseSession.sync', 'Session.signin callback sessionData', sessionData);
            callback(sessionData)
          }
        });
@@ -68,6 +70,7 @@ var BaseSession = Class.extend({
      });
    // create
    } else {
+    console.log('core/session.js', 'callback_signin', 'this.uid', this.uid);
      $.extend(args, this.sync_args);
      API.query('POST', 'session.json', args, function(sessionData) {
        callback_signin(sessionData);

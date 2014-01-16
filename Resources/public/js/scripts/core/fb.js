@@ -35,7 +35,7 @@ $(document).ready(function(){
           function(){
             console.log('scripts/fb.js', 'API.query callback');
 
-            Skhf.session.sync(function(sessionDatas){
+            Skhf.session.sync(function(){
               $('.modal').modal('hide');
               console.log('scripts/fb.js', 'API.query callback', 'Skhf.session.sync', UI.callbackModal);
               if (UI.callbackModal) {
@@ -46,11 +46,7 @@ $(document).ready(function(){
               if(Skhf.session.user && Skhf.session.callbackSignin){
                 Skhf.session.callbackSignin();
               }
-              /* handled in Skhf.session.sync
-              Skhf.session.signin(sessionDatas, function(){
-                console.log('scripts/fb.js', 'API.query callback', 'Skhf.session.signin callback', sessionDatas);
-              });
-              */
+              
             });
           });
       });

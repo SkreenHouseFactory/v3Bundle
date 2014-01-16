@@ -7,19 +7,20 @@ if (!document.getElementsByClassName) {
     return allCN
   }
 }
-
-window.onload = function(){
-  //console.log('scripts/embed.js');
-
-  //////////// CALLBACKS ////////////////
+//////////// CALLBACKS ////////////////
   // -- session sync
-  Skhf.session.callbackSignin = function() {
+  callbackSignin = function() {
     if(Skhf.session.user){
       console.log('scripts/embed.js', 'callbackSignin');
       $('.connect').addClass('hide');
       $('.share').removeClass('hide');
     }
   }
+
+window.onload = function(){
+  //console.log('scripts/embed.js');
+
+  
 
 
   var trigger = document.getElementById('trigger');
