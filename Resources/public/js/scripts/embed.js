@@ -11,15 +11,50 @@ if (!document.getElementsByClassName) {
   // -- session sync
   callbackSignin = function() {
     if(Skhf.session.user){
+      // passer de la présentation "se connecter" à "partager"
       console.log('scripts/embed.js', 'callbackSignin');
       $('.connect').addClass('hide');
       $('.share').removeClass('hide');
+
+
+      // check si le user FB connecté a liké
+      checklikeFB = function(pageIdFB, fbUID){
+        console.log('checklikeFB', 'SELECT uid FROM page_fan WHERE uid='+fbUID+' AND page_id='+pageIdFB);
+        console.log('checklikeFB', Skhf.session.datas.fb_access_token);
+        FB.api({
+          method:     'fql.query', 
+          access_token: Skhf.session.datas.fb_access_token,
+          query:  'SELECT uid FROM page_fan WHERE uid='+fbUID+' AND page_id='+pageIdFB
+        }, function(resp) {
+            console.log('checklikeFB', 'response', resp);
+            if (resp.length) {
+              clearTimeout(TimeOut);
+              $('#trigger').addClass('btn btn-success btn-lg').html("Voir la vidéo");
+            } else {
+              TimeOut = setTimeout(function(){
+                checklikeFB(pageIdFB, fbUID)
+              },3000)
+            }
+          }
+        );
+      }
+
+      // une fois connecté
+      if(Skhf.session.datas.fb_uid){
+        $.get('http://graph.facebook.com/fql?q=select%20url%2C%20id%2C%20type%2C%20site%20from%20object_url%20where%20url%20%3D%20%22'+escape($('.fb-like').data("href"))+'%22', function(fbdata){
+          //console.log('scripts/embed.js', 'get by FQL page_id', fbdata);
+          var pageIdFB = fbdata.data[0].id;
+          var fbUID = Skhf.session.datas.fb_uid;
+          console.log('scripts/embed.js', 'fb_uid verif', fbUID);
+          checklikeFB(pageIdFB,fbUID)
+          console.log('scripts/embed.js', 'get by FQL page_id', pageIdFB);
+        });
+      }
     }
   }
 
 window.onload = function(){
   //console.log('scripts/embed.js');
-
   
 
 
