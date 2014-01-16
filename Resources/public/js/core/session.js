@@ -91,7 +91,6 @@ var BaseSession = Class.extend({
    }
 
    if (typeof callback != 'undefined') {
-
      //console.log('BaseSession.signin callback', callback);
      callback(sessionData);
    }

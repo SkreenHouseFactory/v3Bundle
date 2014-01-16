@@ -32,20 +32,15 @@ $(document).ready(function(){
             access_token: authresponse['accessToken'],
             expires: authresponse['expiresIn']
           },
-          function(){
-            console.log('scripts/fb.js', 'API.query callback');
+          function(data){
+            console.log('scripts/fb.js', 'API.query callback', data);
 
-            Skhf.session.sync(function(sessionDatas){
+            Skhf.session.signin(data.session, function(){
               $('.modal').modal('hide');
               console.log('scripts/fb.js', 'API.query callback', 'Skhf.session.sync', UI.callbackModal);
               if (UI.callbackModal) {
                 UI.callbackModal();
               }
-              /* handled in Skhf.session.sync
-              Skhf.session.signin(sessionDatas, function(){
-                console.log('scripts/fb.js', 'API.query callback', 'Skhf.session.signin callback', sessionDatas);
-              });
-              */
             });
           });
       });
