@@ -26,7 +26,7 @@ class toolsExtension extends \Twig_Extension
             ),
            'horizontal' => array(
                 array('3x1' => 3,'1','1','1'),
-                array('1','1','1','2x1' => 2,'1')
+                array('2x1' => 2,'1','1','1','1')
             )
         )
     );
