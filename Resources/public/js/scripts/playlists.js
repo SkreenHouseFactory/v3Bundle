@@ -19,7 +19,7 @@ $(document).ready(function(){
   });
   // -- .fav : retirer / popover
   $(document).on('mouseover', '[class*=" fav-"]:not(.fav-trash)', function(event) {
-    //console.log('scripts/core/playlists.js', '[class*=" fav-"]:mouseover');
+    console.log('scripts/core/playlists.js', '[class*=" fav-"]:mouseover');
     var trigger = $(this);
       // retirer
       if (trigger.hasClass('fav-on')) {

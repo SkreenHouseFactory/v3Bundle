@@ -60,7 +60,7 @@ $(document).ready(function(){
           	myInfoWindow.open(map, marker);
           });
         } else {
-          console.error("Geocode was not successful for the following reason: " + status);
+          console.error('scripts/channel.js', 'Geocode was not successful for the following reason: ' + status);
         }
       });
     }
@@ -152,57 +152,59 @@ $(document).ready(function(){
           }
         }
       break;
-
-      //INTEGRALE INCONNUS
-      //trigger click sketch ?click=%5Bdata-id%3D"4939378"%5D
+      //INCONNUS
+      case 1:
       case 65:
-        //switch vieo
-        function switchVideo(trigger) {
-          //history
-          console.log(window.location);
-          history.pushState({
-              custom: true, 
-              program_id: trigger.data('id'), 
-              path: window.location.href, 
-              document_title: document.title ,
-            }, 
-            $(this).data('play-title') + ', L\'intégrale des Inconnus | myskreen', 
-            window.location.pathname + '?click=[data-id="' + trigger.data('id') + '"]'
-          );
-          //scroll
-          $('html,body').animate({'scrollTop' : 60}, 700);
-          //play
-          $('.row[data-selection-id]').addClass('hide');
-          $('.row[data-selection-id='+trigger.data('selection')+']').removeClass('hide');
-          $('.isplaying-title strong').html(trigger.data('play-title'));
-          $('.player-block iframe').attr('src',trigger.data('play-url'));
-          $('.row[data-selection-id='+trigger.data('selection')+'] .item').removeClass('active');
-          $('.vidplaylist .vignette[data-id='+trigger.data('id')+']').parent().addClass('active');
-          $('.vidplaylist .vignette').removeClass('playing');
-          $('.vidplaylist .vignette[data-id='+trigger.data('id')+']').addClass('playing');
-          $('.share-block').html('<iframe class="pull-left fbshare"  src="http://www.facebook.com/plugins/like.php?locale=fr_FR&amp;app_id=422066694500806&amp;href='+trigger.data('play-seo-url')+'&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35" scrolling="no" frameborder="0" style="border:none; height:21px; margin-left:5px; overflow:hidden; width:93px;" allowTransparency="true"></iframe>'
-            + '<iframe class="pull-left twitter-share" style="height: 20px;width: 94px; margin-right:0px; margin-left:5px;" allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer='+trigger.data('play-seo-url')+'&amp;size=m&amp;text='+trigger.data('share-text')+'&amp;url='+trigger.data('play-seo-url')+'" class="block-twitter" data-twttr-rendered="true"></iframe>'
-            + '<iframe  class="g-plus-share" frameborder="0" scrolling="no" style="border-style:none; height:30px; margin: 0px 3px 0; visibility:visible; width:70px;" id="I0_share" name="I0_share" src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=fr&amp;url='+trigger.data('play-seo-url')+'&amp;id=I0_share" allowtransparency="true" data-gapiattached="true" title="+1"></iframe>'
-          );
-        }
-        
-        
-        //popstate
-        $(window).bind('popstate', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          console.log('scripts/channel.js', 'popstate', e.originalEvent.state);
-          if (e.originalEvent.state) {
-            console.log('scripts/channel.js', 'popstate', 'trigger', '[data-id="' + e.originalEvent.state.program_id + '"]');
-            switchVideo($('[data-id="' + e.originalEvent.state.program_id + '"]'));
-            //$('[data-id="' + e.originalEvent.state.program_id + '"]').trigger('click');
+        //INTEGRALE INCONNUS
+        //trigger click sketch ?click=%5Bdata-id%3D"4939378"%5D
+        if ($('body').hasClass('view-channel-65')) {
+          //switch video
+          function switchVideo(trigger) {
+            //history
+            console.log('scripts/channel.js', 'switchVideo', trigger);
+            history.pushState({
+                custom: true, 
+                program_id: trigger.data('id'), 
+                path: window.location.href, 
+                document_title: document.title ,
+              }, 
+              $(this).data('play-title') + ', L\'intégrale des Inconnus | myskreen', 
+              window.location.pathname + '?click=[data-id="' + trigger.data('id') + '"]'
+            );
+            //scroll
+            $('html,body').animate({'scrollTop' : 60}, 700);
+            //play
+            $('.row[data-selection-id]').addClass('hide');
+            $('.row[data-selection-id='+trigger.data('selection')+']').removeClass('hide');
+            $('.isplaying-title strong').html(trigger.data('play-title'));
+            $('.player-block iframe').attr('src',trigger.data('play-url'));
+            $('.row[data-selection-id='+trigger.data('selection')+'] .item').removeClass('active');
+            $('.vidplaylist .vignette[data-id='+trigger.data('id')+']').parent().addClass('active');
+            $('.vidplaylist .vignette').removeClass('playing');
+            $('.vidplaylist .vignette[data-id='+trigger.data('id')+']').addClass('playing');
+            $('.share-block').html('<iframe class="pull-left fbshare"  src="http://www.facebook.com/plugins/like.php?locale=fr_FR&amp;app_id=422066694500806&amp;href='+trigger.data('play-seo-url')+'&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35" scrolling="no" frameborder="0" style="border:none; height:21px; margin-left:5px; overflow:hidden; width:93px;" allowTransparency="true"></iframe>'
+              + '<iframe class="pull-left twitter-share" style="height: 20px;width: 94px; margin-right:0px; margin-left:5px;" allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer='+trigger.data('play-seo-url')+'&amp;size=m&amp;text='+trigger.data('share-text')+'&amp;url='+trigger.data('play-seo-url')+'" class="block-twitter" data-twttr-rendered="true"></iframe>'
+              + '<iframe  class="g-plus-share" frameborder="0" scrolling="no" style="border-style:none; height:30px; margin: 0px 3px 0; visibility:visible; width:70px;" id="I0_share" name="I0_share" src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=fr&amp;url='+trigger.data('play-seo-url')+'&amp;id=I0_share" allowtransparency="true" data-gapiattached="true" title="+1"></iframe>'
+            );
           }
-        });
-        
-        $('[data-play-url]').on('click',function(){
-          switchVideo($(this));
-        });
-        channel_id = 1; //hack modal
+
+          //popstate
+          $(window).bind('popstate', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('scripts/channel.js', 'popstate', e.originalEvent.state);
+            if (e.originalEvent.state) {
+              console.log('scripts/channel.js', 'popstate', 'trigger', '[data-id="' + e.originalEvent.state.program_id + '"]');
+              switchVideo($('[data-id="' + e.originalEvent.state.program_id + '"]'));
+              //$('[data-id="' + e.originalEvent.state.program_id + '"]').trigger('click');
+            }
+          });
+
+          $('[data-play-url]').on('click',function(){
+            switchVideo($(this));
+          });
+          channel_id = 1; //hack modal
+        }
       break;
 
       //PBLV

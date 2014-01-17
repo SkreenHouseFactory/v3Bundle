@@ -26,6 +26,16 @@
       {#<li><a class="pull-left" href="{{ app.environment == 'dev' ? '/m' : 'http://m.myskreen.com' }}">Site mobile</a></li>#}
     </ul>
   </div>
+  
+  <div id="boost" class="row">
+    <div class="col-xs-16">
+      <p class="ms-surtitre">mySkreen c'est...</p>
+      <p>Un <strong>guide de programmes innovant</strong> qui réunit sur un seul site toutes les <strong>chaînes de télévision</strong>, tout le <strong>replay</strong>, tous les catalogues de <strong>VOD</strong>, le </strong>cinéma avec <strong>les horaires et les salles</strong>, et les <strong>web séries</strong> produites par les meilleurs sites médias. Suivez les programmes que vous aimez et soyez avertis à chaque diffusion ou nouvelle offre en streaming. Grâce à mySkreen, reprenez le pouvoir : mySkreen c’est <strong>votre télé à la carte et à la demande</strong>.</p>
+    </div>
+    <hr/>
+    {% render(controller('SkreenHouseFactoryV3Bundle:Main:boost',{})) %}
+  </div>
+
   {% if app.request.get('route') == 'homes' and app.request.get('home') == '' %}
   <hr/>  
   <div class="row" id="sitemap">
@@ -63,6 +73,7 @@
       <hr>
       <div class="container">
         <div class="row">
+          <p class="ms-surtitre">Toutes les catégories</p>
           <div class="col-xs-4">
             <br><strong class="pull-left">Par films :&nbsp;&nbsp;&nbsp;</strong><br>
             <p><a href="/film/action-aventure/" >Action - Aventure</a></p><p><a href="/film/cinema-americain/" >Cinéma américain</a></p><p><a href="/film/cinema-asiatique/" >Cinéma asiatique</a></p><p><a href="/film/cinema-classique/" >Cinéma classique</a></p><p><a href="/film/cinema-du-monde/" >Cinéma du monde</a></p><p><a href="/film/cinema-europeen/" >Cinéma européen</a></p><p><a href="/film/cinema-francais/" >Cinéma français</a></p><p><a href="/film/comedies/" >Comédies</a></p><p><a href="/film/drames/" >Drames</a></p><p><a href="/film/epouvante-horreur/" >Epouvante - horreur</a></p><p><a href="/film/fantastique/" >Fantastique</a></p><p><a href="/film/film-culte/" >Film culte</a></p><p><a href="/film/policier-thriller/" >Policier - Thriller</a></p><p><a href="/film/romance/" >Romance</a></p><p><a href="/film/science-fiction/" >Science-fiction</a></p>
@@ -135,14 +146,6 @@
       </div>
       </div>
     </div>
-  </div>
-  <hr/>
-  <div id="boost" class="row">
-    <div class="col-xs-16">
-      <p class="ms-surtitre">mySkreen c'est...</p>
-      Un <strong>guide de programmes innovant</strong> qui réunit sur un seul site toutes les <strong>chaînes de télévision</strong>, tout le <strong>replay</strong>, tous les catalogues de <strong>VOD</strong>, le </strong>cinéma avec <strong>les horaires et les salles</strong>, et les <strong>web séries</strong> produites par les meilleurs sites médias. Suivez les programmes que vous aimez et soyez avertis à chaque diffusion ou nouvelle offre en streaming. Grâce à mySkreen, reprenez le pouvoir : mySkreen c’est <strong>votre télé à la carte et à la demande</strong>.
-    </div>
-    {% render(controller('SkreenHouseFactoryV3Bundle:Main:boost',{})) %}
   </div>
   {% endif %}
 </div>

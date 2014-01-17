@@ -79,11 +79,13 @@ Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la
 {% endif %}
 
 
-{# modal / pas de modal pour la chaine parodie des inconnus, et applications #}
-{% if data.channel.id in [65] %}
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_modal-65.html.twig' %}
-{% elseif data.channel.id not in [60,64] %}
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_modal.html.twig' with {'data': data} %}
+{# modal / pas de modal pour la chaine parodie des inconnus, et applications et partenaires #}
+{% if '/partners/' not in app.request.getPathInfo %}
+  {% if data.channel.id in [65] %}
+  {% include 'SkreenHouseFactoryV3Bundle:Channel:_modal-65.html.twig' %}
+  {% elseif data.channel.id not in [60,64] %}
+  {% include 'SkreenHouseFactoryV3Bundle:Channel:_modal.html.twig' with {'data': data} %}
+  {% endif %}
 {% endif %}
 {% endblock %}
 
