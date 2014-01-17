@@ -5,7 +5,7 @@
 //onload
 $(document).ready(function(){
 
-  var fb_permissions = 'email,user_birthday,friends_birthday,friends_likes,publish_stream,publish_actions'; 
+  var fb_permissions = 'email,user_birthday,friends_birthday,user_likes,friends_likes,publish_stream,publish_actions'; 
 
   // fb connect
   function fbsync() {
