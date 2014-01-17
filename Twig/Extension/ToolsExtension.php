@@ -21,12 +21,12 @@ class toolsExtension extends \Twig_Extension
     protected $slider_combinaisons = array(
         '6'=> array(
            'vertical' => array(
-                array('1','1','1','1','1','1','1'),
-                array('2x2' => 4,'1','1','1')
+                array('1','1','1','1','1','1','1','1'),
+                array('2x2' => 4,'1','1','1','1','1')
             ),
            'horizontal' => array(
-                array('3x1' => 3,'1','1','1','1'),
-                array('2x1' => 2,'1','1','1','1','1')
+                array('3x1' => 3,'1','1','1','1','1','1'),
+                array('2x1' => 2,'1','1','1','1','1','1')
             )
         )
     );
