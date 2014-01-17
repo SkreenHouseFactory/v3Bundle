@@ -3,6 +3,7 @@ $(document).ready(function(){
 });
 var Skin;
 Skin = {
+  //EMISSION POUR TOUS
   initHomeEPT: function(){
      var item_id = 'item-5506240';
      if( $('#' + item_id).length && 
@@ -17,7 +18,7 @@ Skin = {
        $('.background-clickable').attr("href","http://www.myskreen.com/emission/divertissement/5506240-l-emission-pour-tous/");
      }
    }
-
+   //SUPERCONDRIAQUE
    /*initHomeSuper: function(){
      var item_id = 'item-5200318';
      if( $('#' + item_id).length && 
