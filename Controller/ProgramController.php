@@ -293,8 +293,8 @@ class ProgramController extends Controller
           $data->player->iframe = $data->datas_offers->channels->{$live[0]->channel_id}->live->player;
 
         } elseif ($data->teaser && 
-                  (!isset($data->offers['bonus']->{0}) || !$data->offers['bonus']->{0}->deporte) && 
-                  (!isset($data->offers['cut']->{0}) || !$data->offers['cut']->{0}->deporte) && 
+                  (!isset($data->offers['bonus']->{0}) || !$data->offers['bonus']->{0}->deporte || $data->offers['bonus']->{0}->episode_id != $data->id) && 
+                  (!isset($data->offers['cut']->{0}) || !$data->offers['cut']->{0}->deporte || $data->offers['cut']->{0}->episode_id != $data->id) && 
                   (!isset($data->offers['replay']->{0}) || !$data->offers['replay']->{0}->deporte) && 
                   (!isset($data->offers['deporte']->{0}) || $data->offers['deporte']->{0}->cost)) {
           $data->player = $data->teaser;
