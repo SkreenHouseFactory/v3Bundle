@@ -21,20 +21,28 @@ if (!document.getElementsByClassName) {
       checklikeFB = function(pageIdFB, fbUID){
         console.log('checklikeFB', 'SELECT uid FROM page_fan WHERE uid='+fbUID+' AND page_id='+pageIdFB);
         console.log('checklikeFB', Skhf.session.datas.fb_access_token);
-        FB.api({
-          method:     'fql.query', 
-          access_token: Skhf.session.datas.fb_access_token,
-          query:  'SELECT uid FROM page_fan WHERE uid='+fbUID+' AND page_id='+pageIdFB
-        }, function(resp) {
-            console.log('checklikeFB', 'response', resp);
-            if (resp.length) {
+        FB.api(
+          'me/likes',//+pageIdFB+'?access_token='+Skhf.session.datas.fb_access_token,
+          function(response){
+            console.log('checklikeFB', 'response', response);
+            for (var i=0; i<response.data.length; i++){
+              if (response.data[i].id==pageIdFB){
+                clearTimeout(TimeOut);
+                $('#trigger').addClass('btn btn-success btn-lg').html("Voir la vidéo");
+                return true;
+              }
+            }
+            TimeOut = setTimeout(function(){
+                checklikeFB(pageIdFB, fbUID)
+              },3000)
+            /*if (response.data.length === 1) {
               clearTimeout(TimeOut);
               $('#trigger').addClass('btn btn-success btn-lg').html("Voir la vidéo");
             } else {
               TimeOut = setTimeout(function(){
                 checklikeFB(pageIdFB, fbUID)
               },3000)
-            }
+            }*/
           }
         );
       }
