@@ -1,3 +1,17 @@
+#identification
+identification_compte:
+    pattern: /login/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Login:index }
+creation_compte:
+    pattern: /account_create/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Login:create }
+remind_compte:
+    pattern: /account_remind/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Login:remind }
+connexion_compte:
+    pattern: /account_connect/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Login:connect }
+
 #embed
 embed_offer:
     pattern:  /video/{id}/
