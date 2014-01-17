@@ -333,6 +333,11 @@ class toolsExtension extends \Twig_Extension
       $i = 0;
 
       $page_programs = array_values($page_programs);
+
+      //echo "\n".'programs';
+      foreach($page_programs as $p){
+        //echo "\n".' p:'.$p->id.','.$p->title;
+      }
       
       if (!isset($this->slider_combinaisons[$nb_programs_page][$type]) || 
           !count($this->slider_combinaisons[$nb_programs_page][$type])) {
@@ -349,18 +354,21 @@ class toolsExtension extends \Twig_Extension
       } else {
         $combinaison = $combinaisons[0];
       }
-
-     //echo "\n".'<br/>NEWPAGE '.implode('-', $combinaison);
-       //echo '$page_programs_keys '.implode('-', array_keys($page_programs));
+      //echo "\n".'programs';
+      foreach($page_programs as $p){
+        //echo "\n".' p:'.$p->id.','.$p->title;
+      }
+      //echo "\n".'<br/>NEWPAGE '.implode('-', $combinaison);
+      //echo '$page_programs_keys '.implode('-', array_keys($page_programs));
       foreach ($combinaison as $c => $nb) {
         if (!isset($page_programs[$i])) {
          //echo "\n".'<br/>stop no more programs:'.$i;
           break;
         }
-        //echo "\n".'<br/>i:'.$i.' c:'.$c.' p:'.$page_programs[$i]->id;
+        //echo "\n".'<br/>i:'.$i.' c:'.$c.' p:'.$page_programs[$i]->id.','.$page_programs[$i]->title;
   
         if ($n >= $nb_programs_page) {
-           //echo ' nottaken:'.$i;
+           //echo "\n".' nottaken:'.$i;
         } else {
 
           //slider horizontal
@@ -388,10 +396,11 @@ class toolsExtension extends \Twig_Extension
             } else {
               $program = $page_programs[$i];
               //echo ' -- takeprogram:'.$program->id;
+              $i++;
             }
             $picture = $program->picture;
           }
-          $i++;
+          
           //echo 'picture : $this->slider_size['.$nb_programs_page.']['.$c.']';
           if (isset($this->slider_size[$nb_programs_page][$c])) {
             $program->picture = str_replace(
