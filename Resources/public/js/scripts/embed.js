@@ -22,7 +22,8 @@ if (!document.getElementsByClassName) {
         console.log('checklikeFB', 'SELECT uid FROM page_fan WHERE uid='+fbUID+' AND page_id='+pageIdFB);
         console.log('checklikeFB', Skhf.session.datas.fb_access_token);
         FB.api(
-          'me/likes',//+pageIdFB+'?access_token='+Skhf.session.datas.fb_access_token,
+          'me/likes',
+          {access_token: Skhf.session.datas.fb_access_token},
           function(response){
             console.log('checklikeFB', 'response', response);
             for (var i=0; i<response.data.length; i++){
