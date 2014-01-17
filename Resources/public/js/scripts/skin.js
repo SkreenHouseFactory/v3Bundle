@@ -1,9 +1,24 @@
 $(document).ready(function(){
-  Skin.initHomeSuper();
+  Skin.initHomeEPT();
 });
 var Skin;
 Skin = {
-   initHomeSuper: function(){
+  initHomeEPT: function(){
+     var item_id = 'item-5506240';
+     if( $('#' + item_id).length && 
+         $('.carousel-a-la-une .item:first').attr('id') == item_id) {
+       $('#'+item_id+' .carousel-caption').hide(); // pour retirer le titre
+       $('body')
+         .css('background-repeat','no-repeat')
+         .css('background-position','center top')
+         .css('background-image','url("http://mskstatic.com/medias/ftp/habillages/emission_pour_tous/ept.jpg")');
+       $('#view-home').prepend('<a class="background-clickable"></a>');
+       $('#view-home .container').css('z-index','2');
+       $('.background-clickable').attr("href","http://www.myskreen.com/emission/divertissement/5506240-l-emission-pour-tous/");
+     }
+   }
+
+   /*initHomeSuper: function(){
      var item_id = 'item-5200318';
      if( $('#' + item_id).length && 
          $('.carousel-a-la-une .item:first').attr('id') == item_id) {
@@ -19,7 +34,7 @@ Skin = {
        $('#view-home .container').css('z-index','2');
        $('.background-clickable').attr("href","http://www.myskreen.com//film/comedies/5200318-supercondriaque/");
      }
-   }
+   }*/
 }
 // var Skin_apps;
 // Skin_apps = {
