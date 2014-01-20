@@ -13,20 +13,20 @@ page:
             mixte: mySkreen : replay et films / cinéma en streaming
             films: Film streaming
             documentaires: Documentaire streaming
-            series: Séries streaming
+            series: Séries TV
             spectacles: Spectacles, concerts, théatre streaming
             cinema: Cinéma : les horaires et les salles
             video-a-la-demande: Vidéo à la demande (VOD) en streaming
-            jeunesse: Cartoons, animation et dessins animés en streaming
+            jeunesse: Tous les dessins animés tv gratuits en streaming
     title:
         home: 
             mixte: Programmes Télé, Replay TV, VOD
             video-a-la-demande: Video à la demande | Streaming
             v3-tv-replay: Replay TV
             cinema: Les films et les horaires | Cinéma
-            jeunesse: Des programmes pour toute la famille | Streaming jeunesse
+            jeunesse: Jeunesse - dessins animés en replay et streaming
             films: Films | Streaming et VOD
-            series: Séries | Streaming et Replay
+            series: Séries TV - Toutes les séries gratuites en streaming
             documentaires: Documentaires | Streaming et VOD
             emissions: Emissions | Streaming et Replay
             spectacles: Théatre, concerts, spectacles | Streaming et VOD
