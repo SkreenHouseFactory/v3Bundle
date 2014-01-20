@@ -52,7 +52,11 @@ $(document).ready(function(){
       if (typeof callbackSignin != 'undefined') {
         self.callbackSignin = callbackSignin;
         console.log('scripts', '_default.js', 'Skhf.session', self);
-      };
+      }
+      if (typeof callbackInit != 'undefined') {
+        self.callbackInit = callbackInit;
+        console.log('scripts', '_default.js', 'Skhf.session', self);
+      }
     }, typeof Session_sync_args != 'undefined' ? Session_sync_args : {});
 
   });

@@ -14,12 +14,20 @@ namespace SkreenHouseFactory\v3Bundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContext;
 
+use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 use SkreenHouseFactory\v3Bundle\Entity\Ident;
 
 class ModalController extends Controller
 {
 
+    private $code_error;
+
+    public function __toString(){
+      return 'ModalController';
+    }
     /**
     * publish playlist
     */
@@ -34,16 +42,46 @@ class ModalController extends Controller
     */
     public function signupAction(Request $request)
     {
-      $creation = new Ident();
 
-      $form = $this->createFormBuilder($creation)
-        ->setAction($this->generateUrl('creation_compte'))
+      $creation = array(
+        'signin' => false,
+        'session_uid' => $request->cookies->get('myskreen_session_uid')
+        );
+
+      $form = $this->createFormBuilder($creation, array(
+          'constraints' => array(
+              new Assert\Callback(array(array($this,'tryConnect')))
+            )
+        ))
+        ->setAction($this->generateUrl('modal_signup'))
         ->add('email', 'email')
         ->add('password', 'password')
+        ->add('session_uid', 'hidden')
+        ->add('signin', 'hidden')
         ->add('inscription', 'submit')
         ->getForm();
 
-      return $this->render('SkreenHouseFactoryV3Bundle:Modal:signup.html.twig', array('form' => $form->createView()));
+      $form->handleRequest($request);
+      $success = false;
+
+      if($form->isValid()){
+        $success = true;
+      }
+
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Modal:signup.html.twig', array(
+        'form' => $form->createView(),
+        'success' => $success
+        ));
+
+      $cache_maxage=3600;
+      $response->setCache(array(
+          'max_age'       => $cache_maxage,
+          's_maxage'      => $cache_maxage,
+          'public'        => true,
+      ));
+
+      return $response;
+
     }
 
     /**
@@ -51,16 +89,45 @@ class ModalController extends Controller
     */
     public function signinAction(Request $request)
     {
-      $identification = new Ident();
 
-      $form = $this->createFormBuilder($identification)
-        ->setAction($this->generateUrl('connexion_compte'))
+      $identification = array(
+        'signin' => true,
+        'session_uid' => $request->cookies->get('myskreen_session_uid')
+        );
+      
+      $form = $this->createFormBuilder($identification, array(
+          'constraints' => array(
+              new Assert\Callback(array(array($this,'tryConnect')))
+            )
+        ))
+        ->setAction($this->generateUrl('modal_signin'))
         ->add('email', 'email')
         ->add('password', 'password') 
+        ->add('session_uid', 'hidden')
+        ->add('signin', 'hidden')
         ->add('valider', 'submit')
         ->getForm();
 
-      return $this->render('SkreenHouseFactoryV3Bundle:Modal:signin.html.twig', array('form' => $form->createView()));
+      $form->handleRequest($request);
+      $success = false;
+
+      if($form->isValid()){
+        $success = true;
+      }
+
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Modal:signin.html.twig', array(
+        'form' => $form->createView(),
+        'success' => $success
+        ));
+
+      $cache_maxage=3600;
+      $response->setCache(array(
+          'max_age'       => $cache_maxage,
+          's_maxage'      => $cache_maxage,
+          'public'        => true,
+      ));
+      
+      return $response;
     }
 
     /**
@@ -68,7 +135,6 @@ class ModalController extends Controller
     */
     public function mdpAction(Request $request)
     {
-      $remind = new Ident();
 
       $form = $this->createFormBuilder($remind)
         ->setAction($this->generateUrl('remind_compte'))
@@ -80,54 +146,47 @@ class ModalController extends Controller
     }
 
     /**
-    * connexion base 1
+    * connexion base
     */
-    public function connectAction(Request $request)
+    public static function tryConnect($data, ExecutionContext $context)
     {
-      $identification = new Ident();
+      
+      $api   = new ApiManager();
+      $response = $api->fetch(
+        '/api/2,3/user', 
+        array(
+          'session_uid'=>$data['session_uid'],
+          'username'=>$data['email'],
+          'password'=>$data['password'],
+          'signin'=>$data['signin']
+        ), 
+        'POST', 
+        array(
+          'curl.CURLOPT_SSL_VERIFYHOST' => 0, 
+          'curl.CURLOPT_SSL_VERIFYPEER' => 0
+      ));
 
-      $form = $this->createFormBuilder($identification)
-        ->add('email', 'email')
-        ->add('password', 'password') 
-        ->add('valider', 'submit')
-        ->getForm();
-
-      $form->handleRequest($request);
-
-      $retour = $this->render('SkreenHouseFactoryV3Bundle:Modal:login.html.twig', array('form' => $form->createView()));
-
-      if($form->isValid()){
-        if ($this->tryConnect($identification)) {
-          $retour = $this->render('SkreenHouseFactoryV3Bundle:Modal:success.html.twig');  
+      if(!$response->success){
+        switch ($response->code) {
+          case 'no-user':
+            $context->addViolation('Il n\'existe pas d\'utilisateur pour cet e-mail.', array('parameter'), 'invalidValue');
+            break;
+          case 'invalid-password':
+            $context->addViolation('Mot de passe incorrect.', array('parameter'), 'invalidValue');
+            break;
+          case 'invalid-email':
+            $context->addViolation('Adresse e-mail incorrecte.', array('parameter'), 'invalidValue');
+            break;
+          case 'already-logged-in':
+            $context->addViolation('Vous êtes déjà connecté.', array('parameter'), 'invalidValue');
+            break;
+          case 'invalid-username':
+            $context->addViolation('Cet e-mail est déjà enregistré.', array('parameter'), 'invalidValue');
+            break;
         }
       }
 
-      return $retour;
     }
-
-    private function tryConnect($identification)
-    {
-      $identification->acceptConnect();
-      var_dump($identification->getEmail());
-      var_dump($identification->getPassword());
-      var_dump($identification->getLogOk());
-
-      die;
-      $retour = false;
-
-      $email = $identification->getEmail();
-      $password = $identification->getPassword();
-        
-      if(is_object($user)){
-        //il a le droit de se connecter
-        $return = true;
-      } else {
-        // il peut toujours réessayer
-      }  
-
-      return $retour;
-    }
-
 
     /**
     * checkout
