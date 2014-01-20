@@ -2,7 +2,17 @@
 {% block meta_seo %} 
 <meta name="robots" content="noindex,nofollow"> 
 {% endblock%}
-{% block title %}{{ 'page.title.tvgrid'|trans({'%date%': data.timestamp|localizeddate('full')|replace({'00:00': '00'})}) }}{% endblock %}
+{% block title %}
+{% if periode == 'hier-soir' %}
+Programme TV : Hier soir à la télé
+{% elseif periode == 'en-ce-moment' %}
+Programme TV : en ce moment à la télé
+{% elseif periode == null or periode == 'ce-soir' %}
+Programme TV : ce soir à la télé
+{% else %}
+{{ 'page.title.tvgrid'|trans({'%date%': data.timestamp|localizeddate('full')|replace({'00:00': '00'})}) }}
+{% endif %}
+{% endblock %}
 {% block description %}{{ 'page.description.tvgrid'|trans }}{% endblock %}
 
 {% block content %}
