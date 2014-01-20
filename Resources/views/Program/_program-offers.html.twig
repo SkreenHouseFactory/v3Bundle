@@ -70,28 +70,24 @@
       {% if key == 'theater' %}
       {% set btn_deploy_offers = 0 %}
       {% if program.datas_theaters.theaters_ids|length > 0 %}
-
       <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined and program.theater_release_date_timestamp > 'now'| date('U') %}en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
       {% if program.datas_theaters.theaters_ids|length > 9 %}
-
-      <form role="form" class="form-search pull-left col-xs-10" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-form-ajax="#theaters-list">
-        <div class="input-group">
-          <input name="q" class="form-control" type="text" placeholder="{{ 'theaters.search.placeholder'|trans }}">
-          <div class="input-group-btn col-xs-16 nopadding">
-            <button class="btn btn-primary " type="submit"><i class="glyphicon glyphicon-search"></i>&nbsp;{{ 'theaters.search.submit'|trans }}</button>
+        <form role="form" class="form-search pull-left col-xs-10" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-form-ajax="#theaters-list">
+          <div class="input-group">
+            <input name="q" class="form-control" type="text" placeholder="{{ 'theaters.search.placeholder'|trans }}">
+            <div class="input-group-btn col-xs-16 nopadding">
+              <button class="btn btn-primary " type="submit"><i class="glyphicon glyphicon-search"></i>&nbsp;{{ 'theaters.search.submit'|trans }}</button>
+            </div>
           </div>
-        </div>
-      </form>
-
-      <div class="btn-group">
-        <a id="trigger-theaters-geoloc" href="#theaters" class="btn btn-default">
-          <i class="glyphicon glyphicon-map-marker"></i > {{ 'theaters.search.geoloc'|trans }}
+        </form>
+        <div class="btn-group">
+          <a id="trigger-theaters-geoloc" href="#theaters" class="btn btn-default">
+            <i class="glyphicon glyphicon-map-marker"></i > {{ 'theaters.search.geoloc'|trans }}
           </a>
           <a id="trigger-theaters-playlist" href="#theaters" class="btn btn-suivre">
             <i class="glyphicon glyphicon-user"></i> {{ 'theaters.search.playlist'|trans }}
           </a>
         </div>
-
         {% endif %}
         <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_program', {id: program.id}) }}">
           {% render(controller('SkreenHouseFactoryV3Bundle:Cinema:program', {id: program.id, theater_ids: app.request.get('theater_id') ? app.request.get('theater_id') : program.datas_theaters.theaters_ids|join(',') })) %}
@@ -112,9 +108,6 @@
           </div>
           </div>
           </div>
-
-
-
         {% endfor %}
         {% endif %}
 
@@ -139,7 +132,7 @@
             <tr class="other-episodes {{ o_access.name }}"><td colspan="6"><p>Autres épisodes <i class="glyphicon glyphicon-arrow-down"></i></p></td></tr>
             {% set other_episodes = 'ok' %}
             {% endif %}
-            <tr class="{{key}} player-stop {{ o.cost is defined and o.cost ? '' : 'no-cost '}}{% if program.player and o.id == program.player.id %}is-playing{% endif %}{% if loop.index > loop_offset and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %}{% else %}collapse{% endif %} collapsing-{{ key }}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['TV'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player and o.is_live is defined and o.is_live %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ 'm6replay' not in o.url ? o.url|replace({'/exit/': '/redirect/'}) : o.url }}"{% elseif o.deporte is defined and o.deporte and key != "coming_soon" %} data-play="{{ o.id }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} {% if key=="deporte" %}data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~ (o.broadcasttime is defined ? o.broadcasttime|broadcastdate : '')}) }}"{% endif %}>
+            <tr class="{{key}} player-stop {{ o.cost is defined and o.cost ? '' : 'no-cost '}}{% if program.player and o.id == program.player.id %}is-playing{% endif %}{% if loop.index > loop_offset and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %}{% else %}collapse{% endif %} collapsing-{{ key }}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['TV'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player and o.is_live is defined and o.is_live %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ 'm6replay' not in o.url and 'itunes' not in o.url ? o.url|replace({'/exit/': '/redirect/'}) : o.url }}"{% elseif o.deporte is defined and o.deporte and key != "coming_soon" %} data-play="{{ o.id }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} {% if key=="deporte" %}data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~ (o.broadcasttime is defined ? o.broadcasttime|broadcastdate : '')}) }}"{% endif %}>
 
               <td class="channel">
                 <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture|replace({'/medias': '/t/medias'}) }}{% elseif o_episode and o_access.name in ['Replay'] and o_episode.picture and o_episode.picture|pic_filter != program.picture | pic_filter %}{{o_episode.picture}} {% else %}{{ o_channel.img|replace({'80//': '80/'}) }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
