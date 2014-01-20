@@ -15,6 +15,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use SkreenHouseFactory\v3Bundle\Entity\Ident;
+
 class ModalController extends Controller
 {
 
@@ -32,8 +34,16 @@ class ModalController extends Controller
     */
     public function signupAction(Request $request)
     {
-      return $this->render('SkreenHouseFactoryV3Bundle:Modal:signup.html.twig', array(
-      ));
+      $creation = new Ident();
+
+      $form = $this->createFormBuilder($creation)
+        ->setAction($this->generateUrl('creation_compte'))
+        ->add('email', 'email')
+        ->add('password', 'password')
+        ->add('inscription', 'submit')
+        ->getForm();
+
+      return $this->render('SkreenHouseFactoryV3Bundle:Modal:signup.html.twig', array('form' => $form->createView()));
     }
 
     /**
@@ -41,8 +51,16 @@ class ModalController extends Controller
     */
     public function signinAction(Request $request)
     {
-      return $this->render('SkreenHouseFactoryV3Bundle:Modal:signin.html.twig', array(
-      ));
+      $identification = new Ident();
+
+      $form = $this->createFormBuilder($identification)
+        ->setAction($this->generateUrl('connexion_compte'))
+        ->add('email', 'email')
+        ->add('password', 'password') 
+        ->add('valider', 'submit')
+        ->getForm();
+
+      return $this->render('SkreenHouseFactoryV3Bundle:Modal:signin.html.twig', array('form' => $form->createView()));
     }
 
     /**
@@ -50,9 +68,66 @@ class ModalController extends Controller
     */
     public function mdpAction(Request $request)
     {
-      return $this->render('SkreenHouseFactoryV3Bundle:Modal:mdp.html.twig', array(
-      ));
+      $remind = new Ident();
+
+      $form = $this->createFormBuilder($remind)
+        ->setAction($this->generateUrl('remind_compte'))
+        ->add('email', 'email')
+        ->add('envoyer', 'submit')
+        ->getForm();
+
+      return $this->render('SkreenHouseFactoryV3Bundle:Modal:mdp.html.twig', array('form' => $form->createView()));
     }
+
+    /**
+    * connexion base 1
+    */
+    public function connectAction(Request $request)
+    {
+      $identification = new Ident();
+
+      $form = $this->createFormBuilder($identification)
+        ->add('email', 'email')
+        ->add('password', 'password') 
+        ->add('valider', 'submit')
+        ->getForm();
+
+      $form->handleRequest($request);
+
+      $retour = $this->render('SkreenHouseFactoryV3Bundle:Modal:login.html.twig', array('form' => $form->createView()));
+
+      if($form->isValid()){
+        if ($this->tryConnect($identification)) {
+          $retour = $this->render('SkreenHouseFactoryV3Bundle:Modal:success.html.twig');  
+        }
+      }
+
+      return $retour;
+    }
+
+    private function tryConnect($identification)
+    {
+      $identification->acceptConnect();
+      var_dump($identification->getEmail());
+      var_dump($identification->getPassword());
+      var_dump($identification->getLogOk());
+
+      die;
+      $retour = false;
+
+      $email = $identification->getEmail();
+      $password = $identification->getPassword();
+        
+      if(is_object($user)){
+        //il a le droit de se connecter
+        $return = true;
+      } else {
+        // il peut toujours réessayer
+      }  
+
+      return $retour;
+    }
+
 
     /**
     * checkout

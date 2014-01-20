@@ -1,9 +1,24 @@
-<div>
-    {{ form_label(form.email) }}
-    {{ form_errors(form.email) }}
-    {{ form_widget(form.email) }}
-</div>
+{% extends 'SkreenHouseFactoryV3Bundle::empty.html.twig' %}
 
+{% block nostats %}nostat{% endblock %}
 
+{% block meta %}
+<meta name="robots" content="noindex,nofollow" />
+{% endblock %}
 
-{{ form(form) }}
+{% block title %}embed{% endblock %}
+{% block description %}embed{% endblock %}
+
+{% block css %}
+	{% block css_popin %}
+		{% include 'SkreenHouseFactoryV3Bundle:Modal:css_popin.html.twig' %}
+    {% endblock %}
+{% endblock %}
+
+{% block content %}
+	{% block form %}
+	{% endblock %}
+	{% block js_popin %}
+		{% include 'SkreenHouseFactoryV3Bundle:Modal:js_popin.html.twig' %}
+	{% endblock %}
+{% endblock %}

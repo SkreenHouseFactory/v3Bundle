@@ -27,12 +27,12 @@ class LoginController extends Controller
 
     $form = $this->createFormBuilder($identification)
       ->setAction($this->generateUrl('connexion_compte'))
-      ->add('email', 'email', array(), array('class' => 'bla'))
+      ->add('email', 'email')
       ->add('password', 'password') 
       ->add('CONNEXION', 'submit')
       ->getForm();
 
-    return $this->render('SkreenHouseFactoryV3Bundle:Modal:login.html.twig', array('form' => $form->createView()));
+    return $this->render('SkreenHouseFactoryV3Bundle:Modal:signin.html.twig', array('form' => $form->createView()));
   }
 
   public function createAction(Request $request)
@@ -45,7 +45,7 @@ class LoginController extends Controller
       ->add('INSCRIPTION', 'submit')
       ->getForm();
 
-    return $this->render('SkreenHouseFactoryV3Bundle:Modal:login.html.twig', array('form' => $form->createView()));
+    return $this->render('SkreenHouseFactoryV3Bundle:Modal:signup.html.twig', array('form' => $form->createView()));
   }
 
   public function remindAction(Request $request)
@@ -58,7 +58,7 @@ class LoginController extends Controller
       ->add('INSCRIPTION', 'submit')
       ->getForm();
 
-    return $this->render('SkreenHouseFactoryV3Bundle:Modal:login.html.twig', array('form' => $form->createView()));
+    return $this->render('SkreenHouseFactoryV3Bundle:Modal:mdp.html.twig', array('form' => $form->createView()));
   }
 
   public function connectAction(Request $request)

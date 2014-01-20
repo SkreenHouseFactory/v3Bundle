@@ -1,26 +1,6 @@
-{% extends 'SkreenHouseFactoryV3Bundle::empty.html.twig' %}
+{% extends 'SkreenHouseFactoryV3Bundle:Modal:login.html.twig' %}
 
-{% block nostats %}nostat{% endblock %}
-
-{% block meta %}
-<meta name="robots" content="noindex,nofollow" />
-{% endblock %}
-
-{% block title %}embed{% endblock %}
-{% block description %}embed{% endblock %}
-
-{% block css %}
-  {% stylesheets
-    '@SkreenHouseFactoryV3Bundle/Resources/public/less/bootstrap-overload.less'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/less/modal_new.less'
-    filter='lessphp,?yui_css'
-    output='css/modal_new.css'
-    %}
-    <link href="{{ asset_url }}?{{ 'now'|date('dm') }}" rel="stylesheet" media="screen" />
-    {% endstylesheets %}
-{% endblock %}
-
-{% block content %}
+{% block form %}
 	<div class="entete">
 		<p class="text-center"><img src="http://mskstatic.com/medias/logo_white.png?ghg" alt="mySkreen" /></p>
 		<p class="message"><strong>Votre compte GRATUIT en 1 clic :</strong> Créez vos playlists et ne ratez plus vos programmes préférés : Cinéma, TV, Replay et VOD !</p>
@@ -32,43 +12,30 @@
 		<span>ou</span>
 	</div>
 	<div class="conteneur-form">
-		<form class="form-horizontal" role="form">
+		{{ form_start(form, {'attr': {'class': 'form-horinzontal', 'role': 'form'}}) }}
+			{{ form_errors(form) }}
 			<div class="form-group">
-				<label for="inputEmail" class="sr-only">E-mail</label>
+				{{ form_label(form.email, 'E-mail', {'label_attr': {'class': 'sr-only'}}) }}
+				{{ form_errors(form.email) }}
 				<div class="col-xs-16">
-					<input type="email" class="form-control" id="inputEmail" placeholder="E-MAIL">
+					{{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'E-MAIL'}}) }}
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputPass" class="sr-only">Mot de Passe</label>
+				{{ form_label(form.password, 'Mot de Passe', {'label_attr': {'class': 'sr-only'}}) }}
+				{{ form_errors(form.password) }}
 				<div class="col-xs-16">
-					<input type="password" class="form-control" id="inputPass" placeholder="MOT DE PASSE">
+					{{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'MOT DE PASSE'}}) }}
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-xs-16">
-					<button type="submit" class="col-xs-16 btn btn-default">INSCRIPTION</button>
+					{{ form_widget(form.inscription, {'attr': {'class': 'col-xs-16 btn btn-default'}}) }}
 				</div>
 			</div>
-		</form>
+		{{ form_end(form) }}
 	</div>
 	<div class="link">
 		<a onclick="window.open('{{ path('modal_signin') }}','mySkreen_sign','width=580,height=680,top=200,left=400')">Se connecter</a>
 	</div>
-	{% javascripts
-	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.10.2.min.js'
-	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
-	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.min.js'
-	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
-	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.serializefullarray.js'
-	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*'
-	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
-	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
-	   	'@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/modal.js'
-	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
-	    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
-	    filter='?yui_js' 
-	    output='js/compiled/moviepush.js'  %}
-	  	<script src="{{ asset_url }}?{{ 'now'|date('dm') }}"></script>
-  	{% endjavascripts %}
 {% endblock %}
