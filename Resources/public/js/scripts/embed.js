@@ -26,7 +26,23 @@ if (!document.getElementsByClassName) {
       checklikeFB = function(pageIdFB, fbUID){
         console.log('checklikeFB', 'SELECT uid FROM page_fan WHERE uid='+fbUID+' AND page_id='+pageIdFB);
         console.log('checklikeFB', Skhf.session.datas.fb_access_token);
-        FB.api(
+        FB.api({ method: 'pages.isFan', page_id: pageIdFB, uid: fbUID, access_token: Skhf.session.datas.fb_access_token }, function(resp) {
+          if (resp == true) {
+            console.log('checklikeFB', 'user_id likes the Application.');
+          } else if(resp.error_code) {
+            console.log('checklikeFB', resp.error_msg);
+          } else {
+            console.log('checklikeFB', "user_id doesn't like the Application.");
+          }
+        });
+        /*FB.api({ method: 'fql.query', query: 'SELECT uid FROM page_fan WHERE uid= ' + fbUID + ' AND page_id=' + pageIdFB },
+          function(result) {
+            console.log('checklikeFB', 'FQL result', result);
+            if (result.length){
+              console.log('checklikeFB', 'FQL success');
+            }
+        });*/
+        /*FB.api(
           'me/likes',
           {access_token: Skhf.session.datas.fb_access_token},
           function(response){
@@ -48,9 +64,9 @@ if (!document.getElementsByClassName) {
               TimeOut = setTimeout(function(){
                 checklikeFB(pageIdFB, fbUID)
               },3000)
-            }*/
+            }
           }
-        );
+        );*/
       }
 
       // une fois connecté

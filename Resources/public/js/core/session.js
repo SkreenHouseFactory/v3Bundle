@@ -13,18 +13,26 @@ var BaseSession = Class.extend({
  callbackSignin: null,
  callbackSocial: [],
  init: function(callback, args) {
-   console.log('BaseSession.init', args);
-   var self = this;
-   this.uid = API.cookie('session_uid');
+    console.log('BaseSession.init', args);
+    var self = this;
+    this.uid = API.cookie('session_uid');
+    if (typeof callbackSignin != 'undefined') {
+      self.callbackSignin = callbackSignin;
+      //console.log('scripts', '_default.js', 'Skhf.session', 'self.callbackSignin', self.callbackSignin);
+    }
+    if (typeof callbackInit != 'undefined') {
+      self.callbackInit = callbackInit;
+      //console.log('scripts', '_default.js', 'Skhf.session', 'self.callbackInit', self.callbackInit);
+    }
    //update default sync args & launch sync
    console.log('core/session.js', 'this.uid', this.uid);
    if (this.uid) {
      $.extend(this.sync_args, typeof args == 'undefined' ? {} : args);
      this.sync(function(sessionData){
-       //console.log('BaseSession.init', 'callback Session.sync', sessionData);
+       console.log('BaseSession.init', 'callback Session.sync', sessionData);
        //callbackInit : called only once
        if (self.callbackInit) {
-         self.callbackInit();
+         self.callbackInit(self);
          self.callbackInit = null;
        }
        //callback
@@ -179,7 +187,8 @@ var BaseSession = Class.extend({
           this.getPlaylistIds('user').length ;
  },
  isInPlaylist: function(playlist,id){
-   return $.inArray(id, this.getPlaylistIds(playlist)) != -1 ? true : false;
+    //console.log('BaseSession.isInPlaylist', this.getPlaylistIds(playlist), $.inArray(id+'', this.getPlaylistIds(playlist)));
+   return $.inArray(id+'', this.getPlaylistIds(playlist)) != -1 ? true : false;
  },
  getPlaylistIds: function(playlist) {
    //console.log('BaseSession.getPlaylistIds', playlist);

@@ -133,21 +133,6 @@ class ModalController extends Controller
     }
 
     /**
-    * mdp oublié
-    */
-    public function mdpAction(Request $request)
-    {
-
-      $form = $this->createFormBuilder($remind)
-        ->setAction($this->generateUrl('remind_compte'))
-        ->add('email', 'email')
-        ->add('envoyer', 'submit')
-        ->getForm();
-
-      return $this->render('SkreenHouseFactoryV3Bundle:Modal:mdp.html.twig', array('form' => $form->createView()));
-    }
-
-    /**
     * connexion base
     */
     public static function tryConnect($data, ExecutionContext $context)
@@ -197,6 +182,83 @@ class ModalController extends Controller
 
     }
 
+
+    /**
+    * mdp oublié
+    */
+    public function mdpAction(Request $request)
+    {
+      $remind = array();
+
+      $form = $this->createFormBuilder($remind, array(
+          'constraints' => array(
+              new Assert\Callback(array(array($this,'tryRemember')))
+            )
+        ))
+        ->setAction($this->generateUrl('modal_mdp'))
+        ->add('email', 'email')
+        ->add('session_uid', 'hidden')
+        ->add('envoyer', 'submit')
+        ->getForm();
+
+      $form->handleRequest($request);
+      $success = false;
+
+      if($form->isValid()){
+        $success = true;
+      }
+      
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Modal:mdp.html.twig', array(
+        'form' => $form->createView(),
+        'success' => $success
+        ));
+
+      $cache_maxage=3600;
+      $response->setCache(array(
+          'max_age'       => $cache_maxage,
+          's_maxage'      => $cache_maxage,
+          'public'        => true,
+      ));
+
+      return $response;
+    }
+
+    public static function tryRemember($data, ExecutionContext $context){
+
+      $api   = new ApiManager();
+      $response = $api->fetch(
+        '/api/2,3/session/settings/'.$data['session_uid'], 
+        array(
+          'send_mail'=>'change_pwd',
+          'username'=>$data['email'],
+        ), 
+        'GET', 
+        array(
+          'curl.CURLOPT_SSL_VERIFYHOST' => 0, 
+          'curl.CURLOPT_SSL_VERIFYPEER' => 0
+      ));
+
+      if(!$response->success){
+        switch ($response->code) {
+          case 'no-user':
+            $context->addViolation('Il n\'existe pas d\'utilisateur pour cet e-mail.', array('parameter'), 'invalidValue');
+            break;
+          case 'invalid-password':
+            $context->addViolation('Mot de passe incorrect.', array('parameter'), 'invalidValue');
+            break;
+          case 'invalid-email':
+            $context->addViolation('Adresse e-mail incorrecte.', array('parameter'), 'invalidValue');
+            break;
+          case 'already-logged-in':
+            $context->addViolation('Vous êtes déjà connecté.', array('parameter'), 'invalidValue');
+            break;
+          case 'invalid-username':
+            $context->addViolation('Cet e-mail est déjà enregistré.', array('parameter'), 'invalidValue');
+            break;
+        }
+      }
+    }
+    
     /**
     * checkout
     */

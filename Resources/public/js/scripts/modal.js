@@ -15,6 +15,7 @@
         $('#form_session_uid').val(Skhf.session.uid);
       });
     } else {
+      console.log('modal.js', 'callbackInit', Skhf.session.uid);
       $('#form_session_uid').val(Skhf.session.uid);
     }
   }
