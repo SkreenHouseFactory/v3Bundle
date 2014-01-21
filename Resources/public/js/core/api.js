@@ -55,12 +55,12 @@ ENV = {
   },
   preprod: {
     env: 'preprod',
-    site_url: 'http://preprod.beta.myskreen.com',
+    site_url: 'http://preprod.v3.myskreen.com',
     v3_url: 'http://preprod.v3.myskreen.com',
     v3_root: '',
-    base: 'https://preprod.api.myskreen.com/api/',
-    popin: 'https://preprod.api.myskreen.com/popin/',
-    domain: 'preprod.beta.myskreen.com',
+    base: 'https://api.myskreen.com/api/',
+    popin: 'https://api.myskreen.com/popin/',
+    domain: 'preprod.v3.myskreen.com',
     fb: {app_id: 193945860617344 },
     console: true
   },
