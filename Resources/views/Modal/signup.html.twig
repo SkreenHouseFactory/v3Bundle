@@ -15,18 +15,18 @@
       <span>ou</span>
     </div>
     <div class="conteneur-form">
-      {{ form_start(form, {'attr': {'class': 'form-horinzontal', 'role': 'form'}}) }}
-        {{ form_errors(form) }}
+      {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+        {{ form_errors(form, {'li_attr': {'class': 'alert alert-danger'}}) }}
         <div class="form-group">
           {{ form_label(form.email, 'E-mail', {'label_attr': {'class': 'sr-only'}}) }}
-          {{ form_errors(form.email) }}
+          {{ form_errors(form.email, {'li_attr': {'class': 'alert alert-danger'}}) }}
           <div class="col-xs-16">
             {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'E-MAIL'}}) }}
           </div>
         </div>
         <div class="form-group">
           {{ form_label(form.password, 'Mot de Passe', {'label_attr': {'class': 'sr-only'}}) }}
-          {{ form_errors(form.password) }}
+          {{ form_errors(form.password, {'li_attr': {'class': 'alert alert-danger'}}) }}
           <div class="col-xs-16">
             {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'MOT DE PASSE'}}) }}
           </div>

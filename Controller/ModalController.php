@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContext;
+use Symfony\Component\Validator\Constraints\Length;
 
 use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 use SkreenHouseFactory\v3Bundle\Entity\Ident;
@@ -55,7 +56,9 @@ class ModalController extends Controller
         ))
         ->setAction($this->generateUrl('modal_signup'))
         ->add('email', 'email')
-        ->add('password', 'password')
+        ->add('password', 'password', array(
+          'constraints' => new Length(array('min' => 4))
+          ))
         ->add('session_uid', 'hidden')
         ->add('signin', 'hidden')
         ->add('inscription', 'submit')
@@ -102,7 +105,9 @@ class ModalController extends Controller
         ))
         ->setAction($this->generateUrl('modal_signin'))
         ->add('email', 'email')
-        ->add('password', 'password') 
+        ->add('password', 'password', array(
+          'constraints' => new Length(array('min' => 4))
+          )) 
         ->add('session_uid', 'hidden')
         ->add('signin', 'hidden')
         ->add('valider', 'submit')
