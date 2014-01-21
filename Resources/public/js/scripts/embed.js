@@ -85,8 +85,6 @@ if (!document.getElementsByClassName) {
 
 window.onload = function(){
   //console.log('scripts/embed.js');
-  
-
 
   var trigger = document.getElementById('trigger');
   if (trigger) {
@@ -119,4 +117,21 @@ window.onload = function(){
       trigger.click();
     }
   }
+
+  $('#fb-fakelike').on('click', function(){
+    FB.api(
+    '/'+Skhf.session.datas.fb_uid+'/og.likes',
+    "POST",
+    {
+        "object": $('.fb-like').data("href")
+    },
+    function (response) {
+      console.log('scripts/embed.js', 'FB Fake like', response);
+      if (response && !response.error) {
+        console.log('scripts/embed.js', 'FB Fake like', 'Like Successful');
+      }
+    }
+);
+  });
+    
 }
