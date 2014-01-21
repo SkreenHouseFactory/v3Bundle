@@ -7,16 +7,23 @@
       window.close();
     }
   }
-  callbackInit = function() {
+  callbackInit = function(session) {
     console.log('pas de session');
-    if(!Skhf.session.uid){
-      Skhf.session.sync();
+    if(!session.uid){
+      session.sync(function(){
+        console.log('modal.js', 'callbackInit', Skhf.session.uid);
+        $('#form_session_uid').val(Skhf.session.uid);
+      });
+    } else {
+      $('#form_session_uid').val(Skhf.session.uid);
     }
   }
   
 $(document).ready(function(){
+  console.log('modal.js', 'ready');
   if($('#close').length>0){
-    console.log('test close');
+    //console.log('test close');
+    //console.log('callbackSignin', callbackSignin);
     callbackSignin();
   }
 });

@@ -15,7 +15,12 @@ if (!document.getElementsByClassName) {
       console.log('scripts/embed.js', 'callbackSignin');
       $('.connect').addClass('hide');
       $('.share').removeClass('hide');
-
+      
+      // Ajout aux playlists le programme embed
+      if($('[data-program-id]').length && !Skhf.session.isInPlaylist('like', $('[data-program-id]').data('program-id'))){
+        API.addPreference('like',$('[data-program-id]').data('program-id'));
+        console.log('scripts/embed.js', 'ajout playlist', 'ok');
+      }
 
       // check si le user FB connecté a liké
       checklikeFB = function(pageIdFB, fbUID){

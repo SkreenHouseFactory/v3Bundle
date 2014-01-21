@@ -19,7 +19,6 @@ use Symfony\Component\Validator\ExecutionContext;
 use Symfony\Component\Validator\Constraints\Length;
 
 use SkreenHouseFactory\v3Bundle\Api\ApiManager;
-use SkreenHouseFactory\v3Bundle\Entity\Ident;
 
 class ModalController extends Controller
 {
@@ -46,7 +45,6 @@ class ModalController extends Controller
 
       $creation = array(
         'signin' => false,
-        'session_uid' => $request->cookies->get('myskreen_session_uid')
         );
 
       $form = $this->createFormBuilder($creation, array(
@@ -57,7 +55,7 @@ class ModalController extends Controller
         ->setAction($this->generateUrl('modal_signup'))
         ->add('email', 'email')
         ->add('password', 'password', array(
-          'constraints' => new Length(array('min' => 4))
+          //'constraints' => new Length(array('min' => 4))
           ))
         ->add('session_uid', 'hidden')
         ->add('signin', 'hidden')
@@ -95,7 +93,6 @@ class ModalController extends Controller
 
       $identification = array(
         'signin' => true,
-        'session_uid' => $request->cookies->get('myskreen_session_uid')
         );
       
       $form = $this->createFormBuilder($identification, array(
@@ -106,7 +103,7 @@ class ModalController extends Controller
         ->setAction($this->generateUrl('modal_signin'))
         ->add('email', 'email')
         ->add('password', 'password', array(
-          'constraints' => new Length(array('min' => 4))
+          //'constraints' => new Length(array('min' => 4))
           )) 
         ->add('session_uid', 'hidden')
         ->add('signin', 'hidden')
@@ -156,6 +153,13 @@ class ModalController extends Controller
     public static function tryConnect($data, ExecutionContext $context)
     {
       
+      // Check longueur mot de passe
+      if(strlen($data['password'])<4){
+        $context->addViolation('Le mot de passe doit contenir au moins 4 caractères.', array('parameter'), 'invalidValue');
+        return;
+      }
+
+      // MDP OK, on lance l'API
       $api   = new ApiManager();
       $response = $api->fetch(
         '/api/2,3/user', 

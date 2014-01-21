@@ -37,6 +37,12 @@ var BaseSession = Class.extend({
        if (typeof callback != 'undefined') {
          callback({}, this)
        }
+       console.log('core/session.js', self.callbackInit);
+      //callbackInit : called only once
+       if (self.callbackInit) {
+         self.callbackInit(this);
+         self.callbackInit = null;
+       }
    }
  },
  sync: function(callback, args) {

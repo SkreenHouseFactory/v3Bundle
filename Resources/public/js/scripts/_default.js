@@ -51,11 +51,13 @@ $(document).ready(function(){
       $('.headertoprighticons').removeClass('hide');
       if (typeof callbackSignin != 'undefined') {
         self.callbackSignin = callbackSignin;
-        console.log('scripts', '_default.js', 'Skhf.session', self);
+        console.log('scripts', '_default.js', 'Skhf.session', 'self.callbackSignin', self.callbackSignin);
       }
       if (typeof callbackInit != 'undefined') {
         self.callbackInit = callbackInit;
-        console.log('scripts', '_default.js', 'Skhf.session', self);
+        console.log('scripts', '_default.js', 'Skhf.session', 'self.callbackInit', self.callbackInit);
+        //console.log('scripts', '_default.js', 'Skhf.session', 'self.callbackInit', self);
+        //self.callbackInit();
       }
     }, typeof Session_sync_args != 'undefined' ? Session_sync_args : {});
 
