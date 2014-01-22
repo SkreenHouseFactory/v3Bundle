@@ -39,8 +39,8 @@
       {{ form_end(form) }}
     </div>
     <div class="link">
-      <a onclick="window.open('{{ path('modal_signin') }}','mySkreen_sign','width=580,height=680,top=200,left=400')">Se connecter</a>
-      <a class="mdp" onclick="window.open('{{ path('modal_mdp') }}','mySkreen_sign','width=580,height=500,top=200,left=400')">Mot de passe oublié ?</a>
+      <a href="{{ path('modal_signin') }}">Se connecter</a>
+      <a class="mdp" href="{{ path('modal_mdp') }}">Mot de passe oublié ?</a>
     </div>
   {% endif %}
 {% endblock %}

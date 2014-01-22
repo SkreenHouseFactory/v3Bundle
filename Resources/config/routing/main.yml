@@ -10,6 +10,7 @@ embed_moviepush:
     requirements:
         id: \d+
 
+
 sitemap_general:
     pattern:  /sitemap.xml
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:sitemap }
@@ -24,6 +25,8 @@ sitemap_video_new:
 postproxy:
     pattern:  /proxy
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:proxy }
+    requirements:
+        _method: POST
 header:
     pattern:  /header/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:header }

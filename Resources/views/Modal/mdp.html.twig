@@ -29,7 +29,7 @@
     </div>
   {% endif %}
   <div class="link">
-    <a onclick="window.open('{{ path('modal_signup') }}','mySkreen_sign','width=580,height=680,top=200,left=400')">S'inscrire</a>
-    <a class="mdp" onclick="window.open('{{ path('modal_signin') }}','mySkreen_sign','width=580,height=680,top=200,left=400')">Se connecter</a>
+    <a href="{{ path('modal_signup') }}">S'inscrire</a>
+    <a class="mdp" href="{{ path('modal_signin') }}">Se connecter</a>
   </div>
 {% endblock %}
