@@ -28,7 +28,7 @@ class ApiManager
       $this->host = 'http://'.$matches[1].'.myskreen.typhon.net';
     } elseif (isset($_SERVER['SERVER_NAME']) && 
               strstr($_SERVER['SERVER_NAME'], 'preprod')) {
-      $this->host = 'http://preprod.api.myskreen.com';
+      $this->host = 'http://preprod-api.myskreen.com';
     } else {
       $this->host = 'http://api.myskreen.com';
     }
