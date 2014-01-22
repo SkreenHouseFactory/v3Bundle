@@ -86,6 +86,11 @@ if (!document.getElementsByClassName) {
 window.onload = function(){
   //console.log('scripts/embed.js');
 
+  // check video embed pour éviter l'autoclick mobile sur les autres embed (type moviepush)
+  var pathname = window.location.pathname;
+  //console.log('scripts/embed.js', 'Pathname', pathname);
+  var checkVideoEmbed = pathname.search("/video/");
+
   var trigger = document.getElementById('trigger');
   if (trigger) {
     var covers = document.getElementsByClassName('player-cover');
@@ -96,13 +101,14 @@ window.onload = function(){
       for (i=0;i<covers.length;i++) {
         covers[i].style.display = 'none';
       }
-      var player_elmt = document.getElementById('player');
-      player_elmt.style.display = 'block';
+      //var player_elmt = document.getElementById('player');
+      //player_elmt.style.display = 'block';
       //load player
       var player;
       player = new Skhf.BasePlayer('player', params);
     }
 
+    //console.log('scripts/embed.js', 'check moviepush', checkMoviepush);
     //autoplay
     var d = new Date();
     //console.log('autolay', window.document.referrer.indexOf('lesinconnus.fr'), d.getTime(), Date.parse('2013-12-20T07:00:00'))
@@ -112,26 +118,35 @@ window.onload = function(){
     } else
 
     //autoclick mobile
-    if (navigator.userAgent.match(/iPhone|iPod|iPad|Android/gi)) {
+    if (navigator.userAgent.match(/iPhone|iPod|iPad|Android/gi) &&
+        checkVideoEmbed != -1) {
       //console.log(['scripts/embed.js', 'iPhone|iPod|iPad|Android', 'default click']);
       trigger.click();
     }
   }
 
-  $('#fb-fakelike').on('click', function(){
-    FB.api(
-    '/'+Skhf.session.datas.fb_uid+'/og.likes',
-    "POST",
-    {
-        "object": $('.fb-like').data("href")
-    },
-    function (response) {
-      console.log('scripts/embed.js', 'FB Fake like', response);
-      if (response && !response.error) {
-        console.log('scripts/embed.js', 'FB Fake like', 'Like Successful');
-      }
+  // GESTION FB LIKE via FAKE BUTTON
+  /*if(checkMoviepush != -1){
+    var fbFakelike = document.getElementById('fb-fakelike');
+    var fbLike = document.getElementsByClassName('fb-like');
+    //console.log('scripts/embed.js', 'FB Fake like', 'fbLike', fbLike);
+    var fbHref = fbLike[0].getAttribute('data-href');
+    //console.log('scripts/embed.js', 'FB Fake like', 'fbHref', fbHref);
+    fbFakelike.onclick = function(){
+      FB.api(
+      '/'+Skhf.session.datas.fb_uid+'/og.likes',
+      "POST",
+      {
+          "object": fbHref
+      },
+      function (response) {
+        console.log('scripts/embed.js', 'FB Fake like', response);
+        if (response && !response.error) {
+          console.log('scripts/embed.js', 'FB Fake like', 'Like Successful');
+        }
+      });
     }
-);
-  });
-    
+  }*/
+  
+  
 }

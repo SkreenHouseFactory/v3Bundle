@@ -17,6 +17,10 @@
     #player {
       height: 100%;
       background-size: auto 100%;
+      background: black url({{ offer.program.picture }}) center no-repeat;
+      width:100%;
+      position:absolute;
+      background-size: {{ offer.program.picture_size is defined and offer.program.picture_size.width > offer.program.picture_size.height ? '100% auto' : 'auto 100%' }};
     }
     #trigger {
       opacity: 0.8;
@@ -51,7 +55,7 @@
 {% else %}
 <a class="player-cover" id="trigger" data-play-embed="{{ {playId: offer.id, width: "100%", height: "100%", skKey: app.request.get('skKey'), forceMobileDevice: app.request.get('forceMobileDevice'), noPub: app.request.get('noPub'), env: app.environment }|json_encode }}"></a>
 {% endif %}
-<div id="player" style="background: black url({{ offer.program.picture }}) center no-repeat;width:100%;height:100%;background-size: {{ offer.program.picture_size is defined and offer.program.picture_size.width > offer.program.picture_size.height ? '100% auto' : 'auto 100%' }};position:absolute;display:none;" class="player on"></div>
+<div id="player" class="player on"></div>
 </div>
 
 <!--[if lt IE 9]>
