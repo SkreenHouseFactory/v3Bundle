@@ -409,7 +409,7 @@ API = {
     if (!url.match(/^http(s|)\:\/\//)) {
       //console.log('API.query', 'http', 'is api', url);
       var version = typeof version != 'undefined' ? version : this.config.api_version;
-      var url  = this.config.base + version + '/' + url; //.replace('//', '/');
+      var url  = this.config.base.replace('http:', window.location.protocol) + version + '/' + url; //.replace('//', '/');
     }
 
     url = url.replace('/app_dev.php', '').replace('/app.php', ''); //developpment environment

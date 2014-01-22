@@ -171,9 +171,9 @@ class ModalController extends Controller
           case 'invalid-email':
             $context->addViolation('Adresse e-mail incorrecte.', array('parameter'), 'invalidValue');
             break;
-          case 'already-logged-in':
-            $context->addViolation('Vous êtes déjà connecté.', array('parameter'), 'invalidValue');
-            break;
+          //case 'already-logged-in':
+            //$context->addViolation('Vous êtes déjà connecté.', array('parameter'), 'invalidValue');
+            //break;
           case 'invalid-username':
             $context->addViolation('Cet e-mail est déjà enregistré.', array('parameter'), 'invalidValue');
             break;

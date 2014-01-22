@@ -7,6 +7,14 @@ if (!document.getElementsByClassName) {
     return allCN
   }
 }
+
+TimeOut = setTimeout(function(){
+  var trigger_appear = document.getElementById('trigger');
+  if (trigger_appear) {
+    trigger_appear.style.display = 'block';
+  }
+},3000);
+
 //////////// CALLBACKS ////////////////
   // -- session sync
   callbackSignin = function() {
@@ -23,7 +31,7 @@ if (!document.getElementsByClassName) {
       }
 
       // check si le user FB connecté a liké
-      checklikeFB = function(pageIdFB, fbUID){
+      /*checklikeFB = function(pageIdFB, fbUID){
         console.log('checklikeFB', 'SELECT uid FROM page_fan WHERE uid='+fbUID+' AND page_id='+pageIdFB);
         console.log('checklikeFB', Skhf.session.datas.fb_access_token);
         FB.api({ method: 'pages.isFan', page_id: pageIdFB, uid: fbUID, access_token: Skhf.session.datas.fb_access_token }, function(resp) {
@@ -70,7 +78,7 @@ if (!document.getElementsByClassName) {
       }
 
       // une fois connecté
-      if(Skhf.session.datas.fb_uid){
+      /*if(Skhf.session.datas.fb_uid){
         $.get('http://graph.facebook.com/fql?q=select%20url%2C%20id%2C%20type%2C%20site%20from%20object_url%20where%20url%20%3D%20%22'+escape($('.fb-like').data("href"))+'%22', function(fbdata){
           //console.log('scripts/embed.js', 'get by FQL page_id', fbdata);
           var pageIdFB = fbdata.data[0].id;
@@ -79,9 +87,8 @@ if (!document.getElementsByClassName) {
           checklikeFB(pageIdFB,fbUID)
           console.log('scripts/embed.js', 'get by FQL page_id', pageIdFB);
         });
-      }
+      }*/
     }
-  }
 
 window.onload = function(){
   //console.log('scripts/embed.js');
@@ -97,12 +104,13 @@ window.onload = function(){
     var params = JSON.parse(trigger.getAttribute('data-play-embed'));
     //console.log('covers', covers, 'params', params);
     trigger.onclick = function(){
+      //console.log('scripts/embed.js', 'trigger onclick', trigger);
       //hide cover
       for (i=0;i<covers.length;i++) {
         covers[i].style.display = 'none';
       }
-      //var player_elmt = document.getElementById('player');
-      //player_elmt.style.display = 'block';
+      var player_elmt = document.getElementById('player');
+      player_elmt.style.display = 'block';
       //load player
       var player;
       player = new Skhf.BasePlayer('player', params);
