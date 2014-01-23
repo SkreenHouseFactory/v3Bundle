@@ -1,12 +1,28 @@
 {% set counts = data|pagination(page,30) %}
+{#{{ dump(counts) }}#}
 <ul class="pagination">
   {% for keys,count in counts %}
-    {% if count == "..." and force_replace is not defined %}
-        <li {% if keys == page %}class="active" {% endif %}><a href="{{ path('channel_page', {slug: app.request.get('slug'), page: keys }) }}">{{keys}}</a></li>
-    {% elseif count %}
-      <li><span data-link-to-replace="{{ path('channel_page', {slug: app.request.get('slug'), page: keys})|rot13 }}">...</span></li>
+    {% if app.request.get('format') %}
+      {% if app.request.get('facet') %}
+        {% set url = path('channel_format_facet_page', {slug: app.request.get('slug'), page: keys, format: app.request.get('format'), facet: app.request.get('facet') }) %}
+      {% else %}
+        {% set url = path('channel_format_page', {slug: app.request.get('slug'), page: keys, format: app.request.get('format') }) %}
+      {% endif %}
     {% else %}
-      <li><span data-link-to-replace="{{ path('channel_page', {slug: app.request.get('slug'), page: keys})|rot13 }}">{{ keys }}</span></li>
+      {% set url = path('channel_page', {slug: app.request.get('slug'), page: keys }) %}
     {% endif %}
+    <li{% if keys == page %} class="active"{% endif %}>
+    {% if count is null %}
+    	{% if force_replace is not defined %}
+            <a href="{{ url }}">...</a>
+        {% else %}
+            <span data-link-to-replace="{{ url|rot13 }}">...</span>
+        {% endif %}
+    {% elseif count and force_replace is not defined %}
+        <a href="{{ url }}">{{ keys }}</a>
+    {% else %}
+        <span data-link-to-replace="{{ url|rot13 }}">{{ keys }}</span>
+    {% endif %}
+    </li>
   {% endfor %}
 </ul>
