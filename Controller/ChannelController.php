@@ -25,10 +25,10 @@ class ChannelController extends Controller
 {
   private function blockDomain(Request $request) {
     if ($this->get('kernel')->getEnvironment() == 'prod' && 
-      !strstr($request->getHost(), 'www.') && 
-      !strstr($request->getHost(), 'replay.') && 
-      !strstr($request->getHost(), 'preprod.') && 
-      !strstr($request->getHost(), 'preprod-') && 
+      !strstr($request->getHost(), 'www.myskreen.com') && 
+//      !strstr($request->getHost(), 'replay.') && 
+//      !strstr($request->getHost(), 'preprod.') && 
+      !strstr($request->getHost(), 'preprod-v3.myskreen.com') && 
       !strstr($request->getHost(), 'myskreen.') && 
       !strstr($request->getHost(), 'inconnus.') && 
       !strstr($request->getHost(), '.typhon.net')) {
