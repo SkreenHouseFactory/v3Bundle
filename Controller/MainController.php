@@ -23,6 +23,7 @@ class MainController extends Controller
       if ($this->get('kernel')->getEnvironment() == 'prod' && 
           !strstr($request->getHost(), 'www.') && 
           !strstr($request->getHost(), 'preprod.') && 
+          !strstr($request->getHost(), 'preprod-') && 
           !strstr($request->getHost(), '.typhon.net')) {
         throw $this->createNotFoundException('Page does not exist on this domain : ' . $request->getHost());
       }
