@@ -14,17 +14,23 @@
   <meta name="language" content="fr-FR" />
   <meta name="viewport" content="width=device-width">
   <meta name="robots" content="noindex,nofollow">
-  {% stylesheets
-      '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
-        filter='less,?yui_css'
-        output='css/empty.css'
-        %}
-      <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
-  {% endstylesheets %}
+  {% if block('css') is empty %}
+    {% stylesheets
+        '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
+          filter='less,?yui_css'
+          output='css/empty.css'
+          %}
+        <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+  {% else %}
+    {% block css %}
+    {% endblock %}
+  {% endif %}
   {% block meta %}
   {% endblock %}
 </head>
-<body>
+<body{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}>
+  <div id="fb-root"></div>
 {% endif %}
 
 <div class="body_background" data-refresh-bodybackground="{% block body_background %} {% endblock %}" data-refresh-bodyclass="{% block body_class %} {% endblock %}"></div>

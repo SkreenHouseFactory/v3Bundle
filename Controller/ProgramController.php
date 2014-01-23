@@ -23,9 +23,9 @@ class ProgramController extends Controller
 {
     private function blockDomain(Request $request) {
       if ($this->get('kernel')->getEnvironment() == 'prod' && 
-          !strstr($request->getHost(), 'www.') && 
-          !strstr($request->getHost(), 'preprod.') && 
-          !strstr($request->getHost(), 'preprod-') && 
+          !strstr($request->getHost(), 'www.myskreen.com') && 
+//          !strstr($request->getHost(), 'preprod.') && 
+          !strstr($request->getHost(), 'preprod-v3.myskreen.com') && 
           !strstr($request->getHost(), '.typhon.net')) {
         throw $this->createNotFoundException('Page does not exist');
       }

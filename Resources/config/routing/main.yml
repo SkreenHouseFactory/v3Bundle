@@ -4,6 +4,12 @@ embed_offer:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Embed:video }
     requirements:
         id: \d+
+embed_moviepush:
+    pattern:  /moviepush/{id}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Embed:moviepush }
+    requirements:
+        id: \d+
+        _scheme: https
 
 
 sitemap_general:
@@ -20,6 +26,8 @@ sitemap_video_new:
 postproxy:
     pattern:  /proxy
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:proxy }
+    requirements:
+        _method: POST
 header:
     pattern:  /header/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:header }
@@ -35,9 +43,25 @@ homes:
         home: |video-a-la-demande|cinema|tv-replay|films|series|documentaires|emissions|spectacles|vod|jeunesse
 
 #modal
+modal_signup:
+    pattern:  /modal/signup/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:signup }
+    requirements:
+        _scheme: https
+modal_signin:
+    pattern:  /modal/signin/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:signin }
+    requirements:
+        _scheme: https
+modal_mdp:
+    pattern:  /modal/mdp/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:mdp }
+    requirements:
+        _scheme: https
 modal_publish_playlist:
     pattern:  /user/modal/publish-playlist
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:publishplaylist }
+
 
 #timeline
 timelinejs:

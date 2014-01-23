@@ -55,12 +55,12 @@ ENV = {
   },
   preprod: {
     env: 'preprod',
-    site_url: 'http://preprod.beta.myskreen.com',
-    v3_url: 'http://preprod.v3.myskreen.com',
+    site_url: 'http://preprod-v3.myskreen.com',
+    v3_url: 'http://preprod-v3.myskreen.com',
     v3_root: '',
     base: 'https://preprod-api.myskreen.com/api/',
     popin: 'https://preprod-api.myskreen.com/popin/',
-    domain: 'preprod.beta.myskreen.com',
+    domain: 'preprod-v3.myskreen.com',
     fb: {app_id: 193945860617344 },
     console: true
   },
@@ -409,7 +409,7 @@ API = {
     if (!url.match(/^http(s|)\:\/\//)) {
       //console.log('API.query', 'http', 'is api', url);
       var version = typeof version != 'undefined' ? version : this.config.api_version;
-      var url  = this.config.base + version + '/' + url; //.replace('//', '/');
+      var url  = this.config.base.replace('http:', window.location.protocol) + version + '/' + url; //.replace('//', '/');
     }
 
     url = url.replace('/app_dev.php', '').replace('/app.php', ''); //developpment environment

@@ -68,51 +68,49 @@
 
       {# theaters #}
       {% if key == 'theater' %}
-      {% set btn_deploy_offers = 0 %}
-      {% if program.datas_theaters.theaters_ids|length > 0 %}
-      <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined and program.theater_release_date_timestamp > 'now'| date('U') %}en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
-      {% if program.datas_theaters.theaters_ids|length > 9 %}
-        <form role="form" class="form-search pull-left col-xs-10" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-form-ajax="#theaters-list">
-          <div class="input-group">
-            <input name="q" class="form-control" type="text" placeholder="{{ 'theaters.search.placeholder'|trans }}">
-            <div class="input-group-btn col-xs-16 nopadding">
-              <button class="btn btn-primary " type="submit"><i class="glyphicon glyphicon-search"></i>&nbsp;{{ 'theaters.search.submit'|trans }}</button>
+        {% set btn_deploy_offers = 0 %}
+        {% if program.datas_theaters.theaters_ids|length > 0 %}
+          <p class="alert alert-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined and program.theater_release_date_timestamp > 'now'| date('U') %}en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
+          {% if program.datas_theaters.theaters_ids|length > 9 %}
+            <form role="form" class="form-search pull-left col-xs-10" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-form-ajax="#theaters-list">
+              <div class="input-group">
+                <input name="q" class="form-control" type="text" placeholder="{{ 'theaters.search.placeholder'|trans }}">
+                <div class="input-group-btn col-xs-16 nopadding">
+                  <button class="btn btn-primary " type="submit"><i class="glyphicon glyphicon-search"></i>&nbsp;{{ 'theaters.search.submit'|trans }}</button>
+                </div>
+              </div>
+            </form>
+            <div class="btn-group">
+              <a id="trigger-theaters-geoloc" href="#theaters" class="btn btn-default">
+                <i class="glyphicon glyphicon-map-marker"></i > {{ 'theaters.search.geoloc'|trans }}
+              </a>
+              <a id="trigger-theaters-playlist" href="#theaters" class="btn btn-suivre">
+                <i class="glyphicon glyphicon-user"></i> {{ 'theaters.search.playlist'|trans }}
+              </a>
             </div>
-          </div>
-        </form>
-        <div class="btn-group">
-          <a id="trigger-theaters-geoloc" href="#theaters" class="btn btn-default">
-            <i class="glyphicon glyphicon-map-marker"></i > {{ 'theaters.search.geoloc'|trans }}
-          </a>
-          <a id="trigger-theaters-playlist" href="#theaters" class="btn btn-suivre">
-            <i class="glyphicon glyphicon-user"></i> {{ 'theaters.search.playlist'|trans }}
-          </a>
-        </div>
-        {% endif %}
-        <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_program', {id: program.id}) }}">
+          {% endif %}
+          <div id="theaters-list" class="clear" data-api-url="{{ path('theaters_program', {id: program.id}) }}">
           {% render(controller('SkreenHouseFactoryV3Bundle:Cinema:program', {id: program.id, theater_ids: app.request.get('theater_id') ? app.request.get('theater_id') : program.datas_theaters.theaters_ids|join(',') })) %}
-        </div>
+          </div>
         {% endif %}
         {% if program.datas_theaters.theater_on_demand|length %}
-        {% if program.datas_theaters.theaters_ids|length %}<hr/>{% else %}<br/>{% endif %}
+          {% if program.datas_theaters.theaters_ids|length %}<hr/>{% else %}<br/>{% endif %}
         {% for o in program.datas_theaters.theater_on_demand|to_array %}
-
-
-        <div class="panel panel-default ilikemycinema">
-          <div class="panel-heading"><h3>Ma séance où je veux, quand je veux</h3></div>
-          <div class="panel-body">
-          <div class="row"> 
-            <div class="col-xs-4"><img src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema_03.jpg') }}" alt="ilikemycinema"></div>
-            <div class="col-xs-7">Créez votre propre séance pour ce film et <b>invitez vos amis</b></div>
-            <div class="col-xs-5"><a target="_blank" data-redirect="{{ attribute(o, 'url') }}"><img class="ilikemycinema-btn" src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema_07.png') }}" alt="ilikemycinema"></a></div>
-          </div>
-          </div>
+          <div class="panel panel-default ilikemycinema">
+            <div class="panel-heading"><h3>Ma séance où je veux, quand je veux</h3></div>
+            <div class="panel-body">
+              <div class="row"> 
+                <div class="col-xs-4"><img src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema_03.jpg') }}" alt="ilikemycinema"></div>
+                <div class="col-xs-7">Créez votre propre séance pour ce film et <b>invitez vos amis</b></div>
+                <div class="col-xs-5"><a target="_blank" data-redirect="{{ attribute(o, 'url') }}"><img class="ilikemycinema-btn" src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema_07.png') }}" alt="ilikemycinema"></a></div>
+              </div>
+            </div>
           </div>
         {% endfor %}
-        {% endif %}
+      {% endif %}
 
-        {# par defaut #}
-        {% else %}
+      {# par defaut #}
+      {% else %}
 
         {% set other_episodes = '' %}
         {% set btn_deploy_offers = 0 %}
