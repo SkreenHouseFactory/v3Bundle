@@ -28,6 +28,7 @@ class ChannelController extends Controller
       !strstr($request->getHost(), 'www.') && 
       !strstr($request->getHost(), 'replay.') && 
       !strstr($request->getHost(), 'preprod.') && 
+      !strstr($request->getHost(), 'preprod-') && 
       !strstr($request->getHost(), 'myskreen.') && 
       !strstr($request->getHost(), 'inconnus.') && 
       !strstr($request->getHost(), '.typhon.net')) {

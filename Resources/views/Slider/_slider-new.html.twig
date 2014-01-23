@@ -52,7 +52,7 @@
     <a class="btn btn-default btn-slider" href="{{ path('tvgrid') }}">Voir la grille complète</a>
     {% else %}
     {% if slider.url is defined %}<a class="btn btn-default btn-slider" 
-    href="{% if slider.fichier is defined %}{{slider.fichier}}{% else %}{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}{% endif %}"> {% if slider.contenu_rss is defined %}{{slider.contenu_rss|capitalize}} {% else %}En voir plus...{% endif %}</a>{% endif %}
+    href="{% if slider.fichier is defined %}{{slider.fichier}}{% else %}{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}{% endif %}"> {% if slider.contenu_rss is defined %}{{ slider.contenu_rss }} {% else %}En voir plus...{% endif %}</a>{% endif %}
     {% endif %}
   </div>
 </div>

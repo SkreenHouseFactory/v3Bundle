@@ -35,7 +35,7 @@ body {
 
 {% block content %}
 <div style="display:block">
-<img class="player-cover" id="controls" src="{{ asset('bundles/skreenhousefactoryv3/images/embed-controls.png') }}" />
+<img class="player-cover" id="controls" src="{{ asset('bundles/skreenhousefactoryv3/images/embed-controls-big.png') }}" />
 <a class="player-cover" target="_blank" style="position:absolute;top:3%;right: 20px;z-index:3;" href="http://www.myskreen.com"><img src="http://mskstatic.com/{{ app.request.get('width') and app.request.get('width') < 300 ? '100/' : '' }}medias/logo_player.png" alt="mySkreen : Guide Replay, Vod, Ciné" style="border:none"></a>
 {% if countdown %}
 {% include 'SkreenHouseFactoryV3Bundle:Embed:_countdown.html.twig' with {player: offer, countdown: countdown} %}

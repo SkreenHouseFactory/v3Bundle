@@ -24,6 +24,7 @@ class ContentController extends Controller
           !strstr($request->getHost(), 'www.') && 
           !strstr($request->getHost(), 'replay.') && 
           !strstr($request->getHost(), 'preprod.') && 
+          !strstr($request->getHost(), 'preprod-') && 
           !strstr($request->getHost(), '.typhon.net')) {
         throw $this->createNotFoundException('Page does not exist');
       }

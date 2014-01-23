@@ -531,13 +531,19 @@
         font-size: 0.9em;
         clear: both;
         overflow: hidden;
-        &:hover, &:hover a {
+        &:not(.divider){
+          padding: 9px 0;
+        }
+        &.divider{
+          margin: 0;
+        }
+        &:hover {
           background: @rowHoverBg;
           color: @rowHoverColor;
         }
 
         a.link {
-          width: 100%;
+          width: 91%;
           height: 100%;
           display: block;
           padding: 0px;
@@ -575,7 +581,7 @@
         .remove {
           visibility: hidden;
           z-index:10;
-          margin: 15px 15px 0 0;
+          margin: 15px 18px 0 0;
           padding: 0;
           float: right;
           cursor: pointer;

@@ -1,20 +1,18 @@
 {% set counts = data|pagination(page,30) %}
 <ul class="pagination">  
   {% for keys,count in counts%}
+    <li{% if keys == page %} class="active"{% endif %}>
     {% if count is null %}
-    <li>
       <span data-link-to-replace="{% if app.request.get('facet') is not null %}{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: keys})|rot13 }}{% elseif app.request.get('format') is not null %}{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: keys })|rot13 }}{% else %}{{ path('format_page', {category_slug: app.request.get('category_slug'), page: keys})|rot13 }}{% endif %}">
           ...
       </span>
-    </li>
     {% elseif count == true %}
-      <li {% if keys == page %}class="active" {% endif %}><a href="{% if app.request.get('facet') is not null%}{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: keys}) }}{% elseif app.request.get('format') is not null %}{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: keys }) }}{% else %}{{ path('format_page', {category_slug: app.request.get('category_slug'), page: keys}) }}{% endif %}">{{keys}}</a></li>
+      <a href="{% if app.request.get('facet') is not null%}{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: keys}) }}{% elseif app.request.get('format') is not null %}{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: keys }) }}{% else %}{{ path('format_page', {category_slug: app.request.get('category_slug'), page: keys}) }}{% endif %}">{{keys}}</a>
     {% elseif count == false %}
-      <li>
         <span data-link-to-replace="{% if app.request.get('facet') is not null %}{{ path('category_facet_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), page: keys})|rot13 }}{% elseif app.request.get('format') %}{{ path('category_page', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), page: keys })|rot13 }}{% else %}{{ path('format_page', {category_slug: app.request.get('category_slug'), page: keys})|rot13 }}{% endif %}">
           {{keys}}
         </span>
-      </li>
     {% endif %}
+    </li>
   {% endfor %}
 </ul>

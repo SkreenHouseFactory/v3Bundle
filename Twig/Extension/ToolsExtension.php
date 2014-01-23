@@ -166,38 +166,38 @@ class toolsExtension extends \Twig_Extension
       $total_page = ceil($count/$page_offset);
       $response = Array();
       
-      if( $total_page <= 10){
-        for($i = 1;$i <= $total_page; $i++){
+      if ($total_page <= 10) { //On gère les cas où il y a maximum 10 pages de programmes
+        for ($i = 1;$i <= $total_page; $i++) {
           $response[$i]= true;
         }
-      }
-      else{
+      } else { // On gère les cas où il y a au moins 11 pages de programmes
         $dizaine_inf = floor($page/10)*10;
         $dizaine_inf_tot = floor($total_page/10)*10;
         
-        for($i = 1; $i <= $total_page; $i++){
+        for ($i = 1; $i <= $total_page; $i++) {
           if ($page == 1 || $page%10 == 0) {
-            if( $i == 1 || $i == $page){
-              $response[$i] = false;
-            } else if ( 
-            $i > $dizaine_inf  && $i == $dizaine_inf + 11 && $i == $dizaine_inf_tot+1  && $dizaine_inf_tot+1 != $page){
+            if ($i == 1 || $i == $page) {
+              $response[$i] = true;
+            } else if ($i > $dizaine_inf &&
+                      $i == $dizaine_inf + 11 &&
+                      $i == $dizaine_inf_tot+1 &&
+                      $dizaine_inf_tot+1 != $page) {
                $response[$i] = null;
-            }else if ( $i%10 == 0 && $i > $dizaine_inf){
-              if($page == 1){
-                 $response[$i] = true;
-               }
-               else{
-                 $response[$i] = false;
-               }
-            } else if ( $i > $dizaine_inf && $i <= $dizaine_inf + 9 ) {
+            } else if ($i%10 == 0 && $i > $dizaine_inf) {
+                if ($page == 1) {
+                  $response[$i] = true;
+                } else {
+                  $response[$i] = false;
+                }
+            } else if ($i > $dizaine_inf && $i <= $dizaine_inf + 9) {
               $response[$i] = true;
             } 
           } else {
-            if( $i%10 == 0 || $i == 1 ){
-              $response[$i] = false;
-            } else if ( $i > $dizaine_inf  && $i == $dizaine_inf + 11 && $i == $dizaine_inf_tot+1  && $dizaine_inf_tot+1 != $page){
+            if ($i%10 == 0 || $i == 1) {
+              $response[$i] = true;
+            } else if ($i > $dizaine_inf  && $i == $dizaine_inf + 11 && $i == $dizaine_inf_tot+1  && $dizaine_inf_tot+1 != $page) {
               $response[$i] = null;
-            } else if ( $i > $dizaine_inf && $i <= $dizaine_inf + 9 ){
+            } else if ($i > $dizaine_inf && $i <= $dizaine_inf + 9) {
               $response[$i] = false;
             }
           }
