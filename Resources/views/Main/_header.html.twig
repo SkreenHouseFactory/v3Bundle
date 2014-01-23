@@ -11,100 +11,127 @@
         {# LOGO ENTETE #}
         <a id="logo" href="{{ path('homes', {home: null})|replace({'//': '/'}) }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" ></a>
         <ul class="nav navbar-nav">
-          <li{{ app.request.attributes.get('_route') in ['tvgrid_date','tvgrid'] ? ' class="active"' : '' }}><a href="{{ path('tvgrid') }}">TV &amp; Replay</a>{% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "tv"} %}
-        </li>
-        {#<li><a href="#">WEB TV</a></li>#}
-        <li{{ app.request.get('home') == 'video-a-la-demande' ? ' class="active"' : '' }}><a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">VOD</a>
-          {#  {% if home.filters|to_array|length %}
-            <i class="ms-top-triangle ms_triangle_position_a"></i>
-            {% endif %} #}
+          <li{{ app.request.attributes.get('_route') in ['tvgrid_date','tvgrid'] ? ' class="active"' : '' }}>
+            <a href="{{ path('tvgrid') }}">TV &amp; Replay</a>
+            {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "tv"} %}
+          </li>
+          {#<li><a href="#">WEB TV</a></li>#}
+          <li{{ app.request.get('home') == 'video-a-la-demande' ? ' class="active"' : '' }}>
+            <a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">VOD</a>
+            {#  {% if home.filters|to_array|length %}
+                  <i class="ms-top-triangle ms_triangle_position_a"></i>
+                {% endif %} #}
             {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "video-a-la-demande"} %}
           </li>
-          <li{{ app.request.get('home') == 'cinema' ? ' class="active"' : '' }}><a href="{{ path('homes', {home: 'cinema'}) }}">En salles</a>{% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "cinema"} %}
-        </li>
-      </ul>
+          <li{{ app.request.get('home') == 'cinema' ? ' class="active"' : '' }}>
+            <a href="{{ path('homes', {home: 'cinema'}) }}">En salles</a>
+            {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "cinema"} %}
+          </li>
+        </ul>
 
-      {# RECHERCHE #}
-      <form id="nav-search" class="navbar-search">
-        <i class="glyphicon glyphicon-search" style="display: inline-block;position: absolute;top: 24px;right: 9px;color:#777777"></i>
-        <input type="text"  value="{{ app.request.get('q') }}" class="search-query pull-left searchbutton" placeholder=" Un film, un acteur, etc.">
-      </form>
+        {# RECHERCHE #}
+        <form id="nav-search" class="navbar-search">
+          <i class="glyphicon glyphicon-search" style="display: inline-block;position: absolute;top: 24px;right: 9px;color:#777777"></i>
+          <input type="text"  value="{{ app.request.get('q') }}" class="search-query pull-left searchbutton" placeholder=" Un film, un acteur, etc.">
+        </form>
 
-      <ul class="nav nav-playlists headertoprighticons hide"> 
-        {# NOTIFS #}
-        <li class="hide user-on dropdown notifications tv-component">
-          <a data-toggle="dropdown" class="dropdown-toggle uppercase notifications-count"></a>
-          <ul id="dropdown-menu-notification" class="dropdown-menu">
-            <span class="notification-filter">
-              <a class="label label-info filter" data-filter="all">Tout</a>
-              <a class="label filter" data-filter="tv">TV</a>
-              <a class="label filter" data-filter="replay">Replay</a>
-              <a class="label filter" data-filter="vod">VOD</a>
-              <a class="label filter" data-filter="theaters">Ciné</a>
-              <a class="label filter" data-filter="chaîne">Chaînes</a>
-            </span>
-            <div class="scroll notification-scroll"><li class="empty"><p class="ms-surtitre">{{ 'notifications.empty.title'|trans }}</br><small>{{ 'notifications.empty.text'|trans }}</small></p></li></div>
-          </ul>
-        </li>
+        <ul class="nav nav-playlists headertoprighticons hide"> 
+          {# NOTIFS #}
+          <li class="hide user-on dropdown notifications tv-component">
+            <a data-toggle="dropdown" class="dropdown-toggle uppercase notifications-count"></a>
+            <ul id="dropdown-menu-notification" class="dropdown-menu">
+              <span class="notification-filter">
+                <a class="label label-info filter" data-filter="all">Tout</a>
+                <a class="label filter" data-filter="tv">TV</a>
+                <a class="label filter" data-filter="replay">Replay</a>
+                <a class="label filter" data-filter="vod">VOD</a>
+                <a class="label filter" data-filter="theaters">Ciné</a>
+                <a class="label filter" data-filter="chaîne">Chaînes</a>
+              </span>
+              <div class="scroll notification-scroll">
+                <li class="empty">
+                  <p class="ms-surtitre">{{ 'notifications.empty.title'|trans }}</br><small>{{ 'notifications.empty.text'|trans }}</small>
+                  </p>
+                </li>
+              </div>
+            </ul>
+          </li>
 
-        {# SE CONNECTER #}
-        <li class="user-off playlists">
-          <a class="auth" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même playlist !">
-            Se connecter / s'inscrire
-          </a>
-        </li>
+          {# SE CONNECTER #}
+          <li class="user-off playlists">
+            <a class="auth" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même playlist !">
+              Se connecter / s'inscrire
+            </a>
+          </li>
 
-        {# MA PLAYLIST / MES FAVORIS #}
-        <li class="hide user-on playlists">
-          <a data-toggle="collapse" data-target="#top-playlist" class="tv-component">
+          {# MA PLAYLIST / MES FAVORIS #}
+          <li class="hide user-on playlists">
+            <a data-toggle="collapse" data-target="#top-playlist" class="tv-component">
             Mes playlists
-          </a>
-        </li>
+            </a>
+          </li>
 
-        {# MON COMPTE #}
-        <li class="hide user-on dropdown user-menu disable-select">
-          <a id="dLabel" data-toggle="dropdown" class="dropdown-toggle tv-component pull-right">
-            <span class="glyphicon glyphicon-user"></span>
-          </a>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-            <li class="nav-header user-email"></li>
-            <li class="divider"></li>
-            <li class="fb-placeholder hide"><div id="fbconnect"><img src="{{ asset('bundles/skreenhousefactoryv3/images/fb-connect.png') }}" style="width: 180px;height: 32px;margin-left: 20px;cursor: pointer"/></div></li>
-            <li class="share share-placeholder">
-              <a class="text share-off" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook" data-modal-message="... et suivez ce que regardent vos amis !">Facebook : activer le partage</a>
-              <a class="text share-on hide">
+          {# MON COMPTE #}
+          <li class="hide user-on dropdown user-menu disable-select">
+            <a id="dLabel" data-toggle="dropdown" class="dropdown-toggle tv-component pull-right">
+              <span class="glyphicon glyphicon-user"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+              <li class="nav-header user-email"></li>
+              <li class="divider"></li>
+              <li class="fb-placeholder hide">
+                <div id="fbconnect"><img src="{{ asset('bundles/skreenhousefactoryv3/images/fb-connect.png') }}" style="width: 180px;height: 32px;margin-left: 20px;cursor: pointer"/>
+                </div>
+              </li>
+              <li class="share share-placeholder">
+                <a class="text share-off" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook" data-modal-message="... et suivez ce que regardent vos amis !">Facebook : activer le partage</a>
+                <a class="text share-on hide">
                 Partage Facebook&nbsp; 
-                <span class="btn-group" data-toggle="buttons-radio">
+                  <span class="btn-group" data-toggle="buttons-radio">
                   <span class="btn btn-xs btn-info" data-share="allow">{{ 'yes'|trans }}</span>
                   <span class="btn btn-xs btn-default" data-share="disallow">{{ 'no'|trans }}</span>
                 </span>
-              </a>
-            </li>
-            <li class="divider"></li>
-            <li class="playlist-publish">
-              <a data-toggle="collapse" data-target="#top-playlist"><i class="glyphicon glyphicon-play-circle"></i> {{ 'playlist.yours'|trans }} {% if app.environment == 'dev' %}<span data-modal-remote="/user/modal/publish-playlist" data-modal-title="Publier ma playlist" class="btn btn-small">Publier</span>{% endif %}</a>
-            </li>
-            <li><span class="vod" data-link-to-replace="{{ path('user_vod')|rot13 }}"><i class="glyphicon glyphicon-film"></i> {{ 'nav.vod'|trans }}</span></li>
-            <li><span class="programs" data-link-to-replace="{{ path('user_programs')|rot13 }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.favoris'|trans }} <span></span></span></li>
-            <li><span class="programs" data-link-to-replace="{{ path('user_channels')|rot13 }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.channel_favoris'|trans }} <span></span></span></li>
-            <li><span class="programs" data-link-to-replace="{{ path('user_theaters')|rot13 }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.theater_favoris'|trans }} <span></span></span></li>
-            <li><span class="programs" data-link-to-replace="{{ path('user_persons')|rot13 }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.person_favoris'|trans }} <span></span></span></li>
-            <li><span class="account" data-link-to-replace="{{ path('user_settings')|rot13 }}"><i class="glyphicon glyphicon-user"></i> {{ 'nav.account'|trans }}</span></li>
-            <li class="divider"></li>
-            <li><a class="signout"><i class="glyphicon glyphicon-remove"></i> {{ 'signout'|trans }}</a></li>
-          </ul>
-        </li>
-      </ul>
+                </a>
+              </li>
+              <li class="divider"></li>
+              <li class="playlist-publish">
+                <a data-toggle="collapse" data-target="#top-playlist"><i class="glyphicon glyphicon-play-circle"></i> {{ 'playlist.yours'|trans }} {% if app.environment == 'dev' %}<span data-modal-remote="/user/modal/publish-playlist" data-modal-title="Publier ma playlist" class="btn btn-small">Publier</span>{% endif %}</a>
+              </li>
+              <li>
+                <span class="vod" data-link-to-replace="{{ path('user_vod')|rot13 }}"><i class="glyphicon glyphicon-film"></i> {{ 'nav.vod'|trans }}</span>
+              </li>
+              <li>
+                <span class="programs" data-link-to-replace="{{ path('user_programs')|rot13 }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.favoris'|trans }} <span></span></span>
+              </li>
+              <li>
+                <span class="programs" data-link-to-replace="{{ path('user_channels')|rot13 }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.channel_favoris'|trans }} <span></span></span>
+              </li>
+              <li>
+                <span class="programs" data-link-to-replace="{{ path('user_theaters')|rot13 }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.theater_favoris'|trans }} <span></span></span>
+              </li>
+              <li>
+                <span class="programs" data-link-to-replace="{{ path('user_persons')|rot13 }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.person_favoris'|trans }} <span></span></span>
+              </li>
+              <li>
+                <span class="account" data-link-to-replace="{{ path('user_settings')|rot13 }}"><i class="glyphicon glyphicon-user"></i> {{ 'nav.account'|trans }}</span>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a class="signout"><i class="glyphicon glyphicon-remove"></i> {{ 'signout'|trans }}</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
 
+      </div>
     </div>
   </div>
-</div>
 
-<div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
-  <div class="container playlist">
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
+  <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
+    <div class="container playlist">
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
+    </div>
   </div>
-</div>
 
 </div>
 
