@@ -439,16 +439,18 @@ UI = {
       return;
     }
     console.log('UI.loadNotifications', notifications);
-    var nb = notifications.length == this.max_notifications ? notifications.length + '+' : notifications.length;
+    //console.log('UI.loadNotifications', Object.keys(notifications).length);
+    var nb = Object.keys(notifications).length == this.max_notifications ? Object.keys(notifications).length + '+' : Object.keys(notifications).length;
+    //console.log('UI.loadNotifications', 'nb', nb);
     
     // 1ere connexion: valeur de nb par defaut
-    if(typeof notifications.length == "undefined"){
+    if(typeof Object.keys(notifications).length == "undefined"){
       var nb = 0;
     }
     if (!$('.navbar .notifications-count').hasClass('with-badge')) {
       $('.navbar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
     }
-    if (notifications.length == 0) {
+    if (Object.keys(notifications).length == 0) {
       $('.navbar .notifications-count .badge-important').removeClass('badge-important');
     } else {
       var list = $('.navbar .notifications ul .scroll');
@@ -456,17 +458,19 @@ UI = {
       //list.find('li:not(.empty)').remove();
       var nb_new = 0;
       var current_last_notification = this.last_notification ? this.last_notification : API.cookie('last_notification');
+      console.log('ui.js', 'UI.loadNotifications', 'last_notification', this.last_notification);
       for (k in notifications) {
         if (notifications[k]['new'] == true) {
           nb_new++;
           if (notifications[k].id > this.last_notification) {
             this.last_notification = notifications[k].id;
+            console.log('ui.js', 'UI.loadNotifications', 'last_notification update', this.last_notification);
           }
           //console.log('new', notifications[k]['new'], nb_new);
 
         }
       }
-      this.appendNotifications(notifications,list,true);
+      this.appendNotifications(notifications,list);
 
       //filter notifs
       $('.notifications .label.filter').on('click', function(e){
@@ -536,8 +540,8 @@ UI = {
     }
   },
    notificationBadge: function() {
-     if($('notifications ul li .badge-important').length ){
-       $('.notifications-count .badge').addClass('badge-important').html($('notifications ul li.tv-component .badge-important').length);
+     if($('.notifications ul li .badge-important').length ){
+       $('.notifications-count .badge').addClass('badge-important').html($('.notifications ul li.tv-component .badge-important').length);
      } else {
        $('.notifications-count .badge').removeClass('badge-important').html($('.notifications ul li.tv-component').length);
      }
@@ -640,14 +644,18 @@ UI = {
           }
         }
         list.append(
-          '<li class="tv-component '+ notifications[k].offers+' '+ notifications[k].access.replace("(windows)","")+ '"><a data-id="' + notifications[k].id + '" class="remove">' + 
-          '<i class="glyphicon glyphicon-trash"></i></a>' + (notifications[k]['new'] ? '<span id="new-notif'+ notifications[k].id + '" class="pull-right badge badge-important">Nouveau</span>' : '') + 
-          '<a ' + attrs + (notifications[k]['new'] ? ' data-remove="#new-notif'+ notifications[k].id + '"' : '')+' class="link">' + 
-          (notifications[k].channel_ico ? '<img src="' + notifications[k].channel_ico.replace("/39/35/","/39/") + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
-          '<img src="' + notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
-          '<span class="title">' + notifications[k].title + '</span>' +
-          '<span class="subtitle">' + ep_title + '</span>' +
-          '<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span></a>' +
+          '<li class="tv-component ' + notifications[k].offers + ' ' + notifications[k].access.replace("(windows)","") + '">' +
+            '<a data-id="' + notifications[k].id + '" class="remove">' + 
+              '<i class="glyphicon glyphicon-trash"></i>' +
+            '</a>' +
+            (notifications[k]['new'] ? '<span id="new-notif' + notifications[k].id + '" class="pull-right badge badge-important">Nouveau</span>' : '') +
+            '<a ' + attrs + (notifications[k]['new'] ? ' data-remove="#new-notif'+ notifications[k].id + '"' : '') +' class="link">' + 
+              (notifications[k].channel_ico ? '<img src="' + notifications[k].channel_ico.replace("/39/35/","/39/") + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
+              '<img src="' + notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
+              '<span class="title">' + notifications[k].title + '</span>' +
+              '<span class="subtitle">' + ep_title + '</span>' +
+              '<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span>' +
+            '</a>' +
           '</li>' +
           '<li class="divider notification'+' '+ notifications[k].offers+ ' ' + notifications[k].access.replace("(windows)","")+ '"></li>'
         );
