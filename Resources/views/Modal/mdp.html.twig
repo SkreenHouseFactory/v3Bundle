@@ -1,0 +1,35 @@
+{% extends 'SkreenHouseFactoryV3Bundle:Modal:login.html.twig' %}
+
+{% block form %}
+  <div class="entete">
+    <p class="text-center"><img src="https://mskstatic.myskreen.com/medias/logo_white.png" alt="mySkreen" /></p>
+  </div>
+  <p class="text-left">MOT DE PASSE OUBLIÉ ?</p>
+  <p class="message">Vous ne vous souvenez plus de votre mot de passe ?</p>
+  <p class="message">Myskreen vous envoie un e-mail vous permettant de réinitialiser de manière sécurisée votre mot de passe à partir de votre e-mail.</p>
+  {% if success %}
+    <p class="alert alert-success">Un e-mail vous a été envoyé pour ré-initialiser votre mot de passe. Vous pourrez ensuite vous connecter ci-dessous.</p>
+  {% else %}
+    <div class="conteneur-form">
+      {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+        {{ form_errors(form) }}
+        <div class="form-group">
+          {{ form_label(form.email, 'E-mail', {'label_attr': {'class': 'sr-only'}}) }}
+          {{ form_errors(form.email) }}
+          <div class="col-xs-16">
+            {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'E-MAIL'}}) }}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-16">
+            {{ form_widget(form.envoyer, {'attr': {'class': 'col-xs-16 btn btn-default'}}) }}
+          </div>
+        </div>
+      {{ form_end(form) }}
+    </div>
+  {% endif %}
+  <div class="link">
+    <a href="{{ path('modal_signup') }}">S'inscrire</a>
+    <a class="mdp" href="{{ path('modal_signin') }}">Se connecter</a>
+  </div>
+{% endblock %}

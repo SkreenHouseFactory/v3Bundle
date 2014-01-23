@@ -1,0 +1,18 @@
+{% block js_popin %}
+  {% javascripts
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.10.2.min.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.min.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.serializefullarray.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/modal.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
+      filter='?yui_js' 
+      output='js/compiled/modal.js'  %}
+      <script src="{{ asset_url }}?{{ 'now'|date('dm') }}"></script>
+  {% endjavascripts %}
+{% endblock %}

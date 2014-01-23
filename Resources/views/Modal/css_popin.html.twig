@@ -1,0 +1,10 @@
+{% block css_popin %}
+	{% stylesheets
+	    '@SkreenHouseFactoryV3Bundle/Resources/public/less/bootstrap-overload.less'
+	    '@SkreenHouseFactoryV3Bundle/Resources/public/less/modal_new.less'
+	    filter='lessphp,?yui_css'
+	    output='css/modal_new.css'
+	    %}
+	    <link href="{{ asset_url }}?{{ 'now'|date('dm') }}" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+{% endblock %}

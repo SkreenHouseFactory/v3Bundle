@@ -35,12 +35,20 @@ $(document).ready(function(){
           function(data){
             console.log('scripts/fb.js', 'API.query callback', data);
 
+
             Skhf.session.signin(data.session, function(){
               $('.modal').modal('hide');
               console.log('scripts/fb.js', 'API.query callback', 'Skhf.session.sync', UI.callbackModal);
               if (UI.callbackModal) {
                 UI.callbackModal();
               }
+
+              console.log('scripts/core/fb.js', Skhf.session.user);
+              console.log('scripts/core/fb.js', Skhf.session.callbackSignin);
+              if(Skhf.session.user && Skhf.session.callbackSignin){
+                Skhf.session.callbackSignin();
+              }
+              
             });
           });
       });

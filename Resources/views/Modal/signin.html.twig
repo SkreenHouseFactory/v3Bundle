@@ -1,0 +1,45 @@
+{% extends 'SkreenHouseFactoryV3Bundle:Modal:login.html.twig' %}
+
+{% block form %}
+  {% if success %}
+    <div id="close"></div>
+  {% else %}
+    <div class="entete">
+      <p class="text-center"><img src="https://mskstatic.myskreen.com/medias/logo_white.png" alt="mySkreen" /></p>
+    </div>
+    <p class="text-left">SE CONNECTER</p>
+    <div class="text-center" id="fbconnect"><img src="{{ asset('bundles/skreenhousefactoryv3/images/connexion_facebook_mp.png')}}" alt="Se connecter avec Facebook" /></div>
+    <div class="text-center" id="fbconnect-infos"></div>
+    <div class="oubien">
+      <span>ou</span>
+    </div>
+    <div class="conteneur-form">
+      {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+        {{ form_errors(form) }}
+        <div class="form-group">
+          {{ form_label(form.email, 'E-mail', {'label_attr': {'class': 'sr-only'}}) }}
+          {{ form_errors(form.email) }}
+          <div class="col-xs-16">
+            {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'E-MAIL'}}) }}
+          </div>
+        </div>
+        <div class="form-group">
+          {{ form_label(form.password, 'Mot de Passe', {'label_attr': {'class': 'sr-only'}}) }}
+          {{ form_errors(form.password) }}
+          <div class="col-xs-16">
+            {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'MOT DE PASSE'}}) }}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-16">
+            {{ form_widget(form.valider, {'attr': {'class': 'col-xs-16 btn btn-default'}}) }}
+          </div>
+        </div>
+      {{ form_end(form) }}
+    </div>
+    <div class="link">
+      <a href="{{ path('modal_signup') }}">S'inscrire</a>
+      <a class="mdp" href="{{ path('modal_mdp') }}">Mot de passe oublié ?</a>
+    </div>
+  {% endif %}
+{% endblock %}
