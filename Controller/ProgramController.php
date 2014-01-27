@@ -115,18 +115,7 @@ class ProgramController extends Controller
           'channel_img_width' => 80,
           'channel_slider_width' => 300,
           'channel_slider_height' => 147,
-          'with_metadata' => true,
-          'with_related' => true,
-          'with_related_programs' => true,
-          'with_selections' => true,
-          'with_offers' => true,
-          'with_teaser' => true,
-          'with_hashtags' => true, 
-          'with_tweets' => true,
-          'with_empty_player' => true,
-          'with_img_maxsize'=>true,
-          'with_svod' => true,
-          'with_coming_soon'=> true
+          'fields' => 'metadata,related,related_programs,selections,offers,teaser,hashtags,tweets,empty_player,img_maxsize,svod,coming_soon'
         ));
 
         //hack bug API renvoie rien
@@ -294,8 +283,8 @@ class ProgramController extends Controller
           $data->player->iframe = $data->datas_offers->channels->{$live[0]->channel_id}->live->player;
 
         } elseif ($data->teaser && 
-                  (!isset($data->offers['bonus']->{0}) || !$data->offers['bonus']->{0}->deporte || $data->offers['bonus']->{0}->episode_id != $data->id) && 
-                  (!isset($data->offers['cut']->{0}) || !$data->offers['cut']->{0}->deporte || $data->offers['cut']->{0}->episode_id != $data->id) && 
+                  (!isset($data->offers['bonus']->{0}) || !$data->offers['bonus']->{0}->deporte || (isset($data->offers['bonus']->{0}->episode_id) && $data->offers['bonus']->{0}->episode_id != $data->id)) && 
+                  (!isset($data->offers['cut']->{0}) || !$data->offers['cut']->{0}->deporte || (isset($data->offers['cut']->{0}->episode_id) && $data->offers['cut']->{0}->episode_id != $data->id)) && 
                   (!isset($data->offers['replay']->{0}) || !$data->offers['replay']->{0}->deporte) && 
                   (!isset($data->offers['deporte']->{0}) || $data->offers['deporte']->{0}->cost)) {
           $data->player = $data->teaser;
