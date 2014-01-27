@@ -449,12 +449,17 @@ UI = {
     if(typeof Object.keys(notifications).length == "undefined"){
       var nb = 0;
     }
+
     if (!$('.navbar .notifications-count').hasClass('with-badge')) {
       $('.navbar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
     }
+
     if (Object.keys(notifications).length == 0) {
+
       $('.navbar .notifications-count .badge-important').removeClass('badge-important');
+
     } else {
+
       var list = $('.navbar .notifications ul .scroll');
       list.find('li.empty').hide();
       //list.find('li:not(.empty)').remove();
@@ -503,7 +508,7 @@ UI = {
 
       //new
       if (nb_new > 0) {
-        var nb = nb_new >= this.max_notifications ? nb_new + '+' : nb_new;
+        var nb = nb_new >= this.max_notifications ? this.max_notifications + '+' : nb_new;
         console.log('UI.loadNotifications', 'new', current_last_notification, this.last_notification);
         $('.navbar .notifications-count .badge').addClass('ms-notificon').html(nb);
 
@@ -518,26 +523,10 @@ UI = {
         }
       }
       
-
+      //console.log('UI.loadNotifications', 'nb_new', nb_new);
       $('.navbar .notifications-count').data('count-new', nb_new);
-      $('[rel="tooltip"]', list).tooltip({placement: 'bottom'});
-      $('.remove', list).click(function(e){
-        e.preventDefault();
-        Skhf.session.deleteNotification($(this).data('id'));
-        
-        //dom
-        $(this).parent().next().remove();
-        $(this).parent().slideUp('slow').remove();
-        
-        //count
-        var current = parseInt($('.navbar .notifications-count .badge').html()) - 1;
-        $('.navbar .notifications-count .badge').html(parseInt(current) > 0 ? current : 0);
-        if (current == 0) {
-          $('.navbar .notifications li.empty').show();
-        }
-        
-        return false;
-      });
+
+      
       global.notificationBadge();
     }
   },

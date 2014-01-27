@@ -164,9 +164,28 @@ $(document).ready(function(){
     if($('.user-on .notifications-count .badge').length) {
      Skhf.session.readNotifications();
      var current = $('.navbar .notifications li:not(.divider, .empty)').length;
-     $('.navbar .notifications-count span.badge').removeClass('ms-notificon').html(current);
+     $('.navbar .notifications-count span.badge').removeClass('badge-important').html(current);
     }
   });
+
+  $(document).on('click', '.notifications .remove', function(e){
+        e.preventDefault();
+        Skhf.session.deleteNotification($(this).data('id'));
+        
+        //dom
+        $(this).parent().next().remove();
+        $(this).parent().slideUp('slow').remove();
+        
+        //count
+        var current = parseInt($('.navbar .notifications-count .badge').html()) - 1;
+        console.log('UI.loadNotifications', 'remove Notifications', 'current', current);
+        $('.navbar .notifications-count .badge').html(parseInt(current) > 0 ? current : 0);
+        if (current == 0) {
+          $('.navbar .notifications li.empty').show();
+        }
+        return false;
+      });
+
   //share
   $('.share .btn').on('click', function(){
     if ($(this).data('share') == 'disallow') {
