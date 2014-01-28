@@ -23,7 +23,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
   </div>
   
   {# a venir sur la chaine #}
-  {% if data.epg and data.programs_epg|length %}
+  {% if data.epg is defined and data.epg and data.programs_epg|length %}
   <a class="pull-right btn btn-default btn-sm" href="{{ path('tvgrid') }}">&raquo Tout le programme TV</a>
   {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {
         title: 'channel.epg'|trans({'%name%': data.name}), 
