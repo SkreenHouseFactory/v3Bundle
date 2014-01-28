@@ -117,7 +117,7 @@ class ProgramController extends Controller
           'channel_slider_height' => 147,
           'fields' => 'metadata,related,related_programs,selections,offers,teaser,hashtags,tweets,empty_player,img_maxsize,svod,coming_soon'
         ));
-
+        
         //hack bug API renvoie rien
         if (!is_object($data)) {
           if ($this->get('kernel')->getEnvironment() == 'dev') {
@@ -282,9 +282,9 @@ class ProgramController extends Controller
           $data->player->type = 'live';
           $data->player->iframe = $data->datas_offers->channels->{$live[0]->channel_id}->live->player;
 
-        } elseif ($data->teaser && 
+        } elseif ($data->teaser && /*
                   (!isset($data->offers['bonus']->{0}) || !$data->offers['bonus']->{0}->deporte || (isset($data->offers['bonus']->{0}->episode_id) && $data->offers['bonus']->{0}->episode_id != $data->id)) && 
-                  (!isset($data->offers['cut']->{0}) || !$data->offers['cut']->{0}->deporte || (isset($data->offers['cut']->{0}->episode_id) && $data->offers['cut']->{0}->episode_id != $data->id)) && 
+                  (!isset($data->offers['cut']->{0}) || !$data->offers['cut']->{0}->deporte || (isset($data->offers['cut']->{0}->episode_id) && $data->offers['cut']->{0}->episode_id != $data->id)) && */
                   (!isset($data->offers['replay']->{0}) || !$data->offers['replay']->{0}->deporte) && 
                   (!isset($data->offers['deporte']->{0}) || $data->offers['deporte']->{0}->cost)) {
           $data->player = $data->teaser;

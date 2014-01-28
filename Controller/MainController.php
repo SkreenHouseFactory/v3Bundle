@@ -21,8 +21,7 @@ class MainController extends Controller
 {
     private function blockDomain(Request $request) {
       if ($this->get('kernel')->getEnvironment() == 'prod' && 
-          !strstr($request->getHost(), 'www.') && 
-          !strstr($request->getHost(), 'preprod.') && 
+          !strstr($request->getHost(), 'myskreen.') && 
           !strstr($request->getHost(), 'preprod-') && 
           !strstr($request->getHost(), '.typhon.net')) {
         throw $this->createNotFoundException('Page does not exist on this domain : ' . $request->getHost());
@@ -95,18 +94,6 @@ class MainController extends Controller
     public function homeAction(Request $request)
     {
       $this->blockDomain($request);
-      if ($this->get('kernel')->getEnvironment() == 'prod' && 
-          !strstr($request->getHost(), 'www.') && 
-          !strstr($request->getHost(), 'preprod.') && 
-          !strstr($request->getHost(), '.typhon.net')) {
-        if (!strstr($request->getHost(), 'replay.')) {
-          $redirect = $this->generateUrl('tvgrid');
-        }
-        //if (!strstr($request->getHost(), 'tv.')) {
-        //  return $this->redirect('http://tv.myskreen.com/video/replay/', 301);
-        //}
-        throw $this->createNotFoundException('Home does not exist');
-      }
 
       switch ($request->get('home')) {
         case 'tv-replay':
