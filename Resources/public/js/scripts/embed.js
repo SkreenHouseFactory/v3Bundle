@@ -9,7 +9,7 @@ if (!document.getElementsByClassName) {
 }
 
 TimeOut = setTimeout(function(){
-  var trigger_appear = document.getElementById('trigger');
+  var trigger_appear = document.getElementsByClassName('appear');
   if (trigger_appear) {
     trigger_appear.style.display = 'block';
   }
@@ -102,7 +102,7 @@ window.onload = function(){
   if (trigger) {
     var covers = document.getElementsByClassName('player-cover');
     var params = JSON.parse(trigger.getAttribute('data-play-embed'));
-    //console.log('covers', covers, 'params', params);
+    console.log('covers', covers, 'params', params);
     trigger.onclick = function(){
       //console.log('scripts/embed.js', 'trigger onclick', trigger);
       //hide cover
