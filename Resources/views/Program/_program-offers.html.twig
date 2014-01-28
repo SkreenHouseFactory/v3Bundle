@@ -43,7 +43,7 @@
 
   {# offres #}
   {% set hasoffers = 2  %}
-  {% for key in offers|keys if program.offers[key] is defined and program.offers[key]|to_array|length > 0%}
+  {% for key in offers|keys if program.offers[key] is defined and program.offers[key]|to_array|length > 0 %}
   {% set hasoffers = 1  %}
   {% set variabledeboucle = loop.index  %}
   {% set inconnus_ids = [4941177,4938680,5300091,5300092,5300093,5300095,5300097,4941165,4941207] %}
@@ -54,7 +54,7 @@
   {% else %}
   {% set loop_offset = 3 %}
   {% endif %}
-  <div class="panel{{ program.offers[key]|to_array|length >= loop_offset or (key == 'external' and program.offers['deporte']|to_array|length) ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : ' panel-default' }} count-{{ program.offers[key]|to_array|length }}">
+  <div class="panel{{ program.offers[key]|to_array|length > loop_offset or (key == 'external' and program.offers['deporte']|to_array|length) ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : ' panel-default' }} count-{{ program.offers[key]|to_array|length }}">
     <div class="panel-heading dong" >
       <h3 class="panel-title {% if key in ['external','dvd'] and program.offers['deporte']|to_array|length %} external-collapser pointer{% endif %}"{% if key in ['external','dvd'] and program.offers['deporte']|to_array|length %} data-toggle="collapse"{% endif %} href="#{{ key }}">
         {{ offers[key] }}
@@ -274,7 +274,7 @@
       <a class="btn btn-default btn-reveal" data-toggle="collapse" href="#external" >
         <i class="show-more" >...</i>&nbsp;Fermer
       </a>
-        {% elseif btn_deploy_offers is defined and btn_deploy_offers >= loop_offset %}
+        {% elseif btn_deploy_offers is defined and btn_deploy_offers > loop_offset %}
           {% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %}
             <button type="button" class="btn btn-default btn-reveal" data-toggle="collapse" data-target=".collapsing-deporte" data-toggle-text="<i class='show-more' >...</i>{% if  attribute(program.offers, key)|to_array|length - loop_offset > 1 %}
         &nbsp;Voir les {{ attribute(program.offers, key)|to_array|length - loop_offset }} choix restants
@@ -294,7 +294,7 @@
     </div>
 
   </div>
-  {% endfor %}
+{% endfor %}
 
   {# Message alternatif, pas d'offre #}
   {% if hasoffers == 2 %}
