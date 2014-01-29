@@ -433,7 +433,7 @@ API = {
       post['url'] = url.replace('.json','');
       post['data'] = data;
       data = post;
-      url = this.config.env == 'dev' ? '/app_dev.php/proxy' : '/proxy';
+      url = this.config.env == 'dev' ? '/app_dev.php/proxy/' : '/proxy/';
 
     } else {
       if (data && typeof data === 'object'){
