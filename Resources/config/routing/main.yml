@@ -31,9 +31,6 @@ sitemap_video_new:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:sitemap, video: true, new: true }
 
 #main
-postproxy2:
-    pattern:  /proxy
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:proxy }
 postproxy:
     pattern:  /proxy/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:proxy }

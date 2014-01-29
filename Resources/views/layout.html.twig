@@ -183,7 +183,7 @@
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/seo.js'
     filter='?yui_js' 
     output='js/compiled/v3.js'  %}
-  <script src="{{ asset_url }}?new{{ 'now'|date('dm') }}"></script>
+  <script src="{{ asset_url }}?{{ 'now'|date('dm') }}"></script>
   {% endjavascripts %}
   {% endif %}
 
