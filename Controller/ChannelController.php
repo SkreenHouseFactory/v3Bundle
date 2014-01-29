@@ -33,8 +33,8 @@ class ChannelController extends Controller
       !strstr($request->getHost(), 'inconnus.') && 
       !strstr($request->getHost(), '.typhon.net')) {
       throw $this->createNotFoundException('Page does not exist');
+    }
   }
-}
   /**
   * channel
   */
@@ -43,7 +43,7 @@ class ChannelController extends Controller
     $this->blockDomain($request);
 
     //hack seo
-    if ($request->get('slug') == 'tv-en-direct') {
+    if (in_array($request->get('slug'), array('tv-en-direct', 'track-js.php'))) {
       return $this->redirect('http://www.myskreen.com', 301);
     }
 
