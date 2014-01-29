@@ -10,8 +10,10 @@ if (!document.getElementsByClassName) {
 
 TimeOut = setTimeout(function(){
   var trigger_appear = document.getElementsByClassName('appear');
-  if (trigger_appear) {
-    trigger_appear.style.display = 'block';
+  if (trigger_appear.length) {
+    for (i=0; i<trigger_appear.length; i++) {
+      trigger_appear.style.display = 'block';
+    }
   }
 },3000);
 
