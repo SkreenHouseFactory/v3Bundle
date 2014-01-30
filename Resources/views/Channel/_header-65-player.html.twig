@@ -1,82 +1,89 @@
 <div class="row">
-  <h1 class="lato"> <img src="http://mskstatic.com/medias/ftp/chaines/mediacenter-inconnus/player.png" alt="integrale">L’Intégrale des Inconnus</h1>
-  <h2 class="lato subtitleex">Tous les sketches cultes en streaming gratuit !</h2>
+  <div class="col-xs-16">
+    <div class="integrale-title">
+      <div class="row">
+        <div class="col-xs-11">
+          <h1 class="lato">
+            <img src="http://mskstatic.com/medias/ftp/chaines/mediacenter-inconnus/player.png" alt="integrale">L’Intégrale des Inconnus
+          </h1>
+          <h2 class="lato subtitleex">Tous les sketches cultes en streaming gratuit !</h2>
+        </div>
+        <div class="col-xs-5">
+          <div class="share-title">
+            <p>Partagez l'intégrale des Inconnus sur mySkreen avec vos amis !</p>
+            <div class="fb-like" style="float:left;z-index: 16;margin-left:9px;" data-share="false" data-href="http://www.myskreen.com/l-integrale-des-inconnus/" data-layout="button_count" data-action="like" data-show-faces="false"></div>
+
+            <iframe class="pull-left twitter-share" style="height: 20px;width: 94px; margin-right:0px; margin-left:5px;" allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer=http://www.myskreen.com/l-integrale-des-inconnus/&amp;size=m&amp;text={{ "L'intégrale des Inconnus sur mySkreen en streaming gratuit"|url_encode|replace({'+': '%20'}) }}&amp;url=http://www.myskreen.com/l-integrale-des-inconnus/" class="block-twitter" data-twttr-rendered="true"></iframe>
+
+            <iframe  class="g-plus-share"frameborder="0" scrolling="no" style="border-style:none; height:30px; margin: 0px 3px 0; visibility:visible; width:70px;" id="I0_share" name="I0_share" src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=fr&amp;url=http://www.myskreen.com/l-integrale-des-inconnus/&amp;id=I0_share" allowtransparency="true" data-gapiattached="true" title="+1"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   {% for slider in selection_sketches | to_array %}
-  {% if loop.first %}
-  {% for program in slider.programs | to_array %}
-  {% if loop.first %}
-  <div class="col-xs-11 player-block">
-    <iframe frameborder="0"  scrolling="no" width="100%" height="370" src="{{ program.player.player.url }}"></iframe>
-  </div>
-  <div class="col-xs-5 myskreen-block">
-    <div>
-      <span>
-        <img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-footer.png') }}" alt="myskreen">
-      </span>
-      <a href="http://www.myskreen.com/les-inconnus/">
-        <img src="http://mskstatic.com/275/160/c/medias/photos/channel/1-les-inconnus-s.jpg?2013112216" alt="">
-      </a>
-      <p><a href="http://www.myskreen.com/les-inconnus/">Suivez <strong>les Inconnus</strong> sur myskreen et recevez gratuitement les prochaines vidéos en avant-première et les images exclusives du film Les Trois Frères, le retour !</a></p>
-   <div class="suivre-media">
-     {% if '/partners/' in app.request.getPathInfo %}
-     <a href="http://www.myskreen.com/les-inconnus/?follow" target="_blank" data-id="1" class="fav btn btn-suivre btn-suivre-b" data-placement="left" data-original-title="Les Inconnus">+ Suivre les Inconnus</a>
-     {% else %}
-     <a data-id="1" data-channel-name="Les Inconnus" class="btn btn-suivre btn-plus btn-suivre-b fav fav-channel">Suivre Les Inconnus </a>
-     {% endif %}
-    </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-16 ">
-  <h2 class="lato isplaying-title"><strong  class="pull-left">{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</strong>
-      <div class="share-block">
-        {% for slider_share in selection_sketches | to_array %}
-          {% if loop.first %}
-            {% for program_share in slider_share.programs | to_array %}
-              {% if loop.first %}
-                {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program_share.seo_url, text: program_share.title|replace({ (program.episodeof.title ~ ' - '):''}) ~ ' est sur @mySkreen en streaming gratuit.' } %}
+    {% if loop.first %}
+      {% for program in slider.programs | to_array %}
+        {% if loop.first %}
+          <div class="col-xs-11 player-block">
+            <iframe frameborder="0"  scrolling="no" width="100%" height="370" src="{{ program.player.player.url }}"></iframe>
+          </div>
+          <div class="col-xs-5 myskreen-block">
+            <div>
+              <span>À voir aussi...</span>
+              <a href="http://www.myskreen.com/les-inconnus/">
+                <img src="http://mskstatic.com/275/160/c/medias/photos/channel/1-les-inconnus-s.jpg?2013112216" alt="">
+              </a>
+              <p>
+                <a href="http://www.myskreen.com/les-inconnus/">Suivez la WebTV <strong>des Inconnus</strong> sur myskreen et recevez gratuitement les prochaines vidéos en avant-première et les images exclusives du film <em>Les Trois Frères, le retour</em> !</a>
+              </p>
+              <div class="suivre-media">
+                {% if '/partners/' in app.request.getPathInfo %}
+                  <a href="http://www.myskreen.com/les-inconnus/?follow" target="_blank" data-id="1" class="fav btn btn-suivre btn-suivre-b" data-placement="left" data-original-title="Les Inconnus">+ Suivre les Inconnus</a>
+                {% else %}
+                  <a data-id="1" data-channel-name="Les Inconnus" class="btn btn-suivre btn-plus btn-suivre-b fav fav-channel">Suivre Les Inconnus </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-16 ">
+            <h2 class="lato isplaying-title"><strong>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</strong></h2>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  <div class="row {% if loop.index != 1 %}hide{% endif %}" data-selection-id="{{slider.id}}">
+    <div class="col-xs-16 ">
+      <div id="carousel-{{slider.id}}" class="vidplaylist carousel slide" data-ride="carousel" data-interval="0"> 
+
+        <div class="btn-wrap">   
+          <a class="left_b" href="#carousel-{{slider.id}}" data-slide="prev">
+            <i class="glyphicon glyphicon-play"></i>
+          </a>
+          <a class="right_b " href="#carousel-{{slider.id}}" data-slide="next">
+            <i class="glyphicon glyphicon-play"></i>
+          </a>
+        </div>
+
+        <div class="carousel-inner">
+          <div class="item active">
+            {% for program in slider.programs | to_array %}
+
+              <div class="vignette"  data-play-url="{{ program.player.player.url }}"  data-id="{{program.id}}" data-selection="{{slider.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-share-text="{{ ('Les Inconnus / ' ~ program.title ~ ' sur @mySkreen en streaming gratuit.')|replace({ (program.episodeof.title ~ ' - '):''})|url_encode|replace({'+': '%20'})}}" data-play-seo-url="{{('http://www.myskreen.com' ~ program.seo_url)|url_encode}}">
+                <div class="img-small"  style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat"></div>
+                <span><mark>{{loop.index}}</mark>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</span>
+              </div>
+              {% if loop.index%5 == 0 and loop.index != 1 %}
+                </div>
+                <div class="item">
               {% endif %}
             {% endfor %}
-          {% endif %}
-        {% endfor %} 
+          </div>
+        </div>
       </div>
-    </h2>
-  </div>
-</div>
-{% endif %}
-{% endfor %}
-{% endif %}
-<div class="row {% if loop.index != 1 %}hide{% endif %}" data-selection-id="{{slider.id}}">
- <div class="col-xs-16 ">
-  <div id="carousel-{{slider.id}}" class="vidplaylist carousel slide" data-ride="carousel" data-interval="0"> 
-
-    <div class="btn-wrap">   
-       <a class="left_b" href="#carousel-{{slider.id}}" data-slide="prev">
-        <i class="glyphicon glyphicon-play"></i>
-      </a>
-      <a class="right_b " href="#carousel-{{slider.id}}" data-slide="next">
-        <i class="glyphicon glyphicon-play"></i>
-      </a>
-  </div>
-
-  <div class="carousel-inner">
-    <div class="item active">
-      {% for program in slider.programs | to_array %}
-
-      <div class="vignette"  data-play-url="{{ program.player.player.url }}"  data-id="{{program.id}}" data-selection="{{slider.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-share-text="{{ ('Les Inconnus / ' ~ program.title ~ ' sur @mySkreen en streaming gratuit.')|replace({ (program.episodeof.title ~ ' - '):''})|url_encode|replace({'+': '%20'})}}" data-play-seo-url="{{('http://www.myskreen.com' ~ program.seo_url)|url_encode}}">
-        <div class="img-small"  style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat"></div>
-        <span><mark>{{loop.index}}</mark>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</span>
-      </div>
-      {% if loop.index%5 == 0 and loop.index != 1 %}
-    </div>
-    <div class="item">
-      {% endif %}
-      {% endfor %}
     </div>
   </div>
-
-</div>
-</div>
-</div>
 {% endfor %}
