@@ -8,7 +8,7 @@ Programme TV : Hier soir à la télé
 {% elseif periode == 'en-ce-moment' %}
 Programme TV : en ce moment à la télé
 {% elseif periode == null or periode == 'ce-soir' %}
-Programme TV : ce soir à la télé
+Programme TV : Grille TV complète TNT Câble
 {% else %}
 {{ 'page.title.tvgrid'|trans({'%date%': data.timestamp|localizeddate('full')|replace({'00:00': '00'})}) }}
 {% endif %}
@@ -33,7 +33,7 @@ Programme TV : ce soir à la télé
   <br/>
   <p>Voir aussi : <a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir : programme TV</a> : <a href="{{ path('tvgrid') }}">Ce soir : programme TV</a></p>
 {% elseif periode == null or periode == 'ce-soir' %}
-  <h1>Ce soir à la télé</h1>
+  <h1>Tous les programmes TV, ce soir à la Télé</h1>
   <h2>Votre programme t&eacute;l&eacute; avec mySkreen</h2>
   <p>Voir aussi : <a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir : programme TV</a> : <a href="{{ path('tvgrid_date', {date: 'en-ce-moment'}) }}">En ce moment : programme TV</a></p>
   <p>mySkreen est un guide innovant qui permet de consulter le programme t&eacute;l&eacute; du moment, du soir et de la journ&eacute;e.</p>
