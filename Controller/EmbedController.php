@@ -78,9 +78,9 @@ class EmbedController extends Controller
 
       $maxage = $countdown ? 60 : 600;
       $response->setCache(array(
-          'max_age'       => $maxage,
-          's_maxage'      => $maxage,
-          'public'        => true,
+        'max_age'       => $maxage,
+        's_maxage'      => $maxage,
+        'public'        => true,
       ));
 
       return $response;
@@ -92,7 +92,7 @@ class EmbedController extends Controller
         $response = $this->render('SkreenHouseFactoryV3Bundle:Embed:error.html.twig', array(
           'width' => $request->get('width', '100%'),
           'height' => $request->get('height', '100%'),
-          ));
+        ));
         $response->setStatusCode(404);
         return $response;
       }
@@ -103,9 +103,9 @@ class EmbedController extends Controller
 
       $maxage = 600;
       $response->setCache(array(
-          'max_age'       => $maxage,
-          's_maxage'      => $maxage,
-          'public'        => true,
+        'max_age'       => $maxage,
+        's_maxage'      => $maxage,
+        'public'        => true,
       ));
 
       return $response;

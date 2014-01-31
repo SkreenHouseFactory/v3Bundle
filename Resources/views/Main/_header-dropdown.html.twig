@@ -56,7 +56,7 @@
           <li class="tv-channels">
             {% for channel in web_channels %}
             {% set slug = channel|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', '\'': '-'})|raw %}
-              <span class="tv-component" data-link-to-replace="{{ header_base }}{{ path('channel', {slug: slug})|rot13 }}"><span class="hidden-touch">{{ channel }}</span><img src="http://mskstatic.com/36/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></span>
+              <span class="tv-component" data-link-to-replace="{{ (header_base ~ path('channel', {slug: slug}))|rot13 }}"><span class="hidden-touch">{{ channel }}</span><img src="http://mskstatic.com/36/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ channel }} Replay"/></span>
             {% endfor %}
           </li>
         </ul>
