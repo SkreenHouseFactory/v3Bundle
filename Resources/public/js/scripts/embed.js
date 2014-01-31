@@ -133,6 +133,11 @@ window.onload = function(){
       //console.log(['scripts/embed.js', 'iPhone|iPod|iPad|Android', 'default click']);
       trigger.click();
     }
+    // hack autoplay "Les 3 frères, le retour" sur Allociné
+    if(document.location.href=='http://embed.myskreen.com/video/33505825/?width=614&height=374&skKey=40dd9b8ee77b001f6ee1314ca9ad86dc'){
+      trigger.click();
+    }
+
   }
 
   // GESTION FB LIKE via FAKE BUTTON
