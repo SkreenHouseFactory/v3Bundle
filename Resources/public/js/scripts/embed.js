@@ -22,14 +22,14 @@ TimeOut = setTimeout(function(){
   callbackSignin = function() {
     if(Skhf.session.user){
       // passer de la présentation "se connecter" à "partager"
-      console.log('scripts/embed.js', 'callbackSignin');
+      //console.log('scripts/embed.js', 'callbackSignin');
       $('.connect').addClass('hide');
       $('.share').removeClass('hide');
       
       // Ajout aux playlists le programme embed
       if($('[data-program-id]').length && !Skhf.session.isInPlaylist('like', $('[data-program-id]').data('program-id'))){
         API.addPreference('like',$('[data-program-id]').data('program-id'));
-        console.log('scripts/embed.js', 'ajout playlist', 'ok');
+        //console.log('scripts/embed.js', 'ajout playlist', 'ok');
       }
 
       // check si le user FB connecté a liké
@@ -104,7 +104,7 @@ window.onload = function(){
   if (trigger) {
     var covers = document.getElementsByClassName('player-cover');
     var params = JSON.parse(trigger.getAttribute('data-play-embed'));
-    console.log('covers', covers, 'params', params);
+    //console.log('covers', covers, 'params', params);
     trigger.onclick = function(){
       //console.log('scripts/embed.js', 'trigger onclick', trigger);
       //hide cover
