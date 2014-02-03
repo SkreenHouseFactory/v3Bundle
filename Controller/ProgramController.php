@@ -286,6 +286,7 @@ class ProgramController extends Controller
                   (
                     !isset($data->episodeof) || 
                     !$data->episodeof ||
+                    $data->teaser->program_id == $data->id || 
                     (
                       (!isset($data->offers['bonus']->{0}) || !$data->offers['bonus']->{0}->deporte || (isset($data->offers['bonus']->{0}->episode_id) && $data->offers['bonus']->{0}->episode_id != $data->id)) && 
                       (!isset($data->offers['cut']->{0}) || !$data->offers['cut']->{0}->deporte || (isset($data->offers['cut']->{0}->episode_id) && $data->offers['cut']->{0}->episode_id != $data->id))
