@@ -23,7 +23,11 @@
     {% if vods|length == 0 %}
       <div class="hero-unit">
         <br/>
-        <p><strong>Vous n'avez pas encore {{ app.request.get('onglet') == 'emissions' ? 'd\'' : 'de ' }}{{ ('category.' ~ app.request.get('onglet'))|trans }} en vidéo à la demande.</strong></p>
+        {% if app.request.get('onglet') %}
+          <p><strong>Vous n'avez pas encore {{ app.request.get('onglet') == 'emissions' ? 'd\'' : 'de ' }}{{ ('category.' ~ app.request.get('onglet'))|trans }} en vidéo à la demande.</strong></p>
+        {% else %}
+          <p><strong>Vous n'avez pas encore de contenu en vidéo à la demande.</strong></p>
+        {% endif %}
         <p>Votre compte mySkreen vous permet de visionner la vidéo à la demande en 1 clic directement sur mySkreen. Renseignez une fois la carte de paiement que vous souhaitez utiliser et payez de manière simple et sécurisée.</p>
         <p class="alert alert-info">
           Seules les vidéos qui font partie de l'offre en 1 clic sont marquées d'un <span class="ico-deporte"><i class="glyphicon glyphicon-play"></i></span>.
@@ -33,7 +37,11 @@
           <br/>Bonne séance !
         </p>
         <p>
-          <a href="{{ path('homes_vod', {home: app.request.get('onglet')[0:-1]}) }}" class="btn btn-primary btn-large">Découvrir les {{ ('category.' ~ app.request.get('onglet'))|trans }} en vidéo à la demande &raquo;</a>
+          {% if app.request.get('onglet') %}
+            <a href="{{ path('homes_vod', {home: app.request.get('onglet')[0:-1]}) }}" class="btn btn-primary btn-large">Découvrir les {{ ('category.' ~ app.request.get('onglet'))|trans }} en vidéo à la demande &raquo;</a>
+          {% else %}
+            <a href="{{ path('homes', {home: 'video-a-la-demande'}) }}" class="btn btn-primary btn-large">Découvrir les vidéos à la demande &raquo;</a>
+          {% endif %}
         </p>
       </div>
 
