@@ -18,7 +18,7 @@
       {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'pull-right', fav: 'channel' } %}
 
       <h1>Agnès Varda</h1>
-       <div class="share-block" style="z-index:0;" >{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' est sur @mySkreen   ' } %}</div>
+       <div class="share-block" style="z-index:1;" >{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' est sur @mySkreen   ' } %}</div>
    
   </div>
 </div>
