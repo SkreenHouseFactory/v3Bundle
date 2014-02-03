@@ -257,18 +257,22 @@ body.view-channel #main #cover{
     text-shadow:0;
 	}
   .btn {
-    float: right;
+    float: left;
     margin: 10px;
-    margin: 13px 25px 0 0px;
+    margin: 13px 50px 0 0px;
     padding: 10px;
     height: 48px;
     line-height: 24px;
+    &.btn-default:last-child {
+      margin-right: 0px;
+      margin-left: 16px;
+    }
   }
   .suivre-btn{
     float: none;
-    width: 82%;
-    margin-left: 44px;
+    width: 100%;
     font-size: 25px;
+    margin-right: 0px;
   }
 	#inconnusvolant{
 		position: relative;
@@ -322,9 +326,9 @@ body.view-channel #main #cover{
 
 }
 body.view-channel #main #channel1 .share-block{
-	left: 102px!important;
+	left: 0px!important;
 	min-width: 400px!important;
-	position: absolute!important;
+	position: absolute;!important;
 	top: 118px!important;
 	z-index: 1!important;
 }
@@ -342,7 +346,7 @@ body.view-channel #main #channel1 .share-block{
     .share-block{
       position: absolute!important;
       top: -8px!important;
-      left: 604px!important;
+      left: 580px!important;
       min-width: 400px!important;
     }
   }
