@@ -2,7 +2,7 @@
 
 $(document).ready(function(){
 	$('[data-link-to-replace]').each(function(){
-    console.log('scripts/seo.js', '[data-link-to-replace]', $(this));
+    //console.log('scripts/seo.js', '[data-link-to-replace]', $(this));
     var link = unescape(seo.rot13($(this).data('link-to-replace')));
 		var node = '<a href="'+ link +'" class="seo-replaced'+(typeof $(this).attr('class') != 'undefined' ? ' '+$(this).attr('class') : '')+'">'+$(this).html()+'</a>';
     $(this).replaceWith(node);

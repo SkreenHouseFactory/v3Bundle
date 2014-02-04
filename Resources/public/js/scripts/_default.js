@@ -49,6 +49,9 @@ $(document).ready(function(){
     Skhf.session = new Session(function(sessionData, self){
       console.log('script', 'Session.init', 'callback');
       $('.headertoprighticons').removeClass('hide');
+      if(!sessionData.email && document.location.href.indexOf('/user/')!=-1){
+        document.location='/';
+      }
       
     }, typeof Session_sync_args != 'undefined' ? Session_sync_args : {});
 

@@ -25,6 +25,9 @@ var Session = BaseSession.extend({
 
     UI.unloadSelector();
     UI.unloadPlaylist();
+    if(document.location.href.indexOf('/user/')!=-1){
+      document.location='/';
+    }
   },
   loadSocialSelector: function(callback, offset, onglet) {
     var self = this;
