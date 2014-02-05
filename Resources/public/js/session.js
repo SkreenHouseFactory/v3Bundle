@@ -127,7 +127,7 @@ var Session = BaseSession.extend({
     console.log('Session.initPlaylist', 'url:' + url);
 
     if (typeof url == 'undefined') {
-      url = top.location.pathname;
+      url = document.location.pathname;
     } else if (url) {
     	url = url.replace('/app_dev.php','').replace('/app.php','');
 	    // -- keep

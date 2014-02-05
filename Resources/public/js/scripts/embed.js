@@ -8,14 +8,6 @@ if (!document.getElementsByClassName) {
   }
 }
 
-TimeOut = setTimeout(function(){
-  var trigger_appear = document.getElementsByClassName('appear');
-  if (trigger_appear.length) {
-    for (i=0; i<trigger_appear.length; i++) {
-      trigger_appear.style.display = 'block';
-    }
-  }
-},3000);
 
 //////////// CALLBACKS ////////////////
   // -- session sync
@@ -94,6 +86,14 @@ TimeOut = setTimeout(function(){
 
 window.onload = function(){
   //console.log('scripts/embed.js');
+
+  TimeOut = setTimeout(function(){
+    var trigger_appear = $('#trigger').hasClass('appear');
+    // console.log('scripts/embed.js', 'trigger_appear', trigger_appear);
+    if (trigger_appear) {
+      $('#trigger.appear').css('display', 'block');
+    }
+  },3000);
 
   // check video embed pour éviter l'autoclick mobile sur les autres embed (type moviepush)
   var pathname = window.location.pathname;
