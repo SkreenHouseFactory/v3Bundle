@@ -63,8 +63,8 @@
         <div class="clear">
           <a href="{{ path('sitemap_channels', {type: 'webcast'}) }}" >Toutes les Web TV <span class="show-more">...</span> </a>
         </div>
-        {{ render(controller('SkreenHouseFactoryV3Bundle:Main:headerchannel', { type: 'channel' })) }}
-        {#% include 'SkreenHouseFactoryV3Bundle:Main:_headerchannel_dur.html.twig' %#}
+        {#{ render(controller('SkreenHouseFactoryV3Bundle:Main:headerchannel', { type: 'channel' })) }#}
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_headerchannel_dur.html.twig' %}
       </div>
     </div>
   {% endif %}
