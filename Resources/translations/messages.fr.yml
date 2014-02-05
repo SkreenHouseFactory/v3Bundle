@@ -11,7 +11,7 @@ page:
             default_format: Retrouvez les %formats% de %name% en intégralité
         home:
             mixte: mySkreen : replay et films / cinéma en streaming
-            films: Film streaming
+            films: VOD - voir film en streaming et téléchargement
             documentaires: Tous les documentaires en replay et VOD en streaming
             series: Séries TV
             spectacles: Spectacles, concerts, théatre streaming
@@ -25,7 +25,7 @@ page:
             v3-tv-replay: Replay TV
             cinema: Les films et les horaires | Cinéma
             jeunesse: Jeunesse - dessins animés en replay et streaming
-            films: Films | Streaming et VOD
+            films: Film | Streaming et VOD
             series: Séries TV - Toutes les séries gratuites en streaming
             documentaires: Documentaires : Replay, streaming et vod
             emissions: Emissions | Streaming et Replay
