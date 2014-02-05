@@ -87,19 +87,24 @@ if (!document.getElementsByClassName) {
 window.onload = function(){
   //console.log('scripts/embed.js');
 
-  TimeOut = setTimeout(function(){
-    var trigger_appear = $('#trigger').hasClass('appear');
-    // console.log('scripts/embed.js', 'trigger_appear', trigger_appear);
-    if (trigger_appear) {
-      $('#trigger.appear').css('display', 'block');
-    }
-  },3000);
-
   // check video embed pour éviter l'autoclick mobile sur les autres embed (type moviepush)
   var pathname = window.location.pathname;
   //console.log('scripts/embed.js', 'Pathname', pathname);
   var checkVideoEmbed = pathname.search("/video/");
 
+  if(checkVideoEmbed == -1){
+
+    TimeOut = setTimeout(function(){
+      var trigger_appear = $('#trigger').hasClass('appear');
+      // console.log('scripts/embed.js', 'trigger_appear', trigger_appear);
+      if (trigger_appear) {
+        $('#trigger.appear').css('display', 'block');
+      }
+    },3000);
+
+  }
+
+  
   var trigger = document.getElementById('trigger');
   if (trigger) {
     var covers = document.getElementsByClassName('player-cover');
