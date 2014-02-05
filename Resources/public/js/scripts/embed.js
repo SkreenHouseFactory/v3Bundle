@@ -12,7 +12,7 @@ if (!document.getElementsByClassName) {
 //////////// CALLBACKS ////////////////
   // -- session sync
   callbackSignin = function() {
-    if(Skhf.session.user){
+    if (Skhf.session.user){
       // passer de la présentation "se connecter" à "partager"
       //console.log('scripts/embed.js', 'callbackSignin');
       $('.connect').addClass('hide');
