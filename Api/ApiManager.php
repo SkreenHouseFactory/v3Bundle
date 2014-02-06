@@ -24,16 +24,16 @@ class ApiManager
   }
 
   protected function getApiBase($version) {
+    $protocol = $_SERVER['HTTPS'] == 'on' ? 'https:' : 'http:';
     if (preg_match('/v3\.(\w+)\.myskreen\.typhon\.net/', $_SERVER['SERVER_NAME'], $matches)) {
-      $this->host = 'http://'.$matches[1].'.myskreen.typhon.net';
+      $this->host = '//'.$matches[1].'.myskreen.typhon.net';
     } elseif (isset($_SERVER['SERVER_NAME']) && 
               strstr($_SERVER['SERVER_NAME'], 'preprod')) {
-      $this->host = 'http://preprod-api.myskreen.com';
+      $this->host = '//preprod-api.myskreen.com';
     } else {
-      $this->host = 'http://api.myskreen.com';
+      $this->host = '//api.myskreen.com';
     }
-
-    return $this->host.'/api/' . $version . '/';
+    return $protocol.$this->host.'/api/' . $version . '/';
   }
 
   public function fetch($url, $params = array(), $method = 'GET', $options = array()) {
