@@ -24,7 +24,7 @@ class ApiManager
   }
 
   protected function getApiBase($version) {
-    $protocol = $_SERVER['HTTPS'] == 'on' ? 'https:' : 'http:';
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https:' : 'http:';
     if (preg_match('/v3\.(\w+)\.myskreen\.typhon\.net/', $_SERVER['SERVER_NAME'], $matches)) {
       $this->host = '//'.$matches[1].'.myskreen.typhon.net';
     } elseif (isset($_SERVER['SERVER_NAME']) && 
