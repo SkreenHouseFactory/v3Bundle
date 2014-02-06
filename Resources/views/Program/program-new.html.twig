@@ -115,7 +115,7 @@ en Streaming
 
 {# opengraph #}
 <meta property="og:title" content="{{ program.og_title is defined ? program.og_title : program.title }}" />
-<meta property="og:description" content="{% if program.og_description is defined %}{{ program.og_description }}{% else %}[ VIDEO ] {{ program.description_text|replace({"\n": ''}) }}{% endif %}" />
+<meta property="og:description" content="{% if program.og_description is defined %}{{ program.og_description|length > 350 ? program.og_description[:350] ~ '...' : program.og_description }}{% else %}[ VIDEO ] {{ program.description_text|length > 350 ? program.description_text|replace({"\n": ''})[:350] ~ '...' : program.description_text|replace({"\n": ''}) }}{% endif %}" />
 <meta property="og:image" content="{{ program.og_picture is defined ? program.og_picture : program.picture }}" />
 <meta property="og:type" content="movie" />
 <meta property="og:url" content="http://www.myskreen.com{{ program.seo_url }}" />
