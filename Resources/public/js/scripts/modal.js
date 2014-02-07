@@ -5,6 +5,14 @@ if(typeof console == 'undefined' || typeof console.log === 'undefined') {
     error: function() {}
   }
 }
+
+// Hack IE detect
+
+var trident = !!navigator.userAgent.match(/Trident\/7.0/);
+var net = !!navigator.userAgent.match(/.NET4.0E/);
+var IE11 = trident && net
+var IEold = ( navigator.userAgent.match(/MSIE/i) ? true : false );
+
   //////////// CALLBACKS ////////////////
   // -- session sync
   callbackSignin = function() {
@@ -28,6 +36,12 @@ if(typeof console == 'undefined' || typeof console.log === 'undefined') {
   }
   
 $(document).ready(function(){
+
+  if(IEold) {
+    $('label').removeClass('sr-only');
+    $('label').css('padding-left', '15px');
+  }
+
   //console.log('modal.js', 'ready');
   if($('#close').length>0){
     //console.log('test close');
