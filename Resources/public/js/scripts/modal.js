@@ -1,10 +1,10 @@
-  if(typeof console == 'undefined' || typeof console.log === 'undefined') {
-      console = {
-          log: function() {},
-          warn: function() {},
-          error: function() {}
+if(typeof console == 'undefined' || typeof console.log === 'undefined') {
+  console = {
+    log: function() {},
+    warn: function() {},
+    error: function() {}
   }
-
+}
   //////////// CALLBACKS ////////////////
   // -- session sync
   callbackSignin = function() {
