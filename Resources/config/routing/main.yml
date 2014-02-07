@@ -18,7 +18,11 @@ embed_moviepush:
     requirements:
         id: \d+
         _scheme: https
-
+embed_moviepush_dev:
+    pattern:  /moviepush_dev/{id}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Embed:moviepush }
+    requirements:
+        id: \d+
 
 sitemap_general:
     pattern:  /sitemap.xml
