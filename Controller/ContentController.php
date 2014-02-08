@@ -19,23 +19,12 @@ use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 
 class ContentController extends Controller
 {
-    private function blockDomain(Request $request) {
-      if ($this->get('kernel')->getEnvironment() == 'prod' && 
-          !strstr($request->getHost(), 'www.myskreen.com') && 
-//          !strstr($request->getHost(), 'replay.') && 
-//          !strstr($request->getHost(), 'preprod.') && 
-          !strstr($request->getHost(), 'preprod-v3.myskreen.com') && 
-          !strstr($request->getHost(), '.typhon.net')) {
-        throw $this->createNotFoundException('Page does not exist');
-      }
-    }
 
     /**
     * category
     */
     public function categoryAction(Request $request)
     {
-      $this->blockDomain($request);
 
       if ($request->get('facet') == $request->get('category_slug')) {
         return $this->redirect(str_replace($request->get('facet').'/'.$request->get('facet'), $request->get('facet'), $request->getRequestUri()), 301);
@@ -128,7 +117,7 @@ class ContentController extends Controller
     */
     public function personAction(Request $request)
     {
-      $this->blockDomain($request);
+
       $api   = $this->get('api');
       $data = $api->fetch('person/'.$request->get('id'), array(
         'with_programs' => true,
@@ -170,7 +159,7 @@ class ContentController extends Controller
     */
     public function selectionAction(Request $request)
     {
-      $this->blockDomain($request);
+
       $api   = $this->get('api');
       $data = $api->fetch('www/slider/pack/'.$request->get('id'), array(
         'with_description'  => true,
