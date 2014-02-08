@@ -1,5 +1,6 @@
-{% if app.environment == 'prod' %}
-{% set base_url = 'preprod' not in app.request.httpHost  ? 'http://www.myskreen.com' : '' %}
+{% set base_url = '' %}
+{% if app.environment == 'prod' and app.resuest.get('partner') and 'preprod' not in app.request.httpHost %}
+{% set base_url = 'http://www.myskreen.com' %}
 {% else %}
 {% set base_url = '/app_dev.php' %}
 {% endif %}
