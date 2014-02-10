@@ -19,22 +19,12 @@ use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 
 class EmbedController extends Controller
 {
-    private function blockDomain(Request $request) {
-      if ($this->get('kernel')->getEnvironment() == 'prod' && 
-          !strstr($request->getHost(), 'embed.myskreen.com') && 
-//          !strstr($request->getHost(), 'preprod.v3.myskreen.com') && 
-          !strstr($request->getHost(), 'preprod-v3.myskreen.com') && 
-          !strstr($request->getHost(), '.typhon.net')) {
-        throw $this->createNotFoundException('Page does not exist on this domain : ' . $request->getHost());
-      }
-    }
 
     /**
     * homes
     */
     public function videoAction(Request $request)
     {
-      $this->blockDomain($request);
 
       $datas=$this->getVideo($request);
       if (!$datas){
