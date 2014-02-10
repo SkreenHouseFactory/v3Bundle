@@ -441,9 +441,9 @@ UI = {
       return;
     }
     console.log('UI.loadNotifications', notifications);
-    //console.log('UI.loadNotifications', Object.keys(notifications).length);
-    var nb = Object.keys(notifications).length == this.max_notifications ? Object.keys(notifications).length + '+' : Object.keys(notifications).length;
-    //console.log('UI.loadNotifications', 'nb', nb);
+    console.log('UI.loadNotifications', Object.keys(notifications).length);
+    var nb = Object.keys(notifications).length >= this.max_notifications ? this.max_notifications + '+' : Object.keys(notifications).length;
+    console.log('UI.loadNotifications', 'nb', nb);
     
     // 1ere connexion: valeur de nb par defaut
     if(typeof Object.keys(notifications).length == "undefined"){

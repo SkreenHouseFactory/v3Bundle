@@ -85,7 +85,7 @@ class EmbedController extends Controller
 
       return $response;
     }
-    public function moviepushAction(Request $request){
+    public function movieplayAction(Request $request){
 
       $datas=$this->getVideo($request);
       if (!$datas){
@@ -97,7 +97,7 @@ class EmbedController extends Controller
         return $response;
       }
       
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Embed:moviepush.html.twig', array(
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Embed:movieplay.html.twig', array(
         'offer' => $datas,
       ));
 

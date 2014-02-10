@@ -66,6 +66,7 @@ $(document).ready(function(){
   });
   // -- ui user
   $('a.auth').on('click', function(){
+    console.log('_default.js', 'auth');
     Player.stop();
     UI.auth();    
     return false;
@@ -152,23 +153,28 @@ $(document).ready(function(){
   $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
 
     if ($(this).hasClass('tv-component')  && 
-      !$(this).parent().hasClass('open') ) { 
-      if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
-        Player.stop();
-      }   
+        !$(this).parent().hasClass('open') ) { 
+          if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
+            Player.stop();
+          }   
     }
     
     if ($(this).hasClass('notifications-count')  && 
-      !$(this).parent().hasClass('open') ) { 
-      if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
-        Player.stop();
-      }
+        !$(this).parent().hasClass('open') ) { 
+          if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
+            Player.stop();
+          }
     }
-    if($('.user-on .notifications-count .badge').length) {
-     Skhf.session.readNotifications();
-     var current = $('.navbar .notifications li:not(.divider, .empty)').length;
-     $('.navbar .notifications-count span.badge').removeClass('badge-important').html(current);
+
+    if ($(this).hasClass('notifications-count') &&
+        !$(this).parent().hasClass('open') &&
+        $(this).children('.badge').hasClass('badge-important') ) {
+          console.log('scripts/_default.js', 'badge notifications', 'là que je voulais cliquer');
+          Skhf.session.readNotifications();
+          var current = $('.navbar .notifications li:not(.divider, .empty)').length;
+          $('.navbar .notifications-count span.badge').removeClass('badge-important').html(current);
     }
+
   });
 
   $(document).on('click', '.notifications .remove', function(e){

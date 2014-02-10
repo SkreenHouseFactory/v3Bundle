@@ -5,7 +5,7 @@ var Session = BaseSession.extend({
   datas: {},
   onglet: '',
   access: '',
-  sync_args: {with_notifications: 1, 'short': 1, 'time': new Date().getTime() },
+  sync_args: {with_notifications: 1, 'short': 1 },
   sync: function(callback, args) {
     var args = $.extend(this.sync_args, args);
     this.__base(callback, args);

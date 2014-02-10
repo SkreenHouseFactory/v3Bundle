@@ -59,6 +59,7 @@ class ModalController extends Controller
           ))
         ->add('session_uid', 'hidden')
         ->add('signin', 'hidden')
+        ->add('movieplay', 'hidden')
         ->add('inscription', 'submit')
         ->getForm();
 
@@ -71,7 +72,8 @@ class ModalController extends Controller
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Modal:signup.html.twig', array(
         'form' => $form->createView(),
-        'success' => $success
+        'success' => $success,
+        'movieplay' => $this->getVideo($request)
         ));
 
       $cache_maxage=3600;
@@ -107,6 +109,7 @@ class ModalController extends Controller
           )) 
         ->add('session_uid', 'hidden')
         ->add('signin', 'hidden')
+        ->add('movieplay', 'hidden')
         ->add('valider', 'submit')
         ->getForm();
 
@@ -119,7 +122,8 @@ class ModalController extends Controller
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Modal:signin.html.twig', array(
         'form' => $form->createView(),
-        'success' => $success
+        'success' => $success,
+        'movieplay' => $this->getVideo($request)
         ));
 
       $cache_maxage=3600;
@@ -198,6 +202,7 @@ class ModalController extends Controller
         ->setAction($this->generateUrl('modal_mdp'))
         ->add('email', 'email')
         ->add('session_uid', 'hidden')
+        ->add('movieplay', 'hidden')
         ->add('envoyer', 'submit')
         ->getForm();
 
@@ -210,7 +215,8 @@ class ModalController extends Controller
       
       $response = $this->render('SkreenHouseFactoryV3Bundle:Modal:mdp.html.twig', array(
         'form' => $form->createView(),
-        'success' => $success
+        'success' => $success,
+        'movieplay' => $this->getVideo($request)
         ));
 
       $cache_maxage=3600;
@@ -267,4 +273,22 @@ class ModalController extends Controller
       return $this->render('SkreenHouseFactoryV3Bundle:Modal:checkout.html.twig', array(
       ));
     }
+
+    private function getVideo(Request $request){
+
+      if($request->get('movieplay')){
+        $api = $this->get('api');
+        $data = $api->fetch('player/' . $request->get('movieplay'), array(
+          'img_width' => $request->get('width') ? (int)$request->get('width'): 'x',
+          'img_height' => $request->get('height') ? (int)$request->get('height'): '500',
+          'slider_width' => 1200,
+          'slider_height' => 450,
+          'with_program' => true,
+          'with_img_size' => true
+        ));
+      return $data;
+      }
+      
+    }
+
 }
