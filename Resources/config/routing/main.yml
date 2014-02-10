@@ -15,7 +15,7 @@ embed_offer:
         domain: embed.myskreen.com
     requirements:
         id: \d+
-        _scheme: https
+        _scheme: http
         domain: embed.myskreen.com|preprod-v3.myskreen.com|v3.benoit.myskreen.typhon.net|v3.dev5.myskreen.typhon.net
 embed_movieplay:
     pattern:  /movieplay/{id}/
