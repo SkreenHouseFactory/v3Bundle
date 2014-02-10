@@ -11,28 +11,45 @@
   -moz-box-shadow: -10px -10px 20px 0 rgba(0,0,0,0.05);
   -webkit-box-shadow: -10px -10px 20px 0 rgba(0,0,0,0.05);
   box-shadow: -10px -10px 20px 0 rgba(0,0,0,0.05);
-  div a {
-    .open-icon {
-      
-    }
-    .close-icon {
-      
-    }
-  }
   #slide-in-text {
     background-color: #f3eeee;
     padding: 15px 25px 15px 20px;
     margin-bottom: 10px;
     margin-left: 5px;
     font-size: 16px;
+    div {
+      position: absolute;
+      top:-9px;
+      left:-45px;
+      overflow: hidden;
+      padding: 4px 0 4px 4px;
+      background-color: white;
+      a {
+        display: block;
+        width: 37px;
+        height: 35px;
+        padding: 5px;
+        &.open-icon {
+          background: url(/bundles/skreenhousefactoryv3/images/open.png) top center no-repeat;
+        }
+        &.close-icon {
+          background: url(/bundles/skreenhousefactoryv3/images/close.png) top center no-repeat;
+        }
+      }
+    }
     p {
       font-size: 16px;
-    }
-    p:first-child {
       text-align: center;
+    }
+    a.auth {
+      margin: 0 25px;
+      display: block;
     }
   }
   #slide-in-share {
-    margin-left: 5px
+    margin-left: 5px;
+    .fb-like-box {
+      overflow: hidden;
+    }
   }
 }

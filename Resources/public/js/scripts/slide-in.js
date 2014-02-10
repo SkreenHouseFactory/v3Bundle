@@ -38,10 +38,7 @@ var SlideIn = Class.extend({
     }, this.speed_in);
     this.elmt.css('cursor', 'default');
     this.elmt.addClass('open');
-    $('#slide-in>div>a').removeClass('open-icon').addClass('close-icon');
-    if(!(this.elmt.hasClass('scrolled'))){
-      this.elmt.addClass('scrolled');
-    }
+    $('#slide-in #slide-in-text>div>a').removeClass('open-icon').addClass('close-icon');
   },
 
   disparition: function(){
@@ -50,7 +47,7 @@ var SlideIn = Class.extend({
     }, this.speed_out);
     this.elmt.css('cursor', 'pointer');
     this.elmt.removeClass('open');
-    $('#slide-in>div>a').removeClass('close-icon').addClass('open-icon');;
+    $('#slide-in #slide-in-text>div>a').removeClass('close-icon').addClass('open-icon');
   },
 
   isOpened: function(){
@@ -61,8 +58,8 @@ var SlideIn = Class.extend({
     }
   },
 
-  hasScrolled: function(){
-    if(this.elmt.hasClass('scrolled')){
+  hasBeenForced: function(){
+    if(this.elmt.hasClass('forced')){
       return true;
     } else {
       return false;
@@ -71,40 +68,40 @@ var SlideIn = Class.extend({
 
 });
 
-$( document ).ready(function(){
+// $( document ).ready(function(){
 
-  // var slide_in = new SlideIn($('#slide-in'));
+//   var slide_in = new SlideIn($('#slide-in'));
 
-  // /*$(window).scroll(function(){
-  //   if(!slide_in.isOpened() && !slide_in.hasScrolled()){
-  //     slide_in.apparition();
-  //   }
-  // });*/
+//   $('#slide-in-text a').on('click', function(){
+//     if($('#slide-in-text a').hasClass('close-icon')){
+//       slide_in.disparition();
+//       if(!(slide_in.elmt.hasClass('forced'))){
+//         slide_in.elmt.addClass('forced');
+//       }
+//     } else if($('#slide-in-text a').hasClass('open-icon')){
+//       slide_in.apparition();
+//       if(!(slide_in.elmt.hasClass('forced'))){
+//         slide_in.elmt.addClass('forced');
+//       }
+//     }
+//   });
 
-  // $('#slide-in-closer').on('click', function(){
-  //   slide_in.disparition();
-  // });
-
-
-  // //CHecker quantité de scroll
+//   //CHecker quantité de scroll
   
-  // var old_scroll_top = 0;
+//   $(document).scroll(function(){
 
-  // $(document).scroll(function() {
-  //   var current_scroll_top = $(document).scrollTop();
-  //   var scroll_delta = current_scroll_top - old_scroll_top;
+//     if ((($(document).scrollTop() > 100) && ($(document).scrollTop() < 1500))
+//           && !(slide_in.isOpened()) 
+//           && !(slide_in.hasBeenForced())){
+//       slide_in.apparition();
+//     }
 
-  //   //console.log('scripts/slide-in.js', 'scroll_delta', scroll_delta);
+//     if ((($(document).scrollTop() < 100) || ($(document).scrollTop() > 1500))
+//           && slide_in.isOpened() 
+//           && !(slide_in.hasBeenForced())){
+//       slide_in.disparition();
+//     }
 
-  //   if((scroll_delta > 100) && !slide_in.isOpened() && !slide_in.hasScrolled()){
-  //     slide_in.apparition();
-  //   }
+//   });
 
-  //   if((scroll_delta > 700) && !slide_in.isOpened() && !slide_in.hasScrolled()){
-  //     slide_in.apparition();
-  //   }
-
-  //   old_scroll_top = current_scroll_top;
-  // });
-
-});
+// });
