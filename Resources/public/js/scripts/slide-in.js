@@ -73,38 +73,38 @@ var SlideIn = Class.extend({
 
 $( document ).ready(function(){
 
-  var slide_in = new SlideIn($('#slide-in'));
+  // var slide_in = new SlideIn($('#slide-in'));
 
-  /*$(window).scroll(function(){
-    if(!slide_in.isOpened() && !slide_in.hasScrolled()){
-      slide_in.apparition();
-    }
-  });*/
+  // /*$(window).scroll(function(){
+  //   if(!slide_in.isOpened() && !slide_in.hasScrolled()){
+  //     slide_in.apparition();
+  //   }
+  // });*/
 
-  $('#slide-in-closer').on('click', function(){
-    slide_in.disparition();
-  });
+  // $('#slide-in-closer').on('click', function(){
+  //   slide_in.disparition();
+  // });
 
 
-  //CHecker quantité de scroll
+  // //CHecker quantité de scroll
   
-  var old_scroll_top = 0;
+  // var old_scroll_top = 0;
 
-  $(document).scroll(function() {
-    var current_scroll_top = $(document).scrollTop();
-    var scroll_delta = current_scroll_top - old_scroll_top;
+  // $(document).scroll(function() {
+  //   var current_scroll_top = $(document).scrollTop();
+  //   var scroll_delta = current_scroll_top - old_scroll_top;
 
-    //console.log('scripts/slide-in.js', 'scroll_delta', scroll_delta);
+  //   //console.log('scripts/slide-in.js', 'scroll_delta', scroll_delta);
 
-    if((scroll_delta > 100) && !slide_in.isOpened() && !slide_in.hasScrolled()){
-      slide_in.apparition();
-    }
+  //   if((scroll_delta > 100) && !slide_in.isOpened() && !slide_in.hasScrolled()){
+  //     slide_in.apparition();
+  //   }
 
-    if((scroll_delta > 700) && !slide_in.isOpened() && !slide_in.hasScrolled()){
-      slide_in.apparition();
-    }
+  //   if((scroll_delta > 700) && !slide_in.isOpened() && !slide_in.hasScrolled()){
+  //     slide_in.apparition();
+  //   }
 
-    old_scroll_top = current_scroll_top;
-  });
+  //   old_scroll_top = current_scroll_top;
+  // });
 
 });
