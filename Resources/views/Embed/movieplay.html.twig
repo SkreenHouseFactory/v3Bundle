@@ -1,0 +1,195 @@
+{% extends 'SkreenHouseFactoryV3Bundle::empty.html.twig' %}
+
+{% block nostats %}nostat{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="noindex,nofollow" />
+{% endblock %}
+
+{% block title %}embed{% endblock %}
+{% block description %}embed{% endblock %}
+
+{% block css %}
+  {% stylesheets
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/bootstrap-overload.less'
+    filter='lessphp,?yui_css'
+    output='css/bootstrap.css'
+    %}
+    <link href="{{ asset_url }}?{{ 'now'|date('dm') }}" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+    <style>
+    body, .embed_background {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+    #trigger{
+      display: none;
+    }
+    .embed_background{
+      position: absolute;
+      background-image: url({{offer.program.picture}});
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto 100%;
+      display: table;
+    }
+    .embed_background>div{
+      display: table-cell;
+      vertical-align: middle;
+      box-sizing: content-box;
+    }
+    #player {
+      height: 100%;
+      background-size: auto 100%;
+    }
+    #controls {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      z-index: 1;
+      opacity: 0.8;
+    }
+    .container{
+      width: 400px!important;
+      height: 330px;
+      background-color: rgba(255,255,255,1);
+      -moz-box-shadow: 0px 0px 15px black;
+      -webkit-box-shadow: 0px 0px 15px black;
+      box-shadow: 0px 0px 15px black;
+    }
+    .container .titre {
+      color: #fff;
+      font-size: 23px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .container .avec {
+      font-size: 12px;
+    }
+    .containe .avec img {
+      margin-top: 4px;
+    }
+    #fbconnect{
+      margin-bottom: 15px;
+    }
+    #fbconnect-infos{
+      margin-bottom: 35px;
+    }
+    #fbconnect:hover{
+      opacity: 0.7;
+    }
+    .col-xs-2:first-child{
+      margin-right: 3.125%;
+    }
+    .col-xs-2:nth-child(3){
+      margin-left: -6.5%;
+    }
+    .connect, .share{
+      padding: 0 0 30px 0;
+    }
+    .connect > .row:first-child, .share > .row:first-child {
+      background: #428bca;
+    }
+    .connect .row:last-child {
+      margin-top: 15px;
+    }
+    .share p{
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    .share .row:first-child p:first-child, .connect .row:first-child p:first-child {
+      height: 65px;
+      line-height: 65px;
+    }
+    .share .row:first-child p:first-child {
+      margin-bottom: 0px;
+    }
+    .fb-share-button {
+      margin: 0 auto 40px;
+      display: block;
+    }
+    .share a{
+      font-size: 13px;
+    }
+    .connect .message, .share .message{
+      color: #428bca;
+      font-size: 21px;
+      line-height: normal;
+      padding-top: 10px;
+    }
+    .share .message {
+      padding-top: 25px;
+      margin-bottom: 45px;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="embed_background" data-program-id="{{ offer.program.id }}">
+    <div class="player-cover">
+      <div class="container">
+        <div class="connect">
+          <div class="row">
+            <p class="col-xs-16 text-center titre">{{ offer.program.title }}</p>
+          </div>
+          <div class="row">
+            <p class="col-xs-16 text-center message">Pour voir les premières minutes du film, connectez-vous.</p>
+          </div>
+          <div class="row">
+            <div class="col-xs-16 text-center" id="fbconnect"><img src="{{ asset('bundles/skreenhousefactoryv3/images/connexion_facebook_mp.png')}}" alt="Se connecter avec Facebook" /></div>
+          </div>
+          <div class="row">
+            <div class="col-xs-16 text-center" id="fbconnect-infos"></div>
+          </div>
+          <div class="row">
+                <div class="col-xs-4"></div>
+                <a class="col-xs-8 btn btn-default btn-xs" onclick="window.open('{{ path('modal_signup', { movieplay: offer.id }) }}','mySkreen_sign','width=580,height=740,top=200,left=400')">Me connecter sans Facebook</a>
+                <div class="col-xs-4"></div>
+          </div>
+          <div class="row">
+            <div class="col-xs-5"></div>
+            <div class="col-xs-6 avec">avec <img src="{{ asset('bundles/skreenhousefactoryv3/images/logo_bleu_transparent.png')}}" alt="logo myskreen.com" width="75px" height="auto"></div>
+            <div class=" col-xs-5"></div>
+          </div>
+        </div>
+        <div class="share hide">
+          <div class="row">
+            <p class="col-xs-16 text-center titre">{{ offer.program.title }}</p>
+          </div>
+          <div class="row">
+            <p class="col-xs-16 text-center message">Partager cette vidéo avec vos amis</p>
+          </div>
+          <div class="row">
+            <div class="fb-share-button col-xs-16 text-center" data-href={{ ('http://www.myskreen.com'~ offer.program.seo_url)|url_encode }} data-width="150" data-type="button_count"></div>
+          </div>
+          <div class="col-xs-16 text-center">
+            <div class="row">
+              <div class="col-xs-4"></div>
+              <a id="trigger" class="appear col-xs-8 btn btn-xs btn-default" data-play-embed="{{ {playId: offer.id, skKey: app.request.get('skKey'), forceMobileDevice: app.request.get('forceMobileDevice'), noPub: app.request.get('noPub'), env: app.environment }|json_encode }}"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir la vidéo</a>
+              <div class="col-xs-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="player" style="background: black;width:100%;height:100%;position:absolute;display:none;" class="player on"></div>
+  </div>
+  {% javascripts
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.10.2.min.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.min.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.serializefullarray.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/embed.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
+      filter='?yui_js' 
+      output='js/compiled/moviepush.js'  %}
+      <script src="{{ asset_url }}?{{ 'now'|date('dm') }}"></script>
+    {% endjavascripts %}
+{% endblock %}

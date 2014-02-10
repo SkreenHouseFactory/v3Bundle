@@ -5,15 +5,10 @@
       <div id="close"></div>
   {% else %}
     <div class="entete">
-      <p class="text-center"><img src="https://mskstatic.myskreen.com/medias/logo_white.png" alt="mySkreen" /></p>
-      <p class="message"><strong>Votre compte GRATUIT en 1 clic :</strong> Créez vos playlists et ne ratez plus vos programmes préférés : Cinéma, TV, Replay et VOD !</p>
+      <p class="text-center">{{ movieplay.program.title }}</p>
+      <p class="sous-titre text-center">Pour accéder à la vidéo, vous devez créer un compte gratuit sur <strong>myskreen.com</strong></p>
     </div>
     <p class="text-left">S'INSCRIRE</p>
-    <div class="text-center" id="fbconnect"><img src="{{ asset('bundles/skreenhousefactoryv3/images/inscription_facebook_mp.png')}}" alt="S'inscrire avec Facebook" /></div>
-    <div class="text-center" id="fbconnect-infos"></div>
-    <div class="oubien">
-      <span>ou</span>
-    </div>
     <div class="conteneur-form">
       {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
         {{ form_errors(form, {'li_attr': {'class': 'alert alert-danger'}}) }}
@@ -25,10 +20,10 @@
           </div>
         </div>
         <div class="form-group">
-          {{ form_label(form.password, 'Mot de Passe', {'label_attr': {'class': 'sr-only'}}) }}
+          {{ form_label(form.password, 'Choisir un Mot de Passe', {'label_attr': {'class': 'sr-only'}}) }}
           {{ form_errors(form.password, {'li_attr': {'class': 'alert alert-danger'}}) }}
           <div class="col-xs-16">
-            {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'MOT DE PASSE'}}) }}
+            {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'CHOISIR UN MOT DE PASSE'}}) }}
           </div>
         </div>
         <div class="form-group">
@@ -39,8 +34,8 @@
       {{ form_end(form) }}
     </div>
     <div class="link">
-      <a href="{{ path('modal_signin') }}">Se connecter</a>
-      <a class="mdp" href="{{ path('modal_mdp') }}">Mot de passe oublié ?</a>
+      <a href="{{ path('modal_signin', { movieplay: movieplay.id }) }}">J'ai déjà un compte myskreen.com</a>
+      <a class="mdp" href="{{ path('modal_mdp', { movieplay: movieplay.id }) }}">Mot de passe oublié ?</a>
     </div>
   {% endif %}
 {% endblock %}

@@ -2,7 +2,8 @@
 
 {% block form %}
   <div class="entete">
-    <p class="text-center"><img src="https://mskstatic.myskreen.com/medias/logo_white.png" alt="mySkreen" /></p>
+    <p class="text-center">{{ movieplay.program.title }}</p>
+    <p class="sous-titre text-center">Pour accéder à la vidéo, vous devez vous connecter sur <strong>myskreen.com</strong></p>
   </div>
   <p class="text-left">MOT DE PASSE OUBLIÉ ?</p>
   <p class="message">Vous ne vous souvenez plus de votre mot de passe ?</p>
@@ -29,7 +30,7 @@
     </div>
   {% endif %}
   <div class="link">
-    <a href="{{ path('modal_signup') }}">S'inscrire</a>
-    <a class="mdp" href="{{ path('modal_signin') }}">Se connecter</a>
+    <a href="{{ path('modal_signup', { movieplay: movieplay.id }) }}">S'inscrire sur myskreen.com</a>
+    <a class="mdp" href="{{ path('modal_signin', { movieplay: movieplay.id }) }}">Se connecter à myskreen.com</a>
   </div>
 {% endblock %}
