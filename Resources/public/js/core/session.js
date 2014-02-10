@@ -3,7 +3,7 @@ var BaseSession = Class.extend({
  uid: '',
  user: null,
  datas: {},
- sync_args: { 'short': 1, 'time': new Date().getTime() },
+ sync_args: { 'short': 1 },
  onglet: '',
  access: '',
  idle_timeout: 60000,
@@ -55,7 +55,7 @@ var BaseSession = Class.extend({
  },
  sync: function(callback, args) {
    var self = this;
-   var args = $.extend(this.sync_args, typeof args == 'undefined' ? {} : args);
+   var args = $.extend(this.sync_args, typeof args == 'undefined' ? {} : args, {time: new Date().getTime()} );
    console.log('BaseSession.sync', this.uid, 'cookie:' + API.cookie('session_uid'), 'args:', args);
    if (this.uid == null) {
      this.uid = API.cookie('session_uid');
