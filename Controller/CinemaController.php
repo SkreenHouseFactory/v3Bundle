@@ -29,17 +29,22 @@ class CinemaController extends Controller
       
       //programs
 			$api = $this->get('api');
-      $programs = $api->fetch('program', 
-                               array('img_width'  => 150,
-                                     'img_height' => 200,
-                                     'access'     => 'cinema',
-                                     'alpha'      => $alpha));
+      $programs = $api->fetch(
+        'program', 
+         array(
+           'img_width'  => 150,
+           'img_height' => 200,
+           'access'     => 'cinema',
+           'alpha'      => $alpha
+      ));
 
       //print_r(array($session_uid, $programs));
       $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:boxoffice.html.twig', array(
         'menus'    => null,
-        'alpha'    => array(1,2,3,4,5,6,7,8,9,
-                            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'),
+        'alpha'    => array(
+          1,2,3,4,5,6,7,8,9,
+          'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
+        ),
         'programs' => $programs
       ));
 
