@@ -210,13 +210,15 @@ $(document).ready(function(){
         ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
       }
       //theater playlist et fallback géoloc
-      if (Skhf.session.datas.email &&
-          $('#program-offers #trigger-theaters-playlist').length && 
-          !document.location.href.match(/theater_id=/)){ //desactivé si id cinéma dans url
-        $('#program-offers #trigger-theaters-playlist').trigger('click');
-      } else if ($('#program-offers #trigger-theaters-geoloc').length) {
-        $('#program-offers #trigger-theaters-geoloc').trigger('click');
+      if(!document.location.href.match(/theater_id=/)){
+        if (Skhf.session.datas.email &&
+            $('#program-offers #trigger-theaters-playlist').length){ //desactivé si id cinéma dans url
+          $('#program-offers #trigger-theaters-playlist').trigger('click');
+        } else if ($('#program-offers #trigger-theaters-geoloc').length) {
+          $('#program-offers #trigger-theaters-geoloc').trigger('click');
+        }
       }
+      
       //modal program
       ProgramView.loadModal();
     }
