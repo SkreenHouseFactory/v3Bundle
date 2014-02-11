@@ -68,40 +68,40 @@ var SlideIn = Class.extend({
 
 });
 
-// $( document ).ready(function(){
+$( document ).ready(function(){
 
-//   var slide_in = new SlideIn($('#slide-in'));
+  var slide_in = new SlideIn($('#slide-in'));
 
-//   $('#slide-in-text a').on('click', function(){
-//     if($('#slide-in-text a').hasClass('close-icon')){
-//       slide_in.disparition();
-//       if(!(slide_in.elmt.hasClass('forced'))){
-//         slide_in.elmt.addClass('forced');
-//       }
-//     } else if($('#slide-in-text a').hasClass('open-icon')){
-//       slide_in.apparition();
-//       if(!(slide_in.elmt.hasClass('forced'))){
-//         slide_in.elmt.addClass('forced');
-//       }
-//     }
-//   });
+  $('#slide-in-text a').on('click', function(){
+    if($('#slide-in-text a').hasClass('close-icon')){
+      slide_in.disparition();
+      if(!(slide_in.elmt.hasClass('forced'))){
+        slide_in.elmt.addClass('forced');
+      }
+    } else if($('#slide-in-text a').hasClass('open-icon')){
+      slide_in.apparition();
+      if(!(slide_in.elmt.hasClass('forced'))){
+        slide_in.elmt.addClass('forced');
+      }
+    }
+  });
 
-//   //CHecker quantité de scroll
+  //CHecker quantité de scroll
   
-//   $(document).scroll(function(){
+  $(document).scroll(function(){
 
-//     if ((($(document).scrollTop() > 100) && ($(document).scrollTop() < 1500))
-//           && !(slide_in.isOpened()) 
-//           && !(slide_in.hasBeenForced())){
-//       slide_in.apparition();
-//     }
+    if ((($(document).scrollTop() > 100) && ($(document).scrollTop() < 1500))
+          && !(slide_in.isOpened()) 
+          && !(slide_in.hasBeenForced())){
+      slide_in.apparition();
+    }
 
-//     if ((($(document).scrollTop() < 100) || ($(document).scrollTop() > 1500))
-//           && slide_in.isOpened() 
-//           && !(slide_in.hasBeenForced())){
-//       slide_in.disparition();
-//     }
+    if ((($(document).scrollTop() < 100) || ($(document).scrollTop() > 1500))
+          && slide_in.isOpened() 
+          && !(slide_in.hasBeenForced())){
+      slide_in.disparition();
+    }
 
-//   });
+  });
 
-// });
+});
