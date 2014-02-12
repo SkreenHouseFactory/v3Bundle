@@ -215,12 +215,25 @@
     }
     &.panel-theater {
       .panel-collapse {
-        padding: 10px 20px;
-        ul.nav-tabs li a {
-          padding: 5px;
+        padding: 0;
+        ul.nav-tabs {
+          background-color: #F5F5F5;
+          border-bottom: none;
+          > li {
+            margin-bottom: -2px;
+          }
+          li a {
+            padding: 5px 5px;
+            font-size: 13px;
+          }
+          > li.active > a {
+            border: none;
+          }
+          > li > a:hover, > li > a:focus {
+            border-color: transparent;
+          }
         }
         .tab-content {
-          border: 1px solid #ccc;
           border-top: 0;
           padding: 5px 20px;
           margin: 0;
