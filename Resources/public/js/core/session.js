@@ -150,9 +150,9 @@ var BaseSession = Class.extend({
          if (sessionData.email) {
            self.update();
          }
-       },{
-         with_notifications: 1
-       });
+       },$.extends(sync_args, {
+         time: new Date().getTime()
+       }));
      }, self.idle_timeout);
    }
  },
