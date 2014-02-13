@@ -145,7 +145,7 @@ var BaseSession = Class.extend({
    if (this.datas.email) {
      setTimeout(function(){
        console.log('Session.update', 'callback');
-       var update_args = $.extend(sync_args, {
+       var update_args = $.extend(self.sync_args, {
          time: new Date().getTime()
        });
        Skhf.session.sync(function(sessionData) {
