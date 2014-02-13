@@ -97,14 +97,14 @@ $(document).ready(function(){
   //CHecker quantité de scroll
   
   $(document).scroll(function(){
-
-    if ((($(document).scrollTop() > 100) && ($(document).scrollTop() < 1500))
+    console.log($(document).scrollTop());
+    if ((($(document).scrollTop() > 300) && ($(document).scrollTop() < 1200))
           && !(slide_in.isOpened()) 
           && !(slide_in.hasBeenForced())){
       slide_in.apparition();
     }
 
-    if ((($(document).scrollTop() < 100) || ($(document).scrollTop() > 1500))
+    if ((($(document).scrollTop() < 300) || ($(document).scrollTop() > 1200))
           && slide_in.isOpened() 
           && !(slide_in.hasBeenForced())){
       slide_in.disparition();
