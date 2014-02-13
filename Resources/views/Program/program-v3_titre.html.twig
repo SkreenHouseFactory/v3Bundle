@@ -1,10 +1,33 @@
 {# Titre + ShareBlock #}
 <div class="row">
-  <div class="col-xs-9">{# Titre #}</div>
-  <div class="col-xs-7">{# ShareBlock #}</div>
+  {# Titre #}
+  <div class="col-xs-9" itemscope itemtype="???" itemref="">
+    <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
+    {% if program.episode_title is defined and
+          program.episodeof is defined and
+          program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
+      <div id="fake_h1" itemprop="name">
+        {{ program.episode_title }}
+        {% if program.popular_channel is defined %}
+          <span>{{ program.popular_channel.name }}</span>
+        {% endif %}
+      </div>
+    {% elseif program.episode_title is defined and
+              program.episodeof is defined %}
+      <div id="fake_h1" itemprop="name">
+        {{ program.episodeof.title }}
+      </div>
+    {% else %}
+      <div id="fake_h1" itemprop="name">{{ program.title }} </div>
+    {% endif %}
+  </div>
+  {# ShareBlock #}
+  <div class="col-xs-7"></div>
 </div>
 {# AjoutListes #}
 <div class="row">
-  <div class="col-xs-4">{# Bouton Ajout/Abo #}</div>
-  <div class="col-xs-12">{# Textes Ajouts #}</div>
+  {# Bouton Ajout/Abo #}
+  <div class="col-xs-4"></div>
+  {# Textes Ajouts #}
+  <div class="col-xs-12"></div>
 </div>
