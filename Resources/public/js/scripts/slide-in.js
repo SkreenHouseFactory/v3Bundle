@@ -30,6 +30,9 @@ var SlideIn = Class.extend({
       default:
         $('#slide-in-text p+p').html('Toutes les chaînes en REPLAY et en DIRECT sur 1 seul site.');
     }
+    if(API.cookie('slide-in')){
+      this.elmt.addClass('forced');
+    }
   },
 
   apparition: function(){
@@ -68,7 +71,7 @@ var SlideIn = Class.extend({
 
 });
 
-$( document ).ready(function(){
+$(document).ready(function(){
 
   var slide_in = new SlideIn($('#slide-in'));
 
@@ -83,6 +86,9 @@ $( document ).ready(function(){
       if(!(slide_in.elmt.hasClass('forced'))){
         slide_in.elmt.addClass('forced');
       }
+    }
+    if(!API.cookie('slide-in')){
+      API.cookie('slide-in',1);
     }
   });
 
