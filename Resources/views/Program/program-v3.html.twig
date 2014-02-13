@@ -1,0 +1,90 @@
+{% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
+
+{# Metadonnéess #}
+{% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_metadonnees.html.twig' %}
+
+{# Player + Affiche + Meilleure offre #}
+<div class="container">
+  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_player.html.twig' %}
+</div>
+
+{# Titre + ShareBlock + AjoutListes #}
+<div class="bande_couleur">
+  <div class="container">
+    {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_titre.html.twig' %}
+  </div>
+</div>
+
+{# Onglets/Contenus + Chaînes #}
+<div class="container">
+  <div class="row">
+    {# Onglets / Contenus #} 
+    <div class="col-xs-11">
+      {# Onglets #}
+      <ul class="row" id="onglets">
+        <li class="active col-xs-5">{# Voir #}
+          <a href="#voir" data-toggle="tab">
+            <div class="row">
+              <div class="col-xs-16">{# VOIR #}</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-16">{# Tv, Ciné, Replay, VOD, Live #}</div>
+            </div>
+          </a>
+        </li>
+        <li class="col-xs-5">{# Vidéos #}
+          <a href="#videos" data-toggle="tab">
+            <div class="row">
+              <div class="col-xs-16">{# + DE VIDEOS #}</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-16">{# Bonus, Extraits, Youtube #}</div>
+            </div>
+          </a>
+        </li>
+        <li class="col-xs-6">{# Infos #}
+          <a href="#infos" data-toggle="tab">
+            <div class="row">
+              <div class="col-xs-16">{# INFOS #}</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-16">{# Episodes, Synopsis, Casting #}</div>
+            </div>
+          </a>
+        </li>
+      </ul>
+      {# Contenus #}
+      <div class="tab-content">
+        <div class="tab-pane active row" id="voir">
+          {# Contenu Voir #}
+          {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_voir.html.twig' %}
+        </div>
+        <div class="tab-pane row" id="videos">
+          {# Contenu Vidéos #}
+          {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_videos.html.twig' %}
+        </div>
+        <div class="tab-pane row" id="infos">
+          {# Contenu Infos #}
+          {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_infos.html.twig' %}
+        </div>
+      </div>
+    </div>
+    {# Chaînes #}
+    <div class="col-xs-5">
+      <div>Chaînes
+        {# Chaînes sur le même thème #}
+        {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_chaines-thema.html.twig' %}
+        {# Chaînes éditorialisées #}
+        <ul>À voir en ce moment
+          <li>{# Chaîne 1 #}</li>
+          <li>{# Chaîne 2 #}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# Related #}
+<div class="container">
+  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_related.html.twig' %}
+</div>

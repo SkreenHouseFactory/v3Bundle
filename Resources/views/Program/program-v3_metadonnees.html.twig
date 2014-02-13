@@ -1,0 +1,149 @@
+{% block title %}
+{% if program.format.name is defined %}
+{% if program.format.name in ['Film','Documentaire','Téléfilm','Court-métrage']%} {{ 'page.title.program.default'|trans({'%title%':program.title,'%format%':program.format.name,'%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",})}}
+{% elseif (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) %} {{ 'page.title.program.film-anime'|trans({'%title%':program.title,'%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",})}}
+{% elseif (program.format.name == "Dessin Animé et Manga" and  program.duration < 65) %} {{ 'page.title.program.serie-anime'|trans({'%title%':program.title,'%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",})}}
+{% elseif program.format.name in ['Série','Websérie'] %} {{ 'page.title.program.serie'|trans({'%title%':program.title,'%format%':program.format.name, '%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",})}}
+{% elseif program.format.name in ['Emission'] %} {{ program.title }} Replay
+{% elseif program.format.name in ['Journal'] %} {{ program.title }} Replay
+
+{% elseif program.format.name in ['Théâtre'] %} {{ program.title }} Streaming {% if program.has_vod in [7,8] %} Replay {% endif %} {% if program.has_vod in [1,2,12] %} VOD {% endif %} {% if program.has_vod in [3] %} DVD {% endif %} : Pièce de Théâtre Complète
+{% elseif program.format.name in ['Spectacle','Concert'] %} {{ program.title }} Streaming {% if program.has_vod in [7,8] %} Replay {% endif %} {% if program.has_vod in [1,2,12] %} VOD {% endif %} {% if program.has_vod in [3] %} DVD {% endif %} : {{ program.format.name }} Complet
+{% else %} {{ program.title }}{{ program.format ? ', ' ~ program.format.name : '' }} en Streaming
+{% endif %}
+{% else %}
+{{ program.title }} {% if program.has_vod in [7,8] %} Replay {% endif %} {% if program.has_vod in [1,2,12] %} VOD {% endif %} {% if program.has_vod in [3] %} DVD {% endif %}
+{% endif %}
+{% endblock %}
+
+
+{% block description %}
+{% spaceless %}
+{% if program.format.name is defined %}
+{% if program.format.name in ['Film','Documentaire','Téléfilm','Court-métrage','Série','Websérie'] or (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) %}
+{% if program.has_vod == 4 %}
+{{ 'page.description.program.film.cinema'|trans({'%title%':program.title}) }}
+{% elseif program.has_vod in [5,6] %}
+{% if program.format.name in ['Série','Websérie'] %}
+{{ 'page.description.program.serie.tv'|trans({'%title%':program.title}) }}
+{% elseif program.format.name in ['Film','Documentaire','Téléfilm','Court-métrage'] or (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) %}
+{{ 'page.description.program.film.tv'|trans({'%title%': program.title, '%year%':program.year }) }}
+{% endif %} 
+{% endif %}
+{% set hasstreaming = 0 %}{% set hasreplay = 0 %}{% set hasVOD = 0 %}{% set hasDVD = 0 %}
+{% if program.has_vod in [7,8] %} {% set hasreplay = 1 %} {% endif %}
+{% if program.has_vod in [1,2,12] %} {% set hasVOD = 1 %} {% endif %}
+{% if program.has_vod in [3] %} {% set hasDVD = 1 %} {% endif %}
+{% if program.has_vod in [1,2,7,8,9,10,12,13] %} {% set hasstreaming = 1 %} {% endif %}
+{% set support %}
+{% if program.has_vod in [1,2,7,8,9,10,12,13] %}
+en Streaming
+{% if program.has_vod in [1,2,7,8,12] %}({% endif %}
+{% if program.has_vod in [7,8] %}Replay{% endif %}
+{% if hasreplay == 1 and hasVOD == 1 %}, {% endif %}
+{% if program.has_vod in [1,2,12] %}VOD{% endif %}
+{% if program.has_vod in [1,2,7,8,12] %}){% endif %}
+{% if hasstreaming == 1 and hasDVD == 1 %} & {% endif %}
+{% if program.has_vod in [3] %}"DVD"{% endif %}
+{% endif %}
+{% endset %}
+{% if program.format.name in ['Série','Websérie'] %}
+{{ 'page.description.program.serie.default'|trans({
+  '%title%':program.title,
+  '%format%':program.format.name,
+  '%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",
+  '%quality%': program.hd ? "en HD" :  "en Haute Qualité",
+  '%deported%': program.has_vod in [2,8,10] ? "en 1 Clic" : "",
+  '%support%': support
+})
+}}
+{% elseif program.format.name in ['Film','Documentaire','Téléfilm','Court-métrage'] or (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) %} 
+{{ 'page.description.program.film.default'|trans({
+  '%title%': program.title,
+  '%format%': (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) ?  "Film" : program.format.name,
+  '%year%':program.year,
+  '%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",
+  '%quality%': program.hd ? "en HD" :  "en Haute Qualité",
+  '%deported%': program.has_vod in [2,8,10] ? "en 1 Clic" : "",
+  '%support%': support
+})
+}}
+{% elseif (program.format.name == "Dessin Animé et Manga" and program.duration < 65) %}
+{{  'page.description.program.serie-anime'|trans({
+    '%title%':program.title,
+    '%format%':program.format.name,
+    '%quality%': program.hd ? "en HD" :  "en Haute Qualité",
+    '%deported%': program.has_vod in [2,8,10] ? "en 1 Clic" : "",
+    '%support%': support
+})
+}}
+{% endif %}
+{% endif %}
+{% else %}
+{{ program.title }} {% if program.has_vod in [7,8] %} Replay {% endif %} {% if program.has_vod in [1,2,12] %} VOD {% endif %} {% if program.has_vod in [3] %} DVD {% endif %} sur mySkreen 
+{% endif %}
+{% endspaceless %}
+{% endblock %}
+{% block meta %}
+
+{% include 'SkreenHouseFactoryV3Bundle:Program:_program-jsonld.html.twig' with {program: program} %}
+
+{# twitter #}
+<meta name="twitter:site" value="@mySkreen" />
+<meta name="twitter:creator" content="@mySkreen">
+<meta name="twitter:url" content="http://www.myskreen.com{{ program.seo_url }}">
+<meta name="twitter:title" content="{{ program.title }}">
+<meta name="twitter:description" content="{{ program.description_text|replace({"\n": ''}) }}">
+<meta name="twitter:image:src" content="{{ program.picture }}">
+{% if program.player_iframe is defined %}
+<meta name="twitter:card" value="player" />
+<meta name="twitter:player" value="{{ program.player_iframe }}" />
+<meta name="twitter:player:stream" content="{{ program.player_stream }}">
+<meta name="twitter:player:stream:content_type" content="video/mp4">
+<meta name="twitter:player:height" value="360" />
+<meta name="twitter:player:width" value="640" />
+{% elseif program.has_vod in [1,2] %}
+<meta name="twitter:card" value="product" />
+<meta name="twitter:data1" content="€2.99">
+<meta name="twitter:label1" content="LOCATION">
+{% else %}
+<meta name="twitter:card" value="summary" />
+{% endif %}
+<meta name="twitter:domain" content="mySkreen.com">
+
+{# opengraph #}
+<meta property="og:title" content="{{ program.og_title is defined ? program.og_title : program.title }}" />
+<meta property="og:description" content="{% if program.og_description is defined %}{{ program.og_description|length > 350 ? program.og_description[:350] ~ '...' : program.og_description }}{% else %}[ VIDEO ] {{ program.description_text|length > 350 ? program.description_text|replace({"\n": ''})[:350] ~ '...' : program.description_text|replace({"\n": ''}) }}{% endif %}" />
+<meta property="og:image" content="{{ program.og_picture is defined ? program.og_picture : program.picture }}" />
+<meta property="og:type" content="movie" />
+<meta property="og:url" content="http://www.myskreen.com{{ program.seo_url }}" />
+{% if program.player_fb is defined %}
+
+<meta property="og:video:height" content="360" />
+<meta property="og:video:width" content="640" />
+<meta property="og:video" content="{{ program.player_fb }}" />
+<meta property="og:video:type" content="application/x-shockwave-flash" />
+<meta property="og:video:secure_url" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
+<meta property="og:video" content="{{ program.player_stream }}" />
+<meta property="og:video:type" content="video/mp4" />
+<meta property="video:duration" content="{{ program.duration > 0 ? program.duration * 60 : '3600' }}" />
+
+<meta name="video_height" content="360" />
+<meta name="video_width" content="640" />
+<link rel="video_src" href="{{ program.player_fb }}" />
+<meta name="video_type" content="application/x-shockwave-flash" />
+<meta name="video_duration" content="{{ program.duration * 60 }}" />
+<meta name="object_type" content="episode" />
+{% endif %}
+<link rel="image_src" href="{{ program.picture }}" />
+
+{% endblock %}
+
+{% block pagescripts %}
+{% javascripts
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/program.js'
+  filter='?yui_js' 
+  output='js/compiled/pages/program.js'  %}
+  <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
