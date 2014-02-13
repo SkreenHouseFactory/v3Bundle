@@ -1,0 +1,25 @@
+{% block title %}
+  {% if program.format.name is defined %}
+    {% if program.format.name in ['Film','Documentaire','Téléfilm','Court-métrage'] %}
+      {{ 'page.title.program.default'|trans({'%title%':program.title,'%format%':program.format.name,'%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",})}}
+    {% elseif (program.format.name == "Dessin Animé et Manga" and program.duration >= 65) %}
+      {{ 'page.title.program.film-anime'|trans({'%title%':program.title,'%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",})}}
+    {% elseif (program.format.name == "Dessin Animé et Manga" and  program.duration < 65) %}
+      {{ 'page.title.program.serie-anime'|trans({'%title%':program.title,'%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",})}}
+    {% elseif program.format.name in ['Série','Websérie'] %}
+      {{ 'page.title.program.serie'|trans({'%title%':program.title,'%format%':program.format.name, '%version%': program.versions|to_array|length ? "en "~program.versions|join(", ") : "",})}}
+    {% elseif program.format.name in ['Emission'] %}
+      {{ program.title }} Replay
+    {% elseif program.format.name in ['Journal'] %}
+      {{ program.title }} Replay
+    {% elseif program.format.name in ['Théâtre'] %}
+      {{ program.title }} Streaming {% if program.has_vod in [7,8] %} Replay {% endif %} {% if program.has_vod in [1,2,12] %} VOD {% endif %} {% if program.has_vod in [3] %} DVD {% endif %} : Pièce de Théâtre Complète
+    {% elseif program.format.name in ['Spectacle','Concert'] %}
+      {{ program.title }} Streaming {% if program.has_vod in [7,8] %} Replay {% endif %} {% if program.has_vod in [1,2,12] %} VOD {% endif %} {% if program.has_vod in [3] %} DVD {% endif %} : {{ program.format.name }} Complet
+    {% else %}
+      {{ program.title }}{{ program.format ? ', ' ~ program.format.name : '' }} en Streaming
+    {% endif %}
+  {% else %}
+    {{ program.title }} {% if program.has_vod in [7,8] %} Replay {% endif %} {% if program.has_vod in [1,2,12] %} VOD {% endif %} {% if program.has_vod in [3] %} DVD {% endif %}
+  {% endif %}
+{% endblock %}
