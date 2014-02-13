@@ -88,7 +88,9 @@ $(document).ready(function(){
       }
     }
     if(!API.cookie('slide-in')){
-      API.cookie('slide-in',1);
+      var date_cookie = new Date();
+      date_cookie.setTime(date_cookie.getTime() + (120 * 60 * 1000));
+      API.cookie('slide-in', 1, date_cookie);
     }
   });
 
