@@ -25,7 +25,7 @@ var SlideIn = Class.extend({
         $('#slide-in-text p+p').html('TROUVEZ ou DÉCOUVREZ des programmes que vous aimez.<br/>On vous dit où et comment les regarder.');
         break;
       case 2:
-        $('#slide-in-text p+p').html('TV, REPLAY, VOD, CINE, WEB&nbsp;: tous vos programmes sur 1 seule site');
+        $('#slide-in-text p+p').html('TV, REPLAY, VOD, CINE, WEB&nbsp;: tous vos programmes sur 1 seul site');
         break;
       default:
         $('#slide-in-text p+p').html('Toutes les chaînes en REPLAY et en DIRECT sur 1 seul site.');
