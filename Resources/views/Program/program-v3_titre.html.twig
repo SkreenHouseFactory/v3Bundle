@@ -1,34 +1,60 @@
 {# Titre + ShareBlock #}
 <div class="row">
   {# Titre #}
-  {% set program_itemtype %}{% if program.format.name == 'Série' %}TVSeries{% else %}Movie{% endif %}{% endset %}
-  <div class="col-xs-9" itemscope itemtype="http://schema.org/{{ program_itemtype }}" itemref="">
+  {% set program_itemtype %}{% if program.format.name == 'Série' or 'Emission' %}TVSeries{% else %}Movie{% endif %}{% endset %}
+  <div class="col-xs-11" itemscope itemtype="http://schema.org/{{ program_itemtype }}" itemref="">
     <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
     {% if program.episode_title is defined and
           program.episodeof is defined and
           program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
-      <div id="fake_h1" itemprop="name">
+      <span id="fake_h1" itemprop="name">
         {{ program.episode_title }}
         {% if program.popular_channel is defined %}
-          <span>{{ program.popular_channel.name }}</span>
+          <span>{{ program.popular_channel.name }}</span> | 
         {% endif %}
-      </div>
+      </span>
     {% elseif program.episode_title is defined and
               program.episodeof is defined %}
-      <div id="fake_h1" itemprop="name">
-        {{ program.episodeof.title }}
-      </div>
+      <span id="fake_h1" itemprop="name">
+        {{ program.episodeof.title }} | 
+      </span>
     {% else %}
-      <div id="fake_h1" itemprop="name">{{ program.title }} </div>
+      <span id="fake_h1" itemprop="name">{{ program.title }} | </span>
     {% endif %}
+
+    {# Gestion Episodes Séries #}
+    {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+    {% if program.episode_title is defined and
+          program.episodeof is defined  and
+          episode_title and
+          program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}
+      <span>{% if episode_title and program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}{{ episode_title }} : {% endif %}{{ program.episode_title }} | </span>
+    {% endif %}
+
+    {# Affichage type, année, durée #}
+    <span class="ms-format" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      {% if program.format %}<a itemprop="url" href="{{ path('any_url', {url: program.format.seo_url|slice(1, program.format.seo_url|length-1) }) }}"><span itemprop="title">{{ program.format.name }}</span></a>, {% endif %}{% if program.year is defined and program.year > 0 %}{{ program.year }}{% endif %}{% if program.duration %}, {{ program.duration }}mn{% endif %}
+    </span>
+
   </div>
+
   {# ShareBlock #}
-  <div class="col-xs-7"></div>
+  <div class="col-xs-5">
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: program.twitter_msg is defined ? program.twitter_msg : 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}
+  </div>
 </div>
+
 {# AjoutListes #}
 <div class="row">
   {# Bouton Ajout/Abo #}
-  <div class="col-xs-4"></div>
+  <div class="col-xs-5 ajout">
+    {% if program.popular_channel is not defined or program.popular_channel.id not in [5573] %}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.episodeof is defined ? program.episodeof.id : program.id, class: 'fav-like btn-big', text: 'Ajouter à mes listes', placement: 'right'} %}
+    {% endif %}
+  </div>
   {# Textes Ajouts #}
-  <div class="col-xs-12"></div>
+  <div class="col-xs-11">
+    <p>Soyez averti des prochaines diffusions (Tv, Replay, Ciné, VOD).</p>
+    <p>Partagez vos playlists avec vos amis et suivez ce qu'ils regardent.</p>
+  </div>
 </div>

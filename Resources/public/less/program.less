@@ -658,3 +658,105 @@ html:not(.touch){
     }
   }
 }
+
+#view-program {
+  .best-offer {
+    height: 60px;
+    background-color: #f6f6f6;
+    margin: 10px 0 30px 0;
+  }
+  .bande_couleur {
+    padding: 15px 0 20px 0;
+    background-color: #f39c12;
+    margin-bottom: 30px;
+    .container {
+      .row:first-child {
+        margin-bottom: 10px;
+        .col-xs-5 {
+          padding-top: 5px;
+        }
+      }
+      .row {
+        #fake_h1 {
+          color: #333;
+          font-size: 1.5em;
+          font-weight: bold;
+        }
+        .ms-format, .ms-format a {
+          color: #666;
+          text-decoration: none;
+        }
+        .col-xs-5 .fb-like {
+          margin-left: 0!important;
+        }
+        .col-xs-5.ajout {
+          height: 50px;
+          .btn-suivre {
+            height: 50px;
+            line-height: 40px;
+            background-color: white;
+            border: none;
+            color: #f39c12;
+            width: 100%;
+            &:hover {
+              background: #ffcc7c;
+              border: #ffcc7c 1px solid;
+              color: #FFFFFF;
+            }
+          }
+        }
+        .col-xs-11 {
+          color: white;
+          p {
+            margin-bottom: 0;
+          }
+          >p:first-child {
+            font-size: 1.5em;
+          }
+        }
+      }
+    }
+  }
+  .contents {
+    background-color: #f4f8fa;
+    #onglets {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 0;
+      font-size: 0.9em;
+      li {
+        border-left: 2px solid #333;
+        padding: 5px 15px 10px;
+        padding-bottom: 10px;
+        background-color: #e4e4e4;
+        &.active {
+          border-left: 2px solid @sk-blue;
+          background-color: #f4f8fa;
+          a .row:first-child {
+            color: @sk-blue;
+          }
+        }
+        a {
+          color: #333;
+          text-decoration: none;
+          .row:first-child {
+            .col-xs-16 {
+              font-weight: bold;
+              font-size: 1.3em;
+            }
+          }
+        }
+      }
+    }
+    .tab-content {
+      margin-left: -15px;
+      margin-right: -15px;
+      padding: 15px 15px;
+      border-left: 2px solid #428bca;
+      .tab-pane .panel-synopsis {
+        position: static;
+      }
+    }
+  }
+}
+

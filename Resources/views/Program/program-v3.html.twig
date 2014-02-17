@@ -26,6 +26,7 @@
     <div class="scrollplayerzone">
       {# Player + Affiche + Meilleure offre #}
       <div class="container">
+        <div class="row playwrapsub hide"></div>
         {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_player.html.twig' %}
       </div>
 
@@ -40,36 +41,36 @@
       <div class="container">
         <div class="row">
           {# Onglets / Contenus #} 
-          <div class="col-xs-11">
+          <div class="col-xs-11 contents">
             {# Onglets #}
             <ul class="row" id="onglets">
               <li class="active col-xs-5">{# Voir #}
                 <a href="#voir" data-toggle="tab">
                   <div class="row">
-                    <div class="col-xs-16">{# VOIR #}</div>
+                    <div class="col-xs-16">VOIR</div>
                   </div>
                   <div class="row">
-                    <div class="col-xs-16">{# Tv, Ciné, Replay, VOD, Live #}</div>
+                    <div class="col-xs-16">Tv, Ciné, Replay, VOD, Live</div>
                   </div>
                 </a>
               </li>
               <li class="col-xs-5">{# Vidéos #}
                 <a href="#videos" data-toggle="tab">
                   <div class="row">
-                    <div class="col-xs-16">{# + DE VIDEOS #}</div>
+                    <div class="col-xs-16">+ DE VIDEOS</div>
                   </div>
                   <div class="row">
-                    <div class="col-xs-16">{# Bonus, Extraits, Youtube #}</div>
+                    <div class="col-xs-16">Bonus, Extraits, Youtube</div>
                   </div>
                 </a>
               </li>
               <li class="col-xs-6">{# Infos #}
                 <a href="#infos" data-toggle="tab">
                   <div class="row">
-                    <div class="col-xs-16">{# INFOS #}</div>
+                    <div class="col-xs-16">INFOS</div>
                   </div>
                   <div class="row">
-                    <div class="col-xs-16">{# Episodes, Synopsis, Casting #}</div>
+                    <div class="col-xs-16">Episodes, Synopsis, Casting</div>
                   </div>
                 </a>
               </li>

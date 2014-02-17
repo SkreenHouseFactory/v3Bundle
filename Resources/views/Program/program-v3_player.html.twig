@@ -1,10 +1,28 @@
 {# Player + Affiche #}
-<div class="row">
-  <div class="col-xs-11">{# Player #}</div>
-  <div class="col-xs-5">{# Affiche #}</div>
+<div class="row playwrap">
+
+  {# Player #}
+  <div class="col-xs-11">
+    <div id="player">
+      {% include 'SkreenHouseFactoryV3Bundle:Program:_program-player.html.twig' %}
+    </div>
+  </div>
+  {# Affiche #}
+  <div class="col-xs-5">
+    <div id="affiche">
+      {% if 'missing' not in program.picture %}
+        <a class="btn" data-big-picture="{{ ('<img src="' ~ (program.picture|replace({'273/368/' : '450/'})) ~ '" alt="' ~ program.title ~ '" />')|escape }}"><i class="glyphicon glyphicon-zoom-in"></i></a>
+      {% endif %}
+      <img src="{{ program.picture }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
+      {% if program.popular_channel is defined %}
+        <a href="{{ program.popular_channel.seo_url }}"><img class="channel" src="{{ program.popular_channel.img }}" alt="{{ program.popular_channel.name }} Replay" /></a>
+      {% endif %}
+    </div>
+  </div>
 </div>
+
 {# Meilleure offre #}
-<div class="row">
+<div class="row best-offer">
   <div class="col-xs-3">{# Bouton Voir #}</div>
   <div class="col-xs-9">{# Textes offre #}
     <div class="row">
