@@ -22,16 +22,29 @@
 </div>
 
 {# Meilleure offre #}
-<div class="row best-offer">
-  <div class="col-xs-3">{# Bouton Voir #}</div>
-  <div class="col-xs-9">{# Textes offre #}
+<div class="row best-offer" data-play="4455555">
+  {# Bouton Voir #}
+  <div class="col-xs-3">
+    <button class="btn btn-voir">
+      <i class="glyphicon glyphicon-play"></i>
+      &nbsp;Voir (acheté)
+    </button>
+  </div>
+  {# Textes offre #}
+  <div class="col-xs-9">
     <div class="row">
-      <div class="col-xs-16">{# Type d'offre (intégralité, etc.) #}</div>
+      {# Type d'offre (intégralité, etc.) #}
+      <div class="col-xs-16">En intégralité sur myskreen</div>
     </div>
     <div class="row">
-      <div class="col-xs-16">{# Descriptif offre #}</div>
+      {# Descriptif offre #}
+      <div class="col-xs-16"><span>Visionnage illimité pendant 48h |</span><span>{% if program.duration %} {{ program.duration }} mn.{% endif %} VOST / HD | </span><span>PC / MAC / iOS / Androïd</span></div>
     </div>
   </div>
-  <div class="col-xs-2">{# Prix #}</div>
-  <div class="col-xs-2">{# Logo Fournisseur #}</div>
+  {# Prix #}
+  <div class="col-xs-2 price">14,99 €</div>
+  {# Logo Fournisseur #}
+  <div class="col-xs-2">
+    <img src="http://mskstatic.com/x/50/medias/ico/chaines/bac-films_medium.png" alt="EuropaCorp Streaming">
+  </div>
 </div>

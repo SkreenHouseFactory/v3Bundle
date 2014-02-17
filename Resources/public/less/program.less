@@ -661,30 +661,77 @@ html:not(.touch){
 
 #view-program {
   .best-offer {
-    height: 60px;
-    background-color: #f6f6f6;
+    padding: 15px 0;
+    border: 5px solid #f6f6f6;
+    background-color: white;
     margin: 10px 0 30px 0;
+    > div {
+      height: 50px;
+    }
+    .col-xs-3 {
+      button {
+        height: 100%;
+      }
+    }
+    .col-xs-2 {
+      font-weight: bold;
+      font-size: 1.3em;
+      &.price {
+        padding-right: 0;
+        text-align: right;
+        font-size: 2em;
+        line-height: 50px;
+      }
+    }
+    .col-xs-9 {
+      font-weight: bold;
+      padding-top: 4px;
+      .row:first-child {
+        color: @sk-blue;
+      }
+      .row {
+        .col-xs-16 {
+          padding: 0;
+        }
+        span {
+          color: #333;
+          font-size: 1.2em;
+        }
+        span+span {
+          color: #666;
+          font-size: 0.9em;
+        }
+        span+span+span {
+          color: #999;
+          font-size: 0.7em;
+        }
+      }
+    }
   }
   .bande_couleur {
-    padding: 15px 0 20px 0;
+    padding: 3px 0 20px 0;
     background-color: #f39c12;
     margin-bottom: 30px;
     .container {
       .row:first-child {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         .col-xs-5 {
-          padding-top: 5px;
+          padding-top: 35px;
         }
       }
       .row {
+        .col-xs-11 .row+.row {
+          margin-top: -8px;
+        }
         #fake_h1 {
-          color: #333;
-          font-size: 1.5em;
-          font-weight: bold;
-          &+span {
-            color: #333;
-            font-size: 1.2em;
-          }
+          font-family: 'Raleway';
+          color: white;
+          font-size: 2.3em;
+        }
+        .episodes {
+          color: #666;
+          font-size: 1.3em;
+          font-family: 'Raleway';
         }
         .ms-format, .ms-format a {
           color: #666;
@@ -763,20 +810,39 @@ html:not(.touch){
     }
   }
   .channel-side {
-      &> span {
-        font-weight: bold;
-        font-size: 16px;
-      }
-      .ms-surtitre {
-        color: #333;
-        text-transform: none;
-        margin: 0 0 5px;
-      }
-      ul {
-        padding: 0;
-        margin-bottom: 0;
-        list-style: none;
+    padding-top: 5px;
+    &> span {
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .ms-surtitre {
+      color: #333;
+      text-transform: none;
+      margin: 0 0 5px;
+    }
+    ul {
+      padding: 0;
+      margin-bottom: 0;
+      list-style: none;
+      li a {
+        margin-bottom: 10px;
       }
     }
+  }
+  .related {
+    background-color: #e4e4e4;
+    padding-bottom: 50px;
+    margin-top: 30px;
+    #program-related {
+      h2 {
+        padding-left: 15px;
+        color: #999;
+        margin-bottom: 0;
+        margin-top: 15px;
+      }
+    }
+  }
 }
-
+body article {
+  margin-bottom: 0;
+}

@@ -1,7 +1,6 @@
 {% if program.related.channels is defined and
   program.related.channels.programs is defined and
   program.related.channels.programs|to_array|length %}
-  <p class="ms-surtitre">Sur le même thème</p>
   <ul class="channel_module_width">
     {% for r in program.related.channels.programs|to_array %}
       <li>

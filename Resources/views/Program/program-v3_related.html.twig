@@ -1,3 +1,18 @@
-<div class="row">
-	{# Slider related #}
+{# Slider related #}
+<div id="program-related" class="row">
+  <h2>Autour de...</h2>
+  {% for r in program.related if r.programs is defined and r.programs|to_array|length %}
+    {% if r.name == 'same_actors' %}
+      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true, loop_index: loop.index, h_title: "p"} %}
+    {% elseif r.name == 'same_director' %}
+      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, noheader: true,loop_index: loop.index, h_title: "p"} %}
+    {% elseif r.name == 'chaines' %}
+      {% if (program.related.channels is defined and program.related.channels.programs is defined and program.related.channels.programs|length > 1) %}
+        <a data-track-channel="{{ r.name }}" name="{{ r.name }}"></a>
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r,loop_index: loop.index, h_title: "p"} %}
+      {% endif %}
+    {% else %}
+      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: r, loop_index: loop.index, h_title: "p"} %}
+    {% endif %}
+  {% endfor %}
 </div>
