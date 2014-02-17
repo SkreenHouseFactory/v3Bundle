@@ -1,7 +1,8 @@
 {# Titre + ShareBlock #}
 <div class="row">
   {# Titre #}
-  <div class="col-xs-9" itemscope itemtype="???" itemref="">
+  {% set program_itemtype %}{% if program.format.name == 'Série' %}TVSeries{% else %}Movie{% endif %}{% endset %}
+  <div class="col-xs-9" itemscope itemtype="http://schema.org/{{ program_itemtype }}" itemref="">
     <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
     {% if program.episode_title is defined and
           program.episodeof is defined and
