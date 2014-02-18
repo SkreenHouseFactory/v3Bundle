@@ -115,7 +115,7 @@ class ProgramController extends Controller
           'channel_img_width' => 80,
           'channel_slider_width' => 300,
           'channel_slider_height' => 147,
-          'fields' => 'metadata,related,related_programs,selections,offers,teaser,hashtags,tweets,empty_player,img_maxsize,svod,coming_soon'
+          'fields' => 'metadata,related,related_programs,selections,offers,teaser,hashtags,tweets,empty_player,img_maxsize,svod,coming_soon,best_offer'
         ));
         
         //hack bug API renvoie rien
@@ -377,15 +377,11 @@ class ProgramController extends Controller
         //footer
         list($_, $format, $__) = explode('/', $data->seo_url);
         $request->request->set('home', $format != 'programme' ? $format : null);
-        
-        $response = $this->render('SkreenHouseFactoryV3Bundle:Program:program-v3.html.twig', array(
-          'program' => $data,
-          'offers' => array(
+
+        $voirOffres = array(
             'live' => 'En Direct', 
             'replay' => 'En Replay gratuit', 
             'deporte' => 'En intégralité sur mySkreen', 
-            'bonus' => 'Bonus',
-            'cut' => 'Extraits',
             'tv' => 'Les prochaines diffusions TV',
             'theater' => 'Au cinéma (horaires et salles)',
             'itunes' => 'Télécharger sur iTunes',
@@ -395,6 +391,36 @@ class ProgramController extends Controller
             'dvd' => 'DVD & Blu-Ray',
             'archive' => 'Archives',
             'coming_soon'=> 'Bientôt disponible',
+        );
+
+        $voirCount = 0;
+        foreach ($voirOffres as $type => $value) {
+          if (isset($data->offers[$type])) {
+            $voirCount = $voirCount + count((array)$data->offers[$type]);
+          }
+        }
+
+        $videosOffres = array(
+            'bonus' => 'Bonus',
+            'cut' => 'Extraits',
+        );
+
+        $videosCount = 0;
+        foreach ($videosOffres as $type => $value) {
+          if (isset($data->offers[$type])) {
+            $videosCount = $videosCount + count((array)$data->offers[$type]);
+          }
+        }
+        
+        $response = $this->render('SkreenHouseFactoryV3Bundle:Program:program-v3.html.twig', array(
+          'program' => $data,
+          'voir' => array(
+            'offers' => $voirOffres,
+            'count' => $voirCount,
+          ),
+          'videos' => array(
+            'offers' => $videosOffres,
+            'count' => $videosCount,
           ),
           'player_host' => $api->host
         ));

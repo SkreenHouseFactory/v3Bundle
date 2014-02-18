@@ -44,27 +44,39 @@
           <div class="col-xs-11 contents">
             {# Onglets #}
             <ul class="row" id="onglets">
-              <li class="active col-xs-5">{# Voir #}
+              <li class="active col-xs-6">{# Voir #}
                 <a href="#voir" data-toggle="tab">
                   <div class="row">
-                    <div class="col-xs-16">VOIR</div>
+                    <div class="col-xs-16">VOIR
+                      {% if voir.count > 0 %}
+                        ({{ voir.count }})
+                      {% endif %}
+                    </div>
                   </div>
                   <div class="row">
-                    <div class="col-xs-16">Tv, Ciné, Replay, VOD, Live</div>
+                    <div class="col-xs-16">Tv, Ciné, Replay, VOD, Live, DVD
+                      {# {% for key in voir.offers|keys if program.offers[key] is defined and program.offers[key]|to_array|length > 0 %}
+                        {{ voir.offers[key] }}
+                      {% endfor %} #}
+                    </div>
                   </div>
                 </a>
               </li>
               <li class="col-xs-5">{# Vidéos #}
                 <a href="#videos" data-toggle="tab">
                   <div class="row">
-                    <div class="col-xs-16">+ DE VIDEOS</div>
+                    <div class="col-xs-16">+ DE VIDEOS
+                      {% if videos.count > 0 %}
+                        ({{ videos.count }})
+                      {% endif %}
+                    </div>
                   </div>
                   <div class="row">
                     <div class="col-xs-16">Bonus, Extraits, Youtube</div>
                   </div>
                 </a>
               </li>
-              <li class="col-xs-6">{# Infos #}
+              <li class="col-xs-5">{# Infos #}
                 <a href="#infos" data-toggle="tab">
                   <div class="row">
                     <div class="col-xs-16">INFOS</div>
@@ -77,17 +89,22 @@
             </ul>
             {# Contenus #}
             <div class="tab-content">
+              {# Contenu Voir #}
               <div class="tab-pane active row" id="voir">
-                {# Contenu Voir #}
                 {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_voir.html.twig' %}
               </div>
+              {# Contenu Vidéos #}
               <div class="tab-pane row" id="videos">
-                {# Contenu Vidéos #}
                 {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_videos.html.twig' %}
               </div>
+              {# Contenu Infos #}
               <div class="tab-pane row" id="infos">
-                {# Contenu Infos #}
-                {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_infos.html.twig' %}
+                {# Episodes #}
+                {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes.html.twig' %}
+                {# Synopsis #}
+                {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' %}
+                {# Casting #}
+                {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
               </div>
             </div>
           </div>

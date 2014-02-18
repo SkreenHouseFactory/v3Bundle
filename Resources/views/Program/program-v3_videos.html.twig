@@ -1,6 +1,41 @@
 {# Contenu Vidéos #}
-{# {% include 'SkreenHouseFactoryV3Bundle:Program:_program-offers.html.twig' %} #}
-<div class="col-xs-16">Contenus Vidéos
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus ullamcorper orci a dignissim. Aliquam erat volutpat. Donec bibendum gravida odio. Fusce a erat tortor. Suspendisse sit amet nulla malesuada, sagittis nisi non, congue leo. In accumsan posuere dapibus. Quisque tristique nisi nibh. Proin sit amet consectetur libero. Phasellus luctus erat sed tincidunt hendrerit. Pellentesque tempus, tortor quis pharetra malesuada, purus odio adipiscing sem, volutpat tincidunt est lectus lobortis tortor. Morbi id tincidunt velit. Sed aliquet dignissim lobortis.</p>
-  <p>Proin at nunc dictum, auctor enim at, ullamcorper metus. Mauris ultrices risus ut quam mattis, sed lobortis leo imperdiet. In ut diam quis enim pharetra ultricies. Suspendisse porta venenatis ante. Proin egestas mauris ultrices, porta turpis ac, sagittis elit. Nullam condimentum sed augue sit amet ornare. Mauris dolor turpis, commodo eget molestie id, pulvinar et neque. Aenean in eleifend tortor, id placerat massa. Maecenas eget orci non nisl interdum sollicitudin ut sed nisi. Aenean vitae libero eget neque gravida venenatis in eu orci. Pellentesque varius faucibus libero ut venenatis. Duis ac ullamcorper felis, sit amet sodales orci. Nulla tincidunt molestie diam, eu ullamcorper erat aliquam non. Aenean lobortis augue sit amet interdum rhoncus. Vestibulum in lobortis metus. Aliquam sit amet ante nec turpis rutrum elementum facilisis vitae magna.</p>
+<div class="col-xs-16">
+  {# Bonus, Extraits #}
+  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offers.html.twig' with {offers: videos.offers} %}
+
+  {# Contenu Youtube / more streaming #}
+  <div id="program-more-streaming" class="panel panel-default panel-remove-padding-bottom" data-more-streaming="{{ program.id }}">
+    <div class="panel-heading">
+      {% if program.offers['deporte']|to_array|length %}
+        <h3 class="panel-title youtube-collapser pointer collapsed" data-toggle="collapse" href="#youtube">Sur Youtube <i class="glyphicon glyphicon-chevron-down"></i></h3>
+      {% else %}
+        <h3 class="panel-title">Sur Youtube</h3>
+      {% endif %}
+    </div>
+    {% if program.offers['deporte']|to_array|length %}
+      <div id="youtube" class="tab-pane panel-collapse collapse">
+    {% else %}
+      <div class="tab-pane">
+    {% endif %}
+        <div id="carousel-youtube" class="carousel slide">
+          <a class="left carousel-control" href="#carousel-youtube" data-slide="prev">
+            <span class="icon-prev"></span>
+          </a>
+          <a class="right carousel-control" href="#carousel-youtube" data-slide="next">
+            <span class="icon-next"></span>
+          </a>
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-youtube" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-youtube" data-slide-to="1"></li>
+            <li data-target="#carousel-youtube" data-slide-to="2"></li>
+            <li data-target="#carousel-youtube" data-slide-to="3"></li>
+          </ol>
+          <div class="carousel-inner">
+          <!-- Controls -->  
+          </div>
+        </div>
+      </div>
+  </div>
+
 </div>
