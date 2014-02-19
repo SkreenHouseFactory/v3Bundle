@@ -15,39 +15,35 @@
     </div>
 
     <div class="row">
-      <div class="col-xs-16">
+      <div id="fake_h1" class="col-xs-16" itemprop="name">
         {% if program.episode_title is defined and
           program.episodeof is defined and
           program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
-      <span id="fake_h1" itemprop="name">
         {{ program.episode_title }}
         {% if program.popular_channel is defined %}
           <span>{{ program.popular_channel.name }}</span>
         {% endif %}
-      </span>
     {% elseif program.episode_title is defined and
               program.episodeof is defined %}
-      <span id="fake_h1" itemprop="name">
         {{ program.episodeof.title }}
-      </span>
     {% else %}
-      <span id="fake_h1" itemprop="name">{{ program.title }}</span>
+      {{ program.title }}
     {% endif %}
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-xs-16">
-        {# Gestion Episodes Séries #}
-        {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
-        {% if program.episode_title is defined and
-              program.episodeof is defined  and
-              episode_title and
-              program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}
-          <span class="episodes">{% if episode_title and program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}{{ episode_title }} : {% endif %}{{ program.episode_title }}</span>
-        {% endif %}
+    {# Gestion Episodes Séries #}
+    {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+    {% if program.episode_title is defined and
+          program.episodeof is defined  and
+          episode_title and
+          program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}
+      <div class="row">
+        <div class="col-xs-16 episodes">
+          {% if episode_title and program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}{{ episode_title }} : {% endif %}{{ program.episode_title }}
+        </div>
       </div>
-    </div>
+    {% endif %}
 
   </div>
 

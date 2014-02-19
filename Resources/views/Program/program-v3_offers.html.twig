@@ -129,11 +129,13 @@
                         'dvd' in o_access.name|lower or
                         'bluray' in o_access.name|lower  %}
                     <div class="rent">
-                      {{ o_access.name }}
+                      {% if o_access.name != 'Extrait' and o_access.name != 'Bonus' %}
+                        {{ o_access.name }}
+                      {% endif %}
                       {% if o.buy_id is defined and o.buy_id %}
                        & Achat
                       {% endif %}
-                      {% if o.tags.device is defined %}
+                      {% if o.tags.device is defined and o_access.name != 'Extrait' and o_access.name != 'Bonus' %}
                         <i class="glyphicon glyphicon-info-sign" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ o.tags.device|replace({',': ', '}) }}" ></i>
                       {% endif %}
                     </div>
@@ -146,6 +148,9 @@
                   {% if (o.versions is defined and o.versions|to_array|length) or 
                         (o.tags is defined and o.tags|to_array|length) %}
                     <div class="ms-versions">
+                      {% if o.tags.device is defined and (o_access.name == 'Extrait' or o_access.name == 'Bonus') %}
+                        <i class="glyphicon glyphicon-info-sign" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ o.tags.device|replace({',': ', '}) }}" ></i>&nbsp;
+                      {% endif %}
                       {% if o.cost is defined and o.cost and o.cost != null and program.duration %}
                         <span>{{program.duration}} min, </span> 
                       {% endif %}

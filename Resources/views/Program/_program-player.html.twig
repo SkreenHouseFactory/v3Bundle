@@ -1,45 +1,39 @@
 {% if program.player is defined and program.player %}
-<div class="ms-playertitle">
-  <p id="program-teaser-header" data-default-text="{% if program.deporte == false %}{{ ('player.content.text.' ~ program.player.type)|trans({'%date%': (program.player.broadcasttime is defined ? 'diffusé '~  program.player.broadcasttime|broadcastdate : '')}) }} {% endif %}">{% if program.deporte == true and ('player.content.text.' ~ program.player.type)|trans({'%date%': (program.player.broadcasttime is defined ? 'diffusé '~  program.player.broadcasttime|broadcastdate : '')}) == 'Bande-annonce (après la pub)' %} BANDE-ANNONCE{% else %}
-    {{ ('player.content.text.' ~ program.player.type)|trans({'%date%': (program.player.broadcasttime is defined ? 'diffusé '~  program.player.broadcasttime|broadcastdate : '')}) }}
-    {% endif %}</p>
-</div>
-<a name="teaser"></a>
-<div id="program-teaser" itemprop="about" itemscope itemtype="http://www.schema.org/VideoObject">  
-  <meta itemprop="duration" />
-  <meta itemprop="thumbnail" content="{{ program.picture }}" />
-  {% if program.player_fb is defined %}
-  <meta itemprop="embedURL" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
-  {% endif %}
-  <meta itemprop="width" content="637" />
-  <meta itemprop="height" content="368" />
-  <meta itemprop="playerType" content="Flash" />
-  <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
-  <meta itemprop="name" content="{{ program.title }}" />
-  <meta itemprop="isFamilyFriendly" content=true />
-  <meta itemprop="duration" content="{{ program.duration * 60 }}" />
-  {#% if program.director|to_array|length and program.director|to_array|first %}
-  <span itemprop="author" itemscope itemtype="http://schema.org/Person"><link itemprop="url" href="http://www.myskreen.com{{ program.director|to_array|first.seo_url }}" /></span>
-  {% endif %#}
-  <meta itemprop="description" content="{{ program.description|striptags }}" />
-  <div id="program-teaser-meta" class="player-meta"></div>
-  <div id="program-teaser-player" data-play-api="{{ {url: program.player.iframe is defined ? program.player.iframe : null, playId: program.player.id}|json_encode }}" data-autoplay="1">
-    {% if program.player.iframe is defined %}
-    <iframe src="{{ program.player.iframe }}{{ app.environment == 'dev' ? '&env=dev' : '' }}" scrolling="no" frameborder="0"></iframe>
-    {% else %}
-    <iframe src="{{ player_host }}/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.player.id }}&fromWebsite=1&default_version=VOST{{ app.environment == 'dev' ? '&env=dev' : '' }}&height=368&width=637" scrolling="no" frameborder="0"></iframe>
+  <a name="teaser"></a>
+  <div id="program-teaser" itemprop="about" itemscope itemtype="http://www.schema.org/VideoObject">  
+    <meta itemprop="duration" />
+    <meta itemprop="thumbnail" content="{{ program.picture }}" />
+    {% if program.player_fb is defined %}
+      <meta itemprop="embedURL" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
     {% endif %}
+    <meta itemprop="width" content="637" />
+    <meta itemprop="height" content="368" />
+    <meta itemprop="playerType" content="Flash" />
+    <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
+    <meta itemprop="name" content="{{ program.title }}" />
+    <meta itemprop="isFamilyFriendly" content=true />
+    <meta itemprop="duration" content="{{ program.duration * 60 }}" />
+    {#% if program.director|to_array|length and program.director|to_array|first %}
+      <span itemprop="author" itemscope itemtype="http://schema.org/Person"><link itemprop="url" href="http://www.myskreen.com{{ program.director|to_array|first.seo_url }}" /></span>
+    {% endif %#}
+    <meta itemprop="description" content="{{ program.description|striptags }}" />
+    <div id="program-teaser-meta" class="player-meta"></div>
+    <div id="program-teaser-player" data-play-api="{{ {url: program.player.iframe is defined ? program.player.iframe : null, playId: program.player.id}|json_encode }}" data-autoplay="1">
+      {% if program.player.iframe is defined %}
+        <iframe src="{{ program.player.iframe }}{{ app.environment == 'dev' ? '&env=dev' : '' }}" scrolling="no" frameborder="0"></iframe>
+      {% else %}
+        <iframe src="{{ player_host }}/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.player.id }}&fromWebsite=1&default_version=VOST{{ app.environment == 'dev' ? '&env=dev' : '' }}&height=368&width=637" scrolling="no" frameborder="0"></iframe>
+      {% endif %}
+    </div>
   </div>
-</div>
 {% else %}
-
-<div class="ms-playertitle">
-  <p id="program-teaser-header">Publicité</p>
-</div>
-<div id="program-teaser">  
-  <span id="program-teaser-header"></span>
-  <div id="program-teaser-player" data-play-api="{{ {AdOnly: true, programId: program.id}|json_encode }}" data-autoplay="1">
-    <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=28370043&program_id={{ program.id }}&fromWebsite=1{{ app.environment == 'dev' ? '&env=dev' : '' }}" style="height:368px;width:637px" scrolling="no" frameborder="0"></iframe>
+  <div class="ms-playertitle">
+    <p id="program-teaser-header">Publicité</p>
   </div>
-</div>
+  <div id="program-teaser">  
+    <span id="program-teaser-header"></span>
+    <div id="program-teaser-player" data-play-api="{{ {AdOnly: true, programId: program.id}|json_encode }}" data-autoplay="1">
+      <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=28370043&program_id={{ program.id }}&fromWebsite=1{{ app.environment == 'dev' ? '&env=dev' : '' }}" style="height:368px;width:637px" scrolling="no" frameborder="0"></iframe>
+    </div>
+  </div>
 {% endif %}

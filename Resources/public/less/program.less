@@ -376,6 +376,10 @@
 }
 
 #program-episodes {
+  .tab-pane {
+    overflow-y: auto;
+    max-height: 350px;
+  }
   .panel {
     background: #FFF;
     margin: -15px;
@@ -411,7 +415,9 @@
     width: 30px;
   }
   ul.nav.nav-pills {
-    margin: 10px 0; 
+    margin: 0;
+    float: right;
+    line-height: normal;
   }
   .ms-nav-pills-saisons {
     font-size: 16px;
@@ -452,7 +458,7 @@ ul#episodes-list{
 }
 
 .scrollplayerzone{
-  margin-top: 20px;
+  margin-top: 5px;
   position: relative;
 }
 
@@ -656,10 +662,10 @@ html:not(.touch){
 
 #view-program {
   .best-offer {
-    padding: 15px 0;
+    padding: 5px 0;
     border: 5px solid #f6f6f6;
     background-color: white;
-    margin: 10px 0 30px 0;
+    margin: 5px 0 0 0;
     > div {
       height: 50px;
     }
@@ -671,11 +677,16 @@ html:not(.touch){
     .col-xs-2 {
       font-weight: bold;
       font-size: 1.3em;
+      text-align: center;
+      height: 50px;
+      line-height: 50px;
+      img {
+        max-width: 80px;
+      }
       &.price {
         padding-right: 0;
         text-align: right;
         font-size: 2em;
-        line-height: 50px;
       }
     }
     .col-xs-9 {
@@ -703,14 +714,14 @@ html:not(.touch){
     }
   }
   .bande_couleur {
-    padding: 3px 0 20px 0;
+    padding: 3px 0 10px 0;
     background-color: #f39c12;
-    margin-bottom: 30px;
+    margin: 15px 0 15px 0;
     .container {
       .row:first-child {
-        margin-bottom: 20px;
+        margin-bottom: 0;
         .col-xs-5 {
-          padding-top: 35px;
+          padding-top: 30px;
         }
       }
       .row {
@@ -726,6 +737,7 @@ html:not(.touch){
           color: maroon;
           font-size: 1.3em;
           font-family: 'Raleway', sans-serif;
+          margin-bottom: 8px;
         }
         .ms-format, .ms-format a {
           font-size: 13px;
@@ -767,30 +779,40 @@ html:not(.touch){
     }
   }
   .contents {
-    background-color: #f4f8fa;
     #onglets {
       list-style: none;
       padding: 0;
       margin-bottom: 0;
       font-size: 0.9em;
+      background-color: #e4e4e4;
+      -moz-box-shadow: inset 0px -2px 3px #999;
+      -webkit-box-shadow : inset 0px -2px 3px #999;
+      box-shadow: inset 0px -2px 3px #999;
       li {
-        border-left: 1px solid #999;
         padding: 5px 15px 10px;
         padding-bottom: 10px;
-        background-color: #e4e4e4;
+        border-left: 1px solid #333;
+        &:first-child {
+          border-left: none;
+        }
         &:hover:not(.active) {
           background-color: #f4f8fa;
           border-left: 1px solid @sk-blue;
         }
         &.active {
-          border-left: 1px solid @sk-blue;
-          background-color: #f4f8fa;
+          -moz-box-shadow: 2px -3px 3px #999;
+          -webkit-box-shadow : 2px -3px 3px #999;
+          box-shadow: 2px -3px 3px #999;
+          background-color: white;
+          a .row {
+            color: #333;
+          }
           a .row:first-child {
             color: @sk-blue;
           }
         }
         a {
-          color: #333;
+          color: #666;
           text-decoration: none;
           .row:first-child {
             .col-xs-16 {
@@ -805,9 +827,196 @@ html:not(.touch){
       margin-left: -15px;
       margin-right: -15px;
       padding: 15px 15px;
-      border-left: 1px solid @sk-blue;
+      -moz-box-shadow: 2px 0px 3px #999;
+      -webkit-box-shadow : 2px 0px 3px #999;
+      box-shadow: 2px 0px 3px #999;
+      #program-casting {
+        .tab-pane {
+          padding: 7px;
+          .ms-surtitre {
+          }
+          .ms-surtitre:first-child {
+            margin-top: 0;
+          }
+        }
+      }
       .tab-pane .panel-synopsis {
         position: static;
+      }
+      .panel {
+        position: relative;
+        padding: 0 0 0px 0;
+        &.panel-more { 
+          .tab-pane {
+            padding-bottom: 30px;
+          }
+        }
+        &.panel-synopsis{ 
+          padding: 0;
+          h3 {
+            padding: 20px 0 10px;
+          }
+          p {
+            margin: 0;
+          }
+        }
+        &.panel-theater {
+          .panel-collapse {
+            padding: 0;
+            ul.nav-tabs {
+              background-color: #F5F5F5;
+              border-bottom: none;
+              > li {
+                margin-bottom: -2px;
+              }
+              li a {
+                padding: 5px 5px;
+                font-size: 13px;
+              }
+              > li.active > a {
+                border: none;
+              }
+              > li > a:hover, > li > a:focus {
+                border-color: transparent;
+              }
+            }
+            .tab-content {
+              border-top: 0;
+              padding: 5px 20px;
+              margin: 0;
+            }
+          }
+        }
+        &.panel-info {
+          border-color: rgba(0, 143, 255, 0.1);
+          .panel-heading {
+            background: rgba(0, 143, 255, 0.1);
+            color: @sk-blue;
+            border-bottom: 5px solid @sk-blue;
+          }
+        }
+        &.panel-danger {
+          border-color: #eed3d7;
+          .panel-heading {
+            border-bottom: 5px solid #b94a48;
+          }
+        }
+        .panel-heading{
+          margin: 0;
+          height: 54px;
+          line-height: 34px;
+          .panel-title {
+            display: inline-block;
+          }
+        }
+        .tab-pane {
+          padding-bottom: 0px;
+          .btn-reveal {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            font-size: 0.9em;
+            padding: 0px 10px 0 5px;
+            border-top-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+            border: 0px;
+            &:hover, &:active, &:focus{
+              background: transparent;
+              box-shadow: none;
+            }
+          }
+          .btn.btn-voir>i,.btn.btn-default>i{
+            float: left;
+            margin-top: 2px;
+          }
+          table {
+            margin: 0;
+            width: 100%;
+            tr {
+              height: 90px !important;
+              border-bottom: 1px solid #efefef;
+              &.other-episodes, &.other-episodes:hover {
+                background: #EEE;
+                color: black;
+                text-decoration: none;
+                td {
+                  padding: 0;
+                  p {
+                    padding: 5px 20px 0;
+                  }
+                }
+              }
+              &:last-child {
+                border-bottom: 0;
+              }
+              td {
+                padding: 5px;
+                vertical-align: middle;
+                &.channel {
+                  width: 120px;
+                }
+                &.offers {
+                  text-align: center;
+                  width: 170px;
+                  button, a.btn {
+                    width: 160px;
+                  }
+                  .ms-reminder {
+                    font-size: 0.8em;
+                    font-weight: normal;
+                    color:#dc2561;
+                    i {
+                      font-size: 1.1em;
+                    }
+                  }
+                }
+                &.episode {
+                  h4 {  
+                    font-size: 1.1em;
+                    font-weight: bold;
+                    margin: 0;
+                  }
+                  .infos {
+                    font-size: 0.8em;
+                  }
+                }
+                &.price {
+                  width: 180px;
+                  .rent {
+                    text-transform: uppercase;
+                    font-size: 1.2em;
+                    color: @bluesecondarycolor;
+                    font-weight: bold;
+                  }
+                  .glyphicon {
+                    font-size: 1.2em;
+                  }
+                  .rent .glyphicon {
+                    font-size: 0.9em;
+                  }
+                  .ms-vidoption {
+                    display: block;
+                    font-size: 14px;
+                    padding: 0 15px;
+                    text-align: left;
+                  }
+                  .ms-versions {
+                    font-size: 13px;
+                    .glyphicon.glyphicon-hd-video{
+                      margin-left: 7px;
+                    }
+                  }
+                }
+              }
+              img {
+                max-width: 100%;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+              }
+            }
+          }
+        }
       }
     }
   }
