@@ -3,41 +3,44 @@
 {% block title %}{{ 'page.title.user.theaters'|trans }}{% endblock %}
 
 {% block content %}
-<div class="container">
+  {% set count %}{{ theaters|length }}{% endset %}
+  {% include 'SkreenHouseFactoryV3Bundle:User:bandeau_user.html.twig' with {active: 'theaters', count: count } %}
 
-  <h1>{{ 'user.theaters'|trans }}</h1>
-  {% if theaters|length == 0 %}
-    <p class="alert alert-info">Vous ne suivez aucun cinéma. </p>
-    <p><a class="btn btn-large" data-modal="remote" data-modal-title="{{ 'theaters.playlist.add'|trans }}" href="{{ path('theaters_search', {'init': 1}) }}"><i class="icon-plus-sign"></i> {{ 'theaters.playlist.add'|trans }}</a></p>
-    <br/>
-    <div class="container well well-small playlist">
-    {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
-    </div>
-  
-  {% else %}
+  <div class="container">
 
-  <div class="container well well-small playlist">
-  {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
-  </div>
-  <br/>
-  <hr/>
-  <div id="user-theaters">
-    <h3>Gérer vos cinémas</h3>
-    <br/>
-    <br/>
-    {% for t in theaters %}
-      {% if loop.index > 1 %}<hr/>{% endif %}
-      <div id="theater-{{ t.id }}">
-        <div class="pull-right">
-          <a class="btn btn-default" href="{{ path('any_url', {url: t.seo_url[1:t.seo_url|length-1]}) }}">Films & horaires</a>&nbsp;
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: t.id, class: 'fav-cinema', remove: '#theater-' ~ t.id, name: t.name , text: 'Ajouter à vos cinémas' } %}
-        </div>
-        <b>{{ t.name }}</b><br/>
-        {{ t.adress }} {{ t.zip_code }} {{ t.city }}<br/>
-        accès : {{ t.access }}
+    <h1>{{ 'user.theaters'|trans }}</h1>
+    {% if theaters|length == 0 %}
+      <p class="alert alert-info">Vous ne suivez aucun cinéma. </p>
+      <p><a class="btn btn-large" data-modal="remote" data-modal-title="{{ 'theaters.playlist.add'|trans }}" href="{{ path('theaters_search', {'init': 1}) }}"><i class="icon-plus-sign"></i> {{ 'theaters.playlist.add'|trans }}</a></p>
+      <br/>
+      <div class="container well well-small playlist">
+        {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
       </div>
-    {% endfor %}
+  
+    {% else %}
+
+      <div class="container well well-small playlist">
+        {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
+      </div>
+      <br/>
+      <hr/>
+      <div id="user-theaters">
+        <h3>Gérer vos cinémas</h3>
+        <br/>
+        <br/>
+        {% for t in theaters %}
+          {% if loop.index > 1 %}<hr/>{% endif %}
+            <div id="theater-{{ t.id }}">
+              <div class="pull-right">
+                <a class="btn btn-default" href="{{ path('any_url', {url: t.seo_url[1:t.seo_url|length-1]}) }}">Films & horaires</a>&nbsp;
+                {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: t.id, class: 'fav-cinema', remove: '#theater-' ~ t.id, name: t.name , text: 'Ajouter à vos cinémas' } %}
+              </div>
+              <b>{{ t.name }}</b><br/>
+              {{ t.adress }} {{ t.zip_code }} {{ t.city }}<br/>
+              accès : {{ t.access }}
+            </div>
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
-  {% endif %}
-</div>
 {% endblock %}
