@@ -833,6 +833,25 @@ html:not(.touch){
       #program-casting {
         .tab-pane {
           padding: 7px;
+          .casting-function {
+            float: left;
+            width: 25%;
+            margin-bottom: 10px;
+            a[itemprop="url"]{
+              &:hover {
+                color: @bluemaincolor;
+                text-decoration: none;
+              }
+              span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal {
+                color: #000000;
+                display: inline-block;
+                &:hover{
+                  color: @bluemaincolor;
+                  text-decoration: none;
+                }
+              }
+            }
+          }
           .ms-surtitre {
           }
           .ms-surtitre:first-child {
@@ -936,6 +955,14 @@ html:not(.touch){
             tr {
               height: 90px !important;
               border-bottom: 1px solid #efefef;
+              &.bonus, &.cut {
+                td.channel {
+                  width: 170px;
+                }
+                td.price {
+                  width: 110px;
+                }
+              }
               &.other-episodes, &.other-episodes:hover {
                 background: #EEE;
                 color: black;

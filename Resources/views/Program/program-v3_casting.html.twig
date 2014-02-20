@@ -5,20 +5,22 @@
         <div class="panel-heading">
           <h3 class="panel-title">Le Casting</h3>
         </div>
-        <div class="tab-pane">
+        <div class="tab-pane clearfix">
           {% for relation,persons in program.casting|to_array if persons|to_array|length %}
-            <h3 class="ms-surtitre">{{ relation|trans }}{{ persons|to_array|length > 1 ? 's' : '' }}</h3>
-            {% for pers in persons|to_array   %}
-              <div class="{% if loop.index >= 5 %}{{ relation|replace({' ': '', '(': '', ')': ''})|lower }}_entrop collapse{% else %}in{% endif %}" itemprop="actor" itemscope itemtype="http://schema.org/Person">
-                <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url" class="fav fav-person" data-name="{{ pers.name }}" data-placement="left"><span itemprop="name">{{ pers.name }}</span></a> 
-              </div>
-            {% endfor %}
-            {% if persons|to_array|length >= 5 %}
-              <div class="block">
-                <a class="{{ relation|replace({' ': '', '(': '', ')': ''})|lower }}_reveal" data-toggle-text="&laquo; retour" data-toggle-display=".{{ relation|replace({' ': '', '(': '', ')': ''})|lower }}_entrop">
-                  et {{ persons|to_array|length - 4 }} autre{% if persons|to_array|length > 5 %}s{% endif %} {{ relation|lower }}{% if persons|to_array|length > 5 %}s{% endif %}...</a> 
-              </div>
-            {% endif %}
+            <div class="casting-function">
+              <h3 class="ms-surtitre">{{ relation|trans }}{{ persons|to_array|length > 1 ? 's' : '' }}</h3>
+              {% for pers in persons|to_array   %}
+                <div class="{% if loop.index >= 5 %}{{ relation|replace({' ': '', '(': '', ')': ''})|lower }}_entrop collapse{% else %}in{% endif %}" itemprop="actor" itemscope itemtype="http://schema.org/Person">
+                  <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url" class="fav fav-person" data-name="{{ pers.name }}" data-placement="right"><span itemprop="name">{{ pers.name }}</span></a> 
+                </div>
+              {% endfor %}
+              {% if persons|to_array|length >= 5 %}
+                <div class="block">
+                  <a class="{{ relation|replace({' ': '', '(': '', ')': ''})|lower }}_reveal" data-toggle-text="&laquo; retour" data-toggle-display=".{{ relation|replace({' ': '', '(': '', ')': ''})|lower }}_entrop">
+                    et {{ persons|to_array|length - 4 }} autre{% if persons|to_array|length > 5 %}s{% endif %} {{ relation|lower }}{% if persons|to_array|length > 5 %}s{% endif %}...</a> 
+                </div>
+              {% endif %}
+            </div>
           {% endfor %}
         </div>
       </div>
