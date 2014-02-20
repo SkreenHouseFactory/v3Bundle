@@ -21,22 +21,12 @@ use Symfony\Component\HttpFoundation\Cookie;
 
 class ProgramController extends Controller
 {
-    private function blockDomain(Request $request) {
-      if ($this->get('kernel')->getEnvironment() == 'prod' && 
-          !strstr($request->getHost(), 'www.myskreen.com') && 
-//          !strstr($request->getHost(), 'preprod.') && 
-          !strstr($request->getHost(), 'preprod-v3.myskreen.com') && 
-          !strstr($request->getHost(), '.typhon.net')) {
-        throw $this->createNotFoundException('Page does not exist');
-      }
-    }
 
     /**
     * saga program
     */
     public function sagaAction(Request $request)
     {
-      $this->blockDomain($request);
       $api = $this->get('api');
       $data = $api->fetch('saga/'.$request->get('id'), array(
         'img_width' => 150,
@@ -60,7 +50,6 @@ class ProgramController extends Controller
     */
     public function programAction(Request $request)
     {
-      $this->blockDomain($request);
       $api = $this->get('api');
 
       //redirect v1 route
@@ -117,7 +106,13 @@ class ProgramController extends Controller
           'channel_slider_height' => 147,
           'fields' => 'metadata,related,related_programs,selections,offers,teaser,hashtags,tweets,empty_player,img_maxsize,svod,coming_soon,best_offer'
         ));
-        
+
+        //echo $api->url;exit;
+        if ($this->get('kernel')->getEnvironment() == 'dev' && 
+            $request->get('debug')) {
+          echo $api->url;
+        }
+
         //hack bug API renvoie rien
         if (!is_object($data)) {
           if ($this->get('kernel')->getEnvironment() == 'dev') {
@@ -137,11 +132,6 @@ class ProgramController extends Controller
           return $this->redirect('/l-integrale-des-inconnus/?click=[data-id=%22'.$data->id.'%22]', 301);
         }
 
-        //echo $api->url;exit;
-        if ($this->get('kernel')->getEnvironment() == 'dev' && 
-            $request->get('debug')) {
-          echo $api->url;
-        }
 
         //echo $request->attributes->get('_route');exit();
         //stop Adulte

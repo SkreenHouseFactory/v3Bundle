@@ -25,10 +25,13 @@ var SlideIn = Class.extend({
         $('#slide-in-text p+p').html('TROUVEZ ou DÉCOUVREZ des programmes que vous aimez.<br/>On vous dit où et comment les regarder.');
         break;
       case 2:
-        $('#slide-in-text p+p').html('TV, REPLAY, VOD, CINE, WEB&nbsp;: tous vos programmes sur 1 seule site');
+        $('#slide-in-text p+p').html('TV, REPLAY, VOD, CINE, WEB&nbsp;: tous vos programmes sur 1 seul site');
         break;
       default:
         $('#slide-in-text p+p').html('Toutes les chaînes en REPLAY et en DIRECT sur 1 seul site.');
+    }
+    if(API.cookie('slide-in')){
+      this.elmt.addClass('forced');
     }
   },
 
@@ -68,7 +71,7 @@ var SlideIn = Class.extend({
 
 });
 
-$( document ).ready(function(){
+$(document).ready(function(){
 
   var slide_in = new SlideIn($('#slide-in'));
 
@@ -84,19 +87,24 @@ $( document ).ready(function(){
         slide_in.elmt.addClass('forced');
       }
     }
+    if(!API.cookie('slide-in')){
+      var date_cookie = new Date();
+      date_cookie.setTime(date_cookie.getTime() + (120 * 60 * 1000));
+      API.cookie('slide-in', 1, date_cookie);
+    }
   });
 
   //CHecker quantité de scroll
   
   $(document).scroll(function(){
-
-    if ((($(document).scrollTop() > 100) && ($(document).scrollTop() < 1500))
+    console.log($(document).scrollTop());
+    if ((($(document).scrollTop() > 300) && ($(document).scrollTop() < 1200))
           && !(slide_in.isOpened()) 
           && !(slide_in.hasBeenForced())){
       slide_in.apparition();
     }
 
-    if ((($(document).scrollTop() < 100) || ($(document).scrollTop() > 1500))
+    if ((($(document).scrollTop() < 300) || ($(document).scrollTop() > 1200))
           && slide_in.isOpened() 
           && !(slide_in.hasBeenForced())){
       slide_in.disparition();

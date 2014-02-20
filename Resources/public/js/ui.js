@@ -489,7 +489,6 @@ UI = {
         
         if($(this).data('reload-notif') != "done"){
           Skhf.session.sync(function(data){
-            console.log('reload datas notifications filter',data.notifications);
             global.appendNotifications(data.notifications,list,false);
             global.notificationsFilter(self);
             self.attr('data-reload-notif','done');
@@ -505,6 +504,9 @@ UI = {
 
       //TOFIX : should be working in script/core/ui.js
       //UiView.initDataLive(list);
+
+      //reload tooltip
+      $('.notifications [data-toggle="tooltip"]').tooltip();
 
       //new
       if (nb_new > 0) {
@@ -636,7 +638,10 @@ UI = {
         }
         list.append(
           '<li class="tv-component ' + notifications[k].offers + ' ' + notifications[k].access.replace("(windows)","") + '">' +
-            '<a data-id="' + notifications[k].id + '" class="remove">' + 
+            '<a  class="more info"' + (!notifications[k].playlist || !notifications[k].playlist.origin ? '>' :
+              ' data-toggle="tooltip" data-placement="left" title="Vous suivez &laquo;' + notifications[k].playlist.origin.object_name + '&raquo;"><i class="glyphicon glyphicon-question-sign"></i>') +
+            '</a>' +
+            '<a data-id="' + notifications[k].id + '" class="more remove">' + 
               '<i class="glyphicon glyphicon-trash"></i>' +
             '</a>' +
             (notifications[k]['new'] ? '<span id="new-notif' + notifications[k].id + '" class="pull-right badge badge-important">Nouveau</span>' : '') +
