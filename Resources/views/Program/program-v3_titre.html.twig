@@ -9,7 +9,7 @@
       <div class="col-xs-16">
         {# Affichage type, année, durée #}
         <span class="ms-format" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-          {% if program.format %}<a itemprop="url" href="{{ path('any_url', {url: program.format.seo_url|slice(1, program.format.seo_url|length-1) }) }}"><span itemprop="title">{{ program.format.name }} - </span></a>{% endif %}{% if program.year is defined and program.year > 0 %}{{ program.year }}, {% endif %}{% if program.duration %}{{ program.duration }}mn{% endif %}
+          {% if program.format %}<a itemprop="url" href="{{ path('any_url', {url: program.format.seo_url|slice(1, program.format.seo_url|length-1) }) }}"><span itemprop="title">{{ program.format.name }}</span></a>{% endif %}{% if program.year is defined and program.year > 0 %} - {{ program.year }}, {% endif %}{% if program.duration %}{{ program.duration }}mn{% endif %}
         </span>
       </div>
     </div>
@@ -17,18 +17,18 @@
     <div class="row">
       <div id="fake_h1" class="col-xs-16" itemprop="name">
         {% if program.episode_title is defined and
-          program.episodeof is defined and
-          program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
-        {{ program.episode_title }}
-        {% if program.popular_channel is defined %}
-          <span>{{ program.popular_channel.name }}</span>
-        {% endif %}
-    {% elseif program.episode_title is defined and
+              program.episodeof is defined and
+              program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
+          {{ program.episode_title }}
+          {% if program.popular_channel is defined %}
+            <span>{{ program.popular_channel.name }}</span>
+          {% endif %}
+        {% elseif program.episode_title is defined and
               program.episodeof is defined %}
-        {{ program.episodeof.title }}
-    {% else %}
-      {{ program.title }}
-    {% endif %}
+          {{ program.episodeof.title }}
+        {% else %}
+          {{ program.title }}
+        {% endif %}
       </div>
     </div>
 
@@ -36,8 +36,7 @@
     {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
     {% if program.episode_title is defined and
           program.episodeof is defined  and
-          episode_title and
-          program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}
+          episode_title %}
       <div class="row">
         <div class="col-xs-16 episodes">
           {% if episode_title and program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}{{ episode_title }} : {% endif %}{{ program.episode_title }}

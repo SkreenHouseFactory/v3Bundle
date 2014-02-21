@@ -104,7 +104,8 @@ class ProgramController extends Controller
           'channel_img_width' => 80,
           'channel_slider_width' => 300,
           'channel_slider_height' => 147,
-          'fields' => 'metadata,related,related_programs,selections,offers,teaser,hashtags,tweets,empty_player,img_maxsize,svod,coming_soon,best_offer'
+          'season' => $request->get('season_number'),
+          'fields' => 'description_episode,metadata,related,related_programs,selections,offers,teaser,hashtags,tweets,empty_player,img_maxsize,svod,coming_soon,best_offer'
         ));
 
         //echo $api->url;exit;
@@ -162,27 +163,30 @@ class ProgramController extends Controller
         //check url
         //echo $request->getPathInfo().' != '.$data->seo_url.' => '.($request->getPathInfo() != $data->seo_url);exit();
         //TODO
-        if ($request->get('season_number')) {
-          foreach ($data->seasons as $s) {
-            if ($s->number == $request->get('season_number')) {
-              foreach ($s->episodes as $episode) {
-                return $this->redirect($episode->seo_url, 301);
-              }
+        // if ($request->get('season_number')) {
+        //   foreach ($data->seasons as $s) {
+        //     if ($s->number == $request->get('season_number')) {
+        //       foreach ($s->episodes as $episode) {
+        //         return $this->redirect($episode->seo_url, 301);
+        //       }
+        //     }
+        //   }
+        //   if ($this->get('kernel')->getEnvironment() == 'dev') {
+        //     echo 'redirect fail : episode 1 saison '.$request->get('season_number');
+        //     exit();
+        //   }
+        //   return $this->redirect($data->seo_url, 301);
+        // }
+        if (!$request->get('season_number')) {
+          if  ($request->getPathInfo() != $data->seo_url) {
+            if ($this->get('kernel')->getEnvironment() == 'dev') {
+              return $this->redirect('/app_dev.php' . $data->seo_url, 301);;
+            //  return new Response('redirect '.$request->getPathInfo().' != '.$data->seo_url.' => '.($request->getPathInfo() != $data->seo_url));
             }
+            return $this->redirect($data->seo_url, 301);
           }
-          if ($this->get('kernel')->getEnvironment() == 'dev') {
-            echo 'redirect fail : episode 1 saison '.$request->get('season_number');
-            exit();
-          }
-          return $this->redirect($data->seo_url, 301);
         }
-        if  ($request->getPathInfo() != $data->seo_url) {
-          if ($this->get('kernel')->getEnvironment() == 'dev') {
-            return $this->redirect('/app_dev.php' . $data->seo_url, 301);;
-          //  return new Response('redirect '.$request->getPathInfo().' != '.$data->seo_url.' => '.($request->getPathInfo() != $data->seo_url));
-          }
-          return $this->redirect($data->seo_url, 301);
-        }
+      
 
         //hack img dev
         if ($request->get('imgdev')) {

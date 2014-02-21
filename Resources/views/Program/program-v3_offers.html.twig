@@ -1,3 +1,11 @@
+{% if program.season_number is defined %}
+  <div class="panel panel-default">
+    <div class="panel-heading dong season clearfix">
+      <h3 class="panel-title">Saison {{ program.season_number }}{% if program.episode_number is defined %} Episode {{ program.episode_number }}{% endif %}</h3>
+      <a href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}" class="pull-right">Voir toutes les saisons</a>
+    </div>
+  </div>
+{% endif %}
 {% set hasoffers = false %}
 {% for key in offers|keys if program.offers[key] is defined and program.offers[key]|to_array|length > 0 %}
   {% set hasoffers = true %}
@@ -83,7 +91,7 @@
                     o.episode_id != program.id and
                     other_episodes != 'ok' %}
                 <tr class="other-episodes {{ o_access.name }}">
-                  <td colspan="6"><p>Autres épisodes <i class="glyphicon glyphicon-arrow-down"></i></p></td>
+                  <td colspan="6"><p>Autres épisodes {% if program.season_number is defined %}de la saison {{ program.season_number }} {% endif %}<i class="glyphicon glyphicon-arrow-down"></i></p></td>
                 </tr>
                 {% set other_episodes = 'ok' %}
               {% endif %}

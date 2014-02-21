@@ -443,6 +443,18 @@ ul#episodes-list{
     overflow: hidden;
     padding-left: 15px;
     width: 98%;
+    p.clearfix {
+      img {
+        margin-right: 7px;
+      }
+      a {
+        display: block;
+        .title-episode {
+          display: block;
+          margin-bottom: 13px;
+        }
+      }
+    }
     &.hover {
       color: @rowHoverColor;
       background-color: @rowHoverBg;
@@ -925,6 +937,9 @@ html:not(.touch){
           height: 35px;
           line-height: 30px;
           padding: 4px 15px;
+          &.season {
+            background-color: white;
+          }
           .panel-title {
             display: inline-block;
           }
