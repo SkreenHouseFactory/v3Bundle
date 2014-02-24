@@ -46,23 +46,21 @@
 
   </div>
 
-  {# ShareBlock #}
   <div class="col-xs-5">
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: program.twitter_msg is defined ? program.twitter_msg : 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?' } %}
-  </div>
-</div>
-
-{# AjoutListes #}
-<div class="row">
-  {# Bouton Ajout/Abo #}
-  <div class="col-xs-4 ajout">
-    {% if program.popular_channel is not defined or program.popular_channel.id not in [5573] %}
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.episodeof is defined ? program.episodeof.id : program.id, class: 'fav-like', text: 'Ajouter à mes listes', placement: 'right'} %}
-    {% endif %}
-  </div>
-  {# Textes Ajouts #}
-  <div class="col-xs-12">
-    <p>Soyez averti des prochaines diffusions (Tv, Replay, Ciné, VOD).</p>
-    <p>Partagez vos playlists avec vos amis et suivez ce qu'ils regardent.</p>
+    {# AjoutListes #}
+    <div class="row">
+      {# Bouton Ajout/Abo #}
+      <div class="col-xs-16 ajout">
+        {% if program.popular_channel is not defined or program.popular_channel.id not in [5573] %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.episodeof is defined ? program.episodeof.id : program.id, class: 'fav-like', text: 'Ajouter à mes listes', placement: 'left'} %}
+        {% endif %}
+      </div>
+      {# Textes Ajouts #}
+      <div class="col-xs-16">
+        <a class="savoir-plus">En savoir plus...</a>
+        {# <p>Soyez averti des prochaines diffusions (Tv, Replay, Ciné, VOD).</p>
+        {# <p>Partagez vos playlists avec vos amis et suivez ce qu'ils regardent.</p> #}
+      </div>
+    </div>
   </div>
 </div>

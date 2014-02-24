@@ -386,6 +386,11 @@ $(document).ready(function(){
     $('html,body').animate({'scrollTop' : 0}, 1000);
   });  
 
+  $('.savoir-plus').on('click', function(){
+    $('.bande_couleur_degrade').slideToggle();
+    return false;
+  });
+
   $(document).on('click', '.no-cost[data-play]', function(){
     //remove
     $('.is-playing').each(function(){

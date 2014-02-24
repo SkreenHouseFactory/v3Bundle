@@ -1,7 +1,7 @@
 {# Contenu Vidéos #}
 <div class="col-xs-16">
   {# Bonus, Extraits #}
-  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offers.html.twig' with {offers: videos.offers} %}
+  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offers.html.twig' with {offers: videos.offers, tab: 'videos'} %}
 
   {# Contenu Youtube / more streaming #}
   <div id="program-more-streaming" class="panel panel-default panel-remove-padding-bottom" data-more-streaming="{{ program.id }}">

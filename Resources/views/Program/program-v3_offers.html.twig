@@ -1,4 +1,12 @@
-{% if program.season_number is defined %}
+<div class="sous-menu">
+    <div class="btn-group">
+      {% for key in offers|keys if program.offers[key] is defined and program.offers[key]|to_array|length > 0 %}
+        <a href="#{{ key }}" class="btn btn-default btn-sm">{{ offers[key] }}</a>
+      {% endfor %}
+    </div>
+  </div>
+
+{% if program.season_number is defined and tab is not defined %}
   <div class="panel panel-default">
     <div class="panel-heading dong season clearfix">
       <h3 class="panel-title">Saison {{ program.season_number }}{% if program.episode_number is defined %} Episode {{ program.episode_number }}{% endif %}</h3>
@@ -6,6 +14,7 @@
     </div>
   </div>
 {% endif %}
+
 {% set hasoffers = false %}
 {% for key in offers|keys if program.offers[key] is defined and program.offers[key]|to_array|length > 0 %}
   {% set hasoffers = true %}
@@ -18,6 +27,7 @@
   {% else %}
     {% set loop_offset = 3 %}
   {% endif %}
+
   <div class="panel{{ program.offers[key]|to_array|length > loop_offset or (key == 'external' and program.offers['deporte']|to_array|length) ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : ' panel-default' }} count-{{ program.offers[key]|to_array|length }}">
     <div class="panel-heading dong" >
       <h3 class="panel-title {% if key in ['external','dvd'] and program.offers['deporte']|to_array|length %} external-collapser pointer{% endif %}"{% if key in ['external','dvd'] and program.offers['deporte']|to_array|length %} data-toggle="collapse"{% endif %} href="#{{ key }}">
@@ -97,8 +107,59 @@
               {% endif %}
               <tr class="{{key}} player-stop {{ o.cost is defined and o.cost ? '' : 'no-cost '}}{% if program.player and o.id == program.player.id %}is-playing{% endif %}{% if loop.index > loop_offset and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %}{% else %}collapse{% endif %} collapsing-{{ key }}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['TV'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player and o.is_live is defined and o.is_live %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ 'm6replay' not in o.url and 'itunes' not in o.url ? o.url|replace({'/exit/': '/redirect/'}) : o.url }}"{% elseif o.deporte is defined and o.deporte and key != "coming_soon" %} data-play="{{ o.id }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} {% if key=="deporte" %}data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~ (o.broadcasttime is defined ? o.broadcasttime|broadcastdate : '')}) }}"{% endif %}>
 
-                <td class="channel">
-                  <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture|replace({'/medias': '/t/medias'}) }}{% elseif o_episode and o_access.name in ['Replay'] and o_episode.picture and o_episode.picture|pic_filter != program.picture | pic_filter %}{{o_episode.picture}} {% else %}{{ o_channel.img|replace({'80//': '80/'}) }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
+                <td class="offers">
+                  {% if o_access.name in ['TV'] and 
+                        o_channel.live is defined and 
+                        o_channel.live.player is defined and 
+                        o_channel.live.player and
+                        o.is_live is defined and
+                        o.is_live  %}
+                    <button type="button" class="btn btn-voir"  ><i class="glyphicon glyphicon-play" ></i>&nbsp;Voir le direct</button>
+                  {% elseif o_access.name in ['TV'] %}
+                    {% if key == "live" %}
+                      {% if o.url is defined and o.url %}
+                        <a class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir</a>
+                      {% endif %}
+                    {% else %}
+                      <a class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier</a>
+                    {% endif %}
+                  {% elseif program.player and o.id == program.player.id %}
+                    <button type="button" class="btn btn-voir disabled">Lecture en cours</button>
+                  {% elseif key != "coming_soon"%}
+                    <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;
+                      {% if key == "dvd" %}
+                        {{ o.cost is defined and o.cost != null ? 'Acheter ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Acheter' }} 
+                      {% elseif o.buy_id is defined and o.buy_id %}
+                        {{ o.cost is defined and o.cost != null ? 'A partir de ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }} 
+                      {% else %}
+                        {{ o.cost is defined and o.cost != null ? 'Voir ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }}
+                      {% endif %}
+                    </button>
+                    {% if o.tags.originalprice is defined and o.tags.originalprice and o.cost %}
+                      <span class="sold">au lieu de <del>{{o.tags.originalprice|number_format(2, ',') ~ '€'}}</del><br><mark>      avant-première -{{o.cost|sold_perc(o.tags.originalprice)~'%' }}</mark> </span>
+                    {% endif %}
+                  {% endif %}
+                  <br/>
+                  {% if key == 'coming_soon' %}
+                    {% if o.starttime is defined and o.starttime|comingsoon %}
+                      <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{o.starttime|comingsoon}}</span>
+                    {% elseif o.broadcasttime is defined %}
+                      <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{o.broadcasttime|comingsoon}}</span>
+                    {% endif %}
+                  {% endif %}
+                  {% if o_access.name == 'TV' %}
+                    {% if key == 'plays'  %}
+                      <span class="ms-reminder">Live</span>
+                      <i class="glyphicon glyphicon-time"></i>
+                    {% elseif o.has_replay and o.broadcasttime|remainingtv %}
+                      <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
+                    {% elseif o.broadcasttime|timeleft %}
+                      <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o_access.name == 'TV' ? 'Encore' : 'Dans' }} {{ o.broadcasttime|timeleft }}</span>
+                    {% endif %}
+                  {% elseif o.endtime is defined and o.endtime|remainingreplay %}
+                    <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
+                  {% endif %}
+
                 </td>
 
                 <td class="episode" colspan="2">
@@ -181,59 +242,8 @@
                 </td>
              {#% endif %#}
 
-                <td class="offers">
-                  {% if o_access.name in ['TV'] and 
-                        o_channel.live is defined and 
-                        o_channel.live.player is defined and 
-                        o_channel.live.player and
-                        o.is_live is defined and
-                        o.is_live  %}
-                    <button type="button" class="btn btn-voir"  ><i class="glyphicon glyphicon-play" ></i>&nbsp;Voir le direct</button>
-                  {% elseif o_access.name in ['TV'] %}
-                    {% if key == "live" %}
-                      {% if o.url is defined and o.url %}
-                        <a class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir</a>
-                      {% endif %}
-                    {% else %}
-                      <a class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier</a>
-                    {% endif %}
-                  {% elseif program.player and o.id == program.player.id %}
-                    <button type="button" class="btn btn-voir disabled">Lecture en cours</button>
-                  {% elseif key != "coming_soon"%}
-                    <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;
-                      {% if key == "dvd" %}
-                        {{ o.cost is defined and o.cost != null ? 'Acheter ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Acheter' }} 
-                      {% elseif o.buy_id is defined and o.buy_id %}
-                        {{ o.cost is defined and o.cost != null ? 'A partir de ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }} 
-                      {% else %}
-                        {{ o.cost is defined and o.cost != null ? 'Voir ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }}
-                      {% endif %}
-                    </button>
-                    {% if o.tags.originalprice is defined and o.tags.originalprice and o.cost %}
-                      <span class="sold">au lieu de <del>{{o.tags.originalprice|number_format(2, ',') ~ '€'}}</del><br><mark>      avant-première -{{o.cost|sold_perc(o.tags.originalprice)~'%' }}</mark> </span>
-                    {% endif %}
-                  {% endif %}
-                  <br/>
-                  {% if key == 'coming_soon' %}
-                    {% if o.starttime is defined and o.starttime|comingsoon %}
-                      <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{o.starttime|comingsoon}}</span>
-                    {% elseif o.broadcasttime is defined %}
-                      <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{o.broadcasttime|comingsoon}}</span>
-                    {% endif %}
-                  {% endif %}
-                  {% if o_access.name == 'TV' %}
-                    {% if key == 'plays'  %}
-                      <span class="ms-reminder">Live</span>
-                      <i class="glyphicon glyphicon-time"></i>
-                    {% elseif o.has_replay and o.broadcasttime|remainingtv %}
-                      <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
-                    {% elseif o.broadcasttime|timeleft %}
-                      <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o_access.name == 'TV' ? 'Encore' : 'Dans' }} {{ o.broadcasttime|timeleft }}</span>
-                    {% endif %}
-                  {% elseif o.endtime is defined and o.endtime|remainingreplay %}
-                    <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
-                  {% endif %}
-
+                <td class="channel">
+                  <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture|replace({'/medias': '/t/medias'}) }}{% elseif o_episode and o_access.name in ['Replay'] and o_episode.picture and o_episode.picture|pic_filter != program.picture | pic_filter %}{{o_episode.picture}} {% else %}{{ o_channel.img|replace({'80//': '80/'}) }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
                 </td>
               </tr>
 
@@ -266,8 +276,7 @@
     </div>
   </div>
 {% endfor %}
-
-{% if hasoffers == false %}
+{% if hasoffers == false and tab is not defined %}
   <div class="alert alert-success">
     {% if program.episodeof is defined %}
       <p>Cette épisode n'est pas diffusé pour le moment.</p>

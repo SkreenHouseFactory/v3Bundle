@@ -1,6 +1,6 @@
 {# Synopsis #}
 <div class="col-xs-16">
-  <div class="panel panel-default panel-synopsis{{ program.description|striptags|length < 907 ? ' forced-height':'' }}">
+  <div id="program-synopsis" class="panel panel-default panel-synopsis{{ program.description|striptags|length < 907 ? ' forced-height':'' }}">
     <div class="panel-heading">
       <h1 class="panel-title">Tout sur {{ program.title }} {{ program.has_vod|accessFromHasvod }}</h1>
     </div>
