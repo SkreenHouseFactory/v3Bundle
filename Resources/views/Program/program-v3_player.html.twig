@@ -96,7 +96,7 @@
           </div>
           <div class="row">
             {# Descriptif offre #}
-            <div class="col-xs-16"><span>{{ o_access.name }} |</span><span>{% if program.duration %} {{ program.duration }} mn. {% endif %}{% if o.tags.version is defined %}{{ o.tags.version }} {% endif %}{% if o.tags.HD is defined %} / {{ o.tags.HD }}{% endif %}{% if o.tags.device is defined %}</span><br/><span>{{ o.tags.device|replace({',': ', '}) }}{% endif %}</span></div>
+            <div class="col-xs-16"><span>{{ o_access.name }} |</span><span>{% if program.duration %} {{ program.duration }} mn. {% endif %}{% if o.tags.version is defined %}{{ o.tags.version }} {% endif %}{% if o.tags.HD is defined %} / {{ o.tags.HD }}{% endif %}</span></div>
           </div>
         </div>
         {# Prix #}
@@ -109,7 +109,18 @@
     </div>
   {% else %}
     <div class="col-xs-11">
-      Bloc à définir !!!
+      <div class="alert alert-success">
+        {% if program.episodeof is defined %}
+          <p>Cette épisode n'est pas diffusé pour le moment.</p>
+          <p>Cliquez sur &laquo; Suivre &raquo; pour être averti dès qu'un épisode de <strong>{{ program.episodeof.title }}</strong> est diffusé.</p>
+        {% elseif program.format and program.format.name in ['Film','Documentaire'] %}
+          <p><strong>{{ program.title }}</strong> n'est disponible sur aucune plateforme légale.</p>
+          <p>Avec mySkreen, suivez ce programme pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !</p>
+        {% else %}
+          <p><strong>{{ program.title }}</strong> n'est pas diffusé pour le moment.</p>
+          <p>Avec mySkreen, suivez ce programme pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !</p>
+        {% endif %}
+      </div>
     </div>
   {% endif %}
   {# ShareBlock #}

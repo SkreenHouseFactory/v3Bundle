@@ -1,16 +1,42 @@
-<div class="sous-menu">
+{# <div class="sous-menu">
     <div class="btn-group">
       {% for key in offers|keys if program.offers[key] is defined and program.offers[key]|to_array|length > 0 %}
         <a href="#{{ key }}" class="btn btn-default btn-sm">{{ offers[key] }}</a>
       {% endfor %}
     </div>
-  </div>
+  </div> #}
 
 {% if program.season_number is defined and tab is not defined %}
   <div class="panel panel-default">
     <div class="panel-heading dong season clearfix">
       <h3 class="panel-title">Saison {{ program.season_number }}{% if program.episode_number is defined %} Episode {{ program.episode_number }}{% endif %}</h3>
       <a href="{{ path('any_url', {url: program.episodeof.seo_url|slice(1, program.episodeof.seo_url|length-1) }) }}" class="pull-right">Voir toutes les saisons</a>
+    </div>
+  </div>
+{% endif %}
+
+{% if tab is defined and tab == 'videos' and program.player is defined and program.player %}
+  <div class="panel panel-default">
+    <div class="panel-heading dong">
+      <h3 class="panel-title" href="#ba">Bande Annonce</h3>
+    </div>
+    <div id="ba" class="tab-pane">
+      <table class="offertable">
+        <tbody>
+          <tr class="ba player-stop no-cost" data-id="{{ program.player.id }}" data-play="{{ program.player.id }}">
+            <td class="channel">
+              <img src="{{ program.picture }}" alt="{{ program.title }}" />
+              <span class="glyphicon glyphicon-play-circle"></span>
+            </td>
+            <td class="episode" colspan="2">
+              <p>{{ program.title }} : la bande-annonce</p>
+            </td>
+            <td class="price big">
+              des infos sur la ba ?
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 {% endif %}
@@ -90,164 +116,276 @@
 
         <table class="offertable">
           <tbody>
-            {% for o in attribute(program.offers, key)|to_array %}
-              {% set btn_deploy_offers = btn_deploy_offers + 1 %}
-              {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
-              {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
-              {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
-              {# autres episodes #}
-              {% if o.episode_id is defined and 
-                    program.episodeof.id is defined and 
-                    o.episode_id != program.id and
-                    other_episodes != 'ok' %}
-                <tr class="other-episodes {{ o_access.name }}">
-                  <td colspan="6"><p>Autres épisodes {% if program.season_number is defined %}de la saison {{ program.season_number }} {% endif %}<i class="glyphicon glyphicon-arrow-down"></i></p></td>
+            {% if tab is defined and tab == 'videos' %}
+
+              {% for o in attribute(program.offers, key)|to_array %}
+                {% set btn_deploy_offers = btn_deploy_offers + 1 %}
+                {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
+                {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
+                {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
+                {# autres episodes #}
+                {% if o.episode_id is defined and 
+                      program.episodeof.id is defined and 
+                      o.episode_id != program.id and
+                      other_episodes != 'ok' %}
+                  <tr class="other-episodes {{ o_access.name }}">
+                    <td colspan="6"><p>Autres épisodes {% if program.season_number is defined %}de la saison {{ program.season_number }} {% endif %}<i class="glyphicon glyphicon-arrow-down"></i></p></td>
+                  </tr>
+                  {% set other_episodes = 'ok' %}
+                {% endif %}
+                <tr class="{{key}} player-stop {{ o.cost is defined and o.cost ? '' : 'no-cost '}}{% if program.player and o.id == program.player.id %}is-playing{% endif %}{% if loop.index > loop_offset and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %}{% else %}collapse{% endif %} collapsing-{{ key }}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['TV'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player and o.is_live is defined and o.is_live %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ 'm6replay' not in o.url and 'itunes' not in o.url ? o.url|replace({'/exit/': '/redirect/'}) : o.url }}"{% elseif o.deporte is defined and o.deporte and key != "coming_soon" %} data-play="{{ o.id }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} {% if key=="deporte" %}data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~ (o.broadcasttime is defined ? o.broadcasttime|broadcastdate : '')}) }}"{% endif %}>
+
+                  <td class="channel">
+                    <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture|replace({'/medias': '/t/medias'}) }}{% elseif o_episode and o_access.name in ['Replay'] and o_episode.picture and o_episode.picture|pic_filter != program.picture | pic_filter %}{{o_episode.picture}} {% else %}{{ o_channel.img|replace({'80//': '80/'}) }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
+                    <span class="glyphicon glyphicon-play-circle"></span>
+                  </td>
+
+                  <td class="episode" colspan="2">
+                    {% if o.title is defined and o.title %}
+                      <p>{{ o.title }}<br><span>{% if o.description|length > 57 %}{{ o.description|slice(0, 56)}}...{% else %}{{ o.description}}{% endif %}</span></p>
+                    {% elseif o_episode and o_episode.title %}
+                      <p>{{ o_episode.title }}
+                        {%  if o_access.name not in ['Bonus','Extrait'] %}
+                          {% set episode_title %}
+                          {% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}
+                          {% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}
+                          {% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}
+                          {% endset %}
+                          {% if o_episode.season_number is defined or 
+                                o_episode.episode_number is defined or 
+                                o_episode.part_number is defined %}
+                            {% if episode_title != o_episode.title %}<br>{{ episode_title }}{% endif %}
+                          {% endif %}
+                        {% endif %}
+                      </p>
+                    {% endif %}
+                    <div>
+                      {% if o_access.name in ['Vidéo', 'Archive'] and 
+                            o.broadcasttime is defined and 
+                            o.broadcasttime and
+                            o.cost == 0 %}
+                        <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate('', 'date') }}</time>
+                      {% endif %}
+                    </div>
+                  </td>
+
+                  <td class="price{{ o.cost is defined and o.cost ? ' price-vod' : '' }} big">
+                    {% if (o.cost is defined and o.cost) or 
+                          o_access.name in ['Vidéo','Archive','Extrait','Bonus'] or
+                          'dvd' in o_access.name|lower or
+                          'bluray' in o_access.name|lower  %}
+                      <div class="rent">
+                        {% if o_access.name != 'Extrait' and o_access.name != 'Bonus' %}
+                          {{ o_access.name }}
+                        {% endif %}
+                        {% if o.buy_id is defined and o.buy_id %}
+                         & Achat
+                        {% endif %}
+                        {% if o.tags.device is defined and o_access.name != 'Extrait' and o_access.name != 'Bonus' %}
+                          <i class="glyphicon glyphicon-info-sign" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ o.tags.device|replace({',': ', '}) }}" ></i>
+                        {% endif %}
+                      </div>
+                    {% elseif o_access.name in ['Live', 'TV', 'Replay'] %}
+                      <div class="rent">
+                        <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate(o_access.name) }}</time>
+                      </div>
+                    {% endif %}
+
+                    {% if (o.versions is defined and o.versions|to_array|length) or 
+                          (o.tags is defined and o.tags|to_array|length) %}
+                      <div class="ms-versions">
+                        {% if o.tags.device is defined and (o_access.name == 'Extrait' or o_access.name == 'Bonus') %}
+                          <i class="glyphicon glyphicon-info-sign" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ o.tags.device|replace({',': ', '}) }}" ></i>&nbsp;
+                        {% endif %}
+                        {% if o.cost is defined and o.cost and o.cost != null and program.duration %}
+                          <span>{{program.duration}} min, </span> 
+                        {% endif %}
+                        {% if o.deporte is defined and o.deporte and o.versions is defined %}
+                          <span>{{ o.versions|to_array|keys|join(', ') }}</span>
+                        {% elseif o.tags is defined and o.tags.version is defined %}
+                          <span>{{ o.tags.version|replace({',': ', '}) }}</span>
+                        {% endif %}
+
+                        {% if o.tags is defined and o.tags|length %}
+                          {% if o.tags.HD is defined %}
+                            <i class="glyphicon glyphicon-hd-video"></i>
+                          {% endif %}
+                          {% if o.tags.format is defined %}
+                            {{ o.tags.format|replace({'SD': '<i class="glyphicon glyphicon-sd-video"></i>'})|raw }}
+                          {% endif %}
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </td>
+
                 </tr>
-                {% set other_episodes = 'ok' %}
-              {% endif %}
-              <tr class="{{key}} player-stop {{ o.cost is defined and o.cost ? '' : 'no-cost '}}{% if program.player and o.id == program.player.id %}is-playing{% endif %}{% if loop.index > loop_offset and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %}{% else %}collapse{% endif %} collapsing-{{ key }}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['TV'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player and o.is_live is defined and o.is_live %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ 'm6replay' not in o.url and 'itunes' not in o.url ? o.url|replace({'/exit/': '/redirect/'}) : o.url }}"{% elseif o.deporte is defined and o.deporte and key != "coming_soon" %} data-play="{{ o.id }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} {% if key=="deporte" %}data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~ (o.broadcasttime is defined ? o.broadcasttime|broadcastdate : '')}) }}"{% endif %}>
 
-                <td class="offers">
-                  {% if o_access.name in ['TV'] and 
-                        o_channel.live is defined and 
-                        o_channel.live.player is defined and 
-                        o_channel.live.player and
-                        o.is_live is defined and
-                        o.is_live  %}
-                    <button type="button" class="btn btn-voir"  ><i class="glyphicon glyphicon-play" ></i>&nbsp;Voir le direct</button>
-                  {% elseif o_access.name in ['TV'] %}
-                    {% if key == "live" %}
-                      {% if o.url is defined and o.url %}
-                        <a class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir</a>
-                      {% endif %}
-                    {% else %}
-                      <a class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier</a>
-                    {% endif %}
-                  {% elseif program.player and o.id == program.player.id %}
-                    <button type="button" class="btn btn-voir disabled">Lecture en cours</button>
-                  {% elseif key != "coming_soon"%}
-                    <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;
-                      {% if key == "dvd" %}
-                        {{ o.cost is defined and o.cost != null ? 'Acheter ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Acheter' }} 
-                      {% elseif o.buy_id is defined and o.buy_id %}
-                        {{ o.cost is defined and o.cost != null ? 'A partir de ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }} 
+              {% endfor %}
+
+            {% else %}
+
+              {% for o in attribute(program.offers, key)|to_array %}
+                {% set btn_deploy_offers = btn_deploy_offers + 1 %}
+                {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
+                {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
+                {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
+                {# autres episodes #}
+                {% if o.episode_id is defined and 
+                      program.episodeof.id is defined and 
+                      o.episode_id != program.id and
+                      other_episodes != 'ok' %}
+                  <tr class="other-episodes {{ o_access.name }}">
+                    <td colspan="6"><p>Autres épisodes {% if program.season_number is defined %}de la saison {{ program.season_number }} {% endif %}<i class="glyphicon glyphicon-arrow-down"></i></p></td>
+                  </tr>
+                  {% set other_episodes = 'ok' %}
+                {% endif %}
+                <tr class="{{key}} player-stop {{ o.cost is defined and o.cost ? '' : 'no-cost '}}{% if program.player and o.id == program.player.id %}is-playing{% endif %}{% if loop.index > loop_offset and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %}{% else %}collapse{% endif %} collapsing-{{ key }}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['TV'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player and o.is_live is defined and o.is_live %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ 'm6replay' not in o.url and 'itunes' not in o.url ? o.url|replace({'/exit/': '/redirect/'}) : o.url }}"{% elseif o.deporte is defined and o.deporte and key != "coming_soon" %} data-play="{{ o.id }}"{% elseif key == 'tv' %} data-ics-occurrence="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} {% if key=="deporte" %}data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~ (o.broadcasttime is defined ? o.broadcasttime|broadcastdate : '')}) }}"{% endif %}>
+
+                  <td class="offers">
+                    {% if o_access.name in ['TV'] and 
+                          o_channel.live is defined and 
+                          o_channel.live.player is defined and 
+                          o_channel.live.player and
+                          o.is_live is defined and
+                          o.is_live  %}
+                      <button type="button" class="btn btn-voir"  ><i class="glyphicon glyphicon-play" ></i>&nbsp;Voir le direct</button>
+                    {% elseif o_access.name in ['TV'] %}
+                      {% if key == "live" %}
+                        {% if o.url is defined and o.url %}
+                          <a class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir</a>
+                        {% endif %}
                       {% else %}
-                        {{ o.cost is defined and o.cost != null ? 'Voir ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }}
+                        <a class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier</a>
                       {% endif %}
-                    </button>
-                    {% if o.tags.originalprice is defined and o.tags.originalprice and o.cost %}
-                      <span class="sold">au lieu de <del>{{o.tags.originalprice|number_format(2, ',') ~ '€'}}</del><br><mark>      avant-première -{{o.cost|sold_perc(o.tags.originalprice)~'%' }}</mark> </span>
-                    {% endif %}
-                  {% endif %}
-                  <br/>
-                  {% if key == 'coming_soon' %}
-                    {% if o.starttime is defined and o.starttime|comingsoon %}
-                      <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{o.starttime|comingsoon}}</span>
-                    {% elseif o.broadcasttime is defined %}
-                      <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{o.broadcasttime|comingsoon}}</span>
-                    {% endif %}
-                  {% endif %}
-                  {% if o_access.name == 'TV' %}
-                    {% if key == 'plays'  %}
-                      <span class="ms-reminder">Live</span>
-                      <i class="glyphicon glyphicon-time"></i>
-                    {% elseif o.has_replay and o.broadcasttime|remainingtv %}
-                      <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
-                    {% elseif o.broadcasttime|timeleft %}
-                      <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o_access.name == 'TV' ? 'Encore' : 'Dans' }} {{ o.broadcasttime|timeleft }}</span>
-                    {% endif %}
-                  {% elseif o.endtime is defined and o.endtime|remainingreplay %}
-                    <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
-                  {% endif %}
-
-                </td>
-
-                <td class="episode" colspan="2">
-                  {% if o.title is defined and o.title %}
-                    <p><strong>{{ o.title }}</strong><br><span>{% if o.description|length > 57 %}{{ o.description|slice(0, 56)}}...{% else %}{{ o.description}}{% endif %}</span></p>
-                  {% elseif o_episode and o_episode.title %}
-                    <p><strong>{{ o_episode.title }}</strong>
-                      {%  if o_access.name not in ['Bonus','Extrait'] %}
-                        {% set episode_title %}
-                        {% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}
-                        {% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}
-                        {% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}
-                        {% endset %}
-                        {% if o_episode.season_number is defined or 
-                              o_episode.episode_number is defined or 
-                              o_episode.part_number is defined %}
-                          {% if episode_title != o_episode.title %}<br>{{ episode_title }}{% endif %}
+                    {% elseif program.player and o.id == program.player.id %}
+                      <button type="button" class="btn btn-voir disabled">Lecture en cours</button>
+                    {% elseif key != "coming_soon"%}
+                      <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;
+                        {% if key == "dvd" %}
+                          {{ o.cost is defined and o.cost != null ? 'Acheter ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Acheter' }} 
+                        {% elseif o.buy_id is defined and o.buy_id %}
+                          {{ o.cost is defined and o.cost != null ? 'A partir de ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }} 
+                        {% else %}
+                          {{ o.cost is defined and o.cost != null ? 'Voir ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }}
                         {% endif %}
+                      </button>
+                      {% if o.tags.originalprice is defined and o.tags.originalprice and o.cost %}
+                        <span class="sold">au lieu de <del>{{o.tags.originalprice|number_format(2, ',') ~ '€'}}</del><br><mark>      avant-première -{{o.cost|sold_perc(o.tags.originalprice)~'%' }}</mark> </span>
                       {% endif %}
-                    </p>
-                  {% endif %}
-                  <div>
-                    {% if o_access.name in ['Vidéo', 'Archive'] and 
-                          o.broadcasttime is defined and 
-                          o.broadcasttime and
-                          o.cost == 0 %}
-                      <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate('', 'date') }}</time>
                     {% endif %}
-                  </div>
-                </td>
+                    <br/>
+                    {% if key == 'coming_soon' %}
+                      {% if o.starttime is defined and o.starttime|comingsoon %}
+                        <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{o.starttime|comingsoon}}</span>
+                      {% elseif o.broadcasttime is defined %}
+                        <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{o.broadcasttime|comingsoon}}</span>
+                      {% endif %}
+                    {% endif %}
+                    {% if o_access.name == 'TV' %}
+                      {% if key == 'plays'  %}
+                        <span class="ms-reminder">Live</span>
+                        <i class="glyphicon glyphicon-time"></i>
+                      {% elseif o.has_replay and o.broadcasttime|remainingtv %}
+                        <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
+                      {% elseif o.broadcasttime|timeleft %}
+                        <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o_access.name == 'TV' ? 'Encore' : 'Dans' }} {{ o.broadcasttime|timeleft }}</span>
+                      {% endif %}
+                    {% elseif o.endtime is defined and o.endtime|remainingreplay %}
+                      <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
+                    {% endif %}
 
-                {#% if o_access.name not in ['Vidéo','Archive','Extrait','Bonus'] or o.cost %#}
-                <td class="price{{ o.cost is defined and o.cost ? ' price-vod' : '' }} big">
-                  {% if (o.cost is defined and o.cost) or 
-                        o_access.name in ['Vidéo','Archive','Extrait','Bonus'] or
-                        'dvd' in o_access.name|lower or
-                        'bluray' in o_access.name|lower  %}
-                    <div class="rent">
-                      {% if o_access.name != 'Extrait' and o_access.name != 'Bonus' %}
-                        {{ o_access.name }}
-                      {% endif %}
-                      {% if o.buy_id is defined and o.buy_id %}
-                       & Achat
-                      {% endif %}
-                      {% if o.tags.device is defined and o_access.name != 'Extrait' and o_access.name != 'Bonus' %}
-                        <i class="glyphicon glyphicon-info-sign" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ o.tags.device|replace({',': ', '}) }}" ></i>
+                  </td>
+
+                  <td class="episode" colspan="2">
+                    {% if o.title is defined and o.title %}
+                      <p><strong>{{ o.title }}</strong><br><span>{% if o.description|length > 57 %}{{ o.description|slice(0, 56)}}...{% else %}{{ o.description}}{% endif %}</span></p>
+                    {% elseif o_episode and o_episode.title %}
+                      <p><strong>{{ o_episode.title }}</strong>
+                        {%  if o_access.name not in ['Bonus','Extrait'] %}
+                          {% set episode_title %}
+                          {% if o_episode.season_number is defined %}Saison {{ o_episode.season_number }}{% endif %}
+                          {% if o_episode.episode_number is defined %} Ep. {{ o_episode.episode_number }}{% endif %}
+                          {% if o_episode.part_number is defined %} Partie {{ o_episode.part_number }}{% endif %}
+                          {% endset %}
+                          {% if o_episode.season_number is defined or 
+                                o_episode.episode_number is defined or 
+                                o_episode.part_number is defined %}
+                            {% if episode_title != o_episode.title %}<br>{{ episode_title }}{% endif %}
+                          {% endif %}
+                        {% endif %}
+                      </p>
+                    {% endif %}
+                    <div>
+                      {% if o_access.name in ['Vidéo', 'Archive'] and 
+                            o.broadcasttime is defined and 
+                            o.broadcasttime and
+                            o.cost == 0 %}
+                        <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate('', 'date') }}</time>
                       {% endif %}
                     </div>
-                  {% elseif o_access.name in ['Live', 'TV', 'Replay'] %}
-                    <div class="rent">
-                      <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate(o_access.name) }}</time>
-                    </div>
-                  {% endif %}
+                  </td>
 
-                  {% if (o.versions is defined and o.versions|to_array|length) or 
-                        (o.tags is defined and o.tags|to_array|length) %}
-                    <div class="ms-versions">
-                      {% if o.tags.device is defined and (o_access.name == 'Extrait' or o_access.name == 'Bonus') %}
-                        <i class="glyphicon glyphicon-info-sign" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ o.tags.device|replace({',': ', '}) }}" ></i>&nbsp;
-                      {% endif %}
-                      {% if o.cost is defined and o.cost and o.cost != null and program.duration %}
-                        <span>{{program.duration}} min, </span> 
-                      {% endif %}
-                      {% if o.deporte is defined and o.deporte and o.versions is defined %}
-                        <span>{{ o.versions|to_array|keys|join(', ') }}</span>
-                      {% elseif o.tags is defined and o.tags.version is defined %}
-                        <span>{{ o.tags.version|replace({',': ', '}) }}</span>
-                      {% endif %}
-
-                      {% if o.tags is defined and o.tags|length %}
-                        {% if o.tags.HD is defined %}
-                          <i class="glyphicon glyphicon-hd-video"></i>
+                  {#% if o_access.name not in ['Vidéo','Archive','Extrait','Bonus'] or o.cost %#}
+                  <td class="price{{ o.cost is defined and o.cost ? ' price-vod' : '' }} big">
+                    {% if (o.cost is defined and o.cost) or 
+                          o_access.name in ['Vidéo','Archive','Extrait','Bonus'] or
+                          'dvd' in o_access.name|lower or
+                          'bluray' in o_access.name|lower  %}
+                      <div class="rent">
+                        {% if o_access.name != 'Extrait' and o_access.name != 'Bonus' %}
+                          {{ o_access.name }}
                         {% endif %}
-                        {% if o.tags.format is defined %}
-                          {{ o.tags.format|replace({'SD': '<i class="glyphicon glyphicon-sd-video"></i>'})|raw }}
+                        {% if o.buy_id is defined and o.buy_id %}
+                         & Achat
                         {% endif %}
-                      {% endif %}
-                    </div>
-                  {% endif %}
-                </td>
-             {#% endif %#}
+                        {% if o.tags.device is defined and o_access.name != 'Extrait' and o_access.name != 'Bonus' %}
+                          <i class="glyphicon glyphicon-info-sign" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ o.tags.device|replace({',': ', '}) }}" ></i>
+                        {% endif %}
+                      </div>
+                    {% elseif o_access.name in ['Live', 'TV', 'Replay'] %}
+                      <div class="rent">
+                        <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate(o_access.name) }}</time>
+                      </div>
+                    {% endif %}
 
-                <td class="channel">
-                  <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture|replace({'/medias': '/t/medias'}) }}{% elseif o_episode and o_access.name in ['Replay'] and o_episode.picture and o_episode.picture|pic_filter != program.picture | pic_filter %}{{o_episode.picture}} {% else %}{{ o_channel.img|replace({'80//': '80/'}) }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
-                </td>
-              </tr>
+                    {% if (o.versions is defined and o.versions|to_array|length) or 
+                          (o.tags is defined and o.tags|to_array|length) %}
+                      <div class="ms-versions">
+                        {% if o.tags.device is defined and (o_access.name == 'Extrait' or o_access.name == 'Bonus') %}
+                          <i class="glyphicon glyphicon-info-sign" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ o.tags.device|replace({',': ', '}) }}" ></i>&nbsp;
+                        {% endif %}
+                        {% if o.cost is defined and o.cost and o.cost != null and program.duration %}
+                          <span>{{program.duration}} min, </span> 
+                        {% endif %}
+                        {% if o.deporte is defined and o.deporte and o.versions is defined %}
+                          <span>{{ o.versions|to_array|keys|join(', ') }}</span>
+                        {% elseif o.tags is defined and o.tags.version is defined %}
+                          <span>{{ o.tags.version|replace({',': ', '}) }}</span>
+                        {% endif %}
 
-            {% endfor %}
+                        {% if o.tags is defined and o.tags|length %}
+                          {% if o.tags.HD is defined %}
+                            <i class="glyphicon glyphicon-hd-video"></i>
+                          {% endif %}
+                          {% if o.tags.format is defined %}
+                            {{ o.tags.format|replace({'SD': '<i class="glyphicon glyphicon-sd-video"></i>'})|raw }}
+                          {% endif %}
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </td>
+               {#% endif %#}
+
+                  <td class="channel">
+                    <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture|replace({'/medias': '/t/medias'}) }}{% elseif o_episode and o_access.name in ['Replay'] and o_episode.picture and o_episode.picture|pic_filter != program.picture | pic_filter %}{{o_episode.picture}} {% else %}{{ o_channel.img|replace({'80//': '80/'}) }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
+                  </td>
+                </tr>
+
+              {% endfor %}
+
+            {% endif %}
+
+            
           </tbody>
         </table>
       {% endif %}

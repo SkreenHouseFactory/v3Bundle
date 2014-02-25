@@ -399,7 +399,7 @@ class ProgramController extends Controller
             'cut' => 'Extraits',
         );
 
-        $videosCount = 0;
+        $videosCount = isset($data->teaser) ? 1 : 0;
         foreach ($videosOffres as $type => $value) {
           if (isset($data->offers[$type])) {
             $videosCount = $videosCount + count((array)$data->offers[$type]);

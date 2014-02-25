@@ -39,7 +39,7 @@
       <div class="bande_couleur_degrade">
         <div class="container">
           <div class="row">
-            <p>Soyez averti des prochaines diffusions (Tv, Replay, Ciné, VOD).</p>
+            <p>Soyez averti des prochaines diffusions (TV, Replay, Ciné, VOD).</p>
             <p>Partagez vos listes avec vos amis et suivez ce qu'ils regardent.</p>
           </div>
           <div class="row">
@@ -92,29 +92,37 @@
           <div class="col-xs-11 contents">
             {# Onglets #}
             <ul class="row" id="onglets">
-              <li class="active col-xs-5">{# Voir #}
+              <li class="col-xs-5{% if voir.count > 0 %} active{% endif %}">{# Voir #}
                 <a href="#voir" data-toggle="tab">
                   <div class="row">
-                    <div class="col-xs-16">VOIR EN ENTIER
+                    <div class="col-xs-16">VOIR
                       {% if voir.count > 0 %}
                         ({{ voir.count }})
                       {% endif %}
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-xs-16">en entier
+                    </div>
+                  </div>
                 </a>
               </li>
-              <li class="col-xs-6">{# Vidéos #}
+              <li class="col-xs-6{% if voir.count == 0 and videos.count > 0 %} active{% endif %}">{# Vidéos #}
                 <a href="#videos" data-toggle="tab">
                   <div class="row">
-                    <div class="col-xs-16">+ DE VIDEOS BONUS
+                    <div class="col-xs-16">+ DE VIDEOS
                       {% if videos.count > 0 %}
                         ({{ videos.count }})
                       {% endif %}
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-xs-16">extraits & bonus
+                    </div>
+                  </div>
                 </a>
               </li>
-              <li class="col-xs-5">{# Infos #}
+              <li class="col-xs-5{% if voir.count == 0 and videos.count == 0 %} active{% endif %}">{# Infos #}
                 <a href="#infos" data-toggle="tab">
                   <div class="row">
                     <div class="col-xs-16">INFOS</div>
@@ -125,30 +133,30 @@
             {# Contenus #}
             <div class="tab-content">
               {# Contenu Voir #}
-              <div class="tab-pane active row" id="voir">
+              <div class="tab-pane row{% if voir.count > 0 %} active{% endif %}" id="voir">
                 {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_voir.html.twig' %}
               </div>
               {# Contenu Vidéos #}
-              <div class="tab-pane row" id="videos">
+              <div class="tab-pane row{% if voir.count == 0 and videos.count > 0 %} active{% endif %}" id="videos">
                 {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_videos.html.twig' %}
               </div>
               {# Contenu Infos #}
-              <div class="tab-pane row" id="infos">
+              <div class="tab-pane row{% if voir.count == 0 and videos.count == 0 %} active{% endif %}" id="infos">
                 {# Affichage pour les fiches Saison seule #}
                 {% if program.season_number is defined and program.episode_number is not defined %}
-                  <div class="sous-menu">
+                  {# <div class="sous-menu">
                     <div class="btn-group">
                       <a href="#program-episodes-saison" class="btn btn-default btn-sm">Les épisodes de la saison {{ program.season_number }}</a>
                       <a href="#program-episodes" class="btn btn-default btn-sm">Toutes les saisons</a>
                     </div>
-                  </div>
+                  </div> #}
                   {# Episodes de la saison #}
                   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes-saison.html.twig' %}
                   {# Tous les épisodes #}
                   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes.html.twig' %}
                 {# Affichage pour les fiches d'épisodes #}
                 {% elseif program.season_number is defined and program.episode_number is defined %}
-                  <div class="sous-menu">
+                  {# <div class="sous-menu">
                     <div class="btn-group">
                       <a href="#program-synopsis" class="btn btn-default btn-sm">Synopsis</a>
                       {% if program.casting is defined and program.casting|to_array|length %}
@@ -157,7 +165,7 @@
                       <a href="#program-episodes-saison" class="btn btn-default btn-sm">Les épisodes de la saison {{ program.season_number }}</a>
                       <a href="#program-episodes" class="btn btn-default btn-sm">Toutes les saisons</a>
                     </div>
-                  </div>
+                  </div> #}
                   {# Synopsis #}
                   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' %}
                   {# Casting #}
@@ -168,7 +176,7 @@
                   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes.html.twig' %}
                 {# Affichage pour toutes les autres fiches #}
                 {% else %}
-                  <div class="sous-menu">
+                  {# <div class="sous-menu">
                     <div class="btn-group">
                       {% if program.episode_list is defined and program.seasons is not defined %}
                         <a href="#program-episodes" class="btn btn-default btn-sm">Tous les épisodes</a>
@@ -180,7 +188,7 @@
                         <a href="#program-casting" class="btn btn-default btn-sm">Casting</a>
                       {% endif %}
                     </div>
-                  </div>
+                  </div> #}
                   {# Episodes #}
                   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes.html.twig' %}
                   {# Synopsis #}
@@ -196,7 +204,6 @@
               {# Chaînes sur le même thème #}
               {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_chaines-thema.html.twig' %}
               {# Chaînes éditorialisées #}
-              <p class="ms-surtitre">À voir en ce moment</p>
               <ul class="channel_module_width">
                 <li>
                   <a class="channel_link" href="/les-inconnus/">

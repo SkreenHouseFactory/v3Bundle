@@ -9,6 +9,9 @@
           <img src="{{ r.picture }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
         </a>
       </li>
+      {% if loop.last %}
+        <li class="separator"></li>
+      {% endif %}
     {% endfor %}
   </ul>
 {% endif %}

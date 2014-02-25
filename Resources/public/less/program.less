@@ -95,7 +95,7 @@
        text-decoration: none;
      }
      span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal {
-      color: #000000;
+      color: #6D6D6D;
       display: inline-block;
       &:hover{
         color: @bluemaincolor;
@@ -609,6 +609,19 @@ html:not(.touch){
       }
     }
   }
+  #view-program {
+    .tab-pane:not(#coming_soon){
+      table {
+        tr {
+          &:hover {
+            td.channel span.glyphicon {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 
@@ -672,6 +685,7 @@ html:not(.touch){
   }
 }
 
+// Nouvelle fiche programme
 #view-program {
   .row .col-xs-5.shareblock {
     margin-top: 13px;
@@ -681,6 +695,9 @@ html:not(.touch){
     border: 5px solid #f6f6f6;
     background-color: white;
     margin: 5px 0 0 0;
+    .alert-success {
+      margin-top: 13px;
+    }
     > div {
       height: 50px;
     }
@@ -689,6 +706,10 @@ html:not(.touch){
         height: 100%;
         width: 100%;
         min-width: 0;
+        .glyphicon {
+          right: 16px;
+          font-size: 20px;
+        }
       }
     }
     .col-xs-3 {
@@ -707,7 +728,7 @@ html:not(.touch){
       }
     }
     .col-xs-7 {
-      padding-top: 0;
+      padding-top: 10px;
       line-height: normal;
       .row:first-child {
         color: @sk-blue;
@@ -764,9 +785,10 @@ html:not(.touch){
         .col-xs-5 {
           .col-xs-16.ajout {
             height: 58px;
+            padding-top: 15px;
             .btn-suivre {
-              height: 58px;
-              line-height: 49px;
+              height: 50px;
+              line-height: 40px;
               background-color: white;
               border: none;
               color: #f39c12;
@@ -777,6 +799,11 @@ html:not(.touch){
                 border: #ffcc7c 1px solid;
                 color: #FFFFFF;
               }
+            }
+            .btn-plus:before {
+              font-size: 49px;
+              left: -30px;
+              line-height: inherit;
             }
           }
           .col-xs-16 {
@@ -825,6 +852,10 @@ html:not(.touch){
             font-weight: bold;
           }
         }
+      }
+      .row .col-xs-4:first-child a img {
+        max-height: 35px;
+        margin-top: 15px;
       }
     }
     a {
@@ -876,9 +907,9 @@ html:not(.touch){
           border-left: 1px solid @sk-blue;
         }
         &.active {
-          -moz-box-shadow: 0px -2px 1px #999;
-          -webkit-box-shadow : 0px -2px 1px #999;
-          box-shadow: 0px -2px 1px #999;
+          -moz-box-shadow: 0px -3px 3px #999;
+          -webkit-box-shadow : 0px -3px 3px #999;
+          box-shadow: 0px -3px 3px #999;
           background-color: white;
           a .row {
             color: #333;
@@ -892,11 +923,13 @@ html:not(.touch){
           text-decoration: none;
           height: 45px;
           display: block;
-          padding-top: 15px;
+          padding-top: 0px;
+          text-align: center;
+          font-size: 15px;
           .row:first-child {
             .col-xs-16 {
               font-weight: bold;
-              font-size: 1.3em;
+              font-size: 19px;
             }
           }
         }
@@ -906,9 +939,9 @@ html:not(.touch){
       margin-left: -15px;
       margin-right: -15px;
       padding: 15px 15px;
-      -moz-box-shadow: 0px 0px 1px #999;
-      -webkit-box-shadow : 0px 0px 1px #999;
-      box-shadow: 0px 0px 1px #999;
+      -moz-box-shadow: 0px 0px 3px #999;
+      -webkit-box-shadow : 0px 0px 3px #999;
+      box-shadow: 0px 0px 3px #999;
       .sous-menu {
         text-align: center;
         a {
@@ -929,7 +962,7 @@ html:not(.touch){
                 text-decoration: none;
               }
               span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal {
-                color: #000000;
+                color: #6D6D6D;
                 display: inline-block;
                 &:hover{
                   color: @bluemaincolor;
@@ -947,6 +980,7 @@ html:not(.touch){
       }
       .tab-pane .panel-synopsis {
         position: static;
+        min-height: inherit;
       }
       .panel {
         position: relative;
@@ -1011,6 +1045,7 @@ html:not(.touch){
           height: 35px;
           line-height: 30px;
           padding: 4px 15px;
+          color: #6D6D6D;
           &.season {
             background-color: white;
           }
@@ -1047,6 +1082,26 @@ html:not(.touch){
               &.bonus, &.cut {
                 td.channel {
                   width: 170px;
+                }
+              }
+              &.bonus, &.cut, &.ba {
+                td.channel {
+                  position: relative;
+                  .glyphicon {
+                    position: absolute;
+                    z-index: 1;
+                    font-size: 40px;
+                    color: white;
+                    top: 50%;
+                    margin-top: -20px;
+                    left: 50%;
+                    margin-left: -20px;
+                    opacity: 0.7;
+                  }
+                }
+                td.episode {
+                  font-size: 17px;
+                  padding-left: 10px;
                 }
                 td.price {
                   width: 110px;
@@ -1153,9 +1208,10 @@ html:not(.touch){
       list-style: none;
       li a {
         margin-bottom: 10px;
-        -moz-box-shadow: 1px 1px 5px 1px #666;
-        -webkit-box-shadow: 1px 1px 5px 1px #666;
-        box-shadow: 1px 1px 5px 1px #666;
+      }
+      li.separator {
+        border-bottom: 2px solid #e4e4e4;
+        margin-bottom: 10px;
       }
     }
   }
