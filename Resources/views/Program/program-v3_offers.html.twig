@@ -32,7 +32,9 @@
               <p>{{ program.title }} : la bande-annonce</p>
             </td>
             <td class="price big">
-              des infos sur la ba ?
+              <div class="ms-versions">
+                <i class="glyphicon glyphicon-info-sign" data-placement="bottom" data-toggle="tooltip" data-original-title="PC Mac, iOS, Android, Google TV"></i>{% if program.teaser.versions is defined and program.teaser.versions|to_array|length %}&nbsp;<span>{{ program.teaser.versions|to_array|keys|join(', ') }}</span>{% endif %}
+              </div>
             </td>
           </tr>
         </tbody>
