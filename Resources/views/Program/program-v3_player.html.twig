@@ -1,0 +1,132 @@
+{# Player + Affiche #}
+<div class="row playwrap">
+
+  {# Player #}
+  <div class="col-xs-11">
+    <div id="player">
+      {% include 'SkreenHouseFactoryV3Bundle:Program:_program-player.html.twig' %}
+    </div>
+  </div>
+  {# Affiche #}
+  <div class="col-xs-5">
+    <div id="affiche">
+      {% if 'missing' not in program.picture %}
+        <a class="btn" data-big-picture="{{ ('<img src="' ~ (program.picture|replace({'273/368/' : '450/'})) ~ '" alt="' ~ program.title ~ '" />')|escape }}"><i class="glyphicon glyphicon-zoom-in"></i></a>
+      {% endif %}
+      <img src="{{ program.picture }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  {# Meilleure offre #}
+  {% if program.best_offer.id is defined %}
+    {% set inconnus_ids = [4941177,4938680,5300091,5300092,5300093,5300095,5300097,4941165,4941207] %}
+    {% set o = program.best_offer %}
+    {% set o_channel = program.best_offer.channel %}
+    {% set o_access = program.best_offer.access %}
+    {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
+    <div class="col-xs-11">
+      <div class="row best-offer player-stop {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}">
+        {# Bouton Voir #}
+        <div class="col-xs-3">
+          {% if o_access.name in ['TV'] and 
+                o_channel.live is defined and 
+                o_channel.live.player is defined and 
+                o_channel.live.player and
+                o.is_live is defined and
+                o.is_live  %}
+            <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir le direct</button>
+          {% elseif o_access.name in ['TV'] %}
+            {# {% if key == "live" %}
+              {% if o.url is defined and o.url %}
+                <a class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir</a>
+              {% endif %}
+            {% else %} #}
+              <a class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier</a>
+            {# {% endif %} #}
+          {% elseif program.player and o.id == program.player.id %}
+            <button type="button" class="btn btn-voir disabled">Lecture en cours</button>
+          {% else %}
+          {# {% elseif key != "coming_soon"%} #}
+            <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;
+              {# {% if key == "dvd" %}
+                {{ o.cost is defined and o.cost != null ? 'Acheter ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Acheter' }} #} 
+              {% if o.buy_id is defined and o.buy_id %}
+                {# {{ o.cost is defined and o.cost != null ? 'A partir de ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }} #}
+                Voir
+              {% else %}
+                {# {{ o.cost is defined and o.cost != null ? 'Voir ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }} #}Voir
+              {% endif %}
+            </button>
+            {% if o.tags.originalprice is defined and o.tags.originalprice and o.cost %}
+              <span class="sold">au lieu de <del>{{o.tags.originalprice|number_format(2, ',') ~ '€'}}</del><br><mark>      avant-première -{{o.cost|sold_perc(o.tags.originalprice)~'%' }}</mark> </span>
+            {% endif %}
+          {% endif %}
+          {# <br/> #}
+          {# {% if key == 'coming_soon' %}
+            {% if o.starttime is defined and o.starttime|comingsoon %}
+              <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{o.starttime|comingsoon}}</span>
+            {% elseif o.broadcasttime is defined %}
+              <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{o.broadcasttime|comingsoon}}</span>
+            {% endif %}
+          {% endif %} #}
+          {# {% if o_access.name == 'TV' %}
+            {% if key == 'plays'  %}
+              <span class="ms-reminder">Live</span>
+              <i class="glyphicon glyphicon-time"></i>
+            {% elseif o.has_replay and o.broadcasttime|remainingtv %}
+              <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
+            {% elseif o.broadcasttime|timeleft %}
+              <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o_access.name == 'TV' ? 'Encore' : 'Dans' }} {{ o.broadcasttime|timeleft }}</span>
+            {% endif %}
+          {% elseif o.endtime is defined and o.endtime|remainingreplay %}
+            <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
+          {% endif %} #}
+          <!-- <button class="btn btn-voir">
+            <i class="glyphicon glyphicon-play"></i>
+            &nbsp;Voir (acheté)
+          </button> -->
+        </div>
+        {# Textes offre #}
+        <div class="col-xs-7">
+          <div class="row">
+            {# Type d'offre (intégralité, etc.) #}
+            <div class="col-xs-16">{{ o.dispo }}</div>
+          </div>
+          <div class="row">
+            {# Descriptif offre #}
+            <div class="col-xs-16"><span>{{ o_access.name }} |</span><span>{% if program.duration %} {{ program.duration }} mn. {% endif %}{% if o.tags.version is defined %}{{ o.tags.version }} {% endif %}{% if o.tags.HD is defined %} / {{ o.tags.HD }}{% endif %}</span></div>
+          </div>
+        </div>
+        {# Prix #}
+        <div class="col-xs-3 price">{% if o.cost is defined and o.cost is not null and o.cost != "-" %}{{ o.cost }}&nbsp;€{% endif %}</div>
+        {# Logo Fournisseur #}
+        <div class="col-xs-3">
+          <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture|replace({'/medias': '/t/medias'}) }}{% elseif o_episode and o_access.name in ['Replay'] and o_episode.picture and o_episode.picture|pic_filter != program.picture | pic_filter %}{{o_episode.picture}} {% else %}{{ o_channel.img|replace({'80//': 'x/50/'}) }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="col-xs-11">
+      <div class="row best-offer-empty">
+        <div>
+          {% if program.episodeof is defined %}
+            <p>Cet épisode n'est pas diffusé pour le moment.</p>
+            <p>Ajoutez <strong>{{ program.episodeof.title }}</strong> à vos listes, pour être averti dès qu'un épisode est diffusé.</p>
+          {% elseif program.format and program.format.name in ['Film','Documentaire'] %}
+            <p><strong>{{ program.title }}</strong> n'est disponible sur aucune plateforme légale.</p>
+            <p>Avec mySkreen, ajoutez ce programme à vos listes pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !</p>
+          {% else %}
+            <p><strong>{{ program.title }}</strong> n'est pas diffusé pour le moment.</p>
+            <p>Avec mySkreen, ajoutez ce programme à vos listes pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {# ShareBlock #}
+  <div class="col-xs-5 shareblock">
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: program.twitter_msg is defined ? program.twitter_msg : 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?', fb_layout: 'box_count', tw_layout: 'vertical', g_size: 'tall', g_annotation: 'bubble' } %}
+  </div>
+</div>

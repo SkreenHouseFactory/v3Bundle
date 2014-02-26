@@ -8,7 +8,7 @@
     min-height: 480px;
     .vertical{
      .carousel-inner{
-      height:350px  !important;
+      height:365px  !important;
     }
   }
   .vertical.new-slider{
@@ -23,44 +23,47 @@ h2{
   text-align: center;
 }
 .controlersbtn{
- display: block;
- margin-left: auto;
- margin-right: auto;
- margin-top: 13px;
- text-align: center;
- width: 60px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1px;
+  text-align: center;
+  width: 60px;
 }
 .controlersbtn2{
- display: block;
- margin-left: auto;
- margin-right: auto;
- margin-top: 23px;
- text-align: center;
- width: 60px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 19px;
+  text-align: center;
+  width: 80px;
+  .btn.fleches {
+    width: 30px;
+    height: 30px;
+    font-size: 24px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+    opacity: 0.65;
+  }
 }
 .btn.fleches{
   padding: 0px 5px;
   border: 1px solid rgba(255,255,255,0);
   background: rgba(255,255,255,0);
   &:hover{
-    border: 1px solid #ccc;
-    background: #EBEBEB;
-
-
+    opacity: 1;
   }
 }
 .btn-grille{
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 7px;
+  margin-top: 5px;
   &:hover{
     text-decoration: none;
   }
 }
 
 .hr-like{
-  background:#f2f2f2;
   clear: both;
   height: 1px;
   margin-bottom: 2px;
@@ -77,8 +80,6 @@ h2{
 
 }
 .prog-list{
-  border: 1px solid #cacaca;
-  background: #fff;
   min-height:470px;
 
 }
@@ -89,6 +90,7 @@ h2{
     margin: 0;
     margin-bottom: 5px;
     a{
+      font-family: 'Raleway', sans-serif;
       color: #595959;
       display: block;
       width: 100%;
@@ -103,7 +105,6 @@ h2{
 }
 
 .channelselect{
-  background: #f3eeee;
   height: 470px;
   h2{
     a{
@@ -118,7 +119,7 @@ h2{
   .channel_link{
     margin-left: 10px;
     margin-right: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 
   }
 }
@@ -127,11 +128,12 @@ h2{
 
 .channel-program{
   &:hover{
-    background: @rowHoverBg;
+    background: #F8F8F8;
     cursor: pointer;
   }
   width: 100%;
-  height: 45px;
+  height: 47px;
+  padding: 1px 0;
   .icon_chaine{
     float: left;
     border: 1px solid #ede8e8;
@@ -151,15 +153,15 @@ h2{
     }
   }
   .desc_chaine{
-    //solution 1 sans centrage vertical
-    display: inline-block;
+    display: table;
     width: 70%;
-    //solution 2 bug webkits
-    // display: table-cell;
     height: 43px;
     line-height: 60px;
     vertical-align: middle;
-    
+    >div {
+      display: table-cell;
+      vertical-align: middle;
+    }
   }
   h3{
    color: #595959;
@@ -174,7 +176,7 @@ h2{
    overflow: hidden;
   }
   span{
-   color: #A19D9D;
+    color: rgba(66, 139, 202, 0.8);
     display: inline;
     float: left;
     font-size: 12px;

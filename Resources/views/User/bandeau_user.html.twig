@@ -1,0 +1,44 @@
+<div class="bandeau-user">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-4">
+        <a href="{{ path('user_programs') }}"{% if active == 'programs' %} class="active"{% endif %}>
+          <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/programs.png')}}">
+          <p>Vos programmes{% if active == 'programs' %} ({{ count }}){% endif %}</p>
+        </a>
+      </div>
+      <div class="col-xs-3">
+        <a href="{{ path('user_channels') }}"{% if active == 'channel' %} class="active"{% endif %}>
+          <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/channel.png')}}">
+          <p>Vos chaînes{% if active == 'channel' %} ({{ count }}){% endif %}</p>
+        </a>
+      </div>
+      <div class="col-xs-4">
+        <a href="{{ path('user_theaters') }}"{% if active == 'theaters' %} class="active"{% endif %}>
+          <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/cinema.png')}}">
+          <p>Vos cinémas{% if active == 'theaters' %} ({{ count }}){% endif %}</p>
+        </a>
+      </div>
+      <div class="col-xs-5">
+        <a href="{{ path('user_persons') }}"{% if active == 'persons' %} class="active"{% endif %}>
+          <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/oscar.png')}}">
+          <p>Vos acteurs / réalisateurs{% if active == 'persons' %} ({{ count }}){% endif %}</p>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4">
+        <p>Ajoutez vos programmes préférés à vos listes pour ne plus les rater</p>
+      </div>
+      <div class="col-xs-3">
+        <p>Festival de Cannes, humour, politique, etc.</p>
+      </div>
+      <div class="col-xs-4">
+        <p>Ajoutez-les salles près de chez-vous pour retrouver ici leur programmation</p>
+      </div>
+      <div class="col-xs-5">
+        <p>Soyez alerté dès qu'un de leur programme est diffusé, ou de leur actualité en vidéo</p>
+      </div>
+    </div>
+  </div>
+</div>

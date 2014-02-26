@@ -1,11 +1,5 @@
 <div class="navbar navbar-fixed-top bs-docs-nav">
   <div class="container">
-    <a class="header_apps" href="{{ path('channel', {slug: 'apps'}) }}">
-      <ul>
-        <li><img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/icon-apple27px.png') }}"></li>
-        <li><img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/icon-android27px.png') }}"></li>
-      </ul>
-    </a>
     <div class="row">
       <div class="col-xs-16">
         {# LOGO ENTETE #}
@@ -101,9 +95,9 @@
                 <span class="vod" data-link-to-replace="{{ path('user_vod')|rot13 }}"><i class="glyphicon glyphicon-film"></i> {{ 'nav.vod'|trans }}</span>
               </li>
               <li>
-                <span class="programs" data-link-to-replace="{{ path('user_programs')|rot13 }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.favoris'|trans }} <span></span></span>
+                <span class="programs" data-link-to-replace="{{ path('user_programs')|rot13 }}"><i class="glyphicon glyphicon-list"></i> Vos listes <span></span></span>
               </li>
-              <li>
+              {# <li>
                 <span class="programs" data-link-to-replace="{{ path('user_channels')|rot13 }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.channel_favoris'|trans }} <span></span></span>
               </li>
               <li>
@@ -111,7 +105,7 @@
               </li>
               <li>
                 <span class="programs" data-link-to-replace="{{ path('user_persons')|rot13 }}"><i class="glyphicon glyphicon-list"></i> {{ 'nav.person_favoris'|trans }} <span></span></span>
-              </li>
+              </li> #}
               <li>
                 <span class="account" data-link-to-replace="{{ path('user_settings')|rot13 }}"><i class="glyphicon glyphicon-user"></i> {{ 'nav.account'|trans }}</span>
               </li>

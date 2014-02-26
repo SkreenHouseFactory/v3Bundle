@@ -13,10 +13,10 @@
 
 <iframe class="pull-left" src="//www.facebook.com/plugins/like.php?href={{ url|url_encode }}&amp;width=88&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false&amp;appId=422066694500806" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px; margin-left:7px;" allowTransparency="true"></iframe>
 #}
-<div class="fb-like" style="float:left;z-index: 16;margin-left:9px;" data-share="false" data-href="{{url}}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+<div class="fb-like" style="float:left; z-index: 16; margin-left: 0;" data-share="false" data-href="{{url}}" data-layout="{{ fb_layout is defined ? fb_layout : 'button_count' }}" data-action="like" data-show-faces="false" data-share="true"></div>
 
 
-<iframe class="pull-left twitter-share" style="height: 20px;width: 94px; margin-right:0px; margin-left:5px;" allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer={{ url|url_encode }}&amp;size=m&amp;text={{ text|url_encode|replace({'+': '%20'}) }}&amp;url={{ url|url_encode }}" class="block-twitter" data-twttr-rendered="true"></iframe>
+<iframe class="pull-left twitter-share" style="height: 65px; width: 70px; margin-right:0px; margin-left: 50px;" allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer={{ url|url_encode }}&amp;size=m{{ tw_layout is defined ? '&count=' ~ tw_layout : '' }}&amp;text={{ text|url_encode|replace({'+': '%20'}) }}&amp;url={{ url|url_encode }}" class="block-twitter" data-twttr-rendered="true"></iframe>
 
-<iframe  class="g-plus-share"frameborder="0" scrolling="no" style="border-style:none; height:30px; margin: 0px 3px 0; visibility:visible; width:70px;" id="I0_share" name="I0_share" src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=fr&amp;url={{ url|url_encode }}&amp;id=I0_share" allowtransparency="true" data-gapiattached="true" title="+1"></iframe>
+<iframe  class="g-plus-share pull-right" frameborder="0" scrolling="no" style="height: 65px; border-style:none; margin: 0; visibility:visible; width:50px;" id="I0_share" name="I0_share" src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size={{ g_size is defined ? g_size : 'medium' }}{{ g_annotation is defined ? '&annotation=' ~ g_annotation : '' }}&amp;hl=fr&amp;url={{ url|url_encode }}&amp;id=I0_share" allowtransparency="true" data-gapiattached="true" title="+1"></iframe>
 

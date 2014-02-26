@@ -3,7 +3,11 @@
 {% block title %}{{ (onglet == 'channel') ? 'page.title.user.channels'|trans : 'page.title.user.programs'|trans }}{% endblock %}
 
 {% block content %}
-<div class="container">
+  {% set active %}{{ (onglet == 'channel') ? 'channel' : 'programs' }}{% endset %}
+  {% set count %}{{ programs|length }}{% endset %}
+  {% include 'SkreenHouseFactoryV3Bundle:User:bandeau_user.html.twig' with {active: active, count: count } %}
+
+  <div class="container">
 
   {# TODO POUR PUBLIER LA PLAYLIST
   <div class="btn-group pull-right" data-toggle="buttons-radio" style="margin:20px;">
@@ -12,48 +16,46 @@
   </div>
   #}
 
-  <h1>{{ onglet == 'channel' ? 'user.channels'|trans : 'user.programs'|trans }}</h1>
-  {% if programs|length == 0 %}
-    <p class="alert alert-info">Vous ne suivez {{ onglet == 'channel' ? 'aucune chaîne' : 'aucun programme' }}.</p>
-  
-  {% else %}
-
-    {% if (onglet != 'channel') %}
-    <ul class="nav nav-pills nav-alpha-client uppercase">
-      <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
-        <a href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
-      </li>
-      {% for o in onglets %}
-        <li{% if app.request.get('onglet') == o %} class="active"{% endif %}>
-          <a href="{{ path('user_programs', {onglet: o}) }}">{{ ['category.',o]|join|trans }}</a>
-        </li>
-      {% endfor %}
-    </ul>
+    <h1>{{ onglet == 'channel' ? 'user.channels'|trans : 'user.programs'|trans }}</h1>
+    {% if programs|length == 0 %}
+      <p class="alert alert-info">Vous ne suivez {{ onglet == 'channel' ? 'aucune chaîne' : 'aucun programme' }}.</p>
     {% else %}
-    <br />
+      {% if (onglet != 'channel') %}
+        <ul class="nav nav-pills nav-alpha-client uppercase">
+          <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
+            <a href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
+          </li>
+          {% for o in onglets %}
+            <li{% if app.request.get('onglet') == o %} class="active"{% endif %}>
+              <a href="{{ path('user_programs', {onglet: o}) }}">{{ ['category.',o]|join|trans }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+      <br />
+      {% endif %}
+
+      {% if programs|length > 6 %}
+        <ul class="pagination pagination-client-alpha">
+          <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a>{{ 'nav.all'|trans }}</a></li>
+          {% for l in alpha %}
+            <li{% if app.request.get('alpha') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a>{{ l }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <div id="user-programs" class="slider slider-list">
+        <ul class="items">
+          {% for p in programs %}
+            {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, 'header': '<span class="fav fav-like fav-on fav-trash badge badge-important" data-id="' ~ p.id ~ '"><i class="glyphicon glyphicon-trash"></i></span>'} %}
+          {% endfor %}
+        </ul>
+      </div>
     {% endif %}
 
-    {% if programs|length > 6 %}
-    <ul class="pagination pagination-client-alpha">
-        <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a>{{ 'nav.all'|trans }}</a></li>
-      {% for l in alpha %}
-        <li{% if app.request.get('alpha') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a>{{ l }}</a></li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-
-    <div id="user-programs" class="slider slider-list">
-      <ul class="items">
-      {% for p in programs %}
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, 'header': '<span class="fav fav-like fav-on fav-trash badge badge-important" data-id="' ~ p.id ~ '"><i class="glyphicon glyphicon-trash"></i></span>'} %}
-      {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
-
-  <br/>
-  {% render(controller('SkreenHouseFactoryV3Bundle:User:suggest', { type: 'channel' })) %}
-  {#{ render_esi(controller('SkreenHouseFactoryV3Bundle:User:suggest', { type: 'channel' })) }#}
+    <br/>
+    {% render(controller('SkreenHouseFactoryV3Bundle:User:suggest', { type: 'channel' })) %}
+    {#{ render_esi(controller('SkreenHouseFactoryV3Bundle:User:suggest', { type: 'channel' })) }#}
   
-</div>
+  </div>
 {% endblock %}

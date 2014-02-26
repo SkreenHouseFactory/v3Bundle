@@ -30,14 +30,16 @@
 
       <a href="{{ path('any_url', {url: offer.program.url|slice(1, offer.program.url|length-1)}) }}">
         <div class="channel-program">
-         <div class="icon_chaine"> 
-           <img src="{{ item.channel.img | replace({50:36}) }}" alt="regarder {{ item.channel.name }} en replay">
-         </div>
-         <div class="desc_chaine">
-           <h3>{{ offer.program.title }}</h3>
-           <span><b>{{ offer.broadcasttime | date("H:i") }}</b>  {{ offer.program.format ? " - "~offer.program.format.name : "" }}</span>
-         </div>
-       </div>
+          <div class="icon_chaine"> 
+            <img src="{{ item.channel.img | replace({50:36}) }}" alt="regarder {{ item.channel.name }} en replay">
+          </div>
+          <div class="desc_chaine">
+            <div>
+              <h3>{{ offer.program.title }}</h3>
+              <span><b>{{ offer.broadcasttime | date("H:i") }}</b>  {{ offer.program.format ? " - "~offer.program.format.name : "" }}</span>
+            </div>
+          </div>
+        </div>
      </a>
      <div class="hr-like"></div>
      {% endfor %}
