@@ -8,23 +8,26 @@
       {# categories #}
         {% if program.format and program.categories|length|to_array %}
           {% if program.categories|to_array|length == 1 and program.subcategories|to_array|length == 0 %}
-            <div id="cat-title" class="inline">Catégorie</div>
+            <div id="cat-title" class="ms-surtitre">Catégorie</div>
           {% else %}
-            <div id="cat-title" class="inline">Catégories</div>
+            <div id="cat-title" class="ms-surtitre">Catégories</div>
           {% endif %}
           {% for c in program.categories|to_array if c.seo_url is defined  %}
-            <div class="inline" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <span class="inline" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
               <a itemprop="url" class="label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}"><span itemprop="title">{{ c.name }}</span></a>
-            </div>&nbsp;
+            </span>&nbsp;
           {% endfor %}
         {% endif %}
         {% if program.format and program.subcategories|to_array|length %}
           {% for c in program.subcategories|to_array if c.seo_url is defined %}
-            <div class="inline" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <span class="inline" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
               <a itemprop="url" class="label label-default"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}"><span itemprop="title">{{ c.name }}</span></a>
-            </div>&nbsp;
+            </span>&nbsp;
           {% endfor %}
         {% endif %}
+
+
+      <div id="cat-title" class="ms-surtitre">Sur &laquo;{{ program.title }}&raquo;</div>
       {% if program.description|striptags|length < 907 %}
         <div class="text">
           {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}

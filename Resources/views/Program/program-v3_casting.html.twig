@@ -3,7 +3,7 @@
     {% if program.casting is defined and program.casting|to_array|length %}
       <div id="program-casting" class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Le Casting</h3>
+          <h3 class="panel-title">Le casting</h3>
         </div>
         <div class="tab-pane clearfix">
           {% for relation,persons in program.casting|to_array if persons|to_array|length %}
