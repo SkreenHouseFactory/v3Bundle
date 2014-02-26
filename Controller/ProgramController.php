@@ -378,18 +378,18 @@ class ProgramController extends Controller
         $request->request->set('home', $format != 'programme' ? $format : null);
 
         $voirOffres = array(
-            'live' => 'En Direct', 
-            'replay' => 'En Replay gratuit', 
-            'deporte' => 'En intégralité sur mySkreen', 
-            'tv' => 'Les prochaines diffusions TV',
-            'theater' => 'Au cinéma (horaires et salles)',
-            'itunes' => 'Télécharger sur iTunes',
-            'external' => 'Sur les autres sites', 
-            'box' => 'Sur les Box', 
-            'console' => 'Sur les consoles', 
-            'dvd' => 'DVD & Blu-Ray',
-            'archive' => 'Archives',
-            'coming_soon'=> 'Bientôt disponible',
+          'live' => 'En Direct', 
+          'replay' => 'En Replay gratuit', 
+          'deporte' => 'En intégralité sur mySkreen', 
+          'tv' => 'Les prochaines diffusions TV',
+          'theater' => 'Au cinéma (horaires et salles)',
+          'itunes' => 'Télécharger sur iTunes',
+          'external' => 'Sur les autres sites', 
+          'box' => 'Sur les Box', 
+          'console' => 'Sur les consoles', 
+          'dvd' => 'DVD & Blu-Ray',
+          'archive' => 'Archives',
+          'coming_soon'=> 'Bientôt disponible',
         );
 
         $voirCount = 0;
@@ -400,8 +400,8 @@ class ProgramController extends Controller
         }
 
         $videosOffres = array(
-            'bonus' => 'Bonus',
-            'cut' => 'Extraits',
+          'bonus' => 'Bonus',
+          'cut' => 'Extraits'
         );
 
         $videosCount = isset($data->teaser) ? 1 : 0;
