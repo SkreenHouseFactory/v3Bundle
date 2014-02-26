@@ -205,7 +205,7 @@ $(document).ready(function(){
     Skhf.session.callbackSignout = function() {
       ProgramView.unloadProgramUsersDatas($('#view-program').data('id'));
     }
-    Skhf.session.callbackSignin = function() {
+    Skhf.session.callbackSignin['program'] = function() {
       if (Skhf.session.datas.email) {
         ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
       }

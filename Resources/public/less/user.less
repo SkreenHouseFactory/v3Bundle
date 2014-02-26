@@ -67,16 +67,33 @@
     }
   }
 }
-.bandeau-user {
-  background-color: #f39c12;
+
+body[class*='view-user_'] #bandeau-listes {
   margin-top: -65px;
   padding-top: 65px;
+}
+
+#bandeau-listes {
+  background-color: #f39c12;
   color: white;
   .container {
     margin-top: 20px;
     text-align: center;
+    
     .row {
-      margin-bottom: 15px;
+      margin-bottom: 0;
+      .col-xs-4:first-child a img {
+        max-height: 35px;
+        margin-top: 15px;
+      }
+
+      &:first-child {
+        p {
+          font-family: 'Raleway', sans-serif;
+          opacity: 1;
+          font-size: 1.2em;
+        }
+      }
     }
     a {
       text-decoration: none;

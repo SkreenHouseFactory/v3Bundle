@@ -5,7 +5,7 @@
 {% block content %}
   {% set active %}{{ (onglet == 'channel') ? 'channel' : 'programs' }}{% endset %}
   {% set count %}{{ programs|length }}{% endset %}
-  {% include 'SkreenHouseFactoryV3Bundle:User:bandeau_user.html.twig' with {active: active, count: count } %}
+  {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with {active: active } %}
 
   <div class="container">
 

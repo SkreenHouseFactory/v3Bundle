@@ -4,7 +4,7 @@
 
 {% block content %}
   {% set count %}{{ theaters|length }}{% endset %}
-  {% include 'SkreenHouseFactoryV3Bundle:User:bandeau_user.html.twig' with {active: 'theaters', count: count } %}
+  {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with {active: 'theaters' } %}
 
   <div class="container">
 
