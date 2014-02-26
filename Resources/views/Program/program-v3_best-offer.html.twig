@@ -63,10 +63,10 @@
   {% elseif o.offer_type == 'tv' %}
 
     <div class="row best-offer tv player-stop no-cost {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}" data-ics-occurrence="{{ o.id }}"{% if program.episodeof is defined and program.episodeof|to_array|length > 0 %} data-episode-id="{{ program.id }}"{% endif %}>
-      <div class="col-xs-3">
+      <div class="col-xs-4">
           <button class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i>Calendrier</button>
       </div>
-      <div class="col-xs-10">
+      <div class="col-xs-9">
         <div class="row">
           <div class="col-xs-16">
             {% if program.episode_title is defined and
@@ -194,7 +194,7 @@
       </div>
     </div>
 
-  {% else %}
+  {# {% else %}
 
     <div class="row best-offer theater player-stop {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}">
       <div class="col-xs-3">
@@ -234,7 +234,7 @@
       <div class="col-xs-3">
         <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture|replace({'/medias': '/t/medias'}) }}{% elseif o_episode and o_access.name in ['Replay'] and o_episode.picture and o_episode.picture|pic_filter != program.picture | pic_filter %}{{o_episode.picture}} {% else %}{{ o_channel.img|replace({'80//': 'x/50/'}) }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
       </div>
-    </div>
+    </div> #}
 
   {% endif %}
   
