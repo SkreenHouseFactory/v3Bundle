@@ -8,8 +8,8 @@
     <div class="row">
       <div class="col-xs-16">
         {# Affichage type, année, durée #}
-        <span class="ms-format" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-          {% if program.format %}<a itemprop="url" href="{{ path('any_url', {url: program.format.seo_url|slice(1, program.format.seo_url|length-1) }) }}"><span itemprop="title">{{ program.format.name }}</span></a>{% endif %}{% if program.year is defined and program.year > 0 %} - {{ program.year }}{% endif %}{% if program.duration %}, {{ program.duration }} mn.{% endif %}
+        <span class="ms-format">
+          {% if program.format %}<a id="breadcrumb" itemprop="breadcrumb" href="{{ path('any_url', {url: program.format.seo_url|slice(1, program.format.seo_url|length-1) }) }}"><span itemprop="title">{{ program.format.name }}</span></a>{% endif %}{% if program.year is defined and program.year > 0 %} - {{ program.year }}{% endif %}{% if program.duration %}, {{ program.duration }} mn.{% endif %}
         </span>
       </div>
     </div>

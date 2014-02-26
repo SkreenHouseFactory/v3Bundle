@@ -347,9 +347,9 @@ $(document).ready(function(){
     });
 
     //episodes
-    $(document).on('click', '#program-episodes ul li a[data-season]', function(){
-      $('#program-episodes ul li').removeClass('active');
-      $(this).parent().addClass('active');
+    $(document).on('click', '#program-episodes .btn-group .btn[data-season]', function(){
+      $('#program-episodes .btn-group .btn').removeClass('active');
+      $(this).addClass('active');
       $('ul#episodes-list li:not(.hide)').addClass('hide');
       $('ul#episodes-list li.season-' + $(this).data('season')).removeClass('hide');
     })

@@ -4,8 +4,6 @@
 }
 
 
-
-
 .podTitles{
   float: left;
   clear: none;
@@ -767,7 +765,7 @@ html:not(.touch){
     }
     .col-xs-4 {
       button.btn {
-        .glyphicon-play {
+        .glyphicon-play, .glyphicon-calendar {
           right: 7px;
         }
       }
@@ -1034,6 +1032,9 @@ html:not(.touch){
       .tab-pane .panel-synopsis {
         position: static;
         min-height: inherit;
+        #cat-title {
+          padding: 0 15px;
+        }
       }
       .panel {
         position: relative;
@@ -1095,7 +1096,7 @@ html:not(.touch){
         }
         .panel-heading{
           margin: 0;
-          height: 35px;
+          min-height: 35px;
           line-height: 30px;
           padding: 4px 15px;
           color: #6D6D6D;
@@ -1104,6 +1105,10 @@ html:not(.touch){
           }
           .panel-title {
             display: inline-block;
+            &.big-seasons {
+              display: block;
+              margin-bottom: 5px;
+            }
           }
         }
         .tab-pane {
