@@ -720,33 +720,6 @@ html:not(.touch){
     border: 5px solid #f6f6f6;
     background-color: white;
     margin: 5px 0 0 0;
-    &.theater, &.external {
-      .col-xs-3 {
-        display: table;
-        .btn {
-          display: table-cell;
-          font-size: 16px;
-        }
-      }
-      .col-xs-13 {
-        display: table;
-        p {
-          display: table-cell;
-          vertical-align: middle;
-          color: @sk-blue;
-          font-size: 16px;
-        }
-      }
-    }
-    &.replay, &.tv {
-      .col-xs-10 {
-        .ms-reminder {
-          font-size: 11px;
-          font-weight: normal;
-          color: #dc2561;
-        }
-      }
-    }
     .alert-success {
       margin: 0;
       height: auto;
@@ -755,17 +728,13 @@ html:not(.touch){
       height: 50px;
     }
     .col-xs-3 {
-      button, a {
+      button {
         height: 100%;
         width: 100%;
         min-width: 0;
         .glyphicon {
           right: 16px;
           font-size: 20px;
-        }
-        .glyphicon-calendar {
-          right: 4px;
-          font-size: 18px;
         }
       }
     }
@@ -784,7 +753,7 @@ html:not(.touch){
         font-size: 2em;
       }
     }
-    .col-xs-7, .col-xs-10 {
+    .col-xs-7 {
       padding-top: 10px;
       line-height: normal;
       .row:first-child {
