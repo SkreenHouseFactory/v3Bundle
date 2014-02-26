@@ -105,7 +105,7 @@ class ProgramController extends Controller
           'channel_slider_width' => 300,
           'channel_slider_height' => 147,
           'season' => $request->get('season_number'),
-          'fields' => 'description_episode,metadata,related,related_programs,selections,offers,teaser,hashtags,tweets,empty_player,img_maxsize,svod,coming_soon,best_offer'
+          'fields' => 'description_episode,metadata,related,related_programs,selections,offers,teaser,hashtags,tweets,empty_player,img_maxsize,svod,coming_soon,best_offer,homes'
         ));
 
         //echo $api->url;exit;
