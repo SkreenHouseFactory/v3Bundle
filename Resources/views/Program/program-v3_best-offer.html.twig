@@ -4,6 +4,7 @@
 {% set o_access = program.best_offer.access %}
 {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
 {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+
 <div class="col-xs-11">
 
   {% if o.offer_type == 'theater' %}
@@ -170,7 +171,45 @@
 
   {% elseif o.offer_type == 'live' %}
 
-    GIZMO Caca !
+    <div class="row best-offer live player-stop no-cost {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['Live'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player and o.is_live is defined and o.is_live %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ 'm6replay' not in o.url and 'itunes' not in o.url ? o.url|replace({'/exit/': '/redirect/'}) : o.url }}"{% endif %}{% if program.episodeof is defined and program.episodeof|to_array|length > 0 %} data-episode-id="{{ program.id }}"{% endif %}>
+      <div class="col-xs-4">
+          <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir le direct</button>
+      </div>
+      <div class="col-xs-9">
+        <div class="row">
+          {# Type d'offre (intégralité, etc.) #}
+          <div class="col-xs-16">
+            {% if program.episode_title is defined and
+                  program.episodeof is defined  and
+                  episode_title %}
+              {{ program.episode_title }}{% if episode_title and program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %} - {{ episode_title }}{% endif %}
+            {% else %}
+              {% if program.episode_title is defined and
+                    program.episodeof is defined and
+                    program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
+                {{ program.episode_title }}
+              {% elseif program.episode_title is defined and
+                        program.episodeof is defined %}
+                {{ program.episodeof.title }}
+              {% else %}
+                {{ program.title }}
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+        <div class="row">
+          {# Descriptif offre #}
+          <div class="col-xs-16"><span>En ce moment sur {{ o_channel.name }}
+            {% if o.endtime is defined and o.endtime is not null %}
+               | </span><span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span></div>
+            {% endif %}
+        </div>
+      </div>
+      <div class="col-xs-3">
+        <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture|replace({'/medias': '/t/medias'}) }}{% elseif o_episode and o_access.name in ['Replay'] and o_episode.picture and o_episode.picture|pic_filter != program.picture | pic_filter %}{{o_episode.picture}} {% else %}{{ o_channel.img|replace({'80//': 'x/50/'}) }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
+      </div>
+        
+    </div>
 
   {% else %}
 
