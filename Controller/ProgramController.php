@@ -235,6 +235,11 @@ class ProgramController extends Controller
             //echo "\n".'addLive broadcasttime:'.date('Ymd H:i:s', $o->broadcasttime).' endtime:'.date('Ymd H:i:s', $o->endtime).' time:'.date('Ymd H:i:s', time());
             $data->offers['live'][] = $o;
             $data->best_offer = $o;
+            $data->best_offer->offer_type = 'live';
+            $data->best_offer->channel = $data->datas_offers->channels->{$o->channel_id};
+            if (isset($o->episode_id)) {
+              $data->best_offer->episode = $data->datas_offers->episodes->{$o->episode_id};
+            }
           }
         }
         $data->offers['live'] = (object)$data->offers['live'];
@@ -429,6 +434,33 @@ class ProgramController extends Controller
           // 'private'    => true,
       ));
 
+      return $response;
+    }
+
+
+    /**
+    * episodeslist
+    */
+    public function episodeslistAction(Request $request)
+    {
+      $api = $this->get('api');
+      $data = $api->fetch('program/'.$request->get('id'), array(
+        'episode_img_width' => 100,
+        'episode_img_height' => 90,
+        'episode_img_crop' => 50,
+        'fields' => 'metadata,description_episode'
+      ));
+      $template = isset($data->episodeof) ? 'v3_episodes-saison' : 'v3_episodes';
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Program:program-'.$template.'.html.twig', array(
+        'program' => $data,
+      ));
+
+      $cache_maxage = 3600;
+      $response->setCache(array(
+          'max_age'       => $cache_maxage,
+          's_maxage'      => $cache_maxage,
+          'public'        => true,
+      ));
       return $response;
     }
 }

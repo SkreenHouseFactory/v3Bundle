@@ -436,7 +436,7 @@ ul#episodes-list, ul#episodes-list-saison{
   list-style: none;
   padding-left: 0;
 
-  li{
+  li {
     display: block;
     font-size: 15px;
     margin-top: 7px;
@@ -455,11 +455,11 @@ ul#episodes-list, ul#episodes-list-saison{
         }
       }
     }
-    &.hover {
+    &.hover, &:hover {
       color: @rowHoverColor;
       background-color: @rowHoverBg;
     }
-    a{ 
+    a { 
       color: #000;
       &:hover{
         color: @bluemaincolor;
@@ -940,7 +940,7 @@ html:not(.touch){
       li {
         padding: 5px 15px 10px;
         padding-bottom: 10px;
-        border-left: 1px solid #333;
+        border-left: 1px solid #BBB;
         height: 60px;
         &:first-child {
           border-left: none;
