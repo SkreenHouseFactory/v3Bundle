@@ -24,7 +24,7 @@
           {% endif %}
           {% if program.theater_release_date is defined and
                 program.theater_release_date_timestamp < "now"|date('U') and
-                'Sortie en salles' not in program.description %}
+                ('Sortie en salles' or 'Sortie en salle') not in program.description %}
             <p>Sortie en salles le {{ program.theater_release_date }}</p>
           {% endif %}
           {{ program.description|raw }}
@@ -49,7 +49,7 @@
           {% endif %}
           {% if program.theater_release_date is defined and
                 program.theater_release_date_timestamp < "now"|date('U') and
-                'Sortie en salles' not in program.description %}
+                ('Sortie en salles' or 'Sortie en salle') not in program.description %}
             <p>Sortie en salles le {{ program.theater_release_date }}</p>
           {% endif %}
           {{ program.description|raw }}
