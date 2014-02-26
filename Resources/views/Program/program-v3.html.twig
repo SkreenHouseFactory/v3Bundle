@@ -151,11 +151,13 @@
                 </li>
               </ul>#}
               {# Homes #}
+              {% if program.homes is defined %}
               <ul class="channel_module_width">
               {% for h in program.homes|to_array %}
               <li><a class="channel_link" href="{{ h.seo_url }}"><span class="channel_texte">Sélection : {{ h.title }}</span></a></li>
               {% endfor %}
               </ul>
+              {% endif %}
           </div>
         </div>
       </div>
