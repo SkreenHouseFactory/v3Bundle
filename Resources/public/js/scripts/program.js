@@ -325,9 +325,11 @@ $(document).ready(function(){
     
     //autoload seasons
     if ($('[data-autoload-seasons]').length) {
-      $('[data-autoload-seasons]').load(
-        API.config.v3_root + '/episodes-list/' + $('[data-autoload-seasons]').data('autoload-seasons')
-      );
+      $('[data-autoload-seasons]').each(function(){
+        $(this).load(
+          API.config.v3_root + '/episodes-list/' + $(this).data('autoload-seasons')
+        );
+      });
     }
 
     //handle video mention
@@ -345,7 +347,7 @@ $(document).ready(function(){
     });
 
     //episodes
-    $('#program-episodes ul li a[data-season]').on('click', function(){
+    $(document).on('click', '#program-episodes ul li a[data-season]', function(){
       $('#program-episodes ul li').removeClass('active');
       $(this).parent().addClass('active');
       $('ul#episodes-list li:not(.hide)').addClass('hide');
