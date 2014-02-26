@@ -230,7 +230,6 @@ class ProgramController extends Controller
               $o->endtime > time()) {
             //echo "\n".'addLive broadcasttime:'.date('Ymd H:i:s', $o->broadcasttime).' endtime:'.date('Ymd H:i:s', $o->endtime).' time:'.date('Ymd H:i:s', time());
             $data->offers['live'][] = $o;
-          
           }
         }
         $data->offers['live'] = (object)$data->offers['live'];
