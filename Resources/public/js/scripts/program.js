@@ -322,6 +322,13 @@ $(document).ready(function(){
         $('.btn-suivre[data-id]').trigger('click');
       }
     }
+    
+    //autoload seasons
+    if ($('[data-autoload-seasons]').length) {
+      $('[data-autoload-seasons]').load(
+        API.config.v3_root + '/episodes-list/' + $('[data-autoload-seasons]').data('autoload-seasons')
+      );
+    }
 
     //handle video mention
     $('[data-play]').on('click', function(){
