@@ -4,8 +4,6 @@
 }
 
 
-
-
 .podTitles{
   float: left;
   clear: none;
@@ -1106,7 +1104,7 @@ html:not(.touch){
         }
         .panel-heading{
           margin: 0;
-          height: 35px;
+          min-height: 35px;
           line-height: 30px;
           padding: 4px 15px;
           color: #6D6D6D;
@@ -1115,6 +1113,10 @@ html:not(.touch){
           }
           .panel-title {
             display: inline-block;
+            &.big-seasons {
+              display: block;
+              margin-bottom: 5px;
+            }
           }
         }
         .tab-pane {
