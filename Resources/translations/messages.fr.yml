@@ -65,7 +65,7 @@ page:
         redirect: Redirection en cours ...
     description:
         home:
-            mixte: Le guide personnalisé de vos programmes. Retrouvez dans une même playlist : Vidéo à la demande (VOD) et Replay TV (télévision de rattrapage), programmes Télé, DVD, box et télé connectée.
+            mixte: Le guide personnalisé de vos programmes. Retrouvez dans une même liste : Vidéo à la demande (VOD) et Replay TV (télévision de rattrapage), programmes Télé, DVD, box et télé connectée.
             v3-vod: Video à la demande : VOD et streaming. Ne ratez plus vos programmes préférés !
             v3-tv-replay: Replay : ne ratez plus vos programmes préférés !
             v3-cine: Cinéma : ne ratez plus vos programmes préférés !
@@ -129,7 +129,7 @@ redirection:
 user:
     vod: Vidéo à la demande
     svod: Vos abonnements
-    programs: Vos playlists
+    programs: Vos programmes
     channels: Vos chaînes
     theaters: Vos cinémas
     persons: Vos acteurs/réalisateurs
@@ -148,7 +148,7 @@ user:
 notifications:
     empty: 
         title: Vous n'avez pas de notifications !
-        text: Ajoutez vos émissions et films préférés à vos playlists pour recevoir une notification lorsqu'ils sont disponibles aussi bien à la TV qu'au Cinéma en Streaming ou Dvd.
+        text: Ajoutez vos émissions et films préférés à vos listes pour recevoir une notification lorsqu'ils sont disponibles aussi bien à la TV qu'au Cinéma en Streaming ou Dvd.
 playlist:
     publish:
         private:
@@ -166,11 +166,11 @@ playlist:
         vod: Les dernières mise en ligne VOD
         channels: Les chaînes mySkreen
         friends: Vos amis regardent
-    yours: Mes playlists
-    discover: Mémorisez vos playlists
+    yours: Mes listes
+    discover: Mémorisez vos listes
     pitch: : toutes les disponibilités de vos programmes
-    trigger: Mes playlists
-    baseline: 970 000 films et programmes référencés : n'en ratez plus aucun, ajoutez-les à vos playlists !
+    trigger: Mes listes
+    baseline: 970 000 films et programmes référencés : n'en ratez plus aucun, ajoutez-les à vos listes !
     cine: En salle
     tv: A la télé
     replay: En Replay & Web
@@ -196,12 +196,12 @@ playlist:
         cine: Ne ratez plus les projections des films que vous aimez
         friends: connectez-vous avec facebook
     popover:
-        cine: Les sorties de la semaine et toute la programmation. Ajoutez vos films préférés à vos playlists pour être alerté des disponibilité VOD et des diffusions TV à venir
-        tv: Ajoutez des programmes à vos playlists et soyez alerté lorsqu'il passent à la TV
+        cine: Les sorties de la semaine et toute la programmation. Ajoutez vos films préférés à vos listes pour être alerté des disponibilité VOD et des diffusions TV à venir
+        tv: Ajoutez des programmes à vos listes et soyez alerté lorsqu'il passent à la TV
         vod: Ajoutez vos films et documentaires préférés pour les voir plus tard et/ou pour être alerté de leur diffusion aussi bien en VOD qu'à la TV ou au cinéma
         channels: Suivez les chaînes mySkreen et découvrez des univers audiovisuels
-        replay: Ajoutez vos émissions et séries préférées à vos playlists pour ne rater aucun épisode
-        friends: Inviter vos proches pour partager vos playlists avec eux.
+        replay: Ajoutez vos émissions et séries préférées à vos listes pour ne rater aucun épisode
+        friends: Inviter vos proches pour partager vos listes avec eux.
 nav:
     user:
         actors: Acteurs
@@ -213,12 +213,12 @@ nav:
     account: Vos préférences
     vod: Vos vidéos à la demande
     all: Tout
-    filter: Filtrer vos playlist
+    filter: Filtrer vos listes
     filters:
       all: Notre sélection
     menu:
         account:
-            on: Mes playlists
+            on: Mes listes
             off: Se connecter
         tv: 
             on: Allumer la TV
@@ -341,19 +341,19 @@ action:
         tv: TV
 seo:
   title:
-    add: Ajout à mes playlists
+    add: Ajout à mes listes
     play: en streaming
 slider:
   sponsor: Sponsorisé
   link.default: Zoom sur la sélection
 theaters:
     playlist:
-        title: Mes playlists : dans mes cinémas
+        title: Mes listes : dans mes cinémas
         add: Ajoutez vos cinémas
     search:
         submit: Rechercher
         geoloc: Près d'ici
-        playlist: Vos cinémas
+        playlist: Mes cinémas
         placeholder: Marseille, 75014, Alésia, …
 program:
     infos: Fiche complète
@@ -367,7 +367,7 @@ program:
             geoloc: Aucun cinéma trouvé dans les environs immédiats.
         noprogram:
             search: Aucun cinéma trouvé.
-            playlist: Aucun cinéma proposant ce film trouvé dans vos playlists.
+            playlist: Aucun cinéma proposant ce film trouvé dans vos listes.
             geoloc: Aucun cinéma trouvé dans les environs.
     unvailable: non disponible sur mySkreen
     friends:

@@ -60,7 +60,7 @@ UI = {
         if (!$('#skModal.modal .modal-message').html()) {
           $('#skModal.modal .modal-message').html(
             '<p><b>Votre compte GRATUIT en 1 clic :</b> ' +
-            'Créez vos playlists et ne ratez plus vos programmes préférés : Cinéma, TV, Replay et VOD !</p>'
+            'Créez vos listes et ne ratez plus vos programmes préférés : Cinéma, TV, Replay et VOD !</p>'
           );
         }
         $('#skModal.modal .modal-message [data-content]').popover();
@@ -255,33 +255,33 @@ UI = {
   getPlaylistMessage: function(trigger) {
     if (trigger.hasClass('fav-cinema')) {
         var content = '<b>Ne ratez plus vos séances&nbsp;!</b>' + 
-                      '<br/>En ajoutant ce cinéma à vos playlists vous saurez averti de sa programmation.';
+                      '<br/>En ajoutant ce cinéma à vos listes vous saurez averti de sa programmation.';
     } else if (trigger.hasClass('fav-epg')) {
         var content = '<b>Faites-vous un programme TV sur mesure&nbsp;!</b>' + 
-                      '<br/>En ajoutant cette chaîne à vos playlists elle apparaîtra dans votre programme TV.';
+                      '<br/>En ajoutant cette chaîne à vos listes elle apparaîtra dans votre programme TV.';
     } else if (trigger.hasClass('fav-page')) {
         var content = '<b>Ne ratez plus ' + trigger.data('channel-name') + '&nbsp;!</b>' + 
-                      '<br/>En ajoutant cette chaîne à vos playlists vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
+                      '<br/>En ajoutant cette chaîne à vos listes vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
     } else if (trigger.hasClass('fav-channel')) {
         var content = '<b>Ne ratez plus ' + trigger.data('channel-name') + '&nbsp;!</b>' + 
-                      '<br/>En ajoutant cette chaîne à vos playlists vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
+                      '<br/>En ajoutant cette chaîne à vos listes vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
     } else if (trigger.hasClass('fav-user')) {
         var content = '<b>Suivre la playlist de ' + trigger.data('channel-name') + ' &nbsp;!</b>' + 
-                      '<br/>En ajoutant cette chaîne à vos playlists vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
+                      '<br/>En ajoutant cette chaîne à vos listes vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
     } else if (trigger.hasClass('fav-person')) {
         var content = '<b>Ne ratez plus vos acteurs préférés&nbsp;!</b>' + 
-                      '<br/>En ajoutant cette personne à vos playlists vous saurez averti dès qu\'un de ses programmes sera disponible.';
+                      '<br/>En ajoutant cette personne à vos listes vous saurez averti dès qu\'un de ses programmes sera disponible.';
     } else if (trigger.hasClass('fav-search')) {
         var content = '<b>Ne ratez plus les programmes qui vous intéressent&nbsp;!</b>' + 
-                      '<br/>En ajoutant cette recherche à vos playlists vous saurez averti dès qu\'un programme correspondant sera disponible.';
+                      '<br/>En ajoutant cette recherche à vos listes vous saurez averti dès qu\'un programme correspondant sera disponible.';
     } else {
       if (trigger.parents('.actions:first').data('onglet') == 'emissions' || 
           trigger.parents('.actions:first').data('onglet') == 'series') {
         var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' +
-                      '<br/>En ajoutant ce programme à vos playlists vous serez averti dès qu\'un épisode est disponible !';
+                      '<br/>En ajoutant ce programme à vos listes vous serez averti dès qu\'un épisode est disponible !';
       } else {
         var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' + 
-                      '<br/>En ajoutant ce programme à vos playlists vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD.';
+                      '<br/>En ajoutant ce programme à vos listes vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD.';
       }
     }
     return content;
@@ -291,7 +291,7 @@ UI = {
     var content = this.getPlaylistMessage(trigger);
     trigger.popover({
       title:  function() { 
-        return 'Ajout à vos playlists'
+        return 'Ajout à mes listes'
       },
       content: content,
       html: true,
@@ -328,7 +328,7 @@ UI = {
           //console.log('Skhf.session.getNbPlaylists()' + Skhf.session.getNbPlaylists());
           if (Skhf.session.getNbPlaylists() == 0) {
             self.loadAlertUser(
-              'Bravo ! vous avez commencé vos playlists !',
+              'Bravo ! vous avez commencé vos listes !',
               'Gérez les ici !',
               6000,
               '.user-on.playlists'
@@ -349,7 +349,7 @@ UI = {
       API.trackEvent('Playlist', 'notconnected-add-' + parameter, value);
       this.auth(function(){
         console.log('UI.togglePlaylist', 'UI.auth callback', Skhf.session.datas.email);
-        $('#skModal.modal .modal-message').html('<p><b>Vos playlists <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos playlists à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b> : ' + self.getPlaylistMessage(trigger) + '</p>');
+        $('#skModal.modal .modal-message').html('<p><b>Vos listes <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos listes à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b> : ' + self.getPlaylistMessage(trigger) + '</p>');
         if (Skhf.session.datas.email) {
           self.togglePlaylist(trigger);
         }
@@ -1020,7 +1020,7 @@ UI = {
             switch (key) {
               case 'queue':
                 var items = data[key].programs;
-                titles[key] = 'Vos playlists';
+                titles[key] = 'Vos listes';
                 break;
               case 'channels':
                 var items = data[key];
@@ -1152,7 +1152,7 @@ UI = {
             e.stopPropagation();
             UI.togglePlaylist($(this));
             if (Skhf.session.datas.email) {
-              API.notification('Ajouté à vos playlists | mySkreen', $(this).parent().find('a').text());
+              API.notification('Ajouté à vos listes | mySkreen', $(this).parent().find('a').text());
             }
           });
           $('.mini-loading.mini-bar').addClass('hide');
