@@ -55,11 +55,11 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
     </ul>
   {% endif %}
 
-  <h1>{{ selection.name|raw }}{% if selection.onglet.channel.fournisseur is defined %} de {{ selection.onglet.channel.title }}{% endif %}</h1>
+  <h1 class="sk-font">{{ selection.name|raw }}{% if selection.onglet.channel.fournisseur is defined %} de {{ selection.onglet.channel.title }}{% endif %}</h1>
   
   <div id="selection-related">
   {#<a class="btn btn-large btn-inverse btn-block trigger-tv" href="#" data-couchmode="{{ {'type': 'pack', 'id': selection.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
-  
+
   <ul class="list-group">
     {% if selection.onglet.type != 'page' %}
     <li class="list-group-item list-share">
@@ -72,6 +72,32 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
   </ul>
   </div>
 
+  {% if selection.template is defined and selection.template == 'liste' %}
+  <div id="selection-programs" class="list">
+    <ul class="items">
+    {% for program in selection.programs %}
+    {% if loop.index > 1 %}<li class="divider"></li>{% endif%}
+    <li>
+      <img src="{{ program.picture }}" class="pull-left" />
+      <h2><a href="{{ program.seo_url }}">{{ program.title }}</a></h2>
+      {% if program.theater_release_date is defined %}
+      <p class="infos">Sortie en salle : {{ program.theater_release_date }}</p>
+      {% endif %}
+      <p class="infos"><a href="{{ program.format.seo_url }}">{{ program.format.name }}</a> - {{ program.categories|to_array|join(',') }}, {{ program.duration }}mn</p>
+      <p>{{ program.description|striptags|slice(0,250)|raw }}</p>
+      <p>
+        {% if program.player is defined and program.player %}
+        <span class="btn btn-primary" data-link-to-replace="{{ program.seo_url|rot13 }}"><i class="glyphicon glyphicon-play"></i> Voir la bande-annonce</span> &nbsp;
+        {% endif %}
+        {% if program.offers.theaters %}
+        <span class="btn btn-default" data-link-to-replace="{{ program.seo_url|rot13 }}"><i class="glyphicon glyphicon-map-marker"></i> Trouver une séance ({{ program.offers.theaters|split(',')|length }} salles)</span>
+        {% endif %}
+      </p>
+    </li>
+    {% endfor %}
+    </ul>
+  </div>
+  {% else %}
   <div id="selection-programs" class="slider slider-list">
     <ul class="items">
     {% for program in selection.programs %}
@@ -79,6 +105,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
     {% endfor %}
     </ul>
   </div>
+  {% endif %}
   <div id="description-seo">{{ selection.description|raw }}</div>
 </div>
 {% endblock %}

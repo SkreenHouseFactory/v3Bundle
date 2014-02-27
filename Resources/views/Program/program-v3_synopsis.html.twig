@@ -74,8 +74,7 @@
             {{program.copyright}}
           {% endif %}
           {% if program.theater_release_date is defined and
-                program.theater_release_date_timestamp < "now"|date('U') and
-                ('Sortie en salles' or 'Sortie en salle') not in program.description %}
+                ('Sortie en salles' or 'sortie en salle' or 'sorti en salle') not in program.description|lower %}
             <p>Sortie en salles le {{ program.theater_release_date }}</p>
           {% endif %}
           {{ program.description|raw }}

@@ -1,13 +1,38 @@
 #view-selection {
   padding-bottom: 0;
   h2 {
-    font-size: 25px;
+    font-size: 20px;
   }
   h3 {
     font-weight: bold;
   }
   .clear{
     width: 65%;
+  }
+  .list ul.items {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+      clear: left;
+      margin: 5px 0;
+      height: 180px;
+      img {
+        height: 100%;
+        margin-right: 10px
+      }
+      .infos {
+        color: #999;
+        margin-bottom: 3px;
+        font-size: 0.9em;
+      }
+      &.divider {
+        height: 15px;
+        border-bottom: 1px solid #eee;
+        margin: 0;
+        padding: 0;
+      }
+    }
   }
   #selection-programs {
     width: 70%;
