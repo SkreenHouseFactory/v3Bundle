@@ -60,7 +60,7 @@ $(document).ready(function(){
     FB.login(function(response) {
       if (response.authResponse) {
         // connected
-        $('#fbconnect-infos').html('<span class="alert alert-success nowrap">Connexion à vos playlists en cours...</span>');
+        $('#fbconnect-infos').html('<span class="alert alert-success nowrap">Connexion à vos listes en cours...</span>');
         fbsync();
       } else {
         // cancelled
