@@ -1,19 +1,18 @@
 {# Titre + ShareBlock #}
 <div class="row">
   {# Titre #}
-  {% set program_itemtype %}{% if program.format.name == 'Série' or 'Emission' %}TVSeries{% else %}Movie{% endif %}{% endset %}
   <div class="col-xs-11">
 
     <div class="row">
       <div class="col-xs-16">
         {# Affichage type, année, durée #}
         <span class="ms-format">
-          {% if program.format %}<span itemprop="isPartOf" itemscope itemtype="http://schema.org/CollectionPage"><a href="{{ path('any_url', {url: program.format.seo_url|slice(1, program.format.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ program.format.name }}</span></a></span>{% endif %}{% if program.year is defined and program.year > 0 %} - {{ program.year }}{% endif %}{% if program.duration %}, {{ program.duration }} mn.{% endif %}
+          {% if program.format %}<span itemscope><span id="md-ispartof" itemprop="isPartOf" itemscope itemtype="http://schema.org/CollectionPage"><a href="{{ path('any_url', {url: program.format.seo_url|slice(1, program.format.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ program.format.name }}</span></span></a></span>{% endif %}{% if program.year is defined and program.year > 0 %} - {{ program.year }}{% endif %}{% if program.duration %}, {{ program.duration }} mn.{% endif %}
         </span>
       </div>
     </div>
 
-    <div class="row" itemprop="about" itemscope itemtype="http://schema.org/{{ program_itemtype }}" itemref="">
+    <div class="row">
       <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
       <div id="fake_h1" class="col-xs-16" itemprop="name">
         {% if program.episode_title is defined and
@@ -34,6 +33,9 @@
 
     {# Gestion Episodes Séries #}
     {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+    {% if program.season_number is defined %}
+      <meta itemprop="season" itemscope itemtype="http://schema.org/TVSeason" content="Saison {{ program.season_number }}"/>
+    {% endif %}
     {% if program.episode_title is defined and
           program.episodeof is defined  and
           episode_title %}

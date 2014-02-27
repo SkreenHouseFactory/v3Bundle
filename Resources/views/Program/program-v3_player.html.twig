@@ -3,12 +3,12 @@
 
   {# Player #}
   <div class="col-xs-11">
-    <div id="player">
+    <div id="player" itemscope>
       {% include 'SkreenHouseFactoryV3Bundle:Program:_program-player.html.twig' %}
     </div>
   </div>
   {# Affiche #}
-  <div class="col-xs-5">
+  <div class="col-xs-5" itemscope>
     <div id="affiche" itemprop="primaryImageOfPage" itemscope itemtype="http://schema.org/ImageObject">
       <meta itemprop="name" content="{{ program.title }}" />
       {% if 'missing' not in program.picture %}
