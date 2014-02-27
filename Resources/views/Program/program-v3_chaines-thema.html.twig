@@ -14,4 +14,16 @@
       {% endif %}
     {% endfor %}
   </ul>
+{% else %}
+{# Chaînes éditorialisées #}
+<span class="label label-warning">A voir en ce moment</span>
+<hr/>
+<ul class="channel_module_width">
+  <li>
+    <a class="channel_link" href="/les-inconnus/">
+      <span class="channel_texte">Les Inconnus, la chaîne</span>
+      <img src="http://mskstatic.com/300/147/c/medias/photos/channel/1-les-inconnus-s.jpg?2014021509" class="channel_root" data-track-channel="Les Inconnus" alt="Les Inconnus">
+    </a>
+  </li>
+</ul>
 {% endif %}
