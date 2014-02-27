@@ -63,7 +63,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
   <ul class="list-group">
     {% if selection.onglet.type != 'page' %}
     <li class="list-group-item list-share">
-      <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ selection.seo_url, text: selection.name ~ ' sur mySkreen' } %}</div>
+      <div class="share-block clearfix">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ selection.seo_url, text: selection.name ~ ' sur mySkreen', fb_layout: 'box_count', tw_layout: 'vertical', g_size: 'tall', g_annotation: 'bubble' } %}</div>
     </li>
     {% endif %}
     {% for pack in selection.onglet.sliders|to_array %}
