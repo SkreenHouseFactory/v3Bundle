@@ -46,7 +46,7 @@
     width: 637px;
   }
   .forced-height{
-    height: 270px;
+    max-height: 270px;
     overflow-y: auto;
   }
   .ms-prog-rightback{
@@ -86,12 +86,12 @@
       }
     }
 
-    a[itemprop="url"]{
+    a[itemprop="url"], a[data-placement="right"]{
       &:hover {
        color: @bluemaincolor;
        text-decoration: none;
      }
-     span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal {
+     span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal, span {
       color: #6D6D6D;
       display: inline-block;
       &:hover{
@@ -1003,12 +1003,12 @@ html:not(.touch){
               float: left;
               width: 25%;
               margin-bottom: 10px;
-              a[itemprop="url"]{
+              a[itemprop="url"], a[data-placement="right"]{
                 &:hover {
                   color: @bluemaincolor;
                   text-decoration: none;
                 }
-                span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal {
+                span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal, span {
                   color: #6D6D6D;
                   display: inline-block;
                   &:hover{
@@ -1029,8 +1029,8 @@ html:not(.touch){
       .tab-pane .panel-synopsis {
         position: static;
         min-height: inherit;
-        #cat-title, #cat-title+div {
-          padding: 0 0 0 15px;
+        #cat-title, #cat-title+div, #categorie-title, #categorie-title+div {
+          padding: 0 15px;
         }
       }
       .panel {

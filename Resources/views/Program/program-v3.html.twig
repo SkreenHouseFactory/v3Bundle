@@ -115,6 +115,8 @@
                   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes-saison.html.twig' %}
                   {# Tous les épisodes #}
                   <div data-autoload-seasons="{{ program.episodeof ? program.episodeof.id : program.id }}"></div>
+                  {# Synopsis réduit #}
+                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' with { tab: 'season-only' } %}
 
                 {# Affichage pour les fiches d'épisodes #}
                 {% elseif program.season_number is defined and program.episode_number is defined %}

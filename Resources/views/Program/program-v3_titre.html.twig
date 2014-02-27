@@ -7,7 +7,16 @@
       <div class="col-xs-16">
         {# Affichage type, année, durée #}
         <span class="ms-format">
-          {% if program.format %}<span itemscope><span id="md-ispartof" itemprop="isPartOf" itemscope itemtype="http://schema.org/CollectionPage"><a href="{{ path('any_url', {url: program.format.seo_url|slice(1, program.format.seo_url|length-1) }) }}" itemprop="url"><span itemprop="name">{{ program.format.name }}</span></span></a></span>{% endif %}{% if program.year is defined and program.year > 0 %} - {{ program.year }}{% endif %}{% if program.duration %}, {{ program.duration }} mn.{% endif %}
+          {% if program.format %}
+            <span itemscope>
+              <span id="md-ispartof" itemprop="isPartOf" itemscope itemtype="http://schema.org/CollectionPage">
+                <a href="{{ path('any_url', {url: program.format.seo_url|slice(1, program.format.seo_url|length-1) }) }}" itemprop="url">
+                  <span itemprop="name">{{ program.format.name }}</span>
+                </a>
+              </span>
+            </span>
+          {% endif %}
+          {% if program.year is defined and program.year > 0 %} - <span itemprop="copyrightYear">{{ program.year }}</span>{% endif %}{% if program.duration %}, <time itemprop="duration" datetime="PT{{ (program.duration * 60 - 3600)|date('H-i')|replace({"-":"H"}) }}M">{{ program.duration }}</time> mn.{% endif %}
         </span>
       </div>
     </div>
@@ -34,7 +43,18 @@
     {# Gestion Episodes Séries #}
     {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
     {% if program.season_number is defined %}
-      <meta itemprop="season" itemscope itemtype="http://schema.org/TVSeason" content="Saison {{ program.season_number }}"/>
+      <span itemprop="season" itemscope itemtype="http://schema.org/TVSeason">
+        <meta itemprop="name" content="Saison {{ program.season_number }}"/>
+        <meta itemprop="seasonNumber" content="{{ program.season_number }}"/>
+        {% set numberOfEpisodes %}{{ program.seasons|to_array|first.episodes|to_array|length }}{% endset %}
+        <meta itemprop="numberOfEpisodes" content="{{ numberOfEpisodes }}">
+        {% if program.episode_number is defined %}
+          <span itemprop="episode" itemscope itemtype="http://schema.org/Episode">
+            <meta itemprop="episodeNumber" content="{{ program.episode_number }}"/>
+            <meta itemprop="name" content="{{ program.episode_title is defined ? program.episode_title : episode_title }}"/>
+          </span>
+        {% endif %}
+      </span>
     {% endif %}
     {% if program.episode_title is defined and
           program.episodeof is defined  and
