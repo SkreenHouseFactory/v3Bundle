@@ -7,7 +7,7 @@ $(document).ready(function(){
     console.log('#bandeau-listes', $('#bandeau-listes'));
     //mes listes
     if ($('#bandeau-listes').length) {
-      $('#bandeau-listes .titres > div').each(function(){
+      $('#bandeau-listes .user-on.titres > div').each(function(){
         var ids = Skhf.session.getPlaylistIds($(this).data('fav'))
         $(this).find('.badge').html(ids.length);
       })
