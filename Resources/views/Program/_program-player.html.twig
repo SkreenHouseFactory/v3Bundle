@@ -1,7 +1,6 @@
 {% if program.player is defined and program.player %}
   <a name="teaser"></a>
   <div id="program-teaser" itemprop="trailer" itemscope itemtype="http://www.schema.org/VideoObject">  
-    <meta itemprop="duration" />
     <meta itemprop="thumbnail" content="{{ program.picture }}" />
     {% if program.player_fb is defined %}
       <meta itemprop="embedURL" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
@@ -10,9 +9,8 @@
     <meta itemprop="height" content="368" />
     <meta itemprop="playerType" content="Flash" />
     <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
-    <meta itemprop="name" content="{{ program.title }}" />
+    <meta itemprop="name" content="Bande annonce - {{ program.title }}" />
     <meta itemprop="isFamilyFriendly" content=true />
-    <meta itemprop="duration" content="{{ program.duration * 60 }}" />
     {#% if program.director|to_array|length and program.director|to_array|first %}
       <span itemprop="author" itemscope itemtype="http://schema.org/Person"><link itemprop="url" href="http://www.myskreen.com{{ program.director|to_array|first.seo_url }}" /></span>
     {% endif %#}

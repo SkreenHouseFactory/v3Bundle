@@ -10,8 +10,8 @@
             <div class="casting-function">
               <h3 class="ms-surtitre">{{ relation|trans }}{{ persons|to_array|length > 1 ? 's' : '' }}</h3>
               {% for pers in persons|to_array   %}
-                <div class="{% if loop.index >= 5 %}{{ relation|replace({' ': '', '(': '', ')': ''})|lower }}_entrop collapse{% else %}in{% endif %}" itemprop="actor" itemscope itemtype="http://schema.org/Person">
-                  <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" itemprop="url" class="fav fav-person" data-name="{{ pers.name }}" data-placement="right"><span itemprop="name">{{ pers.name }}</span></a> 
+                <div class="{% if loop.index >= 5 %}{{ relation|replace({' ': '', '(': '', ')': ''})|lower }}_entrop collapse{% else %}in{% endif %}"{% if relation|md_casting != 'out' %} itemprop="{{ relation|md_casting }}" itemscope itemtype="{{ relation|md_casting == 'productionCompany' ? 'http://schema.org/Organization' : 'http://schema.org/Person' }}"{% endif %}>
+                  <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" {% if relation|md_casting != 'out' %}itemprop="url"{% endif %} class="fav fav-person" data-name="{{ pers.name }}" data-placement="right"><span {% if relation|md_casting != 'out' %}itemprop="name"{% endif %}>{{ pers.name }}</span></a> 
                 </div>
               {% endfor %}
               {% if persons|to_array|length >= 5 %}

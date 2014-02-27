@@ -52,6 +52,7 @@ class toolsExtension extends \Twig_Extension
         'count_nb_page'=> new \Twig_Filter_Method($this, 'countNbPage'),
         'extract_bgd'=> new \Twig_Filter_Method($this, 'extract_bgd'),
         'accessFromHasvod'=> new \Twig_Filter_Method($this, 'accessFromHasvod'),
+        'md_casting'=> new \Twig_Filter_Method($this, 'md_casting'),
       );
     }
 
@@ -95,6 +96,30 @@ class toolsExtension extends \Twig_Extension
     public function extract_bgd($src, $width = 1)
     {
       return 'http://mskstatic.com/extract-background.php?src='.$src.'&x=1&y=1&width='.$width.'';
+    }
+
+    public function md_casting($casting)
+    {
+      switch ($casting) {
+        case 'Réalisateur':
+          return 'director';
+          break;
+        case 'Compositeur':
+          return 'musicBy';
+          break;
+        case 'Producteur':
+          return 'producer';
+          break;
+        case 'société de production':
+          return 'productionCompany';
+          break;
+        case 'Acteur':
+          return 'actor';
+          break;
+        default:
+          return 'out';
+          break;
+      }
     }
 
     /**
