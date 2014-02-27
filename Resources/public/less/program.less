@@ -1026,11 +1026,20 @@ html:not(.touch){
             }
           }
         }
-        .tab-pane .panel-synopsis {
-          position: static;
-          min-height: inherit;
-          #cat-title {
-            padding: 0 15px;
+      }
+      .tab-pane .panel-synopsis {
+        position: static;
+        min-height: inherit;
+        #cat-title, #cat-title+div {
+          padding: 0 0 0 15px;
+        }
+      }
+      .panel {
+        position: relative;
+        padding: 0 0 0px 0;
+        &.panel-more { 
+          .tab-pane {
+            padding-bottom: 30px;
           }
         }
         .panel {

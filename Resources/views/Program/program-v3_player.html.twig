@@ -9,11 +9,12 @@
   </div>
   {# Affiche #}
   <div class="col-xs-5">
-    <div id="affiche">
+    <div id="affiche" itemprop="primaryImageOfPage" itemscope itemtype="http://schema.org/ImageObject">
+      <meta itemprop="name" content="{{ program.title }}" />
       {% if 'missing' not in program.picture %}
         <a class="btn" data-big-picture="{{ ('<img src="' ~ (program.picture|replace({'273/368/' : '450/'})) ~ '" alt="' ~ program.title ~ '" />')|escape }}"><i class="glyphicon glyphicon-zoom-in"></i></a>
       {% endif %}
-      <img src="{{ program.picture }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" />
+      <img src="{{ program.picture }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" itemprop="contentURL"/>
     </div>
   </div>
 </div>
