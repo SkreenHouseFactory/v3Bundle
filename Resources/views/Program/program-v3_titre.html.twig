@@ -41,13 +41,15 @@
     </div>
 
     {# Gestion Episodes Séries #}
-    {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+    {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% elseif program.episode_title is defined %}{{  program.episode_title }}{% endif %}{% endset %}
     {% if program.season_number is defined %}
       <span itemprop="season" itemscope itemtype="http://schema.org/TVSeason">
         <meta itemprop="name" content="Saison {{ program.season_number }}"/>
         <meta itemprop="seasonNumber" content="{{ program.season_number }}"/>
+        {% if program.seasons is defined %}
         {% set numberOfEpisodes %}{{ program.seasons|to_array|first.episodes|to_array|length }}{% endset %}
         <meta itemprop="numberOfEpisodes" content="{{ numberOfEpisodes }}">
+        {% endif %}
         {% if program.episode_number is defined %}
           <span itemprop="episode" itemscope itemtype="http://schema.org/Episode">
             <meta itemprop="episodeNumber" content="{{ program.episode_number }}"/>

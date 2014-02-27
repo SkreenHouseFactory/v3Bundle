@@ -51,7 +51,6 @@
 
     <div class="row best-offer tv player-stop no-cost {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}" data-ics-occurrence="{{ o.id }}"{% if program.episodeof is defined and program.episodeof|to_array|length > 0 %} data-episode-id="{{ program.id }}"{% endif %}>
       <div class="col-xs-4">
-          <button class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i>Calendrier</button>
       </div>
       <div class="col-xs-9">
         <div class="row">
@@ -166,8 +165,6 @@
               o.is_live is defined and
               o.is_live  %}
           <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir le direct</button>
-        {% elseif o_access.name in ['TV'] %}
-            <a class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i>&nbsp;calendrier</a>
         {% elseif program.player and o.id == program.player.id %}
           <button type="button" class="btn btn-voir disabled">Lecture en cours</button>
         {% else %}
