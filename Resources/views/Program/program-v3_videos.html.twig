@@ -2,7 +2,7 @@
 <div class="col-xs-16">
 
   {# bande annonce #}
-  {% if program.player is defined and program.player %}
+  {% if program.player is defined and program.player and program.teaser %}
     <div class="panel panel-default">
       <div class="panel-heading"><h3 class="panel-title">Bande annonce</h3></div>
       <div id="bande-annonce" class="tab-pane">
