@@ -1,6 +1,34 @@
 {# Contenu Vidéos #}
 <div class="col-xs-16">
 
+  {# bande annonce #}
+  {% if program.player is defined and program.player %}
+    <div class="panel panel-default">
+      <div class="panel-heading"><h3 class="panel-title">Bande annonce</h3></div>
+      <div id="bande-annonce" class="tab-pane">
+        <table>
+        {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offer-video.html.twig' with {
+          o: {
+            id: program.teaser.id,
+            versions: program.teaser.versions,
+            title: program.title ~ ' : la bande-annonce',
+            picture: program.picture|replace({'273/368': '160/85'}),
+            description: ''
+          }, 
+          o_episode: program, 
+          o_channel: {name: ''},
+          o_access: {name: 'Bande annonce'},
+          program: program, 
+          btn_deploy_offers: 0,
+          key: 'ba',
+          loop_offset: 0,
+          loop: {index: 0}
+        } %}
+        </table>
+      </div>
+    </div>
+  {% endif %}
+
   {# Bonus, Extraits #}
   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offers.html.twig' with {offers: videos.offers, tab: 'videos'} %}
 
@@ -29,34 +57,6 @@
       </div>
       {% endfor %}
     {% endfor %}
-  {% endif %}
-
-  {# bande annonce #}
-  {% if program.player is defined and program.player %}
-    <div class="panel panel-default">
-      <div class="panel-heading"><h3 class="panel-title">Bande annonce</h3></div>
-      <div id="bande-annonce" class="tab-pane">
-        <table>
-        {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offer-video.html.twig' with {
-          o: {
-            id: program.teaser.id,
-            versions: program.teaser.versions,
-            title: program.title ~ ' : la bande-annonce',
-            picture: program.picture,
-            description: ''
-          }, 
-          o_episode: program, 
-          o_channel: {name: ''},
-          o_access: {name: 'Bande annonce'},
-          program: program, 
-          btn_deploy_offers: 0,
-          key: 'ba',
-          loop_offset: 0,
-          loop: {index: 0}
-        } %}
-        </table>
-      </div>
-    </div>
   {% endif %}
 
 

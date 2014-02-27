@@ -114,7 +114,7 @@
                   {# Episodes de la saison #}
                   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes-saison.html.twig' %}
                   {# Tous les épisodes #}
-                  <div data-autoload-seasons="{{ program.episodeof ? program.episodeof.id : program.id }}"></div>
+                  <div data-autoload-seasons="{{ program.episodeof and program.episodeof.id ? program.episodeof.id : program.id }}"></div>
 
                 {# Affichage pour les fiches d'épisodes #}
                 {% elseif program.season_number is defined and program.episode_number is defined %}
@@ -125,7 +125,7 @@
                   {# Episodes de la saison #}
                   <div data-autoload-seasons="{{ program.id }}"></div>
                   {# Tous les épisodes #}
-                  <div data-autoload-seasons="{{ program.episodeof ? program.episodeof.id : program.id }}"></div>
+                  <div data-autoload-seasons="{{ program.episodeof and program.episodeof.id ? program.episodeof.id : program.id }}"></div>
 
                 {# Affichage pour toutes les autres fiches #}
                 {% else %}

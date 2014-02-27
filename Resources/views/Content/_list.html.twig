@@ -1,0 +1,33 @@
+<li>
+  <img src="{{ p.picture }}" class="pull-left" />
+  <h2><a href="{{ p.seo_url }}">{{ p.title }}</a></h2>
+  {% if p.theater_release_date is defined %}
+  <p class="infos">Sortie en salle : {{ p.theater_release_date }}</p>
+  {% endif %}
+
+  <p class="infos"><a href="{{ p.format.seo_url }}">{{ p.format.name }}</a>{% if p.categories is defined %} - {{ p.categories|to_array|join(',') }}{% endif %}, {{ p.duration }}mn</p>
+  {% if p.categories is defined %}
+  <p>{{ p.description|striptags|slice(0,250)|raw }}</p>
+  {% endif %}
+  <p>
+    {% if p.player is defined and p.player %}
+    <span class="btn btn-primary" data-link-to-replace="{{ p.seo_url|rot13 }}"><i class="glyphicon glyphicon-play"></i> Voir la bande-annonce</span> &nbsp;
+    {% endif %}
+    {% if p.offers is defined %}
+      {% if p.offers.theaters_schedules %}
+      <div class="panel-theater">
+      <div class="panel-collapse">
+        {% include 'SkreenHouseFactoryV3Bundle:Cinema:_schedules.html.twig' with {
+          cinema: {
+            id: cinema.id,
+            schedules: p.offers.theaters_schedules|to_array|first
+          }
+        } %}
+      </div>
+      </div>
+      {% elseif p.offers.theaters %}
+      <span class="btn btn-default" data-link-to-replace="{{ p.seo_url|rot13 }}"><i class="glyphicon glyphicon-map-marker"></i> Trouver une séance ({{ p.offers.theaters|split(',')|length }} salles)</span>
+      {% endif %}
+    {% endif %}
+  </p>
+</li>

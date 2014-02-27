@@ -211,31 +211,7 @@
       }
     }
     &.panel-theater {
-      .panel-collapse {
-        padding: 0;
-        ul.nav-tabs {
-          background-color: #F5F5F5;
-          border-bottom: none;
-          > li {
-            margin-bottom: -2px;
-          }
-          li a {
-            padding: 5px 5px;
-            font-size: 13px;
-          }
-          > li.active > a {
-            border: none;
-          }
-          > li > a:hover, > li > a:focus {
-            border-color: transparent;
-          }
-        }
-        .tab-content {
-          border-top: 0;
-          padding: 5px 20px;
-          margin: 0;
-        }
-      }
+      /* @see cinema.less */
     }
     &.panel-info {
       border-color: rgba(0, 143, 255, 0.1);
@@ -828,7 +804,7 @@ html:not(.touch){
           font-size: 2.3em;
         }
         .episodes {
-          color: maroon;
+          color: rgb(4, 39, 71);
           font-size: 1.3em;
           font-family: 'Raleway', sans-serif;
           margin-bottom: 8px;
@@ -891,7 +867,7 @@ html:not(.touch){
   }
   .bande_couleur_degrade {
     display: none;
-    background-color: #428bca;
+    background-color: #2980B9;
     text-align: center;
     color: white;
     padding: 20px 0;
@@ -1050,33 +1026,6 @@ html:not(.touch){
             margin: 0;
           }
         }
-        &.panel-theater {
-          .panel-collapse {
-            padding: 0;
-            ul.nav-tabs {
-              background-color: #F5F5F5;
-              border-bottom: none;
-              > li {
-                margin-bottom: -2px;
-              }
-              li a {
-                padding: 5px 5px;
-                font-size: 13px;
-              }
-              > li.active > a {
-                border: none;
-              }
-              > li > a:hover, > li > a:focus {
-                border-color: transparent;
-              }
-            }
-            .tab-content {
-              border-top: 0;
-              padding: 5px 20px;
-              margin: 0;
-            }
-          }
-        }
         &.panel-info {
           border-color: rgba(0, 143, 255, 0.1);
           .panel-heading {
@@ -1134,7 +1083,7 @@ html:not(.touch){
             tr {
               height: 90px !important;
               border-bottom: 1px solid #efefef;
-              &.bonus, &.cut {
+              &.bonus, &.cut, &.ba {
                 td.channel {
                   width: 170px;
                 }

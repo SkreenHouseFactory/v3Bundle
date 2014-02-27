@@ -1,7 +1,5 @@
 {% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
-{% block meta_seo %} 
-<meta name="robots" content="noindex,nofollow"> 
-{% endblock%}
+
 {% block title %}
 {% if periode == 'hier-soir' %}
 Programme TV : Hier soir à la télé

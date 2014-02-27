@@ -68,18 +68,18 @@
           </div>
         {% endif %}
         {% if program.datas_theaters.theater_on_demand|length %}
-          {% if program.datas_theaters.theaters_ids|length %}<hr/>{% else %}<br/>{% endif %}
+        {% if program.datas_theaters.theaters_ids|length %}<hr/>{% else %}<br/>{% endif %}
         {% for o in program.datas_theaters.theater_on_demand|to_array %}
-          <div class="panel panel-default ilikemycinema">
-            <div class="panel-heading"><h3>Ma séance où je veux, quand je veux</h3></div>
-            <div class="panel-body">
-              <div class="row"> 
-                <div class="col-xs-4"><img src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema_03.jpg') }}" alt="ilikemycinema"></div>
-                <div class="col-xs-7">Créez votre propre séance pour ce film et <b>invitez vos amis</b></div>
-                <div class="col-xs-5"><a target="_blank" data-redirect="{{ attribute(o, 'url') }}"><img class="ilikemycinema-btn" src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema_07.png') }}" alt="ilikemycinema"></a></div>
-              </div>
+          <div class="ilikemycinema">
+            <b>Ma séance où je veux, quand je veux</b>
+            <div class="row"> 
+              <div class="col-xs-4"><img src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema_03.jpg') }}" alt="ilikemycinema"></div>
+              <div class="col-xs-7">Créez votre propre séance pour ce film et <b>invitez vos amis</b></div>
+              <div class="col-xs-5"><a target="_blank" data-redirect="{{ attribute(o, 'url') }}"><img class="ilikemycinema-btn" src="{{ asset('bundles/skreenhousefactoryv3/images/partenaires/ilikecinema_07.png') }}" alt="ilikemycinema"></a></div>
             </div>
           </div>
+          <br/>
+          <br/>
         {% endfor %}
       {% endif %}
 

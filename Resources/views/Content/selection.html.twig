@@ -77,23 +77,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
     <ul class="items">
     {% for program in selection.programs %}
     {% if loop.index > 1 %}<li class="divider"></li>{% endif%}
-    <li>
-      <img src="{{ program.picture }}" class="pull-left" />
-      <h2><a href="{{ program.seo_url }}">{{ program.title }}</a></h2>
-      {% if program.theater_release_date is defined %}
-      <p class="infos">Sortie en salle : {{ program.theater_release_date }}</p>
-      {% endif %}
-      <p class="infos"><a href="{{ program.format.seo_url }}">{{ program.format.name }}</a> - {{ program.categories|to_array|join(',') }}, {{ program.duration }}mn</p>
-      <p>{{ program.description|striptags|slice(0,250)|raw }}</p>
-      <p>
-        {% if program.player is defined and program.player %}
-        <span class="btn btn-primary" data-link-to-replace="{{ program.seo_url|rot13 }}"><i class="glyphicon glyphicon-play"></i> Voir la bande-annonce</span> &nbsp;
-        {% endif %}
-        {% if program.offers.theaters %}
-        <span class="btn btn-default" data-link-to-replace="{{ program.seo_url|rot13 }}"><i class="glyphicon glyphicon-map-marker"></i> Trouver une séance ({{ program.offers.theaters|split(',')|length }} salles)</span>
-        {% endif %}
-      </p>
-    </li>
+    {% include 'SkreenHouseFactoryV3Bundle:Content:_list.html.twig' with {p: program} %}
     {% endfor %}
     </ul>
   </div>

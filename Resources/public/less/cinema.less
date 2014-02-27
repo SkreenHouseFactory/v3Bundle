@@ -2,7 +2,34 @@
   .alert-info {
     margin: 15px;
   }
+  .panel-collapse {
+    padding: 0;
+    ul.nav-tabs {
+      background-color: #F5F5F5;
+      border-bottom: none;
+      > li {
+        margin-bottom: -2px;
+      }
+      li a {
+        padding: 5px 5px;
+        font-size: 13px;
+      }
+      > li.active > a {
+        border: none;
+      }
+      > li > a:hover, > li > a:focus {
+        border-color: transparent;
+      }
+    }
+    .tab-content {
+      border-top: 0;
+      padding: 5px 20px;
+      margin: 0;
+    }
+  }
 }
+
+
 
 #theaters-playlist {
   .tab-content {
