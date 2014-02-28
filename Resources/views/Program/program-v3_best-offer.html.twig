@@ -9,7 +9,7 @@
 
   {% if o.offer_type == 'theater' %}
 
-    <div id="best-offer-anchor" class="row best-offer theater player-stop {% if program.player and o.id == program.player.id %}is-playing{% endif %}">
+    <div id="best-offer-anchor" class="row best-offer theater {% if program.player and o.id == program.player.id %}is-playing{% endif %}">
       <div class="col-xs-3">
         <a class="btn btn-default" href="#best-offer-anchor">Horaires</a>
       </div>
@@ -49,10 +49,8 @@
 
   {% elseif o.offer_type == 'tv' %}
 
-    <div class="row best-offer tv player-stop no-cost {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}" data-ics-occurrence="{{ o.id }}"{% if program.episodeof is defined and program.episodeof|to_array|length > 0 %} data-episode-id="{{ program.id }}"{% endif %}>
-      <div class="col-xs-4">
-      </div>
-      <div class="col-xs-9">
+    <div class="row best-offer tv no-cost {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}"{% if program.episodeof is defined and program.episodeof|to_array|length > 0 %} data-episode-id="{{ program.id }}"{% endif %}>
+      <div class="col-xs-13">
         <div class="row">
           <div class="col-xs-16"><span>À la télé
             {% if o_channel.has_replay and o.broadcasttime|remainingtv %}
@@ -77,7 +75,7 @@
 
   {% elseif o.offer_type in ['external','dvd','itunes','box', 'console'] %}
 
-    <div id="best-offer-anchor" class="row best-offer external player-stop {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}">
+    <div id="best-offer-anchor" class="row best-offer external {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}">
       <div class="col-xs-3">
         <a type="button" class="btn btn-voir" href="#best-offer-anchor"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir</a>
       </div>
