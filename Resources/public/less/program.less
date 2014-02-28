@@ -1117,17 +1117,19 @@ html:not(.touch){
               &.bonus, &.cut, &.ba {
                 td.channel {
                   width: 170px;
-                  position: relative;
-                  .glyphicon {
-                    position: absolute;
-                    z-index: 1;
-                    font-size: 40px;
-                    color: white;
-                    top: 50%;
-                    margin-top: -20px;
-                    left: 50%;
-                    margin-left: -20px;
-                    opacity: 0.7;
+                  >div { //Hack Firefox for absolute positionning in table-cell
+                    position: relative;
+                    .glyphicon {
+                      position: absolute;
+                      z-index: 1;
+                      font-size: 40px;
+                      color: white;
+                      top: 50%;
+                      margin-top: -20px;
+                      left: 50%;
+                      margin-left: -20px;
+                      opacity: 0.7;
+                    }
                   }
                 }
                 td.episode {
