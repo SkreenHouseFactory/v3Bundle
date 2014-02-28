@@ -64,7 +64,7 @@
                   <div class="row">
                     <div class="col-xs-16">VOIR
                       {% if voir.count > 0 %}
-                        ({{ voir.count }})
+                        <span class="badge">{{ voir.count }}</span>
                       {% endif %}
                     </div>
                   </div>
@@ -76,7 +76,7 @@
                   <div class="row">
                     <div class="col-xs-16">+ DE VIDEOS
                       {% if videos.count > 0 %}
-                        ({{ videos.count }})
+                        <span class="badge">{{ videos.count }}</span>
                       {% endif %}
                     </div>
                   </div>
