@@ -684,9 +684,16 @@ html:not(.touch){
   }
   .best-offer-empty {
     padding: 2px 5px;
-    border: 5px solid #f6f6f6;
+    border: 5px solid rgba(60, 118, 61, 0.75);
     background-color: white;
     margin: 5px 0 0 0;
+    height: 75px;
+    width: 637px;
+    display: table;
+    >div {
+      display: table-cell;
+      vertical-align: middle;
+    }
     p {
       color: #3c763d;
       font-size: 14px;

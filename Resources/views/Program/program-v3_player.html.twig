@@ -27,16 +27,7 @@
     <div class="col-xs-11">
       <div class="row best-offer-empty">
         <div>
-          {% if program.episodeof is defined %}
-            <p>Cet épisode n'est pas diffusé pour le moment.</p>
-            <p>Ajoutez <strong>{{ program.episodeof.title }}</strong> à vos listes, pour être averti dès qu'un épisode est diffusé.</p>
-          {% elseif program.format and program.format.name in ['Film','Documentaire'] %}
-            <p><strong>{{ program.title }}</strong> n'est disponible sur aucune plateforme légale.</p>
-            <p>Avec mySkreen, ajoutez ce programme à vos listes pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !</p>
-          {% else %}
-            <p><strong>{{ program.title }}</strong> n'est pas diffusé pour le moment.</p>
-            <p>Avec mySkreen, ajoutez ce programme à vos listes pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !</p>
-          {% endif %}
+          {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offer-indispo.html.twig' %}
         </div>
       </div>
     </div>

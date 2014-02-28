@@ -160,18 +160,6 @@
 
 {% if hasoffers == false and tab is not defined %}
   <div class="bs-callout bs-callout-info">
-    {% if program.season_number is defined and program.title == 'Saison '~program.season_number %}
-    <p class="h4">{{ 'offer.indispo.saison.titre'|trans|raw }}</p>
-    <p>{{ 'offer.indispo.saison.texte'|trans({'%titre%': program.episodeof.title})|raw }}</p>
-    {% elseif program.episodeof is defined %}
-    <p class="h4">{{ 'offer.indispo.episode.titre'|trans|raw }}</p>
-    <p>{{ 'offer.indispo.episode.texte'|trans({'%titre%': program.episodeof.title})|raw }}</p>
-    {% elseif program.format and program.format.name in ['Film','Documentaire'] %}
-    <p class="h4">{{ 'offer.indispo.film_docu.titre'|trans({'%titre%': program.title})|raw }}</p>
-    <p>{{ 'offer.indispo.default.texte'|trans }}</p>
-    {% else %}
-    <p class="h4">{{ 'offer.indispo.default.titre'|trans({'%titre%': program.title}) }}</p>
-    <p>{{ 'offer.indispo.default.texte'|trans }}</p>
-    {% endif %}
+    {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offer-indispo.html.twig' %}
   </div>
 {% endif %}
