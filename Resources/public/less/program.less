@@ -676,11 +676,6 @@ html:not(.touch){
 #view-program {
   .row .col-xs-5.shareblock {
     margin-top: 13px;
-    .fb-container {
-      float: left;
-      width: 59px;
-      height: 61px;
-    }
   }
   .best-offer-empty {
     padding: 2px 5px;
@@ -699,13 +694,6 @@ html:not(.touch){
     background-color: white;
     margin: 5px 0 0 0;
     &.theater, &.external {
-      &:hover {
-        cursor: pointer;
-        .btn-voir {
-          background: #166dc9;
-          border: #166dc9;
-        }
-      }
       .col-xs-3 {
         display: table;
         .btn {
@@ -724,7 +712,7 @@ html:not(.touch){
       }
     }
     &.replay, &.tv, &.live {
-      .col-xs-10, .col-xs-9, .col-xs-13 {
+      .col-xs-10, .col-xs-9 {
         .ms-reminder {
           font-size: 11px;
           font-weight: normal;
@@ -772,7 +760,7 @@ html:not(.touch){
         font-size: 2em;
       }
     }
-    .col-xs-7, .col-xs-10, .col-xs-9, .col-xs-13 {
+    .col-xs-7, .col-xs-10, .col-xs-9 {
       padding-top: 10px;
       line-height: normal;
       .row.last-child {
@@ -814,6 +802,7 @@ html:not(.touch){
           font-family: 'Raleway', sans-serif;
           color: white;
           font-size: 2.3em;
+          line-height: 1.1em;
         }
         .episodes {
           color: rgb(4, 39, 71);
@@ -1107,10 +1096,6 @@ html:not(.touch){
               &.bonus, &.cut, &.ba {
                 td.channel {
                   width: 170px;
-                }
-              }
-              &.bonus, &.cut, &.ba {
-                td.channel {
                   position: relative;
                   .glyphicon {
                     position: absolute;
