@@ -339,10 +339,9 @@ $(document).ready(function(){
       }
     });
 
-    //ics
-    $('[data-ics-occurrence]').on('click', function(e){
-      e.preventDefault();
-      document.location = API.config.base + '1/icsfile/' + $(this).data('id')  + '.ics';
+    //scroll-to-title from best-offer
+    $('[data-scroll-to-title]').on('click', function(){
+      $(document).scrollTop(475);
       return false;
     });
 
