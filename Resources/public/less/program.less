@@ -1215,6 +1215,12 @@ html:not(.touch){
       list-style: none;
       li a {
         margin-bottom: 10px;
+        .channel_root {
+          opacity: 0.9;
+          &:hover {
+            opacity: 1;
+          }
+        }
       }
       li.separator {
         border-bottom: 2px solid #e4e4e4;
@@ -1247,6 +1253,9 @@ html:not(.touch){
           font-family: 'Raleway', sans-serif;
         }
         .new-slider {
+          .channel {
+            width: 60px;
+          }
           .wrap-title {
             -moz-box-shadow: 1px 1px 5px 1px #666;
             -webkit-box-shadow : 1px 1px 5px 1px #666;

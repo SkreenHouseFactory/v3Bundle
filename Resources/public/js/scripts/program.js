@@ -323,11 +323,11 @@ $(document).ready(function(){
       }
     }
     
-    //autoload seasons
-    if ($('[data-autoload-seasons]').length) {
-      $('[data-autoload-seasons]').each(function(){
+    //autoload episodes/seasons
+    if ($('[data-autoload-episodes]').length) {
+      $('[data-autoload-episodes]').each(function(){
         $(this).load(
-          API.config.v3_root + '/episodes-list/' + $(this).data('autoload-seasons')
+          API.config.v3_root + '/episodes-list/' + $(this).data('autoload-episodes') + '/'
         );
       });
     }

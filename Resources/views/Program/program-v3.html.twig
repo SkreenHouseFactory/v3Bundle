@@ -119,16 +119,20 @@
                   {# Casting #}
                   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
                   {# Episodes de la saison #}
-                  <div data-autoload-seasons="{{ program.id }}"></div>
+                  <div data-autoload-episodes="{{ program.id }}"></div>
                   {# Tous les épisodes #}
-                  <div data-autoload-seasons="{{ program.episodeof and program.episodeof.id ? program.episodeof.id : program.id }}"></div>
+                  <div data-autoload-episodes="{{ program.episodeof and program.episodeof.id ? program.episodeof.id : program.id }}"></div>
 
                 {# Affichage pour toutes les autres fiches #}
                 {% else %}
-                  {# Episodes #}
-                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes.html.twig' %}
                   {# Synopsis #}
                   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' %}
+                  {# Episodes #}
+                  {% if program.episodeof is defined %}
+                  <div data-autoload-episodes="{{ program.episodeof.id }}"></div>
+                  {% else %}
+                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes.html.twig' %}
+                  {% endif %}
                   {# Casting #}
                   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
                 {% endif %}

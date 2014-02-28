@@ -63,11 +63,15 @@
           episode_title %}
       <div class="row">
         <div class="col-xs-16 episodes">
-          {% if episode_title and program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}{{ episode_title }} : {% endif %}{{ program.episode_title }}
+          {% if episode_title and 
+                program.episode_title != episode_title and 
+                program.episode_title != 'Saison '~program.season_number %}
+          {{ episode_title }} : 
+          {% endif %}
+          {{ program.episode_title }}
         </div>
       </div>
     {% endif %}
-
   </div>
 
   <div class="col-xs-5">
