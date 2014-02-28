@@ -3,69 +3,84 @@
 
 body.view-channel #main #cover{
   &.cover42{
-   height: 850px;
- }
- &.cover28{
-  height: 550px;
-}
-&.cover1{
-  height: 600px;
-}
-
-&.cover60{
-  height:495px;
-  #logo{
-    .logopart{
-      display: inline-block;
-      height: auto;
-      width: auto;
-      img{
-       display: inline-block;
-       margin-left:8px;
-
-     }
-   }
- }
-}
-&.cover55, &.cover62{
-  height: 425px;
-  .cover-wrap{
-    display: block;
-    height: 500px;
-    width: 100%;
-    position: absolute;
+    height: 850px;
   }
-  .wrap-follow{
-    position: absolute;
-    left: 804px;
-    bottom: 87px;
-    z-index: 1;       
+  &.cover28{
+    height: 550px;
   }
-  .share-block{
-    left: 660px;
+  &.cover1{
+    height: 600px;
+  }
+  &.cover60{
+    height:495px;
+    #logo{
+      .logopart{
+        display: inline-block;
+        height: auto;
+        width: auto;
+        img{
+          display: inline-block;
+          margin-left:8px;
+        }
+      }
+    }
+  }
+  &.cover55, &.cover62{
+    height: 425px;
+    .cover-wrap{
+      display: block;
+      height: 500px;
+      width: 100%;
+      position: absolute;
+    }
+    .wrap-follow{
+      position: absolute;
+      left: 804px;
+      bottom: 87px;
+      z-index: 1;       
+    }
+    .share-block{
+      left: 660px;
+    }
+  }
+  &.cover56, &.cover60{
+    .cover-wrap{
+      display: block;
+      height: 500px;
+      width: 100%;
+      position: absolute; 
+    }
+    .wrap-follow{
+      position: absolute;
+      left: 190px;
+      bottom: 36px;
+      z-index: 1;        
+    }
+    .share-block{
+      left: 660px;
+    }
+  }
+  &.cover35,&.cover54,&.cover8{
+    height: 600px;
   }
 }
-
-&.cover56,&.cover60{
- .cover-wrap{
-  display: block;
-  height: 500px;
-  width: 100%;
-  position: absolute;
+// Chaîne Sport
+body.view-channel-13 {
+  .header-container {
+    .header-content {
+      height: 103px;
+      bottom: 0px;
+    }
+  }
 }
-.wrap-follow{
-  position: absolute;
-  left: 190px;
-  bottom: 36px;
-  z-index: 1;        
-}
-.share-block{
-  left: 660px;
-}
-}
-&.cover35,&.cover54,&.cover8{
- height: 600px;
-}
+// Chaîne Demy et Césars 2014
+body.view-channel-3, body.view-channel-67 {
+  .header-container {
+    .header-content {
+      height: 104px;
+      bottom: 3px;
+    }
+  }
 }
 #channel35, #channel54{
   height: 535px;
@@ -243,10 +258,10 @@ body.view-channel #main #cover{
 
 	.header-content{
 		display: block;
-		height: 180px;
+		height: 220px;
 		margin-left: 70px;
 		position: absolute;
-		top: 286px;
+		top: 278px;
 		width: 400px;
     .rounded(5px);
 	}
@@ -259,13 +274,13 @@ body.view-channel #main #cover{
   .btn {
     float: left;
     margin: 10px;
-    margin: 13px 50px 0 0px;
+    margin: 13px 58px 0 0px;
     padding: 10px;
     height: 48px;
     line-height: 24px;
     &.btn-default:last-child {
       margin-right: 0px;
-      margin-left: 16px;
+      margin-left: 0px;
     }
   }
   .suivre-btn{
@@ -326,11 +341,19 @@ body.view-channel #main #cover{
 
 }
 body.view-channel #main #channel1 .share-block{
+  padding: 0 10px;
 	left: 0px!important;
 	min-width: 400px!important;
 	position: absolute!important;
-	top: 118px!important;
+	top: 145px!important;
 	z-index: 1!important;
+  .twitter-share {
+    margin-left: 77px!important;
+    width: 70px!important;
+  }
+  .g-plus-share {
+    width: 50px!important;
+  }
 }
 
 /* agnes-varda */
@@ -343,11 +366,15 @@ body.view-channel #main #channel1 .share-block{
     top: 518px;
     min-height: 60px;
     background:rgba(0,0,0,0.2);
+    .btn {
+      margin-top: 5px;
+    }
     .share-block{
       position: absolute!important;
-      top: -8px!important;
-      left: 580px!important;
-      min-width: 400px!important;
+      top: 23px!important;
+      left: 531px!important;
+      min-width: 280px!important;
+      height: 30px!important;
     }
   }
   .player-wrap{
