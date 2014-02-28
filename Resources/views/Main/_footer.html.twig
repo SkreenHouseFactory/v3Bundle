@@ -26,7 +26,9 @@
       {#<li><a class="pull-left" href="{{ app.environment == 'dev' ? '/m' : 'http://m.myskreen.com' }}">Site mobile</a></li>#}
     </ul>
   </div>
-  
+
+  {% if app.request.get('route') == 'homes' and app.request.get('home') == '' %}
+
   <div id="boost" class="row">
     <div class="col-xs-16">
       <p class="ms-surtitre">mySkreen c'est...</p>
@@ -36,7 +38,6 @@
     {% render(controller('SkreenHouseFactoryV3Bundle:Main:boost',{})) %}
   </div>
 
-  {% if app.request.get('route') == 'homes' and app.request.get('home') == '' %}
   <hr/>  
   <div class="row" id="sitemap">
     <div class="col-xs-16">

@@ -1,0 +1,73 @@
+<div id="bandeau-listes"{% if no_background is defined %} class="bg-none"{% endif %}>
+  <div class="container">
+    <div class="row titres">
+      <div class="col-xs-4 user-off">
+        <a class="auth">
+          <img class="user-off" src="{{ asset('bundles/skreenhousefactoryv3/images/icons/programs.png')}}">
+          <p class="sk-font">Vos programmes</p>
+        </a>
+      </div>
+      <div class="col-xs-3" data-fav="channel">
+        <a class="auth">
+          <img class="user-off" src="{{ asset('bundles/skreenhousefactoryv3/images/icons/channel.png')}}">
+          <p class="sk-font">Vos chaînes</p>
+        </a>
+      </div>
+      <div class="col-xs-4" data-fav="cinema">
+        <a class="auth">
+          <img class="user-off" src="{{ asset('bundles/skreenhousefactoryv3/images/icons/cinema.png')}}">
+          <p class="sk-font">Vos cinémas</p>
+        </a>
+      </div>
+      <div class="col-xs-5" data-fav="person">
+        <a class="auth">
+          <img class="user-off" src="{{ asset('bundles/skreenhousefactoryv3/images/icons/oscar.png')}}">
+          <p class="sk-font">Vos acteurs / réalisateurs</p>
+        </a>
+      </div>
+    </div>
+    <div class="row titres user-on hide auth">
+      <div class="col-xs-4" data-fav="like">
+        <a href="{{ path('user_programs') }}"{% if active == 'programs' %} class="active"{% endif %}>
+          <span class="badge bg-white grey"></span>
+          <p class="sk-font">Vos programmes</p>
+        </a>
+      </div>
+      <div class="col-xs-3" data-fav="channel">
+        <a href="{{ path('user_channels') }}"{% if active == 'channel' %} class="active"{% endif %}>
+          <span class="badge bg-white grey"></span>
+          <p class="sk-font">Vos chaînes</p>
+        </a>
+      </div>
+      <div class="col-xs-4" data-fav="cinema">
+        <a href="{{ path('user_theaters') }}"{% if active == 'theaters' %} class="active"{% endif %}>
+          <span class="badge bg-white grey"></span>
+          <p class="sk-font">Vos cinémas</p>
+        </a>
+      </div>
+      <div class="col-xs-5" data-fav="person">
+        <a href="{{ path('user_persons') }}"{% if active == 'persons' %} class="active"{% endif %}>
+          <span class="badge bg-white grey"></span>
+          <p class="sk-font">Vos acteurs / réalisateurs</p>
+        </a>
+      </div>
+    </div>
+    <div class="row descriptions">
+      <div class="col-xs-4" data-fav="like">
+        <p class="sk-font">Ajoutez vos programmes préférés à vos listes pour ne plus les rater</p>
+      </div>
+      <div class="col-xs-3" data-fav="channel">
+        <p class="sk-font">Festival de Cannes, humour, politique, etc.</p>
+      </div>
+      <div class="col-xs-4" data-fav="cinema">
+        <p class="sk-font">Ajoutez-les salles près de chez-vous pour retrouver ici leur programmation</p>
+      </div>
+      <div class="col-xs-5" data-fav="person">
+        <p class="sk-font">Soyez alerté dès qu'un de leur programme est diffusé, ou de leur actualité en vidéo</p>
+      </div>
+    </div>
+    <div class="user-off">
+      <a class="auth btn btn-default black">&raquo; Commencer mes listes</a>
+    </div>
+  </div>
+</div>

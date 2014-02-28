@@ -1,0 +1,168 @@
+{% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
+
+{# HEAD Title #}
+{% block title %}
+  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_title.html.twig' %}
+{% endblock %}
+
+{# HEAD Description #}
+{% block description %}
+  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_description.html.twig' %}
+{% endblock %}
+
+{# HEAD Meta #}
+{% block meta %}
+  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_metadonnees.html.twig' %}
+{% endblock %}
+
+{# HEAD Pagescripts #}
+{% block pagescripts %}
+  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_pagescripts.html.twig' %}
+{% endblock %}
+
+{# Attribute Microdata #}
+{% block body_attribute %} itemscope itemtype="http://schema.org/WebPage" itemref="md-name-description md-breadcrumb affiche md-ispartof"{% endblock %}
+
+{# Content #}
+{% block content %}
+  {% set program_itemtype %}{% if program.format.name in ['Série','Emission'] %}TVSeries{% else %}Movie{% endif %}{% endset %}
+  <div id="view-program" data-id="{{ program.id }}" itemprop="about" itemscope itemtype="http://schema.org/{{ program_itemtype }}" itemref="program-teaser">
+    <div class="scrollplayerzone">
+      {# Player + Affiche + Meilleure offre #}
+      <div class="container">
+        <div class="row playwrapsub hide"></div>
+        {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_player.html.twig' %}
+      </div>
+
+      {# Titre + ShareBlock + AjoutListes #}
+      <div class="bande_listes">
+        <div class="container">
+          {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_titre.html.twig' %}
+        </div>
+      </div>
+      <div class="bande_couleur_degrade">
+        <div class="container">
+          <div class="row">
+            <p>Soyez averti des prochaines diffusions (TV, Replay, Ciné, VOD).</p>
+            <p>Partagez vos listes avec vos amis et suivez ce qu'ils regardent.</p>
+          </div>
+        </div>
+        {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with { active: '', no_background: true } %}
+      </div>
+      
+
+      {# Onglets/Contenus + Chaînes #}
+      <div class="bande_offers">
+      <div class="container">
+        <div class="row">
+          {# Onglets / Contenus #} 
+          <div class="col-xs-11 contents">
+            {# Onglets #}
+            <ul class="row" id="onglets">
+              <li class="col-xs-5{% if voir.count > 0 %} active{% endif %}">{# Voir #}
+                <a href="#voir" data-toggle="tab">
+                  <div class="row">
+                    <div class="col-xs-16">VOIR
+                      {% if voir.count > 0 %}
+                        ({{ voir.count }})
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="row">en entier</div>
+                </a>
+              </li>
+              <li class="col-xs-6{% if voir.count == 0 and videos.count > 0 %} active{% endif %}">{# Vidéos #}
+                <a href="#videos" data-toggle="tab">
+                  <div class="row">
+                    <div class="col-xs-16">+ DE VIDEOS
+                      {% if videos.count > 0 %}
+                        ({{ videos.count }})
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="row">extraits & bonus</div>
+                </a>
+              </li>
+              <li class="col-xs-5{% if voir.count == 0 and videos.count == 0 %} active{% endif %}">{# Infos #}
+                <a href="#infos" data-toggle="tab">
+                  <div class="row">
+                    <div class="col-xs-16">INFOS</div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+            {# Contenus #}
+            <div class="tab-content">
+              {# Contenu Voir #}
+              <div class="tab-pane row{% if voir.count > 0 %} active{% endif %}" id="voir">
+                {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_voir.html.twig' %}
+              </div>
+              {# Contenu Vidéos #}
+              <div class="tab-pane row{% if voir.count == 0 and videos.count > 0 %} active{% endif %}" id="videos">
+                {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_videos.html.twig' %}
+              </div>
+              {# Contenu Infos #}
+              <div class="tab-pane row{% if voir.count == 0 and videos.count == 0 %} active{% endif %}" id="infos">
+                {# Affichage pour les fiches Saison seule #}
+                {% if program.season_number is defined and program.episode_number is not defined %}
+                  {# Episodes de la saison #}
+                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes-saison.html.twig' %}
+                  {# Tous les épisodes #}
+                  <div data-autoload-seasons="{{ program.episodeof and program.episodeof.id ? program.episodeof.id : program.id }}"></div>
+                  {# Synopsis réduit #}
+                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' with { tab: 'season-only' } %}
+
+                {# Affichage pour les fiches d'épisodes #}
+                {% elseif program.season_number is defined and program.episode_number is defined %}
+                  {# Synopsis #}
+                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' %}
+                  {# Casting #}
+                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
+                  {# Episodes de la saison #}
+                  <div data-autoload-episodes="{{ program.id }}"></div>
+                  {# Tous les épisodes #}
+                  <div data-autoload-episodes="{{ program.episodeof and program.episodeof.id ? program.episodeof.id : program.id }}"></div>
+
+                {# Affichage pour toutes les autres fiches #}
+                {% else %}
+                  {# Synopsis #}
+                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' %}
+                  {# Episodes #}
+                  {% if program.episodeof is defined %}
+                  <div data-autoload-episodes="{{ program.episodeof.id }}"></div>
+                  {% else %}
+                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes.html.twig' %}
+                  {% endif %}
+                  {# Casting #}
+                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {# Chaînes #}
+          <div class="col-xs-5 channel-side">
+              {# Chaînes #}
+              {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_chaines-thema.html.twig' %}
+              {# Homes #}
+              {% if program.homes is defined %}
+              <ul class="channel_module_width">
+              {% for h in program.homes|to_array %}
+              <li><a class="channel_link" href="{{ h.seo_url }}"><span class="channel_texte">Sélection : {{ h.title }}</span></a></li>
+              {% endfor %}
+              </ul>
+              {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+      
+      {# Related #}
+      <div class="related">
+        <div class="container">
+          {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_related.html.twig' %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

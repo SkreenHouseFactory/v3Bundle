@@ -10,14 +10,14 @@ var BaseSession = Class.extend({
  social_state: null,
  callbackInit: null,
  callbackSignout: null,
- callbackSignin: null,
+ callbackSignin: [],
  callbackSocial: [],
  init: function(callback, args) {
     console.log('BaseSession.init', args);
     var self = this;
     this.uid = API.cookie('session_uid');
     if (typeof callbackSignin != 'undefined') {
-      self.callbackSignin = callbackSignin;
+      self.callbackSignin['init'] = callbackSignin;
       //console.log('scripts', '_default.js', 'Skhf.session', 'self.callbackSignin', self.callbackSignin);
     }
     if (typeof callbackInit != 'undefined') {
@@ -42,15 +42,15 @@ var BaseSession = Class.extend({
      }, args);
    } else {
      //callback
-       if (typeof callback != 'undefined') {
-         callback({}, this)
-       }
-       console.log('core/session.js', self.callbackInit);
-      //callbackInit : called only once
-       if (self.callbackInit) {
-         self.callbackInit(this);
-         self.callbackInit = null;
-       }
+     if (typeof callback != 'undefined') {
+       callback({}, this)
+     }
+     console.log('core/session.js', self.callbackInit);
+    //callbackInit : called only once
+     if (self.callbackInit) {
+       self.callbackInit(this);
+       self.callbackInit = null;
+     }
    }
  },
  sync: function(callback, args) {
@@ -117,7 +117,13 @@ var BaseSession = Class.extend({
      callback(sessionData);
    }
    if (this.callbackSignin) {
-     this.callbackSignin(sessionData);
+     if (typeof this.callbackSignin == 'object') {
+       for(c in this.callbackSignin) {
+         this.callbackSignin[c](sessionData);
+       }
+     } else {
+       this.callbackSignin(sessionData);
+     }
    }
  },
  signout: function(callback) {

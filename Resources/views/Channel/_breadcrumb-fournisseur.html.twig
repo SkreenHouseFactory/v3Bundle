@@ -2,9 +2,13 @@
 <ul class="breadcrumb">
   {% if skip_root is not defined %}
     <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      {% if channel.type == 'webcast' %}
+      <a itemprop="url" href="{{ path('channel', {slug: 'web-tv'}) }}"><span itemprop="title">Chaînes Web TV</span></a>
+      {% else %}
       <a itemprop="url" href="{{ path('sitemap_channels', {type: channel.type}) }}">
-        <span itemprop="title">{% if channel.type == 'cinema' %}Tous les cinémas{% else %}Chaînes {{ channel.type|replace({'broadcast': 'TV', 'catchup': 'Replay', 'webcast': 'Web TV'}) }}{% endif %}</span>
+        <span itemprop="title">{% if channel.type == 'cinema' %}Tous les cinémas{% else %}Chaînes {{ channel.type|replace({'broadcast': 'TV', 'catchup': 'Replay'}) }}{% endif %}</span>
       </a>
+      {% endif %}
     </li>
   {% elseif channel.city is defined and channel.city %}
     <li class="active">

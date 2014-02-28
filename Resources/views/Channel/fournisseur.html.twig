@@ -80,12 +80,14 @@
           {% set page_h1_channel = 'page.h1.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
           <div class="col-xs-7">
             <h1 class="inline-block" data-channel="{{ channel.name }}">{{ page_h1_channel|trans({'%name%': channel.name, '%format%': format_trans|trans, '%formats%': formats_trans|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
-              <small>{% if app.request.get('facet') %}
-                        {{ categories[app.request.get('facet')] is defined ? categories[app.request.get('facet')] : 'commençant par ' ~ app.request.get('facet') }}
-                      {% endif %}
-                      {% if app.request.get('page') %}
-                        {{ app.request.get('facet') ? ', ' : '' }}page {{ app.request.get('page') }}
-                      {% endif %}
+              <small>
+                {% if app.request.get('facet') %}
+                  {{ categories[app.request.get('facet')] is defined ? categories[app.request.get('facet')] : 'commençant par ' ~ app.request.get('facet') }}
+                {% endif %}
+                {% if app.request.get('page') %}
+                  {{ app.request.get('facet') ? ', ' : '' }}page {{ app.request.get('page') }}
+                {% endif %}
+                {{ channel.city is defined ? channel.city : '' }}    
               </small>
             </h1>
           </div>
@@ -166,9 +168,6 @@
       #}
       {% if categories|length or formats|length %}
         <hr/>
-        {% if channel.type == 'cinema' %}
-          <br/>
-        {% endif %}
         <div class="facets">
           {% if app.request.get('format') and app.request.get('facet') and app.request.get('page') %}
             {% for k,s in categories %}
@@ -192,6 +191,18 @@
       {% if channel.programs|length %}
         <div class="row{{ channel.type != 'cinema' ? ' clear' : '' }}">
           <div class="col-xs-{{ channel.type != 'cinema' ? '16' : '11' }}">
+            {% if channel.type == 'cinema' %}
+            <div id="channel-programs" class="list clear-cancel ms-margin-top-seo">
+              <ul class="items">
+                {% for program in channel.programs %}
+                  {% include 'SkreenHouseFactoryV3Bundle:Content:_list.html.twig' with {
+                    p: program, 
+                    cinema: channel
+                  } %}
+                {% endfor %}
+              </ul>
+            </div>
+            {% else %}
             <div id="channel-programs" class="slider slider-list{% if channel.adress is defined %} clear-cancel{% endif %} ms-margin-top-seo">
               <ul class="items">
                 {% for program in channel.programs %}
@@ -201,6 +212,7 @@
               {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-fournisseur-pagination.html.twig' with {data: channel.count, page: app.request.get('page', 1), force_replace: 1} %}
               <ul class="pager_to_replace"></ul>
             </div>
+            {% endif %}
           </div>
           {# map #}
           {% if channel.adress is defined %}

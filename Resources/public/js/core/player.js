@@ -559,7 +559,7 @@ Player = {
       var format = p.format != null ? p.format : '';
       var year = p.year != null ? ' - ' + p.year : '';
       this.elmt_meta.data('id', p.id);
-      this.elmt_meta.data('title', 'Ajout à vos playlists<br/><small>' + p.title + ', ' + format + year + '</small>');
+      this.elmt_meta.data('title', 'Ajout à vos listes<br/><small>' + p.title + ', ' + format + year + '</small>');
       this.elmt_meta.append('<h4>' + p.title + '<br/><small>' + p.format + year + '</small></h4>');
       //<br/><a class="btn btn-large fav">Suivre / voir plus tard</a><span>');
     }

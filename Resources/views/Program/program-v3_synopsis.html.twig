@@ -1,0 +1,96 @@
+{# Synopsis #}
+<div class="col-xs-16">
+  <div id="program-synopsis" class="panel panel-default panel-synopsis{{ program.description|striptags|length < 907 ? ' forced-height':'' }}">
+    <div class="panel-heading" itemscope>
+      <div id="md-name-description">
+        {% if tab is defined and tab == 'season-only' %}
+          <h1 class="panel-title" itemprop="name">Tout sur {{ program.title }}{{ program.season_number }} {{ program.has_vod|accessFromHasvod }}</h1>
+        {% else %}
+          <h1 class="panel-title" itemprop="name">Tout sur {{ program.title }} {{ program.has_vod|accessFromHasvod }}</h1>
+        {% endif %}
+        <meta itemprop="description" content="{% block description %}{% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_description.html.twig' %}{% endblock %}"/>
+      </div>
+    </div>
+    <div class="tab-pane text-toggle-extend">
+      {# categories #}
+      {% if program.format and program.categories|to_array|length %}
+        <div itemscope>
+          {% if program.categories|to_array|length == 1 and program.subcategories|to_array|length == 0 %}
+            <div id="categorie-title" class="ms-surtitre">Catégorie</div>
+          {% else %}
+            <div id="categorie-title" class="ms-surtitre">Catégories</div>
+          {% endif %}
+          <div id="md-breadcrumb" itemprop="breadcrumb">
+            {% for c in program.categories|to_array if c.seo_url is defined  %}
+              <a class="inline label label-default" href="{{ path('category', {format: program.format.seo_url|replace({'/': ''}), category_slug: c.seo_url|replace({'/': ''})}) }}" itemprop="relatedLink">{{ c.name }}</a>&nbsp;
+            {% endfor %}
+            {% if program.format and program.subcategories|to_array|length %}
+              {% for c in program.subcategories|to_array if c.seo_url is defined %}
+                <a class="inline label label-default"  href="{{ path('any_url', {url: program.format.seo_url|replace({'/': ''}) ~ c.seo_url}) }}" itemprop="relatedLink">{{ c.name }}</a>&nbsp;
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if tab is not defined %}
+
+        <div id="cat-title" class="ms-surtitre">Sur &laquo;{{ program.title }}&raquo;</div>
+        {% if program.description|striptags|length < 907 %}
+          <div class="text">
+            {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+            {% if program.episode_title is defined and
+                  program.episodeof is defined  and
+                  episode_title and
+                  program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}
+              <h2>
+                {% if episode_title and
+                      program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}
+                  {{ episode_title|replace({"Ep.":"Episode"}) }}
+                {% endif %}
+              </h2>
+            {% endif %}
+            {% if program.copyright is defined %}
+              {{program.copyright}}
+            {% endif %}
+            {% if program.theater_release_date is defined and
+                  program.theater_release_date_timestamp < "now"|date('U') and
+                  ('Sortie en salles' or 'Sortie en salle') not in program.description %}
+              <p>Sortie en salles le {{ program.theater_release_date }}</p>
+            {% endif %}
+            {{ program.description|raw }}
+          </div>
+        {% else %}
+          <div class="text show-more-height">
+            <div class="gradient-hide"></div> 
+            {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+            {% if program.episode_title is defined and
+                  program.episodeof is defined  and
+                  episode_title and
+                  program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}
+              <h2>
+                {% if episode_title and
+                      program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}
+                  {{ episode_title|replace({"Ep.":"Episode"}) }}
+                {% endif %}
+              </h2>
+            {% endif %}
+            {% if program.copyright is defined %}
+              {{program.copyright}}
+            {% endif %}
+            {% if program.theater_release_date is defined and
+                  ('Sortie en salles' or 'sortie en salle' or 'sorti en salle') not in program.description|lower %}
+              <p>Sortie en salles le {{ program.theater_release_date }}</p>
+            {% endif %}
+            {{ program.description|raw }}
+          </div>
+          <div class="show-all">
+            <span class="show-more">...</span><span class="show-more-text">Voir plus</span>
+          </div> 
+        {% endif %}
+
+      {% endif %}
+
+    </div>
+  </div>
+</div>

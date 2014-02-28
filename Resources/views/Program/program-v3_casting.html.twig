@@ -1,0 +1,28 @@
+<div class="col-xs-16">
+  {# Casting #}
+    {% if program.casting is defined and program.casting|to_array|length %}
+      <div id="program-casting" class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Le casting</h3>
+        </div>
+        <div class="tab-pane clearfix">
+          {% for relation,persons in program.casting|to_array if persons|to_array|length %}
+            <div class="casting-function">
+              <h3 class="ms-surtitre">{{ relation|trans }}{{ persons|to_array|length > 1 ? 's' : '' }}</h3>
+              {% for pers in persons|to_array   %}
+                <div class="{% if loop.index >= 5 %}{{ relation|replace({' ': '', '(': '', ')': ''})|lower }}_entrop collapse{% else %}in{% endif %}"{% if relation|md_casting != 'out' %} itemprop="{{ relation|md_casting }}" itemscope itemtype="{{ relation|md_casting == 'productionCompany' ? 'http://schema.org/Organization' : 'http://schema.org/Person' }}"{% endif %}>
+                  <a href="{{ path('any_url', {url: pers.seo_url|slice(1, pers.seo_url|length-1) }) }}" {% if relation|md_casting != 'out' %}itemprop="url"{% endif %} class="fav fav-person" data-name="{{ pers.name }}" data-placement="right"><span {% if relation|md_casting != 'out' %}itemprop="name"{% endif %}>{{ pers.name }}</span></a> 
+                </div>
+              {% endfor %}
+              {% if persons|to_array|length >= 5 %}
+                <div class="block">
+                  <a class="{{ relation|replace({' ': '', '(': '', ')': ''})|lower }}_reveal" data-toggle-text="&laquo; retour" data-toggle-display=".{{ relation|replace({' ': '', '(': '', ')': ''})|lower }}_entrop">
+                    et {{ persons|to_array|length - 4 }} autre{% if persons|to_array|length > 5 %}s{% endif %} {{ relation|lower }}{% if persons|to_array|length > 5 %}s{% endif %}...</a> 
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+</div>

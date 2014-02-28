@@ -4,8 +4,6 @@
 }
 
 
-
-
 .podTitles{
   float: left;
   clear: none;
@@ -24,7 +22,6 @@
  }
   .panel-synopsis{
     color: #6D6D6D;
-    font-size: 12px;
     margin-top: 5px;
     h1, h2, h3, h4{
       color: #6D6D6D;
@@ -49,7 +46,7 @@
     width: 637px;
   }
   .forced-height{
-    height: 270px;
+    max-height: 270px;
     overflow-y: auto;
   }
   .ms-prog-rightback{
@@ -89,13 +86,13 @@
       }
     }
 
-    a[itemprop="url"]{
+    a[itemprop="url"], a[data-placement="right"]{
       &:hover {
        color: @bluemaincolor;
        text-decoration: none;
      }
-     span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal {
-      color: #000000;
+     span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal, span {
+      color: #6D6D6D;
       display: inline-block;
       &:hover{
         color: @bluemaincolor;
@@ -214,31 +211,7 @@
       }
     }
     &.panel-theater {
-      .panel-collapse {
-        padding: 0;
-        ul.nav-tabs {
-          background-color: #F5F5F5;
-          border-bottom: none;
-          > li {
-            margin-bottom: -2px;
-          }
-          li a {
-            padding: 5px 5px;
-            font-size: 13px;
-          }
-          > li.active > a {
-            border: none;
-          }
-          > li > a:hover, > li > a:focus {
-            border-color: transparent;
-          }
-        }
-        .tab-content {
-          border-top: 0;
-          padding: 5px 20px;
-          margin: 0;
-        }
-      }
+      /* @see cinema.less */
     }
     &.panel-info {
       border-color: rgba(0, 143, 255, 0.1);
@@ -375,12 +348,11 @@
 }
 }
 
-#program-episodes {
-  min-height: 200px;
-  position: absolute;
-  z-index: 16;
-  width: 100%;
-  padding: 70px 27px 0;
+#program-episodes, #program-episodes-saison {
+  .tab-pane {
+    overflow-y: auto;
+    max-height: 350px;
+  }
   .panel {
     background: #FFF;
     margin: -15px;
@@ -399,7 +371,7 @@
 
   a[data-season]{
     border: 1px solid #B2D3F0;
-    height: 30px;
+    height: 25px;
     padding: 4px 8px;
     text-align: center;
     &:hover{
@@ -416,11 +388,13 @@
     width: 30px;
   }
   ul.nav.nav-pills {
-    margin: 20px; 
+    margin: 0;
+    float: right;
+    line-height: normal;
   }
   .ms-nav-pills-saisons {
     font-size: 16px;
-    margin: 4px 19px;
+    margin: 4px 15px;
     padding-top: 3px;
     text-transform: uppercase;
     i{
@@ -431,22 +405,34 @@
  }
 }
 
-ul#episodes-list{
+ul#episodes-list, ul#episodes-list-saison{
   list-style: none;
-  padding-left: 20px;
+  padding-left: 0;
 
-  li{
+  li {
     display: block;
     font-size: 15px;
     margin-top: 7px;
     overflow: hidden;
-    padding-left: 20px;
-    width: 60%;
-    &.hover {
+    padding-left: 15px;
+    width: 98%;
+    p.clearfix {
+      img {
+        margin-right: 7px;
+      }
+      a {
+        display: block;
+        .title-episode {
+          display: block;
+          margin-bottom: 13px;
+        }
+      }
+    }
+    &.hover, &:hover {
       color: @rowHoverColor;
       background-color: @rowHoverBg;
     }
-    a{ 
+    a { 
       color: #000;
       &:hover{
         color: @bluemaincolor;
@@ -455,9 +441,23 @@ ul#episodes-list{
     }
   } 
 }
+ul#episodes-list-saison li {
+  p.clearfix {
+    a {
+      .title-episode {
+        margin-bottom: 5px;
+      }
+      span:last-child {
+        font-size: 0.9em;
+        color: #555;
+      }
+    }
+  }
+}
+
 
 .scrollplayerzone{
-  margin-top: 20px;
+  margin-top: 5px;
   position: relative;
 }
 
@@ -596,6 +596,19 @@ html:not(.touch){
       }
     }
   }
+  #view-program {
+    .tab-pane:not(#coming_soon){
+      table {
+        tr {
+          &:hover {
+            td.channel span.glyphicon {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 
@@ -657,4 +670,648 @@ html:not(.touch){
       }
     }
   }
+}
+
+// Nouvelle fiche programme
+#view-program {
+  .row .col-xs-5.shareblock {
+    margin-top: 13px;
+    .fb-container {
+      float: left;
+      width: 59px;
+      height: 61px;
+    }
+  }
+  .best-offer-empty {
+    padding: 2px 5px;
+    border: 5px solid rgba(60, 118, 61, 0.75);
+    background-color: white;
+    margin: 5px 0 0 0;
+    height: 75px;
+    width: 637px;
+    display: table;
+    >div {
+      display: table-cell;
+      vertical-align: middle;
+    }
+    p {
+      color: #3c763d;
+      font-size: 14px;
+      margin-bottom: 0;
+    }
+  }
+  .best-offer {
+    padding: 8px 5px;
+    border: 5px solid #f6f6f6;
+    background-color: white;
+    margin: 5px 0 0 0;
+    &.theater, &.external {
+
+      &:hover {
+        cursor: pointer;
+        .btn-voir {
+          background: #166dc9;
+          border: #166dc9;
+        }
+      }
+      .col-xs-3 {
+        display: table;
+        .btn {
+          display: table-cell;
+          font-size: 16px;
+        }
+      }
+      .col-xs-13 {
+        display: table;
+        p {
+          display: table-cell;
+          vertical-align: middle;
+          color: @sk-blue;
+          font-size: 16px;
+        }
+      }
+    }
+    &.replay, &.tv, &.live {
+      .col-xs-10, .col-xs-9, .col-xs-13 {
+        .ms-reminder {
+          font-size: 11px;
+          font-weight: normal;
+          color: #dc2561;
+        }
+      }
+    }
+    .alert-success {
+      margin: 0;
+      height: auto;
+    }
+    > div {
+      height: 50px;
+    }
+    .col-xs-3, .col-xs-4 {
+      button, a {
+        height: 100%;
+        width: 100%;
+        min-width: 0;
+        .glyphicon {
+          right: 16px;
+          font-size: 20px;
+        }
+      }
+    }
+    .col-xs-4 {
+      button.btn {
+        .glyphicon-play, .glyphicon-calendar {
+          right: 7px;
+        }
+      }
+    }
+    .col-xs-3 {
+      font-weight: bold;
+      font-size: 1.3em;
+      text-align: center;
+      line-height: 50px;
+      padding: 0 5px;
+      img {
+        max-width: 80px;
+      }
+      &.price {
+        padding-right: 0;
+        text-align: right;
+        font-size: 2em;
+      }
+    }
+    .col-xs-7, .col-xs-10, .col-xs-9, .col-xs-13 {
+      padding-top: 10px;
+      line-height: normal;
+      .row.last-child {
+        color: @sk-blue;
+      }
+      .row {
+        margin-top: -7px;
+        .col-xs-16 {
+          padding: 5px;
+        }
+        span {
+          color: #333;
+          font-size: 1.2em;
+        }
+        span+span {
+          color: #666;
+          font-size: 1em;
+        }
+        span+span+br+span {
+          color: #999;
+          font-size: 0.8em;
+        }
+      }
+    }
+  }
+  .bande_listes {
+    padding: 5px 0 5px 0;
+    background-color: #428bca;
+    margin: 15px 0 0 0;
+    .container {
+      .row:first-child {
+        margin-bottom: 0;
+        .col-xs-5 {
+          padding-top: 2px;
+        }
+      }
+      .row {
+        #fake_h1 {
+          font-family: 'Raleway', sans-serif;
+          color: white;
+          font-size: 2.3em;
+          line-height: 1.1em;
+        }
+        .episodes {
+          color: rgb(4, 39, 71);
+          font-size: 1.3em;
+          font-family: 'Raleway', sans-serif;
+          margin-bottom: 8px;
+        }
+        .ms-format, .ms-format a {
+          font-size: 13px;
+          color: white;
+          opacity: 0.8;
+          text-decoration: none;
+        }
+        .col-xs-5 {
+          .col-xs-16.ajout {
+            height: 58px;
+            padding-top: 15px;
+            .btn-suivre {
+              height: 50px;
+              line-height: 40px;
+              background-color: white;
+              border: none;
+              color: @sk-blue;
+              border: 1px solid #316B9C;
+              width: 100%;
+              font-size: 17px;
+              &:hover {
+                background: #3880BD;
+                border: #316B9C 1px solid;
+                color: #FFFFFF;
+              }
+            }
+            .btn-plus:before {
+              font-size: 49px;
+              left: -30px;
+              line-height: inherit;
+            }
+          }
+          .col-xs-16 {
+            font-family: 'Raleway', sans-serif;
+            color: white;
+            text-align: center;
+            a.savoir-plus {
+              opacity: 0.8;
+              color: white;
+              font-family: 'Raleway', sans-serif;
+              margin-bottom: 0;
+              margin-top: 10px;
+              display: inline-block;
+              &:hover {
+                color:white;
+                opacity: 1;
+                text-decoration: none;
+              }
+            }
+            >p:first-child {
+              text-align: center;
+              font-size: 1em;
+            }
+          }
+        }
+      }
+    }
+  }
+  .bande_couleur_degrade {
+    display: none;
+    background-color: #2980B9;
+    text-align: center;
+    color: white;
+    padding: 20px 0;
+    .container {
+      .row:first-child {
+        p {
+          font-family: 'Raleway', sans-serif;
+          opacity: 1;
+          font-size: 1.2em;
+          &:first-child {
+            font-size: 1.5em;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    a {
+      font-family: 'Raleway', sans-serif;
+      text-decoration: none;
+      color: white;
+    }
+    img {
+      max-height: 50px;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 15px;
+      opacity: 1;
+      &+p {
+        font-size: 1.2em;
+        font-weight: bold;
+        opacity: 1;
+      }
+    }
+    p {
+      font-size: 1em;
+      opacity: 0.8;
+    }
+    &+.container {
+      margin-top: 15px;
+    }
+  }
+  .bande_offers {
+    background: #f5f5f5;
+    padding: 15px 0;
+    .contents {
+      #onglets {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 0;
+        font-size: 0.9em;
+        height: 60px;
+        li {
+          padding: 5px 15px 10px;
+          padding-bottom: 10px;
+          border-left: 1px solid #DDD;
+          height: 60px;
+          &:first-child {
+            border-left: none;
+          }
+          &:hover:not(.active) {
+            background-color: #f4f8fa;
+          }
+          &.active {
+            border-top: 1px solid #eee;
+            background-color: white;
+            a .row {
+              color: #333;
+            }
+            a .row:first-child {
+              color: @sk-blue;
+            }
+          }
+          a {
+            color: #666;
+            text-decoration: none;
+            height: 45px;
+            display: block;
+            padding-top: 0px;
+            text-align: center;
+            font-size: 15px;
+            .row:first-child {
+              .col-xs-16 {
+                font-family: 'Raleway';
+                font-weight: bold;
+                font-size: 18px;
+              }
+            }
+            .row:last-child {
+              color: #aaa;
+              font-family: 'Raleway';
+              font-size: 0.9em;
+            }
+          }
+        }
+      }
+      .tab-content {
+        background: white;
+        margin-left: -15px;
+        margin-right: -15px;
+        padding: 15px 15px;
+        .sous-menu {
+          text-align: center;
+          a {
+            margin-bottom: 15px;
+            background-color: #f5f5f5;
+          }
+        }
+        #program-casting {
+          .tab-pane {
+            padding: 7px;
+            .casting-function {
+              float: left;
+              width: 25%;
+              margin-bottom: 10px;
+              a[itemprop="url"], a[data-placement="right"]{
+                &:hover {
+                  color: @bluemaincolor;
+                  text-decoration: none;
+                }
+                span[itemprop="name"], span[itemprop="actor"], span[itemprop="director"], .actors_reveal, span {
+                  color: #6D6D6D;
+                  display: inline-block;
+                  &:hover{
+                    color: @bluemaincolor;
+                    text-decoration: none;
+                  }
+                }
+              }
+            }
+            .ms-surtitre {
+            }
+            .ms-surtitre:first-child {
+              margin-top: 0;
+            }
+          }
+        }
+      }
+      .tab-pane .panel-synopsis {
+        position: static;
+        min-height: inherit;
+        #cat-title, #cat-title+div, #categorie-title, #categorie-title+div {
+          padding: 0 15px;
+        }
+      }
+      .panel {
+        position: relative;
+        padding: 0 0 0px 0;
+        &.panel-more { 
+          .tab-pane {
+            padding-bottom: 30px;
+          }
+        }
+        &.panel-synopsis{ 
+          padding: 0;
+          h3 {
+            padding: 20px 0 10px;
+          }
+          p {
+            margin: 0;
+          }
+        }
+        &.panel-info {
+          border-color: rgba(0, 143, 255, 0.1);
+          .panel-heading {
+            background: rgba(0, 143, 255, 0.1);
+            color: @sk-blue;
+            border-bottom: 1px solid @sk-blue;
+          }
+        }
+        &.panel-danger {
+          border-color: #eed3d7;
+          .panel-heading {
+            border-bottom: 5px solid #b94a48;
+          }
+        }
+        .panel-heading{
+          margin: 0;
+          min-height: 35px;
+          line-height: 30px;
+          padding: 4px 15px;
+          color: #6D6D6D;
+          &.season {
+            background-color: white;
+          }
+          .panel-title {
+            display: inline-block;
+            font-size: 16px;
+            &.big-seasons {
+              display: block;
+              margin-bottom: 5px;
+            }
+          }
+        }
+        .tab-pane {
+          padding-bottom: 0px;
+          .btn-reveal {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            font-size: 0.9em;
+            padding: 0px 10px 0 5px;
+            border-top-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+            border: 0px;
+            &:hover, &:active, &:focus{
+              background: transparent;
+              box-shadow: none;
+            }
+          }
+          .btn.btn-voir>i,.btn.btn-default>i{
+            float: left;
+            margin-top: 2px;
+          }
+          table {
+            margin: 0;
+            width: 100%;
+            tr {
+              height: 90px !important;
+              border-bottom: 1px solid #efefef;
+              &.tv {
+                .offers {
+                  display: none;
+                }
+              }
+              &.bonus, &.cut, &.ba {
+                td.channel {
+                  width: 170px;
+                  >div { //Hack Firefox for absolute positionning in table-cell
+                    position: relative;
+                    .glyphicon {
+                      position: absolute;
+                      z-index: 1;
+                      font-size: 40px;
+                      color: white;
+                      top: 50%;
+                      margin-top: -20px;
+                      left: 50%;
+                      margin-left: -20px;
+                      opacity: 0.7;
+                    }
+                  }
+                }
+                td.episode {
+                  font-size: 17px;
+                  padding-left: 10px;
+                }
+                td.price {
+                  width: 110px;
+                }
+              }
+              &.other-episodes, &.other-episodes:hover {
+                background: #666;
+                color: #ccc;
+                text-decoration: none;
+                height: 25px!important;
+                td {
+                  padding: 0;
+                  margin: 0;
+                  p {
+                    padding: 0 10px;
+                    margin: 0;
+                  }
+                }
+              }
+              &:last-child {
+                border-bottom: 0;
+              }
+              td {
+                padding: 5px;
+                vertical-align: middle;
+                &.channel {
+                  width: 120px;
+                }
+                &.offers {
+                  text-align: center;
+                  width: 170px;
+                  button, a.btn {
+                    width: 160px;
+                  }
+                  .ms-reminder {
+                    font-size: 0.8em;
+                    font-weight: normal;
+                    color:#dc2561;
+                    i {
+                      font-size: 1.1em;
+                    }
+                  }
+                }
+                &.episode {
+                  h4 {  
+                    font-size: 1.1em;
+                    font-weight: bold;
+                    margin: 0;
+                  }
+                  .infos {
+                    font-size: 0.8em;
+                  }
+                }
+                &.price {
+                  width: 180px;
+                  .rent {
+                    text-transform: uppercase;
+                    font-size: 1.2em;
+                    color: @bluesecondarycolor;
+                    font-weight: bold;
+                    .ms-reminder {
+                      font-size: 0.65em;
+                      font-weight: normal;
+                      color: #dc2561;
+                      text-transform: none;
+                    }
+                  }
+                  .glyphicon {
+                    font-size: 1.2em;
+                  }
+                  .rent .glyphicon {
+                    font-size: 0.9em;
+                  }
+                  .ms-vidoption {
+                    display: block;
+                    font-size: 14px;
+                    padding: 0 15px;
+                    text-align: left;
+                  }
+                  .ms-versions {
+                    font-size: 13px;
+                    .glyphicon.glyphicon-hd-video{
+                      margin-left: 7px;
+                    }
+                  }
+                }
+              }
+              img {
+                max-width: 100%;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .channel-side {
+    .ms-surtitre {
+      color: #333;
+      text-transform: none;
+      margin: 0 0 5px;
+    }
+    ul {
+      padding: 0;
+      margin-bottom: 0;
+      list-style: none;
+      li a {
+        margin-bottom: 10px;
+        .channel_root {
+          opacity: 0.9;
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+      li.separator {
+        border-bottom: 2px solid #e4e4e4;
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .related {
+    background-color: #e4e4e4;
+    padding-bottom: 50px;
+    font-family: 'Raleway', sans-serif;
+    #program-related {
+      h2 {
+        padding-left: 20px;
+        color: #999;
+        margin-bottom: -20px;
+        margin-top: 15px;
+        font-family: 'Raleway', sans-serif;
+      }
+      .col-xs-8.suggester {
+        .suggestion, .new-slider {
+          background-color: transparent;
+        }
+        .suggestion p {
+          font-family: 'Raleway', sans-serif;
+        }
+        .suggestion p a {
+          height: 26px;
+          line-height: 20px;
+          font-family: 'Raleway', sans-serif;
+        }
+        .new-slider {
+          .channel {
+            width: 60px;
+          }
+          .wrap-title {
+            -moz-box-shadow: 1px 1px 5px 1px #666;
+            -webkit-box-shadow : 1px 1px 5px 1px #666;
+            box-shadow: 1px 1px 5px 1px #666;
+          }
+          .wrap-carousel-control {
+            .carousel-control.left {
+              left: 300px;
+              top: 7px;
+            }
+            .carousel-control.right {
+              right: -10px;
+              top: 7px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+body article {
+  margin-bottom: 0;
+}
+.touch article #main #content #view-program .container .row .shareblock .g-plus-share {
+  height: 68px!important;
+  width: 60px!important;
+  margin-top: -8px!important;
 }

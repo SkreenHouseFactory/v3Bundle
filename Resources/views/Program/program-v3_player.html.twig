@@ -1,0 +1,39 @@
+{# Player + Affiche #}
+<div class="row playwrap">
+
+  {# Player #}
+  <div class="col-xs-11">
+    <div id="player" itemscope>
+      {% include 'SkreenHouseFactoryV3Bundle:Program:_program-player.html.twig' %}
+    </div>
+  </div>
+  {# Affiche #}
+  <div class="col-xs-5" itemscope>
+    <div id="affiche" itemprop="primaryImageOfPage" itemscope itemtype="http://schema.org/ImageObject">
+      <meta itemprop="name" content="{{ program.title }}" />
+      {% if 'missing' not in program.picture %}
+        <a class="btn" data-big-picture="{{ ('<img src="' ~ (program.picture|replace({'273/368/' : '450/'})) ~ '" alt="' ~ program.title ~ '" />')|escape }}"><i class="glyphicon glyphicon-zoom-in"></i></a>
+      {% endif %}
+      <img src="{{ program.picture }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" itemprop="contentURL"/>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  {# Meilleure offre #}
+  {% if program.best_offer.id is defined %}
+    {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_best-offer.html.twig' %}
+  {% else %}
+    <div class="col-xs-11">
+      <div class="row best-offer-empty">
+        <div>
+          {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offer-indispo.html.twig' %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {# ShareBlock #}
+  <div class="col-xs-5 shareblock">
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: program.twitter_msg is defined ? program.twitter_msg : 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?', fb_layout: 'box_count', tw_layout: 'vertical', g_size: 'tall', g_annotation: 'bubble' } %}
+  </div>
+</div>

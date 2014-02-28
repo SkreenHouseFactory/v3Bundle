@@ -395,6 +395,11 @@ program_pere:
         slug: "[^/]+"
         format: "[^/]+"
         categorie: "[^/]+"
+episodes_list:
+    pattern:  /episodes-list/{id}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Program:episodeslist }
+    requirements:
+        id: \d+
 
 #cinema
 cinema_boxoffice:

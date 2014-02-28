@@ -1,0 +1,54 @@
+{% block meta %}
+
+  {% include 'SkreenHouseFactoryV3Bundle:Program:_program-jsonld.html.twig' with {program: program} %}
+
+  {# twitter #}
+  <meta name="twitter:site" value="@mySkreen" />
+  <meta name="twitter:creator" content="@mySkreen">
+  <meta name="twitter:url" content="http://www.myskreen.com{{ program.seo_url }}">
+  <meta name="twitter:title" content="{{ program.title }}">
+  <meta name="twitter:description" content="{{ program.description_text|replace({"\n": ''}) }}">
+  <meta name="twitter:image:src" content="{{ program.picture }}">
+  {% if program.player_iframe is defined %}
+    <meta name="twitter:card" value="player" />
+    <meta name="twitter:player" value="{{ program.player_iframe }}" />
+    <meta name="twitter:player:stream" content="{{ program.player_stream }}">
+    <meta name="twitter:player:stream:content_type" content="video/mp4">
+    <meta name="twitter:player:height" value="360" />
+    <meta name="twitter:player:width" value="640" />
+  {% elseif program.has_vod in [1,2] %}
+    <meta name="twitter:card" value="product" />
+    <meta name="twitter:data1" content="€2.99">
+    <meta name="twitter:label1" content="LOCATION">
+  {% else %}
+    <meta name="twitter:card" value="summary" />
+  {% endif %}
+  <meta name="twitter:domain" content="mySkreen.com">
+
+  {# opengraph #}
+  <meta property="og:title" content="{{ program.og_title is defined ? program.og_title : program.title }}" />
+  <meta property="og:description" content="{% if program.og_description is defined %}{{ program.og_description|length > 350 ? program.og_description[:350] ~ '...' : program.og_description }}{% else %}[ VIDEO ] {{ program.description_text|length > 350 ? program.description_text|replace({"\n": ''})[:350] ~ '...' : program.description_text|replace({"\n": ''}) }}{% endif %}" />
+  <meta property="og:image" content="{{ program.og_picture is defined ? program.og_picture : program.picture }}" />
+  <meta property="og:type" content="movie" />
+  <meta property="og:url" content="http://www.myskreen.com{{ program.seo_url }}" />
+
+  {% if program.player_fb is defined %}
+    <meta property="og:video:height" content="360" />
+    <meta property="og:video:width" content="640" />
+    <meta property="og:video" content="{{ program.player_fb }}" />
+    <meta property="og:video:type" content="application/x-shockwave-flash" />
+    <meta property="og:video:secure_url" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
+    <meta property="og:video" content="{{ program.player_stream }}" />
+    <meta property="og:video:type" content="video/mp4" />
+    <meta property="video:duration" content="{{ program.duration > 0 ? program.duration * 60 : '3600' }}" />
+
+    <meta name="video_height" content="360" />
+    <meta name="video_width" content="640" />
+    <link rel="video_src" href="{{ program.player_fb }}" />
+    <meta name="video_type" content="application/x-shockwave-flash" />
+    <meta name="video_duration" content="{{ program.duration * 60 }}" />
+    <meta name="object_type" content="episode" />
+  {% endif %}
+  <link rel="image_src" href="{{ program.picture }}" />
+
+{% endblock %}

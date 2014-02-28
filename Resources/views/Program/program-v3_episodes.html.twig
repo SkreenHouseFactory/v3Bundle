@@ -1,0 +1,56 @@
+<div class="col-xs-16">
+  {# Selecteur episodes #}
+  {% if program.episode_list is defined or program.seasons is defined %}
+    <div id="program-episodes" class="panel panel-default">
+      {% if program.seasons is defined %}
+        <div class="panel-heading clearfix">
+          <h3 class="panel-title{{ program.seasons|to_array|length > 11 ? ' big-seasons' : '' }}">Toutes les saisons</h3>
+          {% if program.seasons|to_array|first.number != '(autres)' %}
+            <div class="btn-group pull-right">
+              <button class="btn btn-sm btn-default" disabled="disabled"> <i class="glyphicon glyphicon-arrow-right"></i></button>
+              {% for season in program.seasons|to_array %}
+                <button class="btn btn-sm btn-default{{ loop.last ? ' active' : '' }}" data-season="{{ season.number }}">{{ season.number }}</button>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        <div class="tab-pane scroll">
+          <ul id="episodes-list">
+            {% for season in program.seasons|to_array %}
+              {% set loop_season = loop %}
+              {% for episode in season.episodes|to_array|reverse %}
+                <li class="season-{{ season.number }} {{ loop_season.last ? 'in' : 'hide' }}">
+                  <a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
+                    {% if episode.dispo %}
+                      <span class="label label-default pull-right">{{ episode.dispo }}</span>
+                    {% endif %}
+                    <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number ~ ' : ' : '' }}</strong>{{ episode.title }}
+                  </a>
+                </li>
+              {% endfor %}
+              <li class="season-{{ season.number }} {{ loop.last ? 'in' : 'hide' }}" align="center"><a class="btn btn-default" href="{{ program.seo_url }}saison-{{ season.number }}/">&raquo; Toute la saison {{ season.number }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% else %}
+        <div class="panel-heading">
+          <h3 class="panel-title">Tous les épisodes</h3>
+        </div>
+        <div class="tab-pane scroll">
+          <ul id="episodes-list">
+            {% for episode in program.episode_list|to_array %}
+              <li>
+                <a href="{{ path('any_url', {url: episode.seo_url|slice(1, episode.seo_url|length-1) }) }}">
+                  {% if episode.dispo %}
+                    <span class="label label-default pull-right">{{ episode.dispo }}</span>
+                  {% endif %}
+                  <strong>{{ episode.episode_number is defined ? 'Episode ' ~ episode.episode_number ~ ' : ' : '' }}</strong>{{ episode.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>

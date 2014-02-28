@@ -1,0 +1,29 @@
+{% if program.related.channels is defined and
+  program.related.channels.programs is defined and
+  program.related.channels.programs|to_array|length %}
+  <ul class="channel_module_width">
+    {% for r in program.related.channels.programs|to_array %}
+      <li>
+        <a class="channel_link" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}">
+          <span class="channel_texte">{{ r.title ~ ', la chaîne' }}</span>
+          <img src="{{ r.picture }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
+        </a>
+      </li>
+      {% if loop.last %}
+        <li class="separator"></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% else %}
+{# Chaînes éditorialisées #}
+<span class="label label-warning">A voir en ce moment</span>
+<hr/>
+<ul class="channel_module_width">
+  <li>
+    <a class="channel_link" href="/les-inconnus/">
+      <span class="channel_texte">Les Inconnus, la chaîne</span>
+      <img src="http://mskstatic.com/300/147/c/medias/photos/channel/1-les-inconnus-s.jpg?2014021509" class="channel_root" data-track-channel="Les Inconnus" alt="Les Inconnus">
+    </a>
+  </li>
+</ul>
+{% endif %}

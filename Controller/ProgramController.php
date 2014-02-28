@@ -104,7 +104,8 @@ class ProgramController extends Controller
           'channel_img_width' => 80,
           'channel_slider_width' => 300,
           'channel_slider_height' => 147,
-          'fields' => 'metadata,related,related_programs,selections,offers,teaser,hashtags,tweets,empty_player,img_maxsize,svod,coming_soon'
+          'season' => $request->get('season_number'),
+          'fields' => 'description_episode,metadata,related,related_programs,selections,offers,teaser,hashtags,tweets,empty_player,img_maxsize,svod,coming_soon,best_offer,homes'
         ));
 
         //echo $api->url;exit;
@@ -162,27 +163,30 @@ class ProgramController extends Controller
         //check url
         //echo $request->getPathInfo().' != '.$data->seo_url.' => '.($request->getPathInfo() != $data->seo_url);exit();
         //TODO
-        if ($request->get('season_number')) {
-          foreach ($data->seasons as $s) {
-            if ($s->number == $request->get('season_number')) {
-              foreach ($s->episodes as $episode) {
-                return $this->redirect($episode->seo_url, 301);
-              }
+        // if ($request->get('season_number')) {
+        //   foreach ($data->seasons as $s) {
+        //     if ($s->number == $request->get('season_number')) {
+        //       foreach ($s->episodes as $episode) {
+        //         return $this->redirect($episode->seo_url, 301);
+        //       }
+        //     }
+        //   }
+        //   if ($this->get('kernel')->getEnvironment() == 'dev') {
+        //     echo 'redirect fail : episode 1 saison '.$request->get('season_number');
+        //     exit();
+        //   }
+        //   return $this->redirect($data->seo_url, 301);
+        // }
+        if (!$request->get('season_number')) {
+          if  ($request->getPathInfo() != $data->seo_url) {
+            if ($this->get('kernel')->getEnvironment() == 'dev') {
+              return $this->redirect('/app_dev.php' . $data->seo_url, 301);;
+            //  return new Response('redirect '.$request->getPathInfo().' != '.$data->seo_url.' => '.($request->getPathInfo() != $data->seo_url));
             }
+            return $this->redirect($data->seo_url, 301);
           }
-          if ($this->get('kernel')->getEnvironment() == 'dev') {
-            echo 'redirect fail : episode 1 saison '.$request->get('season_number');
-            exit();
-          }
-          return $this->redirect($data->seo_url, 301);
         }
-        if  ($request->getPathInfo() != $data->seo_url) {
-          if ($this->get('kernel')->getEnvironment() == 'dev') {
-            return $this->redirect('/app_dev.php' . $data->seo_url, 301);;
-          //  return new Response('redirect '.$request->getPathInfo().' != '.$data->seo_url.' => '.($request->getPathInfo() != $data->seo_url));
-          }
-          return $this->redirect($data->seo_url, 301);
-        }
+      
 
         //hack img dev
         if ($request->get('imgdev')) {
@@ -230,6 +234,12 @@ class ProgramController extends Controller
               $o->endtime > time()) {
             //echo "\n".'addLive broadcasttime:'.date('Ymd H:i:s', $o->broadcasttime).' endtime:'.date('Ymd H:i:s', $o->endtime).' time:'.date('Ymd H:i:s', time());
             $data->offers['live'][] = $o;
+            $data->best_offer = $o;
+            $data->best_offer->offer_type = 'live';
+            $data->best_offer->channel = $data->datas_offers->channels->{$o->channel_id};
+            if (isset($o->episode_id)) {
+              $data->best_offer->episode = $data->datas_offers->episodes->{$o->episode_id};
+            }
           }
         }
         $data->offers['live'] = (object)$data->offers['live'];
@@ -366,24 +376,50 @@ class ProgramController extends Controller
         //footer
         list($_, $format, $__) = explode('/', $data->seo_url);
         $request->request->set('home', $format != 'programme' ? $format : null);
+
+        $voirOffres = array(
+          'live' => 'En Direct', 
+          'replay' => 'En Replay gratuit', 
+          'deporte' => 'En intégralité sur mySkreen', 
+          'tv' => 'Les prochaines diffusions TV',
+          'theater' => 'Au cinéma (horaires et salles)',
+          'itunes' => 'Télécharger sur iTunes',
+          'external' => 'Sur les autres sites', 
+          'box' => 'Sur les Box', 
+          'console' => 'Sur les consoles', 
+          'dvd' => 'DVD & Blu-Ray',
+          'archive' => 'Archives',
+          'coming_soon'=> 'Bientôt disponible',
+        );
+
+        $voirCount = 0;
+        foreach ($voirOffres as $type => $value) {
+          if (isset($data->offers[$type])) {
+            $voirCount = $voirCount + count((array)$data->offers[$type]);
+          }
+        }
+
+        $videosOffres = array(
+          'bonus' => 'Bonus',
+          'cut' => 'Extraits'
+        );
+
+        $videosCount = isset($data->teaser) ? 1 : 0;
+        foreach ($videosOffres as $type => $value) {
+          if (isset($data->offers[$type])) {
+            $videosCount = $videosCount + count((array)$data->offers[$type]);
+          }
+        }
         
-        $response = $this->render('SkreenHouseFactoryV3Bundle:Program:program-new.html.twig', array(
+        $response = $this->render('SkreenHouseFactoryV3Bundle:Program:program-v3.html.twig', array(
           'program' => $data,
-          'offers' => array(
-            'live' => 'En Direct', 
-            'replay' => 'En Replay gratuit', 
-            'deporte' => 'En intégralité sur mySkreen', 
-            'bonus' => 'Bonus',
-            'cut' => 'Extraits',
-            'tv' => 'Les prochaines diffusions TV',
-            'theater' => 'Au cinéma (horaires et salles)',
-            'itunes' => 'Télécharger sur iTunes',
-            'external' => 'Sur les autres sites', 
-            'box' => 'Sur les Box', 
-            'console' => 'Sur les consoles', 
-            'dvd' => 'DVD & Blu-Ray',
-            'archive' => 'Archives',
-            'coming_soon'=> 'Bientôt disponible',
+          'voir' => array(
+            'offers' => $voirOffres,
+            'count' => $voirCount,
+          ),
+          'videos' => array(
+            'offers' => $videosOffres,
+            'count' => $videosCount,
           ),
           'player_host' => $api->host
         ));
@@ -398,6 +434,36 @@ class ProgramController extends Controller
           // 'private'    => true,
       ));
 
+      return $response;
+    }
+
+
+    /**
+    * episodeslist
+    */
+    public function episodeslistAction(Request $request)
+    {
+      $api = $this->get('api');
+      $data = $api->fetch('program/'.$request->get('id'), array(
+        'episode_img_width' => 100,
+        'episode_img_height' => 90,
+        'episode_img_crop' => 50,
+        'fields' => isset($data->episodeof) && isset($data->season_number) ? 'metadata,description_episode' : 'offers'
+      ));
+      if (isset($data->datas_offers) && isset($data->datas_offers->episodes)) {
+        $data->episode_list = $data->datas_offers->episodes;
+      }
+      $template = isset($data->episodeof) && isset($data->season_number) ? 'v3_episodes-saison' : 'v3_episodes';
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Program:program-'.$template.'.html.twig', array(
+        'program' => $data,
+      ));
+
+      $cache_maxage = 3600;
+      $response->setCache(array(
+          'max_age'       => $cache_maxage,
+          's_maxage'      => $cache_maxage,
+          'public'        => true,
+      ));
       return $response;
     }
 }

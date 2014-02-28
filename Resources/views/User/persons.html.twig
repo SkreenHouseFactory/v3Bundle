@@ -3,52 +3,54 @@
 {% block title %}{{ 'page.title.user.persons'|trans }}{% endblock %}
 
 {% block pagescripts %}
-{% javascripts
+  {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-persons.js'
     filter='?yui_js' 
     output='js/compiled/pages/user-persons.js'  %}
     <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
+  {% endjavascripts %}
 {% endblock %}
 
 {% block content %}
-<div class="container">
+  {% set count %}{{ persons|length }}{% endset %}
+  {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with {active: 'persons' } %}
 
-  <div id="view-user-persons">
+  <div class="container">
 
-    <h1>{{ 'user.persons'|trans }}</h1>
-    {% if persons|length == 0 %}
-      <p class="alert alert-info">Vous ne suivez aucun acteur/réalisateur. Utilisez le moteur de recherche pour ajouter vos acteurs et réalisateurs préférés.</p>
-  
-    {% else %}
-      <p class="alert alert-info">Utilisez le moteur de recherche pour ajouter vos acteurs et réalisateurs préférés.</p>
+    <div id="view-user-persons">
 
-    <ul class="nav nav-pills nav-alpha-client uppercase">
-      <li data-toggle class="active">
-        <a>{{ 'nav.all'|trans }}</a>
-      </li>
-      {% for r in relations %}
-      <li data-toggle="type-{{ r|replace({'é': 'e'})|lower }}">
-        <a>{{ r }}</a>
-      </li>
-      {% endfor %}
-    </ul>
+      <h1>{{ 'user.persons'|trans }}</h1>
+      {% if persons|length == 0 %}
+        <p class="alert alert-info">Vous ne suivez aucun acteur/réalisateur. Utilisez le moteur de recherche pour ajouter vos acteurs et réalisateurs préférés.</p>
+      {% else %}
+        <p class="alert alert-info">Utilisez le moteur de recherche pour ajouter vos acteurs et réalisateurs préférés.</p>
+
+        <ul class="nav nav-pills nav-alpha-client uppercase">
+          <li data-toggle class="active">
+            <a>{{ 'nav.all'|trans }}</a>
+          </li>
+          {% for r in relations %}
+            <li data-toggle="type-{{ r|replace({'é': 'e'})|lower }}">
+              <a>{{ r }}</a>
+            </li>
+          {% endfor %}
+        </ul>
     
-    <table class="table table-striped">
-    {% for p in persons %}
-      <tr id="person-{{ p.id }}" class="type-{{ p.activity|replace({'é': 'e'})|lower }}">
-        <td>
-        <div class="pull-right">
-          <a class="btn btn-default" href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">Tous ses programmes</a>&nbsp;
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: p.id, name: p.name, fav: 'person', remove: '#person-' ~ p.id } %}
-        </div>
-        <b>{{ p.name }}</b>, {{ p.activity }}<br/>
-        {#{ p.roles|join(', ') }#}
-      </td>
-      </tr>
-    {% endfor %}
-  </table>
+        <table class="table table-striped">
+          {% for p in persons %}
+            <tr id="person-{{ p.id }}" class="type-{{ p.activity|replace({'é': 'e'})|lower }}">
+              <td>
+                <div class="pull-right">
+                  <a class="btn btn-default" href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">Tous ses programmes</a>&nbsp;
+                  {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: p.id, name: p.name, fav: 'person', remove: '#person-' ~ p.id } %}
+                </div>
+                <b>{{ p.name }}</b>, {{ p.activity }}<br/>
+                {#{ p.roles|join(', ') }#}
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    {% endif %}
   </div>
-  {% endif %}
-</div>
 {% endblock %}

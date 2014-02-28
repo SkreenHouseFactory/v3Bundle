@@ -52,28 +52,21 @@ class ChannelController extends Controller
       'from_slug'  => $request->get('slug'),
       'with_live'  => !$request->get('format') && !$request->get('page') ? true : false,
       'with_next_live' => !$request->get('format') && !$request->get('page') ? true : false,
-      //'with_prev_live' => true,
-      'with_description'  => true,
       'channel_img_width' => 45,
       'img_width' => 150,
       'img_height' => 200,
-      // 'live_img_width' => 150,
-      // 'live_img_height' => 200,
-      // 'slider_img_width'  => 900,
-      // 'slider_img_height' => 300,
       'live_player_width' => 420,
       'live_player_height' => 270,
       'with_epg' => !$request->get('format') && !$request->get('page') ? true : false,
       'with_replay' => !$request->get('format') && !$request->get('page') ? true : false,
       'with_best_offer' => !$request->get('format') && !$request->get('page') ? true : false,
-      'with_programs' => true,
-      'with_img_maxsize'=>true,
       'offset' => $request->get('page', 1) * 30 - 30,
       'nb_results' => 30,
       'facets' => $this->buildFacets($request),
       'disable_search_by_format' => true,
       'sorter' => 'year',
-      'preview' => $request->get('preview')
+      'preview' => $request->get('preview'),
+      'fields' => 'description,programs,img_maxsize,description_program,schedules'
     );
     $data = $api->fetch('channel'.($request->get('id')?'/'.$request->get('id'):null), $params);
 

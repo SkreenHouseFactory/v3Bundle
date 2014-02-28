@@ -11,6 +11,43 @@ Author: Benoît Bergstörm
 @vignetteBorder:  1px solid transparent;
 @selectorBorder:  1px solid #BBBBBB;
 @vignetteBorderEmpty:  1px dashed #BBBBBB;
+
+
+
+/* list horizontale */
+.list ul.items {
+  margin: 0;
+  padding: 0;
+  > li {
+    list-style: none;
+    clear: left;
+    margin: 5px 0;
+    &:not(.divider) {
+      min-height: 180px;
+    }
+    img {
+      height: 180px;
+      margin-right: 10px
+    }
+    .infos {
+      color: #999;
+      margin-bottom: 3px;
+      font-size: 0.9em;
+    }
+    .panel-theater {
+      display: inline-block;
+      border: 1px solid #eee;
+    }
+    &.divider {
+      height: 15px;
+      border-bottom: 1px solid #eee;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+
 .item > div:not(.tooltip), .slider ul.items > li {
   position: relative;
   padding-top: 2px;
@@ -74,7 +111,9 @@ Author: Benoît Bergstörm
       background: -ms-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 64%,rgba(0,0,0,0.65) 99%,rgba(0,0,0,0.65) 100%); /* IE10+ */
       background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 64%,rgba(0,0,0,0.65) 99%,rgba(0,0,0,0.65) 100%); /* W3C */
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-8 */
-
+      -moz-box-shadow: 1px 1px 5px 1px #666;
+      -webkit-box-shadow: 1px 1px 5px 1px #666;
+      box-shadow: 1px 1px 5px 1px #666;
       span.title {
         display: block;
         font-size: 0.9em;
@@ -127,7 +166,7 @@ Author: Benoît Bergstörm
   margin-top: 30px;
   
   .suggestion{
-    background: #f3eeee;
+    font-family: 'Raleway', sans-serif;
     height: 30px;
     padding-left: 5px;
     padding-right: 5px;
@@ -137,13 +176,14 @@ Author: Benoît Bergstörm
     p{
       padding-top: 6px; 
     }
-    h2, p{
-      font-size: 14px;
+    h2, p {
+      font-size: 15px;
       font-family: Arial, "Helvetica Neue", Helvetica,sans-serif;
       text-transform: uppercase;
 
       a{
         color:#595959;
+        font-family: 'Raleway', sans-serif;
         display: block;
         overflow: hidden;
         white-space: nowrap;
@@ -189,7 +229,6 @@ Author: Benoît Bergstörm
     }
   }
   .new-slider {
-    background: #f3eeee;
 
     .combinaison-2x2{
       float: left;
@@ -276,10 +315,12 @@ Author: Benoît Bergstörm
         height: 35px;
         border: 0;
         &.left{
-          left: auto;
+          left: 285px;
+          top: 7px;
         }
         &.right{
-          right: auto;
+          right: -10px;
+          top: 7px;
         }
         .glyphicon{
           width: 30px;

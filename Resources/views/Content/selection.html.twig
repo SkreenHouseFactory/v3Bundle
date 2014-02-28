@@ -55,15 +55,15 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
     </ul>
   {% endif %}
 
-  <h1>{{ selection.name|raw }}{% if selection.onglet.channel.fournisseur is defined %} de {{ selection.onglet.channel.title }}{% endif %}</h1>
+  <h1 class="sk-font">{{ selection.name|raw }}{% if selection.onglet.channel.fournisseur is defined %} de {{ selection.onglet.channel.title }}{% endif %}</h1>
   
   <div id="selection-related">
   {#<a class="btn btn-large btn-inverse btn-block trigger-tv" href="#" data-couchmode="{{ {'type': 'pack', 'id': selection.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
-  
+
   <ul class="list-group">
     {% if selection.onglet.type != 'page' %}
     <li class="list-group-item list-share">
-      <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ selection.seo_url, text: selection.name ~ ' sur mySkreen' } %}</div>
+      <div class="share-block clearfix">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ selection.seo_url, text: selection.name ~ ' sur mySkreen', fb_layout: 'box_count', tw_layout: 'vertical', g_size: 'tall', g_annotation: 'bubble' } %}</div>
     </li>
     {% endif %}
     {% for pack in selection.onglet.sliders|to_array %}
@@ -72,6 +72,16 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
   </ul>
   </div>
 
+  {% if selection.template is defined and selection.template == 'liste' %}
+  <div id="selection-programs" class="list">
+    <ul class="items">
+    {% for program in selection.programs %}
+    {% if loop.index > 1 %}<li class="divider"></li>{% endif%}
+    {% include 'SkreenHouseFactoryV3Bundle:Content:_list.html.twig' with {p: program} %}
+    {% endfor %}
+    </ul>
+  </div>
+  {% else %}
   <div id="selection-programs" class="slider slider-list">
     <ul class="items">
     {% for program in selection.programs %}
@@ -79,6 +89,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
     {% endfor %}
     </ul>
   </div>
+  {% endif %}
   <div id="description-seo">{{ selection.description|raw }}</div>
 </div>
 {% endblock %}

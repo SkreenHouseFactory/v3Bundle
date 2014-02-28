@@ -26,7 +26,7 @@ ProgramView = {
         if (typeof friends_programs[id] != 'undefined') {
           UI.addFriends(container_friends, friends_programs[id])
         } else {
-          container_friends.append('<p class="alert alert-warning">Aucun ami trouvé !</p><a href="#same_playlists" class="btn btn-block">Ils ajoutent aussi à leurs playlists &raquo;</a>');
+          container_friends.append('<p class="alert alert-warning">Aucun ami trouvé !</p><a href="#same_playlists" class="btn btn-block">Ils ajoutent aussi à leurs listes &raquo;</a>');
         }
       });
     }
@@ -205,7 +205,7 @@ $(document).ready(function(){
     Skhf.session.callbackSignout = function() {
       ProgramView.unloadProgramUsersDatas($('#view-program').data('id'));
     }
-    Skhf.session.callbackSignin = function() {
+    Skhf.session.callbackSignin['program'] = function() {
       if (Skhf.session.datas.email) {
         ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
       }
@@ -238,7 +238,7 @@ $(document).ready(function(){
           }
           //related channels
           if (return_data.channels) {
-            $('#skModal.modal .modal-header .modal-title').html('Le programme a été ajouté à vos playlists !');
+            $('#skModal.modal .modal-header .modal-title').html('Le programme a été ajouté à vos listes !');
             $('#skModal.modal .modal-header .modal-message').html('<p><b>Voulez-vous suivre aussi ces chaînes ?</b><br/>Nous vous suggérons d\'ajouter ces chaînes également pour ne rater aucune de leurs diffusions (TV, Replay, VOD, Cinéma).</p>');
             $('#skModal.modal .modal-body').html('<div class="slider slider-list"><ul class="items"></ul></div>');
             new BaseSlider({
@@ -262,7 +262,7 @@ $(document).ready(function(){
           //related same_playlist
           } else if (return_data.programs) {
             //TODO : insert programs in modal
-            $('#skModal.modal .modal-header .modal-title').html('Le programme a été ajouté à vos playlists !');
+            $('#skModal.modal .modal-header .modal-title').html('Le programme a été ajouté à vos listes !');
             $('#skModal.modal .modal-header .modal-message').html('<p><b>Programmes fréquemment suivis ensemble</b><br/>Nous vous suggérons d\'ajouter ces programmes également pour ne rater aucune de leurs diffusions (TV, Replay, VOD, Cinéma).</p>');
             $('#skModal.modal .modal-body').html('<div class="slider slider-list"><ul class="items"></ul></div>');
             new BaseSlider({
@@ -322,6 +322,15 @@ $(document).ready(function(){
         $('.btn-suivre[data-id]').trigger('click');
       }
     }
+    
+    //autoload episodes/seasons
+    if ($('[data-autoload-episodes]').length) {
+      $('[data-autoload-episodes]').each(function(){
+        $(this).load(
+          API.config.v3_root + '/episodes-list/' + $(this).data('autoload-episodes') + '/'
+        );
+      });
+    }
 
     //handle video mention
     $('[data-play]').on('click', function(){
@@ -330,17 +339,16 @@ $(document).ready(function(){
       }
     });
 
-    //ics
-    $('[data-ics-occurrence]').on('click', function(e){
-      e.preventDefault();
-      document.location = API.config.base + '1/icsfile/' + $(this).data('id')  + '.ics';
+    //scroll-to-title from best-offer
+    $('[data-scroll-to-title]').on('click', function(){
+      $(document).scrollTop(475);
       return false;
     });
 
     //episodes
-    $('#program-episodes ul li a[data-season]').on('click', function(){
-      $('#program-episodes ul li').removeClass('active');
-      $(this).parent().addClass('active');
+    $(document).on('click', '#program-episodes .btn-group .btn[data-season]', function(){
+      $('#program-episodes .btn-group .btn').removeClass('active');
+      $(this).addClass('active');
       $('ul#episodes-list li:not(.hide)').addClass('hide');
       $('ul#episodes-list li.season-' + $(this).data('season')).removeClass('hide');
     })
@@ -386,7 +394,19 @@ $(document).ready(function(){
     $('html,body').animate({'scrollTop' : 0}, 1000);
   });  
 
-  $(document).on('click', '.no-cost[data-play]', function(){
+  $('.savoir-plus').on('click', function(){
+    $('.bande_couleur_degrade').slideToggle();
+    $('.savoir-plus .glyphicon').toggleClass('glyphicon-collapse-down');
+    $('.savoir-plus .glyphicon').toggleClass('glyphicon-collapse-up');
+    if ($('.savoir-plus .glyphicon').hasClass('glyphicon-collapse-up')) {
+      $('.savoir-plus span').html('&nbsp;Fermer');
+    } else {
+      $('.savoir-plus span').html('&nbsp;Plus d\'infos...');
+    }
+    return false;
+  });
+
+  $(document).on('click', '.no-cost[data-play], .no-cost[data-play-iframe]', function(){
     //remove
     $('.is-playing').each(function(){
       $(this).removeClass('is-playing');

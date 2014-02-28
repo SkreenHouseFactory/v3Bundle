@@ -1,5 +1,20 @@
 // -- favoris
 $(document).ready(function(){
+  
+  
+  ////////////// CALLBACKS
+  Skhf.session.callbackSignin['playlists'] = function() {
+    console.log('#bandeau-listes', $('#bandeau-listes'));
+    //mes listes
+    if ($('#bandeau-listes').length) {
+      $('#bandeau-listes .user-on.titres > div').each(function(){
+        var ids = Skhf.session.getPlaylistIds($(this).data('fav'))
+        $(this).find('.badge').html(ids.length);
+      })
+    }
+  }
+
+  ////////////// SCRIPTS
   //console.log('scripts/core/playlists.js', 'load');
   // -- .fav : toggle
   $(document).on('click', '.slider li .fav-trash', function(e){
