@@ -451,3 +451,16 @@ presented.by: Présentateur
 yes: Oui
 no: Non
 tvgrid.channels.noprogram.search: Aucune chaîne trouvée.
+offer:
+    indispo:
+        saison:
+            titre: Cette saison n'est pas diffusée pour le moment.
+            texte: Cliquez sur &laquo; ajouter à mes listes &raquo; pour être averti dès qu'un épisode de <strong>%titre%</strong> est diffusé.
+        episode:
+            titre: Cet épisode n'est pas diffusé pour le moment.
+            texte: Cliquez sur &laquo; ajouter à mes listes &raquo; pour être averti dès qu'un épisode de <strong>%titre%</strong> est diffusé.
+        film_docu:
+            titre: <strong>%titre%</strong> n'est disponible sur aucune plateforme légale.
+        default:
+            titre: <strong>%titre%</strong> n'est pas diffusé pour le moment.
+            texte: Avec mySkreen, suivez ce programme pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !

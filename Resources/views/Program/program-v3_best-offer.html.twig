@@ -54,17 +54,19 @@
     <div class="row best-offer tv no-cost {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}"{% if program.episodeof is defined and program.episodeof|to_array|length > 0 %} data-episode-id="{{ program.id }}"{% endif %}>
       <div class="col-xs-13">
         <div class="row">
-          <div class="col-xs-16"><span>À la télé
-            {% if o_channel.has_replay and o.broadcasttime|remainingtv %}
-               | </span><span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span></div>
-            {% else %}
-              {% if o.broadcasttime is defined and o.broadcasttime is not null %} | </span><span><time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate(o_access.name) }}</time>{% endif %}</span></div>
-            {% endif %}
+          <div class="col-xs-16">
+            <span>À la télé
+              {% if o.broadcasttime is defined and o.broadcasttime is not null %} | </span><span><time datetime="{{ o.broadcasttime }}"> Diffusé le {{ o.broadcasttime|broadcastdate(o_access.name) }}</time>{% endif %}
+            </span>
+          </div>
         </div>
         <div class="row last-child">
           <div class="col-xs-16">
             {% if o.episode_id is defined and o.episode_id is not null %}
-              {{ attribute(program.datas_offers.episodes, o.episode_id).title }}
+              {{ attribute(program.datas_offers.episodes, o.episode_id).title }}&nbsp;
+            {% endif %}
+            {% if o_channel.has_replay and o.broadcasttime|remainingtv %}
+              <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
             {% endif %}
           </div>
         </div>

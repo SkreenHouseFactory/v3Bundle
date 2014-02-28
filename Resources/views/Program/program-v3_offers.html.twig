@@ -161,17 +161,17 @@
 {% if hasoffers == false and tab is not defined %}
   <div class="bs-callout bs-callout-info">
     {% if program.season_number is defined and program.title == 'Saison '~program.season_number %}
-    <p class="h4">Cette saison n'est pas diffusée pour le moment.</p>
-    <p>Cliquez sur &laquo; ajouter à mes listes &raquo; pour être averti dès qu'un épisode de <strong>{{ program.episodeof.title }}</strong> est diffusé.</p>
+    <p class="h4">{{ 'offer.indispo.saison.titre'|trans|raw }}</p>
+    <p>{{ 'offer.indispo.saison.texte'|trans({'%titre%': program.episodeof.title})|raw }}</p>
     {% elseif program.episodeof is defined %}
-    <p class="h4">Cette épisode n'est pas diffusé pour le moment.</p>
-    <p>Cliquez sur &laquo; ajouter à mes listes &raquo; pour être averti dès qu'un épisode de <strong>{{ program.episodeof.title }}</strong> est diffusé.</p>
+    <p class="h4">{{ 'offer.indispo.episode.titre'|trans|raw }}</p>
+    <p>{{ 'offer.indispo.episode.texte'|trans({'%titre%': program.episodeof.title})|raw }}</p>
     {% elseif program.format and program.format.name in ['Film','Documentaire'] %}
-    <p class="h4"><strong>{{ program.title }}</strong> n'est disponible sur aucune plateforme légale.</p>
-    <p>Avec mySkreen, suivez ce programme pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !</p>
+    <p class="h4">{{ 'offer.indispo.film_docu.titre'|trans({'%titre%': program.title})|raw }}</p>
+    <p>{{ 'offer.indispo.default.texte'|trans }}</p>
     {% else %}
-    <p class="h4"><strong>{{ program.title }}</strong> n'est pas diffusé pour le moment.</p>
-    <p>Avec mySkreen, suivez ce programme pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !</p>
+    <p class="h4">{{ 'offer.indispo.default.titre'|trans({'%titre%': program.title}) }}</p>
+    <p>{{ 'offer.indispo.default.texte'|trans }}</p>
     {% endif %}
   </div>
 {% endif %}
