@@ -1092,6 +1092,11 @@ html:not(.touch){
             tr {
               height: 90px !important;
               border-bottom: 1px solid #efefef;
+              &.tv {
+                .offers {
+                  display: none;
+                }
+              }
               &.bonus, &.cut, &.ba {
                 td.channel {
                   width: 170px;
@@ -1175,6 +1180,12 @@ html:not(.touch){
                     font-size: 1.2em;
                     color: @bluesecondarycolor;
                     font-weight: bold;
+                    .ms-reminder {
+                      font-size: 0.65em;
+                      font-weight: normal;
+                      color: #dc2561;
+                      text-transform: none;
+                    }
                   }
                   .glyphicon {
                     font-size: 1.2em;
