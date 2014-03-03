@@ -9,17 +9,17 @@
 {% endif %}
 {% if cinemas|length == 0 %}
   {% if app.request.get('q') %}
-    <p class="alert alert-warning">{{ 'program.theaters.noprogram.search'|trans }}</p>
+    <p class="bs-callout bs-callout-warning">{{ 'program.theaters.noprogram.search'|trans }}</p>
   {% elseif app.request.get('playlist') %}
-    <p class="alert alert-warning">{{ 'program.theaters.noprogram.playlist'|trans }} <a class="pull-right btn btn-suivre" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {'init': 1}) }}"><i class="glyphicon glyphicon-plus"></i> {{ 'theaters.playlist.add'|trans }}</a></p>
+    <p class="bs-callout bs-callout-warning">{{ 'program.theaters.noprogram.playlist'|trans }} <a class="pull-right btn btn-suivre" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {'init': 1}) }}"><i class="glyphicon glyphicon-plus"></i> {{ 'theaters.playlist.add'|trans }}</a></p>
   {% elseif app.request.get('latlng') %}
-    <p class="alert alert-warning">{{ 'program.theaters.noprogram.geoloc'|trans }}</p>
+    <p class="bs-callout bs-callout-warning">{{ 'program.theaters.noprogram.geoloc'|trans }}</p>
   {% endif %}
 {% else %}
 
   <div class="panel-group" id="accordion-theaters">
     {% if radius is defined and radius > 10 %}
-      <p class="alert alert-info">{{ 'program.theaters.extended.geoloc'|trans }}</p>
+      <p class="bs-callout bs-callout-info">{{ 'program.theaters.extended.geoloc'|trans }}</p>
     {% endif %}
     {% for cinema in cinemas %}
       {% if cinema.adress is defined and cinema.schedules is defined %}
