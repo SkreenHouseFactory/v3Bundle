@@ -97,7 +97,7 @@ $(document).ready(function(){
   //CHecker quantité de scroll
   
   $(document).scroll(function(){
-    console.log($(document).scrollTop());
+    // console.log($(document).scrollTop());
     if ((($(document).scrollTop() > 300) && ($(document).scrollTop() < 1200))
           && !(slide_in.isOpened()) 
           && !(slide_in.hasBeenForced())){
