@@ -38,19 +38,7 @@
        <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i>{{o.broadcasttime|comingsoon}}</span>
      {% endif %}
    {% endif %}
-   {% if o_access.name == 'TV' %}
-     {% if key == 'plays'  %}
-       <span class="ms-reminder">Live</span>
-       <i class="glyphicon glyphicon-time"></i>
-     {# {% elseif o.has_replay and o.broadcasttime|remainingtv %}
-       <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
-     {% elseif o.broadcasttime|timeleft %}
-       <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o_access.name == 'TV' ? 'Encore' : 'Dans' }} {{ o.broadcasttime|timeleft }}</span> #}
-     {% endif %}
-   {% elseif o.endtime is defined and o.endtime|remainingreplay %}
-     <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
-   {% endif %}
-
+   
  </td>
 
  <td class="episode" colspan="2">
@@ -83,34 +71,43 @@
  </td>
 
  {#% if o_access.name not in ['Vidéo','Archive','Extrait','Bonus'] or o.cost %#}
- <td class="price{{ o.cost is defined and o.cost ? ' price-vod' : '' }} big">
-   {% if (o.cost is defined and o.cost) or 
+<td class="price{{ o.cost is defined and o.cost ? ' price-vod' : '' }} big">
+  {% if (o.cost is defined and o.cost) or 
          o_access.name in ['Vidéo','Archive','Extrait','Bonus'] or
          'dvd' in o_access.name|lower or
          'bluray' in o_access.name|lower  %}
-     <div class="rent">
-       {% if o_access.name != 'Extrait' and o_access.name != 'Bonus' %}
-         {{ o_access.name }}
-       {% endif %}
-       {% if o.buy_id is defined and o.buy_id %}
+    <div class="rent">
+      {% if o_access.name != 'Extrait' and o_access.name != 'Bonus' %}
+        {{ o_access.name }}
+      {% endif %}
+      {% if o.buy_id is defined and o.buy_id %}
         & Achat
-       {% endif %}
-       {% if o.tags.device is defined and o_access.name != 'Extrait' and o_access.name != 'Bonus' %}
+      {% endif %}
+      {% if o.tags.device is defined and o_access.name != 'Extrait' and o_access.name != 'Bonus' %}
          <i class="glyphicon glyphicon-info-sign" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ o.tags.device|replace({',': ', '}) }}" ></i>
-       {% endif %}
-     </div>
-   {% elseif o_access.name in ['Live', 'TV', 'Replay'] %}
-     <div class="rent">
-        <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate(o_access.name) }}</time>
-        {% if o.has_replay is defined and o.has_replay and o.broadcasttime is defined and o.broadcasttime|remainingtv %}
-          <br/>
+      {% endif %}
+    </div>
+  {% elseif o_access.name in ['TV', 'Live', 'Replay'] %}
+    <div class="rent">
+      <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate(o_access.name) }}</time>
+      {% if o_access.name == 'TV' %}  
+        {% if key == 'plays'  %}
+          </br>
+          <span class="ms-reminder">Live</span>
+          <i class="glyphicon glyphicon-time"></i>
+        {% elseif o.has_replay and o.broadcasttime|remainingtv %}
+          </br>
           <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
         {% elseif o.broadcasttime|timeleft %}
-          <br/>
+          </br>
           <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o_access.name == 'TV' ? 'Encore' : 'Dans' }} {{ o.broadcasttime|timeleft }}</span>
         {% endif %}
-     </div>
-   {% endif %}
+      {% elseif o.endtime is defined and o.endtime|remainingreplay %}
+        </br>
+        <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
+      {% endif %}
+    </div>
+  {% endif %}
 
    {% if (o.versions is defined and o.versions|to_array|length) or 
          (o.tags is defined and o.tags|to_array|length) %}
