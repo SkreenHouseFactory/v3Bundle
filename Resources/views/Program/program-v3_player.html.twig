@@ -25,9 +25,13 @@
     {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_best-offer.html.twig' %}
   {% else %}
     <div class="col-xs-11">
-      <div class="row best-offer-empty">
+      <div class="row best-offer-empty bs-callout bs-callout-info">
         <div>
-          {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offer-indispo.html.twig' %}
+          {% if program.theater_release_date is defined and program.theater_release_date_timestamp >= "now"|date('U') %}
+            <p class="h4">Sortie en salle le <strong>{{ program.theater_release_date }}</strong>.</p>
+          {% else %}
+            {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offer-indispo.html.twig' %}
+          {% endif %}
         </div>
       </div>
     </div>
