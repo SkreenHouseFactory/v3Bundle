@@ -50,13 +50,13 @@ class ChannelController extends Controller
     $api   = $this->get('api');
     $params = array(
       'from_slug'  => $request->get('slug'),
-      'with_live'  => !$request->get('format') && !$request->get('page') ? true : false,
-      'with_next_live' => !$request->get('format') && !$request->get('page') ? true : false,
       'channel_img_width' => 45,
       'img_width' => 150,
       'img_height' => 200,
       'live_player_width' => 420,
       'live_player_height' => 270,
+      'with_live'  => !$request->get('format') && !$request->get('page') ? true : false,
+      'with_next_live' => !$request->get('format') && !$request->get('page') ? true : false,
       'with_epg' => !$request->get('format') && !$request->get('page') ? true : false,
       'with_replay' => !$request->get('format') && !$request->get('page') ? true : false,
       'with_best_offer' => !$request->get('format') && !$request->get('page') ? true : false,
@@ -66,7 +66,7 @@ class ChannelController extends Controller
       'disable_search_by_format' => true,
       'sorter' => 'year',
       'preview' => $request->get('preview'),
-      'fields' => 'description,programs,img_maxsize,description_program,schedules'
+      'fields' => 'description,programs,img_maxsize,description_program,schedules,around'
     );
     $data = $api->fetch('channel'.($request->get('id')?'/'.$request->get('id'):null), $params);
 

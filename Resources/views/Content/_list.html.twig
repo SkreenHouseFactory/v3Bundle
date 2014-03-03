@@ -7,11 +7,12 @@
 
   <p class="infos"><a href="{{ p.format.seo_url }}">{{ p.format.name }}</a>{% if p.categories is defined %} - {{ p.categories|to_array|join(',') }}{% endif %}, {{ p.duration }}mn</p>
   {% if p.categories is defined %}
-  <p>{{ p.description|striptags|slice(0,250)|raw }}</p>
+  <p>{{ p.description|striptags|slice(0,230)|raw }}...</p>
   {% endif %}
   <p>
-    {% if p.player is defined and p.player %}
-    <span class="btn btn-primary" data-link-to-replace="{{ p.seo_url|rot13 }}"><i class="glyphicon glyphicon-play"></i> Voir la bande-annonce</span> &nbsp;
+    {% set teaser = p.player is defined and p.player ? p.player : p.teaser %}
+    {% if teaser %}
+    <span class="btn btn-default" data-link-to-replace="{{ p.seo_url|rot13 }}"><i class="glyphicon glyphicon-play"></i> Voir la bande-annonce</span> &nbsp;
     {% endif %}
     {% if p.offers is defined %}
       {% if p.offers.theaters_schedules is defined and p.offers.theaters_schedules %}

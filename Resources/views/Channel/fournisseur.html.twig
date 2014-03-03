@@ -195,6 +195,7 @@
             <div id="channel-programs" class="list clear-cancel ms-margin-top-seo">
               <ul class="items">
                 {% for program in channel.programs %}
+                  {% if loop.index > 1 %}<li class="divider"></li>{% endif %}
                   {% include 'SkreenHouseFactoryV3Bundle:Content:_list.html.twig' with {
                     p: program, 
                     cinema: channel
@@ -215,18 +216,33 @@
             {% endif %}
           </div>
           {# map #}
-          {% if channel.adress is defined %}
+          {% if channel.adress is defined or channel.around is defined %}
             <div class="col-xs-5">
-              <div id="map-container" class="well">
-                {% if channel.city is defined and channel.city %}
-                  {{ channel.adress }}<br/>{{ channel.zip_code }} {{ channel.city }}
+            {% if channel.adress is defined %}
+                <div id="map-container" class="well">
+                  {% if channel.city is defined and channel.city %}
+                    {{ channel.adress }}<br/>{{ channel.zip_code }} {{ channel.city }}
+                  {% endif %}
+                  {% if channel.tel %}tél : {{ channel.tel }}<br/>{% endif %}
+                  {% if channel.web %}<a href="http://{{ channel.web }}" target="_blank">{{ channel.web }}</a>{% endif %}
+                  <hr/>
+                  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+                  <div id="map-canvas" data-name="{{ channel.name }}" data-adress="{{ channel.adress }} {{ channel.zip_code }} {{ channel.city }}"></div>
+                </div>
+            {% endif %}
+            {% if channel.around is defined %}
+            <ul class="list-group">
+              <li class="list-group-item list-header">Autres cinémas à proximité</li>
+              {% for c in channel.around|to_array %}
+              <li class="list-group-item">
+                <a href="{{ c.seo_url }}">&raquo; {{ c.name }}</a>
+                {% if c.distance is defined %}
+                  <br/><small class="grey">{{ c.city }}, distance ≃ {{ c.distance < 1 ? (c.distance*100)|number_format ~'m' : c.distance|number_format(1) ~ 'km' }}</small>
                 {% endif %}
-                {% if channel.tel %}tél : {{ channel.tel }}<br/>{% endif %}
-                {% if channel.web %}<a href="http://{{ channel.web }}" target="_blank">{{ channel.web }}</a>{% endif %}
-                <hr/>
-                <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-                <div id="map-canvas" data-name="{{ channel.name }}" data-adress="{{ channel.adress }} {{ channel.zip_code }} {{ channel.city }}"></div>
-              </div>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
             </div>
           {% endif %}
         </div>
