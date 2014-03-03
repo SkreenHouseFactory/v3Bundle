@@ -35,16 +35,22 @@
         <div class="row last-child">
           <div class="col-xs-16">
             {% if o.episode_id is defined and o.episode_id is not null %}
-              {{ attribute(program.datas_offers.episodes, o.episode_id).title }}&nbsp;
+              {% if o.endtime is defined and o.endtime|remainingreplay is not null %}
+                {{ attribute(program.datas_offers.episodes, o.episode_id).title[0:40] }}...&nbsp;
+              {% elseif attribute(program.datas_offers.episodes, o.episode_id).title|length > 55 %}
+                {{ attribute(program.datas_offers.episodes, o.episode_id).title[0:55] }}...
+              {% else %}
+                {{ attribute(program.datas_offers.episodes, o.episode_id).title }}
+              {% endif %}
             {% endif %}
-            {% if o.endtime is defined and o.endtime %}
+            {% if o.endtime is defined and o.endtime|remainingreplay is not null %}
               <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}</span>
             {% endif %}
           </div>
         </div>
       </div>
       <div class="col-xs-3">
-        <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture|replace({'/medias': '/t/medias'}) }}{% elseif o_episode and o_access.name in ['Replay'] and o_episode.picture and o_episode.picture|pic_filter != program.picture | pic_filter %}{{o_episode.picture}} {% else %}{{ o_channel.img|replace({'80//': 'x/50/'}) }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
+        <img src="{{ o_channel.img|replace({'//medias': '/medias', '/80': '/x/50'}) }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
       </div>
         
     </div>
@@ -63,16 +69,22 @@
         <div class="row last-child">
           <div class="col-xs-16">
             {% if o.episode_id is defined and o.episode_id is not null %}
-              {{ attribute(program.datas_offers.episodes, o.episode_id).title }}&nbsp;
+              {% if o_channel.has_replay and o.broadcasttime|remainingtv is not null %}
+                {{ attribute(program.datas_offers.episodes, o.episode_id).title[0:45] }}...&nbsp;
+              {% elseif attribute(program.datas_offers.episodes, o.episode_id).title|length > 60 %}
+                {{ attribute(program.datas_offers.episodes, o.episode_id).title[0:60] }}...
+              {% else %}
+                {{ attribute(program.datas_offers.episodes, o.episode_id).title }}
+              {% endif %}
             {% endif %}
-            {% if o_channel.has_replay and o.broadcasttime|remainingtv %}
+            {% if o_channel.has_replay and o.broadcasttime|remainingtv is not null %}
               <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
             {% endif %}
           </div>
         </div>
       </div>
       <div class="col-xs-3">
-        <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture|replace({'/medias': '/t/medias'}) }}{% elseif o_episode and o_access.name in ['Replay'] and o_episode.picture and o_episode.picture|pic_filter != program.picture | pic_filter %}{{o_episode.picture}} {% else %}{{ o_channel.img|replace({'80//': 'x/50/'}) }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
+        <img src="{{ o_channel.img|replace({'//medias': '/medias', '/80': '/x/50'}) }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
       </div>
         
     </div>
@@ -128,55 +140,19 @@
         <div class="row last-child">
           <div class="col-xs-16">
             {% if o.episode_id is defined and o.episode_id is not null %}
-              {{ attribute(program.datas_offers.episodes, o.episode_id).title }}
+              {% if attribute(program.datas_offers.episodes, o.episode_id).title|length > 38 %}
+                {{ attribute(program.datas_offers.episodes, o.episode_id).title[0:38] }}...
+              {% else %}
+                {{ attribute(program.datas_offers.episodes, o.episode_id).title }}
+              {% endif %}
             {% endif %}
           </div>
         </div>
       </div>
       <div class="col-xs-3">
-        <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture|replace({'/medias': '/t/medias'}) }}{% elseif o_episode and o_access.name in ['Replay'] and o_episode.picture and o_episode.picture|pic_filter != program.picture | pic_filter %}{{o_episode.picture}} {% else %}{{ o_channel.img|replace({'80//': 'x/50/'}) }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
+        <img src="{{ o_channel.img|replace({'//medias': '/medias', '/80': '/x/50'}) }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
       </div>
     </div>
-
-  {# {% else %}
-
-    <div class="row best-offer theater player-stop {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}">
-      <div class="col-xs-3">
-        {% if o_access.name in ['TV'] and 
-              o_channel.live is defined and 
-              o_channel.live.player is defined and 
-              o_channel.live.player and
-              o.is_live is defined and
-              o.is_live  %}
-          <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir le direct</button>
-        {% elseif program.player and o.id == program.player.id %}
-          <button type="button" class="btn btn-voir disabled">Lecture en cours</button>
-        {% else %}
-          <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;
-            {% if o.buy_id is defined and o.buy_id %}
-              Voir
-            {% else %}
-              Voir
-            {% endif %}
-          </button>
-          {% if o.tags.originalprice is defined and o.tags.originalprice and o.cost %}
-            <span class="sold">au lieu de <del>{{o.tags.originalprice|number_format(2, ',') ~ '€'}}</del><br><mark>      avant-première -{{o.cost|sold_perc(o.tags.originalprice)~'%' }}</mark> </span>
-          {% endif %}
-        {% endif %}
-      </div>
-      <div class="col-xs-7">
-        <div class="row">
-          <div class="col-xs-16">{{ o.dispo }}</div>
-        </div>
-        <div class="row">
-          <div class="col-xs-16"><span>{{ o_access.name }} |</span><span>{% if program.duration %} {{ program.duration }} mn. {% endif %}{% if o.tags.version is defined %}{{ o.tags.version }} {% endif %}{% if o.tags.HD is defined %} / {{ o.tags.HD }}{% endif %}</span></div>
-        </div>
-      </div>
-      <div class="col-xs-3 price">{% if o.cost is defined and o.cost is not null and o.cost != "-" %}{{ o.cost }}&nbsp;€{% endif %}</div>
-      <div class="col-xs-3">
-        <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture|replace({'/medias': '/t/medias'}) }}{% elseif o_episode and o_access.name in ['Replay'] and o_episode.picture and o_episode.picture|pic_filter != program.picture | pic_filter %}{{o_episode.picture}} {% else %}{{ o_channel.img|replace({'80//': 'x/50/'}) }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
-      </div>
-    </div> #}
 
   {% endif %}
   
