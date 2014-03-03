@@ -93,8 +93,8 @@ Skhf = {
 $.support.cors = true;
 var API;
 API = {
-  xhr: new Array(),
-  db: new Array(),
+  xhr: [],
+  db: [],
   skXdmSocket: null,
   config: null,
   dataType: 'jsonp',
@@ -102,6 +102,7 @@ API = {
   currentUrl: null,
   geolocation_id: null,
   indexedDbStores: ['friends', 'social_selector'],
+  callbackInit: [],
   init: function(callback) {
     var href = document.location.href;
     API.config = $.extend(ENV.all, href.indexOf('typhon.net') != -1 ? ENV.dev : href.indexOf('preprod.') != -1 ? ENV.preprod : ENV.prod);
@@ -122,6 +123,16 @@ API = {
     if (typeof callback != 'undefined') {
       callback();
     }
+    //callbackInit
+   //  if (this.callbackInit) {
+   //   if (typeof this.callbackInit == 'object') {
+   //     for(c in this.callbackInit) {
+   //       this.callbackInit[c]();
+   //     }
+   //   } else {
+   //     this.callbackInit();
+   //   }
+   // }
   },
   quickLaunchModal: function(action, callbackOnLoad, args) {
     this.launchModal(this.config.popin + action, callbackOnLoad, args);

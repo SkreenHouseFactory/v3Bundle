@@ -120,21 +120,25 @@
       </div>
       <div class="col-xs-3 price">{% if o.cost is defined and o.cost is not null and o.cost != "-" %}{{ o.cost }}&nbsp;€{% endif %}</div>
       <div class="col-xs-3">
-        <img src="{% if o.picture is defined and o.picture %}{{ o.picture }}{% elseif o_episode and o_access.name in ['Vidéo'] and o_episode.picture %}{{ o_episode.picture|replace({'/medias': '/t/medias'}) }}{% elseif o_episode and o_access.name in ['Replay'] and o_episode.picture and o_episode.picture|pic_filter != program.picture | pic_filter %}{{o_episode.picture}} {% else %}{{ o_channel.img|replace({'80//': 'x/50/'}) }}{% endif %}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
+        <img src="{{ o_channel.img|replace({'//medias': '/medias', '/80': '/x/50'}) }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
       </div>
     </div>
 
   {% elseif o.offer_type == 'live' %}
 
-    <div class="row best-offer live player-stop no-cost {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['Live'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player and o.is_live is defined and o.is_live %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ 'm6replay' not in o.url and 'itunes' not in o.url ? o.url|replace({'/exit/': '/redirect/'}) : o.url }}"{% endif %}{% if program.episodeof is defined and program.episodeof|to_array|length > 0 %} data-episode-id="{{ program.id }}"{% endif %}>
+    <div class="row best-offer live player-stop no-cost {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['TV'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player and o.is_live is defined and o.is_live %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ 'm6replay' not in o.url and 'itunes' not in o.url ? o.url|replace({'/exit/': '/redirect/'}) : o.url }}"{% endif %}{% if program.episodeof is defined and program.episodeof|to_array|length > 0 %} data-episode-id="{{ program.id }}"{% endif %}>
       <div class="col-xs-4">
-          <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir le direct</button>
+        {% if program.player and o.id == program.player.id %}
+          <button type="button" class="btn btn-voir disabled">Lecture en cours</button>
+        {% else %}
+          <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;Voir le direct</button>
+        {% endif %}
       </div>
       <div class="col-xs-9">
         <div class="row">
-          <div class="col-xs-16"><span>En ce moment sur {{ o_channel.name }}
+          <div class="col-xs-16"><span>En ce moment
             {% if o.endtime is defined and o.endtime is not null %}
-               | </span><span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingreplay }}
+               | </span><span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingtv }}
             {% endif %}</span></div>
         </div>
         <div class="row last-child">

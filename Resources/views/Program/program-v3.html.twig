@@ -88,6 +88,7 @@
                   <div class="row">
                     <div class="col-xs-16">INFOS</div>
                   </div>
+                  <div class="row">résumé & casting</div>
                 </a>
               </li>
             </ul>
@@ -129,12 +130,12 @@
                   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' %}
                   {# Episodes #}
                   {% if program.episodeof is defined %}
-                  <div data-autoload-episodes="{{ program.episodeof.id }}"></div>
+                    <div data-autoload-episodes="{{ program.episodeof.id }}"></div>
                   {% else %}
-                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes.html.twig' %}
+                    {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes.html.twig' %}
                   {% endif %}
-                  {# Casting #}
-                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
+                    {# Casting #}
+                    {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
                 {% endif %}
               </div>
             </div>

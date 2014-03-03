@@ -208,12 +208,12 @@ class ProgramController extends Controller
             isset($data->datas_offers->episodes) && count((array)$data->datas_offers->episodes) > 1) {
           $ksort = false;
           foreach ((array)$data->datas_offers->episodes as $e) {
-            $key = null;
+            $key = 0;
             if (isset($e->season_number) && $e->season_number) {
-              $key .= $e->season_number.',';
+              $key = (int)$e->season_number*100;
             }
             if (isset($e->episode_number) && $e->episode_number) {
-              $key .= $e->episode_number;
+              $key = $key + (int)$e->episode_number;
             }
             if (!$key) {
               $key .= $e->title;

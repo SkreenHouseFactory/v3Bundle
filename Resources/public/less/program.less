@@ -1,6 +1,12 @@
 .is-playing{
   background:  #FFF6CE;
   border: 1px solid #D4CFB8;
+  .col-xs-3, .col-xs-4 {
+    .btn-voir {
+      font-size: 12px;
+      padding-left: 8px;
+    }
+  }
 }
 
 
@@ -1035,6 +1041,9 @@ html:not(.touch){
         min-height: inherit;
         #cat-title, #cat-title+div, #categorie-title, #categorie-title+div {
           padding: 0 15px;
+          &.ms-surtitre {
+            color: #999;
+          }
         }
       }
       .panel {
