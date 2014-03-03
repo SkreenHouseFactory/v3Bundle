@@ -142,16 +142,17 @@
           </div>
           {# Chaînes #}
           <div class="col-xs-5 channel-side">
-              {# Chaînes #}
-              {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_chaines-thema.html.twig' %}
-              {# Homes #}
-              {% if program.homes is defined %}
-              <ul class="channel_module_width">
+            {# Chaînes #}
+            {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_chaines-thema.html.twig' %}
+            {# Homes #}
+            {% if program.homes is defined %}
+            <ul class="list-group">
+              <li class="list-group-item list-header">Présent dans ces sélections :</li>
               {% for h in program.homes|to_array %}
-              <li><a class="channel_link" href="{{ h.seo_url }}"><span class="channel_texte">Sélection : {{ h.title }}</span></a></li>
+              <li class="list-group-item"><a href="{{ h.seo_url }}">&raquo; {{ h.title }}</a></li>
               {% endfor %}
-              </ul>
-              {% endif %}
+            </ul>
+            {% endif %}
           </div>
         </div>
       </div>

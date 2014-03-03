@@ -146,18 +146,14 @@ class MainController extends Controller
 
       $api = $this->get('api');
       $datas = $api->fetch('www/home/' . $home, array(
-        'without_footer' => true,
-        'with_programs' => true,
         'img_width' => 150,
         'img_height' => 200,
         'channel_slider_width' => 225,
         'channel_slider_height' => 110,
-        'with_teaser' => true,
-        'with_pass' => true,
-        'slider_width' => 'auto',
         //'slider_height' => 450,
-        'with_img_maxsize'=> true,
-        'channel_img_width' => 50
+        'slider_width' => 'auto',
+        'channel_img_width' => 50,
+        'fields' => 'programs,teaser,footer,img_maxsize'
       ));
       //echo $api->url;exit;
       //print_r($datas);
