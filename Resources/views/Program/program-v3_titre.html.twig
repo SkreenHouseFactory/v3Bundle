@@ -62,7 +62,7 @@
       <div class="row">
         <div class="col-xs-16 episodes">
           {% if episode_title and 
-                program.episode_title != episode_title and 
+                program.episode_title|escape != episode_title and 
                 (program.season_number is not defined or 
                  program.episode_title != 'Saison ' ~ program.season_number) %}
           {{ episode_title }} : 
