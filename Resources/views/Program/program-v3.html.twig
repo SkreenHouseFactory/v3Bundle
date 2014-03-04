@@ -21,12 +21,11 @@
 {% endblock %}
 
 {# Attribute Microdata #}
-{% block body_attribute %} itemscope itemtype="http://schema.org/WebPage" itemref="md-name-description md-breadcrumb affiche md-ispartof"{% endblock %}
+{% block body_attribute %} {% endblock %}
 
 {# Content #}
 {% block content %}
-  {% set program_itemtype %}{% if program.format.name in ['Série','Emission'] %}TVSeries{% else %}Movie{% endif %}{% endset %}
-  <div id="view-program" data-id="{{ program.id }}" itemprop="about" itemscope itemtype="http://schema.org/{{ program_itemtype }}" itemref="program-teaser">
+  <div id="view-program" data-id="{{ program.id }}">
     <div class="scrollplayerzone">
       {# Player + Affiche + Meilleure offre #}
       <div class="container">
