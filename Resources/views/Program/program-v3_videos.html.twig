@@ -40,7 +40,7 @@
         <div class="panel-heading"><h3 class="panel-title">{{ rel }}</h3></div>
         <div id="{{ rel }}" class="tab-pane">
           <table>
-          {% for prog in progs|to_array %}
+          {% for prog in progs|to_array if prog.best_offer is defined %}
           {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offer-video.html.twig' with {
             o: prog.best_offer, 
             o_episode: prog, 

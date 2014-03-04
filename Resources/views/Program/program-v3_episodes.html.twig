@@ -28,7 +28,7 @@
                   </a>
                 </li>
               {% endfor %}
-              <li class="season-{{ season.number }} {{ loop.last ? 'in' : 'hide' }}" align="center"><a class="btn btn-default" href="{{ program.seo_url }}saison-{{ season.number }}/">&raquo; Toute la saison {{ season.number }}</a></li>
+              <li class="bouton-saison season-{{ season.number }} {{ loop.last ? 'in' : 'hide' }}"><a class="btn btn-default" href="{{ program.seo_url }}saison-{{ season.number }}/">&raquo; Toute la saison {{ season.number }}</a></li>
             {% endfor %}
           </ul>
         </div>

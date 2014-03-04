@@ -73,7 +73,7 @@
         <div class="row last-child">
           <div class="col-xs-16">
             {% if o.episode_id is defined and o.episode_id is not null %}
-              {% if o_channel.has_replay and o.broadcasttime|remainingtv is not null %}
+              {% if o_channel.has_replay is defined and o_channel.has_replay and o.broadcasttime|remainingtv is not null %}
                 {{ attribute(program.datas_offers.episodes, o.episode_id).title[0:45] }}...&nbsp;
               {% elseif attribute(program.datas_offers.episodes, o.episode_id).title|length > 60 %}
                 {{ attribute(program.datas_offers.episodes, o.episode_id).title[0:60] }}...
