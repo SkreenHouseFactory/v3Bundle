@@ -212,10 +212,10 @@ $(document).ready(function(){
       //theater playlist et fallback géoloc
       if(!document.location.href.match(/theater_id=/)){
         if (Skhf.session.datas.email &&
-            $('#program-offers #trigger-theaters-playlist').length){ //desactivé si id cinéma dans url
-          $('#program-offers #trigger-theaters-playlist').trigger('click');
-        } else if ($('#program-offers #trigger-theaters-geoloc').length) {
-          $('#program-offers #trigger-theaters-geoloc').trigger('click');
+            $('.tab-content #trigger-theaters-playlist').length){ //desactivé si id cinéma dans url
+          $('.tab-content #trigger-theaters-playlist').trigger('click');
+        } else if ($('.tab-content #trigger-theaters-geoloc').length) {
+          $('.tab-content #trigger-theaters-geoloc').trigger('click');
         }
       }
       
@@ -406,7 +406,7 @@ $(document).ready(function(){
     return false;
   });
 
-  $(document).on('click', '.no-cost[data-play], .no-cost[data-play-iframe]', function(){
+  $(document).on('click', '[data-play], [data-play-iframe]', function(){
     //remove
     $('.is-playing').each(function(){
       $(this).removeClass('is-playing');

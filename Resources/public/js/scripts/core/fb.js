@@ -7,14 +7,7 @@
 API.callbackInit['fb'] = function(){
 
 }
-// (function(d, s, id) {
-//     console.log('scripts/core', 'fb.js', 'lancement fb asynchronously');
-//      var js, fjs = d.getElementsByTagName(s)[0];
-//      if (d.getElementById(id)) return;
-//      js = d.createElement(s); js.id = id;
-//      js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&status=1&cookie=1&appId="+"101348563248431";
-//      fjs.parentNode.insertBefore(js, fjs);
-//    }(document, 'script', 'facebook-jssdk'));
+
 
 $(document).ready(function(){
 
@@ -120,5 +113,13 @@ $(document).ready(function(){
    }
   };
 
+  (function(d, s, id) {
+    console.log('scripts/core', 'fb.js', 'lancement fb asynchronously');
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) return;
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&status=1&cookie=1&appId="+API.config.fb.app_id;
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
    
 });

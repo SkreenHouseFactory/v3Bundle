@@ -88,8 +88,8 @@
                 </a>
               </li>
               <li class="divider"></li>
-              <li class="playlist-publish">
-                <a data-toggle="collapse" data-target="#top-playlist"><i class="glyphicon glyphicon-list"></i> {{ 'playlist.yours'|trans }} {% if app.environment == 'dev' %}<span data-modal-remote="/user/modal/publish-playlist" data-modal-title="Publier ma playlist" class="btn btn-small">Publier</span>{% endif %}</a>
+              <li>
+                <span class="programs" data-link-to-replace="{{ path('user_programs')|rot13 }}"><i class="glyphicon glyphicon-list"></i> Vos listes <span></span></span>
               </li>
               <li>
                 <span class="vod" data-link-to-replace="{{ path('user_vod')|rot13 }}"><i class="glyphicon glyphicon-film"></i> {{ 'nav.vod'|trans }}</span>

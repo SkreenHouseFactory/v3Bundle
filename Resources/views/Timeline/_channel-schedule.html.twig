@@ -4,7 +4,7 @@
 {% set start =  o.broadcast_begin|date('U') - data.timestamp > 0 ? ((o.broadcast_begin|date('U') - data.timestamp)*5/60)|number_format : 0 %}
 {% set end   =  o.broadcast_end|date('U') > timestamp_end ? timestamp_end : o.broadcast_end|date('U') %}
 {% set width =  ((end - (start ? o.broadcast_begin|date('U') : data.timestamp))*5/60)|number_format %}
-<li data-program-id="{{ o.program.episodeof_id is defined ? o.program.episodeof_id : o.program.id }}" class="{% if o.is_live and c.live %}is-live {% endif %}diff {{ width < 60 ? 'is-short' : 'is-long' }}{{ 'now'|date('U') - data.timestamp < 3600 and o.is_live ? ' is-live' : '' }} {{ o.program.onglet }}{{ o.has_replay is defined and o.has_replay ? ' has-replay' : '' }}{{ o.program.nb_like > 5 ? ' is-popular' : '' }}{{ 'Sport' in o.program.categories ? ' sports' : '' }}" data-begin="{{ o.broadcast_begin|date('U') }}" data-end="{{ o.broadcast_end|date('U') }}" style="left: {{ start }}px;width: {{ width }}px;">
+<li data-program-id="{{ o.program.episodeof_id is defined ? o.program.episodeof_id : o.program.id }}" class="{% if o.is_live and c.live is defined and c.live %}is-live {% endif %}diff {{ width < 60 ? 'is-short' : 'is-long' }}{{ 'now'|date('U') - data.timestamp < 3600 and o.is_live ? ' is-live' : '' }} {{ o.program.onglet }}{{ o.has_replay is defined and o.has_replay ? ' has-replay' : '' }}{{ o.program.nb_like > 5 ? ' is-popular' : '' }}{{ 'Sport' in o.program.categories ? ' sports' : '' }}" data-begin="{{ o.broadcast_begin|date('U') }}" data-end="{{ o.broadcast_end|date('U') }}" style="left: {{ start }}px;width: {{ width }}px;">
 	{% if width < 80  %}
 	<a class="link" rel="#content" href="{{ path('any_url', {url: o.program.url[1:o.program.url|length-1]}) }}" data-toggle="tooltip" data-placement="{{ start > 5*60 ? 'left' : 'right' }}" data-original-title="{{o.program.title}}" data-container="body" rel="#content" data-ajax-play="{{o.id}}" data-ajax="{{ path('any_url', {url: o.program.url[1:o.program.url|length-1]}) }}" >
 	<i class="glyphicon glyphicon-question-sign"></i>
@@ -21,7 +21,7 @@
   </div>
 	<a class="link" rel="#content" data-ajax-play="{{o.id}}" data-ajax="{{ path('any_url', {url: o.program.url[1:o.program.url|length-1]}) }}" href="{{ path('any_url', {url: o.program.url[1:o.program.url|length-1]}) }}">
 		<div class="nowrap"><span class="header">{{ o.broadcast_begin|date('H:i') }} {{ o.program.format ? o.program.format.name : '' }}</span></div>
-		{% if o.is_live and c.live %}<span class="label label-warning">Live</span>
+		{% if o.is_live and c.live is defined and c.live %}<span class="label label-warning">Live</span>
 		{% elseif o.url or o.player %}<span class="label label-info">Replay</span>
 		{% elseif o.has_replay is defined and o.has_replay %}<span class="label label-default">Replay</span>
 		{% elseif o.program.has_vod in [1,2,12] %}

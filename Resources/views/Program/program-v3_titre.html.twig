@@ -2,26 +2,24 @@
 <div class="row">
   {# Titre #}
   <div class="col-xs-11">
-
+    {% set program_itemtype %}{% if program.format.name in ['Série','Emission'] %}TVSeries{% else %}Movie{% endif %}{% endset %}
     <div class="row">
       <div class="col-xs-16">
         {# Affichage type, année, durée #}
         <span class="ms-format">
           {% if program.format %}
-            <span itemscope>
               <span id="md-ispartof" itemprop="isPartOf" itemscope itemtype="http://schema.org/CollectionPage">
                 <a href="{{ path('any_url', {url: program.format.seo_url|slice(1, program.format.seo_url|length-1) }) }}" itemprop="url">
                   <span itemprop="name">{{ program.format.name }}</span>
                 </a>
               </span>
-            </span>
           {% endif %}
-          {% if program.year is defined and program.year > 0 %} - <span itemprop="copyrightYear">{{ program.year }}</span>{% endif %}{% if program.duration %}, <time itemprop="duration" datetime="PT{{ (program.duration * 60 - 3600)|date('H-i')|replace({"-":"H"}) }}M">{{ program.duration }}</time> mn.{% endif %}
+          {% if program.year is defined and program.year > 0 %} - <span id="md-year" itemprop="copyrightYear">{{ program.year }}</span>{% endif %}{% if program.duration %}, <time id="md-duration" itemprop="duration" datetime="PT{{ (program.duration * 60 - 3600)|date('H-i')|replace({"-":"H"}) }}M">{{ program.duration }}</time> mn.{% endif %}
         </span>
       </div>
     </div>
-
-    <div class="row">
+    
+    <div class="row" id="md-about" itemprop="about" itemscope itemtype="http://schema.org/{{ program_itemtype }}" itemref="program-teaser md-year {{ program_itemtype == 'Movie' ? 'md-duration ' : '' }}program-casting md-tvseason">
       <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
       <div id="fake_h1" class="col-xs-16" itemprop="name">
         {% if program.episode_title is defined and
@@ -43,15 +41,15 @@
     {# Gestion Episodes Séries #}
     {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% elseif program.episode_title is defined %}{{  program.episode_title }}{% endif %}{% endset %}
     {% if program.season_number is defined %}
-      <span itemprop="season" itemscope itemtype="http://schema.org/TVSeason">
+      <span id="md-tvseason" itemprop="season" itemscope itemtype="http://schema.org/TVSeason">
         <meta itemprop="name" content="Saison {{ program.season_number }}"/>
         <meta itemprop="seasonNumber" content="{{ program.season_number }}"/>
         {% if program.seasons is defined %}
         {% set numberOfEpisodes %}{{ program.seasons|to_array|first.episodes|to_array|length }}{% endset %}
-        <meta itemprop="numberOfEpisodes" content="{{ numberOfEpisodes }}">
+          <meta itemprop="numberOfEpisodes" content="{{ numberOfEpisodes }}">
         {% endif %}
         {% if program.episode_number is defined %}
-          <span itemprop="episode" itemscope itemtype="http://schema.org/Episode">
+          <span itemprop="episode" itemscope itemtype="http://schema.org/Episode"{{ program_itemtype == 'TVSeries' ? ' itemref="md-duration"' : '' }}>
             <meta itemprop="episodeNumber" content="{{ program.episode_number }}"/>
             <meta itemprop="name" content="{{ program.episode_title is defined ? program.episode_title : episode_title }}"/>
           </span>
@@ -64,7 +62,7 @@
       <div class="row">
         <div class="col-xs-16 episodes">
           {% if episode_title and 
-                program.episode_title != episode_title and 
+                program.episode_title|escape != episode_title and 
                 (program.season_number is not defined or 
                  program.episode_title != 'Saison ' ~ program.season_number) %}
           {{ episode_title }} : 

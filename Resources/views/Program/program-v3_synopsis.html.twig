@@ -1,7 +1,7 @@
 {# Synopsis #}
 <div class="col-xs-16">
   <div id="program-synopsis" class="panel panel-default panel-synopsis{{ program.description|striptags|length < 907 ? ' forced-height':'' }}">
-    <div class="panel-heading" itemscope>
+    <div class="panel-heading" itemscope itemtype="http://schema.org/WebPage" itemref="md-breadcrumb affiche md-ispartof md-about">
       <div id="md-name-description">
         {% if tab is defined and tab == 'season-only' %}
           <h1 class="panel-title" itemprop="name">Tout sur {{ program.title }}{{ program.season_number }} {{ program.has_vod|accessFromHasvod }}</h1>
@@ -14,7 +14,6 @@
     <div class="tab-pane text-toggle-extend">
       {# categories #}
       {% if program.format and program.categories|to_array|length %}
-        <div itemscope>
           {% if program.categories|to_array|length == 1 and program.subcategories|to_array|length == 0 %}
             <div id="categorie-title" class="ms-surtitre">Catégorie</div>
           {% else %}
@@ -30,7 +29,6 @@
               {% endfor %}
             {% endif %}
           </div>
-        </div>
       {% endif %}
 
       {% if tab is not defined %}
