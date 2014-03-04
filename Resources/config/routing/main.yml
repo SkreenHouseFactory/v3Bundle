@@ -415,6 +415,9 @@ theaters_program:
 theaters_search:
     pattern:  /cinema/search
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Cinema:search }
+theaters_schedules_around:
+    pattern:  /cinema/around
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cinema:around }
 
 #categories
 category_page:

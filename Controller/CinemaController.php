@@ -147,4 +147,33 @@ class CinemaController extends Controller
       
       return $response;
     }
+
+
+    /**
+    * search
+    * block html include/ajax
+    */
+    public function aroundAction(Request $request)
+    {
+      $cinemas = null;
+			$api = $this->get('api');
+      $cinemas = $api->fetch('schedule/cine', array(
+        'program_id' => $request->get('id'),
+        'geoloc_from_theater_id' => $request->get('geoloc_from_theater_id'),
+        'fields' => 'schedule,versions',
+        'fromGeoloc'=> true
+      ));
+      echo $api->url;
+
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:_popin-search.html.twig', array(
+        'cinemas' => $cinemas,
+      ));
+
+      $maxage = 600;
+      $response->setPublic();
+      $response->setMaxAge($maxage);
+      $response->setSharedMaxAge($maxage);
+      
+      return $response;
+    }
 }

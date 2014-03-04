@@ -111,4 +111,18 @@ $(document).ready(function(){
    $(aim).removeClass('hide');
    $(this).addClass('live');
  });
+
+  // schedule around
+  $(document).on('click', '[data-schedule-cine-around]', function(){
+  	console.log('script', '[data-schedule-cine-around]');
+    var self = this;
+	  $.get(
+      API.config.v3_root + '/cinema/around/', 
+      $(this).data('schedule-cine-around'),
+      function(html){
+  	    console.log('script', '[data-schedule-cine-around]', 'callback');
+        self.parent().html(html);
+    });
+  	return false;
+  });
 });
