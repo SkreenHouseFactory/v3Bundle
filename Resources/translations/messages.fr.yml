@@ -369,6 +369,7 @@ program:
             search: Aucun cinéma trouvé.
             playlist: Aucun cinéma proposant ce film trouvé dans vos listes.
             geoloc: Aucun cinéma trouvé dans les environs.
+            around: Aucun cinéma diffusant ce film trouvé dans les environs.
     unvailable: non disponible sur mySkreen
     friends:
         block:

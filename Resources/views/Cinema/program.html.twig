@@ -15,7 +15,9 @@
     <p class="bs-callout bs-callout-warning">{{ 'program.theaters.noprogram.search'|trans }}</p>
   {% elseif app.request.get('playlist') %}
     <p class="bs-callout bs-callout-warning">{{ 'program.theaters.noprogram.playlist'|trans }} <a class="pull-right btn btn-suivre" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {'init': 1}) }}"><i class="glyphicon glyphicon-plus"></i> {{ 'theaters.playlist.add'|trans }}</a></p>
-  {% elseif app.request.get('latlng') %}
+  {% elseif app.request.get('geoloc_from_theater_id') %}
+    <p class="bs-callout bs-callout-warning">{{ 'program.theaters.noprogram.around'|trans }}</p>
+  {% elseif app.request.get('latlng') or app.request.get('geoloc_from_theater_id') %}
     <p class="bs-callout bs-callout-warning">{{ 'program.theaters.noprogram.geoloc'|trans }}</p>
   {% endif %}
 {% else %}

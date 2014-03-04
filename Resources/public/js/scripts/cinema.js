@@ -122,6 +122,7 @@ $(document).ready(function(){
       function(html){
   	    console.log('script', '[data-schedule-cine-around]', 'callback');
         self.parent().append('<br/><br/>'+html);
+        self.attr('disabled', 'disabled').addClass('disabled');
     });
   	return false;
   });
