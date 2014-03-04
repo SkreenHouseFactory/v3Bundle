@@ -43,6 +43,8 @@ $(document).ready(function(){
       map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
       geocoder = new google.maps.Geocoder();
       geocoder.geocode({ 'address': $('#map-canvas').data('adress')}, function(results, status) {
+        console.log('scripts/channel.js', 'google.maps', results);
+        
         if (status == google.maps.GeocoderStatus.OK) {
           map.setCenter(results[0].geometry.location);
           //marker

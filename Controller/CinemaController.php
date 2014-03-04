@@ -144,7 +144,7 @@ class CinemaController extends Controller
       $response->setPublic();
       $response->setMaxAge($maxage);
       $response->setSharedMaxAge($maxage);
-      
+
       return $response;
     }
 
@@ -158,14 +158,14 @@ class CinemaController extends Controller
       $cinemas = null;
 			$api = $this->get('api');
       $cinemas = $api->fetch('schedule/cine', array(
-        'program_id' => $request->get('id'),
-        'geoloc_from_theater_id' => $request->get('geoloc_from_theater_id'),
         'fields' => 'schedule,versions',
+        'program_id' => $request->get('program_id'),
+        'geoloc_from_theater_id' => $request->get('geoloc_from_theater_id'),
         'fromGeoloc'=> true
       ));
-      echo $api->url;
+      //echo 'api: '.$api->url;
 
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:_popin-search.html.twig', array(
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:program.html.twig', array(
         'cinemas' => $cinemas,
       ));
 
@@ -173,7 +173,7 @@ class CinemaController extends Controller
       $response->setPublic();
       $response->setMaxAge($maxage);
       $response->setSharedMaxAge($maxage);
-      
+
       return $response;
     }
 }

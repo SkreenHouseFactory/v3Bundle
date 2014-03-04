@@ -1,34 +1,46 @@
 <li>
-  <img src="{{ p.picture }}" class="pull-left" />
+  <div class="row">
+  <div class="col-xs-4">
+  <img src="{{ p.picture }}" />
+  </div>
+  <div class="col-xs-12">
   <h2><a href="{{ p.seo_url }}">{{ p.title }}</a></h2>
   {% if p.theater_release_date is defined %}
   <p class="infos">Sortie en salle : {{ p.theater_release_date }}</p>
   {% endif %}
 
-  <p class="infos"><a href="{{ p.format.seo_url }}">{{ p.format.name }}</a>{% if p.categories is defined %} - {{ p.categories|to_array|join(',') }}{% endif %}, {{ p.duration }}mn</p>
+  <p class="infos"><a href="{{ p.format.seo_url }}">{{ p.format.name }}</a>{% if p.categories is defined %} - {{ p.categories|to_array|join(', ') }}{% endif %}, {{ p.duration }}mn</p>
   {% if p.categories is defined %}
   <p>{{ p.description|striptags|slice(0,230)|raw }}...</p>
   {% endif %}
+  
+  {% if p.offers is defined %}
+    {% if p.offers.theaters_schedules is defined and p.offers.theaters_schedules %}
+    <div class="panel-theater">
+    <div class="panel-collapse">
+      {% include 'SkreenHouseFactoryV3Bundle:Cinema:_schedules.html.twig' with {
+        cinema: {
+          id: cinema.id,
+          schedules: p.offers.theaters_schedules|to_array|first
+        }
+      } %}
+    </div>
+    </div>
+    {% endif %}
+  {% endif %}
+  <br/>
   <p>
-    {% set teaser = p.player is defined and p.player ? p.player : p.teaser %}
-    {% if teaser %}
-    <a class="btn btn-default" data-play="{{ teaser.id }}"><i class="glyphicon glyphicon-play"></i> Voir la bande-annonce</a> &nbsp;
-    {% endif %}
-    {% if p.offers is defined %}
-      {% if p.offers.theaters_schedules is defined and p.offers.theaters_schedules %}
-      <div class="panel-theater">
-      <div class="panel-collapse">
-        {% include 'SkreenHouseFactoryV3Bundle:Cinema:_schedules.html.twig' with {
-          cinema: {
-            id: cinema.id,
-            schedules: p.offers.theaters_schedules|to_array|first
-          }
-        } %}
-      </div>
-      </div>
-      {% elseif p.offers.theaters %}
-      <span class="btn btn-default" data-link-to-replace="{{ p.seo_url|rot13 }}"><i class="glyphicon glyphicon-map-marker"></i> Trouver une séance ({{ p.offers.theaters|split(',')|length }} salles)</span>
-      {% endif %}
-    {% endif %}
+  {% if p.offers is defined and p.offers.theaters is defined and p.offers.theaters %}
+  <span class="btn btn-default" data-link-to-replace="{{ p.seo_url|rot13 }}"><i class="glyphicon glyphicon-map-marker"></i> Trouver une séance ({{ p.offers.theaters|split(',')|length }} salles)</span>  &nbsp;
+  {% endif %}
+  {% set teaser = p.player is defined and p.player ? p.player : p.teaser %}
+  {% if teaser %}
+  <a class="btn btn-default" data-play="{{ teaser.id }}"><i class="glyphicon glyphicon-play"></i> Voir la bande-annonce</a> &nbsp;
+  {% endif %}
+  {% if cinema is defined and program is defined and app.environment == 'dev' %}
+    <a class="btn btn-default" data-schedule-cine-around="{{ {program_id: program.id, geoloc_from_theater_id: cinema.id}|json_encode }}"><i class="glyphicon glyphicon-record"></i> Autres séances à proximité</a>
+  {% endif %}
   </p>
+  </div>
+  </div>
 </li>
