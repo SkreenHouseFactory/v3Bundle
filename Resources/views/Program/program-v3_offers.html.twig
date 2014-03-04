@@ -102,17 +102,21 @@
               {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
               {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
               {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
-
-              {% if o.episode_id is defined and 
-                   program.episodeof.id is defined and 
-                   o.episode_id != program.id and
-                   other_episodes != 'ok' %}
-               <tr class="other-episodes {{ o_access.name }}">
-                 <td colspan="6"><p>Autres épisodes {% if program.season_number is defined %}de la saison {{ program.season_number }} {% endif %}<i class="glyphicon glyphicon-arrow-down"></i></p></td>
-               </tr>
-               {% set other_episodes = 'ok' %}
+              {% if program.season_number is defined and
+                    program.season_number and 
+                    program.episode_number is not defined %}
+                {% set other_episodes = 'ok' %}
               {% endif %}
-
+              {% if o.episode_id is defined and 
+                    program.episodeof.id is defined and 
+                    o.episode_id != program.id and
+                    other_episodes != 'ok' %}
+                <tr class="other-episodes {{ o_access.name }}">
+                  <td colspan="6"><p>Autres épisodes {% if program.season_number is defined %}de la saison {{ program.season_number }} {% endif %}<i class="glyphicon glyphicon-arrow-down"></i></p></td>
+                </tr>
+                {% set other_episodes = 'ok' %}
+              {% endif %}
+              
               
                 {% set btn_deploy_offers = btn_deploy_offers + 1 %}
                 {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offer.html.twig' with {

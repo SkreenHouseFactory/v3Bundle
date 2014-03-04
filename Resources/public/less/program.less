@@ -422,6 +422,10 @@ ul#episodes-list, ul#episodes-list-saison{
     overflow: hidden;
     padding-left: 15px;
     width: 98%;
+    &.bouton-saison {
+      text-align: center;
+      margin-top: 20px;
+    }
     p.clearfix {
       img {
         margin-right: 7px;
@@ -760,6 +764,11 @@ html:not(.touch){
           right: 16px;
           font-size: 20px;
         }
+        &.btn-success {
+          .glyphicon {
+            right: 4px;
+          }
+        }
       }
     }
     .col-xs-4 {
@@ -1011,7 +1020,7 @@ html:not(.touch){
             padding: 7px;
             .casting-function {
               float: left;
-              width: 25%;
+              width: 32%;
               margin-bottom: 10px;
               a[itemprop="url"], a[data-placement="right"]{
                 &:hover {

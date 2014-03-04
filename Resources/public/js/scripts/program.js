@@ -62,10 +62,14 @@ ProgramView = {
           console.log('UI.loadProgramUsersDatas', 'datas.purchased ', datas.purchased);
           for (k in datas.purchased) {
             if( API.formatTimestamp(datas.purchased[k]) != 'undefined' ){
-              console.log('UI.loadProgramUsersDatas', 'purchased', '#program-offers [data-id="' + k + '"] td .btn', $('#program-offers [data-id="' + k + '"] td .btn'), k, API.formatTimestamp(datas.purchased[k]));
-              $('#program-offers [data-id="' + k + '"]').each(function(){
+              console.log('UI.loadProgramUsersDatas', 'purchased', '.tab-content [data-id="' + k + '"] td .btn', $('.tab-content [data-id="' + k + '"] td .btn'), k, API.formatTimestamp(datas.purchased[k]));
+              $('.tab-content [data-id="' + k + '"], .best-offer[data-id="' + k + '"]').each(function(){
                 if (typeof $(this).data('play-pass') == 'undefined') {
                   $('td .btn', this)
+                    .addClass('btn-success')
+                    .removeClass('btn-voir')
+                    .html('<i class="glyphicon glyphicon-play"></i> Voir (loué)');
+                  $('.col-xs-3 .btn', this)
                     .addClass('btn-success')
                     .removeClass('btn-voir')
                     .html('<i class="glyphicon glyphicon-play"></i> Voir (loué)');
