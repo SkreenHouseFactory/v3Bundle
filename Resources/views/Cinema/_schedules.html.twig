@@ -60,3 +60,8 @@
     </div>
   {% endfor %}
 </div>
+{% if program is defined and app.environment == 'dev' %}
+<div>
+  <a class="btn btn-default btn-xs" data-schedule-cine-around="{{ {program_id: program.id, geoloc_from_theater_id: cinema.id}|json_encode }}">Chercher d'autres séances à proximité</a>
+</div>
+{% endif %}
