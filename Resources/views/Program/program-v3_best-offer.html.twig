@@ -22,7 +22,11 @@
 
     <div class="row best-offer replay player-stop no-cost {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}"{% if o.deporte is defined and o.deporte is not null %} data-play="{{ o.id }}"{% else %} data-redirect="{{ 'm6replay' not in o.url and 'itunes' not in o.url ? o.url|replace({'/exit/': '/redirect/'}) : o.url }}"{% endif %}{% if program.episodeof is defined and program.episodeof|to_array|length > 0 %} data-episode-id="{{ program.id }}"{% endif %}>
       <div class="col-xs-3">
-          <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir</button>
+        {% if program.player and o.id == program.player.id %}
+          <button type="button" class="btn btn-voir disabled">Lecture en cours</button>
+        {% else %}
+          <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;Voir</button>
+        {% endif %}
       </div>
       <div class="col-xs-10">
         <div class="row">

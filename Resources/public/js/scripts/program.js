@@ -406,7 +406,7 @@ $(document).ready(function(){
     return false;
   });
 
-  $(document).on('click', '.no-cost[data-play], .no-cost[data-play-iframe]', function(){
+  $(document).on('click', '[data-play], [data-play-iframe]', function(){
     //remove
     $('.is-playing').each(function(){
       $(this).removeClass('is-playing');
