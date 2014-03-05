@@ -109,6 +109,7 @@ class ProgramController extends Controller
       if (!$data || isset($data->error)) {
         switch ($request->attributes->get('_route')) {
           case 'program_pere':
+            $response = new Response();
             $response->headers->setCookie(new Cookie('myskreen_404', $request->getUri()), time()+3600);
             return $this->redirect($this->generateUrl('category', array(
               'format' => $request->get('format'),
@@ -117,6 +118,7 @@ class ProgramController extends Controller
           break;
           case 'program_fils':
           case 'program_fils_saison':
+            $response = new Response();
             $response->headers->setCookie(new Cookie('myskreen_404', $request->getUri()), time()+3600);
             return $this->redirect($this->generateUrl('program_pere', array(
               'format' => $request->get('format'),
