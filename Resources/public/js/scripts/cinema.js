@@ -28,7 +28,7 @@ $(document).ready(function(){
   if ($('#theaters-playlist').length) {
 
     //////////// CALLBACKS ////////////////
-    Skhf.session.callbackSignin = function() {
+    Skhf.session.callbackSignin['cinema'] = function() {
       if (Skhf.session.datas.email) {
         $('a[href="#theater-playlist"]').trigger('click');
       }

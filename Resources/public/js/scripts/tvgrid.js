@@ -333,7 +333,7 @@ $(document).ready(function(){
       GridView.loadSchedule();
       GridView.setTimeBar();
     }
-    Skhf.session.callbackSignin = function() {
+    Skhf.session.callbackSignin['tvgrid'] = function() {
       if (Skhf.session.datas.epg) {
         console.log('scripts/tvgrid.js', 'callbackSignin', 'epg', Skhf.session.datas.epg);
         GridView.loadSchedule();
