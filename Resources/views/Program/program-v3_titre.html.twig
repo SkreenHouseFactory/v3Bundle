@@ -2,7 +2,7 @@
 <div class="row">
   {# Titre #}
   <div class="col-xs-11">
-    {% set program_itemtype %}{% if program.format.name in ['Série','Emission'] %}TVSeries{% else %}Movie{% endif %}{% endset %}
+    {% set program_itemtype %}{% if program.format and program.format.name in ['Série','Emission'] %}TVSeries{% else %}Movie{% endif %}{% endset %}
     <div class="row">
       <div class="col-xs-16">
         {# Affichage type, année, durée #}
