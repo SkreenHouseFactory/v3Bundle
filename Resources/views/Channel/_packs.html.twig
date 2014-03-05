@@ -1,0 +1,19 @@
+<div id="view-page" class="container channel{{ channel.id }}">
+  <div class="row">
+    {% for slider in data.sliders|to_array if slider.id is defined %}
+      {% if loop.index == 2 and ((channel.facebook_uid != null and channel.facebook_uid != '') or (channel.twitter_id != null and channel.twitter_id != '')) %}
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_social-slider.html.twig' with {slider: slider, loop_index:loop.index, h_title: "h2",channel: channel} %}
+      {% endif %}
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index:loop.index, h_title: "h2",channel: channel} %}
+    {% endfor %}
+  </div>
+  {% if (channel.personne is defined and channel.personne) or (channel.text is defined and channel.text) %}
+    <div id="description-seo">
+      {% if channel.personne is defined and channel.personne %}
+        <p>{{ channel.personne.description|raw }}</p>
+      {% elseif channel.text is defined and channel.text %}
+        <p>{{ channel.text|raw }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
