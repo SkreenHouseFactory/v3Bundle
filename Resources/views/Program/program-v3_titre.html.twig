@@ -39,7 +39,7 @@
     </div>
 
     {# Gestion Episodes Séries #}
-    {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% elseif program.episode_title is defined %}{{ program.episode_title }}{% endif %}{% endset %}
+    {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{# {% elseif program.episode_title is defined %}{{ program.episode_title }} #}{% endif %}{% endset %}
     {% if program.season_number is defined %}
       <span id="md-tvseason" itemprop="season" itemscope itemtype="http://schema.org/TVSeason">
         <meta itemprop="name" content="Saison {{ program.season_number }}"/>
@@ -57,8 +57,7 @@
       </span>
     {% endif %}
     {% if program.episode_title is defined and
-          program.episodeof is defined  and
-          episode_title %}
+          program.episodeof is defined %}
       <div class="row">
         <div class="col-xs-16 episodes">
           {% if episode_title and 
