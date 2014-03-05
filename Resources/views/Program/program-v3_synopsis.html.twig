@@ -3,11 +3,7 @@
   <div id="program-synopsis" class="panel panel-default panel-synopsis{{ program.description|striptags|length < 907 ? ' forced-height':'' }}">
     <div class="panel-heading" itemscope itemtype="http://schema.org/WebPage" itemref="md-breadcrumb affiche md-ispartof md-about">
       <div id="md-name-description">
-        {% if tab is defined and tab == 'season-only' %}
-          <h1 class="panel-title" itemprop="name">Tout sur {{ program.title }}{{ program.season_number }} {{ program.has_vod|accessFromHasvod }}</h1>
-        {% else %}
           <h1 class="panel-title" itemprop="name">Tout sur {{ program.title }} {{ program.has_vod|accessFromHasvod }}</h1>
-        {% endif %}
         <meta itemprop="description" content="{% block description %}{% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_description.html.twig' %}{% endblock %}"/>
       </div>
     </div>
