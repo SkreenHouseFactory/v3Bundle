@@ -135,9 +135,11 @@
                     <div class="actions" data-id="{{ channel.live.program.id }}">
                       <h3><strong>En direct : {{ channel.live.program.title }}</strong>&nbsp; <small><br>de {{ channel.live.program.best_offer.broadcast_begin|date('H:i') }} à {{ channel.live.program.best_offer.broadcast_end|date('H:i') }}</small></h3>
                       <br/>
-                      <img src="{{ channel.live.program.picture }}" alt="{{ channel.live.program.title }} en direct sur {{ channel.name }}">
+                      {% if channel.live.program.picture is defined and channel.live.program.picture %}
+                        <img src="{{ channel.live.program.picture|replace({'//200': '/200'}) }}" alt="{{ channel.live.program.title }} en direct sur {{ channel.name }}">
+                      {% endif %}
                       <p>
-                        {{ channel.live.program.description|striptags|slice(0,600)|raw }}
+                        {{ channel.live.program.description is defined ? channel.live.program.description|striptags|slice(0,600)|raw : '' }}
                         <br/><br/>
                         <a class="fav fav-like btn btn-suivre btn-plus" data-placement="right"> Suivre</a>
                         &nbsp;

@@ -14,16 +14,33 @@
       {% endif %}
     {% endfor %}
   </ul>
+  {# Homes #}
+  {% if program.homes is defined %}
+    <ul class="list-group">
+      <li class="list-group-item list-header">Présent dans ces sélections :</li>
+        {% for h in program.homes|to_array %}
+          <li class="list-group-item"><a href="{{ h.seo_url }}">&raquo; {{ h.title }}</a></li>
+        {% endfor %}
+    </ul>
+  {% endif %}
 {% else %}
-{# Chaînes éditorialisées #}
-<span class="label label-warning">A voir en ce moment</span>
-<hr/>
-<ul class="channel_module_width">
-  <li>
-    <a class="channel_link" href="/les-inconnus/">
-      <span class="channel_texte">Les Inconnus, la chaîne</span>
-      <img src="http://mskstatic.com/300/147/c/medias/photos/channel/1-les-inconnus-s.jpg?2014021509" class="channel_root" data-track-channel="Les Inconnus" alt="Les Inconnus">
-    </a>
-  </li>
-</ul>
+  {# Homes #}
+  {% if program.homes is defined %}
+    <ul class="list-group">
+      <li class="list-group-item list-header">Présent dans ces sélections :</li>
+        {% for h in program.homes|to_array %}
+          <li class="list-group-item"><a href="{{ h.seo_url }}">&raquo; {{ h.title }}</a></li>
+        {% endfor %}
+    </ul>
+  {% endif %}
+  {# Chaînes éditorialisées #}
+  <span class="label label-warning">A voir en ce moment</span>
+  <ul class="channel_module_width">
+    <li>
+      <a class="channel_link" href="/les-inconnus/">
+        <span class="channel_texte">Les Inconnus, la chaîne</span>
+        <img src="http://mskstatic.com/300/147/c/medias/photos/channel/1-les-inconnus-s.jpg?2014021509" class="channel_root" data-track-channel="Les Inconnus" alt="Les Inconnus">
+      </a>
+    </li>
+  </ul>
 {% endif %}
