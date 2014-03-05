@@ -67,16 +67,20 @@ Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la
 {% endblock %}
 
 {% block content %}
-
-{% if channel.type == 'ChannelFournisseur' or data.channel.fournisseur is defined %}
-  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_fournisseur.html.twig' with { data: data.channel.fournisseur, sliders: data.sliders is defined ? data.sliders : [], channel: data.channel, custom_header: custom_header } %}
-{% elseif channel.type == 'ChannelOnglet' %}
-  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_onglet.html.twig' with {data:data, from_selection: from_selection, channel: channel, custom_header: custom_header,partner:partner} %}
-{% elseif channel.type == 'ChannelPersonne' %}
-  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_personne.html.twig' with {data:data} %}
-{% elseif channel.type == 'ChannelMyskreener' %}
-  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_user.html.twig' with {data:data} %}
+{% if channel.template is defined and channel.template %}
+  {% include 'SkreenHouseFactoryV3Bundle:Channel:_template_' ~ channel.template|replace({'+': '-'}) ~ '.html.twig' ignore missing %}
+{% else %}
+  {% if channel.type == 'ChannelFournisseur' or data.channel.fournisseur is defined %}
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_fournisseur.html.twig' with { data: data.channel.fournisseur, sliders: data.sliders is defined ? data.sliders : [], channel: data.channel, custom_header: custom_header } %}
+  {% elseif channel.type == 'ChannelOnglet' %}
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_onglet.html.twig' with {data:data, from_selection: from_selection, channel: channel, custom_header: custom_header,partner:partner} %}
+  {% elseif channel.type == 'ChannelPersonne' %}
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_personne.html.twig' with {data:data} %}
+  {% elseif channel.type == 'ChannelMyskreener' %}
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_user.html.twig' with {data:data} %}
+  {% endif %}
 {% endif %}
+
 
 {# modal / pas de modal pour la chaine parodie des inconnus, et applications et partenaires #}
 {% if '/partners/' not in app.request.getPathInfo %}
