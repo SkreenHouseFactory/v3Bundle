@@ -9,7 +9,7 @@
   <p class="infos">Sortie en salle : {{ p.theater_release_date }}</p>
   {% endif %}
 
-  <p class="infos"><a href="{{ p.format.seo_url }}">{{ p.format.name }}</a>{% if p.categories is defined %} - {{ p.categories|to_array|join(', ') }}{% endif %}, {{ p.duration }}mn</p>
+  <p class="infos">{% if p.format %}<a href="{{ p.format.seo_url }}">{{ p.format.name }}</a>{% endif %}{% if p.categories is defined %} - {{ p.categories|to_array|join(', ') }}{% endif %}, {{ p.duration }}mn</p>
   {% if p.categories is defined %}
   <p>{{ p.description|striptags|slice(0,230)|raw }}...</p>
   {% endif %}
