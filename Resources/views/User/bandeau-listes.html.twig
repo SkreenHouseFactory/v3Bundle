@@ -1,6 +1,6 @@
 <div id="bandeau-listes"{% if no_background is defined %} class="bg-none"{% endif %}>
   <div class="container">
-    <div class="row titres user-off{% if active is defined %} hide{% endif %}">
+    <div class="row titres user-off{% if active is defined and 'user' in app.request.uri %} hide{% endif %}">
       <div class="col-xs-4">
         <a class="auth">
           <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/programs.png')}}">

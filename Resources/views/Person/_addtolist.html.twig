@@ -1,0 +1,33 @@
+<div class="bande_listes header-margin-top">
+<div class="container">
+<div class="row">
+  <div class="col-xs-11">
+    <h1>{{ person.name }}</h1>
+  </div>
+  <div class="col-xs-5">
+    {# AjoutListes #}
+    <div class="row">
+      {# Bouton Ajout/Abo #}
+      <div class="col-xs-16 ajout">
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: person.id, class: 'fav-person', text: 'Ajouter à mes listes', placement: 'left'} %}
+      </div>
+      {# Textes Ajouts #}
+      <div class="col-xs-16">
+        <a class="meslistes-plus"><i class="glyphicon glyphicon-collapse-down"></i><span>&nbsp;Plus d'infos...</span></a>
+        {# <p>Soyez averti des prochaines diffusions (Tv, Replay, Ciné, VOD).</p>
+        {# <p>Partagez vos playlists avec vos amis et suivez ce qu'ils regardent.</p> #}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="bande_couleur_degrade">
+  <div class="container">
+    <div class="row">
+      <p>Soyez averti des prochaines diffusions (TV, Replay, Ciné, VOD) <br/> auxquelles participe &laquo; {{ person.name }} &raquo;.</p>
+      <p>Partagez vos listes avec vos amis et suivez ce qu'ils regardent.</p>
+    </div>
+  </div>
+  {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with { active: '', no_background: true } %}
+</div>

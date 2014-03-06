@@ -142,7 +142,7 @@ class ContentController extends Controller
       $data->programs = (array)$data->programs;
       $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) && isset($data->programs[0]->picture) ? $data->programs[0]->picture : null);
 
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Content:person.html.twig', array(
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Person:person.html.twig', array(
         'person' => $data
       ));
 

@@ -3,7 +3,7 @@
   {% if skip_content is not defined %}
   <div class="header-content">
     <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' est sur @mySkreen   ' } %}</div>
-    <div class="pull-right" data-playlist="{{ fav }}">
+    <div class="pull-right">
       {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'fav-channel', name: channel.title, text: trigger_fav is defined and trigger_fav ? trigger_fav : 'Suivre ' ~ channel.title|trans } %}
     </div>
     <h1 data-channel="{{ channel.title }}"><a href="{{ path('channel', {slug: channel.slug }) }}">{{ channel.title }}</a></h1>

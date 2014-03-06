@@ -1,0 +1,67 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+{% block meta %}
+{% if person.programs|length < 6 or app.request.get('page') %}
+<meta name="robots" content="noindex,follow" />
+{% endif %}
+<meta property="og:title" content="{{ person.name }}" />
+<meta property="og:description" content="{{ person.description|striptags }}" />
+<meta property="og:type" content="{% if person.activity in ['director', 'Réalisateur'] %}director{% else %}actor{% endif %}" />
+<meta property="og:url" content="http://www.myskreen.com{{ person.seo_url }}" />
+{% if person.picture %}
+<meta property="og:image" content="{{ person.picture }}" />
+<link rel="image_src" href="{{ person.picture }}" />
+{% endif %}
+<meta name="object_type" content="{% if person.activity in ['director', 'Réalisateur'] %}director{% else %}actor{% endif %}" />
+<link rel="canonical" href="http://www.myskreen.com{{ person.seo_url }}"/>
+{% endblock %}
+{% block title %}
+{{ person.name }}
+{% if app.request.get('format') %}, {{ app.request.get('format') }}{% endif %}
+{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}
+{% endblock %}
+{% block description %}{{ person.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+
+{% block content %}
+{% include 'SkreenHouseFactoryV3Bundle:Person:_addtolist.html.twig' with {person: person} %}
+<div id="view-person" data-id="{{ person.id }}" class="container">
+
+  {% if app.request.get('page') < 2 %}
+  <div class="view-person-main">
+    <div id="description-seo">
+        {{ person.description|raw }}
+    </div>
+  </div>
+  {% endif %}
+  {#
+  <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ person.seo_url, text: 'Je regarde tout ' ~ person.name ~ ' sur mySkreen et vous ?' } %}</div>#}
+
+  
+  {% if person.programs|length == 30 or (app.request.get('page') > 1 and person.programs|length > 0) %}
+    {% include 'SkreenHouseFactoryV3Bundle:Content:_person-pager.html.twig' %}
+  {% endif %}
+
+  <h2>Les programmes de {{ person.name }}</h2>
+
+  {% if person.programs|length == 0 and app.request.get('page') < 2 %}
+  <p class="alert alert-info">Aucun programme n'est disponible.</p>
+  {% else %}
+  <div id="person-programs" class="slider slider-list">
+    <ul class="items">
+    {% for program in person.programs %}
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
+    {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if person.programs|length == 30 or (app.request.get('page') > 1 and person.programs|length > 0) %}
+    {% include 'SkreenHouseFactoryV3Bundle:Content:_person-pager.html.twig' %}
+  {% endif %}
+
+	{% if person.tweets is defined %}
+	<h4>{{ person.name }} sur Twitter</h4>
+	{% include 'SkreenHouseFactoryV3Bundle:Main:_tweets.html.twig' with {tweets: person.tweets } %}
+	{% endif %}
+	</div>
+</div>
+{% endblock %}
