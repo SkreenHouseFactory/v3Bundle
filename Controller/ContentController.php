@@ -127,6 +127,7 @@ class ContentController extends Controller
         'advanced' => true,
         'offset' => $request->get('page', 1) * 30 - 30,
         'nb_results' => 30,
+        'group_by_decade' => 1
       ));
       //print_r($data);
       //echo $api->url;exit;
@@ -140,10 +141,24 @@ class ContentController extends Controller
         return $this->redirect($data->seo_url, 301);
       }
       $data->programs = (array)$data->programs;
-      $data->picture = str_replace('150/200', '240/320', isset($data->programs[0]) && is_object($data->programs[0]) && isset($data->programs[0]->picture) ? $data->programs[0]->picture : null);
+
+      //picture
+      $lastdecade = (array)end($data->programs);
+      $data->picture = str_replace('150/200', '240/320', $lastdecade && isset($lastdecade[0]) && isset($lastdecade[0]->picture) ? $lastdecade[0]->picture : null);
+
+      //format
+      $formats = array();
+      foreach ($data->programs as $programs) {
+        foreach ((array)$programs as $program) {
+          if ($program->onglet) {
+            $formats[$program->onglet] = $program->onglet;
+          }
+        }
+      }
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Person:person.html.twig', array(
-        'person' => $data
+        'person' => $data,
+        'formats' => $formats
       ));
 
       $maxage = 3600;

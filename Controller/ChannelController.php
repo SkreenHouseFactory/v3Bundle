@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use SkreenHouseFactory\v3Bundle\Api\ApiManager;
+use SkreenHouseFactory\v3Bundle\Controller\PersonController;
 
 //les vrais inconnus
 ini_set('post_max_size', '2048M');
@@ -66,6 +67,7 @@ class ChannelController extends Controller
       'disable_search_by_format' => true,
       'sorter' => 'year',
       'preview' => $request->get('preview'),
+      'group_by_decade' => true,
       'fields' => 'description,programs,img_maxsize'
     );
     $data = $api->fetch('channel'.($request->get('id')?'/'.$request->get('id'):null), $params);
@@ -131,12 +133,7 @@ class ChannelController extends Controller
     $data->description = null;
   }
 
-    //si ChannelFournisseur
-  if (property_exists($data, 'channel') && 
-    $data->channel->type == 'ChannelFournisseur') {
-    $data->channel->fournisseur = $data;
-  }
-
+  // view paramaters
   $params = array();
   if (isset($data->facets)) {
    $params = array(
@@ -151,7 +148,19 @@ class ChannelController extends Controller
       )
     );
   }
-      // Si on est une une page sk_channel, on redirige vers le twig correct
+
+  //si ChannelFournisseur
+  if (property_exists($data, 'channel') && 
+    $data->channel->type == 'ChannelFournisseur') {
+    $data->channel->fournisseur = $data;
+  }
+    //si ChannelPersonne
+  if (property_exists($data, 'channel') && 
+    $data->channel->type == 'ChannelPersonne') {
+    $params['formats'] = PersonController::getFormats((array)$data->programs);
+  }
+
+  // Si on est une une page sk_channel, on redirige vers le twig correct
   if (property_exists($data, 'channel')) {
     $custom_header = false;
     $from_selection = false;

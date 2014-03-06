@@ -432,6 +432,8 @@ class toolsExtension extends \Twig_Extension
           
           //echo 'picture : $this->slider_size['.$nb_programs_page.']['.$c.']';
           if (isset($this->slider_size[$nb_programs_page][$c])) {
+            $picture = str_replace('/c/','/', $picture);
+            //echo '$picture(1) : '.$picture;
             $program->picture = str_replace(
               $this->input_slider_size, 
               $this->slider_size[$nb_programs_page][$c].'/c', 
