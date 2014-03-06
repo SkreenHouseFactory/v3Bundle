@@ -8,7 +8,7 @@
     {% endfor %}
   </div>
   {% if (channel.personne is defined and channel.personne) or (channel.text is defined and channel.text) %}
-    <div id="description-seo">
+    <div id="description-seo" class="scroll">
       {% if channel.personne is defined and channel.personne %}
         <p>{{ channel.personne.description|raw }}</p>
       {% elseif channel.text is defined and channel.text %}

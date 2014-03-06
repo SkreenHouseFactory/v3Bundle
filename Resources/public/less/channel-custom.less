@@ -25,7 +25,7 @@ body.view-channel #main #cover{
       }
     }
   }
-  &.cover55, &.cover62{
+  &.cover55, &.cover62, &.cover73 {
     height: 425px;
     .cover-wrap{
       display: block;
@@ -41,6 +41,16 @@ body.view-channel #main #cover{
     }
     .share-block{
       left: 660px;
+    }
+  }
+  &.cover73 {
+    .cover-wrap {
+      height: 452px;
+    }
+    .wrap-follow {
+      left: auto;
+      right: 40px;
+      bottom: 15px;
     }
   }
   &.cover56, &.cover60{
@@ -101,7 +111,7 @@ body.view-channel-3, body.view-channel-67 {
   }
 }
 
-#channel56, &#channel55, &#channel62{
+#channel56, &#channel55, &#channel62, &#channel73 {
 
   height: 535px;
   .header-content{
@@ -121,31 +131,71 @@ body.view-channel-3, body.view-channel-67 {
     }
   }
 }
-.channel55{
-  .social{
-    .social-suggestion{
+#channel73 {
+  height: 452px;
+  .header-content {
+    .player-wrap {
+      position: absolute;
+      right: 50px;
+      left: auto;
+      bottom: 50px;
+      width: 415px;
+      height: 240px;
+    }
+  }
+}
+
+.channel55, .channel73 {
+  .social {
+    .social-suggestion {
       background:@malavita55;
     }
-    .wrap-tab{
+    .wrap-tab {
       background:@malavita55;
     }
-    .nav-tabs{
-      >li{
-        >a{
-         &:hover{
+    .nav-tabs {
+      >li {
+        >a {
+         &:hover {
            background: lighten(@malavita55,10%);
          }
        }
-     }
-     >li{
-      &.active{
-        i{
-          color:@malavita55;
+      }
+      >li {
+        &.active {
+          i {
+            color:@malavita55;
+          }
         }
       }
     }
   }
 }
+#view-page.channel73 {
+  padding-bottom: 0;
+  .social {
+    .social-suggestion, .wrap-tab {
+      background-color: rgba(221, 197, 141, 0.8);
+    }
+    .nav-tabs {
+      >li {
+        >a {
+          &:hover {
+            background-color: rgba(221, 197, 141, 1);
+          }
+        }
+        &.active {
+          i {
+            color : rgba(221, 197, 141, 1);
+          }
+        }
+      }
+    }
+  }
+  #description-seo {
+    position: static;
+    margin: 0 0 30px;
+  }
 }
 .channel62{
   .social{
