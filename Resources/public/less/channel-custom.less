@@ -192,9 +192,30 @@ body.view-channel-3, body.view-channel-67 {
       }
     }
   }
-  #description-seo {
+  .description-seo {
     position: static;
-    margin: 0 0 30px;
+    margin: 30px 0;
+    overflow-y: auto;
+    max-height: 350px;
+    text-align: left;
+    width: 940px;
+    &.scroll::-webkit-scrollbar {
+      background: transparent;
+    }
+    h1 {
+      font-size: 24px;
+      margin: 0 0 15px;
+    }
+    h2 {
+      font-size: 21px;
+    }
+    h3 {
+      margin-top: 10px;
+    }
+    p {
+      margin: 5px 0;
+      font-size: 13px;
+    }
   }
 }
 .channel62{
