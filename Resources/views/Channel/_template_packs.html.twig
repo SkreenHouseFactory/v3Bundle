@@ -1,1 +1,13 @@
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
+<div class="header-margin-top relative">
+  <div class="container">
+    <h1>{{ channel.name }}</h1>
+  </div>
+  <div class="description-seo-absolute">
+  <div class="container">
+    <div class="description-seo well">
+        {{ channel.description|raw }}
+    </div>
+  </div>
+  </div>
+  {% include 'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
+</div>
