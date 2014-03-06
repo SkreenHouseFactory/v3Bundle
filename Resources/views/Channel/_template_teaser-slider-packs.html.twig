@@ -10,7 +10,7 @@
     <div class="container">
       <div class="row">
         <div class="wrap-follow"{% if fav is defined and fav %} data-playlist="{{ fav }}"{% endif %}>
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: fav is defined and fav ? 'fav-' ~ fav : '', name: channel.title, text: trigger_fav is defined and trigger_fav ? trigger_fav : 'Suivre ' ~ channel.title|trans } %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: fav is defined and fav ? 'fav-' ~ fav : '', name: channel.title, text: 'Abonne-toi' } %}
         </div>
       </div>
     </div>
