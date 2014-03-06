@@ -1,10 +1,10 @@
 {% if channel.cover and channel.template != 'packs' %}
 {% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data: data, trigger_fav: 'Suivre ' ~ data.name} %}
 {% include 'SkreenHouseFactoryV3Bundle:Person:_addtolist.html.twig' with {person: data} %}
-<div id="view-person" data-id="{{ person.id }}" class="container">
+<div id="view-person" data-id="{{ data.id }}" class="container">
 {% else %}
 {% include 'SkreenHouseFactoryV3Bundle:Person:_addtolist.html.twig' with {person: data} %}
-<div id="view-person" data-id="{{ person.id }}" class="container">
+<div id="view-person" data-id="{{ data.id }}" class="container">
 {% endif %}
 
 
