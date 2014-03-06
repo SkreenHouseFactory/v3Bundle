@@ -1,7 +1,14 @@
 <div class="bande_listes header-margin-top">
 <div class="container">
 <div class="row">
+  {% if img is defined %}
+  <div class="col-xs-2">
+    <img src="{{ img }}" height="120px"/>
+  </div>
+  <div class="col-xs-9">
+  {% else %}
   <div class="col-xs-11">
+  {% endif %}
     <span class="ms-format">Personnalité</span>
     <h1>{{ person.name }}</h1>
   </div>

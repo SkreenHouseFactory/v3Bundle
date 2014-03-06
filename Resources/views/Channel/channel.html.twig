@@ -124,6 +124,16 @@ Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la
 
 
 {% block pagescripts %}
+
+{% if channel.type == 'ChannelPersonne' %}
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/person.js'
+    filter='?yui_js' 
+    output='js/compiled/pages/person.js'  %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endif %}
+
 {% if data.channel.id == 28 %}
 {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.countdown.js'
