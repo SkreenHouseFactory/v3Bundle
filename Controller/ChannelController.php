@@ -451,6 +451,19 @@ public function header65Action($data,$from_selection,$channel,$fav,$trigger_fav,
   return $response; 
 }
 
+public function header70Action($data,$from_selection,$channel,$fav,$trigger_fav){
+
+  $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_header-70.html.twig', array(
+    'data' => $data,
+    'fav' => $fav,
+    'trigger_fav'=> $trigger_fav,
+    'channel'=> $channel,
+    'from_selection' => $from_selection
+    ));
+
+  return $response; 
+}
+
 protected function buildFacets(Request $request) {
     //echo '$facet:'.$request->get('facet');
     //echo '$route:'.$request->get('_route');
