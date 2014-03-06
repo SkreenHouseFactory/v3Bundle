@@ -15,27 +15,58 @@
 
 
 //le fameux div SEO
-
-
 #description-seo{
-    background-color: #FFFFFF;
-    border: 1px solid #BFBFBF;
-    bottom: 0;
-    left: 50%;
-    margin-left: -470px;
-    margin-top: 300px;
-    max-height: 350px;
-    overflow: auto;
-    padding: 15px;
-    position: absolute;
-    text-align: left;
-    width: 940px;
-    h1, h2, h3, h4, p, span, a {
+  background-color: #FFFFFF;
+  border: 1px solid #BFBFBF;
+  bottom: 0;
+  left: 50%;
+  margin-left: -470px;
+  margin-top: 300px;
+  max-height: 350px;
+  overflow: auto;
+  padding: 15px;
+  position: absolute;
+  text-align: left;
+  width: 940px;
+  h1, h2, h3, h4, p, span, a {
     color: #6D6D6D;
     font-size: 12px;
     margin-top: 5px;
-    }
+  }
 }
+.description-seo {
+  position: static;
+  margin: 30px 0;
+  overflow-y: auto;
+  max-height: 350px;
+  text-align: left;
+  width: 940px;
+  
+  &.description-seo-absolute {
+    bottom: 0;
+    margin-top: 100px;
+    position: absolute;
+  }
+  
+  &.scroll::-webkit-scrollbar {
+    background: transparent;
+  }
+  h1 {
+    font-size: 24px;
+    margin: 0 0 15px;
+  }
+  h2 {
+    font-size: 21px;
+  }
+  h3 {
+    margin-top: 10px;
+  }
+  p {
+    margin: 5px 0;
+    font-size: 13px;
+  }
+}
+
 
 // div SEO pour la page 'a' du box-office - évite le débordement des thumbnails sur la div
 .view-cinema_boxoffice, #view-selection {

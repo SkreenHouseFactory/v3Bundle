@@ -1,5 +1,13 @@
+{% if channel.cover and channel.template != 'packs' %}
 {% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data: data, trigger_fav: 'Suivre ' ~ data.name} %}
-<div id="view-person" data-id="{{ data.id }}" class="container">
+{% include 'SkreenHouseFactoryV3Bundle:Person:_addtolist.html.twig' with {person: data} %}
+<div id="view-person" data-id="{{ person.id }}" class="container">
+{% else %}
+{% include 'SkreenHouseFactoryV3Bundle:Person:_addtolist.html.twig' with {person: data} %}
+<div id="view-person" data-id="{{ person.id }}" class="container">
+{% endif %}
+
+
   <h2>Sa filmographie{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
     
   <div id="description-seo">  {% if data.description is defined %} {{ data.description|raw }}  {% endif %} </div>

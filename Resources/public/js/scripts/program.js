@@ -396,18 +396,6 @@ $(document).ready(function(){
   //Scroll to player
   $(document).on('click', '[data-play], [data-play-iframe]', function(){
     $('html,body').animate({'scrollTop' : 0}, 1000);
-  });  
-
-  $('.savoir-plus').on('click', function(){
-    $('.bande_couleur_degrade').slideToggle();
-    $('.savoir-plus .glyphicon').toggleClass('glyphicon-collapse-down');
-    $('.savoir-plus .glyphicon').toggleClass('glyphicon-collapse-up');
-    if ($('.savoir-plus .glyphicon').hasClass('glyphicon-collapse-up')) {
-      $('.savoir-plus span').html('&nbsp;Fermer');
-    } else {
-      $('.savoir-plus span').html('&nbsp;Plus d\'infos...');
-    }
-    return false;
   });
 
   $(document).on('click', '[data-play], [data-play-iframe]', function(){
