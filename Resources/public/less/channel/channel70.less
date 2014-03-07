@@ -1,5 +1,77 @@
 // Channel Replay
-
-#header70 {
-	margin-top: 90px;
+.view-channel-70 {
+  #header70 {
+    padding-top: 70px;
+    background-color: #e4e4e4;
+    .chaines-listing {
+      margin: 0 0 20px;
+      padding-left: 15px;
+      .logo_chaine {
+        float: left;
+        width: 60px;
+        height: 60px;
+        border: 1px solid #ede8e8;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        background: -webkit-gradient(linear,left bottom,left top,color-stop(0,#EDEDED),color-stop(1,rgba(255,255,255,0)));
+        background: -ms-linear-gradient(bottom,#EDEDED,rgba(255,255,255,0));
+        background: -moz-linear-gradient(center bottom,#EDEDED 0%,rgba(255,255,255,0) 100%);
+        background: -o-linear-gradient(rgba(255,255,255,0),#EDEDED);
+        -webkit-border-top-right-radius: 5px;
+        -webkit-border-bottom-right-radius: 5px;
+        -webkit-border-bottom-left-radius: 5px;
+        -webkit-border-top-left-radius: 5px;
+        -moz-border-radius-topright: 5px;     
+        -moz-border-radius-bottomright: 5px;
+        -moz-border-radius-bottomleft: 5px;
+        -moz-border-radius-topleft: 5px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+        -moz-background-clip: padding-box;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        &:hover {
+          background-color: #F8F8F8;
+        }
+        img {
+          position: relative;
+          top: 50%;
+          -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+          padding: 5px;
+        }
+      }
+    }
+  }
+  .bande-couleur-replay {
+    background-color: #428bca;
+    text-align: center;
+    color: white;
+    h2 {
+      margin-top: 15px;
+    }
+    p {
+      font-family: 'Raleway', sans-serif;
+      &.listes-plus {
+        a {
+          color: white;
+          opacity: 0.8;
+          &:hover {
+            text-decoration: none;
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+  #view-page {
+    margin-top: 0;
+    .col-xs-8.suggester {
+      margin-top: 0;
+      margin-bottom: 30px;
+    }
+  }
 }
