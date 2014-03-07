@@ -1,0 +1,83 @@
+{# définition de variable incrémentée#}
+{% set custom_l = 0 %}
+{% set custom_ltest = 0 %}
+{% set page = 0 %}
+{% set item_loop = 0 %} 
+{% for item in live | to_array %} 
+  {% if item.live is defined and item.live %}
+    {% set custom_ltest = custom_ltest + 1 %}
+  {% else %}
+    {% set custom_ltest = custom_ltest + 1 %}
+  {% endif %}
+{% endfor %}
+{% set page = (custom_ltest / 7)|round_up %}
+
+<h2> 
+  <a href="{{ path(link) }}">{{ name }}</a>
+</h2>
+
+<div id="channel_prog-list{{ list_number }}" class="carousel slide vertical" data-interval="false">
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <div class="active item">
+      {% for item in live | to_array %}     
+      {# évite les répétitions des items #}
+        {% if custom_l is divisibleby(7)  and custom_l != 0 and custom_l != item_loop %}
+          {% set item_loop = custom_l %}
+          </div>
+          <div class="item">
+        {% endif %}
+        {% if origin == 'hometop' %}
+          {% for offer in item.live|to_array if item.live is defined and item.live %}
+            {% set custom_l = custom_l + 1 %}
+
+            <a href="{{ path('any_url', {url: offer.program.url|slice(1, offer.program.url|length-1)}) }}">
+              <div class="channel-program">
+                <div class="icon_chaine"> 
+                  <img src="{{ item.channel.img | replace({50:36}) }}" alt="regarder {{ item.channel.name }} en replay">
+                </div>
+                <div class="desc_chaine">
+                  <div>
+                    <h3>{{ offer.program.title }}</h3>
+                    <span><b>{{ offer.broadcasttime | date("H:i") }}</b>  {{ offer.program.format ? " - "~offer.program.format.name : "" }}</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <div class="hr-like"></div>
+          {% endfor %}
+        {% elseif item.popular_channel is defined and item.popular_channel %}
+          {% set custom_l = custom_l + 1 %}
+          <a href="{{ path('any_url', {url: item.url|slice(1, item.url|length-1)}) }}">
+              <div class="channel-program">
+                <div class="icon_chaine"> 
+                  <img src="{{ item.popular_channel.img | replace({45:36}) }}" alt="regarder {{ item.popular_channel.name }} en replay">
+                </div>
+                <div class="desc_chaine">
+                  <div>
+                    <h3>{{ item.title }}</h3>
+                    {{ item.format ? ('<span>' ~ item.format.name ~ '</span>')|raw : "" }}
+                  </div>
+                </div>
+              </div>
+            </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="controlersbtn">
+  <a  href="#channel_prog-list{{ list_number }}" data-slide="prev">
+    <button type="button" class="btn btn-default fleches">  
+      <span class="glyphicon glyphicon-chevron-up"></span>
+    </button>
+  </a>
+  <a href="#channel_prog-list{{ list_number }}" data-slide="next">
+   <button type="button" class="btn btn-default fleches">  
+     <span class="glyphicon glyphicon-chevron-down"></span>
+   </button>
+ </a>
+</div>
+<a href="{{ path(link) }}" class="undernot">
+ <button type="button" class="btn btn-default btn-grille">{{ name_link }}</button>
+</a>
