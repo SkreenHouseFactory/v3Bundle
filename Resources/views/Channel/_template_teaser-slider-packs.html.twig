@@ -1,21 +1,25 @@
 <div id="cover" class="cover{{ channel.id }}{% if from_selection is defined and from_selection == true %} selection{% endif %}">
     <div id="channel{{ channel.id }}" class="header-container">
       <a class="cover-wrap" href="{{ channel.program.seo_url }}">
-        <div class="header-content">
-          {% if channel.program.teaser is defined %}
-          <div class="player-wrap">
-            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&noPub=1&play={{ channel.program.teaser.id }}&height=239&width=414&channel_header=1&from_website=1" height="239" width="414"></iframe>
-          </div>
-          {% endif %}
+      <div class="header-content">
+        <div class="player-wrap">
+          <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&noPub=1&play=35480295&height=301&width=509&channel_header=1&from_website=1" height="301" width="509"></iframe>
         </div>
       </div>
+      </a>
+    </div>
     <div class="container">
       <div class="row">
-        <div class="wrap-follow"{% if fav is defined and fav %} data-playlist="{{ fav }}"{% endif %}>
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: fav is defined and fav ? 'fav-' ~ fav : '', name: channel.title, text: 'Abonne-toi' } %}
+        <div class="wrap-follow clearfix"{% if fav is defined and fav %} data-playlist="{{ fav }}"{% endif %}>
+          <div>
+            <h2>La <strong>Chaîne officielle</strong> du film</h2>
+            {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: fav is defined and fav ? 'fav-' ~ fav : '', name: channel.title, text: 'Abonne-toi' } %}
+          </div>
+          <div class="shareblock">
+            {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ channel.seo_url, text: program.twitter_msg is defined ? program.twitter_msg : channel.title ~ ' sur mySkreen', fb_layout: 'box_count', tw_layout: 'vertical', g_size: 'tall', g_annotation: 'bubble' } %}
+          </div>
         </div>
       </div>
     </div>
-  </a>
 </div>
 {% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
