@@ -1,3 +1,4 @@
+{% set fav = 'channel' %}
 <div id="cover" class="cover{{ channel.id }}{% if from_selection is defined and from_selection == true %} selection{% endif %}">
     <div id="channel{{ channel.id }}" class="header-container">
       <a class="cover-wrap" href="{{ channel.program.seo_url }}">
