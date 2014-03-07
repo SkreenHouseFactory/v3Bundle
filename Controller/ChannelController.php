@@ -54,20 +54,12 @@ class ChannelController extends Controller
       'channel_img_width' => 45,
       'img_width' => 150,
       'img_height' => 200,
-      'live_player_width' => 420,
-      'live_player_height' => 270,
-      'with_live'  => !$request->get('format') && !$request->get('page') ? true : false,
-      //'with_next_live' => !$request->get('format') && !$request->get('page') ? true : false,
-      //'with_epg' => !$request->get('format') && !$request->get('page') ? true : false,
-      //'with_replay' => !$request->get('format') && !$request->get('page') ? true : false,
-      //'with_best_offer' => !$request->get('format') && !$request->get('page') ? true : false,
       'offset' => $request->get('page', 1) * 30 - 30,
       'nb_results' => 30,
       'facets' => $this->buildFacets($request),
       'disable_search_by_format' => true,
       'sorter' => 'year',
       'preview' => $request->get('preview'),
-      'group_by_decade' => true,
       'fields' => 'description,programs,img_maxsize'
     );
     $data = $api->fetch('channel'.($request->get('id')?'/'.$request->get('id'):null), $params);

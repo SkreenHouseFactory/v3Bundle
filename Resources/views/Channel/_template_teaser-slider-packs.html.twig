@@ -2,9 +2,11 @@
     <div id="channel{{ channel.id }}" class="header-container">
       <a class="cover-wrap" href="{{ channel.program.seo_url }}">
         <div class="header-content">
+          {% if channel.program.teaser is defined %}
           <div class="player-wrap">
-            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&noPub=1&play=31707046&height=239&width=414&channel_header=1&from_website=1" height="239" width="414"></iframe>
+            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&noPub=1&play={{ channel.program.teaser.id }}&height=239&width=414&channel_header=1&from_website=1" height="239" width="414"></iframe>
           </div>
+          {% endif %}
         </div>
       </div>
     <div class="container">
