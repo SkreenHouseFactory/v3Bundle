@@ -89,7 +89,7 @@ $(document).ready(function(){
           if (Skhf.session.datas.email) {
             $('#channel-modal').addClass('connected');
           }
-          if (!Skhf.session.datas.email && 
+          if (!Skhf.session.datas.email || 
               !Skhf.session.isInPlaylist($('.fav').data('playlist'), $('.fav').data('id'))) {
             $('#channel-modal').modal('show');
           }
@@ -159,6 +159,7 @@ $(document).ready(function(){
       case 65:
         //INTEGRALE INCONNUS
         //trigger click sketch ?click=%5Bdata-id%3D"4939378"%5D
+        console.log('scripts/channel.js', 'case 65', 'page bien reconnue');
         if ($('body').hasClass('view-channel-65')) {
           //switch video
           function switchVideo(trigger) {

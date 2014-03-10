@@ -1,160 +1,17 @@
-{% extends app.request.isXmlHttpRequest or app.request.get('xhr') ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : app.request.get('sklayout', 'SkreenHouseFactoryV3Bundle::layout') ~ ".html.twig" %}
+{% extends "SkreenHouseFactoryV3Bundle:Channel:_base-channel.html.twig" %}
 
-{% block meta %}
-<meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ data.channel is defined and data.channel.name is defined ? data.channel.name : data.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}" />
-<meta property="og:description" content="{{ data.channel is defined and data.channel.description is defined ? data.channel.description : data.description|striptags }}" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://www.myskreen.com{{ data.seo_url }}" />
-{% if data.lat is defined and data.lng is defined %}
-<meta property="place:location:latitude"  content="{{data.lat}}"> 
-<meta property="place:location:longitude" content="{{data.lng}}"> 
-<meta property="place:location:altitude"  content="42">
-{% endif %}
-{% if data.channel.img is defined %}
-<meta property="og:image" content="{{ data.channel.img }}" />
-<link rel="image_src" href="{{ data.channel.img }}" />
-{% elseif data.channel.cover_small is defined %}
-<meta property="og:image" content="{{ data.channel.cover_small }}" />
-<link rel="image_src" href="{{ data.channel.cover_small }}" />
-{% elseif data.channel.cover is defined %}
-<meta property="og:image" content="{{ data.channel.cover }}" />
-<link rel="image_src" href="{{ data.channel.cover }}" />
-{% endif %}
-<meta name="object_type" content="channel" />
-{% if app.request.get('page') is defined %}
-<link rel="next" href="http://www.myskreen.com/{{app.request.get('slug')}}/page-{{app.request.get('page') + 1}}/">
-  {% if app.request.get('page') > 1 %}
-  <link rel="prev" href="http://www.myskreen.com/{{app.request.get('slug')}}/page-{{app.request.get('page') - 1}}/">
-  {% endif %}
-{% endif %}
-{# seo canonical / prev / next #}
-{% if app.request.attributes.get('_route') == 'channel_page' %}
-  {% if data.channel.fournisseur.count > 30 and app.request.get('format') is null  %}
-    <link rel="canonical" href="{{ path('channel', {slug: app.request.get('slug')}) }}">
-    {% if app.request.get('page') > 2 %}
-    <link rel="prev" href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) - 1}) }}">
-    {% elseif app.request.get('page') == 2 %}
-    <link rel="prev" href="{{ path('channel', {slug: app.request.get('slug')}) }}">
+{% block customcontent %}
+  {% if channel.type == 'ChannelFournisseur' or data.channel.fournisseur is defined %}
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_fournisseur.html.twig' with { data: data.channel.fournisseur, sliders: data.sliders is defined ? data.sliders : [], channel: data.channel } %}
+  {% elseif channel.type == 'ChannelOnglet' %}
+    {% if channel.template is defined and channel.template %}
+      {% include 'SkreenHouseFactoryV3Bundle:Channel:_template_' ~ channel.template|replace({'+': '-'}) ~ '.html.twig' ignore missing %}
+    {% else %}
+      {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_onglet.html.twig' with {data:data, channel: channel} %}
     {% endif %}
-    {% if data.channel.fournisseur.programs|to_array|length == 30 %}
-    <link rel="next" href="{{ path('channel_page', {slug: app.request.get('slug'), page: app.request.get('page', 1) + 1}) }}"
-    {% endif %}
+  {% elseif channel.type == 'ChannelPersonne' %}
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_personne.html.twig' with {data:data} %}
+  {% elseif channel.type == 'ChannelMyskreener' %}
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_user.html.twig' with {data:data} %}
   {% endif %}
-{% endif %}
-{% endblock %}
-
-
-{% block title %}
-
-{% if data.channel.fournisseur is defined and data.channel.fournisseur.type == 'broadcast' %}
-{{ 'page.title.channel.broadcast'|trans({'%name%': channel.title, '%access%': 'Replay' }) }}
-{% else %}
-{{ 'page.title.channel.default'|trans({'%name%': data.channel.page_title ? data.channel.page_title : data.channel.title, '%access%': 'Streaming' }) }}
-{% endif %}
-{% endblock %}
-
-{% block description %}
-{% if data.channel.fournisseur is defined and data.channel.fournisseur.type == 'broadcast' %}
-Regardez toutes les Emissions de {{ channel.title }} et des autres Chaines de la TNT en Replay et en Direct Live GRATUITEMENT et en 1 clic !
-{% else %}
-{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}
-{% endif %}
-{% endblock %}
-
-{% block body_class %}view-channel view-channel-{{ data.channel.id }} cover{% endblock %}
-{% block body_background %}
-{% if channel.cover %}url('{{ channel.fournisseur is defined ? channel.cover|replace({'/1500/450/c': ''}) : channel.cover }}') top center no-repeat, url('{{ channel.cover|extract_bgd }}') top left repeat-x{% endif %}
-{% endblock %}
-
-{% block content %}
-{% if channel.type == 'ChannelFournisseur' or data.channel.fournisseur is defined %}
-  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_fournisseur.html.twig' with { data: data.channel.fournisseur, sliders: data.sliders is defined ? data.sliders : [], channel: data.channel } %}
-{% elseif channel.type == 'ChannelOnglet' %}
-  {% if channel.template is defined and channel.template %}
-    {% include 'SkreenHouseFactoryV3Bundle:Channel:_template_' ~ channel.template|replace({'+': '-'}) ~ '.html.twig' ignore missing %}
-  {% else %}
-  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_onglet.html.twig' with {data:data, channel: channel} %}
-  {% endif %}
-{% elseif channel.type == 'ChannelPersonne' %}
-  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_personne.html.twig' with {data:data} %}
-{% elseif channel.type == 'ChannelMyskreener' %}
-  {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_user.html.twig' with {data:data} %}
-{% endif %}
-
-
-
-{# modal / pas de modal pour la chaine parodie des inconnus, et applications et partenaires #}
-{% if '/partners/' not in app.request.getPathInfo %}
-  {% if data.channel.id in [65] %}
-  {% include 'SkreenHouseFactoryV3Bundle:Channel:_modal-65.html.twig' %}
-  {% elseif data.channel.id not in [60,64] %}
-  {% include 'SkreenHouseFactoryV3Bundle:Channel:_modal.html.twig' with {'data': data} %}
-  {% endif %}
-{% endif %}
-{% endblock %}
-
-
-{% block pagestyles %}
-{% if data.channel.id == 60 %}
-  {% stylesheets
-    '@SkreenHouseFactorylesVraisInconnusBundle/Resources/public/less/promo.less'
-    filter='lessphp,?yui_css'
-    output='css/vraisinconnus.css'
-  %}
-  <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
-  {% endstylesheets %}
-{% endif %}
-
-<!--[if lt IE 9]> 
-
-{% if data.channel.id == 60 %}
-  {% stylesheets
-    '@SkreenHouseFactorylesVraisInconnusBundle/Resources/public/less/ie8_ie9.less'
-    filter='lessphp,?yui_css'
-    output='css/vraisinconnus_ie8_9.css'
-  %}
-  <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
-  {% endstylesheets %}
-{% endif %}
-
-
- <![endif]-->
-
-{% endblock %}
-
-
-{% block pagescripts %}
-
-{% if channel.type == 'ChannelPersonne' %}
-  {% javascripts
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/person.js'
-    filter='?yui_js' 
-    output='js/compiled/pages/person.js'  %}
-    <script src="{{ asset_url }}"></script>
-  {% endjavascripts %}
-{% endif %}
-
-{% if data.channel.id == 28 %}
-{% javascripts
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.countdown.js'
-    filter='?yui_js' 
-    output='js/compiled/countdown.js'  %}
-    <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{% elseif data.channel.id == 60 %}
-{% javascripts
-  '@SkreenHouseFactorylesVraisInconnusBundle/Resources/public/js/jquery.form.min.js'
-  '@SkreenHouseFactorylesVraisInconnusBundle/Resources/public/js/lesvraisinconnus.js'
-    
-    filter='?yui_js' 
-    output='js/compiled/pages/lesvraisinconnus.js'  %}
-    <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{% endif %}
-{% javascripts
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/channel.js'
-    filter='?yui_js' 
-    output='js/compiled/pages/channel.js'  %}
-    <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
 {% endblock %}

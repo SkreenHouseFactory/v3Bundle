@@ -1,0 +1,19 @@
+{% extends "SkreenHouseFactoryV3Bundle:Channel:_base-channel.html.twig" %}
+
+{% block customcontent %}
+  <div id="cover" class="cover35">
+    <a class="cover-wrap" href="/film/comedies/4896210-mariage-a-l-anglaise/">
+      <div id="channel35" class="header-container">
+        <div class="header-content">
+          <div class="player-wrap">
+            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&noPub=1&program_id=4896210&height=270&width=440&channel_header=1" height="270" width="440"></iframe>
+          </div>
+          <div class="share-block">
+            {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' est sur @mySkreen   ' } %}
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "SkreenHouseFactoryV3Bundle:Channel:_base-channel.html.twig" %}
+
+{% block customcontent %}
+  {% set tnt_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat','HD1','6Ter','numéro 23','DISNEY CHANNEL','Gulli','RMC découverte','cherie 25','KTO'] %}
+  <div id="header70">
+    <div class="container">
+      <div class="row replaytop">
+        <div class="col-xs-4">
+          <div class="prog-list">
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live: data.sliders.1.programs, name: 'Derniers en ligne', link: 'tvgrid', name_link: 'Les derniers replays', origin: '', list_number: '1' } %}
+          </div>
+        </div>
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: data.sliders.0 ,h_title: "h2", loop_index: 1 } %}
+        <div class="col-xs-4">
+          <div class="prog-list">
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live: data.sliders.1.programs, name: 'Bientôt en replay', link: 'tvgrid', name_link: 'Tous les prochains replays', origin: '', list_number: '2' } %}
+          </div>
+        </div>
+      </div>
+      <div class="row chaines-listing clearfix">
+        <div>
+          {% for c in tnt_channels %}
+          {% set slug = c|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', "\'": '-'})|raw %}
+          <a class="logo_chaine" href="{{ path('channel', {slug: slug}) }}" data-toggle="tooltip" data-placement="{{ loop.index in [1,2,3,4,5,6,7,8,9,10,11,12,13,14] ?'top':'bottom' }}" data-original-title="{{c|upper}}">
+            <img src="http://mskstatic.com/35/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ c }} Replay">
+          </a>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bande-couleur-replay">
+    <div class="container">
+      <h2>Mes listes <span class="glyphicon glyphicon-chevron-right"></span> Replay</h2>
+      <p>Soyez averti des prochains replays de vos programmes préférés.</p>
+      <p>Partagez vos listes avec vos amis et suivez ce qu'ils regardent.</p>
+      <p class="listes-plus">
+        <a class="meslistes-plus"><i class="glyphicon glyphicon-collapse-down"></i><span>&nbsp;Plus d'infos...</span></a>
+      </p>
+    </div>
+  </div>
+  <div class="bande_couleur_degrade">
+    <div class="container">
+      <div class="row">
+        {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with { active: '', no_background: true } %}
+      </div>
+    </div>
+  </div>
+  {% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "SkreenHouseFactoryV3Bundle:Channel:_base-channel.html.twig" %}
+
+{% block customcontent %}
+  <div id="cover" class="cover55">
+    <div id="channel55" class="header-container">
+      <a class="cover-wrap" href="/film/policier-thriller/5068063-malavita/">
+        <div class="header-content">
+          <div class="player-wrap">
+            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&noPub=1&play=31707046&height=213&width=367&channel_header=1&from_website=1" height="213" width="367"></iframe>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="wrap-follow" data-playlist="page">
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'fav-page', name: channel.title, text: 'Suivre ' ~ channel.title|trans } %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
+{% endblock %}

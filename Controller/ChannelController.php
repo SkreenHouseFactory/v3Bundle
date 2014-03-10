@@ -24,17 +24,192 @@ ini_set('upload_max_filesize', '2048M');
 
 class ChannelCustomController extends Controller
 {
-  //Les Inconnus - la chaîne
+  // Les Inconnus - la chaîne
   protected function channel1($data){
-    $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:inconnus-chaine.html.twig', $data);
-
+    $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:inconnus-chaine.html.twig', array(
+      'data'=>(array)$data,
+      'channel'=>$data->channel
+    ));
     $maxage = 300;
     $response->setPublic();
     $response->setMaxAge($maxage);
     $response->setSharedMaxAge($maxage);
-
     return $response;
   }
+
+  // Varda
+  protected function channel8($data){
+    $api   = $this->get('api');
+    $params = array(
+      'ids' => '3051395,95090,237196,261402,413119,110631,4817914,185960,369379',
+      'with_player' => true,
+      'with_teaser' => true,
+      'allow_with'=> true
+    );
+    $programs = $api->fetch('program', $params);
+    $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:varda.html.twig', array(
+      'programs'=> $programs,
+      'data'=>(array)$data,
+      'channel'=>$data->channel,
+    ));
+    $maxage = 300;
+    $response->setPublic();
+    $response->setMaxAge($maxage);
+    $response->setSharedMaxAge($maxage);
+    return $response;
+  }
+
+  // Mariage à l'anglaise
+  protected function channel35($data){
+    $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:mariage-anglaise.html.twig', array(
+      'data'=>(array)$data,
+      'channel'=>$data->channel
+    ));
+    $maxage = 300;
+    $response->setPublic();
+    $response->setMaxAge($maxage);
+    $response->setSharedMaxAge($maxage);
+    return $response;
+  }
+
+  // Malavita
+  protected function channel55($data){
+    $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:malavita.html.twig', array(
+      'data'=>(array)$data,
+      'channel'=>$data->channel
+    ));
+    $maxage = 300;
+    $response->setPublic();
+    $response->setMaxAge($maxage);
+    $response->setSharedMaxAge($maxage);
+    return $response;
+  }
+
+  // Les Conquérants
+  protected function channel56($data){
+    $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:conquerants.html.twig', array(
+      'data'=>(array)$data,
+      'channel'=>$data->channel
+    ));
+    $maxage = 300;
+    $response->setPublic();
+    $response->setMaxAge($maxage);
+    $response->setSharedMaxAge($maxage);
+    return $response;
+  }
+
+  // Les Inconnus - Parodies
+  protected function channel60($data){
+    $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:inconnus-parodies.html.twig', array(
+      'data'=>(array)$data,
+      'channel'=>$data->channel
+    ));
+    $maxage = 300;
+    $response->setPublic();
+    $response->setMaxAge($maxage);
+    $response->setSharedMaxAge($maxage);
+    return $response;
+  }
+
+  // Cut
+  protected function channel62($data){
+    $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:cut.html.twig', array(
+      'data'=>(array)$data,
+      'channel'=>$data->channel
+    ));
+    $maxage = 300;
+    $response->setPublic();
+    $response->setMaxAge($maxage);
+    $response->setSharedMaxAge($maxage);
+    return $response;
+  }
+
+  // Apps
+  protected function channel64($data){
+    $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:apps.html.twig', array(
+      'data'=>(array)$data,
+      'channel'=>$data->channel
+    ));
+    $maxage = 300;
+    $response->setPublic();
+    $response->setMaxAge($maxage);
+    $response->setSharedMaxAge($maxage);
+    return $response;
+  }
+
+  // Les Inconnus - L'intégrale
+  protected function channel65($data){
+    $api   = $this->get('api');
+    $selection_sketches = array();
+    $params =  array(
+      'channel_img_width' => 60,
+      'img_width' => 150,
+      'img_height' => 200,
+      'with_programs' => true,
+      'with_offers' => true,
+      'offers_type' => 'play',
+      'with_player' => true,
+      'player' => 'iframe',
+      'allow_with' => true
+    );
+    /*-------------------------------------------------------------------- Les Sketches*/
+    $obj1 = $api->fetch('www/slider/pack/10855312', $params);
+    $ajout1 = $api->fetch('www/slider/pack/10855202', $params);
+    $ajout2 = $api->fetch('www/slider/pack/12021382', $params);
+    $ajout3 = $api->fetch('www/slider/pack/12021387', $params);
+    $ajout4 = $api->fetch('www/slider/pack/12021394', $params);
+    $ajout5 = $api->fetch('www/slider/pack/10855277', $params);
+    $obj1->programs = (object)array_merge(array_values((array)$obj1->programs),array_values((array)$ajout1->programs),array_values((array)$ajout2->programs),array_values((array)$ajout3->programs),array_values((array)$ajout4->programs),array_values((array)$ajout5->programs));
+    /*-------------------------------------------------------------------- Les Pubs*/
+    $obj2 = $api->fetch('www/slider/pack/10855358', $params);
+    /*-------------------------------------------------------------------- Les Chansons*/
+    $obj3 = $api->fetch('www/slider/pack/12021377', $params);
+    $ajout1 = $api->fetch('www/slider/pack/10855241', $params);
+    $obj3->programs = (object)array_merge(array_values((array)$obj3->programs),array_values((array)$ajout1->programs));
+    // Définition Sketches
+    $selection_sketches[1]  = $obj1;
+    $selection_sketches[2]  = $obj2;
+    $selection_sketches[3]  = $obj3;
+    $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:inconnus-integrale.html.twig', array(
+      'data' => $data,
+      'channel'=> $data->channel,
+      'selection_sketches'=>(object)$selection_sketches
+    ));
+
+    $response->setCache(array(
+      'max_age'       => 3600,
+      's_maxage'      => 3600,
+      'public'        => true,
+    ));
+    return $response; 
+  }
+
+  // Chaine Replay
+  protected function channel70($data){
+    $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:replay.html.twig', array(
+      'data'=>(array)$data,
+      'channel'=>$data->channel
+    ));
+    $maxage = 300;
+    $response->setPublic();
+    $response->setMaxAge($maxage);
+    $response->setSharedMaxAge($maxage);
+    return $response;
+  }
+
+  // Sous les jupes des filles
+  protected function channel73($data){
+    $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:sous-les-jupes.html.twig', array(
+      'data'=>(array)$data,
+      'channel'=>$data->channel
+    ));
+    $maxage = 300;
+    $response->setPublic();
+    $response->setMaxAge($maxage);
+    $response->setSharedMaxAge($maxage);
+    return $response;
+  }
+
 }
 
 class ChannelController extends ChannelCustomController

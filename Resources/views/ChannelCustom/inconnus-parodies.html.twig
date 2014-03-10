@@ -1,0 +1,33 @@
+{% extends "SkreenHouseFactoryV3Bundle:Channel:_base-channel.html.twig" %}
+
+{% block customcontent %}
+  <div id="cover" class="cover60">
+    <div id="channel60" class="header-container">
+      <div class="header-content">
+        <div class="player-wrap">
+          {# si la vidéo change ne pas oublier de rajouter &wmode=opaque dans l'url #}
+          {#  <iframe  src="//www.youtube.com/embed/_JuOVrwCmr8/?autoplay=1&wmode=opaque" frameborder="0" allowfullscreen height="255" width="408" ></iframe> #}
+          {# <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=32994900&height=255&width=408&channel_header=1&fromWebsite=1" height="255" width="408"></iframe> #}
+          <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&amp;play=34567934&amp;fromWebsite=1&amp;default_version=VOST&height=255&width=408&channel_header=1" height="255" width="408"></iframe>
+        </div>
+        <a class="btn btn-defaut btn-upload popin_vrais_inconnus"><i class="glyphicon glyphicon-play"></i>ENVOYEZ-NOUS VOTRE VID&Eacute;O</a>
+        <div id="logo">
+          <a class="logopart" href="http://www.lefigaro.fr" target="_blank">
+            <img src="http://mskstatic.com/medias/ftp/chaines/lesvraisinconnus/logo/Figaro.png" alt="le figaro">
+          </a>
+          <a class="logopart" href="http://www.france2.fr" target="_blank">
+            <img src="http://mskstatic.com/medias/ftp/chaines/lesvraisinconnus/logo/France2.png" alt="le figaro">
+          </a>
+          <a class="logopart" href="http://www.rtl.fr" target="_blank">
+            <img src="http://mskstatic.com/medias/ftp/chaines/lesvraisinconnus/logo/RTL.png" alt="le figaro">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
+{% endblock %}
+
+{% block custommodal %}
+  {# Pas de channel-modal pour cette chaine #}
+{% endblock %}
