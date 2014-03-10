@@ -1,3 +1,8 @@
+body.home-cinema, body.view-selections {
+  .bande_listes {
+    margin-top: 0!important;
+  }
+}
 .bande_listes {
   padding: 5px 0 5px 0;
   background-color: #428bca;
@@ -80,7 +85,9 @@
   }
 }
 .bande_couleur_degrade {
-  display: none;
+  &:not(.user-on) {
+    display: none;
+  }
   background-color: #2980B9;
   text-align: center;
   color: white;

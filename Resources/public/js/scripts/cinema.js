@@ -4,7 +4,7 @@ CinemaView = {
   appendSearchResult: function(){
 		var theaters = Skhf.session.datas.cinema;
 		var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
-		container.empty();
+		container.empty().show();
 		UI.appendLoader(container, 2000);
 		API.query(
 			'GET',
@@ -51,9 +51,10 @@ $(document).ready(function(){
   			}
   		});
   		if (ids.length > 0) {
-  			var url = 'schedule/cine.json?programs_only=1&theater_ids=' + ids.join(',');
+  			var url = 'schedule/cine.json?with_schedule=1&programs_only=1&theater_ids=' + ids.join(',');
   			console.log('script', 'update url slider cinema', url);
   			UI.sliders['cinema'].reset(url);
+        
   		} else {
   			$(this).toggleClass('label-info');
   		}
@@ -83,7 +84,7 @@ $(document).ready(function(){
     API.trackEvent('Cinémas', 'search-geoloc', Skhf.session.user ? 'connected' : 'notconnected');
 		var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
 		console.log('script', 'trigger-theaters-geoloc', container);
-		container.empty();
+		container.empty().show();
 		UI.appendLoader(container, 2000);
 		//geoloc
 		API.geolocation(function(position){

@@ -45,6 +45,11 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
   {% endif %}
 {% endif %}
 #}
+
+{% if '-cinema-' in app.request.uri or '/cinema/' in app.request.uri %}
+{% include 'SkreenHouseFactoryV3Bundle:Cinema:_addtolist.html.twig' %}
+{% endif %}
+
 <div id="view-selection" class="container">
   {% if selection.onglet.type == 'page' %}
 

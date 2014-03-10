@@ -60,7 +60,10 @@
         </h3>
       </div>
     {% endif %}
-
+    {% if channel.type == 'cinema' %}
+      {% include 'SkreenHouseFactoryV3Bundle:Channel:_addtolist-cinema.html.twig' %}
+      <div class="container"><h2>En ce moment à l'affiche</h2><br/></div>
+    {% else %}
     <div class="container">
       {#{ dump(app.request.attributes) }#}
       <div class="row">
@@ -71,7 +74,6 @@
     </div>
     <div class="row {% if channel.live.player is defined %}with_live{% endif %}">
       <div class="container">
-
         <div class="row ms-channel-headtitle ">
           {# title #}
           {% if channel.img %}
@@ -87,7 +89,6 @@
                 {% if app.request.get('page') %}
                   {{ app.request.get('facet') ? ', ' : '' }}page {{ app.request.get('page') }}
                 {% endif %}
-                {{ channel.city is defined ? channel.city : '' }}    
               </small>
             </h1>
           </div>
@@ -111,6 +112,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
     <div class="container">
       {% if channel.live.player is defined %}
         <br/>
@@ -168,7 +170,7 @@
       slug: {{ app.request.get('slug') }}
       page: {{ app.request.get('page') }}
       #}
-      {% if categories|length or formats|length %}
+      {% if channel.type != 'cinema' and (categories|length or formats|length) %}
         <hr/>
         <div class="facets">
           {% if app.request.get('format') and app.request.get('facet') and app.request.get('page') %}

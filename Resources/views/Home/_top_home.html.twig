@@ -1,15 +1,14 @@
-<div class="container">
-  <div class="row hometop">
-    <div class="col-xs-4">
-      <div class="prog-list">   
-        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live:top_home.live, name: 'Ce soir à la télé', link: 'tvgrid', name_link: 'Voir la grille télé complète', origin: 'hometop', list_number: '1' } %}
+  <div class="container">
+    <div class="row hometop">
+      <div class="col-xs-4">
+        <div class="prog-list">   
+          {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-tonight.html.twig' with { live:top_home.live} %}
+        </div>
       </div>
-    </div>
-    {% set combinaisons = {6: {'vertical': [[1,1,1,1,1,1]], 'horizontal': []}|to_array }|to_array %}
-    {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: top_home.pack_live ,h_title:"h2", loop_index: loop_index, slider_combinaisons: combinaisons } %}
-    <div class="col-xs-4">
-     {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels.html.twig' with { channels:top_home.pack_channel } %}
+      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: top_home.pack_live ,h_title:"h2", loop_index: loop_index } %}
+      <div class="col-xs-4">
+       {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels.html.twig' with { channels:top_home.pack_channel } %}
+     </div>
    </div>
  </div>
-</div>
 </div>

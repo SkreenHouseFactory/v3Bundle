@@ -13,12 +13,11 @@
     <i class="glyphicon glyphicon-map-marker"></i > {{ 'theaters.search.geoloc'|trans }}
     </a>
   </div>
-  <div id="theaters-list" class="clear"></div>
+  <div id="theaters-list" class="clear well"></div>
 </div>
 {% endif %}
 
 {% if app.request.isXmlHttpRequest %}
-  <hr/>
 {% if app.request.get('q') %}
   <h3>Recherche : {{ app.request.get('q') }}</h3>
 {% elseif app.request.get('init') is null and app.request.isXmlHttpRequest %}
