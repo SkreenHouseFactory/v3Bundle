@@ -208,7 +208,7 @@
             {% else %}
             <div id="channel-programs" class="slider slider-list{% if channel.adress is defined %} clear-cancel{% endif %} ms-margin-top-seo">
               <ul class="items">
-                {% for program in channel.programs %}
+                {% for program in channel.programs|to_array %}
                   {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, theater_id: channel.type == 'cinema' ? channel.id : '' } %}
                 {% endfor %}
               </ul>

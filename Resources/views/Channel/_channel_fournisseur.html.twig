@@ -1,10 +1,7 @@
-{% if custom_header %}
-{% render(controller('SkreenHouseFactoryV3Bundle:Channel:header'~ channel.id, {data:data, from_selection: from_selection, channel: channel, fav: 'page', trigger_fav: 
-channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
-{% elseif channel.fournisseur is defined and channel.fournisseur.type in  ['broadcast'] %}
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: channel, fournisseur: data,slug: app.request.get('slug')} %}
+{% if channel.fournisseur is defined and channel.fournisseur.type in  ['broadcast'] %}
+  {% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: channel, fournisseur: data,slug: app.request.get('slug')} %}
 {% else %}
-{% include  'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data:data, fav: 'page', trigger_fav: channel.personne is defined ? 'Suivre ' ~ data.name : '', skip_content: true} %}
+  {% include  'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data:data, fav: 'page', trigger_fav: channel.personne is defined ? 'Suivre ' ~ data.name : '', skip_content: true} %}
 {% endif %}
 
 <div id="view-fournisseur" data-id="{{ data.id }}" class="container{% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null %} container-seo-placement{% endif %}">

@@ -1,7 +1,4 @@
-{% if custom_header %}
-  {% render(controller('SkreenHouseFactoryV3Bundle:Channel:header'~ channel.id, {data:data, from_selection: from_selection, channel: channel, fav: 'page', trigger_fav: 
-  channel.personne is defined ? 'Suivre ' ~ data.name : '',partner : partner})) %}
-{% elseif channel.template not in ['packs'] %}
+{% if channel.template not in ['packs'] %}
   {% include  'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data:data, fav: 'page', trigger_fav: channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
 {% else %}
   <div class="container"><br/><br/><br/><h1>{{ channel.title }}</h1></div>
