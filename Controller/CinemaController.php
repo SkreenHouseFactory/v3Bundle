@@ -26,6 +26,7 @@ class CinemaController extends Controller
     {
       $session_uid = $request->cookies->get('myskreen_session_uid');
       $alpha       = $request->get('alpha', 'a');
+      $category    = $request->get('category');
       
       //programs
 			$api = $this->get('api');
@@ -35,7 +36,8 @@ class CinemaController extends Controller
            'img_width'  => 150,
            'img_height' => 200,
            'access'     => 'cinema',
-           'alpha'      => $alpha
+           'alpha'      => $alpha,
+           'category'   => $category
       ));
 
       //print_r(array($session_uid, $programs));
@@ -44,6 +46,9 @@ class CinemaController extends Controller
         'alpha'    => array(
           1,2,3,4,5,6,7,8,9,
           'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
+        ),
+        'categories' => array(
+          '', '', ''
         ),
         'programs' => $programs
       ));
