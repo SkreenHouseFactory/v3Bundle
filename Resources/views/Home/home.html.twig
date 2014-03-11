@@ -50,12 +50,12 @@
 <div id="view-home">
   {% for slider in home.sliders|to_array if slider.id is defined %}
   {% if loop.first %}
-  <div class="description-seo description-seo-absolute block">
-  <div class="container">
-    <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1> 
-    {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
-    {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
-  </div>
+  <div class="description-seo description-seo-absolute">
+    <div class="container well scroll">
+      <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1> 
+      {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
+      {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
+    </div>
   </div>
   {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une transchange', force_size: '/1250/370'} %}
   {% if 'video-a-la-demande' in app.request.uri %}

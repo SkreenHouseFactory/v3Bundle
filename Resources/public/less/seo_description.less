@@ -10,10 +10,8 @@
 
 
 
-
-
 //le fameux div SEO
-#description-seo{
+#description-seo {
   background-color: #FFFFFF;
   border: 1px solid #BFBFBF;
   bottom: 0;
@@ -38,6 +36,10 @@
   margin-top: 100px;
   position: absolute;
   width: 100%;
+  .scroll {
+    max-height: 300px;
+    overflow-y: auto;
+  }
 }
 .description-seo {
   position: static;
@@ -48,9 +50,9 @@
   width: 940px;
   
   &.description-seo-absolute {
-    bottom: 0;
     margin-top: 100px;
     position: absolute;
+    width: 100%;
   }
   
   &.scroll::-webkit-scrollbar {
