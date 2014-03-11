@@ -3,7 +3,7 @@
 {% block customcontent %}
   <div class="mediacenter-inconnus">
     <div class="container">
-      {% include 'SkreenHouseFactoryV3Bundle:ChannelCustom:_header-65-player.html.twig' %}
+      {% include 'SkreenHouseFactoryV3Bundle:ChannelCustom:inconnus-integrale-player.html.twig' %}
       {% for mediadisplay in selection_sketches | to_array %}
         {% set current_loop = loop.index %}
           <div class="packgroup">  
@@ -141,5 +141,5 @@
 {% endblock %}
 
 {% block custommodal %}
-  {% include 'SkreenHouseFactoryV3Bundle:ChannelCustom:_modal-65.html.twig' %}
+  {% include 'SkreenHouseFactoryV3Bundle:ChannelCustom:inconnus-integrale-modal.html.twig' %}
 {% endblock %}

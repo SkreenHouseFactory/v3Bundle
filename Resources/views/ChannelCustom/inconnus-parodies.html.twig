@@ -31,3 +31,32 @@
 {% block custommodal %}
   {# Pas de channel-modal pour cette chaine #}
 {% endblock %}
+
+{% block custompagestyles %}
+  {% stylesheets
+      '@SkreenHouseFactorylesVraisInconnusBundle/Resources/public/less/promo.less'
+      filter='lessphp,?yui_css'
+      output='css/vraisinconnus.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
+  <!--[if lt IE 9]> 
+    {% stylesheets
+      '@SkreenHouseFactorylesVraisInconnusBundle/Resources/public/less/ie8_ie9.less'
+      filter='lessphp,?yui_css'
+      output='css/vraisinconnus_ie8_9.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+   <![endif]-->
+{% endblock %}
+
+{% block custompagescripts %}
+  {% javascripts
+    '@SkreenHouseFactorylesVraisInconnusBundle/Resources/public/js/jquery.form.min.js'
+    '@SkreenHouseFactorylesVraisInconnusBundle/Resources/public/js/lesvraisinconnus.js'
+      filter='?yui_js' 
+      output='js/compiled/pages/lesvraisinconnus.js'  %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}

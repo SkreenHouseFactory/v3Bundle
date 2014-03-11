@@ -82,54 +82,21 @@
 {% endblock %}
 
 {% block pagestyles %}
-  {% if data.channel.id == 60 %}
-    {% stylesheets
-      '@SkreenHouseFactorylesVraisInconnusBundle/Resources/public/less/promo.less'
-      filter='lessphp,?yui_css'
-      output='css/vraisinconnus.css'
-    %}
-    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
-    {% endstylesheets %}
+  {% if block('custompagestyles') is empty %}
+    {# Pas de css spécifiques #}
+  {% else %}
+    {% block custompagestyles %}
+    {% endblock %}
   {% endif %}
-
-  <!--[if lt IE 9]> 
-  {% if data.channel.id == 60 %}
-    {% stylesheets
-      '@SkreenHouseFactorylesVraisInconnusBundle/Resources/public/less/ie8_ie9.less'
-      filter='lessphp,?yui_css'
-      output='css/vraisinconnus_ie8_9.css'
-    %}
-    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
-    {% endstylesheets %}
-  {% endif %}
-   <![endif]-->
 {% endblock %}
 
 {% block pagescripts %}
-  {% if channel.type == 'ChannelPersonne' %}
-    {% javascripts
-      '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/person.js'
-        filter='?yui_js' 
-        output='js/compiled/pages/person.js'  %}
-      <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-  {% endif %}
 
-  {% if data.channel.id == 28 %}
-    {% javascripts
-        '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.countdown.js'
-          filter='?yui_js' 
-          output='js/compiled/countdown.js'  %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-  {% elseif data.channel.id == 60 %}
-    {% javascripts
-      '@SkreenHouseFactorylesVraisInconnusBundle/Resources/public/js/jquery.form.min.js'
-      '@SkreenHouseFactorylesVraisInconnusBundle/Resources/public/js/lesvraisinconnus.js'
-        filter='?yui_js' 
-        output='js/compiled/pages/lesvraisinconnus.js'  %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+  {% if block('custompagescripts') is empty %}
+    {# Pas de js spécifiques #}
+  {% else %}
+    {% block custompagescripts %}
+    {% endblock %}
   {% endif %}
 
   {% javascripts

@@ -24,6 +24,43 @@ ini_set('upload_max_filesize', '2048M');
 
 class ChannelCustomController extends Controller
 {
+
+  // Plus belle la vie en avance
+  protected function channel28($data){
+    $api   = $this->get('api');
+    $params = array(
+     'with_player' => true,
+     'with_offers' => true,
+    );
+    $program = $api->fetch('program/3517970', $params);
+
+    $play = null;
+    
+    foreach($program->offers->deporte as $play){
+      if(isset($play->deporte) && isset($play->cost) && $play->deporte && $play->cost){
+        break;
+      }
+    }
+
+    foreach( $program->datas_offers->episodes as $episode) {
+      if(isset($episode->title) && $episode->id == $play->episode_id){
+        break;
+      }
+    }
+    
+    $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:pblvie.html.twig', array(
+      'play' => $play,
+      'episode' => $episode,
+      'data' => $data,
+      'channel'=>$data->channel
+    ));
+    $maxage = 300;
+    $response->setPublic();
+    $response->setMaxAge($maxage);
+    $response->setSharedMaxAge($maxage);
+    return $response;
+  }
+
   // Les Inconnus - la chaîne
   protected function channel1($data){
     $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:inconnus-chaine.html.twig', array(
@@ -262,10 +299,10 @@ class ChannelController extends ChannelCustomController
       $data->description = null;
     }
 
+
     // view paramaters
-    $params = array();
     if (isset($data->facets)) {
-      $params = array(
+      $data = (object)array_merge((array)$data, array(
         'formats' => array_combine(explode(';', $data->facets_seo_url->format),explode(';', $data->facets->format)),
         'categories' => array_combine(explode(';', $data->facets_seo_url->category),explode(';', $data->facets->category)),
         'subcategories' => array_combine(explode(';', $data->facets_seo_url->subcategory),explode(';', $data->facets->subcategory)),
@@ -275,23 +312,12 @@ class ChannelController extends ChannelCustomController
           1,2,3,4,5,6,7,8,9,
           'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
         )
-      );
+      ));
     }
 
     //si Fournisseur
     if (!property_exists($data, 'channel')){
-      return $this->fournisseurAction($data, $params, $request);
-    }
-
-    //si ChannelFournisseur
-    if (property_exists($data, 'channel') && 
-        $data->channel->type == 'ChannelFournisseur') {
-      $data->channel->fournisseur = $data;
-    }
-    //si ChannelPersonne
-    if (property_exists($data, 'channel') && 
-        $data->channel->type == 'ChannelPersonne') {
-      $params['formats'] = PersonController::getFormats((array)$data->programs);
+      return $this->fournisseurAction($data);
     }
 
     //si ChannelCustom
@@ -300,17 +326,11 @@ class ChannelController extends ChannelCustomController
       return $this->$method($data);
     }
 
-    if(isset($data->channel->fournisseur)){
-      $data->channel->fournisseur = (object)array_merge($params, (array)$data->channel->fournisseur);
-    }
-
-    $params = array_merge($params, array(
-      'data' => $data,
-      'channel' => $data->channel
-    ));
-
     if ($data->channel->type == 'ChannelFournisseur' ||
         property_exists($data->channel, 'fournisseur')) {
+      if (!property_exists($data->channel, 'fournisseur')) {
+        $data->channel->fournisseur = $data;
+      }
       $data->channel->fournisseur->formats = array_combine(explode(';', $data->channel->fournisseur->facets_seo_url->format),explode(';', $data->channel->fournisseur->facets->format));
       $data->channel->fournisseur->alpha_available = explode(';', $data->channel->fournisseur->facets->alpha);
       $data->channel->fournisseur->alpha = array(
@@ -319,9 +339,39 @@ class ChannelController extends ChannelCustomController
       );
       unset($data->channel->fournisseur->facets);
       unset($data->channel->fournisseur->facets_seo_url);
-    }
+    
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_fournisseur.html.twig', array(
+        'data'=> $data,
+        'fournisseur'=>$data->channel->fournisseur,
+        'sliders'=>isset($data->sliders) ? $data->sliders : array(),
+        'channel'=>$data->channel
+      ));
 
-    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:channel.html.twig', $params);
+    } elseif ($data->channel->type == 'ChannelOnglet'){
+
+      if (isset($data->channel->template) && $data->channel->template != null){
+        $template = str_replace('+', '-', $data->channel->template);
+        $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_template_'.$template.'.html.twig', array(
+          'data'=>$data,
+          'channel'=>$data->channel
+        ));
+      } else {
+        $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_onglet.html.twig', array(
+          'data'=>$data,
+          'channel'=>$data->channel
+        ));
+      }
+
+    } elseif ($data->channel->type == 'ChannelPersonne'){
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_personne.html.twig', array(
+          'data'=>$data,
+          'channel'=>$data->channel,
+          'formats'=>PersonController::getFormats((array)$data->programs)
+        ));
+    } 
+    // {% elseif channel.type == 'ChannelMyskreener' %}
+    //   {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_user.html.twig' with {data:data} %}
+    // {% endif %}
 
     $maxage = 60;
     $response->setPublic();
@@ -333,11 +383,11 @@ class ChannelController extends ChannelCustomController
   }
 
   // Fournisseur
-  public function fournisseurAction($data, $params, Request $request)
+  public function fournisseurAction($data)
   {
-    $params = array_merge($params, array('channel' => $data));
-    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:fournisseur.html.twig', $params);
-
+    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:fournisseur.html.twig', array(
+      'channel'=>$data
+    ));
     $maxage = 300;
     $response->setPublic();
     $response->setMaxAge($maxage);

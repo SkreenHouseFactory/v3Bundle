@@ -1,6 +1,6 @@
-{% if channel.template not in ['packs'] %}
+{% extends "SkreenHouseFactoryV3Bundle:Channel:_base-channel.html.twig" %}
+
+{% block customcontent %}
   {% include  'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data:data, fav: 'page', trigger_fav: channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
-{% else %}
-  <div class="container"><br/><br/><br/><h1>{{ channel.title }}</h1></div>
-{% endif %}
-{% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
+  {% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
+{% endblock %}
