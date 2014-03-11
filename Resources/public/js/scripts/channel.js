@@ -72,7 +72,7 @@ $(document).ready(function(){
 
     //////////// CALLBACKS ////////////////
     // -- session sync
-    Skhf.session.callbackSignin = function() {
+    Skhf.session.callbackSignin['channel'] = function() {
       //follow
       if (document.location.href.match(/\?follow/gi) && 
           !$('.btn-suivre[data-id]').hasClass('fav-on') && 
@@ -103,7 +103,7 @@ $(document).ready(function(){
             $('#channel-modal').modal('hide');
           })
           $('#fbconnect').on('click', function() {
-            Skhf.session.callbackSignin = function(sessionData) {
+            Skhf.session.callbackSignin['channel'] = function(sessionData) {
               //add channel to playlist
               if (sessionData.email) {
                 var id = $('.fav[data-id]').data('id');

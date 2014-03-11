@@ -8,7 +8,7 @@
     {% endfor %}
   </div>
   {% if (channel.personne is defined and channel.personne) or (channel.text is defined and channel.text) %}
-    <div{{ channel.id == 73 ? '' : ' id="description-seo"'}} class="{{ channel.id == 73 ? 'description-seo ' : '' }}scroll well">
+    <div class="description-seo description-seo-absolute scroll well">
       <h1>{{ channel.name }}</h1>
       {% if channel.personne is defined and channel.personne %}
         <p>{{ channel.personne.description|raw }}</p>
