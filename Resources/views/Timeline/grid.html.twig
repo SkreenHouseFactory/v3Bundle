@@ -75,6 +75,9 @@ Programme TV : Grille TV complète TNT Câble
       <a class="btn btn-default close">Fermer</a>
     </div>
   </div>
+  
+  {% include 'SkreenHouseFactoryV3Bundle:Timeline:_addtolist.html.twig' %}
+  
   <div class="container">
   <div class="row marger">
    <div class="col-xs-8">
@@ -136,7 +139,7 @@ Programme TV : Grille TV complète TNT Câble
       <a class="btn btn-default btn-group-sm" data-filter="spectacles">Spectacles</a>
     </div>
     <div class="pull-right addchannel">
-      <a class="btn btn-warning btn-xs" data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}">Ajouter / Supprimer des chaînes</a>
+      <a class="btn btn-primary btn-xs" data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}">Ajouter / Supprimer des chaînes</a>
     </div>
     <div class="relative">
       <div class="horaire">

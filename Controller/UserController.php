@@ -23,6 +23,23 @@ class UserController extends Controller
     /**
     *
     */
+    public function intromeslistesAction(Request $request)
+    {
+
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:meslistes-start.html.twig', array(
+      ));
+
+      $maxage = 3600*24;
+      $response->setPublic();
+      $response->setMaxAge($maxage);
+      $response->setSharedMaxAge($maxage);
+
+      return $response;
+    }
+
+    /**
+    *
+    */
     public function blacklistAction(Request $request)
     {
       $unsubscribed = null;

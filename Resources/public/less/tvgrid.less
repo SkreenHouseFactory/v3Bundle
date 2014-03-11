@@ -1,6 +1,13 @@
 @lineheight: 75px;
 @lineheightchannel: 74px;
 
+
+body.view-tvgrid, body.view-tvgrid_date {
+  #main {
+    padding-top: 50px !important;
+  }
+}
+
 .img-tvgrid-popover {
   float: left;
   margin: 0 10px 20px;
@@ -67,7 +74,6 @@
   }
   .btn-filters {
     margin-bottom:-10px;
-    margin-left: 12%;
     &:before{
       color: #BBBBBB;
       content: "Filtres";
@@ -158,7 +164,7 @@ ul.nav-pills {
     }
     &.active.time-change {
       > a {
-        background: rgba(0, 136, 204, 1);
+        background: rgba(0,0,0,0.7);
       }
     }
     &.calendar {

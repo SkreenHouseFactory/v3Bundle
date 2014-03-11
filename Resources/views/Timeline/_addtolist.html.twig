@@ -1,0 +1,64 @@
+<div class="bande_listes">
+  <div class="container">
+    <div class="row">
+      {% if img is defined %}
+      <div class="col-xs-2">
+        <img src="{{ img }}" height="120px"/>
+      </div>
+      <div class="col-xs-9">
+      {% else %}
+      <div class="col-xs-11">
+      {% endif %}
+        <span class="ms-format">Mes listes</span>
+        <div class="user-on hide">
+          <div id="fake_h1">Les diffusions TV</div>
+          <div class="row">
+            <div class="col-xs-16 episodes">Les séances près de chez vous en un clin d'oeil !</div>
+          </div>
+        </div>
+        <div class="user-off">
+          <div id="fake_h1">Suivez vos programmes préférés</div>
+          <div class="row">
+            <div class="col-xs-16 episodes">Et retrouvez ici toutes leurs diffusions dès qu'ils passent à la télé !</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-xs-5">
+        {# AjoutListes #}
+        <div class="row user-off">
+          {# Bouton Ajout/Abo #}
+          <div class="col-xs-16 ajout">
+            {#<a class="btn btn-suivre btn-plus" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {init: 1}) }}">Ajouter un cinéma</a>#}
+          </div>
+          {# Textes Ajouts #}
+          <div class="col-xs-16">
+            <a class="meslistes-plus"><i class="glyphicon glyphicon-collapse-down"></i><span>&nbsp;Plus d'infos...</span></a>
+            {# <p>Soyez averti des prochaines diffusions (Tv, Replay, Ciné, VOD).</p>
+            {# <p>Partagez vos playlists avec vos amis et suivez ce qu'ils regardent.</p> #}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# off #}
+<div class="bande_couleur_degrade">
+  <div class="container user-off">
+    <div class="row">
+      <p>Soyez averti des prochaines diffusions (TV, Replay, Ciné, VOD) des programmes que vous aimez.</p>
+      <p>Partagez vos listes avec vos amis et suivez ce qu'ils regardent.</p>
+    </div>
+    {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with { no_background: true } %}
+  </div>
+  <div class="container user-on" id="theaters-playlist">
+    <div class="tab-pane" id="theater-playlist">
+      <div class="theaters-on hide">
+        <a class="pull-right btn btn-suivre btn-xs" data-modal="remote" data-modal-title="{{ 'theaters.playlist.add'|trans }}" href="{{ path('theaters_search', {'init': 1}) }}"> Modifier mes cinémas</a>
+        <div id="theaters-names"></div>
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'cinema'}, noheader: true} %}
+      </div>
+    </div>
+  </div>
+</div>
