@@ -422,7 +422,7 @@ UiView = {
         $.extend($(this).serializeFullArray(), {dataType: 'text/html'}), 
         function(html){
           console.log('script', 'callback data-form-ajax', form.data('form-ajax'))
-          $(form.data('form-ajax')).html(html);
+          $(form.data('form-ajax')).html(html).fadeIn();
           UI.loadPlaylistTriggers(null, null, $(form.data('form-ajax')));
        });
     });

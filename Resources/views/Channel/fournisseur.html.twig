@@ -35,7 +35,7 @@
 
 {% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
-{% block body_class %}view-fournisseur{% endblock %}
+{% block body_class %}view-fournisseur view-fournisseur-{{ channel.type }}{% endblock %}
 
 {% block content %}
   {% set page_count = channel.count %}

@@ -403,10 +403,18 @@ episodes_list:
 
 #cinema
 cinema_boxoffice:
-    pattern:  /cinema/box-office/{alpha}
+    pattern:  /cinema/box-office/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cinema:boxoffice }
+cinema_boxoffice_alpha:
+    pattern:  /cinema/box-office/{alpha}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Cinema:boxoffice }
     requirements:
-        alpha: "[^/]+"
+        alpha: "[^/]"
+cinema_boxoffice_category:
+    pattern:  /cinema/box-office/{category}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cinema:boxoffice }
+    requirements:
+        category: "[^/]+"
 theaters_program:
     pattern:  /cinema/program/{id}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Cinema:program }

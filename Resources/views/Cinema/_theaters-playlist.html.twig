@@ -7,7 +7,7 @@
   <div class="tab-content">
     <div class="tab-pane fade" id="theater-playlist">
       <div class="theaters-on hide">
-        <a class="pull-right btn btn-suivre btn-xs" data-modal="remote" data-modal-title="{{ 'theaters.playlist.add'|trans }}" href="{{ path('theaters_search', {'init': 1}) }}"><i class="glyphicon glyphicon-plus"></i> {{ 'theaters.playlist.add'|trans }}</a>
+        <a class="pull-right btn btn-suivre btn-xs" data-modal="remote" data-modal-title="{{ 'theaters.playlist.add'|trans }}" href="{{ path('theaters_search', {'init': 1}) }}"> Modifier vos cinémas</a>
         <div id="theaters-names"></div>
         {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'cinema'}, noheader: true} %}
       </div>

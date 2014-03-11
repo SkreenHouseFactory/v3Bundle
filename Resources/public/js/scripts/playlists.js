@@ -23,6 +23,7 @@ $(document).ready(function(){
                             .toggleClass('glyphicon-collapse-up');
     if ($('.glyphicon', $(this)).hasClass('glyphicon-collapse-up')) {
       $('span', $(this)).html('&nbsp;Fermer');
+      $('.bande_couleur_degrade').removeClass('hide');
     } else {
       $('span', $(this)).html('&nbsp;Plus d\'infos...');
     }
