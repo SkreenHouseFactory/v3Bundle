@@ -89,13 +89,12 @@ $(document).ready(function(){
     }
     if(!API.cookie('slide-in')){
       var date_cookie = new Date();
-      date_cookie.setTime(date_cookie.getTime() + (120 * 60 * 1000));
+      date_cookie.setTime(date_cookie.getTime() + (7 * 24 * 3600 * 1000));
       API.cookie('slide-in', 1, date_cookie);
     }
   });
 
   //CHecker quantité de scroll
-  
   $(document).scroll(function(){
     // console.log($(document).scrollTop());
     if ((($(document).scrollTop() > 300) && ($(document).scrollTop() < 1200))

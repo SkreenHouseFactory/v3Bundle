@@ -28,25 +28,25 @@
     </div>
     <div class="row titres user-on hide auth">
       <div class="col-xs-4" data-fav="like">
-        <a href="{{ path('user_programs') }}"{% if active == 'programs' %} class="active"{% endif %}>
+        <a href="{{ path('user_programs') }}"{% if active is defined and active == 'programs' %} class="active"{% endif %}>
           <span class="badge bg-white grey"></span>
           <p class="sk-font">Vos programmes</p>
         </a>
       </div>
       <div class="col-xs-3" data-fav="channel">
-        <a href="{{ path('user_channels') }}"{% if active == 'channel' %} class="active"{% endif %}>
+        <a href="{{ path('user_channels') }}"{% if active is defined and active == 'channel' %} class="active"{% endif %}>
           <span class="badge bg-white grey"></span>
           <p class="sk-font">Vos chaînes</p>
         </a>
       </div>
       <div class="col-xs-4" data-fav="cinema">
-        <a href="{{ path('user_theaters') }}"{% if active == 'theaters' %} class="active"{% endif %}>
+        <a href="{{ path('user_theaters') }}"{% if active is defined and active == 'theaters' %} class="active"{% endif %}>
           <span class="badge bg-white grey"></span>
           <p class="sk-font">Vos cinémas</p>
         </a>
       </div>
       <div class="col-xs-5" data-fav="person">
-        <a href="{{ path('user_persons') }}"{% if active == 'persons' %} class="active"{% endif %}>
+        <a href="{{ path('user_persons') }}"{% if active is defined and active == 'persons' %} class="active"{% endif %}>
           <span class="badge bg-white grey"></span>
           <p class="sk-font">Vos acteurs / réalisateurs</p>
         </a>

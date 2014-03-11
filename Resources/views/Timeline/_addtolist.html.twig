@@ -9,7 +9,7 @@
       {% else %}
       <div class="col-xs-11">
       {% endif %}
-        <span class="ms-format">Mes listes</span>
+        <a href="{{ path('user_intro_meslistes') }}" class="ms-format">Mes listes</a>
         <div class="user-on hide">
           <div id="fake_h1">Les diffusions TV</div>
           <div class="row">
@@ -44,15 +44,17 @@
 </div>
 
 {# off #}
-<div class="bande_couleur_degrade">
-  <div class="container user-off">
+<div class="bande_couleur_degrade user-off hide">
+  <div class="container">
     <div class="row">
       <p>Soyez averti des prochaines diffusions (TV, Replay, Ciné, VOD) des programmes que vous aimez.</p>
       <p>Partagez vos listes avec vos amis et suivez ce qu'ils regardent.</p>
     </div>
     {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with { no_background: true } %}
   </div>
-  <div class="container user-on" id="theaters-playlist">
+</div>
+<div class="bande_couleur_degrade user-on hide">
+  <div class="container" id="theaters-playlist">
     <div class="tab-pane" id="theater-playlist">
       <div class="theaters-on hide">
         <a class="pull-right btn btn-suivre btn-xs" data-modal="remote" data-modal-title="{{ 'theaters.playlist.add'|trans }}" href="{{ path('theaters_search', {'init': 1}) }}"> Modifier mes cinémas</a>

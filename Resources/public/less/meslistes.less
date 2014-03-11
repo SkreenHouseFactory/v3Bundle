@@ -3,11 +3,17 @@ body.home-cinema, body.view-selections {
     margin-top: 0!important;
   }
 }
+img.cinema-sample {
+  width: 800px;
+  opacity: 0.8;
+}
 .bande_fonce {
   background-color: #dcdcdc;
-  padding: 10px 0;
+  padding: 30px 0;
   h3 {
     font-size: 1.5em;
+    float: left;
+    margin-right: 20px;
   }
 }
 .bande_listes {
@@ -92,8 +98,9 @@ body.home-cinema, body.view-selections {
   }
 }
 .bande_couleur_degrade {
-  &:not(.user-on) {
-    display: none;
+  display: none;
+  &.user-off, &.user-on {
+    display: block;
   }
   background-color: #2980B9;
   text-align: center;
@@ -116,10 +123,6 @@ body.home-cinema, body.view-selections {
     font-family: 'Raleway', sans-serif;
     text-decoration: none;
     color: white;
-  }
-  img.cinema-sample {
-    width: 800px;
-    opacity: 0.8;
   }
   .titres {
     img {
