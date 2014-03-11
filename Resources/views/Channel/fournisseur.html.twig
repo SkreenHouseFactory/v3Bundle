@@ -1,5 +1,5 @@
-
 {% extends app.request.isXmlHttpRequest or app.request.get('xhr') ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
+
 {% set format_trans = 'format.singulier.' ~ app.request.get('format') %}
 {% set formats_trans = 'format.pluriel.' ~ app.request.get('format') %}
 {% block meta %}
@@ -29,7 +29,7 @@
 {% block title %}
   {% set page_title_channel = 'page.title.channel.' ~ (channel.type in ['broadcast','cinema'] ? channel.type : 'default') ~ (app.request.get('format') ? '_format' : null) %}
   {{ page_title_channel|trans({'%name%': channel.name, '%format%': format_trans|trans, '%formats%': formats_trans|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
-  {%- if app.request.get('facet') %}, {{ subcategories[app.request.get('facet')] is defined ? subcategories[app.request.get('facet')] : app.request.get('facet')  }}{% endif -%}
+  {%- if app.request.get('facet') %}, {{ channel.subcategories[app.request.get('facet')] is defined ? channel.subcategories[app.request.get('facet')] : app.request.get('facet')  }}{% endif -%}
   {%- if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif -%}
 {%- endblock %}
 
@@ -53,7 +53,7 @@
         <br/><br/>
         <h3>
           {% if app.request.get('facet') %}
-          <a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('facet')}) }}">{{ subcategories[app.request.get('facet')] is defined ? subcategories[app.request.get('facet')] : app.request.get('facet') }} : tous les programmes en streaming</a>
+          <a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('facet')}) }}">{{ channel.subcategories[app.request.get('facet')] is defined ? channel.subcategories[app.request.get('facet')] : app.request.get('facet') }} : tous les programmes en streaming</a>
           {% else %}
           <a href="{{ path('format', {category_slug: app.request.get('format') }) }}">{{ app.request.get('format') }} : tous les programmes en streaming</a>
           {% endif %}
@@ -84,7 +84,7 @@
             <h1 class="inline-block" data-channel="{{ channel.name }}">{{ page_h1_channel|trans({'%name%': channel.name, '%format%': format_trans|trans, '%formats%': formats_trans|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
               <small>
                 {% if app.request.get('facet') %}
-                  {{ categories[app.request.get('facet')] is defined ? categories[app.request.get('facet')] : 'commençant par ' ~ app.request.get('facet') }}
+                  {{ channel.categories[app.request.get('facet')] is defined ? channel.categories[app.request.get('facet')] : 'commençant par ' ~ app.request.get('facet') }}
                 {% endif %}
                 {% if app.request.get('page') %}
                   {{ app.request.get('facet') ? ', ' : '' }}page {{ app.request.get('page') }}
@@ -171,18 +171,19 @@
       page: {{ app.request.get('page') }}
       #}
       {% if channel.type != 'cinema' and (categories|length or formats|length) %}
+
         <hr/>
         <div class="facets">
           {% if app.request.get('format') and app.request.get('facet') and app.request.get('page') %}
-            {% for k,s in categories %}
+            {% for k,s in channel.categories %}
               <span data-link-to-replace="{{ path('channel_format_facet_page', {format: app.request.get('format'), slug: app.request.get('slug'), facet: app.request.get('facet'), page: app.request.get('page')})|rot13 }}" class="label label-default{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</span> 
             {% endfor %}
           {% elseif app.request.get('format') %}
-            {% for k,s in categories if s is not null and k|length > 0 %}
+            {% for k,s in channel.categories if s is not null and k|length > 0 %}
               <span data-link-to-replace="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k})|rot13 }}" class="label label-default{% if app.request.get('facet') == k %} label-info"{% endif %}">{{ s }}</span> 
             {% endfor %}
           {% else %}
-            {% for k,f in formats if k != '' %}
+            {% for k,f in channel.formats if k != '' %}
               <span data-link-to-replace="{{ path('channel_format', {format: k, slug: app.request.get('slug')})|rot13 }}" class="pull-left badge{% if app.request.get('facet') == f %} badge-info"{% endif %}">{{ f }}</span> 
             {% endfor %}
           {% endif %}
@@ -210,7 +211,7 @@
             {% else %}
             <div id="channel-programs" class="slider slider-list{% if channel.adress is defined %} clear-cancel{% endif %} ms-margin-top-seo">
               <ul class="items">
-                {% for program in channel.programs %}
+                {% for program in channel.programs|to_array %}
                   {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, theater_id: channel.type == 'cinema' ? channel.id : '' } %}
                 {% endfor %}
               </ul>

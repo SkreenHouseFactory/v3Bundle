@@ -1,89 +1,80 @@
-{% if custom_header %}
-{% render(controller('SkreenHouseFactoryV3Bundle:Channel:header'~ channel.id, {data:data, from_selection: from_selection, channel: channel, fav: 'page', trigger_fav: 
-channel.personne is defined ? 'Suivre ' ~ data.name : ''})) %}
-{% elseif channel.fournisseur is defined and channel.fournisseur.type in  ['broadcast'] %}
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: channel, fournisseur: data,slug: app.request.get('slug')} %}
-{% else %}
-{% include  'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data:data, fav: 'page', trigger_fav: channel.personne is defined ? 'Suivre ' ~ data.name : '', skip_content: true} %}
-{% endif %}
+{% extends "SkreenHouseFactoryV3Bundle:Channel:_base-channel.html.twig" %}
 
-<div id="view-fournisseur" data-id="{{ data.id }}" class="container{% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null %} container-seo-placement{% endif %}">
+{% block customcontent %}
 
-  {% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null  %}
-  <div id="description-seo">
-    <h1>{{ data.name }}</h1>
-    {{ channel.fournisseur.description is defined ? channel.fournisseur.description|raw : (data.description is defined ? data.description|raw : '') }}
-  </div>
-  {% endif %}
-
-  <div class="row ms-channelbiglogo" >
-    <div class="col-xs-16">
-      {% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: data, skip_root: true} %}
-    </div>
-  </div>
-  
-  {# a venir sur la chaine #}
-  {% if data.epg is defined and data.epg and data.programs_epg is defined and data.programs_epg|length %}
-  <a class="pull-right btn btn-default btn-sm" href="{{ path('tvgrid') }}">&raquo Tout le programme TV</a>
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {
-        title: 'channel.epg'|trans({'%name%': data.name}), 
-        programs: data.programs_epg, 
-        id: 'channel-epg', 
-        url: '/recommend/from_channel/' ~ data.id ~ '.json?with_method=epg&date=Epg'}} %}
-  {% endif %}
-  <h4>Les programmes {{ channel.fournisseur.has_replay is defined and channel.fournisseur.has_replay ? 'TV & Replay' : 'en Streaming' }}</h4>
-
-  {# sliders #}
-  {% if sliders|to_array|length %}
-  <div class="row">
-    <div class="col-xs-16">
-      {% for slider in sliders|to_array if slider.id is defined %}
-        <a name="{{ slider.name }}"></a>
-        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index: loop.index} %}
-      {% endfor %}
-    </div>
-  </div>
-  <hr/>
-  <br/>
-  {% endif %}
-
-  {# fournisseur #}
-  {% if sliders|to_array|length and
-        app.request.get('page') is null and 
-        app.request.get('format') is null and 
-        app.request.get('facet') is null %}
-    {#% if data.epg is defined and data.epg %}
-      {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-replay.html.twig' with {channel: data} %}
-    {% endif %#}
-    <h2>
-      {{ data.name }}, TV & Replay 
-      {% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}
-    </h2>
-  {% endif %}
-
-  {% include 'SkreenHouseFactoryV3Bundle:Channel:_pager.html.twig' with {data: data} %}
-
-  <div class="facets" style="height: 40px;">
-  {% if app.request.get('format') %}
-    {% for k,s in data.subcategories %}
-      <span data-link-to-replace="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k})|rot13 }}" class="label label-default {% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</span> 
-    {% endfor %}
+  {% if channel.fournisseur is defined and channel.fournisseur.type in  ['broadcast'] %}
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: channel, fournisseur: fournisseur,slug: app.request.get('slug')} %}
   {% else %}
-    {% for k,f in data.formats if k|length %}
-      <span data-link-to-replace="{{ path('channel_format', {format: k, slug: app.request.get('slug')})|rot13 }}" class="label{% if app.request.get('facet') == f %} label-info"{% endif %} label-default">{{ f }}</span> 
-    {% endfor %}
+    {% include  'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data: fournisseur, fav: 'page', trigger_fav: channel.personne is defined ? 'Suivre ' ~ fournisseur.name : '', skip_content: true} %}
   {% endif %}
-  </div>
 
-  <hr/>
-  <div id="channel-programs" class="slider slider-list">
-    <ul class="items">
-    {% for program in data.programs|to_array %}
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, theater_id: data.type == 'cinema' ? data.id : '' } %}
-    {% endfor %}
-    </ul>
+  <div id="view-fournisseur" data-id="{{ fournisseur.id }}" class="container{% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null %} container-seo-placement{% endif %}">
+    {% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null  %}
+      <div id="description-seo">
+        <h1>{{ fournisseur.name }}</h1>
+        {{ channel.fournisseur.description is defined ? channel.fournisseur.description|raw : (fournisseur.description is defined ? fournisseur.description|raw : '') }}
+      </div>
+    {% endif %}
+    <div class="row ms-channelbiglogo" >
+      <div class="col-xs-16">
+        {% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: fournisseur, skip_root: true} %}
+      </div>
+    </div>
+    {# a venir sur la chaine #}
+    {% if fournisseur.epg is defined and fournisseur.epg and fournisseur.programs_epg is defined and fournisseur.programs_epg|length %}
+      <a class="pull-right btn btn-default btn-sm" href="{{ path('tvgrid') }}">&raquo Tout le programme TV</a>
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {
+          title: 'channel.epg'|trans({'%name%': fournisseur.name}), 
+          programs: fournisseur.programs_epg, 
+          id: 'channel-epg', 
+          url: '/recommend/from_channel/' ~ fournisseur.id ~ '.json?with_method=epg&date=Epg'}} %}
+    {% endif %}
+    <h4>Les programmes {{ channel.fournisseur.has_replay is defined and channel.fournisseur.has_replay ? 'TV & Replay' : 'en Streaming' }}</h4>
+    {# sliders #}
+    {% if sliders|to_array|length %}
+      <div class="row">
+        <div class="col-xs-16">
+          {% for slider in sliders|to_array if slider.id is defined %}
+            <a name="{{ slider.name }}"></a>
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index: loop.index} %}
+          {% endfor %}
+        </div>
+      </div>
+      <hr/>
+      <br/>
+    {% endif %}
+    {# fournisseur #}
+    {% if sliders|to_array|length and
+          app.request.get('page') is null and 
+          app.request.get('format') is null and 
+          app.request.get('facet') is null %}
+      <h2>
+        {{ fournisseur.name }}, TV & Replay 
+        {% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}
+      </h2>
+    {% endif %}
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_pager.html.twig' with {data: fournisseur} %}
+    <div class="facets" style="height: 40px;">
+      {% if app.request.get('format') %}
+        {% for k,s in fournisseur.subcategories %}
+          <span data-link-to-replace="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k})|rot13 }}" class="label label-default {% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</span> 
+        {% endfor %}
+      {% else %}
+        {% for k,f in fournisseur.formats if k|length %}
+          <span data-link-to-replace="{{ path('channel_format', {format: k, slug: app.request.get('slug')})|rot13 }}" class="label{% if app.request.get('facet') == f %} label-info"{% endif %} label-default">{{ f }}</span> 
+        {% endfor %}
+      {% endif %}
+    </div>
+    <hr/>
+    <div id="channel-programs" class="slider slider-list">
+      <ul class="items">
+        {% for program in fournisseur.programs|to_array %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, theater_id: fournisseur.type == 'cinema' ? fournisseur.id : '' } %}
+        {% endfor %}
+      </ul>
+    </div>
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_pager.html.twig' with {data: fournisseur} %}
   </div>
-
-  {% include 'SkreenHouseFactoryV3Bundle:Channel:_pager.html.twig' with {data: data} %}
-	</div>
 </div>
+
+{% endblock %}

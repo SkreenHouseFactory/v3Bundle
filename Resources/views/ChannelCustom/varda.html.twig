@@ -1,0 +1,36 @@
+{% extends "SkreenHouseFactoryV3Bundle:Channel:_base-channel.html.twig" %}
+
+{% block customcontent %}
+  <div id="cover" class="cover8">
+    <div id="channel8" class="header-container">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-16">
+            <div class="player-wrap">
+              <iframe id="player" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&fromWebsite=1&play=26875162
+&playlist=26875162,26875211,26875168,26875169,26875171,26875184,26875188,26875175,26875198&height=280&width=530&noControls=1" height="280" width="530" style="width:530px;height:280px;"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header-content">
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'pull-right', fav: 'channel' } %}
+        <h1>Agnès Varda</h1>
+        <div class="share-block" style="z-index:1;" >
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' est sur @mySkreen   ' } %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
+{% endblock %}
+
+{% block custompagestyles %}
+  {% stylesheets
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/channel/varda.less'
+      filter='lessphp,?yui_css'
+      output='css/channel/varda.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
+{% endblock %}

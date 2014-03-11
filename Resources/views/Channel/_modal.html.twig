@@ -1,25 +1,25 @@
 <div class="modal" id="channel-modal">
   <div class="modal-dialog">
     <div class="modal-content">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <div class="modal-title">Abonnez-vous à la chaîne</div>
-  </div>
-  <div class="modal-body">
-  {% if data.channel.img is defined and data.channel.img != null %}
-    <img id="channel-logo" src="{{ data.channel.img | replace({'75/100': '109/145'}) }}" class="pull-left" />
-  {% endif %}
-    <p>Abonnez-vous gratuitement à la chaîne &laquo; {{ data.name }} &raquo; <br/>pour recevoir les prochaines vidéos en avant-première !</p>
-    <div id="triggerfav">
-      <a class="btn btn-large btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre {{ data.name }}</a>
-    </div> 
-    <div id="fbconnect">
-    <img src="https://api.myskreen.com/skPaymentPlugin/images/connexion_facebook.jpeg" alt="Se connecter avec Facebook" data-parcours="">
-    <div id="fbconnect-infos"></div>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <div class="modal-title">Abonnez-vous à la chaîne</div>
+      </div>
+      <div class="modal-body">
+        {% if data.channel.img is defined and data.channel.img != null %}
+          <img id="channel-logo" src="{{ data.channel.img | replace({'75/100': '109/145'}) }}" class="pull-left" />
+        {% endif %}
+        <p>Abonnez-vous gratuitement à la chaîne &laquo; {{ data.name }} &raquo; <br/>pour recevoir les prochaines vidéos en avant-première !</p>
+        <div id="triggerfav">
+          <a class="btn btn-large btn-primary"><i class="icon-plus-sign icon-white"></i> Suivre {{ data.name }}</a>
+        </div> 
+        <div id="fbconnect">
+          <img src="https://api.myskreen.com/skPaymentPlugin/images/connexion_facebook.jpeg" alt="Se connecter avec Facebook" data-parcours="">
+          <div id="fbconnect-infos"></div>
+        </div>
+        <div class="user-off"><a data-dismiss="modal" class="btn btn-default trigger-suivre">{{'popin.nofb'|trans}}</a></div>
+      </div>
+      <div class="modal-footer"><a data-dismiss="modal" class="btn btn-default">Non, merci pas maintenant</a></div>
     </div>
-    <div class="user-off"><a data-dismiss="modal" class="btn btn-default trigger-suivre">{{'popin.nofb'|trans}}</a></div>
   </div>
-  <div class="modal-footer"><a data-dismiss="modal" class="btn btn-default">Non, merci pas maintenant</a></div>
- </div>
-</div>
 </div>

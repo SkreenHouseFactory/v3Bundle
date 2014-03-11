@@ -15,24 +15,6 @@ body.view-fournisseur.view-fournisseur-cinema, body.view-cinema_boxoffice {
   }
 }
 
-/* channel PBLV */
-body.view-channel .channel28 {
-
-  .slider ul.items li .channel {
-    .diff {
-      display: none;
-    }
-    &.logo-channel-52 {
-      display: none;
-    }
-  }
-}
-
-/* channel vrais inconnus */
-.body.view-channel-3 {
-  background-color: #0B1E30;
-}
-
 /* channel page */
 body.view-channel:not(.view-ajax) {
   #main {
@@ -51,163 +33,129 @@ body.view-channel, body.view-channel-selections {
       height: 450px;
       margin: 0 auto;
       padding: 0;
-      &.cover42{
-        height: 850px;
-      }
-      &.cover28{
-        height: 550px;
-      }
-      &.cover60{
-        height:495px;
-      }
-
-    
-      &.cover56,&.cover60{
-         .cover-wrap{
-          display: block;
-        height: 500px;
-        width: 100%;
-        position: absolute;
-        }
-        .wrap-follow{
-          position: absolute;
-          left: 190px;
-          bottom: 36px;
-          z-index: 1;        
-        }
-        .share-block{
-          left: 660px;
-        }
-      }
-      &.cover35,&.cover54,&.cover8{
-       height: 600px;
-     }
-     &.cover-fournisseur {
-      .header-container {
-        .container {
-          >h1{
-            margin-top: 0px;
-          }
-          height: 450px; 
-          //border-bottom: 1px solid #EEE;
-          padding-top: 80px;
-          .well {
-            top: 120px;
-            width: 600px;
-            position: absolute;
-            border: none;
-            border-top-left-radius: 0px;
-            border-bottom-left-radius: 0px;
-            box-shadow: none;
-            right: 0px;
-            margin: 0 20px;
-            height: 290px;
-            padding: 10px;
-            .well-inner {
-              .b-play{
-                color: white;
-                font-size: 2.5em;
-                >i{
-                  border: 3px solid white;
-                  height: 53px;
-                  width: 53px;
-                  border-radius: 28px;
-                  padding-left: 4px;
-                }
-              }
+      &.cover-fournisseur {
+        .header-container {
+          .container {
+            >h1{
+              margin-top: 0px;
+            }
+            height: 450px; 
+            padding-top: 80px;
+            .well {
+              top: 120px;
+              width: 600px;
               position: absolute;
-              left: 170px;
-              width: 420px;
-              height: 270px;
-              background: rgba(0,0,0,0.9);
-              text-align:center;
-              .alert {
-                margin: 10px;
-              }
-              .player-live{
+              border: none;
+              border-top-left-radius: 0px;
+              border-bottom-left-radius: 0px;
+              box-shadow: none;
+              right: 0px;
+              margin: 0 20px;
+              height: 290px;
+              padding: 10px;
+              .well-inner {
+                .b-play{
+                  color: white;
+                  font-size: 2.5em;
+                  >i{
+                    border: 3px solid white;
+                    height: 53px;
+                    width: 53px;
+                    border-radius: 28px;
+                    padding-left: 4px;
+                  }
+                }
+                position: absolute;
+                left: 170px;
                 width: 420px;
                 height: 270px;
-              }
-            }
-            .slider {
-              width: 160px;
-              ul.items {
-                li {
-                  width: 150px;
+                background: rgba(0,0,0,0.9);
+                text-align:center;
+                .alert {
+                  margin: 10px;
+                }
+                .player-live{
+                  width: 420px;
+                  height: 270px;
                 }
               }
-              .btn{
-                padding: 17px 0px;
-                font-size: 1.3em;
-              }
-              .fav-like{
-                height: 39px;
-                padding: 5px;
-                position: absolute;
-                top: 230px;
-                width: 149px;
-              }
-            }
-          }
-          ul#remote-tnt {
-            background: #F7F7F3;
-            height: 290px;
-            width: 335px;
-            position: absolute;
-            top: 120px;
-            padding: 5px 0 0 15px;
-            border-top-left-radius: 4px;
-            border-bottom-left-radius: 4px;
-            #carousel-chaine{
-              height: 100%;
-              .item.pointer.active{
-               min-height:150px; 
-             }
-             .carousel-inner {
-              overflow: hidden;
-            }
-            .carousel-control{
-              top: 87%;
-              background: none;
-              color: black;
-              border: none;
-              font-size: 2em;
-              &.left{
-                left: 8px;
-              }
-              &.right{
-                right: 25px;
+              .slider {
+                width: 160px;
+                ul.items {
+                  li {
+                    width: 150px;
+                  }
+                }
+                .btn{
+                  padding: 17px 0px;
+                  font-size: 1.3em;
+                }
+                .fav-like{
+                  height: 39px;
+                  padding: 5px;
+                  position: absolute;
+                  top: 230px;
+                  width: 149px;
+                }
               }
             }
-          }
-          .item {
-            a{
-              display: inline-block;
-              margin-left: 8px;
-              margin-top: 0px;
-              &.selected{
-                border: 3px solid grey;
-                border-radius: 13px;
-                background: rgba(0,0,0,0.1);
+            ul#remote-tnt {
+              background: #F7F7F3;
+              height: 290px;
+              width: 335px;
+              position: absolute;
+              top: 120px;
+              padding: 5px 0 0 15px;
+              border-top-left-radius: 4px;
+              border-bottom-left-radius: 4px;
+              #carousel-chaine{
+                height: 100%;
+                .item.pointer.active{
+                  min-height:150px; 
+                }
+                .carousel-inner {
+                  overflow: hidden;
+                }
+                .carousel-control{
+                  top: 87%;
+                  background: none;
+                  color: black;
+                  border: none;
+                  font-size: 2em;
+                  &.left{
+                    left: 8px;
+                  }
+                  &.right{
+                    right: 25px;
+                  }
+                }
               }
-              .wrap-tv-remote{
-                height: 50px;
-                line-height: 50px;
-                margin: 0px;
+              .item {
+                a{
+                  display: inline-block;
+                  margin-left: 8px;
+                  margin-top: 0px;
+                  &.selected{
+                    border: 3px solid grey;
+                    border-radius: 13px;
+                    background: rgba(0,0,0,0.1);
+                  }
+                  .wrap-tv-remote{
+                    height: 50px;
+                    line-height: 50px;
+                    margin: 0px;
+                  }
+                }
               }
             }
           }
         }
       }
     }
-  }
-
-}
     .share-block {
       position: absolute;
       top: 80px;
       width: 280px;
-      //min-width: 400px;
       z-index: 1; 
       .fb-like {
         float: left;
@@ -219,7 +167,6 @@ body.view-channel, body.view-channel-selections {
         width: 70px!important;
       }
     }
-
   }
 }
 /* header */
@@ -228,121 +175,6 @@ body.view-channel, body.view-channel-selections {
   top: 0;
   left: 0;
   height: 450px;
-  &#channel35, &#channel54{
-    height: 535px;
-    .header-content{
-      background:none;
-      .share-block{
-        top: 294px;
-        left: 620px;
-      }
-      .player-wrap{
-        position: relative;
-        left: 497px;
-        width: 440px;
-        iframe{
-          border: none;
-        }
-      }
-    }
-  }
-  &#channel56, &#channel55{
-    height: 535px;
-    .header-content{
-      background:none;
-      top: 167px;
-      .share-block{
-        top: 294px;
-        left: 620px;
-      }
-      .player-wrap{
-        position: relative;
-        left: 563px;
-        width: 367px;
-        iframe{
-          border: none;
-        }
-      }
-    }
-  }
-  &#channel28{
-    .info_saison{
-      font-size: 0.9em;
-      position: relative;
-      top: 140px;
-      left: 175px;
-      width: 184px;
-      text-align: center;
-    }
-    .header-content{
-      background-color: transparent;
-      padding:0;
-      top: 55px;
-      >h1{
-        top: 65px;
-        left: 22px;
-        position: absolute;
-        >a{
-          color: black;
-        }
-      }
-      .well{
-        -webkit-box-shadow: none;
-        position: relative;
-        left: 343px;
-        width: 690px;
-        height: 340px;
-        top: 64px;
-        border: 0;
-        margin-top: 18px;
-        background-color: transparent;
-        .slider{
-          width: 520px;
-          margin: 0 auto;
-          text-align: center;
-          height: 160px;
-          .text1{
-            font-size: 1.3em;
-          }
-          .text2{
-            font-size: 1.2em;
-          }
-          .bande{
-            position: absolute;
-            top: 286px;
-            left: 0px;
-            height: 44px;
-            width: 520px;
-            line-height: 17px;
-            font-size: 0.9em;
-            span {
-              font-size: 1.2em;
-            }
-          }
-          iframe{
-            border: 1px solid #999;
-          }
-        }
-        .intro{
-          text-align: center;
-        }
-      }
-      .btn{
-        position: absolute;
-        bottom: -76px;
-        left: 33px;
-        width: 310px;
-      }
-      .channel-icon{
-        top: 260px;
-        width: 230px;
-        height: 230px;
-        z-index: 100;
-        position: relative;
-        background-image:url('http://mskstatic.com/230/medias/photos/PBLV/saison9.jpg');
-      }
-    }
-  }
   .header-content { /* Cartouche logo, titre, description et Suivre pour une chaine */
     position: absolute;
     min-height: 70px;
@@ -353,7 +185,6 @@ body.view-channel, body.view-channel-selections {
     bottom: 10px;
     border-radius: 5px;
     background: rgba(0,0,0,0.5);
-    /*background-color: transparent;*/
     img {
       margin: 0 10px 0 0;
     }
@@ -442,73 +273,74 @@ body.view-channel, body.view-channel-selections {
       }
     }
   }
-
-    .share-block {
-      margin-right: -40px;
+  .btn.btn-suivre.fav-cinema{
+    margin-top: 15px;
+  }
+  &.container-fournisseur-cinema {
+    #channel-programs.slider-list {
+      width: auto;
+      clear: none;
     }
-  
-    .breadcrumb {
-      margin-bottom: 0;
-    }
-  
-    h1 {
-      font-size: 2em;
-      max-width: 650px;
-    }
-    h2{
-      margin-top: 0;
-    }
-    .facets .pull-left {
-      margin-right: 5px;
-      margin-bottom: 10px;
-    }
-    .well {
-      min-height: 350px;
-      background: #FCFCFC;
-      .actions {
-        img {
-          float:left;
-          margin: 0 20px 10px 0;
-        }
-        .alert {
-          max-width: 410px;
-          margin-left: 170px;
-        }
+  }
+  .share-block {
+    margin-right: -40px;
+  }
+  .breadcrumb {
+    margin-bottom: 0;
+  }
+  h1 {
+    font-size: 2em;
+    max-width: 650px;
+  }
+  h2{
+    margin-top: 0;
+  }
+  .facets .pull-left {
+    margin-right: 5px;
+    margin-bottom: 10px;
+  }
+  .well {
+    min-height: 350px;
+    background: #FCFCFC;
+    .actions {
+      img {
+        float:left;
+        margin: 0 20px 10px 0;
       }
-      .twitter-timeline {
-        float: right;
-        width: 350px;
-        max-height: 300px;
-        margin: 10px 0 0 30px;
-      }
-      .player-live {
-        float: right;
-        width: 450px;
-        height: 300px
+      .alert {
+        max-width: 410px;
+        margin-left: 170px;
       }
     }
-
-    .channel-description {
-      position: relative; 
-      bottom: 0px;
-      width: 100%;
+    .twitter-timeline {
+      float: right;
+      width: 350px;
+      max-height: 300px;
+      margin: 10px 0 0 30px;
     }
-
-    img.channel-logo {
-      margin-right: 10px;
-      margin-top: 10px;
-      vertical-align: top;
+    .player-live {
+      float: right;
+      width: 450px;
+      height: 300px
     }
-
-    .carousel {
-
-     .item {
+  }
+  .channel-description {
+    position: relative; 
+    bottom: 0px;
+    width: 100%;
+  }
+  img.channel-logo {
+    margin-right: 10px;
+    margin-top: 10px;
+    vertical-align: top;
+  }
+  .carousel {
+    .item {
       height: 300px;
       .mask {
         height: 300px;
         display: block;
       }
-
       .carousel-caption {
         text-align: left;
         background: rgba(0, 0, 0, 0.55);
@@ -518,17 +350,14 @@ body.view-channel, body.view-channel-selections {
       }
     }
   }
-
   #lives {
     position: relative;
-
     .relatedlive {
       position: absolute;
       top: 20px;
       width: 220px;
       height: 250px;
       overflow: hidden;
-
       &#prevlive {
         left: 10px;
       }
@@ -536,7 +365,6 @@ body.view-channel, body.view-channel-selections {
         right: 10px;
       }
     }
-
     #live {
       text-align: center;
       box-shadow: 1px 2px 5px #555;
@@ -549,7 +377,6 @@ body.view-channel, body.view-channel-selections {
       background-position: center;
       background-repeat: no-repeat;
       overflow: hidden;
-
       h2 {
         opacity: 0.9;
         text-align: left;

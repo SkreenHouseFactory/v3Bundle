@@ -1,21 +1,28 @@
-{% if channel.cover and channel.template != 'packs' %}
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data: data, trigger_fav: 'Suivre ' ~ data.name} %}
-{% include 'SkreenHouseFactoryV3Bundle:Person:_addtolist.html.twig' with {person: data} %}
-<div id="view-person" data-id="{{ data.id }}" class="container">
-{% else %}
-{% include 'SkreenHouseFactoryV3Bundle:Person:_addtolist.html.twig' with {person: data, img: data.channel.img} %}
-<div id="view-person" data-id="{{ data.id }}" class="container">
-{% endif %}
+{% extends "SkreenHouseFactoryV3Bundle:Channel:_base-channel.html.twig" %}
 
-
-  <h2>Sa filmographie</h3>
-  {% if data.description is defined %}<div id="description-seo">{{ data.description|raw }}</div>{% endif %}
-
-  {% include  'SkreenHouseFactoryV3Bundle:Person:_programs.html.twig' with {programs: data.programs|to_array} %}
-  
-  {#% if data.tweets is defined %}
-  <h4>{{ data.name }} sur Twitter</h4>
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_tweets.html.twig' with {tweets: data.tweets } %}
-  {% endif %#}
+{% block customcontent %}
+  {% if channel.cover and channel.template != 'packs' %}
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data: data, trigger_fav: 'Suivre ' ~ data.name} %}
+    {% include 'SkreenHouseFactoryV3Bundle:Person:_addtolist.html.twig' with {person: data} %}
+    <div id="view-person" data-id="{{ data.id }}" class="container">
+  {% else %}
+    {% include 'SkreenHouseFactoryV3Bundle:Person:_addtolist.html.twig' with {person: data, img: data.channel.img} %}
+    <div id="view-person" data-id="{{ data.id }}" class="container">
+  {% endif %}
+    <h2>Sa filmographie</h2>
+    {% if data.description is defined %}
+      <div id="description-seo">{{ data.description|raw }}</div>
+    {% endif %}
+    {% include  'SkreenHouseFactoryV3Bundle:Person:_programs.html.twig' with {programs: data.programs|to_array} %}
+    </div>
   </div>
-</div>
+{% endblock %}
+
+{% block custompagescripts %}
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/person.js'
+      filter='?yui_js' 
+      output='js/compiled/pages/person.js'  %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "SkreenHouseFactoryV3Bundle:Channel:_base-channel.html.twig" %}
+
+{% block customcontent %}
+  <div id="cover" class="cover62 {% if from_selection is defined and from_selection == true %}selection{% endif %}">
+    <div id="channel62" class="header-container">
+      <a class="cover-wrap" href="/serie/societe/5266779-cut/">
+        <div class="header-content">
+          <div class="player-wrap">
+            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=31364982&fromWebsite=1&noPub=1&height=213&width=367&channel_header=1" height="213" width="367"></iframe>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="wrap-follow" data-playlist="page">
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'fav-page', name: channel.title, text: 'Suivre ' ~ channel.title|trans } %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
+{% endblock %}
+
+{% block custompagestyles %}
+  {% stylesheets
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/channel/cut.less'
+      filter='lessphp,?yui_css'
+      output='css/channel/cut.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
+{% endblock %}
