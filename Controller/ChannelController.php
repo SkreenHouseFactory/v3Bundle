@@ -223,9 +223,27 @@ class ChannelCustomController extends Controller
 
   // Chaine Replay
   protected function channel70($data){
+    $pack = array();
+    foreach ($data->sliders as $key => $slider) {
+      switch ($slider->id) {
+        case '12975429':
+          $pack['replay-populaires'] = $slider;
+          unset($data->sliders->{$key});
+          break;
+        case '12975538':
+          $pack['replay-derniers'] = $slider;
+          unset($data->sliders->{$key});
+          break;
+        case '13087055':
+          $pack['replay-bientot'] = $slider;
+          unset($data->sliders->{$key});
+          break;
+      }
+    }
     $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:replay.html.twig', array(
       'data'=>(array)$data,
-      'channel'=>$data->channel
+      'channel'=>$data->channel,
+      'pack'=>$pack
     ));
     $maxage = 300;
     $response->setPublic();
