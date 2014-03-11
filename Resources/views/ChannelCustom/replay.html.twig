@@ -48,3 +48,13 @@
   </div>
   {% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
 {% endblock %}
+
+{% block custompagestyles %}
+  {% stylesheets
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/channel/replay.less'
+      filter='lessphp,?yui_css'
+      output='css/channel/replay.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
+{% endblock %}

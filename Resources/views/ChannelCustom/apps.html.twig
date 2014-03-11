@@ -74,3 +74,13 @@
 {% block custommodal %}
   {# Pas de channel-modal pour cette chaine #}
 {% endblock %}
+
+{% block custompagestyles %}
+  {% stylesheets
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/channel/apps.less'
+      filter='lessphp,?yui_css'
+      output='css/channel/apps.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
+{% endblock %}

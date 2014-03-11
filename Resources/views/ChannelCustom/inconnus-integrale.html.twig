@@ -143,3 +143,13 @@
 {% block custommodal %}
   {% include 'SkreenHouseFactoryV3Bundle:ChannelCustom:inconnus-integrale-modal.html.twig' %}
 {% endblock %}
+
+{% block custompagestyles %}
+  {% stylesheets
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/channel/inconnus-integrale.less'
+      filter='lessphp,?yui_css'
+      output='css/channel/inconnus-integrale.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
+{% endblock %}

@@ -32,13 +32,23 @@
       </div>
     </div>
   </div>
+  {% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
+{% endblock %}
+
+{% block custompagestyles %}
   {% stylesheets
     '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/css/jquery.countdown/jquery.countdown.css'
       filter='less,?yui_css'
       output='css/countdown.css'%}
     <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
-  {% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
+  {% stylesheets
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/channel/pblvie.less'
+      filter='lessphp,?yui_css'
+      output='css/channel/pblvie.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
 {% endblock %}
 
 {% block custompagescripts %}

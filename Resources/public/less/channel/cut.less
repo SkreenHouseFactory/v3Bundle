@@ -1,0 +1,66 @@
+@cut62: #2C2F38;
+
+.cover62 {
+  height: 425px;
+  .cover-wrap {
+    display: block;
+    height: 500px;
+    width: 100%;
+    position: absolute;
+  }
+  .wrap-follow {
+    position: absolute;
+    left: 804px;
+    bottom: 87px;
+    z-index: 1;       
+  }
+  .share-block {
+    left: 660px;
+  }
+}
+
+#channel62 {
+  height: 535px;
+  .header-content {
+    background:none;
+    top: 167px;
+    .share-block {
+      top: 294px;
+      left: 620px;
+    }
+    .player-wrap {
+      position: relative;
+      left: 563px;
+      width: 367px;
+      iframe {
+        border: none;
+      }
+    }
+  }
+}
+.channel62 {
+  .social {
+    .social-suggestion {
+      background:@cut62;
+    }
+    .wrap-tab {
+      background:@cut62;
+    }
+    .nav-tabs {
+      >li {
+        >a {
+          &:hover {
+            background: lighten(@cut62,10%);
+          }
+        }
+      }
+      >li {
+        &.active {
+          i {
+            color:@cut62;
+          }
+        }
+      }
+    }
+  }
+}
