@@ -15,6 +15,11 @@ img.cinema-sample {
     float: left;
     margin-right: 20px;
   }
+  #theaters-list {
+    h3 {
+      float: none;
+    }
+  }
 }
 .bande_listes {
   padding: 5px 0 5px 0;
@@ -23,6 +28,9 @@ img.cinema-sample {
   .container {
     .row:first-child {
       margin-bottom: 0;
+      .col-xs-11 {
+        padding-top: 15px;
+      }
       .col-xs-5 {
         padding-top: 2px;
       }
@@ -142,4 +150,7 @@ img.cinema-sample {
   &+.container {
     margin-top: 15px;
   }
+}
+.container-fournisseur-cinema .bande_listes .container .row .col-xs-5 .col-xs-16.ajout {
+  padding-top: 0;
 }

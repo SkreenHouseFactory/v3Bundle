@@ -1,29 +1,20 @@
 <div class="bande_listes">
   <div class="container">
     <div class="row">
-      {% if img is defined %}
-      <div class="col-xs-2">
-        <img src="{{ img }}" height="120px"/>
-      </div>
-      <div class="col-xs-9">
-      {% else %}
       <div class="col-xs-11">
-      {% endif %}
-        <a href="{{ path('user_intro_meslistes') }}" class="ms-format">Mes listes</a>
-        <div class="user-on hide">
-          <div id="fake_h1">Mes cinémas</div>
+        <div class="user-on">
+          <div id="fake_h1">Mes listes : salles de cinémas</div>
           <div class="row">
             <div class="col-xs-16 episodes">Les séances près de chez vous en un clin d'oeil !</div>
           </div>
         </div>
         <div class="user-off">
-          <div id="fake_h1">Ajoutez vos salles de cinémas</div>
+          <div id="fake_h1">Mes listes : salles de cinémas</div>
           <div class="row">
-            <div class="col-xs-16 episodes">Et retrouvez ici toutes les séances près de chez vous en un clin d'oeil !</div>
+            <div class="col-xs-16 episodes">Retrouvez ici toutes les séances près de chez vous en un clin d'oeil !</div>
           </div>
         </div>
       </div>
-
       <div class="col-xs-5">
         {# AjoutListes #}
         <div class="row user-off">
@@ -38,25 +29,33 @@
             {# <p>Partagez vos playlists avec vos amis et suivez ce qu'ils regardent.</p> #}
           </div>
         </div>
+        {# Gestion Listes Connecté #}
+        <div class="row user-on">
+          {# Bouton Ajout/Abo #}
+          <div class="col-xs-16 ajout">
+            {#<a class="btn btn-suivre btn-plus" data-modal="remote" data-modal-title="Ajouter un cinéma" href="{{ path('theaters_search', {init: 1}) }}">Ajouter un cinéma</a>#}
+          </div>
+          {# Textes Ajouts #}
+          <div class="col-xs-16">
+            <a class="meslistes-plus"><i class="glyphicon glyphicon-collapse-down"></i><span>&nbsp;Mes salles de ciné</span></a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-{# off #}
-<div class="bande_couleur_degrade user-off hide">
-  <div class="container">
+<div class="bande_couleur_degrade">
+  {# Pas connecté #}
+  <div class="container user-off">
     <div class="row">
       <p>Créez vos listes et suivez la programmation de vos cinémas préférés.</p>
       <p>Retrouvez ici, en un clin d'oeil, les films et les séances qu'ils diffusent.</p>
       <img class="cinema-sample" src="{{ asset('bundles/skreenhousefactoryv3/images/meslistes/cinema-sample.png') }}"/>
     </div>
   </div>
-</div>
-<div class="bande_couleur_degrade user-on hide">
-  <div class="container" id="theaters-playlist">
+  <div class="container user-on" id="theaters-playlist">
     <div class="tab-pane" id="theater-playlist">
-      <div class="theaters-on hide">
+      <div class="theaters-on">
         <a class="pull-right btn btn-suivre btn-xs" data-modal="remote" data-modal-title="{{ 'theaters.playlist.add'|trans }}" href="{{ path('theaters_search', {'init': 1}) }}"> Modifier mes cinémas</a>
         <div id="theaters-names"></div>
         {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'cinema'}, noheader: true} %}

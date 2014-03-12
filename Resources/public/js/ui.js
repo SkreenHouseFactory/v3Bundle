@@ -150,6 +150,7 @@ UI = {
         this.loadTheatersPlaylist();
       }
       this.loadReplayPlaylist();
+      this.loadTVPlaylist();
 
     } else {
       //off
@@ -698,6 +699,15 @@ UI = {
         'url': 'www/slider/queue/'+Skhf.session.uid+'/access/replay.json?nb_results=6&programs_only=1&offset=0&channel_img_width=50&img_width=150&img_height=200&url=&with_best_offer=1'},
         function(){},
         $('#replay.slider')
+      );
+    }
+  },
+  loadTVPlaylist: function(){
+    if($('#tv.slider').length) {
+      UI.sliders['tv'] = new BaseSlider({
+        'url': 'www/slider/queue/'+Skhf.session.uid+'/access/tv.json?nb_results=6&programs_only=1&offset=0&channel_img_width=50&img_width=150&img_height=200&url=&with_best_offer=1'},
+        function(){},
+        $('#tv.slider')
       );
     }
   },
