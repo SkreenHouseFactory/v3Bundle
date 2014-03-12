@@ -196,15 +196,21 @@ class ContentController extends Controller
       $programs = array_values($data->programs);
       $program = isset($programs[0]) ? $programs[0] : null;
       $data->picture = str_replace('150/200', '240/320', isset($program) && is_object($program) ? $program->picture : null);
-        if ($request->get('partner')) {
+      //template partenaire
+      if ($request->get('partner')) {
         $response = $this->render('SkreenHouseFactoryPartnersBundle:'.$request->get('partner').':selection.html.twig', array(
           'selection' => $data
         ));
+      
+      //default
       } else {
         $custom_header = false;
         $from_selection = true;
         $is_channel = false;
-        if ( $data->onglet->type == 'page'){
+        
+        //page
+        if (isset($data->onglet) && 
+            $data->onglet->type == 'page'){
           $is_channel = true;
           if ( $this->get('templating')->exists('SkreenHouseFactoryV3Bundle:Channel:_header-'.$data->onglet->channel->id.'.html.twig')){
             $custom_header = true;
