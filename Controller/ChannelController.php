@@ -349,14 +349,16 @@ class ChannelController extends ChannelCustomController
       if (!property_exists($data->channel, 'fournisseur')) {
         $data->channel->fournisseur = $data;
       }
-      $data->channel->fournisseur->formats = array_combine(explode(';', $data->channel->fournisseur->facets_seo_url->format),explode(';', $data->channel->fournisseur->facets->format));
-      $data->channel->fournisseur->alpha_available = explode(';', $data->channel->fournisseur->facets->alpha);
-      $data->channel->fournisseur->alpha = array(
-        1,2,3,4,5,6,7,8,9,
-        'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
-      );
-      unset($data->channel->fournisseur->facets);
-      unset($data->channel->fournisseur->facets_seo_url);
+      if (isset($data->channel->fournisseur->facets)) {
+        $data->channel->fournisseur->formats = array_combine(explode(';', $data->channel->fournisseur->facets_seo_url->format),explode(';', $data->channel->fournisseur->facets->format));
+        $data->channel->fournisseur->alpha_available = explode(';', $data->channel->fournisseur->facets->alpha);
+        $data->channel->fournisseur->alpha = array(
+          1,2,3,4,5,6,7,8,9,
+          'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
+        );
+        unset($data->channel->fournisseur->facets);
+        unset($data->channel->fournisseur->facets_seo_url);
+      }
     
       $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_fournisseur.html.twig', array(
         'data'=> $data,

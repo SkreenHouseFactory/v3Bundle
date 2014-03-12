@@ -28,6 +28,12 @@ UI = {
       self.sliders[this.id] = new BaseSlider({}, function(){}, $(this));
       //console.log('UI.init', 'autoload sliders', $(this));
     });
+    //start-mes-listes
+    if (API.cookie('start-mes-listes')) {
+      Skhf.session.datas = JSON.parse(API.cookie('start-mes-listes'));
+      console.log('UI.init', 'start-mes-listes', Skhf.session);
+      this.loadPlaylistTriggers();
+    }
     //callback
     if (typeof callback != 'undefined') {
       callback();
@@ -308,7 +314,8 @@ UI = {
     var self = this;
     var parameter = this.getTriggerParameter(trigger);
     var name = this.getTriggerName(trigger);
-    if (Skhf.session.datas.email) {
+    var store_in_session =trigger.data('store-in-session');
+    if (Skhf.session.datas.email || store_in_session) {
       API.trackEvent('Playlist', 'connected-' + (remove ? 'remove-' : 'add-') + parameter, value);
       console.log('UI.togglePlaylist', parameter, value, 'remove:' + remove, trigger);
       trigger.removeClass('btn-plus');
@@ -342,9 +349,31 @@ UI = {
         }
       }
       if (remove) {
-        API.removePreference(parameter, value, callback);
+        if (store_in_session) { //start mes listes
+          meslistes_in_session = API.cookie('start-mes-listes') ? JSON.parse(API.cookie('start-mes-listes')) : {};
+          parameter = parameter.replace('like', 'queue')
+          if (typeof meslistes_in_session[parameter] != 'undefined' && 
+              typeof meslistes_in_session[parameter][value] != 'undefined') {
+            delete meslistes_in_session[parameter][value];
+            console.log('UI.togglePlaylist', 'store_in_session', 'remove', meslistes_in_session);
+            API.cookie('start-mes-listes', JSON.stringify(meslistes_in_session));
+          }
+        } else {
+          API.removePreference(parameter, value, callback);
+        }
       } else {
-        API.addPreference(parameter, value, callback, '', typeof with_related == 'undefined' ? true : with_related);
+        if (store_in_session) { //start mes listes
+          meslistes_in_session = API.cookie('start-mes-listes') ? JSON.parse(API.cookie('start-mes-listes')) : {};
+          parameter = parameter.replace('like', 'queue')
+          if (typeof meslistes_in_session[parameter] == 'undefined') {
+            meslistes_in_session[parameter] = {};
+          }
+          meslistes_in_session[parameter][value] = value;
+            console.log('UI.togglePlaylist', 'store_in_session', 'add', [parameter, value], meslistes_in_session, JSON.stringify(meslistes_in_session));
+          API.cookie('start-mes-listes', JSON.stringify(meslistes_in_session));
+        } else {
+          API.addPreference(parameter, value, callback, '', typeof with_related == 'undefined' ? true : with_related);
+        }
       }
     } else {
 

@@ -9,54 +9,16 @@
   <div class="container">
     <h1>Mes listes</h1>
     <p class="sk-font">En ajoutant des programmes, des réalisateurs, des acteurs, des chaînes et des salles de cinémas à vos listes, vous êtes averti dès qu'un programme correspondant est diffusé. Que ce soit à la TV, en Replay, au Cinéma ou en VOD.</p>
+
+    {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with { active: true, no_background: true } %}
   </div>
+
 </div>
 <div style="background: #5B9BD1;">
   <div class="container">
-    <h2>1/ Créer mes listes</h2>
-    {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with { active: '', no_background: true } %}
-  </div>
-</div>
-<div style="background: #72AADA;">
-  <div class="container">
-    <h2>2 / Playlists</h2>
-    <ul class="nav nav-pills nav-stacked" style="display: inline-block;width: 200px;">
-      <li class="active"><a href="#replay" data-toggle="tab">Replay</a></li>
-      <li><a href="#cine" data-toggle="tab">Ciné</a></li>
-      <li><a href="#vod" data-toggle="tab">VOD</a></li>
-      <li><a href="#tv" data-toggle="tab">TV</a></li>
-    </ul>
-    <div class="tab-content" style="display: inline-block;width: 750px;max-height: 400px;overflow:hidden">
-      <div id="replay" class="tab-pane">
-        <p>...</p>
-      </div>
-      <div id="cine" class="tab-pane active">
-        <p>Retrouvez en un clin d'oeil, les films et les séances à l'affiche dans vos cinémas.</p>
-        <img class="cinema-sample" src="{{ asset('bundles/skreenhousefactoryv3/images/meslistes/cinema-sample.png') }}"/>
-      </div>
-      <div id="vod" class="tab-pane">
-        <p>Soyez averti lorsqu'un programme est disponible en VOD. Regardez-le sur myskreen avec votre compte en 1 clic.</p>
-      </div>
-      <div id="tv" class="tab-pane">
-        <p>Soyez averti lorsqu'un programme est diffusé à la télévision.</p>
-      </div>
-    </div>
-</div>
-<div style="background: #8DBFEB;">
-  <div class="container">
-    <h2>3 / Notifications</h2>
-    <p>Web et apps</p>
-  </div>
-</div>
-<div style="background: #ABD1F1;">
-  <div class="container">
-    <h2>4 / Mes amis regardent</h2>
-    <p></p>
-  </div>
-</div>
-<div style="background: #8DBFEB;">
-  <div class="container user-off{% if active is defined %} hide{% endif %}">
-    <a class="auth btn btn-primary">&raquo; Commencer mes listes</a>
+    <h2>Commencer mes listes</h2>
+    <br/>
+    <p><a data-id="3244017" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-suivre btn-plus fav-like" data-original-title="" title="">Ajouter à mes listes </a></p>
   </div>
 </div>
 {% endblock %}
