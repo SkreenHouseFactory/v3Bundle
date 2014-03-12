@@ -683,7 +683,11 @@ UI = {
           }
           UI.sliders['cinema'] = new BaseSlider({
             'url': 'schedule/cine.json?with_schedule=1&programs_only=1&theater_ids=' + Skhf.session.datas.cinema }, 
-            function(){}, 
+            function(){
+              var nb_items = $('#cinema.slider ul.items li').length;
+              var pluriel = nb_items > 1 ? 's' : '';
+              $('.bande_listes .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' film'+pluriel+' à l\'affiche&nbsp;');
+            }, 
             $('#cinema.slider')
           );
       });
@@ -696,8 +700,12 @@ UI = {
   loadReplayPlaylist: function(){
     if($('#replay.slider').length) {
       UI.sliders['replay'] = new BaseSlider({
-        'url': 'www/slider/queue/'+Skhf.session.uid+'/access/replay.json?nb_results=6&programs_only=1&offset=0&channel_img_width=50&img_width=150&img_height=200&url=&with_best_offer=1'},
-        function(){},
+        'url': 'www/slider/queue/'+Skhf.session.uid+'/access/replay.json?nb_results=10&programs_only=1&offset=0&channel_img_width=50&img_width=150&img_height=200&url=&with_best_offer=1'},
+        function(){
+          var nb_items = $('#replay.slider ul.items li').length;
+          var pluriel = nb_items > 1 ? 's' : '';
+          $('.bande-couleur-replay .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' programme'+pluriel+' en replay&nbsp;');
+        },
         $('#replay.slider')
       );
     }
@@ -705,8 +713,12 @@ UI = {
   loadTVPlaylist: function(){
     if($('#tv.slider').length) {
       UI.sliders['tv'] = new BaseSlider({
-        'url': 'www/slider/queue/'+Skhf.session.uid+'/access/tv.json?nb_results=6&programs_only=1&offset=0&channel_img_width=50&img_width=150&img_height=200&url=&with_best_offer=1'},
-        function(){},
+        'url': 'www/slider/queue/'+Skhf.session.uid+'/access/tv.json?nb_results=10&programs_only=1&offset=0&channel_img_width=50&img_width=150&img_height=200&url=&with_best_offer=1'},
+        function(){
+          var nb_items = $('#tv.slider ul.items li').length;
+          var pluriel = nb_items > 1 ? 's' : '';
+          $('.bande_listes .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' programme'+pluriel+' en diffusion&nbsp;');
+        },
         $('#tv.slider')
       );
     }

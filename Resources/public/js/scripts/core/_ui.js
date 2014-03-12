@@ -293,7 +293,11 @@ UiView = {
     // toggle display
     $(document).on('click', '[data-toggle-display]', function () {
       console.log('script', '[data-toggle-display]', $(this).data('toggle-display'));
-      $($(this).data('toggle-display')).toggle();
+      if($(this).data('toggle-animation') == 'slide'){
+        $($(this).data('toggle-display')).slideToggle();
+      } else {
+        $($(this).data('toggle-display')).toggle();
+      }
     });
 
     // -- remote data in html elmt
