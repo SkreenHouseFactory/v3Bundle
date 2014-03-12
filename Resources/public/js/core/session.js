@@ -218,13 +218,17 @@ var BaseSession = Class.extend({
      case 'user':
        var ids = this.datas.user;
      break;
-
      default:
        var ids = null;
-
+     break;
    }
-   //console.log('getPlaylistIds', playlist, ids.indexOf(',') ? ids.split(',') : [parseInt(ids)]);
-   return ids != null ? ids.split(',') : [];
+   if (ids == null) {
+     ids = {};
+   } else if (typeof ids != 'object') {
+     ids = ids.split(',');
+   }
+   console.log('getPlaylistIds', playlist, ids);
+   return ids;
  },
  getSocialDatas: function(callback){
    var self = this;
