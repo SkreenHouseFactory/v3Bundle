@@ -195,6 +195,26 @@ $(document).ready(function(){
         return false;
       });
 
+  //filter notifs
+      $(document).on('click', '.notifications .label.filter', function(e){
+        self = $(this);
+        $('.notifications .label.filter').removeClass('label-info');
+        $('.label.filter[data-filter="' + self.data('filter') + '"]').addClass('label-info');
+        
+        if($(this).data('reload-notif') != "done"){
+          var list = $('.navbar .notifications ul .scroll');
+          Skhf.session.sync(function(data){
+            global.appendNotifications(data.notifications,list,false);
+            self.attr('data-reload-notif','done');
+          },{
+            with_notifications : self.data('filter')
+          });
+        }
+        global.notificationsFilter(self);                
+
+        return false;
+      });
+
   //share
   $('.share .btn').on('click', function(){
     if ($(this).data('share') == 'disallow') {
