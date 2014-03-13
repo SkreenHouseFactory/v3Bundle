@@ -5,8 +5,9 @@ $(document).ready(function(){
   //forms
   $('form').on('submit', function(e){
     e.preventDefault();
-    var self = $(this);
+    container = $('#results-' + $(this).data('step') + ' ul');
     q = $(this).find('input[type=text]').val();
+    container.empty();
     API.query(
       'GET', 
       'search/autosuggest/' + q + '.json', 
@@ -18,7 +19,6 @@ $(document).ready(function(){
         with_unvailable: 1
       }, 
       function(results){
-        container = $('#results-' + self.data('step') + ' ul');
         console.log('scripts/user-start.js', 'callback', container);
         for (k in results) {
           title = typeof results[k].title != 'undefined' ? results[k].title : results[k].name;
