@@ -17,19 +17,6 @@ $(document).ready(function(){
   ////////////// SCRIPTS
   //console.log('scripts/core/playlists.js', 'load');
 
-  $('.meslistes-plus').on('click', function(){
-    $('.bande_couleur_degrade').slideToggle();
-    $('.glyphicon', $(this)).toggleClass('glyphicon-collapse-down')
-                            .toggleClass('glyphicon-collapse-up');
-    if ($('.glyphicon', $(this)).hasClass('glyphicon-collapse-up')) {
-      $('span', $(this)).html('&nbsp;Fermer');
-      $('.bande_couleur_degrade').removeClass('hide');
-    } else {
-      $('span', $(this)).html('&nbsp;Plus d\'infos...');
-    }
-    return false;
-  });
-
   // -- .fav : toggle
   $(document).on('click', '.slider li .fav-trash', function(e){
     e.preventDefault();

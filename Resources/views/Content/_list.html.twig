@@ -1,37 +1,37 @@
 <li>
   <div class="row">
-  <div class="col-xs-4">
-  <img src="{{ p.picture }}" />
-  </div>
-  <div class="col-xs-12">
-  <h2><a href="{{ p.seo_url }}">{{ p.title }}</a></h2>
-  {% if p.theater_release_date is defined %}
-  <p class="infos">Sortie en salle : {{ p.theater_release_date }}</p>
-  {% endif %}
+    <div class="col-xs-4">
+      <img src="{{ p.picture }}" />
+    </div>
+    <div class="col-xs-12">
+      <h2><a href="{{ p.seo_url }}">{{ p.title }}</a></h2>
+      {% if p.theater_release_date is defined %}
+        <p class="infos">Sortie en salle : {{ p.theater_release_date }}</p>
+      {% endif %}
 
-  <p class="infos">{% if p.format %}<a href="{{ p.format.seo_url }}">{{ p.format.name }}</a>{% endif %}{% if p.categories is defined %} - {{ p.categories|to_array|join(', ') }}{% endif %}, {{ p.duration }}mn</p>
-  {% if p.categories is defined %}
-  <p>{{ p.description|striptags|slice(0,230)|raw }}...</p>
-  {% endif %}
+      <p class="infos">{% if p.format %}<a href="{{ p.format.seo_url }}">{{ p.format.name }}</a>{% endif %}{% if p.categories is defined %} - {{ p.categories|to_array|join(', ') }}{% endif %}, {{ p.duration }}mn</p>
+      {% if p.categories is defined %}
+        <p>{{ p.description|striptags|slice(0,230)|raw }}...</p>
+      {% endif %}
   
-  {% if p.offers is defined %}
-    {% if p.offers.theaters_schedules is defined and p.offers.theaters_schedules %}
-    <div class="panel-theater">
-    <div class="panel-collapse">
-      {% include 'SkreenHouseFactoryV3Bundle:Cinema:_schedules.html.twig' with {
-        cinema: {
-          id: cinema.id,
-          schedules: p.offers.theaters_schedules|to_array|first
-        }
-      } %}
-    </div>
-    </div>
-    {% endif %}
-  {% endif %}
+      {% if p.offers is defined %}
+        {% if p.offers.theaters_schedules is defined and p.offers.theaters_schedules %}
+          <div class="panel-theater">
+            <div class="panel-collapse">
+              {% include 'SkreenHouseFactoryV3Bundle:Cinema:_schedules.html.twig' with {
+                cinema: {
+                  id: cinema.id,
+                  schedules: p.offers.theaters_schedules|to_array|first
+                }
+              } %}
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
   <br/>
   <p>
   {% if p.offers is defined and p.offers.theaters is defined and p.offers.theaters %}
-  <span class="btn btn-default" data-link-to-replace="{{ p.seo_url|rot13 }}"><i class="glyphicon glyphicon-map-marker"></i> Trouver une séance ({{ p.offers.theaters|split(',')|length }} salles)</span>  &nbsp;
+  <span class="btn btn-default" data-link-to-replace="{{ p.seo_url|rot13 }}"><i class="glyphicon glyphicon-map-marker"></i> {{ p.theater_release_date_timestamp > "now"|date('U') ? 'pluralization.cinema.nb_salles_avant_premiere'|transchoice(p.offers.theaters|split(',')|length,{'%count%' : p.offers.theaters|split(',')|length}) : 'pluralization.cinema.nb_salles'|transchoice(p.offers.theaters|split(',')|length,{'%count%' : p.offers.theaters|split(',')|length}) }} </span>  &nbsp;
   {% endif %}
   {% set teaser = p.player is defined and p.player ? p.player : p.teaser %}
   {% if teaser %}

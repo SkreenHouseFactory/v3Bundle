@@ -7,7 +7,7 @@
       margin: -10px 0 10px;
       padding: 0 120px;
       >div {
-        border-top: 1px solid #eee;
+        border-top: 1px solid #E0E0E0;
         padding: 10px 0;
       }
       .logo_chaine {
@@ -34,13 +34,14 @@
     }
   }
   .bande-couleur-replay {
-    padding-top: 75px;
+    margin-top: 65px;
+    padding: 5px 0 5px;
     background-color: #428bca;
     color: white;
     .container {
       .row {
         .col-xs-11 {
-          padding-top: 8px;
+          padding-top: 15px;
         }
       }
     }
@@ -61,6 +62,28 @@
       &.listes-plus {
         text-align: center;
         margin-top: 55px;
+        &.user-off {
+          margin-top: 52px;
+        }
+        &.user-on {
+          margin: 17px 0;
+          .btn-suivre {
+            height: 50px;
+            line-height: 40px;
+            background-color: white;
+            border: none;
+            color: #428bca;
+            border: 1px solid #316B9C;
+            width: 100%;
+            font-size: 17px;
+            opacity: 1;
+            &:hover {
+              background: #3880BD;
+              border: #316B9C 1px solid;
+              color: #FFFFFF;
+            }
+          }
+        }
         a {
           color: white;
           opacity: 0.8;

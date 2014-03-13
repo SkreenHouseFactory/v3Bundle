@@ -509,28 +509,7 @@ UI = {
       }
       this.appendNotifications(notifications,list);
 
-      //filter notifs
-      $('.notifications .label.filter').on('click', function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        self = $(this);
-        $('.notifications .label.filter').removeClass('label-info');
-        $('.label.filter[data-filter="' + self.data('filter') + '"]').addClass('label-info');
-        
-        if($(this).data('reload-notif') != "done"){
-          Skhf.session.sync(function(data){
-            global.appendNotifications(data.notifications,list,false);
-            global.notificationsFilter(self);
-            self.attr('data-reload-notif','done');
-          },{
-            with_notifications : self.data('filter')
-          });
-        } else {
-          global.notificationsFilter(self);                
-        }
-
-        return false;
-      });
+      
 
       //TOFIX : should be working in script/core/ui.js
       //UiView.initDataLive(list);
@@ -605,6 +584,7 @@ UI = {
   },
   // filter
   notificationsFilter : function(self){
+    // console.log('ui.js', 'notificationsFilter', 'Check-In');
     $('.notifications .empty').css('display','none');
     $('.notifications .dropdown-menu .tv-component').addClass('hide');
     $('.notifications .divider.notification').addClass('hide');
@@ -635,7 +615,7 @@ UI = {
   },
   //appendNotif
   appendNotifications : function(notifications,list){
-
+    // console.log('ui.js', 'appendNotifications', 'Check-In');
     for (k in notifications) {
       if($('.tv-component [data-id="'+notifications[k].id+'"]').length == 0){
         if (notifications[k].type == 'broadcast') {
@@ -666,8 +646,7 @@ UI = {
             ep_title = ep_title.substring(0,32);
           }
         }
-        list.append(
-          '<li class="tv-component ' + notifications[k].offers + ' ' + notifications[k].access.replace("(windows)","") + '">' +
+        html_to_insert = '<li class="tv-component ' + notifications[k].offers + ' ' + notifications[k].access.replace("(windows)","") + '">' +
             '<a  class="more info"' + (!notifications[k].playlist || !notifications[k].playlist.origin ? '>' :
               ' data-toggle="tooltip" data-placement="left" title="Vous suivez &laquo;' + notifications[k].playlist.origin.object_name + '&raquo;"><i class="glyphicon glyphicon-question-sign"></i>') +
             '</a>' +
@@ -683,8 +662,13 @@ UI = {
               '<span class="label label-' + (notifications[k].type == 'deprog' ? 'warning' : 'success') + '">' + notifications[k].subtitle + '</span>' +
             '</a>' +
           '</li>' +
-          '<li class="divider notification'+' '+ notifications[k].offers+ ' ' + notifications[k].access.replace("(windows)","")+ '"></li>'
-        );
+          '<li class="divider notification'+' '+ notifications[k].offers+ ' ' + notifications[k].access.replace("(windows)","")+ '"></li>';
+
+        if(notifications[k]['new']){
+          list.prepend(html_to_insert);
+        } else {
+          list.append(html_to_insert);
+        }
       }
   }
   if( $('.notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
@@ -711,7 +695,11 @@ UI = {
           }
           UI.sliders['cinema'] = new BaseSlider({
             'url': 'schedule/cine.json?with_schedule=1&programs_only=1&theater_ids=' + Skhf.session.datas.cinema }, 
-            function(){}, 
+            function(){
+              var nb_items = $('#cinema.slider ul.items li').length;
+              var pluriel = nb_items > 1 ? 's' : '';
+              $('.bande_listes .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' film'+pluriel+' à l\'affiche&nbsp;');
+            }, 
             $('#cinema.slider')
           );
       });
@@ -724,8 +712,12 @@ UI = {
   loadReplayPlaylist: function(){
     if($('#replay.slider').length) {
       UI.sliders['replay'] = new BaseSlider({
-        'url': 'www/slider/queue/'+Skhf.session.uid+'/access/replay.json?nb_results=6&programs_only=1&offset=0&channel_img_width=50&img_width=150&img_height=200&url=&with_best_offer=1'},
-        function(){},
+        'url': 'www/slider/queue/'+Skhf.session.uid+'/access/replay.json?nb_results=10&programs_only=1&offset=0&channel_img_width=50&img_width=150&img_height=200&url=&with_best_offer=1'},
+        function(){
+          var nb_items = $('#replay.slider ul.items li').length;
+          var pluriel = nb_items > 1 ? 's' : '';
+          $('.bande-couleur-replay .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' programme'+pluriel+' en replay&nbsp;');
+        },
         $('#replay.slider')
       );
     }
@@ -733,8 +725,12 @@ UI = {
   loadTVPlaylist: function(){
     if($('#tv.slider').length) {
       UI.sliders['tv'] = new BaseSlider({
-        'url': 'www/slider/queue/'+Skhf.session.uid+'/access/tv.json?nb_results=6&programs_only=1&offset=0&channel_img_width=50&img_width=150&img_height=200&url=&with_best_offer=1'},
-        function(){},
+        'url': 'www/slider/queue/'+Skhf.session.uid+'/access/tv.json?nb_results=10&programs_only=1&offset=0&channel_img_width=50&img_width=150&img_height=200&url=&with_best_offer=1'},
+        function(){
+          var nb_items = $('#tv.slider ul.items li').length;
+          var pluriel = nb_items > 1 ? 's' : '';
+          $('.bande_listes .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' programme'+pluriel+' en diffusion&nbsp;');
+        },
         $('#tv.slider')
       );
     }
