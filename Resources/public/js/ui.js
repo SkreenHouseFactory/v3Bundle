@@ -351,12 +351,13 @@ UI = {
       if (remove) {
         if (store_in_session) { //start mes listes
           meslistes_in_session = API.cookie('start-mes-listes') ? JSON.parse(API.cookie('start-mes-listes')) : {};
-          parameter = parameter.replace('like', 'queue')
-          if (typeof meslistes_in_session[parameter] != 'undefined' && 
-              typeof meslistes_in_session[parameter][value] != 'undefined') {
-            delete meslistes_in_session[parameter][value];
+          newparameter = parameter.replace('like', 'queue')
+          if (typeof meslistes_in_session[newparameter] != 'undefined' && 
+              typeof meslistes_in_session[newparameter][value] != 'undefined') {
+            delete meslistes_in_session[newparameter][value];
             console.log('UI.togglePlaylist', 'store_in_session', 'remove', meslistes_in_session);
             API.cookie('start-mes-listes', JSON.stringify(meslistes_in_session));
+            self.unloadPlaylistTriggers(parameter, [value]);
           }
         } else {
           API.removePreference(parameter, value, callback);
@@ -364,13 +365,14 @@ UI = {
       } else {
         if (store_in_session) { //start mes listes
           meslistes_in_session = API.cookie('start-mes-listes') ? JSON.parse(API.cookie('start-mes-listes')) : {};
-          parameter = parameter.replace('like', 'queue')
-          if (typeof meslistes_in_session[parameter] == 'undefined') {
-            meslistes_in_session[parameter] = {};
+          newparameter = parameter.replace('like', 'queue')
+          if (typeof meslistes_in_session[newparameter] == 'undefined') {
+            meslistes_in_session[newparameter] = {};
           }
-          meslistes_in_session[parameter][value] = value;
-            console.log('UI.togglePlaylist', 'store_in_session', 'add', [parameter, value], meslistes_in_session, JSON.stringify(meslistes_in_session));
+          meslistes_in_session[newparameter][value] = value;
+            console.log('UI.togglePlaylist', 'store_in_session', 'add', [newparameter, value], meslistes_in_session, JSON.stringify(meslistes_in_session));
           API.cookie('start-mes-listes', JSON.stringify(meslistes_in_session));
+          self.loadPlaylistTriggers(parameter, [value]);
         } else {
           API.addPreference(parameter, value, callback, '', typeof with_related == 'undefined' ? true : with_related);
         }
@@ -433,7 +435,7 @@ UI = {
         console.log('UI.unloadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + parameter + '.fav-on');
         var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + '.fav-on', elmt);
         trigger.addClass('btn-plus');
-        trigger.html('Suivre' + this.getTriggerName(trigger)).removeClass('fav-on btn-danger');
+        trigger.html('Ajouter à mes listes' + this.getTriggerName(trigger)).removeClass('fav-on btn-danger');
 
         switch(parameter) {
           case 'like':
@@ -459,7 +461,7 @@ UI = {
         for (key in ids) {
           //console.log('UI.unloadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + '.fav-on');
           var trigger = $('[data-id="' + ids[key] + '"].fav-' + this.available_playlists[k] + '.fav-on', elmt);
-          trigger.html('<i class="glyphicon glyphicon-plus"></i> Suivre').removeClass('fav-on btn-danger');
+          trigger.html('<i class="glyphicon glyphicon-plus"></i> Ajouter à mes listes').removeClass('fav-on btn-danger');
         }
       }
     }
@@ -1107,7 +1109,7 @@ UI = {
               lis[key] = $(items).map(function (i, item) {
                 i = $(typeahead.options.item).attr('data-value', JSON.stringify(item));
                 i.attr('data-id', item.id).addClass('actions');
-                btn = $('<span class="btn btn-xs btn-suivre" data-placement="left">+ Suivre</span>');
+                btn = $('<span class="btn btn-xs btn-suivre btn-plus" data-placement="left">Ajouter à mes listes</span>');
                 switch (key) {
                   case 'queue':
                     i.addClass('playlist')
