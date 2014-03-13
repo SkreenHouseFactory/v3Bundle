@@ -4,24 +4,65 @@
   Commencer Mes Listes
 {% endblock %}
 
+{% block body_attribute %} data-spy="scroll" data-target=".navbar-vertical"{% endblock %}
+
 {% block content %}
 <div id="bandeau-listes">
   <div class="container">
     <h1>Mes listes</h1>
     <p class="sk-font">En ajoutant des programmes, des réalisateurs, des acteurs, des chaînes et des salles de cinémas à vos listes, vous êtes averti dès qu'un programme correspondant est diffusé. Que ce soit à la TV, en Replay, au Cinéma ou en VOD.</p>
-
     {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with { active: true, no_background: true } %}
   </div>
-
 </div>
-<div style="background: #5B9BD1;">
+<div class="fond-bleu">
   <div class="container">
     <h2>Commencer mes listes</h2>
-    <br/>
-    {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'series', title: 'Ajouter vos séries'} %}
-    {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'persons', title: 'Ajouter vos personnalités'} %}
+    <div class="navbar-vertical col-xs-5">
+      <ul class="nav timeline sk-font">
+        <li><a href="#films">Films</a></li>
+        <li><a href="#emissions">Émissions</a></li>
+        <li><a href="#series">Série</a></li>
+        <li><a href="#persons">Personnalités</a></li>
+        <li><a href="#theaters">Salles de cinéma</a></li>
+        <li><a href="#channels">Chaînes</a></li>
+        <li><a href="#confirm">Confirmer</a></li>
+      </ul>
+    </div>
+    <div class="forms-container col-xs-11">
+      <div class="form-container">
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'films', title: 'Ajouter vos films'} %}
+      </div>
+      <div class="form-container">
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'emissions', title: 'Ajouter vos émissions'} %}
+      </div>
+      <div class="form-container">
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'series', title: 'Ajouter vos séries'} %}
+      </div>
+      <div class="form-container">
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'persons', title: 'Ajouter vos personnalités'} %}
+      </div>
+      <div class="form-container">
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'theaters', title: 'Ajouter vos salles de cinéma'} %}
+      </div>
+      <div class="form-container">
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'channels', title: 'Ajouter vos chaînes'} %}
+      </div>
+      <div class="form-container">
+        <h2 id="confirm">Confirmer</h2>
+      </div>
+    </div>
   </div>
 </div>
+{% endblock %}
+
+{% block pagestyles %}
+  {% stylesheets
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/start.less'
+      filter='lessphp,?yui_css'
+      output='css/start.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
 {% endblock %}
 
 {% block pagescripts %}

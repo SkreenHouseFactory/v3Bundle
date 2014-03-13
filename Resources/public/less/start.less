@@ -1,0 +1,100 @@
+body.view-user_start {
+  #bandeau-listes .container {
+    margin-top: 0;
+  }
+  .fond-bleu {
+    background: #5B9BD1;
+    ul.timeline {
+      width: 200px;
+      list-style: none;
+      padding: 15px 0 0;
+      color: white;
+      position: relative;
+      padding-right: 10px;
+      margin-right: 60px;
+      text-align: right;
+      height: 570px;
+      &.affix {
+        position: fixed;
+        top: 100px;
+      }
+      &.affix-bottom {
+        position: fixed;
+        top: auto!important;
+        bottom: 280px;
+      }
+      &:after {
+        content: '';
+        display: inherit;
+        position: absolute;
+        top: 0;
+        bottom: 30px;
+        width: 5px;
+        background: #428bca;
+        right: 0px;
+        margin-right: -20px;
+      }
+      li {
+        font-size: 1.5em;
+        margin-bottom: 50px;
+        &:after {
+          content: '';
+          width: 20px;
+          height: 20px;
+          background: #5B9BD1;
+          border-radius: 50%;
+          border: 5px solid #428bca;
+          position: absolute;
+          margin-left: 17px;
+          margin-top: 6px;
+          z-index: 1;
+        }
+        a {
+          text-decoration: none;
+          display: inline;
+          color: white;
+          padding: 8px 13px;
+        }
+        &.active, &:hover, &:focus {
+          &:after {
+            background: #428bca;
+          }
+          a {
+            background-color: #428bca;
+            border-radius: 4px;
+            position: relative;
+            &:after {
+              content: '';
+              position: absolute;
+              top: 13px;
+              right: -6px;
+              border: 7px solid #428bca;
+              -ms-transform: rotate(45deg); /* IE 9 */
+              -webkit-transform: rotate(45deg); /* Opera, Chrome, and Safari */
+              transform: rotate(45deg);
+            }
+          }
+        }
+      }
+    }
+    .forms-container {
+      width: 60%;
+      padding-right: 15px;
+      .form-container {
+        height: 545px;
+        .form-inline {
+          .form-group {
+            float: left;
+            &:first-child {
+              width: 70%;
+              margin-right: 9%;
+            }
+          }
+        }
+      }
+    }
+  }
+  .navbar-fixed-top {
+    position: absolute;
+  }
+}
