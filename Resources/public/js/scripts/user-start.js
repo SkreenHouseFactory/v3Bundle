@@ -33,6 +33,7 @@ $(document).ready(function(){
           }
         }
       }
+      API.cookie('start-mes-listes', null); //reset
     });
   });
 
