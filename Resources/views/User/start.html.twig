@@ -19,13 +19,13 @@
     <h2>Commencer mes listes</h2>
     <div class="navbar-vertical col-xs-5">
       <ul class="nav timeline sk-font">
-        <li><a href="#films">Films</a></li>
-        <li><a href="#emissions">Émissions</a></li>
-        <li><a href="#series">Série</a></li>
-        <li><a href="#persons">Personnalités</a></li>
-        <li><a href="#theaters">Salles de cinéma</a></li>
-        <li><a href="#channels">Chaînes</a></li>
-        <li><a href="#confirm">Confirmer</a></li>
+        <li><a href="#films">Films <span id="count-films" class="badge">0</span></a></li>
+        <li><a href="#emissions">Émissions <span id="count-emissions" class="badge">0</span></a></li>
+        <li><a href="#series">Séries <span id="count-series" class="badge">0</span></a></li>
+        <li><a href="#persons">Personnalités <span id="count-persons" class="badge">0</span></a></li>
+        <li><a href="#theaters">Salles de cinéma <span id="count-theaters" class="badge">0</span></a></li>
+        <li><a href="#channels">Chaînes <span id="count-channels" class="badge">0</span></a></li>
+        <li class="user-off"><a href="#confirm">Confirmer</a></li>
       </ul>
     </div>
     <div class="forms-container col-xs-11">
@@ -47,7 +47,7 @@
       <div class="form-container">
         {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'channels', title: 'Ajouter vos chaînes'} %}
       </div>
-      <div class="form-container">
+      <div class="form-container user-off">
         <h2 id="confirm">Confirmer</h2>
         <p><button id="register" class="btn btn-primary btn-lg">Enregistrer mes listes</button></p>
       </div>
