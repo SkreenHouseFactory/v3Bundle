@@ -22,8 +22,14 @@ $(document).ready(function(){
       count = $('#count-'+$(this).data('step'));
       if ($(this).hasClass('fav-on')) {
         count.html(parseInt(count.html()) + 1);
+        count.css('background-color', '#5cb85c');
       } else {
         count.html(parseInt(count.html()) - 1);
+      }
+      if (parseInt(count.html()) == 0) {
+        count.hide();
+      } else {
+        count.show();
       }
     }
     
