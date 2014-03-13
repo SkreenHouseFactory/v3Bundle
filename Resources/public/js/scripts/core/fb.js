@@ -49,12 +49,13 @@ $(document).ready(function(){
                 UI.callbackModal();
               }
 
+              /* handled in core/session.js
               console.log('scripts/core/fb.js', Skhf.session.user);
               console.log('scripts/core/fb.js', Skhf.session.callbackSignin);
               if(Skhf.session.user && Skhf.session.callbackSignin){
                 Skhf.session.callbackSignin();
               }
-              
+              */
             });
           });
       });
