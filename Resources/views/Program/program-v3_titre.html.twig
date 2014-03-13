@@ -31,7 +31,7 @@
           {% endif %}
         {% elseif program.episode_title is defined and
               program.episodeof is defined %}
-          {{ program.episodeof.title }}
+          <a href="{{ program.episodeof.seo_url }}">{{ program.episodeof.title }}</a>
         {% else %}
           {{ program.title }}
         {% endif %}
