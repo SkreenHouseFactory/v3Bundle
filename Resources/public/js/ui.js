@@ -505,7 +505,6 @@ UI = {
             console.log('ui.js', 'UI.loadNotifications', 'last_notification update', this.last_notification);
           }
           //console.log('new', notifications[k]['new'], nb_new);
-
         }
       }
       this.appendNotifications(notifications,list);

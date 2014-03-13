@@ -138,9 +138,9 @@ search:
         q: "[^/]+"
 
 #user
-user_intro_meslistes:
-    pattern:  /mes-listes-start/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:intromeslistes }
+user_start:
+    pattern:  /start/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:start }
 user_settings:
     pattern:  /user/settings/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:settings }

@@ -23,10 +23,10 @@ class UserController extends Controller
     /**
     *
     */
-    public function intromeslistesAction(Request $request)
+    public function startAction(Request $request)
     {
 
-      $response = $this->render('SkreenHouseFactoryV3Bundle:User:meslistes-start.html.twig', array(
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:start.html.twig', array(
       ));
 
       $maxage = 3600*24;
