@@ -23,3 +23,12 @@
   </div>
 </div>
 {% endblock %}
+
+{% block pagescripts %}
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-start.js'
+    filter='?yui_js' 
+    output='js/compiled/pages/user-start.js'  %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
