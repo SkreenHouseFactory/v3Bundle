@@ -197,6 +197,12 @@ class ProgramController extends Controller
         }
       }
       $data->offers['live'] = (object)$data->offers['live'];
+
+      $this->definePlayer($data, $data->offers);
+
+      if (!$data->player && isset($data->episodeof) && $data->episodeof->offers){
+        $this->definePlayer($data, $data->episodeof->offers);
+      }
    
       //add other episodes offers
       //$data->offers = array_merge_recursive($data->offers, (array)$data->episodeof->offers);
@@ -225,73 +231,7 @@ class ProgramController extends Controller
                                    ($data->offers['theater_on_demand'] ? count($data->offers['theater_on_demand']) : 0);
       }
 
-      //player
-      $data->player = null;
-      $live = (array)$data->offers['live'];
-      if (isset($live[0]) &&
-          isset($data->datas_offers->channels->{$live[0]->channel_id}) &&
-          isset($data->datas_offers->channels->{$live[0]->channel_id}->live->player)) {
-        $data->player = $live[0];
-        $data->player->type = 'live';
-        $data->player->iframe = $data->datas_offers->channels->{$live[0]->channel_id}->live->player;
-
-      } elseif ($data->teaser &&
-                (
-                  !isset($data->episodeof) || 
-                  !$data->episodeof ||
-                  $data->teaser->program_id == $data->id || 
-                  (
-                    (!isset($data->offers['bonus']->{0}) || !$data->offers['bonus']->{0}->deporte || (isset($data->offers['bonus']->{0}->episode_id) && $data->offers['bonus']->{0}->episode_id != $data->id)) && 
-                    (!isset($data->offers['cut']->{0}) || !$data->offers['cut']->{0}->deporte || (isset($data->offers['cut']->{0}->episode_id) && $data->offers['cut']->{0}->episode_id != $data->id))
-                  )
-                ) && 
-                (!isset($data->offers['replay']->{0}) || !$data->offers['replay']->{0}->deporte) && 
-                (!isset($data->offers['deporte']->{0}) || $data->offers['deporte']->{0}->cost)) {
-        $data->player = $data->teaser;
-        $data->player->type = 'teaser';
-
-      } else {
-        if (count($data->offers['replay']) > 0) {
-          foreach ($data->offers['replay'] as $o) {
-            if (isset($o->deporte) && $o->deporte && !$o->cost) {
-              $data->player = $o;
-              $data->player->type = 'replay';
-              break;                
-            }
-          }
-        }
-        if (!$data->player && count($data->offers['deporte']) > 0) {
-          foreach ($data->offers['deporte'] as $o) {
-            if (isset($o->deporte) && $o->deporte && !$o->cost) {
-              $data->player = $o;
-              $data->player->type = 'deporte';
-              break;
-            }
-          }
-        }
-        if (!$data->player && count($data->offers['bonus']) > 0) {
-          foreach ($data->offers['bonus'] as $o) {
-            if (isset($o->deporte) && 
-                $o->deporte && 
-                $o->channel_id != 5325) { //except cultcut
-              $data->player = $o;
-              $data->player->type = 'bonus';
-              break;
-            }
-          }
-        }
-        if (!$data->player && count($data->offers['cut']) > 0) {
-          foreach ($data->offers['cut'] as $o) {
-            if (isset($o->deporte) && 
-                $o->deporte && 
-                $o->channel_id != 5325) { //except cultcut
-              $data->player = $o;
-              $data->player->type = 'cut';
-              break;
-            }
-          }
-        }
-      }
+      
       //load related programs
       $data->related = isset($data->related) ? (array)$data->related : array();
       $data->selections = isset($data->selections) ? (array)$data->selections : array();
@@ -402,5 +342,77 @@ class ProgramController extends Controller
           'public'        => true,
       ));
       return $response;
+    }
+
+    protected function definePlayer(&$data, $offers)
+    {
+      //player
+      $data->player = null;
+      $offers = (array)$offers;
+      $live = isset($offers['live']) ? (array)$offers['live'] : array();
+      if (isset($live[0]) &&
+          isset($data->datas_offers->channels->{$live[0]->channel_id}) &&
+          isset($data->datas_offers->channels->{$live[0]->channel_id}->live->player)) {
+        $data->player = $live[0];
+        $data->player->type = 'live';
+        $data->player->iframe = $data->datas_offers->channels->{$live[0]->channel_id}->live->player;
+
+      } elseif ($data->teaser &&
+                (
+                  !isset($data->episodeof) || 
+                  !$data->episodeof ||
+                  $data->teaser->program_id == $data->id || 
+                  (
+                    (!isset($offers['bonus']->{0}) || !$offers['bonus']->{0}->deporte || (isset($offers['bonus']->{0}->episode_id) && $offers['bonus']->{0}->episode_id != $data->id)) && 
+                    (!isset($offers['cut']->{0}) || !$offers['cut']->{0}->deporte || (isset($offers['cut']->{0}->episode_id) && $offers['cut']->{0}->episode_id != $data->id))
+                  )
+                ) && 
+                (!isset($offers['replay']->{0}) || !$offers['replay']->{0}->deporte) && 
+                (!isset($offers['deporte']->{0}) || $offers['deporte']->{0}->cost)) {
+        $data->player = $data->teaser;
+        $data->player->type = 'teaser';
+
+      } else {
+        if (count($offers['replay']) > 0) {
+          foreach ($offers['replay'] as $o) {
+            if (isset($o->deporte) && $o->deporte && !$o->cost) {
+              $data->player = $o;
+              $data->player->type = 'replay';
+              break;                
+            }
+          }
+        }
+        if (!$data->player && count($offers['deporte']) > 0) {
+          foreach ($offers['deporte'] as $o) {
+            if (isset($o->deporte) && $o->deporte && !$o->cost) {
+              $data->player = $o;
+              $data->player->type = 'deporte';
+              break;
+            }
+          }
+        }
+        if (!$data->player && count($offers['bonus']) > 0) {
+          foreach ($offers['bonus'] as $o) {
+            if (isset($o->deporte) && 
+                $o->deporte && 
+                $o->channel_id != 5325) { //except cultcut
+              $data->player = $o;
+              $data->player->type = 'bonus';
+              break;
+            }
+          }
+        }
+        if (!$data->player && count($offers['cut']) > 0) {
+          foreach ($offers['cut'] as $o) {
+            if (isset($o->deporte) && 
+                $o->deporte && 
+                $o->channel_id != 5325) { //except cultcut
+              $data->player = $o;
+              $data->player->type = 'cut';
+              break;
+            }
+          }
+        }
+      }
     }
 }

@@ -7,23 +7,25 @@
       <div class="panel-heading"><h3 class="panel-title">Bande annonce</h3></div>
       <div id="bande-annonce" class="tab-pane">
         <table>
-        {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offer-video.html.twig' with {
-          o: {
-            id: program.teaser.id,
-            versions: program.teaser.versions,
-            title: program.title ~ ' : la bande-annonce',
-            picture: program.picture|replace({'273/368': '160/85', '//medias': '/160/85/medias'}),
-            description: ''
-          }, 
-          o_episode: program, 
-          o_channel: {name: ''},
-          o_access: {name: 'Bande annonce'},
-          program: program, 
-          btn_deploy_offers: 0,
-          key: 'ba',
-          loop_offset: 0,
-          loop: {index: 0}
-        } %}
+          {% set title_ba %}{% if program.episodeof is defined and program.episodeof.id == program.teaser.program_id %}{{ program.episodeof.title }}{% else %}{{ program.title }}{% endif %}{% endset %}
+          {% set picture_ba %}{% if program.episodeof is defined and program.episodeof.id == program.teaser.program_id %}{{ program.episodeof.picture|replace({'273/368': '160/85', '//medias': '/160/85/medias'}) }}{% else %}{{ program.picture|replace({'273/368': '160/85', '//medias': '/160/85/medias'}) }}{% endif %}{% endset %}
+          {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offer-video.html.twig' with {
+            o: {
+              id: program.teaser.id,
+              versions: program.teaser.versions,
+              title: title_ba,
+              picture: picture_ba,
+              description: ''
+            }, 
+            o_episode: program, 
+            o_channel: {name: ''},
+            o_access: {name: 'Bande annonce'},
+            program: program, 
+            btn_deploy_offers: 0,
+            key: 'ba',
+            loop_offset: 0,
+            loop: {index: 0}
+          } %}
         </table>
       </div>
     </div>
