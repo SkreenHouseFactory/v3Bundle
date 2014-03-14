@@ -13,7 +13,7 @@
 {% set page = (custom_ltest / 7)|round_up %}
 
 <h2> 
-  <a href="{{ path(link) }}">{{ name }}</a>
+  <a href="{{ link|slice(0,1) == '/' ? link : path(link) }}">{{ name }}</a>
 </h2>
 
 <div id="channel_prog-list{{ list_number }}" class="carousel slide vertical" data-interval="false">
@@ -79,6 +79,6 @@
    </button>
  </a>
 </div>
-<a href="{{ path(link) }}" class="undernot">
+<a href="{{ link|slice(0,1) == '/' ? link : path(link) }}" class="undernot">
  <button type="button" class="btn btn-default btn-grille">{{ name_link }}</button>
 </a>
