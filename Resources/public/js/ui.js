@@ -65,8 +65,8 @@ UI = {
         //message popin default
         if (!$('#skModal.modal .modal-message').html()) {
           $('#skModal.modal .modal-message').html(
-            '<p><b>Votre compte GRATUIT en 1 clic :</b> ' +
-            'Créez vos listes et ne ratez plus vos programmes préférés : Cinéma, TV, Replay et VOD !</p>'
+            '<p><strong>Votre compte GRATUIT en 1 clic :</strong> ' +
+            'Créez vos listes et ne ratez plus vos programmes préférés : Cinéma, TV, Replay et VOD !<br/><a href="/start">&raquo; Découvrir Mes listes</a></p>'
           );
         }
         $('#skModal.modal .modal-message [data-content]').popover();

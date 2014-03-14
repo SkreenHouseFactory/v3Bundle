@@ -27,7 +27,20 @@
     </ul>
 
   {% elseif home == 'tv' %}
-    <div  class="hover-menu hover-menu-tv hide">
+    <ul class="hover-menu tv hide">
+      <div class="dropdown-borders vod-cine">
+        <li>
+          <a href="{{ header_base }}{{ path('tvgrid', {date: 'ce-soir'}) }}">Programme TV</a>
+        </li>
+        <li>
+          <a href="{{ header_base }}{{ path('channel', {slug: 'replay', preview: 1}) }}">Replay TV</a>
+        </li>
+        <li>
+          <a href="{{ header_base }}{{ path('channel', {slug: 'web-tv'}) }}">Web TV</a>
+        </li>
+      </div>
+    </ul>
+    {#<div  class="hover-menu hover-menu-tv hide">
       <div class="dropdown-borders">
         <ul>
           <li class="nav-header">Programme TV</li>
@@ -63,8 +76,9 @@
         <div class="clear">
           <a href="{{ path('channel', {slug: 'web-tv'}) }}" >Toutes les Web TV <span class="show-more">...</span> </a>
         </div>
-        {#{ render(controller('SkreenHouseFactoryV3Bundle:Main:headerchannel', { type: 'channel' })) }#}
+        {#{ render(controller('SkreenHouseFactoryV3Bundle:Main:headerchannel', { type: 'channel' })) }#-}
         {% include 'SkreenHouseFactoryV3Bundle:Main:_headerchannel_dur.html.twig' %}
       </div>
     </div>
+    #}
   {% endif %}
