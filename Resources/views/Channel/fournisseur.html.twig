@@ -199,13 +199,17 @@
             {% if channel.type == 'cinema' %}
             <div id="channel-programs" class="list clear-cancel ms-margin-top-seo">
               <ul class="items">
-                {% for program in channel.programs %}
-                  {% if loop.index > 1 %}<li class="divider"></li>{% endif %}
-                  {% include 'SkreenHouseFactoryV3Bundle:Content:_list.html.twig' with {
-                    p: program, 
-                    cinema: channel
-                  } %}
-                {% endfor %}
+                {% if channel.programs|to_array|length %}
+                  {% for program in channel.programs %}
+                    {% if loop.index > 1 %}<li class="divider"></li>{% endif %}
+                    {% include 'SkreenHouseFactoryV3Bundle:Content:_list.html.twig' with {
+                      p: program, 
+                      cinema: channel
+                    } %}
+                  {% endfor %}
+                {% else %}
+                  <p class="bs-callout bs-callout-info">Pas de programmation ou programmation indisponible.</p>
+                {% endif %}
               </ul>
             </div>
             {% else %}
