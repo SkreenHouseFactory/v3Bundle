@@ -1,9 +1,41 @@
 body.view-user_start {
-  #bandeau-listes .container {
-    margin-top: 0;
+  #bandeau-listes {
+    margin-bottom: 30px;
+    .container {
+      margin-top: 0;
+      h1 {
+        margin-top: 5px;
+        &+p {
+          font-size: 1.2em;
+          opacity: 1;
+          margin-bottom: 5px;
+          padding: 0 125px;
+        }
+      }
+      .row.titres.user-off {
+        margin-top: 10px;
+        p {
+          margin-bottom: 5px;
+        }
+      }
+      .row.descriptions {
+        p {
+          font-size: 0.9em;
+        }
+      }
+    }
   }
   .fond-bleu {
-    background: #5B9BD1;
+    // background: #5B9BD1;
+    .bg {
+      background: url('http://mskstatic.com/medias/ftp/home/fd_start.jpg') repeat;
+      position: fixed;
+      width: 100%;
+      height: 300%;
+      top:0;
+      left:0;
+      z-index: -1;
+    }
     ul.timeline {
       width: 200px;
       list-style: none;
@@ -28,14 +60,14 @@ body.view-user_start {
         display: inherit;
         position: absolute;
         top: 0;
-        bottom: 30px;
+        bottom: 90px;
         width: 5px;
         background: #428bca;
         right: 0px;
         margin-right: -20px;
       }
       li {
-        font-size: 1.5em;
+        font-size: 1.2em;
         margin-bottom: 50px;
         span.badge {
           background-color: rgb(92, 184, 92);
@@ -48,19 +80,22 @@ body.view-user_start {
           content: '';
           width: 20px;
           height: 20px;
-          background: #5B9BD1;
+          background: white;
           border-radius: 50%;
           border: 5px solid #428bca;
           position: absolute;
           margin-left: 17px;
-          margin-top: 6px;
+          margin-top: 2px;
           z-index: 1;
+        }
+        &.confirm:after {
+          border: 5px solid #333;
         }
         a {
           text-decoration: none;
           display: inline;
           color: white;
-          padding: 8px 13px;
+          padding: 8px 13px 8px 6px;
         }
         &.active, &:hover, &:focus {
           &:after {
@@ -73,7 +108,7 @@ body.view-user_start {
             &:after {
               content: '';
               position: absolute;
-              top: 13px;
+              top: 10px;
               right: -6px;
               border: 7px solid #428bca;
               -ms-transform: rotate(45deg); /* IE 9 */
@@ -85,16 +120,43 @@ body.view-user_start {
       }
     }
     .forms-container {
-      width: 60%;
-      padding-right: 15px;
+      width: 65%;
       .form-container {
-        height: 545px;
+        height: 815px;
+        background: rgba(61,132,192,0.3);
+        border-radius: 5px;
+        margin-bottom: 20px;
+        padding: 0 25px;
+        h2 {
+          padding-top: 40px;
+          margin-top: 0;
+          color: white;
+        }
         .form-inline {
+          margin-bottom: 30px;
           .form-group {
             float: left;
             &:first-child {
-              width: 70%;
-              margin-right: 9%;
+              width: 80%;
+              margin-right: 10%;
+            }
+          }
+        }
+        .results {
+          ul {
+            list-style: none;
+            padding-left: 0;
+            li {
+              margin-bottom: 30px;
+              span {
+                font-size: 16px;
+                color: white;
+                display: inline-block;
+                margin-top: 6px;
+                small {
+                  color:#eee;
+                }
+              }
             }
           }
         }

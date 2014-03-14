@@ -4,28 +4,28 @@
   Commencer Mes Listes
 {% endblock %}
 
-{% block body_attribute %} data-spy="scroll" data-target=".navbar-vertical"{% endblock %}
+{% block body_attribute %} data-spy="scroll" data-target=".navbar-vertical" data-offset="50"{% endblock %}
 
 {% block content %}
 <div id="bandeau-listes">
   <div class="container">
     <h1>Mes listes</h1>
     <p class="sk-font">En ajoutant des programmes, des réalisateurs, des acteurs, des chaînes et des salles de cinémas à vos listes, vous êtes averti dès qu'un programme correspondant est diffusé. Que ce soit à la TV, en Replay, au Cinéma ou en VOD.</p>
-    {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with { active: true, no_background: true } %}
+    <h2>Commencer mes listes</h2>
   </div>
 </div>
 <div class="fond-bleu">
+  <div class="bg"></div>
   <div class="container">
-    <h2>Commencer mes listes</h2>
     <div class="navbar-vertical col-xs-5">
       <ul class="nav timeline sk-font">
-        <li><a href="#films">Films <span id="count-films" class="badge">0</span></a></li>
-        <li><a href="#emissions">Émissions <span id="count-emissions" class="badge">0</span></a></li>
-        <li><a href="#series">Séries <span id="count-series" class="badge">0</span></a></li>
-        <li><a href="#persons">Personnalités <span id="count-persons" class="badge">0</span></a></li>
-        <li><a href="#theaters">Salles de cinéma <span id="count-theaters" class="badge">0</span></a></li>
-        <li><a href="#channels">Chaînes <span id="count-channels" class="badge">0</span></a></li>
-        <li class="user-off"><a href="#confirm">Confirmer</a></li>
+        <li><a href="#films">Vos Films <span id="count-films" class="badge">0</span></a></li>
+        <li><a href="#emissions">Vos Émissions <span id="count-emissions" class="badge">0</span></a></li>
+        <li><a href="#series">Vos Séries <span id="count-series" class="badge">0</span></a></li>
+        <li><a href="#persons">Vos Personnalités <span id="count-persons" class="badge">0</span></a></li>
+        <li><a href="#theaters">Vos Salles de cinéma <span id="count-theaters" class="badge">0</span></a></li>
+        <li><a href="#channels">Vos Chaînes <span id="count-channels" class="badge">0</span></a></li>
+        <li class="user-off confirm"><a href="#confirm">Confirmer</a></li>
       </ul>
     </div>
     <div class="forms-container col-xs-11">
