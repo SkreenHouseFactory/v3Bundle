@@ -92,6 +92,10 @@ UI = {
     if (Skhf.session.datas.email) {
       //on
       //load playlist
+      if ($('.btn.meslistes-plus[data-toggle-display]').length) {
+        $('.btn.meslistes-plus[data-toggle-display]').trigger('click');
+      }
+      
       //self.loadSelector();
       $('body').addClass('connected');
       if (!update) {
@@ -700,7 +704,8 @@ UI = {
             function(){
               var nb_items = $('#cinema.slider ul.items li').length;
               var pluriel = nb_items > 1 ? 's' : '';
-              $('.bande_listes .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' film'+pluriel+' à l\'affiche&nbsp;');
+              $('.bande_listes .col-xs-5 .user-on .meslistes-plus').data('toggle-text','<i class="glyphicon glyphicon-collapse-down"></i> &nbsp;'+nb_items+' film'+pluriel+' dans vos salles&nbsp;');
+              //$('.bande_listes .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' film'+pluriel+' à l\'affiche&nbsp;');
             }, 
             $('#cinema.slider')
           );
@@ -718,7 +723,8 @@ UI = {
         function(){
           var nb_items = $('#replay.slider ul.items li').length;
           var pluriel = nb_items > 1 ? 's' : '';
-          $('.bande-couleur-replay .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' programme'+pluriel+' en replay&nbsp;');
+          $('.bande-couleur-replay .col-xs-5 .user-on .meslistes-plus').data('toggle-text','<i class="glyphicon glyphicon-collapse-down"></i> &nbsp;'+nb_items+' programme'+pluriel+' en Replay&nbsp;');
+          //$('.bande-couleur-replay .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' programme'+pluriel+' en replay&nbsp;');
         },
         $('#replay.slider')
       );
@@ -731,7 +737,8 @@ UI = {
         function(){
           var nb_items = $('#tv.slider ul.items li').length;
           var pluriel = nb_items > 1 ? 's' : '';
-          $('.bande_listes .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' programme'+pluriel+' en diffusion&nbsp;');
+          $('.bande_listes .col-xs-5 .user-on .meslistes-plus').data('toggle-text', '<i class="glyphicon glyphicon-collapse-down"></i> &nbsp;'+nb_items+' programme'+pluriel+' à venir&nbsp;');
+          //$('.bande_listes .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' programme'+pluriel+' en diffusion&nbsp;');
         },
         $('#tv.slider')
       );
