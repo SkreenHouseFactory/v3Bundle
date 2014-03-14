@@ -66,7 +66,7 @@ UI = {
         if (!$('#skModal.modal .modal-message').html()) {
           $('#skModal.modal .modal-message').html(
             '<p><strong>Votre compte GRATUIT en 1 clic :</strong> ' +
-            'Créez vos listes et ne ratez plus vos programmes préférés : Cinéma, TV, Replay et VOD !<br/><a href="/start">&raquo; Découvrir Mes listes</a></p>'
+            'Créez vos listes et ne ratez plus vos programmes préférés : Cinéma, TV, Replay et VOD !</p>' //<br/><a href="/start">&raquo; Découvrir Mes listes</a>
           );
         }
         $('#skModal.modal .modal-message [data-content]').popover();
@@ -113,6 +113,13 @@ UI = {
         //datas
         this.loadPlaylistTriggers();
         this.loadNotifications(Skhf.session.datas.notifications);
+      
+        //mes listes
+        if (Skhf.session.datas.cinema) {
+          this.loadTheatersPlaylist();
+        }
+        this.loadReplayPlaylist();
+        this.loadTVPlaylist();
       } else {
         $('.fb-placeholder').addClass('hide');
         $('.share-placeholder').removeClass('hide');
@@ -155,12 +162,6 @@ UI = {
         $('.share-on:not(.hide)').addClass('hide');
         $('.share-off.hide').removeClass('hide');
       }
-      //theaters
-      if (Skhf.session.datas.cinema) {
-        this.loadTheatersPlaylist();
-      }
-      this.loadReplayPlaylist();
-      this.loadTVPlaylist();
 
     } else {
       //off
