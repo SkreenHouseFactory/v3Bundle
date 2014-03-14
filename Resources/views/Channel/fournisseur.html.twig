@@ -200,7 +200,7 @@
             <div id="channel-programs" class="list clear-cancel ms-margin-top-seo">
               <ul class="items">
                 {% if channel.programs|to_array|length %}
-                  {% for program in channel.programs %}
+                  {% for program in channel.programs|to_array %}
                     {% if loop.index > 1 %}<li class="divider"></li>{% endif %}
                     {% include 'SkreenHouseFactoryV3Bundle:Content:_list.html.twig' with {
                       p: program, 
