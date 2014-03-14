@@ -26,7 +26,44 @@ class UserController extends Controller
     public function startAction(Request $request)
     {
 
+      $api   = $this->get('api');
+      $selection_pack = array();
+      $params =  array(
+        'channel_img_width' => 60,
+        'img_width' => 150,
+        'img_height' => 200,
+        'with_programs' => true,
+        'with_offers' => true,
+        'offers_type' => 'play',
+        'with_player' => true,
+        'player' => 'iframe',
+        'allow_with' => true
+      );
+      /*-------------------------------------------------------------------- Les Packs pour les suggestions*/
+      $obj1 = $api->fetch('www/slider/pack/7928592', $params); //pack top box office
+      $obj2 = $api->fetch('www/slider/pack/3314278', $params); //pack top des séries
+      $obj3 = $api->fetch('www/slider/pack/12975429', $params); //pack les plus populaires
+
+      $selection_pack['films']  = $obj1;
+      $selection_pack['series']  = $obj2;
+      $selection_pack['emissions']  = $obj3;
+
+      //Tri dans le pack populaires pour ne garder que les émissions
+      $emissions = array();
+      $count_placeholder = 0;
+      foreach ($selection_pack['emissions']->programs as $p) {
+        if($p->format->name == 'Emission'){
+          $emissions[] = $p;
+          $count_placeholder ++;
+        }
+        if ($count_placeholder == 2) {
+          break;
+        }
+      }
+      $selection_pack['emissions']->programs = $emissions;
+
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:start.html.twig', array(
+        'selection_pack'=>(object)$selection_pack
       ));
 
       $maxage = 3600*24;
