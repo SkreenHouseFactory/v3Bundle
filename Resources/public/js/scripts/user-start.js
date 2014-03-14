@@ -1,7 +1,14 @@
 // -- user start
+function parallax(){
+  var scrolled = $(window).scrollTop();
+  $('.bg').css('top', -(scrolled*0.15)+'px');
+}
 
 $(document).ready(function(){
 
+  $(window).scroll(function(e){
+    parallax();
+  });
 
   $('.forms-container').scrollspy({ target: '.navbar-vertical' });
 
@@ -13,6 +20,21 @@ $(document).ready(function(){
   })
   $('.timeline li').removeClass('active');
   $('.timeline li:first-child').addClass('active');
+
+  $(".navbar-vertical ul li a[href^='#']").on('click', function(e) {
+   // prevent default anchor click behavior
+   e.preventDefault();
+   // store hash
+   var hash = this.hash;
+   // animate
+   $('html, body').animate({
+       scrollTop: $(this.hash).offset().top-15
+     }, 300, function(){
+       // when done, add hash to url
+       // (default click behaviour)
+       window.location.hash = hash;
+    });
+  });
 
   //get notif
   $(document).on('click', '[data-id][class*=" fav-"]', function(e){
@@ -91,7 +113,7 @@ $(document).ready(function(){
         console.log('scripts/user-start.js', 'callback form', container);
         for (k in results) {
           title = typeof results[k].title != 'undefined' ? results[k].title : results[k].name;
-          container.append('<li class="clearfix">' + title + '<a data-id="'+results[k].id+'" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-suivre btn-plus fav-like pull-right" data-step="'+step+'">Ajouter à mes listes </a></li>')
+          container.append('<li class="clearfix"><span>' + title + '</span><a data-id="'+results[k].id+'" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-suivre btn-plus fav-like pull-right" data-step="'+step+'">Ajouter à mes listes </a></li>')
         }
     });
 
