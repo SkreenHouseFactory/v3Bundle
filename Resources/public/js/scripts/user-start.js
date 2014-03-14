@@ -53,6 +53,7 @@ $(document).ready(function(){
       } else {
         count.show();
       }
+      API.cookie('start-mes-listes-'+$(this).data('step'), parseInt(count.html()));
     }
     
     if (API.cookie('start-mes-listes')) {
@@ -64,15 +65,31 @@ $(document).ready(function(){
             lists: API.cookie('start-mes-listes').replace('queue', 'like'),
             time: new Date().getTime()
           }, 
-          function(notifs){
-            //do something
+          function(data){
+            console.log('scripts/user-start.js', 'notify callback', data);
+            for (k in data.notifications) {
+              n = data.notifications[k];
+              console.log('scripts/user-start.js', 'notify', n);
+              API.notification(
+                n.title + (typeof n.title_episode != 'undefined' ? ' - ' + n.title_episode : ''), 
+                n.subtitle,
+                n.ico
+              );
+            }
         });
       }, 500);
     }
   });
 
-  //count : TODO init from session
-  //...
+  //count : init from cookie
+  $('form[data-step]').each(function(){
+    c = API.cookie('start-mes-listes-' + $(this).data('step'));
+    console.log('scripts/user-start.js', 'count init', $(this).data('step'), c);
+    if (parseInt(c) > 0) {
+      count = $('#count-'+$(this).data('step'));
+      count.html(c).show();
+    }
+  });
 
   //register
   $('#register').on('click', function(){
@@ -81,7 +98,7 @@ $(document).ready(function(){
       if (Skhf.session.datas.email && lists_in_session) {
         for(k in UI.available_playlists) {
           var ids = Skhf.session.getPlaylistIds(UI.available_playlists[k]);
-          console.log('UI.loadPlaylistTriggers', 'scripts/user-start.js:', UI.available_playlists[k], ids);
+          console.log('scripts/user-start.js', UI.available_playlists[k], ids);
           for (k in ids) {
             API.addPreference(UI.available_playlists, ids[k]);
           }
