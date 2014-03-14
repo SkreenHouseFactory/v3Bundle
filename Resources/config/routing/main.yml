@@ -224,7 +224,7 @@ person_page:
     pattern:  /{type}/{id}-{slug}/page-{page}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Person:main }
     requirements:
-        type: acteur|adapte-de|artiste|auteur|choregraphe|chroniqueur|co-producteur|compositeur|distributeur|invite|metteur -en-scene|musique|photographie|presentateur|producteur-executif|realisateur|societe-de-production|voix-francaise|voix-originale|voix-off|createur|divers|producteur|metteur-en-scene
+        type: acteur|adapte-de|artiste|auteur|choregraphe|chroniqueur|co-producteur|compositeur|distributeur|invite|metteur -en-scene|musique|photographie|presentateur|producteur-executif|realisateur|societe-de-production|voix-francaise|voix-originale|voix-off|createur|divers|producteur|metteur-en-scene|scenariste
         id: \d+
         slug: "[^/]+"
         page: \d+
@@ -232,7 +232,7 @@ person:
     pattern:  /{type}/{id}-{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Person:main }
     requirements:
-        type: acteur|adapte-de|artiste|auteur|choregraphe|chroniqueur|co-producteur|compositeur|distributeur|invite|metteur -en-scene|musique|photographie|presentateur|producteur-executif|realisateur|societe-de-production|voix-francaise|voix-originale|voix-off|createur|divers|producteur|metteur-en-scene
+        type: acteur|adapte-de|artiste|auteur|choregraphe|chroniqueur|co-producteur|compositeur|distributeur|invite|metteur -en-scene|musique|photographie|presentateur|producteur-executif|realisateur|societe-de-production|voix-francaise|voix-originale|voix-off|createur|divers|producteur|metteur-en-scene|scenariste
         id: \d+
         slug: "[^/]+"
 # deprecated channel : before program !

@@ -647,7 +647,6 @@ API = {
       if (!window.webkitNotifications) {
         return;
       }
-
       if (window.webkitNotifications.checkPermission() > 0) {
         window.webkitNotifications.requestPermission(function() {
           API.notification(title, body, icon);
@@ -658,7 +657,8 @@ API = {
       popup.show();
       setTimeout(function(){
         popup.cancel();
-      }, '15000');
+      }, '10000');
+      console.log('API.notification',  icon, title, body);
     } catch(err) {
       console.error('API.notification', 'error catched', err);
     }
