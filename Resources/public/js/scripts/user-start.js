@@ -110,11 +110,12 @@ $(document).ready(function(){
 
 
   //forms
-  $('form[data-step]').on('submit', function(e){
-    e.preventDefault();
-    container = $('#results-' + $(this).data('step') + ' ul');
-    step = $(this).data('step');
-    q = $(this).find('input[type=text]').val();
+  //$('form[data-step]').on('submit', function(e){
+    //e.preventDefault();
+  $('form[data-step] input[type="text"]').keyup(function () {
+    step = $(this).parents('form:first').data('step');
+    container = $('#results-' + step + ' ul');
+    q = $(this).val(); //$(this).find('input[type=text]').val();
     container.empty();
     API.query(
       'GET', 
