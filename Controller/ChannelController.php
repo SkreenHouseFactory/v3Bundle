@@ -241,9 +241,24 @@ class ChannelCustomController extends Controller
       }
     }
     $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:replay.html.twig', array(
-      'data'=>(array)$data,
-      'channel'=>$data->channel,
-      'pack'=>$pack
+      'data'=> (array)$data,
+      'channel' => $data->channel,
+      'pack' => $pack
+    ));
+    $maxage = 300;
+    $response->setPublic();
+    $response->setMaxAge($maxage);
+    $response->setSharedMaxAge($maxage);
+    return $response;
+  }
+
+
+  // Chaine WebTV
+  protected function channel69($data){
+
+    $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:webtv.html.twig', array(
+      'data' => $data,
+      'channel' => $data->channel,
     ));
     $maxage = 300;
     $response->setPublic();

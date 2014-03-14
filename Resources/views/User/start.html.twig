@@ -1,3 +1,4 @@
+
 {% extends "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% block title %}
@@ -9,9 +10,8 @@
 {% block content %}
 <div id="bandeau-listes">
   <div class="container">
-    <h1>Mes listes</h1>
-    <p class="sk-font">En ajoutant des programmes, des réalisateurs, des acteurs, des chaînes et des salles de cinémas à vos listes, vous êtes averti dès qu'un programme correspondant est diffusé. Que ce soit à la TV, en Replay, au Cinéma ou en VOD.</p>
-    <h2>Commencer mes listes</h2>
+    <h1>Créer Mes listes</h1>
+    <p class="sk-font">En ajoutant des programmes, des réalisateurs, des acteurs, des chaînes et des cinémas à vos listes, vous êtes averti dès qu'une diffusion vous intéresse : TV, Replay, Cinéma ou VOD.</p>
   </div>
 </div>
 <div class="fond-bleu">
@@ -25,7 +25,7 @@
         <li><a href="#persons">Vos Personnalités <span id="count-persons" class="badge">0</span></a></li>
         <li><a href="#theaters">Vos Salles de cinéma <span id="count-theaters" class="badge">0</span></a></li>
         <li><a href="#channels">Vos Chaînes <span id="count-channels" class="badge">0</span></a></li>
-        <li class="user-off confirm"><a href="#confirm">Confirmer</a></li>
+        <li class="user-off confirm"><a href="#confirm" class="black">Enregistrer</a></li>
       </ul>
     </div>
     <div class="forms-container col-xs-11">
@@ -51,7 +51,7 @@
         {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'channels', title: 'Ajouter vos chaînes', suggest: '...'} %}
       </div>
       <div class="form-container user-off">
-        <h2 id="confirm">Confirmer</h2>
+        <h2 id="confirm">Enregistrer</h2>
         <p><button id="register" class="btn btn-primary btn-lg">Enregistrer mes listes</button></p>
       </div>
     </div>
