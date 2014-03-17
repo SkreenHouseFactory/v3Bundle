@@ -11,7 +11,7 @@
           </li>
           {#<li><a href="#">WEB TV</a></li>#}
           <li{{ app.request.get('home') == 'video-a-la-demande' ? ' class="active"' : '' }}>
-            <a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">VOD</a>
+            <a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">A la demande</a>
             {#  {% if home.filters|to_array|length %}
                   <i class="ms-top-triangle ms_triangle_position_a"></i>
                 {% endif %} #}

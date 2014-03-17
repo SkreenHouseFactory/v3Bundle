@@ -247,7 +247,7 @@ nav:
           thisweek: 7 prochains jours
     theaters:
         release: Les sorties de la semaine
-        coming: Les sorties à venir
+        coming: Bientôt dans les salles
         boxoffice: Tous les films en salle
     playlist: Mes programmes
     replay.channels: Replay par chaîne

@@ -5,6 +5,9 @@
     <ul class="hover-menu cine hide">
       <div class="dropdown-borders vod-cine">
         <li>
+          <a href="{{ header_base }}{{ path('homes', {slug : 'cinema'}) }}">Tout le cinéma</a>
+        </li>
+        <li>
           <a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845147-a-decouvrir-dans-les-salles-cette-semaine/'}) }}">{{ 'nav.theaters.release'|trans }}</a>
         </li>
         <li>
@@ -37,6 +40,9 @@
         </li>
         <li>
           <a href="{{ header_base }}{{ path('channel', {slug: 'web-tv'}) }}">Web TV</a>
+        </li>
+        <li>
+          <a href="{{ header_base }}{{ path('channel', {slug: 'd8'}) }}">La TV en direct</a>
         </li>
       </div>
     </ul>
