@@ -42,13 +42,13 @@
       <div class="row replaytop">
         <div class="col-xs-4">
           <div class="prog-list">
-            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live: pack['replay-derniers'].programs, name: 'Derniers en ligne', link: pack['replay-derniers'].seo_url, name_link: 'Les derniers replays', origin: '', list_number: '1' } %}
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live: pack['replay-derniers'].programs, name: pack['replay-derniers'].name, link: pack['replay-derniers'].seo_url, name_link: 'Les derniers replays', origin: '', list_number: '1' } %}
           </div>
         </div>
-        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: pack['replay-populaires'],h_title: "h2", loop_index: 1 } %}
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: pack['replay-populaires'], h_title: "h2", loop_index: 1 } %}
         <div class="col-xs-4">
           <div class="prog-list">
-            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live: pack['replay-bientot'].programs, name: 'Bientôt en replay', link: pack['replay-bientot'].seo_url, name_link: 'Tous les prochains replays', origin: '', list_number: '2' } %}
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live: pack['replay-bientot'].programs, name: pack['replay-bientot'].name, link: pack['replay-bientot'].seo_url, name_link: 'Tous les prochains replays', origin: '', list_number: '2' } %}
           </div>
         </div>
       </div>
