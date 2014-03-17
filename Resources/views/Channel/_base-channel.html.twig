@@ -28,7 +28,6 @@
     {% endif %}
   {% endif %}
   {# seo canonical / prev / next #}
-  AA
   {% if data.channel.program is defined %}
   <link rel="canonical" href="http://www.myskreen.com{{ data.channel.program.seo_url }}">
   {% elseif app.request.attributes.get('_route') == 'channel_page' %}
