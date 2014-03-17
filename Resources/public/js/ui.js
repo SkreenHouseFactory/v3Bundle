@@ -115,11 +115,7 @@ UI = {
         this.loadNotifications(Skhf.session.datas.notifications);
       
         //mes listes
-        if (Skhf.session.datas.cinema) {
-          this.loadTheatersPlaylist();
-        }
-        this.loadReplayPlaylist();
-        this.loadTVPlaylist();
+        this.loadMeslistes();
       } else {
         $('.fb-placeholder').addClass('hide');
         $('.share-placeholder').removeClass('hide');
@@ -698,7 +694,7 @@ UI = {
           console.log('UI.loadTheatersPlaylist', 'callback', datas, this.sliders);
           $('#theaters-names').empty();
           for (k in datas) {
-            $('#theaters-names').append('<a href="#theaters-playlist" data-id="' + datas[k].id + '" class="label label-default label-info">' + datas[k].name + '</a>');
+            $('#theaters-names').append('<a data-id="' + datas[k].id + '" class="label label-default label-info">' + datas[k].name + '</a>');
           }
           UI.sliders['cinema'] = new BaseSlider({
             'url': 'schedule/cine.json?with_schedule=1&programs_only=1&theater_ids=' + Skhf.session.datas.cinema }, 
@@ -728,6 +724,20 @@ UI = {
           //$('.bande-couleur-replay .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' programme'+pluriel+' en replay&nbsp;');
         },
         $('#replay.slider')
+      );
+    }
+  },
+  loadWebtvPlaylist: function(){
+    if($('#webtv.slider').length) {
+      UI.sliders['webtv'] = new BaseSlider({
+        'url': 'www/slider/queue/'+Skhf.session.uid+'/access/webtv.json?nb_results=10&programs_only=1&offset=0&channel_img_width=50&img_width=150&img_height=200&url=&with_best_offer=1'},
+        function(){
+          var nb_items = $('#replay.slider ul.items li').length;
+          var pluriel = nb_items > 1 ? 's' : '';
+          $('.bande-couleur-webtv .col-xs-5 .user-on .meslistes-plus').data('toggle-text','<i class="glyphicon glyphicon-collapse-down"></i> &nbsp;'+nb_items+' vidéo'+pluriel+'&nbsp;');
+          //$('.bande-couleur-replay .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' programme'+pluriel+' en replay&nbsp;');
+        },
+        $('#webtv.slider')
       );
     }
   },
@@ -804,6 +814,14 @@ UI = {
     $('#top-playlist .breadcrumb li:not(:first)').empty();
     lis.popover('enable');
     
+  },
+  loadMeslistes: function() {
+    if (Skhf.session.datas.cinema) {
+      this.loadTheatersPlaylist();
+    }
+    this.loadReplayPlaylist();
+    this.loadWebtvPlaylist();
+    this.loadTVPlaylist();
   },
   loadPlaylist: function(access, onglet){
     var self = this;
