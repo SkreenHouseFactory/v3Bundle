@@ -40,13 +40,13 @@
     <meta property="og:video:secure_url" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
     <meta property="og:video" content="{{ program.player_stream }}" />
     <meta property="og:video:type" content="video/mp4" />
-    <meta property="video:duration" content="{{ program.duration > 0 ? program.duration * 60 : '3600' }}" />
+    <meta property="video:duration" content="{{ program.duration > 0 ? program.duration * 60000 : '3600000' }}" />
 
     <meta name="video_height" content="360" />
     <meta name="video_width" content="640" />
     <link rel="video_src" href="{{ program.player_fb }}" />
     <meta name="video_type" content="application/x-shockwave-flash" />
-    <meta name="video_duration" content="{{ program.duration * 60 }}" />
+    <meta name="video_duration" content="{{ program.duration * 60000 }}" />
     <meta name="object_type" content="episode" />
   {% endif %}
   <link rel="image_src" href="{{ program.picture }}" />
