@@ -115,11 +115,7 @@ UI = {
         this.loadNotifications(Skhf.session.datas.notifications);
       
         //mes listes
-        if (Skhf.session.datas.cinema) {
-          this.loadTheatersPlaylist();
-        }
-        this.loadReplayPlaylist();
-        this.loadTVPlaylist();
+        this.loadMeslistes();
       } else {
         $('.fb-placeholder').addClass('hide');
         $('.share-placeholder').removeClass('hide');
@@ -731,6 +727,20 @@ UI = {
       );
     }
   },
+  loadWebtvPlaylist: function(){
+    if($('#webtv.slider').length) {
+      UI.sliders['webtv'] = new BaseSlider({
+        'url': 'www/slider/queue/'+Skhf.session.uid+'/access/webtv.json?nb_results=10&programs_only=1&offset=0&channel_img_width=50&img_width=150&img_height=200&url=&with_best_offer=1'},
+        function(){
+          var nb_items = $('#replay.slider ul.items li').length;
+          var pluriel = nb_items > 1 ? 's' : '';
+          $('.bande-couleur-webtv .col-xs-5 .user-on .meslistes-plus').data('toggle-text','<i class="glyphicon glyphicon-collapse-down"></i> &nbsp;'+nb_items+' vidéo'+pluriel+'&nbsp;');
+          //$('.bande-couleur-replay .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' programme'+pluriel+' en replay&nbsp;');
+        },
+        $('#webtv.slider')
+      );
+    }
+  },
   loadTVPlaylist: function(){
     if($('#tv.slider').length) {
       UI.sliders['tv'] = new BaseSlider({
@@ -804,6 +814,14 @@ UI = {
     $('#top-playlist .breadcrumb li:not(:first)').empty();
     lis.popover('enable');
     
+  },
+  loadMeslistes: function() {
+    if (Skhf.session.datas.cinema) {
+      this.loadTheatersPlaylist();
+    }
+    this.loadReplayPlaylist();
+    this.loadWebtvPlaylist();
+    this.loadTVPlaylist();
   },
   loadPlaylist: function(access, onglet){
     var self = this;

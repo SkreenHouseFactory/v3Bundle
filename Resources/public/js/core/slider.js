@@ -479,7 +479,8 @@ var BaseSlider = Class.extend({
         else if (p.has_vod == 5) { $('.ms-prog-diff', li).html('TV'); }
         else if (p.has_vod == 6) { $('.ms-prog-diff', li).html('Bientôt en Replay'); }
         else if (p.has_vod == 13) { $('.ms-prog-diff', li).html('Archive'); }
-        else if (p.has_vod == 7 || p.has_vod == 8 || p.has_vod == 9 || p.has_vod == 10) { $('.ms-prog-diff', li).html('Replay'); }
+        else if (p.has_vod == 7 || p.has_vod == 8) { $('.ms-prog-diff', li).html('Replay'); }
+        else if (p.has_vod == 9 || p.has_vod == 10) { $('.ms-prog-diff', li).html('Vidéo'); }
         else if (p.has_vod) { $('.ms-prog-diff', li).html('VOD'); }
 
         //playlist seulement

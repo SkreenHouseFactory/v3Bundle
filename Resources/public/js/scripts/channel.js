@@ -25,12 +25,14 @@ $(document).ready(function(){
     if (channel_name) {
       $('[title="' + channel_name + ' Replay"]').parent().addClass('active');
     }
+    /*
     //access
     if ($('#access').length) {
       $('#access').on('change', function(){
-        
+        // ?
       })
     }
+    */
     //tooltip
     $('a[data-toggle="tooltip"]').tooltip();
     //map

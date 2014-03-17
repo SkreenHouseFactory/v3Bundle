@@ -1,7 +1,7 @@
 {% extends "SkreenHouseFactoryV3Bundle:Channel:_base-channel.html.twig" %}
 
 {% block customcontent %}
-  <div class="bande-couleur-replay">
+  <div class="bande-couleur-webtv">
     <div class="container">
       <div class="row">
         <div class="col-xs-11">
@@ -31,7 +31,7 @@
     {# Connecté #}
     <div class="container user-on">
       <div class="row">
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'replay'}, noheader: true} %}
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'webtv'}, noheader: true} %}
       </div>
     </div>
   </div>
@@ -42,9 +42,9 @@
 
 {% block custompagestyles %}
   {% stylesheets
-    '@SkreenHouseFactoryV3Bundle/Resources/public/less/channel/replay.less'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/channel/webtv.less'
       filter='lessphp,?yui_css'
-      output='css/channel/replay.css'
+      output='css/channel/webtv.css'
     %}
     <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
