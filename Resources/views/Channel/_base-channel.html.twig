@@ -28,7 +28,10 @@
     {% endif %}
   {% endif %}
   {# seo canonical / prev / next #}
-  {% if app.request.attributes.get('_route') == 'channel_page' %}
+  AA
+  {% if data.channel.program is defined %}
+  <link rel="canonical" href="http://www.myskreen.com{{ data.channel.program.seo_url }}">
+  {% elseif app.request.attributes.get('_route') == 'channel_page' %}
     {% if data.channel.fournisseur.count > 30 and app.request.get('format') is null  %}
       <link rel="canonical" href="{{ path('channel', {slug: app.request.get('slug')}) }}">
       {% if app.request.get('page') > 2 %}

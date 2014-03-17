@@ -1,13 +1,33 @@
 <div class="encart-vod">
   <div class="encart-header">
+
+     {% if home.filters|to_array|length %}
+     <div class="bandeau-filters">
+       <div class="container container-filters sk-font">
+         {% if home.name == 'video-a-la-demande' %}
+           Toute la vidéo à la demande
+         {% else %}
+           Découvrir les {{ ('format.pluriel.' ~ (home.name|slice(0, -1)))|trans }} à la demande
+         {% endif %}
+         <br/>
+          {% for f in home.filters|to_array|sort %}
+          <a class="label label-default sk-font" href="{{ path('any_url', {url: f.url|slice(1, f.url|length-1)}) }}" target="_top">{{ f.name }}</a>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+    <div class="bandeau-more">
     <div class="container">
       <div class="row">
         <div class="title lato">Accedez au meilleur de la VOD</div>
         <div class="subtitle">en HD et multi-écran directement sur mySkreen et en 1 clic</div>
-        <a class="btn btn-defaut"><i class="glyphicon glyphicon-info-sign"></i><span>En savoir plus</span></a>
+        <a class="btn btn-defaut" data-toggle-display=".encart-toggle" data-toggle-animation="slide"><i class="glyphicon glyphicon-info-sign"></i><span>En savoir plus</span></a>
       </div>
     </div>
+    </div>
   </div>
+  <div class="encart-toggle">
   <div class="encart-body">
     <div class="container">
       <div class="row">
@@ -52,3 +72,4 @@
       <span class="lien lato">Les offres VOD <i class="glyphicon glyphicon-chevron-down"></i></span>
     </div>
   </div>
+</div>
