@@ -20,7 +20,6 @@
         &.sprite-blockVOD4_18{ background-position: 0 -299px; width: 76px; height: 51px; } 
       }
       display:block;
-      height:91px; 
       width:100%; 
       overflow:hidden;
       color: white;
@@ -28,36 +27,53 @@
         .transition(1s, ease-out);
         height: 922px;
       }
+      .encart-toggle {
+        display: none;
+      }
       .encart-header {
-        .row {
-          padding-left: 120px;
-          padding-top: 17px;
+        .bandeau-filters {
+          background: rgb(46, 117, 179);
+          padding: 5px 0 10px 0;
+          .container-filters {
+            text-align: center;
+            a.label-default {
+              background: #4E96C5;
+              display: inline-block;
+              margin-right: 5px;
+            }
+          }
         }
-        background-color:#4E96C5;
-        height:91px;
-        .title {
-          font-size: 28px;
-          line-height: 40px;
-        }
-        .subtitle {
-          font-size: 14px;
-        }
-        .btn {
-          display: block;
-          background: white;
-          width: 189px;
-          height: 44px;
-          left: 572px;
-          top: 24px;
-          position: absolute;
-          font-size: 17px;
-          padding-top: 9px;
-          padding-left: 26px;
-          >i {
+        .bandeau-more {
+          padding: 10px 0;
+          background-color:#4E96C5;
+          .row {
+            padding-left: 120px;
+            padding-top: 0px;
+          }
+          .title {
+            font-size: 28px;
+            line-height: 40px;
+          }
+          .subtitle {
+            font-size: 14px;
+          }
+          .btn {
+            display: block;
+            background: white;
+            width: 189px;
+            height: 44px;
+            left: 572px;
+            top: 10px;
             position: absolute;
-            left: 14px;
-            top: 8px;
-            font-size: 1.3em;
+            font-size: 17px;
+            padding-top: 9px;
+            padding-left: 26px;
+            >i {
+              position: absolute;
+              left: 14px;
+              top: 8px;
+              font-size: 1.3em;
+            }
           }
         }
       }
