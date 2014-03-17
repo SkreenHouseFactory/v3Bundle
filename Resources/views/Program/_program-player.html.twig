@@ -1,6 +1,6 @@
 {% if program.player is defined and program.player %}
   <a name="teaser"></a>
-  <div id="program-teaser" itemprop="trailer" itemscope itemtype="http://www.schema.org/VideoObject">  
+  <div id="program-teaser" itemscope itemtype="http://www.schema.org/VideoObject" itemref="md-about">  
     <meta itemprop="thumbnail" content="{{ program.picture }}" />
     {% if program.player_fb is defined %}
       <meta itemprop="embedURL" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
