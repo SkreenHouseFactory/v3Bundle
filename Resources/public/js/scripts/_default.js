@@ -105,23 +105,23 @@ $(document).ready(function(){
     // on gère chaque menu du header
     // tv
     $('.navbar-nav >li:first-child').on('click',function(){
-      if ($('.navbar-nav > li:first-child .hover-menu-tv').hasClass("hide")) {
+      if ($('.navbar-nav > li:first-child .hover-menu.tv').hasClass("hide")) {
         $('.navbar-nav > li:first-child+li .vod, .navbar-nav > li:first-child+li+li .cine').removeClass("show-touch");
         $('.navbar-nav > li:first-child+li .vod, .navbar-nav > li:first-child+li+li .cine').addClass("hide");
-        $('.navbar-nav > li:first-child .hover-menu-tv').removeClass("hide");
-        $('.navbar-nav > li:first-child .hover-menu-tv').addClass("show-touch");
+        $('.navbar-nav > li:first-child .hover-menu.tv').removeClass("hide");
+        $('.navbar-nav > li:first-child .hover-menu.tv').addClass("show-touch");
       }
     });
     $('.navbar-nav >li:first-child >a').on('click',function(){
-      if ($('.navbar-nav >li:first-child >div.hover-menu.hover-menu-tv').hasClass('show-touch')) {
+      if ($('.navbar-nav >li:first-child >ul.hover-menu.tv').hasClass('show-touch')) {
         window.location = tv_href;
       }
     });
     // vod
     $('.navbar-nav > li:first-child+li').on('click',function(){
       if ($('.navbar-nav >li:first-child+li .vod').hasClass("hide")) {
-        $('.navbar-nav > li:first-child .hover-menu-tv, .navbar-nav > li:first-child+li+li .cine').removeClass("show-touch");
-        $('.navbar-nav > li:first-child .hover-menu-tv, .navbar-nav > li:first-child+li+li .cine').addClass("hide");
+        $('.navbar-nav > li:first-child .hover-menu.tv, .navbar-nav > li:first-child+li+li .cine').removeClass("show-touch");
+        $('.navbar-nav > li:first-child .hover-menu.tv, .navbar-nav > li:first-child+li+li .cine').addClass("hide");
         $('.navbar-nav > li:first-child+li .vod').removeClass("hide");
         $('.navbar-nav > li:first-child+li .vod').addClass("show-touch");
       }
@@ -135,8 +135,8 @@ $(document).ready(function(){
     // cine
     $('.navbar-nav > li:first-child+li+li').on('click',function(){
       if ($('.navbar-nav >li:first-child+li+li .cine').hasClass("hide")) {
-        $('.navbar-nav > li:first-child .hover-menu-tv, .navbar-nav > li:first-child+li .vod').removeClass("show-touch");
-        $('.navbar-nav > li:first-child .hover-menu-tv, .navbar-nav > li:first-child+li .vod').addClass("hide");
+        $('.navbar-nav > li:first-child .hover-menu.tv, .navbar-nav > li:first-child+li .vod').removeClass("show-touch");
+        $('.navbar-nav > li:first-child .hover-menu.tv, .navbar-nav > li:first-child+li .vod').addClass("hide");
         $('.navbar-nav > li:first-child+li+li .cine').removeClass("hide");
         $('.navbar-nav > li:first-child+li+li .cine').addClass("show-touch");
       }
