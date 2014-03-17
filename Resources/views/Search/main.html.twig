@@ -1,208 +1,208 @@
- {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
 {% block title %}{{ 'page.title.search'|trans({'%q%': app.request.get('q')}) }}{% endblock %}
 {% block description %}{{ 'page.description.search'|trans({'%q%': app.request.get('q')}) }}{% endblock %}
 {% block meta %}<meta name="robots" content="noindex,follow" />{% endblock %}
 
 {% block pagescripts %}
-{% javascripts
+  {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/search.js'
     
-    filter='?yui_js' 
-    output='js/compiled/pages/search.js'  %}
+      filter='?yui_js' 
+      output='js/compiled/pages/search.js'  %}
     <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
+  {% endjavascripts %}
 {% endblock %}
 
 {% block content %}
-<div id="view-search" class="container">
+  <div id="view-search" class="container">
 
-  <div class="panel-group" id="accordion">
-    {# selections #}
-    {% if results.packs is defined and results.packs|length %}
-    {% for pack in results.packs|to_array %}
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapsePack"><i class="glyphicon glyphicon-asterisk"></i> 1 sélection trouvée</a>
-      </div>
-      <div id="collapsePack" class="panel-collapse collapse">
-      <div class="panel-body">
-        <b>{{ pack.name }}</b> &nbsp; {{ pack.description ? pack.description|striptags|raw|slice(0,100)~'...' : '' }}
+    <div class="panel-group" id="accordion">
+      {# selections #}
+      {% if results.packs is defined and results.packs|length %}
+        {% for pack in results.packs|to_array %}
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapsePack"><i class="glyphicon glyphicon-asterisk"></i> 1 sélection trouvée</a>
+            </div>
+            <div id="collapsePack" class="panel-collapse collapse">
+              <div class="panel-body">
+                <b>{{ pack.name }}</b> &nbsp; {{ pack.description ? pack.description|striptags|raw|slice(0,100)~'...' : '' }}
          &nbsp; 
-        <a class="btn btn-default" href="{{ path('any_url', {url: pack.seo_url|slice(1, pack.seo_url|length-1) }) }}">&raquo; Voir la sélection</a>
-      </div>
-    </div>
-    </div>
-    {% endfor %}
-    {% endif %}
-
-    {# sagas #}
-    {% if results.sagas is defined and results.sagas|length %}
-    {% for saga in results.sagas|to_array %}
-    <div class="panel panel-default">
-      <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion" href="#collapseSaga"><i class="glyphicon glyphicon-asterisk"></i> 1 saga trouvée</a></div>
-      <div id="collapseSaga" class="panel-collapse collapse">
-        <div class="panel-body">
-          <b>{{ saga.name }}</b> &nbsp; <a class="btn btn-default" href="{{ path('any_url', {url: saga.seo_url|slice(1, saga.seo_url|length-1) }) }}">&raquo; Voir toute la saga</a>
-        </div>
-    </div>
-    </div>
-    {% endfor %}
-    {% endif %}
-
-    {# categories #}
-    {% if results.categories is defined and results.categories|length %}
-    {% for categorie in results.categories|to_array %}
-    <div class="panel panel-default">
-      <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion" href="#collapseCat"><i class="glyphicon glyphicon-asterisk"></i> 1 catégorie trouvée</a></div>
-      <div id="collapseCat" class="panel-collapse collapse">
-        <div class="panel-body">
-          <b>{{ categorie.name }}</b> &nbsp; <a class="btn btn-default" href="{{ path('any_url', {url: categorie.seo_url|slice(1, categorie.seo_url|length-1) }) }}">&raquo; Voir la catégorie</a>
-        </div>
-    </div>
-    </div>
-    {% endfor %}
-    {% endif %}
-
-    {# cinéma #}
-    {% if results.theaters is defined and results.theaters|length %}
-    {% for theater in results.theaters|to_array %}
-    <div class="panel panel-default">
-      <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion" href="#collapseCine"><i class="glyphicon glyphicon-asterisk"></i> 1 cinéma trouvé</a></div>
-      <div id="collapseCine" class="panel-collapse collapse">
-        <div class="panel-body">
-          <b>{{ theater.name }}</b><br/>
-          {{ theater.ville }} {{ theater.zipcode }} &nbsp; 
-          <a class="btn btn-default" href="{{ path('any_url', {url: theater.seo_url|slice(1, theater.seo_url|length-1) }) }}">&raquo; Voir le cinéma et sa programmation</a>
-        </div>
-    </div>
-    </div>
-    {% endfor%}
-    {% endif %}
-
-    {# channel #}
-    {% if results.channels is defined and results.channels|length %}
-    {% for channel in results.channels|to_array %}
-    <div class="panel panel-default">
-      <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion" href="#collapseChannel"><i class="glyphicon glyphicon-asterisk"></i> 1 chaîne trouvée</a></div>
-      <div id="collapseChannel" class="panel-collapse collapse">
-      <div class="panel-body">
-        <img src="{{ channel.icon|replace({'75/100': '100/50'}) }}" /> &nbsp; <b>{{ channel.name }}</b> &nbsp; 
-        <a class="btn btn-default" href="{{ path('any_url', {url: channel.seo_url|slice(1, channel.seo_url|length-1) }) }}">&raquo; Voir la chaîne</a>
-      </div>
-    </div>
-    </div>
-    {% endfor %}
-    {% endif %}
-
-    {# person #}
-    {% if results.persons is defined and results.persons|length %}
-    {% for person in results.persons|to_array if person.is_valid %}
-    <div class="panel panel-default">
-      <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion" href="#collapsePers"><i class="glyphicon glyphicon-asterisk"></i> 1 personne trouvée</a></div>
-      <div id="collapsePers" class="panel-collapse collapse">
-        <div class="panel-body">
-          <b>{{ person.name }}</b><br/>
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: person.id, name: person.name, fav: 'person'} %}
-          {% if person.nb_programs %}
-          &nbsp;&nbsp;
-          <a class="btn btn-default" href="{{ path('any_url', {url: person.seo_url|slice(1, person.seo_url|length-1) }) }}">&raquo; Voir ses {{ person.nb_programs }} programmes</a>
-          {% endif %}
-        </div>
-    </div>
-    </div>
-    {% endfor%}
-    {% endif %}
-  </div>
-
-  <div id="search-programs">
-  {% if results.count is not defined or 
-        results.count.total is not defined %}
-    {% if results.count is defined %}
-      <h1>{{ app.request.get('q') }}<small class="inline"> | {{ results.count }} {{ 'search.results'|trans }}</small></h1>
-
-      {% if results.spelling|to_array|length %}
-      <p class="bs-callout bs-callout-warning">Vouliez-vous dire : {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling}) }}">{{ spelling }}</a> ?{% endfor %}</p>
+                <a class="btn btn-default" href="{{ path('any_url', {url: pack.seo_url|slice(1, pack.seo_url|length-1) }) }}">&raquo; Voir la sélection</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
       {% endif %}
 
+      {# sagas #}
+      {% if results.sagas is defined and results.sagas|length %}
+        {% for saga in results.sagas|to_array %}
+          <div class="panel panel-default">
+            <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion" href="#collapseSaga"><i class="glyphicon glyphicon-asterisk"></i> 1 saga trouvée</a></div>
+            <div id="collapseSaga" class="panel-collapse collapse">
+              <div class="panel-body">
+                <b>{{ saga.name }}</b> &nbsp; <a class="btn btn-default" href="{{ path('any_url', {url: saga.seo_url|slice(1, saga.seo_url|length-1) }) }}">&raquo; Voir toute la saga</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
 
-    {% else %}
-      <h1>{{ app.request.get('q') }}</h1>
-      <p class="bs-callout bs-callout-warning">{{ 'search.noresults'|trans }}</p>
-        {% if results.spelling is defined%}
-          {% if results.spelling and results.spelling|to_array|length %}
+      {# categories #}
+      {% if results.categories is defined and results.categories|length %}
+        {% for categorie in results.categories|to_array %}
+          <div class="panel panel-default">
+            <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion" href="#collapseCat"><i class="glyphicon glyphicon-asterisk"></i> 1 catégorie trouvée</a></div>
+            <div id="collapseCat" class="panel-collapse collapse">
+              <div class="panel-body">
+                <b>{{ categorie.name }}</b> &nbsp; <a class="btn btn-default" href="{{ path('any_url', {url: categorie.seo_url|slice(1, categorie.seo_url|length-1) }) }}">&raquo; Voir la catégorie</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      {# cinéma #}
+      {% if results.theaters is defined and results.theaters|length %}
+        {% for theater in results.theaters|to_array %}
+          <div class="panel panel-default">
+            <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion" href="#collapseCine"><i class="glyphicon glyphicon-asterisk"></i> 1 cinéma trouvé</a></div>
+            <div id="collapseCine" class="panel-collapse collapse">
+              <div class="panel-body">
+                <b>{{ theater.name }}</b><br/>
+                {{ theater.ville }} {{ theater.zipcode }} &nbsp; 
+                <a class="btn btn-default" href="{{ path('any_url', {url: theater.seo_url|slice(1, theater.seo_url|length-1) }) }}">&raquo; Voir le cinéma et sa programmation</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      {# channel #}
+      {% if results.channels is defined and results.channels|length %}
+        {% for channel in results.channels|to_array %}
+          <div class="panel panel-default">
+            <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion" href="#collapseChannel"><i class="glyphicon glyphicon-asterisk"></i> 1 chaîne trouvée</a></div>
+            <div id="collapseChannel" class="panel-collapse collapse">
+              <div class="panel-body">
+                <img src="{{ channel.icon|replace({'75/100': '100/50'}) }}" /> &nbsp; <b>{{ channel.name }}</b> &nbsp; 
+                <a class="btn btn-default" href="{{ path('any_url', {url: channel.seo_url|slice(1, channel.seo_url|length-1) }) }}">&raquo; Voir la chaîne</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      {# person #}
+      {% if results.persons is defined and results.persons|length %}
+        {% for person in results.persons|to_array if person.is_valid %}
+          <div class="panel panel-default">
+            <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion" href="#collapsePers"><i class="glyphicon glyphicon-asterisk"></i> 1 personne trouvée</a></div>
+            <div id="collapsePers" class="panel-collapse collapse">
+              <div class="panel-body">
+                <b>{{ person.name }}</b><br/>
+                {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: person.id, name: person.name, fav: 'person', placement: 'bottom'} %}
+                {% if person.nb_programs %}
+                  &nbsp;&nbsp;
+                  <a class="btn btn-default" href="{{ path('any_url', {url: person.seo_url|slice(1, person.seo_url|length-1) }) }}">&raquo; Voir ses {{ person.nb_programs }} programmes</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <div id="search-programs">
+      {% if results.count is not defined or 
+            results.count.total is not defined %}
+        {% if results.count is defined %}
+          <h1>{{ app.request.get('q') }}<small class="inline"> | {{ results.count }} {{ 'search.results'|trans }}</small></h1>
+
+          {% if results.spelling|to_array|length %}
+            <p class="bs-callout bs-callout-warning">Vouliez-vous dire : {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling}) }}">{{ spelling }}</a> ?{% endfor %}</p>
+          {% endif %}
+
+
+        {% else %}
+          <h1>{{ app.request.get('q') }}</h1>
+          <p class="bs-callout bs-callout-warning">{{ 'search.noresults'|trans }}</p>
+          {% if results.spelling is defined%}
+            {% if results.spelling and results.spelling|to_array|length %}
               <p class="bs-callout bs-callout-warning">Vouliez-vous dire : 
               {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling }) }}">{{ spelling }}</a> ?{% endfor %}
               </p>
+            {% endif %}
           {% endif %}
-      {% endif %}
-    {% endif %}
-    {% if results.programs is defined %}
-      {% set slider = {title: '', programs: results.programs, url: results.paginate ~ '.json?format=' ~ app.request.get('format')} %}
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
-    {% endif %}
+        {% endif %}
+        {% if results.programs is defined %}
+          {% set slider = {title: '', programs: results.programs, url: results.paginate ~ '.json?format=' ~ app.request.get('format')} %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: slider} %}
+        {% endif %}
 
-  {% else %}
+      {% else %}
   
-    {% if results.count.total %}
-      <h1>{{ app.request.get('q') }}<small class="inline"> | {{ results.count.total }} {{ 'search.results'|trans }}</small></h1>
-      {% if results.spelling|to_array|length %}
-      <p class="bs-callout bs-callout-warning">Vouliez-vous dire : {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}</p>
-      {% endif %}
-    {% else %}
-      <h1>{{ app.request.get('q') }}</h1>
-      <p class="bs-callout bs-callout-warning">{{ 'search.noresults'|trans }}</p>
-      {% if results.spelling|to_array|length %}
-      <p class="bs-callout bs-callout-warning">Vouliez-vous dire : {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}</p>
-      {% endif %}
-    {% endif %}
+        {% if results.count.total %}
+          <h1>{{ app.request.get('q') }}<small class="inline"> | {{ results.count.total }} {{ 'search.results'|trans }}</small></h1>
+          {% if results.spelling|to_array|length %}
+            <p class="bs-callout bs-callout-warning">Vouliez-vous dire : {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}</p>
+          {% endif %}
+        {% else %}
+          <h1>{{ app.request.get('q') }}</h1>
+          <p class="bs-callout bs-callout-warning">{{ 'search.noresults'|trans }}</p>
+          {% if results.spelling|to_array|length %}
+            <p class="bs-callout bs-callout-warning">Vouliez-vous dire : {% for spelling in results.spelling|to_array %}<a href="{{ path('search', {q: spelling|url_encode}) }}">{{ spelling }}</a> ?{% endfor %}</p>
+          {% endif %}
+        {% endif %}
 
 
-  {% set hasActiveTabYet = false %}
-  {% set keys = {
-    'films': 'Films',
-    'documentaires': 'Documentaires',
-    'emissions': 'Emissions',
-    'series': 'Séries',
-    'spectacles': 'Spectacles',
-    'archives': 'Archives',
-    'nouveautes': 'Nouveautés'
-  } %}
-    <ul id="triggers" class="nav nav-pills clear" style="font-size: 1.2em;">
-    {% for key,val in keys %}
-      {% if attribute(results.count,key) %}
-      {% set nb = attribute(results.count,key) %}
-    <li{% if hasActiveTabYet == false %} class="active"{% set hasActiveTabYet = key %}{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ val }}<span>{{ nb }}</span></a></li>
-    {% endif %}
-    {% endfor %}
-        <li class="pull-right"><a href="#youtube" id="trigger-youtube" data-toggle="tab">YouTube</a></li>
-    </ul>
+        {% set hasActiveTabYet = false %}
+        {% set keys = {
+          'films': 'Films',
+          'documentaires': 'Documentaires',
+          'emissions': 'Emissions',
+          'series': 'Séries',
+          'spectacles': 'Spectacles',
+          'archives': 'Archives',
+          'nouveautes': 'Nouveautés'
+        } %}
+        <ul id="triggers" class="nav nav-pills clear" style="font-size: 1.2em;">
+          {% for key,val in keys %}
+            {% if attribute(results.count,key) %}
+              {% set nb = attribute(results.count,key) %}
+              <li{% if hasActiveTabYet == false %} class="active"{% set hasActiveTabYet = key %}{% endif %}><a href="#{{ key }}" id="trigger-{{ key }}" data-toggle="tab" data-nb="{{ nb }}">{{ val }}<span>{{ nb }}</span></a></li>
+            {% endif %}
+          {% endfor %}
+          <li class="pull-right"><a href="#youtube" id="trigger-youtube" data-toggle="tab">YouTube</a></li>
+        </ul>
 
-    <br/>
-    <div class="tab-content">
-    {% for key,val in keys %}
-    <div id="{{ key }}" class="tab-pane{% if hasActiveTabYet == key %} active{% endif %}">
-      {% if attribute(results.count,key) %}
-        <div id="user-programs" class="slider slider-list">
-          <ul class="items">
-        {% for p in attribute(results,val)|to_array %}
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p} %}
-        {% endfor %}
-          </ul>
-      </div>
-      {% endif %}
-    </div>
-    {% endfor %}
-    <div id="youtube" class="tab-pane" data-more-streaming-query="{{ results.query }}">
-      <div id="carousel-youtube" class="carousel slide">
-          <div class="carousel-inner"></div>
-            <a class="carousel-control left" href="#carousel-youtube" data-slide="prev">&lsaquo;</a>
-            <a class="carousel-control right" href="#carousel-youtube" data-slide="next">&rsaquo;</a>
+        <br/>
+        <div class="tab-content">
+          {% for key,val in keys %}
+            <div id="{{ key }}" class="tab-pane{% if hasActiveTabYet == key %} active{% endif %}">
+              {% if attribute(results.count,key) %}
+                <div id="user-programs" class="slider slider-list">
+                  <ul class="items">
+                    {% for p in attribute(results,val)|to_array %}
+                      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p} %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+          <div id="youtube" class="tab-pane" data-more-streaming-query="{{ results.query }}">
+            <div id="carousel-youtube" class="carousel slide">
+              <div class="carousel-inner"></div>
+              <a class="carousel-control left" href="#carousel-youtube" data-slide="prev">&lsaquo;</a>
+              <a class="carousel-control right" href="#carousel-youtube" data-slide="next">&rsaquo;</a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  {% endif %}
+    {% endif %}
   </div>
   <div id="bottom-search-results"></div>
 </div>
