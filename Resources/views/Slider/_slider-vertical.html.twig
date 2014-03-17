@@ -12,16 +12,25 @@
 {% endfor %}
 {% set page = (custom_ltest / 7)|round_up %}
 
-<h2> 
-  <a href="{{ link|slice(0,1) == '/' ? link : path(link) }}">{{ name }}</a>
+<h2>
+  {% if link is defined and link %}
+    <a href="{{ link|slice(0,1) == '/' ? link : path(link) }}">{{ name }}</a>
+  {% else %}
+    {{ name }}
+  {% endif %}
 </h2>
 
 <div id="channel_prog-list{{ list_number }}" class="carousel slide vertical" data-interval="false">
   <!-- Carousel items -->
   <div class="carousel-inner">
     <div class="active item">
-      {% for item in live | to_array %}     
-      {# évite les répétitions des items #}
+      {% for item in live | to_array %}
+        {% if item.popular_channel is defined %}
+          {% set popular_channel = item.popular_channel %}
+        {% elseif fournisseur is defined %}
+          {% set popular_channel = fournisseur %}
+        {% endif %}
+        {# évite les répétitions des items #}
         {% if custom_l is divisibleby(7)  and custom_l != 0 and custom_l != item_loop %}
           {% set item_loop = custom_l %}
           </div>
@@ -46,17 +55,20 @@
             </a>
             <div class="hr-like"></div>
           {% endfor %}
-        {% elseif item.popular_channel is defined and item.popular_channel %}
+        {% elseif popular_channel is defined and popular_channel %}
           {% set custom_l = custom_l + 1 %}
           <a href="{{ path('any_url', {url: item.url|slice(1, item.url|length-1)}) }}">
               <div class="channel-program">
                 <div class="icon_chaine"> 
-                  <img src="{{ item.popular_channel.img | replace({45:36}) }}" alt="regarder {{ item.popular_channel.name }} en replay">
+                  <img src="{{ popular_channel.img | replace({45:36}) }}" alt="regarder {{ popular_channel.name }} en replay">
                 </div>
                 <div class="desc_chaine">
                   <div>
                     <h3>{{ item.title }}</h3>
-                    {{ item.format ? ('<span>' ~ item.format.name ~ '</span>')|raw : "" }}
+                    <span>
+                      {{ origin == 'fournisseur_avenir' ? ('<b>' ~ item.best_offer.broadcasttime | date("H:i") ~ '</b>')|raw : '' }}
+                      {{ origin == 'fournisseur_replay' ? item.best_offer.broadcasttime | localizeddate("medium","none",app.request.locale,"Europe/Paris","H:m EEEE") : (item.format ? ' ' ~ item.format.name : " Émission") }}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -79,6 +91,8 @@
    </button>
  </a>
 </div>
-<a href="{{ link|slice(0,1) == '/' ? link : path(link) }}" class="undernot">
- <button type="button" class="btn btn-default btn-grille">{{ name_link }}</button>
-</a>
+{% if name_link is defined and name_link %}
+  <a href="{{ link|slice(0,1) == '/' ? link : path(link) }}" class="undernot">
+    <button type="button" class="btn btn-default btn-grille">{{ name_link }}</button>
+  </a>
+{% endif %}

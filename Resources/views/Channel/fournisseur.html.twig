@@ -170,7 +170,7 @@
       slug: {{ app.request.get('slug') }}
       page: {{ app.request.get('page') }}
       #}
-      {% if channel.type != 'cinema' and (categories|length or formats|length) %}
+      {% if channel.type != 'cinema' and categories is defined and (categories|length or formats|length) %}
 
         <hr/>
         <div class="facets">
