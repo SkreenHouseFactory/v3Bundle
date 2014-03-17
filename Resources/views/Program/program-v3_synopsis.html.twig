@@ -1,7 +1,7 @@
 {# Synopsis #}
 <div class="col-xs-16">
   <div id="program-synopsis" class="panel panel-default panel-synopsis{{ program.description|striptags|length < 907 ? ' forced-height':'' }}">
-    <div class="panel-heading" itemscope itemtype="http://schema.org/WebPage" itemref="md-breadcrumb affiche md-ispartof md-about">
+    <div class="panel-heading" itemscope itemtype="http://schema.org/WebPage" itemref="md-breadcrumb affiche md-ispartof">
       <div id="md-name-description">
           <h1 class="panel-title" itemprop="name">Tout sur {{ program.title }} {{ program.has_vod|accessFromHasvod }}</h1>
         <meta itemprop="description" content="{% block description %}{% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_description.html.twig' %}{% endblock %}"/>

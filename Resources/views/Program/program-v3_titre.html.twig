@@ -19,7 +19,7 @@
       </div>
     </div>
     
-    <div class="row" id="md-about" itemprop="about" itemscope itemtype="http://schema.org/{{ program_itemtype }}" itemref="program-teaser md-year {{ program_itemtype == 'Movie' ? 'md-duration ' : '' }}program-casting md-tvseason">
+    <div class="row" id="md-about" itemprop="about" itemscope itemtype="http://schema.org/{{ program_itemtype }}" itemref="md-year {{ program_itemtype == 'Movie' ? 'md-duration ' : '' }}program-casting md-tvseason">
       <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
       <div id="fake_h1" class="col-xs-16" itemprop="name">
         {% if program.episode_title is defined and
