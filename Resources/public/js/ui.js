@@ -91,14 +91,14 @@ UI = {
 
     if (Skhf.session.datas.email) {
       //on
-      //load playlist
-      if ($('.btn.meslistes-plus[data-toggle-display]').length) {
-        $('.btn.meslistes-plus[data-toggle-display]').trigger('click');
-      }
       
       //self.loadSelector();
       $('body').addClass('connected');
       if (!update) {
+        //load playlist
+        if ($('.btn.meslistes-plus[data-toggle-display]').length) {
+          $('.btn.meslistes-plus[data-toggle-display]').trigger('click');
+        }
         Skhf.session.initPlaylist();
         $('.user-off:not(.hide)').addClass('hide');
         $('.user-on.hide').removeClass('hide');
