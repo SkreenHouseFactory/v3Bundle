@@ -1,13 +1,13 @@
 {% if app.request.get('geoloc_from_theater_id') is null %}
-{% if app.request.get('q') %}
-  <h3>Recherche : {{ app.request.get('q') }}</h3>
-{% elseif app.request.get('playlist') %}
-  <h3>{{ 'theaters.playlist.title'|trans }}</h3>
-{% else %}
-  {% if app.request.get('theater_ids') is null %}
-    <h3>Séances près d'ici</h3>
+  {% if app.request.get('q') %}
+    <h3>Recherche : {{ app.request.get('q') }}</h3>
+  {% elseif app.request.get('playlist') %}
+    <h3>{{ 'theaters.playlist.title'|trans }}</h3>
+  {% else %}
+    {% if app.request.get('theater_ids') is null %}
+      <h3>Séances près d'ici</h3>
+    {% endif %}
   {% endif %}
-{% endif %}
 {% endif %}
 
 {% if cinemas|length == 0 %}
@@ -21,7 +21,6 @@
     <p class="bs-callout bs-callout-warning">{{ 'program.theaters.noprogram.geoloc'|trans }}</p>
   {% endif %}
 {% else %}
-
   <div class="panel-group" id="accordion-theaters">
     {% if radius is defined and radius > 10 %}
       <p class="bs-callout bs-callout-info">{{ 'program.theaters.extended.geoloc'|trans }}</p>
