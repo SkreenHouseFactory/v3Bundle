@@ -698,7 +698,7 @@ UI = {
           console.log('UI.loadTheatersPlaylist', 'callback', datas, this.sliders);
           $('#theaters-names').empty();
           for (k in datas) {
-            $('#theaters-names').append('<a href="#theaters-playlist" data-id="' + datas[k].id + '" class="label label-default label-info">' + datas[k].name + '</a>');
+            $('#theaters-names').append('<a data-id="' + datas[k].id + '" class="label label-default label-info">' + datas[k].name + '</a>');
           }
           UI.sliders['cinema'] = new BaseSlider({
             'url': 'schedule/cine.json?with_schedule=1&programs_only=1&theater_ids=' + Skhf.session.datas.cinema }, 

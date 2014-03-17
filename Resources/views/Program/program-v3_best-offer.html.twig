@@ -2,7 +2,7 @@
 {% set o = program.best_offer %}
 {% set o_channel = program.best_offer.channel %}
 {% set o_access = program.best_offer.access %}
-{% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
+{% set o_episode = o.episode_id is defined and program.datas_offers.episodes is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
 {% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
 
 <div class="col-xs-11">

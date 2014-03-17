@@ -378,35 +378,39 @@ var BaseSlider = Class.extend({
   addProgramSchedule: function(li, p) {
     if (typeof p.offers != 'undefined' && typeof p.offers.theaters_schedules != 'undefined') {
       console.log('BaseSlider.insertPrograms', 'add schedule program', p.id);
+      var content = '';
       for (k in p.offers.theaters_schedules) {
-        var content = '';
         var theater_name = $('#theaters-names [data-id="'+k+'"]').text();
         var cine_schedule = p.offers.theaters_schedules[k];
-        console.log('BaseSlider.insertPrograms', 'add schedule', k, cine_schedule);
-        content += theater_name+' : ';
-        for (l in cine_schedule) {
-          var data_schedule = cine_schedule[l];
-          content += '<br/><small><b>' + data_schedule['name']+': </b>';
-          i=0;
-          for (m in data_schedule['schedules']) {
-            if (i> 0) content += ', ';
-            content += data_schedule['schedules'][m]['hour'];
-            i++;
+        console.log('BaseSlider.insertPrograms', 'add schedule cine', k, cine_schedule, Object.keys(cine_schedule).length);
+        if (Object.keys(cine_schedule).length) {
+          content += theater_name+' : ';
+          for (l in cine_schedule) {
+            var data_schedule = cine_schedule[l];
+            content += '<br/><small><b>' + data_schedule['name']+': </b>';
+            i=0;
+            for (m in data_schedule['schedules']) {
+              if (i> 0) content += ', ';
+              content += data_schedule['schedules'][m]['hour'];
+              i++;
+            }
+            content += '</small>';
           }
-          content += '</small>';
         }
         content += '<br/>';
       }
-      li.popover({
-        title:  function() { 
-          return 'Prochaines séances'
-        },
-        content: content,
-        html: true,
-        trigger: 'hover',
-        container: 'body',
-        placement: 'top'
-      });
+      if (content) {
+        li.popover({
+          title:  function() { 
+            return 'Prochaines séances'
+          },
+          content: content,
+          html: true,
+          trigger: 'hover',
+          container: 'body',
+          placement: 'top'
+        });
+      }
     }
   },
   addProgramBestOffer: function(li, p) {
