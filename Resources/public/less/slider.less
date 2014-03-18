@@ -325,8 +325,17 @@ Author: Benoît Bergstörm
     }
   }
 }
-.well .slider ul.items > li .tv-component .wrap-title span.title, .slider .slider-container ul.items > li .tv-component .wrap-title span.title {
-  bottom: -22px;
+.well .slider, .slider .slider-container {
+  ul.items > li {
+    .tv-component .wrap-title span.title {
+      bottom: -24px;
+    }
+    &:not(.films) {
+      .tv-component .wrap-title span.title {
+        bottom: -3px;
+      }
+    }
+  }
 }
 
 
