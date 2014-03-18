@@ -54,7 +54,7 @@ class TimelineController extends Controller
         'channel_img_width' => 65,
         'session_uid' => $request->get('session_uid'),
         'channels_ids' => $request->get('channels_ids'),
-        'fields' => 'best_offer,player,categories',
+        'fields' => 'best_offer,player,categories_as_string',
         'time' => time()
       ));
       //echo $api->url;

@@ -98,7 +98,7 @@ $(document).ready(function(){
         }
 			});
 		}, function(msg, code){
-			container.preprend('<p class="alert alert-error">' + msg + '</p>');
+			container.prepend('<p class="alert alert-error">' + msg + '</p>');
 		});
 		return false;
 	});
