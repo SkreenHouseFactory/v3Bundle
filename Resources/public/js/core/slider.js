@@ -384,19 +384,25 @@ var BaseSlider = Class.extend({
         var cine_schedule = p.offers.theaters_schedules[k];
         console.log('BaseSlider.insertPrograms', 'add schedule cine', k, cine_schedule, Object.keys(cine_schedule).length);
         if (Object.keys(cine_schedule).length) {
+          if (content.length) {
+            content += '<hr/>';
+          }
           content += theater_name+' : ';
+          content += '<small><table class="table-striped">';
           for (l in cine_schedule) {
             var data_schedule = cine_schedule[l];
-            content += '<br/><small><b>' + data_schedule['name']+': </b>';
+            var version = data_schedule['schedules'][0]['version'];
+            content += '<tr><td><strong>' + data_schedule['name'].slice(0,3)+'&nbsp;</strong>'+(version?' </td><td><span class="label label-default">'+version:'')+'</span></td><td>&nbsp;';
             i=0;
             for (m in data_schedule['schedules']) {
               if (i> 0) content += ', ';
               content += data_schedule['schedules'][m]['hour'].replace('h00', 'h');
               i++;
             }
-            content += '</small>';
+            content += '</td></tr>';
           }
-          content += '<br/>';
+
+          content += '</table></small>';
         }
       }
       if (content) {
