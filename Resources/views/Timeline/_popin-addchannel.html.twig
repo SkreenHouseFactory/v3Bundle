@@ -19,7 +19,7 @@
   <div class="scroll" style="overflow-y: auto; max-height: 250px;">
   <table class="table table-striped">
   {% for channel in channels %}
-    {% if channel.epg %}
+    {% if channel.epg is defined and channel.epg %}
     <tr>
       <td>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'fav-epg pull-right', text: 'Ajouter à la grille', name: channel.name } %}
