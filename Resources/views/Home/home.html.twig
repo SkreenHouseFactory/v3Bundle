@@ -3,31 +3,31 @@
 {% set page_title = 'page.title.home.' ~ home.name %}
 {% set page_description = 'page.description.home.' ~ home.name %}
 {% if app.request.get('home') == 'jeunesse' %}
-{% set keywords = 'dessin animé, manga, film d\'animation, cartoon, enfants, junior, disney, pixar, série animée, kids' %}
+  {% set keywords = 'dessin animé, manga, film d\'animation, cartoon, enfants, junior, disney, pixar, série animée, kids' %}
 {% elseif app.request.get('home') == 'tv-replay' %}
-{% set keywords = 'émission, rattrapage, à la demande, programme tv, reportage, divertissement, télé réalité, JT, talk show, sports' %}
+  {% set keywords = 'émission, rattrapage, à la demande, programme tv, reportage, divertissement, télé réalité, JT, talk show, sports' %}
 {% elseif app.request.get('home') == 'film' %}
-{% set keywords = 'long métrage, cinéma, vidéo à la demande, fantastique, horreur, comédie, drame' %}
+  {% set keywords = 'long métrage, cinéma, vidéo à la demande, fantastique, horreur, comédie, drame' %}
 {% elseif app.request.get('home') == 'spectacle' %}
-{% set keywords = 'divertissement, théatre, concert, musique, one man show, humour, pièce, classique, scène' %}
+  {% set keywords = 'divertissement, théatre, concert, musique, one man show, humour, pièce, classique, scène' %}
 {% elseif app.request.get('home') == 'documentaire' %}
-{% set keywords = 'reportage, société, découvertes, voyages, arts, biographies, histoire' %}
+  {% set keywords = 'reportage, société, découvertes, voyages, arts, biographies, histoire' %}
 {% elseif app.request.get('home') == 'serie' %}
-{% set keywords = 'feuilleton, policier, télé, soap, à suivre, house, experts, ncis, saison' %}
+  {% set keywords = 'feuilleton, policier, télé, soap, à suivre, house, experts, ncis, saison' %}
 {% elseif app.request.get('home') == 'cinema' %}
-{% set keywords = 'grand écran, séance, films, projection, salles, horaires, sorties, bandes-annonces' %}
+  {% set keywords = 'grand écran, séance, films, projection, salles, horaires, sorties, bandes-annonces' %}
 {% elseif app.request.get('home') is null %}
-{% set keywords = 'replay, vidéo à la demande, streaming, cinéma' %}
+  {% set keywords = 'replay, vidéo à la demande, streaming, cinéma' %}
 {% endif %}
 {% set seo_description_hauteur = ('%.0f'|format(home.sliders|to_array|length//2))*490 %}
 
 {% block meta %}
- {% if keywords is defined %}<meta name="keywords" content="{{ keywords }}">{% endif %}
- <meta property="og:title" content="{{ page_title|trans }}" />
- <meta property="og:description" content="{{ page_description|trans }}" />
- <meta property="og:image" content="http://medias.myskreen.com/logo.png" />
- <meta property="og:type" content="website" />
- <meta property="og:url" content="http://www.myskreen.com" />
+  {% if keywords is defined %}<meta name="keywords" content="{{ keywords }}">{% endif %}
+  <meta property="og:title" content="{{ page_title|trans }}" />
+  <meta property="og:description" content="{{ page_description|trans }}" />
+  <meta property="og:image" content="http://medias.myskreen.com/logo.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://www.myskreen.com" />
 {% endblock %}
 {% block title %}{{ page_title|trans }}{% endblock %}
 {% block description %}{{ page_description|trans }}{% endblock %}
@@ -37,54 +37,54 @@
 {% block content %}
 <div id="view-home">
   {% for slider in home.sliders|to_array if slider.id is defined %}
-  {% if loop.first %}
-  <div class="description-seo description-seo-absolute">
-    <div class="container well scroll">
-      <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1> 
-      {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
-      {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
-    </div>
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- homepage 970x90 -->
-    <ins class="adsbygoogle"
-         style="display:inline-block;width:970px;height:90px"
-         data-ad-client="ca-pub-4265768576048156"
-         data-ad-slot="3195548951"></ins>
-    <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  </div>
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une transchange', force_size: '/1250/370'} %}
-  {% if 'video-a-la-demande' in app.request.uri %}
-  {% include 'SkreenHouseFactoryV3Bundle:Home:_encartvod.html.twig' %}
-  {% endif %}
-  {% if app.request.get('home') == 'cinema' %}
-  {% include 'SkreenHouseFactoryV3Bundle:Cinema:_addtolist.html.twig' %}
-  <div class="bande_fonce">
-    <div class="container">
-      <h3>Chercher un cinéma :</h3>
-      {% include 'SkreenHouseFactoryV3Bundle:Cinema:_popin-search.html.twig' with {cinemas: {}} %}
-    </div>
-  </div>
-  {% endif %}
-  {% else %}
-  {% if loop.index == 2 and home.more is defined %}
-  {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more , loop_index: loop.index } %}
-  {% endif %}
-  {% if loop.index == 2 %}
-  <div class="container">
-    <div class="row">
-      <div class="first-container">
-        {% endif %}
-        {% if loop.index >= 2 %} 
+    {% if loop.first %}
+      <div class="description-seo description-seo-absolute">
+        <div class="container well scroll">
+          <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1> 
+          {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
+          {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
+        </div>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- homepage 970x90 -->
+        <ins class="adsbygoogle"
+            style="display:inline-block;width:970px;height:90px"
+            data-ad-client="ca-pub-4265768576048156"
+            data-ad-slot="3195548951"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une transchange', force_size: '/1250/370'} %}
+      {% if 'video-a-la-demande' in app.request.uri %}
+        {% include 'SkreenHouseFactoryV3Bundle:Home:_encartvod.html.twig' %}
+      {% endif %}
+      {% if app.request.get('home') == 'cinema' %}
+        {% include 'SkreenHouseFactoryV3Bundle:Cinema:_addtolist.html.twig' %}
+        <div class="bande_fonce">
+          <div class="container">
+            <h3>Chercher un cinéma :</h3>
+            {% include 'SkreenHouseFactoryV3Bundle:Cinema:_popin-search.html.twig' with {cinemas: {}} %}
+          </div>
+        </div>
+      {% endif %}
+    {% else %}
+      {% if loop.index == 2 and home.more is defined %}
+        {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more , loop_index: loop.index } %}
+      {% endif %}
+      {% if loop.index == 2 %}
+        <div class="container">
+          <div class="row">
+            <div class="first-container">
+      {% endif %}
+      {% if loop.index >= 2 %} 
         {% if home.more is defined %}
-        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index+1 } %}
+          {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index+1 } %}
         {% else %}
-        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index} %}
+          {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index} %}
         {% endif %}
-        {% endif %}
-        {% endif %}
-        {% endfor %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
       </div>
     </div>
   </div>
