@@ -296,7 +296,7 @@ class ChannelController extends ChannelCustomController
   }
 
   //Channel
-  public function channelAction(Request $request)
+  public function channelAction(Request $request, $slug = null)
   {
     $this->blockDomain($request);
 
@@ -307,7 +307,7 @@ class ChannelController extends ChannelCustomController
 
     $api   = $this->get('api');
     $params = array(
-      'from_slug'  => $request->get('slug'),
+      'from_slug'  => $request->get('slug', $slug),
       'channel_img_width' => 45,
       'img_width' => 150,
       'img_height' => 200,
@@ -443,7 +443,7 @@ class ChannelController extends ChannelCustomController
     }
 
     //bad url
-    if (!strstr($request->getPathInfo(), '/partners/') &&
+    if (!strstr($request->getPathInfo(), '_fragment') &&
               ($request->getPathInfo() != $data->seo_url &&
               $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' &&
               $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' &&

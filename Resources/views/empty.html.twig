@@ -1,42 +1,44 @@
-{% if app.request.isXmlHttpRequest %}
+{% if app.request.isXmlHttpRequest or '_fragment' in app.request.getPathInfo %}
 {% else %}
-<!doctype html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="fr"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="fr"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="fr"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>{% block title endblock %} | {{ 'service.name'|trans }}</title>
-  <meta name="description" content="{% block description %}{% endblock %}">
-  <meta name="author" content="mySkreen">
-  <meta name="language" content="fr-FR" />
-  <meta name="viewport" content="width=device-width">
-  <meta name="robots" content="noindex,nofollow">
-  {% if block('css') is empty %}
-    {% stylesheets
+  <!doctype html>
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="fr"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="fr"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="fr"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{% block title endblock %} | {{ 'service.name'|trans }}</title>
+    <meta name="description" content="{% block description %}{% endblock %}">
+    <meta name="author" content="mySkreen">
+    <meta name="language" content="fr-FR" />
+    <meta name="viewport" content="width=device-width">
+    <meta name="robots" content="noindex,nofollow">
+    {% if block('css') is empty %}
+      {% stylesheets
         '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
           filter='less,?yui_css'
           output='css/empty.css'
           %}
         <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
-    {% endstylesheets %}
-  {% else %}
-    {% block css %}
+      {% endstylesheets %}
+    {% else %}
+      {% block css %}
+      {% endblock %}
+    {% endif %}
+    {% block meta %}
     {% endblock %}
-  {% endif %}
-  {% block meta %}
-  {% endblock %}
-</head>
-<body{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}>
-  <div id="fb-root"></div>
+  </head>
+  <body{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}>
+    <div id="fb-root"></div>
 {% endif %}
 
 <div class="body_background" data-refresh-bodybackground="{% block body_background %} {% endblock %}" data-refresh-bodyclass="{% block body_class %} {% endblock %}"></div>
 {% block content %}
 {% endblock %}
-{% if app.request.isXmlHttpRequest %}
+{% if app.request.isXmlHttpRequest or '_fragment' in app.request.getPathInfo %}
+  {% block pagestyles %}
+  {% endblock %}
   {% block pagescripts %}
   {% endblock %}
   <script>

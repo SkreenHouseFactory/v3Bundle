@@ -1,4 +1,4 @@
-{% extends app.request.isXmlHttpRequest or app.request.get('xhr') ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : app.request.get('sklayout', 'SkreenHouseFactoryV3Bundle::layout') ~ ".html.twig" %}
+{% extends app.request.isXmlHttpRequest or app.request.get('xhr') or '_fragment' in app.request.getPathInfo ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
 {% block meta %}
   <meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ data.channel is defined and data.channel.name is defined ? data.channel.name : data.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}" />
@@ -72,7 +72,7 @@
   {% block customcontent %}
   {% endblock %}
   
-  {% if '/partners/' not in app.request.getPathInfo %}
+  {% if '_fragment' not in app.request.getPathInfo %}
     {% if block('custommodal') is empty %}
       {% include 'SkreenHouseFactoryV3Bundle:Channel:_modal.html.twig' with {'data': data} %}
     {% else %}

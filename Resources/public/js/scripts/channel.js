@@ -74,55 +74,58 @@ $(document).ready(function(){
 
     //////////// CALLBACKS ////////////////
     // -- session sync
-    Skhf.session.callbackSignin['channel'] = function() {
-      //follow
-      if (document.location.href.match(/\?follow/gi) && 
-          !$('.btn-suivre[data-id]').hasClass('fav-on') && 
-          !$('.btn-suivre[data-id]').hasClass('triggered')) {
-        $('.btn-suivre[data-id]').trigger('click').addClass('triggered');
-      }
-      //modal
-      var cookie_visited_channels = API.cookie('visited_channels') ? API.cookie('visited_channels').split(',') : [];
-      console.log('scripts/channels.js', 'visited_channels', channel_id, cookie_visited_channels)
-      if (!cookie_visited_channels || $.inArray('' + channel_id, cookie_visited_channels) == -1) {
+    if (typeof Skhf.session.callbackSignin != 'undefined') {
+      Skhf.session.callbackSignin['channel'] = function() {
+        //follow
+        if (document.location.href.match(/\?follow/gi) && 
+            !$('.btn-suivre[data-id]').hasClass('fav-on') && 
+            !$('.btn-suivre[data-id]').hasClass('triggered')) {
+          $('.btn-suivre[data-id]').trigger('click').addClass('triggered');
+        }
+        //modal
+        var cookie_visited_channels = API.cookie('visited_channels') ? API.cookie('visited_channels').split(',') : [];
+        console.log('scripts/channels.js', 'visited_channels', channel_id, cookie_visited_channels)
+        if (!cookie_visited_channels || $.inArray('' + channel_id, cookie_visited_channels) == -1) {
 
-        if ($('#channel-modal').length && !document.location.href.match(/\?follow/gi)){
-          //si modal
-          if (Skhf.session.datas.email) {
-            $('#channel-modal').addClass('connected');
-          }
-          if (!Skhf.session.datas.email || 
-              !Skhf.session.isInPlaylist($('.fav').data('playlist'), $('.fav').data('id'))) {
-            $('#channel-modal').modal('show');
-          }
-          API.cookie(
-            'visited_channels', 
-            (cookie_visited_channels.length ? cookie_visited_channels.join(',') + ',' : null) + channel_id
-          );
+          if ($('#channel-modal').length && !document.location.href.match(/\?follow/gi)){
+            //si modal
+            if (Skhf.session.datas.email) {
+              $('#channel-modal').addClass('connected');
+            }
+            if (!Skhf.session.datas.email || 
+                !Skhf.session.isInPlaylist($('.fav').data('playlist'), $('.fav').data('id'))) {
+              $('#channel-modal').modal('show');
+            }
+            API.cookie(
+              'visited_channels', 
+              (cookie_visited_channels.length ? cookie_visited_channels.join(',') + ',' : null) + channel_id
+            );
 
-          $('#triggerfav').on('click', function() {
-            $('.fav[data-id]').trigger('click');
-            $('#channel-modal').modal('hide');
-          })
-          $('#fbconnect').on('click', function() {
-            Skhf.session.callbackSignin['channel'] = function(sessionData) {
-              //add channel to playlist
-              if (sessionData.email) {
-                var id = $('.fav[data-id]').data('id');
-                console.log('scripts/channels.js', 'back from signin', id, sessionData.page.split(','));
+            $('#triggerfav').on('click', function() {
+              $('.fav[data-id]').trigger('click');
+              $('#channel-modal').modal('hide');
+            })
+            $('#fbconnect').on('click', function() {
+              Skhf.session.callbackSignin['channel'] = function(sessionData) {
+                //add channel to playlist
+                if (sessionData.email) {
+                  var id = $('.fav[data-id]').data('id');
+                  console.log('scripts/channels.js', 'back from signin', id, sessionData.page.split(','));
 
-                if (($('.fav.fav-page').length && $.inArray(id, sessionData.page.split(',')) == -1) ||
-                    ($('.fav.fav-person').length && $.inArray(id, sessionData.person.split(',')) == -1) ||
-                    ($('.fav.fav-channel').length && $.inArray(id, sessionData.channel.split(',')) == -1) ||
-                    ($('.fav.fav-user').length && $.inArray(id, sessionData.user.split(',')) == -1)) {
-                  $('.fav[data-id]').trigger('click');
+                  if (($('.fav.fav-page').length && $.inArray(id, sessionData.page.split(',')) == -1) ||
+                      ($('.fav.fav-person').length && $.inArray(id, sessionData.person.split(',')) == -1) ||
+                      ($('.fav.fav-channel').length && $.inArray(id, sessionData.channel.split(',')) == -1) ||
+                      ($('.fav.fav-user').length && $.inArray(id, sessionData.user.split(',')) == -1)) {
+                    $('.fav[data-id]').trigger('click');
+                  }
                 }
               }
-            }
-          })
+            })
+          }
         }
       }
     }
+    
 
     //////////// SCRIPTS GENERAUX ////////////////
     //setting
