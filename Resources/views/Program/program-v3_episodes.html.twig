@@ -6,7 +6,7 @@
         <div class="panel-heading clearfix">
           <h3 class="panel-title{{ program.seasons|to_array|length > 11 ? ' big-seasons' : '' }}">Toutes les saisons</h3>
           {% if program.seasons|to_array|first.number != '(autres)' %}
-            <div class="btn-group pull-left">
+            <div class="btn-group {{ program.seasons|to_array|length > 9 ? ' block' : 'pull-right' }}">
               <button class="btn btn-sm btn-default" disabled="disabled"> <i class="glyphicon glyphicon-arrow-right"></i></button>
               {% for season in program.seasons|to_array %}
                 <button class="btn btn-sm btn-default{{ loop.last ? ' active' : '' }}" data-season="{{ season.number }}">{{ season.number }}</button>

@@ -91,7 +91,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
         </li>
         {% endif %}
         <li class="list-group-item list-share">
-          <h3 class="sk-font">{{ selection.onglet.title }}</h3>
+          <h3 class="sk-font"><a href="{{ path('any_url', {url: selection.onglet.seo_url[1:selection.onglet.seo_url|length-1]}) }}">{{ selection.onglet.title }}</a></h3>
         </li>
         {% for pack in selection.onglet.sliders|to_array %}
         <li class="list-group-item"><a href="{{ path('any_url', {url: pack.seo_url[1:pack.seo_url|length-1]}) }}">&raquo; {{ pack.name|raw }}</a></li>
