@@ -24,7 +24,7 @@
     {# Pas connecté #}
     <div class="container user-off">
       <div class="row">
-        <p>Ajoutez vos Web TV à vos listes et ne ratez plus leurs diffusion : Norman fait des vidéos, France Culture, Télérama, etc.</p>
+        <p>Ajoutez vos programmes à vos listes et ne ratez plus leurs diffusions : Norman fait des vidéos, France Culture, Télérama, etc.</p>
         {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with { active: '', no_background: true } %}
       </div>
     </div>
@@ -37,7 +37,7 @@
   </div>
   <div class="bandeau-filters">
    <div class="container container-filters sk-font">
-     Toute la télé : <a class="label" href="{{ path('channel', {slug: 'replay'}) }}">Replay</a> <a class="label" href="{{ path('channel', {slug: 'itele'}) }}">Télé en direct</a> <a class="label" href="{{ path('tvgrid') }}">Programme TV</a>
+     Toute la télé<br/><a class="label" href="{{ path('channel', {slug: 'replay'}) }}">Replay</a> <a class="label" href="{{ path('channel', {slug: 'itele'}) }}">Télé en direct</a> <a class="label" href="{{ path('tvgrid') }}">Programme TV</a>
     </div>
   </div>
   <div class="more-webtv">

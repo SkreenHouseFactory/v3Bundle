@@ -128,6 +128,7 @@ $(document).ready(function(){
         with_unvailable: 1
       }, 
       function(results){
+        container.empty();
         console.log('scripts/user-start.js', 'callback form', container);
         for (k in results) {
           title = typeof results[k].title != 'undefined' ? results[k].title : results[k].name;
