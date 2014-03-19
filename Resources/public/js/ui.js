@@ -1015,6 +1015,7 @@ UI = {
       items: 5,
       minLength: 3,
       source: function(typeahead, query) {
+        query = query.replace('+', '%2B')
         self.getTypeaheadSuggestions(typeahead, query);
       },
       onselect: function(obj) {
