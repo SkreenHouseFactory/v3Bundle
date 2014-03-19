@@ -6,7 +6,7 @@
         <a id="logo" href="{{ path('homes', {home: null})|replace({'//': '/'}) }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" ></a>
         <ul class="nav navbar-nav">
           <li{{ app.request.attributes.get('_route') in ['tvgrid_date','tvgrid'] ? ' class="active"' : '' }}>
-            <a href="{{ path('tvgrid') }}">TV &amp; Replay</a>
+            <span data-link-to-replace="{{ path('tvgrid')|rot13 }}">TV &amp; Replay</span>
             {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "tv"} %}
           </li>
           {#<li><a href="#">WEB TV</a></li>#}
