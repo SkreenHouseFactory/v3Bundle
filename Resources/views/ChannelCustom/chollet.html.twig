@@ -1,0 +1,48 @@
+{% extends "SkreenHouseFactoryV3Bundle:Channel:_base-channel.html.twig" %}
+
+{% block customcontent %}
+  {% include  'SkreenHouseFactoryV3Bundle:Channel:_description.html.twig' %}
+  <div id="cover85">
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-7"></div>
+        <div class="col-xs-9">
+          <iframe id="player" class="bgblack" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&fromWebsite=1&play=26875162" height="345" width="455" border="none"></iframe>
+          <div class="under-player pull-right"{% if fav is defined and fav %} data-playlist="{{ fav }}"{% endif %}>
+            <div class="pull-left">
+              <h2>La Chaîne de {{ channel.title }}</h2>
+              {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: fav is defined and fav ? 'fav-' ~ fav : '', name: channel.title, text: 'Abonne-toi' } %}
+            </div>
+            <div class="shareblock pull-right">
+              {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ channel.seo_url, text: program.twitter_msg is defined ? program.twitter_msg : channel.title ~ ' sur mySkreen', fb_layout: 'box_count', tw_layout: 'vertical', g_size: 'tall', g_annotation: 'bubble' } %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
+  <div class="bande-resa">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-5">
+          <h2>Toutes les dates</h2>
+        </div>
+        <div class="col-xs-6"></div>
+        <div class="col-xs-5">
+          <a class="btn btn-suivre btn-lg" href="http://www.christellechollet.com/?m=dates" target="_blank">Réservez vos places</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block custompagestyles %}
+  {% stylesheets
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/channel/chollet.less'
+      filter='lessphp,?yui_css'
+      output='css/channel/chollet.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
+{% endblock %}

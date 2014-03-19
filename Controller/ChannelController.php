@@ -280,6 +280,19 @@ class ChannelCustomController extends Controller
     return $response;
   }
 
+  // Christelle Chollet
+  protected function channel85($data){
+    $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:chollet.html.twig', array(
+      'data'=>(array)$data,
+      'channel'=>$data->channel
+    ));
+    $maxage = 300;
+    $response->setPublic();
+    $response->setMaxAge($maxage);
+    $response->setSharedMaxAge($maxage);
+    return $response;
+  }
+
 }
 
 class ChannelController extends ChannelCustomController
