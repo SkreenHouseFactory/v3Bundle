@@ -14,7 +14,7 @@
         <a class="btn btn-default" href="#best-offer-anchor">Horaires</a>
       </div>
         <div class="col-xs-13">
-          <p>Au cinéma dans {{ program.datas_theaters.theaters_ids|length }} salle{{ program.datas_theaters.theaters_ids|length > 1 ? 's' : '' }}</p>
+          <p>Au cinéma dans {{ program.datas_theaters.theaters_ids|length }} salle{{ program.datas_theaters.theaters_ids|length > 1 ? 's' : '' }}<br/><small class="grey sk-font">Sorti en salle le {{ program.theater_release_date }}</small></p>
         </div>
     </div>
 
@@ -56,7 +56,6 @@
       <div class="col-xs-3">
         <img src="{{ o_channel.img|replace({'//medias': '/medias', '/80': '/x/50'}) }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
       </div>
-        
     </div>
 
   {% elseif o.offer_type == 'tv' %}
@@ -90,7 +89,6 @@
       <div class="col-xs-3">
         <img src="{{ o_channel.img|replace({'//medias': '/medias', '/80': '/x/50'}) }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
       </div>
-        
     </div>
 
   {% elseif o.offer_type in ['external','dvd','itunes','box', 'console'] or 'youtube movies' in o_channel.name|lower %}

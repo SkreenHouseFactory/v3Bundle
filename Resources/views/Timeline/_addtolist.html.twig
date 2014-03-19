@@ -32,8 +32,7 @@
   {# Pas connecté #}
   <div class="container user-off">
     <div class="row">
-      <p>Soyez averti des prochaines diffusions (TV, Replay, Ciné, VOD) des programmes que vous aimez.</p>
-      <p>Partagez vos listes avec vos amis et suivez ce qu'ils regardent.</p>
+      <p>Ajoutez vos émissions préférées à vos listes et soyez averti de leurs prochaines diffusions (TV, Replay, Ciné, VOD).</p>
     </div>
     {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with { no_background: true } %}
   </div>
@@ -48,6 +47,6 @@
 </div>
 <div class="bandeau-filters">
    <div class="container container-filters sk-font">
-     Toute la télé : <a class="label" href="{{ path('channel', {slug: 'replay'}) }}">Replay</a> <a class="label" href="{{ path('channel', {slug: 'itele'}) }}">Télé en direct</a> <a class="label" href="{{ path('channel', {slug: 'web-tv'}) }}">Web TV</a>
+     Toute la télé<br/><a class="label" href="{{ path('channel', {slug: 'replay'}) }}">Replay</a> <a class="label" href="{{ path('channel', {slug: 'itele'}) }}">Télé en direct</a> <a class="label" href="{{ path('channel', {slug: 'web-tv'}) }}">Web TV</a>
     </div>
 </div>
