@@ -1,0 +1,12 @@
+{% if (channel.personne is defined and channel.personne) or (channel.text is defined and channel.text) %}
+<div class="description-seo description-seo-absolute">
+  <div class="container scroll well">
+    <h1>{{ channel.name }}</h1>
+    {% if channel.personne is defined and channel.personne %}
+      <p>{{ channel.personne.description|raw }}</p>
+    {% elseif channel.text is defined and channel.text %}
+      <p>{{ channel.text|raw }}</p>
+    {% endif %}
+  </div>
+</div>
+{% endif %}

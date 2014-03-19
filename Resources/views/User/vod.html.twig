@@ -29,7 +29,7 @@
           <p><strong>Vous n'avez pas encore de contenu en vidéo à la demande.</strong></p>
         {% endif %}
         <p>Votre compte mySkreen vous permet de visionner la vidéo à la demande en 1 clic directement sur mySkreen. Renseignez une fois la carte de paiement que vous souhaitez utiliser et payez de manière simple et sécurisée.</p>
-        <p class="alert alert-info">
+        <p class="bs-callout bs-callout-info">
           Seules les vidéos qui font partie de l'offre en 1 clic sont marquées d'un <span class="ico-deporte"><i class="glyphicon glyphicon-play"></i></span>.
         </p>
         <p>
@@ -58,9 +58,10 @@
       </ul>
     {% endif %}
     
-    <p class="alert alert-success">{{ vods|length }} vidéos à la demande. <br/>
+    <div class="bs-callout bs-callout-info">
+      <h4 class="h4">{{ vods|length }} vidéos à la demande.</h4>
       <b>Astuce : </b> vous pouvez également utiliser le moteur de recherche pour retrouver un programme que vous avez loué.
-    </p>
+    </div>
     <table class="table table-striped">
       <tbody>
         {% for v in vods %}
@@ -84,7 +85,7 @@
                       {{ b.program.episode_number is defined ? ', Episode ' ~ b.program.episode_number : '' }}
                       {{ b.program.part_number is defined ? ', Partie ' ~ b.program.part_number : '' }}
                     {% endif %}
-                    <a class="btn btn-voir pull-right" data-play="{{ b.offer.id }}"><i class="glyphicon glyphicon-play"></i>&nbsp;{{ b.is_available ? 'watch'|trans : 'rent.again'|trans }}</a>
+                    <a class="btn btn-voir pull-right" data-play-iframe="//api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play={{ b.program.id }}"><i class="glyphicon glyphicon-play"></i>&nbsp;{{ b.is_available ? 'watch'|trans : 'rent.again'|trans }}</a>
                     <img src="{{ b.offer.channel.img }}" alt="{{ b.offer.channel.name }}" /> <span class="access {{ b.is_location ? 'location' : 'achat' }}">{{ b.offer.access.name }}</span>, loué le {{ b.created_at|localizeddate('full', 'none') }}
                     {% if b.is_location %}
                       {% if b.nb_view == 0 %}
