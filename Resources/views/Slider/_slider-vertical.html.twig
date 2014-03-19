@@ -79,18 +79,20 @@
     </div>
   </div>
 </div>
-<div class="controlersbtn">
-  <a  href="#channel_prog-list{{ list_number }}" data-slide="prev">
-    <button type="button" class="btn btn-default fleches">  
-      <span class="glyphicon glyphicon-chevron-up"></span>
-    </button>
-  </a>
-  <a href="#channel_prog-list{{ list_number }}" data-slide="next">
-   <button type="button" class="btn btn-default fleches">  
-     <span class="glyphicon glyphicon-chevron-down"></span>
-   </button>
- </a>
-</div>
+{% if custom_l > 7 %}
+  <div class="controlersbtn">
+    <a  href="#channel_prog-list{{ list_number }}" data-slide="prev">
+      <button type="button" class="btn btn-default fleches">  
+        <span class="glyphicon glyphicon-chevron-up"></span>
+      </button>
+    </a>
+    <a href="#channel_prog-list{{ list_number }}" data-slide="next">
+     <button type="button" class="btn btn-default fleches">  
+       <span class="glyphicon glyphicon-chevron-down"></span>
+     </button>
+   </a>
+  </div>
+{% endif %}
 {% if name_link is defined and name_link %}
   <a href="{{ link|slice(0,1) == '/' ? link : path(link) }}" class="undernot">
     <button type="button" class="btn btn-default btn-grille">{{ name_link }}</button>

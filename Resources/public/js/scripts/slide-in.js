@@ -41,7 +41,7 @@ var SlideIn = Class.extend({
     }, this.speed_in);
     this.elmt.css('cursor', 'default');
     this.elmt.addClass('open');
-    $('#slide-in #slide-in-text>div>a').removeClass('open-icon').addClass('close-icon');
+    $('#slide-in #slide-in-text>div>a i').removeClass('glyphicon-question-sign').addClass('glyphicon-remove-sign');
   },
 
   disparition: function(){
@@ -50,7 +50,7 @@ var SlideIn = Class.extend({
     }, this.speed_out);
     this.elmt.css('cursor', 'pointer');
     this.elmt.removeClass('open');
-    $('#slide-in #slide-in-text>div>a').removeClass('close-icon').addClass('open-icon');
+    $('#slide-in #slide-in-text>div>a i').removeClass('glyphicon-remove-sign').addClass('glyphicon-question-sign');
   },
 
   isOpened: function(){
@@ -76,12 +76,12 @@ $(document).ready(function(){
   var slide_in = new SlideIn($('#slide-in'));
 
   $('#slide-in-text a').on('click', function(){
-    if($('#slide-in-text a').hasClass('close-icon')){
+    if($('#slide-in-text a i').hasClass('glyphicon-remove-sign')){
       slide_in.disparition();
       if(!(slide_in.elmt.hasClass('forced'))){
         slide_in.elmt.addClass('forced');
       }
-    } else if($('#slide-in-text a').hasClass('open-icon')){
+    } else if($('#slide-in-text a i').hasClass('glyphicon-question-sign')){
       slide_in.apparition();
       if(!(slide_in.elmt.hasClass('forced'))){
         slide_in.elmt.addClass('forced');
