@@ -200,7 +200,7 @@ class ProgramController extends Controller
 
       $this->definePlayer($data, $data->offers);
 
-      if (!$data->player && isset($data->episodeof) && $data->episodeof->offers){
+      if (!$data->player && isset($data->episodeof) && isset($data->episodeof->offers) && $data->episodeof->offers){
         $this->definePlayer($data, $data->episodeof->offers);
       }
    
@@ -373,7 +373,7 @@ class ProgramController extends Controller
         $data->player->type = 'teaser';
 
       } else {
-        if (count($offers['replay']) > 0) {
+        if (isset($offers['replay']) && count($offers['replay']) > 0) {
           foreach ($offers['replay'] as $o) {
             if (isset($o->deporte) && $o->deporte && !$o->cost) {
               $data->player = $o;
