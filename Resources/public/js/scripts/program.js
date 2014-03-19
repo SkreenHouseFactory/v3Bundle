@@ -400,14 +400,14 @@ $(document).ready(function(){
 
   if ($('#best-offer-anchor').hasClass('external')) {
     var container = $('#best-offer-anchor .col-xs-13');
-    UI.appendLoader(container, 11000);
+    UI.appendLoader(container, 7000);
     TimeOut = setTimeout(function(){
       UI.removeLoader(container);
       $('#best-offer-anchor .col-xs-3').html();
       $('#best-offer-anchor .col-xs-3').html('<a type="button" class="btn btn-voir" href="#best-offer-anchor"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir</a>');
       $('#best-offer-anchor .col-xs-13').html();
       $('#best-offer-anchor .col-xs-13').html('<p>Disponible sur d\'autres plateformes</p>');
-    },13000);
+    },9000);
   }
 
   $(document).on('click', '[data-play], [data-play-iframe]', function(){

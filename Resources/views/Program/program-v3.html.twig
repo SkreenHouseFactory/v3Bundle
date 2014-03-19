@@ -98,14 +98,6 @@
             </ul>
             {# Contenus #}
             <div class="tab-content">
-              {# Contenu Voir #}
-              <div class="tab-pane row{% if voir.count > 0 %} active{% endif %}" id="voir">
-                {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_voir.html.twig' %}
-              </div>
-              {# Contenu Vidéos #}
-              <div class="tab-pane row{% if voir.count == 0 and videos.count > 0 %} active{% endif %}" id="videos">
-                {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_videos.html.twig' %}
-              </div>
               {# Contenu Infos #}
               <div class="tab-pane row{% if voir.count == 0 and videos.count == 0 %} active{% endif %}" id="infos">
                 {# Affichage pour les fiches Saison seule #}
@@ -141,6 +133,14 @@
                     {# Casting #}
                     {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
                 {% endif %}
+              </div>
+              {# Contenu Voir #}
+              <div class="tab-pane row{% if voir.count > 0 %} active{% endif %}" id="voir">
+                {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_voir.html.twig' %}
+              </div>
+              {# Contenu Vidéos #}
+              <div class="tab-pane row{% if voir.count == 0 and videos.count > 0 %} active{% endif %}" id="videos">
+                {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_videos.html.twig' %}
               </div>
             </div>
           </div>
