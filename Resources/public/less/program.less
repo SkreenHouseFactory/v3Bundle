@@ -838,11 +838,20 @@ html:not(.touch){
           padding-bottom: 10px;
           border-left: 1px solid #DDD;
           height: 60px;
+          &.disabled {
+            opacity: 0.5;
+          }
           &:first-child {
             border-left: none;
           }
           &:hover:not(.active) {
             background-color: #f4f8fa;
+            &.disabled {
+              background: none;
+              a {
+                cursor: default;
+              }
+            }
           }
           &.active {
             border-top: 1px solid #eee;

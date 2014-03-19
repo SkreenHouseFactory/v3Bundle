@@ -75,8 +75,8 @@
                   <div class="row">en entier</div>
                 </a>
               </li>
-              <li class="col-xs-6{% if voir.count == 0 and videos.count > 0 %} active{% endif %}">{# Vidéos #}
-                <a href="#videos" data-toggle="tab">
+              <li class="col-xs-6{% if voir.count == 0 and videos.count > 0 %} active{% endif %}{% if videos.count == 0 %} disabled{% endif %}">{# Vidéos #}
+                <a{{ videos.count == 0 ? '' : ' href="#videos" data-toggle="tab"' }}>
                   <div class="row">
                     <div class="col-xs-16">+ DE VIDEOS
                       {% if videos.count > 0 %}

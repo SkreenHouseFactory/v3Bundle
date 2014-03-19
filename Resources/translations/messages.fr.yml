@@ -85,6 +85,7 @@ page:
             tv: %title% : Retrouver les Horaires de Diffusion des Episodes de la Série %title% à la Télévion avec mySkreen
             default: %title% %version% : Tous les épisodes de la %format% %title% %support% %quality% %deported% & 100% Légal avec mySkreen
           serie-anime: %title% : les Episodes du Dessin Animé %title% %support% %qualite% *& les Horaires de leur Diffusion TV* %deporte% & 100% Légal avec mySkreen
+          default: %title% : Ajoutez-le à vos listes pour ne rater aucune diffusion (TV, Replay, VOD, Ciné).
         sitemap:
             channels:
                 broadcast: Tnt, Satellite, Câble : toutes vos chaînes sont en Replay sur mySkreen
