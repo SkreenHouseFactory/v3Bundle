@@ -263,11 +263,13 @@ UiView = {
       //player par defaut
       if (!Player.elmt) {
         Player.elmt = $('#player.default-player');
+      }
+      if (Player.elmt.hasClass('default-player')) {
         Player.elmt.addClass('in');
         $('body').append('<div class="modal-backdrop modal-player in"></div>');
   
         $('.close', Player.elmt).on('click', function() {
-          Player.elmt.empty();
+          $('iframe', Player.elmt).remove();
           Player.elmt.removeClass('in');
           $('.modal-backdrop.modal-player').remove();
         })
