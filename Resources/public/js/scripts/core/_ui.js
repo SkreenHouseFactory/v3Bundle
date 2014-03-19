@@ -246,8 +246,9 @@ UiView = {
       console.log('script', 'data-play-iframe', $(this).data('play-iframe'), Player.state);
       
       var trigger = $(this);
+      var url = isNaN(trigger.data('play-iframe')) ? trigger.data('play-iframe') : '//api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play='+trigger.data('play-iframe');
       var params = {
-        url: trigger.data('play-iframe') + (trigger.data('play-iframe').indexOf('?') == -1 ? '?' : '&') + 'session_uid=' + Skhf.session.uid,
+        url: url + (url.indexOf('?') == -1 ? '?' : '&') + 'session_uid=' + Skhf.session.uid,
         env: API.config.env,
         reload: true,
         events: {
