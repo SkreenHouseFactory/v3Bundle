@@ -17,8 +17,6 @@ GridView = {
     this.timestamp = this.elmt.data('timestamp');
     this.timestamp_start = this.elmt.data('timestamp');
     this.load();
-    
-    Player.elmt = $('#tvgrid-player');
   },  
   idle: function(initialized) {
   
@@ -361,21 +359,9 @@ $(document).ready(function(){
     if($('body').hasClass('view-ajax') || !API.cookie('session_uid')){
       GridView.init($('#grid'));
     }
-    // LIVE
-    $(document).on('click','[data-live="player"] .actions >a',function(){
-      $('#tvgrid-player').addClass('in');
-      $('body').append('<div class="modal-backdrop  in"></div>');
-    });
-    
-    $(document).on('click', '#tvgrid-player .close', function() {
-      $('.modal-backdrop').hide();
-      $('#tvgrid-player iframe').remove();
-      $('#tvgrid-player').removeClass('in');
-    })
     //timeslider
     var date = new Date(parseInt($('#grid').data('timestamp'))*1000);
     GridView.hour = date.getHours();
-
 
      $('#opt-hour').on('change',function(){
        var current = $(this).data('current-hour');

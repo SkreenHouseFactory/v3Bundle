@@ -247,7 +247,7 @@ UiView = {
       
       var trigger = $(this);
       var params = {
-        url: trigger.data('play-iframe'),
+        url: trigger.data('play-iframe') + (trigger.data('play-iframe').indexOf('?') == -1 ? '?' : '&') + 'session_uid=' + Skhf.session.uid,
         env: API.config.env,
         reload: true,
         events: {
@@ -259,6 +259,19 @@ UiView = {
           }
         }
       }
+      //player par defaut
+      if (!Player.elmt) {
+        Player.elmt = $('#player.default-player');
+        Player.elmt.addClass('in');
+        $('body').append('<div class="modal-backdrop modal-player in"></div>');
+  
+        $('.close', Player.elmt).on('click', function() {
+          Player.elmt.empty();
+          Player.elmt.removeClass('in');
+          $('.modal-backdrop.modal-player').remove();
+        })
+      }
+
       Skhf.Player = new Skhf.BasePlayer(Player.elmt.attr('id'), params);
       return false;
     });

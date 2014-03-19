@@ -85,7 +85,7 @@
                       {{ b.program.episode_number is defined ? ', Episode ' ~ b.program.episode_number : '' }}
                       {{ b.program.part_number is defined ? ', Partie ' ~ b.program.part_number : '' }}
                     {% endif %}
-                    <a class="btn btn-voir pull-right" data-play-iframe="//api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play={{ b.program.id }}"><i class="glyphicon glyphicon-play"></i>&nbsp;{{ b.is_available ? 'watch'|trans : 'rent.again'|trans }}</a>
+                    <a class="btn btn-voir pull-right" data-play-iframe="//api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play={{ b.offer.id }}"><i class="glyphicon glyphicon-play"></i>&nbsp;{{ b.is_available ? 'watch'|trans : 'rent.again'|trans }}</a>
                     <img src="{{ b.offer.channel.img }}" alt="{{ b.offer.channel.name }}" /> <span class="access {{ b.is_location ? 'location' : 'achat' }}">{{ b.offer.access.name }}</span>, loué le {{ b.created_at|localizeddate('full', 'none') }}
                     {% if b.is_location %}
                       {% if b.nb_view == 0 %}

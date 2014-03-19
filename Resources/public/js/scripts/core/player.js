@@ -1,5 +1,6 @@
 // -- player
 $(document).ready(function(){
+  
   //affichage versions au hover
   $('.player').hover(function(){
       $('.player-meta.has-versions').fadeIn('slow');
