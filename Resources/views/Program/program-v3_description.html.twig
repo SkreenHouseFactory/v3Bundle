@@ -62,9 +62,17 @@
             })
           }}
         {% endif %}
+      {% else %}
+        {{  'page.description.program.default'|trans({
+              '%title%':program.title,
+            })
+        }}
       {% endif %}
     {% else %}
-      {{ program.title }} {% if program.has_vod in [7,8] %} Replay {% endif %} {% if program.has_vod in [1,2,12] %} VOD {% endif %} {% if program.has_vod in [3] %} DVD {% endif %} sur mySkreen 
+      {{  'page.description.program.default'|trans({
+              '%title%':program.title,
+          })
+      }}
     {% endif %}
   {% endspaceless %}
 {% endblock %}
