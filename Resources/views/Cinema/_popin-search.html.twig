@@ -13,15 +13,20 @@
     <i class="glyphicon glyphicon-map-marker"></i > {{ 'theaters.search.geoloc'|trans }}
     </a>
   </div>
+  {% if cinemas|to_array|length == 0 %}
   <div id="theaters-list" class="clear well"></div>
+  {% endif %}
 </div>
 {% endif %}
 
 {% if app.request.isXmlHttpRequest %}
 {% if app.request.get('q') %}
-  <h3>Recherche : {{ app.request.get('q') }}</h3>
+  <br/><h3>Recherche : {{ app.request.get('q') }}</h3>
 {% elseif app.request.get('init') is null and app.request.isXmlHttpRequest %}
-  <h3>Cinémas près d'ici</h3>
+  <br/><h3>Cinémas près d'ici</h3>
+{% elseif cinemas|to_array|length %}
+  <br/><h3>Mes cinémas</h3>
+  <div id="theaters-list" class="clear well" style="display:block">
 {% endif %}
 {% if cinemas|length == 0 and app.request.get('init') is null %}
   <p class="alert alert-warning">
@@ -31,13 +36,13 @@
       {{ 'program.theaters.noprogram.geoloc'|trans }}
     {% endif %}
   </p>
-{% elseif app.request.get('init') is null %}
+{% elseif app.request.get('init') is null or cinemas|to_array|length %}
   <div class="scroll" style="overflow-y: auto; max-height: 250px;">
   <table class="table table-striped">
-  {% for cinema in cinemas %}
+  {% for cinema in cinemas|to_array %}
     {% if cinema.adress is defined %}
     <tr><td class="actions" data-id="{{ cinema.id }}">
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, name: cinema.name, class: 'fav-cinema pull-right', text: 'Ajouter à vos cinémas', placement: 'left'} %}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, name: cinema.name, class: 'fav-cinema pull-right' ~ (app.request.get('init')?' fav-on btn-success' : ''), text: (app.request.get('init')?'Abonné':' Ajouter à vos cinémas'), placement: 'left'} %}
       <a class="btn btn-default pull-right" href="{{ path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1) }) }}"> Films & horaires</a>
       <strong>{{ cinema.name }}</strong>{% if cinema.distance is defined %} distance : environ {{ cinema.distance < 1 ? (cinema.distance*100)|number_format ~'m' : cinema.distance|number_format(1) ~ 'km' }}{% endif %}<br/>
       <em>{{ cinema.adress }} {{ cinema.city }} {{ cinema.zip_code }}</em>
@@ -45,6 +50,9 @@
     {% endif %}
   {% endfor %}
   </table>
+  </div>
+{% endif %}
+{% if cinemas|to_array|length %}
   </div>
 {% endif %}
 {% endif %}

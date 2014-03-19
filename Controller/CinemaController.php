@@ -138,6 +138,12 @@ class CinemaController extends Controller
             'type' => 'cinema',
             'latlng' => $request->get('latlng')
          ));
+      } elseif ($request->get('theater_ids')) {
+        $cinemas = $api->fetch(
+          'channel',
+          array(
+            'ids' => $request->get('theater_ids')
+         ));
       }
       //echo $api->url;
 

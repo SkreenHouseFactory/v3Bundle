@@ -695,6 +695,7 @@ UI = {
           $('#theaters-names').empty();
           for (k in datas) {
             $('#theaters-names').append('<a data-id="' + datas[k].id + '" class="label label-default label-info">' + datas[k].name + '</a>');
+            $('#theaters-playlist [data-modal="remote"]').attr('href', $('#theaters-playlist [data-modal="remote"]').attr('href') + datas[k].id + ',');
           }
           UI.sliders['cinema'] = new BaseSlider({
             'url': 'schedule/cine.json?with_schedule=1&programs_only=1&theater_ids=' + Skhf.session.datas.cinema }, 
