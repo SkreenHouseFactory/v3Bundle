@@ -1,8 +1,17 @@
 {% extends "SkreenHouseFactoryV3Bundle:Channel:_base-channel.html.twig" %}
 
 {% block customcontent %}
-<div id="cover" class="cover8"><div id="channel8" class="header-container"><div class="container"><div class="row"><div class="col-xs-16"><div class="player-wrap"><iframe id="player" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&amp;fromWebsite=1&amp;play=26875162
-&amp;playlist=26875162,26875211,26875168,26875169,26875171,26875184,26875188,26875175,26875198&amp;height=280&amp;width=530&amp;noControls=1" height="280" width="530" style="width:530px;height:280px;"></iframe></div></div></div></div><div class="header-content"><a data-id="8" rel="popover" data-playlist="channel" data-placement="left" class="btn btn-suivre btn-plus fav fav-channel pull-right">Ajouter à mes listes </a><h1>Agnès Varda</h1><div class="share-block" style="z-index:1;"><div class="fb-container"><div class="fb-like fb_iframe_widget" style="z-index: 16; margin-left: 0;" data-share="false" data-href="http://www.myskreen.com/agnes-varda" data-layout="button_count" data-action="like" data-show-faces="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=193945860617344&amp;href=http%3A%2F%2Fwww.myskreen.com%2Fagnes-varda&amp;layout=button_count&amp;locale=fr_FR&amp;sdk=joey&amp;share=false&amp;show_faces=false"><span style="vertical-align: bottom; width: 91px; height: 20px;"><iframe name="f26808dab4" width="1000px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like Facebook Social Plugin" src="http://www.facebook.com/plugins/like.php?action=like&amp;app_id=193945860617344&amp;channel=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2FLEdxGgtB9cN.js%3Fversion%3D40%23cb%3Df43c9120%26domain%3Dwww.myskreen.com%26origin%3Dhttp%253A%252F%252Fwww.myskreen.com%252Ff846f47c8%26relation%3Dparent.parent&amp;href=http%3A%2F%2Fwww.myskreen.com%2Fagnes-varda&amp;layout=button_count&amp;locale=fr_FR&amp;sdk=joey&amp;share=false&amp;show_faces=false" class="" style="border: none; visibility: visible; width: 91px; height: 20px;"></iframe></span></div></div><iframe class="pull-left twitter-share" style="height: 65px; width: 70px; margin-right:0px; margin-left: 50px;" allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1355514129.html#_=1356719798951&amp;id=twitter-widget-0&amp;lang=fr&amp;original_referer=http%3A%2F%2Fwww.myskreen.com%2Fagnes-varda&amp;size=m&amp;text=La%20cha%C3%AEne%20Agn%C3%A8s%20Varda%20est%20sur%20%40mySkreen%20%20%20&amp;url=http%3A%2F%2Fwww.myskreen.com%2Fagnes-varda" data-twttr-rendered="true"></iframe><iframe class="g-plus-share pull-right" frameborder="0" scrolling="no" style="height: 65px; border-style:none; margin: 0; visibility:visible; width:50px;" id="I0_share" name="I0_share" src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=fr&amp;url=http%3A%2F%2Fwww.myskreen.com%2Fagnes-varda&amp;id=I0_share" allowtransparency="true" data-gapiattached="true" title="+1"></iframe></div></div></div></div>
-
-{% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
+<div class="template-teaser-slider-packs">
+  <div id="cover">
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-7"></div>
+        <div class="col-xs-9">
+          <iframe id="player" class="bgblack" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&fromWebsite=1&play=26875162" height="400" width="500"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
+</div>
 {% endblock %}
