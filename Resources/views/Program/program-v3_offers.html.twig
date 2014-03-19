@@ -92,10 +92,12 @@
         <table class="offertable">
           <tbody>
             {% if tab is defined and tab == 'videos' %}
+
               {% for o in attribute(program.offers, key)|to_array %}
                 {% set btn_deploy_offers = btn_deploy_offers + 1 %}
                 {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_offer-video.html.twig' with {o: o, program: program, btn_deploy_offers: btn_deploy_offers, key: key, loop_offset: loop_offset} %}
               {% endfor %}
+              
             {% else %}
               {% for o in attribute(program.offers, key)|to_array %}
 
