@@ -173,7 +173,7 @@ var BaseSlider = Class.extend({
                 // pas deja du slider
                 console.log(nb_total , " - " , offset);
                 if (nb_total < (offset + 7)) {
-                  if (Math.floor(nb_total/6) <= Math.floor(offset/6))
+                  if (Math.floor(nb_total/6) < Math.floor(offset/6))
                     trigger.css('visibility','hidden');
                   else{
                  trigger.css('visibility','visible');
