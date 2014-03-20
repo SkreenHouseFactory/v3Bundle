@@ -382,7 +382,7 @@ class ProgramController extends Controller
             }
           }
         }
-        if (!$data->player && count($offers['deporte']) > 0) {
+        if (!$data->player && isset($offers['deporte']) && count($offers['deporte']) > 0) {
           foreach ($offers['deporte'] as $o) {
             if (isset($o->deporte) && $o->deporte && !$o->cost) {
               $data->player = $o;
@@ -391,7 +391,7 @@ class ProgramController extends Controller
             }
           }
         }
-        if (!$data->player && count($offers['bonus']) > 0) {
+        if (!$data->player && isset($offers['bonus']) && count($offers['bonus']) > 0) {
           foreach ($offers['bonus'] as $o) {
             if (isset($o->deporte) && 
                 $o->deporte && 
@@ -402,7 +402,7 @@ class ProgramController extends Controller
             }
           }
         }
-        if (!$data->player && count($offers['cut']) > 0) {
+        if (!$data->player && isset($offers['cut']) && count($offers['cut']) > 0) {
           foreach ($offers['cut'] as $o) {
             if (isset($o->deporte) && 
                 $o->deporte && 
