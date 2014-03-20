@@ -5,7 +5,9 @@
     <div id="close"></div>
   {% else %}
     <div class="entete">
+      {% if movieplay %}
       <p class="text-center">{{ movieplay.program.title }}</p>
+      {% endif %}
       <p class="sous-titre text-center">Pour accéder à la vidéo, vous devez vous connecter sur <strong>myskreen.com</strong></p>
     </div>
     <p class="text-left">SE CONNECTER</p>
@@ -34,8 +36,8 @@
       {{ form_end(form) }}
     </div>
     <div class="link">
-      <a href="{{ path('modal_signup', { movieplay: movieplay.id }) }}">S'inscrire sur myskreen.com</a>
-      <a class="mdp" href="{{ path('modal_mdp', { movieplay: movieplay.id }) }}">Mot de passe oublié ?</a>
+      <a href="{{ path('modal_signup', { movieplay: movieplay ? movieplay.id : '' }) }}">S'inscrire sur myskreen.com</a>
+      <a class="mdp" href="{{ path('modal_mdp', { movieplay: movieplay ? movieplay.id : '' }) }}">Mot de passe oublié ?</a>
     </div>
   {% endif %}
 {% endblock %}

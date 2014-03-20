@@ -1,3 +1,4 @@
+{% spaceless %}
 <div class="col-xs-8 suggester">
   <div class="suggestion"><{{h_title is defined ? h_title : "h3"}}>{% if slider.url is defined %} <a href="{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}">{% endif %} {{ title is defined ? title : slider.title|striptags }}
   {% if slider.is_promo is defined and slider.is_promo %}
@@ -56,3 +57,4 @@
     {% endif %}
   </div>
 </div>
+{% endspaceless %}
