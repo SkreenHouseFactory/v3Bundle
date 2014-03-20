@@ -398,6 +398,7 @@ $(document).ready(function(){
     $('html,body').animate({'scrollTop' : 0}, 1000);
   });
 
+  //Roulette offers
   if ($('#best-offer-anchor').hasClass('external')) {
     var container = $('#best-offer-anchor .col-xs-13');
     UI.appendLoader(container, 7000);
