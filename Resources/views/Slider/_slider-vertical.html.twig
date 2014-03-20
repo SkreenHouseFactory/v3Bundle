@@ -67,7 +67,7 @@
                     <h3>{{ item.title }}</h3>
                     <span>
                       {{ origin == 'fournisseur_avenir' ? ('<b>' ~ item.best_offer.broadcasttime | date("H:i") ~ '</b>')|raw : '' }}
-                      {{ origin == 'fournisseur_replay' ? item.best_offer.broadcasttime | localizeddate("medium","none",app.request.locale,"Europe/Paris","H:m EEEE") : (item.format ? ' ' ~ item.format.name : " Émission") }}
+                      {{ origin == 'fournisseur_replay' ? item.best_offer.broadcasttime | localizeddate("medium","none",app.request.locale,"Europe/Paris","H:mm EEEE") : (item.format ? ' ' ~ item.format.name : " Émission") }}
                     </span>
                   </div>
                 </div>
