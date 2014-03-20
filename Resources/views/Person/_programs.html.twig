@@ -24,7 +24,7 @@
   {% for decade,programs in programs %}
     <a name="{{ decade }}"></a>
     <br/>
-    <h3>Les années {{ decade ? decade : ' - autres' }} <small>{{ programs|to_array|length }} programmes</small></h3>
+    <h3>Les années {{ decade ? decade : ' - autres' }} <small>{{ programs|to_array|length }} programme{{ programs|to_array|length > 1 ? 's' : '' }}</small></h3>
     <hr/>
     <div id="person-programs" class="slider slider-list">
       <ul class="items">
