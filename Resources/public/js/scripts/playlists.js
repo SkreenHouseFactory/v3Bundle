@@ -9,7 +9,8 @@ $(document).ready(function(){
     if ($('#bandeau-listes').length) {
       $('#bandeau-listes .user-on.titres > div').each(function(){
         var ids = Skhf.session.getPlaylistIds($(this).data('fav'))
-        $(this).find('.badge').html(ids.length);
+        $(this).find('.badge').html(Object.keys(ids).length);
+        // console.log('scripts/playlists.js', 'number of each playlists', Object.keys(ids).length);
       })
     }
   }
