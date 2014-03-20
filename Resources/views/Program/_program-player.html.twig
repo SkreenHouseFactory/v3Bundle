@@ -2,18 +2,20 @@
   <a name="teaser"></a>
   <div id="program-teaser" itemscope itemtype="http://www.schema.org/VideoObject" itemref="md-about">  
     <meta itemprop="thumbnail" content="{{ program.picture }}" />
+    <meta itemprop="thumbnailUrl" content="{{ program.picture }}" />
+    <meta itemprop="duration" content="{{ program.duration|iso8601 }}" />
     {% if program.player_fb is defined %}
       <meta itemprop="embedURL" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
+    {% endif %}
+    {% if program.player_stream is defined and program.player_stream %}
+    <meta itemprop="contentUrl" content="{{ program.player_stream }}" />
     {% endif %}
     <meta itemprop="width" content="637" />
     <meta itemprop="height" content="368" />
     <meta itemprop="playerType" content="Flash" />
     <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
-    <meta itemprop="name" content="Bande annonce - {{ program.title }}" />
+    <meta itemprop="name" content="{{ program.title }}" />
     <meta itemprop="isFamilyFriendly" content=true />
-    {#% if program.director|to_array|length and program.director|to_array|first %}
-      <span itemprop="author" itemscope itemtype="http://schema.org/Person"><link itemprop="url" href="http://www.myskreen.com{{ program.director|to_array|first.seo_url }}" /></span>
-    {% endif %#}
     <meta itemprop="description" content="{{ program.description|striptags }}" />
     <div id="program-teaser-meta" class="player-meta"></div>
     <div id="program-teaser-player" data-play-api="{{ {url: program.player.iframe is defined ? program.player.iframe : null, playId: program.player.id}|json_encode }}" data-autoplay="1">

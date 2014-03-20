@@ -53,9 +53,19 @@ class toolsExtension extends \Twig_Extension
         'extract_bgd'=> new \Twig_Filter_Method($this, 'extract_bgd'),
         'accessFromHasvod'=> new \Twig_Filter_Method($this, 'accessFromHasvod'),
         'md_casting'=> new \Twig_Filter_Method($this, 'md_casting'),
+        'iso8601'=> new \Twig_Filter_Method($this, 'iso8601'),
       );
     }
 
+    /**
+    * accessFromHasvod
+    */
+    public function iso8601($duration)
+    {
+      $nb_hours = floor($duration/60);
+      $nb_min = $duration - $nb_hours * 60;
+      return 'T'.($nb_hours?$nb_hours.'H':'').$nb_min.'M0S';
+    }
 
     /**
     * accessFromHasvod
