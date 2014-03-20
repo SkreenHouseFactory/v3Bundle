@@ -61,6 +61,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
   {% endif %}
 
   <h1>{{ selection.name|raw }}{% if selection.onglet.channel.fournisseur is defined %} de {{ selection.onglet.channel.title }}{% endif %}</h1>
+  <div class="row description-seo description-seo-absolute scroll well">{{ selection.description|raw }}</div>
   <div class="row">
 
     {% if selection.template is defined and selection.template == 'liste' %}
@@ -100,6 +101,5 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
     </div>
 
   </div>
-  <div class="row" id="description-seo">{{ selection.description|raw }}</div>
 </div>
 {% endblock %}

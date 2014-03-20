@@ -92,6 +92,8 @@
      </button>
    </a>
   </div>
+{% else %}
+  <div class="controlersbtn"></div>
 {% endif %}
 {% if name_link is defined and name_link %}
   <a href="{{ link|slice(0,1) == '/' ? link : path(link) }}" class="undernot">
