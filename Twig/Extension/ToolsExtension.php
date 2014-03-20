@@ -54,11 +54,22 @@ class toolsExtension extends \Twig_Extension
         'accessFromHasvod'=> new \Twig_Filter_Method($this, 'accessFromHasvod'),
         'md_casting'=> new \Twig_Filter_Method($this, 'md_casting'),
         'iso8601'=> new \Twig_Filter_Method($this, 'iso8601'),
+        'html_entity_decode'=> new \Twig_Filter_Method($this, 'html_entity_decode'),
       );
     }
 
+
+
+  /**
+  * html_entity_decode
+  */
+  public function html_entity_decode($str)
+  {
+    return html_entity_decode($str);
+  }
+
     /**
-    * accessFromHasvod
+    * date iso
     */
     public function iso8601($duration)
     {
