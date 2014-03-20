@@ -186,12 +186,12 @@ var BaseSession = Class.extend({
    });
  },
  getNbPlaylists: function() {
-   return this.getPlaylistIds('like').length + 
-          this.getPlaylistIds('cinema').length + 
-          this.getPlaylistIds('channel').length + 
-          this.getPlaylistIds('page').length + 
-          this.getPlaylistIds('person').length + 
-          this.getPlaylistIds('user').length ;
+   return this.Object.keys(getPlaylistIds('like')).length + 
+          this.Object.keys(getPlaylistIds('cinema')).length + 
+          this.Object.keys(getPlaylistIds('channel')).length + 
+          this.Object.keys(getPlaylistIds('page')).length + 
+          this.Object.keys(getPlaylistIds('person')).length + 
+          this.Object.keys(getPlaylistIds('user')).length ;
  },
  isInPlaylist: function(playlist,id){
     //console.log('BaseSession.isInPlaylist', this.getPlaylistIds(playlist), $.inArray(id+'', this.getPlaylistIds(playlist)));
@@ -222,7 +222,7 @@ var BaseSession = Class.extend({
        var ids = null;
      break;
    }
-   if (ids == null) {
+   if (ids == null || ids == "") {
      ids = {};
    } else if (typeof ids != 'object') {
      ids = ids.split(',');
