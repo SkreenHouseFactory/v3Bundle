@@ -1,179 +1,175 @@
 {% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% block title %}
-{% if periode == 'hier-soir' %}
-Programme TV : Hier soir à la télé
-{% elseif periode == 'en-ce-moment' %}
-Programme TV : en ce moment à la télé
-{% elseif periode == null or periode == 'ce-soir' %}
-Programme TV : Grille TV complète TNT Câble
-{% else %}
-{{ 'page.title.tvgrid'|trans({'%date%': data.timestamp|localizeddate('full')|replace({'00:00': '00'})}) }}
-{% endif %}
+  {% if periode == 'hier-soir' %}
+    Programme TV : Hier soir à la télé
+  {% elseif periode == 'en-ce-moment' %}
+    Programme TV : en ce moment à la télé
+  {% elseif periode == null or periode == 'ce-soir' %}
+    Programme TV : Grille TV complète TNT Câble
+  {% else %}
+    {{ 'page.title.tvgrid'|trans({'%date%': data.timestamp|localizeddate('full')|replace({'00:00': '00'})}) }}
+  {% endif %}
 {% endblock %}
 {% block description %}{{ 'page.description.tvgrid'|trans }}{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" media="screen" href="{{ asset('bundles/skreenhousefactoryv3/jquery-ui/css/no-theme/jquery-ui-1.10.1.custom.min.css') }}" />
-<link rel="stylesheet" media="screen" href="{{ asset('bundles/skreenhousefactoryv3/jquery-ui/css/flick/jquery-ui-1.10.1.custom.min.css') }}" />
-{% set date = data.timestamp|localizeddate('full')|split('now'|date('Y')) %}
+  <link rel="stylesheet" media="screen" href="{{ asset('bundles/skreenhousefactoryv3/jquery-ui/css/no-theme/jquery-ui-1.10.1.custom.min.css') }}" />
+  <link rel="stylesheet" media="screen" href="{{ asset('bundles/skreenhousefactoryv3/jquery-ui/css/flick/jquery-ui-1.10.1.custom.min.css') }}" />
+  {% set date = data.timestamp|localizeddate('full')|split('now'|date('Y')) %}
  
-<div id="view-tvgrid" >
-<div id="description-seo">
-{% if periode == 'hier-soir' %}
-  <h1>Hier soir à la télé</h1>
-  <h2>Tout le programme TV</h2>
-  <br/>
-  <p>Voir aussi : <a href="{{ path('tvgrid_date', {date: 'en-ce-moment'}) }}">En ce moment : programme TV</a> : <a href="{{ path('tvgrid') }}">Ce soir : programme TV</a></p>
-{% elseif periode == 'en-ce-moment' %}
-  <h1>En ce moment à la télé</h1>
-  <h2>Tout le programme TV</h2>
-  <br/>
-  <p>Voir aussi : <a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir : programme TV</a> : <a href="{{ path('tvgrid') }}">Ce soir : programme TV</a></p>
-{% elseif periode == null or periode == 'ce-soir' %}
-  <h1>Tous les programmes TV, ce soir à la Télé</h1>
-  
-  <p><a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir : programme TV</a></p>
-  <p><a href="{{ path('tvgrid_date', {date: 'en-ce-moment'}) }}">En ce moment : programme TV</a></p>
-  
-  <h2>Tous les programmes TV : une grille TV compl&egrave;te par chaine, par horaire et th&eacute;matique:</h2>
-  <p>Voir le programme de toutes les chaines ainsi que les programmes des cha&icirc;nes des TV <strong>Orange</strong>, <strong>OCS </strong>et<strong>&nbsp;Orange Sport</strong>.</p>
-  <p>La grille de t&eacute;l&eacute;vision permet de prendre connaissance de l&rsquo;horaire des diffusions TV mais &eacute;galement de voir les programmes TV en direct ou en replay.</p>
-  <h3>Composer son guide t&eacute;l&eacute; personnalis&eacute;&nbsp;:</h3>
-  <p>Choisir son programme pr&eacute;f&eacute;r&eacute; (film, documentaire, &eacute;mission, sport, s&eacute;rie, spectacle) pour l&rsquo;ajouter &agrave; sa liste et ainsi &ecirc;tre averti de <strong>la diffusion &agrave; la tv</strong> et du <strong>replay</strong>.</p>
-  <p>Votre liste myskeen devient votre t&eacute;l&eacute; personnelle &agrave; la carte et &agrave; la demande, compos&eacute;e uniquement des programmes que vous aimez, toutes chaines confondues, sans &ecirc;tre tributaire de l'horaire de diffusion tv.</p>
-  <h2>Grille TV compl&egrave;te</h2>
-  <p>myskreen est un guide innovant qui permet de consulter les programmes t&eacute;l&eacute; du moment, du soir et de la journ&eacute;e ainsi que les programmes d&eacute;j&agrave; diffus&eacute;s.</p>
-  <h2>Ce soir &agrave; la t&eacute;l&eacute;</h2>
-  <p>S'informer des programmes du soir :&nbsp;<strong>en 1&egrave;re partie de soir&eacute;e</strong>, et <strong>deuxi&egrave;me partie de soir&eacute;e</strong>.</p>
-  <h2>Tous les programmes TV des chaines de la TNT, cable-adsl-satellite</h2>
-  <h3>Les chaines de la TNT&nbsp;</h3>
-  <p>Ne manquez pas les <strong>programmes TV</strong> les plus populaires et les plus appr&eacute;ci&eacute;s.</p>
-  <h3>Le programme TV de TF1&nbsp;:</h3>
-  <p><strong>S&eacute;ries TV:&nbsp;</strong>Mentalist, Esprits Criminels, Unforgettable, Dr House, Profilage, Section de recherches, Falco, Person of Interest, Jos&eacute;phine ange gardien, Les Experts&nbsp;: Manhattan, Camping Paradis, Clem, Crossing Lines, Une famille formidable, Grey&rsquo;s Anatomy, No Limit, R.I.S. Police Scientifique...<strong>Divertissements tv</strong>&nbsp;: Apr&egrave;s le 20h c&rsquo;est Canteloup, The Voice, la plus belle voix, Koh Lanta, T&eacute;l&eacute;foot.&nbsp;<strong>Les JT</strong>&nbsp;: Le Journal de 20h...</p>
-  <h3>Le programme TV de France 2&nbsp;:</h3>
-  <p><strong>S&eacute;ries TV:</strong> Castle, Amour, Gloire et Beaut&eacute;, Candice Renoir, Cold Case&nbsp;: affaires class&eacute;es, Fais pas ci, fais pas &ccedil;a... <strong>&Eacute;missions tv</strong>: L&rsquo;&eacute;mission pour tous, Alcaline le mag, Compl&eacute;ment d&rsquo;enqu&ecirc;te, Envoy&eacute; sp&eacute;cial, La maison pr&eacute;f&eacute;r&eacute;e des fran&ccedil;ais, Le plus grand Cabaret du monde, Le village pr&eacute;f&eacute;r&eacute; des fran&ccedil;ais... <strong>Infos:</strong>&nbsp;Le JT de 13, Le JT de 20h, Des paroles et des actes, Mots crois&eacute;s, Un &oelig;il sur la plan&egrave;te...</p>
-  <h3>Le programme TV de France 3&nbsp;:</h3>
-  <p><strong>S&eacute;ries TV</strong>: Plus belle la vie, Commissaire Magellan, Commissaire Montalbano...&nbsp;<strong>Infos:</strong> M&eacute;t&eacute;o &agrave; la carte, le journal r&eacute;gional, Le soir 3... <strong>&Eacute;missions tv: &nbsp;</strong>Slam, Thalassa, Les Carnets de Julie, Midi en France...</p>
-  <h3>Le programme TV de Canal +&nbsp;:</h3>
-  <p><strong>&Eacute;missions tv: </strong>&nbsp;Le petit journal, Le grand journal, Le Zapping... <strong>Le sport:</strong> Football, Canal Football club... <strong>Les s&eacute;ries TV:</strong> House of Cards, Connasse, Scandal...</p>
-  <h3>Le programme TV de France 5&nbsp;:</h3>
-  <p><strong> Magazines:</strong> Les maternelles, &Acirc;llo Rufo, &Acirc;llo Docteurs... <strong>&Eacute;missions:</strong> C &agrave; vous, C politique, La quotidienne, C dans l&rsquo;air...</p>
-  <h3>Le programme tv d'Arte:</h3>
-  <p><strong>Films</strong>, <strong>Documentaires</strong>, <strong>S&eacute;ries TV</strong>: DCI Banks, Breaking Bad, Borgen, une femme au pouvoir, Secret State... <strong>Magazines:</strong> 360&deg;Geo, Philosophie, Vox Pop...</p>
-  <h3>Le programme tv M6&nbsp;:</h3>
-  <p><strong>S&eacute;ries TV</strong>: Elementary, Californication, Bones, Under the Dome... <strong>Divertissements:</strong> Top chef, Norbert et Jean&nbsp;: le d&eacute;fi, Un diner presque parfait, L&rsquo;amour est dans le pr&eacute;...</p>
-  <h3>Le programme tv des autres chaines de la TNT:</h3>
-  <p><strong>D8</strong>,&nbsp;<strong>W9</strong>,&nbsp;<strong>TMC</strong>,&nbsp;<strong>NT1</strong>,&nbsp;<strong>NRJ 12</strong>,&nbsp;<strong>Public S&eacute;nat</strong>,&nbsp;<strong>France 4</strong>,&nbsp;<strong>BFM TV</strong>, <strong>iT&eacute;l&eacute;</strong>,&nbsp;<strong>D17</strong>,&nbsp;<strong>Gulli</strong>,&nbsp;<strong>Ch&eacute;rie 25</strong>,&nbsp;<strong>6ter</strong>,&nbsp;<strong>France &Ocirc;</strong>,&nbsp;<strong>HD1</strong>.</p>
-  <h3>Le programme tv des chaines du c&acirc;ble, Adsl et satellite:</h3>
-  <p><strong>Canal + sport</strong>,&nbsp;<strong>Canal + d&eacute;cal&eacute;</strong>,&nbsp;<strong>Canal + cin&eacute;ma</strong>,&nbsp;<strong>Canal + Family</strong>,&nbsp;<strong>AB1</strong>,&nbsp;<strong>Paris premi&egrave;re</strong>,&nbsp;<strong>TF6</strong>,&nbsp;<strong>TIJI</strong>,&nbsp;<strong>LCI</strong>,&nbsp;<strong>Com&eacute;die +</strong>,&nbsp;<strong>T&eacute;va</strong>,&nbsp;<strong>Cin&eacute;+Frisson</strong>,&nbsp;<strong>Disney Channel</strong>,&nbsp;<strong>T&eacute;l&eacute;TOON +</strong>,&nbsp;<strong>S&eacute;rie club</strong></p>
-
-{% endif %}
-</div>
-  
-  {% include 'SkreenHouseFactoryV3Bundle:Timeline:_addtolist.html.twig' %}
-  
-  <div class="container">
-  <div class="row marger">
-   <div class="col-xs-8">
-    <ul class="nav nav-pills">
-      <li class="{{ app.request.get('date') == 'hier-soir' ? 'active ' : '' }}yesterdaynight time-change ">
-        <a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}" >Hier soir</a>
-      </li>
-      <li class="{{ app.request.get('date') == 'en-ce-moment' ? 'active ' : '' }}now time-change">
-        <a href="{{ path('tvgrid_date',{date:'en-ce-moment'}) }}">En ce moment 
-        </a>
-      </li>
-      <li class="{{ app.request.get('date') is null ? 'active ' : '' }}tonight time-change ">
-        <a href="{{ path('tvgrid') }}" >Ce soir <br> </a>
-      </li>
-      <select id="filter" class="pull-right btn-default dropdown dropdown-update hide">
-        <option>Que voir ?</option>
-        <option value="films">Films</option>
-        <option value="documentaires">Documentaires</option>
-        <option value="emissions">Emissions</option>
-        <option value="sports">Sports</option>
-        <option value="series">Séries</option>
-        <option value="spectacles">Spectacles</option>
-        <option class="divider">-----------------</option>
-        <option value="in-playlists">Dans mes listes</option>
-        <option value="has-replay">En Replay</option>
-        <option value="is-popular">Les plus suivis</option>
-        <option class="divider">-----------------</option>
-        <option value="">Tout</option>
-      </select>
-      <div id="datepicker"></div>
-    </ul>
-  </div>
-  <div class="col-xs-8 text-right">
-    <ul class="nav nav-pills">
-       <li class="datepicker">
-       <span>Choisir une date</span>
-        <a class="calendar btn ">
-         <time timestamp="{{ data.timestamp }}">{{ date[0]|capitalize}}{{ data.timestamp|date('Y')}} </time> <i class="glyphicon glyphicon-calendar"></i>
-        </a>
-      <select id="opt-hour" class="btn-default hourpicker" data-current-hour="{{date[1]|date('H')}}">
-        {% for h in range(0, 23) %}
-        <option value="{{h}}" {%if h==date[1]|date('H') %} selected{% endif %}>{{h}}h00</option>
-        {% endfor %}
-      </select>
-    </li>
-    </ul>
-  </div>
-</div>
-</div>
-<div class="container">
-  <div id="grid" data-timestamp="{{ data.timestamp }}" data-reload-ajax="{{ path('tvgrid') }}">
-    <div class="btn-group btn-filters" data-toggle="buttons-radio">
-      <a class="btn btn-default btn-info btn-group-sm" data-filter="">Tout</a>
-      <a class="btn btn-default btn-group-sm" data-filter="films">Films</a>
-      <a class="btn btn-default btn-group-sm" data-filter="documentaires">Documentaires</a>
-      <a class="btn btn-default btn-group-sm" data-filter="emissions">Emissions</a>
-      <a class="btn btn-default btn-group-sm" data-filter="sports">Sports</a>
-      <a class="btn btn-default btn-group-sm" data-filter="series">Séries</a>
-      <a class="btn btn-default btn-group-sm" data-filter="spectacles">Spectacles</a>
-    </div>
-    <div class="pull-right addchannel">
-      <a class="btn btn-primary btn-xs" data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}">Ajouter / Supprimer des chaînes</a>
-    </div>
-    <div class="relative">
-      <div class="horaire">
-        <a href="{{ path('tvgrid_date', {date: data.timestamp - 36000 }) }}" class="btn btn-small btn-inverse btn-precedent" ><i class="glyphicon glyphicon-chevron-left"></i> Préc.</a>
-        <a href="{{ path('tvgrid_date', {date: data.timestamp + 36000 }) }}" class="btn btn-small btn-inverse btn-suivant">Suivant <i class="glyphicon glyphicon-chevron-right"></i></a>
-      </div>
-      <ul class="timeline">
-        <li></li>
-        <li>&nbsp;{{ data.timestamp|date('H:i')|replace({':': 'h'}) }}</li>
-        <li>{{ (data.timestamp + 3600)|date('H:i')|replace({':': 'h'}) }}</li>
-        <li>{{ (data.timestamp + 2*3600)|date('H:i')|replace({':': 'h'}) }}&nbsp;</li>
-
-      </ul>
-      <div class="channel-wrap">
-        <div title="En direct" class="time-bar hide"></div>
-        <div class="arrow arrow-up tooltip:after hide"></div>
-        <ul id="channels" class="nav nav-list">
-          {% include 'SkreenHouseFactoryV3Bundle:Timeline:_channels-schedule.html.twig' with {data: data } %}
-        </ul>
+  <div id="view-tvgrid" >
+    <div class="description-seo description-seo-absolute">
+      <div class="container scroll well">
+        {% if periode == 'hier-soir' %}
+          <h1>Hier soir à la télé</h1>
+          <h2>Tout le programme TV</h2>
+          <br/>
+          <p>Voir aussi : <a href="{{ path('tvgrid_date', {date: 'en-ce-moment'}) }}">En ce moment : programme TV</a> : <a href="{{ path('tvgrid') }}">Ce soir : programme TV</a></p>
+        {% elseif periode == 'en-ce-moment' %}
+          <h1>En ce moment à la télé</h1>
+          <h2>Tout le programme TV</h2>
+          <br/>
+          <p>Voir aussi : <a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir : programme TV</a> : <a href="{{ path('tvgrid') }}">Ce soir : programme TV</a></p>
+        {% elseif periode == null or periode == 'ce-soir' %}
+          <h1>Tous les programmes TV, ce soir à la Télé</h1>
+          
+          <p><a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}">Hier soir : programme TV</a></p>
+          <p><a href="{{ path('tvgrid_date', {date: 'en-ce-moment'}) }}">En ce moment : programme TV</a></p>
+          
+          <h2>Tous les programmes TV : une grille TV compl&egrave;te par chaine, par horaire et th&eacute;matique:</h2>
+          <p>Voir le programme de toutes les chaines ainsi que les programmes des cha&icirc;nes des TV <strong>Orange</strong>, <strong>OCS </strong>et<strong>&nbsp;Orange Sport</strong>.</p>
+          <p>La grille de t&eacute;l&eacute;vision permet de prendre connaissance de l&rsquo;horaire des diffusions TV mais &eacute;galement de voir les programmes TV en direct ou en replay.</p>
+          <h3>Composer son guide t&eacute;l&eacute; personnalis&eacute;&nbsp;:</h3>
+          <p>Choisir son programme pr&eacute;f&eacute;r&eacute; (film, documentaire, &eacute;mission, sport, s&eacute;rie, spectacle) pour l&rsquo;ajouter &agrave; sa liste et ainsi &ecirc;tre averti de <strong>la diffusion &agrave; la tv</strong> et du <strong>replay</strong>.</p>
+          <p>Votre liste myskeen devient votre t&eacute;l&eacute; personnelle &agrave; la carte et &agrave; la demande, compos&eacute;e uniquement des programmes que vous aimez, toutes chaines confondues, sans &ecirc;tre tributaire de l'horaire de diffusion tv.</p>
+          <h2>Grille TV compl&egrave;te</h2>
+          <p>myskreen est un guide innovant qui permet de consulter les programmes t&eacute;l&eacute; du moment, du soir et de la journ&eacute;e ainsi que les programmes d&eacute;j&agrave; diffus&eacute;s.</p>
+          <h2>Ce soir &agrave; la t&eacute;l&eacute;</h2>
+          <p>S'informer des programmes du soir :&nbsp;<strong>en 1&egrave;re partie de soir&eacute;e</strong>, et <strong>deuxi&egrave;me partie de soir&eacute;e</strong>.</p>
+          <h2>Tous les programmes TV des chaines de la TNT, cable-adsl-satellite</h2>
+          <h3>Les chaines de la TNT&nbsp;</h3>
+          <p>Ne manquez pas les <strong>programmes TV</strong> les plus populaires et les plus appr&eacute;ci&eacute;s.</p>
+          <h3>Le programme TV de TF1&nbsp;:</h3>
+          <p><strong>S&eacute;ries TV:&nbsp;</strong>Mentalist, Esprits Criminels, Unforgettable, Dr House, Profilage, Section de recherches, Falco, Person of Interest, Jos&eacute;phine ange gardien, Les Experts&nbsp;: Manhattan, Camping Paradis, Clem, Crossing Lines, Une famille formidable, Grey&rsquo;s Anatomy, No Limit, R.I.S. Police Scientifique...<strong>Divertissements tv</strong>&nbsp;: Apr&egrave;s le 20h c&rsquo;est Canteloup, The Voice, la plus belle voix, Koh Lanta, T&eacute;l&eacute;foot.&nbsp;<strong>Les JT</strong>&nbsp;: Le Journal de 20h...</p>
+          <h3>Le programme TV de France 2&nbsp;:</h3>
+          <p><strong>S&eacute;ries TV:</strong> Castle, Amour, Gloire et Beaut&eacute;, Candice Renoir, Cold Case&nbsp;: affaires class&eacute;es, Fais pas ci, fais pas &ccedil;a... <strong>&Eacute;missions tv</strong>: L&rsquo;&eacute;mission pour tous, Alcaline le mag, Compl&eacute;ment d&rsquo;enqu&ecirc;te, Envoy&eacute; sp&eacute;cial, La maison pr&eacute;f&eacute;r&eacute;e des fran&ccedil;ais, Le plus grand Cabaret du monde, Le village pr&eacute;f&eacute;r&eacute; des fran&ccedil;ais... <strong>Infos:</strong>&nbsp;Le JT de 13, Le JT de 20h, Des paroles et des actes, Mots crois&eacute;s, Un &oelig;il sur la plan&egrave;te...</p>
+          <h3>Le programme TV de France 3&nbsp;:</h3>
+          <p><strong>S&eacute;ries TV</strong>: Plus belle la vie, Commissaire Magellan, Commissaire Montalbano...&nbsp;<strong>Infos:</strong> M&eacute;t&eacute;o &agrave; la carte, le journal r&eacute;gional, Le soir 3... <strong>&Eacute;missions tv: &nbsp;</strong>Slam, Thalassa, Les Carnets de Julie, Midi en France...</p>
+          <h3>Le programme TV de Canal +&nbsp;:</h3>
+          <p><strong>&Eacute;missions tv: </strong>&nbsp;Le petit journal, Le grand journal, Le Zapping... <strong>Le sport:</strong> Football, Canal Football club... <strong>Les s&eacute;ries TV:</strong> House of Cards, Connasse, Scandal...</p>
+          <h3>Le programme TV de France 5&nbsp;:</h3>
+          <p><strong> Magazines:</strong> Les maternelles, &Acirc;llo Rufo, &Acirc;llo Docteurs... <strong>&Eacute;missions:</strong> C &agrave; vous, C politique, La quotidienne, C dans l&rsquo;air...</p>
+          <h3>Le programme tv d'Arte:</h3>
+          <p><strong>Films</strong>, <strong>Documentaires</strong>, <strong>S&eacute;ries TV</strong>: DCI Banks, Breaking Bad, Borgen, une femme au pouvoir, Secret State... <strong>Magazines:</strong> 360&deg;Geo, Philosophie, Vox Pop...</p>
+          <h3>Le programme tv M6&nbsp;:</h3>
+          <p><strong>S&eacute;ries TV</strong>: Elementary, Californication, Bones, Under the Dome... <strong>Divertissements:</strong> Top chef, Norbert et Jean&nbsp;: le d&eacute;fi, Un diner presque parfait, L&rsquo;amour est dans le pr&eacute;...</p>
+          <h3>Le programme tv des autres chaines de la TNT:</h3>
+          <p><strong>D8</strong>,&nbsp;<strong>W9</strong>,&nbsp;<strong>TMC</strong>,&nbsp;<strong>NT1</strong>,&nbsp;<strong>NRJ 12</strong>,&nbsp;<strong>Public S&eacute;nat</strong>,&nbsp;<strong>France 4</strong>,&nbsp;<strong>BFM TV</strong>, <strong>iT&eacute;l&eacute;</strong>,&nbsp;<strong>D17</strong>,&nbsp;<strong>Gulli</strong>,&nbsp;<strong>Ch&eacute;rie 25</strong>,&nbsp;<strong>6ter</strong>,&nbsp;<strong>France &Ocirc;</strong>,&nbsp;<strong>HD1</strong>.</p>
+          <h3>Le programme tv des chaines du c&acirc;ble, Adsl et satellite:</h3>
+          <p><strong>Canal + sport</strong>,&nbsp;<strong>Canal + d&eacute;cal&eacute;</strong>,&nbsp;<strong>Canal + cin&eacute;ma</strong>,&nbsp;<strong>Canal + Family</strong>,&nbsp;<strong>AB1</strong>,&nbsp;<strong>Paris premi&egrave;re</strong>,&nbsp;<strong>TF6</strong>,&nbsp;<strong>TIJI</strong>,&nbsp;<strong>LCI</strong>,&nbsp;<strong>Com&eacute;die +</strong>,&nbsp;<strong>T&eacute;va</strong>,&nbsp;<strong>Cin&eacute;+Frisson</strong>,&nbsp;<strong>Disney Channel</strong>,&nbsp;<strong>T&eacute;l&eacute;TOON +</strong>,&nbsp;<strong>S&eacute;rie club</strong></p>
+        {% endif %}
       </div>
     </div>
+    
+    {% include 'SkreenHouseFactoryV3Bundle:Timeline:_addtolist.html.twig' %}
+    
+    <div class="container">
+      <div class="row marger">
+        <div class="col-xs-8">
+          <ul class="nav nav-pills">
+            <li class="{{ app.request.get('date') == 'hier-soir' ? 'active ' : '' }}yesterdaynight time-change ">
+              <a href="{{ path('tvgrid_date', {date: 'hier-soir'}) }}" >Hier soir</a>
+            </li>
+            <li class="{{ app.request.get('date') == 'en-ce-moment' ? 'active ' : '' }}now time-change">
+              <a href="{{ path('tvgrid_date',{date:'en-ce-moment'}) }}">En ce moment</a>
+            </li>
+            <li class="{{ app.request.get('date') is null ? 'active ' : '' }}tonight time-change ">
+              <a href="{{ path('tvgrid') }}" >Ce soir <br> </a>
+            </li>
+            <select id="filter" class="pull-right btn-default dropdown dropdown-update hide">
+              <option>Que voir ?</option>
+              <option value="films">Films</option>
+              <option value="documentaires">Documentaires</option>
+              <option value="emissions">Emissions</option>
+              <option value="sports">Sports</option>
+              <option value="series">Séries</option>
+              <option value="spectacles">Spectacles</option>
+              <option class="divider">-----------------</option>
+              <option value="in-playlists">Dans mes listes</option>
+              <option value="has-replay">En Replay</option>
+              <option value="is-popular">Les plus suivis</option>
+              <option class="divider">-----------------</option>
+              <option value="">Tout</option>
+            </select>
+            <div id="datepicker"></div>
+          </ul>
+        </div>
+        <div class="col-xs-8 text-right">
+          <ul class="nav nav-pills">
+            <li class="datepicker">
+              <span>Choisir une date</span>
+              <a class="calendar btn ">
+                <time timestamp="{{ data.timestamp }}">{{ date[0]|capitalize}}{{ data.timestamp|date('Y')}} </time> <i class="glyphicon glyphicon-calendar"></i>
+              </a>
+              <select id="opt-hour" class="btn-default hourpicker" data-current-hour="{{date[1]|date('H')}}">
+                {% for h in range(0, 23) %}
+                  <option value="{{h}}" {%if h==date[1]|date('H') %} selected{% endif %}>{{h}}h00</option>
+                {% endfor %}
+              </select>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div id="grid" data-timestamp="{{ data.timestamp }}" data-reload-ajax="{{ path('tvgrid') }}">
+        <div class="btn-group btn-filters" data-toggle="buttons-radio">
+          <a class="btn btn-default btn-info btn-group-sm" data-filter="">Tout</a>
+          <a class="btn btn-default btn-group-sm" data-filter="films">Films</a>
+          <a class="btn btn-default btn-group-sm" data-filter="documentaires">Documentaires</a>
+          <a class="btn btn-default btn-group-sm" data-filter="emissions">Emissions</a>
+          <a class="btn btn-default btn-group-sm" data-filter="sports">Sports</a>
+          <a class="btn btn-default btn-group-sm" data-filter="series">Séries</a>
+          <a class="btn btn-default btn-group-sm" data-filter="spectacles">Spectacles</a>
+        </div>
+        <div class="pull-right addchannel">
+          <a class="btn btn-primary btn-xs" data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}">Ajouter / Supprimer des chaînes</a>
+        </div>
+        <div class="relative">
+          <div class="horaire">
+            <a href="{{ path('tvgrid_date', {date: data.timestamp - 36000 }) }}" class="btn btn-small btn-inverse btn-precedent" ><i class="glyphicon glyphicon-chevron-left"></i> Préc.</a>
+            <a href="{{ path('tvgrid_date', {date: data.timestamp + 36000 }) }}" class="btn btn-small btn-inverse btn-suivant">Suivant <i class="glyphicon glyphicon-chevron-right"></i></a>
+          </div>
+          <ul class="timeline">
+            <li></li>
+            <li>&nbsp;{{ data.timestamp|date('H:i')|replace({':': 'h'}) }}</li>
+            <li>{{ (data.timestamp + 3600)|date('H:i')|replace({':': 'h'}) }}</li>
+            <li>{{ (data.timestamp + 2*3600)|date('H:i')|replace({':': 'h'}) }}&nbsp;</li>
+          </ul>
+          <div class="channel-wrap">
+            <div title="En direct" class="time-bar hide"></div>
+            <div class="arrow arrow-up tooltip:after hide"></div>
+            <ul id="channels" class="nav nav-list">
+              {% include 'SkreenHouseFactoryV3Bundle:Timeline:_channels-schedule.html.twig' with {data: data } %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="addchannel-bottom">
+        <a class="btn btn-default" data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;de chaînes</a>
+      </div>
+    </div>
   </div>
-   <div class="addchannel-bottom">
-    <a class="btn btn-default" data-modal="remote" data-modal-title="Ajouter une chaîne" data-modal-message="Personnalisez votre guide TV Replay." href="{{ path('tvgrid_addchannel') }}"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;de chaînes</a>
-  </div>
-</div>
-
-</div>
-
-
 {% endblock %}
 
 {% block pagescripts %}
-{% javascripts
-  '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery-ui-1.10.1.custom.min.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery.ui.datepicker-fr.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/tvgrid.js'
-  filter='?yui_js' 
-  output='js/compiled/tvgrid.js'  %}
-  <script src="{{ asset_url }}"></script>
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery-ui-1.10.1.custom.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery.ui.datepicker-fr.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/tvgrid.js'
+      filter='?yui_js' 
+      output='js/compiled/tvgrid.js'  %}
+    <script src="{{ asset_url }}"></script>
   {% endjavascripts %}
-  {% endblock %}
+{% endblock %}
