@@ -14,7 +14,7 @@
     <meta itemprop="height" content="368" />
     <meta itemprop="playerType" content="Flash" />
     <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
-    <meta itemprop="name" content="{{ program.title }}" />
+    <meta itemprop="name" content="{{ program.title|replace({'"': ''}) }}" />
     <meta itemprop="isFamilyFriendly" content=true />
     <meta itemprop="description" content="{{ program.description_text|striptags|html_entity_decode|replace({"\n": ' '})|slice(0,400) }}..." />
     <div id="program-teaser-meta" class="player-meta"></div>
