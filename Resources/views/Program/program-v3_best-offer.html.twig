@@ -98,14 +98,14 @@
         <img src="http://mskstatic.com/medias/ftp/logos/roulette_best-offer_defbis.gif" alt="roulette de fournisseurs externes">
       </div>
       <div class="col-xs-13">
-        <p>Nous recherchons la meilleure offre...</p>
+        <p>Nous recherchons les meilleures offres...</p>
       </div>
     </div>
 
   {% elseif o.offer_type in ['deporte','archive'] %}
 
     <div class="row best-offer deporte {{ o.cost is defined and o.cost ? '' : 'no-cost '}}player-stop {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}"{% if o.deporte is defined and o.deporte %} data-play="{{ o.id }}"{% endif %}{% if o.offer_type == 'deporte' %} data-play-text="{{ ('player.content.text.' ~ o.offer_type)|trans({'%date%': 'diffusé '~ (o.broadcasttime is defined ? o.broadcasttime|broadcastdate : '')}) }}"{% endif %}>
-      <div class="col-xs-3">
+      <div class="col-xs-3 offers">
         {% if program.player and o.id == program.player.id %}
           <button type="button" class="btn btn-voir disabled">Lecture en cours</button>
         {% else %}
@@ -132,7 +132,7 @@
       <div class="col-xs-4">
         {% if program.player and o.id == program.player.id %}
           <button type="button" class="btn btn-voir disabled">Lecture en cours</button>
-        {% else %}
+        {% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %}
           <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;Voir le direct</button>
         {% endif %}
       </div>

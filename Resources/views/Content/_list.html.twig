@@ -1,7 +1,7 @@
 <li>
   <div class="row">
     <div class="col-xs-4">
-      <img src="{{ p.picture }}" />
+      <a href="{{ p.seo_url }}"><img src="{{ p.picture }}" /></a>
     </div>
     <div class="col-xs-12">
       <h2><a href="{{ p.seo_url }}">{{ p.title }}</a></h2>
@@ -28,19 +28,19 @@
           </div>
         {% endif %}
       {% endif %}
-  <br/>
-  <p>
-  {% if p.offers is defined and p.offers.theaters is defined and p.offers.theaters %}
-  <span class="btn btn-default" data-link-to-replace="{{ p.seo_url|rot13 }}"><i class="glyphicon glyphicon-map-marker"></i> {{ p.theater_release_date_timestamp > "now"|date('U') ? 'pluralization.cinema.nb_salles_avant_premiere'|transchoice(p.offers.theaters|split(',')|length,{'%count%' : p.offers.theaters|split(',')|length}) : 'pluralization.cinema.nb_salles'|transchoice(p.offers.theaters|split(',')|length,{'%count%' : p.offers.theaters|split(',')|length}) }} </span>  &nbsp;
-  {% endif %}
-  {% set teaser = p.player is defined and p.player ? p.player : p.teaser %}
-  {% if teaser %}
-  <a class="btn btn-default" data-play-iframe="{{ teaser.id }}"><i class="glyphicon glyphicon-play"></i> Voir la bande-annonce</a> &nbsp;
-  {% endif %}
-  {% if cinema is defined and program is defined %}
-    <a class="btn btn-default" data-schedule-cine-around="{{ {program_id: program.id, geoloc_from_theater_id: cinema.id}|json_encode }}"><i class="glyphicon glyphicon-record"></i> Autres séances à proximité</a>
-  {% endif %}
-  </p>
-  </div>
+      <br/>
+      <p>
+        {% if p.offers is defined and p.offers.theaters is defined and p.offers.theaters %}
+          <span class="btn btn-default" data-link-to-replace="{{ p.seo_url|rot13 }}"><i class="glyphicon glyphicon-map-marker"></i> {{ p.theater_release_date_timestamp > "now"|date('U') ? 'pluralization.cinema.nb_salles_avant_premiere'|transchoice(p.offers.theaters|split(',')|length,{'%count%' : p.offers.theaters|split(',')|length}) : 'pluralization.cinema.nb_salles'|transchoice(p.offers.theaters|split(',')|length,{'%count%' : p.offers.theaters|split(',')|length}) }} </span>  &nbsp;
+        {% endif %}
+        {% set teaser = p.player is defined and p.player ? p.player : p.teaser %}
+        {% if teaser %}
+          <a class="btn btn-default" data-play-iframe="{{ teaser.id }}"><i class="glyphicon glyphicon-play"></i> Voir la bande-annonce</a> &nbsp;
+        {% endif %}
+        {% if cinema is defined and program is defined %}
+          <a class="btn btn-default" data-schedule-cine-around="{{ {program_id: program.id, geoloc_from_theater_id: cinema.id}|json_encode }}"><i class="glyphicon glyphicon-record"></i> Autres séances à proximité</a>
+        {% endif %}
+      </p>
+    </div>
   </div>
 </li>

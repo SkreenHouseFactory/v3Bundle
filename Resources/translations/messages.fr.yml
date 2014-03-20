@@ -465,7 +465,7 @@ offer:
             titre: <strong>%titre%</strong> n'est disponible sur aucune plateforme légale.
         default:
             titre: <strong>%titre%</strong> n'est pas diffusé pour le moment.
-            texte: Avec mySkreen, suivez ce programme pour être averti dès qu'il sera diffusé (TV, Replay, Streaming VOD, Cinéma) !
+            texte: Ajoutez ce programme à vos listes pour être averti de ses prochaines diffusions : TV, Replay, VOD, Cinéma !
 pluralization:
     cinema:
         nb_salles: '{1} Trouver une séance (1 salle)|]1,Inf] Trouver une séance (%count% salles)'
