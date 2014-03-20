@@ -246,8 +246,9 @@ UiView = {
       console.log('script', 'data-play-iframe', $(this).data('play-iframe'), Player.state);
       
       var trigger = $(this);
+      var url = isNaN(trigger.data('play-iframe')) ? trigger.data('play-iframe') : '//api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play='+trigger.data('play-iframe');
       var params = {
-        url: trigger.data('play-iframe') + (trigger.data('play-iframe').indexOf('?') == -1 ? '?' : '&') + 'session_uid=' + Skhf.session.uid,
+        url: url + (url.indexOf('?') == -1 ? '?' : '&') + 'session_uid=' + Skhf.session.uid,
         env: API.config.env,
         reload: true,
         events: {
@@ -262,11 +263,13 @@ UiView = {
       //player par defaut
       if (!Player.elmt) {
         Player.elmt = $('#player.default-player');
+      }
+      if (Player.elmt.hasClass('default-player')) {
         Player.elmt.addClass('in');
         $('body').append('<div class="modal-backdrop modal-player in"></div>');
   
         $('.close', Player.elmt).on('click', function() {
-          Player.elmt.empty();
+          $('iframe', Player.elmt).remove();
           Player.elmt.removeClass('in');
           $('.modal-backdrop.modal-player').remove();
         })
