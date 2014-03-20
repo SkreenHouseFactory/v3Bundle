@@ -1,9 +1,4 @@
-{% set base_url = '' %}
-{% if app.environment == 'prod' and app.request.get('partner') and 'preprod' not in app.request.httpHost %}
-{% set base_url = 'http://www.myskreen.com' %}
-{% elseif app.environment == 'dev' %}
-{% set base_url = '/app_dev.php' %}
-{% endif %}
+{% set base_url = app.environment == 'prod' and ('www.myskreen.com' not in app.request.uri or '/partners/' in app.request.uri) ? 'http://www.myskreen.com' : (app.environment == 'dev' ? '/app_dev.php' : '') %}
 
 {% if p is not defined or p.title is not defined %}
 {% set p = {title:'%title%',
