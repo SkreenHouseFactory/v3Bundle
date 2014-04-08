@@ -43,10 +43,24 @@ class UserController extends Controller
       $obj1 = $api->fetch('www/slider/pack/7928592', $params); //pack top box office
       $obj2 = $api->fetch('www/slider/pack/3314278', $params); //pack top des séries
       $obj3 = $api->fetch('www/slider/pack/12975429', $params); //pack les plus populaires
+      $obj4 = $api->fetch('www/slider/pack/12193165', $params); //pack chaînes de la Home
 
       $selection_pack['films']  = $obj1;
       $selection_pack['series']  = $obj2;
       $selection_pack['emissions']  = $obj3;
+      $selection_pack['chaines'] = $obj4;
+      $selection_pack['persons'] = array(
+        0 => array('title' => 'Gérard Depardieu', 'id' => 5679132),
+        1 => array('title' => 'Marion Cottilard', 'id' => 5553250),
+        2 => array('title' => 'Matt Damon', 'id' => 5659565),
+        3 => array('title' => 'Scarlett Johansson', 'id' => 5231885),
+        4 => array('title' => 'Jean Dujardin', 'id' => 5674357),
+        5 => array('title' => 'Cécile de France', 'id' => 5669228),
+        6 => array('title' => 'Martin Scorsese', 'id' => 5630208),
+        7 => array('title' => 'Julia Roberts', 'id' => 5214404),
+        8 => array('title' => 'George Clooney', 'id' => 5129261),
+      );
+
 
       //Tri dans le pack populaires pour ne garder que les émissions
       $emissions = array();
@@ -56,7 +70,7 @@ class UserController extends Controller
           $emissions[] = $p;
           $count_placeholder ++;
         }
-        if ($count_placeholder == 2) {
+        if ($count_placeholder == 10) {
           break;
         }
       }

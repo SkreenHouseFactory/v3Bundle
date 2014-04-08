@@ -14,7 +14,7 @@ $(document).ready(function(){
 
   $('.timeline').affix({
     offset: {
-      top: 165, 
+      top: 205, 
       bottom: 250
     }
   });
