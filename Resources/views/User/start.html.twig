@@ -25,7 +25,7 @@
         <li><a href="#persons">Vos Personnalités <span id="count-persons" class="badge">0</span></a></li>
         <li><a href="#theaters">Vos Salles de cinéma <span id="count-theaters" class="badge">0</span></a></li>
         <li><a href="#channels">Vos Chaînes <span id="count-channels" class="badge">0</span></a></li>
-        <li class="user-off confirm"><a href="#confirm" class="black">Enregistrer</a></li>
+        <li class="confirm"><a href="#confirm" class="black">Enregistrer</a></li>
       </ul>
     </div>
     <div class="forms-container col-xs-11">
@@ -50,7 +50,7 @@
       <div class="form-container">
         {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'channels', title: 'Ajouter vos chaînes', suggest: '...'} %}
       </div>
-      <div class="form-container user-off">
+      <div class="form-container">
         <h2 id="confirm">Enregistrer</h2>
         <p><button id="register" class="btn btn-primary btn-lg">Enregistrer mes listes</button></p>
       </div>

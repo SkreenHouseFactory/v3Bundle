@@ -1,5 +1,6 @@
 body.view-user_start {
   #bandeau-listes {
+    margin-bottom: 10px;
     .container {
       text-align: left;
       margin-top: 0;
@@ -27,10 +28,17 @@ body.view-user_start {
   .fond-bleu {
     // background: #5B9BD1;
     .bg {
-      background: url('http://mskstatic.com/medias/ftp/home/fd_start_images_big.jpg') center top repeat;
+      background:
+        url('/bundles/skreenhousefactoryv3/images/start/fd_images_films.jpg') center top no-repeat,
+        url('/bundles/skreenhousefactoryv3/images/start/fd_images_emissions.jpg') center 850px no-repeat,
+        url('/bundles/skreenhousefactoryv3/images/start/fd_images_series.jpg') center 1313px no-repeat,
+        url('/bundles/skreenhousefactoryv3/images/start/fd_images_persos.jpg') center 1765px no-repeat,
+        url('/bundles/skreenhousefactoryv3/images/start/fd_images_salles.jpg') center 2229px no-repeat,
+        url('/bundles/skreenhousefactoryv3/images/start/fd_images_chaines.jpg') center 2653px no-repeat,
+        url('/bundles/skreenhousefactoryv3/images/start/fd_images_confirm.jpg') center 3115px no-repeat;
       position: fixed;
       width: 100%;
-      height: 300%;
+      height: 600%;
       top:0;
       left:0;
       z-index: -1;
@@ -44,10 +52,11 @@ body.view-user_start {
       padding-right: 10px;
       margin-right: 60px;
       text-align: right;
-      height: 570px;
+      height: 508px;
+      background-color: rgba(255,255,255,0.8);
       &.affix {
         position: fixed;
-        top: 100px;
+        top: 15px;
       }
       &.affix-bottom {
         position: fixed;
@@ -59,11 +68,20 @@ body.view-user_start {
         display: inherit;
         position: absolute;
         top: 0;
-        bottom: 90px;
+        height: 475px;
         width: 5px;
         background: #428bca;
         right: 0px;
         margin-right: -20px;
+      }
+      &:before {
+        content: " ";
+        position: absolute;
+        width: 35px;
+        height: 508px;
+        background-color: rgba(255,255,255,0.8);
+        right: -35px;
+        top: 0px;
       }
       li {
         font-size: 1.2em;
@@ -93,7 +111,7 @@ body.view-user_start {
         a {
           text-decoration: none;
           display: inline;
-          color: white;
+          color: #333;
           padding: 8px 13px 8px 6px;
         }
         &.active, &:hover, &:focus {
@@ -122,14 +140,14 @@ body.view-user_start {
       width: 65%;
       .form-container {
         height: 815px;
-        background: rgba(61,132,192,0.3);
+        background: rgba(255,255,255,0.8);
         border-radius: 5px;
         margin-bottom: 20px;
         padding: 0 25px;
         h2 {
           padding-top: 40px;
           margin-top: 0;
-          color: white;
+          color: #333;
         }
         .form-inline {
           margin-bottom: 30px;

@@ -1,7 +1,7 @@
 // -- user start
 function parallax(){
   var scrolled = $(window).scrollTop();
-  $('.bg').css('top', -(scrolled*0.2)+'px');
+  $('.bg').css('top', -(scrolled*0.5)+'px');
 }
 
 $(document).ready(function(){
@@ -14,7 +14,7 @@ $(document).ready(function(){
 
   $('.timeline').affix({
     offset: {
-      top: 275, 
+      top: 165, 
       bottom: 250
     }
   })
