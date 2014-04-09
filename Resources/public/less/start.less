@@ -47,7 +47,7 @@ body.view-user_start {
     ul.timeline {
       width: 200px;
       list-style: none;
-      padding: 40px 0 0;
+      padding: 22px 0 0;
       color: white;
       position: relative;
       padding-right: 10px;
@@ -70,10 +70,10 @@ body.view-user_start {
         position: absolute;
         top: 0;
         height: 490px;
-        width: 8px;
+        width: 11px;
         background: white;
         right: 0px;
-        margin-right: -21px;
+        margin-right: -24px;
       }
       // &:before {
       //   content: " ";
@@ -96,8 +96,8 @@ body.view-user_start {
         }
         &:after {
           content: '';
-          width: 20px;
-          height: 20px;
+          width: 23px;
+          height: 23px;
           background: #428bca;
           border-radius: 50%;
           border: 5px solid white;
@@ -122,7 +122,7 @@ body.view-user_start {
           text-decoration: none;
           display: inline;
           color: #428bca;
-          padding: 8px 13px 8px 13px;
+          padding: 8px 13px 8px 10px;
           background-color: white;
           border-radius: 4px;
           position: relative;
@@ -162,17 +162,20 @@ body.view-user_start {
         margin-bottom: 20px;
         padding: 0 25px;
         h2 {
-          padding-top: 40px;
+          padding-top: 20px;
           margin-top: 0;
           color: #333;
         }
         .form-inline {
-          margin-bottom: 25px;
+          margin-bottom: 10px;
           .form-group {
             float: left;
             &:first-child {
-              width: 80%;
+              width: 100%;
               margin-right: 10%;
+              .input-lg {
+                background-color: #efefef;
+              }
             }
           }
         }
@@ -181,8 +184,8 @@ body.view-user_start {
             list-style: none;
             padding-left: 0;
             li {
-              margin-bottom: 15px;
-              padding-bottom: 15px;
+              margin-bottom: 9px;
+              padding-bottom: 9px;
               &.head-suggest {
                 border-top: 3px dotted #333;
                 padding-top: 15px;
@@ -190,12 +193,22 @@ body.view-user_start {
                 margin-left: -25px;
                 padding-left: 25px;
                 margin-right: -25px;
+                margin-bottom: 0px;
+              }
+              a {
+                visibility: hidden;
+              }
+              &:hover {
+                cursor: pointer;
+                a {
+                  visibility: visible;
+                }
               }
               &.suggest {
                 // border-bottom: 2px dotted #428bca;
                 &:nth-child(even) {
                   background-color: rgba(66,139,202,0.1);
-                  padding-top: 15px;
+                  padding-top: 9px;
                   margin-left: -25px;
                   margin-right: -25px;
                   padding-left: 25px;
@@ -217,6 +230,7 @@ body.view-user_start {
                 margin-top: 6px;
                 small {
                   color:#666;
+                  font-style: italic;
                 }
               }
             }
@@ -228,4 +242,8 @@ body.view-user_start {
   .navbar-fixed-top {
     position: absolute;
   }
+}
+
+html.touch body.view-user_start .fond-bleu .forms-container .form-container .results ul li a {
+  visibility: visible;
 }

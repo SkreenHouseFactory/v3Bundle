@@ -10,8 +10,8 @@
 <div id="results-{{ step }}" class="results">
   <ul>
   	<li class="head-suggest"><h3>Suggestions :</h3></li>
-  	{% for suggestion in suggests|to_array|slice(0, 8) %}
-  		<li class="clearfix suggest"><span>{{ suggestion.title }}{% if suggestion.year is defined and suggestion.year %}, <small><i>{{ suggestion.year }}</i></small>{% endif %}</span><a data-id="{{ suggestion.id }}" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-suivre btn-plus fav-like pull-right" data-step="{{ step }}">Ajouter à mes listes </a></li>
+  	{% for suggestion in suggests|to_array|slice(0, 9) %}
+  		<li class="clearfix suggest"><span>{{ suggestion.title }}{% if suggestion.year is defined and suggestion.year and step == 'films' %}, <small>{{ suggestion.year }}</small>{% endif %}</span><a data-id="{{ suggestion.id }}" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-sm btn-suivre btn-plus fav-like pull-right" data-step="{{ step }}">Ajouter à mes listes </a></li>
   	{% endfor %}
   </ul>
 </div>
