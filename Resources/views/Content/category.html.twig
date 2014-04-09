@@ -36,9 +36,9 @@
   {% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}
   {{ category.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 {% block content %}
-<div id="view-category" data-id="{{ category.id }}" class="container view-category-{{ app.request.get('format') }}">
-  
-  <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ category.seo_url, text: 'Je regarde des ' ~ category.name ~ ' sur mySkreen et vous ?' } %}</div>
+
+<div class="bande_fonce">
+<div class="container">  
 
   <ul class="breadcrumb">
     {% if app.request.get('format') %}
@@ -58,31 +58,13 @@
     {% endif %}
   </ul>
 
-  {#<h1>{{ category.name }}{% if app.request.get('format') %}, {{ app.request.get('format') }}{% endif %}{% if app.request.get('facet') %} : {% if app.request.get('facet')|length > 1 and subcategories[app.request.get('facet')] is defined %}{{ subcategories[app.request.get('facet')] }}{% else %}{{ app.request.get('access')|replace({'video-a-la-demande': 'VOD'}) }}{% endif %}{% endif %}{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h1>#}
-
-  <div class="view-main view-category-main">
-    <div class="category-description well">
-      <h1>{% if app.request.get('format') %}{{ app.request.get('format') }} :{% endif %} la catégorie {{ category.name }}{% if app.request.get('access') %} en {{ ('access.' ~ app.request.get('access'))|trans }}{% endif %}</h1>
-      <h2>Programmes à voir</h2>
-      <p>{% if app.request.get('access') %}{{ ('access.' ~ app.request.get('access'))|trans }} : {% endif %}{{ category.description|raw }}</p>
-    </div>
-  </div>
-
-  {% if app.request.get('format') and (app.request.get('facet') is null or app.request.get('facet')|length < 2) %}
-    {# alpha #}
-    <ul class="pagination">
-      <li{% if app.request.get('facet') is null %} class="active"{% endif %}><span data-link-to-replace="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'})|rot13 }}">{{ 'nav.all'|trans }}</span></li>
-      {# 
-        <li{% if app.request.get('access') == 'vod' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">En VOD</a></li>
-      <li{% if app.request.get('access') == 'cinema' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">Au cinéma</a></li>
-      <li{% if app.request.get('access') == 'tv' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">TV & Replay</a></li>
-      #}
-      {% for l in alpha %}
-        <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><span data-link-to-replace="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: l})|replace({'//': '/'})|rot13 }}">{{ l }}</span></li>
-      {% endfor %}
-    </ul>
-
-  {% endif %}
+  <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ category.seo_url, text: 'Je regarde des ' ~ category.name ~ ' sur mySkreen et vous ?' } %}</div>
+  <h1>{% if app.request.get('format') %}{{ app.request.get('format') }} :{% endif %} la catégorie {{ category.name }}{% if app.request.get('access') %} en {{ ('access.' ~ app.request.get('access'))|trans }}{% endif %}</h1>
+  
+</div>
+</div>
+<div class="bande_plus_fonce">
+<div class="container">  
 
   {# facets
   route: {{ app.request.attributes.get('_route') }}
@@ -94,6 +76,8 @@
 
   <div class="facets">
   {% if 'format' in app.request.attributes.get('_route') and categories|length > 1 %}
+    <br/>
+    <p class="sk-font">Tous les genres</p>
     {% for k,s in categories %}
       <a href="{{ path('category', {format: app.request.get('category_slug'), category_slug: k})|replace({'//':'/'}) }}" class="label {% if app.request.get('category_slug') == k %}label-info{% else %}label-default{% endif %}">{{ s }}</a>
     {% endfor %}
@@ -107,17 +91,71 @@
       {{ s }}</span>
     {% endfor %}
   {% else %}
+    <p class="sk-font">Préciser</p>
     {% for k,s in subcategories %}
       <span data-link-to-replace="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'})|rot13 }}" class="label {% if app.request.get('facet') == k %}label-info{% else %}label-default{% endif %}">
         {{ s }}</span>
     {% endfor %}
   {% endif %}
   </div>
-  <hr/>
+  
+  
+  <p class="sk-font"><a data-toggle-hide=".more-filters" data-toggle-text="... Cacher les filtres">Plus de filtres ...</a></p>
+  <div class="more-filters hide facets">
+    {% if app.request.get('format') and (app.request.get('facet') is null or app.request.get('facet')|length < 2) %}
+      {# alpha #}
+      <p class="sk-font">Ordre alphabétique</p>
+      <ul class="pagination nomargin">
+        <li{% if app.request.get('facet') is null %} class="active"{% endif %}><span data-link-to-replace="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'})|rot13 }}">{{ 'nav.all'|trans }}</span></li>
+        {# 
+          <li{% if app.request.get('access') == 'vod' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">En VOD</a></li>
+        <li{% if app.request.get('access') == 'cinema' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">Au cinéma</a></li>
+        <li{% if app.request.get('access') == 'tv' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">TV & Replay</a></li>
+        #}
+        {% for l in alpha %}
+          <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><span data-link-to-replace="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: l})|replace({'//': '/'})|rot13 }}">{{ l }}</span></li>
+        {% endfor %}
+      </ul>
 
+    {% endif %}
+    
+    <p class="sk-font">Sur quelle chaîne ?</p>
+      {% for k,c in channels %}
+        {% if app.request.get('category_slug') and app.request.get('format') %}
+        <span class="label label-default" data-link-to-replace="{{ path('channel_format_facet', {slug: k|replace({'-+': ''}), format: app.request.get('format'), facet: app.request.get('category_slug') })|rot13 }}">
+        {% elseif app.request.get('category_slug') %}
+        <span class="label label-default" data-link-to-replace="{{ path('channel_format', {slug: k|replace({'-+': ''}), format: app.request.get('category_slug')})|rot13 }}">
+        {% endif %}
+        {{ c }}</span>
+      {% endfor %}
+
+    {% if app.request.get('format') and app.request.get('access') is null and app.request.get('facet') is null %}
+    <p class="sk-font">Quel support ?</p>
+      {% for k,a in access if a|replace({'vod': 'video-a-la-demande'}) in facet_access|keys %}
+        {% if app.request.get('category_slug') and app.request.get('format') %}
+        <span class="label label-default" data-link-to-replace="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'})|rot13 }}">
+        {% elseif app.request.get('category_slug') %}
+        <span class="label label-default" data-link-to-replace="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'})|rot13 }}">
+        {% endif %}
+        {{ facet_access[a|replace({'vod': 'video-a-la-demande'})] }}</span>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+</div>
+</div>
+
+
+<div id="view-category" data-id="{{ category.id }}" class="container view-category-{{ app.request.get('format') }}">
+
+  <div class="description-seo description-seo-absolute">
+    <div class="container scroll well">
+      <h2>Programmes à voir</h2>
+      <p>{% if app.request.get('access') %}{{ ('access.' ~ app.request.get('access'))|trans }} : {% endif %}{{ category.description|raw }}</p>
+    </div>
+  </div>
 
   <h3 class="pager-count">{{ category.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
-
 
   {% include 'SkreenHouseFactoryV3Bundle:Content:_category-pager.html.twig' with {facet_access: facet_access} %}
 

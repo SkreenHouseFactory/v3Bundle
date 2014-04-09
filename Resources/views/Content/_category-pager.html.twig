@@ -1,6 +1,5 @@
 <ul class="pager">
 {% if category.count > 30 %}
-
 	{% if app.request.get('page') > 2 %}
 	<li class="previous">
 		{% if app.request.get('facet') %}
@@ -33,35 +32,5 @@
 		{% endif %}
 	</li>
 	{% endif %}
-{% endif %}
-<li class="pull-right dropdown dropdown-update">
-  <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-down"></i>&nbsp;<span>Sur quelle chaîne ?</span></span>
-  <ul class="dropdown-menu">
-    {% for k,c in channels %}
-    <li>
-      {% if app.request.get('category_slug') and app.request.get('format') %}
-      <span data-link-to-replace="{{ path('channel_format_facet', {slug: k|replace({'-+': ''}), format: app.request.get('format'), facet: app.request.get('category_slug') })|rot13 }}">
-      {% elseif app.request.get('category_slug') %}
-      <span data-link-to-replace="{{ path('channel_format', {slug: k|replace({'-+': ''}), format: app.request.get('category_slug')})|rot13 }}">
-      {% endif %}
-      {{ c }}</span></li>
-    {% endfor %}
-  </ul>
-</li>
-{% if app.request.get('format') and app.request.get('access') is null and app.request.get('facet') is null %}
-<li class="pull-right dropdown dropdown-update">
-  <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-down"></i>&nbsp;<span>Quel support ?</span></span>
-  <ul class="dropdown-menu">
-    {% for k,a in access if a|replace({'vod': 'video-a-la-demande'}) in facet_access|keys %}
-    <li>
-      {% if app.request.get('category_slug') and app.request.get('format') %}
-      <span data-link-to-replace="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'})|rot13 }}">
-      {% elseif app.request.get('category_slug') %}
-      <span data-link-to-replace="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'})|rot13 }}">
-      {% endif %}
-      {{ facet_access[a|replace({'vod': 'video-a-la-demande'})] }}</spans></li>
-    {% endfor %}
-  </ul>
-</li>
 {% endif %}
 </ul>
