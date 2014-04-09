@@ -25,21 +25,48 @@ class CinemaController extends Controller
     public function boxofficeAction(Request $request)
     {
       $session_uid = $request->cookies->get('myskreen_session_uid');
-      $alpha       = $request->get('alpha', 'a');
+      if (!$request->get('alpha') && !$request->get('category')) {
+        $request->request->set('alpha', 'a');
+      }
+      $alpha       = $request->get('alpha');
       $category    = $request->get('category');
       
       //programs
 			$api = $this->get('api');
-      $programs = $api->fetch(
-        'program', 
+      if ($category) {
+        $results = $api->fetch(
+          'search/*', 
+           array(
+             'access'                   => 'cinema',
+             'disable_search_by_format' => true,
+             'offset' => 0,
+             'nb_results' => 1000,
+             'facets' => 'category:'.$category
+        ));
+        $programs = $results->programs;
+        //echo $api->url;
+      } else {
+        $programs = $api->fetch(
+          'program', 
+           array(
+             'img_width'  => 150,
+             'img_height' => 200,
+             'access'     => 'cinema',
+             'alpha'      => $alpha,
+             'category'   => $category
+        ));
+      }
+      
+      //facets categories
+      $results = $api->fetch(
+        'search/*', 
          array(
-           'img_width'  => 150,
-           'img_height' => 200,
-           'access'     => 'cinema',
-           'alpha'      => $alpha,
-           'category'   => $category
+           'access'                   => 'cinema',
+           'disable_search_by_format' => true
       ));
-
+      //print_r($results);
+      
+      //echo $api->url;
       //print_r(array($session_uid, $programs));
       $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:boxoffice.html.twig', array(
         'menus'    => null,
@@ -47,9 +74,7 @@ class CinemaController extends Controller
           1,2,3,4,5,6,7,8,9,
           'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
         ),
-        'categories' => array(
-          'Films cultes', '', ''
-        ),
+        'categories' => array_combine(explode(';', $results->facets_seo_url->category),explode(';', $results->facets->category)),
         'programs' => $programs
       ));
 

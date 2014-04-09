@@ -49,7 +49,7 @@ class ContentController extends Controller
          'offset' => $request->get('page', 1) * 30 - 30,
          'nb_results' => 30,
          'facets' => $this->buildFacets($request),
-          'disable_search_by_format' => true
+         'disable_search_by_format' => true
        ));
 
       //echo "\n".'api:' . $api->url;

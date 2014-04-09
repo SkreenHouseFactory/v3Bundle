@@ -315,6 +315,10 @@ UiView = {
         $($(this).data('toggle-display')).toggle();
       }
     });
+    $(document).on('click', '[data-toggle-hide]', function () {
+      console.log('script', '[data-toggle-hide]', $(this).data('toggle-hide'));
+      $($(this).data('toggle-hide')).toggleClass('hide');
+    });
 
     // -- remote data in html elmt
     $(elmt).on('click', '[data-trigger-click]', function(){
