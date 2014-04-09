@@ -80,7 +80,21 @@ $(document).ready(function(){
         });
       }, 500);
     }
+
+    // populate confirmed div
+    if ($(this).hasClass('fav-on')) {
+      var like_id = $(this).data('id');
+      //console.log('scripts/user-start.js', 'like_id', like_id);
+      var like_title = $(this).parent('.suggest').children('span').html();
+      //console.log('scripts/user-start.js', 'like-title', like_title);
+      $('.confirmed ul').append('<li class="suggest like_' + like_id + '">' + like_title + '</li>');
+    } else {
+      var like_id = $(this).data('id');
+      $('.confirmed ul li.like_'+like_id+'').remove();
+    }
+
   });
+
 
   //count : init from cookie
   $('form[data-step]').each(function(){

@@ -52,9 +52,13 @@
         {% set suggest_chaines = selection_pack.chaines.programs %}
         {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'channels', title: 'Ajouter vos chaînes', placeholder: 'Humour, Sport, Politique...', suggests: suggest_chaines} %}
       </div>
-      <div class="form-container">
-        <h2 id="confirm">Enregistrer</h2>
-        <p><button id="register" class="btn btn-primary btn-lg">Enregistrer mes listes</button></p>
+      <div class="form-container confirmed scroll">
+        <h2 id="confirm">Mes listes</h2>
+        <div class="results">
+          <ul>
+          </ul>
+          <p class="clearfix"><button id="register" class="btn btn-primary btn-lg pull-right">Enregistrer</button></p>
+        </div>
       </div>
     </div>
   </div>
