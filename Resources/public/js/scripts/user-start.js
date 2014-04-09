@@ -134,7 +134,7 @@ $(document).ready(function(){
         console.log('scripts/user-start.js', 'callback form', container);
         for (k in results) {
           title = typeof results[k].title != 'undefined' ? results[k].title : results[k].name;
-          container.append('<li class="clearfix"><span>' + title + '</span><a data-id="'+results[k].id+'" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-suivre btn-plus fav-like pull-right" data-step="'+step+'">Ajouter à mes listes </a></li>')
+          container.append('<li class="clearfix suggest"><span>' + title + '</span><a data-id="'+results[k].id+'" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-suivre btn-plus fav-like pull-right" data-step="'+step+'">Ajouter à mes listes </a></li>')
         }
     });
 
