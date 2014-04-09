@@ -1,7 +1,7 @@
 // -- user start
 function parallax(){
   var scrolled = $(window).scrollTop();
-  $('.bg').css('top', -(scrolled*0.2)+'px');
+  $('.bg').css('top', -(scrolled*0.5)+'px');
 }
 
 $(document).ready(function(){
@@ -14,10 +14,11 @@ $(document).ready(function(){
 
   $('.timeline').affix({
     offset: {
-      top: 275, 
+      top: 205, 
       bottom: 250
     }
-  })
+  });
+
   $('.timeline li').removeClass('active');
   $('.timeline li:first-child').addClass('active');
 
@@ -92,7 +93,8 @@ $(document).ready(function(){
   });
 
   //register
-  $('#register').on('click', function(){
+  $(document).on('click', '#register', function(){
+    console.log('scripts/user-start.js', '#register-click');
     UI.auth(function(){
       lists_in_session = JSON.parse(API.cookie('start-mes-listes'));
       if (Skhf.session.datas.email && lists_in_session) {
@@ -137,5 +139,6 @@ $(document).ready(function(){
     });
 
     return false;
-  })
+  });
+
 });
