@@ -1,18 +1,18 @@
 {% extends app.request.get('layout_partner') ? 'SkreenHouseFactoryPartnersBundle::' ~ app.request.get('layout_partner') ~ '.html.twig' : 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
 {% block meta %}
-{% if selection.programs|length < 6 %}
-<meta name="robots" content="noindex,follow" />
-{% endif %}
-<meta property="og:title" content="{{ selection.name }}" />
-<meta property="og:description" content="{{ selection.description }}" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://www.myskreen.com{{ selection.seo_url }}" />
-{% if selection.picture is defined and  selection.picture != '' %}
-<meta property="og:image" content="{{ selection.picture }}" />
-<link rel="image_src" href="{{ selection.picture }}" />
-{% endif %}
-<meta name="object_type" content="website" />
+  {% if selection.programs|length < 6 %}
+    <meta name="robots" content="noindex,follow" />
+  {% endif %}
+  <meta property="og:title" content="{{ selection.name }}" />
+  <meta property="og:description" content="{{ selection.description }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://www.myskreen.com{{ selection.seo_url }}" />
+  {% if selection.picture is defined and  selection.picture != '' %}
+    <meta property="og:image" content="{{ selection.picture }}" />
+    <link rel="image_src" href="{{ selection.picture }}" />
+  {% endif %}
+  <meta name="object_type" content="website" />
 {% endblock %}
 {% block title %}{{ selection.name|striptags }}{% if selection.onglet.channel.fournisseur is defined %} {{ selection.onglet.channel.title }} en Replay{% endif %}{% endblock %}
 {% block description %}{% if selection.onglet.channel.fournisseur is defined %}{{ selection.name|striptags }} de {{ selection.onglet.channel.title }} et tous les Programmes des Chaines de la TNT en Replay et en Direct Live GRATUITEMENT et en 1 Clic sur mySkreen !{% else %}{{ selection.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endif %}{% endblock %}
@@ -47,40 +47,38 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
 #}
 
 {% if '-cinema-' in app.request.uri or '/cinema/' in app.request.uri %}
-{% include 'SkreenHouseFactoryV3Bundle:Cinema:_addtolist.html.twig' %}
+  {% include 'SkreenHouseFactoryV3Bundle:Cinema:_addtolist.html.twig' %}
 {% endif %}
 
 <div id="view-selection" class="container">
   {% if selection.onglet.type == 'page' %}
-
     <ul class="breadcrumb">
-
       <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: selection.onglet.channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ selection.onglet.channel.title }}</span></a></li>
       <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">{{ selection.name|raw }}</span></li>
     </ul>
   {% endif %}
 
-  <h1>{{ selection.name|raw }}{% if selection.onglet.channel.fournisseur is defined %} de {{ selection.onglet.channel.title }}{% endif %}</h1>
-  <div class="row description-seo description-seo-absolute scroll well">{{ selection.description|raw }}</div>
+  <h1{% if selection.name == 'Les sorties cinéma de la semaine' or selection.name == 'Bientôt dans les salles' %} itemscope itemtype="http://schema.org/CollectionPage" itemref="selection-programs md-description"{% endif %}><span{% if selection.name == 'Les sorties cinéma de la semaine' or selection.name == 'Bientôt dans les salles' %} itemprop="name"{% endif %}>{{ selection.name|raw }}{% if selection.onglet.channel.fournisseur is defined %} de {{ selection.onglet.channel.title }}{% endif %}</span></h1>
+  <div id="md-description" class="row description-seo description-seo-absolute scroll well"><span{% if selection.name == 'Les sorties cinéma de la semaine' or selection.name == 'Bientôt dans les salles' %} itemprop="description"{% endif %}>{{ selection.description|raw }}</span></div>
   <div class="row">
 
     {% if selection.template is defined and selection.template == 'liste' %}
-    <div id="selection-programs" class="list col-xs-11">
-      <ul class="items">
-      {% for program in selection.programs %}
-      {% if loop.index > 1 %}<li class="divider"></li>{% endif%}
-      {% include 'SkreenHouseFactoryV3Bundle:Content:_list.html.twig' with {p: program} %}
-      {% endfor %}
-      </ul>
-    </div>
+      <div id="selection-programs" class="list col-xs-11">
+        <ul class="items">
+          {% for program in selection.programs %}
+            {% if loop.index > 1 %}<li class="divider"></li>{% endif %}
+            {% include 'SkreenHouseFactoryV3Bundle:Content:_list.html.twig' with {p: program} %}
+          {% endfor %}
+        </ul>
+      </div>
     {% else %}
-    <div id="selection-programs" class="slider slider-list col-xs-11">
-      <ul class="items">
-      {% for program in selection.programs %}
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
-      {% endfor %}
-      </ul>
-    </div>
+      <div id="selection-programs" class="slider slider-list col-xs-11">
+        <ul class="items">
+          {% for program in selection.programs %}
+            {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
+          {% endfor %}
+        </ul>
+      </div>
     {% endif %}
 
     <div class="col-xs-5" id="selection-related">

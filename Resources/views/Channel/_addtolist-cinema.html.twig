@@ -7,10 +7,10 @@
       </div>
       <div class="col-xs-9">
       {% else %}
-      <div class="col-xs-11">
+      <div class="col-xs-11" itemscope itemtype="http://schema.org/MovieTheater" itemref="channel-programs">
       {% endif %}
         <span class="ms-format">Salle de cinéma</span>
-        <h1>{{ channel.name }}</h1>
+        <h1 itemprop="name">{{ channel.name }}</h1>
       </div>
       <div class="col-xs-5">
         {# AjoutListes #}
