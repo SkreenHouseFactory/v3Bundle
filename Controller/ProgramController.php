@@ -188,12 +188,6 @@ class ProgramController extends Controller
             $o->endtime > time()) {
           //echo "\n".'addLive broadcasttime:'.date('Ymd H:i:s', $o->broadcasttime).' endtime:'.date('Ymd H:i:s', $o->endtime).' time:'.date('Ymd H:i:s', time());
           $data->offers['live'][] = $o;
-          $data->best_offer = $o;
-          $data->best_offer->offer_type = 'live';
-          $data->best_offer->channel = $data->datas_offers->channels->{$o->channel_id};
-          if (isset($o->episode_id)) {
-            $data->best_offer->episode = $data->datas_offers->episodes->{$o->episode_id};
-          }
         }
       }
       $data->offers['live'] = (object)$data->offers['live'];
@@ -356,6 +350,12 @@ class ProgramController extends Controller
         $data->player = $live[0];
         $data->player->type = 'live';
         $data->player->iframe = $data->datas_offers->channels->{$live[0]->channel_id}->live->player;
+        $data->best_offer = $o;
+        $data->best_offer->offer_type = 'live';
+        $data->best_offer->channel = $data->datas_offers->channels->{$o->channel_id};
+        if (isset($o->episode_id)) {
+          $data->best_offer->episode = $data->datas_offers->episodes->{$o->episode_id};
+        }
 
       } elseif ($data->teaser &&
                 (
