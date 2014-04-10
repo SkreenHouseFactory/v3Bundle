@@ -16,7 +16,7 @@
   {% elseif c.live.player is defined and o.is_live %}
     <a class="btn btn-default" data-trigger-click="#player-{{ c.id }}"><i class="glyphicon glyphicon-play"></i></a>
   {% elseif o.url %}
-    <a class="btn btn-default" data-redirect="{{ o.url }}"><i class="glyphicon glyphicon-share"></i></a>
+    <a class="btn btn-default" data-redirect="{{ o.url|replace({'/exit/': '/redirect/'}) }}"><i class="glyphicon glyphicon-share"></i></a>
   {% endif %}
   </div>
 	<a class="link" rel="#content" data-ajax-play="{{o.id}}" data-ajax="{{ path('any_url', {url: o.program.url[1:o.program.url|length-1]}) }}" href="{{ path('any_url', {url: o.program.url[1:o.program.url|length-1]}) }}">
