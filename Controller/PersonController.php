@@ -25,10 +25,9 @@ class PersonController extends Controller
     */
     public function mainAction(Request $request)
     {
-
       $api   = $this->get('api');
       $data = $api->fetch('person/'.$request->get('id'), array(
-        'with_programs' => true,
+        'fields' => 'programs,notifications',
         'img_width' => 150,
         'img_height' => 200,
         'channel_img_width' => 60,
