@@ -1,7 +1,7 @@
 <h2 id="{{ step }}">{{ title }}</h2>
 <form id="" class="form-inline clearfix" role="form" data-step="{{ step }}">
   <div class="form-group">
-    <input class="form-control input-lg" type="text" placeholder="{{ placeholder }}">
+    <input class="form-control input-lg" type="text" placeholder="Exemples : {{ placeholder }}">
   </div>
   {#<div class="form-group">
     <button type="submit" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-search"></span></button>
@@ -9,9 +9,13 @@
 </form>
 <div id="results-{{ step }}" class="results">
   <ul>
+    {% if step == 'theaters' %}
+    <div class="suggest"></div>
+    {% else %}
   	<li class="head-suggest"><h3>Suggestions :</h3></li>
   	{% for suggestion in suggests|to_array|slice(0, 9) %}
-  		<li class="clearfix suggest"><span>{{ suggestion.title }}{% if suggestion.year is defined and suggestion.year and step == 'films' %}, <small>{{ suggestion.year }}</small>{% endif %}</span><a data-id="{{ suggestion.id }}" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-sm btn-suivre btn-plus fav-like pull-right" data-step="{{ step }}">Ajouter à mes listes </a></li>
+  		<li class="clearfix suggest"><a data-trigger-click="a[data-id='{{ suggestion.id }}']">{{ suggestion.title }}{% if suggestion.has_vod is defined and suggestion.has_vod %}<small>, {{ ('has_vod.' ~ suggestion.has_vod)|trans }}</small>{% endif %}{% if suggestion.year is defined and suggestion.year and step == 'films' %}<small>, {{ suggestion.year }}</small>{% endif %}{% if suggestion.nb_followers is defined and suggestion.nb_followers %}<small>, suivi par {{ suggestion.nb_followers }} personnes</small>{% endif %}</a><a data-id="{{ suggestion.id }}" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-sm btn-suivre btn-plus fav-like pull-right" data-step="{{ step }}">Ajouter à mes listes </a></li>
   	{% endfor %}
+    {% endif %}
   </ul>
 </div>

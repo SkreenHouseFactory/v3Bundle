@@ -161,6 +161,7 @@ UI = {
 
     } else {
       //off
+      $('body').removeClass('connected');
       $('.remove-on-signout').remove();
       $('.badge-placeholder').removeClass('badge badge-important')
                              .removeAttr('rel')
@@ -798,8 +799,6 @@ UI = {
         UI.playlist.elmt.removeClass('slider-loading');
         $("#playlist .items li").unbind('click.loading');
       });
-       
-      
    });
 
     this.loadSocialSelector();
@@ -1016,8 +1015,9 @@ UI = {
       items: 5,
       minLength: 3,
       source: function(typeahead, query) {
+        console.log('UI.typeahead', 'source', query);
         query = query.replace('+', '%2B')
-        self.getTypeaheadSuggestions(typeahead, query);
+        self.getTypeaheadSuggestions(typeahead, query, searchbox);
       },
       onselect: function(obj) {
         console.log('UI.typeahead', 'onselect', obj, searchbox, $(searchbox).attr('value'));
@@ -1058,11 +1058,13 @@ UI = {
       $('.search-query').blur();
     }
   },
-  getTypeaheadSuggestions: function (typeahead, query) {
+  getTypeaheadSuggestions: function (typeahead, query, searchbox) {
     console.log('UI.getTypeaheadSuggestions', query);
 
-    if (query.length < 3)
+    if (query.length < 3 || query == null) {
+      console.warn('UI.getTypeaheadSuggestions', 'aborted : short query', query);
       return;
+    }
 
     $('.mini-loading.mini-bar').removeClass('hide');
 
@@ -1078,7 +1080,11 @@ UI = {
         with_loader: 1
       }, 
       function(data) {
-       
+        if (typeahead.query != $(searchbox).val()) {
+          console.warn('UI.typeahead', 'outdated response', typeahead.query);
+          return;
+        }
+
         console.log('UI.typeahead', query, data);
         if (data.channels || data.theaters || data.programs || data.episodes || data.persons || data.queue || data.categories || data.sagas || data.packs) {
           var lis = new Array;

@@ -3,15 +3,52 @@ function parallax(){
   var scrolled = $(window).scrollTop();
   $('.bg').css('top', -(scrolled*0.5)+'px');
 }
+dispos = {
+  1: 'A la demande',
+  2: 'A la demande',
+  3: 'En DVD',
+  4: 'Au cinéma',
+  5: 'A la télé',
+  6: 'A la télé',
+  7: 'En Replay',
+  8: 'En Replay',
+  9: 'Web TV',
+  10: 'Web TV',
+  11: 'A la demande',
+  12: 'A la demande',
+  13: 'Archives',
+  14: 'Extraits',
+  15: 'Bonus'
+}
 
 $(document).ready(function(){
 
+  $('form[data-step]').each(function(){
+    API.cookie('start-mes-listes-'+$(this).data('step'), null); //reset
+  });
+
+  //load from session
+  Skhf.session.callbackSignin['user-start'] = function() {
+    if (Skhf.session.datas.email) {
+      API.cookie('start-mes-listes-' + $(this).data('step'), 0);
+    } else {
+      //count : init from cookie
+      $('form[data-step]').each(function(){
+        c = API.cookie('start-mes-listes-' + $(this).data('step'));
+        console.log('scripts/user-start.js', 'count init', $(this).data('step'), c);
+        if (parseInt(c) > 0) {
+          count = $('#count-'+$(this).data('step'));
+          count.html(c).show();
+        }
+      });
+    }
+  }
+
+  //scrollspy
   $(window).scroll(function(e){
     parallax();
   });
-
   $('.forms-container').scrollspy({ target: '.navbar-vertical' });
-
   $('.timeline').affix({
     offset: {
       top: 205, 
@@ -46,7 +83,7 @@ $(document).ready(function(){
       if ($(this).hasClass('fav-on')) {
         count.html(parseInt(count.html()) + 1);
         count.css('background-color', '#5cb85c');
-      } else {
+      } else if (parseInt(count.html()) > 0) {
         count.html(parseInt(count.html()) - 1);
       }
       if (parseInt(count.html()) == 0) {
@@ -54,7 +91,7 @@ $(document).ready(function(){
       } else {
         count.show();
       }
-      API.cookie('start-mes-listes-'+$(this).data('step'), parseInt(count.html()));
+      API.cookie('start-mes-listes-' + $(this).data('step'), parseInt(count.html()));
     }
     
     if (API.cookie('start-mes-listes')) {
@@ -67,7 +104,10 @@ $(document).ready(function(){
             time: new Date().getTime()
           }, 
           function(data){
-            console.log('scripts/user-start.js', 'notify callback', data);
+            console.log(
+              'scripts/user-start.js', 
+              'notify callback', data, API.cookie('start-mes-listes').replace('queue', 'like')
+            );
             for (k in data.notifications) {
               n = data.notifications[k];
               console.log('scripts/user-start.js', 'notify', n);
@@ -83,44 +123,51 @@ $(document).ready(function(){
 
     // populate confirmed div
     if ($(this).hasClass('fav-on')) {
+      $('.no-results').addClass('hide');
+      $('.results').removeClass('hide');
+      
       var like_id = $(this).data('id');
       //console.log('scripts/user-start.js', 'like_id', like_id);
-      var like_title = $(this).parent('.suggest').children('span').html();
+      var like_title = $(this).parent('.suggest').children('a:not(.btn)').html();
       //console.log('scripts/user-start.js', 'like-title', like_title);
       $('.confirmed ul').append('<li class="suggest like_' + like_id + '">' + like_title + '</li>');
     } else {
       var like_id = $(this).data('id');
-      $('.confirmed ul li.like_'+like_id+'').remove();
-    }
-
-  });
-
-
-  //count : init from cookie
-  $('form[data-step]').each(function(){
-    c = API.cookie('start-mes-listes-' + $(this).data('step'));
-    console.log('scripts/user-start.js', 'count init', $(this).data('step'), c);
-    if (parseInt(c) > 0) {
-      count = $('#count-'+$(this).data('step'));
-      count.html(c).show();
+      $('.confirmed ul li.like_' + like_id).remove();
     }
   });
 
   //register
   $(document).on('click', '#register', function(){
-    console.log('scripts/user-start.js', '#register-click');
     UI.auth(function(){
       lists_in_session = JSON.parse(API.cookie('start-mes-listes'));
+      console.log('scripts/user-start.js', '#register-click', lists_in_session);
       if (Skhf.session.datas.email && lists_in_session) {
         for(k in UI.available_playlists) {
-          var ids = Skhf.session.getPlaylistIds(UI.available_playlists[k]);
-          console.log('scripts/user-start.js', UI.available_playlists[k], ids);
-          for (k in ids) {
-            API.addPreference(UI.available_playlists, ids[k]);
+          key = UI.available_playlists[k].replace('like', 'queue');
+          ids = typeof lists_in_session[key] != 'undefined' ? lists_in_session[key] : [];
+          console.log('scripts/user-start.js', 'callback UI.auth', key, ids);
+          for (j in ids) {
+            API.addPreference(UI.available_playlists[k], ids[j]);
           }
         }
+        $('.timeline .badge').html('0').hide();
+        setTimeout(function(){
+          Skhf.session.initSelector();
+          API.query(
+            'GET', 
+            'notifications.json', 
+            {
+              lists: API.cookie('start-mes-listes').replace('queue', 'like'),
+              session_uid: Skhf.session.uid,
+              time: new Date().getTime()
+            }, 
+            function(data){
+              console.log('scripts/user-start.js', 'UI.auth callback', 'create notifs');
+          });
+          API.cookie('start-mes-listes', null); //reset
+        }, 2000);
       }
-      API.cookie('start-mes-listes', null); //reset
     });
   });
 
@@ -128,10 +175,30 @@ $(document).ready(function(){
   //forms
   //$('form[data-step]').on('submit', function(e){
     //e.preventDefault();
-  $('form[data-step] input[type="text"]').keyup(function () {
+  $('form[data-step] input[type="text"]').keyup(function() {
+    input = $(this);
     step = $(this).parents('form:first').data('step');
     container = $('#results-' + step + ' ul');
+    switch(step) {
+      case 'persons':
+        fav = 'person';
+      break;
+      case 'theaters':
+        fav = 'cinema';
+      break;
+      case 'channels':
+        fav = 'channel';
+      break;
+      default:
+        fav = 'like';
+      break;
+    }
     q = $(this).val(); //$(this).find('input[type=text]').val();
+    if (q.length < 3 || q == null) {
+      console.warn('scripts/user-start.js', 'aborted : short query', q);
+      return;
+    }
+
     container.empty();
     API.query(
       'GET', 
@@ -141,18 +208,41 @@ $(document).ready(function(){
         img_width: 50,
         img_height: 50,
         advanced: 1,
-        with_unvailable: 1
+        with_unvailable: 1,
+        with_nb_followers: 1,
+        title_only: 1
       }, 
       function(results){
+
+        if (q != input.val()) {
+          console.warn('UI.typeahead', 'outdated response', q);
+          return;
+        }
+        
         container.empty();
         console.log('scripts/user-start.js', 'callback form', container);
         for (k in results) {
           title = typeof results[k].title != 'undefined' ? results[k].title : results[k].name;
-          container.append('<li class="clearfix suggest"><span>' + title + '</span><a data-id="'+results[k].id+'" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-suivre btn-plus fav-like pull-right" data-step="'+step+'">Ajouter à mes listes </a></li>')
+          container.append('<li class="clearfix suggest"><a data-trigger-click="a[data-id=\''+results[k].id+'\']">' + title + (typeof results[k].has_vod != 'undefined' && results[k].has_vod > 0 ? '<span class="label label-default">'+(dispos[results[k].has_vod])+'</span>' : '') + (typeof results[k].ville != 'undefined' ? '<small> - '+results[k].ville+'</small>' : '') + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<small>, suivi par  '+results[k].nb_followers+' personnes</small>' : '') + '</a><a data-name="'+title+'" data-id="'+results[k].id+'" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' pull-right" data-step="'+step+'">Ajouter à mes listes </a></li>')
         }
     });
 
     return false;
   });
 
+
+  //geoloc onload
+	API.geolocation(function(position){
+		$('#results-theaters .suggest').load(API.config.v3_root+'/cinema/search?latlng=' + position, function(){
+      if (Skhf.session.user) {
+        UI.loadPlaylistTriggers(
+          'cinema', 
+          Skhf.session.datas.cinema.split(','), 
+          $(this)
+        );
+      }
+		});
+	}, function(msg, code){
+		container.prepend('<p class="alert alert-error">' + msg + '</p>');
+	});
 });
