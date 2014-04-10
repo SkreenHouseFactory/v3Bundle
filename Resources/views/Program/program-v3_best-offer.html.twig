@@ -39,8 +39,8 @@
         <div class="row last-child">
           <div class="col-xs-16">
             {% if o.episode_id is defined and o.episode_id is not null %}
-              {% if o.endtime is defined and o.endtime|remainingreplay is not null %}
-                {{ attribute(program.datas_offers.episodes, o.episode_id).title[0:40] }}...&nbsp;
+              {% if o.endtime is defined and o.endtime|remainingreplay %}
+                {{ attribute(program.datas_offers.episodes, o.episode_id).title[0:35] }}...&nbsp;
               {% elseif attribute(program.datas_offers.episodes, o.episode_id).title|length > 55 %}
                 {{ attribute(program.datas_offers.episodes, o.episode_id).title[0:55] }}...
               {% else %}
