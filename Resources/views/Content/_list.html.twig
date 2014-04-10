@@ -1,17 +1,17 @@
-<li>
+<li itemprop="about" itemscope itemtype="http://schema.org/Movie">
   <div class="row">
     <div class="col-xs-4">
-      <a href="{{ p.seo_url }}"><img src="{{ p.picture }}" /></a>
+      <a itemprop="url" href="{{ p.seo_url }}"><img itemprop="image" src="{{ p.picture }}" /></a>
     </div>
     <div class="col-xs-12">
-      <h2><a href="{{ p.seo_url }}">{{ p.title }}</a></h2>
+      <h2 itemprop="name"><a href="{{ p.seo_url }}">{{ p.title }}</a></h2>
       {% if p.theater_release_date is defined %}
-        <p class="infos">Sortie en salle : {{ p.theater_release_date }}</p>
+        <p class="infos">Sortie en salle : <time itemprop="datePublished" datetime="{{ p.theater_release_date_timestamp|date('Y-m-d') }}">{{ p.theater_release_date }}</time></p>
       {% endif %}
 
-      <p class="infos">{% if p.format %}<a href="{{ p.format.seo_url }}">{{ p.format.name }}</a>{% endif %}{% if p.categories is defined %} - {{ p.categories|to_array|join(', ') }}{% endif %}, {{ p.duration }}mn</p>
+      <p class="infos">{% if p.format %}<a href="{{ p.format.seo_url }}">{{ p.format.name }}</a>{% endif %}{% if p.categories is defined %} - <span itemprop="genre">{{ p.categories|to_array|join(', ') }}</span>{% endif %}, <time itemprop="duration" datetime="PT{{ (program.duration * 60 - 3600)|date('H-i')|replace({"-":"H"}) }}M">{{ p.duration }}</time>mn</p>
       {% if p.categories is defined %}
-        <p>{{ p.description|striptags|slice(0,230)|raw }}...</p>
+        <p itemprop="description" content="{{ p.description|striptags|raw }}">{{ p.description|striptags|slice(0,230)|raw }}...</p>
       {% endif %}
   
       {% if p.offers is defined %}
