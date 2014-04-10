@@ -32,19 +32,15 @@ class UserController extends Controller
         'channel_img_width' => 60,
         'img_width' => 150,
         'img_height' => 200,
-        'with_programs' => true,
-        'with_offers' => true,
-        'offers_type' => 'play',
-        'with_player' => true,
-        'player' => 'iframe',
-        'allow_with' => true
+        'fields' => 'programs,nb_followers'
       );
       /*-------------------------------------------------------------------- Les Packs pour les suggestions*/
       $obj1 = $api->fetch('www/slider/pack/7928592', $params); //pack top box office
       $obj2 = $api->fetch('www/slider/pack/3314278', $params); //pack top des séries
       $obj3 = $api->fetch('www/slider/pack/12975429', $params); //pack les plus populaires
       $obj4 = $api->fetch('www/slider/pack/12193165', $params); //pack chaînes de la Home
-
+      //print_r($obj1);
+      //echo $api->url;
       $selection_pack['films']  = $obj1;
       $selection_pack['series']  = $obj2;
       $selection_pack['emissions']  = $obj3;
@@ -60,7 +56,6 @@ class UserController extends Controller
         7 => array('title' => 'Julia Roberts', 'id' => 5214404),
         8 => array('title' => 'George Clooney', 'id' => 5129261),
       );
-
 
       //Tri dans le pack populaires pour ne garder que les émissions
       $emissions = array();

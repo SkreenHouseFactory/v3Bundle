@@ -1,6 +1,11 @@
 body.view-user_start {
+  &.connected {
+    li.confirm, #register, .form-container.confirmed  {
+      opacity: 0;
+    }
+  }
   #bandeau-listes {
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     .container {
       text-align: center;
       margin-top: 0;
@@ -27,6 +32,9 @@ body.view-user_start {
     }
   }
   .fond-bleu {
+    .container {
+      width: 100%!important;
+    }
     .bg {
       background:
         url('/bundles/skreenhousefactoryv3/images/start/fd_images_films.jpg') center top no-repeat,
@@ -56,7 +64,7 @@ body.view-user_start {
       background-color: transparent;
       &.affix {
         position: fixed;
-        top: 15px;
+        top: 0px;
       }
       &.affix-bottom {
         position: fixed;
@@ -75,7 +83,7 @@ body.view-user_start {
         margin-right: -24px;
       }
       li {
-        font-size: 1.2em;
+        font-size: 1.3em;
         margin-bottom: 50px;
         span.badge {
           background-color: rgb(92, 184, 92);
@@ -91,7 +99,7 @@ body.view-user_start {
           content: '';
           width: 23px;
           height: 23px;
-          background: #428bca;
+          background: white;
           border-radius: 50%;
           border: 5px solid white;
           position: absolute;
@@ -132,7 +140,10 @@ body.view-user_start {
         }
         &.active, &:hover, &:focus {
           &:after {
-            background: white;
+            background: #428bca;
+            &:hover{
+              opacity: 0.6;
+            }
           }
           a {
             background-color: #428bca;
@@ -148,12 +159,14 @@ body.view-user_start {
     }
     .forms-container {
       width: 65%;
+      padding-top: 10px;
       .form-container {
-        height: 815px;
+        height: 500px;
         background: white;
         border-radius: 5px;
-        margin-bottom: 20px;
+        margin-bottom: 350px;
         padding: 0 25px;
+        box-shadow: 0px 0px 10px rgba(0,0,0, 1);
         h2 {
           padding-top: 20px;
           margin-top: 0;
@@ -179,7 +192,9 @@ body.view-user_start {
           }
         }
         .form-inline {
-          margin-bottom: 10px;
+          .input-lg {
+            height: 40px;
+          }
           .form-group {
             float: left;
             &:first-child {
@@ -192,50 +207,63 @@ body.view-user_start {
           }
         }
         .results {
+          &#results-theaters {
+            .btn-default {
+              display: none;
+            }
+          }
           ul {
             list-style: none;
             padding-left: 0;
             li {
-              margin-bottom: 9px;
-              padding-bottom: 9px;
+              margin-bottom: 0px;
               &.head-suggest {
                 border-top: 3px dotted #333;
-                padding-top: 15px;
-                padding-bottom: 15px;
+                padding-top: 0px;
+                padding-bottom: 2px;
                 margin-left: -25px;
                 padding-left: 25px;
                 margin-right: -25px;
-                margin-bottom: 0px;
-              }
-              a {
-                visibility: hidden;
-              }
-              &:hover {
-                cursor: pointer;
-                a {
-                  visibility: visible;
-                }
               }
               &.suggest {
+                position: relative;
+                padding-top: 9px;
+                margin-left: -25px;
+                margin-right: -25px;
+                padding-left: 25px;
+                padding-right: 25px;
+                padding-bottom: 9px;
                 &:nth-child(even) {
                   background-color: rgba(66,139,202,0.1);
-                  padding-top: 9px;
-                  margin-left: -25px;
-                  margin-right: -25px;
-                  padding-left: 25px;
-                  padding-right: 25px;
                 }
                 &:nth-child(odd) {
-                  padding-bottom: 0px;
                 }
                 &:last-child {
                   border-bottom: none;
+                }
+                a[data-id]:not(.fav-on), small {
+                  visibility: hidden;
+                }
+                a[data-id] {
+                  position: absolute;
+                  right: 20px;
+                  top: 2px;
+                }
+                &:hover {
+                  cursor: pointer;
+                  background-color: #F1F1D1;
+                  small {
+                    visibility: visible;
+                  }
+                  /*a[data-id], small {
+                    visibility: visible;
+                  }*/
                 }
               }
               a.btn-danger:before {
                 font-size: 12px;
               }
-              span {
+              span:not(.label) {
                 font-size: 16px;
                 color: #428bca;
                 display: inline-block;

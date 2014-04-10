@@ -1,4 +1,3 @@
-
 {% extends "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% block title %}
@@ -19,45 +18,48 @@
   <div class="container">
     <div class="navbar-vertical col-xs-5">
       <ul class="nav timeline sk-font">
-        <li><a href="#films">vos films <span id="count-films" class="badge">0</span></a></li>
-        <li><a href="#emissions">vos émissions <span id="count-emissions" class="badge">0</span></a></li>
-        <li><a href="#series">vos séries <span id="count-series" class="badge">0</span></a></li>
-        <li><a href="#persons">vos personnalités <span id="count-persons" class="badge">0</span></a></li>
-        <li><a href="#theaters">vos salles de cinéma <span id="count-theaters" class="badge">0</span></a></li>
-        <li><a href="#channels">vos chaînes <span id="count-channels" class="badge">0</span></a></li>
-        <li class="confirm"><a href="#confirm">enregistrer</a></li>
+        <li><a href="#films">Films <span id="count-films" class="badge">0</span></a></li>
+        <li><a href="#emissions">Emissions <span id="count-emissions" class="badge">0</span></a></li>
+        <li><a href="#series">Séries <span id="count-series" class="badge">0</span></a></li>
+        <li><a href="#persons">Personnalités <span id="count-persons" class="badge">0</span></a></li>
+        <li><a href="#theaters">Salles de cinéma <span id="count-theaters" class="badge">0</span></a></li>
+        <li><a href="#channels">Chaînes <span id="count-channels" class="badge">0</span></a></li>
+        <li class="confirm"><a href="#confirm">Enregistrer</a></li>
       </ul>
     </div>
     <div class="forms-container col-xs-11">
       <div class="form-container">
         {% set suggest_films = selection_pack.films.programs %}
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'films', title: 'Ajouter vos films', placeholder: 'Avengers, Intouchables...', suggests: suggest_films} %}
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'films', title: 'Vos films', placeholder: 'Avengers, Intouchables...', suggests: suggest_films} %}
       </div>
       <div class="form-container">
         {% set suggest_emissions = selection_pack.emissions.programs %}
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'emissions', title: 'Ajouter vos émissions', placeholder: 'The Voice, Le Petit Journal...', suggests: suggest_emissions} %}
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'emissions', title: 'Vos émissions', placeholder: 'The Voice, Le Petit Journal...', suggests: suggest_emissions} %}
       </div>
       <div class="form-container">
         {% set suggest_series = selection_pack.series.programs %}
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'series', title: 'Ajouter vos séries', placeholder: 'How I Met Your Mother, House of Cards...', suggests: suggest_series} %}
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'series', title: 'Vos séries', placeholder: 'How I Met Your Mother, House of Cards...', suggests: suggest_series} %}
       </div>
       <div class="form-container">
         {% set suggest_persons = selection_pack.persons %}
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'persons', title: 'Ajouter vos personnalités', placeholder: 'Leonardo DiCaprio, Steven Spielberg...', suggests: suggest_persons} %}
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'persons', title: 'Vos acteurs et réalisateurs préférés', placeholder: 'Leonardo DiCaprio, Steven Spielberg...', suggests: suggest_persons} %}
       </div>
       <div class="form-container">
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'theaters', title: 'Ajouter vos salles de cinéma', placeholder: 'Marseille, 75014, Le Palace...', suggests: null} %}
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'theaters', title: 'Vos salles de cinéma', placeholder: 'Marseille, 75014, Le Palace...', suggests: null} %}
       </div>
       <div class="form-container">
         {% set suggest_chaines = selection_pack.chaines.programs %}
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'channels', title: 'Ajouter vos chaînes', placeholder: 'Humour, Sport, Politique...', suggests: suggest_chaines} %}
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'channels', title: 'Vos chaînes', placeholder: 'Humour, Sport, Politique...', suggests: suggest_chaines} %}
       </div>
       <div class="form-container confirmed scroll">
         <h2 id="confirm">Mes listes</h2>
-        <div class="results">
-          <ul>
-          </ul>
-          <p class="clearfix"><button id="register" class="btn btn-primary btn-lg pull-right">Enregistrer</button></p>
+        <div class="no-results bs-callout bs-callout-info">
+          <p class="h4">Vous n'avez pas encore fait vos listes</p>
+          <p>Pour commencer à créer vos listes, ajoutez vos films préférés. <br/><a href="#films">Commencer maintenant</a></p>
+        </div>
+        <div class="results hide">
+          <ul></ul>
+          <p class="clearfix"><button id="register" class="btn btn-primary btn-lg pull-right">Enregistrer mes listes</button></p>
         </div>
       </div>
     </div>

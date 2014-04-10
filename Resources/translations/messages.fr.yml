@@ -466,6 +466,22 @@ offer:
         default:
             titre: <strong>%titre%</strong> n'est pas diffusé pour le moment.
             texte: Ajoutez ce programme à vos listes pour être averti de ses prochaines diffusions : TV, Replay, VOD, Cinéma !
+has_vod:
+    1: A la demande
+    2: A la demande
+    3: En DVD
+    4: Au cinéma
+    5: A la télé
+    6: A la télé
+    7: En Replay
+    8: En Replay
+    9: Web TV
+    10: Web TV
+    11: A la demande
+    12: A la demande
+    13: Archives
+    14: Extraits
+    15: Bonus
 pluralization:
     cinema:
         nb_salles: '{1} Trouver une séance (1 salle)|]1,Inf] Trouver une séance (%count% salles)'
