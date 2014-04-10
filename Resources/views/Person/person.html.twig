@@ -32,21 +32,25 @@
 {% endblock %}
 
 {% block content %}
-{% include 'SkreenHouseFactoryV3Bundle:Person:_addtolist.html.twig' with {person: person} %}
-<div id="view-person" data-id="{{ person.id }}" class="container">
 
+
+<div id="view-person" data-id="{{ person.id }}" class="relative">
+  {% include 'SkreenHouseFactoryV3Bundle:Person:_addtolist.html.twig' with {person: person} %}
+  
   {% if app.request.get('page') < 2 %}
-  <div class="view-person-main">
-    <div class="description-seo description-seo-absolute well">
-        {{ person.description|raw }}
+    <div class="description-seo description-seo-absolute">
+      <div class="container well scroll">{{ person.description|raw }}</div>
     </div>
-  </div>
   {% endif %}
   {#
   <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ person.seo_url, text: 'Je regarde tout ' ~ person.name ~ ' sur mySkreen et vous ?' } %}</div>#}
 
-
-  <h2>Les programmes de {{ person.name }}</h2>
+  {% include  'SkreenHouseFactoryV3Bundle:Person:_notifications.html.twig' with {notifications: person.notifications} %}
+  <div class="bande_fonce nopadding">
+    <div class="container">
+      <h2>Les programmes de {{ person.name }}</h2>
+    </div>
+  </div>
   {% include  'SkreenHouseFactoryV3Bundle:Person:_programs.html.twig' with {programs: person.programs} %}
 
 	</div>
