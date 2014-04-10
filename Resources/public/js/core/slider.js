@@ -414,7 +414,7 @@ var BaseSlider = Class.extend({
           html: true,
           trigger: 'hover',
           container: 'body',
-          placement: 'top'
+          placement: 'bottom'
         });
       }
     }
