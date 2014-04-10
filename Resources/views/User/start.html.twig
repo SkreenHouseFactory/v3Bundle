@@ -10,7 +10,7 @@
 <div id="bandeau-listes">
   <div class="container">
     <h1>Créer Mes listes</h1>
-    <p class="sk-font">En ajoutant des programmes, des réalisateurs, des acteurs, des chaînes et des cinémas à vos listes, vous êtes averti dès qu'une diffusion vous intéresse : TV, Replay, Cinéma ou VOD.</p>
+    <p class="sk-font">En ajoutant des programmes, des réalisateurs, des acteurs et des cinémas à vos listes, vous êtes averti dès qu'une diffusion vous intéresse : TV, Replay, Cinéma ou VOD.</p>
   </div>
 </div>
 <div class="fond-bleu">
@@ -23,7 +23,7 @@
         <li><a href="#series">Séries <span id="count-series" class="badge">0</span></a></li>
         <li><a href="#persons">Personnalités <span id="count-persons" class="badge">0</span></a></li>
         <li><a href="#theaters">Salles de cinéma <span id="count-theaters" class="badge">0</span></a></li>
-        <li><a href="#channels">Chaînes <span id="count-channels" class="badge">0</span></a></li>
+        {#<li><a href="#channels">Chaînes <span id="count-channels" class="badge">0</span></a></li>#}
         <li class="confirm"><a href="#confirm">Enregistrer</a></li>
       </ul>
     </div>
@@ -31,26 +31,32 @@
       <div class="form-container">
         {% set suggest_films = selection_pack.films.programs %}
         {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'films', title: 'Vos films', placeholder: 'Avengers, Intouchables...', suggests: suggest_films} %}
+        <a class="btn btn-default btn-lg" data-trigger-click="a[href='#emissions']">Fini ? Ajoutez vos émissions !</a>
       </div>
       <div class="form-container">
         {% set suggest_emissions = selection_pack.emissions.programs %}
         {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'emissions', title: 'Vos émissions', placeholder: 'The Voice, Le Petit Journal...', suggests: suggest_emissions} %}
+        <a class="btn btn-default btn-lg" data-trigger-click="a[href='#series']">Déjà fini ? Ajoutez vos séries !</a>
       </div>
       <div class="form-container">
         {% set suggest_series = selection_pack.series.programs %}
         {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'series', title: 'Vos séries', placeholder: 'How I Met Your Mother, House of Cards...', suggests: suggest_series} %}
+        <a class="btn btn-default btn-lg" data-trigger-click="a[href='#persons']">Ajoutez vos acteurs et réalisateurs préférés !</a>
       </div>
       <div class="form-container">
         {% set suggest_persons = selection_pack.persons %}
         {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'persons', title: 'Vos acteurs et réalisateurs préférés', placeholder: 'Leonardo DiCaprio, Steven Spielberg...', suggests: suggest_persons} %}
+        <a class="btn btn-default btn-lg" data-trigger-click="a[href='#theaters']">Fini ? Ajoutez les cinémas près de chez vous !</a>
       </div>
       <div class="form-container">
         {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'theaters', title: 'Vos salles de cinéma', placeholder: 'Marseille, 75014, Le Palace...', suggests: null} %}
+        <a class="btn btn-default btn-lg" data-trigger-click="a[href='#confirm']">Terminé ! Vous n'avez plus qu'à enregistrez vos listes</a>
       </div>
-      <div class="form-container">
+      {#<div class="form-container">
         {% set suggest_chaines = selection_pack.chaines.programs %}
         {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'channels', title: 'Vos chaînes', placeholder: 'Humour, Sport, Politique...', suggests: suggest_chaines} %}
       </div>
+      #}
       <div class="form-container confirmed scroll">
         <h2 id="confirm">Mes listes</h2>
         <div class="no-results bs-callout bs-callout-info">
@@ -59,7 +65,7 @@
         </div>
         <div class="results hide">
           <ul></ul>
-          <p class="clearfix"><button id="register" class="btn btn-primary btn-lg pull-right">Enregistrer mes listes</button></p>
+          <p class="clearfix"><button id="register" class="btn btn-primary btn-lg pull-right"><span class="glyphicon glyphicon-floppy-disk"></span> Enregistrer mes listes</button></p>
         </div>
       </div>
     </div>

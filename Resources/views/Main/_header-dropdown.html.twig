@@ -8,13 +8,13 @@
         <a href="{{ header_base }}{{ path('homes', {home : 'cinema'}) }}">Tout le cinéma</a>
       </li>
       <li>
-        <a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845147-a-decouvrir-dans-les-salles-cette-semaine/'}) }}">{{ 'nav.theaters.release'|trans }}</a>
+        <a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845147-a-decouvrir-dans-les-salles-cette-semaine/'}) }}">&nbsp;-> {{ 'nav.theaters.release'|trans }}</a>
       </li>
       <li>
-        <a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845150-bientot-dans-les-salles/'}) }}">{{ 'nav.theaters.coming'|trans }}</a>
+        <a href="{{ header_base }}{{ path('any_url', {url : 'cinema/selection/7845150-bientot-dans-les-salles/'}) }}">&nbsp;-> {{ 'nav.theaters.coming'|trans }}</a>
       </li>
       <li>
-        <a href="{{ header_base }}{{ path('cinema_boxoffice') }}">{{ 'nav.theaters.boxoffice'|trans }}</a>
+        <a href="{{ header_base }}{{ path('cinema_boxoffice') }}">&nbsp;-> {{ 'nav.theaters.boxoffice'|trans }}</a>
       </li>
     </div>
   </ul>
@@ -22,11 +22,11 @@
   <ul class="hover-menu vod hide">
     <div class="dropdown-borders vod-cine">
       <li><a href="{{ header_base }}{{ path('homes', {home: 'video-a-la-demande'}) }}">Toute la vidéo à la demande</a></li>
-      <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'film'}) }}">{{ 'nav.films'|trans }}</a></li>
-      <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'documentaire'}) }}">{{ 'nav.documentaires'|trans }}</a></li>
-      <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'serie'}) }}">{{ 'nav.series'|trans }}</a></li>
-      <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'spectacle'}) }}">{{ 'nav.spectacles'|trans }}</a></li>
-      <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'jeunesse'}) }}">{{ 'nav.jeunesse'|trans }}</a></li>
+      <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'film'}) }}">&nbsp;-> {{ 'nav.films'|trans }}</a></li>
+      <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'documentaire'}) }}">&nbsp;-> {{ 'nav.documentaires'|trans }}</a></li>
+      <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'serie'}) }}">-> {{ 'nav.series'|trans }}</a></li>
+      <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'spectacle'}) }}">&nbsp;-> {{ 'nav.spectacles'|trans }}</a></li>
+      <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'jeunesse'}) }}">&nbsp;-> {{ 'nav.jeunesse'|trans }}</a></li>
     </div>
   </ul>
 

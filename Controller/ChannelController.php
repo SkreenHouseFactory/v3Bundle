@@ -182,10 +182,8 @@ class ChannelCustomController extends Controller
       'channel_img_width' => 60,
       'img_width' => 150,
       'img_height' => 200,
-      'with_programs' => true,
-      'with_offers' => true,
+      'fields' => 'programs,offers,player',
       'offers_type' => 'play',
-      'with_player' => true,
       'player' => 'iframe',
       'allow_with' => true
     );
@@ -333,7 +331,7 @@ class ChannelController extends ChannelCustomController
       'fields' => 'description,programs,img_maxsize'
     );
     $data = $api->fetch('channel'.($request->get('id')?'/'.$request->get('id'):null), $params);
-
+    //echo $api->url;
     $this->validateData($data, $request);
 
     // TO CHECK !

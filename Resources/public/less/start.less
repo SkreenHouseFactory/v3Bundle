@@ -84,7 +84,7 @@ body.view-user_start {
       }
       li {
         font-size: 1.3em;
-        margin-bottom: 50px;
+        margin-bottom: 65px;
         span.badge {
           background-color: rgb(92, 184, 92);
           position: absolute;
@@ -161,6 +161,7 @@ body.view-user_start {
       width: 65%;
       padding-top: 10px;
       .form-container {
+        position: relative;
         height: 500px;
         background: white;
         border-radius: 5px;
@@ -171,6 +172,12 @@ body.view-user_start {
           padding-top: 20px;
           margin-top: 0;
           color: #333;
+        }
+        > a.btn-default {
+          top: 550px;
+          left: 200px;
+          position: absolute;
+          box-shadow: 0px 0px 5px rgba(0,0,0,1);
         }
         &.confirmed {
           overflow-y: auto;
