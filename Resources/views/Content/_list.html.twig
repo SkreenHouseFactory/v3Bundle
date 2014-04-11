@@ -11,7 +11,7 @@
 
       <p class="infos">{% if p.format %}<a href="{{ p.format.seo_url }}">{{ p.format.name }}</a>{% endif %}{% if p.categories is defined %} - <span itemprop="genre">{{ p.categories|to_array|join(', ') }}</span>{% endif %}, <time itemprop="duration" datetime="PT{{ (program.duration * 60 - 3600)|date('H-i')|replace({"-":"H"}) }}M">{{ p.duration }}</time>mn</p>
       {% if p.categories is defined %}
-        <p itemprop="description" content="{{ p.description|striptags|raw }}">{{ p.description|striptags|slice(0,230)|raw }}...</p>
+        <p itemprop="description" content="{{ p.description|striptags|raw }}">{{ p.description|striptags|wordCut(230,'...')|raw }}</p>
       {% endif %}
   
       {% if p.offers is defined %}

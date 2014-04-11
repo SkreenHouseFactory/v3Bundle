@@ -1,18 +1,19 @@
 <div class="bande_plus_fonce nopadding">
   <div class="container">
     <h2>A voir en ce moment</h2>
-    <ul class="notifications">
+    <ul class="notifications clearfix">
       {% for n in notifications|to_array %}
-      <li class="tv-component plays broadcast">
-        <a href="{{ n.link }}" class="link">
-          <img src="{{ n.channel_ico }}" class="channel pull-left">
-          <img src="{{ n.ico }}" alt="notification" class="ico pull-left">
-          <div class="title">{{ n.title }}</div>
-          <div class="subtitle">{{ n.title_episode }}</div>
-          <div class="label label-success">{{ n.subtitle }}</div>
-        </a>
-      </li>
-      <li class="divider notification plays broadcast"></li>
+        <li class="tv-component plays broadcast pull-left">
+          <a href="{{ n.link }}" class="link clearfix" title="{{ n.title }}">
+            <img src="{{ n.channel_ico|replace({'/39': '/45/45'}) }}" class="channel pull-left">
+            <img src="{{ n.ico }}" alt="notification" class="ico pull-left">
+            <div class="pull-left clearfix">
+              <div class="title pull-left">{{ n.title|wordCut(22,'...') }}</div>
+              <div class="subtitle">{{ n.title_episode }}</div>
+              <div class="label label-success">{{ n.subtitle }}</div>
+            </div>
+          </a>
+        </li>
       {% endfor %}
     </ul>
   </div>

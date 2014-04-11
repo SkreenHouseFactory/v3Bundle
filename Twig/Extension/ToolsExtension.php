@@ -55,10 +55,28 @@ class toolsExtension extends \Twig_Extension
         'md_casting'=> new \Twig_Filter_Method($this, 'md_casting'),
         'iso8601'=> new \Twig_Filter_Method($this, 'iso8601'),
         'html_entity_decode'=> new \Twig_Filter_Method($this, 'html_entity_decode'),
+        'wordCut' => new \Twig_Filter_Method($this, 'wordCut'),
       );
     }
 
 
+  // coupe le texte apres $limit caracteres sans couper les mots
+  /*
+   * $text = texte à couper
+   * $limit = int, on coupe à partir de cette limite
+   * $msg, chaine à coller apres la coupure (generalement des ...)
+   */
+  public function wordCut($text, $limit, $msg=''){
+    if (strlen($text) > $limit){
+      $txt1 = wordwrap($text, $limit, '[cut]');
+      $txt2 = explode('[cut]', $txt1);
+      $ourTxt = $txt2[0];
+      $finalTxt = $ourTxt.$msg;
+    } else {
+      $finalTxt = $text;
+    }
+    return $finalTxt;
+  }
 
   /**
   * html_entity_decode
