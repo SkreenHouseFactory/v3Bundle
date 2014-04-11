@@ -127,11 +127,21 @@
                   {# Episodes #}
                   {% if program.episodeof is defined %}
                     <div data-autoload-episodes="{{ program.episodeof.id }}"></div>
-                  {% else %}
-                    {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes.html.twig' %}
-                  {% endif %}
                     {# Casting #}
                     {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
+                  {% else %}
+                    <div data-autoload-episodes="{{ program.id }}"></div>
+                    {# Casting #}
+                    {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
+                    {% if program.seasons is defined %}
+                      <div class="col-xs-16">
+                        Les saisons : 
+                      {% for season in program.seasons|to_array %}
+                        <a href="{{ program.seo_url }}/saison-{{ season.number }}/">Saison {{ season.number }}</a>, 
+                      {% endfor %}
+                      </div>
+                    {% endif %}
+                  {% endif %}
                 {% endif %}
               </div>
               {# Contenu Voir #}
