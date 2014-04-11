@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs">
   {% set days = cinema.schedules|to_array %}
   {% for date,info in days %}
-    <li{% if loop.index == 1%} class="active" {% endif %}><a href="#{{ date }}-{{ cinema.id }}" data-toggle="tab">{{ info.name ~ ' ' ~ date[-2:] }}</a></li>
+    <li{% if loop.index == 1%} class="active" {% endif %}><a href="#{{ date }}-{{ cinema.id }}{{ channel.type is defined and channel.type == 'cinema' ? '-' ~ p.id : '' }}" data-toggle="tab">{{ info.name ~ ' ' ~ date[-2:] }}</a></li>
   {% endfor %}
 </ul>
 <div class="tab-content">
@@ -20,13 +20,13 @@
         {% set noV = 0 %}
       {% endif %}
     {% endfor %}
-    <div class="tab-pane fade{% if loop.index == 1%} active in{% endif %}" id="{{ date }}-{{ cinema.id }}">
+    <div class="tab-pane fade{% if loop.index == 1%} active in{% endif %}" id="{{ date }}-{{ cinema.id }}{{ channel.type is defined and channel.type == 'cinema' ? '-' ~ p.id : '' }}">
       {% if noV == 1%}
         {% for h in s.schedules|to_array %}
           {% if not loop.last %}
-            {{ h.hour }}&nbsp;/&nbsp;
+            <span{{ channel.type is defined and channel.type == 'cinema' ? ' itemprop="event" itemscope itemtype="http://schema.org/Event"' : '' }}>{{ channel.type is defined and channel.type == 'cinema' ? ('<meta itemprop="name" content="Projection"/><meta itemprop="startDate" content="' ~ date ~ 'T' ~ h.hour|replace({'h': ':'}) ~ ':00" />')|raw : '' }}{{ h.hour }}</span>&nbsp;/&nbsp;
           {% else %}
-            {{ h.hour }}
+            <span{{ channel.type is defined and channel.type == 'cinema' ? ' itemprop="event" itemscope itemtype="http://schema.org/Event"' : '' }}>{{ channel.type is defined and channel.type == 'cinema' ? ('<meta itemprop="name" content="Projection"/><meta itemprop="startDate" content="' ~ date ~ 'T' ~ h.hour|replace({'h': ':'}) ~ ':00" />')|raw : '' }}{{ h.hour }}</span>
           {% endif %}
         {% endfor %}
       {% endif %}
@@ -35,9 +35,9 @@
         {% for h in s.schedules|to_array %}
           {% if h.version == "VO"%}
             {% if not loop.last %}
-              {{ h.hour }}&nbsp;/&nbsp;
+              <span{{ channel.type is defined and channel.type == 'cinema' ? ' itemprop="event" itemscope itemtype="http://schema.org/Event"' : '' }}>{{ channel.type is defined and channel.type == 'cinema' ? ('<meta itemprop="name" content="Projection en VO"/><meta itemprop="startDate" content="' ~ date ~ 'T' ~ h.hour|replace({'h': ':'}) ~ ':00" />')|raw : '' }}{{ h.hour }}</span>&nbsp;/&nbsp;
             {% else %}
-              {{ h.hour }}
+              <span{{ channel.type is defined and channel.type == 'cinema' ? ' itemprop="event" itemscope itemtype="http://schema.org/Event"' : '' }}>{{ channel.type is defined and channel.type == 'cinema' ? ('<meta itemprop="name" content="Projection en VO"/><meta itemprop="startDate" content="' ~ date ~ 'T' ~ h.hour|replace({'h': ':'}) ~ ':00" />')|raw : '' }}{{ h.hour }}</span>
             {% endif %}
           {% endif %}
         {% endfor %}
@@ -50,9 +50,9 @@
         {% for h in s.schedules|to_array %}
           {% if h.version == "VF"%}
             {% if not loop.last %}
-              {{ h.hour }}&nbsp;/&nbsp;
+              <span{{ channel.type is defined and channel.type == 'cinema' ? ' itemprop="event" itemscope itemtype="http://schema.org/Event"' : '' }}>{{ channel.type is defined and channel.type == 'cinema' ? ('<meta itemprop="name" content="Projection en VF"/><meta itemprop="startDate" content="' ~ date ~ 'T' ~ h.hour|replace({'h': ':'}) ~ ':00" />')|raw : '' }}{{ h.hour }}</span>&nbsp;/&nbsp;
             {% else %}
-              {{ h.hour }}
+              <span{{ channel.type is defined and channel.type == 'cinema' ? ' itemprop="event" itemscope itemtype="http://schema.org/Event"' : '' }}>{{ channel.type is defined and channel.type == 'cinema' ? ('<meta itemprop="name" content="Projection en VF"/><meta itemprop="startDate" content="' ~ date ~ 'T' ~ h.hour|replace({'h': ':'}) ~ ':00" />')|raw : '' }}{{ h.hour }}</span>
             {% endif %}
           {% endif %}
         {% endfor %}

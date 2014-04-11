@@ -1,4 +1,4 @@
-<li itemprop="{{ channel.type is defined and channel.type == 'cinema' ? 'makesOffer' : 'about' }}" itemscope itemtype="http://schema.org/Movie">
+<li itemprop="{{ channel.type is defined and channel.type == 'cinema' ? 'itemOffered' : 'about' }}" itemscope itemtype="http://schema.org/Movie">
   <div class="row">
     <div class="col-xs-4">
       <a itemprop="url" href="{{ p.seo_url }}"><img itemprop="image" src="{{ p.picture }}" /></a>
