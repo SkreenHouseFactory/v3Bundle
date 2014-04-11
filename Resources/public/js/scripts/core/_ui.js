@@ -300,14 +300,14 @@ UiView = {
       Player.elmt=$(this);
     })
     // toggle text in element
-    $(document).on('click', '[data-toggle-text]', function () {
+    $(elmt).on('click', '[data-toggle-text]', function () {
       var html = $(this).html();
       console.log('script', '[data-toggle-text]', $(this).data('toggle-text'), html);
       $(this).html($(this).data('toggle-text'));
       $(this).data('toggle-text', html);
     });
     // toggle display
-    $(document).on('click', '[data-toggle-display]', function () {
+    $(elmt).on('click', '[data-toggle-display]', function () {
       console.log('script', '[data-toggle-display]', $(this).data('toggle-display'));
       if($(this).data('toggle-animation') == 'slide'){
         $($(this).data('toggle-display')).slideToggle();
@@ -315,13 +315,14 @@ UiView = {
         $($(this).data('toggle-display')).toggle();
       }
     });
-    $(document).on('click', '[data-toggle-hide]', function () {
+    $(elmt).on('click', '[data-toggle-hide]', function () {
       console.log('script', '[data-toggle-hide]', $(this).data('toggle-hide'));
       $($(this).data('toggle-hide')).toggleClass('hide');
     });
 
     // -- remote data in html elmt
     $(elmt).on('click', '[data-trigger-click]', function(){
+      console.log('script', '[data-trigger-click]', $(this).data('trigger-click'), $($(this).data('trigger-click')));
       $($(this).data('trigger-click')).trigger('click');
       return false;
     });

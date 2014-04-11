@@ -316,7 +316,7 @@ UI = {
     var self = this;
     var parameter = this.getTriggerParameter(trigger);
     var name = this.getTriggerName(trigger);
-    var store_in_session =trigger.data('store-in-session');
+    var store_in_session = trigger.data('store-in-session');
     if (Skhf.session.datas.email || store_in_session) {
       API.trackEvent('Playlist', 'connected-' + (remove ? 'remove-' : 'add-') + parameter, value);
       console.log('UI.togglePlaylist', parameter, value, 'remove:' + remove, trigger);

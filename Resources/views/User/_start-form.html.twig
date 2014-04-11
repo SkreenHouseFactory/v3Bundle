@@ -1,5 +1,5 @@
-<h2 id="{{ step }}">{{ title }}</h2>
-<form id="" class="form-inline clearfix" role="form" data-step="{{ step }}">
+{#<h2 id="{{ step }}">{{ title }}</h2>#}
+<form id="{{ step }}" class="form-inline clearfix" role="form" data-step="{{ step }}">
   <div class="form-group">
     <input class="form-control input-lg" type="text" placeholder="Exemples : {{ placeholder }}">
   </div>
@@ -10,11 +10,14 @@
 <div id="results-{{ step }}" class="results">
   <ul>
     {% if step == 'theaters' %}
-    <div class="suggest"></div>
+  	<li class="head-suggest"><h3>Près d'ici :</h3></li>
+  	<li class="load"></li>
     {% else %}
   	<li class="head-suggest"><h3>Suggestions :</h3></li>
   	{% for suggestion in suggests|to_array|slice(0, 9) %}
-  		<li class="clearfix suggest"><a data-trigger-click="a[data-id='{{ suggestion.id }}']">{{ suggestion.title }}{% if suggestion.has_vod is defined and suggestion.has_vod %}<small>, {{ ('has_vod.' ~ suggestion.has_vod)|trans }}</small>{% endif %}{% if suggestion.year is defined and suggestion.year and step == 'films' %}<small>, {{ suggestion.year }}</small>{% endif %}{% if suggestion.nb_followers is defined and suggestion.nb_followers %}<small>, suivi par {{ suggestion.nb_followers }} personnes</small>{% endif %}</a><a data-id="{{ suggestion.id }}" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-sm btn-suivre btn-plus fav-like pull-right" data-step="{{ step }}">Ajouter à mes listes </a></li>
+  		<li class="clearfix suggest">
+        <a data-id="{{ suggestion.id }}" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-sm btn-suivre btn-plus fav-like col-xs-1" data-step="{{ step }}"></a>
+        <a data-trigger-click="#results-{{ step }} a[data-id='{{ suggestion.id }}']"><span class="col-xs-7">{{ suggestion.title }}{% if suggestion.year is defined and suggestion.year and step == 'films' %} - {{ suggestion.year }}{% endif %}</span>{% if suggestion.has_vod is defined and suggestion.has_vod %}<span class="col-xs-4"><span class="label label-default">{{ ('has_vod.' ~ suggestion.has_vod)|trans }}</span></span>{% endif %}{% if suggestion.nb_followers is defined and suggestion.nb_followers %}<span class="col-xs-4">suivi par {{ suggestion.nb_followers }} personnes</span>{% endif %}</a></li>
   	{% endfor %}
     {% endif %}
   </ul>

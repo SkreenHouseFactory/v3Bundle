@@ -77,6 +77,9 @@ $(document).ready(function(){
   //get notif
   $(document).on('click', '[data-id][class*=" fav-"]', function(e){
     
+    //allow register
+    $('#register').removeClass('hide');
+    
     //increment
     if ($(this).data('step')) {
       count = $('#count-'+$(this).data('step'));
@@ -223,7 +226,7 @@ $(document).ready(function(){
         console.log('scripts/user-start.js', 'callback form', container);
         for (k in results) {
           title = typeof results[k].title != 'undefined' ? results[k].title : results[k].name;
-          container.append('<li class="clearfix suggest"><a data-trigger-click="a[data-id=\''+results[k].id+'\']">' + title + (typeof results[k].has_vod != 'undefined' && results[k].has_vod > 0 ? '<span class="label label-default">'+(dispos[results[k].has_vod])+'</span>' : '') + (typeof results[k].ville != 'undefined' ? '<small> - '+results[k].ville+'</small>' : '') + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<small>, suivi par  '+results[k].nb_followers+' personnes</small>' : '') + '</a><a data-name="'+title+'" data-id="'+results[k].id+'" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' pull-right" data-step="'+step+'">Ajouter à mes listes </a></li>')
+          container.append('<li class="row suggest"><a data-name="'+title+'" data-id="'+results[k].id+'" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' col-xs-1" data-step="'+step+'"></a><a data-trigger-click="a[data-id=\''+results[k].id+'\']"><span class="col-xs-7">' + title + '</span>' + (typeof results[k].has_vod != 'undefined' && results[k].has_vod > 0 ? '<span class="col-xs-4"><span class="label label-default">'+(dispos[results[k].has_vod])+'</span></span>' : '') + (typeof results[k].ville != 'undefined' ? '<span class="col-xs-4">'+results[k].ville+'</span>' : '') + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<span class="col-xs-4">suivi par  '+results[k].nb_followers+' personnes</span>' : '') + '</a></li>')
         }
     });
 
@@ -233,7 +236,8 @@ $(document).ready(function(){
 
   //geoloc onload
 	API.geolocation(function(position){
-		$('#results-theaters .suggest').load(API.config.v3_root+'/cinema/search?latlng=' + position, function(){
+		$('#results-theaters li.load').load(API.config.v3_root+'/cinema/search?latlng=' + position + ' #table-theaters', function(){
+      $('#table-theaters a[data-id]').attr('data-store-in-session', '1');
       if (Skhf.session.user) {
         UI.loadPlaylistTriggers(
           'cinema', 

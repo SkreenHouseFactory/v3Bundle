@@ -38,15 +38,19 @@
   </p>
 {% elseif app.request.get('init') is null or cinemas|to_array|length %}
   <div class="scroll" style="overflow-y: auto; max-height: 250px;">
-  <table class="table table-striped">
+  <table id="table-theaters" class="table table-striped">
   {% for cinema in cinemas|to_array %}
     {% if cinema.adress is defined %}
-    <tr><td class="actions" data-id="{{ cinema.id }}">
+    <tr>
+      <td class="relative">
       {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, name: cinema.name, class: 'fav-cinema pull-right' ~ (app.request.get('init')?' fav-on btn-success' : ''), text: (app.request.get('init')?'Abonné':' Ajouter à vos cinémas'), placement: 'left'} %}
       <a class="btn btn-default pull-right" href="{{ path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1) }) }}"> Films & horaires</a>
-      <strong>{{ cinema.name }}</strong>{% if cinema.distance is defined %} distance : environ {{ cinema.distance < 1 ? (cinema.distance*100)|number_format ~'m' : cinema.distance|number_format(1) ~ 'km' }}{% endif %}<br/>
-      <em>{{ cinema.adress }} {{ cinema.city }} {{ cinema.zip_code }}</em>
-    </td></tr>
+      <a data-trigger-click="#table-theaters a[data-id='{{ cinema.id }}']">
+        <strong>{{ cinema.name }}</strong>{% if cinema.distance is defined %} distance : environ {{ cinema.distance < 1 ? (cinema.distance*100)|number_format ~'m' : cinema.distance|number_format(1) ~ 'km' }}{% endif %}<br/>
+        <em>{{ cinema.adress }} {{ cinema.city }} {{ cinema.zip_code }}</em>
+      </a>
+      </td>
+    </tr>
     {% endif %}
   {% endfor %}
   </table>

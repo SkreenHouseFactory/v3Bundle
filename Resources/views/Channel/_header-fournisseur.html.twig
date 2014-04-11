@@ -32,7 +32,7 @@
                 <div data-autoplay="1">
                   <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=28370043&program_id={{ fournisseur.live.program is defined and fournisseur.live.program ? fournisseur.live.program.id : '' }}&fromWebsite=1{{ app.environment == 'dev' ? '&env=dev' : '' }}" class="player-live" scrolling="no" frameborder="0" style="height:270px"></iframe>
                 </div>
-                <p class="bs-callout bs-callout-info">Le direct n'est pas disponible.</p>
+                {% set indisponible = 1 %}
               {% endif %}
             
             {% if fournisseur.live.program is defined and fournisseur.live.program  %}
@@ -44,6 +44,9 @@
                 <div class="col-xs-5">
                   <a data-id="{{ fournisseur.live.program.id }}" class="btn btn-suivre fav-like btn-plus">S'abonner</a>
                 </div>
+                {% if indisponible is defined %}
+                <p class="bs-callout bs-callout-info clear">Le direct n'est pas disponible.</p>
+                {% endif %}
               </div>
             {% endif %}
           </div>
