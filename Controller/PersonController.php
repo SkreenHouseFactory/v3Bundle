@@ -27,7 +27,7 @@ class PersonController extends Controller
     {
       $api   = $this->get('api');
       $data = $api->fetch('person/'.$request->get('id'), array(
-        'fields' => 'programs,notifications',
+        'fields' => 'programs,notifications,related',
         'img_width' => 150,
         'img_height' => 200,
         'channel_img_width' => 60,
