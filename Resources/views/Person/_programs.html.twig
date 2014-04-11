@@ -1,44 +1,44 @@
 {% if programs|length == 0 and app.request.get('page') < 2 %}
-<div class="bande_fonce">
-  <div class="container">
-    <p class="bs-callout bs-callout-info">Aucun programme n'est disponible.</p>
-  </div>
-</div>
-{% else %}
-<div class="bande_fonce nopadding">
-  <div class="container">
-  {% if formats|length > 1 or programs|length > 1 %}
-      {% if formats|length > 1 %}
-        <p class="sk-font pull-right">Par formats :<br/>
-        <a data-filter-format="all" class="label label-default">Tout</a> &nbsp;
-        {% for f in formats %}
-          <a data-filter-format="{{ f }}" class="label label-default">{{ ('nav.'~f)|trans }}</a> &nbsp;
-        {% endfor %}
-        </p>
-      {% endif %}
-      {% if programs|length > 1 %}
-        <p class="sk-font">Par années :<br/>
-          {% for decade,programs in programs %}
-            <a href="#{{ decade }}" class="label label-default">{{ decade ? decade : 'Autres' }}</a> &nbsp;
-          {% endfor %}
-        </p>
-      {% endif %}
-  {% endif %}
-</div>
-</div>
-<div class="container">
-  {% for decade,programs in programs %}
-    <a name="{{ decade }}"></a>
-    <br/>
-    <h3>Les années {{ decade ? decade : ' - autres' }} <small>{{ programs|to_array|length }} programme{{ programs|to_array|length > 1 ? 's' : '' }}</small></h3>
-    <hr/>
-    <div id="person-programs" class="slider slider-list">
-      <ul class="items">
-        {% for program in programs|to_array %}
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
-        {% endfor %}
-      </ul>
+  <div class="bande_fonce">
+    <div class="container">
+      <p class="bs-callout bs-callout-info">Aucun programme n'est disponible.</p>
     </div>
-  {% endfor %}
-</div>
+  </div>
+{% else %}
+  <div class="bande_fonce nopadding">
+    <div class="container">
+      {% if formats|length > 1 or programs|length > 1 %}
+        {% if formats|length > 1 %}
+          <p class="sk-font pull-right">Par formats :<br/>
+            <a data-filter-format="all" class="label label-default">Tout</a> &nbsp;
+            {% for f in formats %}
+              <a data-filter-format="{{ f }}" class="label label-default">{{ ('nav.'~f)|trans }}</a> &nbsp;
+            {% endfor %}
+          </p>
+        {% endif %}
+        {% if programs|length > 1 %}
+          <p class="sk-font">Par années :<br/>
+            {% for decade,programs in programs %}
+              <a href="#{{ decade }}" class="label label-default">{{ decade ? decade : 'Autres' }}</a> &nbsp;
+            {% endfor %}
+          </p>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+  <div class="container">
+    {% for decade,programs in programs %}
+      <a name="{{ decade }}"></a>
+      <br/>
+      <h3>Les années {{ decade ? decade : ' - autres' }} <small>{{ programs|to_array|length }} programme{{ programs|to_array|length > 1 ? 's' : '' }}</small></h3>
+      <hr/>
+      <div id="person-programs" class="slider slider-list">
+        <ul class="items">
+          {% for program in programs|to_array %}
+            {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
 {% endif %}

@@ -1,23 +1,23 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 {% block meta %}
-{% if person.programs|length < 6 or app.request.get('page') %}
-<meta name="robots" content="noindex,follow" />
-{% endif %}
-<meta property="og:title" content="{{ person.name }}" />
-<meta property="og:description" content="{{ person.description|striptags }}" />
-<meta property="og:type" content="{% if person.activity in ['director', 'Réalisateur'] %}director{% else %}actor{% endif %}" />
-<meta property="og:url" content="http://www.myskreen.com{{ person.seo_url }}" />
-{% if person.picture %}
-<meta property="og:image" content="{{ person.picture }}" />
-<link rel="image_src" href="{{ person.picture }}" />
-{% endif %}
-<meta name="object_type" content="{% if person.activity in ['director', 'Réalisateur'] %}director{% else %}actor{% endif %}" />
-<link rel="canonical" href="http://www.myskreen.com{{ person.seo_url }}"/>
+  {% if person.programs|length < 6 or app.request.get('page') %}
+    <meta name="robots" content="noindex,follow" />
+  {% endif %}
+  <meta property="og:title" content="{{ person.name }}" />
+  <meta property="og:description" content="{{ person.description|striptags }}" />
+  <meta property="og:type" content="{% if person.activity in ['director', 'Réalisateur'] %}director{% else %}actor{% endif %}" />
+  <meta property="og:url" content="http://www.myskreen.com{{ person.seo_url }}" />
+  {% if person.picture %}
+    <meta property="og:image" content="{{ person.picture }}" />
+    <link rel="image_src" href="{{ person.picture }}" />
+  {% endif %}
+  <meta name="object_type" content="{% if person.activity in ['director', 'Réalisateur'] %}director{% else %}actor{% endif %}" />
+  <link rel="canonical" href="http://www.myskreen.com{{ person.seo_url }}"/>
 {% endblock %}
 {% block title %}
-{{ person.name }}
-{% if app.request.get('format') %}, {{ app.request.get('format') }}{% endif %}
-{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}
+  {{ person.name }}
+  {% if app.request.get('format') %}, {{ app.request.get('format') }}{% endif %}
+  {% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}
 {% endblock %}
 {% block description %}{{ person.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
@@ -33,26 +33,24 @@
 
 {% block content %}
 
-
-<div id="view-person" data-id="{{ person.id }}" class="relative">
-  {% include 'SkreenHouseFactoryV3Bundle:Person:_addtolist.html.twig' with {person: person} %}
+  <div id="view-person" data-id="{{ person.id }}" class="relative">
+    {% include 'SkreenHouseFactoryV3Bundle:Person:_addtolist.html.twig' with {person: person} %}
   
-  {% if app.request.get('page') < 2 %}
-    <div class="description-seo description-seo-absolute">
-      <div class="container well scroll">{{ person.description|raw }}</div>
-    </div>
-  {% endif %}
+    {% if app.request.get('page') < 2 %}
+      <div id="md-description" class="description-seo description-seo-absolute">
+        <div itemprop="description" class="container well scroll">{{ person.description|raw }}</div>
+      </div>
+    {% endif %}
   {#
   <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ person.seo_url, text: 'Je regarde tout ' ~ person.name ~ ' sur mySkreen et vous ?' } %}</div>#}
 
-  {% include  'SkreenHouseFactoryV3Bundle:Person:_notifications.html.twig' with {notifications: person.notifications} %}
-  <div class="bande_fonce nopadding">
-    <div class="container">
-      <h2>Les programmes de {{ person.name }}</h2>
+    {% include  'SkreenHouseFactoryV3Bundle:Person:_notifications.html.twig' with {notifications: person.notifications} %}
+    <div class="bande_fonce nopadding">
+      <div class="container">
+        <h2>Les programmes de {{ person.name }}</h2>
+      </div>
     </div>
-  </div>
-  {% include  'SkreenHouseFactoryV3Bundle:Person:_programs.html.twig' with {programs: person.programs} %}
+    {% include  'SkreenHouseFactoryV3Bundle:Person:_programs.html.twig' with {programs: person.programs} %}
 
-	</div>
-</div>
+  </div>
 {% endblock %}
