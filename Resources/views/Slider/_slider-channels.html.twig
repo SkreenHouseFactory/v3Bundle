@@ -5,15 +5,14 @@
  {% set nb_indicator = (nb_indicator / 3)|round_up %}
  <div class="channelselect">
    <h2><a href="{{ channels.url }}">{{ channels.title }}</a></h2>
-
    <div id="carousel-channel" class="carousel slide  new-slider vertical" data-interval="false" >
     <div class="carousel-inner">
       <div class="item active">
         {% for item in channels.programs | to_array %}
-          {% if loop.index0 is divisibleby(3) and loop.index0 != 0 %}
-            </div>
-            <div class="item">
-          {% endif %}
+        {% if loop.index0 is divisibleby(3) and loop.index0 != 0 %}
+          </div>
+          <div class="item">
+        {% endif %}
         <a href="{{ path('any_url', {url: item.url|slice(1, item.url|length-1)}) }}" class="channel_link">
          <span class="channel_texte">{{ item.title }}</span>
          {% if '225/110' in item.picture %}
@@ -23,11 +22,10 @@
          {% endif %}
        </a>       
        {% endfor %}
-      </div>
+     </div>
     </div>
   </div>
 </div>
-
 <div class="controlersbtn2">
   <a  href="#carousel-channel" data-slide="prev">
     <button type="button" class="btn btn-default fleches">  
@@ -35,8 +33,8 @@
     </button>
   </a>
   <a href="#carousel-channel" data-slide="next">
-    <button type="button" class="btn btn-default fleches">  
-      <span class="glyphicon glyphicon-circle-arrow-down"></span>
-    </button>
-  </a>
+   <button type="button" class="btn btn-default fleches">  
+     <span class="glyphicon glyphicon-circle-arrow-down"></span>
+   </button>
+ </a>
 </div>

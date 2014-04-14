@@ -1,6 +1,7 @@
-<div class="bande_plus_fonce nopadding">
+{% if notifications|to_array|length %}
+<div class="bande_notifications nopadding">
   <div class="container">
-    <h2>A voir en ce moment</h2>
+    <h2>{{ title is defined ? title : 'A voir en ce moment' }}</h2>
     <ul class="notifications clearfix">
       {% for n in notifications|to_array %}
         <li class="tv-component plays broadcast pull-left">
@@ -18,3 +19,4 @@
     </ul>
   </div>
 </div>
+{% endif %}

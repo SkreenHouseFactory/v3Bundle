@@ -68,10 +68,10 @@
         </div>
       {% endif %}
     {% else %}
-      {% if loop.index == 2 and home.more is defined %}
+      {% if loop.index == 2 %}
+      {% if home.more is defined %}
         {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more , loop_index: loop.index } %}
       {% endif %}
-      {% if loop.index == 2 %}
         <div class="container">
           <div class="row">
             <div class="first-container">
@@ -85,10 +85,13 @@
       {% endif %}
     {% endif %}
   {% endfor %}
+  {% if home.more is defined %}
       </div>
     </div>
   </div>
+  {% endif %}
 </div>
+
 <div id="slide-in">
   <div id="slide-in-text">
     <div>

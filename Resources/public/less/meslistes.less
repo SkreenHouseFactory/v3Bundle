@@ -38,6 +38,54 @@ img.cinema-sample {
     }
   }
 }
+.bande_notifications {
+  padding: 5px 0 5px 0;
+  background-color: #64A2D8;
+  .notifications {
+    background: rgba(255,255,255,0.8);
+    list-style: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 20px;
+    li {
+      padding: 10px;
+      margin-right: 1%;
+      width: 32%;
+      overflow: hidden;
+      a {
+        display: block;
+        &:hover {
+          text-decoration: none;
+          opacity: 0.8;
+        }
+        img {
+          margin-right: 5px;
+          margin-top: 7px;
+        }
+        >div {
+          width: 63%;
+          .title {
+            font-style: italic;
+          }
+          .subtitle {
+            font-size: 0.85em;
+            color: #999;
+            display: block;
+            clear: both;
+            margin-bottom: -2px;
+          }
+          .label {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-top: 4px;
+          }
+        }
+      }
+    }
+  }
+}
 .bande_listes {
   padding: 5px 0 5px 0;
   background-color: #428bca;
