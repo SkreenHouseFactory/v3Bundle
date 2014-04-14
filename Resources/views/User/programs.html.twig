@@ -3,7 +3,7 @@
 {% block title %}{{ (onglet == 'channel') ? 'page.title.user.channels'|trans : 'page.title.user.programs'|trans }}{% endblock %}
 
 {% block content %}
-  {% set active %}{{ (onglet == 'channel') ? 'channel' : 'programs' }}{% endset %}
+  {% set active %}{{ onglet == 'channel' ? 'channel' : 'programs' }}{% endset %}
   {% set count %}{{ programs|length }}{% endset %}
   {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with {active: active } %}
 
@@ -16,7 +16,6 @@
   </div>
   #}
 
-    <h1>{{ onglet == 'channel' ? 'user.channels'|trans : 'user.programs'|trans }}</h1>
     {% if programs|length == 0 %}
       <p class="alert alert-info">Vous ne suivez {{ onglet == 'channel' ? 'aucune chaîne' : 'aucun programme' }}.</p>
     {% else %}

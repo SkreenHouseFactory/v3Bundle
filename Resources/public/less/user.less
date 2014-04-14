@@ -82,9 +82,15 @@
   }
 }
 
-body[class*='view-user_'] #bandeau-listes {
-  margin-top: -65px;
-  padding-top: 65px;
+body[class*='view-user_'] {
+  #content {
+    min-height: 700px;
+  }
+  #bandeau-listes {
+    margin-top: -65px;
+    padding-top: 65px;
+    margin-bottom: 20px;
+  }
 }
 
 #bandeau-listes {
@@ -139,5 +145,22 @@ body[class*='view-user_'] #bandeau-listes {
 #view-user-persons{
   ul.nav {
     margin-bottom: 10px;
+  }
+}
+.view-user_programs {
+  #user-programs {
+    li {
+      position: relative;
+      span.fav-trash {
+        position: absolute;
+        top: -1px;
+        right: -1px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 0;
+        z-index: 2;
+        background-color: #333;
+      }
+    }
   }
 }
