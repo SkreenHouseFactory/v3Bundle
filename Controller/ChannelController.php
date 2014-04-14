@@ -328,7 +328,7 @@ class ChannelController extends ChannelCustomController
       'disable_search_by_format' => true,
       'sorter' => 'year',
       'preview' => $request->get('preview'),
-      'fields' => 'description,programs,img_maxsize'
+      'fields' => 'description,programs,img_maxsize,notifications'
     );
     $data = $api->fetch('channel'.($request->get('id')?'/'.$request->get('id'):null), $params);
     echo $request->get('debug') ? $api->url : null;
