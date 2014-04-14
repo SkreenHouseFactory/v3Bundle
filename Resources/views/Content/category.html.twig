@@ -42,7 +42,7 @@
 
   <ul class="breadcrumb">
     {% if app.request.get('format') %}
-      <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('format', {category_slug: app.request.get('format')}) }}"><span itemprop="title">{{ app.request.get('format')|upper }}</span></a></li>
+      <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('format', {category_slug: app.request.get('format')}) }}"><span itemprop="title">{{ ('format.singulier.'~app.request.get('format'))|trans|upper }}</span></a></li>
     {% endif %}
     <li{% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: app.request.get('format') ~ (category.root is defined ? category.root.seo_url : category.seo_url) })|replace({'//':'/'})  }}"><span itemprop="title">{{ category.root is defined ? category.root.name : category.name }}</span></a></li>
     {% if app.request.get('facet') and subcategories[app.request.get('facet')] is defined %}
@@ -58,8 +58,14 @@
     {% endif %}
   </ul>
 
+  {% if app.environment == 'prod' %}
   <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ category.seo_url, text: 'Je regarde des ' ~ category.name ~ ' sur mySkreen et vous ?' } %}</div>
-  <h1>{% if app.request.get('format') %}{{ app.request.get('format') }} :{% endif %} la catégorie {{ category.name }}{% if app.request.get('access') %} en {{ ('access.' ~ app.request.get('access'))|trans }}{% endif %}</h1>
+  {% elseif category.format %}
+  <div class="pull-right">{% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: category.format.id~'+'~category.id, class: 'fav-format-category', text: 'Ajouter à mes listes', placement: 'left'} %}</div>
+  {% else %}
+  <div class="pull-right">{% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: category.id, class: 'fav-category', text: 'Ajouter à mes listes', placement: 'left'} %}</div>
+  {% endif %}
+  <h1>{% if app.request.get('format') %}{{ ('format.pluriel.'~app.request.get('format'))|trans|capitalize }} :{% endif %} la catégorie {{ category.name }}{% if app.request.get('access') %} en {{ ('access.' ~ app.request.get('access'))|trans }}{% endif %}</h1>
   
 </div>
 </div>

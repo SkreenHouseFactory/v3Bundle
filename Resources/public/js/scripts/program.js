@@ -404,12 +404,10 @@ $(document).ready(function(){
     UI.appendLoader(container, 7000);
     TimeOut = setTimeout(function(){
       UI.removeLoader(container);
-      $('#best-offer-anchor .col-xs-3').html();
       $('#best-offer-anchor .col-xs-3').html('<a type="button" class="btn btn-voir" href="#best-offer-anchor"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir</a>');
-      $('#best-offer-anchor .col-xs-13').html();
       var number_offers = $('.offertable .external, .offertable .dvd, .offertable .itunes, .offertable .box, .offertable .console').length;
       var texte_offers = number_offers == 1 ? ' offre disponible sur une autre plateforme' : ' offres disponibles sur d\'autres plateformes';
-      $('#best-offer-anchor .col-xs-13').html('<p>'+number_offers+texte_offers+'</p>');
+      container.html('<p>'+number_offers+texte_offers+'</p>');
     },9000);
   }
 

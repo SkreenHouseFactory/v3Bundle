@@ -192,6 +192,9 @@ $(document).ready(function(){
       case 'channels':
         fav = 'channel';
       break;
+      case 'categories':
+        fav = 'category';
+      break;
       default:
         fav = 'like';
       break;
