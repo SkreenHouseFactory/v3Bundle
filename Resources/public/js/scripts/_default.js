@@ -191,8 +191,9 @@ $(document).ready(function(){
         var current = parseInt($('.navbar .notifications-count .badge').html()) - 1;
         console.log('UI.loadNotifications', 'remove Notifications', 'current', current);
         $('.navbar .notifications-count .badge').html(parseInt(current) > 0 ? current : 0);
-        if (current == 0) {
-          $('.navbar .notifications li.empty').show();
+        // apparition no notifs message
+        if( $('.notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
+          $('.notifications .empty').css('display','block');
         }
         return false;
       });
