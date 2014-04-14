@@ -8,9 +8,9 @@
     {% set combinaisons = {6: {'vertical': [[1,1,1,1,1,1]], 'horizontal': []}|to_array }|to_array %}
     {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: top_home.pack_live , h_title:"h2", loop_index: loop_index, slider_combinaisons: combinaisons, title: top_home.pack_live.name } %}
     <div class="col-xs-4">
-     {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels.html.twig' with { channels:top_home.pack_channel } %}
-   </div>
-   {% set tnt_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat','HD1','6Ter','numéro 23','DISNEY CHANNEL','Gulli','RMC découverte','cherie 25','KTO'] %}
+      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels.html.twig' with { channels:top_home.pack_channel } %}
+    </div>
+    {% set tnt_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat','HD1','6Ter','numéro 23','DISNEY CHANNEL','Gulli','RMC découverte','cherie 25','KTO'] %}
   </div>
 </div>
 <div class="row chaines-listing clearfix">

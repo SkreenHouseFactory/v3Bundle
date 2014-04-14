@@ -1,6 +1,6 @@
  {% set nb_indicator = 0  %}
  {% for item in channels.programs | to_array %}
- {% set nb_indicator = nb_indicator + 1 %}
+  {% set nb_indicator = nb_indicator + 1 %}
  {% endfor %}
  {% set nb_indicator = (nb_indicator / 3)|round_up %}
  <div class="channelselect">
@@ -10,10 +10,10 @@
     <div class="carousel-inner">
       <div class="item active">
         {% for item in channels.programs | to_array %}
-        {% if loop.index0 is divisibleby(3) and loop.index0 != 0 %}
-      </div>
-      <div class="item">
-        {% endif %}
+          {% if loop.index0 is divisibleby(3) and loop.index0 != 0 %}
+            </div>
+            <div class="item">
+          {% endif %}
         <a href="{{ path('any_url', {url: item.url|slice(1, item.url|length-1)}) }}" class="channel_link">
          <span class="channel_texte">{{ item.title }}</span>
          {% if '225/110' in item.picture %}
@@ -23,27 +23,8 @@
          {% endif %}
        </a>       
        {% endfor %}
-     </div>
-     
-{#      <ul class="wrap-carousel-control">
-      <li><a data-slide="next" href="#carousel-channel" class="right carousel-control"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-      <li><!-- Indicators -->
-        <ol class="carousel-indicators">
-          {% for i in 1..nb_indicator %}
-          {% if loop.first  %}
-          <li class="active" data-slide-to="0" data-target="#carousel-channel"></li>
-          {% else %}
-
-          <li data-slide-to="{{ loop.index0 }}" data-target="#carousel-channel"></li>.
-          {% endif %}
-          {% endfor %}  
-
-        </ol>
-      </li>
-      <li><a data-slide="prev" href="#carousel-channel" class="left carousel-control"><span class="glyphicon glyphicon-chevron-left"></span></a>
-      </li>
-    </ul>  #}
-
+      </div>
+    </div>
   </div>
 </div>
 
@@ -54,8 +35,8 @@
     </button>
   </a>
   <a href="#carousel-channel" data-slide="next">
-   <button type="button" class="btn btn-default fleches">  
-     <span class="glyphicon glyphicon-circle-arrow-down"></span>
-   </button>
- </a>
+    <button type="button" class="btn btn-default fleches">  
+      <span class="glyphicon glyphicon-circle-arrow-down"></span>
+    </button>
+  </a>
 </div>
