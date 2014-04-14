@@ -171,7 +171,8 @@ class UserController extends Controller
       $api = $this->get('api');
       $params = array(
         'advanced' => true,
-        'session_uid' => $session_uid
+        'session_uid' => $session_uid,
+        'allow_with' => true
       );
 
       $persons = $api->fetch('person', $params);
