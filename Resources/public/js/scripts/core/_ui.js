@@ -16,25 +16,7 @@ UiView = {
      }
     this.onLoad();
   },
-  update: function(elmt) {
-    console.log('UiView.update', elmt);
-    this.initDataTriggers(elmt);
-  },
-  onLoad: function() {
-    console.log('UiView.onLoad');
-    //data triggers
-    this.initDataLive();
-    this.initDataTriggers(this.elmt);
-
-    // autoload modal from url
-    var triggerModal = getUrlParameter('modal');
-    if (triggerModal) {
-      API.quickLaunchModal(triggerModal);
-    }
-    var urlPopin = getUrlParameter('popin');
-    if (urlPopin) {
-      API.launchModal((API.config.popin + urlPopin + '&proxy=v3').replace('createIframe', ','));
-    }
+  checkUrl: function() {
     if (document.location.href.match(/\?play/gi)) {
       console.log('?play', getUrlParameter('play'));
       $('[data-play="'+getUrlParameter('play')+'"]').trigger('click');
@@ -44,6 +26,28 @@ UiView = {
         console.log('?click', getUrlParameter('click'), $(getUrlParameter('click')));
         $(getUrlParameter('click')).trigger('click');
       }, 500);
+    }
+  },
+  update: function(elmt) {
+    console.log('UiView.update', elmt);
+    this.initDataTriggers(elmt);
+    this.checkUrl();
+  },
+  onLoad: function() {
+    console.log('UiView.onLoad');
+    //data triggers
+    this.initDataLive();
+    this.initDataTriggers(this.elmt);
+    this.checkUrl();
+
+    // autoload modal from url
+    var triggerModal = getUrlParameter('modal');
+    if (triggerModal) {
+      API.quickLaunchModal(triggerModal);
+    }
+    var urlPopin = getUrlParameter('popin');
+    if (urlPopin) {
+      API.launchModal((API.config.popin + urlPopin + '&proxy=v3').replace('createIframe', ','));
     }
 
     // trigger onload

@@ -1,3 +1,25 @@
+//console.log('scripts/program.js', 'chargement');
+
+$(document).on('click', '[data-play], [data-play-iframe]', function(){
+    //remove
+    $('.is-playing').each(function(){
+      $(this).removeClass('is-playing');
+      $('.offers',$(this)).html('<button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir </button>');
+      var btn = $('.btn', $(this));
+      btn.removeClass('disabled');
+      btn.html(btn.data('text-save'));
+    });
+    //Add
+    $(this).addClass('is-playing');
+    var btn = $('.is-playing .btn');
+    btn.addClass('disabled');
+    btn.data('text-save', btn.html());
+    btn.html('Lecture en cours');
+    if ($(this).parents('#videos').length) {
+      console.log('scripts/program.js', 'is-playing', 'videos tab');
+      $('a[href="#videos"]').trigger('click');
+    }
+  });
 // -- program
 // -- ProgramView
 var ProgramView;
@@ -201,6 +223,7 @@ ProgramView = {
 Session_sync_args =  { 'with_svod': 1 };
 
 $(document).ready(function(){
+
   if ($('#view-program').length) {
 
     //////////// CALLBACKS ////////////////
@@ -412,22 +435,6 @@ $(document).ready(function(){
       $('#best-offer-anchor .col-xs-13').html('<p>'+number_offers+texte_offers+'</p>');
     },9000);
   }
-
-  $(document).on('click', '[data-play], [data-play-iframe]', function(){
-    //remove
-    $('.is-playing').each(function(){
-      $(this).removeClass('is-playing');
-      $('.offers',$(this)).html('<button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir </button>');
-      var btn = $('.btn', $(this));
-      btn.removeClass('disabled');
-      btn.html(btn.data('text-save'));
-    });
-    //Add
-    $(this).addClass('is-playing');
-    var btn = $('.is-playing .btn');
-    btn.addClass('disabled');
-    btn.data('text-save', btn.html());
-    btn.html('Lecture en cours');
-  });
+  
 });
 
