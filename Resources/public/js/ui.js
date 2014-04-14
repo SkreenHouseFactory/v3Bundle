@@ -623,7 +623,7 @@ UI = {
     for (k in notifications) {
       if($('.tv-component [data-id="'+notifications[k].id+'"]').length == 0){
         if (notifications[k].type == 'broadcast') {
-          var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url +'?offers='+notifications[k].offers +'" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"';
+          var attrs = 'data-ajax="' + notifications[k].link +'?offers='+notifications[k].offers +'" rel="#content" data-seo-url="' + notifications[k].link + '"';
           
         } else if (notifications[k].player) {
           var attrs = 'data-ajax-play="' + notifications[k].player + '" data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?offers='+notifications[k].offers + '" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"' 
