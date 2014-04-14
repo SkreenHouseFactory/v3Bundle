@@ -2,7 +2,7 @@ body.view-person {
   #main {
     padding-top: 0px;
     #view-person {
-      padding-bottom: 450px;
+      padding-bottom: 400px;
       .bande_plus_fonce {
         background: #569BCA;
       }
@@ -17,12 +17,6 @@ body.view-person {
           margin-right: 1%;
           width: 32%;
           overflow: hidden;
-          &:first-child {
-            margin-left: 1%;
-          }
-          &:last-child {
-            margin-right: 0;
-          }
           a {
             display: block;
             &:hover {
@@ -46,7 +40,11 @@ body.view-person {
                 margin-bottom: -2px;
               }
               .label {
-                display: inline-block;
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                margin-top: 4px;
               }
             }
           }
@@ -56,6 +54,42 @@ body.view-person {
         min-width: 400px;
         .fb-like {
           float: left;
+        }
+      }
+      #person-related {
+        margin-top: 20px;
+        .panel-heading {
+          h2 {
+            margin: 5px 0 0;
+          }
+        }
+        .tab-pane {
+          padding-top: 15px;
+        }
+        .person-relations {
+          width: 47%;
+          margin-bottom: 20px;
+          color: #428bca;
+          line-height: 15px;
+          &:nth-child(odd) {
+            float: left;
+            margin-left: 1%;
+            padding-right: 20px;
+          }
+          &:nth-child(even) {
+            float: right;
+            margin-right: 1%;
+            padding-left: 20px;
+          }
+          span {
+            font-size: 0.85em;
+            font-style: italic;
+            color: #333;
+          }
+          a.btn {
+            width: 175px;
+            margin-top: -15px;
+          }
         }
       }
     }

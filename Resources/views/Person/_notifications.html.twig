@@ -1,15 +1,15 @@
-<div class="bande_plus_fonce nopadding hide">
+<div class="bande_plus_fonce nopadding">
   <div class="container">
     <h2>A voir en ce moment</h2>
     <ul class="notifications clearfix">
       {% for n in notifications|to_array %}
         <li class="tv-component plays broadcast pull-left">
-          <a href="{{ n.link }}" class="link clearfix" title="{{ n.title }}">
+          <a href="{{ n.link }}" class="link clearfix" title="{{ n.title|raw }}">
             <img src="{{ n.channel_ico|replace({'/39': '/45/45'}) }}" class="channel pull-left">
             <img src="{{ n.ico }}" alt="notification" class="ico pull-left">
             <div class="pull-left clearfix">
               <div class="title pull-left">{{ n.title|wordCut(22,'...') }}</div>
-              <div class="subtitle">{{ n.title_episode }}</div>
+              <div class="subtitle">{{ n.title_episode|raw }}</div>
               <div class="label label-success">{{ n.subtitle }}</div>
             </div>
           </a>
