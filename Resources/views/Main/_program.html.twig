@@ -19,8 +19,8 @@
 	{% set p_title = p.title %}
 {% endif %}
 
-<li class="actions hasvod-{{ p.has_vod }} image-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}} root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background:url({{ p.picture }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}{% if origin is defined and origin == 'boxoffice' %} itemprop="about" itemscope itemtype="http://schema.org/Movie"{% endif %}>
-	{% if origin is defined and origin == 'boxoffice' %}
+<li class="actions hasvod-{{ p.has_vod }} image-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}} root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background:url({{ p.picture }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}{% if origin is defined and origin == 'boxoffice' %} itemprop="about" itemscope itemtype="http://schema.org/Movie"{% endif %}{% if origin is defined and origin == 'person' %} itemprop="performerIn" itemscope itemtype="http://schema.org/Movie"{% endif %}>
+	{% if origin is defined and (origin == 'boxoffice' or origin == 'person') %}
 		{% if p.picture %}<meta itemprop="image" content="{{ p.picture }}"/>{% endif %}
 		{% if p.seo_url %}<meta itemprop="url" content="http://www.myskreen.com{{ p.seo_url }}"/>{% endif %}
 		{% if p.year %}<meta itemprop="copyrightYear" content="{{ p.year }}"/>{% endif %}
@@ -40,8 +40,8 @@
 			</span>
 			{% endif %}
 			<i class="icon-th icon-white"></i>
-			<span class="ms-prog-title"{% if origin is defined and origin == 'boxoffice' %} itemprop="name"{% endif %}>{{ p_title|raw }} </span>
-			<span class="ms-prog-desc">  {% if p.format.name is defined %} {{ p.format.name|raw }}{% endif %}  {% if p.duration is defined and p.duration !="" %}, {% if origin is defined and origin == 'boxoffice' %}<time itemprop="duration" datetime="PT{{ (p.duration * 60 - 3600)|date('H-i')|replace({"-":"H"}) }}M"></time>{% endif %}{{ p.duration|raw }} min {% endif %} </span>
+			<span class="ms-prog-title"{% if origin is defined and (origin == 'boxoffice' or origin == 'person') %} itemprop="name"{% endif %}>{{ p_title|raw }} </span>
+			<span class="ms-prog-desc">  {% if p.format.name is defined %} {{ p.format.name|raw }}{% endif %}  {% if p.duration is defined and p.duration !="" %}, {% if origin is defined and (origin == 'boxoffice' or origin == 'person') %}<time itemprop="duration" datetime="PT{{ (p.duration * 60 - 3600)|date('H-i')|replace({"-":"H"}) }}M"></time>{% endif %}{{ p.duration|raw }} min {% endif %} </span>
       </span>
 			<br>
 		</span>

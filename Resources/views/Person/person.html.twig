@@ -41,16 +41,31 @@
         <div itemprop="description" class="container well scroll">{{ person.description|raw }}</div>
       </div>
     {% endif %}
-  {#
-  <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ person.seo_url, text: 'Je regarde tout ' ~ person.name ~ ' sur mySkreen et vous ?' } %}</div>#}
-
-    {% include  'SkreenHouseFactoryV3Bundle:Person:_notifications.html.twig' with {notifications: person.notifications} %}
+    {% if person.notifications|to_array|length > 0 %}
+      {% include  'SkreenHouseFactoryV3Bundle:Person:_notifications.html.twig' with {notifications: person.notifications} %}
+    {% endif %}
     <div class="bande_fonce nopadding">
       <div class="container">
         <h2>Les programmes de {{ person.name }}</h2>
       </div>
     </div>
     {% include  'SkreenHouseFactoryV3Bundle:Person:_programs.html.twig' with {programs: person.programs} %}
-
+    <div id="person-related" class="container">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2>Ils ont travaillé avec {{ person.name }}</h2>
+        </div>
+        <div class="tab-pane clearfix">
+          {% for relation in person.related|to_array %}
+            <div class="person-relations clearfix">
+              {{ relation.name }}
+              <br/>
+              <span>{{ relation.main_activity }}</span>
+              <a class="btn btn-sm btn-default pull-right" href="{{ path('any_url', {url: relation.seo_url|slice(1, relation.seo_url|length-1)}) }}">» Voir ses {{ relation.nb_programs }} programmes</a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
   </div>
 {% endblock %}
