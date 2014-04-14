@@ -328,9 +328,9 @@ UI = {
         console.log('UI.togglePlaylist', 'callback', value, trigger);
         // remove
         if (remove) {
-          if (parameter == 'like' &&
+          if (trigger.hasClass('fav-trash') &&
               $('.friends', trigger.parents('.actions:first')).length == 0) { //pas pour le slider social
-            $('.slider-playlist li[data-id="' + value + '"], #user-programs li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
+            $('.slider-playlist li[data-id="' + value + '"], .slider-list li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
               $(this).remove();
             });
           }

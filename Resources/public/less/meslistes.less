@@ -274,11 +274,22 @@ img.cinema-sample {
   }
 }
 .view-user_programs, .view-user_persons, .view-user_theaters {
+  .pagination {
+    margin-top: 0;
+  }
+  #bandeau-listes + .container .nav {
+    margin-bottom: 20px;
+  }
   #bandeau-listes {
     .row {
       &.user-on {
         >div {
           padding-top: 5px;
+        }
+      }
+      &.descriptions {
+        >div {
+          padding-bottom: 5px;
         }
       }
       .active {
