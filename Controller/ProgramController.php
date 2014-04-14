@@ -318,7 +318,7 @@ class ProgramController extends Controller
         'episode_img_width' => 100,
         'episode_img_height' => 90,
         'episode_img_crop' => 50,
-        'fields' => 'metadata,description_episode,offers'
+        'fields' => 'metadata,description_episode,offers,seasons'
       ));
       if (isset($data->datas_offers) && isset($data->datas_offers->episodes)) {
         $data->episode_list = $data->datas_offers->episodes;

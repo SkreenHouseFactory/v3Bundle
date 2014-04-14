@@ -331,7 +331,7 @@ class ChannelController extends ChannelCustomController
       'fields' => 'description,programs,img_maxsize'
     );
     $data = $api->fetch('channel'.($request->get('id')?'/'.$request->get('id'):null), $params);
-    //echo $api->url;
+    echo $request->get('debug') ? $api->url : null;
     $this->validateData($data, $request);
 
     // TO CHECK !
