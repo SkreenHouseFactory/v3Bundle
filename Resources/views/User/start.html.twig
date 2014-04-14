@@ -18,6 +18,7 @@
   <div class="container">
     <div class="navbar-vertical col-xs-5">
       <ul class="nav timeline sk-font">
+        <li><a href="#categories">Vos préférences<span id="count-categories" class="badge">0</span></a></li>
         <li><a href="#films">Vos films <span id="count-films" class="badge">0</span></a></li>
         <li><a href="#emissions">Vos émissions <span id="count-emissions" class="badge">0</span></a></li>
         <li><a href="#series">Vos séries <span id="count-series" class="badge">0</span></a></li>
@@ -29,31 +30,33 @@
     </div>
     <div class="forms-container col-xs-11">
       <div class="relative">
+      <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#films']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Quels sont vos films préférés ?</a>
+      <div class="form-container">
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'categories', title: 'Vos préférences', placeholder: '', suggests: selection_pack.categories} %}
+      </div>
+      </div>
+      <div class="relative">
       <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#emissions']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Fini ? Passez aux émissions que vous ne voulez pas rater !</a>
       <div class="form-container">
-        {% set suggest_films = selection_pack.films.programs %}
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'films', title: 'Vos films', placeholder: 'Avengers, Intouchables...', suggests: suggest_films} %}
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'films', title: 'Vos films', placeholder: 'Avengers, Intouchables...', suggests: selection_pack.films.programs} %}
       </div>
       </div>
       <div class="relative">
       <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#series']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Déjà fini ? Ajoutez vos séries dont vous êtes fan !</a>
       <div class="form-container">
-        {% set suggest_emissions = selection_pack.emissions.programs %}
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'emissions', title: 'Vos émissions', placeholder: 'The Voice, Le Petit Journal...', suggests: suggest_emissions} %}
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'emissions', title: 'Vos émissions', placeholder: 'The Voice, Le Petit Journal...', suggests: selection_pack.emissions.programs} %}
       </div>
       </div>
       <div class="relative">
       <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#persons']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Indiquez vos acteurs et réalisateurs préférés pour ne rien rater !</a>
       <div class="form-container">
-        {% set suggest_series = selection_pack.series.programs %}
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'series', title: 'Vos séries', placeholder: 'How I Met Your Mother, House of Cards...', suggests: suggest_series} %}
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'series', title: 'Vos séries', placeholder: 'How I Met Your Mother, House of Cards...', suggests: selection_pack.series.programs} %}
       </div>
       </div>
       <div class="relative">
       <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#theaters']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Fini ? Ajoutez les cinémas près de chez vous !</a>
       <div class="form-container">
-        {% set suggest_persons = selection_pack.persons %}
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'persons', title: 'Vos acteurs et réalisateurs préférés', placeholder: 'Leonardo DiCaprio, Steven Spielberg...', suggests: suggest_persons} %}
+        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'persons', title: 'Vos acteurs et réalisateurs préférés', placeholder: 'Leonardo DiCaprio, Steven Spielberg...', suggests: selection_pack.persons} %}
       </div>
       </div>
       <div class="relative">

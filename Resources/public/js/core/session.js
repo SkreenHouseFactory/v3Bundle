@@ -191,7 +191,9 @@ var BaseSession = Class.extend({
           this.Object.keys(getPlaylistIds('channel')).length + 
           this.Object.keys(getPlaylistIds('page')).length + 
           this.Object.keys(getPlaylistIds('person')).length + 
-          this.Object.keys(getPlaylistIds('user')).length ;
+          this.Object.keys(getPlaylistIds('user')).length + 
+          this.Object.keys(getPlaylistIds('category')).length + 
+          this.Object.keys(getPlaylistIds('format-category')).length ;
  },
  isInPlaylist: function(playlist,id){
     //console.log('BaseSession.isInPlaylist', this.getPlaylistIds(playlist), $.inArray(id+'', this.getPlaylistIds(playlist)));
@@ -217,6 +219,12 @@ var BaseSession = Class.extend({
      break;
      case 'user':
        var ids = this.datas.user;
+     break;
+     case 'category':
+       var ids = this.datas.category;
+     break;
+     case 'format-category':
+       var ids = this.datas.format_category;
      break;
      default:
        var ids = null;

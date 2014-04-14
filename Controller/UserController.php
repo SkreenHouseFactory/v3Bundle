@@ -41,21 +41,29 @@ class UserController extends Controller
       $obj4 = $api->fetch('www/slider/pack/12193165', $params); //pack chaînes de la Home
       //print_r($obj1);
       //echo $api->url;
-      $selection_pack['films']  = $obj1;
-      $selection_pack['series']  = $obj2;
-      $selection_pack['emissions']  = $obj3;
-      $selection_pack['chaines'] = $obj4;
-      $selection_pack['persons'] = array(
-        0 => array('title' => 'Gérard Depardieu', 'id' => 5679132),
-        1 => array('title' => 'Marion Cottilard', 'id' => 5553250),
-        2 => array('title' => 'Matt Damon', 'id' => 5659565),
-        3 => array('title' => 'Scarlett Johansson', 'id' => 5231885),
-        4 => array('title' => 'Jean Dujardin', 'id' => 5674357),
-        5 => array('title' => 'Cécile de France', 'id' => 5669228),
-        6 => array('title' => 'Martin Scorsese', 'id' => 5630208),
-        7 => array('title' => 'Julia Roberts', 'id' => 5214404),
-        8 => array('title' => 'George Clooney', 'id' => 5129261),
-      );
+      $selection_pack = array(
+        'films'  => $obj1,
+        'series' => $obj2,
+        'emissions'  => $obj3,
+        'chaines' => $obj4,
+        'persons' => array(
+          0 => array('title' => 'Gérard Depardieu', 'id' => 5679132),
+          1 => array('title' => 'Marion Cottilard', 'id' => 5553250),
+          2 => array('title' => 'Matt Damon', 'id' => 5659565),
+          3 => array('title' => 'Scarlett Johansson', 'id' => 5231885),
+          4 => array('title' => 'Jean Dujardin', 'id' => 5674357),
+          5 => array('title' => 'Cécile de France', 'id' => 5669228),
+          6 => array('title' => 'Martin Scorsese', 'id' => 5630208),
+          7 => array('title' => 'Julia Roberts', 'id' => 5214404),
+          8 => array('title' => 'George Clooney', 'id' => 5129261),
+        ),
+        'categories' => array(
+          0 => array('title' => 'Séries coréennes', 'id' => 5679132),
+          1 => array('title' => 'Films d\'horreur', 'id' => 5553250),
+          2 => array('title' => 'Tennis', 'id' => 5553250),
+          3 => array('title' => 'Actualité', 'id' => 5553250),
+          4 => array('title' => '...', 'id' => 5553250)
+      ));
 
       //Tri dans le pack populaires pour ne garder que les émissions
       $emissions = array();

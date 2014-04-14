@@ -3,7 +3,7 @@ var UI;
 
 UI = {
   user: '',
-  available_playlists: ['like','cinema','channel','page','person','user'],
+  available_playlists: ['like','cinema','channel','page','person','user','category','format-category'],
   os: null,
   playlist: null,
   sliders: [],
@@ -239,6 +239,10 @@ UI = {
       return 'user';
     } else if (trigger.hasClass('fav-search')) {
       return 'search';
+    } else if (trigger.hasClass('fav-category')) {
+      return 'category';
+    } else if (trigger.hasClass('fav-format-category')) {
+      return 'format-category';
     } else {
       return 'like';
     }
@@ -258,6 +262,10 @@ UI = {
       return ' ce skreener';
     } else if (trigger.hasClass('fav-search')) {
       return ' cette recherche';
+    } else if (trigger.hasClass('fav-category')) {
+      return ' cette catégorie';
+    } else if (trigger.hasClass('fav-format-category')) {
+      return ' cette catégorie';
     } else {
       return '';
     }
@@ -284,6 +292,12 @@ UI = {
     } else if (trigger.hasClass('fav-search')) {
         var content = '<b>Ne ratez plus les programmes qui vous intéressent&nbsp;!</b>' + 
                       '<br/>En ajoutant cette recherche à vos listes vous saurez averti dès qu\'un programme correspondant sera disponible.';
+    } else if (trigger.hasClass('fav-category')) {
+        var content = '<b>Ne ratez plus les programmes qui vous intéressent&nbsp;!</b>' + 
+                      '<br/>En ajoutant cette catégorie à vos listes vous saurez averti dès qu\'un programme correspondant sera disponible.';
+    } else if (trigger.hasClass('fav-format-category')) {
+        var content = '<b>Ne ratez plus les programmes qui vous intéressent&nbsp;!</b>' + 
+                      '<br/>En ajoutant cette catégorie à vos listes vous saurez averti dès qu\'un programme correspondant sera disponible.';
     } else {
       if (trigger.parents('.actions:first').data('onglet') == 'emissions' || 
           trigger.parents('.actions:first').data('onglet') == 'series') {
@@ -552,40 +566,6 @@ UI = {
        $('.notifications-count .badge').removeClass('badge-important').html($('.notifications ul li.tv-component').length);
      }
    },
-  //update friends
-  loadSocialSelector: function() {
-    var self = this;
-
-    if (Skhf.session.datas.fb_uid && Skhf.session.datas.fb_access_token) {
-      console.log("-------------",Skhf.session);
-      this.appendLoader($('li#friends'));
-      Skhf.session.loadSocialSelector(function(datas){
-        console.log('UI.loadSocialSelector', 'Session.loadSocialSelector callback', datas);
-        self.removeLoader($('li#friends'));
-        if (typeof datas.error == 'undefined' ||
-            typeof datas.programs == 'undefined' ||
-            datas.programs .length > 0) { //Warning : Error sent by API even if results ?!
-          if (typeof datas.programs != 'undefined' &&
-              datas.programs.length > 0) {
-            var program = datas.programs.pop();
-            var li = $('li#friends', this.playlist.elmt);
-            li.removeClass('empty');
-            li.css('background-image', 'url('+program.picture+')').css('background-repeat', 'no-repeat');
-            li.find('.label').removeClass('opacity');
-            li.find('span.badge, .alert').remove();
-            li.find('a, h6').hide();
-            li.popover('disable');
-            Skhf.session.getSocialDatas(function(friends) {
-              console.log("AMIS : ",friends);
-              li.find('.label span').html(friends.length);
-            });
-          }
-        } else {
-          $('li#friends').append('<p class="alert">Oups, erreur !</p>');
-        }
-      });
-    }
-  },
   // filter
   notificationsFilter : function(self){
     // console.log('ui.js', 'notificationsFilter', 'Check-In');
@@ -624,17 +604,16 @@ UI = {
       if($('.tv-component [data-id="'+notifications[k].id+'"]').length == 0){
         if (notifications[k].type == 'broadcast') {
           var attrs = 'data-ajax="' + notifications[k].link +'?offers='+notifications[k].offers +'" rel="#content" data-seo-url="' + notifications[k].link + '"';
-          
+        
         } else if (notifications[k].player) {
-          var attrs = 'data-ajax-play="' + notifications[k].player + '" data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?play='+notifications[k].player + '" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"' 
-          
+          var attrs = 'data-ajax-play="' + notifications[k].player + '" data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?play='+notifications[k].player + '" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"';
         } else if ( notifications[k].access == 'extrait'|| notifications[k].type == 'ajout' || notifications[k].program.deporte) {
           var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?offers='+notifications[k].offers +  '" data-offers="' + notifications[k].offers + '" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"';
-          
+        
         } else {
           var attrs = 'data-redirect="' + notifications[k].link + '" data-seo-url="' + notifications[k].program.seo_url + '"';
         }
-        
+      
         var ep_title = notifications[k].title_episode;
         var len=32;
         if (ep_title != null &&
@@ -674,11 +653,46 @@ UI = {
           list.append(html_to_insert);
         }
       }
-  }
-  if( $('.notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
-    $('.notifications .empty').css('display','block');
-  }
-},
+    }
+    if( $('.notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
+      $('.notifications .empty').css('display','block');
+    }
+  },
+
+  //update friends
+  loadSocialSelector: function() {
+    var self = this;
+
+    if (Skhf.session.datas.fb_uid && Skhf.session.datas.fb_access_token) {
+      console.log("-------------",Skhf.session);
+      this.appendLoader($('li#friends'));
+      Skhf.session.loadSocialSelector(function(datas){
+        console.log('UI.loadSocialSelector', 'Session.loadSocialSelector callback', datas);
+        self.removeLoader($('li#friends'));
+        if (typeof datas.error == 'undefined' ||
+            typeof datas.programs == 'undefined' ||
+            datas.programs .length > 0) { //Warning : Error sent by API even if results ?!
+          if (typeof datas.programs != 'undefined' &&
+              datas.programs.length > 0) {
+            var program = datas.programs.pop();
+            var li = $('li#friends', this.playlist.elmt);
+            li.removeClass('empty');
+            li.css('background-image', 'url('+program.picture+')').css('background-repeat', 'no-repeat');
+            li.find('.label').removeClass('opacity');
+            li.find('span.badge, .alert').remove();
+            li.find('a, h6').hide();
+            li.popover('disable');
+            Skhf.session.getSocialDatas(function(friends) {
+              console.log("AMIS : ",friends);
+              li.find('.label span').html(friends.length);
+            });
+          }
+        } else {
+          $('li#friends').append('<p class="alert">Oups, erreur !</p>');
+        }
+      });
+    }
+  },
   //playlist theaters
   loadTheatersPlaylist: function(){
     if (Skhf.session.datas.cinema && 
