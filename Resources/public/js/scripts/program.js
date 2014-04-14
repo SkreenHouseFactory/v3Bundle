@@ -430,4 +430,3 @@ $(document).ready(function(){
     btn.html('Lecture en cours');
   });
 });
-
