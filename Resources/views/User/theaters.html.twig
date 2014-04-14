@@ -8,7 +8,6 @@
 
   <div class="container">
 
-    <h1>{{ 'user.theaters'|trans }}</h1>
     {% if theaters|length == 0 %}
       <p class="alert alert-info">Vous ne suivez aucun cinéma. </p>
       <p><a class="btn btn-large" data-modal="remote" data-modal-title="{{ 'theaters.playlist.add'|trans }}" href="{{ path('theaters_search', {'init': 1}) }}"><i class="icon-plus-sign"></i> {{ 'theaters.playlist.add'|trans }}</a></p>

@@ -1,6 +1,6 @@
  {% set nb_indicator = 0  %}
  {% for item in channels.programs | to_array %}
- {% set nb_indicator = nb_indicator + 1 %}
+  {% set nb_indicator = nb_indicator + 1 %}
  {% endfor %}
  {% set nb_indicator = (nb_indicator / 3)|round_up %}
  <div class="channelselect">
