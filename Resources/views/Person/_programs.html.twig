@@ -34,7 +34,7 @@
       <hr/>
       <div class="slider slider-list person-programs">
         <ul class="items">
-          {% for program in programs|to_array|reverse %}
+          {% for program in programs|to_array %}
             {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, origin: 'person'} %}
           {% endfor %}
         </ul>
