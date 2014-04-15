@@ -59,7 +59,6 @@ class toolsExtension extends \Twig_Extension
       );
     }
 
-
   // coupe le texte apres $limit caracteres sans couper les mots
   /*
    * $text = texte à couper
