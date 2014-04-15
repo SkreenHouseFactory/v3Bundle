@@ -83,6 +83,9 @@
 }
 
 body[class*='view-user_'] {
+  &.playlist-in #main {
+    padding-top: 70px;
+  }
   #content {
     min-height: 700px;
   }
@@ -90,6 +93,23 @@ body[class*='view-user_'] {
     margin-top: -65px;
     padding-top: 65px;
     margin-bottom: 20px;
+  }
+  article ul.nav {
+    >li {
+      &.active {
+        >a {
+          &:hover, &:focus {
+            background-color: #428bca;
+          }
+        }
+      }
+      >a {
+        &:hover, &:focus {
+          background-color: #428bca;
+          color: white;
+        }
+      }
+    }
   }
 }
 
@@ -152,6 +172,7 @@ body[class*='view-user_'] {
     li {
       position: relative;
       span.fav-trash {
+        display: none;
         position: absolute;
         top: -1px;
         right: -1px;
@@ -160,6 +181,11 @@ body[class*='view-user_'] {
         border-top-left-radius: 0;
         z-index: 2;
         background-color: #333;
+      }
+      &:hover {
+        span.fav-trash {
+          display: block;
+        }
       }
     }
   }

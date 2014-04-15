@@ -292,7 +292,7 @@ img.cinema-sample {
     .row {
       &.user-on {
         >div {
-          padding-top: 5px;
+          padding-top: 10px;
         }
       }
       &.descriptions {
@@ -300,19 +300,22 @@ img.cinema-sample {
           padding-bottom: 5px;
         }
       }
-      .active {
+      .active, .col-users:hover {
         background-color: white;
         color: #333;
         a {
           color: #333;
           span {
-            background-color: #428bca;
-            color: white;
+            background-color: #428bca!important;
+            color: white!important;
           }
         }
         p {
           opacity: 1;
         }
+      }
+      .col-users:hover {
+        background-color: #F2F9FF;
       }
     }
   }
