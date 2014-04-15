@@ -146,7 +146,9 @@
 </div>
 </div>
 
-{% if category.format %}
+{% if category.format is not defined %}
+  {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {notifications: category.notifications, title: 'Actualité des programmes ' ~ category.name } %}
+{% elseif category.format %}
   {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {notifications: category.notifications, title: 'Actualité des programmes ' ~ category.name, btn_suivre: {id: category.format.id~'+'~category.id, class: 'fav-format-category', text: 'Ajouter à mes listes', placement: 'left'} } %}
 {% else %}
   {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {notifications: category.notifications, title: 'Actualité des programmes ' ~ category.name, btn_suivre: {id: category.id, class: 'fav-category', text: 'Ajouter à mes listes', placement: 'left'} } %}

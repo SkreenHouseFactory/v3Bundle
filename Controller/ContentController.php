@@ -50,7 +50,7 @@ class ContentController extends Controller
          'disable_search_by_format' => true
        ));
 
-      //echo "\n".'api:' . $api->url;
+      echo $request->get('debug') ? 'api:' . $api->url : null;
       //echo "\n".'category_slug:' . $request->get('category_slug');
       //echo "\n".'facet:' . $request->get('facet');
       //echo "\n".'access:' . $request->get('access');

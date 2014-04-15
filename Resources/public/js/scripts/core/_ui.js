@@ -12,8 +12,8 @@ UiView = {
 
     this.elmt = typeof elmt != 'undefined' && elmt ? elmt : $('body');
     if (history.pushState) {
-    this.initHistory();
-     }
+      this.initHistory();
+    }
     this.onLoad();
   },
   checkUrl: function() {
