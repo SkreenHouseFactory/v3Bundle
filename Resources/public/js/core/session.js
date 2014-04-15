@@ -3,6 +3,7 @@ var BaseSession = Class.extend({
  uid: '',
  user: null,
  datas: {},
+ credentials: [],
  sync_args: { 'short': 1 },
  onglet: '',
  access: '',
@@ -106,6 +107,7 @@ var BaseSession = Class.extend({
 
    this.datas = sessionData;
    this.uid = this.datas.uid;
+   this.credentials = this.datas.credential.split(',');
    API.cookie('session_uid', this.uid);
    if (this.datas.email) {
      this.user = this.datas.email;

@@ -38,10 +38,8 @@ class ContentController extends Controller
       $api   = $this->get('api');
       $data = $api->fetch($is_route_format ? 'format' : 'category', array(
          'from_slug'  => str_replace('/', '', strlen($request->get('facet'))>1?$request->get('facet'):$request->get('category_slug')),
-         'with_description' => true,
+         'fields' => 'description,programs,onglet,notifications',
          //'with_subcategories' => true,
-         'with_programs'  => true,
-         'with_onglet' => true,
          'img_width' => 150,
          'img_height' => 200,
          'channel_img_width' => 60,

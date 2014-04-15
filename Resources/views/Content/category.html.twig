@@ -58,13 +58,8 @@
     {% endif %}
   </ul>
 
-  {% if app.environment == 'prod' %}
+
   <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ category.seo_url, text: 'Je regarde des ' ~ category.name ~ ' sur mySkreen et vous ?' } %}</div>
-  {% elseif category.format %}
-  <div class="pull-right">{% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: category.format.id~'+'~category.id, class: 'fav-format-category', text: 'Ajouter à mes listes', placement: 'left'} %}</div>
-  {% else %}
-  <div class="pull-right">{% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: category.id, class: 'fav-category', text: 'Ajouter à mes listes', placement: 'left'} %}</div>
-  {% endif %}
   <h1>{% if app.request.get('format') %}{{ ('format.pluriel.'~app.request.get('format'))|trans|capitalize }} :{% endif %} la catégorie {{ category.name }}{% if app.request.get('access') %} en {{ ('access.' ~ app.request.get('access'))|trans }}{% endif %}</h1>
   
 </div>
@@ -151,6 +146,11 @@
 </div>
 </div>
 
+{% if category.format %}
+  {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {notifications: category.notifications, title: 'Actualité des programmes ' ~ category.name, btn_suivre: {id: category.format.id~'+'~category.id, class: 'fav-format-category', text: 'Ajouter à mes listes', placement: 'left'} } %}
+{% else %}
+  {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {notifications: category.notifications, title: 'Actualité des programmes ' ~ category.name, btn_suivre: {id: category.id, class: 'fav-category', text: 'Ajouter à mes listes', placement: 'left'} } %}
+{% endif %}
 
 <div id="view-category" data-id="{{ category.id }}" class="container view-category-{{ app.request.get('format') }}">
 

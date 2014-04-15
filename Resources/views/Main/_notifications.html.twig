@@ -1,6 +1,9 @@
 {% if notifications|to_array|length %}
 <div class="bande_notifications nopadding">
   <div class="container">
+    {% if btn_suivre is defined %}
+      <div class="pull-right{% if app.environment == 'dev' %} hide credential-tester{% endif %}">{% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with btn_suivre %}</div>
+    {% endif %}
     <h2>{{ title is defined ? title : 'A voir en ce moment' }}</h2>
     <ul class="notifications clearfix">
       {% for n in notifications|to_array %}

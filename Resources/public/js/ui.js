@@ -116,6 +116,11 @@ UI = {
       
         //mes listes
         this.loadMeslistes();
+        
+        //credential
+        for (k in Skhf.session.credentials) {
+          $('.credential-'+Skhf.session.credentials[k]).removeClass('hide').css('border', '2px dotted yellow');
+        }
       } else {
         $('.fb-placeholder').addClass('hide');
         $('.share-placeholder').removeClass('hide');
