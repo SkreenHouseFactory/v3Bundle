@@ -177,13 +177,13 @@ UI = {
       $('.share-on:not(.hide)').addClass('hide');
       $('.share-off').removeClass('hide');
       $('.user-on-visibility').css('visibility','hidden');
-      $('.notifications li.empty').show();
+      $('.navbar .notifications li.empty').show();
       $('li.selector').popover('enable');
       //remove datas
       $('.user-email, .favoris span').empty();
-      $('.notifications-count').removeClass('with-badge')
+      $('.navbar .notifications-count').removeClass('with-badge')
                                .empty();
-      $('.notifications li:not(.empty)').remove();
+      $('.navbar .notifications li:not(.empty)').remove();
       this.playlist.remove();
 
       //unload playlists
@@ -538,7 +538,7 @@ UI = {
       //UiView.initDataLive(list);
 
       //reload tooltip
-      $('.notifications [data-toggle="tooltip"]').tooltip();
+      $('.navbar .notifications [data-toggle="tooltip"]').tooltip();
 
       //new
       if (nb_new > 0) {
@@ -565,23 +565,23 @@ UI = {
     }
   },
    notificationBadge: function() {
-     if($('.notifications ul li .badge-important').length ){
-       $('.notifications-count .badge').addClass('badge-important').html($('.notifications ul li.tv-component .badge-important').length);
+     if($('.navbar .notifications ul li .badge-important').length ){
+       $('.navbar .notifications-count .badge').addClass('badge-important').html($('.navbar .notifications ul li.tv-component .badge-important').length);
      } else {
-       $('.notifications-count .badge').removeClass('badge-important').html($('.notifications ul li.tv-component').length);
+       $('.navbar .notifications-count .badge').removeClass('badge-important').html($('.navbar .notifications ul li.tv-component').length);
      }
    },
   // filter
   notificationsFilter : function(self){
     // console.log('ui.js', 'notificationsFilter', 'Check-In');
-    $('.notifications .empty').css('display','none');
-    $('.notifications .dropdown-menu .tv-component').addClass('hide');
-    $('.notifications .divider.notification').addClass('hide');
+    $('.navbar .notifications .empty').css('display','none');
+    $('.navbar .notifications .dropdown-menu .tv-component').addClass('hide');
+    $('.navbar .notifications .divider.notification').addClass('hide');
     
 
     if ( self.data('filter') == 'all' ){
-      $('.notifications .dropdown-menu .tv-component').removeClass('hide');
-      $('.notifications .divider.notification').removeClass('hide'); 
+      $('.navbar .notifications .dropdown-menu .tv-component').removeClass('hide');
+      $('.navbar .notifications .divider.notification').removeClass('hide'); 
     } else {
       if( self.data('filter') == 'tv' ){
         var classes = ['plays.broadcast','broadcasts.broadcast'];
@@ -593,12 +593,12 @@ UI = {
         var classes = [self.data('filter')];
       }
       for (k in classes) {
-        $('.notifications .dropdown-menu .tv-component.' +  classes[k]).removeClass('hide'); 
-        $('.notifications .divider.' +  classes[k]).removeClass('hide'); 
+        $('.navbar .notifications .dropdown-menu .tv-component.' +  classes[k]).removeClass('hide'); 
+        $('.navbar .notifications .divider.' +  classes[k]).removeClass('hide'); 
       }
     }
-    if( $('.notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
-      $('.notifications .empty').css('display','block');
+    if( $('.navbar .notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
+      $('.navbar .notifications .empty').css('display','block');
     }
 
   },
@@ -659,8 +659,8 @@ UI = {
         }
       }
     }
-    if( $('.notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
-      $('.notifications .empty').css('display','block');
+    if( $('.navbar .notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
+      $('.navbar .notifications .empty').css('display','block');
     }
   },
 
@@ -905,10 +905,10 @@ UI = {
 
   },
   markAsRed: function(id) {
-    $('.notifications ul li[data-id="' + id + '"] .badge').remove();
+    $('.navbar .notifications ul li[data-id="' + id + '"] .badge').remove();
     var remaining = parseInt($('.notifications-count .badge-important').html())-1;
     if (remaining > 0) {
-      $('.notifications-count .badge').addClass('badge-important').html(remaining);
+      $('.navbar .notifications-count .badge').addClass('badge-important').html(remaining);
     }
   },
   //paywall
