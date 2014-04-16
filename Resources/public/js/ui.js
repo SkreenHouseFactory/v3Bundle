@@ -200,6 +200,12 @@ UI = {
     var self = this;
     if (typeof delay_timeout == 'undefined') delay_timeout = 6000;
     container  = $('#alert-user');
+    if (!container.hasClass('initialized')) {
+      $('.glyphicon', container).on('click', function(){
+       container.slideUp({duration: 600});
+      });
+      container.addClass('initialized');
+    }
     $('.alert-user-title', container).html(titre);
     $('.alert-user-content', container).html(content);
     container.slideDown({duration: 600});
