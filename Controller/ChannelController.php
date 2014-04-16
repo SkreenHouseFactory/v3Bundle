@@ -235,17 +235,16 @@ class ChannelCustomController extends Controller
       'with_best_offer' => true
     ));
 
-    $programs_derniers_replay = $api->fetch('schedule/replay', array(
+    $programs_derniers_replay = $api->fetch('schedule/tvreplay', array(
       'date' => 'replay',
-      'record_only' => true,
-      'tnt_only' => true,
+      //'tnt_only' => true,
       'sort' => 'programs',
       'nb_results' => 25,
       'channel_img_width' => 36,
       'force_best_offer' => true,
       'with_best_offer' => true
     ));
- 
+    //echo $api->url;exit();
     $pack = array();
     foreach ($data->sliders as $key => $slider) {
       switch ($slider->id) {
@@ -253,10 +252,12 @@ class ChannelCustomController extends Controller
           $pack['replay-populaires'] = $slider;
           unset($data->sliders->{$key});
         break;
+        /*
         case '12975538':
           $pack['replay-derniers'] = $slider;
           unset($data->sliders->{$key});
         break;
+        */
         /*
         case '13087055':
           $pack['replay-bientot'] = $slider;
