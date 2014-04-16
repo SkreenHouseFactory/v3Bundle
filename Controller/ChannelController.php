@@ -325,21 +325,10 @@ class ChannelCustomController extends Controller
 
 class ChannelController extends ChannelCustomController
 {
-  private function blockDomain(Request $request) {
-    if ($this->get('kernel')->getEnvironment() == 'prod' && 
-      !strstr($request->getHost(), 'www.myskreen.com') && 
-      !strstr($request->getHost(), 'preprod-v3.myskreen.com') && 
-      !strstr($request->getHost(), 'myskreen.') && 
-      !strstr($request->getHost(), 'inconnus.') && 
-      !strstr($request->getHost(), '.typhon.net')) {
-      throw $this->createNotFoundException('Page does not exist');
-    }
-  }
 
   //Channel
   public function channelAction(Request $request, $slug = null)
   {
-    $this->blockDomain($request);
 
     //hack seo
     if (in_array($request->get('slug'), array('tv-en-direct', 'track-js.php'))) {
