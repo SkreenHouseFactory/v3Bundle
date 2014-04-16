@@ -1,13 +1,108 @@
 <div id="bandeau-listes"{% if no_background is defined %} class="bg-none"{% endif %}>
   <div class="container">
-    <div class="row titres user-off{% if active is defined and 'user' in app.request.uri %} hide{% endif %}">
+    <div class="row">
+      <div class="col-xs-4{% if active is defined and active == 'programs' %} active{% endif %} col-users">
+        <div class="row titres user-off{% if active is defined and 'user' in app.request.uri %} hide{% endif %}">
+          <div class="col-xs-16">
+            <a class="auth">
+              <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/programs.png')}}">
+              <p class="sk-font">Vos programmes</p>
+            </a>
+          </div>
+        </div>
+        <div class="row titres user-on hide auth">
+          <div class="col-xs-16" data-fav="like">
+            <a href="{{ path('user_programs') }}">
+              <span class="badge{{ (active is defined and active == 'programs') ? '' : ' bg-white grey' }}"></span>
+              <p class="sk-font">Vos programmes</p>
+            </a>
+          </div>
+        </div>
+        <div class="row descriptions">
+          <div class="col-xs-16" data-fav="like">
+            <p class="sk-font">Ajoutez vos programmes préférés pour ne jamais les rater</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4{% if active is defined and active == 'channel' %} active{% endif %} col-users">
+        <div class="row titres user-off{% if active is defined and 'user' in app.request.uri %} hide{% endif %}">
+          <div class="col-xs-16" data-fav="channel">
+            <a class="auth">
+              <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/channel.png')}}">
+              <p class="sk-font">Vos chaînes</p>
+            </a>
+          </div>
+        </div>
+        <div class="row titres user-on hide auth">
+          <div class="col-xs-16" data-fav="channel">
+            <a href="{{ path('user_channels') }}">
+              <span class="badge{{ (active is defined and active == 'channel') ? '' : ' bg-white grey' }}"></span>
+              <p class="sk-font">Vos chaînes</p>
+            </a>
+          </div>
+        </div>
+        <div class="row descriptions">
+          <div class="col-xs-16" data-fav="channel">
+            <p class="sk-font">Festival de Cannes, humour, politique, etc.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4{% if active is defined and active == 'theaters' %} active{% endif %} col-users">
+        <div class="row titres user-off{% if active is defined and 'user' in app.request.uri %} hide{% endif %}">
+          <div class="col-xs-16" data-fav="cinema">
+            <a class="auth">
+              <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/cinema.png')}}">
+              <p class="sk-font">Vos cinémas</p>
+            </a>
+          </div>
+        </div>
+        <div class="row titres user-on hide auth">
+          <div class="col-xs-16" data-fav="cinema">
+            <a href="{{ path('user_theaters') }}">
+              <span class="badge{{ (active is defined and active == 'theaters') ? '' : ' bg-white grey' }}"></span>
+              <p class="sk-font">Vos cinémas</p>
+            </a>
+          </div>
+        </div>
+        <div class="row descriptions">
+          <div class="col-xs-16" data-fav="cinema">
+            <p class="sk-font">Retrouvez ici la programmation des salles près de chez vous</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4{% if active is defined and active == 'persons' %} active{% endif %} col-users">
+        <div class="row titres user-off{% if active is defined and 'user' in app.request.uri %} hide{% endif %}">
+          <div class="col-xs-16" data-fav="person">
+            <a class="auth">
+              <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/oscar.png')}}">
+              <p class="sk-font">Vos personnalités</p>
+            </a>
+          </div>
+        </div>
+        <div class="row titres user-on hide auth">
+          <div class="col-xs-16" data-fav="person">
+            <a href="{{ path('user_persons') }}">
+              <span class="badge{{ (active is defined and active == 'persons') ? '' : ' bg-white grey' }}"></span>
+              <p class="sk-font">Vos personnalités</p>
+            </a>
+          </div>
+        </div>
+        <div class="row descriptions">
+          <div class="col-xs-16" data-fav="person">
+            <p class="sk-font">Ne ratez plus aucun de leurs programmes</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {# <div class="row titres user-off{% if active is defined and 'user' in app.request.uri %} hide{% endif %}">
       <div class="col-xs-4">
         <a class="auth">
           <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/programs.png')}}">
           <p class="sk-font">Vos programmes</p>
         </a>
       </div>
-      <div class="col-xs-3" data-fav="channel">
+      <div class="col-xs-4" data-fav="channel">
         <a class="auth">
           <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/channel.png')}}">
           <p class="sk-font">Vos chaînes</p>
@@ -19,21 +114,21 @@
           <p class="sk-font">Vos cinémas</p>
         </a>
       </div>
-      <div class="col-xs-5" data-fav="person">
+      <div class="col-xs-4" data-fav="person">
         <a class="auth">
           <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/oscar.png')}}">
-          <p class="sk-font">Vos acteurs / réalisateurs</p>
+          <p class="sk-font">Vos personnalités</p>
         </a>
       </div>
-    </div>
-    <div class="row titres user-on hide auth">
+    </div> #}
+    {# <div class="row titres user-on hide auth">
       <div class="col-xs-4{% if active is defined and active == 'programs' %} active{% endif %}" data-fav="like">
         <a href="{{ path('user_programs') }}">
           <span class="badge{{ (active is defined and active == 'programs') ? '' : ' bg-white grey' }}"></span>
           <p class="sk-font">Vos programmes</p>
         </a>
       </div>
-      <div class="col-xs-3{% if active is defined and active == 'channel' %} active{% endif %}" data-fav="channel">
+      <div class="col-xs-4{% if active is defined and active == 'channel' %} active{% endif %}" data-fav="channel">
         <a href="{{ path('user_channels') }}">
           <span class="badge{{ (active is defined and active == 'channel') ? '' : ' bg-white grey' }}"></span>
           <p class="sk-font">Vos chaînes</p>
@@ -45,10 +140,10 @@
           <p class="sk-font">Vos cinémas</p>
         </a>
       </div>
-      <div class="col-xs-5{% if active is defined and active == 'persons' %} active{% endif %}" data-fav="person">
+      <div class="col-xs-4{% if active is defined and active == 'persons' %} active{% endif %}" data-fav="person">
         <a href="{{ path('user_persons') }}">
           <span class="badge{{ (active is defined and active == 'persons') ? '' : ' bg-white grey' }}"></span>
-          <p class="sk-font">Vos acteurs / réalisateurs</p>
+          <p class="sk-font">Vos personnalités</p>
         </a>
       </div>
     </div>
@@ -56,16 +151,16 @@
       <div class="col-xs-4{% if active is defined and active == 'programs' %} active{% endif %}" data-fav="like">
         <p class="sk-font">Ajoutez vos programmes préférés pour ne jamais les rater</p>
       </div>
-      <div class="col-xs-3{% if active is defined and active == 'channel' %} active{% endif %}" data-fav="channel">
+      <div class="col-xs-4{% if active is defined and active == 'channel' %} active{% endif %}" data-fav="channel">
         <p class="sk-font">Festival de Cannes, humour, politique, etc.</p>
       </div>
       <div class="col-xs-4{% if active is defined and active == 'theaters' %} active{% endif %}" data-fav="cinema">
         <p class="sk-font">Retrouvez ici la programmation des salles près de chez vous</p>
       </div>
-      <div class="col-xs-5{% if active is defined and active == 'persons' %} active{% endif %}" data-fav="person">
+      <div class="col-xs-4{% if active is defined and active == 'persons' %} active{% endif %}" data-fav="person">
         <p class="sk-font">Ne ratez plus aucun de leurs programmes</p>
       </div>
-    </div>
+    </div> #}
     {#<div class="user-off{% if active is defined and active %} hide{% endif %}">
       <a class="auth btn btn-default black">&raquo; Commencer mes listes</a>
     </div>#}
