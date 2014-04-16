@@ -94,14 +94,14 @@
   {% elseif o_access.name in ['TV', 'Live', 'Replay'] %}
     <div class="rent">
       <time datetime="{{ o.broadcasttime }}">{{ o.broadcasttime|broadcastdate(o_access.name) }}</time>
-      {% if o_access.name == 'TV' %}  
+      {% if o_access.name == 'TV' %}
         {% if key == 'plays'  %}
           </br>
           <span class="ms-reminder">Live</span>
           <i class="glyphicon glyphicon-time"></i>
-        {% elseif o.has_replay and o.broadcasttime|remainingtv %}
+        {% elseif o.has_replay and o.endtime|remainingtv %}
           </br>
-          <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
+          <a data-id="{{ program.episodeof is defined ? program.episodeof.id : program.id }}" rel="popover" data-placement="bottom" data-modal-message="Votre programme <strong>{{ program.title }}</strong> sera disponible {{ o.endtime|remainingtv[10:] }}.<br/>Ajoutez le à vos listes pour être prévenu par e-mail de sa disponibilité." class="fav fav-like fav-noupdate"><span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingtv }}</span></a>
         {% elseif o.broadcasttime|timeleft %}
           </br>
           <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o_access.name == 'TV' ? 'Encore' : 'Dans' }} {{ o.broadcasttime|timeleft }}</span>

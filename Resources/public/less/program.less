@@ -593,10 +593,10 @@ ul#episodes-list-saison li {
     margin-right:15px;
   }
 }
-html:not(.touch){
-  .tab-pane:not(#coming_soon){
+html .tab-pane {
+  .tab-pane:not(#coming_soon), .tab-pane:not(#live) {
     table {
-      tr {
+      tr{
         &:hover {
           cursor: pointer;
           color: @rowHoverColor;
@@ -1107,6 +1107,9 @@ html:not(.touch){
                     font-size: 1.2em;
                     color: @bluesecondarycolor;
                     font-weight: bold;
+                    a {
+                      color: #dc2561;
+                    }
                     .ms-reminder {
                       font-size: 0.65em;
                       font-weight: normal;
