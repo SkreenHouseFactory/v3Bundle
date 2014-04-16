@@ -234,6 +234,17 @@ class ChannelCustomController extends Controller
       'force_best_offer' => true,
       'with_best_offer' => true
     ));
+
+    $programs_derniers_replay = $api->fetch('schedule/replay', array(
+      'date' => 'replay',
+      'record_only' => true,
+      'tnt_only' => true,
+      'sort' => 'programs',
+      'nb_results' => 25,
+      'channel_img_width' => 36,
+      'force_best_offer' => true,
+      'with_best_offer' => true
+    ));
  
     $pack = array();
     foreach ($data->sliders as $key => $slider) {
