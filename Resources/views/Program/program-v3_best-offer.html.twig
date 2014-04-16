@@ -72,7 +72,7 @@
         <div class="row last-child">
           <div class="col-xs-16">
             {% if o.episode_id is defined and o.episode_id is not null %}
-              {% if o_channel.has_replay is defined and o_channel.has_replay and o.broadcasttime|remainingtv is not null %}
+              {% if o.has_replay is defined and o.has_replay and o.broadcasttime|remainingtv is not null %}
                 {{ attribute(program.datas_offers.episodes, o.episode_id).title[0:45] }}...&nbsp;
               {% elseif attribute(program.datas_offers.episodes, o.episode_id).title|length > 60 %}
                 {{ attribute(program.datas_offers.episodes, o.episode_id).title[0:60] }}...
@@ -80,8 +80,8 @@
                 {{ attribute(program.datas_offers.episodes, o.episode_id).title }}
               {% endif %}
             {% endif %}
-            {% if o_channel.has_replay is defined and o_channel.has_replay and o.broadcasttime|remainingtv is not null %}
-              <span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span>
+            {% if o.has_replay is defined and o.has_replay and o.broadcasttime|remainingtv is not null %}
+               <a data-id="{{ program.episodeof is defined ? program.episodeof.id : program.id }}" rel="popover" data-placement="bottom" data-modal-message="Votre programme <strong>{{ program.title }}</strong> sera disponible {{ o.broadcasttime|remainingtv[10:] }}.<br/>Ajoutez le à vos listes pour être prévenu par e-mail de sa disponibilité." class="fav fav-like fav-noupdate"><span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.broadcasttime|remainingtv }}</span></a>
             {% endif %}
           </div>
         </div>
@@ -128,7 +128,7 @@
 
   {% elseif o.offer_type == 'live' %}
   
-    <div class="row best-offer live player-stop no-cost {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['TV'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player and o.is_live is defined and o.is_live %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ 'm6replay' not in o.url and 'itunes' not in o.url ? o.url|replace({'/exit/': '/redirect/'}) : o.url }}"{% endif %}{% if program.episodeof is defined and program.episodeof|to_array|length > 0 %} data-episode-id="{{ program.id }}"{% endif %}>
+    <div class="row best-offer live player-stop no-cost {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}"{% if o_access.name in ['TV'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player and o.is_live is defined and o.is_live %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ 'm6replay' not in o.url and 'itunes' not in o.url ? o.url|replace({'/exit/': '/redirect/'}) : o.url }}"{% endif %}{% if program.episodeof is defined and program.episodeof|to_array|length > 0 %} data-episode-id="{{ program.id }}"{% endif %}{% if o.endtime is defined and o.endtime is not null %} fav-like{% endif %}>
       <div class="col-xs-4">
         {% if program.player and o.id == program.player.id %}
           <button type="button" class="btn btn-voir disabled">Lecture en cours</button>
@@ -140,7 +140,7 @@
         <div class="row">
           <div class="col-xs-16"><span>En ce moment
             {% if o.endtime is defined and o.endtime is not null %}
-               | </span><span class="ms-reminder"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingtv }}
+               | </span><span class="ms-reminder"><a data-id="{{ program.episodeof is defined ? program.episodeof.id : program.id }}" rel="popover" data-placement="bottom" data-modal-message="Votre programme <strong>{{ program.title }}</strong> sera disponible {{ o.endtime|remainingtv[10:] }}.<br/>Ajoutez le à vos listes pour être prévenu par e-mail de sa disponibilité." class="fav fav-like fav-noupdate"><i class="glyphicon glyphicon-time"></i> {{ o.endtime|remainingtv }}</a>
             {% endif %}</span></div>
         </div>
         <div class="row last-child">

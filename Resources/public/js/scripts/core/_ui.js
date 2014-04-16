@@ -532,6 +532,7 @@ UiView = {
           }
           //message
           if (trigger.data('modal-message')) {
+            console.log('scripts/core', '_ui.js', 'message modal');
             $('.modal .modal-message').html('<p>' + trigger.data('modal-message') + '</p>');
           }
           $('#skModal.modal').modal('show');

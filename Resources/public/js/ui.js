@@ -64,6 +64,7 @@ UI = {
         }
         //message popin default
         if (!$('#skModal.modal .modal-message').html()) {
+          console.log('js', 'ui.js', 'message modal');
           $('#skModal.modal .modal-message').html(
             '<p><strong>Votre compte GRATUIT en 1 clic :</strong> ' +
             'Créez vos listes et ne ratez plus vos programmes préférés : Cinéma, TV, Replay et VOD !</p>' //<br/><a href="/start">&raquo; Découvrir Mes listes</a>
@@ -318,8 +319,10 @@ UI = {
     if (Skhf.session.datas.email || store_in_session) {
       API.trackEvent('Playlist', 'connected-' + (remove ? 'remove-' : 'add-') + parameter, value);
       console.log('UI.togglePlaylist', parameter, value, 'remove:' + remove, trigger);
-      trigger.removeClass('btn-plus');
-      trigger.html('Chargement ...').removeClass('btn-danger');
+      if(!trigger.hasClass('fav-noupdate')){
+        trigger.removeClass('btn-plus');
+        trigger.html('Chargement ...').removeClass('btn-danger');
+      }
       var value = trigger.data('id') ? trigger.data('id') : trigger.parents('.actions:first').data('id');
       var remove = trigger.hasClass('fav-on') ? true : false;
       // -- callback
@@ -371,7 +374,7 @@ UI = {
           }
           meslistes_in_session[newparameter][value] = value;
             console.log('UI.togglePlaylist', 'store_in_session', 'add', [newparameter, value], meslistes_in_session, JSON.stringify(meslistes_in_session));
-          API.cookie('start-mes-listes', JSON.stringify(meslistes_in_session));
+          API.cookie('start-mes-listes', JSON.stringify(meslistes_in_session))
           self.loadPlaylistTriggers(parameter, [value]);
         } else {
           API.addPreference(parameter, value, callback, '', typeof with_related == 'undefined' ? true : with_related);   
@@ -382,7 +385,11 @@ UI = {
       API.trackEvent('Playlist', 'notconnected-add-' + parameter, value);
       this.auth(function(){
         console.log('UI.togglePlaylist', 'UI.auth callback', Skhf.session.datas.email);
-        $('#skModal.modal .modal-message').html('<p><b>Vos listes <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos listes à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b> : ' + self.getPlaylistMessage(trigger) + '</p>');
+        if(trigger.data('modal-message')){
+          $('#skModal.modal .modal-message').html(trigger.data('modal-message'));
+        } else {
+          $('#skModal.modal .modal-message').html('<p><b>Vos listes <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos listes à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b> : ' + self.getPlaylistMessage(trigger) + '</p>');
+        }
         if (Skhf.session.datas.email) {
           self.togglePlaylist(trigger);
         }
@@ -395,10 +402,15 @@ UI = {
     console.log('UI.loadPlaylistTriggers', parameter, ids, elmt);
     if (typeof parameter != 'undefined' && parameter) {
       for (key in ids) {
-        //console.log('UI.loadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + parameter + ':not(.fav-on)');
+        console.log('UI.loadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + parameter + ':not(.fav-on)');
         var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + ':not(.fav-on)', elmt);
-        trigger.removeClass('btn-plus');
-        trigger.html('<i class="glyphicon glyphicon-ok"></i> Abonné').addClass('fav-on btn-success');
+        console.log('js', 'ui.js', 'trigger', trigger);
+        trigger.each(function(){
+          if(!$(this).hasClass('fav-noupdate')){
+            $(this).removeClass('btn-plus');
+            $(this).html('<i class="glyphicon glyphicon-ok"></i> Abonné').addClass('fav-on btn-success');
+          }
+        });
       }
       switch(parameter) {
         case 'cinema': //reload
@@ -417,11 +429,12 @@ UI = {
         console.log('UI.loadPlaylistTriggers', 'playlist:', this.available_playlists[k], 'ids:', ids);
         for (key in ids) {
           var trigger = $('[data-id="' + ids[key] + '"].fav-' + this.available_playlists[k] + ':not(.fav-on)', elmt);
-          if (trigger.length) {
-            trigger.removeClass('btn-plus');
-            trigger.html('<i class="glyphicon glyphicon-ok"></i> Abonné').addClass('fav-on btn-success');
-            //console.log('UI.loadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + this.available_playlists[k] + ':not(.fav-on)', trigger);
-          }
+          trigger.each(function(){
+            if(!$(this).hasClass('fav-noupdate')){
+              $(this).removeClass('btn-plus');
+              $(this).html('<i class="glyphicon glyphicon-ok"></i> Abonné').addClass('fav-on btn-success');
+            }
+          });
         }
       }
     }
@@ -434,6 +447,9 @@ UI = {
       for (key in ids) {
         console.log('UI.unloadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + parameter + '.fav-on');
         var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + '.fav-on', elmt);
+        if(trigger.hasClass('fav-noupdate')){
+          return;
+        }
         trigger.addClass('btn-plus');
         trigger.html('Ajouter à mes listes' + this.getTriggerName(trigger)).removeClass('fav-on btn-danger');
 
@@ -461,6 +477,9 @@ UI = {
         for (key in ids) {
           //console.log('UI.unloadPlaylistTriggers', ids[key], '.actions[data-id="' + ids[key] + '"] a.fav-' + this.available_playlists[k] + '.fav-on');
           var trigger = $('[data-id="' + ids[key] + '"].fav-' + this.available_playlists[k] + '.fav-on', elmt);
+          if(trigger.hasClass('fav-noupdate')){
+            return;
+          }
           trigger.html('<i class="glyphicon glyphicon-plus"></i> Ajouter à mes listes').removeClass('fav-on btn-danger');
         }
       }
