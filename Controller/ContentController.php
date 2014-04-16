@@ -62,10 +62,7 @@ class ContentController extends Controller
         throw $this->createNotFoundException('Category does not exist');
       }
       // 301 
-      if (!is_object($data)) {
-        return $this->redirect('/'.$request->get('format'), 301);
-      }
-      if (!is_object($data) || isset($data->redirect)) {
+      if (isset($data->redirect)) {
         return $this->redirect('/'.$request->get('format').$data->redirect, 301);
       }
       //bad url

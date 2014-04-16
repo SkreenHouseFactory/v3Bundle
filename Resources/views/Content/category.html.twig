@@ -93,7 +93,7 @@
     {% endfor %}
   {% else %}
     <p class="sk-font">Préciser</p>
-    {% for k,s in subcategories %}
+    {% for k,s in subcategories if k %}
       <span data-link-to-replace="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'})|rot13 }}" class="label {% if app.request.get('facet') == k %}label-info{% else %}label-default{% endif %}">
         {{ s }}</span>
     {% endfor %}
