@@ -4,7 +4,7 @@
   <ul class="channel_module_width">
     {% for r in program.related.channels.programs|to_array %}
       <li>
-        <a class="channel_link" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}">
+        <a class="channel_link channel-to-follow" data-id="{{ r.id - 200000000 }}" href="{{ path('any_url', {url: r.seo_url|slice(1, r.seo_url|length-1)}) }}">
           <span class="channel_texte">{{ r.title ~ ', la chaîne' }}</span>
           <img src="{{ r.picture }}" class="channel_root" data-track-channel="{{ r.title }}" alt="{{ r.title }}" >
         </a>

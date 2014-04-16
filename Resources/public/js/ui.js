@@ -457,7 +457,7 @@ UI = {
           return;
         }
         trigger.addClass('btn-plus');
-        trigger.html('Ajouter à mes listes' + this.getTriggerName(trigger)).removeClass('fav-on btn-danger');
+        trigger.html('Ajouter à mes listes').removeClass('fav-on btn-danger'); /*+ this.getTriggerName(trigger)*/
 
         switch(parameter) {
           case 'like':

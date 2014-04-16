@@ -57,8 +57,8 @@
         </div>
         <div class="tab-pane clearfix">
           {% for relation in person.related|to_array %}
-            <div class="person-relations clearfix">
-              <a href="{{ path('any_url', {url: relation.seo_url|slice(1, relation.seo_url|length-1)}) }}">{{ relation.name }}</a>
+            <div class="person-relations clearfix" data-id="{{ relation.id }}">
+              <a class="name" href="{{ path('any_url', {url: relation.seo_url|slice(1, relation.seo_url|length-1)}) }}">{{ relation.name }}</a>
               <br/>
               <span>{{ relation.main_activity }}</span>
               <a class="btn btn-sm btn-default pull-right" href="{{ path('any_url', {url: relation.seo_url|slice(1, relation.seo_url|length-1)}) }}">» Voir ses {{ relation.nb_programs }} programmes</a>

@@ -254,10 +254,14 @@ $(document).ready(function(){
         if (!remove) {
           real = $('[itemprop="director"]');
           if (real.length == 1) {
+            more = '';
+            $('.channel-to-follow').each(function() {
+              more += '<li> - <a data-channel-name="'+$('img', $(this)).data('track-channel')+'" data-placement="left" data-id="'+$(this).data('id')+'" class="fav fav-channel underline">la chaîne "'+$('img', $(this)).data('track-channel')+'"</a></li>';
+            });
             UI.loadAlertUser(
               'Voulez-vous également ajouter à vos playlists ?',
-              '<ul><li> - <a data-placement="left" data-id="'+real.data('id')+'" class="fav fav-person underline">le réalisateur "'+$('span', real).html()+'"</a></li></ul>',
-              10000
+              '<ul><li> - <a data-placement="left" data-id="'+real.data('id')+'" class="fav fav-person underline">le réalisateur "'+$('span', real).html()+'"</a></li>'+more+'</ul>',
+              15000
             );
           }
         }
