@@ -95,6 +95,7 @@ UI = {
       //self.loadSelector();
       $('body').addClass('connected');
       if (!update) {
+
         //load playlist
         if ($('.btn.meslistes-plus[data-toggle-display]').length) {
           $('.btn.meslistes-plus[data-toggle-display]').trigger('click');
@@ -193,41 +194,19 @@ UI = {
       });
     }
   },
-  loadAlertUser: function(titre, contenu, delay_timeout, cible){
-      console.log('UI.loadAlertUser', titre, contenu, delay_timeout);
-      var self = this;
-      if( typeof(session) == undefined){
-        $('.user-menu').attr('rel','popover')
-                       .attr('data-original-title',titre)
-                       .attr('data-placement','bottom')
-                       .attr('data-content',contenu)
-                       .popover('show');
-      }             
-      else{
-        $(cible).attr('rel','popover')
-                       .attr('data-original-title',titre)
-                       .attr('data-placement','bottom')
-                       .attr('data-content',contenu)
-                       .popover('show');  
-      }           
-       if (typeof delay_timeout != 'undefined') {
-         setTimeout( function(){
-           if( typeof(cible) == undefined){
-             self.unloadAlertUser();
-           }
-           else{
-             self.unloadAlertUser(cible);
-           }
-         }, delay_timeout);
-      }
-    },
-  unloadAlertUser: function(cible){
-      if( typeof(cible) == undefined){
-        $('.user-menu').popover('destroy');
-      }
-      else{
-        $(cible).popover('destroy');
-      }
+  loadAlertUser: function(titre, content, delay_timeout){
+    console.log('UI.loadAlertUser', titre, content, delay_timeout);
+    var self = this;
+    if (typeof delay_timeout == 'undefined') delay_timeout = 6000;
+    container  = $('#alert-user');
+    $('.alert-user-title', container).html(titre);
+    $('.alert-user-content', container).html(content);
+    container.slideDown({duration: 600});
+    if (!isNaN(delay_timeout)) {
+     setTimeout( function(){
+       container.slideUp({duration: 600});
+     }, delay_timeout);
+    }
   },
   getTriggerParameter: function(trigger) {
     if (trigger.hasClass('fav-cinema')) {
@@ -343,25 +322,24 @@ UI = {
       trigger.html('Chargement ...').removeClass('btn-danger');
       var value = trigger.data('id') ? trigger.data('id') : trigger.parents('.actions:first').data('id');
       var remove = trigger.hasClass('fav-on') ? true : false;
+      // -- callback
       var callback = function(value, return_data){
-        console.log('UI.togglePlaylist', 'callback', value, trigger);
-        // remove
+        console.log('UI.togglePlaylist', 'callback', value, 'remove:'+remove);
+        //remove
         if (remove) {
+          console.log('UI.togglePlaylist', 'callback enter remove');
           if (trigger.hasClass('fav-trash') &&
               $('.friends', trigger.parents('.actions:first')).length == 0) { //pas pour le slider social
             $('.slider-playlist li[data-id="' + value + '"], .slider-list li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
               $(this).remove();
             });
           }
-        //add : introduce user menu
         } else {
-          //console.log('Skhf.session.getNbPlaylists()' + Skhf.session.getNbPlaylists());
+          console.log('UI.togglePlaylist', 'Skhf.session.getNbPlaylists()' + Skhf.session.getNbPlaylists());
           if (Skhf.session.getNbPlaylists() == 0) {
             self.loadAlertUser(
               'Bravo ! vous avez commencé vos listes !',
-              'Gérez les ici !',
-              6000,
-              '.user-on.playlists'
+              'Vous pouvez les modifier en allant dans <a href="'+API.config.v3_root+'/user/programs/">Mes listes</a> !'
             );
           }
         }
@@ -369,6 +347,7 @@ UI = {
           UI.callbackTogglePlaylist(parameter, value, remove, trigger, return_data);
         }
       }
+      // -- api
       if (remove) {
         if (store_in_session) { //start mes listes
           meslistes_in_session = API.cookie('start-mes-listes') ? JSON.parse(API.cookie('start-mes-listes')) : {};
@@ -395,7 +374,7 @@ UI = {
           API.cookie('start-mes-listes', JSON.stringify(meslistes_in_session));
           self.loadPlaylistTriggers(parameter, [value]);
         } else {
-          API.addPreference(parameter, value, callback, '', typeof with_related == 'undefined' ? true : with_related);
+          API.addPreference(parameter, value, callback, '', typeof with_related == 'undefined' ? true : with_related);   
         }
       }
     } else {

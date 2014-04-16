@@ -227,7 +227,7 @@ class ChannelCustomController extends Controller
     $programs_bientot_en_replay = $api->fetch('schedule/tvreplay', array(
       'date' => 'record',
       'record_only' => true,
-      'tnt_only' => true,
+      //'tnt_only' => true,
       'sort' => 'programs',
       'nb_results' => 25,
       'channel_img_width' => 36,
@@ -252,18 +252,6 @@ class ChannelCustomController extends Controller
           $pack['replay-populaires'] = $slider;
           unset($data->sliders->{$key});
         break;
-        /*
-        case '12975538':
-          $pack['replay-derniers'] = $slider;
-          unset($data->sliders->{$key});
-        break;
-        */
-        /*
-        case '13087055':
-          $pack['replay-bientot'] = $slider;
-          unset($data->sliders->{$key});
-        break;
-        */
       }
     }
     $pack['replay-bientot'] = array(

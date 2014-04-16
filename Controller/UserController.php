@@ -179,21 +179,21 @@ class UserController extends Controller
       $api = $this->get('api');
       $params = array(
         'advanced' => true,
-        'session_uid' => $session_uid,
-        'allow_with' => true
+        'session_uid' => $session_uid
       );
 
       $persons = $api->fetch('person', $params);
       //echo $api->url;
       //print_r($programs);
-
+      //print_r($persons);exit();
       //get relationtype filters
       $relations = array();
       foreach ($persons as $p) {
-        if (!in_array($p->activity, $relations)) {
-          $relations[] = $p->activity;
+        if (!in_array($p->main_activity, $relations)) {
+          $relations[] = $p->main_activity;
         }
       }
+
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:persons.html.twig', array(
         'persons' => $persons,

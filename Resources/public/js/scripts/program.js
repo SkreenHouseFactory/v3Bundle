@@ -25,11 +25,8 @@ $(document).on('click', '[data-play], [data-play-iframe]', function(){
 var ProgramView;
 ProgramView = {
   init: function() {
-
-    
     this.loadMoreStreaming();
     $('#view-program').addClass('isInitialized');
-      
   },
   unloadProgramUsersDatas: function(id) {
     
@@ -254,6 +251,17 @@ $(document).ready(function(){
     if (!navigator.userAgent.match(/iPhone|iPod/)) { //not optimized for iPhone
       UI.callbackTogglePlaylist = function(parameter, value, remove, trigger, return_data) {
         console.log('UI.callbackTogglePlaylist', 'return_data', return_data);
+        if (!remove) {
+          real = $('[itemprop="director"]');
+          if (real.length == 1) {
+            UI.loadAlertUser(
+              'Voulez-vous également ajouter à vos playlists ?',
+              '<ul><li> - <a data-placement="left" data-id="'+real.data('id')+'" class="fav fav-person underline">le réalisateur "'+$('span', real).html()+'"</a></li></ul>',
+              10000
+            );
+          }
+        }
+        /*
         if (typeof return_data != 'undefined') {
           // -- réinitialisation callback pour rester sur la popin
           UI.callbackTogglePlaylist = function(parameter, value, remove, trigger) {
@@ -272,7 +280,6 @@ $(document).ready(function(){
               scroll: 'no',
               programs: return_data.channels
             }, function(){
-              /**** click => chaine
               var trigger = $(this);
               $('#skModal.modal .slider li a[href]').addClass('fav fav-channel')
                                             .attr('href', '#')
@@ -282,7 +289,7 @@ $(document).ready(function(){
                                             .on('click', function(){
                 UI.togglePlaylist($(this).find('a.title'), false);
               });
-              */
+
             }, $('#skModal.modal .slider'));
 
             $('#skModal.modal').modal();
@@ -296,7 +303,6 @@ $(document).ready(function(){
               scroll: 'no',
               programs: return_data.programs
             }, function(){
-              /**** click => fiche program
               var trigger = $(this);
               $('#skModal.modal .slider li a[href]').addClass('fav fav-like')
                                             .attr('href', '#')
@@ -306,12 +312,12 @@ $(document).ready(function(){
                                             .on('click', function(){
                 UI.togglePlaylist($(this).find('a.title'), false);
               });
-              */
             }, $('#skModal.modal .slider'));
 
             $('#skModal.modal').modal();
           }
         }
+        */
       }
     }
    

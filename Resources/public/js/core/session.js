@@ -190,14 +190,14 @@ var BaseSession = Class.extend({
    });
  },
  getNbPlaylists: function() {
-   return this.Object.keys(getPlaylistIds('like')).length + 
-          this.Object.keys(getPlaylistIds('cinema')).length + 
-          this.Object.keys(getPlaylistIds('channel')).length + 
-          this.Object.keys(getPlaylistIds('page')).length + 
-          this.Object.keys(getPlaylistIds('person')).length + 
-          this.Object.keys(getPlaylistIds('user')).length + 
-          this.Object.keys(getPlaylistIds('category')).length + 
-          this.Object.keys(getPlaylistIds('format-category')).length ;
+   return parseInt(this.getPlaylistIds('like').length) + 
+          parseInt(this.getPlaylistIds('cinema').length) + 
+          parseInt(this.getPlaylistIds('channel').length) + 
+          parseInt(this.getPlaylistIds('page').length) + 
+          parseInt(this.getPlaylistIds('person').length) + 
+          parseInt(this.getPlaylistIds('user').length) + 
+          parseInt(this.getPlaylistIds('category').length) + 
+          parseInt(this.getPlaylistIds('format-category').length) ;
  },
  isInPlaylist: function(playlist,id){
     //console.log('BaseSession.isInPlaylist', this.getPlaylistIds(playlist), $.inArray(id+'', this.getPlaylistIds(playlist)));
@@ -235,7 +235,7 @@ var BaseSession = Class.extend({
      break;
    }
    if (ids == null || ids == "") {
-     ids = {};
+     ids = [];
    } else if (typeof ids != 'object') {
      ids = ids.split(',');
    }

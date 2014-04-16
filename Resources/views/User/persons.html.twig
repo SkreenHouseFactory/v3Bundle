@@ -20,9 +20,9 @@
     <div id="view-user-persons">
 
       {% if persons|length == 0 %}
-        <p class="alert alert-info">Vous ne suivez aucun acteur/réalisateur. Utilisez le moteur de recherche pour ajouter vos acteurs et réalisateurs préférés.</p>
+        <p class="bs-callout bs-callout-info">Vous ne suivez aucun acteur/réalisateur. Utilisez le moteur de recherche pour ajouter vos acteurs et réalisateurs préférés.</p>
       {% else %}
-        <p class="alert alert-info">Utilisez le moteur de recherche pour ajouter vos acteurs et réalisateurs préférés.</p>
+        <p class="bs-callout bs-callout-info">Utilisez le moteur de recherche pour ajouter vos acteurs et réalisateurs préférés.</p>
 
         <ul class="nav nav-pills nav-alpha-client uppercase">
           <li data-toggle class="active">
@@ -37,13 +37,13 @@
     
         <table class="table table-striped">
           {% for p in persons %}
-            <tr id="person-{{ p.id }}" class="type-{{ p.activity|replace({'é': 'e'})|lower }}">
+            <tr id="person-{{ p.id }}" class="type-{{ p.main_activity|replace({'é': 'e'})|lower }}">
               <td>
                 <div class="pull-right">
                   <a class="btn btn-default" href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">Tous ses programmes</a>&nbsp;
                   {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: p.id, name: p.name, fav: 'person', remove: '#person-' ~ p.id } %}
                 </div>
-                <b>{{ p.name }}</b>, {{ p.activity }}<br/>
+                <b>{{ p.name }}</b>, {{ p.main_activity }}<br/>
                 {#{ p.roles|join(', ') }#}
               </td>
             </tr>
