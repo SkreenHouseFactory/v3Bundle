@@ -121,7 +121,7 @@
     {% endif %}
     
     <p class="sk-font">Sur quelle chaîne ?</p>
-      {% for k,c in channels %}
+      {% for k,c in channels if k %}
         {% if app.request.get('category_slug') and app.request.get('format') %}
         <span class="label label-default" data-link-to-replace="{{ path('channel_format_facet', {slug: k|replace({'-+': ''}), format: app.request.get('format'), facet: app.request.get('category_slug') })|rot13 }}">
         {% elseif app.request.get('category_slug') %}
