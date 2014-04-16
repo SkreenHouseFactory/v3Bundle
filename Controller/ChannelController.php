@@ -221,23 +221,46 @@ class ChannelCustomController extends Controller
 
   // Chaine Replay
   protected function channel70($data){
+    
+    //get replay
+    $api   = $this->get('api');
+    $programs_bientot_en_replay = $api->fetch('schedule/tvreplay', array(
+      'date' => 'record',
+      'record_only' => true,
+      'tnt_only' => true,
+      'sort' => 'programs',
+      'nb_results' => 25,
+      'channel_img_width' => 36,
+      'force_best_offer' => true,
+      'with_best_offer' => true
+    ));
+ 
     $pack = array();
     foreach ($data->sliders as $key => $slider) {
       switch ($slider->id) {
         case '12975429':
           $pack['replay-populaires'] = $slider;
           unset($data->sliders->{$key});
-          break;
+        break;
         case '12975538':
           $pack['replay-derniers'] = $slider;
           unset($data->sliders->{$key});
-          break;
+        break;
+        /*
         case '13087055':
           $pack['replay-bientot'] = $slider;
           unset($data->sliders->{$key});
-          break;
+        break;
+        */
       }
     }
+    $pack['replay-bientot'] = array(
+      'title' => 'Bientôt en Replay',
+      'name' => 'Bientôt en Replay',
+      'programs' => $programs_bientot_en_replay,
+      'seo_url' => '/programme-tv/'
+    );
+    
     $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:replay.html.twig', array(
       'data'=> (array)$data,
       'channel' => $data->channel,
