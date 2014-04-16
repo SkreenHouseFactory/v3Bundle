@@ -99,7 +99,7 @@
 {% else %}
   <div class="controlersbtn"></div>
 {% endif %}
-{% if name_link is defined and name_link %}
+{% if name_link is defined and link is defined and name_link and link %}
   <a href="{{ link|slice(0,1) == '/' ? link : path(link) }}" class="undernot">
     <button type="button" class="btn btn-default btn-grille">{{ name_link }}</button>
   </a>

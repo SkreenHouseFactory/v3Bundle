@@ -272,6 +272,13 @@ class ChannelCustomController extends Controller
       'programs' => $programs_bientot_en_replay,
       'seo_url' => '/programme-tv/'
     );
+
+    $pack['replay-derniers'] = array(
+      'title' => 'Derniers mis en ligne',
+      'name' => 'Derniers mis en ligne',
+      'programs' => $programs_derniers_replay,
+      'seo_url' => null
+    );
     
     $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:replay.html.twig', array(
       'data'=> (array)$data,
