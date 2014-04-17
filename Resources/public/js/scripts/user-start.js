@@ -114,10 +114,9 @@ $(document).ready(function(){
             for (k in data.notifications) {
               n = data.notifications[k];
               console.log('scripts/user-start.js', 'notify', n);
-              API.notification(
+              UI.loadAlertUser(
                 n.title + (typeof n.title_episode != 'undefined' ? ' - ' + n.title_episode : ''), 
                 n.subtitle,
-                n.ico
               );
             }
         });
