@@ -1,9 +1,14 @@
 // Chaîne Sport
 body.view-channel-13 {
+  #main #cover {
   .header-container {
     .header-content {
-      height: 103px;
+      height: 120px;
       bottom: 0px;
+      .share-block {
+          top: 95px;
+        }
+      }
     }
   }
 }
@@ -20,11 +25,42 @@ body.view-channel-12 #main {
 }
 // Chaîne Demy et Césars 2014
 body.view-channel-3, body.view-channel-67 {
-  .header-container {
-    .header-content {
-      height: 104px;
-      bottom: 3px;
+  #main #cover {
+    .header-container {
+      .header-content {
+        height: 120px;
+        bottom: 3px;
+        .share-block {
+          top: 95px;
+        }
+      }
     }
   }
 }
 
+// Chaine Humour
+body.view-channel {
+  #main #cover {
+    .share-block {
+      top: 93px;
+    }
+  }
+}
+
+// Chaine Festival-de-Cannes
+body.view-channel-7 {
+  #main {
+    #cover {
+      .header-container {
+        .header-content {
+          bottom: -18px;
+          .share-block {
+            bottom: -18px;
+            top: auto;
+            right: 10px;
+          }
+        }
+      }
+    }
+  }
+}
