@@ -116,7 +116,7 @@ $(document).ready(function(){
               console.log('scripts/user-start.js', 'notify', n);
               UI.loadAlertUser(
                 n.title + (typeof n.title_episode != 'undefined' ? ' - ' + n.title_episode : ''), 
-                n.subtitle,
+                n.subtitle
               );
             }
         });
