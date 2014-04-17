@@ -53,7 +53,7 @@
         <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})})|replace({'//':'/'}) }}page-{{ app.request.get('page') }}/"><span itemprop="title">Page {{ app.request.get('page') }}</span></a></li>
       {% endif %}
     {% endif %}
-    {% if app.request.get('access') %}
+    {% if app.request.get('access') and app.request.get('format') %}
       <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})})|replace({'//':'/'}) }}/{{ app.request.get('access') }}/"><span itemprop="title">{{ ('access.' ~ app.request.get('access'))|trans }}</span></a></li>
     {% endif %}
   </ul>
