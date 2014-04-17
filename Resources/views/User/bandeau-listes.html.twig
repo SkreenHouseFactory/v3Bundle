@@ -10,17 +10,19 @@
             </a>
           </div>
         </div>
-        <div class="row titres user-on hide auth">
+        <div class="row titres{{ 'user' not in app.request.uri ? ' user-on hide' : '' }} auth">
           <div class="col-xs-16" data-fav="like">
             <a href="{{ path('user_programs') }}">
-              <span class="badge{{ (active is defined and active == 'programs') ? '' : ' bg-white grey' }}"></span>
+              <span class="badge{{ (active is defined and active == 'programs') ? '' : ' bg-white grey' }}">&nbsp;</span>
               <p class="sk-font">Vos programmes</p>
             </a>
           </div>
         </div>
         <div class="row descriptions">
           <div class="col-xs-16" data-fav="like">
-            <p class="sk-font">Ajoutez vos programmes préférés pour ne jamais les rater</p>
+            <a{% if 'user' not in app.request.uri %} class="auth"{% else %} href="{{ path('user_programs') }}"{% endif %}>
+              <p class="sk-font">Ajoutez vos programmes préférés pour ne jamais les rater</p>
+            </a>
           </div>
         </div>
       </div>
@@ -33,17 +35,19 @@
             </a>
           </div>
         </div>
-        <div class="row titres user-on hide auth">
+        <div class="row titres{{ 'user' not in app.request.uri ? ' user-on hide' : '' }} auth">
           <div class="col-xs-16" data-fav="channel">
             <a href="{{ path('user_channels') }}">
-              <span class="badge{{ (active is defined and active == 'channel') ? '' : ' bg-white grey' }}"></span>
+              <span class="badge{{ (active is defined and active == 'channel') ? '' : ' bg-white grey' }}">&nbsp;</span>
               <p class="sk-font">Vos chaînes</p>
             </a>
           </div>
         </div>
         <div class="row descriptions">
           <div class="col-xs-16" data-fav="channel">
-            <p class="sk-font">Festival de Cannes, humour, politique, etc.</p>
+            <a{% if 'user' not in app.request.uri %} class="auth"{% else %} href="{{ path('user_channels') }}"{% endif %}>
+              <p class="sk-font">Festival de Cannes, humour, politique, etc.</p>
+            </a>
           </div>
         </div>
       </div>
@@ -56,17 +60,19 @@
             </a>
           </div>
         </div>
-        <div class="row titres user-on hide auth">
+        <div class="row titres{{ 'user' not in app.request.uri ? ' user-on hide' : '' }} auth">
           <div class="col-xs-16" data-fav="cinema">
             <a href="{{ path('user_theaters') }}">
-              <span class="badge{{ (active is defined and active == 'theaters') ? '' : ' bg-white grey' }}"></span>
+              <span class="badge{{ (active is defined and active == 'theaters') ? '' : ' bg-white grey' }}">&nbsp;</span>
               <p class="sk-font">Vos cinémas</p>
             </a>
           </div>
         </div>
         <div class="row descriptions">
           <div class="col-xs-16" data-fav="cinema">
-            <p class="sk-font">Retrouvez ici la programmation des salles près de chez vous</p>
+            <a{% if 'user' not in app.request.uri %} class="auth"{% else %} href="{{ path('user_theaters') }}"{% endif %}>
+              <p class="sk-font">Retrouvez ici la programmation des salles près de chez vous</p>
+            </a>
           </div>
         </div>
       </div>
@@ -79,17 +85,19 @@
             </a>
           </div>
         </div>
-        <div class="row titres user-on hide auth">
+        <div class="row titres{{ 'user' not in app.request.uri ? ' user-on hide' : '' }} auth">
           <div class="col-xs-16" data-fav="person">
             <a href="{{ path('user_persons') }}">
-              <span class="badge{{ (active is defined and active == 'persons') ? '' : ' bg-white grey' }}"></span>
+              <span class="badge{{ (active is defined and active == 'persons') ? '' : ' bg-white grey' }}">&nbsp;</span>
               <p class="sk-font">Vos personnalités</p>
             </a>
           </div>
         </div>
         <div class="row descriptions">
           <div class="col-xs-16" data-fav="person">
-            <p class="sk-font">Ne ratez plus aucun de leurs programmes</p>
+            <a{% if 'user' not in app.request.uri %} class="auth"{% else %} href="{{ path('user_persons') }}"{% endif %}>
+              <p class="sk-font">Ne ratez plus aucun de leurs programmes</p>
+            </a>
           </div>
         </div>
       </div>
