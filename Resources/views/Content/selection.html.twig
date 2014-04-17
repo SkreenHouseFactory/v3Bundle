@@ -46,58 +46,68 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
 {% endif %}
 #}
 
-{% if '-cinema-' in app.request.uri or '/cinema/' in app.request.uri %}
-  {% include 'SkreenHouseFactoryV3Bundle:Cinema:_addtolist.html.twig' %}
-{% endif %}
-
-<div id="view-selection" class="container">
-  {% if selection.onglet.type == 'page' %}
-    <ul class="breadcrumb">
-      <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: selection.onglet.channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ selection.onglet.channel.title }}</span></a></li>
-      <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">{{ selection.name|raw }}</span></li>
-    </ul>
+  {% if '-cinema-' in app.request.uri or '/cinema/' in app.request.uri %}
+    {% include 'SkreenHouseFactoryV3Bundle:Cinema:_addtolist.html.twig' %}
   {% endif %}
 
-  <h1{% if selection.name == 'Les sorties cinéma de la semaine' or selection.name == 'Bientôt dans les salles' %} itemscope itemtype="http://schema.org/CollectionPage" itemref="selection-programs md-description"{% endif %}><span{% if selection.name == 'Les sorties cinéma de la semaine' or selection.name == 'Bientôt dans les salles' %} itemprop="name"{% endif %}>{{ selection.name|raw }}{% if selection.onglet.channel.fournisseur is defined %} de {{ selection.onglet.channel.title }}{% endif %}</span></h1>
-  <div id="md-description" class="row description-seo description-seo-absolute scroll well"><span{% if selection.name == 'Les sorties cinéma de la semaine' or selection.name == 'Bientôt dans les salles' %} itemprop="description"{% endif %}>{{ selection.description|raw }}</span></div>
-  <div class="row">
-
-    {% if selection.template is defined and selection.template == 'liste' %}
-      <div id="selection-programs" class="list col-xs-11">
-        <ul class="items">
-          {% for program in selection.programs %}
-            {% if loop.index > 1 %}<li class="divider"></li>{% endif %}
-            {% include 'SkreenHouseFactoryV3Bundle:Content:_list.html.twig' with {p: program} %}
-          {% endfor %}
-        </ul>
-      </div>
-    {% else %}
-      <div id="selection-programs" class="slider slider-list col-xs-11">
-        <ul class="items">
-          {% for program in selection.programs %}
-            {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
-          {% endfor %}
-        </ul>
-      </div>
+  <div id="view-selection" class="container">
+    {% if selection.onglet.type == 'page' %}
+      <ul class="breadcrumb">
+        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: selection.onglet.channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ selection.onglet.channel.title }}</span></a></li>
+        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">{{ selection.name|raw }}</span></li>
+      </ul>
     {% endif %}
 
-    <div class="col-xs-5" id="selection-related">
-      {#<a class="btn btn-large btn-inverse btn-block trigger-tv" href="#" data-couchmode="{{ {'type': 'pack', 'id': selection.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
-      <ul class="list-group">
-        {% if selection.onglet.type != 'page' %}
-        <li class="list-group-item list-share">
-          <div class="share-block clearfix">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ selection.seo_url, text: selection.name ~ ' sur mySkreen', fb_layout: 'box_count', tw_layout: 'vertical', g_size: 'tall', g_annotation: 'bubble' } %}</div>
-        </li>
-        {% endif %}
-        <li class="list-group-item list-share">
-          <h3 class="sk-font"><a href="{{ path('any_url', {url: selection.onglet.seo_url[1:selection.onglet.seo_url|length-1]}) }}">{{ selection.onglet.title }}</a></h3>
-        </li>
-        {% for pack in selection.onglet.sliders|to_array %}
-        <li class="list-group-item"><a href="{{ path('any_url', {url: pack.seo_url[1:pack.seo_url|length-1]}) }}">&raquo; {{ pack.name|raw }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
+    <h1{% if selection.name == 'Les sorties cinéma de la semaine' or selection.name == 'Bientôt dans les salles' %} itemscope itemtype="http://schema.org/CollectionPage" itemref="selection-programs md-description"{% endif %}><span{% if selection.name == 'Les sorties cinéma de la semaine' or selection.name == 'Bientôt dans les salles' %} itemprop="name"{% endif %}>{{ selection.name|raw }}{% if selection.onglet.channel.fournisseur is defined %} de {{ selection.onglet.channel.title }}{% endif %}</span></h1>
+    <div id="md-description" class="row description-seo description-seo-absolute scroll well"><span{% if selection.name == 'Les sorties cinéma de la semaine' or selection.name == 'Bientôt dans les salles' %} itemprop="description"{% endif %}>{{ selection.description|raw }}</span></div>
+    <div class="row">
 
+      {% if selection.template is defined and selection.template == 'liste' %}
+        <div id="selection-programs" class="list col-xs-11">
+          <ul class="items">
+            {% for program in selection.programs %}
+              {% if loop.index > 1 %}<li class="divider"></li>{% endif %}
+              {% include 'SkreenHouseFactoryV3Bundle:Content:_list.html.twig' with {p: program} %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% else %}
+        <div id="selection-programs" class="slider slider-list col-xs-11">
+          <ul class="items">
+            {% for program in selection.programs %}
+              {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <div class="col-xs-5" id="selection-related">
+        {#<a class="btn btn-large btn-inverse btn-block trigger-tv" href="#" data-couchmode="{{ {'type': 'pack', 'id': selection.id}|json_encode }}"><i class="icon-off icon-white"></i> {{ 'program.tv.on'|trans }}</a>#}
+        <ul class="list-group">
+          {% if selection.onglet.type != 'page' %}
+            <li class="list-group-item list-share">
+              <div class="share-block clearfix">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ selection.seo_url, text: selection.name ~ ' sur mySkreen', fb_layout: 'box_count', tw_layout: 'vertical', g_size: 'tall', g_annotation: 'bubble' } %}</div>
+            </li>
+          {% endif %}
+          <li class="list-group-item list-share">
+            <h3 class="sk-font"><a href="{{ path('any_url', {url: selection.onglet.seo_url[1:selection.onglet.seo_url|length-1]}) }}">{{ selection.onglet.title is defined and selection.onglet.title ? selection.onglet.title : selection.onglet.name }}</a></h3>
+          </li>
+          {% for pack in selection.onglet.sliders|to_array %}
+            <li class="list-group-item"><a href="{{ path('any_url', {url: pack.seo_url[1:pack.seo_url|length-1]}) }}">&raquo; {{ pack.name|raw }}</a></li>
+          {% endfor %}
+          <li class="list-group-item"><a href="#">&raquo; Haut de la page</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
-</div>
+{% endblock %}
+
+{% block pagescripts %}
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.sticky-kit.min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/selection.js'
+    filter='?yui_js' 
+    output='js/compiled/pages/selection.js'  %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
 {% endblock %}
