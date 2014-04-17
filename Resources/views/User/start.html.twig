@@ -7,85 +7,85 @@
 {% block body_attribute %} data-spy="scroll" data-target=".navbar-vertical" data-offset="50"{% endblock %}
 
 {% block content %}
-<div id="bandeau-listes">
-  <div class="container">
-    <h1>Créer Mes listes</h1>
-    <p class="sk-font">En ajoutant des programmes, des réalisateurs, des acteurs et des cinémas à vos listes, vous êtes averti dès qu'une diffusion vous intéresse : TV, Replay, Cinéma ou VOD.</p>
-  </div>
-</div>
-<div class="fond-bleu">
-  <div class="bg"></div>
-  <div class="container">
-    <div class="navbar-vertical col-xs-5">
-      <ul class="nav timeline sk-font">
-        <li><a href="#categories">Vos préférences<span id="count-categories" class="badge">0</span></a></li>
-        <li><a href="#films">Vos films <span id="count-films" class="badge">0</span></a></li>
-        <li><a href="#emissions">Vos émissions <span id="count-emissions" class="badge">0</span></a></li>
-        <li><a href="#series">Vos séries <span id="count-series" class="badge">0</span></a></li>
-        <li><a href="#persons">Vos personnalités <span id="count-persons" class="badge">0</span></a></li>
-        <li><a href="#theaters">Vos salles de cinéma <span id="count-theaters" class="badge">0</span></a></li>
-        {#<li><a href="#channels">Chaînes <span id="count-channels" class="badge">0</span></a></li>#}
-        <li class="confirm"><a href="#confirm">Enregistrer</a></li>
-      </ul>
-    </div>
-    <div class="forms-container col-xs-11">
-      <div class="relative">
-      <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#films']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Quels sont vos films préférés ?</a>
-      <div class="form-container">
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'categories', title: 'Vos préférences', placeholder: '', suggests: selection_pack.categories} %}
-      </div>
-      </div>
-      <div class="relative">
-      <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#emissions']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Fini ? Passez aux émissions que vous ne voulez pas rater !</a>
-      <div class="form-container">
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'films', title: 'Vos films', placeholder: 'Avengers, Intouchables...', suggests: selection_pack.films.programs} %}
-      </div>
-      </div>
-      <div class="relative">
-      <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#series']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Déjà fini ? Ajoutez vos séries dont vous êtes fan !</a>
-      <div class="form-container">
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'emissions', title: 'Vos émissions', placeholder: 'The Voice, Le Petit Journal...', suggests: selection_pack.emissions.programs} %}
-      </div>
-      </div>
-      <div class="relative">
-      <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#persons']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Indiquez vos acteurs et réalisateurs préférés pour ne rien rater !</a>
-      <div class="form-container">
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'series', title: 'Vos séries', placeholder: 'How I Met Your Mother, House of Cards...', suggests: selection_pack.series.programs} %}
-      </div>
-      </div>
-      <div class="relative">
-      <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#theaters']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Fini ? Ajoutez les cinémas près de chez vous !</a>
-      <div class="form-container">
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'persons', title: 'Vos acteurs et réalisateurs préférés', placeholder: 'Leonardo DiCaprio, Steven Spielberg...', suggests: selection_pack.persons} %}
-      </div>
-      </div>
-      <div class="relative">
-      <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#confirm']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Terminé ! Vous n'avez plus qu'à enregistrez vos listes</a>
-      <div class="form-container">
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'theaters', title: 'Vos salles de cinéma', placeholder: 'Marseille, 75014, Le Palace...', suggests: null} %}
-      </div>
-      </div>
-      {#<div class="form-container">
-        {% set suggest_chaines = selection_pack.chaines.programs %}
-        {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'channels', title: 'Vos chaînes', placeholder: 'Humour, Sport, Politique...', suggests: suggest_chaines} %}
-      </div>
-      #}
-      <div class="relative">
-      <a id="register" class="btn btn-default btn-primary btn-lg hide"><span class="glyphicon glyphicon-floppy-disk"></span> Enregistrer mes listes</a>
-      <div class="form-container confirmed scroll">
-        <h2 id="confirm">Mes listes</h2>
-        <div class="no-results bs-callout bs-callout-info">
-          <p class="h4">Vous n'avez pas encore fait vos listes</p>
-          <p><a class="btn btn-primary" href="#films">Commencer maintenant</a></p>
-        </div>
-        <div class="results hide">
-          <ul></ul>
-        </div>
-      </div>
-      </div>
+  <div id="bandeau-listes">
+    <div class="container">
+      <h1>Créer Mes listes</h1>
+      <p class="sk-font">En ajoutant des programmes, des réalisateurs, des acteurs et des cinémas à vos listes, vous êtes averti dès qu'une diffusion vous intéresse : TV, Replay, Cinéma ou VOD.</p>
     </div>
   </div>
-</div>
+  <div class="fond-bleu">
+    <div class="bg"></div>
+    <div class="container">
+      <div class="navbar-vertical col-xs-5">
+        <ul class="nav timeline sk-font">
+          <li><a href="#categories">Vos préférences<span id="count-categories" class="badge">0</span></a></li>
+          <li><a href="#films">Vos films <span id="count-films" class="badge">0</span></a></li>
+          <li><a href="#emissions">Vos émissions <span id="count-emissions" class="badge">0</span></a></li>
+          <li><a href="#series">Vos séries <span id="count-series" class="badge">0</span></a></li>
+          <li><a href="#persons">Vos personnalités <span id="count-persons" class="badge">0</span></a></li>
+          <li><a href="#theaters">Vos salles de cinéma <span id="count-theaters" class="badge">0</span></a></li>
+          {#<li><a href="#channels">Chaînes <span id="count-channels" class="badge">0</span></a></li>#}
+          <li class="confirm"><a href="#confirm">Enregistrer</a></li>
+        </ul>
+      </div>
+      <div class="forms-container col-xs-11">
+        <div class="relative">
+          <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#films']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Quels sont vos films préférés ?</a>
+          <div class="form-container">
+            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'categories', title: 'Vos préférences', placeholder: '', suggests: selection_pack.categories} %}
+          </div>
+        </div>
+        <div class="relative">
+          <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#emissions']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Fini ? Passez aux émissions que vous ne voulez pas rater !</a>
+          <div class="form-container">
+            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'films', title: 'Vos films', placeholder: 'Avengers, Intouchables...', suggests: selection_pack.films.programs} %}
+          </div>
+        </div>
+        <div class="relative">
+          <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#series']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Déjà fini ? Ajoutez vos séries dont vous êtes fan !</a>
+          <div class="form-container">
+            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'emissions', title: 'Vos émissions', placeholder: 'The Voice, Le Petit Journal...', suggests: selection_pack.emissions.programs} %}
+          </div>
+        </div>
+        <div class="relative">
+          <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#persons']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Indiquez vos acteurs et réalisateurs préférés pour ne rien rater !</a>
+          <div class="form-container">
+            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'series', title: 'Vos séries', placeholder: 'How I Met Your Mother, House of Cards...', suggests: selection_pack.series.programs} %}
+          </div>
+        </div>
+        <div class="relative">
+          <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#theaters']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Fini ? Ajoutez les cinémas près de chez vous !</a>
+          <div class="form-container">
+            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'persons', title: 'Vos acteurs et réalisateurs préférés', placeholder: 'Leonardo DiCaprio, Steven Spielberg...', suggests: selection_pack.persons} %}
+          </div>
+        </div>
+        <div class="relative">
+          <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#confirm']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Terminé ! Vous n'avez plus qu'à enregistrez vos listes</a>
+          <div class="form-container">
+            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'theaters', title: 'Vos salles de cinéma', placeholder: 'Marseille, 75014, Le Palace...', suggests: null} %}
+          </div>
+        </div>
+        {#<div class="form-container">
+          {% set suggest_chaines = selection_pack.chaines.programs %}
+          {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'channels', title: 'Vos chaînes', placeholder: 'Humour, Sport, Politique...', suggests: suggest_chaines} %}
+        </div>
+        #}
+        <div class="relative">
+          <a id="register" class="btn btn-default btn-primary btn-lg hide"><span class="glyphicon glyphicon-floppy-disk"></span> Enregistrer mes listes</a>
+          <div class="form-container confirmed scroll">
+            <h2 id="confirm">Mes listes</h2>
+            <div class="no-results bs-callout bs-callout-info">
+              <p class="h4">Vous n'avez pas encore fait vos listes</p>
+              <p><a class="btn btn-primary" href="#films">Commencer maintenant</a></p>
+            </div>
+            <div class="results hide">
+              <ul></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block pagestyles %}

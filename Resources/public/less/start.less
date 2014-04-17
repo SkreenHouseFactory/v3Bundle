@@ -1,5 +1,8 @@
 body.view-user_start {
   &.connected {
+    #main #content ul.timeline:after {
+      height: 490px;
+    }
     li.confirm, #register, .form-container.confirmed  {
       opacity: 0;
     }
@@ -35,9 +38,6 @@ body.view-user_start {
     }
   }
   .fond-bleu {
-    .container {
-      width: 100%!important;
-    }
     .bg {
       background:
         url('/bundles/skreenhousefactoryv3/images/start/fd_images_films.jpg') center top no-repeat,
@@ -79,7 +79,7 @@ body.view-user_start {
         display: inherit;
         position: absolute;
         top: 0;
-        height: 490px;
+        height: 570px;
         width: 11px;
         background: white;
         right: 0px;
@@ -173,10 +173,9 @@ body.view-user_start {
         box-shadow: 0px 0px 5px rgba(0,0,0,1);
       }
       .form-container {
-        padding-top: 10px;
         position: relative;
         height: 450px;
-        background: rgba(255,255,255,0.9);
+        background: white;
         border-radius: 5px;
         margin-bottom: 350px;
         box-shadow: 0px 0px 10px rgba(0,0,0, 1);
@@ -246,7 +245,7 @@ body.view-user_start {
             padding-left: 0;
             li {
               margin-bottom: 0px;
-              &.head-suggest, &not:(.head-suggest) h3 {
+              &.head-suggest, &:not(.head-suggest) h3 {
                 color: #999;
                 border-top: 1px dashed #ccc;
                 padding: 10px 0;
@@ -262,6 +261,7 @@ body.view-user_start {
                 padding-left: 25px;
                 padding-right: 25px;
                 padding-bottom: 5px;
+                height: 50px;
                 &:nth-child(even) {
                   background-color: rgba(66,139,202,0.1);
                 }
@@ -277,8 +277,10 @@ body.view-user_start {
                   font-size: 0px;
                   padding: 5px 0px;
                   width: 30px;
+                  height: 40px;
                   i, span {
                     font-size: 12px;
+                    padding-top: 6px;
                   }
                   &.fav-cinema {
                     float: left !important;
@@ -287,10 +289,12 @@ body.view-user_start {
                 }
                 &:hover {
                   cursor: pointer;
-                  background-color: rgba(52, 173, 61, 0.1);
+                  background-color: rgba(171, 111, 59, 0.3);
                   .col-xs-4 {
-                    font-size: 0.9em;
+                    font-size: 85%;
                     visibility: visible;
+                    color: #666;
+                    text-align: right;
                     .label {
                       font-size: 1.0em;
                     }
@@ -300,10 +304,12 @@ body.view-user_start {
                   }*/
                 }
               }
-              span.col-xs-7 {
-                font-family: 'Raleway';
+              span.col-xs-11 {
                 font-size: 1.1em;
                 color: #428bca;
+                small {
+                  color: #666;
+                }
               }
             }
           }
