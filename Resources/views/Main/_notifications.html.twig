@@ -1,25 +1,27 @@
-{% if notifications|to_array|length %}
-<div class="bande_notifications nopadding">
-  <div class="container">
-    {% if btn_suivre is defined %}
-      <div class="pull-right hide credential-tester">{% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with btn_suivre %}</div>
-    {% endif %}
-    <h2>{{ title is defined ? title : 'A voir en ce moment' }}</h2>
-    <ul class="notifications clearfix">
-      {% for n in notifications|to_array %}
-        <li class="tv-component plays broadcast pull-left">
-          <a href="{{ n.link }}" class="link clearfix" title="{{ n.title|raw }}">
-            <img src="{{ n.channel_ico|replace({'/39': '/45/45'}) }}" class="channel pull-left">
-            <img src="{{ n.ico }}" alt="notification" class="ico pull-left">
-            <div class="pull-left clearfix">
-              <div class="title pull-left">{{ n.title|wordCut(22,'...') }}</div>
-              <div class="subtitle">{{ n.title_episode|raw }}</div>
-              <div class="label label-success">{{ n.subtitle }}</div>
-            </div>
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
+  <div class="bande_notifications nopadding">
+    <div class="container">
+      {% if btn_suivre is defined %}
+        <div class="pull-right{{ tester is defined and tester ? ' hide credential-tester' : '' }}">{% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with btn_suivre %}</div>
+      {% endif %}
+      <h2>{{ title is defined ? title : 'A voir en ce moment' }}</h2>
+      {% if notifications|to_array|length %}
+      <ul class="notifications clearfix">
+        {% for n in notifications|to_array %}
+          <li class="tv-component plays broadcast pull-left">
+            <a href="{{ n.link }}" class="link clearfix" title="{{ n.title|raw }}">
+              <img src="{{ n.channel_ico|replace({'/39': '/45/45'}) }}" class="channel pull-left">
+              <img src="{{ n.ico }}" alt="notification" class="ico pull-left">
+              <div class="pull-left clearfix">
+                <div class="title pull-left">{{ n.title|wordCut(22,'...') }}</div>
+                <div class="subtitle">{{ n.title_episode|wordCut(28,'...')|raw }}</div>
+                <div class="label label-success">{{ n.subtitle }}</div>
+              </div>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+        <div class="bs-callout bs-callout-info">Pour connaître les prochaines actualités de {{ origin }}, ajoutez-la à vos listes !</div>
+      {% endif %}
+    </div>
   </div>
-</div>
-{% endif %}

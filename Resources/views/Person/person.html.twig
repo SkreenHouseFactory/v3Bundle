@@ -42,7 +42,7 @@
       </div>
     {% endif %}
     {% if person.notifications|to_array|length > 0 %}
-      {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {notifications: person.notifications} %}
+      {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {origin: 'cette personnalité', notifications: person.notifications} %}
     {% endif %}
     <div class="bande_fonce nopadding">
       <div class="container">

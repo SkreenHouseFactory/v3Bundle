@@ -1,23 +1,20 @@
 <div id="cover"{#% if channel.cover %} style="background: url('{{ channel.cover }}') top center no-repeat;"{% endif %#}>
-<div class="header-container">
-  {% if skip_content is not defined %}
-  <div class="header-content">
-    <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' est sur @mySkreen   ' } %}</div>
-    <div class="pull-right">
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'fav-channel', name: channel.title, text: trigger_fav is defined and trigger_fav ? trigger_fav : 'Suivre ' ~ channel.title|trans } %}
-    </div>
-    <h1 data-channel="{{ channel.title }}"><a href="{{ path('channel', {slug: channel.slug }) }}">{{ channel.title }}</a></h1>
-    {# ON UTILISE L'ICO COMME JAQUETTE PROGRAMME UNIQUEMENT
-    {% if channel.img %}
-    <a href="{{ path('channel', {slug: channel.slug }) }}"><img class="channel-logo pull-left" src="{{ channel.img }}" /></a>
-    {%elseif data.img is defined %}
-    <a href="{{ path('channel', {slug: channel.slug }) }}"><img class="channel-logo pull-left" src="{{ data.img }}" /></a>
-    {% endif %}
-    #}
-    {% if channel.description %}
-    <p class="lead channel-description">{{ channel.description|raw }}</p>
+  <div class="header-container">
+    {% if skip_content is not defined %}
+      <div class="header-content">
+        <div class="share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' est sur @mySkreen   ' } %}</div>
+        <div id="fake_h1" data-channel="{{ channel.title }}"><a href="{{ path('channel', {slug: channel.slug }) }}">{{ channel.title }}</a></div>
+        {# ON UTILISE L'ICO COMME JAQUETTE PROGRAMME UNIQUEMENT
+        {% if channel.img %}
+        <a href="{{ path('channel', {slug: channel.slug }) }}"><img class="channel-logo pull-left" src="{{ channel.img }}" /></a>
+        {%elseif data.img is defined %}
+        <a href="{{ path('channel', {slug: channel.slug }) }}"><img class="channel-logo pull-left" src="{{ data.img }}" /></a>
+        {% endif %}
+        #}
+        {% if channel.description %}
+          <p class="lead channel-description">{{ channel.description|raw }}</p>
+        {% endif %}
+      </div>
     {% endif %}
   </div>
-  {% endif %}
-</div>
 </div>

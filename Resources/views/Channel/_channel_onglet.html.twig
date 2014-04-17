@@ -2,7 +2,7 @@
 
 {% block customcontent %}
   {% include  'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data:data, fav: 'page', trigger_fav: channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
-    {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {notifications: data.notifications, title: 'Actualité de la chaîne'} %}
+  {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {origin: 'la chaîne', notifications: data.notifications, title: 'Actualité de la chaîne', btn_suivre: {id: channel.id, class: 'fav-channel', name: channel.title, text: trigger_fav is defined and trigger_fav ? trigger_fav : 'Ajoutez "' ~ channel.title|trans ~ '" à mes listes' } } %}
   {% include  'SkreenHouseFactoryV3Bundle:Channel:_packs.html.twig' %}
   {% include  'SkreenHouseFactoryV3Bundle:Channel:_description.html.twig' %}
 {% endblock %}

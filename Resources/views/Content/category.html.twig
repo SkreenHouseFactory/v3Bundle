@@ -147,11 +147,11 @@
 </div>
 
 {% if category.format is not defined %}
-  {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {notifications: category.notifications, title: 'Actualité des programmes ' ~ category.name } %}
+  {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {tester: 'tester', origin: 'cette catégorie', notifications: category.notifications, title: 'Actualité des programmes ' ~ category.name } %}
 {% elseif category.format %}
-  {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {notifications: category.notifications, title: 'Actualité des programmes ' ~ category.name, btn_suivre: {id: category.format.id~'+'~category.id, class: 'fav-format-category', text: 'Ajouter à mes listes', placement: 'left'} } %}
+  {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {tester: 'tester', origin: 'cette catégorie', notifications: category.notifications, title: 'Actualité des programmes ' ~ category.name, btn_suivre: {id: category.format.id~'+'~category.id, class: 'fav-format-category', text: 'Ajouter à mes listes', placement: 'left'} } %}
 {% else %}
-  {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {notifications: category.notifications, title: 'Actualité des programmes ' ~ category.name, btn_suivre: {id: category.id, class: 'fav-category', text: 'Ajouter à mes listes', placement: 'left'} } %}
+  {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {tester: 'tester', origin: 'cette catégorie', notifications: category.notifications, title: 'Actualité des programmes ' ~ category.name, btn_suivre: {id: category.id, class: 'fav-category', text: 'Ajouter à mes listes', placement: 'left'} } %}
 {% endif %}
 
 <div id="view-category" data-id="{{ category.id }}" class="container view-category-{{ app.request.get('format') }}">
