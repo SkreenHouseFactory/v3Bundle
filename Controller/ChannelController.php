@@ -325,6 +325,36 @@ class ChannelCustomController extends Controller
 
 class ChannelController extends ChannelCustomController
 {
+  
+
+  //Channel
+  public function derniersreplayAction(Request $request, $slug = null)
+  {
+    $api   = $this->get('api');
+    $params = array(
+      'from_slug'  => $request->get('slug', $slug),
+      'channel_img_width' => 45,
+      'img_width' => 150,
+      'img_height' => 200,
+      'skip_sliders' => true,
+      'with_replay' => 100
+    );
+    $data = $api->fetch('channel', $params);
+    echo $request->get('debug') ? $api->url : null;
+
+    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:derniers-replay.html.twig', array(
+        'data' => $data,
+        'channel' => $data->channel
+      ));
+
+    $maxage = 60;
+    $response->setPublic();
+    $response->setMaxAge($maxage);
+    $response->setSharedMaxAge($maxage);
+
+    return $response;
+  }
+  
 
   //Channel
   public function channelAction(Request $request, $slug = null)

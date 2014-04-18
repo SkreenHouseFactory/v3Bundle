@@ -1,0 +1,60 @@
+{% extends "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
+
+{% set format_trans = 'format.singulier.' ~ app.request.get('format') %}
+{% set formats_trans = 'format.pluriel.' ~ app.request.get('format') %}
+{% block meta %}
+  {% if channel.programs|length < 6 or app.request.get('page') and (channel.type is not defined or channel.type != "cinema") %}
+    <meta name="robots" content="noindex,follow" />
+  {% endif %}
+  <meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ channel.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}" />
+  <meta property="og:description" content="{{ channel.description|striptags }}" />
+  {% if channel.type is defined and channel.type == "cinema" %}
+    <meta property="og:type" content="place" />
+  {% else %}
+    <meta property="og:type" content="channel" />
+  {% endif %}
+  {% if channel.lat is defined and channel.lng is defined %}
+    <meta property="place:location:latitude"  content="{{channel.lat}}"> 
+    <meta property="place:location:longitude" content="{{channel.lng}}"> 
+    <meta property="place:location:altitude"  content="42">
+  {% endif %}
+  <meta property="og:url" content="http://www.myskreen.com/{{ channel.seo_url }}" />
+  {% if channel.picture %}
+    <meta property="og:image" content="{{ channel.picture }}" />
+    <link rel="image_src" href="{{ channel.picture }}" />
+  {% endif %}
+  <meta name="object_type" content="channel" />
+{% endblock %}
+
+{% block title %}{{ channel.name }} : derniers replay{%- endblock %}
+
+{% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+
+{% block body_class %}view-fournisseur view-fournisseur-{{ channel.type }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <ul class="breadcrumb">
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }}</span></a></li>
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">Derniers Replays</span></li>
+  </ul>
+  
+  <h1>{{ channel.name }}</h1>
+    <div class="slider slider-list">
+    <ul class="items">
+    {% set current_date = '' %}
+    {% for p in channel.fournisseur.programs_replay|to_array %}
+      {% if current_date != p.best_offer.broadcasttime|localizeddate('full', 'none') %}
+        </ul>
+      </div>
+      <h2>{{ p.best_offer.broadcasttime|localizeddate('full', 'none') }}</h2>
+      <div class="slider slider-list">
+        <ul class="items">
+      {% endif %}
+      {% set current_date = p.best_offer.broadcasttime|localizeddate('full', 'none') %}
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p} %}
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
