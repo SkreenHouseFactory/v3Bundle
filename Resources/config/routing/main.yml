@@ -235,9 +235,16 @@ person:
         type: acteur|adapte-de|artiste|auteur|choregraphe|chroniqueur|co-producteur|compositeur|distributeur|invite|metteur -en-scene|musique|photographie|presentateur|producteur-executif|realisateur|societe-de-production|voix-francaise|voix-originale|voix-off|createur|divers|producteur|metteur-en-scene|scenariste
         id: \d+
         slug: "[^/]+"
+
 # deprecated channel : before program !
-channel_replay:
+channels_v2_replay2:
     pattern:  /replay/{id}-{slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
+    requirements:
+        id: \d+
+        slug: "[^/]+"
+channels_v2_replay:
+    pattern:  /replay/{id}-{slug}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
     requirements:
         id: \d+
@@ -267,12 +274,6 @@ channel_v2:
     pattern:  /sur-{slug}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
     requirements:
-        slug: "[^/]+"
-channels_v2_replay:
-    pattern:  /replay/{id}-{slug}
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
-    requirements:
-        id: \d+
         slug: "[^/]+"
 
 #content
@@ -504,13 +505,6 @@ partenaires:
     pattern:  /partenaires/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:default, template: partners }
 
-#cocons : before channel, important !
-cocon_tv:
-    pattern:  /{cocon}/{name}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon }
-    requirements:
-        cocon: video
-
 #channel
 channel_format_facet_page:
     pattern:  /{slug}/{format}/{facet}/page-{page}/
@@ -553,18 +547,16 @@ channel_page:
 #    requirements:
 #        slug: "[^/]+"
 #        facet: "[^/]"
+channel_last_replay:
+    pattern:  /{slug}/derniers-replay/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:derniersreplay }
+    requirements:
+        slug: "[^/]+"
 channel:
     pattern:  /{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
     requirements:
         slug: "[^/]+"
-
-#cocons : end, after channel, important !
-cocon_replay:
-    pattern:  /{cocon}/{name}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Cms:cocon }
-    requirements:
-        cocon: tf1|france-2|france-3|m6|w9
 
 #hack url generation
 any_url:

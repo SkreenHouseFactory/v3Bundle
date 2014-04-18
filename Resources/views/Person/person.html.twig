@@ -34,7 +34,7 @@
 {% block content %}
 
   <div id="view-person" data-id="{{ person.id }}" class="relative">
-    {% include 'SkreenHouseFactoryV3Bundle:Person:_addtolist.html.twig' with {person: person} %}
+    {% include 'SkreenHouseFactoryV3Bundle:Person:_addtolist.html.twig' with {person: person, img: person.photo} %}
   
     {% if app.request.get('page') < 2 %}
       <div id="md-description" class="description-seo description-seo-absolute">
