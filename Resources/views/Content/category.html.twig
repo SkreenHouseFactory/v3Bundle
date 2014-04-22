@@ -58,8 +58,6 @@
     {% endif %}
   </ul>
 
-
-  <div class="pull-right share-block">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ category.seo_url, text: 'Je regarde des ' ~ category.name ~ ' sur mySkreen et vous ?' } %}</div>
   <h1>{% if app.request.get('format') %}{{ ('format.pluriel.'~app.request.get('format'))|trans|capitalize }} :{% endif %} la catégorie {{ category.name }}{% if app.request.get('access') %} en {{ ('access.' ~ app.request.get('access'))|trans }}{% endif %}</h1>
   
 </div>
