@@ -11,11 +11,81 @@ body.view-user_start {
     display: none;
   }
   #bandeau-listes {
-    margin-bottom: 0px;
+    margin-bottom: 200px;
+    height: 750px;
     .container {
       text-align: center;
       margin-top: 0;
       padding: 10px 100px;
+      #intro-step-one, #intro-ligne-one, #intro-step-two, #intro-ligne-two, #intro-step-three, #intro-ligne-three, #intro-ligne-four {
+        position: absolute;
+        opacity: 1;
+        font-size: 1.2em;
+      }
+      #intro-step-one {
+        width: 550px;
+        left: 50%;
+        margin-left: -275px;
+      }
+      #intro-ligne-one {
+        width: 200px;
+        left: 50%;
+        top: 105px;
+        margin-left: -255px;
+        height: 100px;
+        border-right: 5px solid white;
+        border-bottom: 5px solid white;
+        border-bottom-right-radius: 50px;
+      }
+      #intro-step-two {
+        width: 225px;
+        top: 177px;
+        left: 10px;
+      }
+      #intro-ligne-two {
+        width: 500px;
+        left: 121px;
+        top: 230px;
+        height: 100px;
+        border-left: 5px solid white;
+        border-bottom: 5px solid white;
+        border-bottom-left-radius: 50px;
+      }
+      #intro-step-three {
+        width: 160px;
+        right: 180px;
+        top: 280px;
+      }
+      #intro-ligne-three {
+        width: 155px;
+        right: 255px;
+        top: 380px;
+        height: 65px;
+        border-right: 5px solid white;
+        border-bottom: 5px solid white;
+        border-bottom-right-radius: 50px;      
+      }
+      #intro-ligne-four {
+        width: 70px;
+        right: 405px;
+        top: 440px;
+        height: 55px;
+        border-top: 5px solid white;
+        border-left: 5px solid white;
+        border-top-left-radius: 50px;
+      }
+      a {
+        position: absolute;
+        top: 500px;
+        left: 50%;
+        margin-left: -100px;
+        background-color: white;
+        color: #428bca;
+        &:hover {
+          color: #fff;
+          background-color: #3276b1;
+        }
+      }
       h1 {
         margin-top: 5px;
         &+p {
@@ -53,6 +123,7 @@ body.view-user_start {
       top:0;
       left:0;
       z-index: -1;
+      margin-top: 370px;
     }
     ul.timeline {
       width: 200px;
@@ -195,6 +266,12 @@ body.view-user_start {
           h2 {
             margin-bottom: 30px;
           }
+          .no-results {
+            padding: 15px 25px;
+            .h4 {
+              margin-bottom: 10px;
+            }
+          }
           ul {
             list-style: none;
             padding-left: 0;
@@ -217,8 +294,16 @@ body.view-user_start {
             &:first-child {
               width: 100%;
               margin-right: 10%;
+              position: relative;
               .input-lg {
                 background-color: #efefef;
+              }
+              .glyphicon {
+                position: absolute;
+                top: 12px;
+                right: 10px;
+                color: rgb(85, 85, 85);
+                font-size: 16px;
               }
             }
           }

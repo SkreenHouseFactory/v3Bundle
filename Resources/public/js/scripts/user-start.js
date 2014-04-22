@@ -51,7 +51,7 @@ $(document).ready(function(){
   $('.forms-container').scrollspy({ target: '.navbar-vertical' });
   $('.timeline').affix({
     offset: {
-      top: 205, 
+      top: 950, 
       bottom: 250
     }
   });
@@ -76,7 +76,7 @@ $(document).ready(function(){
 
   //get notif
   $(document).on('click', '[data-id][class*=" fav-"]', function(e){
-    
+    console.log($(this));
     //allow register
     $('#register').removeClass('hide');
     
@@ -96,6 +96,25 @@ $(document).ready(function(){
       }
       API.cookie('start-mes-listes-' + $(this).data('step'), parseInt(count.html()));
     }
+
+    // populate confirmed div
+    if ($(this).hasClass('fav-on')) {
+      $('.no-results').addClass('hide');
+      $('.results').removeClass('hide');
+      
+      var like_id = $(this).data('id');
+      //console.log('scripts/user-start.js', 'like_id', like_id);
+      if ($(this).data('step') == 'theaters') {
+        var like_title = '<span class="col-xs-11">' + $(this).data('channel-name') + '</span>';
+      } else {
+        var like_title = $(this).parent('.suggest').children('a:not(.btn)').html();
+      }
+      //console.log('scripts/user-start.js', 'like-title', like_title);
+      $('.confirmed ul').append('<li class="suggest like_' + like_id + '">' + like_title + '</li>');
+    } else {
+      var like_id = $(this).data('id');
+      $('.confirmed ul li.like_' + like_id).remove();
+    }
     
     if (API.cookie('start-mes-listes')) {
       setTimeout(function(){ //wait 500ms for preference to be added
@@ -111,32 +130,30 @@ $(document).ready(function(){
               'scripts/user-start.js', 
               'notify callback', data, API.cookie('start-mes-listes').replace('queue', 'like')
             );
-            for (k in data.notifications) {
-              n = data.notifications[k];
-              console.log('scripts/user-start.js', 'notify', n);
-              UI.loadAlertUser(
-                n.title + (typeof n.title_episode != 'undefined' ? ' - ' + n.title_episode : ''), 
-                n.subtitle
-              );
-            }
+            // for (k in data.notifications) {
+            //   var n = data.notifications[k];
+            //   console.log('scripts/user-start.js', 'notify', n);
+            //   var titre = n.title + (typeof n.title_episode != 'undefined' ? ' - ' + n.title_episode : '');
+            //   var content = n.subtitle;
+            //   var complement_content = '';
+            //   if ($('.confirmed .results ul').length < 2) {
+            //     // console.log('scripts/user-start.js', 'notifs', 'comptabilisé');
+            //     if(Skhf.session.user){
+            //       if(Skhf.session.getNbPlaylists() < 1) {
+            //         complement_content = '<br/>Bravo, vous venez d\'ajouter un 1er favori à vos listes';
+            //       }
+            //     } else {
+            //       complement_content = '<br/>Bravo, vous venez d\'ajouter un 1er favori à vos listes';
+            //     }
+            //   }
+            //   content += complement_content;
+            //   console.log('scripts/user-start.js', 'alertUser', 'content', content);
+            //   UI.loadAlertUser(titre, content);
+            // }
         });
       }, 500);
     }
 
-    // populate confirmed div
-    if ($(this).hasClass('fav-on')) {
-      $('.no-results').addClass('hide');
-      $('.results').removeClass('hide');
-      
-      var like_id = $(this).data('id');
-      //console.log('scripts/user-start.js', 'like_id', like_id);
-      var like_title = $(this).parent('.suggest').children('a:not(.btn)').html();
-      //console.log('scripts/user-start.js', 'like-title', like_title);
-      $('.confirmed ul').append('<li class="suggest like_' + like_id + '">' + like_title + '</li>');
-    } else {
-      var like_id = $(this).data('id');
-      $('.confirmed ul li.like_' + like_id).remove();
-    }
   });
 
   //register
@@ -184,19 +201,19 @@ $(document).ready(function(){
     switch(step) {
       case 'persons':
         fav = 'person';
-      break;
+        break;
       case 'theaters':
         fav = 'cinema';
-      break;
+        break;
       case 'channels':
         fav = 'channel';
-      break;
+        break;
       case 'categories':
         fav = 'category';
-      break;
+        break;
       default:
         fav = 'like';
-      break;
+        break;
     }
     q = $(this).val(); //$(this).find('input[type=text]').val();
     if (q.length < 3 || q == null) {
@@ -227,8 +244,14 @@ $(document).ready(function(){
         container.empty();
         console.log('scripts/user-start.js', 'callback form', container);
         for (k in results) {
+          //console.log(results[k]);
+          if (container.selector.indexOf('films') != -1 || container.selector.indexOf('series') != -1) {
+            var type = 'films&series';
+          } else if (container.selector.indexOf('theaters') != -1) {
+            var type = 'theaters'
+          }
           title = typeof results[k].title != 'undefined' ? results[k].title : results[k].name;
-          container.append('<li class="row suggest"><a data-name="'+title+'" data-id="'+results[k].id+'" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' col-xs-1" data-step="'+step+'"></a><a data-trigger-click="a[data-id=\''+results[k].id+'\']"><span class="col-xs-7">' + title + '</span>' + (typeof results[k].has_vod != 'undefined' && results[k].has_vod > 0 ? '<span class="col-xs-4"><span class="label label-default">'+(dispos[results[k].has_vod])+'</span></span>' : '') + (typeof results[k].ville != 'undefined' ? '<span class="col-xs-4">'+results[k].ville+'</span>' : '') + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<span class="col-xs-4">suivi par  '+results[k].nb_followers+' personnes</span>' : '') + '</a></li>')
+          container.append('<li class="row suggest"><a data-name="'+title+'" data-id="'+results[k].id+'" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' col-xs-1" data-step="'+step+'"></a><a data-trigger-click="a[data-id=\''+results[k].id+'\']"><span class="col-xs-11">' + title + ((type == 'films&series' && typeof results[k].year != 'undefined') ? '<small> - ' + results[k].year + '</small>' : '') + ((type == 'theaters' && typeof results[k].ville != 'undefined') ? '<small> - '+results[k].ville+'</small>' : '') + '</span>' + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<span class="col-xs-4">suivi par  '+results[k].nb_followers+' personnes</span>' : '') + '</a></li>')
         }
     });
 
@@ -239,7 +262,7 @@ $(document).ready(function(){
   //geoloc onload
 	API.geolocation(function(position){
 		$('#results-theaters li.load').load(API.config.v3_root+'/cinema/search?latlng=' + position + ' #table-theaters', function(){
-      $('#table-theaters a[data-id]').attr('data-store-in-session', '1');
+      $('#table-theaters a[data-id]').attr('data-store-in-session', '1').attr('data-step', 'theaters');
       if (Skhf.session.user) {
         UI.loadPlaylistTriggers(
           'cinema', 
