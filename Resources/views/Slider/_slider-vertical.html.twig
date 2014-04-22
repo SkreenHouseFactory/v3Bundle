@@ -57,7 +57,7 @@
           {% endfor %}
         {% elseif popular_channel is defined and popular_channel %}
           {% set custom_l = custom_l + 1 %}
-          <a href="{{ path('any_url', {url: item.url|slice(1, item.url|length-1)}) }}">
+          <a {{ origin == 'fournisseur_replay' ? 'data-redirect="' ~ item.best_offer.url|replace({'/exit' : '/redirect'}) ~ '"' : 'href="' ~ path('any_url', {url: item.url|slice(1, item.url|length-1)}) ~ '"' }}>
               <div class="channel-program">
                 <div class="icon_chaine"> 
                   <img src="{{ popular_channel.img | replace({45:36}) }}" alt="regarder {{ popular_channel.name }} en replay">
