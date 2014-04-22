@@ -56,8 +56,16 @@ class toolsExtension extends \Twig_Extension
         'iso8601'=> new \Twig_Filter_Method($this, 'iso8601'),
         'html_entity_decode'=> new \Twig_Filter_Method($this, 'html_entity_decode'),
         'wordCut' => new \Twig_Filter_Method($this, 'wordCut'),
+        'striptagsAndRaw' => new \Twig_Filter_Method($this, 'striptagsAndRaw'),
       );
     }
+
+  // Striptags, raw, and slice
+  public function striptagsAndRaw($text){
+    $new_text = strip_tags($text);
+    $new_text = html_entity_decode($new_text);
+    return $new_text;
+  }
 
   // coupe le texte apres $limit caracteres sans couper les mots
   /*

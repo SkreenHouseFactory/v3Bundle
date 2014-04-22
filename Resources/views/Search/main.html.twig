@@ -27,7 +27,8 @@
             </div>
             <div id="collapsePack" class="panel-collapse collapse">
               <div class="panel-body">
-                <b>{{ pack.name }}</b> &nbsp; {{ pack.description ? pack.description|striptags|raw|slice(0,100)~'...' : '' }}
+                {% set description = pack.description ? pack.description|striptagsAndRaw : '' %}
+                <b>{{ pack.name }}</b> &nbsp; {{ description|wordCut(100,'...') }}
          &nbsp; 
                 <a class="btn btn-default" href="{{ path('any_url', {url: pack.seo_url|slice(1, pack.seo_url|length-1) }) }}">&raquo; Voir la sélection</a>
               </div>
