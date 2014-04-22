@@ -29,8 +29,7 @@ class ChannelCustomController extends Controller
   protected function channel28($data){
     $api   = $this->get('api');
     $params = array(
-     'with_player' => true,
-     'with_offers' => true,
+     'fields' => 'player,offers'
     );
     $program = $api->fetch('program/3517970', $params);
 
@@ -221,7 +220,8 @@ class ChannelCustomController extends Controller
 
   // Chaine Replay
   protected function channel70($data){
-    
+    $start = microtime(true);
+    //echo "\n l.".__LINE__.":".(microtime(true)-$start);
     //get replay
     $api   = $this->get('api');
     $programs_bientot_en_replay = $api->fetch('schedule/tvreplay', array(
@@ -234,7 +234,8 @@ class ChannelCustomController extends Controller
       'force_best_offer' => true,
       'with_best_offer' => true
     ));
-
+    //echo "\n l.".__LINE__.":".(microtime(true)-$start);
+    //echo $api->url;
     $programs_derniers_replay = $api->fetch('schedule/tvreplay', array(
       'date' => 'replay',
       //'tnt_only' => true,
@@ -244,6 +245,8 @@ class ChannelCustomController extends Controller
       'force_best_offer' => true,
       'with_best_offer' => true
     ));
+    //echo $api->url;
+    //echo "\n l.".__LINE__.":".(microtime(true)-$start);
     //echo $api->url;exit();
     $pack = array();
     foreach ($data->sliders as $key => $slider) {
@@ -267,7 +270,8 @@ class ChannelCustomController extends Controller
       'programs' => $programs_derniers_replay,
       'seo_url' => null
     );
-    
+
+    echo "\n l.".__LINE__.":".(microtime(true)-$start);
     $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:replay.html.twig', array(
       'data'=> (array)$data,
       'channel' => $data->channel,
@@ -377,7 +381,7 @@ class ChannelController extends ChannelCustomController
       'disable_search_by_format' => true,
       'sorter' => 'year',
       'preview' => $request->get('preview'),
-      'fields' => 'description,programs,img_maxsize,notifications'
+      'fields' => 'description,programs,img_maxsize,notifications,replay_epg_tnt_only'
     );
     $data = $api->fetch('channel'.($request->get('id')?'/'.$request->get('id'):null), $params);
     echo $request->get('debug') ? $api->url : null;
