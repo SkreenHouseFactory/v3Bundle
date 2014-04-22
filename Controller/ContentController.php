@@ -38,8 +38,9 @@ class ContentController extends Controller
       $api   = $this->get('api');
       $data = $api->fetch($is_route_format ? 'format' : 'category', array(
          'from_slug'  => str_replace('/', '', strlen($request->get('facet'))>1?$request->get('facet'):$request->get('category_slug')),
-         'fields' => 'description,programs,onglet,notifications',
+         'fields' => 'description,programs,onglet',
          //'with_subcategories' => true,
+         'with_notifications' => $request->get('page') ? false : true,
          'img_width' => 150,
          'img_height' => 200,
          'channel_img_width' => 60,
@@ -73,6 +74,10 @@ class ContentController extends Controller
         //return $this->redirect($data->seo_url, 301);
       }
 
+      if (!isset($data->notifications)) {
+        $data->notifications = array();
+      }
+
       $data->programs = (array)$data->programs;
       if (count($data->programs) == 0) {
         if (isset($data->root)) {
@@ -90,7 +95,8 @@ class ContentController extends Controller
           'replay'=> 'Replay', 
           'tv'=> 'TV', 
           'cinema'=> 'Cinéma', 
-          'dvd'=> 'Dvd, Blu-Ray'
+          'dvd'=> 'Dvd, Blu-Ray', 
+          'myskreen'=> 'Uniquement les vidéos et films visibles sur myskreen'
         ),
         'category' => $data,
         'formats' => array_combine(explode(';', $data->facets_seo_url->format),explode(';', $data->facets->format)),
@@ -238,10 +244,12 @@ class ContentController extends Controller
     protected function buildFacets(Request $request) {
       //echo '$facet:'.$request->get('facet');
       //echo '$route:'.$request->get('_route');
+      $access = array('video-a-la-demande', 'tv', 'replay', 'cinema', 'dvd', 'myskreen');
+      $access_index = array('vod', 'tv', 'catchup', 'cinema', 'dvd', 'myskreen');
       $facets = array();
       if (strlen($request->get('facet')) == 1) {
         $facets[] = 'alpha:' . $request->get('facet');
-      } elseif (in_array($request->get('facet'), array('video-a-la-demande', 'cinema'))) {
+      } elseif (in_array($request->get('facet'), $access)) {
         $facets[] = 'access:' . str_replace(array('video-a-la-demande'), array('vod'), $request->get('facet'));
       } elseif ($request->get('facet')) {
         if (in_array($request->get('_route'), array('channel_format_facet', 'channel_format_facet_page'))) {
@@ -255,8 +263,8 @@ class ContentController extends Controller
       }
       if ($request->get('access')) {
         $facets[] = 'access:' . str_replace(
-          array('video-a-la-demande', 'tv', 'replay', 'cinema', 'dvd'), 
-          array('vod', 'tv', 'catchup', 'cinema', 'dvd'), 
+          $access, 
+          $access_index, 
           $request->get('access')
         );
       }

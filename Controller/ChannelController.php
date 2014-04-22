@@ -434,7 +434,7 @@ class ChannelController extends ChannelCustomController
         unset($data->channel->fournisseur->facets);
         unset($data->channel->fournisseur->facets_seo_url);
       }
-    
+
       $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_fournisseur.html.twig', array(
         'data'=> $data,
         'fournisseur'=>$data->channel->fournisseur,
@@ -480,9 +480,22 @@ class ChannelController extends ChannelCustomController
   // Fournisseur
   public function fournisseurAction($data)
   {
-    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:fournisseur.html.twig', array(
-      'channel'=>$data
-    ));
+
+    $params = array(
+      'channel'=>$data,
+    );
+    if (property_exists($data, 'facets')) {
+      $params['formats'] = array_combine(explode(';', $data->facets_seo_url->format),explode(';', $data->facets->format));
+      $params['alpha_available'] = explode(';', $data->facets->alpha);
+      $params['alpha'] = array(
+        1,2,3,4,5,6,7,8,9,
+        'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
+      );
+      unset($data->facets);
+      unset($data->facets_seo_url);
+    }
+    //print_r($params);
+    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:fournisseur.html.twig', $params);
     $maxage = 300;
     $response->setPublic();
     $response->setMaxAge($maxage);
@@ -523,11 +536,13 @@ class ChannelController extends ChannelCustomController
         echo "\n".'redirect '.$data->seo_url;
         exit();
       }
+      header('Location: '.$data->seo_url, 301); //return doasn't work ??
       return $this->redirect($data->seo_url, 301);
     }
 
     if (isset($data->channel) && $request->get('slug') != $data->channel->slug) {
       // Alias du channel fourni
+      header('Location: /' . $data->channel->slug, 301); //return doasn't work ??
       return $this->redirect('/' . $data->channel->slug, 301);
     }
 
@@ -535,10 +550,12 @@ class ChannelController extends ChannelCustomController
 
   protected function buildFacets(Request $request) {
 
+    $access = array('video-a-la-demande', 'tv', 'replay', 'cinema', 'dvd', 'myskreen');
+    $access_index = array('vod', 'tv', 'catchup', 'cinema', 'dvd', 'myskreen');
     $facets = array();
     if (strlen($request->get('facet')) == 1) {
       $facets[] = 'alpha:' . $request->get('facet');
-    } elseif (in_array($request->get('facet'), array('video-a-la-demande', 'cinema'))) {
+    } elseif (in_array($request->get('facet'), $access)) {
       $facets[] = 'access:' . str_replace(array('video-a-la-demande'), array('vod'), $request->get('facet'));
     } elseif ($request->get('facet')) {
       if (in_array($request->get('_route'), array('channel_format_facet', 'channel_format_facet_page'))) {
@@ -552,12 +569,11 @@ class ChannelController extends ChannelCustomController
     }
     if ($request->get('access')) {
       $facets[] = 'access:' . str_replace(
-        array('video-a-la-demande', 'tv', 'replay', 'cinema', 'dvd'), 
-        array('vod', 'tv', 'catchup', 'cinema', 'dvd'), 
+        $access, 
+        $access_index, 
         $request->get('access')
       );
     }
     return implode(',', $facets);
   }
-
 }

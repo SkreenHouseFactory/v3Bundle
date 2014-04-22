@@ -1,3 +1,4 @@
+{% if app.request.get('page') < 2 %}
   <div class="bande_notifications nopadding">
     <div class="container">
       {% if btn_suivre is defined %}
@@ -25,3 +26,4 @@
       {% endif %}
     </div>
   </div>
+{% endif %}
