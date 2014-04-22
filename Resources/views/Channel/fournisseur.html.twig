@@ -67,20 +67,22 @@
         <br/>
       </div>
     {% else %}
-      <div class="container">
-      {#{ dump(app.request.attributes) }#}
-        <div class="row">
-          <div class="col-xs-16">
-            {% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: channel} %}
+      <div class="bande_fonce">
+        <div class="container">
+        {#{ dump(app.request.attributes) }#}
+          <div class="row">
+            <div class="col-xs-16">
+              {% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-fournisseur.html.twig' with {channel: channel} %}
+            </div>
           </div>
         </div>
       </div>
-      <div class="row {% if channel.live.player is defined %}with_live{% endif %}">
+      <div class="row {% if channel.live.player is defined %}with_live{% endif %} bande_fonce">
         <div class="container">
           <div class="row ms-channel-headtitle ">
             {# title #}
             {% if channel.img %}
-              <div class="col-xs-2"><img class="channel-logo inline-block" src="{{ channel.img }}" /></div>
+              <div class="col-xs-2"><img class="channel-logo inline-block" src="{{ channel.img|replace({'/45//': '/60/'}) }}" /></div>
             {% endif %}
             {% set page_h1_channel = 'page.h1.channel.' ~ (channel.type == 'broadcast' ? 'tv' : 'default') ~ (app.request.get('format') ? '_format' : null) %}
             <div class="col-xs-7">
@@ -175,29 +177,32 @@
       #}
       {% if channel.type != 'cinema' %}
         </div>
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {origin: 'cette chaîne', notifications: channel.notifications, title: 'Actualité des programmes ' ~ channel.name } %}
-        <div class="container">
         
         {% if (categories is defined and categories|length) or ( formats is defined and formats|length) %}
-        <hr/>
-        <div class="facets">
-          {% if categories is defined %}
-          {% if app.request.get('format') and app.request.get('facet') and app.request.get('page') %}
-            {% for k,s in channel.categories %}
-              <span data-link-to-replace="{{ path('channel_format_facet_page', {format: app.request.get('format'), slug: app.request.get('slug'), facet: app.request.get('facet'), page: app.request.get('page')})|rot13 }}" class="label label-default{% if app.request.get('facet') == k %} label-info{% endif %}">{{ s }}</span> 
-            {% endfor %}
-          {% elseif app.request.get('format') %}
-            {% for k,s in channel.categories if s is not null and k|length > 0 %}
-              <span data-link-to-replace="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k})|rot13 }}" class="label label-default{% if app.request.get('facet') == k %} label-info{% endif %}">{{ s }}</span> 
-            {% endfor %}
-          {% endif %}
-          {% else %}
-            {% for k,f in formats if k != '' %}
-              <span data-link-to-replace="{{ path('channel_format', {format: k, slug: app.request.get('slug')})|rot13 }}" class="pull-left badge{% if app.request.get('facet') == f %} badge-info{% endif %}">{{ f }}</span> 
-            {% endfor %}
-          {% endif %}
-        </div>
-      {% endif %}
+          <div class="bande_plus_fonce">
+            <div class="container">
+              <div class="facets">
+                {% if categories is defined %}
+                  {% if app.request.get('format') and app.request.get('facet') and app.request.get('page') %}
+                    {% for k,s in channel.categories %}
+                      <span data-link-to-replace="{{ path('channel_format_facet_page', {format: app.request.get('format'), slug: app.request.get('slug'), facet: app.request.get('facet'), page: app.request.get('page')})|rot13 }}" class="label label-default{% if app.request.get('facet') == k %} label-info{% endif %}">{{ s }}</span> 
+                    {% endfor %}
+                  {% elseif app.request.get('format') %}
+                    {% for k,s in channel.categories if s is not null and k|length > 0 %}
+                      <span data-link-to-replace="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k})|rot13 }}" class="label label-default{% if app.request.get('facet') == k %} label-info{% endif %}">{{ s }}</span> 
+                    {% endfor %}
+                  {% endif %}
+                {% else %}
+                  {% for k,f in formats if k != '' %}
+                    <span data-link-to-replace="{{ path('channel_format', {format: k, slug: app.request.get('slug')})|rot13 }}" class="pull-left label label-default{% if app.request.get('facet') == f %} label-info{% endif %}">{{ f }}</span> 
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {origin: 'cette chaîne', notifications: channel.notifications, title: 'Actualité des programmes ' ~ channel.name } %}
+        <div class="container">
       {% endif %}
       
       {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel-pager.html.twig' %}
