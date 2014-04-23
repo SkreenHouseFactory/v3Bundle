@@ -957,7 +957,6 @@ UI = {
       //Couchmode.init(args);
       
       Player.elmt = $('#player.default-player');
-      Player.playOccurrence(id, function(){}, args);
       if (Player.elmt.hasClass('default-player')) {
         Player.elmt.addClass('in');
         $('body').append('<div class="modal-backdrop modal-player in"></div>');
@@ -967,6 +966,7 @@ UI = {
           $('.modal-backdrop.modal-player').remove();
         })
       }
+      Skhf.Player = new Skhf.BasePlayer(Player.elmt.attr('id'), {playId: id});
     }
   },
   loadPlayer: function(trigger) {

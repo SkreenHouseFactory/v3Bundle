@@ -341,10 +341,14 @@ class ChannelController extends ChannelCustomController
       'img_width' => 150,
       'img_height' => 200,
       'skip_sliders' => true,
-      'with_replay' => 100
+      'with_replay' => 150
     );
     $data = $api->fetch('channel', $params);
     echo $request->get('debug') ? $api->url : null;
+
+    if (!$data->channel->fournisseur->programs_replay || count($data->channel->fournisseur->programs_replay) == 0) {
+      throw $this->createNotFoundException('No Replay for this channel');
+    }
 
     $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:derniers-replay.html.twig', array(
         'data' => $data,
