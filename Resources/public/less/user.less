@@ -153,7 +153,6 @@ body[class*='view-user_'] {
     opacity: 0.6;
     &+p {
       font-size: 1.2em;
-      font-weight: bold;
       opacity: 1;
     }
   }
@@ -190,3 +189,46 @@ body[class*='view-user_'] {
     }
   }
 }
+.view-user_programs, .view-user_persons, .view-user_theaters, .view-user_category {
+  .btn-danger:before {
+    font-size: 14px;
+  }
+  .pagination {
+    margin-top: 0;
+  }
+  #bandeau-listes + .container .nav {
+    margin-bottom: 20px;
+  }
+  #bandeau-listes {
+    .row {
+      &.user-on, &.auth {
+        >div {
+          padding-top: 10px;
+        }
+      }
+      &.descriptions {
+        >div {
+          padding-bottom: 5px;
+        }
+      }
+      .active, .col-users:hover {
+        background-color: white;
+        color: #333;
+        a {
+          color: #333;
+          span {
+            background-color: #428bca!important;
+            color: white!important;
+          }
+        }
+        p {
+          opacity: 1;
+        }
+      }
+      .col-users:hover {
+        background-color: #F2F9FF;
+      }
+    }
+  }
+}
+

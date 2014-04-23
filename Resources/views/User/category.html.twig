@@ -1,0 +1,44 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}{{ 'page.title.user.category'|trans }}{% endblock %}
+
+{% block pagescripts %}
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-persons.js'
+    filter='?yui_js' 
+    output='js/compiled/pages/user-persons.js'  %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
+{% block content %}
+  {% set count %}{{ categories|length }}{% endset %}
+  {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with {active: 'category' } %}
+
+  <div class="container">
+
+    <div id="view-user-categories">
+
+      {% if categories|length == 0 %}
+        <p class="bs-callout bs-callout-info">Vous ne suivez aucune catégorie. Utilisez le moteur de recherche pour ajouter les catégories de programmes que vous aimez.</p>
+      {% else %}
+        <p class="bs-callout bs-callout-info">Utilisez le moteur de recherche pour ajouter les catégories de programmes que vous aimez.</p>
+    
+        <table class="table table-striped">
+          {# {{ dump(categories) }} #}
+          {% for c in categories %}
+            <tr id="category-{{ c.id }}">
+              <td>
+                <div class="pull-right">
+                  <a class="btn btn-default" href="{{ path('any_url', {url: c.seo_url[1:c.seo_url|length-1]}) }}">Tous les programmes</a>&nbsp;
+                  {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: c.id, name: c.name, fav: (c.type == 'format+category' ? 'format-category' : 'category'), remove: '#category-' ~ c.id } %}
+                </div>
+                <strong>{{ c.name }}</strong><br/>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

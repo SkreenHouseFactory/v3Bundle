@@ -156,6 +156,9 @@ user_theaters:
 user_persons:
     pattern:  /user/persons/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:persons }
+user_category:
+    pattern:  /user/category/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:category }
 user_svod:
     pattern:  /user/svod/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:svod }
