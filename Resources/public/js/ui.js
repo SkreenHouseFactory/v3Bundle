@@ -957,10 +957,10 @@ UI = {
       //Couchmode.init(args);
       
       Player.elmt = $('#player.default-player');
+      Player.playOccurrence(id, function(){}, args);
       if (Player.elmt.hasClass('default-player')) {
         Player.elmt.addClass('in');
         $('body').append('<div class="modal-backdrop modal-player in"></div>');
-  
         $('.close', Player.elmt).on('click', function() {
           $('iframe', Player.elmt).remove();
           Player.elmt.removeClass('in');
