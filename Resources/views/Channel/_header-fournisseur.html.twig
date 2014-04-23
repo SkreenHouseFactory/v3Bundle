@@ -54,7 +54,7 @@
         <div class="col-xs-4">
           <div class="prog-list">
             {% if fournisseur.programs_replay is defined and fournisseur.programs_replay %}
-              {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live: fournisseur.programs_replay, name: 'Les Derniers replays', link: '', name_link: '', origin: 'fournisseur_replay', list_number: '1' } %}
+              {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live: fournisseur.programs_replay, name: 'Les Derniers replays', link: path('any_url', {url: channel.seo_url|slice(1, channel.seo_url|length-1) ~ 'derniers-replay/'}), name_link: 'Tous les derniers replays', origin: 'fournisseur_replay', list_number: '1' } %}
             {% else %}
               <h2>Les derniers Replays</h2>
               <p class="bs-callout bs-callout-info">Indisponible</p>

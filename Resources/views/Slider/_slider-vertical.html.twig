@@ -57,7 +57,15 @@
           {% endfor %}
         {% elseif popular_channel is defined and popular_channel %}
           {% set custom_l = custom_l + 1 %}
-          <a href="{{ path('any_url', {url: item.url|slice(1, item.url|length-1)}) }}">
+          {% if origin == 'fournisseur_replay' %}
+            {% if item.deporte is defined and item.deporte %}
+              <a data-play-iframe="{{ item.best_offer.id }}">
+            {% else %}
+              <a data-redirect="{{ item.best_offer.url|replace({'/exit' : '/redirect'}) }}">
+            {% endif %}
+          {% else %}
+            <a href="{{ path('any_url', {url: item.url|slice(1, item.url|length-1)}) }}">
+          {% endif %}
               <div class="channel-program">
                 <div class="icon_chaine"> 
                   <img src="{{ popular_channel.img | replace({45:36}) }}" alt="regarder {{ popular_channel.name }} en replay">

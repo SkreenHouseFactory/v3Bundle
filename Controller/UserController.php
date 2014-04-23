@@ -209,6 +209,37 @@ class UserController extends Controller
     /**
     *
     */
+    public function categoryAction(Request $request)
+    {
+      $session_uid = $request->cookies->get('myskreen_session_uid');
+      if (!$session_uid) {
+        return $this->redirect('http://www.myskreen.com');
+      }
+
+      $api = $this->get('api');
+      $params = array(
+        'session_uid' => $session_uid
+      );
+
+      $categories = $api->fetch('category', $params);
+      //echo $api->url;
+      //print_r($programs);
+      //print_r($persons);exit();
+      //get relationtype filters
+
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:category.html.twig', array(
+        'categories' => $categories
+      ));
+
+      $response->setPrivate();
+      $response->setMaxAge(0);
+
+      return $response;
+    }
+
+    /**
+    *
+    */
     public function theatersAction(Request $request)
     {
       $session_uid = $request->cookies->get('myskreen_session_uid');

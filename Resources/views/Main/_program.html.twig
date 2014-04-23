@@ -1,51 +1,51 @@
 {% set base_url = app.environment == 'prod' and ('www.myskreen.com' not in app.request.uri or '/partners/' in app.request.uri) ? 'http://www.myskreen.com' : (app.environment == 'dev' ? '/app_dev.php' : '') %}
 
 {% if p is not defined or p.title is not defined %}
-	{% set p = {title:'%title%',
-	id:'%id%',
-	picture:'',
-	onglet:'%onglet%',
-	seo_url:'',
-	root_id:'',
-	has_vod:'%has_vod%',
-	best_offer:'',
-	deporte:''} %}
+  {% set p = {title:'%title%',
+  id:'%id%',
+  picture:'',
+  onglet:'%onglet%',
+  seo_url:'',
+  root_id:'',
+  has_vod:'%has_vod%',
+  best_offer:'',
+  deporte:''} %}
 {% endif %}
 
 {% if p.episodeof is defined and ' - ' in p.title%}
-	{% set tmp = p.title|replace({(p.episodeof.title) ~ ' - ': '' }) %}
-	{% set p_title = tmp ~ ' / ' ~ p.episodeof.title %}
+  {% set tmp = p.title|replace({(p.episodeof.title) ~ ' - ': '' }) %}
+  {% set p_title = tmp ~ ' / ' ~ p.episodeof.title %}
 {% else %}
-	{% set p_title = p.title %}
+  {% set p_title = p.title %}
 {% endif %}
 
 <li class="actions hasvod-{{ p.has_vod }} image-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}} root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background:url({{ p.picture }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}{% if origin is defined and origin == 'boxoffice' %} itemprop="about" itemscope itemtype="http://schema.org/Movie"{% endif %}{% if origin is defined and origin == 'person' %} itemprop="performerIn" itemscope itemtype="http://schema.org/Movie"{% endif %}>
-	{{ header is defined ? header|raw : '' }}
-	{% if origin is defined and (origin == 'boxoffice' or origin == 'person') %}
-		{% if p.picture %}<meta itemprop="image" content="{{ p.picture }}"/>{% endif %}
-		{% if p.seo_url %}<meta itemprop="url" content="http://www.myskreen.com{{ p.seo_url }}"/>{% endif %}
-		{% if p.year %}<meta itemprop="copyrightYear" content="{{ p.year }}"/>{% endif %}
-	{% endif %}
+  {{ header is defined ? header|raw : '' }}
+  {% if origin is defined and (origin == 'boxoffice' or origin == 'person') %}
+    {% if p.picture %}<meta itemprop="image" content="{{ p.picture }}"/>{% endif %}
+    {% if p.seo_url %}<meta itemprop="url" content="http://www.myskreen.com{{ p.seo_url }}"/>{% endif %}
+    {% if p.year %}<meta itemprop="copyrightYear" content="{{ p.year }}"/>{% endif %}
+  {% endif %}
   <div class="tv-component">
-		{% if p.popular_channel is defined %}
-		<img class="channel{% if p.popular_channel.name == 'mySkreen' %} hide{% endif %}" src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" width="60" />
-		{% endif %}
-		<a {% if p.seo_url %} href="{{ base_url }}{{ p.seo_url }}{{ theater_id is defined and theater_id > 0 ? '?theater_id=' ~ theater_id : '' }}" target="_top"{% endif %} class="wrap-title size-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}}">
-		<span class="title">
-      {% if p.best_offer is defined and p.best_offer %}
-      <span class="ms-prog-diff">sur {{ p.best_offer.channel.name }}<br>{{ p.best_offer.broadcastdate|replace({' à ': '<br/>'})|raw }}</span>
-      {% endif %}
-			{% if p.deporte is defined and p.deporte %}
-			<span class="label label-default ico-deporte">
-				<i class="glyphicon glyphicon-play"></i><span>sur mySkreen</span>
-			</span>
-			{% endif %}
-			<i class="icon-th icon-white"></i>
-			<span class="ms-prog-title"{% if origin is defined and (origin == 'boxoffice' or origin == 'person') %} itemprop="name"{% endif %}>{{ p_title|raw }} </span>
-			<span class="ms-prog-desc">  {% if p.format.name is defined %} {{ p.format.name|raw }}{% endif %}  {% if p.duration is defined and p.duration !="" %}, {% if origin is defined and (origin == 'boxoffice' or origin == 'person') %}<time itemprop="duration" datetime="PT{{ (p.duration * 60 - 3600)|date('H-i')|replace({"-":"H"}) }}M"></time>{% endif %}{{ p.duration|raw }} min {% endif %} </span>
+    {% if p.popular_channel is defined %}
+      <img class="channel{% if p.popular_channel.name == 'mySkreen' %} hide{% endif %}" src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" width="{{ origin is defined and origin == 'last-replay' ? 45 : 60}}" />
+    {% endif %}
+    <a{% if origin is defined and origin == 'last-replay' and p.best_offer is defined and p.best_offer %}{% if p.best_offer.deporte is defined and p.best_offer.deporte %} data-play="{{ p.best_offer.id }}"{% else %} data-redirect="{{ p.best_offer.url|replace({'/exit' : '/redirect'}) }}"{% endif %}{% elseif p.seo_url %} href="{{ base_url }}{{ p.seo_url }}{{ theater_id is defined and theater_id > 0 ? '?theater_id=' ~ theater_id : '' }}" target="_top"{% endif %} class="wrap-title size-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}}">
+      <span class="title">
+        {% if p.best_offer is defined and p.best_offer %}
+          <span class="ms-prog-diff">sur {{ p.best_offer.channel.name }}<br>{{ p.best_offer.broadcastdate|replace({' à ': '<br/>'})|raw }}</span>
+        {% endif %}
+        {% if p.deporte is defined and p.deporte %}
+          <span class="label label-default ico-deporte">
+            <i class="glyphicon glyphicon-play"></i><span>sur mySkreen</span>
+          </span>
+        {% endif %}
+        <i class="icon-th icon-white"></i>
+        <span class="ms-prog-title"{% if origin is defined and (origin == 'boxoffice' or origin == 'person') %} itemprop="name"{% endif %}>{{ p_title|raw }} </span>
+        <span class="ms-prog-desc">  {% if p.format.name is defined %} {{ p.format.name|raw }}{% endif %}  {% if p.duration is defined and p.duration !="" %}, {% if origin is defined and (origin == 'boxoffice' or origin == 'person') %}<time itemprop="duration" datetime="PT{{ (p.duration * 60 - 3600)|date('H-i')|replace({"-":"H"}) }}M"></time>{% endif %}{{ p.duration|raw }} min {% endif %} </span>
       </span>
-			<br>
-		</span>
-		</a>
+      <br>
+    </span>
+    </a>
   </div>
 </li>

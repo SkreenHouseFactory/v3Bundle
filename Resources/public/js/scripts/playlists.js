@@ -8,8 +8,15 @@ $(document).ready(function(){
     //mes listes
     if ($('#bandeau-listes').length) {
       $('#bandeau-listes .auth.titres > div').each(function(){
-        var ids = Skhf.session.getPlaylistIds($(this).data('fav'))
-        $(this).find('.badge').html(Object.keys(ids).length);
+        if($(this).data('fav') == 'category') {
+          var nb = Object.keys(Skhf.session.getPlaylistIds('category')).length + Object.keys(Skhf.session.getPlaylistIds('format-category')).length;
+          $(this).find('.badge').html(nb);
+        } else {
+          var ids = Skhf.session.getPlaylistIds($(this).data('fav'));
+          // console.log('scripts/playlists.js', 'bandeau-listes', 'ids', Object.keys(ids));
+          $(this).find('.badge').html(Object.keys(ids).length);
+        }
+        // console.log('scripts/playlists.js', 'bandeau-listes', $(this));
         // console.log('scripts/playlists.js', 'number of each playlists', Object.keys(ids).length);
       })
     }
