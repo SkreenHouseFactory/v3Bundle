@@ -30,31 +30,34 @@
 
 {% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
-{% block body_class %}view-fournisseur view-fournisseur-{{ channel.type }}{% endblock %}
+{% block body_class %}view-fournisseur view-fournisseur-{{ channel.type }} last-replay{% endblock %}
 
 {% block content %}
-<div class="container">
-  <ul class="breadcrumb">
-    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }}</span></a></li>
-    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">Derniers Replays</span></li>
-  </ul>
-  
-  <h1>{{ channel.name }}</h1>
-    <div class="slider slider-list">
-    <ul class="items">
-    {% set current_date = '' %}
-    {% for p in channel.fournisseur.programs_replay|to_array %}
-      {% if current_date != p.best_offer.broadcasttime|localizeddate('full', 'none') %}
-        </ul>
-      </div>
-      <h2>{{ p.best_offer.broadcasttime|localizeddate('full', 'none') }}</h2>
-      <div class="slider slider-list">
-        <ul class="items">
-      {% endif %}
-      {% set current_date = p.best_offer.broadcasttime|localizeddate('full', 'none') %}
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p} %}
-    {% endfor %}
+  <div class="container">
+    <ul class="breadcrumb">
+      <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }}</span></a></li>
+      <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">Derniers Replays</span></li>
     </ul>
+    <div class="clearfix">
+      <img src="{{ channel.fournisseur.img|replace({"/45//": '/45/'}) }}"/>
+      <h1>Les derniers replays sur {{ channel.name }}</h1>
+      <div class="bs-callout bs-callout-info">Tous les derniers replays disponibles en seul clic</div>
+    </div>  
+    <div class="slider slider-list">
+      <ul class="items">
+        {% set current_date = '' %}
+        {% for p in channel.fournisseur.programs_replay|to_array %}
+          {% if current_date != p.best_offer.broadcasttime|localizeddate('full', 'none') %}
+            </ul>
+          </div>
+          <h2>{{ p.best_offer.broadcasttime|localizeddate('full', 'none') }}</h2>
+          <div class="slider slider-list">
+            <ul class="items">
+          {% endif %}
+          {% set current_date = p.best_offer.broadcasttime|localizeddate('full', 'none') %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, origin: 'last-replay'} %}
+        {% endfor %}
+      </ul>
+    </div>
   </div>
-</div>
 {% endblock %}
