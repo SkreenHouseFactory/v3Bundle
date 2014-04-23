@@ -953,8 +953,20 @@ UI = {
     if (typeof args.current_player != 'undefined' && args.current_player) {
       Player.playOccurrence(id, function(){}, args);
     } else {
-      var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid, hide_sliders: 1}, args);
-      Couchmode.init(args);
+      //var args = $.extend({type: 'occurrence', id: id, session_uid: Skhf.session.uid, hide_sliders: 1}, args);
+      //Couchmode.init(args);
+      
+      Player.elmt = $('#player.default-player');
+      if (Player.elmt.hasClass('default-player')) {
+        Player.elmt.addClass('in');
+        $('body').append('<div class="modal-backdrop modal-player in"></div>');
+  
+        $('.close', Player.elmt).on('click', function() {
+          $('iframe', Player.elmt).remove();
+          Player.elmt.removeClass('in');
+          $('.modal-backdrop.modal-player').remove();
+        })
+      }
     }
   },
   loadPlayer: function(trigger) {
