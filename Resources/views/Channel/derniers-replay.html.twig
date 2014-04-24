@@ -3,45 +3,35 @@
 {% set format_trans = 'format.singulier.' ~ app.request.get('format') %}
 {% set formats_trans = 'format.pluriel.' ~ app.request.get('format') %}
 {% block meta %}
-  {% if channel.programs|length < 6 or app.request.get('page') and (channel.type is not defined or channel.type != "cinema") %}
-    <meta name="robots" content="noindex,follow" />
-  {% endif %}
-  <meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ channel.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}" />
-  <meta property="og:description" content="{{ channel.description|striptags }}" />
-  {% if channel.type is defined and channel.type == "cinema" %}
-    <meta property="og:type" content="place" />
-  {% else %}
-    <meta property="og:type" content="channel" />
-  {% endif %}
-  {% if channel.lat is defined and channel.lng is defined %}
-    <meta property="place:location:latitude"  content="{{channel.lat}}"> 
-    <meta property="place:location:longitude" content="{{channel.lng}}"> 
-    <meta property="place:location:altitude"  content="42">
-  {% endif %}
-  <meta property="og:url" content="http://www.myskreen.com/{{ channel.seo_url }}" />
-  {% if channel.picture %}
-    <meta property="og:image" content="{{ channel.picture }}" />
-    <link rel="image_src" href="{{ channel.picture }}" />
+  <meta property="og:title" content="{{ channel.name }} : derniers replays" />
+  <meta property="og:description" content="Retrouvez tous les derniers replays disponibles actuellement sur {{ channel.name }}, gratuitement en 1 seul clic." />
+  <meta property="og:type" content="channel" />
+  <meta property="og:url" content="http://www.myskreen.com{{ channel.seo_url }}derniers-replay/" />
+  {% if channel.img is defined and channel.img %}
+    <meta property="og:image" content="{{ channel.img }}" />
+    <link rel="image_src" href="{{ channel.img }}" />
   {% endif %}
   <meta name="object_type" content="channel" />
 {% endblock %}
 
-{% block title %}{{ channel.name }} : derniers replay{%- endblock %}
+{% block title %}{{ channel.name }} : derniers replays{%- endblock %}
 
-{% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
+{% block description %}Retrouvez tous les derniers replays disponibles actuellement sur {{ channel.name }}, gratuitement en 1 seul clic.{% endblock %}
 
 {% block body_class %}view-fournisseur view-fournisseur-{{ channel.type }} last-replay{% endblock %}
 
 {% block content %}
   <div class="container">
     <ul class="breadcrumb">
-      <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }}</span></a></li>
-      <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">Derniers Replays</span></li>
+      <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" itemref="md-child"><a itemprop="url" href="{{ path('any_url', {url: channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }}</span></a></li>
+      <li id="md-child" itemprop="child" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">Derniers Replays</span></li>
     </ul>
-    <div class="clearfix">
-      <img src="{{ channel.fournisseur.img|replace({"/45//": '/45/'}) }}"/>
-      <h1>Les derniers replays sur {{ channel.name }}</h1>
-      <div class="bs-callout bs-callout-info">Tous les derniers replays disponibles en seul clic</div>
+    <div itemscope itemtype="http://schema.org/BroadcastService" class="clearfix">
+      <meta itemprop="name" content="{{ channel.name }} - Replay"/>
+      <meta itemprop="url" content="http://www.myskreen.com{{ channel.seo_url }}derniers-replay/"/>
+      <img itemprop="image" src="{{ channel.fournisseur.img|replace({"/45//": '/45/'}) }}"/>
+      <h1 itemprop="broadcaster" itemscope itemtype="http://schema.org/Organization">Les derniers replays sur <span itemprop="name">{{ channel.name }}</span></h1>
+      <div itemprop="description" class="bs-callout bs-callout-info">Tous les derniers replays disponibles en seul clic</div>
     </div>  
     <div class="slider slider-list">
       <ul class="items">
