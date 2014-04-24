@@ -271,7 +271,7 @@ class ChannelCustomController extends Controller
       'seo_url' => null
     );
 
-    echo "\n l.".__LINE__.":".(microtime(true)-$start);
+    // echo "\n l.".__LINE__.":".(microtime(true)-$start);
     $response = $this->render('SkreenHouseFactoryV3Bundle:ChannelCustom:replay.html.twig', array(
       'data'=> (array)$data,
       'channel' => $data->channel,
