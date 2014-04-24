@@ -12,7 +12,7 @@ body.view-user_start {
   }
   #bandeau-listes {
     margin-bottom: 200px;
-    height: 750px;
+    height: 640px;
     .container {
       text-align: center;
       margin-top: 0;
@@ -28,47 +28,47 @@ body.view-user_start {
         margin-left: -275px;
       }
       #intro-ligne-one {
-        width: 200px;
+        width: 175px;
         left: 50%;
         top: 105px;
-        margin-left: -255px;
-        height: 100px;
+        margin-left: -225px;
+        height: 80px;
         border-right: 5px solid white;
         border-bottom: 5px solid white;
         border-bottom-right-radius: 50px;
       }
       #intro-step-two {
-        width: 225px;
-        top: 177px;
+        width: 247px;
+        top: 145px;
         left: 10px;
       }
       #intro-ligne-two {
         width: 500px;
         left: 121px;
-        top: 230px;
-        height: 100px;
+        top: 225px;
+        height: 85px;
         border-left: 5px solid white;
         border-bottom: 5px solid white;
         border-bottom-left-radius: 50px;
       }
       #intro-step-three {
-        width: 160px;
-        right: 180px;
-        top: 280px;
+        width: 210px;
+        right: 130px;
+        top: 255px;
       }
       #intro-ligne-three {
         width: 155px;
-        right: 255px;
-        top: 380px;
+        right: 230px;
+        top: 355px;
         height: 65px;
         border-right: 5px solid white;
         border-bottom: 5px solid white;
         border-bottom-right-radius: 50px;      
       }
       #intro-ligne-four {
-        width: 70px;
-        right: 405px;
-        top: 440px;
+        width: 90px;
+        right: 385px;
+        top: 415px;
         height: 55px;
         border-top: 5px solid white;
         border-left: 5px solid white;
@@ -76,7 +76,7 @@ body.view-user_start {
       }
       a {
         position: absolute;
-        top: 500px;
+        top: 480px;
         left: 50%;
         margin-left: -100px;
         background-color: white;
@@ -123,7 +123,7 @@ body.view-user_start {
       top:0;
       left:0;
       z-index: -1;
-      margin-top: 370px;
+      margin-top: 300px;
     }
     ul.timeline {
       width: 200px;
@@ -324,6 +324,10 @@ body.view-user_start {
                 font-family: 'Raleway';
               }
             }
+            ul li.suggest {
+              padding-left: 50px;
+              padding-right: 50px;
+            }
           }
           ul {
             list-style: none;
@@ -367,10 +371,6 @@ body.view-user_start {
                     font-size: 12px;
                     padding-top: 6px;
                   }
-                  &.fav-cinema {
-                    float: left !important;
-                    margin-right: 10px;
-                  }
                 }
                 &:hover {
                   cursor: pointer;
@@ -387,6 +387,14 @@ body.view-user_start {
                   /*a[data-id], small {
                     visibility: visible;
                   }*/
+                }
+              }
+              tr {
+                a[data-id] {
+                  &.fav-cinema {
+                    float: left !important;
+                    margin-right: 10px;
+                  }
                 }
               }
               span.col-xs-11 {

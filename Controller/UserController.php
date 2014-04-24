@@ -58,11 +58,11 @@ class UserController extends Controller
           8 => array('title' => 'George Clooney', 'id' => 5129261),
         ),
         'categories' => array(
-          0 => array('title' => 'Séries coréennes', 'id' => 5679132),
-          1 => array('title' => 'Films d\'horreur', 'id' => 5553250),
-          2 => array('title' => 'Tennis', 'id' => 5553250),
-          3 => array('title' => 'Actualité', 'id' => 5553250),
-          4 => array('title' => '...', 'id' => 5553250)
+          0 => array('title' => 'Comédie dramatique', 'id' => 18),
+          1 => array('title' => 'Horreur', 'id' => 902),
+          2 => array('title' => 'Tennis', 'id' => 427),
+          3 => array('title' => 'Journal télévisé', 'id' => 907),
+          4 => array('title' => 'Séries américaines', 'id' => 1681)
       ));
 
       //Tri dans le pack populaires pour ne garder que les émissions

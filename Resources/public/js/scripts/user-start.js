@@ -51,7 +51,7 @@ $(document).ready(function(){
   $('.forms-container').scrollspy({ target: '.navbar-vertical' });
   $('.timeline').affix({
     offset: {
-      top: 950, 
+      top: 840, 
       bottom: 250
     }
   });
@@ -105,7 +105,8 @@ $(document).ready(function(){
       var like_id = $(this).data('id');
       //console.log('scripts/user-start.js', 'like_id', like_id);
       if ($(this).data('step') == 'theaters') {
-        var like_title = '<span class="col-xs-11">' + $(this).data('channel-name') + '</span>';
+        var like_name = ( typeof($(this).data('channel-name')) != 'undefined' ? $(this).data('channel-name') : $(this).data('name') );
+        var like_title = '<span class="col-xs-11">' + like_name + '</span>';
       } else {
         var like_title = $(this).parent('.suggest').children('a:not(.btn)').html();
       }
