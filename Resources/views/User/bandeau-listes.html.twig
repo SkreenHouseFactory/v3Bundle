@@ -6,7 +6,7 @@
           <div class="col-xs-16">
             <a class="auth">
               <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/programs.png')}}">
-              <p class="sk-font">Vos programmes</p>
+              <p class="sk-font">Mes programmes</p>
             </a>
           </div>
         </div>
@@ -14,7 +14,7 @@
           <div class="col-xs-16" data-fav="like">
             <a href="{{ path('user_programs') }}">
               <span class="badge{{ (active is defined and active == 'programs') ? '' : ' bg-white grey' }}">&nbsp;</span>
-              <p class="sk-font">Vos programmes</p>
+              <p class="sk-font">Mes programmes</p>
             </a>
           </div>
         </div>
@@ -31,7 +31,7 @@
           <div class="col-xs-16" data-fav="channel">
             <a class="auth">
               <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/channel.png')}}">
-              <p class="sk-font">Vos chaînes</p>
+              <p class="sk-font">Mes chaînes</p>
             </a>
           </div>
         </div>
@@ -39,7 +39,7 @@
           <div class="col-xs-16" data-fav="channel">
             <a href="{{ path('user_channels') }}">
               <span class="badge{{ (active is defined and active == 'channel') ? '' : ' bg-white grey' }}">&nbsp;</span>
-              <p class="sk-font">Vos chaînes</p>
+              <p class="sk-font">Mes chaînes</p>
             </a>
           </div>
         </div>
@@ -56,7 +56,7 @@
           <div class="col-xs-16" data-fav="cinema">
             <a class="auth">
               <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/cinema.png')}}">
-              <p class="sk-font">Vos cinémas</p>
+              <p class="sk-font">Mes cinémas</p>
             </a>
           </div>
         </div>
@@ -64,14 +64,14 @@
           <div class="col-xs-16" data-fav="cinema">
             <a href="{{ path('user_theaters') }}">
               <span class="badge{{ (active is defined and active == 'theaters') ? '' : ' bg-white grey' }}">&nbsp;</span>
-              <p class="sk-font">Vos cinémas</p>
+              <p class="sk-font">Mes cinémas</p>
             </a>
           </div>
         </div>
         <div class="row descriptions">
           <div class="col-xs-16" data-fav="cinema">
             <a{% if 'user' not in app.request.uri %} class="auth"{% else %} href="{{ path('user_theaters') }}"{% endif %}>
-              <p class="sk-font">La programmation des salles près de chez vous</p>
+              <p class="sk-font">La programmation des salles près de chez moi</p>
             </a>
           </div>
         </div>
@@ -81,7 +81,7 @@
           <div class="col-xs-16" data-fav="person">
             <a class="auth">
               <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/oscar.png')}}">
-              <p class="sk-font">Vos personnalités</p>
+              <p class="sk-font">Mes personnalités</p>
             </a>
           </div>
         </div>
@@ -89,7 +89,7 @@
           <div class="col-xs-16" data-fav="person">
             <a href="{{ path('user_persons') }}">
               <span class="badge{{ (active is defined and active == 'persons') ? '' : ' bg-white grey' }}">&nbsp;</span>
-              <p class="sk-font">Vos personnalités</p>
+              <p class="sk-font">Mes personnalités</p>
             </a>
           </div>
         </div>
@@ -106,7 +106,7 @@
           <div class="col-xs-16" data-fav="category">
             <a class="auth">
               <img src="{{ asset('bundles/skreenhousefactoryv3/images/icons/category.png')}}"/>
-              <p class="sk-font">Vos catégories</p>
+              <p class="sk-font">Mes catégories</p>
             </a>
           </div>
         </div>
@@ -114,7 +114,7 @@
           <div class="col-xs-16" data-fav="category">
             <a href="{{ path('user_category') }}">
               <span class="badge{{ (active is defined and active == 'category') ? '' : ' bg-white grey' }}">&nbsp;</span>
-              <p class="sk-font">Vos catégories</p>
+              <p class="sk-font">Mes catégories</p>
             </a>
           </div>
         </div>
