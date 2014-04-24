@@ -14,9 +14,9 @@
           </div>
         </div>
         <div class="col-xs-8">
-          <h1 data-channel="{{ channel.name }}" data-channel-slug="{{ slug }}">
+          <div id="fake_h1" data-channel="{{ channel.name }}" data-channel-slug="{{ slug }}">
             {{ channel.name }} : le Direct
-          </h1>
+          </div>
           <div>
             
               {% if fournisseur.live.player is defined %}

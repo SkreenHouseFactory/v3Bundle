@@ -10,14 +10,14 @@
   <div id="bandeau-listes">
     <div class="container">
       <h1>Créer Mes listes</h1>
-      <p id="intro-step-one" class="sk-font">Avec myskreen, vous pouvez retrouver les programmes (ciné, TV), acteurs, réalisateurs, salles de cinémas... que vous aimez !</p>
+      <p id="intro-step-one" class="sk-font">vous permet de suivre les programmes, acteurs, réalisateurs, salles de cinémas et catégories que vous aimez !</p>
       <div id="intro-ligne-one" class="intro-ligne"></div>
-      <p id="intro-step-two" class="sk-font">Vous pouvez les ajoutez à vos listes de notifications.</p>
+      <p id="intro-step-two" class="sk-font">Un programme correspondant à vos listes est diffusé ? <br/>myskreen vous le signale !</p>
       <div id="intro-ligne-two" class="intro-ligne"></div>
-      <p id="intro-step-three" class="sk-font">A la prochaine diffusion ou actualité vidéo, vous êtes averti !</p>
+      <p id="intro-step-three" class="sk-font">myskreen est le seul guide qui réunit la Télé, le Replay, la VOD, les Web TV et le Cinéma !</p>
       <div id="intro-ligne-three" class="intro-ligne"></div>
       <div id="intro-ligne-four" class="intro-ligne"></div>
-      <a href="#films" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-circle-arrow-right"></span> Commencer vos listes</a>
+      <a href="#films" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-circle-arrow-down"></span> Commencer Mes listes</a>
     </div>
   </div>
   <div class="fond-bleu">
@@ -25,13 +25,13 @@
     <div class="container">
       <div class="navbar-vertical col-xs-5">
         <ul class="nav timeline sk-font">
-          <li><a href="#films">Vos films <span id="count-films" class="badge">0</span></a></li>
-          <li><a href="#emissions">Vos émissions <span id="count-emissions" class="badge">0</span></a></li>
-          <li><a href="#series">Vos séries <span id="count-series" class="badge">0</span></a></li>
-          <li><a href="#persons">Vos personnalités <span id="count-persons" class="badge">0</span></a></li>
-          <li><a href="#theaters">Vos salles de cinéma <span id="count-theaters" class="badge">0</span></a></li>
-          <li><a href="#categories">Vos catégories<span id="count-categories" class="badge">0</span></a></li>
-          {#<li><a href="#channels">Chaînes <span id="count-channels" class="badge">0</span></a></li>#}
+          <li><a href="#films">Mes films <span id="count-films" class="badge">0</span></a></li>
+          <li><a href="#emissions">Mes émissions <span id="count-emissions" class="badge">0</span></a></li>
+          <li><a href="#series">Mes séries <span id="count-series" class="badge">0</span></a></li>
+          <li><a href="#persons">Mes personnalités <span id="count-persons" class="badge">0</span></a></li>
+          <li><a href="#theaters">Mes cinémas <span id="count-theaters" class="badge">0</span></a></li>
+          <li><a href="#categories">Mes catégories<span id="count-categories" class="badge">0</span></a></li>
+          {#<li><a href="#channels">Mes Chaînes <span id="count-channels" class="badge">0</span></a></li>#}
           <li class="confirm"><a href="#confirm">Enregistrer</a></li>
         </ul>
       </div>
@@ -39,37 +39,37 @@
         <div class="relative">
           <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#emissions']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Fini ? Passez aux émissions que vous ne voulez pas rater !</a>
           <div class="form-container">
-            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'films', title: 'Quels sont les films qui vous plaisent ?', placeholder: 'Avengers, Intouchables...', suggests: selection_pack.films.programs} %}
+            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'films', title: 'Quels sont les films qui vous plaisent ?', placeholder: 'Avengers, Intouchables...', suggests: selection_pack.films.programs, favlike: 'fav-like'} %}
           </div>
         </div>
         <div class="relative">
           <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#series']"><span class="glyphicon glyphicon-circle-arrow-right"></span> On continue ? Ajoutez les séries que vous suivez !</a>
           <div class="form-container">
-            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'emissions', title: 'Une émission manquée ? Ajoutez-la...', placeholder: 'The Voice, Le Petit Journal...', suggests: selection_pack.emissions.programs} %}
+            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'emissions', title: 'Une émission manquée ? Ajoutez-la...', placeholder: 'The Voice, Le Petit Journal...', suggests: selection_pack.emissions.programs, favlike: 'fav-like'} %}
           </div>
         </div>
         <div class="relative">
           <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#persons']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Fan d'un acteur, d'un réalisateur ? Par ici !</a>
           <div class="form-container">
-            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'series', title: 'Retrouvez et sélectionnez vos séries fétiches...', placeholder: 'How I Met Your Mother, House of Cards...', suggests: selection_pack.series.programs} %}
+            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'series', title: 'Retrouvez et sélectionnez vos séries fétiches...', placeholder: 'How I Met Your Mother, House of Cards...', suggests: selection_pack.series.programs, favlike: 'fav-like'} %}
           </div>
         </div>
         <div class="relative">
           <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#theaters']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Vous aimez les salles ? Ajoutez les cinémas près de chez vous !</a>
           <div class="form-container">
-            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'persons', title: 'Toutes vos personnalités préférées à suivre...', placeholder: 'Leonardo DiCaprio, Steven Spielberg...', suggests: selection_pack.persons} %}
+            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'persons', title: 'Toutes vos personnalités préférées à suivre...', placeholder: 'Leonardo DiCaprio, Steven Spielberg...', suggests: selection_pack.persons, favlike: 'fav-person'} %}
           </div>
         </div>
         <div class="relative">
           <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#categories']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Plutôt "Cht'i" ou "Superman" ? Ou les deux ?</a>
           <div class="form-container">
-            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'theaters', title: 'Quels sont les écrans que vous fréquentez ?', placeholder: 'Marseille, 75014, Le Palace...', suggests: null} %}
+            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'theaters', title: 'Quels sont les écrans que vous fréquentez ?', placeholder: 'Marseille, 75014, Le Palace...', suggests: null, favlike: 'fav-cinema'} %}
           </div>
         </div>
         <div class="relative">
           <a class="btn btn-default btn-primary btn-lg user-off" data-trigger-click="a[href='#confirm']"><span class="glyphicon glyphicon-circle-arrow-right"></span> Terminé ! Vous n'avez plus qu'à enregistrez vos listes</a>
           <div class="form-container">
-            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'categories', title: 'Choisissez les catégories de programmes qui vous ressemblent...', placeholder: 'séries US, comédies dramatiques, téléréalités...', suggests: selection_pack.categories} %}
+            {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'categories', title: 'Choisissez les catégories de programmes qui vous ressemblent...', placeholder: 'séries US, comédies dramatiques, téléréalités...', suggests: selection_pack.categories, favlike: 'fav-category'} %}
           </div>
         </div>
         {#<div class="form-container">

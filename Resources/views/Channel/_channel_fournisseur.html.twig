@@ -12,7 +12,7 @@
     <div id="view-fournisseur" data-id="{{ fournisseur.id }}" class="container{% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null %} container-seo-placement{% endif %}">
       {% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null  %}
         <div class="description-seo description-seo-absolute scroll well">
-          <h1>{{ fournisseur.name }}</h1>
+          <h1>{{ fournisseur.name }}, tout le Replay</h1>
           {{ channel.fournisseur.description is defined ? channel.fournisseur.description|raw : (fournisseur.description is defined ? fournisseur.description|raw : '') }}
         </div>
       {% endif %}

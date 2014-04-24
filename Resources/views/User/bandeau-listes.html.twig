@@ -21,7 +21,7 @@
         <div class="row descriptions">
           <div class="col-xs-16" data-fav="like">
             <a{% if 'user' not in app.request.uri %} class="auth"{% else %} href="{{ path('user_programs') }}"{% endif %}>
-              <p class="sk-font">Ne les rater plus jamais</p>
+              <p class="sk-font">Ne rater plus jamais leurs diffusions</p>
             </a>
           </div>
         </div>
@@ -96,7 +96,7 @@
         <div class="row descriptions">
           <div class="col-xs-16" data-fav="person">
             <a{% if 'user' not in app.request.uri %} class="auth"{% else %} href="{{ path('user_persons') }}"{% endif %}>
-              <p class="sk-font">Ne ratez plus aucun de leurs programmes</p>
+              <p class="sk-font">Ne manquez aucun de leurs programmes</p>
             </a>
           </div>
         </div>
