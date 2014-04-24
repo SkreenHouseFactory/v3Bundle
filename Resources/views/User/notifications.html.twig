@@ -1,0 +1,16 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}{{ 'page.title.user.notifs'|trans }}{% endblock %}
+
+{% block pagescripts %}
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-persons.js'
+    filter='?yui_js' 
+    output='js/compiled/pages/user-persons.js'  %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
+{% block content %}
+	{{ dump(notifications) }}
+{% endblock %}
