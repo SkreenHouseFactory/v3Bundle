@@ -12,5 +12,26 @@
 {% endblock %}
 
 {% block content %}
-	{{ dump(notifications) }}
+<div id="bandeau-listes">
+  <div class="container">
+    <h1>Toutes mes notifications</h1>
+  </div>
+</div>
+  <div class="container">
+    <div id="view-user-notifications">
+      {% if notifications|length == 0 %}
+        <p class="bs-callout bs-callout-info">Vous n'avez actuellement aucune notification correspondant à vos listes. N'hésitez pas à les compléter !</p>
+      {% else %}
+        <table class="table table-striped">
+          <tbody>
+            {% for n in notifications %}
+              {% if n.type != 'deprog' %}
+                {% include 'SkreenHouseFactoryV3Bundle:User:_notif.html.twig' with {notif: n } %}
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    </div>
+  </div>
 {% endblock %}

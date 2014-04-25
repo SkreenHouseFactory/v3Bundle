@@ -250,6 +250,7 @@ class UserController extends Controller
       $api = $this->get('api');
       $params = array(
         'session_uid' => $session_uid,
+        'with_origin' => true,
         'nb_results' => 50,
         'offset' => 0
       );
