@@ -48,6 +48,7 @@ class ContentController extends Controller
          'offset' => $request->get('page', 1) * 30 - 30,
          'nb_results' => 30,
          'facets' => $this->buildFacets($request),
+         'is_format' => (string)$request->get('_route') == 'format' ? true : false,
          'disable_search_by_format' => true
        ));
 
