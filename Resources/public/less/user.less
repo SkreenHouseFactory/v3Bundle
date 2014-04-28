@@ -121,6 +121,15 @@ body[class*='view-user_'] {
     text-align: center;
     .user-off {
       margin-top: 20px;
+      .btn-primary {
+        background-color: white;
+        color: #428bca;
+        border: 1px solid #316B9C;
+        &:hover {
+          background-color: #3880BD;
+          color: white;
+        }
+      }
     }
     .row {
       margin-bottom: 0;
@@ -128,7 +137,6 @@ body[class*='view-user_'] {
         max-height: 35px;
         margin-top: 15px;
       }
-
       &.titres {
         p {
           font-family: 'Raleway', sans-serif;
@@ -232,44 +240,88 @@ body[class*='view-user_'] {
   }
 }
 .view-user_notifs {
+  #bandeau-listes {
+    h1 {
+      text-align: left;
+      a {
+        font-size: 0.5em;
+        margin-top: 1em;
+        span {
+          color: #ccc;
+        }
+        &:hover {
+          border-bottom: 1px solid white;
+        }
+      }
+    }
+  }
   #view-user-notifications {
+    p.empty.hide-first {
+      display: none;
+    }
+    .notification-filter {
+      display: block;
+      margin-bottom: 20px;
+      padding-left: 0;
+      .filter {
+        display: inline-block;
+        margin-right: 10px;
+        padding: 2px 4px;
+        font-size: 11.844px;
+        font-weight: bold;
+        line-height: 14px;
+        color: #fff;
+        vertical-align: baseline;
+        white-space: nowrap;
+        background-color: #999;
+        &:hover {
+          background-color: #3a87ad;
+          text-decoration: none;
+        }
+        &.label-info {
+          background-color: #3a87ad;
+        }
+      }
+    }
     .notif-link {
-      .col-xs-12 {
+      .col-xs-13 {
         position: relative;
+        padding-left: 0;
         span.badge {
           position: absolute;
-          top: 20px;
+          top: 0px;
           right: 0px;
           background-color: rgb(226, 13, 13);
         }
         .row {
-          height: 30px;
-          .label-container {
-            margin-top: 10px;
-          }
+          height: 20px;
           .title {
-            font-size: 1.2em;
+            font-size: 1em;
             color: #333;
-            text-shadow: 1px 1px 1px #ccc;
-            small {
-              text-shadow: none;
-              color: #ccc;
+            font-style: italic;
+            span {
+              font-style: normal;
             }
           }
+        }
+        .origine {
+          position: absolute;
+          top: 1px;
+          right: 80px;
+          font-size: 0.85em;
+          color: #999;
         }
       }
     }
     .col-xs-1 {
       .row {
-        height: 30px;
+        height: 40px;
         padding-right: 20px;
         a {
           display: block;
+          margin-top: 20px;
           opacity: 0;
           color: #333;
-          &.remove {
-            margin-top: 10px;
-          }
         }
       }
     }
@@ -283,6 +335,7 @@ body[class*='view-user_'] {
         .col-xs-1 {
           .row {
             a {
+              font-size: 1.1em;
               opacity: 1;
               z-index: 5;
             }

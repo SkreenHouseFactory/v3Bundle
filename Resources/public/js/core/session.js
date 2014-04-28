@@ -155,15 +155,17 @@ var BaseSession = Class.extend({
    if (this.datas.email) {
      setTimeout(function(){
        console.log('Session.update', 'callback');
-       var update_args = $.extend(self.sync_args, {
-         time: new Date().getTime()
-       });
-       Skhf.session.sync(function(sessionData) {
-         UI.loadNotifications(sessionData.notifications);
-         if (sessionData.email) {
-           self.update();
-         }
-       }, update_args);
+       API.query('GET', 'notification.json', {
+        session_uid: self.uid,
+        with_origin: 1,
+        nb_results: 20,
+        offset: 0,
+        time: new Date().getTime()
+       },function(notifications){
+        console.log('scripts/core.js', 'update', 'notifications', notifications);
+        UI.loadNotifications(notifications);
+        self.update();
+       })
      }, self.idle_timeout);
    }
  },

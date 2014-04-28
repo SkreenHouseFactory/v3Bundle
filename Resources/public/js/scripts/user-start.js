@@ -1,3 +1,7 @@
+console.log('scripts/user-start.js', 'Avant Reset');
+API.cookie('start-mes-listes', null); //reset général
+console.log('scripts/user-start.js', 'Après Reset');
+
 // -- user start
 function parallax(){
   var scrolled = $(window).scrollTop();
@@ -171,22 +175,7 @@ $(document).ready(function(){
             API.addPreference(UI.available_playlists[k], ids[j]);
           }
         }
-        $('.timeline .badge').html('0').hide();
-        setTimeout(function(){
-          Skhf.session.initSelector();
-          API.query(
-            'GET', 
-            'notifications.json', 
-            {
-              lists: API.cookie('start-mes-listes').replace('queue', 'like'),
-              session_uid: Skhf.session.uid,
-              time: new Date().getTime()
-            }, 
-            function(data){
-              console.log('scripts/user-start.js', 'UI.auth callback', 'create notifs');
-          });
-          API.cookie('start-mes-listes', null); //reset
-        }, 2000);
+        document.location = API.config.v3_root + '/user/notifs/';
       }
     });
   });

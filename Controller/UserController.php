@@ -49,13 +49,11 @@ class UserController extends Controller
         'persons' => array(
           0 => array('title' => 'Gérard Depardieu', 'id' => 5679132),
           1 => array('title' => 'Marion Cottilard', 'id' => 5553250),
-          2 => array('title' => 'Matt Damon', 'id' => 5659565),
+          2 => array('title' => 'Martin Scorsese', 'id' => 5630208),
           3 => array('title' => 'Scarlett Johansson', 'id' => 5231885),
           4 => array('title' => 'Jean Dujardin', 'id' => 5674357),
-          5 => array('title' => 'Cécile de France', 'id' => 5669228),
-          6 => array('title' => 'Martin Scorsese', 'id' => 5630208),
-          7 => array('title' => 'Julia Roberts', 'id' => 5214404),
-          8 => array('title' => 'George Clooney', 'id' => 5129261),
+          5 => array('title' => 'Julia Roberts', 'id' => 5214404),
+          6 => array('title' => 'George Clooney', 'id' => 5129261),
         ),
         'categories' => array(
           0 => array('title' => 'Comédie dramatique', 'id' => 18),
@@ -252,7 +250,8 @@ class UserController extends Controller
         'session_uid' => $session_uid,
         'with_origin' => true,
         'nb_results' => 50,
-        'offset' => 0
+        'offset' => 0,
+        'time' => time()
       );
 
       $notifications = $api->fetch('notification', $params);

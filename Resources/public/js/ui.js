@@ -578,14 +578,14 @@ UI = {
   // filter
   notificationsFilter : function(self){
     // console.log('ui.js', 'notificationsFilter', 'Check-In');
-    $('.navbar .notifications .empty').css('display','none');
-    $('.navbar .notifications .dropdown-menu .tv-component').addClass('hide');
-    $('.navbar .notifications .divider.notification').addClass('hide');
+    $('.notifications .empty').css('display','none');
+    $('.notifications .tv-component').addClass('hide');
+    $('.notifications .divider.notification').addClass('hide');
     
 
     if ( self.data('filter') == 'all' ){
-      $('.navbar .notifications .dropdown-menu .tv-component').removeClass('hide');
-      $('.navbar .notifications .divider.notification').removeClass('hide'); 
+      $('.notifications .tv-component').removeClass('hide');
+      $('.notifications .divider.notification').removeClass('hide'); 
     } else {
       if( self.data('filter') == 'tv' ){
         var classes = ['plays.broadcast','broadcasts.broadcast'];
@@ -597,12 +597,12 @@ UI = {
         var classes = [self.data('filter')];
       }
       for (k in classes) {
-        $('.navbar .notifications .dropdown-menu .tv-component.' +  classes[k]).removeClass('hide'); 
-        $('.navbar .notifications .divider.' +  classes[k]).removeClass('hide'); 
+        $('.notifications .tv-component.' +  classes[k]).removeClass('hide'); 
+        $('.notifications .divider.' +  classes[k]).removeClass('hide'); 
       }
     }
-    if( $('.navbar .notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
-      $('.navbar .notifications .empty').css('display','block');
+    if( $('.notifications .tv-component:not(.hide)').length == 0){
+      $('.notifications .empty').css('display','block');
     }
 
   },
@@ -610,7 +610,7 @@ UI = {
   appendNotifications : function(notifications,list){
     // console.log('ui.js', 'appendNotifications', 'Check-In');
     for (k in notifications) {
-      if($('.tv-component [data-id="'+notifications[k].id+'"]').length == 0){
+      if($('.dropdown-menu .tv-component [data-id="'+notifications[k].id+'"]').length == 0){
         if (notifications[k].type == 'broadcast') {
           var attrs = 'data-ajax="' + notifications[k].link +'?offers='+notifications[k].offers +'" rel="#content" data-seo-url="' + notifications[k].link + '"';
         
