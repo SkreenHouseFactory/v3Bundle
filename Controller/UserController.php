@@ -240,6 +240,40 @@ class UserController extends Controller
     /**
     *
     */
+    public function notifsAction(Request $request)
+    {
+      $session_uid = $request->cookies->get('myskreen_session_uid');
+      if (!$session_uid) {
+        return $this->redirect('http://www.myskreen.com');
+      }
+
+      $api = $this->get('api');
+      $params = array(
+        'session_uid' => $session_uid,
+        'with_origin' => true,
+        'nb_results' => 50,
+        'offset' => 0
+      );
+
+      $notifications = $api->fetch('notification', $params);
+      //echo $api->url;
+      //print_r($programs);
+      //print_r($persons);exit();
+      //get relationtype filters
+
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:notifications.html.twig', array(
+        'notifications' => $notifications
+      ));
+
+      $response->setPrivate();
+      $response->setMaxAge(0);
+
+      return $response;
+    }
+
+    /**
+    *
+    */
     public function theatersAction(Request $request)
     {
       $session_uid = $request->cookies->get('myskreen_session_uid');

@@ -159,6 +159,9 @@ user_persons:
 user_category:
     pattern:  /user/category/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:category }
+user_notifs:
+    pattern:  /user/notifs/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:notifs }
 user_svod:
     pattern:  /user/svod/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:svod }

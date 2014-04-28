@@ -53,6 +53,7 @@ page:
             channels: Vos chaînes | Mon compte
             vod: Mes vidéos à la demande | Mon compte
             svod: Mes abonnements | Mon compte
+            notifs: Toutes mes notifications | Mon compte
         sitemap:
             channels:
                 broadcast: Chaines TV & Replay
@@ -209,11 +210,11 @@ nav:
         actors: Acteurs
         directors: Réalisateurs
     favoris: Vos programmes
-    channel_favoris: Vos chaînes
-    theater_favoris: Vos cinémas
-    person_favoris: Vos acteurs/réalisateurs
-    account: Vos préférences
-    vod: Vos vidéos à la demande
+    channel_favoris: Mes chaînes
+    theater_favoris: Mes cinémas
+    person_favoris: Mes acteurs/réalisateurs
+    account: Mes préférences
+    vod: Mes vidéos à la demande
     all: Tout
     filter: Filtrer vos listes
     filters:
@@ -298,7 +299,7 @@ format:
         spectacle: spectacle
         theatre: théâtre
         concert: concert
-        dessin-anime-et-manga: déssin-animé et manga
+        dessin-anime-et-manga: dessin-animé et manga
     pluriel:
         film: films
         telefilm: téléfilms
@@ -310,7 +311,7 @@ format:
         spectacle: spectacles
         theatre: théâtres
         concert: concerts
-        dessin-anime-et-manga: déssin-animés et mangas
+        dessin-anime-et-manga: dessin-animés et mangas
 past: passé
 today: aujourd'hui
 coming: à venir
@@ -319,7 +320,7 @@ loading: Chargement
 back: Retour
 close: Fermer
 signin: Se connecter
-signout: Se déconnecter
+signout: Me déconnecter
 signup: Ouvrir un compte
 search:
     results: programmes trouvés
