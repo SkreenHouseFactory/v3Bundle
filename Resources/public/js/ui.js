@@ -196,7 +196,7 @@ UI = {
     }
   },
   loadAlertUser: function(titre, content, delay_timeout){
-    console.log('UI.loadAlertUser', titre, content, delay_timeout);
+    //console.log('UI.loadAlertUser', titre, content, delay_timeout);
     var self = this;
     if (typeof delay_timeout == 'undefined') delay_timeout = 6000;
     container  = $('#alert-user');
@@ -257,6 +257,8 @@ UI = {
       return ' cette catégorie';
     } else if (trigger.hasClass('fav-format-category')) {
       return ' cette catégorie';
+    } else if (trigger.hasClass('fav-like')) {
+      return ' ce programme';
     } else {
       return '';
     }
@@ -346,10 +348,17 @@ UI = {
         } else {
           console.log('UI.togglePlaylist', 'Skhf.session.getNbPlaylists()' + Skhf.session.getNbPlaylists());
           if (Skhf.session.getNbPlaylists() == 0) {
-            self.loadAlertUser(
-              'Bravo ! vous avez commencé vos listes !',
-              'Vous pouvez les modifier en allant dans <a href="'+API.config.v3_root+'/user/programs/">Mes listes</a> !'
-            );
+            console.log('ui.js', 'togglePlaylist', 'name', name);
+            var dialog = new Dialog('firstItemInPlaylist',{
+              '%title%': 'Vous avez ajouté' + name,
+              '%content%': '',
+            });
+          } else if (Skhf.session.getNbPlaylists() < 5) {
+            var dialog = new Dialog('firstItemsInPlaylist',{
+              '%title%': 'Vous avez ajouté' + name,
+              '%content%': '',
+              '%nbfavori%': (Skhf.session.getNbPlaylists()+1) + ' favoris',
+            });
           }
         }
         if (UI.callbackTogglePlaylist) {

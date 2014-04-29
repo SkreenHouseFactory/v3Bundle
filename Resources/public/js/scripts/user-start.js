@@ -120,44 +120,64 @@ $(document).ready(function(){
       var like_id = $(this).data('id');
       $('.confirmed ul li.like_' + like_id).remove();
     }
-    
-    if (API.cookie('start-mes-listes')) {
-      setTimeout(function(){ //wait 500ms for preference to be added
-        API.query(
-          'GET', 
-          'notifications.json', 
-          {
-            lists: API.cookie('start-mes-listes').replace('queue', 'like'),
-            time: new Date().getTime()
-          }, 
-          function(data){
-            console.log(
-              'scripts/user-start.js', 
-              'notify callback', data, API.cookie('start-mes-listes').replace('queue', 'like')
-            );
-            // for (k in data.notifications) {
-            //   var n = data.notifications[k];
-            //   console.log('scripts/user-start.js', 'notify', n);
-            //   var titre = n.title + (typeof n.title_episode != 'undefined' ? ' - ' + n.title_episode : '');
-            //   var content = n.subtitle;
-            //   var complement_content = '';
-            //   if ($('.confirmed .results ul').length < 2) {
-            //     // console.log('scripts/user-start.js', 'notifs', 'comptabilisé');
-            //     if(Skhf.session.user){
-            //       if(Skhf.session.getNbPlaylists() < 1) {
-            //         complement_content = '<br/>Bravo, vous venez d\'ajouter un 1er favori à vos listes';
-            //       }
-            //     } else {
-            //       complement_content = '<br/>Bravo, vous venez d\'ajouter un 1er favori à vos listes';
-            //     }
-            //   }
-            //   content += complement_content;
-            //   console.log('scripts/user-start.js', 'alertUser', 'content', content);
-            //   UI.loadAlertUser(titre, content);
-            // }
-        });
-      }, 500);
+
+    // Alert User Start
+    if ($('.confirmed .results ul li').length < 2) {
+      // console.log('scripts/user-start.js', 'notifs', 'comptabilisé');
+      if(Skhf.session.user){
+        if(Skhf.session.getNbPlaylists() == 0) {
+          var dialog = new Dialog('firstItemInPlaylist',{
+            '%title%': n.title +  (typeof(n.title_episode) != 'undefined' ? ' - ' + n.title_episode : '' ),
+            '%content%': n.subtitle,
+          },5000);
+        }
+      } else {
+        var dialog = new Dialog('firstItemInPlaylist',{
+          '%title%': n.title +  (typeof(n.title_episode) != 'undefined' ? ' - ' + n.title_episode : '' ),
+          '%content%': n.subtitle,
+        },5000);
+      }
+    } else if ($('.confirmed .results ul li').length < 6) {
+      if (Skhf.session.user) {
+        if (Skhf.session.getNbPlaylists() < 5) {
+          var dialog = new Dialog('firstItemsInPlaylist',{
+            '%title%': n.title +  (typeof(n.title_episode) != 'undefined' ? ' - ' + n.title_episode : '' ),
+            '%content%': n.subtitle,
+            '%nbfavori%': Skhf.session.getNbPlaylists() + ' favoris',
+          },5000);
+        }
+      } else {
+        var dialog = new Dialog('firstItemsInPlaylist',{
+          '%title%': n.title +  (typeof(n.title_episode) != 'undefined' ? ' - ' + n.title_episode : '' ),
+          '%content%': n.subtitle,
+          '%nbfavori%': $('.confirmed .results ul li').length + ' favoris',
+        },5000);
+      }
     }
+
+    // Notifications
+    // if (API.cookie('start-mes-listes')) {
+    //   setTimeout(function(){ //wait 500ms for preference to be added
+    //     API.query(
+    //       'GET', 
+    //       'notifications.json', 
+    //       {
+    //         lists: API.cookie('start-mes-listes').replace('queue', 'like'),
+    //         time: new Date().getTime()
+    //       }, 
+    //       function(data){
+    //         console.log(
+    //           'scripts/user-start.js', 
+    //           'notify callback', data, API.cookie('start-mes-listes').replace('queue', 'like')
+    //         );
+    //         for (k in data.notifications) {
+    //           var n = data.notifications[k];
+    //           //console.log('scripts/user-start.js', 'notify', n);
+    //           //console.log('scripts/user-start.js', 'number of ajout_playlists', $('.confirmed .results ul li').length);
+    //         }
+    //     });
+    //   }, 500);
+    // }
 
   });
 

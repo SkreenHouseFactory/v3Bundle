@@ -68,7 +68,19 @@ $(document).ready(function(){
   $('a.auth').on('click', function(){
     console.log('_default.js', 'auth');
     Player.stop();
-    UI.auth();    
+    UI.auth(function(){
+      //console.log('ui.js', 'auth callback');
+      if (Skhf.session.datas.email) {
+        if (Skhf.session.getNbPlaylists() < 1) {
+          //console.log('ui.js', 'auth callback NbPlaylists', 'Aucune playlist');
+          var dialog = new Dialog('noItemInPlaylist',{},10000);
+        } else if (Skhf.session.getNbPlaylists() < 11) {
+          var dialog = new Dialog('fewItemsInPlaylist',{
+            '%nbfavori%': (Skhf.session.getNbPlaylists() == 1 ? Skhf.session.getNbPlaylists() + ' favori' : Skhf.session.getNbPlaylists() + ' favoris' )
+          },7000);
+        }
+      }
+    });    
     return false;
   });
   $('a.signout').on('click', function(){
