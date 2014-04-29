@@ -21,12 +21,10 @@
               {% if n.new is defined and n.new %}
                 <span class="badge badge-danger">Nouveau</span>
               {% endif %}
-              <span class="origine">Vous suivez {{ n.playlist.origin.object_name }}</span>
-              {% if n.offers is defined and n.offers in ['plays', 'broadcasts'] %}
-                {% if n.type is defined and n.type in ['broadcast', 'dispo'] %}
-                  <span class="label label-success">{{ n.subtitle|raw }}</span>
-                {% endif %}
+              {% if n.playlist.origin is defined and n.playlist.origin %}
+                <span class="origine">Vous suivez {{ n.playlist.origin.object_name }}</span>
               {% endif %}
+              <span class="label {{ n.type == 'deprog' ? 'label-warning' : 'label-success' }}">{{ n.subtitle|raw }}</span>
             </div>
           </div>
         </div>
