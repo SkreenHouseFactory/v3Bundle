@@ -94,28 +94,30 @@ body[class*='view-user_'] {
     padding-top: 65px;
     margin-bottom: 20px;
   }
-  article ul.nav {
-    >li {
-      &.active {
-        >a {
-          &:hover, &:focus {
-            background-color: #428bca;
-          }
-        }
-      }
-      >a {
-        &:hover, &:focus {
-          background-color: #428bca;
-          color: white;
-        }
-      }
-    }
-  }
 }
 
 #bandeau-listes {
   background-color: #428bca;
   color: white;
+  & + .container {
+    .bs-callout {
+      .btn-primary {
+        margin-top: -7px;
+        background-color: #3880BD;
+        color: white;
+        border: 1px solid #316B9C;
+        &:hover {
+          background-color: white;
+          color: #428bca;
+        }
+      }
+      &.no-program {
+        .btn-primary {
+          margin-top: -16px;
+        }
+      }
+    }
+  }
   .container {
     margin-top: 20px;
     text-align: center;
@@ -174,7 +176,21 @@ body[class*='view-user_'] {
     margin-bottom: 10px;
   }
 }
-.view-user_programs {
+.view-user_programs, .view-user_persons {
+  .nav-pills {
+    & > li {
+      margin-right: 10px;
+      &.active {
+        & > a {
+          background-color: #333;
+        }
+      }
+      & > a:hover, & > a:focus {
+        background-color: #333;
+        color: white;
+      }
+    }
+  }
   #user-programs {
     li {
       position: relative;

@@ -18,23 +18,27 @@
   <div class="container">
 
     <div id="view-user-persons">
+      <p class="bs-callout bs-callout-info{{ persons|length == 0 ? ' no-program' : '' }}">
+        {% if persons|length == 0 %}
+          Vous ne suivez <strong>aucune personnalité.</strong><br/>
+          Ajoutez celles que vous appréciez avec facilité !
+        {% else %}
+          Ajoutez les personnalités que vous appréciez avec facilité !
+        {% endif %}
+        <a class="btn btn-primary pull-right" href="{{ path('user_start') }}#persons"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;{{ persons|length == 0 ? 'Commencer ' : 'Continuer ' }}mes listes</a>
+      </p>
 
-      {% if persons|length == 0 %}
-        <p class="bs-callout bs-callout-info">Vous ne suivez aucun acteur/réalisateur. Utilisez le moteur de recherche pour ajouter vos acteurs et réalisateurs préférés.</p>
-      {% else %}
-        <p class="bs-callout bs-callout-info">Utilisez le moteur de recherche pour ajouter vos acteurs et réalisateurs préférés.</p>
-
+      {% if persons|length > 0 %}
         <ul class="nav nav-pills nav-alpha-client uppercase">
           <li data-toggle class="active">
-            <a>{{ 'nav.all'|trans }}</a>
+            <a class="label label-default">{{ 'nav.all'|trans }}</a>
           </li>
           {% for r in relations %}
             <li data-toggle="type-{{ r|replace({'é': 'e'})|lower }}">
-              <a>{{ r }}</a>
+              <a class="label label-default">{{ r }}</a>
             </li>
           {% endfor %}
         </ul>
-    
         <table class="table table-striped">
           {% for p in persons %}
             <tr id="person-{{ p.id }}" class="type-{{ p.main_activity|replace({'é': 'e'})|lower }}">
@@ -49,7 +53,8 @@
             </tr>
           {% endfor %}
         </table>
-      </div>
-    {% endif %}
+      {% endif %}
+
+    </div>
   </div>
 {% endblock %}
