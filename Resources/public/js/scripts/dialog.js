@@ -29,12 +29,12 @@ var Dialog = Class.extend({
 
   firstItemInPlaylist: function(){
     this.title = '%title%';
-    this.content = '%content%<br/>Bravo, c\'est le 1<sup>er</sup> favori dans vos listes&nbsp;!<br/>';
+    this.content = '<br/>Bravo, %content%c\'est le 1<sup>er</sup> favori dans vos listes&nbsp;!<br/>';
   },
 
   firstItemsInPlaylist: function(){
     this.title = '%title%';
-    this.content = '%content%<br/>Bravo, vous avez %nbfavori% dans vos listes&nbsp;!<br/>';
+    this.content = '<br/>Bravo, %content%vous avez %nbfavori% dans vos listes&nbsp;!<br/>';
   },  
 
   paymentPopinEnd: function(){

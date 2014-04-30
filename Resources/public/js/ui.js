@@ -333,6 +333,7 @@ UI = {
       }
       var value = trigger.data('id') ? trigger.data('id') : trigger.parents('.actions:first').data('id');
       var remove = trigger.hasClass('fav-on') ? true : false;
+      // console.log('ui.js', 'togglePlaylist', 'remove', remove);
       // -- callback
       var callback = function(value, return_data){
         console.log('UI.togglePlaylist', 'callback', value, 'remove:'+remove);
@@ -345,7 +346,7 @@ UI = {
               $(this).remove();
             });
           }
-        } else {
+        } else if (typeof(store_in_session) == 'undefined') {
           console.log('UI.togglePlaylist', 'Skhf.session.getNbPlaylists()' + Skhf.session.getNbPlaylists());
           if (Skhf.session.getNbPlaylists() == 0) {
             console.log('ui.js', 'togglePlaylist', 'name', name);
@@ -367,7 +368,9 @@ UI = {
       }
       // -- api
       if (remove) {
-        if (store_in_session) { //start mes listes
+        if (Skhf.session.datas.email) {
+          API.removePreference(parameter, value, callback);
+        } else if (store_in_session) { //start mes listes
           meslistes_in_session = API.cookie('start-mes-listes') ? JSON.parse(API.cookie('start-mes-listes')) : {};
           newparameter = parameter.replace('like', 'queue')
           if (typeof meslistes_in_session[newparameter] != 'undefined' && 
@@ -377,22 +380,20 @@ UI = {
             API.cookie('start-mes-listes', JSON.stringify(meslistes_in_session));
             self.unloadPlaylistTriggers(parameter, [value]);
           }
-        } else {
-          API.removePreference(parameter, value, callback);
-        }
+        } 
       } else {
-        if (store_in_session) { //start mes listes
+        if (Skhf.session.datas.email) {
+          API.addPreference(parameter, value, callback, '', typeof with_related == 'undefined' ? true : with_related);
+        } else if (store_in_session) { //start mes listes
           meslistes_in_session = API.cookie('start-mes-listes') ? JSON.parse(API.cookie('start-mes-listes')) : {};
           newparameter = parameter.replace('like', 'queue')
           if (typeof meslistes_in_session[newparameter] == 'undefined') {
             meslistes_in_session[newparameter] = {};
           }
           meslistes_in_session[newparameter][value] = value;
-            console.log('UI.togglePlaylist', 'store_in_session', 'add', [newparameter, value], meslistes_in_session, JSON.stringify(meslistes_in_session));
+          console.log('UI.togglePlaylist', 'store_in_session', 'add', [newparameter, value], meslistes_in_session, JSON.stringify(meslistes_in_session));
           API.cookie('start-mes-listes', JSON.stringify(meslistes_in_session))
           self.loadPlaylistTriggers(parameter, [value]);
-        } else {
-          API.addPreference(parameter, value, callback, '', typeof with_related == 'undefined' ? true : with_related);   
         }
       }
     } else {
