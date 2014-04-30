@@ -76,9 +76,16 @@ class ProgramController extends Controller
         'channel_img_width' => 80,
         'channel_slider_width' => 300,
         'channel_slider_height' => 147,
+        'slider_width' => 1200,
+        'slider_height' => 630,
         'season' => $request->get('season_number'),
         'fields' => 'description_episode,metadata,related,related_programs,selections,offers,teaser,hashtags,tweets,empty_player,img_maxsize,svod,coming_soon,best_offer,homes'
       ));
+
+      //gestion og_picture
+      if (isset($data->sliderPicture)) {
+        $data->og_picture = $data->sliderPicture;
+      }
 
       //echo $api->url;exit;
       if ($this->get('kernel')->getEnvironment() == 'dev' && 
