@@ -9,20 +9,13 @@
     <div class="carousel-inner">
       <div class="item active">
         {% for item in channels.programs | to_array %}
-        {% if loop.index0 is divisibleby(3) and loop.index0 != 0 %}
-          </div>
-          <div class="item">
-        {% endif %}
-        <a href="{{ path('any_url', {url: item.url|slice(1, item.url|length-1)}) }}" class="channel_link">
-         <span class="channel_texte">{{ item.title }}</span>
-         {% if '225/110' in item.picture %}
-         <img alt="{{ item.title }}" data-track-channel="{{ item.title }}" class="channel_root" src="{{ item.picture }}">
-         {% else %}
-         <img alt="{{ item.title }}" data-track-channel="{{ item.title }}" class="channel_root" src="{{ item.picture|replace({'mskstatic.com/': 'mskstatic.com/225/110/'}) }}">
-         {% endif %}
-       </a>       
-       {% endfor %}
-     </div>
+          {% if loop.index0 is divisibleby(3) and loop.index0 != 0 %}
+            </div>
+            <div class="item">
+          {% endif %}
+          {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels_item.html.twig' with { item: item } %}       
+        {% endfor %}
+      </div>
     </div>
   </div>
 </div>
@@ -33,8 +26,8 @@
     </button>
   </a>
   <a href="#carousel-channel" data-slide="next">
-   <button type="button" class="btn btn-default fleches">  
-     <span class="glyphicon glyphicon-circle-arrow-down"></span>
-   </button>
- </a>
+    <button type="button" class="btn btn-default fleches">  
+      <span class="glyphicon glyphicon-circle-arrow-down"></span>
+    </button>
+  </a>
 </div>

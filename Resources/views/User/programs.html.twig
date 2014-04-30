@@ -1,11 +1,11 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
-{% block title %}{{ (onglet == 'channel') ? 'page.title.user.channels'|trans : 'page.title.user.programs'|trans }}{% endblock %}
+{% block title %}{{ 'page.title.user.programs'|trans }}{% endblock %}
 
 {% block content %}
-  {% set active %}{{ onglet == 'channel' ? 'channel' : 'programs' }}{% endset %}
+
   {% set count %}{{ programs|length }}{% endset %}
-  {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with {active: active } %}
+  {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with {active: 'programs' } %}
 
   <div class="container">
 
@@ -15,7 +15,6 @@
     <a href="#" class="btn" data-placement="bottom" data-title="{{ 'playlist.publish.public.popover.title'|trans }}" data-content="{{ 'playlist.publish.public.popover.content'|trans }}" data-trigger="hover">{{ 'playlist.publish.public.link'|trans }}</a>
   </div>
   #}
-    {% if (onglet != 'channel') %}
       <p class="bs-callout bs-callout-info{{ programs|length == 0 ? ' no-program' : '' }}">
         {% if programs|length == 0 %}
           {% if app.request.get('onglet') is null %}
@@ -54,13 +53,7 @@
         {% endif %}
         <a class="btn btn-primary pull-right" href="{{ path('user_start') }}{% if app.request.get('onglet') in [null,'films','documentaires','spectacles'] %}#films{% elseif app.request.get('onglet') == 'series' %}#series{% elseif app.request.get('onglet') == 'emissions' %}#emissions{% endif %}"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;{{ programs|length == 0 ? 'Commencer ' : 'Continuer ' }}mes listes</a>
       </p>
-    {% else %}
-      {% if programs|length == 0 %}
-        <p class="bs-callout bs-callout-info">Vous ne suivez aucune chaîne.</p>
-      {% endif %}
-    {% endif %}
       
-    {% if (onglet != 'channel') %}
       <ul class="nav nav-pills nav-alpha-client uppercase">
         <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
           <a class="label label-default" href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
@@ -71,7 +64,6 @@
           </li>
         {% endfor %}
       </ul>
-    {% endif %}
 
     {% if programs|length > 6 %}
       <a class="block" data-toggle-hide=".pagination" data-taggle-text="... fermer">Plus de filtres ...</a>
@@ -90,11 +82,6 @@
         {% endfor %}
       </ul>
     </div>
-
-    {% if (onglet == 'channel') %}
-      {% render(controller('SkreenHouseFactoryV3Bundle:User:suggest', { type: 'channel' })) %}
-      {#{ render_esi(controller('SkreenHouseFactoryV3Bundle:User:suggest', { type: 'channel' })) }#}
-    {% endif %}
   
   </div>
 {% endblock %}
