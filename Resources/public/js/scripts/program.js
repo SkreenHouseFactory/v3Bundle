@@ -443,5 +443,18 @@ $(document).ready(function(){
       container.html('<p>'+number_offers+texte_offers+'</p>');
     },9000);
   }
+
+  if (typeof(Skhf.session.datas.email) == 'undefined') {
+    var name = $('#fake_h1').html();
+    name = jQuery.trim(name);
+    if (name.length > 25) {
+      name = name.substring(0, 25).trim(this) + "...";
+    }
+    setTimeout(function(){
+      var dialog = new Dialog('notConnectedOnProgram',{
+        '%name%': name,
+      }, 7000);
+    }, 5000);
+  }
   
 });

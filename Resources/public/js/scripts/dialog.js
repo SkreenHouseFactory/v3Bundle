@@ -50,6 +50,11 @@ var Dialog = Class.extend({
   relatedToFollow: function(){
     this.title = 'Voulez-vous également ajouter à vos listes&nbsp;?';
     this.content = '<ul>%more%</ul>';
+  },
+
+  notConnectedOnProgram: function(){
+    this.title = 'Vous souhaitez être averti des diffusions de ce programme&nbsp;?';
+    this.content = '<br/><a class="btn btn-primary" data-trigger-click=".bande_listes a.fav-like">Ajouter <i>%name%</i> à vos listes&nbsp;!</a>';
   }
   
 });
