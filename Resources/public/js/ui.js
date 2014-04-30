@@ -638,6 +638,9 @@ UI = {
             ep_title = ep_title.substring(0,32);
           }
         }
+        if (notifications[k].access == null) {
+          notifications[k].access = '';
+        }
         html_to_insert = '<li class="tv-component ' + notifications[k].offers + ' ' + notifications[k].access.replace("(windows)","") + '">' +
             '<a  class="more info"' + (!notifications[k].playlist || !notifications[k].playlist.origin ? '>' :
               ' data-toggle="tooltip" data-placement="left" title="Vous suivez &laquo;' + notifications[k].playlist.origin.object_name + '&raquo;"><i class="glyphicon glyphicon-question-sign"></i>') +
