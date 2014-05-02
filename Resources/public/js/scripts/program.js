@@ -230,9 +230,12 @@ $(document).ready(function(){
       ProgramView.unloadProgramUsersDatas($('#view-program').data('id'));
     }
     Skhf.session.callbackSignin['program'] = function() {
+
+      //load user's data
       if (Skhf.session.datas.email) {
         ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
       }
+
       //theater playlist et fallback géoloc
       if(!document.location.href.match(/theater_id=/)){
         if (Skhf.session.datas.email &&
@@ -245,6 +248,20 @@ $(document).ready(function(){
       
       //modal program
       ProgramView.loadModal();
+
+      //dialog
+      if (!Skhf.session.datas.email) {
+        var name = $('#fake_h1').html();
+        name = jQuery.trim(name);
+        if (name.length > 25) {
+          name = name.substring(0, 25).trim(this) + "...";
+        }
+        setTimeout(function(){
+          var dialog = new Dialog('notConnectedOnProgram',{
+            '%name%': name,
+          }, 7000);
+        }, 5000);
+      }
     }
 
     // -- add preference callback : incitation à suivre des related
@@ -442,19 +459,6 @@ $(document).ready(function(){
       var texte_offers = number_offers == 1 ? ' offre disponible sur une autre plateforme' : ' offres disponibles sur d\'autres plateformes';
       container.html('<p>'+number_offers+texte_offers+'</p>');
     },9000);
-  }
-
-  if (typeof(Skhf.session.datas.email) == 'undefined') {
-    var name = $('#fake_h1').html();
-    name = jQuery.trim(name);
-    if (name.length > 25) {
-      name = name.substring(0, 25).trim(this) + "...";
-    }
-    setTimeout(function(){
-      var dialog = new Dialog('notConnectedOnProgram',{
-        '%name%': name,
-      }, 7000);
-    }, 5000);
   }
   
 });
