@@ -11,14 +11,17 @@
       <p class="bs-callout bs-callout-info">Vous ne suivez aucune chaîne.</p>
     {% endif %}
     <br class="clear"/>
-
-    <div>
-      {% for item in channels|to_array %}
-        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels_item.html.twig' with { item: item } %}
-      {% endfor %}
+    <div class="slider slider-list">
+      <ul class="channels-list">
+        {% for item in channels|to_array %}
+          <li data-id="{{ item.id }}">
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels_item.html.twig' with { item: item, origin: 'user_channels' } %}
+          </li>
+        {% endfor %}
+      </ul>
     </div>
 
-    {% render(controller('SkreenHouseFactoryV3Bundle:User:suggest', { type: 'channel' })) %}
+    {% render(controller('SkreenHouseFactoryV3Bundle:User:suggest', { type: 'channel', ids: ids })) %}
     {#{ render_esi(controller('SkreenHouseFactoryV3Bundle:User:suggest', { type: 'channel' })) }#}
 
   </div>

@@ -256,10 +256,44 @@ body[class*='view-user_'] {
   }
 }
 .view-user_channels {
+  ul.channels-list {
+    list-style: none;
+    padding-left: 0;
+    li {
+      display: inline-block;
+      width: 190px;
+      height: 114px;
+      margin-right: 45px;
+      margin-bottom: 20px;
+      overflow: visible!important;
+    }
+  }
   .channel_link {
     width: 190px;
-    margin-right: 20px;
+    height: 114px;
     display: inline-block;
+    position: relative;
+    span.fav-channel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: #333;
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+      border-bottom-right-radius: 0;
+      z-index: 5;
+      opacity: 0;
+    }
+    &:hover {
+      span.fav-channel {
+        opacity: 1;
+      }
+    }
+  }
+  .well {
+    .channel_link {
+      margin-right: 35px;
+    }
   }
 }
 .view-user_notifs {

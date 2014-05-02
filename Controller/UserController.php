@@ -326,9 +326,14 @@ class UserController extends Controller
           $channels->error) {
         return $this->redirect('http://www.myskreen.com');
       }
+      $ids = array();
+      foreach ($channels as $channel) {
+        $ids[] = $channel->id + 200000000;
+      }
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:channels.html.twig', array(
-        'channels' => $channels
+        'channels' => $channels,
+        'ids' => $ids
       ));
 
       $response->setPrivate();
@@ -486,19 +491,23 @@ class UserController extends Controller
     */
     public function suggestAction(Request $request)
     {
+      $ids = $request->get('ids');
       $api = $this->get('api');
       $pack = $api->fetch('www/slider/pack/12193165', array(
-        'with_programs' => true
+        'with_programs' => true,
+        'channel_slider_width' => 225,
+        'channel_slider_height' => 110
       ));
 
       foreach ($pack->programs as $key => $p) {
-        $p->seo_url = $p->seo_url . '?follow';
+        $p->url = $p->url . '?follow';
         $pack->programs->{$key} = $p;
       }
 
       //print_r(array($session_uid, $vods));
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:suggest.html.twig', array(
-        'pack'  => $pack
+        'pack'  => $pack,
+        'ids' => $ids
       ));
       $response->setPublic();
       $response->setMaxAge(3600);

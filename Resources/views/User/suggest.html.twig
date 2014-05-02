@@ -1,15 +1,15 @@
 <br/>
 <div class="well">
-<h3>Ajoutez des chaînes à mes listes</h3>
-<p>Ne ratez plus vos programmes préférés ! Abonnez-vous aux chaînes pour être notifié dès qu'un programme est disponible.</p>
-<br/>
-<div class="slider slider-list">
-  <div class="slider-container">
-    <ul class="items">
-      {% for p in pack.programs|to_array %}
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p } %}
-      {% endfor %}
-    </ul>
+  <h3>Ajoutez des chaînes à mes listes</h3>
+  <p>Ne ratez plus vos programmes préférés ! Abonnez-vous aux chaînes pour être notifié dès qu'un programme est disponible.</p>
+  <br/>
+  <div class="slider slider-list">
+    <div class="slider-container">
+      <ul class="items">
+        {% for p in pack.programs|to_array if p.id not in ids %}
+          {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels_item.html.twig' with { item: p } %}
+        {% endfor %}
+      </ul>
+    </div>
   </div>
-</div>
 </div>
