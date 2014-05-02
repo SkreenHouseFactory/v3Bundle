@@ -59,7 +59,7 @@
           {% set custom_l = custom_l + 1 %}
           {% if origin == 'fournisseur_replay' %}
             {% if item.deporte is defined and item.deporte %}
-              <a data-play-iframe="{{ item.best_offer.id }}">
+              <a data-play-iframe="{{ item.best_offer.id }}" data-player-elmt=".default-player">
             {% else %}
               <a data-redirect="{{ item.best_offer.url|replace({'/exit' : '/redirect'}) }}">
             {% endif %}

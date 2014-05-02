@@ -264,15 +264,30 @@ UiView = {
           }
         }
       }
-      //player par defaut
-      if (!Player.elmt) {
+
+      //player ?
+      if (trigger.data('player-elmt')) {
+        Player.stop();
+        Player.elmt = $(trigger.data('player-elmt'));
+        console.log('script', 'data-play-iframe', 'set player', Player.elmt);
+      } else if (!Player.elmt) {
+        console.log('script', 'data-play-iframe', 'set default player');
+        Player.stop();
         Player.elmt = $('#player.default-player');
+      } else {
+        console.log('script', 'data-play-iframe', 'player exists', Player.elmt);
       }
+      
       if (Player.elmt.hasClass('default-player')) {
+
+        Player.elmt.html('<a class="btn btn-default close">Fermer</a>');
+
+        console.log('script', 'data-play-iframe', 'launch default player');
         Player.elmt.addClass('in');
         $('body').append('<div class="modal-backdrop modal-player in"></div>');
   
-        $('.close', Player.elmt).on('click', function() {
+        $('.close', Player.elmt).on('click', function(e) {
+          e.preventDefault();
           $('iframe', Player.elmt).remove();
           Player.elmt.removeClass('in');
           $('.modal-backdrop.modal-player').remove();
