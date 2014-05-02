@@ -293,6 +293,12 @@ body.view-user_start {
         &.confirmed {
           overflow-y: auto;
           margin-bottom: 500px;
+          &.populated {
+            background-color: #333;
+            h2 {
+              color: white;
+            }
+          }
           h2 {
             margin-bottom: 30px;
           }
@@ -302,14 +308,28 @@ body.view-user_start {
               margin-bottom: 10px;
             }
           }
-          ul {
-            list-style: none;
-            padding-left: 0;
-            li {
-              color: #428bca;
-              small {
-                color:#666;
-                font-style: italic;
+          .results {
+            ul {
+              list-style: none;
+              padding-left: 0;
+              li.suggest:nth-child(odd), li.suggest:nth-child(even) {
+                background-color: #333;
+                color: white;
+                height: 40px;
+                &:hover {
+                  background-color: #333;
+                  cursor: default;
+                  span.col-xs-4 {
+                    visibility: hidden;
+                  }
+                }
+                span.col-xs-11 {
+                  color: white;
+                }
+                small {
+                  color: #ccc;
+                  font-style: italic;
+                }
               }
             }
           }

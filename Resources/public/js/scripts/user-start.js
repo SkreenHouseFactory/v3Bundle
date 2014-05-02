@@ -103,7 +103,7 @@ $(document).ready(function(){
           count.show();
         }
         API.cookie('start-mes-listes-' + self.data('step'), parseInt(count.html()));
-      }, 500);
+      }, 1500);
     }
 
     var like_id = $(this).data('id');
@@ -140,23 +140,16 @@ $(document).ready(function(){
     // console.log('scripts/user-start.js', 'like-name-episode', like_name_episode);
     // console.log('scripts/user-start.js', 'like-title', like_title);
 
-    // populate confirmed div
+    // populate confirmed div & Alert User
     var self = $(this)
-    setTimeout(function(){ // wait 500 ms for preference and fav-on to be added
+    setTimeout(function(){ // wait 1500 ms for preference and fav-on to be added
       if (self.hasClass('fav-on')) {
         $('.no-results').addClass('hide');
         $('.results').removeClass('hide');
+        $('.confirmed').addClass('populated');
         $('.confirmed ul').append('<li class="suggest like_' + like_id + '">' + like_title + '</li>');
         console.log('scripts/user-start.js', 'populate confirmed div :', 'Populate OK');
-      } else {
-        $('.confirmed ul li.like_' + like_id).remove();
-        console.log('scripts/user-start.js', 'populate confirmed div :', 'Remove OK');
-      }
-    }, 500);
-
-    // Alert User Start
-    setTimeout(function(){ // wait 1000 ms for preference and fav-on to be added 
-      if (self.hasClass('fav-on')) {
+        // Alert User
         if ($('.confirmed .results ul li').length < 2) {
           console.log('scripts/user-start.js', 'notifs', 'comptabilisé');
           if(Skhf.session.user){
@@ -189,8 +182,49 @@ $(document).ready(function(){
             },4500);
           }
         }
+      } else {
+        $('.confirmed ul li.like_' + like_id).remove();
+        console.log('scripts/user-start.js', 'populate confirmed div :', 'Remove OK');
       }
-    }, 1000);
+    }, 1500);
+
+    // // Alert User Start
+    // setTimeout(function(){ // wait 1000 ms for preference and fav-on to be added 
+    //   if (self.hasClass('fav-on')) {
+    //     if ($('.confirmed .results ul li').length < 2) {
+    //       console.log('scripts/user-start.js', 'notifs', 'comptabilisé');
+    //       if(Skhf.session.user){
+    //         if(Skhf.session.getNbPlaylists() == 1) {
+    //           var dialog = new Dialog('firstItemInPlaylist',{
+    //             '%title%': like_name + (typeof(like_name_episode) != 'undefined' ? like_name_episode : '' ),
+    //             '%content%': 'avec ' + like_step + ' ',
+    //           },4500);
+    //         }
+    //       } else {
+    //         var dialog = new Dialog('firstItemInPlaylist',{
+    //           '%title%': like_name + (typeof(like_name_episode) != 'undefined' ? like_name_episode : '' ),
+    //           '%content%': 'avec ' + like_step + ' ',
+    //         },4500);
+    //       }
+    //     } else if ($('.confirmed .results ul li').length < 11) {
+    //       if (Skhf.session.user) {
+    //         if (Skhf.session.getNbPlaylists() < 11) {
+    //           var dialog = new Dialog('firstItemsInPlaylist',{
+    //             '%title%': like_name + (typeof(like_name_episode) != 'undefined' ? like_name_episode : '' ),
+    //             '%content%': 'avec ' + like_step + ' ',
+    //             '%nbfavori%': Skhf.session.getNbPlaylists() + ' favoris',
+    //           },4500);
+    //         }
+    //       } else {
+    //         var dialog = new Dialog('firstItemsInPlaylist',{
+    //           '%title%': like_name + (typeof(like_name_episode) != 'undefined' ? like_name_episode : '' ),
+    //           '%content%': 'avec ' + like_step + ' ',
+    //           '%nbfavori%': $('.confirmed .results ul li').length + ' favoris',
+    //         },4500);
+    //       }
+    //     }
+    //   }
+    // }, 1500);
     
 
     // Notifications
@@ -225,15 +259,39 @@ $(document).ready(function(){
       lists_in_session = JSON.parse(API.cookie('start-mes-listes'));
       console.log('scripts/user-start.js', '#register-click', lists_in_session);
       if (Skhf.session.datas.email && lists_in_session) {
+        var nb_playlists_callback = 0;
         for(k in UI.available_playlists) {
           key = UI.available_playlists[k].replace('like', 'queue');
           ids = typeof lists_in_session[key] != 'undefined' ? lists_in_session[key] : [];
-          console.log('scripts/user-start.js', 'callback UI.auth', key, ids);
-          for (j in ids) {
-            API.addPreference(UI.available_playlists[k], ids[j]);
+          if (Object.keys(ids).length) {
+            nb_playlists_callback ++;
           }
         }
-        document.location = API.config.v3_root + '/user/notifs/';
+        console.log('scripts/user-start.js', 'callback UI.auth', 'nb_playlists_callback Init', nb_playlists_callback);
+        for(k in UI.available_playlists) {
+          console.log('scripts/user-start.js', 'callback UI.auth', 'nb_playlists_callback', nb_playlists_callback);
+          key = UI.available_playlists[k].replace('like', 'queue');
+          ids = typeof lists_in_session[key] != 'undefined' ? lists_in_session[key] : [];
+          console.log('scripts/user-start.js', 'callback UI.auth', key, ids);
+          var nb_ids = 0;
+          if (Object.keys(ids).length > 0) {
+            console.log('scripts/user-start.js', 'callback UI.auth', 'Length of ids', Object.keys(ids).length);
+            nb_playlists_callback --;
+            for (j in ids) {
+              nb_ids ++;
+              if (nb_ids == Object.keys(ids).length && nb_playlists_callback == 0){
+                var callback = function(){
+                  document.location = API.config.v3_root + '/user/notifs/';
+                }
+              } else {
+                var callback = null;
+              }
+              console.log('scripts/user-start.js', 'callback UI.auth', 'nb_ids', nb_ids);
+              API.addPreference(UI.available_playlists[k], ids[j], callback);
+              console.log('scripts/user-start.js', 'callback UI.auth', 'Callback', callback);
+            }
+          }
+        }
       }
     });
   });
