@@ -258,11 +258,11 @@ $(document).ready(function(){
             $('.channel-to-follow').each(function() {
               more += '<li> - <a data-channel-name="'+$('img', $(this)).data('track-channel')+'" data-placement="left" data-id="'+$(this).data('id')+'" class="fav fav-channel underline">la chaîne "'+$('img', $(this)).data('track-channel')+'"</a></li>';
             });
-            UI.loadAlertUser(
-              'Voulez-vous également ajouter à vos playlists ?',
-              '<ul><li> - <a data-placement="left" data-id="'+real.data('id')+'" class="fav fav-person underline">le réalisateur "'+$('span', real).html()+'"</a></li>'+more+'</ul>',
-              15000
-            );
+            var dialog = new Dialog('relatedDirectorToFollow',{
+              '%id%': real.data('id'),
+              '%name%': $('span', real).html(),
+              '%more%': more,
+            },15000);
           }
         }
         /*
@@ -442,6 +442,19 @@ $(document).ready(function(){
       var texte_offers = number_offers == 1 ? ' offre disponible sur une autre plateforme' : ' offres disponibles sur d\'autres plateformes';
       container.html('<p>'+number_offers+texte_offers+'</p>');
     },9000);
+  }
+
+  if (typeof(Skhf.session.datas.email) == 'undefined') {
+    var name = $('#fake_h1').html();
+    name = jQuery.trim(name);
+    if (name.length > 25) {
+      name = name.substring(0, 25).trim(this) + "...";
+    }
+    setTimeout(function(){
+      var dialog = new Dialog('notConnectedOnProgram',{
+        '%name%': name,
+      }, 7000);
+    }, 5000);
   }
   
 });

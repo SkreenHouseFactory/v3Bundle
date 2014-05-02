@@ -1,0 +1,11 @@
+{% set url %}{{ item.url is defined and item.url ? item.url : item.seo_url }}{% endset %}
+{% set title %}{{ item.title is defined and item.title ? item.title : item.name }}{% endset %}
+{% set picture %}{{ item.picture is defined and item.picture ? item.picture : item.cover_small }}{% endset %}
+
+<a href="{{ url }}" class="channel_link" data-id="{{ item.id }}">
+  {% if origin is defined and origin == 'user_channels' %}
+    <span class="fav fav-channel fav-on fav-trash badge" data-id="{{ item.id }}"><i class="glyphicon glyphicon-trash"></i></span>
+  {% endif %}
+  <span class="channel_texte">{{ title }}</span>
+  <img alt="{{ title }}" data-track-channel="{{ title }}" class="channel_root" src="{{ picture }}">
+</a> 

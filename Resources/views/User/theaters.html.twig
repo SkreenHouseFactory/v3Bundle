@@ -9,9 +9,7 @@
   <div class="container">
 
     {% if theaters|length == 0 %}
-      <p class="alert alert-info">Vous ne suivez aucun cinéma. </p>
-      <p><a class="btn btn-large" data-modal="remote" data-modal-title="{{ 'theaters.playlist.add'|trans }}" href="{{ path('theaters_search', {'init': 1}) }}"><i class="icon-plus-sign"></i> {{ 'theaters.playlist.add'|trans }}</a></p>
-      <br/>
+      <p class="bs-callout bs-callout-info">Vous n'avez aucun cinéma dans vos listes.<a class="btn btn-primary pull-right" href="{{ path('user_start') }}#theaters"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Commencer mes listes</a></p>
       <div class="container well well-small playlist">
         {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
       </div>

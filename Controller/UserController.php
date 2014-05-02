@@ -49,13 +49,11 @@ class UserController extends Controller
         'persons' => array(
           0 => array('title' => 'Gérard Depardieu', 'id' => 5679132),
           1 => array('title' => 'Marion Cottilard', 'id' => 5553250),
-          2 => array('title' => 'Matt Damon', 'id' => 5659565),
+          2 => array('title' => 'Martin Scorsese', 'id' => 5630208),
           3 => array('title' => 'Scarlett Johansson', 'id' => 5231885),
           4 => array('title' => 'Jean Dujardin', 'id' => 5674357),
-          5 => array('title' => 'Cécile de France', 'id' => 5669228),
-          6 => array('title' => 'Martin Scorsese', 'id' => 5630208),
-          7 => array('title' => 'Julia Roberts', 'id' => 5214404),
-          8 => array('title' => 'George Clooney', 'id' => 5129261),
+          5 => array('title' => 'Julia Roberts', 'id' => 5214404),
+          6 => array('title' => 'George Clooney', 'id' => 5129261),
         ),
         'categories' => array(
           0 => array('title' => 'Comédie dramatique', 'id' => 18),
@@ -252,7 +250,8 @@ class UserController extends Controller
         'session_uid' => $session_uid,
         'with_origin' => true,
         'nb_results' => 50,
-        'offset' => 0
+        'offset' => 0,
+        'time' => time()
       );
 
       $notifications = $api->fetch('notification', $params);
@@ -306,6 +305,47 @@ class UserController extends Controller
     /**
     *
     */
+    public function channelsAction(Request $request)
+    {
+      $session_uid = $request->cookies->get('myskreen_session_uid');
+      if (!$session_uid) {
+        return $this->redirect('http://www.myskreen.com');
+      }
+      $api = $this->get('api');
+      $params = array(
+        'img_width' => 150,
+        'img_height' => 200,
+        'channel_slider_width' => 225,
+        'channel_slider_height' => 110,
+        'skip_sliders' => 1,
+        'session_uid' => $session_uid
+      );
+      $channels = $api->fetch('skchannel', $params);
+
+      if (isset($channels->error) && 
+          $channels->error) {
+        return $this->redirect('http://www.myskreen.com');
+      }
+      $ids = array();
+      foreach ($channels as $channel) {
+        $ids[] = $channel->id + 200000000;
+      }
+
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:channels.html.twig', array(
+        'channels' => $channels,
+        'ids' => $ids
+      ));
+
+      $response->setPrivate();
+      $response->setMaxAge(0);
+
+      return $response;
+
+    }
+
+    /**
+    *
+    */
     public function programsAction(Request $request)
     {
       $onglet      = $request->get('onglet');
@@ -318,14 +358,12 @@ class UserController extends Controller
       $params = array(
         'img_width' => 150,
         'img_height' => 200,
-        'offset' => 0,
-        'nb_results' => 200,
+        'skip_sliders' => 1,
         'onglet' => $onglet,
+        'session_uid' => $session_uid
       );
-      if ($onglet == 'channel') {
-        $params['access'] = 'with_channels';
-      }
-      $programs = $api->fetch('www/slider/queue/' . $session_uid, $params);
+      $programs = $api->fetch('program', $params);
+      
       //echo $api->url;
       //print_r($programs);
       //not connected ?
@@ -341,27 +379,15 @@ class UserController extends Controller
       }
 
       //print_r(array($session_uid, $programs));
-      //ses chaines
-      if ($onglet == 'channel') {
-        $response = $this->render('SkreenHouseFactoryV3Bundle:User:programs.html.twig', array(
-          'onglet'  =>'channel',
-          'onglets'  => array('channel'),
-          'alpha'    => array(1,2,3,4,5,6,7,8,9,
-                              'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'),
-          'alpha_available' => $alpha_available,
-          'programs' => $programs
-        ));
-      //ses programmes
-      } else {
-        $response = $this->render('SkreenHouseFactoryV3Bundle:User:programs.html.twig', array(
-          'onglet'   => '',
-          'onglets'  => array('films', 'documentaires', 'series', 'emissions', 'spectacles'),
-          'alpha'    => array(1,2,3,4,5,6,7,8,9,
-                              'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'),
-          'alpha_available' => $alpha_available,
-          'programs' => $programs
-        ));
-      }
+      
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:programs.html.twig', array(
+        'onglet'   => '',
+        'onglets'  => array('films', 'documentaires', 'series', 'emissions', 'spectacles'),
+        'alpha'    => array(1,2,3,4,5,6,7,8,9,
+                            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'),
+        'alpha_available' => $alpha_available,
+        'programs' => $programs
+      ));
 
       $response->setPrivate();
       $response->setMaxAge(0);
@@ -465,19 +491,23 @@ class UserController extends Controller
     */
     public function suggestAction(Request $request)
     {
+      $ids = $request->get('ids');
       $api = $this->get('api');
       $pack = $api->fetch('www/slider/pack/12193165', array(
-        'with_programs' => true
+        'with_programs' => true,
+        'channel_slider_width' => 225,
+        'channel_slider_height' => 110
       ));
 
       foreach ($pack->programs as $key => $p) {
-        $p->seo_url = $p->seo_url . '?follow';
+        $p->url = $p->url . '?follow';
         $pack->programs->{$key} = $p;
       }
 
       //print_r(array($session_uid, $vods));
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:suggest.html.twig', array(
-        'pack'  => $pack
+        'pack'  => $pack,
+        'ids' => $ids
       ));
       $response->setPublic();
       $response->setMaxAge(3600);

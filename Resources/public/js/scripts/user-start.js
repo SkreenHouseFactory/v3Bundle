@@ -1,3 +1,7 @@
+console.log('scripts/user-start.js', 'Avant Reset');
+API.cookie('start-mes-listes', null); //reset général
+console.log('scripts/user-start.js', 'Après Reset');
+
 // -- user start
 function parallax(){
   var scrolled = $(window).scrollTop();
@@ -82,78 +86,170 @@ $(document).ready(function(){
     
     //increment
     if ($(this).data('step')) {
-      count = $('#count-'+$(this).data('step'));
-      if ($(this).hasClass('fav-on')) {
-        count.html(parseInt(count.html()) + 1);
-        count.css('background-color', '#5cb85c');
-      } else if (parseInt(count.html()) > 0) {
-        count.html(parseInt(count.html()) - 1);
-      }
-      if (parseInt(count.html()) == 0) {
-        count.hide();
-      } else {
-        count.show();
-      }
-      API.cookie('start-mes-listes-' + $(this).data('step'), parseInt(count.html()));
+      self = $(this);
+      setTimeout(function(){ // wait 500 ms for preference to be added
+        console.log('scripts/user-start.js', 'increment', 'debut count', self.data('step'));
+        count = $('#count-'+self.data('step'));
+        if (self.hasClass('fav-on')) {
+          console.log('scripts/user-start.js', 'increment', 'fav-on');
+          count.html(parseInt(count.html()) + 1);
+          count.css('background-color', '#5cb85c');
+        } else if (parseInt(count.html()) > 0) {
+          count.html(parseInt(count.html()) - 1);
+        }
+        if (parseInt(count.html()) == 0) {
+          count.hide();
+        } else {
+          count.show();
+        }
+        API.cookie('start-mes-listes-' + self.data('step'), parseInt(count.html()));
+      }, 1500);
     }
 
-    // populate confirmed div
-    if ($(this).hasClass('fav-on')) {
-      $('.no-results').addClass('hide');
-      $('.results').removeClass('hide');
-      
-      var like_id = $(this).data('id');
-      //console.log('scripts/user-start.js', 'like_id', like_id);
-      if ($(this).data('step') == 'theaters') {
-        var like_name = ( typeof($(this).data('channel-name')) != 'undefined' ? $(this).data('channel-name') : $(this).data('name') );
-        var like_title = '<span class="col-xs-11">' + like_name + '</span>';
-      } else {
-        var like_title = $(this).parent('.suggest').children('a:not(.btn)').html();
-      }
-      //console.log('scripts/user-start.js', 'like-title', like_title);
-      $('.confirmed ul').append('<li class="suggest like_' + like_id + '">' + like_title + '</li>');
+    var like_id = $(this).data('id');
+    var like_name = ( typeof($(this).data('channel-name')) != 'undefined' ? $(this).data('channel-name') : $(this).data('name') );
+    var like_name_episode = $(this).siblings('a').find('small').html();
+    switch ($(this).data('step')){
+      case 'films':
+        var like_step = 'ce film';
+        break;
+      case 'emissions':
+        var like_step = 'cette émission';
+        break;
+      case 'series':
+        var like_step = 'cette série';
+        break;
+      case 'persons':
+        var like_step = 'cette personnalité';
+        break;
+      case 'theaters':
+        var like_step = 'ce cinéma';
+        break;
+      case 'categories':
+        var like_step = 'cette catégorie de programmes';
+        break;
+    }
+    if ($(this).data('step') == 'theaters') {
+      var like_title = '<span class="col-xs-11">' + like_name + '</span>';
     } else {
-      var like_id = $(this).data('id');
-      $('.confirmed ul li.like_' + like_id).remove();
+      var like_title = $(this).parent('.suggest').children('a:not(.btn)').html();
     }
+    // console.log('scripts/user-start.js', 'like_step', like_step);
+    // console.log('scripts/user-start.js', 'like_id', like_id);
+    // console.log('scripts/user-start.js', 'like-name', like_name);
+    // console.log('scripts/user-start.js', 'like-name-episode', like_name_episode);
+    // console.log('scripts/user-start.js', 'like-title', like_title);
+
+    // populate confirmed div & Alert User
+    var self = $(this)
+    setTimeout(function(){ // wait 1500 ms for preference and fav-on to be added
+      if (self.hasClass('fav-on')) {
+        $('.no-results').addClass('hide');
+        $('.results').removeClass('hide');
+        $('.confirmed').addClass('populated');
+        $('.confirmed ul').append('<li class="suggest like_' + like_id + '">' + like_title + '</li>');
+        console.log('scripts/user-start.js', 'populate confirmed div :', 'Populate OK');
+        // Alert User
+        if ($('.confirmed .results ul li').length < 2) {
+          console.log('scripts/user-start.js', 'notifs', 'comptabilisé');
+          if(Skhf.session.user){
+            if(Skhf.session.getNbPlaylists() == 1) {
+              var dialog = new Dialog('firstItemInPlaylist',{
+                '%title%': like_name + (typeof(like_name_episode) != 'undefined' ? like_name_episode : '' ),
+                '%content%': 'avec ' + like_step + ' ',
+              },4500);
+            }
+          } else {
+            var dialog = new Dialog('firstItemInPlaylist',{
+              '%title%': like_name + (typeof(like_name_episode) != 'undefined' ? like_name_episode : '' ),
+              '%content%': 'avec ' + like_step + ' ',
+            },4500);
+          }
+        } else if ($('.confirmed .results ul li').length < 11) {
+          if (Skhf.session.user) {
+            if (Skhf.session.getNbPlaylists() < 11) {
+              var dialog = new Dialog('firstItemsInPlaylist',{
+                '%title%': like_name + (typeof(like_name_episode) != 'undefined' ? like_name_episode : '' ),
+                '%content%': 'avec ' + like_step + ' ',
+                '%nbfavori%': Skhf.session.getNbPlaylists() + ' favoris',
+              },4500);
+            }
+          } else {
+            var dialog = new Dialog('firstItemsInPlaylist',{
+              '%title%': like_name + (typeof(like_name_episode) != 'undefined' ? like_name_episode : '' ),
+              '%content%': 'avec ' + like_step + ' ',
+              '%nbfavori%': $('.confirmed .results ul li').length + ' favoris',
+            },4500);
+          }
+        }
+      } else {
+        $('.confirmed ul li.like_' + like_id).remove();
+        console.log('scripts/user-start.js', 'populate confirmed div :', 'Remove OK');
+      }
+    }, 1500);
+
+    // // Alert User Start
+    // setTimeout(function(){ // wait 1000 ms for preference and fav-on to be added 
+    //   if (self.hasClass('fav-on')) {
+    //     if ($('.confirmed .results ul li').length < 2) {
+    //       console.log('scripts/user-start.js', 'notifs', 'comptabilisé');
+    //       if(Skhf.session.user){
+    //         if(Skhf.session.getNbPlaylists() == 1) {
+    //           var dialog = new Dialog('firstItemInPlaylist',{
+    //             '%title%': like_name + (typeof(like_name_episode) != 'undefined' ? like_name_episode : '' ),
+    //             '%content%': 'avec ' + like_step + ' ',
+    //           },4500);
+    //         }
+    //       } else {
+    //         var dialog = new Dialog('firstItemInPlaylist',{
+    //           '%title%': like_name + (typeof(like_name_episode) != 'undefined' ? like_name_episode : '' ),
+    //           '%content%': 'avec ' + like_step + ' ',
+    //         },4500);
+    //       }
+    //     } else if ($('.confirmed .results ul li').length < 11) {
+    //       if (Skhf.session.user) {
+    //         if (Skhf.session.getNbPlaylists() < 11) {
+    //           var dialog = new Dialog('firstItemsInPlaylist',{
+    //             '%title%': like_name + (typeof(like_name_episode) != 'undefined' ? like_name_episode : '' ),
+    //             '%content%': 'avec ' + like_step + ' ',
+    //             '%nbfavori%': Skhf.session.getNbPlaylists() + ' favoris',
+    //           },4500);
+    //         }
+    //       } else {
+    //         var dialog = new Dialog('firstItemsInPlaylist',{
+    //           '%title%': like_name + (typeof(like_name_episode) != 'undefined' ? like_name_episode : '' ),
+    //           '%content%': 'avec ' + like_step + ' ',
+    //           '%nbfavori%': $('.confirmed .results ul li').length + ' favoris',
+    //         },4500);
+    //       }
+    //     }
+    //   }
+    // }, 1500);
     
-    if (API.cookie('start-mes-listes')) {
-      setTimeout(function(){ //wait 500ms for preference to be added
-        API.query(
-          'GET', 
-          'notifications.json', 
-          {
-            lists: API.cookie('start-mes-listes').replace('queue', 'like'),
-            time: new Date().getTime()
-          }, 
-          function(data){
-            console.log(
-              'scripts/user-start.js', 
-              'notify callback', data, API.cookie('start-mes-listes').replace('queue', 'like')
-            );
-            // for (k in data.notifications) {
-            //   var n = data.notifications[k];
-            //   console.log('scripts/user-start.js', 'notify', n);
-            //   var titre = n.title + (typeof n.title_episode != 'undefined' ? ' - ' + n.title_episode : '');
-            //   var content = n.subtitle;
-            //   var complement_content = '';
-            //   if ($('.confirmed .results ul').length < 2) {
-            //     // console.log('scripts/user-start.js', 'notifs', 'comptabilisé');
-            //     if(Skhf.session.user){
-            //       if(Skhf.session.getNbPlaylists() < 1) {
-            //         complement_content = '<br/>Bravo, vous venez d\'ajouter un 1er favori à vos listes';
-            //       }
-            //     } else {
-            //       complement_content = '<br/>Bravo, vous venez d\'ajouter un 1er favori à vos listes';
-            //     }
-            //   }
-            //   content += complement_content;
-            //   console.log('scripts/user-start.js', 'alertUser', 'content', content);
-            //   UI.loadAlertUser(titre, content);
-            // }
-        });
-      }, 500);
-    }
+
+    // Notifications
+    // if (API.cookie('start-mes-listes')) {
+    //   setTimeout(function(){ //wait 500ms for preference to be added
+    //     API.query(
+    //       'GET', 
+    //       'notifications.json', 
+    //       {
+    //         lists: API.cookie('start-mes-listes').replace('queue', 'like'),
+    //         time: new Date().getTime()
+    //       }, 
+    //       function(data){
+    //         console.log(
+    //           'scripts/user-start.js', 
+    //           'notify callback', data, API.cookie('start-mes-listes').replace('queue', 'like')
+    //         );
+    //         for (k in data.notifications) {
+    //           var n = data.notifications[k];
+    //           //console.log('scripts/user-start.js', 'notify', n);
+    //           //console.log('scripts/user-start.js', 'number of ajout_playlists', $('.confirmed .results ul li').length);
+    //         }
+    //     });
+    //   }, 500);
+    // }
 
   });
 
@@ -163,30 +259,39 @@ $(document).ready(function(){
       lists_in_session = JSON.parse(API.cookie('start-mes-listes'));
       console.log('scripts/user-start.js', '#register-click', lists_in_session);
       if (Skhf.session.datas.email && lists_in_session) {
+        var nb_playlists_callback = 0;
         for(k in UI.available_playlists) {
           key = UI.available_playlists[k].replace('like', 'queue');
           ids = typeof lists_in_session[key] != 'undefined' ? lists_in_session[key] : [];
-          console.log('scripts/user-start.js', 'callback UI.auth', key, ids);
-          for (j in ids) {
-            API.addPreference(UI.available_playlists[k], ids[j]);
+          if (Object.keys(ids).length) {
+            nb_playlists_callback ++;
           }
         }
-        $('.timeline .badge').html('0').hide();
-        setTimeout(function(){
-          Skhf.session.initSelector();
-          API.query(
-            'GET', 
-            'notifications.json', 
-            {
-              lists: API.cookie('start-mes-listes').replace('queue', 'like'),
-              session_uid: Skhf.session.uid,
-              time: new Date().getTime()
-            }, 
-            function(data){
-              console.log('scripts/user-start.js', 'UI.auth callback', 'create notifs');
-          });
-          API.cookie('start-mes-listes', null); //reset
-        }, 2000);
+        console.log('scripts/user-start.js', 'callback UI.auth', 'nb_playlists_callback Init', nb_playlists_callback);
+        for(k in UI.available_playlists) {
+          console.log('scripts/user-start.js', 'callback UI.auth', 'nb_playlists_callback', nb_playlists_callback);
+          key = UI.available_playlists[k].replace('like', 'queue');
+          ids = typeof lists_in_session[key] != 'undefined' ? lists_in_session[key] : [];
+          console.log('scripts/user-start.js', 'callback UI.auth', key, ids);
+          var nb_ids = 0;
+          if (Object.keys(ids).length > 0) {
+            console.log('scripts/user-start.js', 'callback UI.auth', 'Length of ids', Object.keys(ids).length);
+            nb_playlists_callback --;
+            for (j in ids) {
+              nb_ids ++;
+              if (nb_ids == Object.keys(ids).length && nb_playlists_callback == 0){
+                var callback = function(){
+                  document.location = API.config.v3_root + '/user/notifs/';
+                }
+              } else {
+                var callback = null;
+              }
+              console.log('scripts/user-start.js', 'callback UI.auth', 'nb_ids', nb_ids);
+              API.addPreference(UI.available_playlists[k], ids[j], callback);
+              console.log('scripts/user-start.js', 'callback UI.auth', 'Callback', callback);
+            }
+          }
+        }
       }
     });
   });

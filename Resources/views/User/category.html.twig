@@ -19,11 +19,16 @@
 
     <div id="view-user-categories">
 
-      {% if categories|length == 0 %}
-        <p class="bs-callout bs-callout-info">Vous ne suivez aucune catégorie. Utilisez le moteur de recherche pour ajouter les catégories de programmes que vous aimez.</p>
-      {% else %}
-        <p class="bs-callout bs-callout-info">Utilisez le moteur de recherche pour ajouter les catégories de programmes que vous aimez.</p>
-    
+      <p class="bs-callout bs-callout-info{{ categories|length == 0 ? ' no-program' : '' }}">
+        {% if categories|length == 0 %}
+          Vous ne suivez <strong>aucune catégorie.</strong><br/>
+          Ajoutez celles que vous préférez avec aisance !
+        {% else %}
+          Ajoutez vos catégories préférées avec aisance !
+        {% endif %}
+        <a class="btn btn-primary pull-right" href="{{ path('user_start') }}#categories"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;{{ categories|length == 0 ? 'Commencer ' : 'Continuer ' }}mes listes</a>
+      </p>
+      {% if categories|length > 0 %}
         <table class="table table-striped">
           {# {{ dump(categories) }} #}
           {% for c in categories %}
@@ -38,7 +43,7 @@
             </tr>
           {% endfor %}
         </table>
-      </div>
-    {% endif %}
+      {% endif %}
+    </div>
   </div>
 {% endblock %}

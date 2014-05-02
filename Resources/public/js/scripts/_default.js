@@ -68,7 +68,19 @@ $(document).ready(function(){
   $('a.auth').on('click', function(){
     console.log('_default.js', 'auth');
     Player.stop();
-    UI.auth();    
+    UI.auth(function(){
+      //console.log('ui.js', 'auth callback');
+      if (Skhf.session.datas.email) {
+        if (Skhf.session.getNbPlaylists() < 1) {
+          //console.log('ui.js', 'auth callback NbPlaylists', 'Aucune playlist');
+          var dialog = new Dialog('noItemInPlaylist',{},10000);
+        } else if (Skhf.session.getNbPlaylists() < 11) {
+          var dialog = new Dialog('fewItemsInPlaylist',{
+            '%nbfavori%': (Skhf.session.getNbPlaylists() == 1 ? Skhf.session.getNbPlaylists() + ' favori' : Skhf.session.getNbPlaylists() + ' favoris' )
+          },7000);
+        }
+      }
+    });    
     return false;
   });
   $('a.signout').on('click', function(){
@@ -182,17 +194,26 @@ $(document).ready(function(){
   $(document).on('click', '.notifications .remove', function(e){
         e.preventDefault();
         Skhf.session.deleteNotification($(this).data('id'));
+        //console.log('scripts/_default.js', 'click deleteNotification', $(this));
         
+        var elmts_toremove = $('.notifications .remove[data-id="'+$(this).data('id')+'"]');
+        //console.log('scripts/_default.js', 'elmts_toremove', elmts_toremove);
         //dom
-        $(this).parent().next().remove();
-        $(this).parent().slideUp('slow').remove();
+        elmts_toremove.each(function(){
+          if($(this).hasClass('more')){
+            $(this).parent().next().remove();
+            $(this).parent().slideUp('slow').remove();
+          } else {
+            $(this).parents('.tv-component').slideUp('slow').remove();
+          }
+        });
         
         //count
         var current = parseInt($('.navbar .notifications-count .badge').html()) - 1;
         console.log('UI.loadNotifications', 'remove Notifications', 'current', current);
         $('.navbar .notifications-count .badge').html(parseInt(current) > 0 ? current : 0);
         // apparition no notifs message
-        if( $('.notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
+        if( $('.notifications .tv-component:not(.hide)').length == 0){
           $('.notifications .empty').css('display','block');
         }
         return false;

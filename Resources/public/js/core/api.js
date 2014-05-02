@@ -16,11 +16,7 @@ function skPaymentPopinEnd(action, player, occurrence_id) {
         }
       break;
       case 'loadAlertUser':
-        UI.loadAlertUser(
-          'Gérer vos films',
-          'Cliquez sur "Vos vidéos à la demande" pour voir ou revoir vos VOD !',
-          6000
-        );
+        var dialog = new Dialog('paymentPopinEnd',{},6000);
       break;
     }
   }

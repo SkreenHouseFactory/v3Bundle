@@ -14,11 +14,9 @@ $(document).ready(function(){
           $('#person-related .person-relations').each(function() {
             more += '<li> - <a data-placement="left" data-id="'+$(this).data('id')+'" class="fav fav-person underline">"'+$('a.name', $(this)).html()+'"</a></li>';
           });
-          UI.loadAlertUser(
-            'Voulez-vous également ajouter à vos playlists ?',
-            '<ul>'+more+'</ul>',
-            15000
-          );
+          var dialog = new Dialog('relatedToFollow',{
+            '%more%': more,
+          },15000);
         }
       }
     }

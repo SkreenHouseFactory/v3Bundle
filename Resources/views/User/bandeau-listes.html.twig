@@ -127,5 +127,8 @@
         </div>
       </div>
     </div>
+    <div class="row user-off{% if active is defined and 'user' in app.request.uri %} hide{% endif %}">
+      <a href="{{ path('user_start') }}"  class="btn btn-lg btn-primary">Commencer mes listes</a>
+    </div>
   </div>
 </div>

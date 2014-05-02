@@ -1,11 +1,11 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
-{% block title %}{{ (onglet == 'channel') ? 'page.title.user.channels'|trans : 'page.title.user.programs'|trans }}{% endblock %}
+{% block title %}{{ 'page.title.user.programs'|trans }}{% endblock %}
 
 {% block content %}
-  {% set active %}{{ onglet == 'channel' ? 'channel' : 'programs' }}{% endset %}
+
   {% set count %}{{ programs|length }}{% endset %}
-  {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with {active: active } %}
+  {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with {active: 'programs' } %}
 
   <div class="container">
 
@@ -15,28 +15,57 @@
     <a href="#" class="btn" data-placement="bottom" data-title="{{ 'playlist.publish.public.popover.title'|trans }}" data-content="{{ 'playlist.publish.public.popover.content'|trans }}" data-trigger="hover">{{ 'playlist.publish.public.link'|trans }}</a>
   </div>
   #}
+      <p class="bs-callout bs-callout-info{{ programs|length == 0 ? ' no-program' : '' }}">
+        {% if programs|length == 0 %}
+          {% if app.request.get('onglet') is null %}
+            Vous ne suivez <strong>aucun programme.</strong><br/>
+            Ajoutez ceux que vous aimez (films, séries, émissions, etc.) avec facilité !
+          {% elseif app.request.get('onglet') == 'films' %}
+            Vous ne suivez <strong>aucun film.</strong><br/>
+            Ajoutez ceux que vous aimez avec facilité !
+          {% elseif app.request.get('onglet') == 'documentaires' %}
+            Vous ne suivez <strong>aucun documentaire.</strong><br/>
+            Ajoutez ceux que vous aimez avec facilité !
+          {% elseif app.request.get('onglet') == 'series' %}
+            Vous ne suivez <strong>aucune série.</strong><br/>
+            Ajoutez celles que vous aimez avec facilité !
+          {% elseif app.request.get('onglet') == 'emissions' %}
+            Vous ne suivez <strong>aucune émission.</strong><br/>
+            Ajoutez celles que vous aimez avec facilité !
+          {% elseif app.request.get('onglet') == 'spectacles' %}
+            Vous ne suivez <strong>aucun spectacle.</strong><br/>
+            Ajoutez ceux que vous aimez avec facilité !
+          {% endif %}
+        {% else %}
+          {% if app.request.get('onglet') is null %}
+            Ajoutez les programmes que vous aimez (films, séries, émissions, etc.) avec facilité !
+          {% elseif app.request.get('onglet') == 'films' %}
+            Ajoutez les films que vous aimez avec facilité !
+          {% elseif app.request.get('onglet') == 'documentaires' %}
+            Ajoutez les documentaires que vous aimez avec facilité !
+          {% elseif app.request.get('onglet') == 'series' %}
+            Ajoutez les séries que vous aimez avec facilité !
+          {% elseif app.request.get('onglet') == 'emissions' %}
+            Ajoutez les émissions que vous aimez avec facilité !
+          {% elseif app.request.get('onglet') == 'spectacles' %}
+            Ajoutez les spectacles que vous aimez avec facilité !
+          {% endif %}
+        {% endif %}
+        <a class="btn btn-primary pull-right" href="{{ path('user_start') }}{% if app.request.get('onglet') in [null,'films','documentaires','spectacles'] %}#films{% elseif app.request.get('onglet') == 'series' %}#series{% elseif app.request.get('onglet') == 'emissions' %}#emissions{% endif %}"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;{{ programs|length == 0 ? 'Commencer ' : 'Continuer ' }}mes listes</a>
+      </p>
       
-    {% if (onglet != 'channel') %}
       <ul class="nav nav-pills nav-alpha-client uppercase">
         <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
-          <a href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
+          <a class="label label-default" href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
         </li>
         {% for o in onglets %}
           <li{% if app.request.get('onglet') == o %} class="active"{% endif %}>
-            <a href="{{ path('user_programs', {onglet: o}) }}">{{ ['category.',o]|join|trans }}</a>
+            <a class="label label-default" href="{{ path('user_programs', {onglet: o}) }}">{{ ['category.',o]|join|trans }}</a>
           </li>
         {% endfor %}
       </ul>
-    {% endif %}
-
-    {% if programs|length == 0 %}
-      <br/>
-      <p class="bs-callout bs-callout-info">Vous ne suivez {{ onglet == 'channel' ? 'aucune chaîne' : 'aucun programme' }}.</p>
-      <br/>
-    {% endif %}
 
     {% if programs|length > 6 %}
-      <br class="clear"/>
       <a class="block" data-toggle-hide=".pagination" data-taggle-text="... fermer">Plus de filtres ...</a>
       <ul class="pagination pagination-client-alpha hide">
         <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a>{{ 'nav.all'|trans }}</a></li>
@@ -49,16 +78,10 @@
     <div id="user-programs" class="slider slider-list">
       <ul class="items">
         {% for p in programs %}
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, 'header': '<span class="fav' ~ (onglet == 'channel' ? ' fav-channel' : ' fav-like') ~ ' fav-on fav-trash badge badge-important" data-id="' ~ p.id ~ '"><i class="glyphicon glyphicon-trash"></i></span>'} %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, 'header': '<span class="fav fav-like fav-on fav-trash badge badge-important" data-id="' ~ p.id ~ '"><i class="glyphicon glyphicon-trash"></i></span>'} %}
         {% endfor %}
       </ul>
     </div>
-
-    {% if (onglet == 'channel') %}
-      <br/>
-      {% render(controller('SkreenHouseFactoryV3Bundle:User:suggest', { type: 'channel' })) %}
-      {#{ render_esi(controller('SkreenHouseFactoryV3Bundle:User:suggest', { type: 'channel' })) }#}
-    {% endif %}
   
   </div>
 {% endblock %}

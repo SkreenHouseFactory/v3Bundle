@@ -120,8 +120,8 @@ user_programs:
     pattern:  /user/programs/{onglet}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:programs, onglet: null }
 user_channels:
-    pattern:  /user/programs/channel
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:programs, onglet: channel }
+    pattern:  /user/channels/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:channels }
 user_theaters:
     pattern:  /user/theaters/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:theaters }

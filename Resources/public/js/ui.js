@@ -196,7 +196,7 @@ UI = {
     }
   },
   loadAlertUser: function(titre, content, delay_timeout){
-    console.log('UI.loadAlertUser', titre, content, delay_timeout);
+    //console.log('UI.loadAlertUser', titre, content, delay_timeout);
     var self = this;
     if (typeof delay_timeout == 'undefined') delay_timeout = 6000;
     container  = $('#alert-user');
@@ -257,6 +257,8 @@ UI = {
       return ' cette catégorie';
     } else if (trigger.hasClass('fav-format-category')) {
       return ' cette catégorie';
+    } else if (trigger.hasClass('fav-like')) {
+      return ' ce programme';
     } else {
       return '';
     }
@@ -331,6 +333,7 @@ UI = {
       }
       var value = trigger.data('id') ? trigger.data('id') : trigger.parents('.actions:first').data('id');
       var remove = trigger.hasClass('fav-on') ? true : false;
+      // console.log('ui.js', 'togglePlaylist', 'remove', remove);
       // -- callback
       var callback = function(value, return_data){
         console.log('UI.togglePlaylist', 'callback', value, 'remove:'+remove);
@@ -339,17 +342,24 @@ UI = {
           console.log('UI.togglePlaylist', 'callback enter remove');
           if (trigger.hasClass('fav-trash') &&
               $('.friends', trigger.parents('.actions:first')).length == 0) { //pas pour le slider social
-            $('.slider-playlist li[data-id="' + value + '"], .slider-list li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
+            $('.slider-playlist li[data-id="' + value + '"], .slider-list li[data-id="' + value + '"], .channels-list li[data-id="' + value + '"]').animate({'width':0}, 500, function(){
               $(this).remove();
             });
           }
-        } else {
+        } else if (typeof(store_in_session) == 'undefined') {
           console.log('UI.togglePlaylist', 'Skhf.session.getNbPlaylists()' + Skhf.session.getNbPlaylists());
           if (Skhf.session.getNbPlaylists() == 0) {
-            self.loadAlertUser(
-              'Bravo ! vous avez commencé vos listes !',
-              'Vous pouvez les modifier en allant dans <a href="'+API.config.v3_root+'/user/programs/">Mes listes</a> !'
-            );
+            console.log('ui.js', 'togglePlaylist', 'name', name);
+            var dialog = new Dialog('firstItemInPlaylist',{
+              '%title%': 'Vous avez ajouté' + name,
+              '%content%': '',
+            });
+          } else if (Skhf.session.getNbPlaylists() < 5) {
+            var dialog = new Dialog('firstItemsInPlaylist',{
+              '%title%': 'Vous avez ajouté' + name,
+              '%content%': '',
+              '%nbfavori%': (Skhf.session.getNbPlaylists()+1) + ' favoris',
+            });
           }
         }
         if (UI.callbackTogglePlaylist) {
@@ -358,7 +368,9 @@ UI = {
       }
       // -- api
       if (remove) {
-        if (store_in_session) { //start mes listes
+        if (Skhf.session.datas.email) {
+          API.removePreference(parameter, value, callback);
+        } else if (store_in_session) { //start mes listes
           meslistes_in_session = API.cookie('start-mes-listes') ? JSON.parse(API.cookie('start-mes-listes')) : {};
           newparameter = parameter.replace('like', 'queue')
           if (typeof meslistes_in_session[newparameter] != 'undefined' && 
@@ -368,22 +380,20 @@ UI = {
             API.cookie('start-mes-listes', JSON.stringify(meslistes_in_session));
             self.unloadPlaylistTriggers(parameter, [value]);
           }
-        } else {
-          API.removePreference(parameter, value, callback);
-        }
+        } 
       } else {
-        if (store_in_session) { //start mes listes
+        if (Skhf.session.datas.email) {
+          API.addPreference(parameter, value, callback, '', typeof with_related == 'undefined' ? true : with_related);
+        } else if (store_in_session) { //start mes listes
           meslistes_in_session = API.cookie('start-mes-listes') ? JSON.parse(API.cookie('start-mes-listes')) : {};
           newparameter = parameter.replace('like', 'queue')
           if (typeof meslistes_in_session[newparameter] == 'undefined') {
             meslistes_in_session[newparameter] = {};
           }
           meslistes_in_session[newparameter][value] = value;
-            console.log('UI.togglePlaylist', 'store_in_session', 'add', [newparameter, value], meslistes_in_session, JSON.stringify(meslistes_in_session));
+          console.log('UI.togglePlaylist', 'store_in_session', 'add', [newparameter, value], meslistes_in_session, JSON.stringify(meslistes_in_session));
           API.cookie('start-mes-listes', JSON.stringify(meslistes_in_session))
           self.loadPlaylistTriggers(parameter, [value]);
-        } else {
-          API.addPreference(parameter, value, callback, '', typeof with_related == 'undefined' ? true : with_related);   
         }
       }
     } else {
@@ -578,14 +588,14 @@ UI = {
   // filter
   notificationsFilter : function(self){
     // console.log('ui.js', 'notificationsFilter', 'Check-In');
-    $('.navbar .notifications .empty').css('display','none');
-    $('.navbar .notifications .dropdown-menu .tv-component').addClass('hide');
-    $('.navbar .notifications .divider.notification').addClass('hide');
+    $('.notifications .empty').css('display','none');
+    $('.notifications .tv-component').addClass('hide');
+    $('.notifications .divider.notification').addClass('hide');
     
 
     if ( self.data('filter') == 'all' ){
-      $('.navbar .notifications .dropdown-menu .tv-component').removeClass('hide');
-      $('.navbar .notifications .divider.notification').removeClass('hide'); 
+      $('.notifications .tv-component').removeClass('hide');
+      $('.notifications .divider.notification').removeClass('hide'); 
     } else {
       if( self.data('filter') == 'tv' ){
         var classes = ['plays.broadcast','broadcasts.broadcast'];
@@ -597,12 +607,12 @@ UI = {
         var classes = [self.data('filter')];
       }
       for (k in classes) {
-        $('.navbar .notifications .dropdown-menu .tv-component.' +  classes[k]).removeClass('hide'); 
-        $('.navbar .notifications .divider.' +  classes[k]).removeClass('hide'); 
+        $('.notifications .tv-component.' +  classes[k]).removeClass('hide'); 
+        $('.notifications .divider.' +  classes[k]).removeClass('hide'); 
       }
     }
-    if( $('.navbar .notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
-      $('.navbar .notifications .empty').css('display','block');
+    if( $('.notifications .tv-component:not(.hide)').length == 0){
+      $('.notifications .empty').css('display','block');
     }
 
   },
@@ -610,7 +620,7 @@ UI = {
   appendNotifications : function(notifications,list){
     // console.log('ui.js', 'appendNotifications', 'Check-In');
     for (k in notifications) {
-      if($('.tv-component [data-id="'+notifications[k].id+'"]').length == 0){
+      if($('.dropdown-menu .tv-component [data-id="'+notifications[k].id+'"]').length == 0){
         if (notifications[k].type == 'broadcast') {
           var attrs = 'data-ajax="' + notifications[k].link +'?offers='+notifications[k].offers +'" rel="#content" data-seo-url="' + notifications[k].link + '"';
         
