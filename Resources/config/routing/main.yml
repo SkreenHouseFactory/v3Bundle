@@ -6,34 +6,6 @@ redirect_integrale:
         path: /l-integrale-des-inconnus/
         permanent: true
 
-#embed
-embed_offer:
-    pattern:  /video/{id}/
-    host:     "{domain}"
-    defaults:
-        _controller: SkreenHouseFactoryV3Bundle:Embed:video
-        domain: embed.myskreen.com
-    requirements:
-        id: \d+
-        _scheme: http
-        domain: embed.myskreen.com|preprod-v3.myskreen.com|v3.benoit.myskreen.typhon.net|v3.dev5.myskreen.typhon.net
-embed_movieplay:
-    pattern:  /movieplay/{id}/
-    host:     "{domain}"
-    defaults:
-        _controller: SkreenHouseFactoryV3Bundle:Embed:movieplay
-        domain: embed.myskreen.com
-    requirements:
-        id: \d+
-        _scheme: https
-        domain: embed.myskreen.com|preprod-v3.myskreen.com|v3.benoit.myskreen.typhon.net|v3.dev5.myskreen.typhon.net
-embed_movieplay_dev:
-    pattern:  /movieplay_dev/{id}/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Embed:movieplay }
-    requirements:
-        id: \d+
-
-
 sitemap_general:
     pattern:  /sitemap.xml
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:sitemap }

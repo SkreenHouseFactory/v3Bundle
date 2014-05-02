@@ -1,0 +1,18 @@
+#embed
+embed_offer:
+    pattern:  /video/{id}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Embed:video }
+    requirements:
+        id: \d+
+        _scheme: http
+embed_movieplay:
+    pattern:  /movieplay/{id}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Embed:movieplay }
+    requirements:
+        id: \d+
+        _scheme: https
+embed_movieplay_dev:
+    pattern:  /movieplay_dev/{id}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Embed:movieplay }
+    requirements:
+        id: \d+
