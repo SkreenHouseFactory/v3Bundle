@@ -1,11 +1,11 @@
 {% if o_channel is not defined %}
-{% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
+  {% set o_channel = attribute(program.datas_offers.channels, o.channel_id) %}
 {% endif %}
 {% if o_access is not defined %}
-{% set o_access = attribute(program.datas_offers.access, o.access_id) %}
+  {% set o_access = attribute(program.datas_offers.access, o.access_id) %}
 {% endif %}
 {% if o_episode is not defined %}
-{% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
+  {% set o_episode = o.episode_id is defined ? attribute(program.datas_offers.episodes,  o.episode_id) : '' %}
 {% endif %}
 
 <tr class="{{ key }} player-stop {{ o.cost is defined and o.cost ? '' : 'no-cost '}}{% if program.player and o.id == program.player.id %}is-playing{% endif %}{% if loop.index > loop_offset and (attribute(program.offers, 'deporte')|to_array|length == 0 or key != 'external') %}{% if inconnus_ids is defined %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %}{% else %}collapse{% endif %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% if program.id in inconnus_ids or (program.episodeof is defined and program.episodeof.id in inconnus_ids) %} in{% endif %}{% endif %}{% endif %} collapsing-{{ key }}" data-id="{{ o.id }}"{% if o_access.name in ['TV'] and o_channel.live is defined and o_channel.live.player is defined and o_channel.live.player and o.is_live is defined and o.is_live %} data-play-iframe="{{ o_channel.live.player }}"{% elseif o.url is defined and o.url and (o.deporte is not defined or o.deporte is null) %} data-redirect="{{ 'm6replay' not in o.url and 'itunes' not in o.url ? o.url|replace({'/exit/': '/redirect/'}) : o.url }}"{% elseif o.deporte is defined and o.deporte and key != "coming_soon" %} data-play="{{ o.id }}"{% elseif key == 'ba' %} data-play="{{ o.id }}"{% endif %} {% if o_episode %} data-episode-id="{{ o_episode.id }}" {% endif %} {% if key=="deporte" %}data-play-text="{{ ('player.content.text.' ~ key)|trans({'%date%': 'diffusé '~ (o.broadcasttime is defined ? o.broadcasttime|broadcastdate : '')}) }}"{% endif %}>
@@ -35,6 +35,8 @@
           {% endif %}
         {% endif %}
       </p>
+    {% elseif o.starttime is defined and o.starttime %}
+      <p class="cut-date">{{ o.starttime|broadcastdate('', 'date') }}</p>
     {% endif %}
     <div>
       {% if o_access.name in ['Vidéo', 'Archive'] and 
