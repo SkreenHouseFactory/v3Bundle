@@ -15,6 +15,36 @@
     <a href="#" class="btn" data-placement="bottom" data-title="{{ 'playlist.publish.public.popover.title'|trans }}" data-content="{{ 'playlist.publish.public.popover.content'|trans }}" data-trigger="hover">{{ 'playlist.publish.public.link'|trans }}</a>
   </div>
   #}
+      
+      <ul class="nav nav-pills nav-alpha-client uppercase">
+        <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
+          <a class="label label-default" href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
+        </li>
+        {% for o in onglets %}
+          <li{% if app.request.get('onglet') == o %} class="active"{% endif %}>
+            <a class="label label-default" href="{{ path('user_programs', {onglet: o}) }}">{{ ['category.',o]|join|trans }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+
+    {% if programs|length > 6 %}
+      <a class="block" data-toggle-hide=".pagination" data-taggle-text="... fermer">Plus de filtres ...</a>
+      <ul class="pagination pagination-client-alpha hide">
+        <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a>{{ 'nav.all'|trans }}</a></li>
+        {% for l in alpha %}
+          <li{% if app.request.get('alpha') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a>{{ l }}</a></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    <br class="clear"/>
+    <div id="user-programs" class="slider slider-list">
+      <ul class="items">
+        {% for p in programs %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, 'header': '<span class="fav fav-like fav-on fav-trash badge badge-important" data-id="' ~ p.id ~ '"><i class="glyphicon glyphicon-trash"></i></span>'} %}
+        {% endfor %}
+      </ul>
+    </div>
+
       <p class="bs-callout bs-callout-info{{ programs|length == 0 ? ' no-program' : '' }}">
         {% if programs|length == 0 %}
           {% if app.request.get('onglet') is null %}
@@ -53,35 +83,6 @@
         {% endif %}
         <a class="btn btn-primary pull-right" href="{{ path('user_start') }}{% if app.request.get('onglet') in [null,'films','documentaires','spectacles'] %}#films{% elseif app.request.get('onglet') == 'series' %}#series{% elseif app.request.get('onglet') == 'emissions' %}#emissions{% endif %}"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;{{ programs|length == 0 ? 'Commencer ' : 'Continuer ' }}mes listes</a>
       </p>
-      
-      <ul class="nav nav-pills nav-alpha-client uppercase">
-        <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
-          <a class="label label-default" href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
-        </li>
-        {% for o in onglets %}
-          <li{% if app.request.get('onglet') == o %} class="active"{% endif %}>
-            <a class="label label-default" href="{{ path('user_programs', {onglet: o}) }}">{{ ['category.',o]|join|trans }}</a>
-          </li>
-        {% endfor %}
-      </ul>
 
-    {% if programs|length > 6 %}
-      <a class="block" data-toggle-hide=".pagination" data-taggle-text="... fermer">Plus de filtres ...</a>
-      <ul class="pagination pagination-client-alpha hide">
-        <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a>{{ 'nav.all'|trans }}</a></li>
-        {% for l in alpha %}
-          <li{% if app.request.get('alpha') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><a>{{ l }}</a></li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-    <br class="clear"/>
-    <div id="user-programs" class="slider slider-list">
-      <ul class="items">
-        {% for p in programs %}
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, 'header': '<span class="fav fav-like fav-on fav-trash badge badge-important" data-id="' ~ p.id ~ '"><i class="glyphicon glyphicon-trash"></i></span>'} %}
-        {% endfor %}
-      </ul>
-    </div>
-  
   </div>
 {% endblock %}

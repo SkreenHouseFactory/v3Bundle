@@ -1,25 +1,5 @@
-//console.log('scripts/program.js', 'chargement');
+console.log('scripts/program.js', 'chargement', Skhf.session);
 
-$(document).on('click', '[data-play], [data-play-iframe]', function(){
-    //remove
-    $('.is-playing').each(function(){
-      $(this).removeClass('is-playing');
-      $('.offers',$(this)).html('<button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir </button>');
-      var btn = $('.btn', $(this));
-      btn.removeClass('disabled');
-      btn.html(btn.data('text-save'));
-    });
-    //Add
-    $(this).addClass('is-playing');
-    var btn = $('.is-playing .btn');
-    btn.addClass('disabled');
-    btn.data('text-save', btn.html());
-    btn.html('Lecture en cours');
-    if ($(this).parents('#videos').length) {
-      console.log('scripts/program.js', 'is-playing', 'videos tab');
-      $('a[href="#videos"]').trigger('click');
-    }
-  });
 // -- program
 // -- ProgramView
 var ProgramView;
@@ -211,15 +191,33 @@ ProgramView = {
 }
 
 
-
-
-
-
+$(document).on('click', '[data-play], [data-play-iframe]', function(){
+  //remove
+  $('.is-playing').each(function(){
+    $(this).removeClass('is-playing');
+    $('.offers',$(this)).html('<button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir </button>');
+    var btn = $('.btn', $(this));
+    btn.removeClass('disabled');
+    btn.html(btn.data('text-save'));
+  });
+  //Add
+  $(this).addClass('is-playing');
+  var btn = $('.is-playing .btn');
+  btn.addClass('disabled');
+  btn.data('text-save', btn.html());
+  btn.html('Lecture en cours');
+  if ($(this).parents('#videos').length) {
+    console.log('scripts/program.js', 'is-playing', 'videos tab');
+    $('a[href="#videos"]').trigger('click');
+  }
+});
 
 //surcharge session sync args to get sVOD :
 Session_sync_args = { 'with_svod': 1 };
 
 $(document).ready(function(){
+
+  console.log('scripts/program.js', 'enter document ready', Skhf.session.callbackSignin);
 
   if ($('#view-program').length) {
 
@@ -417,11 +415,10 @@ $(document).ready(function(){
     })
 
     //init
-    console.log('scripts/program.js', 'before PG init');
+    console.log('scripts/program.js', 'before PG init', Skhf.session.callbackSignin);
     if ($('#view-program').hasClass('isInitialized') == false) {
       ProgramView.init();
       console.log('scripts/program.js', 'after PG init');
-
     }
 
     // tracking
