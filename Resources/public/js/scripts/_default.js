@@ -50,7 +50,8 @@ $(document).ready(function(){
       }
       if (!API.cookie('session_uid')){
         setTimeout( function(){
-          if (typeof Skhf.session.callbackSignin == 'function') {
+          console.log('scripts/_default.js', 'no cookie', 'setTimeout');
+          if (Skhf.session.callbackSignin != null && Skhf.session.callbackSignin.length > 0) {
             Skhf.session.callbackSignin();
           }
         }, 700);

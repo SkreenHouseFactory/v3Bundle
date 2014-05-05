@@ -217,7 +217,7 @@ ProgramView = {
 
 
 //surcharge session sync args to get sVOD :
-Session_sync_args =  { 'with_svod': 1 };
+Session_sync_args = { 'with_svod': 1 };
 
 $(document).ready(function(){
 
@@ -226,10 +226,15 @@ $(document).ready(function(){
     //////////// CALLBACKS ////////////////
     // -- session sync
     //Skhf.session.callbackInit = null;
+    console.log('scripts/program.js', 'Skhf avant callbackSignout', Skhf);
     Skhf.session.callbackSignout = function() {
       ProgramView.unloadProgramUsersDatas($('#view-program').data('id'));
     }
+
+    var dialog_displayed = false;
+
     Skhf.session.callbackSignin['program'] = function() {
+      console.log('scripts/program.js', 'callbackSignin', 'Beginning callbackSignin');
 
       //load user's data
       if (Skhf.session.datas.email) {
@@ -250,18 +255,22 @@ $(document).ready(function(){
       ProgramView.loadModal();
 
       //dialog
-      if (!Skhf.session.datas.email) {
-        var name = $('#fake_h1').html();
-        name = jQuery.trim(name);
-        if (name.length > 25) {
-          name = name.substring(0, 25).trim(this) + "...";
+      if (!dialog_displayed) {
+        if (typeof Skhf.session.datas.email == 'undefined' || Skhf.session.datas.email == null ) {
+          var name = $('#fake_h1').html();
+          name = jQuery.trim(name);
+          if (name.length > 25) {
+            name = name.substring(0, 25).trim(this) + "...";
+          }
+          setTimeout(function(){
+            var dialog = new Dialog('notConnectedOnProgram',{
+              '%name%': name,
+            }, 7000);
+            dialog_displayed = true;
+          }, 5000);
         }
-        setTimeout(function(){
-          var dialog = new Dialog('notConnectedOnProgram',{
-            '%name%': name,
-          }, 7000);
-        }, 5000);
       }
+      
     }
 
     // -- add preference callback : incitation à suivre des related

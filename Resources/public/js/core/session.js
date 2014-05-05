@@ -18,8 +18,8 @@ var BaseSession = Class.extend({
     var self = this;
     this.uid = API.cookie('session_uid');
     if (typeof callbackSignin != 'undefined') {
+      console.log('scripts', '_default.js', 'Skhf.session', 'self.callbackSignin', self.callbackSignin);
       self.callbackSignin['init'] = callbackSignin;
-      //console.log('scripts', '_default.js', 'Skhf.session', 'self.callbackSignin', self.callbackSignin);
     }
     if (typeof callbackInit != 'undefined') {
       self.callbackInit = callbackInit;
