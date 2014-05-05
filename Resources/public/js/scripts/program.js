@@ -368,11 +368,6 @@ $(document).ready(function(){
         $('.btn-suivre').trigger('click');
       });
     }
-    $('[data-play-text]').on('click', function(){
-        if($('#program-teaser-header').length ){
-          $('#program-teaser-header').html($(this).data('play-text'));
-        }
-    });
     //autoload from url
     if (document.location.href.match(/\?rent/gi)) {
       $('#program-offers [data-play]:first').trigger('click');
@@ -392,13 +387,6 @@ $(document).ready(function(){
         );
       });
     }
-
-    //handle video mention
-    $('[data-play]').on('click', function(){
-      if ($(this).data('play-text')) {
-        $('#program-teaser-header').html($(this).data('play-text'));
-      }
-    });
 
     //scroll-to-title from best-offer
     $('[data-scroll-to-title]').on('click', function(){
