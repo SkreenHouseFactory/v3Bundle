@@ -10,13 +10,15 @@ $(document).ready(function(){
       console.log('scripts/person.js', 'define callbackTogglePlaylist');
       UI.callbackTogglePlaylist = function(parameter, value, remove, trigger, return_data) {
         if (!remove) {
-          more = '';
-          $('#person-related .person-relations').each(function() {
-            more += '<li> - <a data-placement="left" data-id="'+$(this).data('id')+'" class="fav fav-person underline">"'+$('a.name', $(this)).html()+'"</a></li>';
-          });
-          var dialog = new Dialog('relatedToFollow',{
-            '%more%': more,
-          },15000);
+          if ($('#person-related .person-relations').length) {
+            more = '';
+            $('#person-related .person-relations').each(function() {
+              more += '<li> - <a data-placement="left" data-id="'+$(this).data('id')+'" class="fav fav-person underline">"'+$('a.name', $(this)).html()+'"</a></li>';
+            });
+            var dialog = new Dialog('relatedToFollow',{
+              '%more%': more,
+            },15000);
+          }
         }
       }
     }
