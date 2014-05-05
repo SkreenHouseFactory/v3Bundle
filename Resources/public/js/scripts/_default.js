@@ -49,11 +49,12 @@ $(document).ready(function(){
         document.location='/';
       }
       if (!API.cookie('session_uid')){
-        setTimeout( function(){
-          if (typeof Skhf.session.callbackSignin == 'function') {
-            Skhf.session.callbackSignin();
+        setTimeout(function(){
+          for (k in self.callbackSignin) {
+            console.log('script', 'Session.init', 'callbackSignin', self.callbackSignin[k]);
+            self.callbackSignin[k]();
           }
-        }, 700);
+        }, 500);
       }
     }, typeof Session_sync_args != 'undefined' ? Session_sync_args : {});
 
