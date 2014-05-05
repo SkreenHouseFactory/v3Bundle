@@ -6,8 +6,13 @@
   <div class="slider slider-list">
     <div class="slider-container">
       <ul class="items">
-        {% for p in pack.programs|to_array if p.id not in ids %}
-          {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels_item.html.twig' with { item: p } %}
+        {% for p in pack.programs|to_array if p.id not in ids %} {# On ne suggère que les chaînes que l'utilisateur n'a pas #}
+          {% if p.not_allowed_in_lists is defined and p.not_allowed_in_lists %}
+            {# On évite de suggérer les chaînes qu'on ne peut pas suivre #}
+          {% else %}
+            {# On affiche toutes les autres #}
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels_item.html.twig' with { item: p } %}
+          {% endif %}
         {% endfor %}
       </ul>
     </div>
