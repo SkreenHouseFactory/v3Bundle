@@ -38,13 +38,9 @@ $(document).ready(function(){
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     
-    if(!API.cookie('session_uid')){
-      $('.headertoprighticons').removeClass('hide');
-    }
-    
     // -- DOM interactions
     UiView.init();
-    
+
     // -- session
     Skhf.session = new Session(function(sessionData, self){
       console.log('script', 'Session.init', 'callback');
@@ -52,7 +48,13 @@ $(document).ready(function(){
       if(!sessionData.email && document.location.href.indexOf('/user/')!=-1){
         document.location='/';
       }
-      
+      if (!API.cookie('session_uid')){
+        setTimeout( function(){
+          if (typeof Skhf.session.callbackSignin == 'function') {
+            Skhf.session.callbackSignin();
+          }
+        }, 700);
+      }
     }, typeof Session_sync_args != 'undefined' ? Session_sync_args : {});
 
   });
@@ -306,15 +308,6 @@ $(document).ready(function(){
     $('body').addClass('playlist-w-in');
      }
   });
-  
-  if (!API.cookie('session_uid')){
-      $('.headertoprighticons').removeClass('hide');
-      setTimeout( function(){
-        if (typeof Skhf.session.callbackSignin == 'function') {
-          Skhf.session.callbackSignin();
-        }
-      }, 700);
-    }
     
   $(document).on('click', '#top-playlist .breadcrumb li:first', function(){
     Skhf.session.initSelector();
