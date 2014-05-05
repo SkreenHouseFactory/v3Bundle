@@ -74,5 +74,16 @@
           })
       }}
     {% endif %}
+    {% if program.casting is defined and program.casting.Réalisateur is defined %}
+      {% set realisateur = '' %}
+      {% for real in program.casting.Réalisateur|to_array %}
+        {% if loop.last %}
+          {% set realisateur = realisateur ~ real.name ~ '.' %}
+        {% else %}
+          {% set realisateur = realisateur ~ real.name ~ ', ' %}
+        {% endif %}
+      {% endfor %}
+      {{ '. Réalisé par ' ~ realisateur }}
+    {% endif %}
   {% endspaceless %}
 {% endblock %}
