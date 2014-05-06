@@ -286,7 +286,7 @@ class MainController extends Controller
       if (substr($request->get('url'),0,25) == 'theatre-concert-spectacle') {
         return $this->redirect('/'.str_replace('theatre-concert-spectacle', 'concert', $request->get('url')), 301);
       }
-      
+
       throw $this->createNotFoundException('Page does not exist');
     }
 

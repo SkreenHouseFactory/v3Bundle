@@ -22,7 +22,7 @@ use SkreenHouseFactory\v3Bundle\Controller\PersonController;
 ini_set('post_max_size', '2048M');
 ini_set('upload_max_filesize', '2048M');
 
-class ChannelCustomController extends Controller
+class ChannelCustomController extends MyskreenController
 {
 
   // Plus belle la vie en avance
