@@ -65,7 +65,7 @@
                 <a class="name" href="{{ path('any_url', {url: relation.seo_url|slice(1, relation.seo_url|length-1)}) }}">{{ relation.name }}</a>
                 <br/>
                 <span>{{ relation.main_activity }}</span>
-                <a class="btn btn-sm btn-default pull-right" href="{{ path('any_url', {url: relation.seo_url|slice(1, relation.seo_url|length-1)}) }}">» Voir ses {{ relation.nb_programs }} programmes</a>
+                <a class="btn btn-sm btn-default pull-right" href="{{ path('any_url', {url: relation.seo_url|slice(1, relation.seo_url|length-1)}) }}">» Voir ses programmes</a>
               </div>
             {% endfor %}
           </div>
