@@ -424,6 +424,14 @@ category_access:
         format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie|extrait|programme
         category_slug: "[^/]+"
         access: video-a-la-demande|cinema|dvd|tv|replay|vod|svod|cuts|bonus|catchup|free|ios|recent|online|myskreen|deporte
+category_access_page:
+    pattern:  /{format}/{category_slug}/{access}/page-{page}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+    requirements:
+        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie|extrait|programme
+        category_slug: "[^/]+"
+        access: video-a-la-demande|cinema|dvd|tv|replay|vod|svod|cuts|bonus|catchup|free|ios|recent|online|myskreen|deporte
+        page: \d+
 category_facet:
     pattern:  /{format}/{category_slug}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
@@ -447,12 +455,28 @@ category_facet_access:
         category_slug: "[^/]+"
         facet: "[^/]+"
         access: video-a-la-demande|cinema|dvd|tv|replay|vod|svod|cuts|bonus|catchup|free|ios|recent|online|myskreen|deporte
+category_facet_access_page:
+    pattern:  /{format}/{category_slug}/{facet}/{access}/page-{page}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+    requirements:
+        format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie|extrait|programme
+        category_slug: "[^/]+"
+        facet: "[^/]+"
+        access: video-a-la-demande|cinema|dvd|tv|replay|vod|svod|cuts|bonus|catchup|free|ios|recent|online|myskreen|deporte
+        page: \d+
 format_access:
     pattern:  /{category_slug}/{access}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
         category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie|extrait|programme
         access: liste|video-a-la-demande|cinema|dvd|tv|replay|vod|svod|cuts|bonus|catchup|free|ios|recent|online|myskreen|deporte
+format_access_page:
+    pattern:  /{category_slug}/{access}/page-{page}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+    requirements:
+        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie|extrait|programme
+        access: liste|video-a-la-demande|cinema|dvd|tv|replay|vod|svod|cuts|bonus|catchup|free|ios|recent|online|myskreen|deporte
+        page: \d+
 format_facet:
     pattern:  /{category_slug}/{facet}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }

@@ -1,5 +1,5 @@
+{% spaceless %}
 {% set base_url = app.environment == 'prod' and ('www.myskreen.com' not in app.request.uri or '/partners/' in app.request.uri) ? 'http://www.myskreen.com' : (app.environment == 'dev' ? '/app_dev.php' : '') %}
-
 {% if p is not defined or p.title is not defined %}
   {% set p = {title:'%title%',
   id:'%id%',
@@ -11,15 +11,13 @@
   best_offer:'',
   deporte:''} %}
 {% endif %}
-
 {% if p.episodeof is defined and ' - ' in p.title%}
   {% set tmp = p.title|replace({(p.episodeof.title) ~ ' - ': '' }) %}
   {% set p_title = tmp ~ ' / ' ~ p.episodeof.title %}
 {% else %}
   {% set p_title = p.title %}
 {% endif %}
-
-<li class="actions hasvod-{{ p.has_vod }} image-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}} root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background:url({{ p.picture }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}{% if origin is defined and origin == 'boxoffice' %} itemprop="about" itemscope itemtype="http://schema.org/Movie"{% endif %}{% if origin is defined and origin == 'person' %} itemprop="performerIn" itemscope itemtype="http://schema.org/Movie"{% endif %}>
+{% endspaceless %}<li class="actions hasvod-{{ p.has_vod }} image-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}} root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background:url({{ p.picture }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}{% if origin is defined and origin == 'boxoffice' %} itemprop="about" itemscope itemtype="http://schema.org/Movie"{% endif %}{% if origin is defined and origin == 'person' %} itemprop="performerIn" itemscope itemtype="http://schema.org/Movie"{% endif %}>
   {{ header is defined ? header|raw : '' }}
   {% if origin is defined and (origin == 'boxoffice' or origin == 'person') %}
     {% if p.picture %}<meta itemprop="image" content="{{ p.picture }}"/>{% endif %}

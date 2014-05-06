@@ -376,7 +376,7 @@ UiView = {
             history.pushState({path: window.location.href, document_title: document.title ,has_filter : has_dropdown_filter, has_skin: typeof has_skin !="undefined"? has_skin : ''}, document.title, window.location.href);  
            }
          }
-         history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax'));
+         history.pushState({path: trigger.data('ajax')}, trigger.html(), trigger.data('ajax').replace(' ', ''));
         }
         $('.tooltip').remove();
         console.log('script', '[data-ajax]', $(this).data('ajax'), $('body').attr('class'));
@@ -393,13 +393,14 @@ UiView = {
         $($(this).attr('rel')).empty();
         UI.appendLoader($($(this).attr('rel')));
         if ($(this).data('ajax').indexOf('#') != -1) {
-          var url = $(this).data('ajax').replace('#', '?skip_varnish#');
+          var url = $(this).data('ajax');
         } else {
           var suffix = $(this).data('ajax').indexOf('?') == -1 ? '?skip_varnish' : '&skip_varnish';
           var url = $(this).data('ajax') + suffix;
         }
         $($(this).attr('rel')).load(url, function() {
           console.log('script', '[data-ajax]', 'callback', 'ajax-play', trigger.data('ajax-play'));
+          seo.transform();
           //update data body
           UI.unloadRedirect();
           //trigger playlists

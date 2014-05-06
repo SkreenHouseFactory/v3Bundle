@@ -1,16 +1,7 @@
 // remplace les liens non visible par google par des liens visibles
 
 $(document).ready(function(){
-	$('[data-link-to-replace]').each(function(){
-    //console.log('scripts/seo.js', '[data-link-to-replace]', $(this));
-    var link = unescape(seo.rot13($(this).data('link-to-replace')));
-		var node = '<a href="'+ link +'" class="seo-replaced'+(typeof $(this).attr('class') != 'undefined' ? ' '+$(this).attr('class') : '')+'">'+$(this).html()+'</a>';
-    $(this).replaceWith(node);
-	});
-  $('.pager').each(function(){
-		var node = $(this).html();
-    $('.pager_to_replace').addClass('pager').removeClass('pager_to_replace').html(node);
-  });
+	seo.transform();
 });
 var seo;
 seo = {
@@ -28,5 +19,17 @@ seo = {
   },
    rot: function( t, u, v ) {
    return String.fromCharCode( ( ( t - u + v ) % ( v * 2 ) ) + u );
-  }
+  },
+    transform: function() {
+      $('[data-link-to-replace]').each(function(){
+        //console.log('scripts/seo.js', '[data-link-to-replace]', $(this));
+        var link = unescape(seo.rot13($(this).data('link-to-replace')));
+        var node = '<a href="'+ link +'" class="seo-replaced'+(typeof $(this).attr('class') != 'undefined' ? ' '+$(this).attr('class') : '')+'">'+$(this).html()+'</a>';
+        $(this).replaceWith(node);
+      });
+      $('.pager').each(function(){
+        var node = $(this).html();
+        $('.pager_to_replace').addClass('pager').removeClass('pager_to_replace').html(node);
+      });
+    }
 }
