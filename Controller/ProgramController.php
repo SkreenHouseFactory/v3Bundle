@@ -290,6 +290,23 @@ class ProgramController extends Controller
         }
       }
 
+      // Tableau casting avec photos
+      $casting_photos = array();
+      if (isset($data->casting)) {
+        foreach ($data->casting as $relation => $persons) {
+          foreach ($persons as $person) {
+            if (in_array($relation, array('Présentateur','Acteur','Réalisateur'))) {
+              if (!isset($casting_photos[$person->id])) {
+                if (isset($person->photo) && $person->photo) {
+                  $casting_photos[$person->id] = $person;
+                }
+              }
+            }
+          }
+        }
+      }
+      
+
       //cache
       $cache_maxage = 600;
       $response = $this->render('SkreenHouseFactoryV3Bundle:Program:program-v3.html.twig', array(
@@ -302,7 +319,8 @@ class ProgramController extends Controller
           'offers' => $videosOffres,
           'count' => $videosCount,
         ),
-        'player_host' => $api->host
+        'player_host' => $api->host,
+        'casting_photos' => $casting_photos
       ));
 
       $response->setCache(array(

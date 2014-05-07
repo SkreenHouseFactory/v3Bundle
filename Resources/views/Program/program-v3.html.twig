@@ -157,14 +157,14 @@
           {# Chaînes #}
           <div class="col-xs-5 channel-side">
             {# Images Casting #}
-            {# {% if program.casting is defined and program.casting|to_array|length %}
-              {% for relation,persons in program.casting|to_array if persons|to_array|length and %}
-                {% if relation|trans in ['Réalisateur', 'Acteur', 'Présentateur'] %}
-                  {% for pers in persons|to_array if pers.img_photo is defined and pers.img_photo %}
-                  {% endfor %}
-                {% endif %}
-              {% endfor %}
-            {% endif %} #}
+            {% if casting_photos is defined and casting_photos|to_array|length > 0 %}
+              <div class="casting-img-title">Ajoutez-les à vos listes</div>
+              <ul class="casting-img">
+                {% for person in casting_photos|to_array %}
+                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting_photo.html.twig' with { person: person } %}
+                {% endfor %}
+              </ul>
+            {% endif %}
             {# Chaînes #}
             {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_chaines-thema.html.twig' %}
           </div>

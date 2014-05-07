@@ -265,52 +265,54 @@ UI = {
   },
   getPlaylistMessage: function(trigger) {
     if (trigger.hasClass('fav-cinema')) {
-        var content = '<b>Ne ratez plus vos séances&nbsp;!</b>' + 
-                      '<br/>En ajoutant ce cinéma à vos listes vous saurez averti de sa programmation.';
+        return ['Ne ratez plus vos séances&nbsp;!', 
+                'En ajoutant ce cinéma à vos listes vous saurez averti de sa programmation.'];
     } else if (trigger.hasClass('fav-epg')) {
-        var content = '<b>Faites-vous un programme TV sur mesure&nbsp;!</b>' + 
-                      '<br/>En ajoutant cette chaîne à vos listes elle apparaîtra dans votre programme TV.';
+        return ['Faites-vous un programme TV sur mesure&nbsp;!', 
+                'En ajoutant cette chaîne à vos listes elle apparaîtra dans votre programme TV.'];
     } else if (trigger.hasClass('fav-page')) {
-        var content = '<b>Ne ratez plus ' + trigger.data('channel-name') + '&nbsp;!</b>' + 
-                      '<br/>En ajoutant cette chaîne à vos listes vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
+        return ['Ne ratez plus ' + trigger.data('channel-name') + '&nbsp;!',
+                'En ajoutant cette chaîne à vos listes vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.'];
     } else if (trigger.hasClass('fav-channel')) {
-        var content = '<b>Ne ratez plus ' + trigger.data('channel-name') + '&nbsp;!</b>' + 
-                      '<br/>En ajoutant cette chaîne à vos listes vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
+        return ['Ne ratez plus ' + trigger.data('channel-name') + '&nbsp;!',
+                'En ajoutant cette chaîne à vos listes vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.'];
     } else if (trigger.hasClass('fav-user')) {
-        var content = '<b>Suivre la playlist de ' + trigger.data('channel-name') + ' &nbsp;!</b>' + 
-                      '<br/>En ajoutant cette chaîne à vos listes vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.';
+        return ['Suivre la playlist de ' + trigger.data('channel-name') + ' &nbsp;!',
+                'En ajoutant cette chaîne à vos listes vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.'];
     } else if (trigger.hasClass('fav-person')) {
-        var content = '<b>Ne ratez plus vos acteurs préférés&nbsp;!</b>' + 
-                      '<br/>En ajoutant cette personne à vos listes vous saurez averti dès qu\'un de ses programmes sera disponible.';
+      if (typeof trigger.data('name') != undefined) {
+        return ['Ne ratez plus l\'actualité de ' + trigger.data('name') + '&nbsp;!',
+                'En ajoutant cette personne à vos listes vous saurez averti dès qu\'un de ses programmes sera disponible.'];
+      } else {
+        return ['Ne ratez plus vos acteurs préférés&nbsp;!',
+                'En ajoutant cette personne à vos listes vous saurez averti dès qu\'un de ses programmes sera disponible.'];
+      }
     } else if (trigger.hasClass('fav-search')) {
-        var content = '<b>Ne ratez plus les programmes qui vous intéressent&nbsp;!</b>' + 
-                      '<br/>En ajoutant cette recherche à vos listes vous saurez averti dès qu\'un programme correspondant sera disponible.';
+        return ['Ne ratez plus les programmes qui vous intéressent&nbsp;!',
+                'En ajoutant cette recherche à vos listes vous saurez averti dès qu\'un programme correspondant sera disponible.'];
     } else if (trigger.hasClass('fav-category')) {
-        var content = '<b>Ne ratez plus les programmes qui vous intéressent&nbsp;!</b>' + 
-                      '<br/>En ajoutant cette catégorie à vos listes vous saurez averti dès qu\'un programme correspondant sera disponible.';
+        return ['Ne ratez plus les programmes qui vous intéressent&nbsp;!',
+                'En ajoutant cette catégorie à vos listes vous saurez averti dès qu\'un programme correspondant sera disponible.'];
     } else if (trigger.hasClass('fav-format-category')) {
-        var content = '<b>Ne ratez plus les programmes qui vous intéressent&nbsp;!</b>' + 
-                      '<br/>En ajoutant cette catégorie à vos listes vous saurez averti dès qu\'un programme correspondant sera disponible.';
+        return ['Ne ratez plus les programmes qui vous intéressent&nbsp;!',
+                'En ajoutant cette catégorie à vos listes vous saurez averti dès qu\'un programme correspondant sera disponible.'];
     } else {
       if (trigger.parents('.actions:first').data('onglet') == 'emissions' || 
           trigger.parents('.actions:first').data('onglet') == 'series') {
-        var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' +
-                      '<br/>En ajoutant ce programme à vos listes vous serez averti dès qu\'un épisode est disponible !';
+        return ['Ne ratez plus vos programmes&nbsp;!',
+                'En ajoutant ce programme à vos listes vous serez averti dès qu\'un épisode est disponible !'];
       } else {
-        var content = '<b>Ne ratez plus vos programmes&nbsp;!</b>' + 
-                      '<br/>En ajoutant ce programme à vos listes vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD.';
+        return ['Ne ratez plus vos programmes&nbsp;!',
+                'En ajoutant ce programme à vos listes vous saurez quand il passe à la télé ou au cinéma et s\'il est disponible en Replay ou en VOD.'];
       }
     }
-    return content;
   },
   //set popover infos
   installPopover: function(trigger) {
-    var content = this.getPlaylistMessage(trigger);
+    var message = this.getPlaylistMessage(trigger);
     trigger.popover({
-      title:  function() { 
-        return 'Ajout à mes listes'
-      },
-      content: content,
+      title:  message[0],
+      content: message[1],
       html: true,
       show: 500, 
       hide: 100,
@@ -404,7 +406,8 @@ UI = {
         if(trigger.data('modal-message')){
           $('#skModal.modal .modal-message').html(trigger.data('modal-message'));
         } else {
-          $('#skModal.modal .modal-message').html('<p><b>Vos listes <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos listes à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b> : ' + self.getPlaylistMessage(trigger) + '</p>');
+          var message = self.getPlaylistMessage(trigger);
+          $('#skModal.modal .modal-message').html('<p><b>Vos listes <i class="icon-question-sign" data-content="Enregistez votre compte et retrouvez vos listes à tout moment. &lt;br/&gt;mySkreen est gratuit et le restera !" data-placement="right" data-trigger="hover" data-original-title="Replay, VOD et cinéma dans une même playlist"></i></b> : ' + message[1] + '</p>');
         }
         if (Skhf.session.datas.email) {
           self.togglePlaylist(trigger);

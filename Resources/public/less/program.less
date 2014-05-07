@@ -1156,6 +1156,36 @@ html .tab-pane {
     }
   }
   .channel-side {
+    .casting-img-title {
+      background-color: #778390;
+      font-family: 'Raleway', sans-serif;
+      font-size: 13px;
+      color: white;
+      margin: 0 0 10px;
+      text-align: center;
+      padding: 3px;
+    }
+    .casting-img {
+      margin-bottom: 15px;
+      li {
+        display: inline-block;
+        margin: 0px 5px 10px 0px;
+        opacity: 1;
+        -webkit-transition: opacity 450ms ease;
+        -moz-transition: opacity 450ms ease; 
+        -ms-transition: opacity 450ms ease; 
+        -o-transition: opacity 450ms ease;
+        transition: opacity 450ms ease;
+        box-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        &:hover {
+          opacity: 0.8;
+        }
+        a {
+          display: block;
+          margin-bottom: 0;
+        }
+      }
+    }
     .label {
       background-color: transparent;
       font-family: 'Raleway', sans-serif;
