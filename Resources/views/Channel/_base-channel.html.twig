@@ -46,10 +46,15 @@
 {% endblock %}
 
 {% block title %}
-  {% if data.channel.fournisseur is defined and data.channel.fournisseur.type == 'broadcast' %}
-    {{ 'page.title.channel.broadcast'|trans({'%name%': channel.title, '%access%': 'Replay' }) }}
+  {% if block('customtitle') is empty %}
+    {% if data.channel.fournisseur is defined and data.channel.fournisseur.type == 'broadcast' %}
+     {{ 'page.title.channel.broadcast'|trans({'%name%': channel.title, '%access%': 'Replay' }) }}
+    {% else %}
+      {{ 'page.title.channel.default'|trans({'%name%': data.channel.page_title ? data.channel.page_title : data.channel.title, '%access%': 'Streaming' }) }}
+    {% endif %}
   {% else %}
-    {{ 'page.title.channel.default'|trans({'%name%': data.channel.page_title ? data.channel.page_title : data.channel.title, '%access%': 'Streaming' }) }}
+    {% block customtitle %}
+    {% endblock %}
   {% endif %}
 {% endblock %}
 
