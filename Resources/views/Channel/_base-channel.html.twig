@@ -53,8 +53,7 @@
       {{ 'page.title.channel.default'|trans({'%name%': data.channel.page_title ? data.channel.page_title : data.channel.title, '%access%': 'Streaming' }) }}
     {% endif %}
   {% else %}
-    {% block customtitle %}
-    {% endblock %}
+    {% block customtitle %}{% endblock %}
   {% endif %}
 {% endblock %}
 
