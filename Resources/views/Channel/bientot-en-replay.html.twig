@@ -3,10 +3,10 @@
 {% set format_trans = 'format.singulier.' ~ app.request.get('format') %}
 {% set formats_trans = 'format.pluriel.' ~ app.request.get('format') %}
 {% block meta %}
-  <meta property="og:title" content="{{ channel.name }} : derniers replays" />
-  <meta property="og:description" content="Retrouvez tous les derniers replays disponibles actuellement sur {{ channel.name }}, gratuitement en 1 seul clic." />
+  <meta property="og:title" content="{{ channel.name }} : prochains programmes en replay" />
+  <meta property="og:description" content="Retrouvez tous les programmes en replay disponibles prochainement sur {{ channel.name }}, gratuitement en 1 seul clic." />
   <meta property="og:type" content="channel" />
-  <meta property="og:url" content="http://www.myskreen.com{{ channel.seo_url }}derniers-replay/" />
+  <meta property="og:url" content="http://www.myskreen.com{{ channel.seo_url }}bientot-en-replay/" />
   {% if channel.img is defined and channel.img %}
     <meta property="og:image" content="{{ channel.img }}" />
     <link rel="image_src" href="{{ channel.img }}" />
@@ -14,9 +14,9 @@
   <meta name="object_type" content="channel" />
 {% endblock %}
 
-{% block title %}{{ channel.name }} : derniers replays{%- endblock %}
+{% block title %}{{ channel.name }} : prochains programmes en replays{%- endblock %}
 
-{% block description %}Retrouvez tous les derniers replays disponibles actuellement sur {{ channel.name }}, gratuitement en 1 seul clic.{% endblock %}
+{% block description %}Retrouvez tous les programmes en replay disponibles prochainement sur {{ channel.name }}, gratuitement en 1 seul clic.{% endblock %}
 
 {% block body_class %}view-fournisseur view-fournisseur-{{ channel.type }} last-replay{% endblock %}
 
@@ -24,19 +24,19 @@
   <div class="container">
     <ul class="breadcrumb">
       <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" itemref="md-child"><a itemprop="url" href="{{ path('any_url', {url: channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }}</span></a></li>
-      <li id="md-child" itemprop="child" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">Derniers Replays</span></li>
+      <li id="md-child" itemprop="child" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">Bientôt en Replay</span></li>
     </ul>
     <div itemscope itemtype="http://schema.org/BroadcastService" class="clearfix">
-      <meta itemprop="name" content="{{ channel.name }} - Replay"/>
-      <meta itemprop="url" content="http://www.myskreen.com{{ channel.seo_url }}derniers-replay/"/>
+      <meta itemprop="name" content="{{ channel.name }} - Bientôt en Replay"/>
+      <meta itemprop="url" content="http://www.myskreen.com{{ channel.seo_url }}bientot-en-replay/"/>
       <img itemprop="image" src="{{ channel.fournisseur.img|replace({"/45//": '/45/'}) }}"/>
-      <h1 itemprop="broadcaster" itemscope itemtype="http://schema.org/Organization">Les derniers replays sur <span itemprop="name">{{ channel.name }}</span></h1>
-      <div itemprop="description" class="bs-callout bs-callout-info">Tous les derniers replays disponibles en un seul clic</div>
+      <h1 itemprop="broadcaster" itemscope itemtype="http://schema.org/Organization">Les prochains replays sur <span itemprop="name">{{ channel.name }}</span></h1>
+      <div itemprop="description" class="bs-callout bs-callout-info">Tous les programmes prochainement disponibles en replay en un seul clic</div>
     </div>  
     <div class="slider slider-list">
       <ul class="items">
         {% set current_date = '' %}
-        {% for p in channel.fournisseur.programs_replay|to_array %}
+        {% for p in channel.fournisseur.programs_epg|to_array %}
           {% if current_date != p.best_offer.broadcasttime|localizeddate('full', 'none') %}
             </ul>
           </div>
@@ -45,16 +45,16 @@
             <ul class="items">
           {% endif %}
           {% set current_date = p.best_offer.broadcasttime|localizeddate('full', 'none') %}
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, origin: 'last-replay'} %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, origin: 'soon-replay'} %}
         {% endfor %}
       </ul>
     </div>
     <div class="scroll well">
-      <h2>Description des 10 derniers Replays disponibles sur {{ channel.name }}</h2>
+      <h2>Description des 10 prochains replays disponibles sur {{ channel.name }}</h2>
       <br/>
       {% for p in data_complete|to_array %}
         {% set description = p.description|striptags %}
-        <h3><a href="{{ path('any_url', {url: p.seo_url|slice(1, p.seo_url|length-1)}) }}">{{ p.title }}, en Replay</a></h3>
+        <h3><a href="{{ path('any_url', {url: p.seo_url|slice(1, p.seo_url|length-1)}) }}">{{ p.title }}, bientôt en Replay</a></h3>
         <p>{{ description|wordCut(300,'...')|raw }}</p>
       {% endfor %}
     </div>

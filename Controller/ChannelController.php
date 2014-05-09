@@ -330,7 +330,7 @@ class ChannelController extends ChannelCustomController
 {
   
 
-  //Channel
+  //Channel derniers Replays
   public function derniersreplayAction(Request $request, $slug = null)
   {
     $api   = $this->get('api');
@@ -343,15 +343,32 @@ class ChannelController extends ChannelCustomController
       'with_replay' => 150
     );
     $data = $api->fetch('channel', $params);
-    echo $request->get('debug') ? $api->url : null;
+    //echo $request->get('debug') ? $api->url : null;
 
     if (!$data->channel->fournisseur->programs_replay || count($data->channel->fournisseur->programs_replay) == 0) {
       throw $this->createNotFoundException('No Replay for this channel');
     }
+    // Récupération de la description des 3 premiers programmes
+    $data_complete_ids = array();
+    $data_programs_replay = $data->channel->fournisseur->programs_replay;
+    $nb_programs = 0;
+    foreach ($data_programs_replay as $program) {
+      $data_complete_ids[] = $program->id;
+      $nb_programs++;
+      if ($nb_programs == 10) {
+        break;
+      }
+    }
+    $data_complete = $api->fetch('program', array(
+      'ids' => implode(',', $data_complete_ids),
+      'allow_with' => true,
+      'fields' => 'description'
+    ));
 
     $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:derniers-replay.html.twig', array(
         'data' => $data,
-        'channel' => $data->channel
+        'channel' => $data->channel,
+        'data_complete' => $data_complete
       ));
 
     $maxage = 60;
@@ -362,6 +379,54 @@ class ChannelController extends ChannelCustomController
     return $response;
   }
   
+  //Channel Bientôt Replays
+  public function bientotenreplayAction(Request $request, $slug = null)
+  {
+    $api   = $this->get('api');
+    $params = array(
+      'from_slug'  => $request->get('slug', $slug),
+      'channel_img_width' => 45,
+      'img_width' => 150,
+      'img_height' => 200,
+      'skip_sliders' => true,
+      'fields' => 'epg,records_only'
+    );
+    $data = $api->fetch('channel', $params);
+    //echo $request->get('debug') ? $api->url : null;
+
+    if (!$data->channel->fournisseur->programs_epg || count($data->channel->fournisseur->programs_epg) == 0) {
+      throw $this->createNotFoundException('No Replay to come for this channel');
+    }
+    // Récupération de la description des 3 premiers programmes
+    $data_complete_ids = array();
+    $data_programs_soon = $data->channel->fournisseur->programs_epg;
+    $nb_programs = 0;
+    foreach ($data_programs_soon as $program) {
+      $data_complete_ids[] = $program->id;
+      $nb_programs++;
+      if ($nb_programs == 10) {
+        break;
+      }
+    }
+    $data_complete = $api->fetch('program', array(
+      'ids' => implode(',', $data_complete_ids),
+      'allow_with' => true,
+      'fields' => 'description'
+    ));
+
+    $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:bientot-en-replay.html.twig', array(
+        'data' => $data,
+        'channel' => $data->channel,
+        'data_complete' => $data_complete
+      ));
+
+    $maxage = 60;
+    $response->setPublic();
+    $response->setMaxAge($maxage);
+    $response->setSharedMaxAge($maxage);
+
+    return $response;
+  }
 
   //Channel
   public function channelAction(Request $request, $slug = null)
@@ -384,7 +449,7 @@ class ChannelController extends ChannelCustomController
       'disable_search_by_format' => true,
       'sorter' => 'year',
       'preview' => $request->get('preview'),
-      'fields' => 'description,programs,img_maxsize,notifications,replay_epg_tnt_only'
+      'fields' => 'description,programs,img_maxsize,notifications,replay_epg_tnt_only,live'
     );
     $data = $api->fetch('channel'.($request->get('id')?'/'.$request->get('id'):null), $params);
     echo $request->get('debug') ? $api->url : null;

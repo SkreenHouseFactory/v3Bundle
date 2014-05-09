@@ -554,6 +554,11 @@ channel_last_replay:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:derniersreplay }
     requirements:
         slug: "[^/]+"
+channel_soon_replay:
+    pattern:  /{slug}/bientot-en-replay/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:bientotenreplay }
+    requirements:
+        slug: "[^/]+"
 channel:
     pattern:  /{slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Channel:channel }
