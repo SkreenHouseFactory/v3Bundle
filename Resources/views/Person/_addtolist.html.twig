@@ -11,6 +11,9 @@
       {% endif %}
         <span class="ms-format">Personnalité</span>
         <h1 itemprop="name">{{ person.name }}</h1>
+        {% if person.photo_credits is defined and person.photo_credits %}
+          <div class="credits">Crédits photo : {{ person.photo_credits|wordCut(30,'...') }}</div>
+        {% endif %}
       </div>
       <div class="col-xs-5">
         {# AjoutListes #}
