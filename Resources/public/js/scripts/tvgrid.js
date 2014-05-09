@@ -147,6 +147,10 @@ GridView = {
 
         //add in-playlists class
         if (Skhf.session.datas.email) {
+          // Ajout url addchannel lists epg
+          if ($('.addchannel a').attr('href').indexOf('?ids=') == -1) {
+            $('.addchannel a').attr('href', $('.addchannel a').attr('href') + '?ids=' + Skhf.session.datas.epg);
+          }
 
           var queue = Skhf.session.datas.queue.split(',');
 

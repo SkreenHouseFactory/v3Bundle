@@ -89,7 +89,8 @@ class TimelineController extends Controller
       $channels = $api->fetch('channel', array(
         'type' => 'broadcast',
         'channel_img_width' => 65,
-        'q' => $request->get('q')
+        'q' => $request->get('q'),
+        'ids' => $request->get('ids')
       ));
       //echo $api->url;
 
