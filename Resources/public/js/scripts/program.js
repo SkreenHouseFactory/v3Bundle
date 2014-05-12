@@ -23,9 +23,10 @@ ProgramView = {
         container_friends.removeClass('hide'); //HACK : TODO appel après connexion
         UI.removeLoader(container_friends);
         if (typeof friends_programs[id] != 'undefined') {
+          $(container_friends).html('<div class="friends-title">Ils l\'ont ajouté à leurs listes</div>')
           UI.addFriends(container_friends, friends_programs[id])
         } else {
-          container_friends.append('<p class="alert alert-warning">Aucun ami trouvé !</p><a href="#same_playlists" class="btn btn-block">Ils ajoutent aussi à leurs listes &raquo;</a>');
+          container_friends.addClass('hide');
         }
       });
     }

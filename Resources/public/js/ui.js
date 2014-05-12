@@ -655,16 +655,24 @@ UI = {
         if (notifications[k].access == null) {
           notifications[k].access = '';
         }
+        var img_offer = '';
+        if (notifications[k].offers == 'friend_list') {
+          img_offer = '<span class="friend_img" data-friend="' + notifications[k].friend_id + '">&nbsp;</span>';
+        } else if (typeof notifications[k].channel_ico != 'undefined') {
+          img_offer = '<img src="' + notifications[k].channel_ico.replace("/39/35/","/39/") + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />';
+        } else {
+          img_offer = '<span class="pull-left" style="width: 42px">&nbsp;</span>';
+        }
         html_to_insert = '<li class="tv-component ' + notifications[k].offers + ' ' + notifications[k].access.replace("(windows)","") + '">' +
             '<a  class="more info"' + (!notifications[k].playlist || !notifications[k].playlist.origin ? '>' :
-              ' data-toggle="tooltip" data-placement="left" title="Vous suivez &laquo;' + notifications[k].playlist.origin.object_name + '&raquo;"><i class="glyphicon glyphicon-question-sign"></i>') +
+              ' data-toggle="tooltip" data-placement="left" title="' + (notifications[k].offers == 'friend_list' ? '&laquo;' + notifications[k].title + '&raquo; fait partie de vos amis.' : 'Vous suivez &laquo;' + notifications[k].playlist.origin.object_name + '&raquo;') + '"><i class="glyphicon glyphicon-question-sign"></i>') +
             '</a>' +
             '<a data-id="' + notifications[k].id + '" class="more remove">' + 
               '<i class="glyphicon glyphicon-trash"></i>' +
             '</a>' +
             (notifications[k]['new'] ? '<span id="new-notif' + notifications[k].id + '" class="pull-right badge badge-important">Nouveau</span>' : '') +
             '<a ' + attrs + (notifications[k]['new'] ? ' data-remove="#new-notif'+ notifications[k].id + '"' : '') +' class="link">' + 
-              (notifications[k].channel_ico ? '<img src="' + notifications[k].channel_ico.replace("/39/35/","/39/") + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />' : '<span class="pull-left" style="width: 42px">&nbsp;</span>') +
+              img_offer +
               '<img src="' + notifications[k].ico + '" alt="notification" class="ico pull-left" />' +
               '<span class="title">' + notifications[k].title + '</span>' +
               '<span class="subtitle">' + ep_title + '</span>' +
@@ -683,6 +691,12 @@ UI = {
     if( $('.navbar .notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
       $('.navbar .notifications .empty').css('display','block');
     }
+    Skhf.session.getSocialDatas(function(friends, friends_programs) {
+      for (k in friends) {
+        console.log('ui.js', 'appendNotifications', 'callback getSocialDatas', 'friend', friends[k]);
+        $('.friend_img[data-friend="' + friends[k].id + '"]').html('<img src="' + friends[k].pic_square + '" width="39" alt="' + friends[k].name + '" class="pull-left" style="margin-right:3px;" />');
+      }
+    });
   },
 
   //update friends
@@ -1043,7 +1057,7 @@ UI = {
         console.log('UI.addFriends', friend_uids[k], friends[friend_uids[k]]);
         if (typeof friends[friend_uids[k]] != 'undefined') {
           var friend = friends[friend_uids[k]];
-          div.append('<a rel="tooltip" data-placement="bottom" title="' + friend.name + '<br/>suit ce programme" href="#"><img src="' + friend.pic_square + '" alt="' + friend.name + '" /></a>');
+          div.append('<a rel="tooltip" data-placement="bottom" title="' + friend.name + ' suit ce programme" href="#"><img src="' + friend.pic_square + '" alt="' + friend.name + '" /></a>');
         }
       }
       $('a[rel="tooltip"]', div).tooltip();
