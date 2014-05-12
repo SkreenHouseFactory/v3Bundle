@@ -38,7 +38,7 @@
           <div id="theater-{{ cinema.id }}" class="panel-collapse {{ loop.first ? 'in' : 'collapse' }}">
               {% include 'SkreenHouseFactoryV3Bundle:Cinema:_schedules.html.twig' with {cinema: cinema} %}
              <p align="center">
-              {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, class: 'fav-cinema fav-remove', name: cinema.name, text: 'Ajouter à vos cinémas'} %}
+              {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, class: 'fav-cinema fav-remove', name: cinema.name, text: 'Ajouter à vos cinémas', placement: 'bottom'} %}
             </p>
           </div>
         </div>
