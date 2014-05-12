@@ -365,6 +365,7 @@ UI = {
           }
         }
         if (UI.callbackTogglePlaylist) {
+          console.log('UI.callbackTogglePlaylist', 'parameter:', parameter, 'value:', value, 'remove:', remove, 'trigger:', trigger, 'return_data:', return_data);
           UI.callbackTogglePlaylist(parameter, value, remove, trigger, return_data);
         }
       }
@@ -696,13 +697,17 @@ UI = {
         self.removeLoader($('li#friends'));
         if (typeof datas.error == 'undefined' ||
             typeof datas.programs == 'undefined' ||
-            datas.programs .length > 0) { //Warning : Error sent by API even if results ?!
+            Object.keys(datas.programs).length > 0) { //Warning : Error sent by API even if results ?!
           if (typeof datas.programs != 'undefined' &&
-              datas.programs.length > 0) {
-            var program = datas.programs.pop();
+              Object.keys(datas.programs).length > 0) {
+            var program = datas.programs[0];
             var li = $('li#friends', this.playlist.elmt);
             li.removeClass('empty');
-            li.css('background-image', 'url('+program.picture+')').css('background-repeat', 'no-repeat');
+            li.css({
+              'background-image': 'url('+program.picture+')',
+              'background-repeat': 'no-repeat',
+              'background-position': '0px 10px'
+            });
             li.find('.label').removeClass('opacity');
             li.find('span.badge, .alert').remove();
             li.find('a, h6').hide();
@@ -812,7 +817,11 @@ UI = {
       var li = $('li#' + key, this.playlist.elmt);
 
       li.removeClass('empty');
-      li.css('background-image', 'url('+group.img+')').css('background-repeat', 'no-repeat');
+      li.css({
+        'background-image': 'url('+group.img+')',
+        'background-repeat': 'no-repeat',
+        'background-position': '0px 10px'
+      });
       li.find('.label').removeClass('opacity').addClass('label-inverse');
       li.find('.label span').html(group.nb_programs);
       li.find('span.badge').remove();
@@ -1028,10 +1037,10 @@ UI = {
     //console.log('UI.addFriends', container.data('id'), friend_uids);
     
     Skhf.session.getSocialDatas(function(friends, friends_programs) {
-      //console.log('UI.addFriends', 'callback Session.getSocialDatas', friends);
+      console.log('UI.addFriends', 'callback Session.getSocialDatas', friends);
       var div = $('<div class="friends remove-on-signout"></div>');
       for (k in friend_uids) {
-        //console.log('UI.addFriends', friend_uids[k], friends[friend_uids[k]]);
+        console.log('UI.addFriends', friend_uids[k], friends[friend_uids[k]]);
         if (typeof friends[friend_uids[k]] != 'undefined') {
           var friend = friends[friend_uids[k]];
           div.append('<a rel="tooltip" data-placement="bottom" title="' + friend.name + '<br/>suit ce programme" href="#"><img src="' + friend.pic_square + '" alt="' + friend.name + '" /></a>');

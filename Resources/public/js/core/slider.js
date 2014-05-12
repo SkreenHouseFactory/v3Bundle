@@ -341,17 +341,17 @@ var BaseSlider = Class.extend({
       //  li.prepend(UI.badge_notification.replace('%count%', 'nouveau'));
       //}
 
-      /* add friends : desactived 
+       // add friends : desactived 
       if (this.elmt.hasClass('slider-playlist') || API.config.env == 'dev') {
-        Skhf.session.getSocialDatas(function (friends, friends_programs) {
-          console.log('BaseSlider.insertPrograms', 'getSocialDatas callback', friends_programs);
-          if (typeof friends_programs != 'undefined' && 
-              typeof friends_programs[program.id] != 'undefined') {
-            UI.addFriends(li, friends_programs[program.id]);
+        console.log('core/slider.js', 'insertPrograms', 'debut addFriends');
+        console.log('core/slider.js', 'insertPrograms', 'typeof program.friend_uids', typeof program.friend_uids);
+          if (typeof program.friend_uids != 'undefined' &&
+              program.friend_uids.length) {
+            UI.addFriends(li, program.friend_uids.split(','));
           }
-        });
+        
       }
-      */
+      
       li.addClass('to-animate').css('display', 'inline-block'); //attention : .show() > list-item
       //console.log('BaseSlider.insertPrograms', 'add', li, $('ul.items', this.elmt));
       $('ul.items', this.elmt).append(li);

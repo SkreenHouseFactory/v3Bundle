@@ -36,17 +36,17 @@ var Session = BaseSession.extend({
     console.log('Session.loadSocialSelector', offset, onglet)
 
     //load from IndexedDb ?
-    API.selectIndexedDb('skhf', 'social_selector', 1, function(IndexedDbDatas){
-      console.log('UI.loadSocialSelector', 'selectIndexedDb', IndexedDbDatas);
-      if (IndexedDbDatas) {
-        console.log('UI.loadSocialSelector', 'IndexedDbDatas', IndexedDbDatas);
-        if (IndexedDbDatas.updated_at > (new Date()).getTime() - 3600*1000) {
-          callback(IndexedDbDatas.social_selector);
-          return;
-        } else {
-          API.deleteIndexedDb('skhf', 'social_selector', 1);
-        }
-      }
+    // API.selectIndexedDb('skhf', 'social_selector', 1, function(IndexedDbDatas){
+    //   console.log('UI.loadSocialSelector', 'selectIndexedDb', IndexedDbDatas);
+    //   if (IndexedDbDatas) {
+    //     console.log('UI.loadSocialSelector', 'IndexedDbDatas', IndexedDbDatas);
+    //     if (IndexedDbDatas.updated_at > (new Date()).getTime() - 3600*1000) {
+    //       callback(IndexedDbDatas.social_selector);
+    //       return;
+    //     } else {
+    //       API.deleteIndexedDb('skhf', 'social_selector', 1);
+    //     }
+    //   }
       Skhf.session.getFriendsUids(function(friends_uids) {
         API.query(
           'GET',
@@ -74,7 +74,7 @@ var Session = BaseSession.extend({
             }
           });
       });
-    });
+    // });
   },
   initSelector: function(onglet) {
     var self = this;

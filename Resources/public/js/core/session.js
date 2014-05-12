@@ -246,13 +246,14 @@ var BaseSession = Class.extend({
  },
  getSocialDatas: function(callback){
    var self = this;
+   console.log('BaseSession.getSocialDatas', 'self', self);
    //console.log('BaseSession.getSocialDatas');
 
    //no fbuid
-   if (!this.datas.fb_uid) {
-     console.log('BaseSession.getSocialDatas', 'no fbuid');
-     return;
-   }
+   // if (!this.datas.fb_uid) {
+   //   console.log('BaseSession.getSocialDatas', 'no fbuid');
+   //   return;
+   // }
 
    //already loaded
    if (this.social_state == 'done') {
@@ -262,7 +263,7 @@ var BaseSession = Class.extend({
      }
 
    //currently loading
-   } else if (this.social_state == 'processing') {
+   } else if (!this.datas.email || this.social_state == 'processing') {
      console.warn('BaseSession.getSocialDatas', 'state=processing', 'add callback', this.callbackSocial);
      this.callbackSocial.push(callback);
 
@@ -271,9 +272,9 @@ var BaseSession = Class.extend({
      if (this.social_state == null) {
        console.warn('BaseSession.getSocialDatas', 'set state=processing');
        this.social_state = 'processing';
-       this.callbackSocial = [callback];
+       this.callbackSocial.push(callback);
      }
-     //load from IndexedDb ?
+     // load from IndexedDb ?
      API.selectIndexedDb('skhf', 'friends', 1, function(IndexedDbDatas){
        console.log('BaseSession.getSocialDatas', 'selectIndexedDb', IndexedDbDatas);
        self.social_state = 'done';
