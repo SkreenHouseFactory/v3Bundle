@@ -3,7 +3,7 @@
 {% set format_trans = 'format.singulier.' ~ app.request.get('format') %}
 {% set formats_trans = 'format.pluriel.' ~ app.request.get('format') %}
 {% block meta %}
-  {% if channel.programs|length < 6 or app.request.get('page') and (channel.type is not defined or channel.type != "cinema") %}
+  {% if (channel.programs|length < 6 or app.request.get('page')) and (channel.type is not defined or channel.type != "cinema") %}
     <meta name="robots" content="noindex,follow" />
   {% endif %}
   <meta property="og:title" content="{% if app.request.get('format') %}{{ app.request.get('format') }} : {% endif %}{{ channel.name }}{% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}{% if app.request.get('facet') %}, {{ app.request.get('facet') }}{% endif %}" />
@@ -19,7 +19,7 @@
     <meta property="place:location:altitude"  content="42">
   {% endif %}
   <meta property="og:url" content="http://www.myskreen.com/{{ channel.seo_url }}" />
-  {% if channel.picture %}
+  {% if channel.picture is defined and channel.picture %}
     <meta property="og:image" content="{{ channel.picture }}" />
     <link rel="image_src" href="{{ channel.picture }}" />
   {% endif %}
