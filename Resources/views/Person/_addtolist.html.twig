@@ -20,7 +20,7 @@
         <div class="row">
           {# Bouton Ajout/Abo #}
           <div class="col-xs-16 ajout">
-            {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: person.id, class: 'fav-person', text: 'Ajouter à mes listes', placement: 'left'} %}
+            {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: person.id, class: 'fav-person', text: 'Ajouter à mes listes', placement: 'left', name: person.name, origin: 'person'} %}
           </div>
           {# Textes Ajouts #}
           <div class="col-xs-16">
