@@ -333,6 +333,11 @@ UiView = {
       } else {
         $($(this).data('toggle-display')).toggle();
       }
+      setTimeout(function(){ // on page selection, modify sticky behaviour depending on display of bande_couleur_degrade
+        if ($('.view-selections #selection-related').length) {
+          $(document.body).trigger('sticky_kit:recalc');
+        }
+      }, 500);
     });
     $(elmt).on('click', '[data-toggle-hide]', function () {
       console.log('script', '[data-toggle-hide]', $(this).data('toggle-hide'));
