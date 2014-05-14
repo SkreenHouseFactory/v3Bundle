@@ -79,6 +79,7 @@ var BaseSession = Class.extend({
        if (typeof callback != 'undefined' && callback) {
          callback(sessionData, this)
        }
+       Skhf.session.update();
      }
    }
 
@@ -158,8 +159,9 @@ var BaseSession = Class.extend({
      setTimeout(function(){
        console.log('Session.update', 'callback');
        API.query('GET', 'notification.json', {
-        session_uid: self.uid,
+        session_uid: self.uid, 
         with_origin: 1,
+        title_max_length: 30,
         nb_results: 20,
         offset: 0,
         title_max_length: 30,
