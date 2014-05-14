@@ -147,6 +147,7 @@ var BaseSession = Class.extend({
 
    this.datas = '';
    this.user = '';
+   this.social_state = null;
 
    API.cookie('session_uid', null);
    API.cookie('playlist_collapsed', null);

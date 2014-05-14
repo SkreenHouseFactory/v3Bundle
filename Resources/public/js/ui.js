@@ -421,9 +421,9 @@ UI = {
     console.log('UI.loadPlaylistTriggers', parameter, ids, elmt);
     if (typeof parameter != 'undefined' && parameter) {
       for (key in ids) {
-        console.log('UI.loadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + parameter + ':not(.fav-on)');
+        // console.log('UI.loadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + parameter + ':not(.fav-on)');
         var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + ':not(.fav-on)', elmt);
-        console.log('js', 'ui.js', 'trigger', trigger);
+        // console.log('js', 'ui.js', 'trigger', trigger);
         trigger.each(function(){
           if(!$(this).hasClass('fav-noupdate')){
             $(this).removeClass('btn-plus');
@@ -822,6 +822,10 @@ UI = {
     var self = this;
     console.log('UI.loadSelector', datas, Skhf.session.onglet);
     this.unloadSelector();
+    $('li.selector', this.playlist.elmt).css({
+      'width': '150px',
+      'display': 'block'
+    });
     $('#playlist').removeClass('in-selection');
 
     for (key in datas) {
