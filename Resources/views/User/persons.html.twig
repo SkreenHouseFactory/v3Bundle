@@ -18,16 +18,6 @@
   <div class="container">
 
     <div id="view-user-persons">
-      <p class="bs-callout bs-callout-info{{ persons|length == 0 ? ' no-program' : '' }}">
-        {% if persons|length == 0 %}
-          Vous ne suivez <strong>aucune personnalité.</strong><br/>
-          Ajoutez celles que vous appréciez avec facilité !
-        {% else %}
-          Ajoutez les personnalités que vous appréciez avec facilité !
-        {% endif %}
-        <a class="btn btn-primary pull-right" href="{{ path('user_start') }}#persons"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;{{ persons|length == 0 ? 'Commencer ' : 'Continuer ' }}mes listes</a>
-      </p>
-
       {% if persons|length > 0 %}
         <ul class="nav nav-pills nav-alpha-client uppercase">
           <li data-toggle class="active">
@@ -58,7 +48,15 @@
           {% endfor %}
         </table>
       {% endif %}
-
+      <p class="bs-callout bs-callout-info{{ persons|length == 0 ? ' no-program' : '' }}">
+        {% if persons|length == 0 %}
+          Vous ne suivez <strong>aucune personnalité.</strong><br/>
+          Ajoutez celles que vous appréciez avec facilité !
+        {% else %}
+          Ajoutez les personnalités que vous appréciez avec facilité !
+        {% endif %}
+        <a class="btn btn-primary pull-right" href="{{ path('user_start') }}#persons"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;{{ persons|length == 0 ? 'Commencer ' : 'Continuer ' }}mes listes</a>
+      </p>
     </div>
   </div>
 {% endblock %}
