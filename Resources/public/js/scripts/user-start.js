@@ -103,7 +103,7 @@ $(document).ready(function(){
           count.show();
         }
         API.cookie('start-mes-listes-' + self.data('step'), parseInt(count.html()));
-      }, 1500);
+      }, 3000);
     }
 
     var like_id = $(this).data('id');
@@ -186,7 +186,7 @@ $(document).ready(function(){
         $('.confirmed ul li.like_' + like_id).remove();
         console.log('scripts/user-start.js', 'populate confirmed div :', 'Remove OK');
       }
-    }, 1500);
+    }, 3000);
 
     // // Alert User Start
     // setTimeout(function(){ // wait 1000 ms for preference and fav-on to be added 
@@ -297,9 +297,12 @@ $(document).ready(function(){
   });
 
 
-  //forms
-  //$('form[data-step]').on('submit', function(e){
-    //e.preventDefault();
+  //forms not reacting to validation for avoiding reload of pages
+  $('form[data-step]').on('submit', function(e){
+    e.preventDefault();
+    return false;
+  });
+  //forms responding with suggestions depending on text input
   $('form[data-step] input[type="text"]').keyup(function() {
     input = $(this);
     step = $(this).parents('form:first').data('step');
