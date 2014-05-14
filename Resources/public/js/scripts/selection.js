@@ -13,4 +13,11 @@ $(document).ready(function(){
       });
   });
 
+  // on page selection, modify sticky behaviour depending on display of bande_couleur_degrade
+  $(document).on('click', '[data-toggle-display]', function () {
+    setTimeout(function(){
+      $(document.body).trigger('sticky_kit:recalc');
+    }, 500);
+  });
+
 });
