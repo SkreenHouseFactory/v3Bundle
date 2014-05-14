@@ -5,7 +5,7 @@ var Session = BaseSession.extend({
   datas: {},
   onglet: '',
   access: '',
-  sync_args: {with_notifications: 1, with_origin: 1, 'short': 1, title_max_length: 30},
+  sync_args: {'short': 1},
   sync: function(callback, args) {
     var args = $.extend(this.sync_args, args);
     this.__base(callback, args);
@@ -13,8 +13,6 @@ var Session = BaseSession.extend({
   signin: function(sessionData, callback) {
     this.__base(sessionData, callback)
 
-    //update
-    this.update();
   },
   signout: function(callback) {
     //before loosing queue
