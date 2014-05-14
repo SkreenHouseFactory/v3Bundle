@@ -13,8 +13,6 @@ var Session = BaseSession.extend({
   signin: function(sessionData, callback) {
     this.__base(sessionData, callback)
 
-    //update
-    this.update();
   },
   signout: function(callback) {
     //before loosing queue

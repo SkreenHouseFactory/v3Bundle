@@ -112,8 +112,10 @@ var BaseSession = Class.extend({
      this.credentials = this.datas.credential.split(',');
    }
    API.cookie('session_uid', this.uid);
+
    if (this.datas.email) {
      this.user = this.datas.email;
+     this.update(true);
      UI.loadUser();
    }
 
@@ -151,7 +153,7 @@ var BaseSession = Class.extend({
 
    UI.loadUser();
  },
- update: function() {
+ update: function(notimeout) {
    var self = this;
    if (this.datas.email) {
      setTimeout(function(){
@@ -162,13 +164,14 @@ var BaseSession = Class.extend({
         title_max_length: 30,
         nb_results: 20,
         offset: 0,
+        title_max_length: 30,
         time: new Date().getTime()
        },function(notifications){
         console.log('scripts/core.js', 'update', 'notifications', notifications);
         UI.loadNotifications(notifications);
         self.update();
        })
-     }, self.idle_timeout);
+     }, typeof notimeout != 'undefined' && notimeout ? 0 : self.idle_timeout);
    }
  },
  readNotifications: function(){
@@ -313,9 +316,7 @@ var BaseSession = Class.extend({
            updated_at: (new Date()).getTime()
          });
        },{
-         with_notifications: 0,
-         with_friends: 1,
-         with_friends_playlists: 1
+         fields: 'friends,friends_playlists'
        });
      });
    }
