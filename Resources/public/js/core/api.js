@@ -40,18 +40,16 @@ var ENV;
 ENV = {
   dev: {
     env: 'dev',
-    site_url: 'http://beta.' + DEV + '.myskreen.typhon.net:40011',
-    v3_url: 'http://v3.' + DEV + '.myskreen.typhon.net/app_dev.php',
+    v3_url: 'http://v3.' + DEV + '.myskreen.net/app_dev.php',
     v3_root: '/app_dev.php',
-    base: 'http://' + DEV + '.myskreen.typhon.net/api/',
-    popin: 'http://' + DEV + '.myskreen.typhon.net/popin/',
-    domain: DEV + '.myskreen.typhon.net',
+    base: 'http://' + DEV + '.myskreen.net/api/',
+    popin: 'http://' + DEV + '.myskreen.net/popin/',
+    domain: DEV + '.myskreen.net',
     fb: {app_id: 101348563248431 },
     console: true
   },
   preprod: {
     env: 'preprod',
-    site_url: 'http://preprod-v3.myskreen.com',
     v3_url: 'http://preprod-v3.myskreen.com',
     v3_root: '',
     base: 'https://preprod-api.myskreen.com/api/',
@@ -62,7 +60,6 @@ ENV = {
   },
   prod: {
     env: 'prod',
-    site_url: 'http://www.myskreen.com',
     v3_url: 'http://www.myskreen.com',
     v3_root: '',
     base: 'https://api.myskreen.com/api/',
@@ -101,7 +98,7 @@ API = {
   callbackInit: [],
   init: function(callback) {
     var href = document.location.href;
-    API.config = $.extend(ENV.all, href.indexOf('typhon.net') != -1 ? ENV.dev : href.indexOf('preprod.') != -1 ? ENV.preprod : ENV.prod);
+    API.config = $.extend(ENV.all, href.indexOf('myskreen.net') != -1 ? ENV.dev : href.indexOf('preprod.') != -1 ? ENV.preprod : ENV.prod);
     API.config.player = $('html').hasClass('video') ? 'html5' : 'flash';
 
     // console
