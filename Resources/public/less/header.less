@@ -590,7 +590,7 @@
           filter: none; /* ie hover background */
           /*z-index: 1030; ??? pb tooltip */
           img.channel {
-            margin-left: 7px;
+            margin-left: 8px;
             border-right: 3px solid white;
             border-top: 3px solid white;
             min-width: 42px;
@@ -601,8 +601,13 @@
 
           span {
             display: block;
-            margin-left: 7px;
-
+            margin-left: 2px;
+            &.friend_img {
+              float: left;
+              width: 45px;
+              height: 45px;
+              margin-right: 3px;
+            }
             &.title {
               text-transform: uppercase;
             }
