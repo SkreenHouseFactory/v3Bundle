@@ -899,6 +899,8 @@ UI = {
     }
     if (Skhf.session.datas.cinema) {
       this.loadTheatersPlaylist(callback);
+    } else if ($('#cinema.slider-meslistes').length) {
+      $('#cinema.slider-meslistes').addClass('empty');
     }
     this.loadReplayPlaylist(callback);
     this.loadWebtvPlaylist(callback);
