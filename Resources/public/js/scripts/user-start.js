@@ -42,7 +42,7 @@ $(document).ready(function(){
         console.log('scripts/user-start.js', 'count init', $(this).data('step'), c);
         if (parseInt(c) > 0) {
           count = $('#count-'+$(this).data('step'));
-          count.html(c).show();
+          count.html(c).css('display', 'inline-block');
         }
       });
     }
@@ -100,7 +100,7 @@ $(document).ready(function(){
         if (parseInt(count.html()) == 0) {
           count.hide();
         } else {
-          count.show();
+          count.css('display', 'inline-block');
         }
         API.cookie('start-mes-listes-' + self.data('step'), parseInt(count.html()));
       }, 3000);

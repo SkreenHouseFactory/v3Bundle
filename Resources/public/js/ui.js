@@ -98,9 +98,6 @@ UI = {
       if (!update) {
 
         //load playlist
-        if ($('.btn.meslistes-plus[data-toggle-display]').length) {
-          $('.btn.meslistes-plus[data-toggle-display]').trigger('click');
-        }
         Skhf.session.initPlaylist();
         $('.user-off:not(.hide)').addClass('hide');
         $('.user-on.hide').removeClass('hide');
@@ -421,9 +418,9 @@ UI = {
     console.log('UI.loadPlaylistTriggers', parameter, ids, elmt);
     if (typeof parameter != 'undefined' && parameter) {
       for (key in ids) {
-        console.log('UI.loadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + parameter + ':not(.fav-on)');
+        // console.log('UI.loadPlaylistTriggers', ids[key], '[data-id="' + ids[key] + '"].fav-' + parameter + ':not(.fav-on)');
         var trigger = $('[data-id="' + ids[key] + '"].fav-' + parameter + ':not(.fav-on)', elmt);
-        console.log('js', 'ui.js', 'trigger', trigger);
+        // console.log('js', 'ui.js', 'trigger', trigger);
         trigger.each(function(){
           if(!$(this).hasClass('fav-noupdate')){
             $(this).removeClass('btn-plus');
@@ -631,7 +628,8 @@ UI = {
           var attrs = 'data-ajax-play="' + notifications[k].player + '" data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?play='+notifications[k].player + '" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"';
         } else if ( notifications[k].access == 'extrait'|| notifications[k].type == 'ajout' || notifications[k].player) {
           var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?offers='+notifications[k].offers +  '" data-offers="' + notifications[k].offers + '" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"';
-        
+        } else if (notifications[k].type == 'friend_list') {
+          var attrs = 'href="' + API.config.v3_root + notifications[k].playlist.origin.object.seo_url + '"';
         } else {
           var attrs = 'data-redirect="' + notifications[k].link + '" data-seo-url="' + notifications[k].program.seo_url + '"';
         }
@@ -693,7 +691,7 @@ UI = {
     Skhf.session.getSocialDatas(function(friends, friends_programs) {
       for (k in friends) {
         console.log('ui.js', 'appendNotifications', 'callback getSocialDatas', 'friend', friends[k]);
-        $('.friend_img[data-friend="' + friends[k].id + '"]').html('<img src="' + friends[k].pic_square + '" width="39" alt="' + friends[k].name + '" class="pull-left" style="margin-right:3px;" />');
+        $('.friend_img[data-friend="' + friends[k].id + '"]').html('<img src="' + friends[k].pic_square + '" width="45" alt="' + friends[k].name + '" class="pull-left"/>');
       }
     });
   },
@@ -737,7 +735,7 @@ UI = {
     }
   },
   //playlist theaters
-  loadTheatersPlaylist: function(){
+  loadTheatersPlaylist: function(callback){
     if (Skhf.session.datas.cinema && 
         $('#cinema.slider').length) {
       console.log('UI.loadTheatersPlaylist', Skhf.session.datas.cinema);
@@ -760,8 +758,11 @@ UI = {
             function(){
               var nb_items = $('#cinema.slider ul.items li').length;
               var pluriel = nb_items > 1 ? 's' : '';
-              $('.bande_listes .col-xs-5 .user-on .meslistes-plus').data('toggle-text','<i class="glyphicon glyphicon-collapse-down"></i> &nbsp;'+nb_items+' film'+pluriel+' dans vos salles&nbsp;');
-              //$('.bande_listes .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' film'+pluriel+' à l\'affiche&nbsp;');
+              $('.bande_listes .col-xs-5 .user-on .meslistes-plus').html('<i class="glyphicon glyphicon-collapse-down"></i> &nbsp;'+nb_items+' film'+pluriel+' dans vos salles&nbsp;');
+              $('.bande_listes .col-xs-5 .user-on .meslistes-plus').data('toggle-text', 'Fermer&nbsp;<i class="glyphicon glyphicon-collapse-up"></i>');
+              if (typeof callback != 'undefined') {
+                callback();
+              }
             }, 
             $('#cinema.slider')
           );
@@ -772,43 +773,52 @@ UI = {
     $('.theaters-on:not(.hide)').addClass('hide');
     $('.theaters-off.hide').removeClass('hide');
   },
-  loadReplayPlaylist: function(){
+  loadReplayPlaylist: function(callback){
     if($('#replay.slider').length) {
       UI.sliders['replay'] = new BaseSlider({
         'url': 'www/slider/queue/'+Skhf.session.uid+'/access/replay.json?nb_results=10&programs_only=1&offset=0&channel_img_width=50&img_width=150&img_height=200&url=&with_best_offer=1'},
         function(){
           var nb_items = $('#replay.slider ul.items li').length;
           var pluriel = nb_items > 1 ? 's' : '';
-          $('.bande-couleur-replay .col-xs-5 .user-on .meslistes-plus').data('toggle-text','<i class="glyphicon glyphicon-collapse-down"></i> &nbsp;'+nb_items+' programme'+pluriel+' en Replay&nbsp;');
-          //$('.bande-couleur-replay .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' programme'+pluriel+' en replay&nbsp;');
+          $('.bande-couleur-replay .col-xs-5 .user-on .meslistes-plus').html('<i class="glyphicon glyphicon-collapse-down"></i> &nbsp;'+nb_items+' programme'+pluriel+' en Replay&nbsp;');
+          $('.bande-couleur-replay .col-xs-5 .user-on .meslistes-plus').data('toggle-text', 'Fermer&nbsp;<i class="glyphicon glyphicon-collapse-up"></i>');
+          if (typeof callback != 'undefined') {
+            callback();
+          }
         },
         $('#replay.slider')
       );
     }
   },
-  loadWebtvPlaylist: function(){
+  loadWebtvPlaylist: function(callback){
     if($('#webtv.slider').length) {
       UI.sliders['webtv'] = new BaseSlider({
         'url': 'www/slider/queue/'+Skhf.session.uid+'/access/webtv.json?nb_results=10&programs_only=1&offset=0&channel_img_width=50&img_width=150&img_height=200&url=&with_best_offer=1'},
         function(){
-          var nb_items = $('#replay.slider ul.items li').length;
+          var nb_items = $('#webtv.slider ul.items li').length;
           var pluriel = nb_items > 1 ? 's' : '';
-          $('.bande-couleur-webtv .col-xs-5 .user-on .meslistes-plus').data('toggle-text','<i class="glyphicon glyphicon-collapse-down"></i> &nbsp;'+nb_items+' vidéo'+pluriel+'&nbsp;');
-          //$('.bande-couleur-replay .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' programme'+pluriel+' en replay&nbsp;');
+          $('.bande-couleur-webtv .col-xs-5 .user-on .meslistes-plus').html('<i class="glyphicon glyphicon-collapse-down"></i> &nbsp;'+nb_items+' vidéo'+pluriel+'&nbsp;');
+          $('.bande-couleur-webtv .col-xs-5 .user-on .meslistes-plus').data('toggle-text', 'Fermer&nbsp;<i class="glyphicon glyphicon-collapse-up"></i>');
+          if (typeof callback != 'undefined') {
+            callback();
+          }
         },
         $('#webtv.slider')
       );
     }
   },
-  loadTVPlaylist: function(){
+  loadTVPlaylist: function(callback){
     if($('#tv.slider').length) {
       UI.sliders['tv'] = new BaseSlider({
         'url': 'www/slider/queue/'+Skhf.session.uid+'/access/tv.json?nb_results=10&programs_only=1&offset=0&channel_img_width=50&img_width=150&img_height=200&url=&with_best_offer=1'},
         function(){
           var nb_items = $('#tv.slider ul.items li').length;
           var pluriel = nb_items > 1 ? 's' : '';
-          $('.bande_listes .col-xs-5 .user-on .meslistes-plus').data('toggle-text', '<i class="glyphicon glyphicon-collapse-down"></i> &nbsp;'+nb_items+' programme'+pluriel+' à venir&nbsp;');
-          //$('.bande_listes .col-xs-5 .user-on .meslistes-plus span').html('&nbsp;'+nb_items+' programme'+pluriel+' en diffusion&nbsp;');
+          $('.bande_listes .col-xs-5 .user-on .meslistes-plus').html('<i class="glyphicon glyphicon-collapse-down"></i> &nbsp;'+nb_items+' programme'+pluriel+' à venir&nbsp;');
+          $('.bande_listes .col-xs-5 .user-on .meslistes-plus').data('toggle-text', 'Fermer&nbsp;<i class="glyphicon glyphicon-collapse-up"></i>');
+          if (typeof callback != 'undefined') {
+            callback();
+          }
         },
         $('#tv.slider')
       );
@@ -822,6 +832,10 @@ UI = {
     var self = this;
     console.log('UI.loadSelector', datas, Skhf.session.onglet);
     this.unloadSelector();
+    $('li.selector', this.playlist.elmt).css({
+      'width': '150px',
+      'display': 'block'
+    });
     $('#playlist').removeClass('in-selection');
 
     for (key in datas) {
@@ -877,12 +891,21 @@ UI = {
     
   },
   loadMeslistes: function() {
-    if (Skhf.session.datas.cinema) {
-      this.loadTheatersPlaylist();
+    var callback = function(){
+       if ($('.slider-meslistes .items li').length) {
+        if ($('.btn.meslistes-plus[data-toggle-display]').length) {
+          $('.btn.meslistes-plus[data-toggle-display]').trigger('click');
+        }
+       }
     }
-    this.loadReplayPlaylist();
-    this.loadWebtvPlaylist();
-    this.loadTVPlaylist();
+    if (Skhf.session.datas.cinema) {
+      this.loadTheatersPlaylist(callback);
+    } else if ($('#cinema.slider-meslistes').length) {
+      $('#cinema.slider-meslistes').addClass('empty');
+    }
+    this.loadReplayPlaylist(callback);
+    this.loadWebtvPlaylist(callback);
+    this.loadTVPlaylist(callback);
   },
   loadPlaylist: function(access, onglet){
     var self = this;

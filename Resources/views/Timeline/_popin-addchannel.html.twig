@@ -33,7 +33,7 @@
 	<script>
 	console.log('Timeline/_popin-addchannel.html.twig script', 'onload search results', Skhf.session.datas);
 	if (typeof Skhf.session.datas != 'undefined' && Skhf.session.datas.email) {
-    if (Skhf.session.datas.epg)
+    if (Skhf.session.datas.epg) {
 		  UI.loadPlaylistTriggers('epg', Skhf.session.datas.epg.split(','), $('#skModal.modal'));
     } else {
       UI.loadPlaylistTriggers('epg', [102,50,51,14,53,6,64,36,115,105,81,78,52,89,11,59,4133,56,109,166,54,5119,5121,5120,5118,5122,4179,548], $('#skModal.modal'));

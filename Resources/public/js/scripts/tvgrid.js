@@ -287,7 +287,12 @@ GridView = {
   getChannelsIds: function(){
     
     console.log('GridView.getChannelsIds', this.channels.sortable('toArray', {attribute: 'data-id'}).join(','));
-    return this.channels.sortable('toArray', {attribute: 'data-id'}).join(',');
+    if (Skhf.session.datas.email) {
+      return this.channels.sortable('toArray', {attribute: 'data-id'}).join(',');
+    } else {
+      return '';
+    }
+
   },
   setChannelsList: function(callback){
     var self = this;

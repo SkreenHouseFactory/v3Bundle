@@ -31,7 +31,7 @@
         <div class="row user-on">
           {# Bouton Ajout/Abo #}
           <div class="col-xs-16 ajout">
-            <a class="btn btn-suivre meslistes-plus" data-toggle-text="Fermer&nbsp;<i class='glyphicon glyphicon-collapse-up'></i>" data-toggle-display=".bande_couleur_degrade" data-toggle-animation="slide"><span></span><i class="glyphicon glyphicon-collapse-down"></i> Chargement ...</a>
+            <a class="btn btn-suivre meslistes-plus" data-toggle-text="Fermer&nbsp;<i class='glyphicon glyphicon-collapse-up'></i>" data-toggle-display=".bande_couleur_degrade" data-toggle-animation="slide"><span></span><i class="glyphicon glyphicon-collapse-down"></i>&nbsp;0 cinéma dans vos listes</a>
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@
       <div class="theaters-on">
         <a class="pull-right btn btn-suivre btn-xs" data-modal="remote" data-modal-title="{{ 'theaters.playlist.add'|trans }}" href="{{ path('theaters_search', {'init': 1,'theater_ids': ''}) }}"><span class="glyphicon glyphicon-pencil"></span> Modifier mes cinémas</a>
         <div id="theaters-names"></div>
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'cinema'}, noheader: true} %}
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'cinema'}, noheader: true, class: 'slider-meslistes'} %}
       </div>
     </div>
   </div>
