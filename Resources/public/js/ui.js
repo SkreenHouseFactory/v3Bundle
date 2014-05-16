@@ -628,7 +628,8 @@ UI = {
           var attrs = 'data-ajax-play="' + notifications[k].player + '" data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?play='+notifications[k].player + '" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"';
         } else if ( notifications[k].access == 'extrait'|| notifications[k].type == 'ajout' || notifications[k].player) {
           var attrs = 'data-ajax="' + API.config.v3_root + notifications[k].program.seo_url + '?offers='+notifications[k].offers +  '" data-offers="' + notifications[k].offers + '" rel="#content" data-seo-url="' + notifications[k].program.seo_url + '"';
-        
+        } else if (notifications[k].type == 'friend_list') {
+          var attrs = 'href="' + API.config.v3_root + notifications[k].playlist.origin.object.seo_url + '"';
         } else {
           var attrs = 'data-redirect="' + notifications[k].link + '" data-seo-url="' + notifications[k].program.seo_url + '"';
         }
@@ -690,7 +691,7 @@ UI = {
     Skhf.session.getSocialDatas(function(friends, friends_programs) {
       for (k in friends) {
         console.log('ui.js', 'appendNotifications', 'callback getSocialDatas', 'friend', friends[k]);
-        $('.friend_img[data-friend="' + friends[k].id + '"]').html('<img src="' + friends[k].pic_square + '" width="39" alt="' + friends[k].name + '" class="pull-left" style="margin-right:3px;" />');
+        $('.friend_img[data-friend="' + friends[k].id + '"]').html('<img src="' + friends[k].pic_square + '" width="45" alt="' + friends[k].name + '" class="pull-left"/>');
       }
     });
   },
