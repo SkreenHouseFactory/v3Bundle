@@ -1,0 +1,15 @@
+{% set episode_title %}{% if program.season_number is defined %}Saison {{ program.season_number }}{% endif %}{% if program.episode_number is defined %} Ep. {{ program.episode_number }}{% endif %}{% endset %}
+{% if program.episode_title is defined and
+      program.episodeof is defined  and
+      episode_title and
+      program.episode_title|replace({"Ep.":"Episode"}) != episode_title|replace({"Ep.":"Episode"}) %}
+  <h2>{{ episode_title|replace({"Ep.":"Episode"}) }}</h2>
+{% endif %}
+{% if program.copyright is defined %}
+  {{program.copyright}}
+{% endif %}
+{% if program.theater_release_date is defined and
+      ('Sortie en salles' or 'sortie en salle' or 'sorti en salle') not in program.description|lower %}
+  <p>Sortie en salles le {{ program.theater_release_date }}</p>
+{% endif %}
+{{ program.description|raw }}

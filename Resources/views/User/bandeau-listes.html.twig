@@ -12,10 +12,10 @@
         </div>
         <div class="row titres{{ 'user' not in app.request.uri ? ' user-on hide' : '' }} auth">
           <div class="col-xs-16" data-fav="like">
-            <a href="{{ path('user_programs') }}">
+            <span data-link-to-replace="{{ path('user_programs')|rot13 }}">
               <span class="badge{{ (active is defined and active == 'programs') ? '' : ' bg-white grey' }}">&nbsp;</span>
               <p class="sk-font">Mes programmes</p>
-            </a>
+            </span>
           </div>
         </div>
         <div class="row descriptions">
@@ -37,10 +37,10 @@
         </div>
         <div class="row titres{{ 'user' not in app.request.uri ? ' user-on hide' : '' }} auth">
           <div class="col-xs-16" data-fav="channel">
-            <a href="{{ path('user_channels') }}">
+            <span data-link-to-replace="{{ path('user_channels')|rot13 }}">
               <span class="badge{{ (active is defined and active == 'channel') ? '' : ' bg-white grey' }}">&nbsp;</span>
               <p class="sk-font">Mes chaînes</p>
-            </a>
+            </span>
           </div>
         </div>
         <div class="row descriptions">
@@ -62,10 +62,10 @@
         </div>
         <div class="row titres{{ 'user' not in app.request.uri ? ' user-on hide' : '' }} auth">
           <div class="col-xs-16" data-fav="cinema">
-            <a href="{{ path('user_theaters') }}">
+            <span data-link-to-replace="{{ path('user_theaters')|rot13 }}">
               <span class="badge{{ (active is defined and active == 'theaters') ? '' : ' bg-white grey' }}">&nbsp;</span>
               <p class="sk-font">Mes cinémas</p>
-            </a>
+            </span>
           </div>
         </div>
         <div class="row descriptions">
@@ -87,10 +87,10 @@
         </div>
         <div class="row titres{{ 'user' not in app.request.uri ? ' user-on hide' : '' }} auth">
           <div class="col-xs-16" data-fav="person">
-            <a href="{{ path('user_persons') }}">
+            <span data-link-to-replace="{{ path('user_persons')|rot13 }}">
               <span class="badge{{ (active is defined and active == 'persons') ? '' : ' bg-white grey' }}">&nbsp;</span>
               <p class="sk-font">Mes personnalités</p>
-            </a>
+            </span>
           </div>
         </div>
         <div class="row descriptions">
@@ -112,10 +112,10 @@
         </div>
         <div class="row titres{{ 'user' not in app.request.uri ? ' user-on hide' : '' }} auth">
           <div class="col-xs-16" data-fav="category">
-            <a href="{{ path('user_category') }}">
+            <span data-link-to-replace="{{ path('user_category')|rot13 }}">
               <span class="badge{{ (active is defined and active == 'category') ? '' : ' bg-white grey' }}">&nbsp;</span>
               <p class="sk-font">Mes catégories</p>
-            </a>
+            </span>
           </div>
         </div>
         <div class="row descriptions">
@@ -128,7 +128,7 @@
       </div>
     </div>
     <div class="row user-off{% if active is defined and 'user' in app.request.uri %} hide{% endif %}">
-      <a href="{{ path('user_start') }}"  class="btn btn-lg btn-primary">Commencer mes listes</a>
+      <span data-link-to-replace="{{ path('user_start')|rot13 }}"  class="btn btn-lg btn-primary">Commencer mes listes</span>
     </div>
   </div>
 </div>

@@ -63,7 +63,7 @@
           <div class="col-xs-11 contents">
             {# Onglets #}
             <ul class="row" id="onglets">
-              <li class="col-xs-5{% if voir.count > 0 %} active{% endif %}">{# Voir #}
+              <li class="col-xs-5{% if program.id in ['1261263', '5703660', '5113132'] %}{% else %}{% if voir.count > 0 %} active{% endif %}{% endif %}">{# Voir #}
                 <a href="#voir" data-toggle="tab">
                   <div class="row">
                     <div class="col-xs-16">VOIR
@@ -75,7 +75,7 @@
                   <div class="row">en entier</div>
                 </a>
               </li>
-              <li class="col-xs-6{% if voir.count == 0 and videos.count > 0 %} active{% endif %}{% if videos.count == 0 %} disabled{% endif %}">{# Vidéos #}
+              <li class="col-xs-6{% if program.id in ['1261263', '5703660', '5113132'] %}{% else %}{% if voir.count == 0 and videos.count > 0 %} active{% endif %}{% if videos.count == 0 %} disabled{% endif %}{% endif %}">{# Vidéos #}
                 <a{{ videos.count == 0 ? '' : ' href="#videos" data-toggle="tab"' }}>
                   <div class="row">
                     <div class="col-xs-16">+ DE VIDEOS
@@ -87,7 +87,7 @@
                   <div class="row">extraits & bonus</div>
                 </a>
               </li>
-              <li class="col-xs-5{% if voir.count == 0 and videos.count == 0 %} active{% endif %}">{# Infos #}
+              <li class="col-xs-5{% if program.id in ['1261263', '5703660', '5113132'] %} active{% else %}{% if voir.count == 0 and videos.count == 0 %} active{% endif %}{% endif %}">{# Infos #}
                 <a href="#infos" data-toggle="tab">
                   <div class="row">
                     <div class="col-xs-16">INFOS</div>
@@ -99,7 +99,7 @@
             {# Contenus #}
             <div class="tab-content">
               {# Contenu Infos #}
-              <div class="tab-pane row{% if voir.count == 0 and videos.count == 0 %} active{% endif %}" id="infos">
+              <div class="tab-pane row{% if program.id in ['1261263', '5703660', '5113132'] %} active{% else %}{% if voir.count == 0 and videos.count == 0 %} active{% endif %}{% endif %}" id="infos">
                 {# Affichage pour les fiches Saison seule #}
                 {% if program.season_number is defined and program.episode_number is not defined %}
                   {# Episodes de la saison #}
@@ -145,11 +145,11 @@
                 {% endif %}
               </div>
               {# Contenu Voir #}
-              <div class="tab-pane row{% if voir.count > 0 %} active{% endif %}" id="voir">
+              <div class="tab-pane row{% if program.id in ['1261263', '5703660', '5113132'] %}{% else %}{% if voir.count > 0 %} active{% endif %}{% endif %}" id="voir">
                 {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_voir.html.twig' %}
               </div>
               {# Contenu Vidéos #}
-              <div class="tab-pane row{% if voir.count == 0 and videos.count > 0 %} active{% endif %}" id="videos">
+              <div class="tab-pane row{% if program.id in ['1261263', '5703660', '5113132'] %}{% else %}{% if voir.count == 0 and videos.count > 0 %} active{% endif %}{% endif %}" id="videos">
                 {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_videos.html.twig' %}
               </div>
             </div>

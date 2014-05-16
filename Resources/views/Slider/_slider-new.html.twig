@@ -18,7 +18,11 @@
       <div class="item{{ loop.index == 1 ? ' active' : '' }}">
         {% if slider.api_url is not defined or slider.count is not defined or loop.index == 1 %}
           {% for program in page|to_array %}
-          {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program }%}
+            {% if seo_replaced is defined and seo_replaced %}
+              {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program, seo_replaced: seo_replaced } %}
+            {% else %}
+              {% include 'SkreenHouseFactoryV3Bundle:Slider:_program.html.twig' with {p: program } %}
+            {% endif %}
           {% endfor %}
         {% endif %}
       </div>
@@ -50,10 +54,17 @@
       {% endif %}
     </ul>
     {% if slider.id is defined and slider.id in [4586427, 3772205] %}
-    <a class="btn btn-default btn-slider" href="{{ path('tvgrid') }}">Voir la grille complète</a>
+      <a class="btn btn-default btn-slider" href="{{ path('tvgrid') }}">Voir la grille complète</a>
     {% else %}
-    {% if slider.url is defined %}<a class="btn btn-default btn-slider" 
-    href="{% if slider.fichier is defined %}{{slider.fichier}}{% else %}{{ path('any_url', {url: slider.url[1:slider.url|length-1]}) }}{% endif %}"> {% if slider.contenu_rss is defined %}{{ slider.contenu_rss }} {% else %}En voir plus...{% endif %}</a>{% endif %}
+      {% if slider.url is defined %}
+        {% if slider.fichier is defined %}
+          <a href="{{slider.fichier}}"
+        {% else %}
+          <span data-link-to-replace="{{ path('any_url', {url: slider.url[1:slider.url|length-1]})|rot13 }}"
+        {% endif %}
+          class="btn btn-default btn-slider"> {% if slider.contenu_rss is defined %}{{ slider.contenu_rss }} {% else %}En voir plus...{% endif %}
+        {{ slider.fichier is defined ? '</a>' : '</span>' }}
+      {% endif %}
     {% endif %}
   </div>
 </div>

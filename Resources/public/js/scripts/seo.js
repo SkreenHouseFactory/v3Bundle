@@ -22,11 +22,18 @@ seo = {
   },
     transform: function() {
       $('[data-link-to-replace]').each(function(){
-        //console.log('scripts/seo.js', '[data-link-to-replace]', $(this));
         var link = unescape(seo.rot13($(this).data('link-to-replace')));
-        var node = '<a href="'+ link +'" class="seo-replaced'+(typeof $(this).attr('class') != 'undefined' ? ' '+$(this).attr('class') : '')+'">'+$(this).html()+'</a>';
-        $(this).replaceWith(node);
+        var node = $('<a href="'+ link +'">'+$(this).html()+'</a>');
+        $.each(this.attributes, function(){
+          // console.log('scripts/seo.js', 'this.attributes', this.name, this.value);
+          if(this.name != 'data-link-to-replace'){
+            node.attr(this.name, this.value);
+          }
+        });
+        node.addClass('seo-replaced');
+        $(this).replaceWith(node.get(0));
       });
+
       $('.pager').each(function(){
         var node = $(this).html();
         $('.pager_to_replace').addClass('pager').removeClass('pager_to_replace').html(node);

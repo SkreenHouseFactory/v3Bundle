@@ -1,34 +1,41 @@
 {% spaceless %}
 {% if app.environment == 'prod' %}
-{% set base_url = 'preprod' not in app.request.httpHost  ? 'http://www.myskreen.com' : '' %}
+  {% set base_url = 'preprod' not in app.request.httpHost  ? 'http://www.myskreen.com' : '' %}
 {% else %}
-{% set base_url = '/app_dev.php' %}
+  {% set base_url = '/app_dev.php' %}
 {% endif %}
 {% if p.episodeof is defined and ' - ' in p.title %}
-{% set tmp = p.title|replace({ (p.episodeof.title ~ ' - ') : '' }) %}
-{% set p_title = tmp ~ ' / ' ~ p.episodeof.title %}
+  {% set tmp = p.title|replace({ (p.episodeof.title ~ ' - ') : '' }) %}
+  {% set p_title = tmp ~ ' / ' ~ p.episodeof.title %}
 {% else %}
-{% set p_title = p.title %}
+  {% set p_title = p.title %}
 {% endif %}
 <div class="combinaison-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}}">
-	<div class="tv-component actions hasvod-{{ p.has_vod }} image-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}} root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background:url({{ p.picture }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
-		{% if p.popular_channel is defined %}
+  <div class="tv-component actions hasvod-{{ p.has_vod }} image-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}} root-{{ p.episodeof.id is defined ? p.episodeof.id ~ ' ' : p.id }}{{ p.onglet is defined ? ' ' ~ p.onglet : '' }}{% if p.id == '%id%' %} slider-sample{% endif %}{% if p.deporte %} deporte{% endif %}{% if 'missing' in p.picture %} missing-picture{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-id="{% if p.episodeof.id is defined %}{{ p.episodeof.id }}{% else %}{{ p.id }}{% endif %}" data-play-program-id="{{ p.id }}" style="{% if p.picture %}background:url({{ p.picture }}) no-repeat center{% endif %}"{% if p.alpha is defined %} data-alpha="{{ p.alpha }}"{% endif %}>
+    {% if p.popular_channel is defined %}
       <img class="channel {% if channel is defined and channel.id == 28 and p.popular_channel.name == 'FRANCE 4'%} hide {% elseif p.popular_channel.name == 'mySkreen' %} hide{% endif %}" src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" />
-		{% endif %}
-		<a {% if p.seo_url %} href="{{ base_url }}{{ p.seo_url }}{{ theater_id is defined and theater_id > 0 ? '?theater_id=' ~ theater_id : '' }}" target="_top"{% endif %} class="wrap-title size-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}}">
-			<span class="title">
-				{% if p.deporte is defined and p.deporte %}
-  				<span class="label label-default ico-deporte">
-  					<i class="glyphicon glyphicon-play"></i><span>&nbsp;sur mySkreen</span>
-  				</span>
-				{% endif %}
-				<i class="icon-th icon-white"></i>
-				<span class="ms-prog-title">{{ p_title|raw }}</span>
-				<span class="ms-prog-desc">{% if p.format.name is defined %}{{ p.format.name|raw }}{% endif %}{% if p.year is defined and p.year != null %} {{ p.year }}{% endif %}{% if p.duration is defined and p.duration !="" %}{% if (p.year is defined and p.year != null) or (p.format.name is defined and p.format.name != null) %},{% endif%}<br>{{ p.duration|raw }} min {% endif %}</span>
+    {% endif %}
+    {% if p.seo_url %}
+      {% set url = base_url ~ p.seo_url ~ (theater_id is defined and theater_id > 0 ? '?theater_id=' ~ theater_id : '') %}
+    {% endif %}
+    {% if seo_replaced is defined and seo_replaced %}
+      <span{% if url is defined and url %} data-link-to-replace="{{ url|rot13 }}" target="_top"{% endif %}
+    {% else %}
+      <a{% if url is defined and url %} href="{{ url }}" target="_top"{% endif %}
+    {% endif %} class="wrap-title size-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}}">
+      <span class="title">
+        {% if p.deporte is defined and p.deporte %}
+          <span class="label label-default ico-deporte">
+            <i class="glyphicon glyphicon-play"></i><span>&nbsp;sur mySkreen</span>
+          </span>
+        {% endif %}
+        <i class="icon-th icon-white"></i>
+        <span class="ms-prog-title">{{ p_title|raw }}</span>
+        <span class="ms-prog-desc">{% if p.format.name is defined %}{{ p.format.name|raw }}{% endif %}{% if p.year is defined and p.year != null %} {{ p.year }}{% endif %}{% if p.duration is defined and p.duration !="" %}{% if (p.year is defined and p.year != null) or (p.format.name is defined and p.format.name != null) %},{% endif%}<br>{{ p.duration|raw }} min {% endif %}</span>
         </span>
-				<br>
-			</span>
-		</a>
-	</div>
+        <br>
+      </span>
+    </{% if seo_replaced is defined and seo_replaced %}span{% else %}a{% endif %}>
+  </div>
 </div>
 {% endspaceless %}
