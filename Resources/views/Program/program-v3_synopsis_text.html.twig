@@ -6,10 +6,21 @@
   <h2>{{ episode_title|replace({"Ep.":"Episode"}) }}</h2>
 {% endif %}
 {% if program.copyright is defined %}
-  {{program.copyright}}
+  {{ program.copyright }}
+{% endif %}
+{% if program.hashtags is defined and program.hashtags %}
+  <div class="ms-surtitre">Hashtags</div>
+  <p>
+    {% for hash in program.hashtags|split(',') %}
+    {% if loop.index > 1 %}, {% endif %}
+    <span target="_blank" data-link-to-replace="{{ ('https://twitter.com/search?q=%23'~hash|replace({'#': ''}))|rot13 }}">{{ hash }}</span>
+    {% endfor %}
+  </p>
 {% endif %}
 {% if program.theater_release_date is defined and
       ('Sortie en salles' or 'sortie en salle' or 'sorti en salle') not in program.description|lower %}
   <p>Sortie en salles le {{ program.theater_release_date }}</p>
 {% endif %}
 {{ program.description|raw }}
+<br/>
+<p><small>modifié le {{ 'now'|date('Y-m-d H:i:s') }}</small></p>
