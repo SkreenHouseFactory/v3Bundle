@@ -11,7 +11,7 @@ API.callbackInit['fb'] = function(){
 
 $(document).ready(function(){
 
-  var fb_permissions = 'email,user_birthday,friends_birthday,user_likes,friends_likes,publish_stream,publish_actions,read_friendlists'; 
+  var fb_permissions = 'email,user_birthday,friends_birthday,user_likes,friends_likes,publish_stream,publish_actions'; 
 
   // fb connect
   function fbsync() {

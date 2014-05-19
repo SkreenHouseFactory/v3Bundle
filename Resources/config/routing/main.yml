@@ -134,6 +134,9 @@ user_category:
 user_notifs:
     pattern:  /user/notifs/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:notifs }
+user_friends:
+    pattern:  /user/friends/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:friends }
 user_svod:
     pattern:  /user/svod/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:svod }
