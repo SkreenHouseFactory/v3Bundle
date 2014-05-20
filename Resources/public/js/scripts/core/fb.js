@@ -8,10 +8,7 @@ API.callbackInit['fb'] = function(){
 
 }
 
-
-$(document).ready(function(){
-
-  var fb_permissions = 'email,user_birthday,friends_birthday,user_likes,friends_likes,publish_stream,publish_actions'; 
+var fb_permissions_default = 'email,publish_stream,publish_actions'; 
 
   // fb connect
   function fbsync() {
@@ -48,7 +45,8 @@ $(document).ready(function(){
               if (UI.callbackModal) {
                 UI.callbackModal();
               }
-
+              // Hack access_token
+              Skhf.session.datas.fb_access_token = authresponse['accessToken'];
               /* handled in core/session.js
               console.log('scripts/core/fb.js', Skhf.session.user);
               console.log('scripts/core/fb.js', Skhf.session.callbackSignin);
@@ -63,20 +61,30 @@ $(document).ready(function(){
   }
 
   /* login */
-  function fblogin() {
+  function fblogin(fb_permissions, callback) {
+    if (typeof fb_permissions == 'undefined') {
+      fb_permissions = fb_permissions_default;
+    }
+    console.log('fblogin', 'fb_permissions', fb_permissions);
     FB.login(function(response) {
+      console.log('scripts/fb.js', 'fblogin', 'response:', response);
       if (response.authResponse) {
         // connected
-        $('#fbconnect-infos').html('<span class="alert alert-success nowrap">Connexion à vos listes en cours...</span>');
+        $('#fbconnect-infos, .fbconnect-infos').html('<span class="alert alert-success nowrap">Connexion à vos listes en cours...</span>');
         fbsync();
+        if (typeof callback != 'undefined') {
+          callback(response.authResponse['accessToken']);
+        }
       } else {
         // cancelled
-        $('#fbconnect-infos').html('<span class="alert alert-danger nowrap">La connexion a échoué !</span>');
+        $('#fbconnect-infos, .fbconnect-infos').html('<span class="alert alert-danger nowrap">La connexion a échoué !</span>');
       }
     },{
       scope: fb_permissions
     });
   }
+
+$(document).ready(function(){
 
   window.fbAsyncInit = function() {
    // init the FB JS SDK
