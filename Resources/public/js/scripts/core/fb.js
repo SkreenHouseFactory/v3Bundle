@@ -8,7 +8,7 @@ API.callbackInit['fb'] = function(){
 
 }
 
-var fb_permissions_default = 'email,publish_stream,publish_actions'; 
+var fb_permissions_default = 'email'; 
 
   // fb connect
   function fbsync() {
