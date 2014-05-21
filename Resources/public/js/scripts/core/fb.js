@@ -17,20 +17,28 @@ Facebook = {
        var js, fjs = d.getElementsByTagName(s)[0];
        if (d.getElementById(id)) return;
        js = d.createElement(s); js.id = id;
-       js.src = '//connect.facebook.net/fr_FR/all.js#xfbml=1&status=1&cookie=1&appId=' + API.config.fb.app_id;
+       js.src = '//connect.facebook.net/fr_FR/all.js#xfbml=1&status=1&cookie=1&appId=' API.config.fb.app_id;
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
   },
-  login: function(){
+  login: function(fb_permissions, callback) {
+    if (typeof fb_permissions == 'undefined') {
+      fb_permissions = this.permissions;
+    }
+    console.log('fblogin', 'fb_permissions', fb_permissions);
     var self = this;
     FB.login(function(response) {
       if (response.authResponse) {
         // connected
-        $('#fbconnect-infos').html('<span class="bs-callout bs-callout-success nowrap">Connexion à vos listes en cours...</span>');
-        fbsync();
+        $('#fbconnect-infos, .fbconnect-infos').html('<span class="bs-callout bs-callout-success nowrap">Connexion à vos listes en cours...</span>');
+        if (typeof callback != 'undefined') {
+          callback(response.authResponse['accessToken']);
+        } else {
+          fbsync();
+        }
       } else {
         // cancelled
-        $('#fbconnect-infos').html('<span class="bs-callout bs-callout-danger nowrap">La connexion a échoué !</span>');
+        $('#fbconnect-infos, .fbconnect-infos').html('<span class="bs-callout bs-callout-danger nowrap">La connexion a échoué !</span>');
       }
     },{
       scope: self.permissions
@@ -51,7 +59,7 @@ Facebook = {
           {
             session_uid: Skhf.session.uid,
             fbuid: response.id,
-            username: typeof response.email != 'undefined' ? response.email : response.id + '@facebook.com',
+            username: typeof response.email != 'undefined' ? response.email : response.id '@facebook.com',
             nickname: response.username,
             firstname: response.first_name,
             lastname: response.last_name,
@@ -93,8 +101,8 @@ $(document).ready(function(){
      FB.getLoginStatus(function(response) {
        if (response.status === 'connected') {
          FB.api('/me', function(response) {
-           console.log('Good to see you, ' + response.name + '.', response);
-           //$('#fbconnect-infos').html('<small>(' + response.name + ')</small>');
+           console.log('Good to see you, ' response.name '.', response);
+           //$('#fbconnect-infos').html('<small>(' response.name ')</small>');
          });
        }
      });
