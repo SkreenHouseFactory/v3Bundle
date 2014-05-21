@@ -22,6 +22,7 @@ Facebook = {
      }(document, 'script', 'facebook-jssdk'));
   },
   login: function(){
+    var self = this;
     FB.login(function(response) {
       if (response.authResponse) {
         // connected
@@ -32,7 +33,7 @@ Facebook = {
         $('#fbconnect-infos').html('<span class="bs-callout bs-callout-danger nowrap">La connexion a échoué !</span>');
       }
     },{
-      scope: fb_permissions
+      scope: self.permissions
     });
   },
   sync: function(){
@@ -84,9 +85,9 @@ Facebook = {
   }
 }
 
-Facebook.init();
-
 $(document).ready(function(){
+
+  Facebook.init();
 
   //trigger
   $(document).on('click', '#fbconnect', function(){
