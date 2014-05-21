@@ -8,10 +8,35 @@ API.callbackInit['fb'] = function(){
 
 }
 
-var fb_permissions_default = 'email'; 
-
-  // fb connect
-  function fbsync() {
+var Facebook;
+Facebook = {
+  permissions: 'email',
+  init: function(){
+    (function(d, s, id) {
+      console.log('scripts/core/fb.js', 'lancement fb asynchronously', API.config.fb.app_id);
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) return;
+       js = d.createElement(s); js.id = id;
+       js.src = '//connect.facebook.net/fr_FR/all.js#xfbml=1&status=1&cookie=1&appId=' + API.config.fb.app_id;
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  },
+  login: function(){
+    var self = this;
+    FB.login(function(response) {
+      if (response.authResponse) {
+        // connected
+        $('#fbconnect-infos').html('<span class="bs-callout bs-callout-success nowrap">Connexion à vos listes en cours...</span>');
+        fbsync();
+      } else {
+        // cancelled
+        $('#fbconnect-infos').html('<span class="bs-callout bs-callout-danger nowrap">La connexion a échoué !</span>');
+      }
+    },{
+      scope: self.permissions
+    });
+  },
+  sync: function(){
     console.log(['scripts/fb.js', 'fetching information...']);
     FB.api('/me', function(response) {
       console.log('scripts/fb.js', 'success', FB.getAuthResponse());
@@ -45,8 +70,7 @@ var fb_permissions_default = 'email';
               if (UI.callbackModal) {
                 UI.callbackModal();
               }
-              // Hack access_token
-              Skhf.session.datas.fb_access_token = authresponse['accessToken'];
+
               /* handled in core/session.js
               console.log('scripts/core/fb.js', Skhf.session.user);
               console.log('scripts/core/fb.js', Skhf.session.callbackSignin);
@@ -59,57 +83,21 @@ var fb_permissions_default = 'email';
       });
     });
   }
-
-  /* login */
-  function fblogin(fb_permissions, callback) {
-    if (typeof fb_permissions == 'undefined') {
-      fb_permissions = fb_permissions_default;
-    }
-    console.log('fblogin', 'fb_permissions', fb_permissions);
-    FB.login(function(response) {
-      console.log('scripts/fb.js', 'fblogin', 'response:', response);
-      if (response.authResponse) {
-        // connected
-        $('#fbconnect-infos, .fbconnect-infos').html('<span class="alert alert-success nowrap">Connexion à vos listes en cours...</span>');
-        fbsync();
-        if (typeof callback != 'undefined') {
-          callback(response.authResponse['accessToken']);
-        }
-      } else {
-        // cancelled
-        $('#fbconnect-infos, .fbconnect-infos').html('<span class="alert alert-danger nowrap">La connexion a échoué !</span>');
-      }
-    },{
-      scope: fb_permissions
-    });
-  }
+}
 
 $(document).ready(function(){
 
+  Facebook.init();
+
+  //trigger
+  $(document).on('click', '#fbconnect', function(){
+    console.log(['script', 'trigger FB']);
+    Facebook.login();
+    return false;
+  });
+
   window.fbAsyncInit = function() {
-   // init the FB JS SDK
-   /*
-   FB.init({
-     appId  : API.config.fb.app_id,                 // App ID from the app dashboard
-     status : true,                                 // Check Facebook Login status
-     cookie : true, // enable cookies to allow the server to access the session
-   });
-   */
-   // Additional initialization code such as adding Event Listeners goes here
-   
-   //trigger
-   $('#fbconnect').on('click', function(){
-     console.log(['script', 'trigger FB']);
-     fblogin();
-     return false;
-   });
-   $(document).on('click', '#fbconnect', function(){
-     console.log(['script', 'trigger FB']);
-     fblogin();
-     return false;
-   });
-   
-   /* on shown */
+   // on shown
    if (API.config.env == 'dev') {
      FB.getLoginStatus(function(response) {
        if (response.status === 'connected') {
@@ -121,14 +109,4 @@ $(document).ready(function(){
      });
    }
   };
-
-  (function(d, s, id) {
-    console.log('scripts/core', 'fb.js', 'lancement fb asynchronously');
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) return;
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&status=1&cookie=1&appId="+API.config.fb.app_id;
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-   
 });
