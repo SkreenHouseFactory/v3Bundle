@@ -10,7 +10,7 @@ API.callbackInit['fb'] = function(){
 
 var Facebook;
 Facebook = {
-  permissions: 'email,user_birthday,friends_birthday,user_likes,friends_likes,publish_stream,publish_actions,read_friendlists',
+  permissions: 'email',
   init: function(){
     (function(d, s, id) {
       console.log('scripts/core/fb.js', 'lancement fb asynchronously', API.config.fb.app_id);

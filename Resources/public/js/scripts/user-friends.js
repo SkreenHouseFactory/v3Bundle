@@ -3,18 +3,17 @@ FriendsView = {
   fb_permissions: null,
   container: null,
   container_off:  '<div class="social-off"><div class="bs-callout bs-callout-info"><p class="message"></p></div><div class="fb-btn"><img class="fb-connect-friends" src="/bundles/skreenhousefactoryv3/images/fb-connect.png"><div class="fbconnect-infos"></div></div></div>',
-  container_on:  '<div class="social-on social-on-slider">SOCIAL ON</div><div class="social-on social-on-friends">SOCIAL ON</div>',
   message: null,
   init: function(){
-    console.log("scripts/user-friends.js", "Init");
+    // console.log("scripts/user-friends.js", "Init");
     this.container = $('.social-friends');
-    console.log("scripts/user-friends.js", 'this', this);
-    console.log("scripts/user-friends.js", 'this.container', this.container);
+    // console.log("scripts/user-friends.js", 'this', this);
+    // console.log("scripts/user-friends.js", 'this.container', this.container);
   },
   checkPermissions: function(){
     var self = this;
-    console.log("scripts/user-friends.js", 'checkPermissions this', this);
-    console.log("scripts/user-friends.js", 'checkPermissions this.container', this.container);
+    // console.log("scripts/user-friends.js", 'checkPermissions this', this);
+    // console.log("scripts/user-friends.js", 'checkPermissions this.container', this.container);
     FB.api(
         "/me/permissions",
         {access_token: Skhf.session.datas.fb_access_token},
@@ -31,16 +30,16 @@ FriendsView = {
       );
   },
   resultPermissions: function(hasPermissions){
-    console.log("scripts/user-friends.js", 'resultPermissions this', this);
-    console.log("scripts/user-friends.js", 'resultPermissions this.container', this.container);
+    // console.log("scripts/user-friends.js", 'resultPermissions this', this);
+    // console.log("scripts/user-friends.js", 'resultPermissions this.container', this.container);
     console.log("scripts/user-friends.js", 'resultPermissions hasPermissions', hasPermissions);
     if (hasPermissions) {
       UI.removeLoader(this.container);
-      this.container.html(this.container_on);
+      $('.social-on').show();
     } else {
       // Display MessB
-      console.log("scripts/user-friends.js", 'this', this);
-      console.log("scripts/user-friends.js", 'this.container', this.container);
+      // console.log("scripts/user-friends.js", 'this', this);
+      // console.log("scripts/user-friends.js", 'this.container', this.container);
       UI.removeLoader(this.container);
       this.message = 'Vous n\'avez pas autorisé myskreen à accéder à vos amis Facebook.<br/>'+'Si vous voulez le faire, cliquez ci-dessous';
       this.container.html(this.container_off);
@@ -57,6 +56,7 @@ $(document).ready(function(){
   FriendsView.init();
 
   UI.appendLoader(FriendsView.container);
+
   Skhf.session.callbackSignin = function (){
     if (Skhf.session.datas.fb_uid && Skhf.session.datas.fb_access_token) {
       console.log('scripts/user-friends.js', 'Skhf.session.callbackSignin', 'Skhf.session.datas.fb_access_token', Skhf.session.datas.fb_access_token);
@@ -68,7 +68,7 @@ $(document).ready(function(){
       FriendsView.container.html(FriendsView.container_off);
       $('.social-off .bs-callout p').html(FriendsView.message);
       // Define scope full
-      FriendsView.fb_permissions = 'email,publish_stream,publish_actions,user_friends,read_friendlists';
+      FriendsView.fb_permissions = 'email,user_friends,read_friendlists';
     }
   }
 
