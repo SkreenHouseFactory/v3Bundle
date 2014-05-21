@@ -17,7 +17,7 @@ Facebook = {
        var js, fjs = d.getElementsByTagName(s)[0];
        if (d.getElementById(id)) return;
        js = d.createElement(s); js.id = id;
-       js.src = '//connect.facebook.net/fr_FR/all.js#xfbml=1&status=1&cookie=1&appId=' API.config.fb.app_id;
+       js.src = '//connect.facebook.net/fr_FR/all.js#xfbml=1&status=1&cookie=1&appId=' + API.config.fb.app_id;
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
   },
@@ -59,7 +59,7 @@ Facebook = {
           {
             session_uid: Skhf.session.uid,
             fbuid: response.id,
-            username: typeof response.email != 'undefined' ? response.email : response.id '@facebook.com',
+            username: typeof response.email != 'undefined' ? response.email : response.id + '@facebook.com',
             nickname: response.username,
             firstname: response.first_name,
             lastname: response.last_name,
@@ -101,7 +101,7 @@ $(document).ready(function(){
      FB.getLoginStatus(function(response) {
        if (response.status === 'connected') {
          FB.api('/me', function(response) {
-           console.log('Good to see you, ' response.name '.', response);
+           console.log('Good to see you, ' + response.name + '.', response);
            //$('#fbconnect-infos').html('<small>(' response.name ')</small>');
          });
        }
