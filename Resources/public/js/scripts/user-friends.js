@@ -35,6 +35,9 @@ FriendsView = {
     console.log("scripts/user-friends.js", 'resultPermissions hasPermissions', hasPermissions);
     if (hasPermissions) {
       UI.removeLoader(this.container);
+      if ($('.social-off').length) {
+        $('.social-off').hide();
+      }
       $('.social-on').show();
     } else {
       // Display MessB
@@ -47,7 +50,39 @@ FriendsView = {
       // Define scope friends
       this.fb_permissions = 'user_friends,read_friendlists';
     }
-  }
+  },
+  // -- typeahead
+  typeahead: function(searchbox){
+    var self = this;
+    //console.log('UI.typeahead', searchbox);
+    if($(searchbox).length == 0){
+      return;
+    }
+    $(searchbox).typeahead({
+      items: 5,
+      minLength: 3,
+      source: function(typeahead, query) {
+        console.log('UI.typeahead', 'source', query);
+        query = query.replace('+', '%2B')
+        self.getTypeaheadSuggestions(typeahead, query, searchbox);
+      },
+      onselect: function(obj) {
+        console.log('UI.typeahead', 'onselect', obj, searchbox, $(searchbox).attr('value'));
+        $(searchbox).val(' chargement ...');
+
+        if (typeof obj != 'object') { //typeahead
+          top.location = API.config.v3_url + '/programmes/' + obj;
+        } else if (typeof obj.seo_url != 'undefined') { //advanced
+          //alert('VALUE'+obj.name);
+          if (obj.seo_url.match(/^http:\/\//)) {
+            top.location = obj.seo_url;
+          } else {
+            top.location = API.config.v3_url + obj.seo_url;
+          }
+        }
+      }
+    });
+  },
 
 }
 
