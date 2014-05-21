@@ -14,18 +14,22 @@ FriendsView = {
     var self = this;
     // console.log("scripts/user-friends.js", 'checkPermissions this', this);
     // console.log("scripts/user-friends.js", 'checkPermissions this.container', this.container);
-    FB.api(
-        "/me/permissions",
-        {access_token: Skhf.session.datas.fb_access_token},
+    FB.api('/me/permissions', {
+          access_token: Skhf.session.datas.fb_access_token
+        },
         function (response) {
           console.log("scripts/user-friends.js", 'checkPermissions callback response', response);
-          if (response.data && response.data[0] && response.data[0].read_friendlists) {
-            console.log("scripts/user-friends.js", "Permissions:", "You got'em!");
-            self.resultPermissions(true);
-          } else {
-            console.log("scripts/user-friends.js", "Permissions:", "You don't got'em!");
-            self.resultPermissions(false);
+          for (k in response.data) {
+            if (response.data[k].permission == 'read_friendlists' &&
+                response.data[k].status == 'granted' ) {
+              console.log("scripts/user-friends.js", "Permissions:", "You got'em!");
+              self.resultPermissions(true);
+              return true;
+            }
           }
+          console.log("scripts/user-friends.js", "Permissions:", "You don't got'em!");
+          self.resultPermissions(false);
+          return false;
         }
       );
   },

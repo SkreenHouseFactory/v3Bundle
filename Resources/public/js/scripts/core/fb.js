@@ -10,7 +10,7 @@ API.callbackInit['fb'] = function(){
 
 var Facebook;
 Facebook = {
-  permissions: 'email',
+  permissions: 'public_profile,email',
   init: function(){
     (function(d, s, id) {
       console.log('scripts/core/fb.js', 'lancement fb asynchronously', API.config.fb.app_id);
@@ -20,12 +20,15 @@ Facebook = {
        js.src = '//connect.facebook.net/fr_FR/all.js#xfbml=1&status=1&cookie=1&appId=' + API.config.fb.app_id;
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
+     
+     //like footer
+     $('#fblike-footer').replaceWith('<iframe class="facebook" frameborder="0" scrolling="no" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fmyskreen&amp;send=false&amp;layout=button_count&amp;width=215&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=tahoma&amp;height=21&amp;appId='+API.config.fb.app_id+'" style="border: none; overflow: hidden; width: 200px; height: 20px;"></iframe>');
   },
-  login: function(fb_permissions, callback) {
-    if (typeof fb_permissions == 'undefined') {
-      fb_permissions = this.permissions;
+  login: function(permissions, callback) {
+    if (typeof permissions == 'undefined') {
+      permissions = this.permissions;
     }
-    console.log('fblogin', 'fb_permissions', fb_permissions);
+    console.log('Facebook.login', 'permissions', permissions);
     var self = this;
     FB.login(function(response) {
       if (response.authResponse) {
@@ -41,7 +44,17 @@ Facebook = {
         $('#fbconnect-infos, .fbconnect-infos').html('<span class="bs-callout bs-callout-danger nowrap">La connexion a échoué !</span>');
       }
     },{
-      scope: self.permissions
+      scope: permissions
+    });
+  },
+  checkLoginState: function() {
+    FB.getLoginStatus(function(response) {
+      if (API.config.env == 'dev' && 
+          response.status === 'connected') {
+        FB.api('/me', function(response) {
+          console.log('scripts/core/fj.js', 'Good to see you, ' + response.name + '.', response);
+        });
+      }
     });
   },
   sync: function(){
@@ -94,18 +107,4 @@ $(document).ready(function(){
     Facebook.login();
     return false;
   });
-
-  window.fbAsyncInit = function() {
-   // on shown
-   if (API.config.env == 'dev') {
-     FB.getLoginStatus(function(response) {
-       if (response.status === 'connected') {
-         FB.api('/me', function(response) {
-           console.log('Good to see you, ' + response.name + '.', response);
-           //$('#fbconnect-infos').html('<small>(' response.name ')</small>');
-         });
-       }
-     });
-   }
-  };
 });
