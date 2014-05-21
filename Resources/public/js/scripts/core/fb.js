@@ -17,7 +17,7 @@ Facebook = {
        var js, fjs = d.getElementsByTagName(s)[0];
        if (d.getElementById(id)) return;
        js = d.createElement(s); js.id = id;
-       js.src = '//connect.facebook.net/fr_FR/all.js#xfbml=1&status=1&cookie=1&appId=' + API.config.fb.app_id;
+       js.src = '//connect.facebook.net/fr_FR/sdk.js#xfbml=1&status=1&cookie=1&version=v2.0&appId=' + API.config.fb.app_id;
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
      
@@ -37,7 +37,7 @@ Facebook = {
         if (typeof callback != 'undefined') {
           callback(response.authResponse['accessToken']);
         } else {
-          fbsync();
+          self.sync();
         }
       } else {
         // cancelled
@@ -52,18 +52,18 @@ Facebook = {
       if (API.config.env == 'dev' && 
           response.status === 'connected') {
         FB.api('/me', function(response) {
-          console.log('scripts/core/fj.js', 'Good to see you, ' + response.name + '.', response);
+          console.log('scripts/core/fb.js', 'Good to see you, ' + response.name + '.', response);
         });
       }
     });
   },
   sync: function(){
-    console.log(['scripts/fb.js', 'fetching information...']);
+    console.log(['scripts/core/fb.js', 'fetching information...']);
     FB.api('/me', function(response) {
-      console.log('scripts/fb.js', 'success', FB.getAuthResponse());
+      console.log('scripts/core/fb.js', 'success', FB.getAuthResponse());
       var authresponse = FB.getAuthResponse();
       for (k in response) {
-        console.log('scripts/fb.js', k, response[k]);
+        console.log('scripts/core/fb.js', k, response[k]);
       }
       Skhf.session.sync(function(sessionDatas){
         API.query(
@@ -82,17 +82,68 @@ Facebook = {
             expires: authresponse['expiresIn']
           },
           function(data){
-            console.log('scripts/fb.js', 'API.query callback', data);
+            console.log('scripts/core/fb.js', 'API.query callback', data);
 
             Skhf.session.signin(data.session, function(){
               $('.modal').modal('hide');
-              console.log('scripts/fb.js', 'API.query callback', 'Skhf.session.sync', UI.callbackModal);
+              console.log('scripts/core/fb.js', 'API.query callback', 'Skhf.session.sync', UI.callbackModal);
               if (UI.callbackModal) {
                 UI.callbackModal();
               }
             });
           });
       });
+    });
+  },
+  checkPermissions: function(){
+    // console.log("scripts/core/fb.js", 'checkPermissions this', this);
+    // console.log("scripts/core/fb.js", 'checkPermissions this.container', this.container);
+    FB.api('/me/permissions', {
+          access_token: Skhf.session.datas.fb_access_token
+        },
+        function (response) {
+          console.log("scripts/core/fb.js", 'checkPermissions callback response', response);
+          for (k in response.data) {
+            if (response.data[k].permission == 'read_friendlists' &&
+                response.data[k].status == 'granted' ) {
+              console.log("scripts/core/fb.js", "Permissions:", "You got'em!");
+              FriendsView.resultPermissions(true);
+              return true;
+            }
+          }
+          console.log("scripts/core/fb.js", "Permissions:", "You don't got'em!");
+          FriendsView.resultPermissions(false);
+          return false;
+        }
+      );
+  },
+  getFriends: function(callback){
+    FB.api('/me/friends',
+      { access_token: 'CAALluoc0aQ8BAOS2SFTd9mfvZA7RZBGTgmUbBOGQgdJQwIqGI5syUROYZCPOvsPT13NLZByyeCkKfU3WDe2wAgJkKuKS4xw2cbh7CTVDKpn6T8yovkOCq5DsvxdRib8fAv0A4BzkKVvOItapCC6KsSB1mEgHDZBCAVnl8xzXf448eD85VRpKCVALpBMPbpLDEZAZAyfR9B3VwZDZD' },
+      function(resp){
+        console.log('scripts/core/fb.js', 'getFriends', 'Response:', resp);
+        if (resp && !resp.error) {
+          callback(resp.data);
+        } else {
+          console.log('scripts/core/fb.js', 'getFriends', 'Response: Error');
+        }
+      }
+    );
+  },
+  getFriendsUids: function(callback){
+    this.getFriends(function(friends){
+      uids = new Array();
+      for (k in friends) {
+        uids.push(friends[k].id);
+      }
+      callback(uids);
+    });
+  },
+  inviteFriends: function(){
+    FB.ui({
+      app_id: API.config.fb.app_id,
+      method: 'apprequests',
+      message: 'Inscris-toi sur myskreen.com, crée tes listes de favoris et partage-les avec moi !'
     });
   }
 }

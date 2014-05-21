@@ -285,7 +285,7 @@ var BaseSession = Class.extend({
        console.log('BaseSession.getSocialDatas', 'selectIndexedDb', IndexedDbDatas);
        self.social_state = 'done';
 
-       if (IndexedDbDatas) {
+       if (IndexedDbDatas && false) {
          console.log('BaseSession.getSocialDatas', 'IndexedDbDatas', IndexedDbDatas);
          if (IndexedDbDatas.updated_at > (new Date()).getTime() - 3600*1000) {
            self.datas.friends = IndexedDbDatas.friends;
@@ -298,26 +298,28 @@ var BaseSession = Class.extend({
            API.deleteIndexedDb('skhf', 'friends', 1);
          }
        }
-
        //fail : load from API
-       self.sync(function(sessionDatas){
-         console.log('BaseSession.getSocialDatas', 'sync session callback', sessionDatas, self.callbackSocial);
-         self.datas.friends = sessionDatas.friends;
-         self.datas.friends_programs = sessionDatas.friends_playlists;
+       Facebook.getFriendsUids(function(friendsuids){
+        self.sync(function(sessionDatas){
+           console.log('BaseSession.getSocialDatas', 'sync session callback', sessionDatas, self.callbackSocial);
+           self.datas.friends = sessionDatas.friends;
+           self.datas.friends_programs = sessionDatas.friends_playlists;
 
-         for (k in self.callbackSocial) {
-           console.log('BaseSession.getSocialDatas', 'callback', self.callbackSocial[k]);
-           self.callbackSocial[k](self.datas.friends, self.datas.friends_programs);
-         }
+           for (k in self.callbackSocial) {
+             console.log('BaseSession.getSocialDatas', 'callback', self.callbackSocial[k]);
+             self.callbackSocial[k](self.datas.friends, self.datas.friends_programs);
+           }
 
-         API.insertIndexedDb('skhf', 'friends', {
-           id: 1, 
-           friends: self.datas.friends, 
-           friends_programs: self.datas.friends_programs,
-           updated_at: (new Date()).getTime()
+           API.insertIndexedDb('skhf', 'friends', {
+             id: 1, 
+             friends: self.datas.friends, 
+             friends_programs: self.datas.friends_programs,
+             updated_at: (new Date()).getTime()
+           });
+         },{
+           fields: 'friends,friends_playlists',
+           friendsuids: friendsuids.join(',')
          });
-       },{
-         fields: 'friends,friends_playlists'
        });
      });
    }
