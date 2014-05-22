@@ -420,8 +420,44 @@ body[class*='view-user_'] {
   }
   .social-on {
     display: none;
-    &.social-on-friends {
+    .list-container {
+      .friends-list {
+        padding: 0;
+        list-style: none;
+        .friend-name {
+          margin-right: 10px;
+        }
+      }
+    }
+    #social-on-slider {
+      .slider-container {
+        height: 330px;
+        box-shadow: none;
+        border: none;
+        .items {
+          li {
+            margin-bottom: 38px;
+            .tv-component {
+              background: none!important;
+              width: 148px;
+              height: 198px;
+            }
+            .friends {
+              width: 148px;
+              height: 56px;
+              text-align: center;
+              margin-top: 7px;
+              a {
+                display: inline-block;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.social-invite {
       text-align: center;
+      margin-top: 100px;
       .fb-invite {
         margin: 20px auto;
       }

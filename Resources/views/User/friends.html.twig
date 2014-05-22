@@ -17,9 +17,13 @@
       <h1 class="clearfix">Mes amis regardent<a class="pull-right" href="{{ path('user_programs') }}"><span class="sk-font">-></span> Consulter mes listes</a></h1>
     </div>
   </div>
-  <div class="container social-on social-on-slider">SOCIAL ON - SLIDER</div>
+  <div class="container social-on">
+    <div class="list-container">
+    </div>
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'social-on-slider'}, noheader: true, class: ''} %}
+  </div>
   <div class="container social-friends"></div>
-  <div class="container social-on social-on-friends">
-    <div class="btn btn-primary btn-lg fb-invite">Inviter vos amis FB</div>
+  <div class="container social-on social-invite">
+    <div class="btn btn-primary btn-lg fb-invite">Inviter vos amis Facebook</div>
   </div>
 {% endblock %}

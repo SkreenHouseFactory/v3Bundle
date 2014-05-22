@@ -281,28 +281,35 @@ var BaseSession = Class.extend({
        this.callbackSocial.push(callback);
      }
      // load from IndexedDb ?
-     API.selectIndexedDb('skhf', 'friends', 1, function(IndexedDbDatas){
-       console.log('BaseSession.getSocialDatas', 'selectIndexedDb', IndexedDbDatas);
-       self.social_state = 'done';
+     // API.selectIndexedDb('skhf', 'friends', 1, function(IndexedDbDatas){
+     //   console.log('BaseSession.getSocialDatas', 'selectIndexedDb', IndexedDbDatas);
+     //   self.social_state = 'done';
 
-       if (IndexedDbDatas && false) {
-         console.log('BaseSession.getSocialDatas', 'IndexedDbDatas', IndexedDbDatas);
-         if (IndexedDbDatas.updated_at > (new Date()).getTime() - 3600*1000) {
-           self.datas.friends = IndexedDbDatas.friends;
-           self.datas.friends_programs = IndexedDbDatas.friends_programs;
-           for (k in self.callbackSocial) {
-             self.callbackSocial[k](self.datas.friends, self.datas.friends_programs);
-           }
-           return;
-         } else {
-           API.deleteIndexedDb('skhf', 'friends', 1);
-         }
-       }
+     //   if (IndexedDbDatas) {
+     //     console.log('BaseSession.getSocialDatas', 'IndexedDbDatas', IndexedDbDatas);
+     //     if (IndexedDbDatas.updated_at > (new Date()).getTime() - 3600*1000) {
+     //       self.datas.friends = IndexedDbDatas.friends;
+     //       self.datas.friends_programs = IndexedDbDatas.friends_programs;
+     //       for (k in self.callbackSocial) {
+     //         self.callbackSocial[k](self.datas.friends, self.datas.friends_programs);
+     //       }
+     //       return;
+     //     } else {
+     //       API.deleteIndexedDb('skhf', 'friends', 1);
+     //     }
+     //   }
        //fail : load from API
-       Facebook.getFriendsUids(function(friendsuids){
+       Facebook.getFriends(function(friends){
         self.sync(function(sessionDatas){
+           self.social_state = 'done';
            console.log('BaseSession.getSocialDatas', 'sync session callback', sessionDatas, self.callbackSocial);
            self.datas.friends = sessionDatas.friends;
+           for (k in friends) {
+            if (typeof self.datas.friends[friends[k].id] != 'undefined') {
+              self.datas.friends[friends[k].id].name = friends[k].name;
+              self.datas.friends[friends[k].id].pic_square = friends[k].picture.data.url;
+            }
+           }
            self.datas.friends_programs = sessionDatas.friends_playlists;
 
            for (k in self.callbackSocial) {
@@ -318,10 +325,10 @@ var BaseSession = Class.extend({
            });
          },{
            fields: 'friends,friends_playlists',
-           friendsuids: friendsuids.join(',')
+           friendsuids: Facebook.getFriendsUids(friends).join(',')
          });
        });
-     });
+     // });
    }
  },
  getFriendsUids: function(callback){

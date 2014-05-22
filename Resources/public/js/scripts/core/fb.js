@@ -118,8 +118,8 @@ Facebook = {
       );
   },
   getFriends: function(callback){
-    FB.api('/me/friends',
-      { access_token: 'CAALluoc0aQ8BAOS2SFTd9mfvZA7RZBGTgmUbBOGQgdJQwIqGI5syUROYZCPOvsPT13NLZByyeCkKfU3WDe2wAgJkKuKS4xw2cbh7CTVDKpn6T8yovkOCq5DsvxdRib8fAv0A4BzkKVvOItapCC6KsSB1mEgHDZBCAVnl8xzXf448eD85VRpKCVALpBMPbpLDEZAZAyfR9B3VwZDZD' },
+    FB.api('/me/friends/?fields=picture.type(square),name',
+      { access_token: Skhf.session.datas.fb_access_token },
       function(resp){
         console.log('scripts/core/fb.js', 'getFriends', 'Response:', resp);
         if (resp && !resp.error) {
@@ -130,14 +130,12 @@ Facebook = {
       }
     );
   },
-  getFriendsUids: function(callback){
-    this.getFriends(function(friends){
-      uids = new Array();
-      for (k in friends) {
-        uids.push(friends[k].id);
-      }
-      callback(uids);
-    });
+  getFriendsUids: function(friends){
+    uids = new Array();
+    for (k in friends) {
+      uids.push(friends[k].id);
+    }
+    return uids;
   },
   inviteFriends: function(){
     FB.ui({
