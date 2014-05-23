@@ -112,7 +112,7 @@ Facebook = {
       });
     });
   },
-  checkPermissions: function(permission,callback){
+  checkPermissions: function(permission, callback){
     // console.log("scripts/core/fb.js", 'checkPermissions this', this);
     // console.log("scripts/core/fb.js", 'checkPermissions this.container', this.container);
     FB.api('/me/permissions', {
@@ -120,12 +120,18 @@ Facebook = {
         },
         function (response) {
           console.log("scripts/core/fb.js", 'checkPermissions callback response', response);
-          for (k in response.data) {
-            if (response.data[k].permission == permission &&
-                response.data[k].status == 'granted' ) {
-              console.log("scripts/core/fb.js", "Permissions:", "You got'em!");
-              callback(true);
-              return;
+          if (typeof response.data[0] != 'undefined' && typeof response.data[0][permission] != 'undefined') {
+            console.log("scripts/core/fb.js", "Permissions:", "You got'em!");
+            callback(true);
+            return;
+          } else {
+            for (k in response.data) {
+              if (response.data[k].permission == permission &&
+                  response.data[k].status == 'granted' ) {
+                console.log("scripts/core/fb.js", "Permissions:", "You got'em!");
+                callback(true);
+                return;
+              }
             }
           }
           console.log("scripts/core/fb.js", "Permissions:", "You don't got'em!");
