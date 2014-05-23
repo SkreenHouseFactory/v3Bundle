@@ -453,6 +453,7 @@ UiView = {
     $(elmt).on('click', '[data-remove]', function(){
       console.log('script', 'data-remove', $(this));
       $($(this).data('remove')).slideUp().remove();
+      $(this).removeAttr('data-remove');
       return false;
     });
 
