@@ -342,8 +342,8 @@ var BaseSlider = Class.extend({
       //}
 
        // add friends : desactived 
-      if (this.elmt.hasClass('slider-playlist')) {
-        // console.log('core/slider.js', 'insertPrograms', 'debut addFriends');
+      if (this.elmt.hasClass('slider-social')) {
+         console.log('core/slider.js', 'insertPrograms', 'debut addFriends');
         // console.log('core/slider.js', 'insertPrograms', 'typeof program.friend_uids', typeof program.friend_uids);
         // console.log('core/slider.js', 'insertPrograms', 'program.friend_uids.length', program.friend_uids.length);
           if (typeof program.friend_uids != 'undefined' &&

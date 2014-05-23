@@ -120,7 +120,9 @@ Facebook = {
         },
         function (response) {
           console.log("scripts/core/fb.js", 'checkPermissions callback response', response);
-          if (typeof response.data[0] != 'undefined' && typeof response.data[0][permission] != 'undefined') {
+          if (typeof response.data != 'undefined' && 
+              typeof response.data[0] != 'undefined' && 
+              typeof response.data[0][permission] != 'undefined') {
             console.log("scripts/core/fb.js", "Permissions:", "You got'em!");
             callback(true);
             return;
