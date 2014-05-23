@@ -283,6 +283,46 @@ UI = {
       }
     }
   },
+  getStatusFBMessage: function(trigger) {
+    if (trigger.hasClass('fav-cinema')) {
+        return ['Faites comme moi, ne ratez plus les séances de vos cinémas préférés !', 
+                'En ajoutant ce cinéma à mes listes sur myskreen, je suis averti de sa programmation.'];
+    } else if (trigger.hasClass('fav-epg')) {
+        return ['Faites-vous aussi un programme TV sur mesure !', 
+                'En ajoutant cette chaîne à mes listes sur myskreen, elle apparaît dans mon programme TV.'];
+    } else if (trigger.hasClass('fav-channel')) {
+        return ['Faites comme moi, ne ratez plus ' + trigger.data('channel-name') + ' !',
+                'En ajoutant cette chaîne à mes listes, je suis averti dès qu\'une nouvelle vidéo est mise en ligne.'];
+    } else if (trigger.hasClass('fav-person')) {
+      if (typeof trigger.data('name') != undefined) {
+        return ['Faites comme moi, ne ratez plus l\'actualité de ' + trigger.data('name') + ' !',
+                'En ajoutant cette personne à mes listes, je suis averti dès qu\'un de ses programmes est disponible.'];
+      } else {
+        return ['Faites comme moi, ne ratez plus vos personnalités préférées !',
+                'En ajoutant cette personne à mes listes, je suis averti dès qu\'un de ses programmes est disponible.'];
+      }
+    } else if (trigger.hasClass('fav-search')) {
+        return ['Faites comme moi, ne ratez plus les programmes qui vous intéressent !',
+                'En ajoutant cette recherche à mes listes, je suis averti dès qu\'un programme correspondant est disponible.'];
+    } else if (trigger.hasClass('fav-category')) {
+        return ['Faites comme moi, ne ratez plus les programmes qui vous intéressent !',
+                'En ajoutant cette catégorie à mes listes, je suis averti dès qu\'un programme correspondant est disponible.'];
+    } else if (trigger.hasClass('fav-format-category')) {
+        return ['Faites comme moi, ne ratez plus les programmes qui vous intéressent !',
+                'En ajoutant cette catégorie à vos listes, je suis averti dès qu\'un programme correspondant est disponible.'];
+    } else {
+      if (trigger.parents('.actions:first').data('onglet') == 'emissions') {
+        return ['Faites comme moi, ne ratez plus vos émissions préférées !',
+                'En ajoutant cette émission à mes listes, je suis averti de toutes ses diffusions !'];
+      } else if (trigger.parents('.actions:first').data('onglet') == 'series') {
+        return ['Faites comme moi, ne ratez plus vos séries préférées !',
+                'En ajoutant cette série à mes listes, je suis averti dès qu\'un épisode est disponible !'];
+      } else {
+        return ['Faites comme moi, ne ratez plus vos films préférés !',
+                'En ajoutant ce film à mes listes, je sais quand il passe à la télé, au cinéma et s\'il est disponible en Replay ou en VOD.'];
+      }
+    }
+  },
   //set popover infos
   installPopover: function(trigger) {
     var message = this.getPlaylistMessage(trigger);
@@ -329,12 +369,13 @@ UI = {
           // Post FB Status
           if (!Skhf.session.datas.disallow_share) {
             var link = document.location.href;
-            var message = self.getPlaylistMessage(trigger).join("\n").replace('&nbsp;',' ');
+            var message = self.getStatusFBMessage(trigger).join("\n").replace('&nbsp;',' ');
             Facebook.checkPermissions('publish_actions', function(success){
               if (success) {
                 Facebook.publishStatus(message,link);
               } else {
-                Facebook.login('publish_actions', function(){
+                Facebook.login('publish_actions', function(token){
+                  Skhf.session.datas.fb_access_token = token;
                   Facebook.checkPermissions('publish_actions', function(success){
                     if (success) {
                       Facebook.publishStatus(message,link);

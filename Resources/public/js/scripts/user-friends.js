@@ -102,8 +102,10 @@ $(document).ready(function(){
   $(document).on('click', '.fb-btn .fb-connect-friends', function(){
     Facebook.login(FriendsView.fb_permissions, function(){
       Facebook.checkPermissions('read_friendlists', function(success){
-        document.location.reload();
-        //FriendsView.resultPermissions(success);
+        if (success) {
+          document.location.reload();
+          //FriendsView.resultPermissions(success);
+        }
       });
     });
   });
