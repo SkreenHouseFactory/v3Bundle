@@ -98,7 +98,7 @@ API = {
   callbackInit: [],
   init: function(callback) {
     var href = document.location.href;
-    API.config = $.extend(ENV.all, href.indexOf('myskreen.net') != -1 ? ENV.dev : href.indexOf('preprod') != -1 ? ENV.preprod : ENV.prod);
+    API.config = $.extend(ENV.all, $('body[data-env]').length ? ENV.dev : href.indexOf('preprod') != -1 ? ENV.preprod : ENV.prod);
     API.config.player = $('html').hasClass('video') ? 'html5' : 'flash';
 
     // console
