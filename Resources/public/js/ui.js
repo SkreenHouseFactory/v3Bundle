@@ -191,26 +191,6 @@ UI = {
       });
     }
   },
-  loadAlertUser: function(titre, content, delay_timeout){
-    //console.log('UI.loadAlertUser', titre, content, delay_timeout);
-    var self = this;
-    if (typeof delay_timeout == 'undefined') delay_timeout = 6000;
-    container  = $('#alert-user');
-    if (!container.hasClass('initialized')) {
-      $('.glyphicon', container).on('click', function(){
-       container.slideUp({duration: 600});
-      });
-      container.addClass('initialized');
-    }
-    $('.alert-user-title', container).html(titre);
-    $('.alert-user-content', container).html(content);
-    container.slideDown({duration: 600});
-    if (!isNaN(delay_timeout)) {
-     setTimeout( function(){
-       container.slideUp({duration: 600});
-     }, delay_timeout);
-    }
-  },
   getTriggerParameter: function(trigger) {
     if (trigger.hasClass('fav-cinema')) {
       return 'cinema';
@@ -346,6 +326,29 @@ UI = {
           }
         } else if (typeof(store_in_session) == 'undefined') {
           console.log('UI.togglePlaylist', 'Skhf.session.getNbPlaylists()' + Skhf.session.getNbPlaylists());
+          // Post FB Status
+          if (!Skhf.session.datas.disallow_share) {
+            var link = document.location.href;
+            var message = self.getPlaylistMessage(trigger).join("\n").replace('&nbsp;',' ');
+            Facebook.checkPermissions('publish_actions', function(success){
+              if (success) {
+                Facebook.publishStatus(message,link);
+              } else {
+                Facebook.login('publish_actions', function(token){
+                  Skhf.session.datas.fb_access_token = token;
+                  Facebook.checkPermissions('publish_actions', function(success){
+                    if (success) {
+                      Facebook.publishStatus(message,link);
+                    } else {
+                      // Dialog - vous pouvez désactiver le partage automatique en allant dans vos préférences
+                      var dialog = new Dialog('onDenyFacebookShare',{});
+                    }
+                  });
+                });
+              }
+            });
+          }
+          // Dialog
           if (Skhf.session.getNbPlaylists() == 0) {
             console.log('ui.js', 'togglePlaylist', 'name', name);
             var dialog = new Dialog('firstItemInPlaylist',{
@@ -1079,7 +1082,7 @@ UI = {
         console.log('UI.addFriends', friend_uids[k], friends[friend_uids[k]]);
         if (typeof friends[friend_uids[k]] != 'undefined') {
           var friend = friends[friend_uids[k]];
-          div.append('<a rel="tooltip" data-placement="bottom" title="' + friend.name + ' suit ce programme" href="#"><img src="' + friend.pic_square + '" alt="' + friend.name + '" /></a>');
+          div.append('<a rel="tooltip" data-container="body" data-placement="bottom" title="' + friend.name + ' suit ce programme" href="#"><img src="' + friend.pic_square + '" alt="' + friend.name + '" /></a>');
         }
       }
       $('a[rel="tooltip"]', div).tooltip();

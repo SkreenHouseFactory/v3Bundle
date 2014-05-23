@@ -424,8 +424,33 @@ body[class*='view-user_'] {
       .friends-list {
         padding: 0;
         list-style: none;
+        margin-bottom: 20px;
         .friend-name {
           margin-right: 10px;
+          float: left;
+          font-size: 15px;
+          height: 25px;
+          .label {
+            display: inline-block;
+            font-size: 100%;
+            height: 25px;
+            line-height: 20px;
+          }
+          .label-default:hover {
+            background-color: #428bca;
+          }
+          &:hover span:not(.label-primary) {
+            cursor: pointer;
+          }
+        }
+        .friend-name-pic {
+          img {
+            vertical-align: top;
+          }
+          .label {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+          }
         }
       }
     }
@@ -444,9 +469,28 @@ body[class*='view-user_'] {
             }
             .friends {
               width: 148px;
-              height: 56px;
+              height: 100px;
               text-align: center;
-              margin-top: 7px;
+              margin-top: 12px;
+              overflow: hidden;
+              position: relative;
+              padding-top: 11px;
+              &:before {
+                content: ' ';
+                position: absolute;
+                top: 0;
+                left: 50%;
+                margin-left: -4px;
+                width: 0;
+                height: 0;
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-bottom: 8px solid #333;
+              }
+              img {
+                width: 35px;
+                vertical-align: top;
+              }
               a {
                 display: inline-block;
               }

@@ -12,15 +12,25 @@ var Facebook;
 Facebook = {
   permissions: 'public_profile,email',
   init: function(){
-    (function(d, s, id) {
-      console.log('scripts/core/fb.js', 'lancement fb asynchronously', API.config.fb.app_id);
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) return;
-       js = d.createElement(s); js.id = id;
-       js.src = '//connect.facebook.net/fr_FR/sdk.js#xfbml=1&status=1&cookie=1&version=v2.0&appId=' + API.config.fb.app_id;
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-     
+     window.fbAsyncInit = function() {
+          FB.init({
+            appId: API.config.fb.app_id,
+            xfbml: true,
+            cookie: true,
+            status: true,     
+            version: 'v2.0'
+          });
+        };
+
+        (function(d, s, id){
+          // console.log('scripts/core/fb.js', 'lancement fb asynchronously');
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/fr_FR/all.js";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
      //like footer
      $('#fblike-footer').replaceWith('<iframe class="facebook" frameborder="0" scrolling="no" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fmyskreen&amp;send=false&amp;layout=button_count&amp;width=215&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=tahoma&amp;height=21&amp;appId='+API.config.fb.app_id+'" style="border: none; overflow: hidden; width: 200px; height: 20px;"></iframe>');
   },
@@ -95,7 +105,7 @@ Facebook = {
       });
     });
   },
-  checkPermissions: function(){
+  checkPermissions: function(permission,callback){
     // console.log("scripts/core/fb.js", 'checkPermissions this', this);
     // console.log("scripts/core/fb.js", 'checkPermissions this.container', this.container);
     FB.api('/me/permissions', {
@@ -104,16 +114,15 @@ Facebook = {
         function (response) {
           console.log("scripts/core/fb.js", 'checkPermissions callback response', response);
           for (k in response.data) {
-            if (response.data[k].permission == 'read_friendlists' &&
+            if (response.data[k].permission == permission &&
                 response.data[k].status == 'granted' ) {
               console.log("scripts/core/fb.js", "Permissions:", "You got'em!");
-              FriendsView.resultPermissions(true);
-              return true;
+              callback(true);
+              return;
             }
           }
           console.log("scripts/core/fb.js", "Permissions:", "You don't got'em!");
-          FriendsView.resultPermissions(false);
-          return false;
+          callback(false);
         }
       );
   },
@@ -143,7 +152,21 @@ Facebook = {
       method: 'apprequests',
       message: 'Inscris-toi sur myskreen.com, crée tes listes de favoris et partage-les avec moi !'
     });
+  },
+  publishStatus: function(message,link){
+    FB.api(
+      '/me/feed',
+      'post',
+      {
+        'message': message,
+        'link': link
+      },
+      function(response){
+        console.log('publishStatus response', response);
+      }
+    );
   }
+
 }
 
 $(document).ready(function(){
