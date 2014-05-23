@@ -334,8 +334,7 @@ UI = {
               if (success) {
                 Facebook.publishStatus(message,link);
               } else {
-                Facebook.login('publish_actions', function(token){
-                  Skhf.session.datas.fb_access_token = token;
+                Facebook.login('publish_actions', function(){
                   Facebook.checkPermissions('publish_actions', function(success){
                     if (success) {
                       Facebook.publishStatus(message,link);

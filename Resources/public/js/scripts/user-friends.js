@@ -100,10 +100,10 @@ $(document).ready(function(){
   }
 
   $(document).on('click', '.fb-btn .fb-connect-friends', function(){
-    Facebook.login(FriendsView.fb_permissions, function(token){
-      Skhf.session.datas.fb_access_token = token;
+    Facebook.login(FriendsView.fb_permissions, function(){
       Facebook.checkPermissions('read_friendlists', function(success){
-        FriendsView.resultPermissions(success);
+        document.location.reload();
+        //FriendsView.resultPermissions(success);
       });
     });
   });

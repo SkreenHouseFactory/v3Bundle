@@ -35,6 +35,7 @@ Facebook = {
      $('#fblike-footer').replaceWith('<iframe class="facebook" frameborder="0" scrolling="no" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fmyskreen&amp;send=false&amp;layout=button_count&amp;width=215&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=tahoma&amp;height=21&amp;appId='+API.config.fb.app_id+'" style="border: none; overflow: hidden; width: 200px; height: 20px;"></iframe>');
   },
   login: function(permissions, callback) {
+    var self = this;
     if (typeof permissions == 'undefined') {
       permissions = this.permissions;
     }
@@ -42,10 +43,11 @@ Facebook = {
     var self = this;
     FB.login(function(response) {
       if (response.authResponse) {
+        self.registerToken(response.authResponse['accessToken']);
         // connected
         $('#fbconnect-infos, .fbconnect-infos').html('<span class="bs-callout bs-callout-success nowrap">Connexion à vos listes en cours...</span>');
         if (typeof callback != 'undefined') {
-          callback(response.authResponse['accessToken']);
+          callback();
         } else {
           self.sync();
         }
@@ -66,6 +68,10 @@ Facebook = {
         });
       }
     });
+  },
+  registerToken: function(access_token){
+    Skhf.session.datas.fb_access_token = access_token;
+    API.addPreference('facebookAccessToken', access_token);
   },
   sync: function(){
     console.log(['scripts/core/fb.js', 'fetching information...']);

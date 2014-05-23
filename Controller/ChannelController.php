@@ -215,6 +215,7 @@ class ChannelCustomController extends MyskreenController
       's_maxage'      => 3600,
       'public'        => true,
     ));
+
     return $response; 
   }
 
@@ -340,7 +341,7 @@ class ChannelController extends ChannelCustomController
       'img_width' => 150,
       'img_height' => 200,
       'skip_sliders' => true,
-      'with_replay' => 150
+      'with_replay' => 100
     );
     $data = $api->fetch('channel', $params);
     //echo $request->get('debug') ? $api->url : null;
