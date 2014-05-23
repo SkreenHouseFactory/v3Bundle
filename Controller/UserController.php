@@ -273,6 +273,21 @@ class UserController extends Controller
     /**
     *
     */
+    public function friendsAction(Request $request)
+    {
+
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:friends.html.twig', array(
+      ));
+
+      $response->setPublic();
+      $response->setMaxAge(3600);
+
+      return $response;
+    }
+
+    /**
+    *
+    */
     public function theatersAction(Request $request)
     {
       $session_uid = $request->cookies->get('myskreen_session_uid');

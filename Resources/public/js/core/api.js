@@ -45,7 +45,7 @@ ENV = {
     base: 'http://' + DEV + '.myskreen.net/api/',
     popin: 'http://' + DEV + '.myskreen.net/popin/',
     domain: DEV + '.myskreen.net',
-    fb: {app_id: 101348563248431 },
+    fb: {app_id: 815539248457999 },
     console: true
   },
   preprod: {

@@ -11,9 +11,28 @@ var Dialog = Class.extend({
         this.title = this.title.replace(k,params[k]);
         this.content = this.content.replace(k,params[k]);
       }
-      UI.loadAlertUser(this.title,this.content,timeout);
+      this.display(this.title,this.content,timeout);
     } else {
       console.log('scripts/dialog.js', 'Dialog.init', 'This method does not exist.');
+    }
+  },
+
+  display: function(titre, content, delay_timeout){
+    if (typeof delay_timeout == 'undefined') delay_timeout = 6000;
+    container  = $('#alert-user');
+    if (!container.hasClass('initialized')) {
+      $('.glyphicon', container).on('click', function(){
+       container.slideUp({duration: 600});
+      });
+      container.addClass('initialized');
+    }
+    $('.alert-user-title', container).html(titre);
+    $('.alert-user-content', container).html(content);
+    container.slideDown({duration: 600});
+    if (!isNaN(delay_timeout)) {
+     setTimeout( function(){
+       container.slideUp({duration: 600});
+     }, delay_timeout);
     }
   },
 
@@ -55,6 +74,10 @@ var Dialog = Class.extend({
   notConnectedOnProgram: function(){
     this.title = 'Vous souhaitez être averti des diffusions de ce programme&nbsp;?';
     this.content = '<br/><a class="btn btn-primary" data-trigger-click=".bande_listes a.fav-like">Ajouter <i>%name%</i> à vos listes&nbsp;!</a>';
+  },
+  onDenyFacebookShare: function(){
+    this.title = 'Partage Facebook';
+    this.content = '<br/>Vous pouvez désactiver le partage Facebook automatique en allant dans vos préférences';
   }
   
 });

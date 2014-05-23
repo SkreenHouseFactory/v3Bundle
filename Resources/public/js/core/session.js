@@ -281,45 +281,54 @@ var BaseSession = Class.extend({
        this.callbackSocial.push(callback);
      }
      // load from IndexedDb ?
-     API.selectIndexedDb('skhf', 'friends', 1, function(IndexedDbDatas){
-       console.log('BaseSession.getSocialDatas', 'selectIndexedDb', IndexedDbDatas);
-       self.social_state = 'done';
+     // API.selectIndexedDb('skhf', 'friends', 1, function(IndexedDbDatas){
+     //   console.log('BaseSession.getSocialDatas', 'selectIndexedDb', IndexedDbDatas);
+     //   self.social_state = 'done';
 
-       if (IndexedDbDatas) {
-         console.log('BaseSession.getSocialDatas', 'IndexedDbDatas', IndexedDbDatas);
-         if (IndexedDbDatas.updated_at > (new Date()).getTime() - 3600*1000) {
-           self.datas.friends = IndexedDbDatas.friends;
-           self.datas.friends_programs = IndexedDbDatas.friends_programs;
+     //   if (IndexedDbDatas) {
+     //     console.log('BaseSession.getSocialDatas', 'IndexedDbDatas', IndexedDbDatas);
+     //     if (IndexedDbDatas.updated_at > (new Date()).getTime() - 3600*1000) {
+     //       self.datas.friends = IndexedDbDatas.friends;
+     //       self.datas.friends_programs = IndexedDbDatas.friends_programs;
+     //       for (k in self.callbackSocial) {
+     //         self.callbackSocial[k](self.datas.friends, self.datas.friends_programs);
+     //       }
+     //       return;
+     //     } else {
+     //       API.deleteIndexedDb('skhf', 'friends', 1);
+     //     }
+     //   }
+       //fail : load from API
+       Facebook.getFriends(function(friends){
+        self.sync(function(sessionDatas){
+           self.social_state = 'done';
+           console.log('BaseSession.getSocialDatas', 'sync session callback', sessionDatas, self.callbackSocial);
+           self.datas.friends = sessionDatas.friends;
+           for (k in friends) {
+            if (typeof self.datas.friends[friends[k].id] != 'undefined') {
+              self.datas.friends[friends[k].id].name = friends[k].name;
+              self.datas.friends[friends[k].id].pic_square = friends[k].picture.data.url;
+            }
+           }
+           self.datas.friends_programs = sessionDatas.friends_playlists;
+
            for (k in self.callbackSocial) {
+             console.log('BaseSession.getSocialDatas', 'callback', self.callbackSocial[k]);
              self.callbackSocial[k](self.datas.friends, self.datas.friends_programs);
            }
-           return;
-         } else {
-           API.deleteIndexedDb('skhf', 'friends', 1);
-         }
-       }
 
-       //fail : load from API
-       self.sync(function(sessionDatas){
-         console.log('BaseSession.getSocialDatas', 'sync session callback', sessionDatas, self.callbackSocial);
-         self.datas.friends = sessionDatas.friends;
-         self.datas.friends_programs = sessionDatas.friends_playlists;
-
-         for (k in self.callbackSocial) {
-           console.log('BaseSession.getSocialDatas', 'callback', self.callbackSocial[k]);
-           self.callbackSocial[k](self.datas.friends, self.datas.friends_programs);
-         }
-
-         API.insertIndexedDb('skhf', 'friends', {
-           id: 1, 
-           friends: self.datas.friends, 
-           friends_programs: self.datas.friends_programs,
-           updated_at: (new Date()).getTime()
+           API.insertIndexedDb('skhf', 'friends', {
+             id: 1, 
+             friends: self.datas.friends, 
+             friends_programs: self.datas.friends_programs,
+             updated_at: (new Date()).getTime()
+           });
+         },{
+           fields: 'friends,friends_playlists',
+           friendsuids: Facebook.getFriendsUids(friends).join(',')
          });
-       },{
-         fields: 'friends,friends_playlists'
        });
-     });
+     // });
    }
  },
  getFriendsUids: function(callback){

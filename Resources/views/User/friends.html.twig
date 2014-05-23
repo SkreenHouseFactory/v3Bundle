@@ -1,0 +1,29 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}{{ 'page.title.user.friends'|trans }}{% endblock %}
+
+{% block pagescripts %}
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-friends.js'
+    filter='?yui_js' 
+    output='js/compiled/pages/user-friends.js'  %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
+{% block content %}
+  <div id="bandeau-listes">
+    <div class="container">
+      <h1 class="clearfix">Mes amis regardent<a class="pull-right" href="{{ path('user_programs') }}"><span class="sk-font">-></span> Consulter mes listes</a></h1>
+    </div>
+  </div>
+  <div class="container social-on">
+    <div class="list-container">
+    </div>
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'social-on-slider'}, noheader: true, class: ''} %}
+  </div>
+  <div class="container social-friends"></div>
+  <div class="container social-on social-invite">
+    <div class="btn btn-primary btn-lg fb-invite">Ajouter vos amis Facebook</div>
+  </div>
+{% endblock %}

@@ -8,19 +8,79 @@ API.callbackInit['fb'] = function(){
 
 }
 
+var Facebook;
+Facebook = {
+  permissions: 'public_profile,email',
+  init: function(){
+     window.fbAsyncInit = function() {
+          FB.init({
+            appId: API.config.fb.app_id,
+            xfbml: true,
+            cookie: true,
+            status: true,     
+            version: 'v2.0'
+          });
+        };
 
-$(document).ready(function(){
+        (function(d, s, id){
+          // console.log('scripts/core/fb.js', 'lancement fb asynchronously');
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/fr_FR/all.js";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
 
-  var fb_permissions = 'email,user_birthday,friends_birthday,user_likes,friends_likes,publish_stream,publish_actions,read_friendlists'; 
-
-  // fb connect
-  function fbsync() {
-    console.log(['scripts/fb.js', 'fetching information...']);
+     //like footer
+     $('#fblike-footer').replaceWith('<iframe class="facebook" frameborder="0" scrolling="no" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fmyskreen&amp;send=false&amp;layout=button_count&amp;width=215&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=tahoma&amp;height=21&amp;appId='+API.config.fb.app_id+'" style="border: none; overflow: hidden; width: 200px; height: 20px;"></iframe>');
+  },
+  login: function(permissions, callback) {
+    var self = this;
+    if (typeof permissions == 'undefined') {
+      permissions = this.permissions;
+    }
+    console.log('Facebook.login', 'permissions', permissions);
+    var self = this;
+    FB.login(function(response) {
+      if (response.authResponse) {
+        self.registerToken(response.authResponse['accessToken']);
+        // connected
+        $('#fbconnect-infos, .fbconnect-infos').html('<span class="bs-callout bs-callout-success nowrap">Connexion à vos listes en cours...</span>');
+        if (typeof callback != 'undefined') {
+          callback();
+        } else {
+          self.sync();
+        }
+      } else {
+        // cancelled
+        $('#fbconnect-infos, .fbconnect-infos').html('<span class="bs-callout bs-callout-danger nowrap">La connexion a échoué !</span>');
+      }
+    },{
+      scope: permissions,
+      auth_type: 'rerequest'
+    });
+  },
+  checkLoginState: function() {
+    FB.getLoginStatus(function(response) {
+      if (API.config.env == 'dev' && 
+          response.status === 'connected') {
+        FB.api('/me', function(response) {
+          console.log('scripts/core/fb.js', 'Good to see you, ' + response.name + '.', response);
+        });
+      }
+    });
+  },
+  registerToken: function(access_token){
+    Skhf.session.datas.fb_access_token = access_token;
+    API.addPreference('facebookAccessToken', access_token);
+  },
+  sync: function(){
+    console.log(['scripts/core/fb.js', 'fetching information...']);
     FB.api('/me', function(response) {
-      console.log('scripts/fb.js', 'success', FB.getAuthResponse());
+      console.log('scripts/core/fb.js', 'success', FB.getAuthResponse());
       var authresponse = FB.getAuthResponse();
       for (k in response) {
-        console.log('scripts/fb.js', k, response[k]);
+        console.log('scripts/core/fb.js', k, response[k]);
       }
       Skhf.session.sync(function(sessionDatas){
         API.query(
@@ -39,88 +99,91 @@ $(document).ready(function(){
             expires: authresponse['expiresIn']
           },
           function(data){
-            console.log('scripts/fb.js', 'API.query callback', data);
-
+            console.log('scripts/core/fb.js', 'API.query callback', data);
 
             Skhf.session.signin(data.session, function(){
               $('.modal').modal('hide');
-              console.log('scripts/fb.js', 'API.query callback', 'Skhf.session.sync', UI.callbackModal);
+              console.log('scripts/core/fb.js', 'API.query callback', 'Skhf.session.sync', UI.callbackModal);
               if (UI.callbackModal) {
                 UI.callbackModal();
               }
-
-              /* handled in core/session.js
-              console.log('scripts/core/fb.js', Skhf.session.user);
-              console.log('scripts/core/fb.js', Skhf.session.callbackSignin);
-              if(Skhf.session.user && Skhf.session.callbackSignin){
-                Skhf.session.callbackSignin();
-              }
-              */
             });
           });
       });
     });
-  }
-
-  /* login */
-  function fblogin() {
-    FB.login(function(response) {
-      if (response.authResponse) {
-        // connected
-        $('#fbconnect-infos').html('<span class="alert alert-success nowrap">Connexion à vos listes en cours...</span>');
-        fbsync();
-      } else {
-        // cancelled
-        $('#fbconnect-infos').html('<span class="alert alert-danger nowrap">La connexion a échoué !</span>');
+  },
+  checkPermissions: function(permission,callback){
+    // console.log("scripts/core/fb.js", 'checkPermissions this', this);
+    // console.log("scripts/core/fb.js", 'checkPermissions this.container', this.container);
+    FB.api('/me/permissions', {
+          access_token: Skhf.session.datas.fb_access_token
+        },
+        function (response) {
+          console.log("scripts/core/fb.js", 'checkPermissions callback response', response);
+          for (k in response.data) {
+            if (response.data[k].permission == permission &&
+                response.data[k].status == 'granted' ) {
+              console.log("scripts/core/fb.js", "Permissions:", "You got'em!");
+              callback(true);
+              return;
+            }
+          }
+          console.log("scripts/core/fb.js", "Permissions:", "You don't got'em!");
+          callback(false);
+        }
+      );
+  },
+  getFriends: function(callback){
+    FB.api('/me/friends/?fields=picture.type(square),name',
+      { access_token: Skhf.session.datas.fb_access_token },
+      function(resp){
+        console.log('scripts/core/fb.js', 'getFriends', 'Response:', resp);
+        if (resp && !resp.error) {
+          callback(resp.data);
+        } else {
+          console.log('scripts/core/fb.js', 'getFriends', 'Response: Error');
+        }
       }
-    },{
-      scope: fb_permissions
+    );
+  },
+  getFriendsUids: function(friends){
+    uids = new Array();
+    for (k in friends) {
+      uids.push(friends[k].id);
+    }
+    return uids;
+  },
+  inviteFriends: function(){
+    FB.ui({
+      app_id: API.config.fb.app_id,
+      method: 'apprequests',
+      message: 'Inscris-toi sur myskreen.com, crée tes listes de favoris et partage-les avec moi !'
     });
+  },
+  publishStatus: function(message,link){
+    FB.api(
+      '/me/feed',
+      'post',
+      {
+        'message': message,
+        'link': link
+      },
+      function(response){
+        console.log('publishStatus response', response);
+      }
+    );
   }
 
-  window.fbAsyncInit = function() {
-   // init the FB JS SDK
-   /*
-   FB.init({
-     appId  : API.config.fb.app_id,                 // App ID from the app dashboard
-     status : true,                                 // Check Facebook Login status
-     cookie : true, // enable cookies to allow the server to access the session
-   });
-   */
-   // Additional initialization code such as adding Event Listeners goes here
-   
-   //trigger
-   $('#fbconnect').on('click', function(){
-     console.log(['script', 'trigger FB']);
-     fblogin();
-     return false;
-   });
-   $(document).on('click', '#fbconnect', function(){
-     console.log(['script', 'trigger FB']);
-     fblogin();
-     return false;
-   });
-   
-   /* on shown */
-   if (API.config.env == 'dev') {
-     FB.getLoginStatus(function(response) {
-       if (response.status === 'connected') {
-         FB.api('/me', function(response) {
-           console.log('Good to see you, ' + response.name + '.', response);
-           //$('#fbconnect-infos').html('<small>(' + response.name + ')</small>');
-         });
-       }
-     });
-   }
-  };
+}
 
-  (function(d, s, id) {
-    console.log('scripts/core', 'fb.js', 'lancement fb asynchronously');
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) return;
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&status=1&cookie=1&appId="+API.config.fb.app_id;
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-   
+$(document).ready(function(){
+
+  Facebook.init();
+
+  //trigger
+  $(document).on('click', '#fbconnect', function(){
+    console.log(['script', 'trigger FB']);
+    Facebook.login();
+    return false;
+  });
 });

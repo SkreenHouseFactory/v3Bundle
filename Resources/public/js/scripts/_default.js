@@ -315,6 +315,10 @@ $(document).ready(function(){
   });
   $(document).on('click', '#top-playlist li.selector', function(e){
     console.log('script', 'li.selector', 'click');
+    if (this.id == 'friends') {
+      window.location.href = API.config.v3_url + '/user/friends/';
+      return false;
+    }
     if ($(this).hasClass('empty')) {
       if ($('a', $(this)).data('modal')) {
         e.preventDefault();

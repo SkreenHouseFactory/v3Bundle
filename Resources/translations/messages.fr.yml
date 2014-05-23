@@ -54,6 +54,7 @@ page:
             vod: Mes vidéos à la demande | Mon compte
             svod: Mes abonnements | Mon compte
             notifs: Toutes mes notifications | Mon compte
+            friends: Mes amis regardent | Mon compte
         sitemap:
             channels:
                 broadcast: Chaines TV & Replay

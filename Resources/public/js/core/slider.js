@@ -16,7 +16,7 @@ var BaseSlider = Class.extend({
   },
   //init
   init: function(params, callback, elmt) {
-    //console.log('BaseSlider.init', params, elmt);
+    console.log('BaseSlider.init', params, elmt);
     this.params    = $.extend(this.params, params, typeof API.config.slider != 'undefined' ? API.config.slider : {});
     this.elmt      = typeof elmt != 'undefined' ? elmt : this.getTemplate(params);
     this.items     = $('ul', this.elmt);
@@ -28,7 +28,7 @@ var BaseSlider = Class.extend({
     if (this.elmt.data('nb-results') > 0) {
       this.params.pager_nb_results = this.elmt.data('nb-results');
     }
-    //console.log('BaseSlider.init', this.loader, this.items);
+    console.log('BaseSlider.init', this.loader, this.items);
 
     //scroll ?
     if (this.params.scroll == 'no') {
@@ -37,18 +37,18 @@ var BaseSlider = Class.extend({
      //li sample
     if (this.sample == null) {
       this.sample = $('<div>').append($('li.slider-sample:first').clone().removeClass('slider-sample')).html();
-     //console.log('BaseSlider.init', 'this.sample', this.sample);
+     console.log('BaseSlider.init', 'this.sample', this.sample);
     }
 
     //paginate ?
     if (typeof params.url != 'undefined') {
-      //console.log('BaseSlider.init', 'insertPrograms');
+      console.log('BaseSlider.init', 'insertPrograms');
       this.elmt.data('paginate-url', params.url);
     }
  
     //programs
     if ($('li:not(.static)', this.items).length > 0) {
-      //console.log('BaseSlider.init', 'Programs found in DOM');
+      console.log('BaseSlider.init', 'Programs found in DOM');
       this.ui();
     } else if (typeof params.programs != 'undefined') {
       console.log('BaseSlider.init', 'insertPrograms');
@@ -62,7 +62,7 @@ var BaseSlider = Class.extend({
         callback(this.elmt);
       }
     } else if ( Skhf.session != null) { //ajax seulement
-      //console.log('BaseSlider.init', 'loadRemotePrograms', this.elmt);
+      console.log('BaseSlider.init', 'loadRemotePrograms', this.elmt);
       UI.appendLoader(this.loader);
         
       this.elmt.removeClass('slider-loading');
@@ -276,7 +276,7 @@ var BaseSlider = Class.extend({
                 if (programs.length > 0 || typeof programs[0] != 'undefined') {
                   self.insertPrograms(programs);
                   self.elmt.data('nb-programs', programs.length);
-                } else if (typeof programs.length ==  'undefined' || $('li:not(.static)', self.elmt).length == 0) {
+                } else {
                   self.elmt.removeClass('slider-loading');
                   self.elmt.addClass('loaded');
                   if ($('li:not(.static)', self.elmt).length == 0) {
@@ -343,8 +343,9 @@ var BaseSlider = Class.extend({
 
        // add friends : desactived 
       if (this.elmt.hasClass('slider-playlist') || API.config.env == 'dev') {
-        console.log('core/slider.js', 'insertPrograms', 'debut addFriends');
-        console.log('core/slider.js', 'insertPrograms', 'typeof program.friend_uids', typeof program.friend_uids);
+        // console.log('core/slider.js', 'insertPrograms', 'debut addFriends');
+        // console.log('core/slider.js', 'insertPrograms', 'typeof program.friend_uids', typeof program.friend_uids);
+        // console.log('core/slider.js', 'insertPrograms', 'program.friend_uids.length', program.friend_uids.length);
           if (typeof program.friend_uids != 'undefined' &&
               program.friend_uids.length) {
             UI.addFriends(li, program.friend_uids.split(','));
