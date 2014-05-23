@@ -56,7 +56,8 @@ Facebook = {
         $('#fbconnect-infos, .fbconnect-infos').html('<span class="bs-callout bs-callout-danger nowrap">La connexion a échoué !</span>');
       }
     },{
-      scope: permissions
+      scope: permissions,
+      auth_type: 'rerequest'
     });
   },
   checkLoginState: function() {
