@@ -342,7 +342,7 @@ var BaseSlider = Class.extend({
       //}
 
        // add friends : desactived 
-      if (this.elmt.hasClass('slider-playlist') || API.config.env == 'dev') {
+      if (this.elmt.hasClass('slider-playlist')) {
         // console.log('core/slider.js', 'insertPrograms', 'debut addFriends');
         // console.log('core/slider.js', 'insertPrograms', 'typeof program.friend_uids', typeof program.friend_uids);
         // console.log('core/slider.js', 'insertPrograms', 'program.friend_uids.length', program.friend_uids.length);
@@ -350,7 +350,6 @@ var BaseSlider = Class.extend({
               program.friend_uids.length) {
             UI.addFriends(li, program.friend_uids.split(','));
           }
-        
       }
       
       li.addClass('to-animate').css('display', 'inline-block'); //attention : .show() > list-item
