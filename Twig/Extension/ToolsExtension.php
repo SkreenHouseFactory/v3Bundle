@@ -453,6 +453,7 @@ class toolsExtension extends \Twig_Extension
             } else {
                $i++;
             }
+            $slider_program->sliderPicture = str_replace('1200/630', '445/180', $slider_program->sliderPicture);
             $picture = $slider_program->sliderPicture;
             $program = $slider_program;
            // echo ' -- takeslider:'.$slider_program->id.'($slider_program:'.$slider_program->sliderPicture.')';
