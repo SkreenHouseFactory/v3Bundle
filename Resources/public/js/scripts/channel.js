@@ -7,6 +7,7 @@ $(document).ready(function(){
   var channel_slug = $('h1').data('channel-slug');
   API.trackEvent('Chaîne', channel_name, 'page=chaine');
 
+
   // -- fournisseur
   if ($('#view-fournisseur').length) {
     if (channel_slug && $('#carousel-chaine').length) {
@@ -68,6 +69,25 @@ $(document).ready(function(){
         }
       });
     }
+
+    // Sticky for theaters
+    $('.view-fournisseur-cinema #theater-related').stick_in_parent({offset_top: 70})
+      .on('sticky_kit:bottom', function(e) {
+        $('#theater-related').parent().attr('style', function(i, style) {
+          return style.replace(/position[^;]+;?/g, '');
+        });
+        $('.view-fournisseur-cinema #theater-related').css({
+          position: 'absolute',
+          bottom: '0px',
+          top: 'auto'
+        });
+    });
+    // on page theater, modify sticky behaviour depending on display of bande_couleur_degrade
+    $(document).on('click', '[data-toggle-display]', function () {
+      setTimeout(function(){
+        $(document.body).trigger('sticky_kit:recalc');
+      }, 500);
+    });
 
   // -- chaine
   } else if ($('#view-page').length) {
