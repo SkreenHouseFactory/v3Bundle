@@ -85,7 +85,7 @@ $(document).ready(function(){
   Skhf.session.callbackSignin = function (){
     if (Skhf.session.datas.fb_uid && Skhf.session.datas.fb_access_token) {
       console.log('scripts/user-friends.js', 'Skhf.session.callbackSignin', 'Skhf.session.datas.fb_access_token', Skhf.session.datas.fb_access_token);
-      Facebook.checkPermissions('read_friendlists', function(success){
+      Facebook.checkPermissions('read_friendlists', function(success,rerequest){
         FriendsView.resultPermissions(success);
       }); 
     } else {
@@ -101,7 +101,7 @@ $(document).ready(function(){
 
   $(document).on('click', '.fb-btn .fb-connect-friends', function(){
     Facebook.login(FriendsView.fb_permissions, function(){
-      Facebook.checkPermissions('read_friendlists', function(success){
+      Facebook.checkPermissions('read_friendlists', function(success,rerequest){
         if (success) {
           document.location.reload();
           //FriendsView.resultPermissions(success);

@@ -34,13 +34,20 @@ Facebook = {
      //like footer
      $('#fblike-footer').replaceWith('<iframe class="facebook" frameborder="0" scrolling="no" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fmyskreen&amp;send=false&amp;layout=button_count&amp;width=215&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=tahoma&amp;height=21&amp;appId='+API.config.fb.app_id+'" style="border: none; overflow: hidden; width: 200px; height: 20px;"></iframe>');
   },
-  login: function(permissions, callback) {
+  login: function(permissions, callback, rerequest) {
     var self = this;
     if (typeof permissions == 'undefined') {
       permissions = this.permissions;
     }
     console.log('Facebook.login', 'permissions', permissions);
     var self = this;
+    var params = {
+      scope: permissions
+    }
+    if (typeof rerequest != 'undefined') {
+      params.auth_type = 'rerequest';
+    }
+    console.log('Facebook.login', 'params', params);
     FB.login(function(response) {
       if (response.authResponse) {
         self.registerToken(response.authResponse['accessToken']);
@@ -55,10 +62,9 @@ Facebook = {
         // cancelled
         $('#fbconnect-infos, .fbconnect-infos').html('<span class="bs-callout bs-callout-danger nowrap">La connexion a échoué !</span>');
       }
-    },{
-      scope: permissions,
-      auth_type: 'rerequest'
-    });
+    },
+    params
+    );
   },
   checkLoginState: function() {
     FB.getLoginStatus(function(response) {
@@ -125,6 +131,11 @@ Facebook = {
                 response.data[k].status == 'granted' ) {
               console.log("scripts/core/fb.js", "Permissions:", "You got'em!");
               callback(true);
+              return;
+            } else if (response.data[k].permission == permission &&
+                      response.data[k].status == 'declined' ) {
+              console.log("scripts/core/fb.js", "Permissions:", "You precedently refused'em!");
+              callback(false,'rerequest');
               return;
             }
           }

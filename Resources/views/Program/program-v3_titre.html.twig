@@ -79,7 +79,7 @@
       {# Bouton Ajout/Abo #}
       <div class="col-xs-16 ajout">
         {% if program.popular_channel is not defined or program.popular_channel.id not in [5573] %}
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.episodeof is defined ? program.episodeof.id : program.id, class: 'fav-like', text: 'Ajouter à mes listes', placement: 'left'} %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.episodeof is defined ? program.episodeof.id : program.id, class: 'fav-like', text: 'Ajouter à mes listes', placement: 'left', onglet: program.onglet is defined and program.onglet ? program.onglet : '' } %}
         {% endif %}
       </div>
       {# Textes Ajouts #}

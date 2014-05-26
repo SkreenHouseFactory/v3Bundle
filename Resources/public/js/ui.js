@@ -273,8 +273,8 @@ UI = {
         return ['Ne ratez plus les programmes qui vous intéressent&nbsp;!',
                 'En ajoutant cette catégorie à vos listes vous saurez averti dès qu\'un programme correspondant sera disponible.'];
     } else {
-      if (trigger.parents('.actions:first').data('onglet') == 'emissions' || 
-          trigger.parents('.actions:first').data('onglet') == 'series') {
+      if (trigger.data('onglet') == 'emissions' || 
+          trigger.data('onglet') == 'series') {
         return ['Ne ratez plus vos programmes&nbsp;!',
                 'En ajoutant ce programme à vos listes vous serez averti dès qu\'un épisode est disponible !'];
       } else {
@@ -311,10 +311,10 @@ UI = {
         return ['Faites comme moi, ne ratez plus les programmes qui vous intéressent !',
                 'En ajoutant cette catégorie à vos listes, je suis averti dès qu\'un programme correspondant est disponible.'];
     } else {
-      if (trigger.parents('.actions:first').data('onglet') == 'emissions') {
+      if (trigger.data('onglet') == 'emissions') {
         return ['Faites comme moi, ne ratez plus vos émissions préférées !',
                 'En ajoutant cette émission à mes listes, je suis averti de toutes ses diffusions !'];
-      } else if (trigger.parents('.actions:first').data('onglet') == 'series') {
+      } else if (trigger.data('onglet') == 'series') {
         return ['Faites comme moi, ne ratez plus vos séries préférées !',
                 'En ajoutant cette série à mes listes, je suis averti dès qu\'un épisode est disponible !'];
       } else {
@@ -370,7 +370,7 @@ UI = {
           if (!Skhf.session.datas.disallow_share) {
             var link = document.location.href;
             var message = self.getStatusFBMessage(trigger).join("\n").replace('&nbsp;',' ');
-            Facebook.checkPermissions('publish_actions', function(success){
+            Facebook.checkPermissions('publish_actions', function(success, rerequest){
               if (success) {
                 Facebook.publishStatus(message,link);
               } else {
@@ -384,7 +384,7 @@ UI = {
                       var dialog = new Dialog('onDenyFacebookShare',{});
                     }
                   });
-                });
+                },(typeof rerequest != 'undefined' ? 'rerequest' : '' ));
               }
             });
           }
