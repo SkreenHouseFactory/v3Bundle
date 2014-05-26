@@ -64,8 +64,23 @@ class CinemaController extends Controller
            'access'                   => 'cinema',
            'disable_search_by_format' => true
       ));
+      // Récupération de la description des 10 premiers programmes
+      $data_complete_ids = array();
+      $data_programs_cine = $programs;
+      $nb_programs = 0;
+      foreach ($data_programs_cine as $program) {
+        $data_complete_ids[] = $program->id;
+        $nb_programs++;
+        if ($nb_programs == 10) {
+          break;
+        }
+      }
+      $data_complete = $api->fetch('program', array(
+        'ids' => implode(',', $data_complete_ids),
+        'allow_with' => true,
+        'fields' => 'description'
+      ));
       //print_r($results);
-      
       //echo $api->url;
       //print_r(array($session_uid, $programs));
       $response = $this->render('SkreenHouseFactoryV3Bundle:Cinema:boxoffice.html.twig', array(
@@ -75,7 +90,8 @@ class CinemaController extends Controller
           'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
         ),
         'categories' => array_combine(explode(';', $results->facets_seo_url->category),explode(';', $results->facets->category)),
-        'programs' => $programs
+        'programs' => $programs,
+        'data_complete' => $data_complete
       ));
 
       $response->setPublic();

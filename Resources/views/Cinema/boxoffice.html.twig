@@ -1,8 +1,10 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 
-{% block title %}{% if app.request.get('category') %}Les films à l'affiche : {{ app.request.get('category') }}{% else %}{{'page.title.cinema.boxoffice'|trans({'%alpha%': app.request.get('alpha')}) }}{% endif %}{% endblock %}
+{% block title %}{% if app.request.get('category') %}Les films à l'affiche : {{ app.request.get('category') }}{% else %}{% if app.request.get('alpha') == 'a' %}Box office ciné | Cinéma{% else %}{{'page.title.cinema.boxoffice'|trans({'%alpha%': app.request.get('alpha')}) }}{% endif %}{% endif %}{% endblock %}
 
-{% set description_text %}Tous les films à l'affiche au cinéma,{% if app.request.get('category') %} dans la catégorie {{ app.request.get('category') }}{% else %} commençant par la lettre {{ app.request.get('alpha') }}{% endif %}, sont recensés sur myskreen.com.{% endset %}
+{% set first_titles %}{% for p in programs|to_array|slice(0,3) %}{% if loop.first %} comme {% endif %}{% if loop.last %} ou encore {% endif %}{{ p.title }},{% endfor %}{% endset %}
+
+{% set description_text %}Trouvez tous les films en salle au cinéma{{ first_titles }}{% if app.request.get('category') %} dans la catégorie {{ app.request.get('category') }}{% else %} commençant par la lettre {{ app.request.get('alpha') }}{% endif %}, ainsi que les horaires et salles.{% endset %}
 {% block description %}{{ description_text }}{% endblock %}
 
 {% block content %}
@@ -48,14 +50,35 @@
   {% if app.request.get('alpha') == 'a' %}
     <div class="description-seo description-seo-absolute">
       <div class="container scroll well">
-      <h2>Le Top du Box-Office</h2>
-      <p>Vous adorez le cinéma mais ne savez pas quoi aller voir ? Faites confiance au Box-Office et ne ratez pas les films dont tout le monde parle !</p>
-      <p>A moins que vous ne préfériez faire confiance à la <a href="http://www.myskreen.com/cinema/selection/8030213-cinema-la-selection-de-la-presse/">Sélection de la presse</a>.</p>
-      <p>Vous n’avez toujours pas trouvé le film qui vous correspond ? Si vous alliez faire un tour sur <a href="http://www.myskreen.com/cinema/selection/7845147-les-sorties-cinema-de-la-semaine/">Les sorties ciné de la semaine</a> ou <a href="http://www.myskreen.com/cinema/selection/8238809-les-films-toujours-a-l-affiche/">Les films toujours à l’affiche</a> ? Ils vous diront ce qui passe en ce moment au cinéma.</p>
-      <p>Ca y est, vous avez choisi un film ? Regardez maintenant s’il passe dans votre salle préférée… C’est bon ?
-      Ajoutez-la à vos cinémas et soyez immédiatement averti de sa programmation !</p>
-      <p>Vous ne voulez surtout pas passer à côté d’un film vous a tapé dans l’oeil ? Cliquez sur Suivre, le film se retrouve dans votre playlist et vous êtes averti immédiatement de toutes ses diffusions, au cinéma, à la télé, en replay ou encore en VOD !</p>
+        <h2>Le Top du Box-Office</h2>
+        <p>Vous adorez le cinéma mais ne savez pas quoi aller voir ? Faites confiance au Box-Office et ne ratez pas les films dont tout le monde parle !</p>
+        <p>A moins que vous ne préfériez faire confiance à la <a href="http://www.myskreen.com/cinema/selection/8030213-cinema-la-selection-de-la-presse/">Sélection de la presse</a>.</p>
+        <p>Vous n’avez toujours pas trouvé le film qui vous correspond ? Si vous alliez faire un tour sur <a href="http://www.myskreen.com/cinema/selection/7845147-les-sorties-cinema-de-la-semaine/">Les sorties ciné de la semaine</a> ou <a href="http://www.myskreen.com/cinema/selection/8238809-les-films-toujours-a-l-affiche/">Les films toujours à l’affiche</a> ? Ils vous diront ce qui passe en ce moment au cinéma.</p>
+        <p>Ca y est, vous avez choisi un film ? Regardez maintenant s’il passe dans votre salle préférée… C’est bon ?
+        Ajoutez-la à vos cinémas et soyez immédiatement averti de sa programmation !</p>
+        <p>Vous ne voulez surtout pas passer à côté d’un film vous a tapé dans l’oeil ? Cliquez sur Suivre, le film se retrouve dans votre playlist et vous êtes averti immédiatement de toutes ses diffusions, au cinéma, à la télé, en replay ou encore en VOD !</p>
+      </div>
     </div>
+  {% elseif programs|to_array|length > 0 %}
+    <div class="description-seo description-seo-absolute">
+      <div class="container scroll well">
+        {% if programs|to_array|length == 1 %}
+          <h2>Description du film actuellement au box-office cinéma, {% if app.request.get('category') %}dans la catégorie {{ app.request.get('category') }}{% else %}dont le titre commence par la lettre {{ app.request.get('alpha') }}{% endif %}.</h2>
+        {% elseif programs|to_array|length < 11 %}
+          <h2>Description des {{ programs|to_array|length }} films actuellement au box-office cinéma, {% if app.request.get('category') %}dans la catégorie {{ app.request.get('category') }}{% else %}dont le titre commence par la lettre {{ app.request.get('alpha') }}{% endif %}.</h2>
+        {% else %}
+          <h2>Description des 10 premiers films actuellement au cinéma, {% if app.request.get('category') %}dans la catégorie {{ app.request.get('category') }}{% else %}dont le titre commence par la lettre {{ app.request.get('alpha') }}{% endif %}.</h2>
+        {% endif %}
+        {% for p in data_complete|to_array %}
+          {% set description = p.description|striptags %}
+          <h3><a href="{{ path('any_url', {url: p.seo_url|slice(1, p.seo_url|length-1)}) }}">{{ p.title }}</a></h3>
+          <p>{{ description|wordCut(300,'...')|raw }}</p>
+        {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    <div class="container">
+      <p class="bs-callout bs-callout-warning">Il n'y a actuellement pas de films à l'affiche, {% if app.request.get('category') %}dans la catégorie {{ app.request.get('category') }}{% else %}dont le titre commence par la lettre {{ app.request.get('alpha') }}{% endif %}.</p>
     </div>
   {% endif %}
   <br/>
