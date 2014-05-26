@@ -149,7 +149,7 @@ Facebook = {
           console.log("scripts/core/fb.js", "Permissions:", "You don't got'em!");
           callback(false);
         }
-      );
+      });
   },
   getFriends: function(callback){
     FB.api('/me/friends/?fields=picture.type(square),name',
