@@ -1114,7 +1114,7 @@ UI = {
   // -- add friends
   addFriends: function(container, friend_uids){
     //console.log('UI.addFriends', container.data('id'), friend_uids);
-    
+
     Skhf.session.getSocialDatas(function(friends, friends_programs) {
       console.log('UI.addFriends', 'callback Session.getSocialDatas', friends);
       var div = $('<div class="friends remove-on-signout"></div>');

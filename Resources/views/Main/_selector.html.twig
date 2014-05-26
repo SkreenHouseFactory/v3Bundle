@@ -2,7 +2,7 @@
   <li><a>{{ 'playlist.yours'|trans }}</a></li>
   <li><a></a></li>
 </ul>
-<div id="playlist" class="slider slider-playlist" data-pager-offset="0" data-animate="width" data-paginate-url="{{ path('playlist_load', {type:'access.name', session_uid: 'session.uid'}) }}">
+<div id="playlist" class="slider slider-playlist slider-social" data-pager-offset="0" data-animate="width" data-paginate-url="{{ path('playlist_load', {type:'access.name', session_uid: 'session.uid'}) }}">
   <div class="slider-container">
   <ul class="items{% if addClass is defined %} {{ addClass }}{% endif %}">
     
