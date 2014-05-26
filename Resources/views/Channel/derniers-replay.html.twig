@@ -23,7 +23,7 @@
 {% block content %}
   <div class="container">
     <ul class="breadcrumb">
-      <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" itemref="md-child"><a itemprop="url" href="{{ path('any_url', {url: channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }}</span></a></li>
+      <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" itemref="md-child"><a itemprop="url" href="{{ path('any_url', {url: channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ channel.name }} Replay</span></a></li>
       <li id="md-child" itemprop="child" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">Derniers Replays</span></li>
     </ul>
     <div itemscope itemtype="http://schema.org/BroadcastService" class="clearfix">
