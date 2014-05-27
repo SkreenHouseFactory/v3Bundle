@@ -589,11 +589,6 @@ UI = {
       }
       this.appendNotifications(notifications,list);
 
-      
-
-      //TOFIX : should be working in script/core/ui.js
-      //UiView.initDataLive(list);
-
       //reload tooltip
       $('.navbar .notifications [data-toggle="tooltip"]').tooltip();
 
@@ -617,7 +612,6 @@ UI = {
       //console.log('UI.loadNotifications', 'nb_new', nb_new);
       $('.navbar .notifications-count').data('count-new', nb_new);
 
-      
       global.notificationBadge(nb_new);
     }
   },
