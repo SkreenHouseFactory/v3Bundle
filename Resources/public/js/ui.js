@@ -618,12 +618,14 @@ UI = {
       $('.navbar .notifications-count').data('count-new', nb_new);
 
       
-      global.notificationBadge();
+      global.notificationBadge(nb_new);
     }
   },
-   notificationBadge: function() {
+   notificationBadge: function(nb_new) {
      if($('.navbar .notifications ul li .badge-important').length ){
-       $('.navbar .notifications-count .badge').addClass('badge-important').html($('.navbar .notifications ul li.tv-component .badge-important').length);
+      if (nb_new > 0) {
+        $('.navbar .notifications-count .badge').addClass('badge-important').html($('.navbar .notifications ul li.tv-component .badge-important').length);
+      }
      } else {
        $('.navbar .notifications-count .badge').removeClass('badge-important').html($('.navbar .notifications ul li.tv-component').length);
      }
