@@ -1118,7 +1118,7 @@ UI = {
         console.log('UI.addFriends', friend_uids[k], friends[friend_uids[k]]);
         if (typeof friends[friend_uids[k]] != 'undefined') {
           var friend = friends[friend_uids[k]];
-          div.append('<a rel="tooltip" data-container="body" data-placement="bottom" title="' + friend.name + ' suit ce programme" href="#"><img src="' + friend.pic_square + '" alt="' + friend.name + '" /></a>');
+          div.append('<a rel="tooltip" data-container="body" data-placement="bottom" data-trigger-fb="' + friend_uids[k] + '" title="Envoyer un message sur ce programme à ' + friend.name + '." href="#"><img src="' + friend.pic_square + '" alt="' + friend.name + '" /></a>');
         }
       }
       $('a[rel="tooltip"]', div).tooltip();

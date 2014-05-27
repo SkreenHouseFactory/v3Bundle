@@ -114,6 +114,20 @@ $(document).ready(function(){
     Facebook.inviteFriends();
   });
 
+  $(document).on('click', 'li.actions .friends a', function(){
+    var recipient = $(this).data('trigger-fb');
+    var parent = $(this).parent('.friends');
+    var sibling = parent.siblings('.tv-component');
+    var link = sibling.find('a.wrap-title').attr('href');
+    link = link.replace('/app_dev.php/','http://www.myskreen.com/');
+    // console.log('scripts/user-friends.js', 'click on friend-pic under program', 'recipient', recipient);
+    // console.log('scripts/user-friends.js', 'click on friend-pic under program', 'parent', parent);
+    // console.log('scripts/user-friends.js', 'click on friend-pic under program', 'sibling', sibling);
+    // console.log('scripts/user-friends.js', 'click on friend-pic under program', 'link', link);
+    Facebook.sendMessageTo(recipient,link);
+    return false;
+  });
+
   $(document).on('click', '.friend-name', function(){
     var uids = $(this).data('fbuid');
     console.log('scripts/user-friends.js', 'click on friend-name', 'uids', uids);

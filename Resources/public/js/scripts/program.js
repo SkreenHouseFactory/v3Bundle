@@ -438,6 +438,17 @@ $(document).ready(function(){
       $('.actors_entrop').toggleClass('hide');
     });  
   }
+
+  //FB Message when click on friend-pic
+  $(document).on('click', '#program-friends a', function(){
+    var recipient = $(this).data('trigger-fb');
+    var link = document.location.href;
+    // console.log('scripts/user-friends.js', 'click on friend-pic under program', 'recipient', recipient);
+    // console.log('scripts/user-friends.js', 'click on friend-pic under program', 'link', link);
+    Facebook.sendMessageTo(recipient,link);
+    return false;
+  });
+
   //Scroll to player
   $(document).on('click', '[data-play], [data-play-iframe]', function(){
     $('html,body').animate({'scrollTop' : 0}, 1000);

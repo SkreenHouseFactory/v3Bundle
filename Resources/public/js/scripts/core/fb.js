@@ -190,6 +190,17 @@ Facebook = {
         console.log('publishStatus response', response);
       }
     );
+  },
+  sendMessageTo: function(recipient,link){
+    var params = {
+      app_id: API.config.fb.app_id,
+      method: 'send',
+      link: link
+    }
+    if (typeof recipient != 'undefined') {
+      params.to = recipient;
+    }
+    FB.ui(params);
   }
 
 }
