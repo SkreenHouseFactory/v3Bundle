@@ -349,7 +349,7 @@ class ChannelController extends ChannelCustomController
     if (!$data->channel->fournisseur->programs_replay || count($data->channel->fournisseur->programs_replay) == 0) {
       throw $this->createNotFoundException('No Replay for this channel');
     }
-    // Récupération de la description des 3 premiers programmes
+    // Récupération de la description des 10 premiers programmes
     $data_complete_ids = array();
     $data_programs_replay = $data->channel->fournisseur->programs_replay;
     $nb_programs = 0;

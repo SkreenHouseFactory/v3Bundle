@@ -55,7 +55,7 @@
   {% if app.request.get('force_metatags') is null and (app.environment != 'prod' or 'preprod' in app.request.host or 'typhon' in app.request.host) %}
    <meta name="robots" content="noindex,nofollow"> 
    {% else %} 
-  {% block meta endblock %}
+  {% block meta %}{% endblock %}
  {% endif %}
   {% if app.request.pathinfo != app.request.requestUri %}
   <link rel="canonical" href="http://www.myskreen.com{{ app.request.pathinfo }}" />

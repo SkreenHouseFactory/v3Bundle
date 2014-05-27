@@ -58,7 +58,7 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
       </ul>
     {% endif %}
 
-    <h1{% if selection.name == 'Les sorties cinéma de la semaine' or selection.name == 'Bientôt dans les salles' %} itemscope itemtype="http://schema.org/CollectionPage" itemref="selection-programs md-description"{% endif %}><span{% if selection.name == 'Les sorties cinéma de la semaine' or selection.name == 'Bientôt dans les salles' %} itemprop="name"{% endif %}>{{ selection.name|raw }}{% if selection.onglet.channel.fournisseur is defined %} de {{ selection.onglet.channel.title }}{% endif %}</span></h1>
+    <h1{% if selection.name == 'Les sorties cinéma de la semaine' or selection.name == 'Bientôt dans les salles' %} itemscope itemtype="http://schema.org/CollectionPage" itemref="selection-programs md-description"{% endif %}><span class="sk-font"{% if selection.name == 'Les sorties cinéma de la semaine' or selection.name == 'Bientôt dans les salles' %} itemprop="name"{% endif %}>{{ selection.name|raw }}{% if selection.onglet.channel.fournisseur is defined %} de {{ selection.onglet.channel.title }}{% endif %}</span></h1>
     <div id="md-description" class="row description-seo description-seo-absolute scroll well"><span{% if selection.name == 'Les sorties cinéma de la semaine' or selection.name == 'Bientôt dans les salles' %} itemprop="description"{% endif %}>{{ selection.description|raw }}</span></div>
     <div class="row">
 

@@ -276,7 +276,7 @@ date.month:
     dec: Décembre
 cinema:
     boxoffice:
-        h1: Box office : tous les films
+        h1: Films à l'affiche
 access:
     streaming: en streaming
     video-a-la-demande: Vidéo à la demande
