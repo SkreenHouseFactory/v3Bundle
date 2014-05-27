@@ -487,6 +487,7 @@ var BaseSlider = Class.extend({
         else if (p.has_vod == 13) { $('.ms-prog-diff', li).html('Archive'); }
         else if (p.has_vod == 7 || p.has_vod == 8) { $('.ms-prog-diff', li).html('Replay'); }
         else if (p.has_vod == 9 || p.has_vod == 10) { $('.ms-prog-diff', li).html('Vidéo'); }
+        else if (p.has_vod == 0 && typeof p.theater_release_date != 'undefined' ) { $('.ms-prog-diff', li).html('Sortie en salle le ' + p.theater_release_date); }
         else if (p.has_vod) { $('.ms-prog-diff', li).html('VOD'); }
 
         //playlist seulement
