@@ -48,7 +48,12 @@
                   </p>
                 </li>
               </div>
-              <span class="link-usernotifs"><span data-link-to-replace="{{ path('user_notifs')|rot13 }}">Toutes mes notifications</span></span>
+              <span class="link-usernotifs clearfix">
+                <span data-link-to-replace="{{ path('user_notifs')|rot13 }}">Toutes mes notifications</span>
+                <span rel="tooltip" class="remove-all-notifs pull-right" data-trigger-click=".notifications .remove" data-container="body" data-placement="bottom" title="Supprimer toutes les notifications de la liste">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </span>
+              </span>
             </ul>
           </li>
 
