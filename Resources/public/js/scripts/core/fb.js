@@ -11,15 +11,22 @@ API.callbackInit['fb'] = function(){
 var Facebook;
 Facebook = {
   permissions: 'public_profile,email',
+  appId: null,
+
   init: function(){
+     this.appId = document.location.href.match(/.net/gi) ? ENV.dev.fb.app_id : ENV.prod.fb.app_id ;
+     //console.log('scripts/core/fb.js', 'this.appId', this.appId);
+     var self = this;
      window.fbAsyncInit = function() {
+      //console.log('scripts/core/fb.js', 'fbAsyncInit', 'Avant FB.init');
           FB.init({
-            appId: API.config.fb.app_id,
+            appId: self.appId,
             xfbml: true,
             cookie: true,
             status: true,     
             version: 'v2.0'
           });
+          //console.log('scripts/core/fb.js', 'fbAsyncInit', 'Après FB.init');
         };
 
         (function(d, s, id){
@@ -32,7 +39,7 @@ Facebook = {
         }(document, 'script', 'facebook-jssdk'));
 
      //like footer
-     $('#fblike-footer').replaceWith('<iframe class="facebook" frameborder="0" scrolling="no" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fmyskreen&amp;send=false&amp;layout=button_count&amp;width=215&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=tahoma&amp;height=21&amp;appId='+API.config.fb.app_id+'" style="border: none; overflow: hidden; width: 200px; height: 20px;"></iframe>');
+     $('#fblike-footer').replaceWith('<iframe class="facebook" frameborder="0" scrolling="no" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fmyskreen&amp;send=false&amp;layout=button_count&amp;width=215&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=tahoma&amp;height=21&amp;appId='+this.appId+'" style="border: none; overflow: hidden; width: 200px; height: 20px;"></iframe>');
   },
   login: function(permissions, callback, rerequest) {
     var self = this;
@@ -173,7 +180,7 @@ Facebook = {
   },
   inviteFriends: function(){
     FB.ui({
-      app_id: API.config.fb.app_id,
+      app_id: this.appId,
       method: 'apprequests',
       message: 'Inscris-toi sur myskreen.com, crée tes listes de favoris et partage-les avec moi !'
     });
@@ -193,7 +200,7 @@ Facebook = {
   },
   sendMessageTo: function(recipient,link){
     var params = {
-      app_id: API.config.fb.app_id,
+      app_id: this.appId,
       method: 'send',
       link: link
     }
@@ -205,9 +212,10 @@ Facebook = {
 
 }
 
+Facebook.init();
+
 $(document).ready(function(){
 
-  Facebook.init();
 
   //trigger
   $(document).on('click', '#fbconnect', function(){

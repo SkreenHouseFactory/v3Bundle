@@ -1,4 +1,4 @@
-<li>
+<li data-factory="{{ person.id }}" data-factory-type="personne">
   <a href="{{ path('any_url', {url: person.seo_url|slice(1, person.seo_url|length-1) }) }}" class="fav fav-person" data-placement="left" data-name="{{ person.name }}">
     <img src="{{ person.photo|replace({'&w=200&h=300': '&w=85&h=128'}) }}"/>
   </a>

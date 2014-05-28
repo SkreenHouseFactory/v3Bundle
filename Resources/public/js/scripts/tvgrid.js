@@ -170,6 +170,7 @@ GridView = {
         }
 
         $('.glyphicon.glyphicon-question-sign').tooltip();
+        Skhf.session.checkCredentials();
     });
   },
   setTime: function(timestamp, resetDate) {
@@ -450,6 +451,9 @@ $(document).ready(function(){
       $(this).parents('li:first').remove();
       GridView.setChannelsList();
       return false;
-    })
+    });
+    $(document).on('click', 'a.credential-cog', function(){
+      window.open($(this).attr('href'));
+    });
   }
 });

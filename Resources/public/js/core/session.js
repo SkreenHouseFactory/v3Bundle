@@ -339,5 +339,21 @@ var BaseSession = Class.extend({
      }
      callback(uids);
    });
+ },
+ checkCredentials: function(){
+  if (typeof Skhf.session.datas.credential != 'undefined' &&
+              Skhf.session.datas.credential == 'tester') {
+    $('*[data-factory]').each(function(){
+      var node = '<a class="credential-cog" href="http://factory.myskreen.com/' + $(this).data('factory-type') + '/' + $(this).data('factory') + '/edit" target="_blank"><span class="glyphicon glyphicon-cog"></span></a>'
+      // console.log('scripts/_default.js', 'Credentials node', node);
+      if ($(this).is('[id]')) {
+        // console.log('scripts/_default.js', 'Credentials This sans a', $(this));
+        $(this).prepend(node);
+      } else {
+        //console.log('scripts/_default.js', 'Credentials This avec a', $(this));
+        $(this).find('a').prepend(node);
+      }
+    });
+  }
  }
 });

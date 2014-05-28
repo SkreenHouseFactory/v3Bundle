@@ -150,7 +150,7 @@ UI = {
         }
         $('.share-on.hide').removeClass('hide');
         $('.share-off:not(.hide)').addClass('hide');
-        this.addFriendsPrograms();
+        // this.addFriendsPrograms();
       } else {
         $('.fb-placeholder').addClass('hide');
         $('.share-placeholder').removeClass('hide');

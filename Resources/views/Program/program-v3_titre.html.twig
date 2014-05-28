@@ -21,7 +21,7 @@
     
     <div class="row" id="md-about" itemprop="about" itemscope itemtype="http://schema.org/{{ program_itemtype }}" itemref="md-year {{ program_itemtype == 'Movie' ? 'md-duration ' : '' }}program-casting md-tvseason">
       <meta itemprop="url" content="http://www.myskreen.com/{{ program.seo_url }}" />
-      <div id="fake_h1" class="col-xs-16" itemprop="name">
+      <div id="fake_h1" class="col-xs-16" itemprop="name" data-factory="{{ program.id }}" data-factory-type="programme">
         {% if program.episode_title is defined and
               program.episodeof is defined and
               program.episodeof.title|slice(0,13)|lower == 'autres vidéos' %}
