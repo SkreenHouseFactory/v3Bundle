@@ -56,6 +56,8 @@ $(document).ready(function(){
           }
         }, 500);
       }
+      Skhf.session.checkCredentials();
+
     }, typeof Session_sync_args != 'undefined' ? Session_sync_args : {});
 
   });
@@ -402,4 +404,5 @@ $(document).ready(function(){
   setTimeout(function(){
    UI.addFriendsPrograms();
   }, 700);
+
 });

@@ -10,7 +10,7 @@
         <div class="col-xs-11">
       {% endif %}
         <span class="ms-format">Personnalité</span>
-        <h1 itemprop="name">{{ person.name }}</h1>
+        <h1 id="person-name" itemprop="name" data-factory="{{ person.id }}" data-factory-type="personne">{{ person.name }}</h1>
         {% if person.photo_credits is defined and person.photo_credits %}
           <div class="credits">Crédits photo : {{ person.photo_credits|wordCut(30,'...') }}</div>
         {% endif %}
