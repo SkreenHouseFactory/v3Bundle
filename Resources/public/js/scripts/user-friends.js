@@ -119,11 +119,11 @@ $(document).ready(function(){
     var parent = $(this).parent('.friends');
     var sibling = parent.siblings('.tv-component');
     var link = sibling.find('a.wrap-title').attr('href');
-    link = 'http://www.myskreen.com' + link.replace('/app_dev.php','');
-    console.log('scripts/user-friends.js', 'click on friend-pic under program', 'recipient', recipient);
-    console.log('scripts/user-friends.js', 'click on friend-pic under program', 'parent', parent);
-    console.log('scripts/user-friends.js', 'click on friend-pic under program', 'sibling', sibling);
-    console.log('scripts/user-friends.js', 'click on friend-pic under program', 'link', link);
+    link = link.replace('/app_dev.php/','http://www.myskreen.com/');
+    // console.log('scripts/user-friends.js', 'click on friend-pic under program', 'recipient', recipient);
+    // console.log('scripts/user-friends.js', 'click on friend-pic under program', 'parent', parent);
+    // console.log('scripts/user-friends.js', 'click on friend-pic under program', 'sibling', sibling);
+    // console.log('scripts/user-friends.js', 'click on friend-pic under program', 'link', link);
     Facebook.sendMessageTo(recipient,link);
     return false;
   });

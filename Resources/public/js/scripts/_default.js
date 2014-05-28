@@ -194,8 +194,6 @@ $(document).ready(function(){
 
   });
 
-  $('.notifications span.remove-all-notifs[rel="tooltip"]').tooltip();
-
   $(document).on('click', '.notifications .remove', function(e){
         e.preventDefault();
         Skhf.session.deleteNotification($(this).data('id'));
