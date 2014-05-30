@@ -9,15 +9,20 @@
   <div class="container">
 
     {% if theaters|length == 0 %}
-      <p class="bs-callout bs-callout-info">Vous n'avez aucun cinéma dans vos listes.<a class="btn btn-primary pull-right" href="{{ path('user_start') }}#theaters"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Commencer mes listes</a></p>
+
+      <p class="bs-callout bs-callout-info">Il n'y a aucun film programmé dans vos cinémas favoris.<a class="btn btn-primary pull-right" href="{{ path('user_start') }}#theaters"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Commencer mes listes</a></p>
       <div class="container well well-small playlist">
-        {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
+        <h3>Recherchez un cinéma pour l'ajouter à vos favoris</h3>
+        {% include 'SkreenHouseFactoryV3Bundle:Cinema:_popin-search.html.twig' with {cinemas: {}} %}
       </div>
-  
+
     {% else %}
 
       <div class="container well well-small playlist">
-        {% include 'SkreenHouseFactoryV3Bundle:Cinema:_theaters-playlist.html.twig' with {slider: {}} %}
+        <h3>Les films programmés dans vos cinémas favoris</h3>
+        <a class="pull-right btn btn-suivre btn-xs" data-modal="remote" data-modal-title="{{ 'theaters.playlist.add'|trans }}" href="{{ path('theaters_search', {'init': 1, 'theater_ids': ''}) }}"><span class="glyphicon glyphicon-pencil"></span> Modifier mes cinémas</a>
+        <div id="theaters-names"></div>
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'cinema'}, noheader: true} %}
       </div>
       <br/>
       <hr/>
