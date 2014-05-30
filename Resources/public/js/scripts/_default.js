@@ -30,7 +30,7 @@ $(document).ready(function(){
     }
 
     //tjs après ci-dessus : pas de console sur ie
-    console.log('script', 'API.init callback');
+    console.log('script', 'API.init callback', API.config.base);
 
     //load player APIs
     var tag = document.createElement('script');
@@ -56,7 +56,7 @@ $(document).ready(function(){
           }
         }, 500);
       }
-      Skhf.session.checkCredentials();
+      self.checkCredentials();
 
     }, typeof Session_sync_args != 'undefined' ? Session_sync_args : {});
 

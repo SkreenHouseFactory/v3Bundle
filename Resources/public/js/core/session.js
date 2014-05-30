@@ -341,6 +341,7 @@ var BaseSession = Class.extend({
    });
  },
  checkCredentials: function(){
+   return;
   if (typeof Skhf.session.datas.credential != 'undefined' &&
               Skhf.session.datas.credential == 'tester') {
     $('*[data-factory]').each(function(){
