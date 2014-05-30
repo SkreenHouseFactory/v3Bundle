@@ -314,7 +314,7 @@ var BaseSlider = Class.extend({
       var popular_channel = program.popular_channel ? '<img alt="' + program.popular_channel.name + ' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
       var pere  = program.episodeof ? program.episodeof : program;
       var sample = this.sample.replace('%title%', program.title).replace('%title%', program.title)
-                              .replace('%id%', pere.id).replace('%id%', pere.id)
+                              .replace('%id%', pere.id).replace('%id%', pere.id).replace('%id%', pere.id).replace('%id%', pere.id)
                               .replace('%popular_channel%', popular_channel)
                               .replace('%onglet%', typeof program.onglet != 'undefined' ? program.onglet.toLowerCase() : '');
       var li = $(sample);
@@ -369,6 +369,7 @@ var BaseSlider = Class.extend({
       this.ui();
     }
     $('a[rel="tooltip"]', this.elmt).tooltip();
+    Skhf.session.checkCredentials();
     UI.loadPlaylistTriggers('like', Skhf.session.datas.queue, this.elmt);
 
     if (typeof callback != 'undefined'){
