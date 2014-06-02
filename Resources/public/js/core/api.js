@@ -391,6 +391,10 @@ API = {
                 '<p><b>Vidéo à la demande :</b> Créez votre compte pour voir ce programme sur mySkreen.</p>' +
                 '<p>Accédez au meilleur de la VOD en 1 clic et en Haute Définition et regardez vos films sur tous vos écrans : PC, Mac, Apple iOs et Android</p>'
               );
+              $('#skModal.modal .modal-footer').html(
+                '<span class="secure_payment skmagic-hide" style="color:grey;margin-top:5px;">'+
+                '<img align="absmiddle" src="https://api.myskreen.com/skPaymentPlugin/images/secure.png" alt="secure">Paiement sécurisé</span>'
+              );
               if (Skhf.session.datas.email) {
                 self.play(id, args, subscription_id);
               }
