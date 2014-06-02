@@ -1,6 +1,6 @@
 <li itemprop="{{ channel.type is defined and channel.type == 'cinema' ? 'itemOffered' : 'about' }}" itemscope itemtype="http://schema.org/Movie">
   <div class="row">
-    <div class="col-xs-4">
+    <div class="col-xs-4" data-factory="{{ p.id }}" data-factory-type="programme">
       <a itemprop="url" href="{{ p.seo_url }}"><img itemprop="image" src="{{ p.picture }}" /></a>
     </div>
     <div class="col-xs-12">

@@ -339,5 +339,29 @@ var BaseSession = Class.extend({
      }
      callback(uids);
    });
+ },
+ checkCredentials: function(){
+   //return;
+  if (typeof this.datas.credential != 'undefined' &&
+              this.datas.credential == 'tester') {
+    $('*[data-factory]').each(function(){
+      if ($(this).find('a.credential-cog').length > 0) {
+        // console.log('core/session.js', 'checkCredentials', 'already added');
+      } else {
+        var node = '<a class="credential-cog" href="http://factory.myskreen.com/' + $(this).data('factory-type') + '/' + $(this).data('factory') + '/edit" target="_blank"><span class="glyphicon glyphicon-cog"></span></a>'
+        // console.log('scripts/_default.js', 'Credentials node', node);
+        if ($(this).is('[id]')) {
+          // console.log('scripts/_default.js', 'Credentials This sans a', $(this));
+          $(this).prepend(node);
+        } else {
+          //console.log('scripts/_default.js', 'Credentials This avec a', $(this));
+          $(this).find('a').prepend(node);
+        }
+      }
+    });
+  }
+ },
+ removeCredentials: function(){
+  $('a.credential-cog').remove();
  }
 });

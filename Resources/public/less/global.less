@@ -788,3 +788,54 @@ ul.typeahead.dropdown-menu {
   display: inline-block;
   color: #fff;
 }
+
+// Icone CM and tester users
+#main, #top-playlist {
+  *[data-factory] {
+    position: relative;
+    .credential-cog {
+      position: absolute;
+      top: 15px;
+      right: 0;
+      padding: 5px;
+      font-size: 1.3em;
+      z-index: 20;
+      color: rgb(170,4,4,0.7);
+      span {
+        z-index: 20;
+      }
+      &:hover {
+        color: rgb(170,4,4,1);
+      }
+    }
+    &#fake_h1, &#person-name {
+      .credential-cog {
+        top: 0;
+        font-size: 0.5em;
+        color: rgb(170,4,4,0.4);
+        &:hover {
+          color: rgb(170,4,4,1);
+        }
+      }
+    }
+    &.diff {
+      &.is-short {
+        .credential-cog {
+          display: none;
+        }
+      }
+      .credential-cog {
+        top: 0;
+        font-size: 0.9em;
+      }
+    }
+  }
+  #view-selection {
+    #selection-programs.list {
+      .credential-cog {
+        right: 15px;
+      }
+    }
+  }
+}
+

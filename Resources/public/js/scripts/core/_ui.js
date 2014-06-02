@@ -118,7 +118,9 @@ UiView = {
           console.log('scripts/program.js', 'on slide.bs.carousel', 'already loaded');
           return;
         }
-        new_slide.load(API.config.v3_url + '/slider/page?api-url=' + escape(carousel.data('api-url')) + '&page='+(idx+1)+'&img_width=143&img_height=180&slider_img_width=445&slider_img_height=180&offset='+(idx*6)+'&nb_results=6&exclude_ids='+ids.join(','));
+        new_slide.load(API.config.v3_url + '/slider/page?api-url=' + escape(carousel.data('api-url')) + '&page='+(idx+1)+'&img_width=143&img_height=180&slider_img_width=445&slider_img_height=180&offset='+(idx*6)+'&nb_results=6&exclude_ids='+ids.join(','), function(){
+          Skhf.session.checkCredentials();
+        });
       }, 700);
     })
 
@@ -204,6 +206,7 @@ UiView = {
     if(has_dropdown_filter == true) {
       $('.dropdown-filters2').addClass('hide');
     }
+    Skhf.session.checkCredentials();
   },
   initDataLive: function(elmt) {
     var self = this;

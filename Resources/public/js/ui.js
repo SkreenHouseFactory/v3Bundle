@@ -294,7 +294,7 @@ UI = {
         return ['Faites comme moi, ne ratez plus ' + trigger.data('channel-name') + ' !',
                 'En ajoutant cette chaîne à mes listes, je suis averti dès qu\'une nouvelle vidéo est mise en ligne.'];
     } else if (trigger.hasClass('fav-person')) {
-      if (typeof trigger.data('name') != undefined) {
+      if (typeof trigger.data('name') != 'undefined') {
         return ['Faites comme moi, ne ratez plus l\'actualité de ' + trigger.data('name') + ' !',
                 'En ajoutant cette personne à mes listes, je suis averti dès qu\'un de ses programmes est disponible.'];
       } else {
@@ -367,10 +367,12 @@ UI = {
         } else if (typeof(store_in_session) == 'undefined') {
           console.log('UI.togglePlaylist', 'Skhf.session.getNbPlaylists()' + Skhf.session.getNbPlaylists());
           // Post FB Status
-          if (!Skhf.session.datas.disallow_share) {
+          if (!Skhf.session.datas.disallow_share
+              && !document.location.href.match(/user/g) && !trigger.is('[data-disallow-share]') ) {
             var link = document.location.href;
             var message = self.getStatusFBMessage(trigger).join("\n").replace('&nbsp;',' ');
             Facebook.checkPermissions('publish_actions', function(success, rerequest){
+              console.log('UI.togglePlaylist', 'Facebook.checkPermissions');
               if (success) {
                 Facebook.publishStatus(message,link);
               } else {
@@ -388,6 +390,7 @@ UI = {
               }
             });
           }
+          
           // Dialog
           if (Skhf.session.getNbPlaylists() == 0) {
             console.log('ui.js', 'togglePlaylist', 'name', name);
