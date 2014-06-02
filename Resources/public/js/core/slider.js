@@ -314,7 +314,7 @@ var BaseSlider = Class.extend({
       var popular_channel = program.popular_channel ? '<img alt="' + program.popular_channel.name + ' en streaming" class="channel" src="'+program.popular_channel.img+'" />' : '';                        
       var pere  = program.episodeof ? program.episodeof : program;
       var sample = this.sample.replace('%title%', program.title).replace('%title%', program.title)
-                              .replace('%id%', pere.id).replace('%id%', pere.id).replace('%id%', pere.id).replace('%id%', pere.id)
+                              .replace('%id%', pere.id).replace('%id%', pere.id).replace('%id%', pere.id).replace('%id%', pere.id).replace('%id%', pere.id)
                               .replace('%popular_channel%', popular_channel)
                               .replace('%onglet%', typeof program.onglet != 'undefined' ? program.onglet.toLowerCase() : '');
       var li = $(sample);
@@ -322,7 +322,7 @@ var BaseSlider = Class.extend({
         .attr('data-position', k);
         //.attr('data-player-program', JSON.stringify(program));
       if (!this.elmt.hasClass('slider-playlist')) {
-        $('a',li).attr('href', API.config.v3_root + program.seo_url);
+        $('a:not(.credential-cog)',li).attr('href', API.config.v3_root + program.seo_url);
       }  else {
         $('a',li).data('seo-url', API.config.v3_root + program.seo_url); //redirect > lien vers programme
       }
