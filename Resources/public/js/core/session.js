@@ -342,8 +342,8 @@ var BaseSession = Class.extend({
  },
  checkCredentials: function(){
    //return;
-  if (typeof Skhf.session.datas.credential != 'undefined' &&
-              Skhf.session.datas.credential == 'tester') {
+  if (typeof this.datas.credential != 'undefined' &&
+              this.datas.credential == 'tester') {
     $('*[data-factory]').each(function(){
       if ($(this).find('a.credential-cog').length > 0) {
         // console.log('core/session.js', 'checkCredentials', 'already added');
