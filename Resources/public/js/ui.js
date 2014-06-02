@@ -367,7 +367,8 @@ UI = {
         } else if (typeof(store_in_session) == 'undefined') {
           console.log('UI.togglePlaylist', 'Skhf.session.getNbPlaylists()' + Skhf.session.getNbPlaylists());
           // Post FB Status
-          if (!Skhf.session.datas.disallow_share) {
+          if (!Skhf.session.datas.disallow_share
+              && !document.location.href.match(/user/g) && !trigger.is('[data-disallow-share]') ) {
             var link = document.location.href;
             var message = self.getStatusFBMessage(trigger).join("\n").replace('&nbsp;',' ');
             Facebook.checkPermissions('publish_actions', function(success, rerequest){
@@ -389,6 +390,7 @@ UI = {
               }
             });
           }
+          
           // Dialog
           if (Skhf.session.getNbPlaylists() == 0) {
             console.log('ui.js', 'togglePlaylist', 'name', name);
