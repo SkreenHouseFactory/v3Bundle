@@ -26,6 +26,7 @@ var Session = BaseSession.extend({
     if(document.location.href.indexOf('/user/')!=-1){
       document.location='/';
     }
+    this.removeCredentials();
   },
   loadSocialSelector: function(callback, offset, onglet) {
     var self = this;

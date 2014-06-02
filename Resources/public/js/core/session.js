@@ -360,5 +360,8 @@ var BaseSession = Class.extend({
       }
     });
   }
+ },
+ removeCredentials: function(){
+  $('a.credential-cog').remove();
  }
 });
