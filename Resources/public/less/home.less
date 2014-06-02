@@ -143,6 +143,21 @@
       margin-bottom: 10px;
       z-index: 2;
       min-height: 450px;
+      .carousel-inner .item .container {
+        z-index: 5;
+        .teaser-slider {
+          position: absolute;
+          width: 400px;
+          height: 221px;
+          top: 130px;
+          right: 75px;
+          background-color: black;
+          iframe {
+            width: 400px;
+            height: 221px;
+          }
+        }
+      }
       &#carousel-selection-cinema {
         margin-bottom: 0;
       }
