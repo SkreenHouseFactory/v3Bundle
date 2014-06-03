@@ -1,6 +1,6 @@
 /* homes */
 @carouselHeight: 450px;
-@topCaption: 350px;
+@topCaption: 340px;
 
 #content #view-home {
   background-color: #e9e9e9;
@@ -147,14 +147,14 @@
         z-index: 5;
         .teaser-slider {
           position: absolute;
-          width: 400px;
-          height: 221px;
-          top: 130px;
-          right: 75px;
+          width: 450px;
+          height: 248px;
+          top: 85px;
+          right: 25px;
           background-color: black;
           iframe {
-            width: 400px;
-            height: 221px;
+            width: 450px;
+            height: 248px;
           }
         }
       }
@@ -162,19 +162,24 @@
         margin-bottom: 0;
       }
       .carousel-control {
-        width: 20px;
-        height: 80px;
+        width: 36px;
+        height: 70px;
+        line-height: 50px;
         margin-top: 0;
-        font-size: 120px;
+        font-size: 100px;
         background-color: transparent;
         border: 0;
-        top: 180px;
+        top: 355px;
         z-index: 3;
+        opacity: 0.7;
+        &:hover {
+          opacity: 1;
+        }
         &.left {
-          left: 17px;
+          left: 10px;
         }
         &.right {
-          right: 32px;
+          right: 25px;
         }
       }
       .item {
@@ -199,7 +204,7 @@
         .carousel-caption {
           position: absolute;
           min-height: 90px;
-          padding: 10px 50px;
+          padding: 5px 10px;
           top: @topCaption;
           border-radius: 5px;
           /*background-color: transparent;*/
