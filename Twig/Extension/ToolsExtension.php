@@ -4,7 +4,7 @@ namespace SkreenHouseFactory\v3Bundle\Twig\Extension;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 
-class toolsExtension extends \Twig_Extension
+class ToolsExtension extends \Twig_Extension
 {
     protected static $slider_count;
     protected $slider_page;
