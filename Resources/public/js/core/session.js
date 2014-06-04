@@ -349,13 +349,13 @@ var BaseSession = Class.extend({
         // console.log('core/session.js', 'checkCredentials', 'already added');
       } else {
         var node = '<a class="credential-cog" href="http://factory.myskreen.com/' + $(this).data('factory-type') + '/' + $(this).data('factory') + '/edit" target="_blank"><span class="glyphicon glyphicon-cog"></span></a>'
-        // console.log('scripts/_default.js', 'Credentials node', node);
+        // console.log('core/session.js', 'Credentials node', node);
         if ($(this).is('[id]')) {
           // console.log('scripts/_default.js', 'Credentials This sans a', $(this));
-          $(this).prepend(node);
+          $(this).append(node);
         } else {
           //console.log('scripts/_default.js', 'Credentials This avec a', $(this));
-          $(this).find('a').prepend(node);
+          $(this).find('a').append(node);
         }
       }
     });

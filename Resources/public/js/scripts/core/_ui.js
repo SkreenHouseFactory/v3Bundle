@@ -504,7 +504,7 @@ UiView = {
     // -- carousel autoload
     $('[data-carousel-autoload="1"]', elmt).each(function(){
       console.log('script', 'carousel-autoload', $(this));
-      $(this).carousel({interval: 7000, pause: 'hover'});
+      $(this).carousel({interval: false, pause: 'hover'});
       $(this).data('carousel-loaded', 1);
     });
 
