@@ -99,10 +99,11 @@ ProgramView = {
       var program_id = $('.fav-like[data-id]').data('id');
       var cookie = API.cookie('visited_programs') ? API.cookie('visited_programs').split(',') : [];
       console.log('scripts/program.js', 'visited_programs', program_id, cookie)
-      if (!cookie || $.inArray('' + program_id, cookie) == -1) {
+      if (!cookie || $.inArray('' + program_id, cookie) == -1 || document.location.href.match(/\?follow/gi)) {
          if( $('.help-sprite-ms_btn_close').length ){
           $('.help-sprite-ms_btn_close').trigger('click');
          }
+
         if ($('#program-modal').length){
           //si modal
           if (Skhf.session.datas.email) {
@@ -130,9 +131,10 @@ ProgramView = {
                 }
               }
             }
-          })
-        }
+          }
+        })
       }
+    }
   },
   loadMoreStreaming: function() {
     //youtube
