@@ -52,7 +52,7 @@
 <meta name="msvalidate.01" content="578206D7F79F12C1D7F845473C11F955" />
 <meta name="verify-a" value="e548aa1414e42be0692f">
 <meta name="google-site-verification" content="XrGdiUEwEtqEFnxru9FgykHR9mmSCX6O1hky_g9gTDU" />
-{% if app.request.get('force_metatags') is null and (app.environment != 'prod' or 'preprod' in app.request.host or 'typhon' in app.request.host) %}
+{% if app.request.get('force_metatags') is null and (app.environment != 'prod' or 'preprod' in app.request.host or 'typhon' in app.request.host or '.net' in app.request.host) %}
  <meta name="robots" content="noindex,nofollow"> 
  {% else %} 
 {% block meta %}{% endblock %}
