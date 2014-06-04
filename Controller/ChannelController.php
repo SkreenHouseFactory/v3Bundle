@@ -456,6 +456,10 @@ class ChannelController extends ChannelCustomController
     echo $request->get('debug') ? $api->url : null;
     $this->validateData($data, $request);
 
+    if (isset($data->redirect) && $data->redirect) {
+      return $this->redirect(($this->container->getParameter('kernel.environment') == 'dev' ? '/app_dev.php' : '' ).$data->redirect, 301);
+    }
+
     // TO CHECK !
     //Si channel mais facet => view fournisseur
     if (property_exists($data, 'channel') && 
@@ -582,7 +586,7 @@ class ChannelController extends ChannelCustomController
     if (isset($data->error) && $data->error) {
       throw $this->createNotFoundException('Channel does not exist');
     }
-
+    
     //redirect fournisseur synonyme
     if (isset($data->redirect) && $data->redirect) {
       return $this->redirect($data->redirect, 301);

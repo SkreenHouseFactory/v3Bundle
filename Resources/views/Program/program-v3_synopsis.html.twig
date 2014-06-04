@@ -1,13 +1,13 @@
 {# Synopsis #}
 <div class="col-xs-16">
-  <div id="program-synopsis" class="panel panel-default panel-synopsis{{ program.description|striptags|length < 907 ? ' forced-height':'' }}">
+  <div id="program-synopsis" class="panel panel-default panel-synopsis{{ program.description|striptags|length < 907 ? ' synopsis-short' : '' }}">
     <div class="panel-heading" itemscope itemtype="http://schema.org/WebPage" itemref="md-breadcrumb affiche md-ispartof">
       <div id="md-name-description">
-          <h1 class="panel-title" itemprop="name">Tout sur {{ program.title }} {{ program.has_vod|accessFromHasvod }}</h1>
+          <h1 class="panel-title" itemprop="name">{{ program.title }} {{ program.has_vod|accessFromHasvod }}</h1>
         <meta itemprop="description" content="{% block description %}{% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_description.html.twig' %}{% endblock %}"/>
       </div>
     </div>
-    <div class="tab-pane text-toggle-extend">
+    <div class="tab-pane text-toggle-extend{{ program.description|striptags|length < 907 ? '' : ' synopsis-long' }}">
       {# categories #}
       {% if program.format and program.categories|to_array|length %}
           {% if program.categories|to_array|length == 1 and program.subcategories|to_array|length == 0 %}
@@ -29,19 +29,13 @@
 
       {% if tab is not defined %}
 
-        {% if program.description|striptags|length < 907 or program.id in ['1261263', '5703660', '5113132'] %}
           <div class="text">
+            {# <div class="gradient-hide"></div>  #}{# With show-more-height #}
             {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis_text.html.twig' %}
           </div>
-        {% else %}
-          <div class="text show-more-height">
-            <div class="gradient-hide"></div> 
-            {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis_text.html.twig' %}
-          </div>
-          <div class="show-all">
+          {# <div class="show-all">
             <span class="show-more">...</span><span class="show-more-text">Voir plus</span>
-          </div> 
-        {% endif %}
+          </div> #} 
 
       {% endif %}
 

@@ -394,7 +394,7 @@ $(document).ready(function(){
     $('.teaser-slider iframe', this).remove();  
     if ($('.item.active', this).is('[data-teaser-id]')) {
       var teaser = $('.item.active', this).data('teaser-id');
-      var node = '<iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=' + teaser + '&fromWebsite=1&default_version=VOST' + ( API.config.env == 'dev' ? '&env=dev' : '' ) + '" scrolling="no" frameborder="0"></iframe>';
+      var node = '<iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=' + teaser + '&fromWebsite=1&default_version=VOST" scrolling="no" frameborder="0"></iframe>';
       // console.log('scripts/_default.js', 'slid.bs.carousel', 'node', node);
       $('.item.active .teaser-slider', this).prepend(node);
     }
