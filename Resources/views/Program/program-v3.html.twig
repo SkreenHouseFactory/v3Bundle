@@ -164,9 +164,11 @@
             {% if casting_photos is defined and casting_photos|to_array|length > 0 %}
               <div class="casting-img-title">Ajoutez-les à vos listes</div>
               <ul class="casting-img">
+                {% spaceless %}
                 {% for person in casting_photos|to_array %}
                   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting_photo.html.twig' with { person: person } %}
                 {% endfor %}
+                {% endspaceless %}
               </ul>
             {% endif %}
             {# Chaînes #}
