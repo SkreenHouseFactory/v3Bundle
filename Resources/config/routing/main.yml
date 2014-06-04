@@ -5,6 +5,12 @@ redirect_integrale:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path: /l-integrale-des-inconnus/
         permanent: true
+redirect_canal:
+    path: /canal-+/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /canal/
+        permanent: true
 
 sitemap_general:
     pattern:  /sitemap.xml
