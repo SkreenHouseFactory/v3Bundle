@@ -214,15 +214,19 @@
     <div id="category-programs" class="slider slider-list">
       <ul class="items">
         {% set ids = '' %}
+        {% set first_id = '' %}
         {% for program in category.programs %}
           {% if loop.first %}
+            {% set first_id = program.id %}
             {% set ids = program.id %}
           {% else %}
             {% set ids = ids ~ ',' ~ program.id %}
           {% endif %}
         {% endfor %}
         <li class="teaser-container">
-          <div class="teaser-category" data-teaser-ids="{{ ids }}"></div>
+          <div class="teaser-category" data-teaser-ids="{{ ids }}">
+            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1{# &playlist={{ ids }} #}"></iframe>
+          </div>
           <div class="teaser-title sk-font">Retrouvez ci-dessus les bandes-annonces de la catégorie {{ category.name }}{% if app.request.get('access') %} en {{ ('access.' ~ app.request.get('access'))|trans }}{% endif %}.</div>
         </li>
         {% for program in category.programs %}{% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}{% endfor %}
