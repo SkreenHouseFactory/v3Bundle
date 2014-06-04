@@ -225,7 +225,7 @@
         {% endfor %}
         <li class="teaser-container">
           <div class="teaser-category" data-teaser-ids="{{ ids }}">
-            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1{# &playlist={{ ids }} #}"></iframe>
+            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1{# &playlist={{ ids }} #}" scrolling="no" frameborder="0"></iframe>
           </div>
           <div class="teaser-title sk-font">Retrouvez ci-dessus les bandes-annonces de la catégorie {{ category.name }}{% if app.request.get('access') %} en {{ ('access.' ~ app.request.get('access'))|trans }}{% endif %}.</div>
         </li>
