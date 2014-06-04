@@ -53,7 +53,9 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
   <div id="view-selection" class="container">
     {% if selection.onglet.type == 'page' %}
       <ul class="breadcrumb">
-        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: selection.onglet.channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ selection.onglet.channel.title }}</span></a></li>
+        {% if selection.onglet.channel is defined and selection.onglet.channel %}
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: selection.onglet.channel.slug|replace({'/': ''})}) }}/"><span itemprop="title">{{ selection.onglet.channel.title }}</span></a></li>
+        {% endif %}
         <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">{{ selection.name|raw }}</span></li>
       </ul>
     {% endif %}

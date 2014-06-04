@@ -22,8 +22,10 @@
     {% if channel.epg is defined and channel.epg %}
     <tr>
       <td>
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'fav-epg pull-right', text: 'Ajouter à la grille', name: channel.name } %}
-      <img src="{{ channel.img }}" alt="{{ channel.name }}"/> {{ channel.name }}
+        <div>
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'fav-epg', text: 'Ajouter à la grille', name: channel.name } %}
+          <img src="{{ channel.img }}" alt="{{ channel.name }}"/> {{ channel.name }}
+        </div>
       </td>
     </tr>
     {% endif %}
