@@ -35,6 +35,14 @@
     </div>  
     <div class="slider slider-list">
       <ul class="items">
+        {% set ids = '' %}
+        {% for program in channel.fournisseur.programs_epg|to_array %}
+          {% if loop.first %}
+            {% set ids = program.id %}
+          {% else %}
+            {% set ids = ids ~ ',' ~ program.id %}
+          {% endif %}
+        {% endfor %}
         {% set current_date = '' %}
         {% for p in channel.fournisseur.programs_epg|to_array %}
           {% if current_date != p.best_offer.broadcasttime|localizeddate('full', 'none') %}
@@ -48,9 +56,9 @@
           {% if loop.first %}
             <li class="teaser-container">
               <div class="teaser-replay">
-                <iframe src="" scrolling="no" frameborder="0"></iframe>
+                <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ p.id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
               </div>
-              <div class="replay-infos sk-font">Retrouvez ci-dessus les bandes-annonces des futurs programmes en Replay.</div>
+              <div class="replay-infos sk-font">Retrouvez ci-dessus les bandes-annonces des futurs Replays de {{ channel.name }}.</div>
             </li>
           {% endif %}
           {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, origin: 'soon-replay'} %}
