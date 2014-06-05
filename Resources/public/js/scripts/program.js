@@ -418,7 +418,7 @@ $(document).ready(function(){
     });
 
     // ui text show more
-    $('.show-all').on('click', function () {
+    $(document).on('click', '.show-all', function () {
       var self = $(this);
       $('.text', $(this).parent()).toggleClass('show-more-height');
       if ($('.text', $(this).parent()).hasClass('show-more-height')) {
