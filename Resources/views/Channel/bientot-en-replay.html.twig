@@ -31,7 +31,7 @@
       <meta itemprop="url" content="http://www.myskreen.com{{ channel.seo_url }}bientot-en-replay/"/>
       <img itemprop="image" src="{{ channel.fournisseur.img|replace({"/45//": '/45/'}) }}"/>
       <h1 itemprop="broadcaster" itemscope itemtype="http://schema.org/Organization">Les prochains replays sur <span itemprop="name">{{ channel.name }}</span></h1>
-      <div itemprop="description" class="bs-callout bs-callout-info">Tous les programmes prochainement disponibles en replay en un seul clic</div>
+      <div itemprop="description" class="bs-callout bs-callout-info">Tous les programmes prochainement disponibles en replay en un seul clic.</div>
     </div>  
     <div class="slider slider-list">
       <ul class="items">
@@ -45,6 +45,14 @@
             <ul class="items">
           {% endif %}
           {% set current_date = p.best_offer.broadcasttime|localizeddate('full', 'none') %}
+          {% if loop.first %}
+            <li class="teaser-container">
+              <div class="teaser-replay">
+                <iframe src="" scrolling="no" frameborder="0"></iframe>
+              </div>
+              <div class="replay-infos sk-font">Retrouvez ci-dessus les bandes-annonces des futurs programmes en Replay.</div>
+            </li>
+          {% endif %}
           {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, origin: 'soon-replay'} %}
         {% endfor %}
       </ul>
