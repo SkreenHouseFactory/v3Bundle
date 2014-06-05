@@ -233,7 +233,7 @@ $(document).ready(function(){
         if($(this).data('reload-notif') != "done"){
           var list = $('.navbar .notifications ul .scroll');
           Skhf.session.sync(function(data){
-            global.appendNotifications(data.notifications,list,false);
+            global.appendNotifications(data.notifications,list);
             self.attr('data-reload-notif','done');
           },{
             with_notifications : self.data('filter')
