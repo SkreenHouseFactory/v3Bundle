@@ -643,6 +643,8 @@ UI = {
         var classes = ['plays.broadcast','broadcasts.broadcast'];
       }else if( self.data('filter') == 'replay' ){
         var classes = ['plays.catchup','plays.webcast'];
+      } else if (self.data('filter') == 'friends') {
+        var classes = ['friend_list'];
       }else if( self.data('filter') == 'vod' ){
         var classes = ['plays.dvd', 'plays.location.48h','plays.location.itunes', 'plays.achat.itunes','plays.achat','plays.téléchargement','plays.télécharger','plays.abonnement','plays.louer']; 
       } else {

@@ -418,7 +418,7 @@ $(document).ready(function(){
     });
 
     // ui text show more
-    $('.show-all').on('click', function () {
+    $(document).on('click', '.show-all', function () {
       var self = $(this);
       $('.text', $(this).parent()).toggleClass('show-more-height');
       if ($('.text', $(this).parent()).hasClass('show-more-height')) {
@@ -466,5 +466,16 @@ $(document).ready(function(){
       container.html('<p>'+number_offers+texte_offers+'</p>');
     },9000);
   }
+
+  // Hide tab-content INFOS after loading (SEO)
+  $('.bande_offers .tab-content #infos.active:not(.active-forced)').removeClass('active');
   
+  // Manage synopsis long and short display after loading (SEO)
+  $('#program-synopsis.synopsis-short').addClass('forced-height');
+  if ($('#program-synopsis .tab-pane.text-toggle-extend').hasClass('synopsis-long')) {
+    $('#program-synopsis .tab-pane.synopsis-long .text').addClass('show-more-height').prepend('<div class="gradient-hide"></div>');
+    $('#program-synopsis .tab-pane.synopsis-long').append('<div class="show-all"><span class="show-more">...</span><span class="show-more-text">Voir plus</span></div>');
+  }
+  
+
 });

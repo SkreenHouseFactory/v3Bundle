@@ -61,7 +61,12 @@
 
     <h1 class="clearfix">
       {% if app.request.get('format') %}{{ ('format.pluriel.'~app.request.get('format'))|trans|capitalize }} :{% endif %} la catégorie {{ category.name }}{% if app.request.get('access') and app.request.get('access') != 'myskreen' %} en {{ ('access.' ~ app.request.get('access'))|trans }}{% endif %}
-      {% if app.request.get('format') and app.request.get('access') is null and app.request.get('facet') is null %}
+    </h1>
+  </div>
+</div>
+<div class="bande_plus_fonce">
+  <div class="container clearfix">
+    {% if app.request.get('format') and app.request.get('access') is null and app.request.get('facet') is null %}
         {% for k,a in access if a|replace({'vod': 'video-a-la-demande'}) in facet_access|keys %}
           {% if a == 'myskreen' %}
             {% if app.request.get('category_slug') and app.request.get('format') %}
@@ -106,12 +111,7 @@
             </label>
           </div>
         </div>
-      {% endif %}
-    </h1>
-  </div>
-</div>
-<div class="bande_plus_fonce">
-  <div class="container">  
+      {% endif %}  
 
   {# facets<br/>
   route: {{ app.request.attributes.get('_route') }}<br/>
@@ -213,6 +213,22 @@
 
     <div id="category-programs" class="slider slider-list">
       <ul class="items">
+        {% set ids = '' %}
+        {% set first_id = '' %}
+        {% for program in category.programs %}
+          {% if loop.first %}
+            {% set first_id = program.id %}
+            {% set ids = program.id %}
+          {% else %}
+            {% set ids = ids ~ ',' ~ program.id %}
+          {% endif %}
+        {% endfor %}
+        <li class="teaser-container">
+          <div class="teaser-category" data-teaser-ids="{{ ids }}">
+            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
+          </div>
+          <div class="teaser-title sk-font">Retrouvez ci-dessus les bandes-annonces de la catégorie {{ category.name }}{% if app.request.get('access') %} en {{ ('access.' ~ app.request.get('access'))|trans }}{% endif %}.</div>
+        </li>
         {% for program in category.programs %}{% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}{% endfor %}
       </ul>
       <ul class="pager_to_replace"></ul>

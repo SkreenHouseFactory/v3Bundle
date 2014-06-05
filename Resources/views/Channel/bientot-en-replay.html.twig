@@ -31,10 +31,18 @@
       <meta itemprop="url" content="http://www.myskreen.com{{ channel.seo_url }}bientot-en-replay/"/>
       <img itemprop="image" src="{{ channel.fournisseur.img|replace({"/45//": '/45/'}) }}"/>
       <h1 itemprop="broadcaster" itemscope itemtype="http://schema.org/Organization">Les prochains replays sur <span itemprop="name">{{ channel.name }}</span></h1>
-      <div itemprop="description" class="bs-callout bs-callout-info">Tous les programmes prochainement disponibles en replay en un seul clic</div>
+      <div itemprop="description" class="bs-callout bs-callout-info">Tous les programmes prochainement disponibles en replay en un seul clic.</div>
     </div>  
     <div class="slider slider-list">
       <ul class="items">
+        {% set ids = '' %}
+        {% for program in channel.fournisseur.programs_epg|to_array %}
+          {% if loop.first %}
+            {% set ids = program.id %}
+          {% else %}
+            {% set ids = ids ~ ',' ~ program.id %}
+          {% endif %}
+        {% endfor %}
         {% set current_date = '' %}
         {% for p in channel.fournisseur.programs_epg|to_array %}
           {% if current_date != p.best_offer.broadcasttime|localizeddate('full', 'none') %}
@@ -45,6 +53,14 @@
             <ul class="items">
           {% endif %}
           {% set current_date = p.best_offer.broadcasttime|localizeddate('full', 'none') %}
+          {% if loop.first %}
+            <li class="teaser-container">
+              <div class="teaser-replay">
+                <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ p.id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
+              </div>
+              <div class="replay-infos sk-font">Retrouvez ci-dessus les bandes-annonces des futurs Replays de {{ channel.name }}.</div>
+            </li>
+          {% endif %}
           {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, origin: 'soon-replay'} %}
         {% endfor %}
       </ul>

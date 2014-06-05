@@ -28,15 +28,18 @@
 {% endblock %}
 
 {% block title %}
-  {% set page_title_channel = 'page.title.channel.' ~ (channel.type in ['broadcast','cinema'] ? channel.type : 'default') ~ (app.request.get('format') ? '_format' : null) %}
-  {{ page_title_channel|trans({'%name%': channel.name, '%format%': format_trans|trans, '%formats%': formats_trans|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
+  {% set page_title_channel = 'page.title.channel.' ~ (channel.type is defined and channel.type in ['broadcast','cinema'] ? channel.type : 'default') ~ (app.request.get('format') ? '_format' : null) %}
+  {% if channel.name is defined and channel.name %}
+    {{ page_title_channel|trans({'%name%': channel.name, '%format%': format_trans|trans, '%formats%': formats_trans|trans, '%access%': channel.has_replay is defined and channel.has_replay ? 'Replay' : 'Streaming'}) }}
+  {% endif %}
   {%- if app.request.get('facet') %}, {{ channel.subcategories[app.request.get('facet')] is defined ? channel.subcategories[app.request.get('facet')] : app.request.get('facet')  }}{% endif -%}
   {%- if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif -%}
 {%- endblock %}
 
-{% block description %}{{ channel.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
-{% block body_class %}view-fournisseur view-fournisseur-{{ channel.type }}{% endblock %}
+{% block description %}{{ channel.description is defined and channel.description ? channel.description|replace({"\n": ''})|striptags|slice(0, 165) : '' }}{% endblock %}
+
+{% block body_class %}view-fournisseur view-fournisseur-{{ channel.type is defined and channel.type ? channel.type : '' }}{% endblock %}
 
 {% block content %}
   {% set page_count = channel.count %}

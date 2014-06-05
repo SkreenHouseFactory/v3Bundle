@@ -213,14 +213,6 @@ class ContentController extends Controller
         $from_selection = true;
         $is_channel = false;
         
-        //page
-        if (isset($data->onglet) && 
-            $data->onglet->type == 'page'){
-          $is_channel = true;
-          if ( $this->get('templating')->exists('SkreenHouseFactoryV3Bundle:Channel:_header-'.$data->onglet->channel->id.'.html.twig')){
-            $custom_header = true;
-          }
-        }
         //bad url
         if ($request->getPathInfo() != $data->seo_url) {
           //echo "\n".'getPathInfo:'.$request->getPathInfo().' != seo_url:'.$data->seo_url . '/';

@@ -29,7 +29,7 @@
 {% else %}
   <div id="program-teaser">  
     <div id="program-teaser-player" data-play-api="{{ {AdOnly: true, programId: program.id}|json_encode }}" data-autoplay="1">
-      <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=28370043&program_id={{ program.id }}&fromWebsite=1{{ app.environment == 'dev' ? '&env=dev' : '' }}" style="height:368px;width:637px" scrolling="no" frameborder="0"></iframe>
+      <iframe src="http://player.myskreen.com/ad?program_id={{ program.id }}&fromWebsite=1{{ app.environment == 'dev' ? '&env=dev' : '' }}" style="height:368px;width:637px" scrolling="no" frameborder="0"></iframe>
     </div>
   </div>
 {% endif %}
