@@ -31,7 +31,7 @@ class ApiManager
               strstr($_SERVER['SERVER_NAME'], 'preprod')) {
       $this->host = '//preprod-api.myskreen.com';
     } else {
-      $this->host = '//api.myskreen.com';
+      $this->host = '//preprod-api.myskreen.com';
     }
     return $protocol.$this->host.'/api/' . $version . '/';
   }
