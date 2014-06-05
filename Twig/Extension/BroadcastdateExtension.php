@@ -4,7 +4,7 @@ namespace SkreenHouseFactory\v3Bundle\Twig\Extension;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 
-class broadcastdateExtension extends \Twig_Extension
+class BroadcastdateExtension extends \Twig_Extension
 {
     public function __construct()
     {

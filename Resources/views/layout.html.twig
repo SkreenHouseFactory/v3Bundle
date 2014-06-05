@@ -1,211 +1,211 @@
-  <!doctype html>
-  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="fr"> <![endif]-->
-  <!--[if IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8" lang="fr"> <![endif]-->
-  <!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9" lang="fr"> <![endif]-->
-  <!--[if IE 9]> <html class="no-js lt-ie10" lang="fr"> <![endif]-->
-  <!--[if IE 10]> <html class="no-js ie10" lang="fr"> <![endif]-->
-  <!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->
-  <head>
-    {% spaceless %}
-    <title>{% block title endblock %} | mySkreen.com</title>
-    <meta name="description" content="{% block description %}{% endblock %}">
-    <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
-    {#
-    <script>
-    var c_name = 'myskreen_mobile'; var c_value = 'deny'; var c_exdays = 30;
-    function checkDenyMobileVersion(){
-      var i,x,y,ARRcookies=document.cookie.split(";");
-      for (i=0;i<ARRcookies.length;i++){
-        x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("=")); y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-        x=x.replace(/^\s+|\s+$/g,"");
-        if (x==c_name && unescape(y) == c_value) { return true; }
-        //alert('cookie: ' + x + '=' + y);
-      }
-      return false;
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="fr"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8" lang="fr"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9" lang="fr"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10" lang="fr"> <![endif]-->
+<!--[if IE 10]> <html class="no-js ie10" lang="fr"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->
+<head>
+  {% spaceless %}
+  <title>{% block title endblock %} | mySkreen.com</title>
+  <meta name="description" content="{% block description %}{% endblock %}">
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+  {#
+  <script>
+  var c_name = 'myskreen_mobile'; var c_value = 'deny'; var c_exdays = 30;
+  function checkDenyMobileVersion(){
+    var i,x,y,ARRcookies=document.cookie.split(";");
+    for (i=0;i<ARRcookies.length;i++){
+      x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("=")); y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+      x=x.replace(/^\s+|\s+$/g,"");
+      if (x==c_name && unescape(y) == c_value) { return true; }
+      //alert('cookie: ' + x + '=' + y);
     }
-    //set deny
-    if (window.location.href.indexOf('setDenyMobile') != -1) {
-      var exdate=new Date();exdate.setDate(exdate.getDate() + c_exdays);
-      var c_value=escape(c_value) + ((c_exdays==null) ? '' : '; expires='+exdate.toUTCString());
-      document.cookie=c_name + '=' + c_value;
-    // -> m
-    } else {
-      if (!checkDenyMobileVersion()) {
-        var navl = document.location.href;
-        var navt = 'Blackberry,Blazer,Elaine,Handspring,HTC,IEMobile,iPhone,iPod,Kyocera,LG,MIDP,Motorola,NetFront,Nokia,Palm,PlayStation Portable,Samsung,Smartphone,SonyEricsson,Symbian,UP.Browser,WAP,Windows CE,GT-'.split(','), nava = navigator.userAgent;
-        for (e = 0; e < navt.length; e++) if (nava.indexOf(navt[e]) != -1) { if (navl.match(/typhon\./)) { window.location.href = '/app_dev.php/m/route/' } else { window.location.href = navl.match(/preprod\./) ? '/m/route/' : 'http://m.myskreen.com/m/route/'}};
-      }
+    return false;
+  }
+  //set deny
+  if (window.location.href.indexOf('setDenyMobile') != -1) {
+    var exdate=new Date();exdate.setDate(exdate.getDate() + c_exdays);
+    var c_value=escape(c_value) + ((c_exdays==null) ? '' : '; expires='+exdate.toUTCString());
+    document.cookie=c_name + '=' + c_value;
+  // -> m
+  } else {
+    if (!checkDenyMobileVersion()) {
+      var navl = document.location.href;
+      var navt = 'Blackberry,Blazer,Elaine,Handspring,HTC,IEMobile,iPhone,iPod,Kyocera,LG,MIDP,Motorola,NetFront,Nokia,Palm,PlayStation Portable,Samsung,Smartphone,SonyEricsson,Symbian,UP.Browser,WAP,Windows CE,GT-'.split(','), nava = navigator.userAgent;
+      for (e = 0; e < navt.length; e++) if (nava.indexOf(navt[e]) != -1) { if (navl.match(/typhon\./)) { window.location.href = '/app_dev.php/m/route/' } else { window.location.href = navl.match(/preprod\./) ? '/m/route/' : 'http://m.myskreen.com/m/route/'}};
     }
   }
-  </script>
-  #}
-  {% block meta_seo %}{% endblock %}
-  <meta name="author" content="myskreen">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta charset="UTF-8">
-  <meta name="language" content="fr-FR" />
-  <meta name="revisit-after" content="2 days" />
-  <meta property="og:locale:alternate" content="fr_FR" />
-  <meta property="og:site_name" content="mySkreen.com" />
-  <meta property="fb:app_id" content="{% if app.environment == 'dev' %}815539248457999{% else %}193945860617344{% endif %}" />
-  <meta name="msvalidate.01" content="578206D7F79F12C1D7F845473C11F955" />
-  <meta name="verify-a" value="e548aa1414e42be0692f">
-  <meta name="google-site-verification" content="XrGdiUEwEtqEFnxru9FgykHR9mmSCX6O1hky_g9gTDU" />
-  {% if app.request.get('force_metatags') is null and (app.environment != 'prod' or 'preprod' in app.request.host or 'typhon' in app.request.host) %}
-   <meta name="robots" content="noindex,nofollow"> 
-   {% else %} 
-  {% block meta %}{% endblock %}
- {% endif %}
-  {% if app.request.pathinfo != app.request.requestUri %}
-  <link rel="canonical" href="http://www.myskreen.com{{ app.request.pathinfo }}" />
-  {% endif %} 
-  <link rel="author" href="https://plus.google.com/106555719800030017985" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <link rel="search" type="application/opensearchdescription+xml" href="http://www.myskreen.com/opensearch.xml" title="Recherche de vidéos mySkreen"/>
-  <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
-  <link rel="apple-touch-icon" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone.png') }}" />
-  <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad.png') }}" />
-  <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone-retina.png') }}" />
-  <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad-retina.png') }}" />
-  <link rel="dns-prefetch" href="http://mskstatic.com"/>
-  <link rel="apple-touch-startup-image" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/startup.png') }}" />
-   
-   
-  {# <meta name="viewport" content="width=1010, maximum-scale=1, user-scalable = yes" />#}
-  
-  {% stylesheets
-    'http://fonts.googleapis.com/css?family=Raleway:100,300'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/less/bootstrap-overload.less'
-    '@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
-    filter='lessphp,?yui_css'
-    output='css/v3.css'
-    %}
-    <link href="{{ asset_url }}?{{ 'now'|date('dm') }}" rel="stylesheet" media="screen" />
-    {% endstylesheets %}
+}
+</script>
+#}
+{% block meta_seo %}{% endblock %}
+<meta name="author" content="myskreen">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="UTF-8">
+<meta name="language" content="fr-FR" />
+<meta name="revisit-after" content="2 days" />
+<meta property="og:locale:alternate" content="fr_FR" />
+<meta property="og:site_name" content="mySkreen.com" />
+<meta property="fb:app_id" content="{% if app.environment == 'dev' %}815539248457999{% else %}193945860617344{% endif %}" />
+<meta name="msvalidate.01" content="578206D7F79F12C1D7F845473C11F955" />
+<meta name="verify-a" value="e548aa1414e42be0692f">
+<meta name="google-site-verification" content="XrGdiUEwEtqEFnxru9FgykHR9mmSCX6O1hky_g9gTDU" />
+{% if app.request.get('force_metatags') is null and (app.environment != 'prod' or 'preprod' in app.request.host or 'typhon' in app.request.host or '.net' in app.request.host) %}
+ <meta name="robots" content="noindex,nofollow"> 
+ {% else %} 
+{% block meta %}{% endblock %}
+{% endif %}
+{% if app.request.pathinfo != app.request.requestUri %}
+<link rel="canonical" href="http://www.myskreen.com{{ app.request.pathinfo }}" />
+{% endif %} 
+<link rel="author" href="https://plus.google.com/106555719800030017985" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://www.myskreen.com/opensearch.xml" title="Recherche de vidéos mySkreen"/>
+<link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+<link rel="apple-touch-icon" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone.png') }}" />
+<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad.png') }}" />
+<link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/iphone-retina.png') }}" />
+<link rel="apple-touch-icon" sizes="144x144" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad-retina.png') }}" />
+<link rel="dns-prefetch" href="http://mskstatic.com"/>
+<link rel="apple-touch-startup-image" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/startup.png') }}" />
+ 
+ 
+{# <meta name="viewport" content="width=1010, maximum-scale=1, user-scalable = yes" />#}
 
-    {% block pagestyles %}
-    {% endblock %}
+{% stylesheets
+  'http://fonts.googleapis.com/css?family=Raleway:100,300'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/less/bootstrap-overload.less'
+  '@SkreenHouseFactoryTvBundle/Resources/public/less/couchmode.less'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/less/_default.less'
+  filter='lessphp,?yui_css'
+  output='css/v3.css'
+  %}
+  <link href="{{ asset_url }}?{{ 'now'|date('dm') }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
 
-    <!--[if IE 8]>
+  {% block pagestyles %}
+  {% endblock %}
 
-      {% javascripts
-        '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/json2.js'
-        '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/ie8.js'
-        filter='?yui_js' 
-        output='js/compiled/ie8.js'  %}
-      <script src="{{ asset_url }}"></script>
-      {% endjavascripts %}
+  <!--[if IE 8]>
 
-      <![endif]-->
+    {% javascripts
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/json2.js'
+      '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/ie8.js'
+      filter='?yui_js' 
+      output='js/compiled/ie8.js'  %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <![endif]-->
 
 
-      <script src="{{ asset('bundles/skreenhousefactoryv3//js/vendors/modernizr.min.js') }}"></script>
+    <script src="{{ asset('bundles/skreenhousefactoryv3//js/vendors/modernizr.min.js') }}"></script>
 
-    </head>
-    <body class="{% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}"{% if block('body_background') %} style="background:{% block body_background %}{% endblock %};"{% endif %}{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}{% if block('body_attribute') %}{% block body_attribute %}{% endblock %}{% endif %}>
-  <!--[if lt IE 8]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
-  <article>
-    <div id="main">
-      <div id="content" class="uiview-update">
-       <!--[if lt IE 8]>  <div class="lt-ie8-pop hide">
-           <div class="ie-head"><img></div>
-           <div class="ie-body">
-             <div class="text">Votre navigateur est obsolète et ne permet pas de profiter <br>de myskreen de manière optimale.<br><br>Pour une meilleure navigation nous vous conseillons de le mettre à jour ou de choisir un navigateur récent en cliquant ci-dessous:<br>
-             </div>
-             <ul class="logo">
-               <a href="http://getfirefox.com/"><li class="sprite-popin_under_ie8_07"></li></a>
-               <a href="http://www.google.com/chrome/"><li class="sprite-popin_under_ie8_09"></li></a>
-               <a href="http://www.opera.com/‎"><li class="sprite-popin_under_ie8_11"></li></a>
-               <a href="http://windows.microsoft.com/fr-fr/internet-explorer/download-ie"><li class="sprite-popin_under_ie8_13"></li></a>
-               <a href="http://support.apple.com/downloads/#safari"><li class="sprite-popin_under_ie8_15"></li></a>
-             </ul>
-             <ul class="name">
-               <li>Firefox</li>
-               <li>Chrome</li>
-               <li>Opéra</li>
-               <li>Internet Explorer</li>
-               <li>Safari</li>
-             </ul>
-           <button class="btn btn-default">Non merci, pas pour l'instant</button>
+  </head>
+  <body class="{% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}"{% if block('body_background') %} style="background:{% block body_background %}{% endblock %};"{% endif %}{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}{% if block('body_attribute') %}{% block body_attribute %}{% endblock %}{% endif %}>
+<!--[if lt IE 8]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
+<article>
+  <div id="main">
+    <div id="content" class="uiview-update">
+     <!--[if lt IE 8]>  <div class="lt-ie8-pop hide">
+         <div class="ie-head"><img></div>
+         <div class="ie-body">
+           <div class="text">Votre navigateur est obsolète et ne permet pas de profiter <br>de myskreen de manière optimale.<br><br>Pour une meilleure navigation nous vous conseillons de le mettre à jour ou de choisir un navigateur récent en cliquant ci-dessous:<br>
            </div>
+           <ul class="logo">
+             <a href="http://getfirefox.com/"><li class="sprite-popin_under_ie8_07"></li></a>
+             <a href="http://www.google.com/chrome/"><li class="sprite-popin_under_ie8_09"></li></a>
+             <a href="http://www.opera.com/‎"><li class="sprite-popin_under_ie8_11"></li></a>
+             <a href="http://windows.microsoft.com/fr-fr/internet-explorer/download-ie"><li class="sprite-popin_under_ie8_13"></li></a>
+             <a href="http://support.apple.com/downloads/#safari"><li class="sprite-popin_under_ie8_15"></li></a>
+           </ul>
+           <ul class="name">
+             <li>Firefox</li>
+             <li>Chrome</li>
+             <li>Opéra</li>
+             <li>Internet Explorer</li>
+             <li>Safari</li>
+           </ul>
+         <button class="btn btn-default">Non merci, pas pour l'instant</button>
          </div>
-         <![endif]-->
-         {% block content %}
-         {% endblock %}
-      </div>
-      <div id="redirect" class="collapse in">{% block redirect %}{% endblock %}</div>
-      <div class="container">
-        <div id="player" class="default-player fly-shadows"><a class="btn btn-default close">Fermer</a></div>
-      </div>
+       </div>
+       <![endif]-->
+       {% block content %}
+       {% endblock %}
     </div>
-
-  </article>
-  <div id="alert-user"><span class="glyphicon glyphicon-remove-sign"></span><div class="alert-user-title"></div><div class="alert-user-content"></div></div>
-
-  {% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) %}
-  {#{ render_esi(controller('SkreenHouseFactoryV3Bundle:Main:header', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) }#}
-  {% block header_filters %}
-  {% endblock %}
-
-  <div id="footer">
-    {% render(controller('SkreenHouseFactoryV3Bundle:Main:footer', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route')})) %}
-    {#{ render_esi(controller('SkreenHouseFactoryV3Bundle:Main:footer', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route')})) }#}
+    <div id="redirect" class="collapse in">{% block redirect %}{% endblock %}</div>
+    <div class="container">
+      <div id="player" class="default-player fly-shadows"><a class="btn btn-default close">Fermer</a></div>
+    </div>
   </div>
-  {% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
-  {% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
-  <div id="fb-root"></div>
-  <span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
 
-  {% if block('noscripts') is empty %}
-  {% javascripts
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.10.2.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap-ajax-typeahead.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/respond.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery.hammer.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer-3.2.11.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.controls-3.2.10.min.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.serializefullarray.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
-    '@SkreenHouseFactoryTvBundle/Resources/public/js/couchmode.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/playlists.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/cinema.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/skin.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/touch.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/seo.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/slide-in.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/dialog.js'
-    filter='?yui_js' 
-    output='js/compiled/v3.js'  %}
-  <script src="{{ asset_url }}?{{ 'now'|date('dm') }}"></script>
-  {% endjavascripts %}
-  {% endif %}
+</article>
+<div id="alert-user"><span class="glyphicon glyphicon-remove-sign"></span><div class="alert-user-title"></div><div class="alert-user-content"></div></div>
 
-  {% block pagescripts %}
-  {% endblock %}
+{% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) %}
+{#{ render_esi(controller('SkreenHouseFactoryV3Bundle:Main:header', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) }#}
+{% block header_filters %}
+{% endblock %}
 
-  {% if app.environment == 'prod' and block('nostats') is empty %}
-    {% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' with {tag: 'UA-6151896-17'} %}
-    {% include 'SkreenHouseFactoryV3Bundle::_chartbeat.html.twig' %}
-  {% else %}
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-6151896-18', 'typhon.net');
-      ga('send', 'pageview');
-    </script>
-  {% endif %}
-  {% endspaceless %}
-  <div class="modal-backdrop in hide"></div>
+<div id="footer">
+  {% render(controller('SkreenHouseFactoryV3Bundle:Main:footer', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route')})) %}
+  {#{ render_esi(controller('SkreenHouseFactoryV3Bundle:Main:footer', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route')})) }#}
+</div>
+{% include 'SkreenHouseFactoryTvBundle:Main:_couchmode.html.twig' %}
+{% include 'SkreenHouseFactoryV3Bundle:Main:_modal.html.twig' %}
+<div id="fb-root"></div>
+<span class="hide">généré le {{ 'now'|date(' d/m à H:i:s') }}</span>
+
+{% if block('noscripts') is empty %}
+{% javascripts
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery-1.10.2.min.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.cookies.min.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap.min.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/bootstrap-ajax-typeahead.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/respond.min.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/inheritance.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/jquery-ui/js/jquery.hammer.min.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer-3.2.11.min.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.controls-3.2.10.min.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.serializefullarray.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
+  '@SkreenHouseFactoryTvBundle/Resources/public/js/couchmode.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/ui.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/_default.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/core/*'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/playlists.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/cinema.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/skin.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/touch.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/seo.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/slide-in.js'
+  '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/dialog.js'
+  filter='?yui_js' 
+  output='js/compiled/v3.js'  %}
+<script src="{{ asset_url }}?{{ 'now'|date('dm') }}"></script>
+{% endjavascripts %}
+{% endif %}
+
+{% block pagescripts %}
+{% endblock %}
+
+{% if app.environment == 'prod' and block('nostats') is empty %}
+  {% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' with {tag: 'UA-6151896-17'} %}
+  {% include 'SkreenHouseFactoryV3Bundle::_chartbeat.html.twig' %}
+{% else %}
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-6151896-18', 'typhon.net');
+    ga('send', 'pageview');
+  </script>
+{% endif %}
+{% endspaceless %}
+<div class="modal-backdrop in hide"></div>
 </body>
 </html>
