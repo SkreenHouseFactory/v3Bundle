@@ -58,6 +58,10 @@
         Ajoutez-la à vos cinémas et soyez immédiatement averti de sa programmation !</p>
         <p>Vous ne voulez surtout pas passer à côté d’un film vous a tapé dans l’oeil ? Cliquez sur Suivre, le film se retrouve dans votre playlist et vous êtes averti immédiatement de toutes ses diffusions, au cinéma, à la télé, en replay ou encore en VOD !</p>
       </div>
+      <div class="container nopadding">
+        <hr/>
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
+      </div>
     </div>
   {% elseif programs|to_array|length > 0 %}
     <div class="description-seo description-seo-absolute">
@@ -74,6 +78,10 @@
           <h3><a href="{{ path('any_url', {url: p.seo_url|slice(1, p.seo_url|length-1)}) }}">{{ p.title }}</a></h3>
           <p>{{ description|wordCut(300,'...')|raw }}</p>
         {% endfor %}
+      </div>
+      <div class="container nopadding">
+        <hr/>
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
       </div>
     </div>
   {% else %}
