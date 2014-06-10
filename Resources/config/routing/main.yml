@@ -176,21 +176,24 @@ player_redirect:
         target: "[^/]+"
         title: "[^/]+"
 player_exit_with_infos:
-    pattern:  /exit/{type}/{name}/{title}/{episode}
+    pattern:  /{exit}/{type}/{name}/{title}/{episode}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit, episode: null }
     requirements:
+        exit: exit|redirect
         type: "[^/]+"
         target: "[^/]+"
         title: "[^/]+"
 player_exit:
-    pattern:  /exit/{target}
+    pattern:  /{exit}/{target}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }
     requirements:
+        exit: exit|redirect
         target: ".*"
 player_exit_get_url:
-    pattern:  /exit
+    pattern:  /{exit}
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Player:redirect, exit: 1, template: exit }
     requirements:
+        exit: exit|redirect
         target: "[^/]+"
 player:
     pattern:  /player
