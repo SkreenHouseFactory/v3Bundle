@@ -58,6 +58,10 @@
         Ajoutez-la à vos cinémas et soyez immédiatement averti de sa programmation !</p>
         <p>Vous ne voulez surtout pas passer à côté d’un film vous a tapé dans l’oeil ? Cliquez sur Suivre, le film se retrouve dans votre playlist et vous êtes averti immédiatement de toutes ses diffusions, au cinéma, à la télé, en replay ou encore en VOD !</p>
       </div>
+      <div class="container nopadding">
+        <hr/>
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
+      </div>
     </div>
   {% elseif programs|to_array|length > 0 %}
     <div class="description-seo description-seo-absolute">
@@ -75,10 +79,14 @@
           <p>{{ description|wordCut(300,'...')|raw }}</p>
         {% endfor %}
       </div>
+      <div class="container nopadding">
+        <hr/>
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
+      </div>
     </div>
   {% else %}
     <div class="container">
-      <p class="bs-callout bs-callout-warning">Il n'y a actuellement pas de films à l'affiche, {% if app.request.get('category') %}dans la catégorie {{ app.request.get('category') }}{% else %}dont le titre commence par la lettre {{ app.request.get('alpha') }}{% endif %}.</p>
+      <p class="bs-callout bs-callout-warning">Il n'y a actuellement pas de films à l'affiche, {% if app.request.get('category') %}dans la catégorie {{ app.request.get('category') }}{% else %}dont le titre commence par la lettre&nbsp;{{ app.request.get('alpha') }}{% endif %}.</p>
     </div>
   {% endif %}
   <br/>
@@ -86,6 +94,22 @@
   <div class="container">
     <div id="user-programs" class="slider slider-list">
       <ul class="items">
+        {% set ids = '' %}
+        {% set first_id = '' %}
+        {% for p in programs|to_array %}
+          {% if loop.first %}
+            {% set first_id = p.id %}
+            {% set ids = p.id %}
+          {% else %}
+            {% set ids = ids ~ ',' ~ p.id %}
+          {% endif %}
+        {% endfor %}
+        <li class="teaser-container">
+          <div class="teaser-category" data-teaser-ids="{{ ids }}">
+            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
+          </div>
+          <div class="teaser-title sk-font">Retrouvez ci-dessus les bandes-annonces des films, {% if app.request.get('category') %}dans la catégorie {{ app.request.get('category') }}{% else %}dont le titre commence par la lettre&nbsp;{{ app.request.get('alpha') }}{% endif %}.</div>
+        </li>
         {% for p in programs|to_array %}
           {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, 'origin': 'boxoffice'} %}
         {% endfor %}
