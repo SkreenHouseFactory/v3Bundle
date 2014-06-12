@@ -413,4 +413,6 @@ $(document).ready(function(){
    UI.addFriendsPrograms();
   }, 700);
 
+  $('#msk-menu').mmenu();
+
 });
