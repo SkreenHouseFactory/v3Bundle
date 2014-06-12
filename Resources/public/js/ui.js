@@ -699,7 +699,7 @@ UI = {
         var img_offer = '';
         if (notifications[k].offers == 'friend_list') {
           img_offer = '<span class="friend_img" data-friend="' + notifications[k].friend_id + '">&nbsp;</span>';
-        } else if (typeof notifications[k].channel_ico != 'undefined') {
+        } else if (typeof notifications[k].channel_ico != 'undefined' && notifications[k].channel_ico != null) {
           img_offer = '<img src="' + notifications[k].channel_ico.replace("/39/35/","/39/") + '" alt="' + notifications[k].channel_name + '" class="channel pull-left" />';
         } else {
           img_offer = '<span class="pull-left" style="width: 42px">&nbsp;</span>';
