@@ -4,51 +4,73 @@
 {% block title %}{{ var|trans }}{% endblock %}
 {% block description %}{{ var|trans }}{% endblock %}
 
-
 {% block content %}
-<div class="container">
-	<ul class="nav nav-pills">
-		<li{{ app.request.get('type') == 'broadcast' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">TV & Replay</a></li>
-		<li{{ app.request.get('type') == 'vod' ? ' class="active"' : '' }}><span data-link-to-replace="{{ path('sitemap_channels', {type: 'vod'})|rot13 }}">VOD</span></li>
-		<li{{ app.request.get('type') == 'webcast' ? ' class="active"' : '' }}><span data-link-to-replace="{{ path('sitemap_channels', {type: 'webcast'})|rot13 }}">Web TV</span></li>
-		<li{{ app.request.get('type') == 'cinema' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Cinéma</a></li>
-		<li{{ app.request.get('type') == 'dvd' ? ' class="active"' : '' }}><span data-link-to-replace="{{ path('sitemap_channels', {type: 'dvd'})|rot13 }}">DVD</span></li>
-		<li{{ app.request.get('type') == 'thematique' ? ' class="active"' : '' }}><a href="{{ path('sitemap_channels', {type: 'thematique'}) }}">Thématique</a></li>
-	</ul>
-	<h1><small class="indent">{{ app.request.get('type') }}</small></h1>
-  {% if channels|length > 6 %}
-  <ul class="pagination{% if app.request.get('type') != 'cinema' %} pagination-client-alpha{% endif %}">
-      <li><a href="{{ path('sitemap_channels', {type: app.request.get('type') }) }}">{{ 'nav.all'|trans }}</a></li>
-    {% for l in alpha %}
-      <li{% if l not in alpha_available %} class="disabled"{% endif %}><a{% if l in alpha_available %} href="{{ path('sitemap_channels_page', {type: app.request.get('type'), page: l }) }}"{% endif %}>{{ l }}</a></li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-	<table class="table table-striped">
-		{% for c in channels if c.channel is defined or c.img or c.type in ['cinema']  %}
-    {% set c = c.channel is defined ? c.channel : c %}
-    {% set name = c.name is defined ? c.name : c.title %}
-		<tr data-alpha="{{ name|slice(0,1)|lower }}">
-			{% if app.request.get('type') != 'cinema' %}
-			<td width="100px">
-				<a href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><img src="{{ c.img }}" alt="{{ name }} {{ app.request.get('type') == 'catchup' ? 'Replay' : 'Streaming' }}" /></a>
-			</td>
-			{% endif %}
-			<td width="200px"><a href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}">{{ c.name }}{{ c.city is defined and c.city ? ' (' ~ c.city ~ ')' : '' }}</a></td>
-			{% if app.request.get('type') == 'cinema' %}
-			<td>{{ c.adress }}<br/>{{ c.city }} {{ c.zip_code }}</td>
-			{% endif %}
-			<td align="right">
-				{% if app.request.get('type') == 'broadcast' %}
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: c.id, class: 'fav-epg', text: 'Ajouter à votre grille TV' } %}
-				{% elseif app.request.get('type') == 'cinema' %}
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: c.id, class: 'fav-cinema', text: 'Ajouter à vos cinémas' } %}
-				{% elseif app.request.get('type') == 'thematique' %}
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: c.id, class: 'fav-channel', text: 'Suivre', name: c.name } %}
-				{% endif %}
-			</td>
-		</tr>
-		{% endfor %}
-	</table>
-</div>
+  <div class="container">
+    <ul class="nav nav-pills">
+      <li{{ app.request.get('type') == 'broadcast' ? ' class="active"' : '' }}>
+        <a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">TV & Replay</a>
+      </li>
+      <li{{ app.request.get('type') == 'vod' ? ' class="active"' : '' }}>
+        <span data-link-to-replace="{{ path('sitemap_channels', {type: 'vod'})|rot13 }}">VOD</span>
+      </li>
+      <li{{ app.request.get('type') == 'cinema' ? ' class="active"' : '' }}>
+        <a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Cinéma</a>
+      </li>
+      <li{{ app.request.get('type') == 'dvd' ? ' class="active"' : '' }}>
+        <span data-link-to-replace="{{ path('sitemap_channels', {type: 'dvd'})|rot13 }}">DVD</span>
+      </li>
+      <li{{ app.request.get('type') == 'thematique' ? ' class="active"' : '' }}>
+        <a href="{{ path('sitemap_channels', {type: 'thematique'}) }}">Thématique</a>
+      </li>
+    </ul>
+    <h1>{{ var|trans }}</h1>
+    {% if channels|length > 6 %}
+      <ul class="pagination{% if app.request.get('type') != 'cinema' %} pagination-client-alpha{% endif %}">
+        <li>
+          <a href="{{ path('sitemap_channels', {type: app.request.get('type') }) }}">{{ 'nav.all'|trans }}</a>
+        </li>
+        {% for l in alpha %}
+          <li{% if l not in alpha_available %} class="disabled"{% endif %}>
+            <a{% if l in alpha_available %} href="{{ path('sitemap_channels_page', {type: app.request.get('type'), page: l }) }}"{% endif %}>{{ l }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    <table class="table table-striped">
+      {% for c in channels if c.channel is defined or c.img or c.type is defined and c.type in ['cinema']  %}
+        {% set c = c.channel is defined ? c.channel : c %}
+        {% set name = c.name is defined ? c.name : c.title %}
+        <tr data-alpha="{{ name|slice(0,1)|lower }}">
+          {% if app.request.get('type') != 'cinema' %}
+            <td width="100px">
+              <a href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}"><img src="{{ c.img }}" alt="{{ name }} {{ app.request.get('type') == 'catchup' ? 'Replay' : 'Streaming' }}" width="45" /></a>
+            </td>
+          {% endif %}
+          <td width="200px"><a href="{{ path('any_url', {url: c.seo_url|slice(1,c.seo_url|length-1)}) }}">{{ c.name }}{{ c.city is defined and c.city ? ' (' ~ c.city ~ ')' : '' }}</a></td>
+          {% if app.request.get('type') == 'cinema' %}
+            <td>{{ c.adress }}<br/>{{ c.city }} {{ c.zip_code }}</td>
+          {% endif %}
+          <td align="right">
+            {% if app.request.get('type') == 'broadcast' %}
+              {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: c.id, class: 'fav-epg', text: 'Ajouter à votre grille TV' } %}
+            {% elseif app.request.get('type') == 'cinema' %}
+              {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: c.id, class: 'fav-cinema', text: 'Ajouter à vos cinémas' } %}
+            {% elseif app.request.get('type') == 'thematique' %}
+              {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: c.id, class: 'fav-channel', text: 'Suivre', name: c.name } %}
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}
+
+{% block pagestyles %}
+  {% stylesheets
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/sitemap.less'
+      filter='lessphp,?yui_css'
+      output='css/sitemap.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
 {% endblock %}
