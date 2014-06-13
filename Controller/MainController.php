@@ -53,7 +53,7 @@ class MainController extends Controller
     */
     public function newheaderAction(Request $request)
     {
-      return $this->render('SkreenHouseFactoryV3Bundle:Main:_new-header.html.twig', array(
+      return $this->render('SkreenHouseFactoryV3Bundle:Main:_header-burger.html.twig', array(
         'home' => $request->get('home'),
         'route' => $request->get('route'),
         'q' => $request->get('q')
