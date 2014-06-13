@@ -1,4 +1,3 @@
-{% set tnt_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat','HD1','6Ter','numéro 23','DISNEY CHANNEL','Gulli','RMC découverte','cherie 25','KTO'] %}
 <div id="cover" class="cover-fournisseur">
   <div class="header-container">
     <div class="container">
@@ -25,12 +24,12 @@
               </div>
             {% elseif fournisseur.live.url is defined %}
               <div class="iframe-container" data-autoplay="1">
-                <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=28370043&program_id={{ fournisseur.live.program is defined and fournisseur.live.program ? fournisseur.live.program.id : '' }}&fromWebsite=1{{ app.environment == 'dev' ? '&env=dev' : '' }}" class="player-live" scrolling="no" frameborder="0" style="height:292px"></iframe>
+                <iframe src="http://player.myskreen.com/ad/?program_id={{ fournisseur.live.program is defined and fournisseur.live.program ? fournisseur.live.program.id : '' }}&fromChannelLive" class="player-live" scrolling="no" frameborder="0" style="height:292px"></iframe>
               </div>
               <p class="bs-callout bs-callout-info"><a class="btn btn-default player-stop" data-redirect="{{ fournisseur.live.url }}"><i class="glyphicon glyphicon-play"></i> Voir le direct sur le site de {{ fournisseur.name }}</a></p>
             {% else %}
               <div data-autoplay="1">
-                <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=28370043&program_id={{ fournisseur.live.program is defined and fournisseur.live.program ? fournisseur.live.program.id : '' }}&fromWebsite=1{{ app.environment == 'dev' ? '&env=dev' : '' }}" class="player-live" scrolling="no" frameborder="0" style="height:292px"></iframe>
+                <iframe src="http://player.myskreen.com/ad/?program_id={{ fournisseur.live.program is defined and fournisseur.live.program ? fournisseur.live.program.id : '' }}&fromChannelLive" class="player-live" scrolling="no" frameborder="0" style="height:292px"></iframe>
               </div>
               {% set indisponible = 1 %}
             {% endif %}
@@ -62,16 +61,7 @@
           </div>
         </div>
       </div>
-      <div id="carousel-chaine" class="row chaines-listing clearfix">
-        <div class="clearfix item active">
-          {% for c in tnt_channels %}
-            {% set slug = c|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', "\'": '-'})|raw %}
-            <a class="logo_chaine" href="{{ path('channel', {slug: slug}) }}" data-toggle="tooltip" data-placement="{{ loop.index in [1,2,3,4,5,6,7,8,9,10,11,12,13,14] ?'top':'bottom' }}" data-original-title="{{c|upper}}" data-channel-slug="{{slug}}" href="{{ path('channel', {slug: slug}) }}">
-              <img src="http://mskstatic.com/35/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ c }} Replay">
-            </a>
-        {% endfor %}
-        </div>
-      </div>
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_list_tnt_channels.html.twig' with {id: 'carousel-chaine'} %}
     </div>
   </div>
 </div>

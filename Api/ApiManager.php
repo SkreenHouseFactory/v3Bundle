@@ -45,7 +45,7 @@ class ApiManager
     switch ($method) {
       case 'POST':
         $this->url = $url . $this->format;
-        $this->url = str_replace('https:', 'http:', $this->url);
+        //hack sertificat : $this->url = str_replace('https:', 'http:', $this->url);
         //debug
         //echo $this->url; print_r($params);exit();
         $response = $client->post($this->url, array(
