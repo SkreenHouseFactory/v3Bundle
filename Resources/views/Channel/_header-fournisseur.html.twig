@@ -25,12 +25,12 @@
               </div>
             {% elseif fournisseur.live.url is defined %}
               <div class="iframe-container" data-autoplay="1">
-                <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=28370043&program_id={{ fournisseur.live.program is defined and fournisseur.live.program ? fournisseur.live.program.id : '' }}&fromWebsite=1{{ app.environment == 'dev' ? '&env=dev' : '' }}" class="player-live" scrolling="no" frameborder="0" style="height:292px"></iframe>
+                <iframe src="http://player.myskreen.com/ad/?program_id={{ fournisseur.live.program is defined and fournisseur.live.program ? fournisseur.live.program.id : '' }}&fromChannelLive" class="player-live" scrolling="no" frameborder="0" style="height:292px"></iframe>
               </div>
               <p class="bs-callout bs-callout-info"><a class="btn btn-default player-stop" data-redirect="{{ fournisseur.live.url }}"><i class="glyphicon glyphicon-play"></i> Voir le direct sur le site de {{ fournisseur.name }}</a></p>
             {% else %}
               <div data-autoplay="1">
-                <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play=28370043&program_id={{ fournisseur.live.program is defined and fournisseur.live.program ? fournisseur.live.program.id : '' }}&fromWebsite=1{{ app.environment == 'dev' ? '&env=dev' : '' }}" class="player-live" scrolling="no" frameborder="0" style="height:292px"></iframe>
+                <iframe src="http://player.myskreen.com/ad/?program_id={{ fournisseur.live.program is defined and fournisseur.live.program ? fournisseur.live.program.id : '' }}&fromChannelLive" class="player-live" scrolling="no" frameborder="0" style="height:292px"></iframe>
               </div>
               {% set indisponible = 1 %}
             {% endif %}
