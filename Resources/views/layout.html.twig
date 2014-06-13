@@ -84,13 +84,13 @@
   %}
   <link href="{{ asset_url }}?{{ 'now'|date('dm') }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
-  {% stylesheets
+  {# {% stylesheets
   '@SkreenHouseFactoryV3Bundle/Resources/public/mmenu/css/jquery.mmenu.widescreen.less'
   filter='lessphp,?yui_css'
   output='css/mmenu_widescreen.css'
   %}
   <link href="{{ asset_url }}?{{ 'now'|date('dm') }}" rel="stylesheet" media="all and (min-width: 1000px)" />
-  {% endstylesheets %}
+  {% endstylesheets %} #}
 
   {% block pagestyles %}
   {% endblock %}
