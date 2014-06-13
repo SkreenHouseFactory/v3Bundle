@@ -96,7 +96,10 @@ body.view-channel, body.view-channel-selections {
               width: 455px;
               height: 292px;
               margin: 0 auto;
-              margin-bottom: 20px;
+              margin-bottom: 8px;
+            }
+            div[data-autoplay] + .bs-callout {
+              margin-top: 0px;
             }
             .iframe-container {
               display: block;
@@ -104,7 +107,10 @@ body.view-channel, body.view-channel-selections {
               width: 455px;
               height: 292px;
               margin: 0 auto;
-              margin-bottom: 20px;
+              margin-bottom: 8px;
+              & + .bs-callout {
+                margin-top: 0px;
+              }
             }
             .col-xs-8 {
               .row {
