@@ -145,7 +145,7 @@ ProgramView = {
       }
 
       console.log('data-more-streaming', container);
-      var url = 'program/more-streaming/' + container.data('more-streaming') + '.json?nb_results=24';
+      var url = 'program/more-streaming/' + container.data('more-streaming') + '.json';
       UI.appendLoader(container);
       API.query(
         'GET',
