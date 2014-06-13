@@ -26,37 +26,30 @@
               <div class="iframe-container" data-autoplay="1">
                 <iframe src="http://player.myskreen.com/ad/?program_id={{ fournisseur.live.program is defined and fournisseur.live.program ? fournisseur.live.program.id : '' }}&fromChannelLive" class="player-live" scrolling="no" frameborder="0" style="height:292px"></iframe>
               </div>
-              <p class="bs-callout bs-callout-info"><a class="btn btn-default player-stop" data-redirect="{{ fournisseur.live.url }}"><i class="glyphicon glyphicon-play"></i> Voir le direct sur le site de {{ fournisseur.name }}</a></p>
+              {% set redirect = 1 %}
             {% else %}
               <div data-autoplay="1">
                 <iframe src="http://player.myskreen.com/ad/?program_id={{ fournisseur.live.program is defined and fournisseur.live.program ? fournisseur.live.program.id : '' }}&fromChannelLive" class="player-live" scrolling="no" frameborder="0" style="height:292px"></iframe>
               </div>
               {% set indisponible = 1 %}
             {% endif %}
-            {% if fournisseur.live.program is defined and fournisseur.live.program  %}
-              {% if indisponible is defined %}
-                <p class="bs-callout bs-callout-info clear">Le direct n'est pas disponible.</p>
+            <p class="bs-callout bs-callout-info clear">
+              {% if fournisseur.live.program is defined and fournisseur.live.program  %}
+                En ce moment sur {{ channel.name }} : <a href="{{ fournisseur.live.program.seo_url }}">{{ fournisseur.live.program.title }}</a>
               {% endif %}
-              <div class="row">
-                <div class="col-xs-11">
-                  <p>En ce moment sur {{ channel.name }} :</p>
-                  <p><a href="{{ fournisseur.live.program.seo_url }}">{{ fournisseur.live.program.title }}</a></p>
-                </div>
-                <div class="col-xs-5">
-                  <a data-id="{{ fournisseur.live.program.id }}" class="btn btn-suivre fav-like btn-plus">S'abonner</a>
-                </div>
-              </div>
-            {% endif %}
+              {% if redirect is defined %}
+                <br/><br/><a class="btn btn-suivre player-stop" data-redirect="{{ fournisseur.live.url }}"><i class="glyphicon glyphicon-play"></i> Voir le direct</a>
+              {% elseif indisponible is defined %}
+                <br/><br/>Le direct n'est pas disponible.</p>
+              {% endif %}
+            </p>
           </div>
         </div>
         <div class="col-xs-4">
           <div class="prog-list">
-            {% if fournisseur.programs_replay is defined and fournisseur.programs_replay %}
-            {% set namefornamelinklast = channel.name|wordCut(9,'...') %}
+            {% if fournisseur.programs_replay is defined and fournisseur.programs_replay|to_array|length > 0 %}
+              {% set namefornamelinklast = channel.name|wordCut(9,'...') %}
               {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live: fournisseur.programs_replay, name: 'Les Derniers replays', link: path('any_url', {url: channel.seo_url|slice(1, channel.seo_url|length-1) ~ 'derniers-replay/'}), name_link: 'Tous les replays sur ' ~ namefornamelinklast, origin: 'fournisseur_replay', list_number: '1' } %}
-            {% else %}
-              <h2>Les derniers Replays</h2>
-              <p class="bs-callout bs-callout-info">Indisponible</p>
             {% endif %}
           </div>
         </div>
