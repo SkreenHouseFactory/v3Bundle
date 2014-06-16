@@ -564,17 +564,17 @@ UI = {
       var nb = 0;
     }
 
-    if (!$('.navbar .notifications-count').hasClass('with-badge')) {
-      $('.navbar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
+    if (!$('#top-header .notifications-count').hasClass('with-badge')) {
+      $('#top-header .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
     }
 
     if (Object.keys(notifications).length == 0) {
 
-      $('.navbar .notifications-count .badge-important').removeClass('badge-important');
+      $('#top-header .notifications-count .badge-important').removeClass('badge-important');
 
     } else {
 
-      var list = $('.navbar .notifications ul .scroll');
+      var list = $('#top-header .notifications ul .scroll');
       list.find('li.empty').hide();
       //list.find('li:not(.empty)').remove();
       var nb_new = 0;
@@ -593,13 +593,13 @@ UI = {
       this.appendNotifications(notifications,list);
 
       //reload tooltip
-      $('.navbar .notifications [data-toggle="tooltip"]').tooltip();
+      $('#top-header .notifications [data-toggle="tooltip"]').tooltip();
 
       //new
       if (nb_new > 0) {
         var nb = nb_new >= this.max_notifications ? this.max_notifications + '+' : nb_new;
         console.log('UI.loadNotifications', 'new', current_last_notification, this.last_notification);
-        $('.navbar .notifications-count .badge').addClass('ms-notificon').html(nb);
+        $('#top-header .notifications-count .badge').addClass('ms-notificon').html(nb);
 
         if (current_last_notification != this.last_notification) {
           API.cookie('last_notification', this.last_notification);
@@ -613,18 +613,18 @@ UI = {
       }
       
       //console.log('UI.loadNotifications', 'nb_new', nb_new);
-      $('.navbar .notifications-count').data('count-new', nb_new);
+      $('#top-header .notifications-count').data('count-new', nb_new);
 
       global.notificationBadge(nb_new);
     }
   },
    notificationBadge: function(nb_new) {
-     if($('.navbar .notifications ul li .badge-important').length ){
+     if($('#top-header .notifications ul li .badge-important').length ){
       if (nb_new > 0) {
-        $('.navbar .notifications-count .badge').addClass('badge-important').html($('.navbar .notifications ul li.tv-component .badge-important').length);
+        $('#top-header .notifications-count .badge').addClass('badge-important').html($('#top-header .notifications ul li.tv-component .badge-important').length);
       }
      } else {
-       $('.navbar .notifications-count .badge').removeClass('badge-important').html($('.navbar .notifications ul li.tv-component').length);
+       $('#top-header .notifications-count .badge').removeClass('badge-important').html($('#top-header .notifications ul li.tv-component').length);
      }
    },
   // filter
@@ -729,8 +729,8 @@ UI = {
         }
       }
     }
-    if( $('.navbar .notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
-      $('.navbar .notifications .empty').css('display','block');
+    if( $('#top-header .notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
+      $('#top-header .notifications .empty').css('display','block');
     }
     Skhf.session.getSocialDatas(function(friends, friends_programs) {
       for (k in friends) {
@@ -1014,10 +1014,10 @@ UI = {
 
   },
   markAsRed: function(id) {
-    $('.navbar .notifications ul li[data-id="' + id + '"] .badge').remove();
+    $('#top-header .notifications ul li[data-id="' + id + '"] .badge').remove();
     var remaining = parseInt($('.notifications-count .badge-important').html())-1;
     if (remaining > 0) {
-      $('.navbar .notifications-count .badge').addClass('badge-important').html(remaining);
+      $('#top-header .notifications-count .badge').addClass('badge-important').html(remaining);
     }
   },
   //paywall

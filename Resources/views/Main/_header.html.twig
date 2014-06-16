@@ -3,7 +3,7 @@
       <div class="col-xs-16">
         <a class="burger-icon" href="#msk-menu"><span class="glyphicon glyphicon-align-justify"></span></a>
         <a id="logo" href="{{ path('homes', {home: null})|replace({'//': '/'}) }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" ></a>
-        <ul>
+        <ul class="nav navbar-nav">
           <li{{ app.request.attributes.get('_route') in ['tvgrid_date','tvgrid'] ? ' class="active"' : '' }}>
             <span data-link-to-replace="{{ path('tvgrid')|rot13 }}">TV &amp; Replay</span>
             {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "tv"} %}
@@ -18,9 +18,40 @@
           </li>
         </ul>
         <form id="nav-search" class="navbar-search">
-          <i class="glyphicon glyphicon-search" style="display: inline-block;position: absolute;top: 24px;right: 9px;color:#777777"></i>
+          <span class="glyphicon glyphicon-search" style="display: inline-block;position: absolute;top: 24px;right: 9px;color:#777777"></span>
           <input type="text"  value="{{ app.request.get('q') }}" class="search-query pull-left searchbutton" placeholder=" Un film, un acteur, etc.">
         </form>
+        <ul class="nav nav-playlists headertoprighticons hide"> 
+          {# NOTIFS #}
+          <li class="hide user-on dropdown notifications tv-component inline-block">
+            <a data-toggle="dropdown" class="dropdown-toggle uppercase notifications-count"></a>
+            <ul id="dropdown-menu-notification" class="dropdown-menu">
+              <span class="notification-filter">
+                <a class="label label-info filter" data-filter="all">Tout</a>
+                <a class="label filter" data-filter="tv">TV</a>
+                <a class="label filter" data-filter="replay">Replay</a>
+                <a class="label filter" data-filter="vod">VOD</a>
+                <a class="label filter" data-filter="theaters">Ciné</a>
+                <a class="label filter" data-filter="chaîne">Chaînes</a>
+                <a class="label filter" data-filter="friends">Amis</a>
+              </span>
+              <div class="scroll notification-scroll">
+                <li class="empty">
+                  <p class="ms-surtitre">{{ 'notifications.empty.title'|trans }}</br>{{ 'notifications.empty.text'|trans }}
+                  </p>
+                </li>
+              </div>
+              <span class="link-usernotifs"><span data-link-to-replace="{{ path('user_notifs')|rot13 }}">Toutes mes notifications</span></span>
+            </ul>
+          </li>
+
+          {# SE CONNECTER #}
+          <li class="user-off playlists">
+            <a class="auth btn btn-primary" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même playlist !">
+              Mes listes<br/><small>Se connecter / s'inscrire</small>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
 </div>

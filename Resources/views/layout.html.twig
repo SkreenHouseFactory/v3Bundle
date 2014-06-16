@@ -84,13 +84,6 @@
   %}
   <link href="{{ asset_url }}?{{ 'now'|date('dm') }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
-  {# {% stylesheets
-  '@SkreenHouseFactoryV3Bundle/Resources/public/mmenu/css/jquery.mmenu.widescreen.less'
-  filter='lessphp,?yui_css'
-  output='css/mmenu_widescreen.css'
-  %}
-  <link href="{{ asset_url }}?{{ 'now'|date('dm') }}" rel="stylesheet" media="all and (min-width: 1000px)" />
-  {% endstylesheets %} #}
 
   {% block pagestyles %}
   {% endblock %}
@@ -111,11 +104,13 @@
     <script src="{{ asset('bundles/skreenhousefactoryv3//js/vendors/modernizr.min.js') }}"></script>
 
   </head>
-  <body class="{% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}"{% if block('body_background') %} style="background:{% block body_background %}{% endblock %};"{% endif %}{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}{% if block('body_attribute') %}{% block body_attribute %}{% endblock %}{% endif %}><div> {# START Wrapper mmenu #}
+  <body class="{% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}"{% if block('body_background') %} style="background:{% block body_background %}{% endblock %};"{% endif %}{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}{% if block('body_attribute') %}{% block body_attribute %}{% endblock %}{% endif %}><div id="super-wrapper"> {# START Wrapper mmenu #}
 <!--[if lt IE 8]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
 {% render(controller('SkreenHouseFactoryV3Bundle:Main:newheader', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) %}
-{% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) %}
-<article>
+
+<div id="content-wrapper"> {# START Content wrapper #}
+  <article>
+  {% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) %}
   <div id="main">
     <div id="content" class="uiview-update">
      <!--[if lt IE 8]>  <div class="lt-ie8-pop hide">
@@ -178,7 +173,6 @@
   '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer-3.2.11.min.js'
   '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/flowplayer.controls-3.2.10.min.js'
   '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.serializefullarray.js'
-  '@SkreenHouseFactoryV3Bundle/Resources/public/mmenu/js/jquery.mmenu.min.all.js'
   '@SkreenHouseFactoryV3Bundle/Resources/public/js/core/*'
   '@SkreenHouseFactoryV3Bundle/Resources/public/js/session.js'
   '@SkreenHouseFactoryTvBundle/Resources/public/js/couchmode.js'
@@ -216,6 +210,7 @@
 {% endif %}
 {% endspaceless %}
 <div class="modal-backdrop in hide"></div>
+</div> {# END Content wrapper #}
 </div> {# END Wrapper mmenu #}
 </body>
 </html>

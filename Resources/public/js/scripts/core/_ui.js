@@ -196,8 +196,8 @@ UiView = {
         Skin.initHome();
       });
     }
-    if ($('.navbar').css('display') == "none") {
-      $('.navbar').css('display','block');
+    if ($('#top-header').css('display') == "none") {
+      $('#top-header').css('display','block');
     }
    if (has_playlist == true) {
        $('body').addClass('playlist-in');
