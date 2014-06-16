@@ -175,13 +175,13 @@ UI = {
       $('.share-on:not(.hide)').addClass('hide');
       $('.share-off').removeClass('hide');
       $('.user-on-visibility').css('visibility','hidden');
-      $('.navbar .notifications li.empty').show();
+      $('#top-header.notifications li.empty').show();
       $('li.selector').popover('enable');
       //remove datas
       $('.user-email, .favoris span').empty();
-      $('.navbar .notifications-count').removeClass('with-badge')
+      $('#top-header .notifications-count').removeClass('with-badge')
                                .empty();
-      $('.navbar .notifications li:not(.empty)').remove();
+      $('#top-header .notifications li:not(.empty)').remove();
       this.playlist.remove();
 
       //unload playlists

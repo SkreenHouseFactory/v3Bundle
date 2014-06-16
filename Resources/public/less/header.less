@@ -332,7 +332,7 @@
         padding: 0;
       }
       a.btn {
-        margin-top: -16px;
+        margin-top: -18px;
         line-height: 1.0em;
         color: white;
         &:hover {
@@ -444,8 +444,16 @@
         a {
           color: #428bca;
         }
+        .remove-all-notifs {
+          margin-right: 10px;
+          opacity: 0;
+        }
         &:hover {
           background-color: #fefbed;
+          .remove-all-notifs {
+            opacity: 1;
+            cursor: pointer;
+          }
         }
       }
       .notification-scroll{
@@ -577,6 +585,12 @@
         &:hover {
           background: @rowHoverBg;
           color: @rowHoverColor;
+          a.link {
+            img.channel {
+              border-right-color: @rowHoverBg;
+              border-top-color: @rowHoverBg;
+            }
+          }
         }
 
         a.link {
@@ -789,27 +803,6 @@ html:not(.touch){
 
 }
 
-.navbar .container {
-  .header_apps {
-    position: absolute;
-    top: 50%;
-    right: -8%;
-    margin-top: -14px;
-    width: 80px;
-    ul {
-      margin-bottom: 0;
-      padding: 0;
-    }
-    ul li {
-      display: inline-block;
-      margin-right: 10px;
-    }
-  }
-  .header_apps:hover, .header_apps:focus {
-    opacity: 0.5;
-  }
-}
-
 // LESS Headers v4.0
 
 #super-wrapper {
@@ -825,8 +818,13 @@ html:not(.touch){
     z-index: 1000;
     transition: all 0.4s ease 0s;
   }
+  #content-wrapper {
+    position: relative;
+  }
   #top-header {
     position: fixed;
+    left: 250px;
+    top: 0;
     width: 100%;
     padding-right: 250px;
     padding-left: 0px;
@@ -837,13 +835,18 @@ html:not(.touch){
     border-bottom: 1px solid #eee;
     min-height: 60px;
     transition: all 0.4s ease 0s;
+    li {
+      a {
+        color: #444;
+        text-decoration: none;
+      }
+    }
     .burger-icon, #logo{
       display: block;
       float: left;
       height: 60px;
       line-height: 65px;
       font-size: 1.5em;
-      padding-left: 30px;
       margin-left: -10px;
       background: -moz-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%); /* FF3.6+ */
       background: -webkit-gradient(radial, center center, 0px, center center, 70%, color-stop(0%,rgba(255,255,255,1)), color-stop(70%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
@@ -859,7 +862,12 @@ html:not(.touch){
       }
     }
     #logo {
+      padding-left: 0;
       width: 160px;
+    }
+    .burger-icon {
+      padding-left: 30px;
+      padding-right: 30px;
     }
     .navbar-nav {
       > li {
@@ -933,12 +941,20 @@ html:not(.touch){
       padding-top: 12px;
       padding-right: 12px;
       width: 250px;
-      text-align: left;
+      text-align: center;
       height: 63px;
       text-shadow: none;
       filter: dropshadow(none);
       margin-top: 10px;
       font-weight: normal;
+      #dLabel {
+        margin-top: 3px;
+      }
+      .notifications {
+        a.label {
+          color: white;
+        }
+      }
     }
   }
 }
@@ -949,6 +965,7 @@ html:not(.touch){
   }
   #content-wrapper {
     #top-header {
+      left: 0;
       padding-left: 160px;
     }
   }
@@ -969,19 +986,34 @@ html:not(.touch){
     padding-left: 0;
     #msk-menu {
       left: 0;
+      display: none;
     }
     &.active {
       position: relative;
       left: 250px;
       #msk-menu {
+        display: block;
         left: 250px;
         width: 250px;
-        transition: all 0.4s ease 0s;
+        transition: all 0.3s ease 0s;
+      }
+      #content-wrapper {
+        #top-header {
+          left: 250px;
+        }
       }
     }
     #content-wrapper {
       #top-header {
+        left: 0;
         padding-right: 15px;
+        .headertoprighticons {
+          li.playlists {
+            a.auth {
+              margin-left: 60px;
+            }
+          }
+        }
       }
     }
   }

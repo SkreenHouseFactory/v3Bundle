@@ -196,6 +196,8 @@ $(document).ready(function(){
 
   });
 
+  $('.notifications span.remove-all-notifs[rel="tooltip"]').tooltip();
+
   $(document).on('click', '.notifications .remove', function(e){
         e.preventDefault();
         Skhf.session.deleteNotification($(this).data('id'));
@@ -412,6 +414,25 @@ $(document).ready(function(){
   setTimeout(function(){
    UI.addFriendsPrograms();
   }, 700);
+
+  // $('#content-wrapper #top-header').stick_in_parent({offset_top: 0})
+  // //   .on('sticky_kit:bottom', function(e) {
+  // //     $('#selection-related').parent().attr('style', function(i, style) {
+  // //       return style.replace(/position[^;]+;?/g, '');
+  // //     });
+  // //     $('.view-selections #selection-related').css({
+  // //       position: 'absolute',
+  // //       bottom: '0px',
+  // //       top: 'auto'
+  // //     });
+  // // });
+
+  // // on page, modify sticky behaviour depending on display of bande_couleur_degrade
+  // $(document).on('click', '[data-toggle-display]', function () {
+  //   setTimeout(function(){
+  //     $(document.body).trigger('sticky_kit:recalc');
+  //   }, 500);
+  // });
 
   $(".burger-icon").click(function(e) {
     if ('matchMedia' in window) {
