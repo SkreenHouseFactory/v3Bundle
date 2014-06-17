@@ -557,7 +557,7 @@
  }
  &.notifications {
   ul {
-    left: -225px;
+    left: -255px;
     text-align: left;
     top: 42%;
     padding-bottom: 0px;
@@ -800,7 +800,6 @@ html:not(.touch){
   &.in-selection ul.items>li{
     height: 201px;
   }
-
 }
 
 // LESS Headers v4.0
@@ -817,6 +816,135 @@ html:not(.touch){
     overflow-y: auto;
     z-index: 1000;
     transition: all 0.4s ease 0s;
+    background: #428bca;
+    color: #fff;
+    -moz-box-shadow: inset -3px 0px 8px -1px #fff;
+    -webkit-box-shadow: inset -3px 0px 8px -1px #fff;
+    -o-box-shadow: inset -3px 0px 8px -1px #fff;
+    box-shadow: inset -3px 0px 8px -1px #fff;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#fff, Direction=180, Strength=8);
+    > ul {
+      padding: 65px 0px 0px 0px;
+      > li {
+        .sk-font {
+          padding-top: 10px;
+          border-top: 1px solid #fff;
+        }
+        &:first-child {
+          .sk-font {
+            padding-top: 0;
+            border-top: none;
+          }
+        }
+      }
+      li {
+        a:not(.user-on),span:not(.user-on) {
+          display: block;
+        }
+        a,span {
+          font-size: 1.2em;
+          padding-right: 5px;
+          padding-left: 10px;
+          margin-bottom: 10px;
+        }
+        a {
+          color: #eee;
+        }
+        &.friends {
+          position: relative;
+          line-height: 20px;
+          .numbers {
+            position: absolute;
+            right: 10px;
+            top: 13px;
+          }
+        }
+        &:last-child {
+          &.user-off {
+            text-align: center;
+            padding-top: 20px;
+            padding-right: 15px;
+            a,span {
+              font-size: 1em;
+              padding-left: 30px;
+              padding-right: 10px;
+              &:hover {
+                text-decoration: none;
+                color: white;
+              }
+            }
+          }
+        }
+      }
+    }
+    ul {
+      list-style: none;
+      li {
+        padding-left: 0px;
+        > ul {
+          padding: 0;
+          > li {
+            a, span {
+              padding-left: 0px;
+              font-size: 1em;
+              display: block;
+              color: #eee;
+            }
+            &:hover {
+              background-color: rgba(255,255,255,0.2);
+              cursor: pointer;
+              -moz-box-shadow: inset 0px 0px 2px 0px #ffffff;
+              -webkit-box-shadow: inset 0px 0px 2px 0px #ffffff;
+              -o-box-shadow: inset 0px 0px 2px 0px #ffffff;
+              box-shadow: inset 0px 0px 2px 0px #ffffff;
+              filter:progid:DXImageTransform.Microsoft.Shadow(color=#ffffff, Direction=NaN, Strength=2);
+              a, span {
+                color: white;
+                text-decoration: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    .sub-msk-menu {
+      margin-bottom: 20px;
+      li {
+        padding-left: 30px;
+        height: 35px;
+        line-height: 35px;
+        &.user-off {
+          height: auto;
+          text-align: center;
+          line-height: 20px;
+          padding-right: 15px;
+          span {
+            padding-left: 0px;
+          }
+          &:hover {
+            cursor: default;
+            background-color: transparent;
+            -moz-box-shadow: none;
+            -webkit-box-shadow: none;
+            -o-box-shadow: none;
+            box-shadow: none;
+            filter:none;
+            a,span {
+              color: #eee;
+              text-decoration: none;
+            }
+          }
+        }
+        &.user-on {
+          position: relative;
+          .numbers {
+            position: absolute;
+            right: 10px;
+            top: 0px;
+          }
+        }
+      }
+    }
   }
   #content-wrapper {
     position: relative;
@@ -839,6 +967,9 @@ html:not(.touch){
       a {
         color: #444;
         text-decoration: none;
+      }
+      &.playlists a.btn {
+        color: white;
       }
     }
     .burger-icon, #logo{

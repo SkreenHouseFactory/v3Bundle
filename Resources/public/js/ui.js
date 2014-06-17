@@ -119,6 +119,12 @@ UI = {
         for (k in Skhf.session.credentials) {
           $('.credential-'+Skhf.session.credentials[k]).removeClass('hide').css('border', '2px dotted yellow');
         }
+        //Sidebar playlists
+        $('#msk-menu .lists .programs .numbers').html(parseInt(Skhf.session.getPlaylistIds('like').length));
+        $('#msk-menu .lists .persons .numbers').html(parseInt(Skhf.session.getPlaylistIds('person').length));
+        $('#msk-menu .lists .theaters .numbers').html(parseInt(Skhf.session.getPlaylistIds('cinema').length));
+        $('#msk-menu .lists .categories .numbers').html(parseInt(Skhf.session.getPlaylistIds('category').length) + parseInt(Skhf.session.getPlaylistIds('format-category').length));
+
       } else {
         $('.fb-placeholder').addClass('hide');
         $('.share-placeholder').removeClass('hide');
@@ -134,6 +140,12 @@ UI = {
       $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
       //fb
       if (Skhf.session.datas.fb_uid) {
+
+        //Sidebar friends
+        Facebook.getFriends(function(friends){
+          $('#msk-menu .friends .numbers').html(friends.length);
+        });
+
         if (Skhf.session.datas.fb_access_token == null) {
           $('.fb-placeholder').removeClass('hide');
           $('.share-placeholder').addClass('hide');
