@@ -141,7 +141,7 @@ class ToolsExtension extends \Twig_Extension
     */
     public function extract_bgd($src, $width = 1)
     {
-      return 'http://mskstatic.com/extract-background.php?src='.$src.'&x=1&y=1&width='.$width.'';
+      return 'http://s0.mskstatic.com/extract-background.php?src='.$src.'&x=1&y=1&width='.$width.'';
     }
 
     public function md_casting($casting)
