@@ -1112,6 +1112,15 @@ html:not(.touch){
 #content-wrapper {
   width: 100%;
 }
+@media (max-width:1420px) {
+  #super-wrapper.closed {
+    #top-header {
+      .headertoprighticons {
+        right: -135px;
+      }
+    }
+  }
+}
 @media (max-width:1250px) {
   #super-wrapper {
     padding-left: 0;
@@ -1131,6 +1140,16 @@ html:not(.touch){
       #content-wrapper {
         #top-header {
           left: 250px;
+        }
+      }
+    }
+    &.closed {
+      #content-wrapper {
+        #top-header {
+          padding-left: 0px;
+          .headertoprighticons {
+            right: 30px;
+          }
         }
       }
     }
