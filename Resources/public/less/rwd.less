@@ -1,0 +1,149 @@
+@media (max-width:1420px) {
+  #super-wrapper.closed {
+    #top-header {
+      .headertoprighticons {
+        right: -135px;
+      }
+    }
+  }
+}
+@media (max-width:1250px) {
+  #super-wrapper {
+    padding-left: 0;
+    #msk-menu {
+      left: 0;
+      display: none;
+    }
+    &.active {
+      position: relative;
+      left: 250px;
+      #msk-menu {
+        display: block;
+        left: 250px;
+        width: 250px;
+        transition: all 0.3s ease 0s;
+      }
+      #content-wrapper {
+        #top-header {
+          left: 250px;
+          .headertoprighticons {
+            right: 275px;
+          }
+        }
+      }
+    }
+    &.closed {
+      #content-wrapper {
+        #top-header {
+          padding-left: 0px;
+          .headertoprighticons {
+            right: 30px;
+          }
+        }
+      }
+    }
+    #content-wrapper {
+      #top-header {
+        left: 0;
+        padding-right: 15px;
+        .headertoprighticons {
+          li.playlists {
+            a.auth {
+              margin-left: 60px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width:410px) {
+  #super-wrapper {
+    #slide-in {
+      display: none;
+    }
+    #content-wrapper {
+      #top-header {
+        padding-right: 0;
+        #logo {
+          width: 80px;
+          img {
+            width: 75px;
+            margin-top: 10px;
+          }
+        }
+        .headertoprighticons {
+          display: none;
+        }
+        #nav-search {
+          position: absolute;
+          margin-left: 0;
+          right: 20px;
+          .glyphicon-search {
+            right: 6px!important;
+          }
+          .searchbutton {
+            width: 170px;
+          }
+        }
+        .nav.navbar-nav {
+          margin-top: -10px;
+          padding-left: 5px;
+          .hover-menu {
+            top: 24px;
+            &.vod {
+              left: -50px;
+            }
+            &.cine {
+              left: -140px;
+            }
+          }
+          > li {
+            font-size: 13px;
+            > a, > span {
+              padding: 8px 9px;
+            }
+          }
+        }
+      }
+      #content {
+        #view-home {
+          .carousel {
+            &.carousel-a-la-une {
+              &.carousel {
+                .carousel-control {
+                  top: 380px;
+                  width: 45px;
+                  height: 45px;
+                  line-height: 28px;
+                  &.right {
+                    right: 180px;
+                  }
+                }
+                .carousel-inner {
+                  .item {
+                    .container {
+                      .teaser-slider {
+                        left: 3px;
+                      }
+                      .carousel-caption {
+                        width: 60%;
+                        > p:first-child {
+                          padding-top: 20px;
+                          font-size: 1.8em;
+                        }
+                        p.pull-left {
+                          margin-top: -15px;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
