@@ -422,11 +422,11 @@ $(document).ready(function(){
       } else {
         e.preventDefault();
         $('#super-wrapper').toggleClass('active');
-        if ($('#super-wrapper').hasClass('active')) {
-          $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
-        } else {
-          $('head').append('<meta name="viewport" content="width=1010">');
-        }
+        // if ($('#super-wrapper').hasClass('active')) {
+        //   $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
+        // } else {
+        //   $('head').append('<meta name="viewport" content="width=1010">');
+        // }
       }
     }
   });
