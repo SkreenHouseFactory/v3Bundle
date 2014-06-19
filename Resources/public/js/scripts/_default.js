@@ -171,6 +171,14 @@ $(document).ready(function(){
   //notifications
   $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
 
+    if ('matchMedia' in window) {
+      if (window.matchMedia('(max-width:450px)').matches) {
+        var notifs_href = $('.headertoprighticons .dropdown-menu .link-usernotifs > a.seo-replaced').attr('href');
+        window.location = notifs_href;
+        return;
+      }
+    }
+
     if ($(this).hasClass('tv-component')  && 
         !$(this).parent().hasClass('open') ) { 
           if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
@@ -282,7 +290,7 @@ $(document).ready(function(){
   });
 
   // -- ui typeahead
-  UI.typeahead('#nav-search .search-query');
+  UI.typeahead('#nav-search .search-query, #nav-search-bis .search-query');
 
   // -- typeahead on keypress
   /*

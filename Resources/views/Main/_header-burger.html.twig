@@ -1,6 +1,12 @@
 {% set header_base = app.environment == 'prod' ? 'http://www.myskreen.com' : '' %}
 <nav id="msk-menu">
   <ul>
+    <li>
+      <form id="nav-search-bis" class="navbar-search">
+        <span class="glyphicon glyphicon-search" style="display: inline-block;position: absolute;top: 24px;right: 9px;color:#777777"></span>
+        <input type="text"  value="{{ app.request.get('q') }}" class="search-query searchbutton" placeholder=" Un film, un acteur, etc.">
+      </form>
+    </li>
     <li class="diffs">
       <span class="sk-font">Mes prochaines diffusions</span>
       <ul class="sub-msk-menu">

@@ -633,10 +633,12 @@ UI = {
    notificationBadge: function(nb_new) {
      if($('#top-header .notifications ul li .badge-important').length ){
       if (nb_new > 0) {
-        $('#top-header .notifications-count .badge').addClass('badge-important').html($('#top-header .notifications ul li.tv-component .badge-important').length);
+        var nb_new_notifs = $('#top-header .notifications ul li.tv-component .badge-important').length;
+        $('#top-header .notifications-count .badge').addClass('badge-important').html(nb_new_notifs);
       }
      } else {
-       $('#top-header .notifications-count .badge').removeClass('badge-important').html($('#top-header .notifications ul li.tv-component').length);
+        var nb_notifs = $('#top-header .notifications ul li.tv-component').length;
+        $('#top-header .notifications-count .badge').removeClass('badge-important').html(nb_notifs);
      }
    },
   // filter
