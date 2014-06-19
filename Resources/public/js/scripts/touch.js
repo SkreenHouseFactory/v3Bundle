@@ -1,7 +1,18 @@
+// var test_device = function(){
+//   if ('matchMedia' in window) {
+//     if (window.matchMedia('(min-width:450px)').matches) {
+//       $('head').append('<meta name="viewport" content="width=1010">');
+//     }
+//   }
+// }
+
 /* TOUCH */
 $(document).ready(function(){
   // auto focus on search box
   if ($('html').hasClass('touch')){
+
+    // test_device();
+
     //swipe Ipad
   	$('.carousel').hammer().on('swipeleft', function(){
   		$(this).carousel('next'); 
