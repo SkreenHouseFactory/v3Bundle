@@ -5,6 +5,10 @@ var Dialog = Class.extend({
   content: null,
 
   init: function(method,params,timeout){
+    if ($('html').hasClass('touch')) {
+      // Pas de Dialog sur les touch devices
+      return;
+    }
     if (typeof(this[method]) != 'undefined') {
       this[method]();
       for (k in params) {

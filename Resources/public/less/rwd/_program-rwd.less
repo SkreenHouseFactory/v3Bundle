@@ -1,0 +1,244 @@
+@media (max-width:767px) {
+  body {
+    #super-wrapper {
+      #content-wrapper {
+        #main {
+          padding-top: 86px;
+          #view-program {
+            .playwrap {
+              width: auto;
+              .col-xs-11 {
+                padding: 0;
+                margin: 0 auto;
+                float: none;
+                width: auto;
+              }
+              .col-xs-5 {
+                display: none;
+              }
+              #player {
+                height: 250px;
+              }
+              #program-teaser {
+                #program-teaser-player {
+                  iframe {
+                    margin: 0px auto;
+                    display: block;
+                    width: 95%;
+                    height: 100%;
+                  }
+                }
+              }
+              & + .row {
+                .col-xs-11 {
+                  width: 100%;
+                  padding: 0 5px;
+                  .best-offer {
+                    &.theater {
+                      .col-xs-3 {
+                        display: none;
+                      }
+                    }
+                    &.deporte {
+                      > .col-xs-3.offers {
+                        width: 60%;
+                      }
+                      > .col-xs-7 {
+                        display: none;
+                      }
+                    }
+                    &.external {
+                      > .col-xs-3 {
+                        width: 30%;
+                        img {
+                          display: none;
+                        }
+                        > a.btn {
+                          font-size: 16px;
+                          padding: 6px 3px;
+                          .glyphicon {
+                            right: 0px;
+                          }
+                        }
+                      }
+                      > .col-xs-13 {
+                        width: 70%;
+                      }
+                    }
+                  }
+                }
+                .shareblock {
+                  display: none;
+                }
+              }
+            }
+            .bande_listes {
+              margin-top: 10px;
+              .col-xs-11 {
+                width: 100%;
+                padding-top: 5px;
+                h1, #fake_h1 {
+                  margin-top: 5px;
+                  font-size: 1.7em;
+                }
+              }
+              .col-xs-5 {
+                width: 100%;
+                .col-xs-16:not(.ajout) {
+                  margin-bottom: 10px;
+                  .meslistes-plus {
+                    display: none;
+                  }
+                }
+              }
+            }
+            .bande_offers {
+              .channel-side {
+                display: none;
+              }
+              .contents {
+                width: 100%;
+                #onglets {
+                  height: 70px;
+                  li {
+                    height: 70px;
+                    a {
+                      font-size: 13px;
+                      .row:first-child {
+                        .col-xs-16 {
+                          font-size: 15px;
+                        }
+                      }
+                      .row:last-child {
+                        padding: 0 5px;
+                      }
+                      span.badge {
+                        font-size: 10px;
+                      }
+                    }
+                  }
+                }
+                .tab-content {
+                  .tab-pane {
+                    > .col-xs-16 {
+                      padding: 0 5px;
+                    }
+                  }
+                  #voir {
+                    .tab-pane {
+                      table {
+                        tr {
+                          td {
+                            &.offers {
+                              width: 120px;
+                              button, a.btn {
+                                width: 100px;
+                                min-width: 100px;
+                                padding: 12px 6px;
+                              }
+                            }
+                            &.price {
+                              .rent {
+                                font-size: 1em;
+                              }
+                            }
+                          }
+                          &.replay {
+                            td {
+                              &.price {
+                                width: 160px;
+                                .rent {
+                                  font-size: 0.9em;
+                                }
+                              }
+                              &.channel {
+                                img {
+                                  max-width: 50px;
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                    #theaters-search {
+                      width: 100%;
+                      float: none!important;
+                      padding: 0px 2%;
+                    }
+                    #theater {
+                      > p.bs-callout {
+                        margin: 20px 2%;
+                      }
+                      .btn-group {
+                        display: block;
+                        margin: 15px auto;
+                        a.btn {
+                          border-radius: 3px;
+                        }
+                        #trigger-theaters-geoloc {
+                          margin-left: 2%;
+                        }
+                        #trigger-theaters-playlist {
+                          float: right;
+                          margin-right: 2%;
+                        }
+                        &:after {
+                          content: " ";
+                          display: table;
+                          clear: both;
+                        }
+                      }
+                      #theaters-list {
+                        padding: 15px 2%;
+                        p.bs-callout {
+                          &:after {
+                            content: " ";
+                            display: table;
+                            clear: both;
+                          }
+                          .btn-suivre {
+                            margin-top: 8px;
+                          }
+                        }
+                      }
+                    }
+                  }
+                  #videos {
+                    table {
+                      tr.bonus, tr.cut, tr.ba {
+                        td.channel {
+                          width: 120px;
+                          max-width: 120px;
+                        }
+                        td.price {
+                          display: none;
+                        }
+                      }
+                    }
+                    #program-more-streaming {
+                      display: none;
+                    }
+                  }
+                  #infos {
+                    #program-synopsis {
+                      width: 100%;
+                    }
+                  }
+                }
+              }
+            }
+            .related {
+              padding-bottom: 20px;
+              .container {
+                hr {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
