@@ -252,9 +252,13 @@ class ChannelCustomController extends MyskreenController
     $pack = array();
     foreach ($data->sliders as $key => $slider) {
       switch ($slider->id) {
-        case '12975429':
+        case '12193170':
+//          echo 'OK';exit();
           $pack['replay-populaires'] = $slider;
           unset($data->sliders->{$key});
+        break;
+        default:
+//          echo 'NOK:'.$slider->id;
         break;
       }
     }

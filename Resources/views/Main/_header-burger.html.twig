@@ -1,0 +1,74 @@
+{% set header_base = app.environment == 'prod' ? 'http://www.myskreen.com' : '' %}
+<nav id="msk-menu">
+  <ul>
+    <li>
+      <form id="nav-search-bis" class="navbar-search">
+        <span class="glyphicon glyphicon-search" style="display: inline-block;position: absolute;top: 24px;right: 9px;color:#777777"></span>
+        <input type="text"  value="{{ app.request.get('q') }}" class="search-query searchbutton" placeholder=" Un film, un acteur, etc.">
+      </form>
+    </li>
+    <li class="diffs">
+      <span class="sk-font">Mes prochaines diffusions</span>
+      <ul class="sub-msk-menu">
+        <li class="user-off">
+          <span>Retrouvez-ici les diffusions des programmes que vous suivez&nbsp;: TV, VOD, Replay et Cinéma</span>
+        </li>
+        <li class="user-on tv">
+          <span class="numbers">0</span>
+          <span data-link-to-replace="{{ path('tvgrid')|rot13 }}">TV</span>
+        </li>
+        <li class="user-on vod">
+          <span class="numbers">0</span>
+          <span data-link-to-replace="{{ path('homes', {home: 'video-a-la-demande'})|rot13 }}">Streaming</span>
+        </li>
+        <li class="user-on cine">
+          <span class="numbers">0</span>
+          <span data-link-to-replace="{{ path('homes', {home: 'cinema'})|rot13 }}">Cinéma</span>
+        </li>
+        <li class="user-on replay">
+          <span class="numbers">0</span>
+          <span data-link-to-replace="{{ header_base|rot13 }}{{ path('channel', {slug: 'replay'})|rot13 }}">Replay</span>
+        </li>
+      </ul>
+    </li>
+    <li class="lists">
+      <span class="sk-font">Mes listes</span>
+      <ul class="sub-msk-menu">
+        <li class="user-off">
+          <span>Tout ce que vous aimez regroupé par listes&nbsp;: programmes, personnalités, salles de ciné, catégories</span>
+        </li>
+        <li class="user-on programs">
+          <span class="numbers">0</span>
+          <span data-link-to-replace="{{ path('user_programs')|rot13 }}">Mes programmes</span>
+        </li>
+        <li class="user-on persons">
+          <span class="numbers">0</span>
+          <span data-link-to-replace="{{ path('user_persons')|rot13 }}">Mes personnalités</span>
+        </li>
+        <li class="user-on theaters">
+          <span class="numbers">0</span>
+          <span data-link-to-replace="{{ path('user_theaters')|rot13 }}">Mes salles de cinéma</span>
+        </li>
+        <li class="user-on categories">
+          <span class="numbers">0</span>
+          <span data-link-to-replace="{{ path('user_category')|rot13 }}">Mes catégories</span>
+        </li>
+      </ul>
+    </li>
+    <li class="friends">
+      <span class="user-on numbers">0</span>
+      <span class="sk-font">Mes amis</span>
+      <ul class="sub-msk-menu">
+        <li class="user-off">
+          <span>Tenez vous au courant de ce que vos amis Facebook regardent</span>
+        </li>
+        <li class="user-on">
+          <span data-link-to-replace="{{ path('user_friends')|rot13 }}">Leurs programmes</span>
+        </li>
+      </ul>
+    </li>
+    <li class="user-off">
+      <a class="auth">En créant vos listes, vous ne raterez plus les programmes qui vous intéressent</a>
+    </li>
+  </ul>
+</nav>

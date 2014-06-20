@@ -102,11 +102,14 @@ channel.personne is defined ? 'Suivre ' ~ data.name : ''} %}
       </div>
     </div>
   </div>
+  <div class="container nopadding">
+    <hr/>
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
+  </div>
 {% endblock %}
 
 {% block pagescripts %}
   {% javascripts
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/jquery.sticky-kit.min.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/selection.js'
     filter='?yui_js' 
     output='js/compiled/pages/selection.js'  %}

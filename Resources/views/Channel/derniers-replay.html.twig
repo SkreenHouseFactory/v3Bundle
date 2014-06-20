@@ -35,6 +35,14 @@
     </div>  
     <div class="slider slider-list">
       <ul class="items">
+        {% set ids = '' %}
+        {% for program in channel.fournisseur.programs_replay|to_array %}
+          {% if loop.first %}
+            {% set ids = program.id %}
+          {% else %}
+            {% set ids = ids ~ ',' ~ program.id %}
+          {% endif %}
+        {% endfor %}
         {% set current_date = '' %}
         {% for p in channel.fournisseur.programs_replay|to_array %}
           {% if current_date != p.best_offer.broadcasttime|localizeddate('full', 'none') %}
@@ -45,6 +53,14 @@
             <ul class="items">
           {% endif %}
           {% set current_date = p.best_offer.broadcasttime|localizeddate('full', 'none') %}
+          {% if loop.first %}
+            <li class="teaser-container">
+              <div class="teaser-replay">
+                <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ p.id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
+              </div>
+              <div class="replay-infos sk-font">Retrouvez ci-dessus les derniers Replays de {{ channel.name }}.</div>
+            </li>
+          {% endif %}
           {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, origin: 'last-replay'} %}
         {% endfor %}
       </ul>
@@ -58,6 +74,10 @@
         <h3><a href="{{ path('any_url', {url: p.seo_url|slice(1, p.seo_url|length-1)}) }}">{{ p.title }}, en Replay</a></h3>
         <p>{{ description|wordCut(300,'...')|raw }}</p>
       {% endfor %}
+    </div>
+    <div class="container nopadding">
+      <hr/>
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
     </div>
   </div>
 {% endblock %}

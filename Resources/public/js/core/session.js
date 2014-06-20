@@ -74,14 +74,22 @@ var BaseSession = Class.extend({
          }
        });
      } else {
-       Skhf.session.datas = sessionData;
-       UI.loadUser();
-       if (typeof callback != 'undefined' && callback) {
-         callback(sessionData, this)
-       }
-       Skhf.session.update();
-     }
-   }
+      if (typeof Skhf.session.datas.friends != 'undefined') {
+        var friends = Skhf.session.datas.friends;
+        var friends_playlists = Skhf.session.datas.friends_playlists;
+        Skhf.session.datas = sessionData;
+        Skhf.session.datas.friends = friends;
+        Skhf.session.datas.friends_playlists = friends_playlists;
+      } else {
+        Skhf.session.datas = sessionData;
+      }
+      UI.loadUser();
+      if (typeof callback != 'undefined' && callback) {
+        callback(sessionData, this)
+      }
+      Skhf.session.update();
+    }
+  }
 
    // exists
    if (this.uid) {
@@ -265,6 +273,7 @@ var BaseSession = Class.extend({
    if (this.social_state == 'done') {
      if (typeof callback != 'undefined') {
        console.warn('BaseSession.getSocialDatas', 'state=done');
+       console.log('BaseSession.getSocialDatas', 'friends', self.datas.friends);
        callback(typeof self.datas.friends != 'undefined' ? self.datas.friends : [], self.datas.friends_programs);
      }
 
@@ -311,6 +320,8 @@ var BaseSession = Class.extend({
             }
            }
            self.datas.friends_programs = sessionDatas.friends_playlists;
+           console.log('BaseSession.getSocialDatas', 'self.datas.friends', self.datas.friends);
+           console.log('BaseSession.getSocialDatas', 'self.datas.friends_programs', self.datas.friends_programs);
 
            for (k in self.callbackSocial) {
              console.log('BaseSession.getSocialDatas', 'callback', self.callbackSocial[k]);

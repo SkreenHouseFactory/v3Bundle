@@ -205,6 +205,10 @@
         <h2>Programmes à voir</h2>
         <p>{% if app.request.get('access') %}{{ ('access.' ~ app.request.get('access'))|trans }} : {% endif %}{{ category.description|raw }}</p>
       </div>
+      <div class="container nopadding">
+    <hr/>
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
+  </div>
     </div>
 
     <h3 class="pager-count">{{ category.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
@@ -225,7 +229,7 @@
         {% endfor %}
         <li class="teaser-container">
           <div class="teaser-category" data-teaser-ids="{{ ids }}">
-            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1{# &playlist={{ ids }} #}" scrolling="no" frameborder="0"></iframe>
+            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
           </div>
           <div class="teaser-title sk-font">Retrouvez ci-dessus les bandes-annonces de la catégorie {{ category.name }}{% if app.request.get('access') %} en {{ ('access.' ~ app.request.get('access'))|trans }}{% endif %}.</div>
         </li>

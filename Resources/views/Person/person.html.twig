@@ -42,6 +42,10 @@
     {% if app.request.get('page') < 2 %}
       <div id="md-description" class="description-seo description-seo-absolute">
         <div itemprop="description" class="container well scroll">{{ person.description|raw }}</div>
+        <div class="container nopadding">
+          <hr/>
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
+        </div>
       </div>
     {% endif %}
     {% if person.notifications|to_array|length > 0 %}

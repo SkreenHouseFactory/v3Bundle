@@ -43,16 +43,12 @@
           {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
           {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
         </div>
-        <div class="container nopadding">
-          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-          <ins class="adsbygoogle"
-              style="display:inline-block;width:970px;height:90px"
-              data-ad-client="ca-pub-4265768576048156"
-              data-ad-slot="3195548951"></ins>
-          <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
-        </div>
+        {% if home.name != 'mixte' %}
+          <div class="container nopadding">
+            <hr/>
+            {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
+          </div>
+        {% endif %}
       </div>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une transchange', force_size: '/1250/370'} %}
       {% if 'video-a-la-demande' in app.request.uri %}
@@ -89,6 +85,12 @@
       </div>
     </div>
   </div>
+  {% endif %}
+  {% if home.name == 'mixte' %}
+    <div class="container nopadding">
+      <hr/>
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
+    </div>
   {% endif %}
 </div>
 

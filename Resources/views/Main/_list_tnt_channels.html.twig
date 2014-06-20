@@ -1,0 +1,11 @@
+{% set tnt_channels = ['TF1','FRANCE 2','FRANCE 3','CANAL','FRANCE 4','FRANCE 5','FRANCE Ô','ARTE','M6','D8','D17','W9','TMC','NT1','NRJ 12','FRANCE 24','BFM TV','BFM Business','iTélé','Public Sénat','HD1','6Ter','Numéro 23','Disney Channel','Gulli','RMC découverte','Chérie 25','beIn Sports', 'Eurosport HD', 'L\'Équipe 21'] %}
+<div{{ id is defined and id ? ' id="' ~ id ~ '"' : '' }} class="row chaines-listing clearfix">
+  <div class="clearfix">
+    {% for c in tnt_channels %}
+      {% set slug = c|lower|replace({ ' +': '', ' ': '-', 'é': 'e', 'à': 'a', 'ô': 'o', 'î': 'i', "\'": '-'})|raw %}
+      <a class="logo_chaine" href="{{ path('channel', {slug: slug}) }}" data-toggle="tooltip" data-placement="{{ loop.index in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] ?'top':'bottom' }}" data-original-title="{{c|upper}}">
+        <img src="http://s0.mskstatic.com/35/medias/ico/chaines/{{ slug }}_medium.png" alt="{{ c }} Replay">
+      </a>
+    {% endfor %}
+  </div>
+</div>
