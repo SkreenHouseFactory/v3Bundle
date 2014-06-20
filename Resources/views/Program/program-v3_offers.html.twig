@@ -6,6 +6,7 @@
     </div>
   </div> #}
 
+
 {% if program.season_number is defined and 
       tab is not defined %}
   <div class="panel panel-default">
@@ -27,6 +28,18 @@
     {% set loop_offset = 2 %}
   {% else %}
     {% set loop_offset = 3 %}
+  {% endif %}
+
+  {# pass myskreen #}
+  {% if key == 'deporte' and  app.request.get('activate_pass') %}
+  <div class="panel panel-deporte panel-success">
+    <div class="panel-heading">
+      <h3 class="panel-title">Pass myskreen</h3>
+    </div>
+    <div id="pass" class="tab-pane">
+      <a class="btn btn-success" href="https://payment.allopass.com/subscribe/subscribe.apu?ids=314744&amp;idd=1365117&amp;merchant_subscriber_reference=">S'abonner</a>
+    </div>
+  </div>
   {% endif %}
 
   <div class="panel{{ program.offers[key]|to_array|length > loop_offset or (key == 'external' and program.offers['deporte']|to_array|length) ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : ' panel-default' }} count-{{ program.offers[key]|to_array|length }}">

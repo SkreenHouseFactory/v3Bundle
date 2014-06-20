@@ -74,7 +74,7 @@
                   <div>
                     <h3>{{ item.title }}</h3>
                     <span>
-                      {% if item.best_offer is defined and item.best_offer %}
+                      {% if item.best_offer is defined and item.best_offer and item.best_offer.broadcasttime is defined %}
                         {{ origin == 'fournisseur_avenir' ? ('<b>' ~ item.best_offer.broadcasttime | date("H:i") ~ '</b>')|raw : '' }}
                         {{ origin == 'fournisseur_replay' ? item.best_offer.broadcasttime | localizeddate("medium","none",app.request.locale,"Europe/Paris","H:mm EEEE") : (item.format ? ' ' ~ item.format.name : " Émission") }}
                       {% else %}
