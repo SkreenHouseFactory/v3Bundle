@@ -3,7 +3,7 @@ var PlayerScroll;
 PlayerScroll = {
   initPlayerScroll: function() {
     var lastScrollTop = 0;
-    var nav = $('#top-header');
+    var nav = $('.navbar.navbar-fixed-top');
     var playwrap = $('.playwrap');
     var playwrap_offset = 80;  //$('.playwrap').offset();
     var playwrapsub = $('.playwrapsub');

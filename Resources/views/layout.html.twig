@@ -70,8 +70,9 @@
 <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/ipad-retina.png') }}" />
 <link rel="dns-prefetch" href="http://mskstatic.com"/>
 <link rel="apple-touch-startup-image" href="{{ asset('bundles/skreenhousefactoryv3/images/icons/startup.png') }}" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ 
+ 
+{# <meta name="viewport" content="width=1010, maximum-scale=1, user-scalable = yes" />#}
 
 {% stylesheets
   'http://fonts.googleapis.com/css?family=Raleway:100,300'
@@ -103,13 +104,9 @@
     <script src="{{ asset('bundles/skreenhousefactoryv3//js/vendors/modernizr.min.js') }}"></script>
 
   </head>
-  <body class="{% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}"{% if block('body_background') %} style="background:{% block body_background %}{% endblock %};"{% endif %}{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}{% if block('body_attribute') %}{% block body_attribute %}{% endblock %}{% endif %}><div id="super-wrapper"> {# START Wrapper mmenu #}
+  <body class="{% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}"{% if block('body_background') %} style="background:{% block body_background %}{% endblock %};"{% endif %}{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}{% if block('body_attribute') %}{% block body_attribute %}{% endblock %}{% endif %}>
 <!--[if lt IE 8]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
-{% render(controller('SkreenHouseFactoryV3Bundle:Main:newheader', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) %}
-
-<div id="content-wrapper"> {# START Content wrapper #}
-  {% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) %}
-  <article>
+<article>
   <div id="main">
     <div id="content" class="uiview-update">
      <!--[if lt IE 8]>  <div class="lt-ie8-pop hide">
@@ -147,6 +144,7 @@
 </article>
 <div id="alert-user"><span class="glyphicon glyphicon-remove-sign"></span><div class="alert-user-title"></div><div class="alert-user-content"></div></div>
 
+{% render(controller('SkreenHouseFactoryV3Bundle:Main:header', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) %}
 {#{ render_esi(controller('SkreenHouseFactoryV3Bundle:Main:header', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) }#}
 {% block header_filters %}
 {% endblock %}
@@ -209,7 +207,5 @@
 {% endif %}
 {% endspaceless %}
 <div class="modal-backdrop in hide"></div>
-</div> {# END Content wrapper #}
-</div> {# END Wrapper mmenu #}
 </body>
 </html>
