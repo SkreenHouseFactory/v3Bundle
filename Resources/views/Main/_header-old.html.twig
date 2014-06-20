@@ -1,15 +1,20 @@
-<div id="top-header">
+<div id="top-header" class="mm-fixed-top">
+  <div class="container">
     <div class="row">
       <div class="col-xs-16">
-        <a class="burger-icon" href="#msk-menu"><span class="glyphicon glyphicon-align-justify"></span></a>
+        {# LOGO ENTETE #}
         <a id="logo" href="{{ path('homes', {home: null})|replace({'//': '/'}) }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" ></a>
         <ul class="nav navbar-nav">
           <li{{ app.request.attributes.get('_route') in ['tvgrid_date','tvgrid'] ? ' class="active"' : '' }}>
             <span data-link-to-replace="{{ path('tvgrid')|rot13 }}">TV &amp; Replay</span>
             {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "tv"} %}
           </li>
+          {#<li><a href="#">WEB TV</a></li>#}
           <li{{ app.request.get('home') == 'video-a-la-demande' ? ' class="active"' : '' }}>
             <a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">A la demande</a>
+            {#  {% if home.filters|to_array|length %}
+                  <i class="ms-top-triangle ms_triangle_position_a"></i>
+                {% endif %} #}
             {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "video-a-la-demande"} %}
           </li>
           <li{{ app.request.get('home') == 'cinema' ? ' class="active"' : '' }}>
@@ -17,13 +22,16 @@
             {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "cinema"} %}
           </li>
         </ul>
+
+        {# RECHERCHE #}
         <form id="nav-search" class="navbar-search">
-          <span class="glyphicon glyphicon-search" style="display: inline-block;position: absolute;top: 24px;right: 9px;color:#777777"></span>
+          <i class="glyphicon glyphicon-search" style="display: inline-block;position: absolute;top: 24px;right: 9px;color:#777777"></i>
           <input type="text"  value="{{ app.request.get('q') }}" class="search-query pull-left searchbutton" placeholder=" Un film, un acteur, etc.">
         </form>
-        <ul class="nav nav-playlists headertoprighticons hide"> 
+
+        {# <ul class="nav nav-playlists headertoprighticons hide"> #} 
           {# NOTIFS #}
-          <li class="hide user-on dropdown notifications tv-component inline-block">
+          {# <li class="hide user-on dropdown notifications tv-component inline-block">
             <a data-toggle="dropdown" class="dropdown-toggle uppercase notifications-count"></a>
             <ul id="dropdown-menu-notification" class="dropdown-menu">
               <span class="notification-filter">
@@ -41,24 +49,26 @@
                   </p>
                 </li>
               </div>
-              <span class="link-usernotifs clearfix">
-                <span data-link-to-replace="{{ path('user_notifs')|rot13 }}">Toutes mes notifications</span>
-                <span rel="tooltip" class="remove-all-notifs pull-right" data-trigger-click=".notifications .remove" data-container="body" data-placement="bottom" title="Supprimer toutes les notifications de la liste">
-                  <span class="glyphicon glyphicon-trash"></span>
-                </span>
-              </span>
+              <span class="link-usernotifs"><span data-link-to-replace="{{ path('user_notifs')|rot13 }}">Toutes mes notifications</span></span>
             </ul>
-          </li>
+          </li> #}
 
           {# SE CONNECTER #}
-          <li class="user-off playlists">
+          {# <li class="user-off playlists">
             <a class="auth btn btn-primary" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même playlist !">
               Mes listes<br/><small>Se connecter / s'inscrire</small>
             </a>
-          </li>
+          </li> #}
+
+          {# MA PLAYLIST / MES FAVORIS #}
+          {# <li class="hide user-on playlists inline-block">
+            <a data-toggle="collapse" data-target="#top-playlist" class="tv-component">
+            Mes playlists
+            </a>
+          </li> #}
 
           {# MON COMPTE #}
-          <li class="hide user-on dropdown user-menu disable-select inline-block">
+          {# <li class="hide user-on dropdown user-menu disable-select inline-block">
             <a id="dLabel" data-toggle="dropdown" class="dropdown-toggle tv-component pull-right">
               <span class="glyphicon glyphicon-user"></span>
             </a>
@@ -81,6 +91,18 @@
               </li>
               <li class="divider"></li>
               <li>
+                <span class="programs" data-link-to-replace="{{ path('user_programs')|rot13 }}"><i class="glyphicon glyphicon-list"></i> Mes listes <span></span></span>
+              </li>
+              <li>
+                <span class="notifs" data-link-to-replace="{{ path('user_notifs')|rot13 }}"><i class="glyphicon glyphicon-bell"></i> Mes notifications <span></span></span>
+              </li>
+              <li>
+                <span class="friends" data-link-to-replace="{{ path('user_friends')|rot13 }}"><i class="glyphicon glyphicon-heart-empty"></i> Mes amis regardent <span></span></span>
+              </li>
+              <li>
+                <span class="vod" data-link-to-replace="{{ path('user_vod')|rot13 }}"><i class="glyphicon glyphicon-film"></i> {{ 'nav.vod'|trans }}</span>
+              </li>
+              <li>
                 <span class="account" data-link-to-replace="{{ path('user_settings')|rot13 }}"><i class="glyphicon glyphicon-user"></i> {{ 'nav.account'|trans }}</span>
               </li>
               <li class="divider"></li>
@@ -89,7 +111,27 @@
               </li>
             </ul>
           </li>
-        </ul>
+        </ul> #}
+
       </div>
     </div>
+  </div>
+
+  {# <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
+    <div class="container playlist">
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
+    </div>
+  </div> #}
+
 </div>
+{#  Header alternatif avec fond bleu
+
+    <div class="bluescroll row">
+      <div class="container">
+        <div class="col-xs-4"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-footer.png') }}" alt="mySkreen.com"></div>
+        <div class="col-xs-8"></div>
+        <div class="col-xs-4"></div>
+      </div>
+    </div>
+
+ #}
