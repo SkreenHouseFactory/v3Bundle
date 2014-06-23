@@ -1,0 +1,92 @@
+@media (max-width:767px) {
+  body {
+    #super-wrapper {
+      #content-wrapper {
+        #main {
+          .bande_listes {
+            .row:first-child {
+              .col-xs-11 {
+                width: 100%;
+                #fake_h1 {
+                  font-size: 2em;
+                }
+                .episodes {
+                  font-size: 1.1em;
+                }
+              }
+              .col-xs-5 {
+                margin-bottom: 20px;
+                width: 100%;
+              }
+            }
+          }
+          .bande_couleur_degrade {
+            display: none;
+          }
+          #view-selection {
+            h1 {
+              font-size: 1.7em;
+            }
+            #selection-programs {
+              &.list {
+                width: 100%;
+                .col-xs-4 {
+                  width: 40%;
+                  padding-right: 0;
+                  img {
+                    height: 120px;
+                  }
+                }
+                .col-xs-12 {
+                  width: 60%;
+                  margin-left: -15px;
+                  padding-left: 0;
+                  p.infos + p {
+                    font-size: 0.9em;
+                  }
+                  p.item-buttons {
+                    margin-top: 10px;
+                    margin-left: -60%;
+                    a {
+                      margin-bottom: 20px;
+                    }
+                  }
+                }
+              }
+              &.slider {
+                width: 100%;
+                &.slider-list {
+                  ul.items {
+                    li {
+                      width: 48%;
+                      max-width: 150px;
+                    }
+                  }
+                }
+              }
+            }
+            #selection-related {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+  body:not(.connected) {
+    #super-wrapper {
+      .meslistes-plus {
+        display: none;
+      }
+    }
+  }
+  body.view-selections {
+    #super-wrapper {
+      #content-wrapper {
+        #main {
+          padding-top: 86px!important;
+        }
+      }
+    }
+  }
+}

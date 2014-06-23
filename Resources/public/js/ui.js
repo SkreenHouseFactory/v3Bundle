@@ -113,7 +113,11 @@ UI = {
         this.loadPlaylistTriggers();
       
         //mes listes
-        this.loadMeslistes();
+        if ('matchMedia' in window) {
+          if (window.matchMedia('(min-width:768px)').matches) {
+            this.loadMeslistes();
+          }
+        }
         
         //credential
         for (k in Skhf.session.credentials) {

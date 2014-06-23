@@ -323,28 +323,36 @@ UiView = {
     })
     // toggle text in element
     $(elmt).on('click', '[data-toggle-text]', function () {
-      var html = $(this).html();
-      console.log('script', '[data-toggle-text]', $(this).data('toggle-text'), html);
-      $(this).html($(this).data('toggle-text'));
-      $(this).data('toggle-text', html);
+      if (!$(this).hasClass('no-toggle-touch')) {
+        var html = $(this).html();
+        // console.log('script', '[data-toggle-text]', $(this).data('toggle-text'), html);
+        $(this).html($(this).data('toggle-text'));
+        $(this).data('toggle-text', html);
+      }
     });
     // toggle display
     $(elmt).on('click', '[data-toggle-display]', function () {
-      console.log('script', '[data-toggle-display]', $(this).data('toggle-display'));
-      if($(this).data('toggle-animation') == 'slide'){
-        $($(this).data('toggle-display')).slideToggle();
+      // console.log('script', '[data-toggle-display]', $(this).data('toggle-display'));
+      if (!$(this).hasClass('no-toggle-touch')) {
+        if($(this).data('toggle-animation') == 'slide'){
+          $($(this).data('toggle-display')).slideToggle();
+        } else {
+          $($(this).data('toggle-display')).toggle();
+        }
       } else {
-        $($(this).data('toggle-display')).toggle();
+        var location = $(this).data('relocation').replace('app_dev.php/','');
+        window.location = API.config.v3_root + location;
+        return;
       }
     });
     $(elmt).on('click', '[data-toggle-hide]', function () {
-      console.log('script', '[data-toggle-hide]', $(this).data('toggle-hide'));
+      // console.log('script', '[data-toggle-hide]', $(this).data('toggle-hide'));
       $($(this).data('toggle-hide')).toggleClass('hide');
     });
 
     // -- remote data in html elmt
     $(elmt).on('click', '[data-trigger-click]', function(){
-      console.log('script', '[data-trigger-click]', $(this).data('trigger-click'), $($(this).data('trigger-click')));
+      // console.log('script', '[data-trigger-click]', $(this).data('trigger-click'), $($(this).data('trigger-click')));
       $($(this).data('trigger-click')).trigger('click');
       return false;
     });

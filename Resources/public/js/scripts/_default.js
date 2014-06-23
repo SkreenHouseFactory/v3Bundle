@@ -275,11 +275,11 @@ $(document).ready(function(){
   });
   
   // -- ui form
-  $('#top-header form.navbar-search i.glyphicon').on('click', function(){
-    $('#top-header form.navbar-search').submit();
+  $('#msk-menu form.navbar-search i.glyphicon').on('click', function(){
+    $('#msk-menu form.navbar-search').submit();
     return false;
   });
-  $('#top-header form.navbar-search').on('submit', function(){
+  $('#msk-menu form.navbar-search').on('submit', function(){
     $('.search-query', $(this)).blur();
     var q = encodeURIComponent($('.search-query', $(this)).val());
     console.log('script', 'searchbox blur', q);
@@ -430,13 +430,13 @@ $(document).ready(function(){
       } else {
         e.preventDefault();
         $('#super-wrapper').toggleClass('active');
-        // if (window.matchMedia('(min-width:500px)').matches) {
-        //   if ($('#super-wrapper').hasClass('active')) {
-        //     $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
-        //   } else {
-        //     $('head').append('<meta name="viewport" content="width=1010">');
-        //   }
-        // }
+        if (window.matchMedia('(min-width:767px)').matches) {
+          if ($('#super-wrapper').hasClass('active')) {
+            $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
+          } else {
+            $('head').append('<meta name="viewport" content="width=1010">');
+          }
+        }
       }
     }
   });
