@@ -34,6 +34,61 @@
                   width: 100%;
                   padding: 0 5px;
                   .best-offer {
+                    &.tv {
+                      .col-xs-13 {
+                        width: 86%;
+                        .row {
+                          span {
+                            font-size: 1em;
+                            & + span {
+                              display: none;
+                            }
+                          }
+                          &.last-child {
+                            font-size: 0.9em;
+                          }
+                        }
+                      }
+                      .col-xs-3 {
+                        width: 14%;
+                        img {
+                          max-width: 100%;
+                        }
+                      }
+                    }
+                    &.replay {
+                      .col-xs-3:first-child {
+                        width: 22%;
+                        button, a.btn {
+                          font-size: 14px;
+                          padding: 6px 3px;
+                          .glyphicon {
+                            font-size: 15px;
+                            right: 0px;
+                          }
+                        }
+                      }
+                      .col-xs-10 {
+                        width: 59%;
+                        .row {
+                          span {
+                            font-size: 1em;
+                            & + span {
+                              display: none;
+                            }
+                          }
+                          .col-xs-16 {
+                            font-size: 0.8em;
+                          }
+                        }
+                      }
+                      .col-xs-3 {
+                        img {
+                          max-width: 40px;
+                          width: 40px;
+                        }
+                      }
+                    }
                     &.theater {
                       .col-xs-3 {
                         display: none;
@@ -120,7 +175,7 @@
                 }
                 .tab-content {
                   .tab-pane {
-                    > .col-xs-16 {
+                    > .col-xs-16, > div[data-autoload-episodes] > .col-xs-16 {
                       padding: 0 5px;
                     }
                   }
@@ -145,6 +200,9 @@
                           }
                           &.replay {
                             td {
+                              &.episode {
+                                font-size: 0.9em;
+                              }
                               &.price {
                                 width: 160px;
                                 .rent {
@@ -156,6 +214,16 @@
                                   max-width: 50px;
                                 }
                               }
+                            }
+                          }
+                          &.tv {
+                            .episode {
+                              width: 150px;
+                              max-width: 150px;
+                            }
+                            .channel {
+                              width: 40px;
+                              max-width: 40px;
                             }
                           }
                         }

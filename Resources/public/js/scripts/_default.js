@@ -172,7 +172,7 @@ $(document).ready(function(){
   $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
 
     if ('matchMedia' in window) {
-      if (window.matchMedia('(max-width:450px)').matches) {
+      if (window.matchMedia('(max-width:450px)').matches && $(this).hasClass('notifications-count')) {
         var notifs_href = $('.headertoprighticons .dropdown-menu .link-usernotifs > a.seo-replaced').attr('href');
         window.location = notifs_href;
         return;

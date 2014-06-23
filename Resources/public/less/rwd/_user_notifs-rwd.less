@@ -1,0 +1,65 @@
+@media (max-width:767px) {
+  body.view-user_notifs {
+    #super-wrapper {
+      #content-wrapper {
+        #main {
+          padding-top: 65px;
+          #bandeau-listes {
+            h1 {
+              a:hover {
+                border: none;
+              }
+            }
+          }
+          #view-user-notifications {
+            .notification-filter {
+              .filter {
+                margin-bottom: 8px;
+              }
+            }
+            table {
+              .notif-link {
+                > .col-xs-2 {
+                  display: none
+                }
+                > .col-xs-13 {
+                  width: 100%;
+                  padding-left: 15px;
+                  .row {
+                    height: auto;
+                    max-height: 40px;
+                    .title {
+                      font-size: 0.9em;
+                    }
+                    span.badge {
+                      top: 4px;
+                      right: 10px;
+                    }
+                    .origine {
+                      top: 40px;
+                      left: 15px;
+                    }
+                  }
+                }
+              }
+              .row > .col-xs-1 {
+                width: 100%;
+                margin-top: 10px;
+                .row {
+                  height: 25px;
+                  a {
+                    opacity: 1;
+                    position: absolute;
+                    top: 10px;
+                    margin-top: 0px;
+                    right: 10px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

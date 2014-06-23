@@ -53,10 +53,17 @@
                 }
               }
               &.nav-playlists {
-                >li.user-menu {
-                  > ul {
-                    left: -233px;
-                    top: 90%;
+                > li {
+                  &.user-menu {
+                    > ul {
+                      left: -233px;
+                      top: 90%;
+                    }
+                  }
+                  &.notifications {
+                    #dropdown-menu-notification {
+                      display: none;
+                    }
                   }
                 }
               }
