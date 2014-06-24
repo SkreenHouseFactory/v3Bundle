@@ -49,6 +49,17 @@ class MainController extends Controller
       ));
     }
     /**
+    * NEW header
+    */
+    public function newheaderAction(Request $request)
+    {
+      return $this->render('SkreenHouseFactoryV3Bundle:Main:_header-burger.html.twig', array(
+        'home' => $request->get('home'),
+        'route' => $request->get('route'),
+        'q' => $request->get('q')
+      ));
+    }
+    /**
     * header suggest channels
     */
     public function headerchannelAction(Request $request)
