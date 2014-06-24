@@ -123,12 +123,6 @@ UI = {
         for (k in Skhf.session.credentials) {
           $('.credential-'+Skhf.session.credentials[k]).removeClass('hide').css('border', '2px dotted yellow');
         }
-        //Sidebar playlists
-        $('#msk-menu .lists .programs .numbers').html(parseInt(Skhf.session.getPlaylistIds('like').length));
-        $('#msk-menu .lists .persons .numbers').html(parseInt(Skhf.session.getPlaylistIds('person').length));
-        $('#msk-menu .lists .theaters .numbers').html(parseInt(Skhf.session.getPlaylistIds('cinema').length));
-        $('#msk-menu .lists .categories .numbers').html(parseInt(Skhf.session.getPlaylistIds('category').length) + parseInt(Skhf.session.getPlaylistIds('format-category').length));
-
       } else {
         $('.fb-placeholder').addClass('hide');
         $('.share-placeholder').removeClass('hide');
@@ -144,12 +138,6 @@ UI = {
       $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
       //fb
       if (Skhf.session.datas.fb_uid) {
-
-        //Sidebar friends
-        Facebook.getFriends(function(friends){
-          $('#msk-menu .friends .numbers').html(friends.length);
-        });
-
         if (Skhf.session.datas.fb_access_token == null) {
           $('.fb-placeholder').removeClass('hide');
           $('.share-placeholder').addClass('hide');
@@ -191,13 +179,13 @@ UI = {
       $('.share-on:not(.hide)').addClass('hide');
       $('.share-off').removeClass('hide');
       $('.user-on-visibility').css('visibility','hidden');
-      $('#top-header.notifications li.empty').show();
+      $('.navbar .notifications li.empty').show();
       $('li.selector').popover('enable');
       //remove datas
       $('.user-email, .favoris span').empty();
-      $('#top-header .notifications-count').removeClass('with-badge')
+      $('.navbar .notifications-count').removeClass('with-badge')
                                .empty();
-      $('#top-header .notifications li:not(.empty)').remove();
+      $('.navbar .notifications li:not(.empty)').remove();
       this.playlist.remove();
 
       //unload playlists
@@ -580,17 +568,17 @@ UI = {
       var nb = 0;
     }
 
-    if (!$('#top-header .notifications-count').hasClass('with-badge')) {
-      $('#top-header .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
+    if (!$('.navbar .notifications-count').hasClass('with-badge')) {
+      $('.navbar .notifications-count').addClass('with-badge').append($(this.badge_notification).html(nb));
     }
 
     if (Object.keys(notifications).length == 0) {
 
-      $('#top-header .notifications-count .badge-important').removeClass('badge-important');
+      $('.navbar .notifications-count .badge-important').removeClass('badge-important');
 
     } else {
 
-      var list = $('#top-header .notifications ul .scroll');
+      var list = $('.navbar .notifications ul .scroll');
       list.find('li.empty').hide();
       //list.find('li:not(.empty)').remove();
       var nb_new = 0;
@@ -609,13 +597,13 @@ UI = {
       this.appendNotifications(notifications,list);
 
       //reload tooltip
-      $('#top-header .notifications [data-toggle="tooltip"]').tooltip();
+      $('.navbar .notifications [data-toggle="tooltip"]').tooltip();
 
       //new
       if (nb_new > 0) {
         var nb = nb_new >= this.max_notifications ? this.max_notifications + '+' : nb_new;
         console.log('UI.loadNotifications', 'new', current_last_notification, this.last_notification);
-        $('#top-header .notifications-count .badge').addClass('ms-notificon').html(nb);
+        $('.navbar .notifications-count .badge').addClass('ms-notificon').html(nb);
 
         if (current_last_notification != this.last_notification) {
           API.cookie('last_notification', this.last_notification);
@@ -629,20 +617,18 @@ UI = {
       }
       
       //console.log('UI.loadNotifications', 'nb_new', nb_new);
-      $('#top-header .notifications-count').data('count-new', nb_new);
+      $('.navbar .notifications-count').data('count-new', nb_new);
 
       global.notificationBadge(nb_new);
     }
   },
    notificationBadge: function(nb_new) {
-     if($('#top-header .notifications ul li .badge-important').length ){
+     if($('.navbar .notifications ul li .badge-important').length ){
       if (nb_new > 0) {
-        var nb_new_notifs = $('#top-header .notifications ul li.tv-component .badge-important').length;
-        $('#top-header .notifications-count .badge').addClass('badge-important').html(nb_new_notifs);
+        $('.navbar .notifications-count .badge').addClass('badge-important').html($('.navbar .notifications ul li.tv-component .badge-important').length);
       }
      } else {
-        var nb_notifs = $('#top-header .notifications ul li.tv-component').length;
-        $('#top-header .notifications-count .badge').removeClass('badge-important').html(nb_notifs);
+       $('.navbar .notifications-count .badge').removeClass('badge-important').html($('.navbar .notifications ul li.tv-component').length);
      }
    },
   // filter
@@ -747,8 +733,8 @@ UI = {
         }
       }
     }
-    if( $('#top-header .notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
-      $('#top-header .notifications .empty').css('display','block');
+    if( $('.navbar .notifications .dropdown-menu .tv-component:not(.hide)').length == 0){
+      $('.navbar .notifications .empty').css('display','block');
     }
     Skhf.session.getSocialDatas(function(friends, friends_programs) {
       for (k in friends) {
@@ -1032,10 +1018,10 @@ UI = {
 
   },
   markAsRed: function(id) {
-    $('#top-header .notifications ul li[data-id="' + id + '"] .badge').remove();
+    $('.navbar .notifications ul li[data-id="' + id + '"] .badge').remove();
     var remaining = parseInt($('.notifications-count .badge-important').html())-1;
     if (remaining > 0) {
-      $('#top-header .notifications-count .badge').addClass('badge-important').html(remaining);
+      $('.navbar .notifications-count .badge').addClass('badge-important').html(remaining);
     }
   },
   //paywall

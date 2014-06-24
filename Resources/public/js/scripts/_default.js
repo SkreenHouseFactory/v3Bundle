@@ -198,13 +198,11 @@ $(document).ready(function(){
         $(this).children('.badge').hasClass('badge-important') ) {
           console.log('scripts/_default.js', 'badge notifications', 'là que je voulais cliquer');
           Skhf.session.readNotifications();
-          var current = $('#top-header .notifications li:not(.divider, .empty)').length;
-          $('#top-header .notifications-count span.badge').removeClass('badge-important').html(current);
+          var current = $('.navbar .notifications li:not(.divider, .empty)').length;
+          $('.navbar .notifications-count span.badge').removeClass('badge-important').html(current);
     }
 
   });
-
-  $('.notifications span.remove-all-notifs[rel="tooltip"]').tooltip();
 
   $(document).on('click', '.notifications .remove', function(e){
         e.preventDefault();
@@ -224,9 +222,9 @@ $(document).ready(function(){
         });
         
         //count
-        var current = parseInt($('#top-header .notifications-count .badge').html()) - 1;
+        var current = parseInt($('.navbar .notifications-count .badge').html()) - 1;
         console.log('UI.loadNotifications', 'remove Notifications', 'current', current);
-        $('#top-header .notifications-count .badge').html(parseInt(current) > 0 ? current : 0);
+        $('.navbar .notifications-count .badge').html(parseInt(current) > 0 ? current : 0);
         // apparition no notifs message
         if( $('.notifications .tv-component:not(.hide)').length == 0){
           $('.notifications .empty').css('display','block');
@@ -241,7 +239,7 @@ $(document).ready(function(){
         $('.label.filter[data-filter="' + self.data('filter') + '"]').addClass('label-info');
         
         if($(this).data('reload-notif') != "done"){
-          var list = $('#top-header .notifications ul .scroll');
+          var list = $('.navbar .notifications ul .scroll');
           Skhf.session.sync(function(data){
             global.appendNotifications(data.notifications,list);
             self.attr('data-reload-notif','done');
@@ -290,7 +288,7 @@ $(document).ready(function(){
   });
 
   // -- ui typeahead
-  UI.typeahead('#nav-search .search-query, #nav-search-bis .search-query');
+  UI.typeahead('#nav-search .search-query');
 
   // -- typeahead on keypress
   /*
@@ -346,7 +344,7 @@ $(document).ready(function(){
     }
   });
 
-  $('#top-header a[data-toggle="dropdown"]').on('click', function () {
+  $('.navbar a[data-toggle="dropdown"]').on('click', function () {
     if ($('#top-playlist').hasClass('in')) {
       console.log('script', 'a[data-toggle="dropdown"] on show');
       $('#top-playlist').collapse('hide');

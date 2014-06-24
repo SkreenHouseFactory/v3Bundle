@@ -124,6 +124,10 @@
                 {% else %}
                   {# Synopsis #}
                   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' %}
+                  {# Reviews #}
+                  {% if program.reviews is defined and program.reviews %}
+                    {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_reviews.html.twig' %}
+                  {% endif %}
                   {# Episodes #}
                   {% if program.episodeof is defined %}
                     <div data-autoload-episodes="{{ program.episodeof.id }}"></div>

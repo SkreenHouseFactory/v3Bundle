@@ -1,12 +1,3 @@
-// var test_device = function(){
-//   if ('matchMedia' in window) {
-//     if (window.matchMedia('(min-width:450px)').matches) {
-//       $('head meta[name="viewport"]').remove();
-//     }
-//   }
-// }
-// test_device();
-
 /* TOUCH */
 $(document).ready(function(){
   // auto focus on search box
