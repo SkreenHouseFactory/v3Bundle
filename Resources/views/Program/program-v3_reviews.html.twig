@@ -1,0 +1,23 @@
+<div class="col-xs-16">
+  <div id="program-reviews" class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Les avis des blogs</h3>
+    </div>
+    <div class="tab-pane">
+      {% for r in program.reviews|to_array %}
+        <div class="rating pull-right">
+          {% set filled_stars = r.rating %}
+          {% set empty_stars = 5 - r.rating %}
+          {% for s in 1..filled_stars if filled_stars > 0 %}
+            <span>&#9733;</span>&nbsp;
+          {% endfor %}
+          {% for s in 1..empty_stars if empty_stars > 0 %}
+            <span>&#9734;</span>&nbsp;
+          {% endfor %}
+        </div>
+        <h4>{{ r.title }}<span> par {{ r.name }}</span></h4>
+        {{ r.content|raw }}
+      {% endfor %}
+    </div>
+  </div>
+</div>
