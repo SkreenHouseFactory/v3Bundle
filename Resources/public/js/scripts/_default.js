@@ -98,9 +98,9 @@ $(document).ready(function(){
   if ($('html').hasClass('no-touch') && !navigator.userAgent.match(/Touch/) ) {
     $('.navbar-nav >li').on('mouseover',function(){
       var self = $(this);
-      if($('#top-playlist').hasClass('in')) {
-        $('#top-playlist').collapse('hide');
-      }
+      // if($('#top-playlist').hasClass('in')) {
+      //   $('#top-playlist').collapse('hide');
+      // }
       $('.dropdown').removeClass('open');
       $('.hover-menu', self).removeClass('hide');
 
@@ -308,8 +308,8 @@ $(document).ready(function(){
     console.log('script', '#top-playlist on hide');
     $('body').removeClass('playlist-in');
     if( $('body').hasClass('view-program_pere') ){
-    $('body').addClass('playlist-w-in');
-     }
+      $('body').addClass('playlist-w-in');
+    }
   });
     
   $(document).on('click', '#top-playlist .breadcrumb li:first', function(){
