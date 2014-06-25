@@ -125,7 +125,7 @@
                   {# Synopsis #}
                   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' %}
                   {# Reviews #}
-                  {% if program.reviews is defined and program.reviews %}
+                  {% if program.reviews is defined and program.reviews|to_array|length %}
                     {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_reviews.html.twig' %}
                   {% endif %}
                   {# Episodes #}
