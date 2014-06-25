@@ -1,0 +1,41 @@
+@media (max-width:767px) {
+  body {
+    #super-wrapper {
+      #content-wrapper {
+        .slider {
+          width: 100%;
+          &.slider-list {
+            ul.items {
+              li:not(.teaser-container) {
+                width: 48%;
+                max-width: 150px;
+              }
+            }
+            .items {
+              .teaser-container {
+                float: none;
+                width: 100%;
+                height: auto;
+                margin-right: 0px;
+                .teaser-category {
+                  width: 100%;
+                  height: 225px;
+                  iframe {
+                    width: 100%;
+                    height: 225px;
+                  }
+                }
+                .teaser-title {
+                  margin-top: 15px;
+                  margin-right: 0;
+                  padding: 5px;
+                  font-size: 1em;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
