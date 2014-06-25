@@ -112,6 +112,7 @@ $(document).ready(function(){
             && !(slide_in.hasBeenForced())){
         slide_in.disparition();
       }
+    }
 
   });
 

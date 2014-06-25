@@ -144,7 +144,7 @@ UI = {
       $('.favoris span').html('(' + Skhf.session.datas.queue.length + ')');
       //fb
       if (Skhf.session.datas.fb_uid) {
-        -
+        
         //Sidebar friends
         Facebook.getFriends(function(friends){
           $('#msk-menu .friends .numbers').html(friends.length);
@@ -638,7 +638,7 @@ UI = {
      if($('#top-header .notifications ul li .badge-important').length ){
       if (nb_new > 0) {
         var nb_new_notifs = $('#top-header .notifications ul li.tv-component .badge-important').length;
-        $('#top-header .notifications-count .badge').removeClass('badge-important').html(nb_notifs);
+        $('#top-header .notifications-count .badge').addClass('badge-important').html(nb_new_notifs);
       }
      } else {
        var nb_notifs = $('#top-header .notifications ul li.tv-component').length;
