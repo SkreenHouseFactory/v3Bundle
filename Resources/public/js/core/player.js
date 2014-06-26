@@ -133,6 +133,18 @@ Player = {
         window.open(url.replace('/redirection/', '/exit/')); //hack m6
         return false;
       } else {
+        // Gestion redirect display avec Burger Menu
+        if ('matchMedia' in window) {
+          if (window.matchMedia('(min-width:1250px)').matches) {
+            if (!$('#super-wrapper').hasClass('closed')) {
+              $("#super-wrapper").addClass('closed');
+            }
+          } else {
+            if ($('#super-wrapper').hasClass('active')) {
+              $("#super-wrapper").removeClass('active');
+            }
+          }
+        }
         //get final url
         if (url.indexOf('?url=') != -1) {
           var tmp = url.split('?url=');
