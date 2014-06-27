@@ -1180,7 +1180,7 @@ UI = {
       onselect: function(obj) {
         console.log('UI.typeahead', 'onselect', obj, searchbox, $(searchbox).attr('value'));
         $(searchbox).val(' chargement ...');
-
+        
         if (typeof obj != 'object') { //typeahead
           top.location = API.config.v3_url + '/programmes/' + obj;
         } else if (typeof obj.seo_url != 'undefined') { //advanced

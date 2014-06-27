@@ -455,5 +455,12 @@ $(document).ready(function(){
     $(document).on('click', 'a.credential-cog', function(){
       window.open($(this).attr('href'));
     });
+    if ('matchMedia' in window) {
+      if (window.matchMedia('(max-width:767px)').matches) {
+        $(document).on('click','#channels > li > a', function(){
+          $(this).siblings('ul').toggle('clip');
+        });
+      }
+    }
   }
 });

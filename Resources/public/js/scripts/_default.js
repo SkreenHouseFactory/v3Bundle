@@ -290,7 +290,14 @@ $(document).ready(function(){
   });
 
   // -- ui typeahead
-  UI.typeahead('#nav-search .search-query, #nav-search-bis .search-query');
+  if ('matchMedia' in window) {
+    if (window.matchMedia('(min-width:768px)').matches) {
+      UI.typeahead('#nav-search .search-query');
+    } else { 
+      UI.typeahead('#nav-search-bis .search-query');
+    }
+  }
+
 
   // -- typeahead on keypress
   /*
