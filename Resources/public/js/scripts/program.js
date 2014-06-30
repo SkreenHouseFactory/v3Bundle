@@ -476,6 +476,11 @@ $(document).ready(function(){
     $('#program-synopsis .tab-pane.synopsis-long .text').addClass('show-more-height').prepend('<div class="gradient-hide"></div>');
     $('#program-synopsis .tab-pane.synopsis-long').append('<div class="show-all"><span class="show-more">...</span><span class="show-more-text">Voir plus</span></div>');
   }
+
+  $(document).on('click', '.channel a.credential-cog', function(){
+      window.open($(this).attr('href'));
+      return false;
+  });
   
 
 });

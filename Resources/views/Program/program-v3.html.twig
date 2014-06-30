@@ -63,7 +63,7 @@
           <div class="col-xs-11 contents">
             {# Onglets #}
             <ul class="row" id="onglets">
-              <li class="col-xs-5{% if voir.count > 0 %} active{% endif %}">{# Voir #}
+              <li class="col-xs-5{% if program.id == 4705746 %}{% else %}{% if voir.count > 0 %} active{% endif %}{% endif %}">{# Voir #}
                 <a href="#voir" data-toggle="tab">
                   <div class="row">
                     <div class="col-xs-16">VOIR
@@ -75,7 +75,7 @@
                   <div class="row">en entier</div>
                 </a>
               </li>
-              <li class="col-xs-6{% if voir.count == 0 and videos.count > 0 %} active{% endif %}{% if videos.count == 0 %} disabled{% endif %}">{# Vidéos #}
+              <li class="col-xs-6{% if program.id == 4705746 %}{% else %}{% if voir.count == 0 and videos.count > 0 %} active{% endif %}{% endif %}{% if videos.count == 0 %} disabled{% endif %}">{# Vidéos #}
                 <a{{ videos.count == 0 ? '' : ' href="#videos" data-toggle="tab"' }}>
                   <div class="row">
                     <div class="col-xs-16">+ DE VIDEOS
@@ -87,7 +87,7 @@
                   <div class="row">extraits & bonus</div>
                 </a>
               </li>
-              <li class="col-xs-5{% if voir.count == 0 and videos.count == 0 %} active{% endif %}">{# Infos #}
+              <li class="col-xs-5{% if program.id == 4705746 %} active{% else %}{% if voir.count == 0 and videos.count == 0 %} active{% endif %}{% endif %}">{# Infos #}
                 <a href="#infos" data-toggle="tab">
                   <div class="row">
                     <div class="col-xs-16">INFOS</div>
@@ -99,57 +99,70 @@
             {# Contenus #}
             <div class="tab-content">
               {# Contenu Infos #}
-              <div class="tab-pane row active{% if voir.count == 0 and videos.count == 0 %} active-forced{% endif %}" id="infos">
-                {# Affichage pour les fiches Saison seule #}
-                {% if program.season_number is defined and program.episode_number is not defined %}
-                  {# Episodes de la saison #}
-                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes-saison.html.twig' %}
-                  {# Tous les épisodes #}
-                  <div data-autoload-episodes="{{ program.episodeof and program.episodeof.id ? program.episodeof.id : program.id }}"></div>
-                  {# Synopsis réduit #}
-                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' with { tab: 'season-only' } %}
-
-                {# Affichage pour les fiches d'épisodes #}
-                {% elseif program.season_number is defined and program.episode_number is defined %}
-                  {# Synopsis #}
+              <div class="tab-pane row active{% if (voir.count == 0 and videos.count == 0) or program.id == 4705746 %} active-forced{% endif %}" id="infos">
+                {% if program.id == 4705746 %}
+                  {% if program.reviews is defined and program.reviews|to_array|length %}
+                    {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_reviews.html.twig' %}
+                  {% endif %}
                   {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' %}
-                  {# Casting #}
-                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
-                  {# Episodes de la saison #}
                   <div data-autoload-episodes="{{ program.id }}"></div>
-                  {# Tous les épisodes #}
-                  <div data-autoload-episodes="{{ program.episodeof and program.episodeof.id ? program.episodeof.id : program.id }}"></div>
-
-                {# Affichage pour toutes les autres fiches #}
+                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
                 {% else %}
-                  {# Synopsis #}
-                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' %}
-                  {# Episodes #}
-                  {% if program.episodeof is defined %}
-                    <div data-autoload-episodes="{{ program.episodeof.id }}"></div>
+                  {# Affichage pour les fiches Saison seule #}
+                  {% if program.season_number is defined and program.episode_number is not defined %}
+                    {# Episodes de la saison #}
+                    {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_episodes-saison.html.twig' %}
+                    {# Tous les épisodes #}
+                    <div data-autoload-episodes="{{ program.episodeof and program.episodeof.id ? program.episodeof.id : program.id }}"></div>
+                    {# Synopsis réduit #}
+                    {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' with { tab: 'season-only' } %}
+
+                  {# Affichage pour les fiches d'épisodes #}
+                  {% elseif program.season_number is defined and program.episode_number is defined %}
+                    {# Synopsis #}
+                    {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' %}
                     {# Casting #}
                     {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
-                  {% else %}
+                    {# Episodes de la saison #}
                     <div data-autoload-episodes="{{ program.id }}"></div>
-                    {# Casting #}
-                    {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
-                    {% if program.seasons is defined %}
-                      <div class="col-xs-16">
-                        Les saisons : 
-                      {% for season in program.seasons|to_array %}
-                        <a href="{{ program.seo_url }}saison-{{ season.number }}/">Saison {{ season.number }}</a>, 
-                      {% endfor %}
-                      </div>
+                    {# Tous les épisodes #}
+                    <div data-autoload-episodes="{{ program.episodeof and program.episodeof.id ? program.episodeof.id : program.id }}"></div>
+
+                  {# Affichage pour toutes les autres fiches #}
+                  {% else %}
+                    {# Synopsis #}
+                    {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis.html.twig' %}
+                    {# Reviews #}
+                    {% if program.reviews is defined and program.reviews|to_array|length %}
+                      {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_reviews.html.twig' %}
+                    {% endif %}
+                    {# Episodes #}
+                    {% if program.episodeof is defined %}
+                      <div data-autoload-episodes="{{ program.episodeof.id }}"></div>
+                      {# Casting #}
+                      {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
+                    {% else %}
+                      <div data-autoload-episodes="{{ program.id }}"></div>
+                      {# Casting #}
+                      {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting.html.twig' %}
+                      {% if program.seasons is defined %}
+                        <div class="col-xs-16">
+                          Les saisons : 
+                        {% for season in program.seasons|to_array %}
+                          <a href="{{ program.seo_url }}saison-{{ season.number }}/">Saison {{ season.number }}</a>, 
+                        {% endfor %}
+                        </div>
+                      {% endif %}
                     {% endif %}
                   {% endif %}
                 {% endif %}
               </div>
               {# Contenu Voir #}
-              <div class="tab-pane row{% if voir.count > 0 %} active{% endif %}" id="voir">
+              <div class="tab-pane row{% if voir.count > 0 and program.id != 4705746 %} active{% endif %}" id="voir">
                 {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_voir.html.twig' %}
               </div>
               {# Contenu Vidéos #}
-              <div class="tab-pane row{% if voir.count == 0 and videos.count > 0 %} active{% endif %}" id="videos">
+              <div class="tab-pane row{% if voir.count == 0 and videos.count > 0 and program.id != 4705746 %} active{% endif %}" id="videos">
                 {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_videos.html.twig' %}
               </div>
             </div>
