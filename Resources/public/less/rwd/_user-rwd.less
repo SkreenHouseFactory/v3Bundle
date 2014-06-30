@@ -109,4 +109,45 @@
       }
     }
   }
+  body.view-user_friends {
+    #super-wrapper {
+      #content-wrapper {
+        #bandeau-listes {
+          > div.container {
+            margin-top: 0;
+            > h1 {
+              margin-top: 0;
+            }
+          }
+        }
+        #social-on-slider {
+          height: auto;
+          .slider-container {
+            height: auto;
+            ul.items {
+              position: static;
+              white-space: normal;
+              li {
+                width: 48%!important;
+                max-width: 150px;
+                .friends {
+                  height: 75px;
+                }
+              }
+            }
+          }
+          .carousel-control {
+            position: static;
+            display: inline-block;
+            &.right {
+              float: right;
+            }
+            &.left {
+              float: left;
+            }
+          }
+        }
+      }
+    }
+  }
 }
