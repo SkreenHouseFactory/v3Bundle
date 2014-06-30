@@ -9,6 +9,10 @@
         <div class="player-wrap">
           <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&noPub=1&program_id=5108833&height=213&width=367&channel_header=1&fromWebsite=1" height="213" width="367"></iframe>
         </div>
+        <div class="title-for-mobile">
+          <h2>Les Conquérants</h2>
+          <span>Un film de Xabi Molia</span>
+        </div>
         <div class="wrap-follow" data-playlist="page">
           {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'fav-page', name: channel.title, text: 'Suivre ' ~ channel.title|trans } %}
         </div>
