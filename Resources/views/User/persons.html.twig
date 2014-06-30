@@ -37,11 +37,11 @@
             {% if main_activity == 'cité dans ...' %}{% set main_activity = 'cité-dans' %}{% endif %}
             <tr id="person-{{ p.id }}" class="type-{{ main_activity|replace({'é': 'e'}) }}">
               <td>
+                <b>{{ p.name }}</b>, {{ p.main_activity }}
                 <div class="pull-right">
                   <a class="btn btn-default" href="{{ path('any_url', {url: p.seo_url[1:p.seo_url|length-1]}) }}">Tous ses programmes</a>&nbsp;
                   {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: p.id, name: p.name, fav: 'person', remove: '#person-' ~ p.id } %}
                 </div>
-                <b>{{ p.name }}</b>, {{ p.main_activity }}<br/>
                 {#{ p.roles|join(', ') }#}
               </td>
             </tr>
