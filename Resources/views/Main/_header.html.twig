@@ -59,6 +59,13 @@
             </a>
           </li>
 
+          {# MA PLAYLIST / MES FAVORIS #}
+          <li class="hide user-on playlists inline-block">
+            <a data-toggle="collapse" data-target="#top-playlist" class="tv-component">
+            Mes playlists
+            </a>
+          </li>
+
           {# MON COMPTE #}
           <li class="hide user-on dropdown user-menu disable-select inline-block">
             <a id="dLabel" data-toggle="dropdown" class="dropdown-toggle tv-component pull-right">
@@ -82,6 +89,15 @@
                 </a>
               </li>
               <li class="divider"></li>
+              <li class="dropdown-user-programs">
+                <span class="programs" data-link-to-replace="{{ path('user_programs')|rot13 }}"><i class="glyphicon glyphicon-list"></i> Mes listes <span></span></span>
+              </li>
+              <li class="dropdown-user-friends">
+                <span class="friends" data-link-to-replace="{{ path('user_friends')|rot13 }}"><i class="glyphicon glyphicon-heart-empty"></i> Mes amis regardent <span></span></span>
+              </li>
+              <li>
+                <span class="vod" data-link-to-replace="{{ path('user_vod')|rot13 }}"><i class="glyphicon glyphicon-film"></i> {{ 'nav.vod'|trans }}</span>
+              </li>
               <li>
                 <span class="account" data-link-to-replace="{{ path('user_settings')|rot13 }}"><i class="glyphicon glyphicon-user"></i> {{ 'nav.account'|trans }}</span>
               </li>
@@ -93,6 +109,12 @@
           </li>
         </ul>
 
+      </div>
+    </div>
+
+    <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
+      <div class="container playlist">
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
       </div>
     </div>
 

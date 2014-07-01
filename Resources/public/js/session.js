@@ -124,6 +124,15 @@ var Session = BaseSession.extend({
         if (typeof json.replay.nb_programs != 'undefined' && json.replay.nb_programs != null) {
           $('#msk-menu .diffs .replay .numbers').html(json.replay.nb_programs);
         }
+        UI.loadSelector(json);
+     // autorise le click sur les selectors et enlève le loaders si les selecteurs viennent d'être chargé.
+        if (noplaylist == true){
+          console.log('Session.initSelector','Remove Loading Bar');
+          $('.loading.bar').remove();
+          UI.playlist.elmt.removeClass('slider-loading');
+          $("#playlist .items li").unbind('click.loading');
+          noplaylist = false;
+        }
       });
   },
   initPlaylist: function(url) {

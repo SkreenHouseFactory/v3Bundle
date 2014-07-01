@@ -26,6 +26,15 @@
         #top-header {
           padding-right: 0;
           border-top: none;
+          > .row {
+            padding-left: 0;
+            > .col-xs-16 {
+              width: 100%;
+            }
+          }
+          .burger-icon {
+            display: block;
+          }
           #logo {
             width: 80px;
             img {
@@ -44,6 +53,9 @@
               > li {
                 &.playlists {
                   margin-left: 0;
+                  &.user-on {
+                    display: none;
+                  }
                 }
                 > a {
                   &.auth {
@@ -59,6 +71,9 @@
                     > ul {
                       left: -233px;
                       top: 90%;
+                      .dropdown-user-programs, .dropdown-user-friends {
+                        display: none;
+                      }
                     }
                   }
                   &.notifications {
