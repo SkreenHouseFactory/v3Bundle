@@ -15,7 +15,7 @@
             <span>&#9734;</span>&nbsp;
           {% endfor %}
         </div>
-        <h4>{{ r.title }}</h4>
+        <h4><a href="{{ r.link }}" target="_blank">{{ r.title }}</a></h4>
         {{ r.content|raw }}
       {% endfor %}
     </div>
