@@ -1,0 +1,59 @@
+@media (max-width:767px) {
+  body.view-channel-1 {
+    background-position: 23% 0!important;
+    background-size: 246% auto!important;
+    #super-wrapper {
+      #content-wrapper {
+        #main {
+          #cover.cover1 {
+            #channel1 {
+              padding-top: 160px;
+              .row {
+                > .col-xs-8:first-child {
+                  display: none;
+                }
+                > .col-xs-8 {
+                  background-color: black;
+                  padding: 0;
+                  iframe {
+                    width: 95%!important;
+                    display: block;
+                    margin: 0 auto;
+                    height: 250px!important;
+                    float: none!important;
+                  }
+                }
+              }
+              #channel1_sponsors {
+                display: none;
+              }
+              .header-content {
+                margin-left: 0;
+                width: 96%;
+                left: 2%;
+                padding: 0;
+                text-align: center;
+                .share-block {
+                  display: none;
+                }
+                a.btn {
+                  margin-right: 0;
+                }
+                a.btn-suivre {
+                  font-size: 16px;
+                }
+                a.btn-default + a.btn-default {
+                  float: none;
+                  & + a.btn-default {
+                    float: right;
+                    margin-right: 0;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
