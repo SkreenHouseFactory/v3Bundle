@@ -150,4 +150,49 @@
       }
     }
   }
+  body.view-user_vod {
+    #super-wrapper {
+      #content-wrapper {
+        #vod-view {
+          ul.nav-pills {
+            > li {
+              > a {
+                padding: 5px;
+              }
+            }
+          }
+          .bs-callout {
+            margin-top: 0;
+          }
+          table.table {
+            display: block;
+            tbody {
+              width: 100%;
+              display: block;
+              tr {
+                width: 100%;
+                display: block;
+                td {
+                  display: block;
+                  width: 100%;
+                  clear: both;
+                  > ul.nav {
+                    > li {
+                      a.btn-voir {
+                        margin-bottom: 20px;
+                      }
+                    }
+                  }
+                  &:first-child + td {
+                    border-top: none;
+                    padding-top: 0;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
