@@ -1,9 +1,10 @@
 @media (max-width:767px) {
-  body {
+  body, body.view-fournisseur-cinema {
     #super-wrapper {
       #content-wrapper {
         #main {
           .bande_listes {
+            margin-top: 0;
             .row:first-child {
               .col-xs-11 {
                 width: 100%;
@@ -17,17 +18,25 @@
               .col-xs-5 {
                 margin-bottom: 20px;
                 width: 100%;
+                .col-xs-16:not(.ajout) {
+                  display: none;
+                }
               }
             }
           }
           .bande_couleur_degrade {
             display: none;
           }
-          #view-selection {
+          #view-selection, #view-fournisseur.container-fournisseur-cinema {
             h1 {
               font-size: 1.7em;
             }
-            #selection-programs {
+            #md-makesOffer + .container {
+              .col-xs-11 {
+                width: 100%;
+              }
+            }
+            #selection-programs, #channel-programs {
               &.list {
                 width: 100%;
                 .col-xs-4 {
@@ -54,7 +63,7 @@
                 }
               }
             }
-            #selection-related {
+            #selection-related, #theater-related {
               width: 100%;
             }
           }

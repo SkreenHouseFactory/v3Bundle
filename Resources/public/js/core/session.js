@@ -353,26 +353,30 @@ var BaseSession = Class.extend({
  },
  checkCredentials: function(){
    //return;
-  if (typeof this.datas.credential != 'undefined' &&
-              this.datas.credential == 'tester') {
-    $('*[data-factory]').each(function(){
-      if ($(this).find('a.credential-cog').length > 0) {
-        // console.log('core/session.js', 'checkCredentials', 'already added');
-      } else {
-        var node = '<a class="credential-cog" href="http://factory.myskreen.net/' + $(this).data('factory-type') + '/' + $(this).data('factory') + '/edit" target="_blank"><span class="glyphicon glyphicon-cog"></span></a>'
-        // console.log('core/session.js', 'Credentials node', node);
-        if ($(this).is('[id]')) {
-          // console.log('scripts/_default.js', 'Credentials This sans a', $(this));
-          $(this).append(node);
-        } else if ($(this).is('tr')) {
-          $(this).find('.channel').append('<div style="position:relative;z-index:25;">' + node + '</div>');
-        } else {
-          //console.log('scripts/_default.js', 'Credentials This avec a', $(this));
-          $(this).find('a').append(node);
+   if ('matchMedia' in window) {
+      if (window.matchMedia('(min-width:768px)').matches) {
+        if (typeof this.datas.credential != 'undefined' &&
+                    this.datas.credential == 'tester') {
+          $('*[data-factory]').each(function(){
+            if ($(this).find('a.credential-cog').length > 0) {
+              // console.log('core/session.js', 'checkCredentials', 'already added');
+            } else {
+              var node = '<a class="credential-cog" href="http://factory.myskreen.net/' + $(this).data('factory-type') + '/' + $(this).data('factory') + '/edit" target="_blank"><span class="glyphicon glyphicon-cog"></span></a>'
+              // console.log('core/session.js', 'Credentials node', node);
+              if ($(this).is('[id]')) {
+                // console.log('scripts/_default.js', 'Credentials This sans a', $(this));
+                $(this).append(node);
+              } else if ($(this).is('tr')) {
+                $(this).find('.channel').append('<div style="position:relative;z-index:25;">' + node + '</div>');
+              } else {
+                //console.log('scripts/_default.js', 'Credentials This avec a', $(this));
+                $(this).find('a').append(node);
+              }
+            }
+          });
         }
       }
-    });
-  }
+    }
  },
  removeCredentials: function(){
   $('a.credential-cog').remove();
