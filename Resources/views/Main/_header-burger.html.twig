@@ -10,23 +10,20 @@
     <li class="diffs">
       <span class="sk-font">Mes prochaines diffusions</span>
       <ul class="sub-msk-menu">
-        <li class="user-off">
-          <span>Retrouvez-ici les diffusions des programmes que vous suivez&nbsp;: TV, VOD, Replay et Cinéma</span>
-        </li>
-        <li class="user-on tv">
-          <span class="numbers">0</span>
+        <li class="tv">
+          <span class="user-on numbers">0</span>
           <span data-link-to-replace="{{ path('tvgrid')|rot13 }}">TV</span>
         </li>
-        <li class="user-on vod">
-          <span class="numbers">0</span>
+        <li class="vod">
+          <span class="user-on numbers">0</span>
           <span data-link-to-replace="{{ path('homes', {home: 'video-a-la-demande'})|rot13 }}">Streaming</span>
         </li>
-        <li class="user-on cine">
-          <span class="numbers">0</span>
+        <li class="cine">
+          <span class="user-on numbers">0</span>
           <span data-link-to-replace="{{ path('homes', {home: 'cinema'})|rot13 }}">Cinéma</span>
         </li>
-        <li class="user-on replay">
-          <span class="numbers">0</span>
+        <li class="replay">
+          <span class="user-on numbers">0</span>
           <span data-link-to-replace="{{ header_base|rot13 }}{{ path('channel', {slug: 'replay'})|rot13 }}">Replay</span>
         </li>
       </ul>
@@ -66,9 +63,6 @@
           <span data-link-to-replace="{{ path('user_friends')|rot13 }}">Leurs programmes</span>
         </li>
       </ul>
-    </li>
-    <li class="user-off">
-      <a class="auth">En créant vos listes, vous ne raterez plus les programmes qui vous intéressent</a>
     </li>
   </ul>
 </nav>

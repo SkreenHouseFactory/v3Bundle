@@ -817,11 +817,6 @@ html:not(.touch){
     transition: all 0.4s ease 0s;
     background: #428bca;
     color: #fff;
-    -moz-box-shadow: inset -3px 0px 8px -1px #fff;
-    -webkit-box-shadow: inset -3px 0px 8px -1px #fff;
-    -o-box-shadow: inset -3px 0px 8px -1px #fff;
-    box-shadow: inset -3px 0px 8px -1px #fff;
-    filter:progid:DXImageTransform.Microsoft.Shadow(color=#fff, Direction=180, Strength=8);
     > ul {
       padding: 65px 0px 0px 0px;
       > li {
@@ -889,8 +884,10 @@ html:not(.touch){
             a, span {
               padding-left: 0px;
               font-size: 1em;
-              display: block;
               color: #eee;
+            }
+            a {
+              display: block;
             }
             &:hover {
               background-color: rgba(255,255,255,0.2);
@@ -915,6 +912,7 @@ html:not(.touch){
         padding-left: 30px;
         height: 35px;
         line-height: 35px;
+        position: relative;
         &.user-off {
           height: auto;
           text-align: center;
@@ -938,12 +936,16 @@ html:not(.touch){
           }
         }
         &.user-on {
-          position: relative;
           .numbers {
             position: absolute;
             right: 10px;
             top: 0px;
           }
+        }
+        .numbers.user-on {
+          position: absolute;
+          right: 10px;
+          top: 0px;
         }
       }
     }
