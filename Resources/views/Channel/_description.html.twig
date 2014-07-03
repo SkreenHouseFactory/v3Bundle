@@ -2,9 +2,7 @@
 <div class="description-seo description-seo-absolute">
   <div class="container scroll well">
     <h1>{{ channel.name }}</h1>
-    {% if channel.id in [1,8] %}
-      <p>{{ channel.description|raw }}</p>
-    {% elseif channel.personne is defined and channel.personne.description is defined and channel.personne %}
+    {% if channel.personne is defined and channel.personne.description is defined and channel.personne %}
       <p>{{ channel.personne.description|raw }}</p>
     {% elseif channel.text is defined and channel.text %}
       <p>{{ channel.text|raw }}</p>
