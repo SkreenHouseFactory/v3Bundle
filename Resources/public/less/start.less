@@ -1,3 +1,5 @@
+@sk-blue: #428bca;
+
 body.view-user_start {
   &.connected {
     #main #content ul.timeline:after {
@@ -110,7 +112,7 @@ body.view-user_start {
         left: 50%;
         margin-left: -100px;
         background-color: white;
-        color: #428bca;
+        color: @sk-blue;
         &:hover {
           color: #fff;
           background-color: #3276b1;
@@ -229,7 +231,7 @@ body.view-user_start {
           font-family: 'Raleway';
           text-decoration: none;
           display: inline-block;
-          color: #428bca;
+          color: @sk-blue;
           padding: 8px 13px 8px 10px;
           background-color: white;
           border-radius: 4px;
@@ -247,18 +249,18 @@ body.view-user_start {
         }
         &.active, &:hover, &:focus {
           &:after {
-            background: #428bca;
+            background: @sk-blue;
             &:hover{
               opacity: 0.6;
             }
           }
           a {
-            background-color: #428bca;
+            background-color: @sk-blue;
             border-radius: 4px;
             position: relative;
             color: white;
             &:after {
-              border: 7px solid #428bca;
+              border: 7px solid @sk-blue;
             }
           }
         }
@@ -451,7 +453,7 @@ body.view-user_start {
               }
               span.col-xs-11 {
                 font-size: 1.1em;
-                color: #428bca;
+                color: @sk-blue;
                 small {
                   color: #666;
                 }

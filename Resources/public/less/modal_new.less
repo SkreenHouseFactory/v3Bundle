@@ -1,6 +1,7 @@
 /* ===== v3 New Modal Signup / Signin / Mdp ======================================================
    Author: Axel de Velp
    ========================================================================== */
+@sk-blue: #428bca;
 
 body {
   margin: 0;
@@ -8,7 +9,7 @@ body {
   width: 100%;
   height: 100%;
   .entete{
-    background-color: #428bca;
+    background-color: @sk-blue;
     color: white;
     padding-bottom: 10px;
     margin-bottom: 30px;
@@ -22,8 +23,8 @@ body {
   }
   .text-left{
     padding-left: 20px;
-    border-left: 20px solid #428bca;
-    border-right: 20px solid #428bca;
+    border-left: 20px solid @sk-blue;
+    border-right: 20px solid @sk-blue;
     font-size: 38px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -68,7 +69,7 @@ body {
     background-color: rgba(66,139,202,0.2);
   }
   .btn-default{
-    background-color: #428bca;
+    background-color: @sk-blue;
     color: white;
     height: 45px;
     font-size: 16px;
@@ -100,11 +101,11 @@ body {
     margin: 10px 0 20px 0;
     text-align: center;
     span{
-      color: #428bca;
+      color: @sk-blue;
       position: relative;
       &:before, &:after{
         content: ' ';
-        border-top: 1px solid #428bca;
+        border-top: 1px solid @sk-blue;
         width: 226px;
         position: absolute;
         top: 7px;
