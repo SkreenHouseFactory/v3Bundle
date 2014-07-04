@@ -22,9 +22,18 @@
   }
 }
 body.view-fournisseur {
+  #main {
+    padding-top: 66px;
+  }
   #view-fournisseur {
     .bande_fonce {
-      padding: 0;
+      padding: 0 0 20px 0;
+      margin-top: 0;
+      & + .row.with_live.bande_fonce + .container {
+        > br {
+          display: none;
+        }
+      }
     }
     .bande_plus_fonce {
       .facets {
@@ -33,6 +42,9 @@ body.view-fournisseur {
     }
     .bande_notifications {
       padding-top: 15px!important;
+      &.nopadding + .container {
+        padding-top: 20px;
+      }
     }
   }
 }
