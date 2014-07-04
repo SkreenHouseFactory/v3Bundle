@@ -129,8 +129,9 @@ Player = {
     if (typeof url != 'undefined') {
       if (url.indexOf('/exit/') != -1 || 
           url.indexOf('m6replay') != -1 || 
-          url.indexOf('play.google') != -1) { //url.match(/\/exit\//)) {
-        window.open(url.replace('/redirection/', '/exit/')); //hack m6
+          url.indexOf('play.google') != -1 ||
+          (url.indexOf('tf1') != -1 && navigator.userAgent.match(/iPhone|iPod|iPad/)) ) { //url.match(/\/exit\//)) {
+        window.open(url.replace('/redirection/', '/exit/')); //hack m6 and "tf1 on iOS"
         return false;
       } else {
         //get final url

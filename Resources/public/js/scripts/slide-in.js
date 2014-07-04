@@ -73,10 +73,7 @@ var SlideIn = Class.extend({
 
 $(document).ready(function(){
 
-  // Création de la Slide-in uniquement sur Desktop
-  if ($('html').hasClass('no-touch')) {
-    var slide_in = new SlideIn($('#slide-in'));
-  }
+  var slide_in = new SlideIn($('#slide-in'));
 
   $('#slide-in-text a').on('click', function(){
     if($('#slide-in-text a i').hasClass('glyphicon-remove-sign')){
@@ -100,19 +97,18 @@ $(document).ready(function(){
   //CHecker quantité de scroll
   $(document).scroll(function(){
     // console.log($(document).scrollTop());
-    // Check initial de l'existence de la Slide-in avant le comportement automatique pour éviter les erreurs
-    if (typeof slide_in != 'undefined') {
-      if ((($(document).scrollTop() > 300) && ($(document).scrollTop() < 1200))
-            && !(slide_in.isOpened()) 
-            && !(slide_in.hasBeenForced())){
-        slide_in.apparition();
-      }
-      if ((($(document).scrollTop() < 300) || ($(document).scrollTop() > 1200))
-            && slide_in.isOpened() 
-            && !(slide_in.hasBeenForced())){
-        slide_in.disparition();
-      }
+    if ((($(document).scrollTop() > 300) && ($(document).scrollTop() < 1200))
+          && !(slide_in.isOpened()) 
+          && !(slide_in.hasBeenForced())){
+      slide_in.apparition();
     }
+
+    if ((($(document).scrollTop() < 300) || ($(document).scrollTop() > 1200))
+          && slide_in.isOpened() 
+          && !(slide_in.hasBeenForced())){
+      slide_in.disparition();
+    }
+
   });
 
 });
