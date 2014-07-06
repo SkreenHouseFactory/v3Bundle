@@ -1,4 +1,4 @@
-console.log('scripts/program.js', 'chargement', Skhf.session);
+//console.log('scripts/program.js', 'chargement', Skhf.session);
 
 // -- program
 // -- ProgramView
