@@ -8,11 +8,12 @@
           }
           #cover {
             .fournisseurtop {
-              > .col-xs-4, > .col-xs-8 {
-                width: 100%;
-                margin-top: 15px;
+              > .col-xs-4 {
+                display: none;
               }
               > .col-xs-8 {
+                width: 100%;
+                margin-top: 15px;
                 padding: 0;
                 .iframe-container {
                   width: 100%;
@@ -20,6 +21,15 @@
                   iframe {
                     height: 250px!important;
                     width: 95%;
+                  }
+                }
+                > div > div[data-autoplay] {
+                  background-color: black;
+                  .player-live {
+                    width: 95%;
+                    display: block;
+                    margin: 0 auto;
+                    height: 250px!important;
                   }
                 }
                 p.bs-callout {
