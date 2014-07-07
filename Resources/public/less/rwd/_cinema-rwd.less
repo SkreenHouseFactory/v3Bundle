@@ -49,4 +49,34 @@
       }
     }
   }
+  #super-wrapper {
+    #content-wrapper {
+      #theaters-list {
+        .panel-heading {
+          padding: 5px;
+          line-height: 1.5;
+          a.accordion-toggle {
+            width: 100%;
+            & + .grey {
+              display: inline-block;
+              width: 100%;
+            }
+          }
+        }
+        .panel-collapse {
+          .tab-content {
+            padding: 5px;
+            .tab-pane {
+              .label {
+                float: left;
+                margin-right: 5px;
+                margin-top: 2px;
+                margin-bottom: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
