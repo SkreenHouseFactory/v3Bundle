@@ -457,8 +457,10 @@ $(document).ready(function(){
     });
     if ('matchMedia' in window) {
       if (window.matchMedia('(max-width:767px)').matches) {
-        $(document).on('click','#channels > li > a', function(){
-          $(this).siblings('ul').toggle('clip');
+        $(document).on('click','#channels > li > a', function(event, prevent){
+          if (typeof prevent == 'undefined') {
+            $(this).siblings('ul').toggle('clip');
+          }
         });
       }
     }

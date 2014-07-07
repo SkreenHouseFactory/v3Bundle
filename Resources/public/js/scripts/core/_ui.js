@@ -249,7 +249,15 @@ UiView = {
       return false;
     });
     // -- player iframe
-    $(elmt).on('click', '[data-play-iframe]', function(){
+    $(elmt).on('click', '[data-play-iframe]', function(event, prevent){
+      if ('matchMedia' in window) {
+        if (window.matchMedia('(max-width:767px)').matches) {
+          if ($(this).parents('body.view-tvgrid #channels > li') && typeof prevent == 'undefined') {
+            // console.log('CATCH IT');
+            return false;
+          }
+        }
+      }
       console.log('script', 'data-play-iframe', $(this).data('play-iframe'), Player.state);
       
       var trigger = $(this);
@@ -353,6 +361,12 @@ UiView = {
     // -- remote data in html elmt
     $(elmt).on('click', '[data-trigger-click]', function(){
       // console.log('script', '[data-trigger-click]', $(this).data('trigger-click'), $($(this).data('trigger-click')));
+      if (window.matchMedia('(max-width:767px)').matches) {
+        if ($(this).parents('body.view-tvgrid #channels > li .actions')) {
+          $($(this).data('trigger-click')).trigger('click', ['prevent']);
+          return false;
+        }
+      }
       $($(this).data('trigger-click')).trigger('click');
       return false;
     });
