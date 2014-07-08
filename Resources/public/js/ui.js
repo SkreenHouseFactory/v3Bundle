@@ -1098,6 +1098,12 @@ UI = {
   },
   loadRedirect: function(url, link_fiche) {
     console.log('UI.loadRedirect', url);
+    if ('matchMedia' in window) {
+      if (window.matchMedia('(max-width:767px)').matches) {
+        window.open(url);
+        return false;
+      }
+    }
     $('body').removeClass('view-ajax');
     $('body').addClass('view-redirect');
     Player.redirect(url, $('#redirect'), $('#content'));
