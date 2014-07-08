@@ -196,8 +196,8 @@ UiView = {
         Skin.initHome();
       });
     }
-    if ($('.navbar').css('display') == "none") {
-      $('.navbar').css('display','block');
+    if ($('#top-header').css('display') == "none") {
+      $('#top-header').css('display','block');
     }
    if (has_playlist == true) {
        $('body').addClass('playlist-in');
@@ -249,7 +249,15 @@ UiView = {
       return false;
     });
     // -- player iframe
-    $(elmt).on('click', '[data-play-iframe]', function(){
+    $(elmt).on('click', '[data-play-iframe]', function(event, prevent){
+      if ('matchMedia' in window) {
+        if (window.matchMedia('(max-width:767px)').matches) {
+          if ($(this).parents('body.view-tvgrid #channels > li') && typeof prevent == 'undefined') {
+            // console.log('CATCH IT');
+            return false;
+          }
+        }
+      }
       console.log('script', 'data-play-iframe', $(this).data('play-iframe'), Player.state);
       
       var trigger = $(this);
@@ -323,28 +331,42 @@ UiView = {
     })
     // toggle text in element
     $(elmt).on('click', '[data-toggle-text]', function () {
-      var html = $(this).html();
-      console.log('script', '[data-toggle-text]', $(this).data('toggle-text'), html);
-      $(this).html($(this).data('toggle-text'));
-      $(this).data('toggle-text', html);
+      if (!$(this).hasClass('no-toggle-touch')) {
+        var html = $(this).html();
+        // console.log('script', '[data-toggle-text]', $(this).data('toggle-text'), html);
+        $(this).html($(this).data('toggle-text'));
+        $(this).data('toggle-text', html);
+      }
     });
     // toggle display
     $(elmt).on('click', '[data-toggle-display]', function () {
-      console.log('script', '[data-toggle-display]', $(this).data('toggle-display'));
-      if($(this).data('toggle-animation') == 'slide'){
-        $($(this).data('toggle-display')).slideToggle();
+      // console.log('script', '[data-toggle-display]', $(this).data('toggle-display'));
+      if (!$(this).hasClass('no-toggle-touch')) {
+        if($(this).data('toggle-animation') == 'slide'){
+          $($(this).data('toggle-display')).slideToggle();
+        } else {
+          $($(this).data('toggle-display')).toggle();
+        }
       } else {
-        $($(this).data('toggle-display')).toggle();
+        var location = $(this).data('relocation').replace('app_dev.php/','');
+        window.location = API.config.v3_root + location;
+        return;
       }
     });
     $(elmt).on('click', '[data-toggle-hide]', function () {
-      console.log('script', '[data-toggle-hide]', $(this).data('toggle-hide'));
+      // console.log('script', '[data-toggle-hide]', $(this).data('toggle-hide'));
       $($(this).data('toggle-hide')).toggleClass('hide');
     });
 
     // -- remote data in html elmt
     $(elmt).on('click', '[data-trigger-click]', function(){
-      console.log('script', '[data-trigger-click]', $(this).data('trigger-click'), $($(this).data('trigger-click')));
+      // console.log('script', '[data-trigger-click]', $(this).data('trigger-click'), $($(this).data('trigger-click')));
+      if (window.matchMedia('(max-width:767px)').matches) {
+        if ($(this).parents('body.view-tvgrid #channels > li .actions')) {
+          $($(this).data('trigger-click')).trigger('click', ['prevent']);
+          return false;
+        }
+      }
       $($(this).data('trigger-click')).trigger('click');
       return false;
     });

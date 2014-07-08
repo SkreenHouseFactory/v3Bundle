@@ -1,20 +1,15 @@
-<div class="navbar navbar-fixed-top bs-docs-nav">
-  <div class="container">
+<div id="top-header">
     <div class="row">
       <div class="col-xs-16">
-        {# LOGO ENTETE #}
+        <a class="burger-icon" href="#msk-menu"><span class="glyphicon glyphicon-align-justify"></span></a>
         <a id="logo" href="{{ path('homes', {home: null})|replace({'//': '/'}) }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" ></a>
         <ul class="nav navbar-nav">
           <li{{ app.request.attributes.get('_route') in ['tvgrid_date','tvgrid'] ? ' class="active"' : '' }}>
             <span data-link-to-replace="{{ path('tvgrid')|rot13 }}">TV &amp; Replay</span>
             {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "tv"} %}
           </li>
-          {#<li><a href="#">WEB TV</a></li>#}
           <li{{ app.request.get('home') == 'video-a-la-demande' ? ' class="active"' : '' }}>
             <a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">A la demande</a>
-            {#  {% if home.filters|to_array|length %}
-                  <i class="ms-top-triangle ms_triangle_position_a"></i>
-                {% endif %} #}
             {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "video-a-la-demande"} %}
           </li>
           <li{{ app.request.get('home') == 'cinema' ? ' class="active"' : '' }}>
@@ -23,9 +18,8 @@
           </li>
         </ul>
 
-        {# RECHERCHE #}
         <form id="nav-search" class="navbar-search">
-          <i class="glyphicon glyphicon-search" style="display: inline-block;position: absolute;top: 24px;right: 9px;color:#777777"></i>
+          <span class="glyphicon glyphicon-search" style="display: inline-block;position: absolute;top: 24px;right: 9px;color:#777777"></span>
           <input type="text"  value="{{ app.request.get('q') }}" class="search-query pull-left searchbutton" placeholder=" Un film, un acteur, etc.">
         </form>
 
@@ -49,7 +43,12 @@
                   </p>
                 </li>
               </div>
-              <span class="link-usernotifs"><span data-link-to-replace="{{ path('user_notifs')|rot13 }}">Toutes mes notifications</span></span>
+              <span class="link-usernotifs clearfix">
+                <span data-link-to-replace="{{ path('user_notifs')|rot13 }}">Toutes mes notifications</span>
+                <span rel="tooltip" class="remove-all-notifs pull-right" data-trigger-click=".notifications .remove" data-container="body" data-placement="bottom" title="Supprimer toutes les notifications de la liste">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </span>
+              </span>
             </ul>
           </li>
 
@@ -90,13 +89,10 @@
                 </a>
               </li>
               <li class="divider"></li>
-              <li>
+              <li class="dropdown-user-programs">
                 <span class="programs" data-link-to-replace="{{ path('user_programs')|rot13 }}"><i class="glyphicon glyphicon-list"></i> Mes listes <span></span></span>
               </li>
-              <li>
-                <span class="notifs" data-link-to-replace="{{ path('user_notifs')|rot13 }}"><i class="glyphicon glyphicon-bell"></i> Mes notifications <span></span></span>
-              </li>
-              <li>
+              <li class="dropdown-user-friends">
                 <span class="friends" data-link-to-replace="{{ path('user_friends')|rot13 }}"><i class="glyphicon glyphicon-heart-empty"></i> Mes amis regardent <span></span></span>
               </li>
               <li>
@@ -115,23 +111,11 @@
 
       </div>
     </div>
-  </div>
 
-  <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
-    <div class="container playlist">
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
-    </div>
-  </div>
-
-</div>
-{#  Header alternatif avec fond bleu
-
-    <div class="bluescroll row">
-      <div class="container">
-        <div class="col-xs-4"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo-footer.png') }}" alt="mySkreen.com"></div>
-        <div class="col-xs-8"></div>
-        <div class="col-xs-4"></div>
+    <div id="top-playlist" class="collapse" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
+      <div class="container playlist">
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
       </div>
     </div>
 
- #}
+</div>

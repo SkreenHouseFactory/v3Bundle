@@ -1,0 +1,208 @@
+@media (max-width:767px) {
+  body {
+    #super-wrapper {
+      #content-wrapper {
+        #main {
+          #view-settings { // USER SETTINGS
+            #user-settings {
+              > li {
+                float: none;
+                margin-bottom: 8px;
+                margin-left: 0;
+                > a {
+                  display: inline-block;
+                }
+                &:not(.active) {
+                  > a {
+                    background-color: #EEE;
+                  }
+                }
+              }
+            }.tab-content {
+              .form-control {
+                display: block;
+                width: 100%;
+                margin-bottom: 8px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  body[class*='view-user_'] {
+    #super-wrapper {
+      #content-wrapper {
+        #bandeau-listes {
+          padding-top: 30px;
+          margin-top: 0;
+          .row {
+            .active {
+              float: none;
+              width: 90%;
+              margin: 0 auto;
+            }
+            .col-users:not(.active) {
+              display: none;
+            }
+          }
+        }
+        .nav-pills {
+          > li {
+            margin-bottom: 8px;
+          }
+        }
+        #view-user-persons {
+          td {
+            .pull-right {
+              margin-top: 10px;
+            }
+          }
+        }
+        #user-theaters {
+          > div {
+            > p {
+              > span.pull-right {
+                margin-top: 10px;
+              }
+            }
+          }
+          & + .container.well {
+            width: 100%!important;
+            .theaters-modal {
+              #theaters-search {
+                width: 100%;
+                margin-bottom: 15px;
+              }
+              #theaters-list {
+                padding: 10px;
+                > br:first-child {
+                  display: none;
+                }
+                > .scroll {
+                  max-height: 400px!important;
+                  table {
+                    border-collapse: initial;
+                    td {
+                      padding-right: 15px;
+                      > a.btn:first-child {
+                        margin-bottom: 10px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            > a.btn {
+              font-size: 12px;
+              margin-left: 0;
+              float: none!important;
+            }
+          }
+        }
+        .bs-callout {
+          padding-bottom: 50px;
+          a.btn {
+            margin-top: 8px;
+          }
+        }
+      }
+    }
+  }
+  body.view-user_friends {
+    #super-wrapper {
+      #content-wrapper {
+        #bandeau-listes {
+          > div.container {
+            margin-top: 0;
+            > h1 {
+              margin-top: 0;
+            }
+          }
+        }
+        #social-on-slider {
+          height: auto;
+          .slider-container {
+            height: auto;
+            ul.items {
+              position: static;
+              white-space: normal;
+              li {
+                width: 48%!important;
+                max-width: 150px;
+                .friends {
+                  height: 75px;
+                }
+              }
+            }
+          }
+          .carousel-control {
+            position: static;
+            display: inline-block;
+            &.right {
+              float: right;
+            }
+            &.left {
+              float: left;
+            }
+          }
+        }
+      }
+    }
+  }
+  body.view-user_vod {
+    #super-wrapper {
+      #content-wrapper {
+        #vod-view {
+          ul.nav-pills {
+            > li {
+              > a {
+                padding: 5px;
+              }
+            }
+          }
+          ul.pagination {
+            > li {
+              > a {
+                padding: 8px;
+              }
+            }
+          }
+          .bs-callout {
+            margin-top: 0;
+          }
+          table.table {
+            display: block;
+            tbody {
+              width: 100%;
+              display: block;
+              tr {
+                width: 100%;
+                display: block;
+                td {
+                  display: block;
+                  width: 100%;
+                  clear: both;
+                  > ul.nav {
+                    > li {
+                      a.btn-voir {
+                        margin-bottom: 10px;
+                      }
+                      > div {
+                        clear: both;
+                      }
+                    }
+                  }
+                  &:first-child + td {
+                    border-top: none;
+                    padding-top: 0;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

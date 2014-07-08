@@ -97,7 +97,7 @@ body[class*='view-user_'] {
 }
 
 #bandeau-listes {
-  background-color: #428bca;
+  background-color: @sk-blue;
   color: white;
   & + .container {
     .bs-callout {
@@ -108,7 +108,7 @@ body[class*='view-user_'] {
         border: 1px solid #316B9C;
         &:hover {
           background-color: white;
-          color: #428bca;
+          color: @sk-blue;
         }
       }
       &.no-program {
@@ -125,7 +125,7 @@ body[class*='view-user_'] {
       margin-top: 20px;
       .btn-primary {
         background-color: white;
-        color: #428bca;
+        color: @sk-blue;
         border: 1px solid #316B9C;
         &:hover {
           background-color: #3880BD;
@@ -241,7 +241,7 @@ body[class*='view-user_'] {
         a {
           color: #333;
           span {
-            background-color: #428bca!important;
+            background-color: @sk-blue!important;
             color: white!important;
           }
         }
@@ -338,6 +338,9 @@ body[class*='view-user_'] {
         &.label-info {
           background-color: #3a87ad;
         }
+      }
+      .remove-all-notifs {
+        cursor: pointer;
       }
     }
     .notif-link {
@@ -443,7 +446,7 @@ body[class*='view-user_'] {
             line-height: 20px;
           }
           .label-default:hover {
-            background-color: #428bca;
+            background-color: @sk-blue;
           }
           &:hover span:not(.label-primary) {
             cursor: pointer;
@@ -530,6 +533,13 @@ body[class*='view-user_'] {
 .view-user_theaters {
   #user-theaters {
     margin-bottom: 40px;
+    > div {
+      > p {
+        > span.pull-right {
+          margin-top: -30px;
+        }
+      }
+    }
   }
   h3 {
     margin-bottom: 20px;

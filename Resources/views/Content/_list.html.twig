@@ -29,7 +29,7 @@
         {% endif %}
       {% endif %}
       <br/>
-      <p>
+      <p class="item-buttons">
         {% if p.offers is defined and p.offers.theaters is defined and p.offers.theaters %}
           <span class="btn btn-default" data-link-to-replace="{{ p.seo_url|rot13 }}"><i class="glyphicon glyphicon-map-marker"></i> {{ p.theater_release_date_timestamp > "now"|date('U') ? 'pluralization.cinema.nb_salles_avant_premiere'|transchoice(p.offers.theaters|split(',')|length,{'%count%' : p.offers.theaters|split(',')|length}) : 'pluralization.cinema.nb_salles'|transchoice(p.offers.theaters|split(',')|length,{'%count%' : p.offers.theaters|split(',')|length}) }} </span>  &nbsp;
         {% endif %}

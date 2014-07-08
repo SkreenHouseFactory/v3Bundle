@@ -1,0 +1,82 @@
+@media (max-width:767px) {
+  body.view-cinema_boxoffice, body.view-cinema_boxoffice_alpha, body.view-cinema_boxoffice_category {
+    #super-wrapper {
+      #content-wrapper {
+        #main {
+          padding-top: 72px!important;
+        }
+      }
+    }
+  }
+  body.home-cinema {
+    #super-wrapper {
+      #content-wrapper {
+        #view-home {
+          .bande_fonce {
+            padding: 10px 0;
+            h3 {
+              float: none;
+            }
+            #theaters-list {
+              padding: 2%;
+              > br {
+                display: none;
+              }
+              .scroll {
+                max-height: 500px!important;
+                padding-right: 10px;
+                table {
+                  border-collapse: initial;
+                  td {
+                    padding-bottom: 60px;
+                    a.pull-right:first-child {
+                      position: absolute!important;
+                      bottom: 20px;
+                      left: 50%;
+                      width: 200px;
+                      margin-left: -100px;
+                      & + a {
+                        margin-left: 0;
+                        margin-right: -8px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  #super-wrapper {
+    #content-wrapper {
+      #theaters-list {
+        .panel-heading {
+          padding: 5px;
+          line-height: 1.5;
+          a.accordion-toggle {
+            width: 100%;
+            & + .grey {
+              display: inline-block;
+              width: 100%;
+            }
+          }
+        }
+        .panel-collapse {
+          .tab-content {
+            padding: 5px;
+            .tab-pane {
+              .label {
+                float: left;
+                margin-right: 5px;
+                margin-top: 2px;
+                margin-bottom: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

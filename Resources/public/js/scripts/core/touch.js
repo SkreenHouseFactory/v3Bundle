@@ -12,5 +12,6 @@ $(document).ready(function(){
        Player.stop();
     });
     */
+    $('.bande_listes .btn.meslistes-plus').addClass('no-toggle-touch');
   }
 });

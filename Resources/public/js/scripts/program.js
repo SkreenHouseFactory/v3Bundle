@@ -459,14 +459,20 @@ $(document).ready(function(){
   //Roulette offers
   if ($('#best-offer-anchor').hasClass('external')) {
     var container = $('#best-offer-anchor .col-xs-13');
-    UI.appendLoader(container, 7000);
-    TimeOut = setTimeout(function(){
-      UI.removeLoader(container);
-      $('#best-offer-anchor .col-xs-3').html('<a type="button" class="btn btn-voir" href="#best-offer-anchor"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir</a>');
-      var number_offers = $('.offertable .external, .offertable .dvd, .offertable .itunes, .offertable .box, .offertable .console').length;
-      var texte_offers = number_offers == 1 ? ' offre disponible sur une autre plateforme' : ' offres disponibles sur d\'autres plateformes';
+    var number_offers = $('.offertable .external, .offertable .dvd, .offertable .itunes, .offertable .box, .offertable .console').length;
+    var texte_offers = number_offers == 1 ? ' offre disponible sur une autre plateforme' : ' offres disponibles sur d\'autres plateformes';
+    var button = '<a type="button" class="btn btn-voir" href="#best-offer-anchor"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir</a>';
+    if ($('html').hasClass('no-touch')) {
+      UI.appendLoader(container, 7000);
+      TimeOut = setTimeout(function(){
+        UI.removeLoader(container);
+        $('#best-offer-anchor .col-xs-3').html(button);
+        container.html('<p>'+number_offers+texte_offers+'</p>');
+      },9000);
+    } else {
+      $('#best-offer-anchor .col-xs-3').html(button);
       container.html('<p>'+number_offers+texte_offers+'</p>');
-    },9000);
+    }
   }
 
   // Hide tab-content INFOS after loading (SEO)

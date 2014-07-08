@@ -171,6 +171,14 @@ $(document).ready(function(){
   //notifications
   $('.user-on .dropdown-toggle, .user-on [data-target]').on('click', function(){
 
+    if ('matchMedia' in window) {
+      if (window.matchMedia('(max-width:450px)').matches && $(this).hasClass('notifications-count')) {
+        var notifs_href = $('.headertoprighticons .dropdown-menu .link-usernotifs > a.seo-replaced').attr('href');
+        window.location = notifs_href;
+        return;
+      }
+    }
+
     if ($(this).hasClass('tv-component')  && 
         !$(this).parent().hasClass('open') ) { 
           if(navigator.userAgent.match(/iPhone|iPad|iPod/)){
@@ -190,11 +198,13 @@ $(document).ready(function(){
         $(this).children('.badge').hasClass('badge-important') ) {
           console.log('scripts/_default.js', 'badge notifications', 'là que je voulais cliquer');
           Skhf.session.readNotifications();
-          var current = $('.navbar .notifications li:not(.divider, .empty)').length;
-          $('.navbar .notifications-count span.badge').removeClass('badge-important').html(current);
+          var current = $('#top-header .notifications li:not(.divider, .empty)').length;
+          $('#top-header .notifications-count span.badge').removeClass('badge-important').html(current);
     }
 
   });
+
+  $('.notifications span.remove-all-notifs[rel="tooltip"]').tooltip();
 
   $(document).on('click', '.notifications .remove', function(e){
         e.preventDefault();
@@ -214,9 +224,9 @@ $(document).ready(function(){
         });
         
         //count
-        var current = parseInt($('.navbar .notifications-count .badge').html()) - 1;
+        var current = parseInt($('#top-header .notifications-count .badge').html()) - 1;
         console.log('UI.loadNotifications', 'remove Notifications', 'current', current);
-        $('.navbar .notifications-count .badge').html(parseInt(current) > 0 ? current : 0);
+        $('#top-header .notifications-count .badge').html(parseInt(current) > 0 ? current : 0);
         // apparition no notifs message
         if( $('.notifications .tv-component:not(.hide)').length == 0){
           $('.notifications .empty').css('display','block');
@@ -231,7 +241,7 @@ $(document).ready(function(){
         $('.label.filter[data-filter="' + self.data('filter') + '"]').addClass('label-info');
         
         if($(this).data('reload-notif') != "done"){
-          var list = $('.navbar .notifications ul .scroll');
+          var list = $('#top-header .notifications ul .scroll');
           Skhf.session.sync(function(data){
             global.appendNotifications(data.notifications,list);
             self.attr('data-reload-notif','done');
@@ -265,11 +275,11 @@ $(document).ready(function(){
   });
   
   // -- ui form
-  $('.navbar form.navbar-search i.glyphicon').on('click', function(){
-    $('.navbar form.navbar-search').submit();
+  $('#msk-menu form.navbar-search i.glyphicon').on('click', function(){
+    $('#msk-menu form.navbar-search').submit();
     return false;
   });
-  $('.navbar form.navbar-search').on('submit', function(){
+  $('#msk-menu form.navbar-search').on('submit', function(){
     $('.search-query', $(this)).blur();
     var q = encodeURIComponent($('.search-query', $(this)).val());
     console.log('script', 'searchbox blur', q);
@@ -280,7 +290,14 @@ $(document).ready(function(){
   });
 
   // -- ui typeahead
-  UI.typeahead('#nav-search .search-query');
+  if ('matchMedia' in window) {
+    if (window.matchMedia('(min-width:768px)').matches) {
+      UI.typeahead('#nav-search .search-query');
+    } else { 
+      UI.typeahead('#nav-search-bis .search-query');
+    }
+  }
+
 
   // -- typeahead on keypress
   /*
@@ -336,7 +353,7 @@ $(document).ready(function(){
     }
   });
 
-  $('.navbar a[data-toggle="dropdown"]').on('click', function () {
+  $('#top-header a[data-toggle="dropdown"]').on('click', function () {
     if ($('#top-playlist').hasClass('in')) {
       console.log('script', 'a[data-toggle="dropdown"] on show');
       $('#top-playlist').collapse('hide');
@@ -412,5 +429,23 @@ $(document).ready(function(){
   setTimeout(function(){
    UI.addFriendsPrograms();
   }, 700);
+
+  $(".burger-icon").click(function(e) {
+    if ('matchMedia' in window) {
+      if (window.matchMedia('(min-width:1250px)').matches) {
+        $('#super-wrapper').toggleClass('closed');
+      } else {
+        e.preventDefault();
+        $('#super-wrapper').toggleClass('active');
+        if (window.matchMedia('(min-width:767px)').matches) {
+          if ($('#super-wrapper').hasClass('active')) {
+            $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
+          } else {
+            $('head').append('<meta name="viewport" content="width=1010">');
+          }
+        }
+      }
+    }
+  });
 
 });

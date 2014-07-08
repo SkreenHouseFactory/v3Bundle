@@ -22,14 +22,14 @@
       {% if program.player_iframe is defined %}
         <iframe src="{{ program.player_iframe }}{{ app.environment == 'dev' ? '&env=dev' : '' }}" scrolling="no" frameborder="0"></iframe>
       {% else %}
-        <iframe src="{{ player_host }}/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.player.id }}&fromWebsite=1&default_version=VOST{{ app.environment == 'dev' ? '&env=dev' : '' }}&height=368&width=637" scrolling="no" frameborder="0"></iframe>
+        <iframe src="{{ player_host }}/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.player.id }}&fromWebsite=1&default_version=VOST{{ app.environment == 'dev' ? '&env=dev' : '' }}" scrolling="no" frameborder="0"></iframe>
       {% endif %}
     </div>
   </div>
 {% else %}
   <div id="program-teaser">  
     <div id="program-teaser-player" data-play-api="{{ {AdOnly: true, programId: program.id}|json_encode }}" data-autoplay="1">
-      <iframe src="http://player.myskreen.com/ad?program_id={{ program.id }}&fromWebsite=1{{ app.environment == 'dev' ? '&env=dev' : '' }}" style="height:368px;width:637px" scrolling="no" frameborder="0"></iframe>
+      <iframe src="http://player.myskreen.com/ad?program_id={{ program.id }}&fromWebsite=1{{ app.environment == 'dev' ? '&env=dev' : '' }}" scrolling="no" frameborder="0"></iframe>
     </div>
   </div>
 {% endif %}

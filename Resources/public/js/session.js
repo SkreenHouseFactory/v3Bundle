@@ -111,6 +111,19 @@ var Session = BaseSession.extend({
       },
       function(json) {
         console.log('Session.initSelector', 'load', json);
+        // Sidebar next diffusions
+        if (typeof json.tv.nb_programs != 'undefined' && json.tv.nb_programs != null) {
+          $('#msk-menu .diffs .tv .numbers').html(json.tv.nb_programs);
+        }
+        if (typeof json.vod.nb_programs != 'undefined' && json.vod.nb_programs != null) {
+          $('#msk-menu .diffs .vod .numbers').html(json.vod.nb_programs);
+        }
+        if (typeof json.cine.nb_programs != 'undefined' && json.cine.nb_programs != null) {
+          $('#msk-menu .diffs .cine .numbers').html(json.cine.nb_programs);
+        }
+        if (typeof json.replay.nb_programs != 'undefined' && json.replay.nb_programs != null) {
+          $('#msk-menu .diffs .replay .numbers').html(json.replay.nb_programs);
+        }
         UI.loadSelector(json);
      // autorise le click sur les selectors et enlève le loaders si les selecteurs viennent d'être chargé.
         if (noplaylist == true){
