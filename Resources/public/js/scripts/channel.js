@@ -72,23 +72,27 @@ $(document).ready(function(){
 
     // Sticky for theaters
     if ($('.view-fournisseur-cinema #theater-related').length) {
-      $('.view-fournisseur-cinema #theater-related').stick_in_parent({offset_top: 70})
-        .on('sticky_kit:bottom', function(e) {
-          $('#theater-related').parent().attr('style', function(i, style) {
-            return style.replace(/position[^;]+;?/g, '');
+      if ('matchMedia' in window) {
+        if (window.matchMedia('(min-width:768px)').matches) {
+          $('.view-fournisseur-cinema #theater-related').stick_in_parent({offset_top: 70})
+            .on('sticky_kit:bottom', function(e) {
+              $('#theater-related').parent().attr('style', function(i, style) {
+                return style.replace(/position[^;]+;?/g, '');
+              });
+              $('.view-fournisseur-cinema #theater-related').css({
+                position: 'absolute',
+                bottom: '0px',
+                top: 'auto'
+              });
           });
-          $('.view-fournisseur-cinema #theater-related').css({
-            position: 'absolute',
-            bottom: '0px',
-            top: 'auto'
+          // on page theater, modify sticky behaviour depending on display of bande_couleur_degrade
+          $(document).on('click', '[data-toggle-display]', function () {
+            setTimeout(function(){
+              $(document.body).trigger('sticky_kit:recalc');
+            }, 500);
           });
-      });
-      // on page theater, modify sticky behaviour depending on display of bande_couleur_degrade
-      $(document).on('click', '[data-toggle-display]', function () {
-        setTimeout(function(){
-          $(document.body).trigger('sticky_kit:recalc');
-        }, 500);
-      });
+        }
+      }
     }
 
   // -- chaine
