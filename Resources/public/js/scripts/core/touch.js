@@ -12,6 +12,10 @@ $(document).ready(function(){
        Player.stop();
     });
     */
-    $('.bande_listes .btn.meslistes-plus').addClass('no-toggle-touch');
+    if ('matchMedia' in window) {
+      if (window.matchMedia('(max-width:767px)').matches) {
+        $('.bande_listes .btn.meslistes-plus').addClass('no-toggle-touch');
+      }
+    }
   }
 });
