@@ -72,8 +72,7 @@ $(document).ready(function(){
 
     // Sticky for theaters
     if ($('.view-fournisseur-cinema #theater-related').length) {
-      if ('matchMedia' in window) {
-        if (window.matchMedia('(min-width:768px)').matches) {
+      if ($('html').hasClass('no-touch')) {
           $('.view-fournisseur-cinema #theater-related').stick_in_parent({offset_top: 70})
             .on('sticky_kit:bottom', function(e) {
               $('#theater-related').parent().attr('style', function(i, style) {
@@ -91,7 +90,6 @@ $(document).ready(function(){
               $(document.body).trigger('sticky_kit:recalc');
             }, 500);
           });
-        }
       }
     }
 
