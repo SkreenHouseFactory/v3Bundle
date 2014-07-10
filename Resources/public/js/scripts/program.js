@@ -118,7 +118,7 @@ ProgramView = {
           $('#triggerfav').on('click', function() {
             $('.btn-suivre[data-id].fav-like').trigger('click');
             $('#program-modal').modal('hide');
-          })
+          });
           $('#fbconnect').on('click', function() {
             Skhf.session.callbackSignin = function(sessionData) {
               //add channel to playlist
@@ -131,8 +131,7 @@ ProgramView = {
                 }
               }
             }
-          }
-        })
+          });
       }
     }
   },
