@@ -67,7 +67,7 @@ var Dialog = Class.extend({
 
   relatedDirectorToFollow: function(){
     this.title = 'Voulez-vous également ajouter à vos listes&nbsp;?';
-    this.content = '<ul><li> - <a data-placement="left" data-id="%id%" class="fav fav-person underline">le réalisateur "%name%"</a></li>%more%</ul>';
+    this.content = '<ul><li> - <a data-name="%dataname%" data-placement="left" data-id="%id%" class="fav fav-person underline">le réalisateur "%name%"</a></li>%more%</ul>';
   },
 
   relatedToFollow: function(){

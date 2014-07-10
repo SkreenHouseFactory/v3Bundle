@@ -286,6 +286,7 @@ $(document).ready(function(){
             });
             var dialog = new Dialog('relatedDirectorToFollow',{
               '%id%': real.data('id'),
+              '%dataname%' : $('span', real).html(),
               '%name%': $('span', real).html(),
               '%more%': more,
             },15000);
