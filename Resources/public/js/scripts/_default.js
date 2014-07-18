@@ -275,13 +275,15 @@ $(document).ready(function(){
   });
   
   // -- ui form
-  $('#msk-menu form.navbar-search i.glyphicon').on('click', function(){
-    $('#msk-menu form.navbar-search').submit();
+  $('form.navbar-search .glyphicon').on('click', function(){
+    var form = $(this).parents('form.navbar-search:first');
+    form.submit();
     return false;
   });
-  $('#msk-menu form.navbar-search').on('submit', function(){
-    $('.search-query', $(this)).blur();
-    var q = encodeURIComponent($('.search-query', $(this)).val());
+  $('form.navbar-search').on('submit', function(){
+    var input = $('.search-query', $(this));
+    input.blur();
+    var q = encodeURIComponent(input.val());
     console.log('script', 'searchbox blur', q);
     if (q) {
       top.location = API.config.v3_url + '/programmes/' + q;
