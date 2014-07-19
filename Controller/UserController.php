@@ -411,6 +411,32 @@ class UserController extends Controller
     }
 
     /**
+    * pass myskreen
+    */
+    public function passAction(Request $request)
+    {
+      $session_uid = $request->cookies->get('myskreen_session_uid');
+      if (!$session_uid) {
+        return $this->redirect('http://www.myskreen.com');
+      }
+
+      $api = $this->get('api');
+      $session = $api->fetch('session/' . $session_uid, array(
+        'with_credentials' => true
+      ));
+      //echo $api->url;
+      //print_r(array($session_uid, $vods));
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:pass.html.twig', array(
+        'credentials' => $session->credentials
+      ));
+
+      $response->setPrivate();
+      $response->setMaxAge(0);
+
+      return $response;
+    }
+
+    /**
     * video à la demande
     */
     public function svodAction(Request $request)

@@ -214,8 +214,9 @@ $(document).on('click', '[data-play], [data-play-iframe]', function(){
   }
 });
 
+
 //surcharge session sync args to get sVOD :
-Session_sync_args = { 'with_svod': 1 };
+Session_sync_args = { 'with_svod': 1, 'with_credentials': 1 };
 
 $(document).ready(function(){
 
@@ -239,6 +240,13 @@ $(document).ready(function(){
       //load user's data
       if (Skhf.session.datas.email) {
         ProgramView.loadProgramUsersDatas($('#view-program').data('id'));
+      }
+      
+      //load pass
+      console.log('scripts/program.js', 'callbackSignin', 'pass', $.inArray('sk_pass', Skhf.session.datas.credentials));
+      if (typeof Skhf.session.datas.credentials != 'undefined' && 
+          typeof Skhf.session.datas.credentials.sk_pass != 'undefined' ) {
+        $('.panel-pass .tab-pane').html('<p class="bs-callout bs-callout-success">Vous avez souscrit au pass. Vous pouvez voir votre film !</p>');
       }
 
       //theater playlist et fallback géoloc
@@ -270,7 +278,6 @@ $(document).ready(function(){
           }, 5000);
         }
       }
-      
     }
 
     // -- add preference callback : incitation à suivre des related
@@ -485,10 +492,10 @@ $(document).ready(function(){
     $('#program-synopsis .tab-pane.synopsis-long').append('<div class="show-all"><span class="show-more">...</span><span class="show-more-text">Voir plus</span></div>');
   }
 
+  //edit ccm
   $(document).on('click', '.channel a.credential-cog', function(){
       window.open($(this).attr('href'));
       return false;
   });
   
-
 });

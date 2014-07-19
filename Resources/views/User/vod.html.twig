@@ -16,8 +16,11 @@
         </li>
       {% endfor %}
       <li>
-        <a href="{{ path('user_svod') }}" style="color: rgb(255, 132, 19);">Abonnements</a>
+        <a href="{{ path('user_pass') }}" style="color: rgb(255, 132, 19);">Pass myskreen</a>
       </li>
+      {#<li>
+        <a href="{{ path('user_svod') }}" style="color: rgb(255, 132, 19);">Abonnements</a>
+      </li>#}
     </ul>
 
     {% if vods|length == 0 %}

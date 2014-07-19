@@ -1,0 +1,38 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}{{ 'page.title.user.pass'|trans }}{% endblock %}
+
+{% block content %}
+<div id="pass-view" class="container">
+  <ul class="nav nav-pills pull-right">
+    <li>
+      <a href="{{ path('user_vod', {onglet: null}) }}">&raquo; Vos vidéos à la demande</a>
+    </li>
+  </ul>
+	<h1>{{ 'user.pass'|trans }}</h1>
+  {% if 'sk_pass' in credentials|to_array %}
+	<div id="pass-unsubscribe">
+    <iframe src="https://payment.allopass.com/subscribe/cancel.apu?ids=314744&idd=1365117"></iframe>
+  </div>
+  {% else %}
+  <div id="pass-subscribe" class="panel panel-deporte panel-success panel-pass">
+    <div class="panel-heading">
+      <h3 class="panel-title">Pass myskreen</h3>
+    </div>
+    <div id="pass" class="tab-pane">
+      <p><a class="btn btn-success btn-pass-subscribe">1er film offert</a> puis 5€/semaine</p>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block pagescripts %}
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-pass.js'
+    
+    filter='?yui_js' 
+    output='js/compiled/pages/user-pass.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}
