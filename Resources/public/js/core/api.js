@@ -412,6 +412,32 @@ API = {
         }
     });
   },
+  accessPass: function() {
+    UI.auth(function(){
+      console.log('API.accessPass', 'callback UI.auth', Skhf.session.datas);
+      $('#skModal.modal .modal-message').html(
+        '<p><b>Pass Vidéo à la demande :</b> Créez votre compte sur mySkreen pour accéder à votre Pass.</p>' +
+        '<p>Accédez au meilleur de la VOD en 1 clic et en Haute Définition et regardez vos films et séries sur tous vos écrans : PC, Mac, Apple iOs et Android</p>'
+      );
+      if (Skhf.session.datas.email) {
+        //already signed up
+        if (typeof Skhf.session.datas.credentials.sk_pass != 'undefined') {
+          $('#skModal').modal('hide');
+          return;
+        }
+        
+        //signup
+        //forward_target='+escape(document.location.origin+'/app_dev.php/alopass'document.location.href)+'
+        url = 'https://payment.allopass.com/subscribe/subscribe.apu?ids=314744&idd=1365117&merchant_subscriber_reference='+Skhf.session.uid+'&merchant_transaction_id=pass&product_name=Pass%20myskreen&data='+escape(JSON.stringify({"url":document.location.href}));
+        if ($('html').hasClass('touch')) {
+          document.location = url;
+        } else {
+          $('#skModal .modal-body').addClass('nopadding').html('<iframe class="modal-iframe" src="'+url+'"></iframe>');
+          $('#skModal').modal();
+        }
+      }
+    });
+  },
   query: function(method, url, data, callback, cache, version) {
 
     if (!url.match(/^http(s|)\:\/\//)) {

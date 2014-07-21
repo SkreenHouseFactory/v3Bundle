@@ -254,6 +254,12 @@ $(document).ready(function(){
         return false;
       });
 
+  //pass
+  $('.btn-pass-subscribe').on('click', function(){
+    console.log('scripts/_default.js', 'API.accessPass');
+    API.accessPass();
+  });
+
   //share
   $('.share .btn').on('click', function(){
     if ($(this).data('share') == 'disallow') {

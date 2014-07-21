@@ -32,12 +32,12 @@
 
   {# pass myskreen #}
   {% if key == 'deporte' and  app.request.get('activate_pass') %}
-  <div class="panel panel-deporte panel-success">
+  <div class="panel panel-deporte panel-success panel-pass">
     <div class="panel-heading">
       <h3 class="panel-title">Pass myskreen</h3>
     </div>
     <div id="pass" class="tab-pane">
-      <p><a class="btn btn-success" href="https://payment.allopass.com/subscribe/subscribe.apu?ids=314744&idd=1365117&merchant_subscriber_reference=pass-program-{{ program.id }}&merchant_transaction_id=pass-subscription&product_name=Pass%20myskreen&data={{ {program_id: program.id}|json_encode }}">1er film offert</a> puis 5€/semaine</p>
+      <p><a class="btn btn-success btn-pass-subscribe">1er film offert</a> puis 5€/semaine</p>
     </div>
   </div>
   {% endif %}
