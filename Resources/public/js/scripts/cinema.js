@@ -80,7 +80,7 @@ $(document).ready(function(){
 		return false;
 	});
   // trigger search geoloc
-	$(document).on('click', '#trigger-theaters-geoloc', function(){
+	$(document).on('click', '#trigger-theaters-geoloc', function(event, prevent_scroll){
     API.trackEvent('Cinémas', 'search-geoloc', Skhf.session.user ? 'connected' : 'notconnected');
 		var container = $('.modal #theaters-list').length ? $('.modal #theaters-list') : $('#theaters-list');
 		console.log('script', 'trigger-theaters-geoloc', container);
@@ -95,6 +95,14 @@ $(document).ready(function(){
             Skhf.session.datas.cinema.split(','), 
             $('.modal #theaters-list')
           );
+        }
+        if ('matchMedia' in window) {
+          if (window.matchMedia('(max-width:767px)').matches) {
+            if ($('#view-program').length && typeof prevent_scroll == 'undefined') {
+              var scrollto = ($('#theaters-list').offset().top) - 100;
+              $('html,body').animate({scrollTop: scrollto});
+            }
+          }
         }
 			});
 		}, function(msg, code){
