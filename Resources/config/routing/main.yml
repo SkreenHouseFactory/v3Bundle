@@ -1,14 +1,3 @@
-#allopass
-allopass_callback:
-    path: /allopass/callback/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Allopass:callback }
-allopass_error:
-    path: /allopass/error/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Allopass:error }
-allopass_access:
-    path: /allopass/access/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Allopass:access }
-
 # redirecting
 redirect_integrale:
     path: /saga/363-l-integrale-des-inconnus/
