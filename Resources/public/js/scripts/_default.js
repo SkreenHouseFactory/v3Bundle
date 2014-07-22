@@ -305,7 +305,9 @@ $(document).ready(function(){
       UI.typeahead('#nav-search-bis .search-query');
     }
   }
-
+  $(document).on('submit','#nav-search, #nav-search-bis', function(e){
+    e.preventDefault();
+  });
 
   // -- typeahead on keypress
   /*

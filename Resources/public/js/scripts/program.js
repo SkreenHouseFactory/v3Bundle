@@ -255,7 +255,7 @@ $(document).ready(function(){
             $('.tab-content #trigger-theaters-playlist').length){ //desactivé si id cinéma dans url
           $('.tab-content #trigger-theaters-playlist').trigger('click');
         } else if ($('.tab-content #trigger-theaters-geoloc').length) {
-          $('.tab-content #trigger-theaters-geoloc').trigger('click');
+          $('.tab-content #trigger-theaters-geoloc').trigger('click', ['prevent_scroll']);
         }
       }
       
