@@ -36,6 +36,14 @@ class ModalController extends Controller
       return $this->render('SkreenHouseFactoryV3Bundle:Modal:publish-playlist.html.twig', array(
       ));
     }
+    /**
+    * modal pass presentation
+    */
+    public function passAction(Request $request)
+    {
+      return $this->render('SkreenHouseFactoryV3Bundle:Modal:pass.html.twig', array(
+      ));
+    }
 
     /**
     * signup

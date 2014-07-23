@@ -59,6 +59,9 @@ modal_mdp:
 modal_publish_playlist:
     pattern:  /user/modal/publish-playlist
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:publishplaylist }
+modal_pass:
+    pattern: /pass/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:pass }
 
 
 #timeline

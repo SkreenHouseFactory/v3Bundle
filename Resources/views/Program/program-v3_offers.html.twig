@@ -37,7 +37,11 @@
       <h3 class="panel-title">Pass Illimité myskreen</h3>
     </div>
     <div id="pass" class="tab-pane">
-      <p><a class="btn btn-success btn-pass-subscribe"><span class="glyphicon glyphicon-play"></span>&nbsp;GRATUIT</a> myskreen vous offre ce film <small>(puis 5€/semaine - <a href="">en savoir plus</a>)</small></p>
+      {% set type_programme %}{{ program.format is defined and program.format.name is defined and program.format.name in ['Film', 'Série', 'Documentaire'] ? program.format.name|lower : 'programme' }}{% endset %}    
+      <div>
+        <a class="btn btn-success btn-pass-subscribe"><span class="glyphicon glyphicon-play"></span>&nbsp;GRATUIT</a>
+        <div>myskreen vous offre {{ type_programme == 'série' ? 'cette' : 'ce' }} {{ type_programme }} avec le Pass Illimité <br/><small>(puis 5€/semaine, sans engagement - <a data-modal-remote="/pass/">en savoir plus</a>)</small></div>
+      </div>
     </div>
   </div>
   {% endif %}

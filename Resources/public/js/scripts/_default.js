@@ -458,4 +458,8 @@ $(document).ready(function(){
     }
   });
 
+  $(document).on('click', '.btn-pass-subscribe-modal', function(){
+    $('.btn-pass-subscribe').trigger('click');
+  });
+
 });
