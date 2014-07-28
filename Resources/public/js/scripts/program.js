@@ -214,9 +214,8 @@ $(document).on('click', '[data-play], [data-play-iframe]', function(){
   }
 });
 
-
-//surcharge session sync args to get sVOD :
-Session_sync_args = { 'with_svod': 1, 'with_credentials': 1 };
+//surcharge session sync args to get pass :
+Session_sync_args = { 'with_credentials': 1 };
 
 $(document).ready(function(){
 

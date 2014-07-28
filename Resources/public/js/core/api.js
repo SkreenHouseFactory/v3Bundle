@@ -421,15 +421,23 @@ API = {
       );
       if (Skhf.session.datas.email) {
         //already signed up
-        if (typeof Skhf.session.datas.credentials.sk_pass != 'undefined') {
+        if (typeof Skhf.session.datas.credentials != 'undefined' &&
+            typeof Skhf.session.datas.credentials.sk_pass != 'undefined') {
           $('#skModal').modal('hide');
           return;
         }
         
         //signup
         //forward_target='+escape(document.location.origin+'/app_dev.php/alopass'document.location.href)+'
-        url = 'https://payment.allopass.com/subscribe/subscribe.apu?ids=314744&idd=1365117&merchant_subscriber_reference='+Skhf.session.uid+'&merchant_transaction_id=pass&product_name=Pass%20myskreen&data='+escape(JSON.stringify({"url":document.location.href}));
-        if ($('html').hasClass('touch')) {
+        var product_id = API.config.env == 'dev' ? 1365117 : 1372175;
+        var params = 'ids=314744&idd=1365117&merchant_subscriber_reference='+Skhf.session.uid+'&merchant_transaction_id=pass&product_name=Pass%20myskreen&data='+escape(JSON.stringify({"url":document.location.href}))+'&customer_email='+escape(Skhf.session.datas.email)+'&alias=';
+        var url_default = 'https://payment.allopass.com/subscribe/subscribe.apu?'+params;
+        var url_mobile = 'https://payment.allopass.com/abo/wapplus/purchase.apu?'+params+'&country=FR&offer_id=776';
+        var url_fai = 'https://payment.allopass.com/abo/wha/purchase.apu?'+params+'&country=FR&offer_id=776&type=internet-plus';
+
+        var url = $('html').hasClass('touch') ? url_mobile : url_fai;
+        if ($('html').hasClass('touch') && 
+            ($(window).height() < 700 || $(window).width() < 700)) {
           document.location = url;
         } else {
           $('#skModal .modal-body').addClass('nopadding').html('<iframe class="modal-iframe" src="'+url+'"></iframe>');

@@ -45,15 +45,16 @@ page:
           serie : %title% Streaming, Série %version%
         search: Recherche : %q% | Recherche
         user:
-            settings: Vos préférences | Mon compte
-            programs: Vos programmes | Mon compte
-            theaters: Vos cinémas | Mon compte
-            persons: Vos acteurs/réalisateurs | Mon compte
-            category: Vos catégories | Mon compte
-            channels: Vos chaînes | Mon compte
-            vod: Mes vidéos à la demande | Mon compte
-            svod: Mes abonnements | Mon compte
-            notifs: Toutes mes notifications | Mon compte
+            settings: Préférences | Mon compte
+            programs: Programmes | Mon compte
+            theaters: Cinémas | Mon compte
+            persons: Acteurs/réalisateurs | Mon compte
+            category: Catégories | Mon compte
+            channels: Chaînes | Mon compte
+            vod: Vidéos à la demande | Mon compte
+            svod: Abonnements | Mon compte
+            pass: Pass myskreen | Mon compte
+            notifs: Notifications | Mon compte
             friends: Mes amis regardent | Mon compte
         sitemap:
             channels:
@@ -131,6 +132,7 @@ redirection:
     h1: Patientez quelques secondes ...
     message: mySkreen vous redirige vers votre vidéo
 user:
+    pass: Votre Pass myskreen
     vod: Vidéo à la demande
     svod: Vos abonnements
     programs: Vos programmes

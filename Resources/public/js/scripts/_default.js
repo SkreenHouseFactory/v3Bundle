@@ -257,8 +257,9 @@ $(document).ready(function(){
   //pass
   $('.btn-pass-subscribe').on('click', function(){
     if (Skhf.session.datas.email) {
-      if (typeof Skhf.session.datas.credential != 'undefined' &&
+      if (typeof Skhf.session.datas.credentials != 'undefined' &&
           typeof Skhf.session.datas.credentials.sk_pass != 'undefined') { // Si l'utilisateur est connecté et abonné au Pass
+          console.log('scripts/_default.js', 'API.accessPass', 'already subscribed');
         return false; // Pas de modal pour y souscrire
       }
     }
