@@ -102,7 +102,7 @@
       </div>
     </div>
 
-  {% elseif o.offer_type in ['deporte','archive'] %}
+  {% elseif o.offer_type in ['deporte'] and o.cost and  app.request.get('activate_pass') %}
 
     <div class="row best-offer deporte {{ o.cost is defined and o.cost ? '' : 'no-cost '}}player-stop {% if program.player and o.id == program.player.id %}is-playing{% endif %}"{% if o.offer_type == 'deporte' %} data-play-text="{{ ('player.content.text.' ~ o.offer_type)|trans({'%date%': 'diffusé '~ (o.broadcasttime is defined ? o.broadcasttime|broadcastdate : '')}) }}"{% endif %}>
       <div class="tab-pane pass">
@@ -113,6 +113,32 @@
         </div>
       </div>
     </div>
+
+
+  {% elseif o.offer_type in ['deporte','archive'] %}
+
+    <div class="row best-offer deporte {{ o.cost is defined and o.cost ? '' : 'no-cost '}}player-stop {% if program.player and o.id == program.player.id %}is-playing{% endif %}" data-id="{{ o.id }}"{% if o.deporte is defined and o.deporte %} data-play="{{ o.id }}"{% endif %}{% if o.offer_type == 'deporte' %} data-play-text="{{ ('player.content.text.' ~ o.offer_type)|trans({'%date%': 'diffusé '~ (o.broadcasttime is defined ? o.broadcasttime|broadcastdate : '')}) }}"{% endif %}>
+      <div class="col-xs-3 offers">
+        {% if program.player and o.id == program.player.id %}
+          <button type="button" class="btn btn-voir disabled">Lecture en cours</button>
+        {% else %}
+          <button type="button" class="btn btn-voir"><i class="glyphicon glyphicon-play" ></i>&nbsp;Voir</button>
+        {% endif %}
+      </div>
+      <div class="col-xs-7">
+        <div class="row">
+          <div class="col-xs-16"><span>{{ o_access.name }} |</span><span>{% if program.duration %} {{ program.duration }} mn. {% endif %}{% if o.tags.version is defined %}{{ o.tags.version }} {% endif %}{% if o.tags.HD is defined %} / {{ o.tags.HD }}{% endif %}</span></div>
+        </div>
+        <div class="row last-child">
+          <div class="col-xs-16">En intégralité sur mySkreen</div>
+        </div>
+      </div>
+      <div class="col-xs-3 price">{% if o.cost is defined and o.cost is not null and o.cost != "-" %}{{ o.cost }}&nbsp;€{% endif %}</div>
+      <div class="col-xs-3">
+        <img src="{{ o_channel.img|replace({'//medias': '/medias', '/80': '/x/50'}) }}" alt="{{ o_channel.name }} {{ o_channel.has_replay is defined ? 'Replay' : 'Streaming' }}" />
+      </div>
+    </div>
+
 
   {% elseif o.offer_type == 'live' %}
   
