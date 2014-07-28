@@ -102,7 +102,10 @@ API = {
     API.config.player = $('html').hasClass('video') ? 'html5' : 'flash';
 
     // console
-    if( API.config.console != true || typeof console == 'undefined' || typeof console.log === 'undefined') {
+    if (document.location.href.indexOf('activate_console') == -1 &&
+        (API.config.console != true || 
+         typeof console == 'undefined' || 
+         typeof console.log === 'undefined')) {
       console = {
           log: function() {},
           warn: function() {},
