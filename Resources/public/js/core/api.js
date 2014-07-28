@@ -413,6 +413,7 @@ API = {
     });
   },
   accessPass: function() {
+    var self = this;
     UI.auth(function(){
       console.log('API.accessPass', 'callback UI.auth', Skhf.session.datas);
       $('#skModal.modal .modal-message').html(
@@ -429,7 +430,8 @@ API = {
         
         //signup
         //forward_target='+escape(document.location.origin+'/app_dev.php/alopass'document.location.href)+'
-        var product_id = API.config.env == 'dev' ? 1365117 : 1372175;
+        var product_id = self.config.env == 'dev' ? 1365117 : 1372175;
+        console.log('API.accessPass', 'callback UI.auth', 'env:'+self.config.env, 'product_id:'+product_id);
         var params = 'ids=314744&idd=1365117&merchant_subscriber_reference='+Skhf.session.uid+'&merchant_transaction_id=pass&product_name=Pass%20myskreen&data='+escape(JSON.stringify({"url":document.location.href}))+'&customer_email='+escape(Skhf.session.datas.email)+'&alias=';
         var url_default = 'https://payment.allopass.com/subscribe/subscribe.apu?'+params;
         var url_mobile = 'https://payment.allopass.com/abo/wapplus/purchase.apu?'+params+'&country=FR&offer_id=776';
