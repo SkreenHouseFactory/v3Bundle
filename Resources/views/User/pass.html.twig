@@ -16,7 +16,7 @@
 	<div id="pass-unsubscribe">
     <h3>Désabonnement</h3>
     <p>Utilisez les informations d'Allopass que vous avez reçu par mail :</p>
-    <iframe frameborder="0" width="100%" height="600" src="https://payment.allopass.com/subscribe/cancel.apu?ids=314744&idd={{ app.environment == 'dev' ? 1365117 : 1372314 }}"></iframe>
+    <iframe frameborder="0" width="100%" height="600" src="https://payment.allopass.com/subscribe/cancel.apu?ids=314744&idd={{ app.environment == 'prod' ? 1365117 : 1372314 }}"></iframe>
   </div>
   {% else %}
   <div class="panel panel-deporte panel-success panel-pass">

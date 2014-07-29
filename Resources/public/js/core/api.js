@@ -433,7 +433,7 @@ API = {
         
         //signup
         //forward_target='+escape(document.location.origin+'/app_dev.php/alopass'document.location.href)+'
-        var product_id = self.config.env == 'dev' ? 1365117 : 1372314;
+        var product_id = self.config.env == 'prod' ? 1365117 : 1372314;
         console.log('API.accessPass', 'callback UI.auth', 'env:'+self.config.env, 'product_id:'+product_id);
         var params = 'ids=314744&idd='+product_id+'&merchant_subscriber_reference='+Skhf.session.uid+'&merchant_transaction_id=pass&product_name=Pass%20myskreen&data='+escape(JSON.stringify({"url":document.location.href}))+'&customer_email='+escape(Skhf.session.datas.email)+'&alias=';
         var url_default = 'https://payment.allopass.com/subscribe/subscribe.apu?'+params;
@@ -445,17 +445,15 @@ API = {
             ($(window).height() < 700 || $(window).width() < 700)) {
           document.location = url;
           
-          // -> internet
-          $('#skModal.modal .modal-footer').html(
-            '<p><b>Paver avec :</b> <a data-modal-iframe-src="'+url_fai+'">Ma facture Internet</a> &nbsp;&nbsp; <a data-modal-iframe-src="'+url_mobile+'">Mon mobile</a></p>'
-          );
-          
         } else {
-          $('#skModal .modal-body').addClass('nopadding').html('<iframe style="padding:0 5px;height:450px" class="modal-iframe" src="'+url+'"></iframe>');
+          $('#skModal .modal-body').addClass('nopadding').html(
+            '<p><b>Paver avec :</b> <a data-modal-iframe-src="'+url_mobile+'">Mon mobile</a> &nbsp;&nbsp; <a data-modal-iframe-src="'+url_fai+'">Ma facture Internet</a></p>'+
+            '<iframe style="padding:0 5px;height:450px" class="modal-iframe" src="'+url+'"></iframe>'
+          );
           
           // -> mobile
           $('#skModal.modal .modal-footer').html(
-            '<p><b>Paver avec :</b> <a data-modal-iframe-src="'+url_mobile+'">Mon mobile</a> &nbsp;&nbsp; <a data-modal-iframe-src="'+url_fai+'">Ma facture Internet</a></p>'
+            '<p style="text-align: center;padding: 5px 0 0;"><b>Payer avec :</b> <a data-modal-iframe-src="'+url_mobile+'">Mon mobile</a> &nbsp;&nbsp; <a data-modal-iframe-src="'+url_fai+'">Ma facture Internet</a></p>'
           );
           $('#skModal').modal();
           $('[data-modal-iframe-src]').on('click', function(){
