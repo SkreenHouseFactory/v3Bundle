@@ -447,14 +447,11 @@ API = {
           
         } else {
           $('#skModal .modal-body').addClass('nopadding').html(
-            '<p><b>Paver avec :</b> <a data-modal-iframe-src="'+url_mobile+'">Mon mobile</a> &nbsp;&nbsp; <a data-modal-iframe-src="'+url_fai+'">Ma facture Internet</a></p>'+
+            '<p style="text-align: center;padding: 5px 0 0;"><b>Payer avec :</b> <a data-modal-iframe-src="'+url_mobile+'">Mon mobile</a> &nbsp;&nbsp; <a data-modal-iframe-src="'+url_fai+'">Ma facture Internet</a></p>'+
             '<iframe style="padding:0 5px;height:450px" class="modal-iframe" src="'+url+'"></iframe>'
           );
           
           // -> mobile
-          $('#skModal.modal .modal-footer').html(
-            '<p style="text-align: center;padding: 5px 0 0;"><b>Payer avec :</b> <a data-modal-iframe-src="'+url_mobile+'">Mon mobile</a> &nbsp;&nbsp; <a data-modal-iframe-src="'+url_fai+'">Ma facture Internet</a></p>'
-          );
           $('#skModal').modal();
           $('[data-modal-iframe-src]').on('click', function(){
             $('#skModal .modal-body iframe.modal-iframe').attr('src', $(this).data('modal-iframe-src'));
