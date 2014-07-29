@@ -274,7 +274,6 @@ API = {
     $('input:not([type="radio"], [type="checkbox"])', elmt).addClass('form-control');
     $('.btn:visible:not(.tv-component)', elmt).addClass('tv-component');
     $('input[type="text"], input[type="email"], input[type="password"]', elmt).attr('autocomplete', 'off');
-
     
     //v2
     if (elmt.hasClass('modal')) {
@@ -419,9 +418,10 @@ API = {
     var self = this;
     UI.auth(function(){
       console.log('API.accessPass', 'callback UI.auth', Skhf.session.datas);
+      $('#skModal.modal .modal-header .modal-title').html('Pass Illimité myskreen');
       $('#skModal.modal .modal-message').html(
-        '<p><b>Pass Vidéo à la demande :</b> Créez votre compte sur mySkreen pour accéder à votre Pass.</p>' +
-        '<p>Accédez au meilleur de la VOD en 1 clic et en Haute Définition et regardez vos films et séries sur tous vos écrans : PC, Mac, Apple iOs et Android</p>'
+        '<p><b>Créez votre compte pour accéder à votre Pass.</b><br/>' +
+        'Accédez au meilleur de la VOD en 1 clic et en HD. Regardez vos films et séries sur tous vos écrans : PC, Mac, Apple iOs et Android.</p>'
       );
       if (Skhf.session.datas.email) {
         //already signed up
@@ -433,7 +433,7 @@ API = {
         
         //signup
         //forward_target='+escape(document.location.origin+'/app_dev.php/alopass'document.location.href)+'
-        var product_id = self.config.env == 'dev' ? 1365117 : 1372175;
+        var product_id = self.config.env == 'dev' ? 1365117 : 1372314;
         console.log('API.accessPass', 'callback UI.auth', 'env:'+self.config.env, 'product_id:'+product_id);
         var params = 'ids=314744&idd='+product_id+'&merchant_subscriber_reference='+Skhf.session.uid+'&merchant_transaction_id=pass&product_name=Pass%20myskreen&data='+escape(JSON.stringify({"url":document.location.href}))+'&customer_email='+escape(Skhf.session.datas.email)+'&alias=';
         var url_default = 'https://payment.allopass.com/subscribe/subscribe.apu?'+params;
@@ -444,9 +444,23 @@ API = {
         if ($('html').hasClass('touch') && 
             ($(window).height() < 700 || $(window).width() < 700)) {
           document.location = url;
+          
+          // -> internet
+          $('#skModal.modal .modal-footer').html(
+            '<p><b>Paver avec :</b> <a data-modal-iframe-src="'+url_fai+'">Ma facture Internet</a> &nbsp;&nbsp; <a data-modal-iframe-src="'+url_mobile+'">Mon mobile</a></p>'
+          );
+          
         } else {
-          $('#skModal .modal-body').addClass('nopadding').html('<iframe class="modal-iframe" src="'+url+'"></iframe>');
+          $('#skModal .modal-body').addClass('nopadding').html('<iframe style="padding:0 5px;height:450px" class="modal-iframe" src="'+url+'"></iframe>');
+          
+          // -> mobile
+          $('#skModal.modal .modal-footer').html(
+            '<p><b>Paver avec :</b> <a data-modal-iframe-src="'+url_mobile+'">Mon mobile</a> &nbsp;&nbsp; <a data-modal-iframe-src="'+url_fai+'">Ma facture Internet</a></p>'
+          );
           $('#skModal').modal();
+          $('[data-modal-iframe-src]').on('click', function(){
+            $('#skModal .modal-body iframe.modal-iframe').attr('src', $(this).data('modal-iframe-src'));
+          })
         }
       }
     });

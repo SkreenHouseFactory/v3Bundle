@@ -85,9 +85,9 @@ ProgramView = {
           for (k in datas.boutons_notifications['new']) {
             var notifs = datas.boutons_notifications['new'][k];
             if (notifs.length > 0 && k != 'count' ) {
-              $('#program-offers .panel-' + k).append('<span class="badge label-danger">' + notifs.length + ' nouveaux</span>');           
+              $('.bande_offers .panel-' + k).append('<span class="badge label-danger">' + notifs.length + ' nouveaux</span>');           
               for (k in notifs){
-                $('#program-offers [data-id="' + notifs[k] + '"] td:first-child').append('<span class="badge label-danger">Nouveau</span>');
+                $('.bande_offers [data-id="' + notifs[k] + '"] td:first-child').append('<span class="badge label-danger">Nouveau</span>');
               };
             }
           };
@@ -245,7 +245,7 @@ $(document).ready(function(){
       console.log('scripts/program.js', 'callbackSignin', 'pass', $.inArray('sk_pass', Skhf.session.datas.credentials));
       if (typeof Skhf.session.datas.credentials != 'undefined' && 
           typeof Skhf.session.datas.credentials.sk_pass != 'undefined' ) {
-        $('.panel-pass .tab-pane').html('<p class="bs-callout bs-callout-success">Vous avez souscrit au pass. Vous pouvez voir votre film !</p>');
+        $('.panel-pass .tab-pane, .tab-pane.pass').html('<p class="bs-callout bs-callout-success nomargin">Ce film gratuit avec votre Pass illimité !</p>');
       }
 
       //theater playlist et fallback géoloc
@@ -378,9 +378,11 @@ $(document).ready(function(){
       });
     }
     //autoload from url
-    if (document.location.href.match(/\?rent/gi)) {
-      $('#program-offers [data-play]:first').trigger('click');
-    } else if (document.location.href.match(/\?follow/gi)) {
+    if (document.location.href.match(/(\?|&)rent/gi)) {
+      console.log('scripts/program.js', '(\?|&)rent', $('.bande_offers [data-play]:first'));
+      $('.bande_offers [data-play]:first').trigger('click');
+    } else if (document.location.href.match(/(\?|&)follow/gi)) {
+      console.log('scripts/program.js', '(\?|&)follow', document.location.href);
       if ($('#program-modal').length){
         ProgramView.loadModal();
       } else if (!$('.btn-suivre[data-id]').hasClass('fav-on')) {

@@ -11,8 +11,12 @@
   </ul>
 	<h1>{{ 'user.pass'|trans }}</h1>
   {% if 'sk_pass' in credentials|to_array %}
+  <p class="bs-callout bs-callout-success">Vous êtes abonné au Pass illimité !<br/>Vous avez accès à toutes les vidéos à la demande disponibles sur myskreen.</p>
+  <br/><br/><br/><br/><br/><br/><hr/><br/><br/><br/>
 	<div id="pass-unsubscribe">
-    <iframe frameborder="0" width="100%" height="600" src="https://payment.allopass.com/subscribe/cancel.apu?ids=314744&idd={{ app.environment == 'dev' ? 1365117 : 1372175 }}"></iframe>
+    <h3>Désabonnement</h3>
+    <p>Utilisez les informations d'Allopass que vous avez reçu par mail :</p>
+    <iframe frameborder="0" width="100%" height="600" src="https://payment.allopass.com/subscribe/cancel.apu?ids=314744&idd={{ app.environment == 'dev' ? 1365117 : 1372314 }}"></iframe>
   </div>
   {% else %}
   <div class="panel panel-deporte panel-success panel-pass">

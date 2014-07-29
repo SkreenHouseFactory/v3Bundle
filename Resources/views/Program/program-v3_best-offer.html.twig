@@ -104,7 +104,7 @@
 
   {% elseif o.offer_type in ['deporte'] and o.cost and  app.request.get('activate_pass') %}
 
-    <div class="row best-offer deporte {{ o.cost is defined and o.cost ? '' : 'no-cost '}}player-stop {% if program.player and o.id == program.player.id %}is-playing{% endif %}"{% if o.offer_type == 'deporte' %} data-play-text="{{ ('player.content.text.' ~ o.offer_type)|trans({'%date%': 'diffusé '~ (o.broadcasttime is defined ? o.broadcasttime|broadcastdate : '')}) }}"{% endif %}>
+    <div class="row best-offer deporte pass {{ o.cost is defined and o.cost ? '' : 'no-cost '}}player-stop {% if program.player and o.id == program.player.id %}is-playing{% endif %}"{% if o.offer_type == 'deporte' %} data-play-text="{{ ('player.content.text.' ~ o.offer_type)|trans({'%date%': 'diffusé '~ (o.broadcasttime is defined ? o.broadcasttime|broadcastdate : '')}) }}"{% endif %}>
       <div class="tab-pane pass">
         {% set type_programme %}{{ program.format is defined and program.format.name is defined and program.format.name in ['Film', 'Série', 'Documentaire'] ? program.format.name|lower : 'programme' }}{% endset %}    
         <div>
