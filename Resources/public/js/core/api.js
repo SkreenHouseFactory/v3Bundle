@@ -440,7 +440,7 @@ API = {
         var url_mobile = 'https://payment.allopass.com/abo/wapplus/purchase.apu?'+params+'&country=FR&offer_id=776';
         var url_fai = 'https://payment.allopass.com/abo/wha/purchase.apu?'+params+'&country=FR&offer_id=776&type=internet-plus';
 
-        var url = $('html').hasClass('touch') ? url_mobile : url_fai;
+        var url = true || $('html').hasClass('touch') ? url_mobile : url_fai;
         if ($('html').hasClass('touch') && 
             ($(window).height() < 700 || $(window).width() < 700)) {
           document.location = url;
