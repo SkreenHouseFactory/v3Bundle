@@ -245,7 +245,7 @@ $(document).ready(function(){
       console.log('scripts/program.js', 'callbackSignin', 'pass', $.inArray('sk_pass', Skhf.session.datas.credentials));
       if (typeof Skhf.session.datas.credentials != 'undefined' && 
           typeof Skhf.session.datas.credentials.sk_pass != 'undefined' ) {
-        $('.panel-pass .tab-pane, .tab-pane.pass').html('<p class="bs-callout bs-callout-success nomargin">Ce film gratuit avec votre Pass illimité !</p>');
+        $('.panel-pass .tab-pane, .tab-pane.pass').html('<p class="bs-callout bs-callout-success nomargin"><button data-play="'+$('#deporte.tab-pane [data-play]:first').data('play')+'" type="button" class="btn btn-success"><span class="glyphicon glyphicon-play"></span>&nbsp;Voir</button> avec votre Pass illimité !</p>');
       }
 
       //theater playlist et fallback géoloc

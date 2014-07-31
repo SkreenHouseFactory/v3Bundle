@@ -329,6 +329,17 @@ UiView = {
       }
       Player.elmt=$(this);
     })
+    //track event
+    $(elmt).on('click', '[data-track-event]', function () {
+      console.log('script', 'data-track-event', $(this).data('track-event'));
+      vars = $(this).data('track-event').split(',')
+      API.trackEvent(
+        vars[0],
+        typeof vars[1] != 'undefined' ? vars[1] : '',
+        typeof vars[2] != 'undefined' ? vars[2] : ''
+      );
+    });
+    
     // toggle text in element
     $(elmt).on('click', '[data-toggle-text]', function () {
       if (!$(this).hasClass('no-toggle-touch')) {

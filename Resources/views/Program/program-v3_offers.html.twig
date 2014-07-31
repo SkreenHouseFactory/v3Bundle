@@ -38,7 +38,7 @@
     </div>
     <div class="tab-pane pass">
       {% set type_programme %}{{ program.format is defined and program.format.name is defined and program.format.name in ['Film', 'Série', 'Documentaire'] ? program.format.name|lower : 'programme' }}{% endset %}    
-      <div>
+      <div data-track-event="btn-pass,offers,{{ program.id }}">
         <a class="btn btn-success btn-pass-subscribe"><span class="glyphicon glyphicon-play"></span>&nbsp;<span class="btn-pass-text">GRATUIT</span></a>
         <div class="pass-text" data-type-programme="{{ type_programme == 'série' ? 'cette' : 'ce' }} {{ type_programme }}">myskreen vous offre {{ type_programme == 'série' ? 'cette' : 'ce' }} {{ type_programme }} avec le Pass Illimité <br/><small>(puis 5€/semaine, sans engagement - <a data-modal-remote="/pass/">en savoir plus</a>)</small></div>
       </div>
