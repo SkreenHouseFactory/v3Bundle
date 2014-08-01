@@ -570,7 +570,12 @@ API = {
         var1 + '-' + var2,  // Action
         var3
       ]);
-      console.log('API._trackEvent', ['_trackEvent', var1, var2, var3]);
+      console.log('API.trackEvent', ['_trackEvent', var1, var2, var3]);
+
+    } else if (typeof ga != 'undefined') {
+      console.log('API.trackEvent', 'send', [var1, var2, var3]);
+      ga('send', 'event', var1, var1 + '-' + var2, var3);
+      
     } else {
       console.warn('API._trackEvent', '_gaq undefined !', ['_trackEvent', var1, var2, var3]);
     }
@@ -585,6 +590,11 @@ API = {
          var4      // Sets the scope to session-level.  Optional parameter.
       ]);
       console.log('API.trackVar', ['_setCustomVar', var1, var2, var3, var4]);
+
+    } else if (typeof ga != 'undefined') {
+      console.log('API.trackVar', 'send', [var1, var2]);
+      ga('set', var1, var2);
+      
     } else {
       console.warn('API.trackVar', '_gaq undefined !', ['_setCustomVar', var1, var2, var3, var4]);
     }
