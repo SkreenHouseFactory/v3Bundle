@@ -41,8 +41,35 @@ class ModalController extends Controller
     */
     public function passAction(Request $request)
     {
-      return $this->render('SkreenHouseFactoryV3Bundle:Modal:pass.html.twig', array(
+      $pack_pass = '';
+
+      if ($request->get('fromWebsite') == 'v3') {
+        // Pas d'appel API pour la modal
+      } else {
+        $api = $this->get('api');
+        $params =  array(
+          'channel_img_width' => 60,
+          'img_width' => 150,
+          'img_height' => 200,
+          'fields' => 'programs,offers,player',
+          'offers_type' => 'play',
+          'player' => 'iframe',
+          'allow_with' => true
+        );
+        $pack_pass = $api->fetch('www/slider/pack/13603363', $params);
+      }
+      
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Modal:pass.html.twig', array(
+        'pack_pass'=> $pack_pass
       ));
+      $cache_maxage=3600;
+      $response->setCache(array(
+          'max_age'       => $cache_maxage,
+          's_maxage'      => $cache_maxage,
+          'public'        => true,
+      ));
+
+      return $response;
     }
 
     /**

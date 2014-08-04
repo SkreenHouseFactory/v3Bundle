@@ -1,14 +1,55 @@
-<div id="modal-pass">
-  <p class="no-bottom">puis Pass Illimité 5€ / semaine</p>
-  <p class="bottom"><em>uniquement si vous poursuivez votre abonnement</em></p>
-  <p class="no-bottom">Accès en streaming illimité</p>
-  <p class="no-bottom">à tous les films, séries</p>
-  <p class="no-bottom">et documentaires marqués d'un <span class="ico-deporte"><i class="glyphicon glyphicon-play"></i></span></p>
-  <p class="bottom"><img src="{{ asset('bundles/skreenhousefactoryv3/images/img_cover_deporte.jpg') }}" alt="Cover programme myskreen"></p>
-  <p class="bottom pass-offer">OFFRE SANS ENGAGEMENT</p>
-  <button class="btn btn-success btn-pass-subscribe-modal" data-dismiss="modal"  data-track-event="btn-pass,modal">J'en profite !</button>
-</div>
-<script>
-  $('#skModal.modal .modal-message').html('<p class="pass-title"><b>myskreen vous offre ce programme</b></p>');
-  $('#skModal.modal .modal-title').html('Pass Illimité myskreen');
-</script>
+{% extends app.request.isXmlHttpRequest ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
+
+{% if app.request.isXmlHttpRequest == false %}
+  {# HEAD Title #}
+  {% block title %}
+    Pass Illimité
+  {% endblock %}
+
+  {# HEAD Description #}
+  {% block description %}
+    Bla Bla Bla
+  {% endblock %}
+
+  {% block body_class %}pass-layout{% endblock %}
+
+  {% block pagestyles %}
+    {% stylesheets
+      '@SkreenHouseFactoryV3Bundle/Resources/public/less/pass.less'
+        filter='lessphp,?yui_css'
+        output='css/pass.css'
+      %}
+      <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+  {% endblock %}
+
+{% endif %}
+{% block content %}
+  {% if app.request.isXmlHttpRequest == false %}
+    <div class="bande_listes">
+      <h1>Pass Illimité myskreen</h1>
+      <h2>myskreen vous offre un programme</h2>
+    </div>
+    <div class="container">
+  {% endif %}
+  <div id="modal-pass"{{ app.request.isXmlHttpRequest ? '' : ' class="modal-pass-layout col-xs-8"' }}>
+    <p class="no-bottom">puis Pass Illimité 5€ / semaine</p>
+    <p class="bottom"><em>uniquement si vous poursuivez votre abonnement</em></p>
+    <p class="no-bottom">Accès en streaming illimité</p>
+    <p class="no-bottom">à tous les films, séries</p>
+    <p class="no-bottom">et documentaires marqués d'un <span class="ico-deporte"><i class="glyphicon glyphicon-play"></i></span></p>
+    <p class="bottom"><img src="{{ asset('bundles/skreenhousefactoryv3/images/img_cover_deporte.jpg') }}" alt="Cover programme myskreen"></p>
+    <p class="bottom pass-offer">OFFRE SANS ENGAGEMENT</p>
+    <button class="btn btn-success {{ app.request.isXmlHttpRequest ? 'btn-pass-subscribe-modal' : 'btn-pass-subscribe'}}"{{ app.request.isXmlHttpRequest ? ' data-dismiss="modal"' : '' }} data-track-event="btn-pass,modal">J'en profite !</button>
+  </div>
+
+  {% if app.request.isXmlHttpRequest == false %}
+    {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: pack_pass, h_title: "h3", loop_index: 1 } %}
+    </div>
+  {% endif %}
+
+  <script>
+    $('#skModal.modal .modal-message').html('<p class="pass-title"><b>myskreen vous offre ce programme</b></p>');
+    $('#skModal.modal .modal-title').html('Pass Illimité myskreen');
+  </script>
+{% endblock %}
