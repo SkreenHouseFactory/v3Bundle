@@ -41,11 +41,9 @@ class ModalController extends Controller
     */
     public function passAction(Request $request)
     {
-      $pack_pass = '';
+      $pack_pass = null;
 
-      if ($request->get('fromWebsite') == 'v3') {
-        // Pas d'appel API pour la modal
-      } else {
+      if (!$request->isXmlHttpRequest()) {
         $api = $this->get('api');
         $params =  array(
           'channel_img_width' => 60,
