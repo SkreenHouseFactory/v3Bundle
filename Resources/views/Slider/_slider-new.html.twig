@@ -56,7 +56,9 @@
     {% if slider.id is defined and slider.id in [4586427, 3772205] %}
       <a class="btn btn-default btn-slider" href="{{ path('tvgrid') }}">Voir la grille complète</a>
     {% else %}
-      {% if slider.url is defined %}
+      {% if no_url is defined and no_url %}
+        {# Pas de boutons URL #}
+      {% elseif slider.url is defined %}
         {% if slider.fichier is defined %}
           <a href="{{slider.fichier}}"
         {% else %}
