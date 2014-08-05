@@ -264,6 +264,7 @@ $(document).ready(function(){
       }
     }
     console.log('scripts/_default.js', 'API.accessPass');
+    Player.stop();
     API.accessPass();
   });
 
