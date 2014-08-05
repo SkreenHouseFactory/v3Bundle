@@ -49,9 +49,7 @@ class ModalController extends Controller
           'channel_img_width' => 60,
           'img_width' => 150,
           'img_height' => 200,
-          'fields' => 'programs,offers,player',
-          'offers_type' => 'play',
-          'player' => 'iframe',
+          'fields' => 'programs',
           'allow_with' => true
         );
         $pack_pass = $api->fetch('www/slider/pack/13603363', $params);
