@@ -13,16 +13,6 @@
 
   {% block body_class %}pass-layout{% endblock %}
 
-  {% block pagestyles %}
-    {% stylesheets
-      '@SkreenHouseFactoryV3Bundle/Resources/public/less/pass.less'
-        filter='lessphp,?yui_css'
-        output='css/pass.css'
-      %}
-      <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
-    {% endstylesheets %}
-  {% endblock %}
-
 {% endif %}
 {% block content %}
   {% if app.request.isXmlHttpRequest == false %}

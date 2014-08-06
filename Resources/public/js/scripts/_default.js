@@ -470,4 +470,17 @@ $(document).ready(function(){
     $('.btn-pass-subscribe').trigger('click');
   });
 
+  $(document).on('click', '#promopass a, #passlabel a', function(e){
+    e.preventDefault();
+    ga('send', 'event', 'link', 'click', 'click-to-pass-page');
+    var url = $(this).attr('href');
+    window.location.href = url;
+  });
+
+  $(document).on('click', '#promopass .glyphicon', function(e){
+    e.preventDefault();
+    $('#promopass').slideUp();
+    $('#passlabel').slideDown();
+  });
+
 });

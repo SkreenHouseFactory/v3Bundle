@@ -1,6 +1,7 @@
 body.pass-layout {
   .bande_listes {
     margin-top: -4px;
+    background-color: #5cb85c;
     h1, h2 {
       color: white;
       text-align: center;
@@ -55,4 +56,51 @@ body.pass-layout {
       }
     }
   }
+}
+#promopass {
+  background-color: #5cb85c;
+  color: white;
+  height: 110px;
+  .container {
+    padding: 5px 25px 0;
+    .glyphicon {
+      font-size: 21px;
+      z-index: 5;
+      cursor: pointer;
+    }
+    a {
+      display: block;
+      width: 90%;
+      margin: 0;
+      text-decoration: none;
+      color: white;
+      h3 {
+        font-size: 2.7em;
+        font-weight: bold;
+      }
+      h4 {
+        display: inline-block;
+        margin-top: 15px;
+      }
+      img {
+        margin-top: -45px;
+      }
+      button {
+        display: none;
+      }
+    }
+  }
+}
+#passlabel {
+  position: fixed;
+  right: 0px;
+  bottom: 270px;
+  background-color: #5cb85c;
+  color: white;
+  z-index: 25;
+  font-size: 21px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  cursor: pointer;
+  display: none;
 }
