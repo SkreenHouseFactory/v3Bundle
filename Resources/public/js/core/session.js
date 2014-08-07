@@ -390,7 +390,7 @@ var BaseSession = Class.extend({
     if ($('#promopass').length) { // Si on est sur une page où le bandeau promoPass est présent
       if (typeof this.datas.credential != 'undefined' &&
           typeof this.datas.credentials.sk_pass != 'undefined') { // Si l'utilisateur est connecté et abonné au Pass
-        $('#promopass').slideUp(); // On fait disparaître le bandeau promoPass
+        $('#promopass, #passlabel').hide(); // On fait disparaître le bandeau promoPass et le label Pass à droite
       }
     }
  },

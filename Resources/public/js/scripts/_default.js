@@ -477,10 +477,4 @@ $(document).ready(function(){
     window.location.href = url;
   });
 
-  $(document).on('click', '#promopass .glyphicon', function(e){
-    e.preventDefault();
-    $('#promopass').slideUp();
-    $('#passlabel').slideDown();
-  });
-
 });
