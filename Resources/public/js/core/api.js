@@ -435,12 +435,12 @@ API = {
         //forward_target='+escape(document.location.origin+'/app_dev.php/alopass'document.location.href)+'
         var product_id = self.config.env == 'prod' ? 1365117 : 1372314;
         console.log('API.accessPass', 'callback UI.auth', 'env:'+self.config.env, 'product_id:'+product_id);
-        var params = 'ids=314744&idd='+product_id+'&merchant_subscriber_reference='+Skhf.session.uid+'&merchant_transaction_id=pass&product_name=Pass%20myskreen&data='+escape(JSON.stringify({"url":document.location.href}))+'&customer_email='+escape(Skhf.session.datas.email)+'&alias=';
+        var params = 'ids=314744&idd='+product_id+'&merchant_subscriber_reference='+Skhf.session.uid+'&merchant_transaction_id=pass&product_name=Pass%20myskreen&data='+escape('"url":"'+document.location.href+'"')+'&customer_email='+escape(Skhf.session.datas.email)+'&alias=';
         var url_default = 'https://payment.allopass.com/subscribe/subscribe.apu?'+params;
         var url_mobile = 'https://payment.allopass.com/abo/wapplus/purchase.apu?'+params+'&country=FR&offer_id=776';
         var url_fai = 'https://payment.allopass.com/abo/wha/purchase.apu?'+params+'&country=FR&offer_id=776&type=internet-plus';
 
-        var url = true || $('html').hasClass('touch') ? url_mobile : url_fai;
+        var url = $('html').hasClass('touch') ? url_mobile : url_fai;
         if ($('html').hasClass('touch') && 
             ($(window).height() < 700 || $(window).width() < 700)) {
           document.location = url;
