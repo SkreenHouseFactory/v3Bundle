@@ -86,7 +86,36 @@ class MainController extends Controller
 
       return $response;
     }
+    /**
+    * trends page
+    */
+    public function trendsAction(Request $request)
+    {
+      /*$api = $this->get('api');
+      $trends = array();
+      $trends['person'] = $api->fetch('www/trends/person', array(
+        'weeks'=>5
+      ));
+      $trends['program'] = $api->fetch('www/trends/program', array(
+        'weeks'=>5
+      ));
+      $trends['channel'] = $api->fetch('www/trends/channel', array(
+        'weeks'=>5
+      ));
+      $trends['category'] = $api->fetch('www/trends/category', array(
+        'weeks'=>5
+      ));
+      print_r($trends);
+      exit();*/
+      $response = $this->render('SkreenHouseFactoryV3Bundle:Main:trends.html.twig'/*, array(
+        'trends' => (object)$trends
+      )*/);
+      $response->setPublic();
+      $response->setMaxAge(3600);
+      $response->setSharedMaxAge(3600);
 
+      return $response;
+    }
     /**
     * footer
     */

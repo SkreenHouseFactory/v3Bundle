@@ -1,0 +1,30 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+{# HEAD Title #}
+{% block title %}
+  Tendances
+{% endblock %}
+
+{# HEAD Description #}
+{% block description %}
+  Bla Bla Bla
+{% endblock %}
+
+{# HEAD Pagescripts #}
+{% block pagescripts %}
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/raphael-min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/g.raphael-min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/g.line-min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/trends.js'
+    filter='?yui_js' 
+    output='js/compiled/pages/trends.js'  %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    Hello World !
+    <div id="holder"></div>
+  </div>
+{% endblock %}
