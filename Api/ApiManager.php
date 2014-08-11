@@ -40,6 +40,7 @@ class ApiManager
     //echo $this->base;
     //echo $this->url;
     $params['fromWebsite'] = 'v3';
+    $params['skKey'] = '6bc791699a6e1f21979b418a22826c4c';
     $client = new Client($this->base, $options);
     $time = microtime(true);
     switch ($method) {
