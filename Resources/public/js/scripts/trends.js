@@ -1,6 +1,6 @@
 var Trends;
 Trends = {
-  nb_weeks: 10,
+  nb_weeks: 5,
   list_programs: [],
   list_persons: [],
   list_categories: [],
@@ -28,7 +28,7 @@ Trends = {
       }
     );
   },
-  getList: function(type,datas,nb_weeks){
+  getList: function(type,datas,nb_weeks) {
     switch (type) {
       case '/program/':
         var weeks = datas.program.weeks;
@@ -50,12 +50,13 @@ Trends = {
         if (typeof list[k] == 'undefined') {
           list[k] = [];
           list[k]['titre'] = weeks[i][k].titre;
+          list[k]['id'] = weeks[i][k].id;
         }
       }
     }
     Trends.getCoord(type,weeks,list,nb_weeks);
   },
-  getCoord: function(type,weeks,list,nb_weeks){
+  getCoord: function(type,weeks,list,nb_weeks) {
     // console.log('scripts/trends.js', 'trends', type, 'list without Coords', list);
     for (k in list) {
       for (i in weeks) {
@@ -67,19 +68,48 @@ Trends = {
       }
     }
     console.log('scripts/trends.js', 'trends list', type, 'list with Coords', list);
-    Trends.draw(type,list,nb_weeks);
+    var list_length = Object.keys(list).length;
+    console.log('scripts/trends', 'getCoord', type, 'list length', list_length);
+    if (list_length < 11) {
+      Trends.draw(type,list,nb_weeks);
+    } else {
+      Trends.refineList(type,list,nb_weeks);
+    }
   },
-  draw: function(type,list,nb_weeks){
+  refineList: function(type,list,nb_weeks) {
+    var list_scored = [];
+    list_scored = list;
+    for (k in list_scored) {
+      list_scored[k]['score'] = 0;
+      for (var i = 0; i < list_scored[k].length; i++) {
+        list_scored[k]['score'] += parseInt(list_scored[k][i]);
+      };
+    }
+    console.log('scripts/trends.js', 'trends list', type, 'list with Score', list_scored);
+    function compareDESC (homeA,homeB) {
+      return parseInt(homeB['score']) - parseInt(homeA['score']);
+    }
+    var list_sorted = [];
+    list_sorted = list_scored.sort(compareDESC);
+    console.log('scripts/trends.js', 'trends list', type, 'list with Score - sorted', list_sorted);
+    var list_trimmed = [];
+    var i = 0;
+    while (i < 10) {
+      list_trimmed[list_sorted[i]['id']] = list_sorted[i];
+      i++;
+    }
+    console.log('scripts/trends.js', 'trends list def', type, 'list def with Score - sorted and trimmed', list_trimmed);
+    Trends.draw(type,list_trimmed,nb_weeks);
+  },
+  draw: function(type,list,nb_weeks) {
     var type = type.replace('/','').replace('/','');
     console.log('scripts/trends', 'draw', 'type', type);
-    var list_length = Object.keys(list).length;
-    console.log('scripts/trends', 'draw', 'list length', list_length);
     var x_axis = [];
     var i = 0;
     for (k in list) {
       x_axis[i] = [];
       for (var j = 0; j < nb_weeks; j++) {
-        x_axis[i][j] = j+1;
+        x_axis[i][j] = j;
       };
       i++;
     }
@@ -96,7 +126,8 @@ Trends = {
     console.log('scripts/trends', 'draw', 'y_axis complete', y_axis);
     var r = Raphael(type);
     var lines = r.linechart(30, 30, 450, 120, x_axis, y_axis, {
-      axis: '0 0 1 1'
+      axis: '0 0 1 1',
+      symbol: 'circle'
     });
   }
 }
