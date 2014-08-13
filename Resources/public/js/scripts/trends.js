@@ -1,10 +1,6 @@
 var Trends;
 Trends = {
-  nb_weeks: 5,
-  list_programs: [],
-  list_persons: [],
-  list_categories: [],
-  list_channels: [],
+  nb_weeks: 10,
   init: function() {
     Trends.getTrends();
   },
@@ -124,7 +120,7 @@ Trends = {
       i++;
     }
     console.log('scripts/trends', 'draw', 'y_axis complete', y_axis);
-    var r = Raphael(type);
+    var r = Raphael('trends-'+type);
     var lines = r.linechart(30, 30, 450, 120, x_axis, y_axis, {
       axis: '0 0 1 1',
       symbol: 'circle'
@@ -133,5 +129,5 @@ Trends = {
 }
 
 $(document).ready(function(){
-  Trends.init();
+  /*Trends.init();*/
 });
