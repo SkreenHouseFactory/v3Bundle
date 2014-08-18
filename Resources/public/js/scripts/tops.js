@@ -1,7 +1,7 @@
 var Tops;
 Tops = {
   init: function(){
-    Tops.getTops('program');
+    Tops.getTops();
   },
   getTops: function(type,args) {
     var type = typeof type != 'undefined' ? '/' + type : '';
