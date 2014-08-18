@@ -129,5 +129,5 @@ Trends = {
 }
 
 $(document).ready(function(){
-  /*Trends.init();*/
+  Trends.init();
 });

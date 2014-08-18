@@ -49,9 +49,10 @@ Tops = {
     var legends = [];
     for (var i = 0; i < list_length; i++) {
       values[i] = list[i].nb;
-      /*legends[i] = list[i].titre;*/
+      legends[i] = list[i].titre;
     }
     console.log('scripts/tops', 'draw', 'values', values);
+    console.log('scripts/tops', 'draw', 'legends', legends);
     var r = Raphael('tops-'+type);
     fin = function () {
       /*for (var i = this.bars.length; i--;) {
