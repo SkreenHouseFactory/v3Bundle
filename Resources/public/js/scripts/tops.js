@@ -41,7 +41,7 @@ Tops = {
         Tops.draw('/person',list_persons);
     }
   },
-  draw: function(type,list) {
+  draw: function(type,list,callback) {
     var type = type.replace('/','');
     console.log('scripts/tops', 'draw', 'type', type);
     var list_length = Object.keys(list).length;
@@ -55,18 +55,26 @@ Tops = {
     console.log('scripts/tops', 'draw', 'legends', legends);
     var r = Raphael('tops-'+type);
     fin = function () {
-      /*for (var i = this.bars.length; i--;) {
-        legends.push(this.bars[i].value || "0");
-      }*/
       this.flag = r.popup(this.bar.x, this.bar.y, this.bar.value || "0").insertBefore(this);
     },
     fout = function () {
       this.flag.animate({opacity: 0}, 300, function () {this.remove();});
     },
     r.barchart(10,10,600,250,values,{}).hover(fin,fout);
+    var columns = $('#tops-'+type+' svg rect');
+    for (var i = 0; i < columns.length; i++) {
+      $(columns[i]).attr('rel','tooltip');
+      $(columns[i]).attr('data-placement','bottom');
+      $(columns[i]).attr('data-title',legends[i]);
+    }
   }
 }
 
 $(document).ready(function(){
   Tops.init();
+  $('body').tooltip({
+    selector: '[rel=tooltip]',
+    container: 'body'
+  });
+
 });

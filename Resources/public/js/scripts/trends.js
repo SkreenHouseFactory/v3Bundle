@@ -1,6 +1,6 @@
 var Trends;
 Trends = {
-  nb_weeks: 10,
+  nb_weeks: 5,
   init: function() {
     Trends.getTrends();
   },
@@ -66,7 +66,7 @@ Trends = {
     console.log('scripts/trends.js', 'trends list', type, 'list with Coords', list);
     var list_length = Object.keys(list).length;
     console.log('scripts/trends', 'getCoord', type, 'list length', list_length);
-    if (list_length < 11) {
+    if (list_length < 6) {
       Trends.draw(type,list,nb_weeks);
     } else {
       Trends.refineList(type,list,nb_weeks);
@@ -90,7 +90,7 @@ Trends = {
     console.log('scripts/trends.js', 'trends list', type, 'list with Score - sorted', list_sorted);
     var list_trimmed = [];
     var i = 0;
-    while (i < 10) {
+    while (i < 5) {
       list_trimmed[list_sorted[i]['id']] = list_sorted[i];
       i++;
     }
@@ -115,16 +115,28 @@ Trends = {
     for (k in list) {
       y_axis[i] = [];
       for (var j = 0; j < list[k].length; j++) {
-        y_axis[i][j] = list[k][j];
+        y_axis[i][j] = parseInt(list[k][j]*5);
       }
       i++;
     }
     console.log('scripts/trends', 'draw', 'y_axis complete', y_axis);
     var r = Raphael('trends-'+type);
-    var lines = r.linechart(30, 30, 450, 120, x_axis, y_axis, {
-      axis: '0 0 1 1',
-      symbol: 'circle'
+    var lines = r.linechart(30, 30, 450, 250, x_axis, y_axis, {
+      width: 4,
+      smooth: true
     });
+    var legends = [];
+    for (k in list) {
+      legends.push(list[k]['titre']);
+    }
+    console.log('legends', legends);
+
+    var lineseries = $('#trends-'+type+' svg path');
+    for (var i = 0; i < lineseries.length; i++) {
+      $(lineseries[i]).attr('rel','tooltip');
+      $(lineseries[i]).attr('data-placement','right');
+      $(lineseries[i]).attr('data-title',legends[i]);
+    }
   }
 }
 
