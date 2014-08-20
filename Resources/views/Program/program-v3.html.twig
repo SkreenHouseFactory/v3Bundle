@@ -31,6 +31,11 @@
 {# Content #}
 {% block content %}
   <div id="view-program" data-id="{{ program.id }}">
+    <div class="container">
+      <hr/>
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
+    </div>
+    
     <div class="scrollplayerzone">
       {# Player + Affiche + Meilleure offre #}
       <div class="container">
@@ -197,10 +202,6 @@
     <div class="related">
       <div class="container">
         {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_related.html.twig' %}
-      </div>
-      <div class="container">
-        <hr/>
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
       </div>
     </div>
   </div>
