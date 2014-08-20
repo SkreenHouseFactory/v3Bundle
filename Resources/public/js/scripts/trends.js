@@ -123,19 +123,24 @@ Trends = {
     var r = Raphael('trends-'+type);
     var lines = r.linechart(30, 30, 450, 250, x_axis, y_axis, {
       width: 4,
-      smooth: true
+      smooth: true,
+      symbol: 'circle'
     });
     var legends = [];
     for (k in list) {
       legends.push(list[k]['titre']);
     }
     console.log('legends', legends);
-
-    var lineseries = $('#trends-'+type+' svg path');
-    for (var i = 0; i < lineseries.length; i++) {
-      $(lineseries[i]).attr('rel','tooltip');
-      $(lineseries[i]).attr('data-placement','right');
-      $(lineseries[i]).attr('data-title',legends[i]);
+    $('#trends-'+type+' svg circle').attr('r',7);
+    var circleseries = $('#trends-'+type+' svg circle');
+    for (var i = 0; i < circleseries.length; i++) {
+      for (var j = 0; j < legends.length; j++) {
+        if (Math.floor(i / nb_weeks) == j) {
+          $(circleseries[i]).attr('rel','tooltip');
+          $(circleseries[i]).attr('data-placement','bottom');
+          $(circleseries[i]).attr('data-title',legends[j]);
+        }
+      }
     }
   }
 }
