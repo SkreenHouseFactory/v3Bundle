@@ -53,14 +53,16 @@ Tops = {
     }
     console.log('scripts/tops', 'draw', 'values', values);
     console.log('scripts/tops', 'draw', 'legends', legends);
-    var r = Raphael('tops-'+type);
+    values.reverse();
+    legends.reverse();
+    var r = Raphael('tops-'+type, 320, 250);
     fin = function () {
       this.flag = r.popup(this.bar.x, this.bar.y, this.bar.value || "0").insertBefore(this);
     },
     fout = function () {
       this.flag.animate({opacity: 0}, 300, function () {this.remove();});
     },
-    r.barchart(10,10,600,250,values,{}).hover(fin,fout);
+    r.barchart(10,10,300,200,values,{}).hover(fin,fout);
     var columns = $('#tops-'+type+' svg rect');
     for (var i = 0; i < columns.length; i++) {
       $(columns[i]).attr('rel','tooltip');

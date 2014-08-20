@@ -1,13 +1,15 @@
 {% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
 {# HEAD Title #}
 {% block title %}
-  Tendances
+  Tops et Tendances
 {% endblock %}
 
 {# HEAD Description #}
 {% block description %}
   Bla Bla Bla
 {% endblock %}
+
+{% block body_class %}trends-layout{% endblock %}
 
 {# HEAD Pagescripts #} 
 {% block pagescripts %}
@@ -25,21 +27,53 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-    Hello World !
-    <h2>Tendances des Programmes</h2>
-    <div id="trends-program"></div>
-    <h2>Tendances des Personnalités</h2>
-    <div id="trends-person"></div>
-    <h2>Tendances des Catégories</h2>
-    <div id="trends-category"></div>
-    <h2>Tendances des Chaînes</h2>
-    <div id="trends-channel"></div>
-    <h2>Tops des Programmes</h2>
-    <div id="tops-program"></div>
-    <h2>Tops des Personnalités</h2>
-    <div id="tops-person"></div>
-    <h2>Tops des Chaînes</h2>
-    <div id="tops-channel"></div>
+  <div class="container clearfix">
+    <div class="trends-container with-selectors">
+      <h3>Tendances - Programmes</h3>
+      <p>Les 5 programmes les plus en vogue actuellement sur myskreen</p>
+      <div class="btn-group btn-group-xs">
+        <button type="button" class="btn btn-default active">Tous</button>
+        <button type="button" class="btn btn-default">Films</button>
+        <button type="button" class="btn btn-default">Séries</button>
+        <button type="button" class="btn btn-default">Documentaires</button>
+      </div>
+      <div id="trends-program" class="svg-container"></div>
+    </div>
+    <div class="trends-container">
+      <h3>Tendances - Personnalités</h3>
+      <p>Les 5 personnalités les plus en vogue actuellement sur myskreen</p>
+      <div id="trends-person" class="svg-container"></div>
+    </div>
+    <div class="trends-container">
+      <h3>Tendances - Catégories</h3>
+      <p>Les 5 catégories les plus en vogue actuellement sur myskreen</p>
+      <div id="trends-category" class="svg-container"></div>
+    </div>
+    <div class="trends-container">
+      <h3>Tendances - Chaînes</h3>
+      <p>Les 5 chaînes les plus en vogue actuellement sur myskreen</p>
+      <div id="trends-channel" class="svg-container"></div>
+    </div>
+    <div class="tops-container with-selectors">
+      <h3>Top 10 - Programmes</h3>
+      <p>Les 10 programmes les plus suivis sur myskreen</p>
+      <div class="btn-group btn-group-xs">
+        <button type="button" class="btn btn-default active">Tous</button>
+        <button type="button" class="btn btn-default">Films</button>
+        <button type="button" class="btn btn-default">Séries</button>
+        <button type="button" class="btn btn-default">Documentaires</button>
+      </div>
+      <div id="tops-program" class="svg-container"></div>
+    </div>
+    <div class="tops-container">
+      <h3>Top 10 - Personnalités</h3>
+      <p>Les 10 personnalités les plus suivies sur myskreen</p>
+      <div id="tops-person" class="svg-container"></div>
+    </div>
+    <div class="tops-container">
+      <h3>Top 10 - Chaînes</h3>
+      <p>Les 10 chaînes les plus suivies sur myskreen</p>
+      <div id="tops-channel" class="svg-container"></div>
+    </div>
   </div>
 {% endblock %}

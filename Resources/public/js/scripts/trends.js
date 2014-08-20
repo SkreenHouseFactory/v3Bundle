@@ -2,7 +2,7 @@ var Trends;
 Trends = {
   nb_weeks: 5,
   init: function() {
-    Trends.getTrends();
+    Trends.getTrends('program');
   },
   getTrends: function(type,nb_weeks,args) {
     var type = typeof type != 'undefined' ? '/' + type + '/' : '/';
@@ -120,8 +120,10 @@ Trends = {
       i++;
     }
     console.log('scripts/trends', 'draw', 'y_axis complete', y_axis);
+    /*x_axis.reverse();
+    y_axis.reverse();*/
     var r = Raphael('trends-'+type);
-    var lines = r.linechart(30, 30, 450, 250, x_axis, y_axis, {
+    var lines = r.linechart(10, 10, 400, 250, x_axis, y_axis, {
       width: 4,
       smooth: true,
       symbol: 'circle'
