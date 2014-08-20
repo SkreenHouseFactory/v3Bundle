@@ -61,7 +61,7 @@
       {% if key == 'theater' %}
         {% set btn_deploy_offers = 0 %}
         {% if program.datas_theaters.theaters_ids|length > 0 %}
-          <p class="bs-callout bs-callout-info">{{ program.format.name }} projeté {% if program.theater_release_date is defined and program.theater_release_date_timestamp > 'now'| date('U') %}en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
+          <p class="bs-callout bs-callout-info">{{ program.format ? program.format.name : 'film' }} projeté {% if program.theater_release_date is defined and program.theater_release_date_timestamp > 'now'| date('U') %}en avant-première{% endif %} dans {{ program.datas_theaters.theaters_ids|length }} salles.</p>
           {% if program.datas_theaters.theaters_ids|length > 9 %}
             <form role="form" class="form-search pull-left col-xs-10" id="theaters-search" action="{{ path('theaters_program', {id: program.id}) }}" data-form-ajax="#theaters-list">
               <div class="input-group">
