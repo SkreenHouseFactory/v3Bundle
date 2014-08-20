@@ -39,6 +39,9 @@ homes:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:home, home: null }
     requirements:
         home: |video-a-la-demande|cinema|tv-replay|films|series|documentaires|emissions|spectacles|vod|jeunesse
+trends:
+    pattern:  /trends/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:trends }
 
 #modal
 modal_signup:
