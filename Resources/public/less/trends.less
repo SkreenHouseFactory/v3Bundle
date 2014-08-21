@@ -1,11 +1,22 @@
-body.trends-layout {
+body.trends-layout #main #content {
   .trends-container, .tops-container {
     float: left;
     width: 50%;
     height: 335px;
+    .svg-container {
+      .progress {
+        margin-left: 10%;
+        margin-right: 20%;
+      }
+    }
     &:not(.with-selectors) {
       p {
         margin-bottom: 32px;
+      }
+      .svg-container {
+        .progress {
+          margin-top: 78px;
+        }
       }
     }
   }
