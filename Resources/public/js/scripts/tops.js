@@ -55,13 +55,13 @@ Tops = {
     console.log('scripts/tops', 'draw', 'legends', legends);
     values.reverse();
     legends.reverse();
-    fin = function () {
-      this.flag = r.popup(this.bar.x, this.bar.y, this.bar.value || "0").insertBefore(this);
-    },
-    fout = function () {
-      this.flag.animate({opacity: 0}, 300, function () {this.remove();});
-    },
     TimeOut = setTimeout(function(){
+      fin = function () {
+        this.flag = r.popup(this.bar.x, this.bar.y, this.bar.value || "0").insertBefore(this);
+      },
+      fout = function () {
+        this.flag.animate({opacity: 0}, 300, function () {this.remove();});
+      },
       UI.removeLoader($('#tops-'+type));
       var r = Raphael('tops-'+type, 320, 250);
       r.barchart(10,10,300,200,values,{}).hover(fin,fout);

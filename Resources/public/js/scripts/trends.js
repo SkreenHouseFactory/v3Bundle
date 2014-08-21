@@ -1,13 +1,12 @@
 var Trends;
 Trends = {
-  nb_weeks: 5,
   init: function() {
-    Trends.getTrends('program');
+    Trends.getTrends();
   },
-  getTrends: function(type,nb_weeks,args) {
+  getTrends: function(type,args,nb_weeks) {
     var type = typeof type != 'undefined' ? '/' + type + '/' : '/';
-    var nb_weeks = typeof nb_weeks != 'undefined' ? nb_weeks : this.nb_weeks;
-    var args = typeof args != 'undefined' ? args : {};
+    var nb_weeks = typeof nb_weeks != 'undefined' ? nb_weeks : '5';
+    var args = typeof args != 'undefined' ? {format: args} : {};
     API.query(
       'GET',
       'trends' + type + nb_weeks + '.json',
@@ -119,34 +118,76 @@ Trends = {
       }
       i++;
     }
-    console.log('scripts/trends', 'draw', 'y_axis complete', y_axis);
-    /*x_axis.reverse();
-    y_axis.reverse();*/
-    var r = Raphael('trends-'+type);
-    var lines = r.linechart(10, 10, 400, 250, x_axis, y_axis, {
-      width: 4,
-      smooth: true,
-      symbol: 'circle'
-    });
-    var legends = [];
-    for (k in list) {
-      legends.push(list[k]['titre']);
-    }
-    console.log('legends', legends);
-    $('#trends-'+type+' svg circle').attr('r',7);
-    var circleseries = $('#trends-'+type+' svg circle');
-    for (var i = 0; i < circleseries.length; i++) {
-      for (var j = 0; j < legends.length; j++) {
-        if (Math.floor(i / nb_weeks) == j) {
-          $(circleseries[i]).attr('rel','tooltip');
-          $(circleseries[i]).attr('data-placement','bottom');
-          $(circleseries[i]).attr('data-title',legends[j]);
+    console.log('scripts/trends', 'draw', 'y_axis complete not reversed', y_axis);
+    for (var i = 0; i < y_axis.length; i++) {
+      y_axis[i].reverse();
+    };
+    console.log('scripts/trends', 'draw', 'y_axis complete and reversed for timeline logic - from left, most ancient, to right, most recent', y_axis);
+    TimeOut = setTimeout(function(){
+      UI.removeLoader($('#trends-'+type));
+      var date = new Date();
+      var year_current = date.getFullYear();
+      var months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+      var month_current = months[date.getMonth()];
+      var day_current = date.getDate();
+      if (day_current == 1) {
+        day_current = '1er';
+      }
+      var current_date = day_current + ' ' + month_current + ' ' + year_current; 
+      console.log('scripts/trends','draw','current date', current_date);
+      var nb_days = 7*nb_weeks;
+      var last_date = new Date();
+      last_date.setDate(date.getDate() - nb_days);
+      var year_last = last_date.getFullYear();
+      var month_last = months[last_date.getMonth()];
+      var day_last = last_date.getDate();
+      if (day_last == 1) {
+        day_last = '1er';
+      }
+      var last_date_toshow = day_last + ' ' + month_last + ' ' + year_last;
+      console.log('scripts/trends','draw','last date', last_date_toshow);
+      var r = Raphael('trends-'+type, 320, 250);
+      var lines = r.linechart(10, 10, 300, 200, x_axis, y_axis, {
+        width: 4,
+        smooth: true,
+        symbol: 'circle'
+      });
+      var legends = [];
+      for (k in list) {
+        legends.push(list[k]['titre']);
+      }
+      console.log('legends', legends);
+      $('#trends-'+type+' svg circle').attr('r',7);
+      var circleseries = $('#trends-'+type+' svg circle');
+      for (var i = 0; i < circleseries.length; i++) {
+        for (var j = 0; j < legends.length; j++) {
+          if (Math.floor(i / nb_weeks) == j) {
+            $(circleseries[i]).attr('rel','tooltip');
+            $(circleseries[i]).attr('data-placement','bottom');
+            $(circleseries[i]).attr('data-title',legends[j]);
+          }
         }
       }
-    }
+      var txtattr = { font: "10px sans-serif" };
+      r.text(40, 225, last_date_toshow).attr(txtattr);
+      r.text(280, 225, current_date).attr(txtattr);
+    },2000);
   }
 }
 
 $(document).ready(function(){
   Trends.init();
+
+  $(document).on('click','.trends-container button', function(){
+    $('.trends-container button').removeClass('active');
+    $(this).addClass('active');
+    $('#trends-program svg').remove();
+    UI.appendLoader($('#trends-program'));
+    if ($(this).data('trends') == 'all') {
+      Trends.getTrends('program');
+    } else {
+      Trends.getTrends('program',$(this).data('trends'));
+    }
+  });
+
 });
