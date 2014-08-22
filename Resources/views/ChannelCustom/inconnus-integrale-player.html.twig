@@ -28,7 +28,8 @@
       {% for program in slider.programs | to_array %}
         {% if loop.first %}
           <div class="col-xs-11 player-block">
-            <iframe frameborder="0"  scrolling="no" width="100%" height="370" src="{{ program.player.player.url }}"></iframe>
+            <iframe frameborder="0"  scrolling="no" width="100%" height="370" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?play=27053867"></iframe>
+            {# BEFORE: program.player.player.url #}
           </div>
           <div class="col-xs-5 myskreen-block">
             <div>
@@ -49,11 +50,11 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        {# <div class="row">
           <div class="col-xs-16 ">
             <h2 class="lato isplaying-title"><strong>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</strong></h2>
           </div>
-        </div>
+        </div> #}
       {% endif %}
     {% endfor %}
   {% endif %}
@@ -74,7 +75,7 @@
           <div class="item active">
             {% for program in slider.programs | to_array %}
 
-              <div class="vignette"  data-play-url="{{ program.player.player.url }}"  data-id="{{program.id}}" data-selection="{{slider.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-share-text="{{ ('Les Inconnus / ' ~ program.title ~ ' sur @mySkreen en streaming gratuit.')|replace({ (program.episodeof.title ~ ' - '):''})|url_encode|replace({'+': '%20'})}}" data-play-seo-url="{{('http://www.myskreen.com' ~ program.seo_url)|url_encode}}">
+              <div class="vignette"  data-play-url="{{ program.player.player.url }}"  data-id="{{program.id}}" data-selection="{{slider.id}}" data-play-title="{{ program.title|replace({ (program.episodeof.title ~ ' - '):''})}}" data-share-text="{{ ('Les Inconnus / ' ~ program.title ~ ' sur @mySkreen en streaming gratuit.')|replace({ (program.episodeof.title ~ ' - '):''})|url_encode|replace({'+': '%20'})}}" data-play-seo-url="{{ program.seo_url }}">
                 <div class="img-small"  style="background:url('{{ program.picture|replace({'/150/200/':'/165/165/'}) }}') top center no-repeat"></div>
                 <span><mark>{{loop.index}}</mark>{{ program.title|replace({ (program.episodeof.title ~ ' - '):''}) }}</span>
               </div>
