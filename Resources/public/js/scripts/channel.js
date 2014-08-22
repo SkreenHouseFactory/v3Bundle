@@ -156,7 +156,12 @@ $(document).ready(function(){
     //Scroll to player 
     
     $('html [data-play-url]').on('click', function () {
-      $('html,body').animate({'scrollTop' : 60}, 1000);
+      console.log('TEST channel_id', channel_id);
+      if (channel_id == 65 || channel_id == 1) {
+        window.location.href = API.config.v3_url + $(this).data('play-seo-url');
+      } else {
+        $('html,body').animate({'scrollTop' : 60}, 1000);
+      }
     });
     $('.modal .trigger-suivre').on('click',function(){
       $('#channel-modal').modal('hide');
@@ -185,7 +190,7 @@ $(document).ready(function(){
       //   }
       // break;
       //INCONNUS
-      case 1:
+      /*case 1:
       case 65:
         //INTEGRALE INCONNUS
         //trigger click sketch ?click=%5Bdata-id%3D"4939378"%5D
@@ -238,7 +243,7 @@ $(document).ready(function(){
           });
           channel_id = 1; //hack modal
         }
-      break;
+      break;*/
 
       //PBLV
       case 28:
