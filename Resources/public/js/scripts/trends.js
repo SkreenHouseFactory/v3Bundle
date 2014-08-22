@@ -16,7 +16,7 @@ Trends = {
           Trends.getList('/program/',datas,nb_weeks);
           Trends.getList('/person/',datas,nb_weeks);
           Trends.getList('/category/',datas,nb_weeks);
-          Trends.getList('/channel/',datas,nb_weeks);
+          // Trends.getList('/channel/',datas,nb_weeks); IGNORED FOR NOW
         } else {
           Trends.getList(type,datas,nb_weeks);
         }
@@ -34,9 +34,9 @@ Trends = {
       case '/category/':
         var weeks = datas.category.weeks;
         break;
-      case '/channel/':
+      /*case '/channel/':                         IGNORED FOR NOW
         var weeks = datas.channel.weeks;
-        break;
+        break;*/
     }
     console.log('scripts/trends.js', 'trends datas', type, weeks);
     var list = [];
