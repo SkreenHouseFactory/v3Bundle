@@ -17,10 +17,6 @@
             {{ channel.fournisseur.description is defined ? channel.fournisseur.description|raw : (fournisseur.description is defined ? fournisseur.description|raw : '') }}
           </div>
         {% endif %}
-        <div class="container nopadding">
-      <hr/>
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
-    </div>
       </div>
       {% if channel.fournisseur is not defined or channel.fournisseur.type not in ['broadcast'] %}
         <div class="row ms-channelbiglogo" >
