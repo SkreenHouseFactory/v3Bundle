@@ -43,16 +43,16 @@
 
 {% block content %}
   {% set page_count = channel.count %}
+  <div class="container nopadding">
+    <hr/>
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
+  </div>
   <div id="view-fournisseur" data-id="{{ channel.id }}" class="container-fournisseur-{{ channel.type }}">
     {# description #}
     {% if app.request.get('format') is null %}
       <div{{ channel.type == 'cinema' ? ' itemprop="description"' : '' }} class="description-seo description-seo-absolute">
         <div class="container scroll well">
           {{ channel.description|raw }}
-        </div>
-        <div class="container nopadding">
-          <hr/>
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
         </div>
       </div>
     {% else %}
@@ -69,10 +69,6 @@
               <a href="{{ path('format', {category_slug: app.request.get('format') }) }}">{{ app.request.get('format') }} : tous les programmes en streaming</a>
             {% endif %}
           </h3>
-        </div>
-        <div class="container nopadding">
-          <hr/>
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
         </div>
       </div>
     {% endif %}
