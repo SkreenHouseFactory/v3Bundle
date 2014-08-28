@@ -23,7 +23,7 @@
       <div class="container">
         <div class="teaser-slider{% if p.teaser is defined and p.teaser.id is defined and p.teaser.id %}{% else %} hide{% endif %}">
           {% if p.teaser is defined and p.teaser.id is defined and p.teaser.id and loop.first %}
-            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play={{ p.teaser.id }}&fromWebsite=1&default_version=VOST" scrolling="no" frameborder="0"></iframe>
+            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&play={{ p.teaser.id }}&fromWebsite=1&default_version=VOST&autoplay=false" scrolling="no" frameborder="0"></iframe>
           {% endif %}
         </div>
       </div>
