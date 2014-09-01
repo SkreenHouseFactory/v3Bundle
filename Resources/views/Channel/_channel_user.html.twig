@@ -1,39 +1,61 @@
+{% extends "SkreenHouseFactoryV3Bundle:Channel:_base-channel.html.twig" %}
+
+{% block customcontent %}
+
 {% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data: data, fav: 'user'} %}
 
-<div class="container">
+  <div class="container">
 
-  {# TODO : PUBLISH PLAYLISTS
-  <div class="btn-group pull-right" data-toggle="buttons-radio" style="margin:20px;">
-    <a href="#" class="btn btn-primary" data-placement="bottom" data-title="{{ 'playlist.publish.private.popover.title'|trans }}" data-content="{{ 'playlist.publish.private.popover.content'|trans }}" data-trigger="hover">{{ 'playlist.publish.private.link'|trans }}</a>
-    <a href="#" class="btn" data-placement="bottom" data-title="{{ 'playlist.publish.public.popover.title'|trans }}" data-content="{{ 'playlist.publish.public.popover.content'|trans }}" data-trigger="hover">{{ 'playlist.publish.public.link'|trans }}</a>
-  </div>
-  #}
+    <div class="row">
+      <div class="col-xs-4">
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live: data.notifications, name: 'Dernières notifications', origin: '', list_number: '1' } %}
+      </div>
+      <div class="col-xs-8">BA de mes favoris
+        {% set ids = '' %}
+        {% set first_id = '' %}
+        {% for program in data.programs|to_array %}
+          {% if loop.first %}
+            {% set first_id = program.id %}
+            {% set ids = program.id %}
+          {% else %}
+            {% set ids = ids ~ ',' ~ program.id %}
+          {% endif %}
+        {% endfor %}
+        <div class="teaser-container">
+          <div class="teaser-category" data-teaser-ids="{{ ids }}">
+            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
+          </div>
+          <div class="teaser-title sk-font">Retrouvez ci-dessus les bandes-annonces des programmes favoris de {{ channel.title }}.</div>
+        </div>
+      </div>
+      <div class="col-xs-4">Derniers ajouts aux listes
+      </div>
+    </div>
 
-  <h1>Ses playlists</h1>
-  
-  
-  if twitter
-  <a class="twitter-timeline" href="https://twitter.com/bbergstorm" data-widget-id="342678547833446403">Tweets de @bbergstorm</a>
-  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-  
+    <h1>Ses playlists</h1>
+    
+    {# if twitter #}
+    {# <a class="twitter-timeline" href="https://twitter.com/bbergstorm" data-widget-id="342678547833446403">Tweets de @bbergstorm</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script> #}
+    
+    <h3>Prochaines diffusions</h3>
+    {# prochaines diffs #}
 
-  <h3>Prochaines diffusions</h3>
-  {# prochaines diffs #}
-
-
-  <h3>Ses programmes</h3>
-  
-  <ul class="nav nav-pills nav-alpha-client uppercase">
-    <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
-      <a href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
-    </li>
-  </ul>
-
-  <div id="user-programs" class="slider slider-list">
-    <ul class="items">
-    {% for p in data.programs %}
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, 'header': '<span class="fav fav-on fav-trash badge badge-important"><i class="icon-trash icon-white"></i></span>'} %}
-    {% endfor %}
+    <h3>Ses programmes</h3>
+    
+    <ul class="nav nav-pills nav-alpha-client uppercase">
+      <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
+        <a href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
+      </li>
     </ul>
+
+    <div id="user-programs" class="slider slider-list">
+      <ul class="items">
+        {% for p in data.programs|to_array %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p} %}
+        {% endfor %}
+      </ul>
+    </div>
   </div>
-</div>
+
+{% endblock %}

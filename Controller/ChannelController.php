@@ -539,15 +539,20 @@ class ChannelController extends ChannelCustomController
       }
 
     } elseif ($data->channel->type == 'ChannelPersonne'){
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_personne.html.twig', array(
+        $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_personne.html.twig', array(
           'data'=>$data,
           'channel'=>$data->channel,
           'formats'=>PersonController::getFormats((array)$data->programs)
         ));
-    } 
-    // {% elseif channel.type == 'ChannelMyskreener' %}
-    //   {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_user.html.twig' with {data:data} %}
-    // {% endif %}
+
+    } elseif ($data->channel->type == 'ChannelMyskreener') {
+        /*print_r($data);
+        exit();*/
+        $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_user.html.twig', array(
+          'data'=>$data,
+          'channel'=>$data->channel
+        ));
+    }
 
     $maxage = 60;
     $response->setPublic();
@@ -597,7 +602,7 @@ class ChannelController extends ChannelCustomController
     }
 
     //bad url
-    if (!strstr($request->getPathInfo(), '_fragment') &&
+    if (!strstr($request->getPathInfo(), '_fragment') && isset($data->seo_url) &&
               ($request->getPathInfo() != $data->seo_url &&
               $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' &&
               $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' &&
