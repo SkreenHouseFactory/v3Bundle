@@ -454,6 +454,7 @@ class ChannelController extends ChannelCustomController
       'disable_search_by_format' => true,
       'sorter' => 'year',
       'preview' => $request->get('preview'),
+      'with_photo' => 1,
       'fields' => 'description,programs,img_maxsize,notifications,replay_epg_tnt_only,live'
     );
     $data = $api->fetch('channel'.($request->get('id')?'/'.$request->get('id'):null), $params);
