@@ -86,6 +86,23 @@
               </div>
             </a>
             <div class="hr-like"></div>
+        {% elseif origin == 'ChannelMyskreener' %}
+          {% set custom_l = custom_l + 1 %}
+          <a href="{{ path('any_url', {url: item.program.seo_url|slice(1, item.program.seo_url|length-1)}) }}">
+            <div class="channel-program">
+              <div class="icon_chaine"> 
+                <img src="{{ item.channel_ico }}" alt="regarder {{ item.title }}">
+              </div>
+              <div class="desc_chaine">
+                <div>
+                  <h3>{{ item.title|wordCut(20,'...') }}</h3>
+                  <span>{{ item.title_episode }}</span>
+                  <span>{{ item.subtitle }}</span>
+                </div>
+              </div>
+            </div>
+          </a>
+          <div class="hr-like"></div>
         {% endif %}
       {% endfor %}
     </div>
