@@ -65,7 +65,7 @@
   {% endif %}
 {% endblock %}
 
-{% block body_class %}view-channel view-channel-{{ data.channel.id }} cover{% endblock %}
+{% block body_class %}view-channel view-channel-{{ data.channel.id }} cover{{ data.channel.type is defined and data.channel.type == 'ChannelMyskreener' ? ' view-channel-user' : '' }}{% endblock %}
 
 {% block body_background %}
   {% if channel.cover %}url('{{ channel.fournisseur is defined ? channel.cover|replace({'/1500/450/c': ''}) : channel.cover }}') top center no-repeat, url('{{ channel.cover|extract_bgd }}') top left repeat-x{% endif %}

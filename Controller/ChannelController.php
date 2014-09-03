@@ -549,9 +549,14 @@ class ChannelController extends ChannelCustomController
     } elseif ($data->channel->type == 'ChannelMyskreener') {
         /*print_r($data);
         exit();*/
+        if (isset($data->notifications)) {
+          $notifications = (array)$data->notifications;
+          $notifications = array_slice($notifications, 0, 30);
+        }
         $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_user.html.twig', array(
-          'data'=>$data,
-          'channel'=>$data->channel
+          'data' => $data,
+          'notifications' => $notifications,
+          'channel' => $data->channel
         ));
     }
 

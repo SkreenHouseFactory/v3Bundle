@@ -2,18 +2,21 @@
 
 {% block customcontent %}
 
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data: data, fav: 'user'} %}
+  <div class="header-channel-user">
+    <div class="container">
+      <h1 data-channel="{{ channel.title }}">{{ channel.title }}</h1>
+      {% if channel.description is defined and channel.description %}
+        <p class="lead channel-description">{{ channel.description|raw }}</p>
+      {% endif %}
+    </div>
+  </div>
 
   <div class="container">
-
     <div class="row">
-      <div class="col-xs-4">
-        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live: data.notifications, name: 'Dernières notifications', origin: 'ChannelMyskreener', list_number: '1' } %}
-      </div>
-      <div class="col-xs-8">BA de mes favoris
+      <div class="col-xs-11">
         {% set ids = '' %}
         {% set first_id = '' %}
-        {% for program in data.programs|to_array %}
+        {% for program in data.queue|to_array %}
           {% if loop.first %}
             {% set first_id = program.id %}
             {% set ids = program.id %}
@@ -23,24 +26,25 @@
         {% endfor %}
         <div class="teaser-container">
           <div class="teaser-category" data-teaser-ids="{{ ids }}">
-            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
+            <iframe class="teaser-user" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
           </div>
-          <div class="teaser-title sk-font">Retrouvez ci-dessus les bandes-annonces des programmes favoris de {{ channel.title }}.</div>
+          <div class="teaser-title sk-font">Retrouvez ci-dessus les bandes-annonces des programmes de {{ channel.title }}, diffusés en ce moment.</div>
         </div>
       </div>
-      <div class="col-xs-4">Derniers ajouts aux listes
+      <div class="col-xs-5">
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live: notifications, name: 'Dernières notifications', origin: 'ChannelMyskreener', list_number: '1' } %}
       </div>
     </div>
-    
+    <div class="row">
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'user-queue-slider', programs: data.queue}, noheader: true, class: 'slider-user'} %}
+    </div>
     {# if twitter #}
     {# <a class="twitter-timeline" href="https://twitter.com/bbergstorm" data-widget-id="342678547833446403">Tweets de @bbergstorm</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script> #}
-
     <h3>Ses programmes</h3>
-
     <div id="user-programs" class="slider slider-list">
       <ul class="items">
-        {% for p in data.programs|to_array %}
+        {% for p in data.queue|to_array %}
           {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p} %}
         {% endfor %}
       </ul>
