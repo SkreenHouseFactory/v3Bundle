@@ -175,6 +175,9 @@ class ChannelCustomController extends MyskreenController
 
   // Les Inconnus - L'intégrale
   protected function channel65($data){
+    // Hack redirect sur FP 3 frères le retour
+    return $this->redirect('/film/comedies/5088919-les-trois-freres-le-retour/', 301);
+
     $api   = $this->get('api');
     $selection_sketches = array();
     $params =  array(
