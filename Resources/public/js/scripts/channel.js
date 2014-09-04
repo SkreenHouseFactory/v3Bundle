@@ -1,4 +1,18 @@
 // -- channel
+
+function load_program_user () {
+  var ids = $('#user-programs').data('program-ids');
+  var args = typeof args != 'undefined' ? {ids: ids} : {ids: ids};
+  API.query(
+      'GET',
+      'program.json',
+      args,
+      function(datas){
+        console.log('scripts/channel.js', 'load_program_user', 'datas', datas);
+      }
+    );
+}
+
 $(document).ready(function(){
 
   // -- track channel
@@ -289,4 +303,9 @@ $(document).ready(function(){
       break;
     }
   }
+
+  if ($('#user-programs').length) {
+    load_program_user();
+  }
+
 });

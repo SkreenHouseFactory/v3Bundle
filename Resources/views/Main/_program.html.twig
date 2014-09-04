@@ -28,7 +28,7 @@
     {% if p.popular_channel is defined %}
       <img class="channel{% if p.popular_channel.name == 'mySkreen' %} hide{% endif %}" src="{{ p.popular_channel.img }}" alt="{{ p.popular_channel.name }}" width="{{ origin is defined and origin in ['last-replay','soon-replay'] ? 45 : 60}}" />
     {% endif %}
-    <a{% if origin is defined and origin == 'last-replay' and p.best_offer is defined and p.best_offer %}{% if p.best_offer.deporte is defined and p.best_offer.deporte %} data-play="{{ p.best_offer.id }}"{% else %} data-redirect="{{ p.best_offer.url|replace({'/exit' : '/redirect'}) }}"{% endif %}{% elseif p.seo_url %} href="{{ base_url }}{{ p.seo_url }}{{ theater_id is defined and theater_id > 0 ? '?theater_id=' ~ theater_id : '' }}" target="_top"{% endif %} class="wrap-title size-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}}">
+    <a{% if origin is defined and origin == 'last-replay' and p.best_offer is defined and p.best_offer %}{% if p.best_offer.deporte is defined and p.best_offer.deporte %} data-play="{{ p.best_offer.id }}"{% else %} data-redirect="{{ p.best_offer.url|replace({'/exit' : '/redirect'}) }}"{% endif %}{% elseif origin is defined and origin == 'ChannelMyskreener' %} data-play="{{ p.id }}"{% elseif p.seo_url %} href="{{ base_url }}{{ p.seo_url }}{{ theater_id is defined and theater_id > 0 ? '?theater_id=' ~ theater_id : '' }}" target="_top"{% endif %} class="wrap-title size-{{ p.combinaison_type is defined ? p.combinaison_type : 'default'}}">
       <span class="title">
         {% if p.best_offer is defined and p.best_offer %}
           <span class="ms-prog-diff">sur {{ p.best_offer.channel.name }}<br>{{ p.best_offer.broadcastdate|replace({' à ': '<br/>'})|raw }}</span>

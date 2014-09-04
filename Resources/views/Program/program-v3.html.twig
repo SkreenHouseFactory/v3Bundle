@@ -186,7 +186,7 @@
               <ul class="casting-img">
                 {% spaceless %}
                 {% for person in casting_photos|to_array %}
-                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting_photo.html.twig' with { person: person } %}
+                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting_photo.html.twig' with { person: person, placement: 'left' } %}
                 {% endfor %}
                 {% endspaceless %}
               </ul>

@@ -101,28 +101,54 @@ body.view-channel-user {
       color: white;
     }
     .container {
-      .teaser-container {
-        .teaser-user {
-          width: 600px;
-          height: 347px;
+      .user-player {
+        .teaser-container {
+          .teaser-user {
+            width: 600px;
+            height: 347px;
+          }
         }
-      }
-      .col-xs-11 {
-        padding-top: 10px;
-      }
-      .col-xs-5 {
-        h2 {
-          margin-top: 10px;
+        .col-xs-11 {
+          padding-top: 10px;
         }
-        .carousel.vertical {
-          .channel-program {
-            .desc_chaine {
-              margin-left: 23%;
-              width: 77%;
-              .span {
-                width: 100%;
+        .col-xs-5 {
+          h2 {
+            margin-top: 10px;
+          }
+          .carousel.vertical {
+            .channel-program {
+              .desc_chaine {
+                margin-left: 23%;
+                width: 77%;
+                .span {
+                  width: 100%;
+                }
               }
             }
+          }
+        }
+      }
+    }
+    .bande-favories {
+      background: #f5f5f5;
+      .user-favories {
+        .user-persons {
+          ul {
+            padding-left: 0;
+            list-style: none;
+            li {
+              display: inline-block;
+              margin-right: 5px;
+              margin-bottom: 10px;
+              a {
+                display: block;
+              }
+            }
+          }
+        }
+        .user-theaters {
+          a, span {
+            display: block;
           }
         }
       }
