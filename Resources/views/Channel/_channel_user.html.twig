@@ -4,36 +4,56 @@
 
   <div class="header-channel-user">
     <div class="container">
-      <h1 data-channel="{{ channel.title }}">{{ channel.title }}</h1>
-      {% if channel.description is defined and channel.description %}
-        <p class="lead channel-description">{{ channel.description|raw }}</p>
-      {% endif %}
+      <div class="row">
+        <div class="col-xs-12">
+          <h1 data-channel="{{ channel.title }}">{{ channel.title }}</h1>
+          {% if channel.description is defined and channel.description %}
+            <p class="lead channel-description">{{ channel.description|raw }}</p>
+          {% endif %}
+        </div>
+        <div class="col-xs-4">
+          <div class="row">
+            <div class="col-xs-16">
+              {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'btn-lg', fav: 'channel', name: channel.title } %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-16">
+              <button class="btn btn-success btn-xs">Créez votre propre chaîne !</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="container">
     <div class="row user-player">
       <div class="col-xs-11">
-        {% set ids = '' %}
-        {% set first_id = '' %}
-        {% for program in data.queue|to_array %}
-          {% if loop.first %}
-            {% set first_id = program.id %}
-            {% set ids = program.id %}
-          {% else %}
-            {% set ids = ids ~ ',' ~ program.id %}
-          {% endif %}
-        {% endfor %}
-        <div class="teaser-container">
-          <div class="teaser-category" data-teaser-ids="{{ ids }}">
-            <iframe class="teaser-user" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
+        <div class="player-wrapper">
+          {% set ids = '' %}
+          {% set first_id = '' %}
+          {% for program in data.queue|to_array %}
+            {% if loop.first %}
+              {% set first_id = program.id %}
+              {% set ids = program.id %}
+            {% else %}
+              {% set ids = ids ~ ',' ~ program.id %}
+            {% endif %}
+          {% endfor %}
+          <div class="teaser-container">
+            <div class="teaser-title sk-font">Retrouvez ci-dessus les bandes-annonces des programmes de {{ channel.title }}, diffusés en ce moment.</div>
+            <div id="player" class="teaser-category" data-teaser-ids="{{ ids }}" {# data-autoplay="1" data-play-api="{{ {url: null, playId: first_id}|json_encode }}" #}>
+              <iframe class="teaser-user" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
+            </div>
           </div>
-          <div class="teaser-title sk-font">Retrouvez ci-dessus les bandes-annonces des programmes de {{ channel.title }}, diffusés en ce moment.</div>
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'user-queue-slider', programs: data.queue}, noheader: true, class: 'slider-user', origin: 'ChannelMyskreener'} %}
         </div>
-        {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'user-queue-slider', programs: data.queue}, noheader: true, class: 'slider-user', origin: 'ChannelMyskreener'} %}
       </div>
       <div class="col-xs-5">
         {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live: notifications, name: 'Dernières notifications', origin: 'ChannelMyskreener', list_number: '1' } %}
+        <h2>Partagez cette chaîne</h2>
+        <div class="share-block clearfix">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' sur mySkreen', fb_layout: 'box_count', tw_layout: 'vertical', g_size: 'tall', g_annotation: 'bubble' } %}</div>
       </div>
     </div>
   </div>
@@ -86,7 +106,7 @@
       {# if twitter #}
       {# <a class="twitter-timeline" href="https://twitter.com/bbergstorm" data-widget-id="342678547833446403">Tweets de @bbergstorm</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script> #}
-      <h3>Ses programmes</h3>
+      {# <h3>Ses programmes</h3>
       {% set program_ids = '' %}
       {% for id in data.program_ids|to_array %}
         {% if loop.first %}
@@ -97,11 +117,11 @@
       {% endfor %}
       <div id="user-programs" class="slider slider-list" data-program-ids="{{ program_ids }}">
         <ul class="items">
-          {# {% for p in data.queue|to_array %}
+          {% for p in data.queue|to_array %}
             {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p} %}
-          {% endfor %} #}
+          {% endfor %}
         </ul>
-      </div>
+      </div> #}
     </div>
   </div>
 
