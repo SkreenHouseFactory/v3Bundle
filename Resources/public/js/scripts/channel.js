@@ -304,8 +304,161 @@ $(document).ready(function(){
     }
   }
 
+  // JS Specific for user-channel pages :
+
   if ($('#user-programs').length) {
     load_program_user();
   }
+
+  var glyphicon_css_marginRight = '';
+  var glyphicon_css_fontSize = '';
+  var glyphicon_css_marginTop = '';
+
+  var col_xs_11_css_position = '';
+  var col_xs_11_css_zIndex = '';
+  var col_xs_11_css_backgroundColor = '';
+  var col_xs_11_css_height = '';
+  var col_xs_11_css_padding = '';
+  var col_xs_11_css_top = '';
+  var col_xs_11_css_left = '';
+
+  var player_wrapper_css_backgroundColor = '';
+
+  var teaser_title_css_marginTop = '';
+
+  var user_queue_slider_css_margin = '';
+  var user_queue_slider_css_backgroundColor = '';
+
+  var a_right_css_left = '';
+  var a_right_css_marginRight = '';
+  var a_left_css_marginLeft = '';
+
+  $(document).on('click','.teaser-container .glyphicon-resize-full',function () {
+    var window_height = $(window).height();
+    var iframe_height = window_height - 275;
+    var iframe_width = iframe_height * 1.73;
+
+    glyphicon_css_marginTop = $(this).css('margin-top');
+    glyphicon_css_marginRight = $(this).css('margin-right');
+    glyphicon_css_fontSize = $(this).css('font-size');
+    $(this).css({
+      marginRight: '20px',
+      fontSize: '1.5em',
+      marginTop: '-5px'
+    });
+
+    col_xs_11_css_left = $('.user-player .col-xs-11').css('left');
+    col_xs_11_css_top = $('.user-player .col-xs-11').css('top');
+    col_xs_11_css_padding = $('.user-player .col-xs-11').css('padding');
+    col_xs_11_css_height = $('.user-player .col-xs-11').css('height');
+    col_xs_11_css_position = $('.user-player .col-xs-11').css('position');
+    col_xs_11_css_backgroundColor = $('.user-player .col-xs-11').css('background-color');
+    col_xs_11_css_zIndex = $('.user-player .col-xs-11').css('z-index');
+    $('.user-player .col-xs-11').css({
+      position: 'fixed',
+      zIndex: '2000',
+      backgroundColor: 'rgba(0,0,0,0.9)'
+    });
+
+    player_wrapper_css_backgroundColor = $('.user-player .col-xs-11 .player-wrapper').css('background-color');
+    $('.user-player .col-xs-11 .player-wrapper').css({
+      backgroundColor: 'transparent'
+    });
+
+    teaser_title_css_marginTop = $('.user-player .col-xs-11 .teaser-title').css('margin-top');
+    $('.user-player .col-xs-11 .teaser-title').animate({
+      marginTop: '15px'
+    }, 500, function(){});
+
+    user_queue_slider_css_margin = $('#user-queue-slider').css('margin');
+    user_queue_slider_css_backgroundColor = $('#user-queue-slider').css('background-color');
+    $('#user-queue-slider').css({
+      margin: '0 auto',
+      backgroundColor: 'black'
+    });
+
+    $('.user-player .col-xs-11').animate({
+      width: '100%',
+      height: '100%',
+      padding: '0',
+      top: '0',
+      left: '0'
+    }, 500, function(){});
+    $('#user-queue-slider').animate({
+      width: '98%'
+    }, 500, function(){});
+
+    a_right_css_left = $('#user-queue-slider a.right').css('left');
+    a_right_css_marginRight = $('#user-queue-slider a.right').css('margin-right');
+    a_left_css_marginLeft = $('#user-queue-slider a.left').css('margin-left');
+    $('#user-queue-slider a.right').css({
+      left: 'auto',
+      marginRight: '15px'
+    });
+
+
+    $('#user-queue-slider a.left').css({
+      marginLeft: '10px'
+    });
+
+    $('.teaser-user').animate({
+      width: iframe_width + 'px',
+      height: iframe_height + 'px'
+    }, 500, function(){});
+
+    $(this).removeClass('glyphicon-resize-full');
+    $(this).addClass('glyphicon-resize-small');
+  });
+
+  $(document).on('click','.teaser-container .glyphicon-resize-small',function () {
+
+    $(this).css({
+      marginRight: glyphicon_css_marginRight,
+      fontSize: glyphicon_css_fontSize,
+      marginTop: glyphicon_css_marginTop
+    });
+
+    $('.user-player .col-xs-11').css({
+      position: col_xs_11_css_position,
+      zIndex: col_xs_11_css_zIndex,
+      backgroundColor: col_xs_11_css_backgroundColor,
+      width: '68.7%',
+      height: col_xs_11_css_height,
+      padding: col_xs_11_css_padding,
+      top: col_xs_11_css_top,
+      left: col_xs_11_css_left
+    });
+
+    $('.user-player .col-xs-11 .player-wrapper').css({
+      backgroundColor: player_wrapper_css_backgroundColor
+    });
+
+    $('.user-player .col-xs-11 .teaser-title').css({
+      marginTop: teaser_title_css_marginTop
+    });
+
+    $('#user-queue-slider').css({
+      margin: user_queue_slider_css_margin,
+      backgroundColor: user_queue_slider_css_backgroundColor,
+      width: '100%'
+    });
+
+    $('#user-queue-slider a.right').css({
+      left: a_right_css_left,
+      marginRight: a_right_css_marginRight
+    });
+
+    $('#user-queue-slider a.left').css({
+      marginLeft: a_left_css_marginLeft
+    });
+
+    $('.teaser-user').css({
+      width: '600px',
+      height: '347px'
+    });
+
+    $(this).removeClass('glyphicon-resize-small');
+    $(this).addClass('glyphicon-resize-full');
+  });
 
 });

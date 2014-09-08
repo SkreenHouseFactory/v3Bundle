@@ -42,7 +42,11 @@
             {% endif %}
           {% endfor %}
           <div class="teaser-container">
-            <div class="teaser-title sk-font">Retrouvez ci-dessus les bandes-annonces des programmes de {{ channel.title }}, diffusés en ce moment.</div>
+            <div class="teaser-title sk-font">
+              <span class="glyphicon glyphicon-resize-full pull-right"></span>
+              <p>Retrouvez ci-dessus les bandes-annonces des programmes de {{ channel.title }}, diffusés en ce moment.</p>
+              
+            </div>
             <div id="player" class="teaser-category" data-teaser-ids="{{ ids }}" {# data-autoplay="1" data-play-api="{{ {url: null, playId: first_id}|json_encode }}" #}>
               <iframe class="teaser-user" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
             </div>
@@ -52,8 +56,10 @@
       </div>
       <div class="col-xs-5">
         {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live: notifications, name: 'Dernières notifications', origin: 'ChannelMyskreener', list_number: '1' } %}
-        <h2>Partagez cette chaîne</h2>
-        <div class="share-block clearfix">{% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' sur mySkreen', fb_layout: 'box_count', tw_layout: 'vertical', g_size: 'tall', g_annotation: 'bubble' } %}</div>
+        <div class="share-block clearfix">
+          <h2>Partagez cette chaîne</h2>
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' sur mySkreen', fb_layout: 'box_count', tw_layout: 'vertical', g_size: 'tall', g_annotation: 'bubble' } %}
+        </div>
       </div>
     </div>
   </div>
