@@ -2,15 +2,25 @@
 
 function load_program_user () {
   var ids = $('#user-programs').data('program-ids');
-  var args = typeof args != 'undefined' ? {ids: ids} : {ids: ids};
-  API.query(
+  var container = $('.user-loader');
+  //var args = typeof args != 'undefined' ? {ids: ids} : {ids: ids};
+  if($('#user-channel-programs-slider.slider').length) {
+      UI.sliders['user-programs'] = new BaseSlider({
+        'url': 'program.json?ids='+ids+'&skKey='+Skhf.session.uid},
+        function(){
+          UI.removeLoader(container);
+        },
+        $('#user-channel-programs-slider.slider')
+      );
+    }
+  /*API.query(
       'GET',
       'program.json',
       args,
       function(datas){
         console.log('scripts/channel.js', 'load_program_user', 'datas', datas);
       }
-    );
+    );*/
 }
 
 $(document).ready(function(){
@@ -307,8 +317,16 @@ $(document).ready(function(){
   // JS Specific for user-channel pages :
 
   if ($('#user-programs').length) {
-    load_program_user();
+    Player.elmt = $('#player-user-ba');
+    UI.appendLoader($('.user-loader'));
+    setTimeout(function(){
+      load_program_user();
+    }, 1500);
   }
+
+  $(document).on('click', '#user-queue-slider li.actions a', function(e){
+    e.preventDefault();
+  });
 
   var glyphicon_css_marginRight = '';
   var glyphicon_css_fontSize = '';
@@ -401,7 +419,7 @@ $(document).ready(function(){
       marginLeft: '10px'
     });
 
-    $('.teaser-user').animate({
+    $('.teaser-category').animate({
       width: iframe_width + 'px',
       height: iframe_height + 'px'
     }, 500, function(){});
@@ -452,7 +470,7 @@ $(document).ready(function(){
       marginLeft: a_left_css_marginLeft
     });
 
-    $('.teaser-user').css({
+    $('.teaser-category').css({
       width: '600px',
       height: '347px'
     });
