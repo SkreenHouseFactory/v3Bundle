@@ -51,7 +51,7 @@
               <iframe class="teaser-user" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
             </div>
           </div>
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'user-queue-slider', programs: data.queue}, noheader: true, class: 'slider-user', origin: 'ChannelMyskreener'} %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'user-queue-slider', programs: data.queue}, noheader: true, class: 'slider-user no-mousehidden', origin: 'ChannelMyskreener'} %}
         </div>
       </div>
       <div class="col-xs-5">
@@ -113,6 +113,14 @@
       {# <a class="twitter-timeline" href="https://twitter.com/bbergstorm" data-widget-id="342678547833446403">Tweets de @bbergstorm</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script> #}
       <h2>Ses programmes</h2>
+      <div class="btn-group btn-group-sm user-programs-selector">
+        <button type="button" class="btn btn-primary" data-show="all">Tous formats</button>
+        <button type="button" class="btn btn-default" data-show="films">Films</button>
+        <button type="button" class="btn btn-default" data-show="documentaires">Documentaires</button>
+        <button type="button" class="btn btn-default" data-show="series">Séries</button>
+        <button type="button" class="btn btn-default" data-show="emissions">Emissions</button>
+        <button type="button" class="btn btn-default" data-show="spectacles">Spectacles</button>
+      </div>
       {% set program_ids = '' %}
       {% for id in data.program_ids|to_array|slice(0,65) %}
         {% if loop.first %}
