@@ -470,7 +470,7 @@ $(document).ready(function(){
     $(this).addClass('glyphicon-resize-small');
 
     // Handling fade-in of slider player
-    ($(window), $('iframe').contents().find('body')).mousemove(function(e){
+    ($(window)/*, $('iframe').contents().find('body')*/).mousemove(function(e){
       if ($('#user-queue-slider').hasClass('no-mousehidden')) {
         e.preventDefault();
       } else if ($('#user-queue-slider').hasClass('large-view')) {
@@ -487,7 +487,7 @@ $(document).ready(function(){
         }, 3000);
       }
     });
-    /*$('iframe').contents().find('body').mousemove(function(e){
+    $('iframe').contents().find('body').mousemove(function(e){
       if ($('#user-queue-slider').hasClass('no-mousehidden')) {
         e.preventDefault();
       } else if ($('#user-queue-slider').hasClass('large-view')) {
@@ -503,7 +503,7 @@ $(document).ready(function(){
           }
         }, 3000);
       }
-    });*/
+    });
 
   });
 
