@@ -167,6 +167,33 @@ class UserController extends Controller
     /**
     *
     */
+    public function mychannelAction(Request $request)
+    {
+      $session_uid = $request->cookies->get('myskreen_session_uid');
+      if (!$session_uid) {
+        return $this->redirect('http://www.myskreen.com');
+      }
+
+      $api = $this->get('api');
+      $params =  array(
+        'with_user_channel' => true
+      );
+      $datas = $api->fetch('session/'.$session_uid, $params);
+
+      
+      $response = $this->render('SkreenHouseFactoryV3Bundle:User:mychannel.html.twig', array(
+        'datas' => $datas
+      ));
+
+      $response->setPrivate();
+      $response->setMaxAge(0);
+
+      return $response;
+    }
+
+    /**
+    *
+    */
     public function personsAction(Request $request)
     {
       $session_uid = $request->cookies->get('myskreen_session_uid');

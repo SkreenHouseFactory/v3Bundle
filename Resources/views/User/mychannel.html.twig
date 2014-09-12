@@ -1,0 +1,63 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}{{ 'page.title.user.mychannel'|trans }}{% endblock %}
+
+{% block content %}
+  <div id="view-mychannel" class="container">
+    <h1>Créer, Modifier, Supprimer ma chaîne myskreen</h1>
+    <div class="message-alert">
+      {% if datas.user_channel is defined and datas.user_channel %}
+        {% if false %}
+          <p class="alert alert-info">Votre chaîne personnelle existe déjà.</p>
+          <p>Vous pouvez la consulter <a href="{{ path('any_url', {url: datas.user_channel.seo_url|replace({'/': ''})}) }}">ici</a>.</p>
+        {% else %}
+          <p class="alert alert-warning">Votre chaîne personnelle existe déjà, mais vous ne l'avez pas encore publiée.</p>
+          <p>Vous pouvez la prévisualiser <a href="{{ path('any_url', {url: datas.user_channel.seo_url|replace({'/': ''})}) }}/?preview=1">ici</a>.</p>
+        {% endif %}
+      {% else %}
+        <p class="alert alert-danger">Vous n'avez pas encore créé votre chaîne personnelle.</p>
+      {% endif %}
+    </div>
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="channel_name" class="col-xs-3 control-label">Nom</label>
+        <div class="col-xs-13">
+          <input type="text" class="form-control" id="channel_name" placeholder="{{ datas.user_channel is defined and datas.user_channel.name is defined and datas.user_channel.name ? datas.user_channel.name : 'Le nom de votre chaîne' }}" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="channel_description" class="col-xs-3 control-label">Description</label>
+        <div class="col-xs-13">
+          <input type="text" class="form-control" id="channel_description" placeholder="{{ datas.user_channel is defined and datas.user_channel.description is defined and datas.user_channel.description ? datas.user_channel.description : 'La description de votre chaîne' }}" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="channel_slug" class="col-xs-3 control-label">Adresse URL</label>
+        <div class="col-xs-13">
+          <input type="text" class="form-control" id="channel_slug" placeholder="{{ datas.user_channel is defined and datas.user_channel.slug is defined and datas.user_channel.slug ? datas.user_channel.slug : 'Le texte de l\'adresse URL de votre chaîne - par exemple : www.myskreen.com/jeandupont/' }}" />
+        </div>
+      </div>
+      <div class="form-group">
+        {% if datas.user_channel is defined and datas.user_channel %}
+          <button class="col-xs-3 btn btn-primary pull-right" type="submit">Modifier</button>
+          <button class="col-xs-3 btn btn-warning pull-right" type="submit">Supprimer</button>
+          {% if true %}
+            <button class="col-xs-3 btn btn-success pull-right" type="submit">Publier</button>
+          {% endif %}
+        {% else %}
+          <button class="col-xs-3 btn btn-primary pull-right" type="submit">Créer</button>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{# {% block pagescripts %}
+{% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/settings.js'
+    
+    filter='?yui_js' 
+    output='js/compiled/pages/settings.js'  %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %} #}

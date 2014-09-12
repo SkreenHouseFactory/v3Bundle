@@ -56,6 +56,7 @@ page:
             pass: Pass myskreen | Mon compte
             notifs: Notifications | Mon compte
             friends: Mes amis regardent | Mon compte
+            mychannel: Ma chaîne | Mon compte
         sitemap:
             channels:
                 broadcast: Chaines TV & Replay

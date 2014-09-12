@@ -322,6 +322,17 @@ $(document).ready(function(){
     e.preventDefault();
   });
 
+  $('.header-channel-user button.auth').on('click', function(){
+    console.log('scripts/channel.js', 'Button mychannel auth');
+    Player.stop();
+    var url = $(this).data('link');
+    UI.auth(function(){
+      if (Skhf.session.datas.email) {
+        window.location.href = url;
+      }
+    });
+  });
+
   // Selections of programs list depending on format
   $(document).on('click', '.user-programs-selector .btn', function() {
     var selector = $(this).data('show');
