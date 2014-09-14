@@ -32,7 +32,7 @@
 {% block content %}
   <div id="view-program" data-id="{{ program.id }}">
     
-    {% if program.id|slice(0,1) == 5 %}
+    {% if program.id|slice(0,1) != 5 %}
     {# adsense #}
     <div class="container">
       <hr/>
@@ -190,7 +190,7 @@
               <ul class="casting-img">
                 {% spaceless %}
                 {% for person in casting_photos|to_array %}
-                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting_photo.html.twig' with { person: person, placement: 'left' } %}
+                  {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting_photo.html.twig' with { person: person } %}
                 {% endfor %}
                 {% endspaceless %}
               </ul>
