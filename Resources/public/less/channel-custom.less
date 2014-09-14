@@ -91,6 +91,161 @@ body.view-channel-7 {
     }
   }
 }
+// Chaînes users
+body.view-channel-user {
+  background: none!important;
+  #main {
+    .header-channel-user {
+      padding-top: 70px;
+      background-color: @sk-blue;
+      color: white;
+      .btn-suivre {
+        background-color: white;
+        color: #2980B9;
+        margin-top: 10px;
+      }
+      .btn-success {
+        margin-top: 10px;
+        margin-left: 23px;
+      }
+    }
+    .container {
+      .user-player {
+        .col-xs-11 {
+          padding-top: 10px;
+          .player-wrapper {
+            background-color: black;
+            border-radius: 5px;
+            width: 100%;
+            height: 100%;
+          }
+          .teaser-container {
+            width: 100%;
+            .teaser-category {
+              text-align: center;
+              margin-bottom: 10px;
+              width: 600px;
+              height: 347px;
+              margin: 0 auto;
+            }
+            .teaser-user, iframe {
+              width: 100%;
+              height: 100%;
+            }
+            .teaser-title {
+              text-align: center;
+              margin-bottom: 10px;
+              color: white;
+              > p {
+                padding: 0 45px;
+              }
+              .glyphicon {
+                color: white;
+                margin-top: 5px;
+                margin-right: 5px;
+                font-size: 1.3em;
+                cursor: pointer;
+              }
+            }
+          }
+          .slider-user {
+            margin-bottom: 10px;
+            .right {
+              left: 600px;
+            }
+            .left {
+              left: -20px!important;
+            }
+          }
+        }
+        .col-xs-5 {
+          margin-top: 10px;
+          padding-bottom: 15px;
+          height: 623px;
+          h2 {
+            margin-top: 10px;
+          }
+          .carousel.vertical {
+            height: 375px;
+            .hr-like {
+              margin-bottom: 5px
+            }
+            .channel-program {
+              .desc_chaine {
+                margin-left: 23%;
+                width: 77%;
+                span {
+                  width: 100%;
+                }
+              }
+            }
+          }
+          .controlersbtn {
+            text-align: center;
+            margin-top: 10px;
+            > a {
+              display: inline-block;
+              margin-right: 15px;
+            }
+            & + h2 {
+              margin-top: 25px;
+            }
+          }
+          .share-block {
+            position: static;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            margin-top: 15px;
+            padding: 10px;
+            .twitter-share {
+              margin-left: 25px!important;
+            }
+          }
+        }
+      }
+    }
+    .bande-favories {
+      background: #f5f5f5;
+      .user-favories {
+        .user-persons {
+          ul {
+            padding-left: 0;
+            list-style: none;
+            li {
+              display: inline-block;
+              margin-right: 5px;
+              margin-bottom: 10px;
+              a {
+                display: block;
+              }
+            }
+          }
+        }
+        .user-theaters {
+          a, span {
+            display: block;
+          }
+        }
+        & + h2 {
+          margin-bottom: 20px;
+          & + .btn-group {
+            margin-bottom: 20px;
+          }
+        }
+      }
+      #user-programs {
+        margin-bottom: 45px;
+        .slider-container {
+          box-shadow: none;
+          border-right: none;
+        }
+        a.right {
+          display: none;
+        }
+      }
+    }
+  }
+}
 // Derniers replays pour fournisseur
 body.view-fournisseur {
   &.last-replay {

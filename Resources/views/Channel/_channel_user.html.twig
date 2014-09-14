@@ -1,39 +1,139 @@
-{% include 'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data: data, fav: 'user'} %}
+{% extends "SkreenHouseFactoryV3Bundle:Channel:_base-channel.html.twig" %}
 
-<div class="container">
+{% block customcontent %}
 
-  {# TODO : PUBLISH PLAYLISTS
-  <div class="btn-group pull-right" data-toggle="buttons-radio" style="margin:20px;">
-    <a href="#" class="btn btn-primary" data-placement="bottom" data-title="{{ 'playlist.publish.private.popover.title'|trans }}" data-content="{{ 'playlist.publish.private.popover.content'|trans }}" data-trigger="hover">{{ 'playlist.publish.private.link'|trans }}</a>
-    <a href="#" class="btn" data-placement="bottom" data-title="{{ 'playlist.publish.public.popover.title'|trans }}" data-content="{{ 'playlist.publish.public.popover.content'|trans }}" data-trigger="hover">{{ 'playlist.publish.public.link'|trans }}</a>
+  <div class="header-channel-user">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h1 data-channel="{{ channel.title }}">{{ channel.title }}</h1>
+          {% if channel.description is defined and channel.description %}
+            <p class="lead channel-description">{{ channel.description|raw }}</p>
+          {% endif %}
+        </div>
+        <div class="col-xs-4">
+          <div class="row">
+            <div class="col-xs-16">
+              {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: channel.id, class: 'btn-lg', fav: 'channel', name: channel.title } %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-16">
+              <button class="btn btn-success btn-xs auth" data-link="{{ path('user_mychannel') }}">Créez votre propre chaîne !</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  #}
 
-  <h1>Ses playlists</h1>
-  
-  
-  if twitter
-  <a class="twitter-timeline" href="https://twitter.com/bbergstorm" data-widget-id="342678547833446403">Tweets de @bbergstorm</a>
-  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-  
-
-  <h3>Prochaines diffusions</h3>
-  {# prochaines diffs #}
-
-
-  <h3>Ses programmes</h3>
-  
-  <ul class="nav nav-pills nav-alpha-client uppercase">
-    <li{% if app.request.get('onglet') is null %} class="active"{% endif %}>
-      <a href="{{ path('user_programs', {onglet: null}) }}">{{ 'nav.all'|trans }}</a>
-    </li>
-  </ul>
-
-  <div id="user-programs" class="slider slider-list">
-    <ul class="items">
-    {% for p in data.programs %}
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {'p': p, 'header': '<span class="fav fav-on fav-trash badge badge-important"><i class="icon-trash icon-white"></i></span>'} %}
-    {% endfor %}
-    </ul>
+  <div class="container">
+    <div class="row user-player">
+      <div class="col-xs-11">
+        <div class="player-wrapper">
+          {% set ids = '' %}
+          {% set first_id = '' %}
+          {% for program in data.queue|to_array %}
+            {% if loop.first %}
+              {% set first_id = program.id %}
+              {% set ids = program.id %}
+            {% else %}
+              {% set ids = ids ~ ',' ~ program.id %}
+            {% endif %}
+          {% endfor %}
+          <div class="teaser-container">
+            <div class="teaser-title sk-font">
+              <span class="glyphicon glyphicon-resize-full pull-right"></span>
+              <p>Retrouvez ci-dessus les bandes-annonces des programmes de {{ channel.title }}, diffusés en ce moment.</p>
+              
+            </div>
+            <div id="player-user-ba" class="teaser-category" data-teaser-ids="{{ ids }}" {# data-autoplay="1" data-play-api="{{ {url: null, playId: first_id}|json_encode }}" #}>
+              <iframe class="teaser-user" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
+            </div>
+          </div>
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'user-queue-slider', programs: data.queue}, noheader: true, class: 'slider-user no-mousehidden', origin: 'ChannelMyskreener'} %}
+        </div>
+      </div>
+      <div class="col-xs-5">
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live: notifications, name: 'Dernières notifications', origin: 'ChannelMyskreener', list_number: '1' } %}
+        <div class="share-block clearfix">
+          <h2>Partagez cette chaîne</h2>
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com/' ~ channel.slug, text: 'La chaîne ' ~ channel.title ~ ' sur mySkreen', fb_layout: 'box_count', tw_layout: 'vertical', g_size: 'tall', g_annotation: 'bubble' } %}
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+  <div class="bande-favories">
+    <div class="container">
+      <div class="row user-favories">
+        <div class="col-xs-5 user-persons">
+          <h2>Ses personnalités</h2>
+          {% if data.persons|to_array|length %}
+            <ul class="casting-img">
+              {% for person in data.persons|to_array|sort %}
+                {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_casting_photo.html.twig' with { person: person, placement: 'top' } %}
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="bs-callout bs-callout-info">Aucune personnalité ne figure dans les favoris de cet utilisateur.</p>
+          {% endif %}
+        </div>
+        <div class="col-xs-6 user-channels">
+          <h2>Ses chaînes</h2>
+          {% if data.channels|to_array|length %}
+            <ul class="channels-list">
+              {% for item in data.channels|to_array %}
+                <li data-id="{{ item.id }}">
+                  {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels_item.html.twig' with { item: item, origin: 'user_channels' } %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="bs-callout bs-callout-info">Aucune chaîne ne figure dans les favoris de cet utilisateur.</p>
+          {% endif %}
+        </div>
+        <div class="col-xs-5 user-theaters">
+          <h2>Ses salles de cinéma</h2>
+          {% if data.theaters|to_array|length %}
+            <ul class="list-group">
+              {% for item in data.theaters|to_array %}
+                <li class="list-group-item">
+                  <a href="{{ path('any_url', {url: item.seo_url|slice(1, item.seo_url|length-1)}) }}">{{ item.name }}</a>
+                  <span>{{ item.adress }}</span>
+                  <span>{{ item.zip_code }} {{ item.city }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="bs-callout bs-callout-info">Aucune salle de cinéma ne figure dans les favoris de cet utilisateur.</p>
+          {% endif %}
+        </div>
+      </div>
+      {# if twitter #}
+      {# <a class="twitter-timeline" href="https://twitter.com/bbergstorm" data-widget-id="342678547833446403">Tweets de @bbergstorm</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script> #}
+      <h2>Ses programmes</h2>
+      <div class="btn-group btn-group-sm user-programs-selector">
+        <button type="button" class="btn btn-primary" data-show="all">Tous formats</button>
+        <button type="button" class="btn btn-default" data-show="films">Films</button>
+        <button type="button" class="btn btn-default" data-show="documentaires">Documentaires</button>
+        <button type="button" class="btn btn-default" data-show="series">Séries</button>
+        <button type="button" class="btn btn-default" data-show="emissions">Emissions</button>
+        <button type="button" class="btn btn-default" data-show="spectacles">Spectacles</button>
+      </div>
+      {% set program_ids = '' %}
+      {% for id in data.program_ids|to_array|slice(0,65) %}
+        {% if loop.first %}
+          {% set program_ids = id %}
+        {% else %}
+          {% set program_ids = program_ids ~ ',' ~ id %}
+        {% endif %}
+      {% endfor %}
+      <div id="user-programs" data-program-ids="{{ program_ids }}">
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'user-channel-programs-slider'}, noheader: true, class: 'slider-list'} %}
+        <div class='user-loader'></div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

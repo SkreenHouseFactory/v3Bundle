@@ -175,6 +175,9 @@ class ChannelCustomController extends MyskreenController
 
   // Les Inconnus - L'intégrale
   protected function channel65($data){
+    // Hack redirect sur FP 3 frères le retour
+    return $this->redirect('/film/comedies/5088919-les-trois-freres-le-retour/', 301);
+
     $api   = $this->get('api');
     $selection_sketches = array();
     $params =  array(
@@ -454,6 +457,7 @@ class ChannelController extends ChannelCustomController
       'disable_search_by_format' => true,
       'sorter' => 'year',
       'preview' => $request->get('preview'),
+      'with_photo' => 1,
       'fields' => 'description,programs,img_maxsize,notifications,replay_epg_tnt_only,live'
     );
     $data = $api->fetch('channel'.($request->get('id')?'/'.$request->get('id'):null), $params);
@@ -539,15 +543,25 @@ class ChannelController extends ChannelCustomController
       }
 
     } elseif ($data->channel->type == 'ChannelPersonne'){
-      $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_personne.html.twig', array(
+        $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_personne.html.twig', array(
           'data'=>$data,
           'channel'=>$data->channel,
           'formats'=>PersonController::getFormats((array)$data->programs)
         ));
-    } 
-    // {% elseif channel.type == 'ChannelMyskreener' %}
-    //   {% include 'SkreenHouseFactoryV3Bundle:Channel:_channel_user.html.twig' with {data:data} %}
-    // {% endif %}
+
+    } elseif ($data->channel->type == 'ChannelMyskreener') {
+        /*print_r($data);
+        exit();*/
+        if (isset($data->notifications)) {
+          $notifications = (array)$data->notifications;
+          $notifications = array_slice($notifications, 0, 30);
+        }
+        $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_user.html.twig', array(
+          'data' => $data,
+          'notifications' => $notifications,
+          'channel' => $data->channel
+        ));
+    }
 
     $maxage = 60;
     $response->setPublic();
@@ -597,7 +611,7 @@ class ChannelController extends ChannelCustomController
     }
 
     //bad url
-    if (!strstr($request->getPathInfo(), '_fragment') &&
+    if (!strstr($request->getPathInfo(), '_fragment') && isset($data->seo_url) &&
               ($request->getPathInfo() != $data->seo_url &&
               $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' &&
               $request->getPathInfo() != $data->seo_url . $request->get('format') . '/' . $request->get('facet') . '/' &&

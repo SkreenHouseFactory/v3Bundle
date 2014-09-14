@@ -28,7 +28,7 @@
       </ul>
 
     {% if programs|length > 6 %}
-      <a class="block" data-toggle-hide=".pagination" data-taggle-text="... fermer">Plus de filtres ...</a>
+      <a class="block" data-toggle-hide=".pagination" data-toggle-text="... fermer">Plus de filtres ...</a>
       <ul class="pagination pagination-client-alpha hide">
         <li{% if app.request.get('alpha') is null %} class="active"{% endif %}><a>{{ 'nav.all'|trans }}</a></li>
         {% for l in alpha %}
