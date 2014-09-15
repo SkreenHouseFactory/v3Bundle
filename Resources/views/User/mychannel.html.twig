@@ -7,7 +7,7 @@
     <h1>Créer, Modifier, Supprimer ma chaîne myskreen</h1>
     <div class="message-alert">
       {% if datas.user_channel is defined and datas.user_channel %}
-        {% if false %}
+        {% if datas.user_channel.is_active is defined and datas.user_channel.is_active %}
           <p class="alert alert-info">Votre chaîne personnelle existe déjà.</p>
           <p>Vous pouvez la consulter <a href="{{ path('any_url', {url: datas.user_channel.seo_url|replace({'/': ''})}) }}">ici</a>.</p>
         {% else %}
@@ -18,7 +18,7 @@
         <p class="alert alert-danger">Vous n'avez pas encore créé votre chaîne personnelle.</p>
       {% endif %}
     </div>
-    <form class="form-horizontal" role="form">
+    <form id="form-channel" class="form-horizontal" role="form">
       <div class="form-group">
         <label for="channel_name" class="col-xs-3 control-label">Nom</label>
         <div class="col-xs-13">
@@ -39,25 +39,23 @@
       </div>
       <div class="form-group">
         {% if datas.user_channel is defined and datas.user_channel %}
-          <button class="col-xs-3 btn btn-primary pull-right" type="submit">Modifier</button>
-          <button class="col-xs-3 btn btn-warning pull-right" type="submit">Supprimer</button>
-          {% if true %}
-            <button class="col-xs-3 btn btn-success pull-right" type="submit">Publier</button>
-          {% endif %}
+          <button class="col-xs-3 btn btn-primary pull-right modify" type="submit">Modifier</button>
+          <button class="col-xs-3 btn btn-warning pull-right delete" type="submit">Supprimer</button>
+          {{ datas.user_channel.is_active is defined and datas.user_channel.is_active ? '' : '<button class="col-xs-3 btn btn-success pull-right publish" type="submit">Publier</button>' }}
         {% else %}
-          <button class="col-xs-3 btn btn-primary pull-right" type="submit">Créer</button>
+          <button class="col-xs-3 btn btn-primary pull-right create" type="submit">Créer</button>
         {% endif %}
       </div>
     </form>
   </div>
 {% endblock %}
 
-{# {% block pagescripts %}
+{% block pagescripts %}
 {% javascripts
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/settings.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-mychannel.js'
     
     filter='?yui_js' 
-    output='js/compiled/pages/settings.js'  %}
+    output='js/compiled/pages/user-mychannel.js'  %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
-{% endblock %} #}
+{% endblock %}

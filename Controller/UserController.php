@@ -176,7 +176,8 @@ class UserController extends Controller
 
       $api = $this->get('api');
       $params =  array(
-        'with_user_channel' => true
+        'with_user_channel' => true,
+        'fields' => 'description'
       );
       $datas = $api->fetch('session/'.$session_uid, $params);
 
