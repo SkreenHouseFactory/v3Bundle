@@ -561,3 +561,42 @@ body[class*='view-user_'] {
     padding-left: 0;
   }
 }
+#view-mychannel {
+  .message-alert {
+    margin-bottom: 40px;
+  }
+  form {
+    .form-group {
+      margin-bottom: 40px;
+      label {
+        small {
+          color: #999;
+        }
+      }
+    }
+    .col-xs-12 {
+      padding-top: 10px;
+      .error {
+        display: none;
+        color: red;
+        position: absolute;
+        background-color: #EEE;
+        padding: 5px;
+        top: -25px;
+        border-radius: 5px;
+        border: 1px solid red;
+        &:after {
+          content: '';
+          width: 0;
+          height: 0;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-top: 10px solid red;
+          position: absolute;
+          bottom: -10px;
+          left: 50px;
+        }
+      }
+    }
+  }
+}

@@ -20,21 +20,30 @@
     </div>
     <form id="form-channel" class="form-horizontal" role="form">
       <div class="form-group">
-        <label for="channel_name" class="col-xs-3 control-label">Nom</label>
-        <div class="col-xs-13">
-          <input type="text" class="form-control" id="channel_name" placeholder="{{ datas.user_channel is defined and datas.user_channel.name is defined and datas.user_channel.name ? datas.user_channel.name : 'Le nom de votre chaîne' }}" />
+        <label for="channel_name" class="col-xs-4 control-label">Nom<br/>
+          <small>(max. 30 caractères)</small>
+        </label>
+        <div class="col-xs-12">
+          <div class="error name-error"></div>
+          <input type="text" class="form-control" id="channel_name" data-value="{{ datas.user_channel is defined and datas.user_channel.name is defined and datas.user_channel.name ? datas.user_channel.name : '' }}" placeholder="{{ datas.user_channel is defined and datas.user_channel.name is defined and datas.user_channel.name ? datas.user_channel.name : 'Le nom de votre chaîne' }}" />
         </div>
       </div>
       <div class="form-group">
-        <label for="channel_description" class="col-xs-3 control-label">Description</label>
-        <div class="col-xs-13">
-          <input type="text" class="form-control" id="channel_description" placeholder="{{ datas.user_channel is defined and datas.user_channel.description is defined and datas.user_channel.description ? datas.user_channel.description : 'La description de votre chaîne' }}" />
+        <label for="channel_description" class="col-xs-4 control-label">Description<br/>
+          <small>(max. 60 caractères)</small>
+        </label>
+        <div class="col-xs-12">
+          <div class="error description-error"></div>
+          <input type="text" class="form-control" id="channel_description" data-value="{{ datas.user_channel is defined and datas.user_channel.description is defined and datas.user_channel.description ? datas.user_channel.description : '' }}" placeholder="{{ datas.user_channel is defined and datas.user_channel.description is defined and datas.user_channel.description ? datas.user_channel.description : 'La description de votre chaîne' }}" />
         </div>
       </div>
       <div class="form-group">
-        <label for="channel_slug" class="col-xs-3 control-label">Adresse URL</label>
-        <div class="col-xs-13">
-          <input type="text" class="form-control" id="channel_slug" placeholder="{{ datas.user_channel is defined and datas.user_channel.slug is defined and datas.user_channel.slug ? datas.user_channel.slug : 'Le texte de l\'adresse URL de votre chaîne - par exemple : www.myskreen.com/jeandupont/' }}" />
+        <label for="channel_slug" class="col-xs-4 control-label">URL<br/>
+          <small>(max. 12 caractères, sans espace)</small>
+        </label>
+        <div class="col-xs-12">
+          <div class="error slug-error"></div>
+          <input type="text" class="form-control" id="channel_slug" data-value="{{ datas.user_channel is defined and datas.user_channel.slug is defined and datas.user_channel.slug ? datas.user_channel.slug : '' }}" placeholder="{{ datas.user_channel is defined and datas.user_channel.slug is defined and datas.user_channel.slug ? datas.user_channel.slug : 'Le texte de l\'adresse URL de votre chaîne - par exemple : www.myskreen.com/jeandupont/' }}" />
         </div>
       </div>
       <div class="form-group">
@@ -52,8 +61,7 @@
 
 {% block pagescripts %}
 {% javascripts
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-mychannel.js'
-    
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-mychannel.js'    
     filter='?yui_js' 
     output='js/compiled/pages/user-mychannel.js'  %}
     <script src="{{ asset_url }}"></script>
