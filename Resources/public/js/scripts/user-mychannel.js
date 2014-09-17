@@ -11,20 +11,12 @@ $(document).ready(function(){
     // Hide all error messages still displaying
     $('.error').hide();
 
-    // Definition of inputs
-    var channel_title = $('#form-channel #channel_name').val();
-    // console.log('scripts/user-mychannel.js', 'click on modify or create', 'channel_title', channel_title);
-    var channel_description = $('#form-channel #channel_description').val();
-    // console.log('scripts/user-mychannel.js', 'click on modify or create', 'channel_description', channel_description);
-    var channel_slug = $('#form-channel #channel_slug').val();
-    // console.log('scripts/user-mychannel.js', 'click on modify or create', 'channel_slug', channel_slug);
+    if ($(this).hasClass('delete')) { // Check for deletion button without input necessary
 
-    // Check for deletion button without input
-    if ($(this).hasClass('delete') && channel_title.length == 0 && channel_description.length == 0 && channel_slug.length == 0) {
       var args = {
-        title : $('input#channel_name').data('value'),
-        slug : $('input#channel_slug').data('value'),
-        description : $('input#channel_description').data('value'),
+        title : $('.message-alert .channel-name').data('value'),
+        slug : $('.message-alert .channel-slug').data('value'),
+        description : $('.message-alert .channel-description').data('value'),
         session_uid : Skhf.session.uid,
         cancel : true
       };
@@ -41,7 +33,39 @@ $(document).ready(function(){
           }
         }
       );
-    } else {
+
+    } else if ($(this).hasClass('publish')) { // Check for publishing button without input necessary
+
+      var args = {
+        title : $('.message-alert .channel-name').data('value'),
+        slug : $('.message-alert .channel-slug').data('value'),
+        description : $('.message-alert .channel-description').data('value'),
+        session_uid : Skhf.session.uid,
+        is_active : true
+      };
+      API.query(
+        'POST',
+        'skchannel.json',
+        args,
+        function(datas){
+          // do something with datas
+          console.log('scripts/user-mychannel.js', 'click on modify or create', 'callback API skchannel datas', datas);
+          if (datas.success.indexOf('updated') != -1) {
+            location.reload(true);
+            return false;
+          }
+        }
+      );
+
+    } else { // Checks for creation or modification with input necessary
+
+      // Definition of inputs
+      var channel_title = $('#form-channel #channel_name').val();
+      // console.log('scripts/user-mychannel.js', 'click on modify or create', 'channel_title', channel_title);
+      var channel_description = $('#form-channel #channel_description').val();
+      // console.log('scripts/user-mychannel.js', 'click on modify or create', 'channel_description', channel_description);
+      var channel_slug = $('#form-channel #channel_slug').val();
+      // console.log('scripts/user-mychannel.js', 'click on modify or create', 'channel_slug', channel_slug);
 
       // Check for input of title
       if (channel_title.length == 0) {
