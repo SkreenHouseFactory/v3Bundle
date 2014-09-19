@@ -269,8 +269,8 @@ UI = {
         return ['Ne ratez plus ' + trigger.data('channel-name') + '&nbsp;!',
                 'En ajoutant cette chaîne à vos listes vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.'];
     } else if (trigger.hasClass('fav-user')) {
-        return ['Suivre la playlist de ' + trigger.data('channel-name') + ' &nbsp;!',
-                'En ajoutant cette chaîne à vos listes vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.'];
+        return ['Suivre la chaîne de ' + trigger.data('channel-name') + ' &nbsp;!',
+                'En ajoutant cette chaine à vos listes vous serez averti lorsque ' + trigger.data('channel-name') + ' ajoute un programme à ses listes.'];
     } else if (trigger.hasClass('fav-person')) {
       if (typeof trigger.data('name') != undefined) {
         return ['Ne ratez plus l\'actualité de ' + trigger.data('name') + '&nbsp;!',
