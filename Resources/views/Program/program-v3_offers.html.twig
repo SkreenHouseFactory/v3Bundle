@@ -31,7 +31,7 @@
   {% endif %}
 
   {# pass myskreen #}
-  {% if key == 'deporte' and program.has_vod in [1,2] %}
+  {# {% if key == 'deporte' and program.has_vod in [1,2] %}
   <div class="panel panel-deporte panel-success panel-pass">
     <div class="panel-heading">
       <h3 class="panel-title">Pass Illimité myskreen</h3>
@@ -44,7 +44,7 @@
       </div>
     </div>
   </div>
-  {% endif %}
+  {% endif %} #}
 
   <div class="panel{{ program.offers[key]|to_array|length > loop_offset or (key == 'external' and program.offers['deporte']|to_array|length) ? ' panel-more' : '' }} panel-{{ key }}{{ key == 'live' ? ' panel-danger' : '' }}{{ key == 'deporte' ? ' panel-info' : ' panel-default' }} count-{{ program.offers[key]|to_array|length }}">
     <div class="panel-heading dong" >

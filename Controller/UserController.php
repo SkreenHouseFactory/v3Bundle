@@ -441,7 +441,7 @@ class UserController extends Controller
     /**
     * pass myskreen
     */
-    public function passAction(Request $request)
+    /*public function passAction(Request $request)
     {
       $session_uid = $request->cookies->get('myskreen_session_uid');
       if (!$session_uid) {
@@ -462,7 +462,7 @@ class UserController extends Controller
       $response->setMaxAge(0);
 
       return $response;
-    }
+    }*/
 
     /**
     * video à la demande

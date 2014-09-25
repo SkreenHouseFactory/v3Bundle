@@ -62,9 +62,9 @@ modal_mdp:
 modal_publish_playlist:
     pattern:  /user/modal/publish-playlist
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:publishplaylist }
-modal_pass:
-    pattern: /pass/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:pass }
+# modal_pass:
+#     pattern: /pass/
+#     defaults: { _controller: SkreenHouseFactoryV3Bundle:Modal:pass }
 
 
 #timeline
@@ -149,9 +149,9 @@ user_notifs:
 user_friends:
     pattern:  /user/friends/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:friends }
-user_pass:
-    pattern:  /user/pass/
-    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:pass }
+# user_pass:
+#     pattern:  /user/pass/
+#     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:pass }
 user_svod:
     pattern:  /user/svod/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:svod }

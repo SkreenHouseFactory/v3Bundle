@@ -102,7 +102,7 @@
       </div>
     </div>
 
-  {% elseif o.offer_type in ['deporte'] and o.cost %}
+  {# {% elseif o.offer_type in ['deporte'] and o.cost %}
 
     <div class="row best-offer deporte pass {{ o.cost is defined and o.cost ? '' : 'no-cost '}}player-stop {% if program.player and o.id == program.player.id %}is-playing{% endif %}"{% if o.offer_type == 'deporte' %} data-play-text="{{ ('player.content.text.' ~ o.offer_type)|trans({'%date%': 'diffusé '~ (o.broadcasttime is defined ? o.broadcasttime|broadcastdate : '')}) }}"{% endif %}>
       <div class="tab-pane pass">
@@ -112,7 +112,7 @@
           <div class="pass-text" data-type-programme="{{ type_programme == 'série' ? 'cette' : 'ce' }} {{ type_programme }}">myskreen vous offre {{ type_programme == 'série' ? 'cette' : 'ce' }} {{ type_programme }} avec le Pass Illimité <br/><small>(puis 5€/semaine, sans engagement - <a data-modal-remote="/pass/">en savoir plus</a>)</small></div>
         </div>
       </div>
-    </div>
+    </div> #}
 
 
   {% elseif o.offer_type in ['deporte','archive'] %}
