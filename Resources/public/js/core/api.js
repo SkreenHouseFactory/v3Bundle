@@ -386,10 +386,10 @@ API = {
             UI.auth(function(){
               console.log('API.play', 'callback UI.auth', Skhf.session.datas);
               $('#skModal.modal .modal-message').html(
-                subscription_id ?
+                /*subscription_id ?
                 '<p><b>Pass Vidéo à la demande :</b> Créez votre compte sur mySkreen pour accéder à votre Pass.</p>' +
                 '<p>Accédez au meilleur de la VOD en 1 clic et en Haute Définition et regardez vos films et séries sur tous vos écrans : PC, Mac, Apple iOs et Android</p>'
-                : 
+                : */
                 '<p><b>Vidéo à la demande :</b> Créez votre compte pour voir ce programme sur mySkreen.</p>' +
                 '<p>Accédez au meilleur de la VOD en 1 clic et en Haute Définition et regardez vos films sur tous vos écrans : PC, Mac, Apple iOs et Android</p>'
               );
@@ -414,7 +414,7 @@ API = {
         }
     });
   },
-  accessPass: function() {
+  /*accessPass: function() {
     var self = this;
     UI.auth(function(){
       console.log('API.accessPass', 'callback UI.auth', Skhf.session.datas);
@@ -459,7 +459,7 @@ API = {
         }
       }
     });
-  },
+  },*/
   query: function(method, url, data, callback, cache, version) {
 
     if (!url.match(/^http(s|)\:\/\//)) {

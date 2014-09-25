@@ -1,7 +1,7 @@
 // -- user svod
 
 $(document).ready(function(){
-  if ($('body.view-user_svod').length) {
+  /*if ($('body.view-user_svod').length) {
     // filter
     $('[data-unsubscribe-pass]').on('click', function(){
       console.log('scripts/user-svod', $(this).data('unsubscribe-pass'));
@@ -17,5 +17,5 @@ $(document).ready(function(){
       );
     }) ;
 
-  }
+  }*/
 });

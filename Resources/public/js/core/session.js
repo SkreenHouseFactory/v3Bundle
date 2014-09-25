@@ -377,7 +377,7 @@ var BaseSession = Class.extend({
         }
       }
     }
-    if ($('#view-program').length) { // Si on est sur une FicheProgramme
+    /*if ($('#view-program').length) { // Si on est sur une FicheProgramme
       if ($('.pass').length) { // Si elle a une offre Pass Illimité
         if (typeof this.datas.credential != 'undefined' &&
             typeof this.datas.credential.sk_pass != 'undefined') { // Si l'utilisateur est connecté et abonné au Pass
@@ -386,22 +386,22 @@ var BaseSession = Class.extend({
           $('.pass .pass-text').html($('.pass .pass-text').data('type-programme') + ' est visible avec votre abonnement </br> au Pass Illimité myskreen');
         }
       }
-    }
-    if ($('#promopass').length) { // Si on est sur une page où le bandeau promoPass est présent
+    }*/
+    /*if ($('#promopass').length) { // Si on est sur une page où le bandeau promoPass est présent
       if (typeof this.datas.credential != 'undefined' &&
           typeof this.datas.credential.sk_pass != 'undefined') { // Si l'utilisateur est connecté et abonné au Pass
         $('#promopass, #passlabel').hide(); // On fait disparaître le bandeau promoPass et le label Pass à droite
       }
-    }
+    }*/
  },
  removeCredentials: function(){
   $('a.credential-cog').remove();
-  if ($('#view-program').length) { // Si on est sur une FicheProgramme
+  /*if ($('#view-program').length) { // Si on est sur une FicheProgramme
     if ($('.pass').length) { // Si elle a une offre Pass Illimité
       $('.pass .btn .btn-pass-text').html('GRATUIT');
       $('.pass .btn').addClass('btn-pass-subscribe');
       $('.pass .pass-text').html('myskreen vous offre ' + $('.pass .pass-text').data('type-programme') + ' avec le Pass Illimité <br/><small>(puis 5€/semaine, sans engagement - <a data-modal-remote="/pass/">en savoir plus</a>)</small>');
     }
-  }
+  }*/
  }
 });

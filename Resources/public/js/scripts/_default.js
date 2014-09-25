@@ -255,7 +255,7 @@ $(document).ready(function(){
       });
 
   //pass
-  $('.btn-pass-subscribe').on('click', function(){
+  /*$('.btn-pass-subscribe').on('click', function(){
     if (Skhf.session.datas.email) {
       if (typeof Skhf.session.datas.credentials != 'undefined' &&
           typeof Skhf.session.datas.credentials.sk_pass != 'undefined') { // Si l'utilisateur est connecté et abonné au Pass
@@ -266,7 +266,7 @@ $(document).ready(function(){
     console.log('scripts/_default.js', 'API.accessPass');
     Player.stop();
     API.accessPass();
-  });
+  });*/
 
   //share
   $('.share .btn').on('click', function(){
@@ -466,15 +466,15 @@ $(document).ready(function(){
     }
   });
 
-  $(document).on('click', '.btn-pass-subscribe-modal', function(){
+  /*$(document).on('click', '.btn-pass-subscribe-modal', function(){
     $('.btn-pass-subscribe').trigger('click');
-  });
+  });*/
 
-  $(document).on('click', '#promopass a, #passlabel a', function(e){
+  /*$(document).on('click', '#promopass a, #passlabel a', function(e){
     e.preventDefault();
     ga('send', 'event', 'link', 'click', 'click-to-pass-page');
     var url = $(this).attr('href');
     window.location.href = url;
-  });
+  });*/
 
 });
