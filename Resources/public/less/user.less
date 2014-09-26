@@ -578,9 +578,18 @@ body[class*='view-user_'] {
     }
     p.clearfix {
       margin-top: 15px;
+      & + hr {
+        margin: 20px 0;
+      }
+    }
+    button.delete:before {
+      font-size: 15px;
     }
   }
   form {
+    &.no-show {
+      display: none;
+    }
     .form-group {
       margin-bottom: 40px;
       label {

@@ -6,6 +6,11 @@ $(document).ready(function(){
     return false;
   });
 
+  $(document).on('click', '.show-form', function(e) {
+    e.preventDefault();
+    $('form#form-channel').slideDown('slow');
+  });
+
   // Deal with API call for creation, update, publishing and deletion of user-channel
   $('button').click(function() {
     // Hide all error messages still displaying
@@ -117,15 +122,15 @@ $(document).ready(function(){
 
       if (!result_title && !result_description && result_slug) {
         // console.log('scripts/user-mychannel.js', 'Verification caractères', 'OK');
-        if (channel_title.length > 30 || channel_description.length > 60 || channel_slug.length > 12) {
-          if (channel_title.length > 30) {
-            $('.name-error').show().html('Vous êtes limité à 30 caractères maximum.');
+        if (channel_title.length > 20 || channel_description.length > 40 || channel_slug.length > 12) {
+          if (channel_title.length > 20) {
+            $('.name-error').show().html('Vous êtes limité à 20 caractères maximum.');
             setTimeout(function(){
               $('.name-error').fadeOut();
             }, 5000);
           }
-          if (channel_description.length > 60) {
-            $('.description-error').show().html('Vous êtes limité à 60 caractères maximum.');
+          if (channel_description.length > 40) {
+            $('.description-error').show().html('Vous êtes limité à 40 caractères maximum.');
             setTimeout(function(){
               $('.description-error').fadeOut();
             }, 5000);

@@ -95,18 +95,45 @@ body.view-channel-7 {
 body.view-channel-user {
   background: none!important;
   #main {
+    background-color: #eee;
     .header-channel-user {
-      padding-top: 70px;
+      padding-top: 300px;
       background-color: @sk-blue;
-      color: white;
+      color: @sk-blue;
+      .header-infos {
+        background-color: rgba(255, 255, 255, 0.7);
+      }
       .btn-suivre {
         background-color: white;
         color: #2980B9;
         margin-top: 10px;
       }
+      .col-xs-6 + .col-xs-6 {
+        text-align: center;
+        padding-left: 0;
+        > .row:first-child {
+          margin-top: 25px;
+          color: black;
+          margin-bottom: 10px;
+          font-size: 12px;
+          font-weight: bold;
+          & + .row {
+            color: #E51C64;
+            font-weight: bold;
+          }
+        }
+      }
+      .col-xs-4 {
+        > .row {
+          & + .row {
+            > .col-xs-16 {
+              text-align: center;
+            }
+          }
+        }
+      }
       .btn-success {
         margin-top: 10px;
-        margin-left: 23px;
       }
     }
     .container {
