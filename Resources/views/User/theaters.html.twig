@@ -7,7 +7,10 @@
   {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with {active: 'theaters' } %}
 
   <div class="container">
-
+    <div class="pull-right">
+      <a class="btn btn-success btn-xs mychannel-link" href="{{ path('user_mychannel') }}">Créez votre chaîne !</a>
+    </div>
+    <br class="clear"/>
     {% if theaters|length == 0 %}
       <p class="bs-callout bs-callout-info">Il n'y a aucun film programmé dans vos cinémas favoris.<a class="btn btn-primary pull-right" href="{{ path('user_start') }}#theaters"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Commencer mes listes</a></p>
 

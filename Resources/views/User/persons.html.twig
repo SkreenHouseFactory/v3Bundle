@@ -30,6 +30,9 @@
               <a class="label label-default">{{ r }}</a>
             </li>
           {% endfor %}
+          <li class="pull-right">
+            <a class="btn btn-success btn-xs mychannel-link" href="{{ path('user_mychannel') }}">Créez votre chaîne !</a>
+          </li>
         </ul>
         <table class="table table-striped">
           {% for p in persons %}

@@ -40,8 +40,6 @@
             <button class="col-xs-3 btn btn-success pull-right publish">Publier</button></p>
           {% endif %}
           <p>Si vous souhaitez la modifier, cliquez <a class="show-form">ici</a></p>
-          <hr/>
-          <button class="col-xs-3 btn btn-danger pull-right delete">Supprimer</button>
         {% else %}
           <p class="alert alert-danger">Vous n'avez pas encore créé votre chaîne personnelle.</p>
         {% endif %}
@@ -91,6 +89,12 @@
           {% endif %}
         </div>
       </form>
+      {% if datas.user_channel is defined and datas.user_channel %}
+        <hr/>
+        <p class="clearfix">En validant ce bouton, votre chaîne sera supprimée définitivement.
+          <button class="col-xs-3 btn btn-danger pull-right delete">Supprimer</button>
+        </p>
+      {% endif %}
     </div>
   </div>
 {% endblock %}

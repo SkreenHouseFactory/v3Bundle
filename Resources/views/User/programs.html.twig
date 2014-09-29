@@ -25,6 +25,9 @@
             <a class="label label-default" href="{{ path('user_programs', {onglet: o}) }}">{{ ['category.',o]|join|trans }}</a>
           </li>
         {% endfor %}
+        <li class="pull-right">
+          <a class="btn btn-success btn-xs mychannel-link" href="{{ path('user_mychannel') }}">Créez votre chaîne !</a>
+        </li>
       </ul>
 
     {% if programs|length > 6 %}

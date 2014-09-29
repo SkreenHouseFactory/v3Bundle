@@ -185,7 +185,7 @@ body[class*='view-user_'] {
 }
 .view-user_programs, .view-user_persons {
   .nav-pills {
-    & > li {
+    & > li:not(.pull-right) {
       margin-right: 10px;
       &.active {
         & > a {
@@ -221,6 +221,15 @@ body[class*='view-user_'] {
   }
 }
 .view-user_programs, .view-user_persons, .view-user_theaters, .view-user_category, .view-user_channels {
+  a.mychannel-link {
+    padding: 1px 5px;
+    text-transform: none;
+    margin-bottom: 15px;
+    &:hover {
+      background-color: #47a447;
+      color:white;
+    }
+  }
   .btn-danger:before {
     font-size: 14px;
   }
@@ -563,6 +572,11 @@ body[class*='view-user_'] {
   }
 }
 #view-mychannel {
+  #bandeau-listes {
+    .container {
+      text-align: left;
+    }
+  }
   h1 {
     margin-bottom: 30px;
   }
@@ -581,9 +595,6 @@ body[class*='view-user_'] {
       & + hr {
         margin: 20px 0;
       }
-    }
-    button.delete:before {
-      font-size: 15px;
     }
   }
   form {
@@ -623,6 +634,12 @@ body[class*='view-user_'] {
           bottom: -10px;
           left: 50px;
         }
+      }
+    }
+    & + hr + p.clearfix {
+      margin: 30px 0;
+      button.delete:before {
+        font-size: 15px;
       }
     }
   }

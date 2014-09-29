@@ -18,6 +18,10 @@
   <div class="container">
 
     <div id="view-user-categories">
+      <div class="pull-right">
+        <a class="btn btn-success btn-xs mychannel-link" href="{{ path('user_mychannel') }}">Créez votre chaîne !</a>
+      </div>
+      <br class="clear"/>
       {% if categories|length > 0 %}
         <table class="table table-striped">
           {# {{ dump(categories) }} #}
