@@ -111,10 +111,11 @@ class UserController extends Controller
             $params['token'] = $request->get('token');
           if ($request->get('notifications'))
             $params['notifications'] = $request->get('notifications');
-          $unsubscribed = $api->fetch('user/blacklist', 
-                                      $params,
-                                      'POST'
-                          );
+          $unsubscribed = $api->fetch(
+            'user/blacklist', 
+            $params,
+            'POST'
+          );
           //echo $api->url; exit;
         } else {
           $error = 'Email invalide';
@@ -175,6 +176,37 @@ class UserController extends Controller
       }
 
       $api = $this->get('api');
+      
+      
+      if ($request->isMethod('POST')) {
+        
+        /*
+        //upload img on S3
+        $s3_api = new \Myskreen\MediaPlatformBundle\Vendors\AWS\S3(
+          'AKIAJLWNZRKSM4PWD7PQ', 
+          'AJ+srmPHvBpVyJiNcBE2MdRW+hS/XvBRsrUXD2Ad'
+        );
+        $s3_path = ;
+        $s3_info = $s3_api->getObjectInfo('myskreen-eu', $s3_path);
+        if ($s3_info) {
+          $s3_api->deleteObject('myskreen-eu', $s3_path);
+        }
+        $this->s3->putObjectFile(
+          $localfile, 
+          'myskreen-eu', 
+          $s3_path, 
+          \Myskreen\MediaPlatformBundle\Vendors\AWS\S3::ACL_PUBLIC_READ,
+          $metaHeaders = array(), 
+          $requestHeaders = array(), 
+          \Myskreen\MediaPlatformBundle\Vendors\AWS\S3::STORAGE_CLASS_RRS
+        );
+        */
+        
+        
+        //ici mettre l'appel API pour mettre à jour les informations
+      }
+      
+      //get data
       $params =  array(
         'with_user_channel' => true,
         'fields' => 'description'
