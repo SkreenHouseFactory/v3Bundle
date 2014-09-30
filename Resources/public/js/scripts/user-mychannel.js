@@ -1,10 +1,10 @@
 $(document).ready(function(){
 
   // Prevent form to be submitted
-  $('form#form-channel').on('submit', function(e){
+  /*$('form#form-channel').on('submit', function(e){
     e.preventDefault();
     return false;
-  });
+  });*/
 
   $(document).on('click', '.show-form', function(e) {
     e.preventDefault();
@@ -143,7 +143,7 @@ $(document).ready(function(){
           }
         } else {
           if ($(this).is('.create, .modify')) {
-            var args = {
+            /*var args = {
               title : channel_title,
               slug : channel_slug,
               description : channel_description,
@@ -167,9 +167,7 @@ $(document).ready(function(){
                   location.reload(true);
                 }
               }
-            );
-          } else if (true) {
-            // Bla bla
+            );*/
           }
         }
       }
