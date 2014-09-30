@@ -9,6 +9,13 @@ function load_program_user () {
         'url': 'program.json?ids='+ids+'&skKey='+Skhf.session.uid},
         function(){
           UI.removeLoader(container);
+          // Add counts of programs in selector buttons
+          $('.all-count').html(' (' + $('#user-programs li.actions').length + ')');
+          $('.films-count').html(' (' + $('#user-programs li.actions.films').length + ')');
+          $('.documentaires-count').html(' (' + $('#user-programs li.actions.documentaires').length + ')');
+          $('.series-count').html(' (' + $('#user-programs li.actions.series').length + ')');
+          $('.emissions-count').html(' (' + $('#user-programs li.actions.emissions').length + ')');
+          $('.spectacles-count').html(' (' + $('#user-programs li.actions.spectacles').length + ')');
         },
         $('#user-channel-programs-slider.slider')
       );
@@ -322,7 +329,8 @@ $(document).ready(function(){
     e.preventDefault();
   });
 
-  $('.header-channel-user button.auth').on('click', function(){
+  // Management of auth when not connected on click on button for creation of own user-channel page
+  $('.share-block button.auth').on('click', function(){
     console.log('scripts/channel.js', 'Button mychannel auth');
     Player.stop();
     var url = $(this).data('link');
