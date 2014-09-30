@@ -52,9 +52,9 @@
       </div>
       {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une transchange', force_size: '/1250/370'} %}
       {# {% include 'SkreenHouseFactoryV3Bundle:Home:_promo_pass.html.twig' %} #}
-      {% if 'video-a-la-demande' in app.request.uri %}
+      {# {% if 'video-a-la-demande' in app.request.uri %}
         {% include 'SkreenHouseFactoryV3Bundle:Home:_encartvod.html.twig' %}
-      {% endif %}
+      {% endif %} #}
       {% if app.request.get('home') == 'cinema' %}
         {% include 'SkreenHouseFactoryV3Bundle:Cinema:_addtolist.html.twig' %}
         <div class="bande_fonce">
