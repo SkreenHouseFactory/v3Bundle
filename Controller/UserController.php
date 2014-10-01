@@ -14,6 +14,8 @@ namespace SkreenHouseFactory\v3Bundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContext;
 use Symfony\Component\Validator\Constraints\Email;
 
 use SkreenHouseFactory\v3Bundle\Api\ApiManager;
@@ -175,11 +177,22 @@ class UserController extends Controller
         return $this->redirect('http://www.myskreen.com');
       }
 
-      $api = $this->get('api');
-      
-      
+      $form = $this->createFormBuilder(/*array(
+          'constraints' => array(
+              new Assert\Callback(array(array($this,'tryChannel')))
+            )
+        )*/)
+        ->setAction($this->generateUrl('user_mychannel'))
+        ->add('channel_name', 'text')
+        ->add('channel_description', 'text')
+        ->add('channel_slug', 'text')
+        ->add('channel_img', 'file')
+        ->getForm();
+
+      $form->handleRequest($request);
+            
       if ($request->isMethod('POST')) {
-        
+
         /*
         //upload img on S3
         $s3_api = new \Myskreen\MediaPlatformBundle\Vendors\AWS\S3(
@@ -201,11 +214,35 @@ class UserController extends Controller
           \Myskreen\MediaPlatformBundle\Vendors\AWS\S3::STORAGE_CLASS_RRS
         );
         */
-        
+        $data = $form->getData();
+        /*print_r($data);
+        exit();*/
+
+        $api_channel = $this->get('api');
+
+        $params_channel = array(
+          'title' => $data['channel_name'],
+          'slug' => $data['channel_slug'],
+          'description' => $data['channel_description'],
+          'session_uid' => $session_uid
+        );
+
+        /*print_r($params_channel);
+        exit();*/
         
         //ici mettre l'appel API pour mettre à jour les informations
+        $addmychannel = $api_channel->fetch(
+          'skchannel.json',
+          $params_channel,
+          'POST'
+        );
+
+        print_r($addmychannel);
+        exit();
       }
       
+      $api = $this->get('api');
+
       //get data
       $params =  array(
         'with_user_channel' => true,
@@ -215,6 +252,7 @@ class UserController extends Controller
 
       
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:mychannel.html.twig', array(
+        'form' => $form->createView(),
         'datas' => $datas
       ));
 

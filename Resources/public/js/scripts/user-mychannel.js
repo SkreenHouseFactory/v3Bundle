@@ -8,7 +8,7 @@ $(document).ready(function(){
 
   $(document).on('click', '.show-form', function(e) {
     e.preventDefault();
-    $('form#form-channel').slideDown('slow');
+    $('.no-show').slideDown('slow');
   });
 
   // Deal with API call for creation, update, publishing and deletion of user-channel
@@ -65,11 +65,11 @@ $(document).ready(function(){
     } else { // Checks for creation or modification with input necessary
 
       // Definition of inputs
-      var channel_title = $('#form-channel #channel_name').val();
+      var channel_title = $('#form-channel #form_channel_name').val();
       // console.log('scripts/user-mychannel.js', 'click on modify or create', 'channel_title', channel_title);
-      var channel_description = $('#form-channel #channel_description').val();
+      var channel_description = $('#form-channel #form_channel_description').val();
       // console.log('scripts/user-mychannel.js', 'click on modify or create', 'channel_description', channel_description);
-      var channel_slug = $('#form-channel #channel_slug').val();
+      var channel_slug = $('#form-channel #form_channel_slug').val();
       // console.log('scripts/user-mychannel.js', 'click on modify or create', 'channel_slug', channel_slug);
 
       // Check for input of title
@@ -168,6 +168,7 @@ $(document).ready(function(){
                 }
               }
             );*/
+            $('form#form-channel').submit();
           }
         }
       }

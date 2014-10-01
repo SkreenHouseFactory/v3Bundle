@@ -597,10 +597,10 @@ body[class*='view-user_'] {
       }
     }
   }
+  .no-show {
+    display: none;
+  }
   form {
-    &.no-show {
-      display: none;
-    }
     .form-group {
       margin-bottom: 40px;
       label {
@@ -636,10 +636,15 @@ body[class*='view-user_'] {
         }
       }
     }
-    & + hr + p.clearfix {
-      margin: 30px 0;
-      button.delete:before {
-        font-size: 15px;
+    & + div {
+      button.create {
+        margin-bottom: 30px;
+      }
+      & + hr + p.clearfix {
+        margin: 30px 0;
+        button.delete:before {
+          font-size: 15px;
+        }
       }
     }
   }
