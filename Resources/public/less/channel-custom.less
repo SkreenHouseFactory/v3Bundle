@@ -125,9 +125,16 @@ body.view-channel-user {
           margin-bottom: 10px;
           font-size: 12px;
           font-weight: bold;
-          & + .row {
+          & + .row a {
             color: #E51C64;
+            display: inline-block;
             font-weight: bold;
+            padding: 5px 0;
+            width: 50%;
+            &:hover {
+              text-decoration: none;
+              border-bottom: 1px solid #E51C64;
+            }
           }
         }
       }

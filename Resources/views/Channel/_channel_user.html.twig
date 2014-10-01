@@ -31,10 +31,10 @@
               <div class="col-xs-4">Cinémas</div>
             </div>
             <div class="row">
-              <div class="col-xs-4">{{ nb_ids }}</div>
-              <div class="col-xs-4">{{ data.persons|to_array|length }}</div>
-              <div class="col-xs-4">{{ data.channels|to_array|length }}</div>
-              <div class="col-xs-4">{{ data.theaters|to_array|length }}</div>
+              <div class="col-xs-4"><a href="#anchor-programs" class="anchor">{{ nb_ids }}</a></div>
+              <div class="col-xs-4"><a href="#anchor-persons" class="anchor">{{ data.persons|to_array|length }}</a></div>
+              <div class="col-xs-4"><a href="#anchor-channels" class="anchor">{{ data.channels|to_array|length }}</a></div>
+              <div class="col-xs-4"><a href="#anchor-theaters" class="anchor">{{ data.theaters|to_array|length }}</a></div>
             </div>
           </div>
           <div class="col-xs-4">
@@ -70,7 +70,7 @@
               {% endif %}
             {% endfor %}
             <div id="player-user-ba" class="teaser-category" data-teaser-ids="{{ ids }}" {# data-autoplay="1" data-play-api="{{ {url: null, playId: first_id}|json_encode }}" #}>
-              <iframe class="teaser-user" src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
+              <iframe class="teaser-user" src="http://player.myskreen.com/watch-program-{{ first_id }}?playlist={{ ids }}&no_controls=1" scrolling="no" frameborder="0"></iframe>
             </div>
           </div>
           {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'user-queue-slider', programs: data.queue}, noheader: true, class: 'slider-user no-mousehidden', origin: 'ChannelMyskreener'} %}
@@ -92,7 +92,7 @@
     <div class="container">
       <div class="row user-favories">
         <div class="col-xs-5 user-persons">
-          <h2>Ses personnalités</h2>
+          <h2 id="anchor-persons">Ses personnalités</h2>
           {% if data.persons|to_array|length %}
             <ul class="casting-img">
               {% for person in data.persons|to_array|sort %}
@@ -104,7 +104,7 @@
           {% endif %}
         </div>
         <div class="col-xs-6 user-channels">
-          <h2>Ses chaînes</h2>
+          <h2 id="anchor-channels">Ses chaînes</h2>
           {% if data.channels|to_array|length %}
             <ul class="channels-list">
               {% for item in data.channels|to_array %}
@@ -118,7 +118,7 @@
           {% endif %}
         </div>
         <div class="col-xs-5 user-theaters">
-          <h2>Ses salles de cinéma</h2>
+          <h2 id="anchor-theaters">Ses salles de cinéma</h2>
           {% if data.theaters|to_array|length %}
             <ul class="list-group">
               {% for item in data.theaters|to_array %}
@@ -137,7 +137,7 @@
       {# if twitter #}
       {# <a class="twitter-timeline" href="https://twitter.com/bbergstorm" data-widget-id="342678547833446403">Tweets de @bbergstorm</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script> #}
-      <h2>{{ nb_ids > 65 ? 'Une sélection de ses programmes' : 'Ses programmes' }}</h2>
+      <h2 id="anchor-programs">{{ nb_ids > 65 ? 'Une sélection de ses programmes' : 'Ses programmes' }}</h2>
       <div class="btn-group btn-group-sm user-programs-selector">
         <button type="button" class="btn btn-primary" data-show="all">Tous formats<span class="all-count"> ( - )</span></button>
         <button type="button" class="btn btn-default" data-show="films">Films<span class="films-count"> ( - )</span></button>
