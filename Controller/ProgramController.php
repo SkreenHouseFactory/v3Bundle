@@ -79,7 +79,7 @@ class ProgramController extends Controller
         'slider_width' => 1200,
         'slider_height' => 630,
         'season' => $request->get('season_number'),
-        'fields' => 'description_episode,metadata,related,related_programs,selections,offers,teaser,hashtags,tweets,empty_player,img_maxsize,svod,coming_soon,best_offer,homes,photo,reviews'
+        'fields' => 'description_episode,metadata,related,related_programs,selections,offers,teaser,hashtags,tweets,empty_player,img_maxsize,svod,coming_soon,homes,photo,reviews'
       ));
 
       //gestion og_picture

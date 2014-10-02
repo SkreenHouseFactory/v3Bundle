@@ -19,8 +19,8 @@
   </div>
 </div>
 
-<div class="row">
-  {# Meilleure offre #}
+{# <div class="row">
+  Meilleure offre
   {% if program.best_offer.id is defined %}
     {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_best-offer.html.twig' %}
   {% else %}
@@ -36,8 +36,8 @@
       </div>
     </div>
   {% endif %}
-  {# ShareBlock #}
+  ShareBlock
   <div class="col-xs-5 shareblock">
     {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: program.twitter_msg is defined ? program.twitter_msg : 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?', fb_layout: 'box_count', tw_layout: 'vertical', g_size: 'tall', g_annotation: 'bubble' } %}
   </div>
-</div>
+</div> #}

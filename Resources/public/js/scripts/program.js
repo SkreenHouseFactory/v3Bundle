@@ -399,11 +399,11 @@ $(document).ready(function(){
       });
     }
 
-    //scroll-to-title from best-offer
+    /*//scroll-to-title from best-offer
     $('[data-scroll-to-title]').on('click', function(){
       $(document).scrollTop(475);
       return false;
-    });
+    });*/
 
     //episodes
     $(document).on('click', '#program-episodes .btn-group .btn[data-season]', function(){
@@ -464,7 +464,7 @@ $(document).ready(function(){
     $('html,body').animate({'scrollTop' : 0}, 1000);
   });
 
-  //Roulette offers
+  /*//Roulette offers
   if ($('#best-offer-anchor').hasClass('external')) {
     var container = $('#best-offer-anchor .col-xs-13');
     var number_offers = $('.offertable .external, .offertable .dvd, .offertable .itunes, .offertable .box, .offertable .console').length;
@@ -481,10 +481,7 @@ $(document).ready(function(){
       $('#best-offer-anchor .col-xs-3').html(button);
       container.html('<p>'+number_offers+texte_offers+'</p>');
     }
-  }
-
-  // Hide tab-content INFOS after loading (SEO)
-  $('.bande_offers .tab-content #infos.active:not(.active-forced)').removeClass('active');
+  }*/
   
   // Manage synopsis long and short display after loading (SEO)
   $('#program-synopsis.synopsis-short').addClass('forced-height');
