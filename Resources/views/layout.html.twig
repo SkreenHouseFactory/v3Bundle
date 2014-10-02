@@ -110,8 +110,35 @@ if (screen.width > 767) {
 
     <script src="{{ asset('bundles/skreenhousefactoryv3//js/vendors/modernizr.min.js') }}"></script>
 
+    {# adsense #}
+    <script type='text/javascript'>
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    (function() {
+    var gads = document.createElement('script');
+    gads.async = true;
+    gads.type = 'text/javascript';
+    var useSSL = 'https:' == document.location.protocol;
+    gads.src = (useSSL ? 'https:' : 'http:') +
+    '//www.googletagservices.com/tag/js/gpt.js';
+    var node = document.getElementsByTagName('script')[0];
+    node.parentNode.insertBefore(gads, node);
+    })();
+    </script>
+    <script type='text/javascript'>
+    googletag.cmd.push(function() {
+    googletag.defineSlot('/22418486/Banniere_970x90', [[970, 90], [728, 90]], 'adsense-banner-default').addService(googletag.pubads());
+    googletag.defineSlot('/22418486/Banniere_colonne', [250, 250], 'adsense-banner-colonne').addService(googletag.pubads());
+    googletag.defineSlot('/22418486/Banniere_mobile', [[320, 50], [250, 250], [300, 100]], 'adsense-banner-mobile').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+    });
+    </script>
+
   </head>
   <body class="{% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %}"{% if block('body_background') %} style="background:{% block body_background %}{% endblock %};"{% endif %}{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}{% if block('body_attribute') %}{% block body_attribute %}{% endblock %}{% endif %}>
+
+{# adikteev #}
 <script type='text/javascript'>
 (function(e,t){
 t=t||{};var n=document.createElement('script');
@@ -125,6 +152,7 @@ try{ AKSdk.init(e,t); }catch(r){}
 try{ var i=top.document.getElementsByTagName('script')[0];i.parentNode.insertBefore(n,i); }catch(e){};
 })({desktop:'uQsa6rVPnQhZYYSPqlmXfQ=='});
 </script>
+
 <div id="super-wrapper">{# START Wrapper mmenu #}
 <!--[if lt IE 8]><p class=chromeframe>Votre navigateur est <em>ancien!</em> <a href="http://browsehappy.com/">Mettez-le à jour</a> ou <a href="http://www.google.com/chromeframe/?redirect=true">installez Google Chrome Frame</a> pour profiter utiliser mySkreen dans les meilleurs conditions.</p><![endif]-->
   {% render(controller('SkreenHouseFactoryV3Bundle:Main:newheader', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route') })) %}

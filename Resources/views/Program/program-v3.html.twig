@@ -31,13 +31,10 @@
 {# Content #}
 {% block content %}
   <div id="view-program" data-id="{{ program.id }}">
-    
+
+    {# adsense banner #}
     {% if program.id|slice(0,1) != 5 %}
-    {# adsense #}
-    <div class="container">
-      <hr/>
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
-    </div>
+    <div class="container">{{ include ('SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig', {banner: 'program', html: '<hr/>'}) }}</div>
     {% endif %}
     
     <div class="scrollplayerzone">

@@ -33,7 +33,8 @@
         {% endfor %}
     </ul>
   {% endif %}
-  {# Chaînes éditorialisées #}
+  
+  {# Chaînes éditorialisées
   <span class="label label-warning">A voir en ce moment</span>
   <ul class="channel_module_width">
     <li>
@@ -49,4 +50,9 @@
       </a>
     </li>
   </ul>
+  #}
 {% endif %}
+  
+{# adsense banner #}
+<br/>
+{{ include ('SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig', {banner: 'colonne'}) }}

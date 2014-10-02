@@ -1,3 +1,28 @@
+{% if banner is defined and banner == 'colonne' %}
+<div id="adsense-banner-colonne" class="adsense-block-colonne">
+<script type="text/javascript">
+googletag.cmd.push(function() { googletag.display('adsense-banner-colonne'); });
+console.log('adsense', 'adsense-banner-colonne', 'adsense-banner-colonne');
+</script>
+</div>
+{% else %}
+<div id="adsense-banner-{{ banner is defined ? banner : 'default' }}">
+<script type="text/javascript">
+var div_id = 'adsense-banner-{{ banner is defined ? banner : 'default' }}'
+if ('matchMedia' in window && window.matchMedia('(min-width:500px)').matches) {
+  googletag.cmd.push(function() { googletag.display('adsense-banner-default'); });
+  document.getElementById(div_id).className = 'adsense-block-default';
+  console.log('adsense', 'adsense-banner-default', div_id);
+} else {
+  googletag.cmd.push(function() { googletag.display('adsense-banner-mobile'); });
+  document.getElementById(div_id).className = 'adsense-block-mobile';
+  console.log('adsense', 'adsense-banner-mobile', div_id);
+}
+</script>
+</div>
+{% endif %}
+{{ html is defined ? html|raw : '' }}
+{#
 <div class="adsense-block">
   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <div id="ins-adsense">
@@ -16,3 +41,4 @@
   (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 </div>
+#}
