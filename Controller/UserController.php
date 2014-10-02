@@ -179,7 +179,7 @@ class UserController extends Controller
 
       $api = $this->get('api');
 
-      //get data
+      //get data in case channel already exists
       $params =  array(
         'with_user_channel' => true,
         'fields' => 'description'
@@ -245,15 +245,22 @@ class UserController extends Controller
         /*print_r($params_channel);
         exit();*/
         
-        //ici mettre l'appel API pour mettre à jour les informations
+        //ici mettre l'appel API pour créer/mettre à jour les informations
         $addmychannel = $api_channel->fetch(
           'skchannel',
           $params_channel,
           'POST'
         );
 
-        $datas = $api->fetch('session/'.$session_uid, $params);
+        /*print_r($addmychannel);
+        exit();*/
 
+        if (isset($addmychannel->success)) {
+          // Update of datas
+          $datas = $api->fetch('session/'.$session_uid, $params);
+        }
+
+        
       }
 
       
