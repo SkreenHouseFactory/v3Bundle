@@ -177,7 +177,22 @@ class UserController extends Controller
         return $this->redirect('http://www.myskreen.com');
       }
 
-      $form = $this->createFormBuilder(/*array(
+      $api = $this->get('api');
+
+      //get data
+      $params =  array(
+        'with_user_channel' => true,
+        'fields' => 'description'
+      );
+      $datas = $api->fetch('session/'.$session_uid, $params);
+
+      $defaultData = array(
+        'channel_name' => isset($datas->user_channel->name) ? $datas->user_channel->name : '',
+        'channel_description' => isset($datas->user_channel->description) ? $datas->user_channel->description : '',
+        'channel_slug' => isset($datas->user_channel->slug) ? $datas->user_channel->slug : '',
+      );
+
+      $form = $this->createFormBuilder($defaultData/*array(
           'constraints' => array(
               new Assert\Callback(array(array($this,'tryChannel')))
             )
@@ -232,23 +247,14 @@ class UserController extends Controller
         
         //ici mettre l'appel API pour mettre à jour les informations
         $addmychannel = $api_channel->fetch(
-          'skchannel.json',
+          'skchannel',
           $params_channel,
           'POST'
         );
 
-        print_r($addmychannel);
-        exit();
-      }
-      
-      $api = $this->get('api');
+        $datas = $api->fetch('session/'.$session_uid, $params);
 
-      //get data
-      $params =  array(
-        'with_user_channel' => true,
-        'fields' => 'description'
-      );
-      $datas = $api->fetch('session/'.$session_uid, $params);
+      }
 
       
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:mychannel.html.twig', array(
