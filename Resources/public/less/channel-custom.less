@@ -167,6 +167,7 @@ body.view-channel-user {
             filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=135, Strength=15);
           }
           .teaser-container {
+            position: relative;
             width: 100%;
             .teaser-category {
               text-align: center;
@@ -180,6 +181,8 @@ body.view-channel-user {
               height: 100%;
             }
             .teaser-title {
+              position: absolute;
+              right: 0;
               text-align: center;
               margin-bottom: 10px;
               color: white;
@@ -197,7 +200,12 @@ body.view-channel-user {
             }
           }
           .slider-user {
-            margin: 5px 0;
+            margin: 5px 1px;
+            li.actions {
+              &.on-play {
+                border: 1px solid #E51C64;
+              }
+            }
             .right {
               left: 600px;
             }

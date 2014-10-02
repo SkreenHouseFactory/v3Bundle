@@ -324,9 +324,14 @@ $(document).ready(function(){
     }, 1500);
   }
 
+  //Add Class to first video of slider-player
+  $('#user-queue-slider li.actions:first-child').addClass('on-play');
+
   // Prevent link to program page for player slider thumbs
   $(document).on('click', '#user-queue-slider li.actions a', function(e){
     e.preventDefault();
+    $('#user-queue-slider li.actions').removeClass('on-play');
+    $(this).parents('li.actions').addClass('on-play');
   });
 
   // Management of auth when not connected on click on button for creation of own user-channel page
@@ -589,8 +594,8 @@ $(document).ready(function(){
     });
 
     $('.teaser-category').css({
-      width: '600px',
-      height: '347px'
+      width: '636px',
+      height: '368px'
     });
 
     $(this).removeClass('glyphicon-resize-small');
