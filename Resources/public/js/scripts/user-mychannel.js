@@ -8,7 +8,7 @@ $(document).ready(function(){
 
   $(document).on('click', '.show-form', function(e) {
     e.preventDefault();
-    $('.no-show').slideDown('slow');
+    $('.no-show').slideToggle('slow');
   });
 
   // Deal with API call for creation, update, publishing and deletion of user-channel
