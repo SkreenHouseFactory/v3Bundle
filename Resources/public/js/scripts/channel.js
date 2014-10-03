@@ -363,6 +363,59 @@ $(document).ready(function(){
     }
   });
 
+  //map for userchannel page
+    if ($('#map-user').length) {
+
+      var locations = [];
+      var list_theaters = $('.user-theaters .list-group .list-group-item');
+      for (var i = 0; i < list_theaters.length; i++) {
+        locations[i] = [];
+        locations[i].push($(list_theaters[i]).data('name'));
+        locations[i].push($(list_theaters[i]).data('adress'));
+      }
+      console.log('scripts/channel.js', 'map for user-channel', 'locations theaters', locations);
+
+      var map = new google.maps.Map(document.getElementById('map-canvas'), {
+        zoom: 11,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      });
+
+      var infowindow = new google.maps.InfoWindow();
+      var geocoder = new google.maps.Geocoder();
+
+      var marker, i;
+
+      for (i = 0; i < locations.length; i++) {
+        geocodeAddress(locations[i]);
+      }
+
+      function geocodeAddress(location) {
+        geocoder.geocode( { 'address': location[1]}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            createMarker(results[0].geometry.location,location[0]);
+          } else {
+            console.log("some problem in geocode" + status);
+          }
+        }); 
+      }
+
+      function createMarker(latlng,html){
+        var marker = new google.maps.Marker({
+          position: latlng,
+          map: map
+        }); 
+        google.maps.event.addListener(marker, 'mouseover', function() { 
+          infowindow.setContent(html);
+          infowindow.open(map, marker);
+        });
+        google.maps.event.addListener(marker, 'mouseout', function() { 
+          infowindow.close();
+        });
+      }
+
+    }
+
   // RESIZING OF PLAYER AND PLAYER SLIDER
 
   // Css for glyphicon

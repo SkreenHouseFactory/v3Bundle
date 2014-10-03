@@ -122,13 +122,17 @@
           {% if data.theaters|to_array|length %}
             <ul class="list-group">
               {% for item in data.theaters|to_array %}
-                <li class="list-group-item">
+                <li class="list-group-item" data-name="{{ item.name }}" data-adress="{{ item.adress }} {{ item.zip_code }} {{ item.city }}">
                   <a href="{{ path('any_url', {url: item.seo_url|slice(1, item.seo_url|length-1)}) }}">{{ item.name }}</a>
                   <span>{{ item.adress }}</span>
                   <span>{{ item.zip_code }} {{ item.city }}</span>
                 </li>
               {% endfor %}
             </ul>
+            <div id="map-user" class="well">
+              <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+              <div id="map-canvas"></div>
+            </div>
           {% else %}
             <p class="bs-callout bs-callout-info">Aucune salle de cinéma ne figure dans les favoris de cet utilisateur.</p>
           {% endif %}
