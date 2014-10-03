@@ -220,17 +220,21 @@ class UserController extends Controller
         ))
         ->add('channel_img', 'file',  array(
           'constraints' => new FileConstraint(array(
-            'maxSize' => '2M',
+            'maxSize' => '50k',
             'mimeTypes' => array('image/jpeg', 'image/png')
           )),
         ))
         ->getForm();
 
       $form->handleRequest($request);
-            
+      
+      $error_form = false;
+      $error_slug = '';
+
       if ($request->isMethod('POST')) {
         if (!$form->isValid()) {
           //handle errors in twig
+          $error_form = true;
           
         } else {
           $data = $form->getData();
@@ -273,8 +277,10 @@ class UserController extends Controller
             'POST'
           );
 
-          // Update of datas
-          if (isset($addmychannel->success)) {
+          // Management of slug for channel already existing
+          if (isset($addmychannel->error) && (strrpos($addmychannel->error, 'slug already exists') != false) ) {
+            $error_slug = 'Cette URL est déjà utilisée. Veuillez en choisir une autre';
+          } else if (isset($addmychannel->success)) { // Update of datas
             $datas = $api->fetch('session/'.$session_uid, $params);
           }
         }
@@ -282,7 +288,9 @@ class UserController extends Controller
       
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:mychannel.html.twig', array(
         'form' => $form->createView(),
-        'datas' => $datas
+        'datas' => $datas,
+        'error_form' => $error_form,
+        'error_slug' => $error_slug
       ));
 
       $response->setPrivate();

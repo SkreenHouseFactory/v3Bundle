@@ -5,6 +5,20 @@ $(document).ready(function(){
     e.preventDefault();
     return false;
   });*/
+  
+  // Disappearence of error messages coming from Symfony form
+  if ($('form ul').length) {
+    setTimeout(function(){
+      $($('form ul')).fadeOut();
+    }, 8000);
+  }
+
+  // Disappearence of error messages coming from slug already existing
+  if ($('.error.error-show').length) {
+    setTimeout(function(){
+      $($('.error.error-show')).fadeOut();
+    }, 8000);
+  }
 
   $(document).on('click', '.show-form', function(e) {
     e.preventDefault();
