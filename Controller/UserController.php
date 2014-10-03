@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContext;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\File as FileConstraint;
+use Symfony\Component\Validator\Constraints\Length;
 
 use SkreenHouseFactory\v3Bundle\Api\ApiManager;
 
@@ -180,7 +182,7 @@ class UserController extends Controller
       $api = $this->get('api');
 
       //get data in case channel already exists
-      $params =  array(
+      $params = array(
         'with_user_channel' => true,
         'fields' => 'description'
       );
@@ -198,71 +200,85 @@ class UserController extends Controller
             )
         )*/)
         ->setAction($this->generateUrl('user_mychannel'))
-        ->add('channel_name', 'text')
-        ->add('channel_description', 'text')
-        ->add('channel_slug', 'text')
-        ->add('channel_img', 'file')
+        ->add('channel_name', 'text',  array(
+          'constraints' => new Length(array(
+            'min' => 5,
+            'max' => 100
+          ))
+        ))
+        ->add('channel_description', 'text',  array(
+          'constraints' => new Length(array(
+            'min' => 5,
+            'max' => 200
+          ))
+        ))
+        ->add('channel_slug', 'text',  array(
+          'constraints' => new Length(array(
+            'min' => 5,
+            'max' => 20
+          ))
+        ))
+        ->add('channel_img', 'file',  array(
+          'constraints' => new FileConstraint(array(
+            'maxSize' => '2M',
+            'mimeTypes' => array('image/jpeg', 'image/png')
+          )),
+        ))
         ->getForm();
 
       $form->handleRequest($request);
             
       if ($request->isMethod('POST')) {
+        if (!$form->isValid()) {
+          //handle errors in twig
+          
+        } else {
+          $data = $form->getData();
+          //print_r($data);exit();
 
-        /*
-        //upload img on S3
-        $s3_api = new \Myskreen\MediaPlatformBundle\Vendors\AWS\S3(
-          'AKIAJLWNZRKSM4PWD7PQ', 
-          'AJ+srmPHvBpVyJiNcBE2MdRW+hS/XvBRsrUXD2Ad'
-        );
-        $s3_path = ;
-        $s3_info = $s3_api->getObjectInfo('myskreen-eu', $s3_path);
-        if ($s3_info) {
-          $s3_api->deleteObject('myskreen-eu', $s3_path);
-        }
-        $this->s3->putObjectFile(
-          $localfile, 
-          'myskreen-eu', 
-          $s3_path, 
-          \Myskreen\MediaPlatformBundle\Vendors\AWS\S3::ACL_PUBLIC_READ,
-          $metaHeaders = array(), 
-          $requestHeaders = array(), 
-          \Myskreen\MediaPlatformBundle\Vendors\AWS\S3::STORAGE_CLASS_RRS
-        );
-        */
-        $data = $form->getData();
-        /*print_r($data);
-        exit();*/
-
-        $api_channel = $this->get('api');
-
-        $params_channel = array(
-          'title' => $data['channel_name'],
-          'slug' => $data['channel_slug'],
-          'description' => $data['channel_description'],
-          'session_uid' => $session_uid
-        );
-
-        /*print_r($params_channel);
-        exit();*/
+          if (is_object($data['channel_img']) && $data['channel_img']->isValid()) {
+            //upload img on S3
+            $s3_api = new \Myskreen\MediaPlatformBundle\Vendors\AWS\S3(
+              'AKIAJLWNZRKSM4PWD7PQ', 
+              'AJ+srmPHvBpVyJiNcBE2MdRW+hS/XvBRsrUXD2Ad'
+            );
+            $cover_name = 'users/'.$datas->user_channel->id.'/cover.'.$data['channel_img']->guessExtension();
+            $s3_path = 'photos/channel/'.$cover_name;
+            //echo $s3_path;exit();
+            $s3_info = $s3_api->getObjectInfo('mskstatic', $s3_path);
+            if ($s3_info) {
+              $s3_api->deleteObject('mskstatic', $s3_path);
+            }
+            $s3_api->putObjectFile(
+              $data['channel_img']->getPathName(), 
+              'mskstatic', 
+              $s3_path, 
+              \Myskreen\MediaPlatformBundle\Vendors\AWS\S3::ACL_PUBLIC_READ,
+              $metaHeaders = array(), 
+              $requestHeaders = array(), 
+              \Myskreen\MediaPlatformBundle\Vendors\AWS\S3::STORAGE_CLASS_RRS
+            );
+          }
         
-        //ici mettre l'appel API pour créer/mettre à jour les informations
-        $addmychannel = $api_channel->fetch(
-          'skchannel',
-          $params_channel,
-          'POST'
-        );
+          //ici mettre l'appel API pour créer/mettre à jour les informations
+          $addmychannel = $api->fetch(
+            'skchannel',
+            array(
+              'title' => $data['channel_name'],
+              'slug' => $data['channel_slug'],
+              'description' => $data['channel_description'],
+              'session_uid' => $session_uid,
+              'cover' => isset($cover_name) ? $cover_name : null
+            ),
+            'POST'
+          );
 
-        /*print_r($addmychannel);
-        exit();*/
-
-        if (isset($addmychannel->success)) {
           // Update of datas
-          $datas = $api->fetch('session/'.$session_uid, $params);
+          if (isset($addmychannel->success)) {
+            $datas = $api->fetch('session/'.$session_uid, $params);
+          }
         }
-
-        
       }
-
       
       $response = $this->render('SkreenHouseFactoryV3Bundle:User:mychannel.html.twig', array(
         'form' => $form->createView(),
