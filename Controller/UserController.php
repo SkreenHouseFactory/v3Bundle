@@ -230,6 +230,7 @@ class UserController extends Controller
             
       if ($request->isMethod('POST')) {
         if (!$form->isValid()) {
+          //handle errors in twig
           
         } else {
           $data = $form->getData();
