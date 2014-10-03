@@ -34,7 +34,8 @@
             <div class="col-xs-11 channel-slug" data-value="{{ datas.user_channel.slug is defined and datas.user_channel.slug ? datas.user_channel.slug : '' }}">{{ datas.user_channel.slug is defined and datas.user_channel.slug ? (datas.user_channel.slug ~ ' <small> (ce qui donne : www.myskreen.com/' ~ datas.user_channel.slug ~ '/)</small>')|raw : '' }}</div>
           </div>
           {% if datas.user_channel.is_active is defined and datas.user_channel.is_active %}
-            <p class="clearfix">Vous pouvez la consulter : <a href="{{ path('any_url', {url: datas.user_channel.seo_url|replace({'/': ''})}) }}">www.myskreen.com/{{ datas.user_channel.slug }}/</a></p>
+            <p class="clearfix">Vous pouvez la consulter : <a href="{{ path('any_url', {url: datas.user_channel.seo_url|replace({'/': ''})}) }}">www.myskreen.com/{{ datas.user_channel.slug }}/</a>
+            <button class="col-xs-3 btn btn-warning pull-right depublish">Dépublier</button></p>
           {% else %}
             <p class="clearfix">Vous pouvez la prévisualiser : <a href="{{ path('any_url', {url: datas.user_channel.seo_url|replace({'/': ''})}) }}/?preview=1">www.myskreen.com/{{ datas.user_channel.slug }}/</a>
             <button class="col-xs-3 btn btn-success pull-right publish">Publier</button></p>

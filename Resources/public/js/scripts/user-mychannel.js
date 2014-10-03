@@ -62,6 +62,29 @@ $(document).ready(function(){
         }
       );
 
+    } else if ($(this).hasClass('depublish')) { // Check for depublishing button without input necessary
+
+      var args = {
+        title : $('.message-alert .channel-name').data('value'),
+        slug : $('.message-alert .channel-slug').data('value'),
+        description : $('.message-alert .channel-description').data('value'),
+        session_uid : Skhf.session.uid,
+        is_active : 0
+      };
+      API.query(
+        'POST',
+        'skchannel.json',
+        args,
+        function(datas){
+          // do something with datas
+          console.log('scripts/user-mychannel.js', 'click on modify or create', 'callback API skchannel datas', datas);
+          if (datas.success.indexOf('updated') != -1) {
+            location.reload(true);
+            return false;
+          }
+        }
+      );
+
     } else { // Checks for creation or modification with input necessary
 
       // Definition of inputs
