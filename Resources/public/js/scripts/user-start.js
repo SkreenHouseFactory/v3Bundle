@@ -60,8 +60,8 @@ $(document).ready(function(){
     }
   });*/
 
-  $('.timeline li').removeClass('active');
-  $('.timeline li:first-child').addClass('active');
+  /*$('.timeline li').removeClass('active');
+  $('.timeline li:first-child').addClass('active');*/
 
   $(".navbar-vertical ul li a[href^='#']").on('click', function(e) {
    // prevent default anchor click behavior
