@@ -4,8 +4,6 @@
   Commencer Mes Listes
 {% endblock %}
 
-{% block body_attribute %} data-spy="scroll" data-target=".navbar-vertical" data-offset="50"{% endblock %}
-
 {% block content %}
   <div id="bandeau-listes" class="fond-bleu">
     <div class="container">
@@ -72,7 +70,7 @@
           <div class="relative">
             <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-persons']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
             <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-categories']">Plutôt "Cht'i" ou "Superman" ? Ou les deux ? <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
-            <div class="form-container">
+            <div class="form-container theater-container">
               {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'theaters', title: 'Quels sont les écrans que vous fréquentez ?', placeholder: 'Marseille, 75014, Le Palace...', suggests: null, favlike: 'fav-cinema'} %}
             </div>
           </div>

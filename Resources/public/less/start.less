@@ -259,7 +259,7 @@ body.view-user_start {
       .relative .btn-default {
         font-family: 'Raleway';
         padding: 10px 25px;
-        top: 470px;
+        top: 480px;
         right: 0px;
         left: auto;
         position: absolute;
@@ -271,12 +271,19 @@ body.view-user_start {
       }
       .form-container {
         position: relative;
-        height: 450px;
+        height: 460px;
         background: white;
         border-radius: 5px;
         box-shadow: 0px 0px 10px rgba(0,0,0, 1);
         overflow: hidden;
         text-align: left;
+        &.theater-container {
+          height: 450px;
+        }
+        img {
+          margin-bottom: 0px;
+          opacity: 1;
+        }
         > * {
           padding: 0 25px;
         }
@@ -366,6 +373,12 @@ body.view-user_start {
             }
             td {
               border: none;
+              a {
+                color: @sk-blue;
+                &.btn-suivre {
+                  color: white;
+                }
+              }
               a:not([data-id]), strong, em {
                 font-family: 'Raleway';
               }
@@ -406,6 +419,9 @@ body.view-user_start {
                   border-bottom: none;
                 }
                 a[data-id]:not(.fav-on), .col-xs-4 {
+                  line-height: 30px;
+                }
+                .col-xs-4 {
                   visibility: hidden;
                 }
                 a[data-id] {
@@ -420,19 +436,20 @@ body.view-user_start {
                 }
                 &:hover {
                   cursor: pointer;
-                  background-color: rgba(171, 111, 59, 0.3);
+                  background-color: rgba(124, 150, 232, 0.3);
+                  td {
+                    background-color: rgba(124, 150, 232, 0.3);
+                  }
                   .col-xs-4 {
                     font-size: 85%;
                     visibility: visible;
                     color: #666;
                     text-align: right;
+                    margin-top: 7px;
                     .label {
                       font-size: 1.0em;
                     }
                   }
-                  /*a[data-id], small {
-                    visibility: visible;
-                  }*/
                 }
               }
               tr {
@@ -443,9 +460,10 @@ body.view-user_start {
                   }
                 }
               }
-              span.col-xs-11 {
+              span.col-xs-11, span.col-xs-10 {
                 font-size: 1.1em;
                 color: @sk-blue;
+                margin-top: 10px;
                 small {
                   color: #666;
                 }

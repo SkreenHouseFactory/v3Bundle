@@ -16,11 +16,15 @@
     {% else %}
       <li class="head-suggest"><h3>Suggestions :</h3></li>
       {% for suggestion in suggests|to_array|slice(0, 9) %}
-
         <li class="clearfix suggest">
-          <a data-name="{{ suggestion.title }}" data-id="{{ suggestion.id }}" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-sm btn-suivre btn-plus {{ favlike }} col-xs-1" data-step="{{ step }}"></a>
+          <a data-name="{{ suggestion.title }}" data-id="{{ suggestion.id }}" rel="popover" data-placement="top" data-store-in-session="1" class="btn btn-sm btn-suivre btn-plus {{ favlike }} col-xs-1" data-step="{{ step }}"></a>
+          {% if suggestion.picture is defined and suggestion.picture %}
+            <div class="col-xs-1">
+              <img src="{{ suggestion.picture }}" alt="Illustration de {{ suggestion.title }}" height="40" width="auto">
+            </div>
+          {% endif %}
           <a data-trigger-click="#results-{{ step }} a[data-id='{{ suggestion.id }}']">
-            <span class="col-xs-11">{{ suggestion.title }}{% if suggestion.year is defined and suggestion.year and step == 'films' %}<small> - {{ suggestion.year }}</small>{% endif %}</span>{# {% if suggestion.has_vod is defined and suggestion.has_vod %}<span class="col-xs-4"><span class="label label-default">{{ ('has_vod.' ~ suggestion.has_vod)|trans }}</span></span>{% endif %} #}{% if suggestion.nb_followers is defined and suggestion.nb_followers %}<span class="col-xs-4">suivi par {{ suggestion.nb_followers }} personnes</span>{% endif %}
+            <span class="{{ suggestion.picture is defined and suggestion.picture ? 'col-xs-10' : 'col-xs-11' }}">{{ suggestion.title }}{% if suggestion.year is defined and suggestion.year and step == 'films' %}<small> - {{ suggestion.year }}</small>{% endif %}</span>{# {% if suggestion.has_vod is defined and suggestion.has_vod %}<span class="col-xs-4"><span class="label label-default">{{ ('has_vod.' ~ suggestion.has_vod)|trans }}</span></span>{% endif %} #}{% if suggestion.nb_followers is defined and suggestion.nb_followers %}<span class="col-xs-4">suivi par {{ suggestion.nb_followers }} personne{{ suggestion.nb_followers > 1 ? 's' : '' }}</span>{% endif %}
           </a>
         </li>
       {% endfor %}

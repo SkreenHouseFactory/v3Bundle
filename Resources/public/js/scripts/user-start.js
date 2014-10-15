@@ -2,12 +2,6 @@ console.log('scripts/user-start.js', 'Avant Reset');
 API.cookie('start-mes-listes', null); //reset général
 console.log('scripts/user-start.js', 'Après Reset');
 
-// -- user start
-/*function parallax(){
-  var scrolled = $(window).scrollTop();
-  $('.bg').css('top', -(scrolled*0.5)+'px');
-}*/
-
 function menuClassActive(elmt){
   $('.timeline li').removeClass('active');
   $(elmt).parents('li').addClass('active');
@@ -384,7 +378,7 @@ $(document).ready(function(){
             var type = 'theaters'
           }
           title = typeof results[k].title != 'undefined' ? results[k].title : results[k].name;
-          container.append('<li class="row suggest"><a data-name="'+title+'" data-id="'+results[k].id+'" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' col-xs-1" data-step="'+step+'"></a><a data-trigger-click="a[data-id=\''+results[k].id+'\']"><span class="col-xs-11">' + title + ((type == 'films&series' && typeof results[k].year != 'undefined') ? '<small> - ' + results[k].year + '</small>' : '') + ((type == 'theaters' && typeof results[k].ville != 'undefined') ? '<small> - '+results[k].ville+'</small>' : '') + '</span>' + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<span class="col-xs-4">suivi par  '+results[k].nb_followers+' personnes</span>' : '') + '</a></li>')
+          container.append('<li class="row suggest"><a data-name="'+title+'" data-id="'+results[k].id+'" rel="popover" data-placement="top" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' col-xs-1" data-step="'+step+'"></a>'+(typeof results[k].picture != 'undefined' ? '<div class="col-xs-1"><img src="'+results[k].picture+'" alt="Illustration de '+title+'" height="40" width="auto"></div>' : '' )+'<a data-trigger-click="a[data-id=\''+results[k].id+'\']"><span class="'+(typeof results[k].picture != 'undefined' ? 'col-xs-10' : 'col-xs-11' )+'">' + title + ((type == 'films&series' && typeof results[k].year != 'undefined') ? '<small> - ' + results[k].year + '</small>' : '') + ((type == 'theaters' && typeof results[k].ville != 'undefined') ? '<small> - '+results[k].ville+'</small>' : '') + '</span>' + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<span class="col-xs-4">suivi par  '+results[k].nb_followers+' personnes</span>' : '') + '</a></li>')
         }
     });
 
