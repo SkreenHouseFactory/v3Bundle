@@ -18,6 +18,12 @@
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/g.raphael-min.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/g.line-min.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/g.bar.js'
+    filter='?yui_js' 
+    output='js/compiled/pages/raphaeljs.js'  %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+
+  {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/trends.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/tops.js'
     filter='?yui_js' 

@@ -125,6 +125,9 @@ search:
 user_start:
     pattern:  /start/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:start }
+user_recommend_channels:
+    pattern:  /user/recommend-channels/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:recommendchannels }
 user_settings:
     pattern:  /user/settings/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:settings }
