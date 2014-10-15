@@ -12,7 +12,7 @@ body.view-user_start {
   #bandeau-listes {
     margin-bottom: 0;
     height: 800px;
-    background-color: #333;
+    background-color: white;
     .container {
       height: 570px;
       overflow: hidden;
@@ -36,8 +36,8 @@ body.view-user_start {
         top: 105px;
         margin-left: -155px;
         height: 80px;
-        border-right: 5px solid white;
-        border-bottom: 5px solid white;
+        border-right: 5px solid @sk-blue;
+        border-bottom: 5px solid @sk-blue;
         border-bottom-right-radius: 50px;
         span {
           position: absolute;
@@ -46,7 +46,7 @@ body.view-user_start {
           width: 0;
           height: 0;
           border-top: 8px solid transparent;
-          border-right: 15px solid white;
+          border-right: 15px solid @sk-blue;
           border-bottom: 8px solid transparent;
         }
       }
@@ -60,8 +60,8 @@ body.view-user_start {
         left: 121px;
         top: 225px;
         height: 85px;
-        border-left: 5px solid white;
-        border-bottom: 5px solid white;
+        border-left: 5px solid @sk-blue;
+        border-bottom: 5px solid @sk-blue;
         border-bottom-left-radius: 50px;
         span {
           position: absolute;
@@ -70,7 +70,7 @@ body.view-user_start {
           width: 0;
           height: 0;
           border-top: 8px solid transparent;
-          border-left: 15px solid white;
+          border-left: 15px solid @sk-blue;
           border-bottom: 8px solid transparent;
         }
       }
@@ -84,8 +84,8 @@ body.view-user_start {
         right: 100px;
         top: 355px;
         height: 65px;
-        border-right: 5px solid white;
-        border-bottom: 5px solid white;
+        border-right: 5px solid @sk-blue;
+        border-bottom: 5px solid @sk-blue;
         border-bottom-right-radius: 50px;      
       }
       #intro-ligne-four {
@@ -93,8 +93,8 @@ body.view-user_start {
         right: 295px;
         top: 415px;
         height: 55px;
-        border-top: 5px solid white;
-        border-left: 5px solid white;
+        border-top: 5px solid @sk-blue;
+        border-left: 5px solid @sk-blue;
         border-top-left-radius: 50px;
         span {
           position: absolute;
@@ -104,7 +104,7 @@ body.view-user_start {
           height: 0;
           border-left: 8px solid transparent;
           border-right: 8px solid transparent;
-          border-top: 15px solid white;
+          border-top: 15px solid @sk-blue;
         }
       }
       a.start-list {
@@ -147,67 +147,58 @@ body.view-user_start {
       padding: 10px 0 0;
       color: white;
       position: relative;
-      margin-bottom: 30px;
+      margin-bottom: 70px;
       text-align: center;
       background-color: transparent;
-      /*&.affix {
-        position: fixed;
-        top: 0px;
-      }
-      &.affix-bottom {
-        position: fixed;
-        top: auto!important;
-        bottom: 280px;
-      }*/
       &:after {
         content: '';
         display: inherit;
         position: absolute;
         bottom: 0px;
-        height: 10px;
+        height: 3px;
         width: 100%;
-        background: white;
+        background: @sk-blue;
         right: 0px;
       }
       li {
         display: inline-block;
         font-size: 1.1em;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         margin-right: 10px;
         span.badge {
           background-color: rgb(92, 184, 92);
           position: absolute;
           left: 50%;
-          margin-left: -12px;
-          top: 2px;
+          margin-left: -10px;
+          top: 45px;
           z-index: 2;
           display: none;
-          width: 24px;
-          height: 24px;
-          line-height: 18px;
+          width: 20px;
+          height: 20px;
+          line-height: 15px;
         }
         &:after {
           content: '';
-          width: 24px;
-          height: 24px;
-          background: white;
+          width: 10px;
+          height: 10px;
+          background: @sk-blue;
           border-radius: 50%;
-          border: 5px solid white;
+          border: 2px solid @sk-blue;
           position: absolute;
-          margin-left: -12px;
+          margin-left: -5px;
           top: 50px;
           left: 50%;
           z-index: 1;
         }
-        &.confirm:hover {
+        &.confirm:hover, &.confirm.active {
           &:after {
-            border: 5px solid red;
+            border: 5px solid #5cb85c;
           }
           a {
             color: white;
-            background-color: red;
+            background-color: #5cb85c;
             &:after {
-              border: 7px solid red;
+              border: 7px solid #5cb85c;
             }
           }
         }
@@ -234,7 +225,7 @@ body.view-user_start {
         }
         &.active, &:hover, &:focus {
           &:after {
-            background: @sk-blue;
+            background: white;
             &:hover{
               opacity: 0.6;
             }
@@ -254,15 +245,18 @@ body.view-user_start {
     .forms-container {
       position: absolute;
       width: 10000px;
-      /*width: 65%;
-      padding-top: 10px;*/
+      padding-top: 10px;
+      left: auto;
       .panel-start {
         float: left;
         width: 870px;
         margin-right: 100px;
         position: relative;
+        &:first-child {
+          color: @sk-blue;
+        }
       }
-      .relative a.btn-default {
+      .relative .btn-default {
         font-family: 'Raleway';
         padding: 10px 25px;
         top: 470px;
@@ -270,6 +264,10 @@ body.view-user_start {
         left: auto;
         position: absolute;
         box-shadow: 0px 0px 5px rgba(0,0,0,1);
+        &.btn-back {
+          right: auto;
+          left: 0px;
+        }
       }
       .form-container {
         position: relative;
@@ -278,6 +276,7 @@ body.view-user_start {
         border-radius: 5px;
         box-shadow: 0px 0px 10px rgba(0,0,0, 1);
         overflow: hidden;
+        text-align: left;
         > * {
           padding: 0 25px;
         }

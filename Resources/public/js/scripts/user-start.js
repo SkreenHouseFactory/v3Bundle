@@ -7,6 +7,12 @@ console.log('scripts/user-start.js', 'Après Reset');
   var scrolled = $(window).scrollTop();
   $('.bg').css('top', -(scrolled*0.5)+'px');
 }*/
+
+function menuClassActive(elmt){
+  $('.timeline li').removeClass('active');
+  $(elmt).parents('li').addClass('active');
+}
+
 dispos = {
   1: 'A la demande',
   2: 'A la demande',
@@ -48,34 +54,52 @@ $(document).ready(function(){
     }
   }
 
-  //scrollspy
-  /*$(window).scroll(function(e){
-    parallax();
-  });
-  $('.forms-container').scrollspy({ target: '.navbar-vertical' });
-  $('.timeline').affix({
-    offset: {
-      top: 840, 
-      bottom: 250
-    }
-  });*/
-
-  /*$('.timeline li').removeClass('active');
-  $('.timeline li:first-child').addClass('active');*/
-
-  $(".navbar-vertical ul li a[href^='#']").on('click', function(e) {
-   // prevent default anchor click behavior
-   e.preventDefault();
-   // store hash
-   var hash = this.hash;
+  $(document).on('click', "#back-to-start", function() {
    // animate
-   /*$('html, body').animate({
-       scrollTop: $(this.hash).offset().top-15
-     }, 300, function(){
-       // when done, add hash to url
-       // (default click behaviour)
-       window.location.hash = hash;
-    });*/
+   $('.forms-container').animate({'left': '10px'}, 500);
+   $('.timeline li').removeClass('active');
+  });
+
+  $(document).on('click', "#menu-films", function() {
+   // animate
+   $('.forms-container').animate({'left': '-920px'}, 500);
+   menuClassActive(this);
+  });
+
+  $(document).on('click', "#menu-emissions", function() {
+   // animate
+   $('.forms-container').animate({'left': '-1890px'}, 500);
+   menuClassActive(this);
+  });
+
+  $(document).on('click', "#menu-series", function() {
+   // animate
+   $('.forms-container').animate({'left': '-2860px'}, 500);
+   menuClassActive(this);
+  });
+
+  $(document).on('click', "#menu-persons", function() {
+   // animate
+   $('.forms-container').animate({'left': '-3830px'}, 500);
+   menuClassActive(this);
+  });
+
+  $(document).on('click', "#menu-theaters", function() {
+   // animate
+   $('.forms-container').animate({'left': '-4800px'}, 500);
+   menuClassActive(this);
+  });
+
+  $(document).on('click', "#menu-categories", function() {
+   // animate
+   $('.forms-container').animate({'left': '-5770px'}, 500);
+   menuClassActive(this);
+  });
+
+  $(document).on('click', "#menu-confirm", function() {
+   // animate
+   $('.forms-container').animate({'left': '-6740px'}, 500);
+   menuClassActive(this);
   });
 
   //get notif
