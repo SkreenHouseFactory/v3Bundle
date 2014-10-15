@@ -601,6 +601,14 @@ body[class*='view-user_'] {
     display: none;
   }
   form {
+    > ul {
+      list-style: none;
+      color: red;
+      background-color: #EEE;
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid red;
+    }
     .form-group {
       margin-bottom: 40px;
       label {
@@ -614,7 +622,7 @@ body[class*='view-user_'] {
     }
     .col-xs-12 {
       padding-top: 10px;
-      .error {
+      .error, ul {
         display: none;
         color: red;
         position: absolute;
@@ -634,6 +642,13 @@ body[class*='view-user_'] {
           bottom: -10px;
           left: 50px;
         }
+        &.error-show {
+          display: block;
+        }
+      }
+      ul {
+        list-style: none;
+        display: block;
       }
     }
     & + div {

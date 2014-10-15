@@ -3,10 +3,10 @@ API.cookie('start-mes-listes', null); //reset général
 console.log('scripts/user-start.js', 'Après Reset');
 
 // -- user start
-function parallax(){
+/*function parallax(){
   var scrolled = $(window).scrollTop();
   $('.bg').css('top', -(scrolled*0.5)+'px');
-}
+}*/
 dispos = {
   1: 'A la demande',
   2: 'A la demande',
@@ -49,7 +49,7 @@ $(document).ready(function(){
   }
 
   //scrollspy
-  $(window).scroll(function(e){
+  /*$(window).scroll(function(e){
     parallax();
   });
   $('.forms-container').scrollspy({ target: '.navbar-vertical' });
@@ -58,10 +58,10 @@ $(document).ready(function(){
       top: 840, 
       bottom: 250
     }
-  });
+  });*/
 
-  $('.timeline li').removeClass('active');
-  $('.timeline li:first-child').addClass('active');
+  /*$('.timeline li').removeClass('active');
+  $('.timeline li:first-child').addClass('active');*/
 
   $(".navbar-vertical ul li a[href^='#']").on('click', function(e) {
    // prevent default anchor click behavior
@@ -69,13 +69,13 @@ $(document).ready(function(){
    // store hash
    var hash = this.hash;
    // animate
-   $('html, body').animate({
+   /*$('html, body').animate({
        scrollTop: $(this.hash).offset().top-15
      }, 300, function(){
        // when done, add hash to url
        // (default click behaviour)
        window.location.hash = hash;
-    });
+    });*/
   });
 
   //get notif

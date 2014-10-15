@@ -117,7 +117,7 @@
             <p class="bs-callout bs-callout-info">Aucune chaîne ne figure dans les favoris de cet utilisateur.</p>
           {% endif %}
         </div>
-        <div class="col-xs-5 user-theaters">
+        <div class="col-xs-5 user-theaters{{ data.theaters|to_array|length ? ' well well-sm' : '' }}">
           <h2 id="anchor-theaters">Ses salles de cinéma</h2>
           {% if data.theaters|to_array|length %}
             <ul class="list-group">
@@ -129,7 +129,7 @@
                 </li>
               {% endfor %}
             </ul>
-            <div id="map-user" class="well">
+            <div id="map-user">
               <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
               <div id="map-canvas"></div>
             </div>

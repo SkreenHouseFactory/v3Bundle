@@ -45,7 +45,7 @@
           <p class="alert alert-danger">Vous n'avez pas encore créé votre chaîne personnelle.</p>
         {% endif %}
       </div>
-      {% set class_form = datas.user_channel is defined and datas.user_channel ? "form-horizontal no-show" : "form-horizontal" %}
+      {% set class_form = datas.user_channel is defined and datas.user_channel and error_form == false ? "form-horizontal no-show" : "form-horizontal" %}
       {{ form_start(form, {'attr': {'id': 'form-channel','class': class_form, 'role': 'form'}}) }}
         {{ form_errors(form) }}
         <div class="form-group">
@@ -54,8 +54,8 @@
             <br/>
             <small>(max. 100 caractères)</small>
           </div>
-          {{ form_errors(form.channel_name) }}
           <div class="col-xs-12">
+            {{ form_errors(form.channel_name) }}
             <div class="error name-error"></div>
               {{ form_widget(form.channel_name, {'attr': {'class': 'form-control', 'placeholder': 'Le nom de votre chaîne' }}) }}
           </div>
@@ -66,8 +66,8 @@
             <br/>
             <small>(max. 200 caractères)</small>
           </div>
-          {{ form_errors(form.channel_description) }}
           <div class="col-xs-12">
+            {{ form_errors(form.channel_description) }}
             <div class="error description-error"></div>
             {{ form_widget(form.channel_description, {'attr': {'class': 'form-control', 'placeholder': 'La description de votre chaîne' }}) }}
           </div>
@@ -78,9 +78,9 @@
             <br/>
             <small>(max. 20 caractères, sans espace)</small>
           </div>
-          {{ form_errors(form.channel_slug) }}
           <div class="col-xs-12">
-            <div class="error slug-error"></div>
+            {{ form_errors(form.channel_slug) }}
+            <div class="error slug-error{{ error_slug is defined and error_slug ? ' error-show' : '' }}">{{ error_slug is defined and error_slug ? error_slug : '' }}</div>
             {{ form_widget(form.channel_slug, {'attr': {'class': 'form-control', 'placeholder': 'Le texte de l\'adresse URL de votre chaîne - par exemple : www.myskreen.com/jeandupont/' }}) }}
           </div>
         </div>
@@ -90,8 +90,8 @@
             <br/>
             <small>(max. 2 Mo, jpg ou png)</small>
           </div>
-          {{ form_errors(form.channel_img) }}
           <div class="col-xs-12">
+            {{ form_errors(form.channel_img) }}
             <div class="error img-error"></div>
             {{ form_widget(form.channel_img, {'attr': {'class': 'form-control'}}) }}
           </div>
@@ -99,7 +99,7 @@
       {{ form_end(form) }}
       <div class="clearfix">
         {% if datas.user_channel is defined and datas.user_channel %}
-          <button id="modify" class="col-xs-3 btn btn-primary pull-right modify no-show">Modifier</button>
+          <button id="modify" class="col-xs-3 btn btn-primary pull-right modify{{ error_form is defined and error_form ? '' : ' no-show' }}">Modifier</button>
         {% else %}
           <button id="create" class="col-xs-3 btn btn-primary pull-right create">Créer</button>
         {% endif %}
