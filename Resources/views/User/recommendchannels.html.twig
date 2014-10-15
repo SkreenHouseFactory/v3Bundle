@@ -1,0 +1,56 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}{{ 'page.title.user.recommendchannels'|trans }}{% endblock %}
+
+
+{% block pagescripts %}
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/raphael-min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/g.raphael-min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/g.line-min.js'
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/vendors/g.bar.js'
+    filter='?yui_js' 
+    output='js/compiled/vendors/raphaeljs.js'  %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/recommendchannels.js'
+    filter='?yui_js' 
+    output='js/compiled/pages/recommendchannels.js'  %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>myskreen vous recommande</h1>
+  <p class="bs-callout bs-callout-info">Ces recommandations sont faites à partir de <a href="{{ path('user_programs') }}">vos listes</a>. Pour avoir les meilleurs conseils complétez-les.</p>
+
+  <h2>SVOD</h2>
+  {#
+  <h3>svod dispo</h3>
+  {% for c in svod_channels|to_array %}
+  {{ c.name }},
+  {% endfor %}
+  #}
+  
+  <hr/>
+  <h3>svod reco</h3>
+  <div id="svod-chart"></div>
+  <ul>
+  {% for reco in recos_svod|to_array %}
+    {% include 'SkreenHouseFactoryV3Bundle:User:_recommendchannels_details.html.twig' with {reco: reco } %}
+  {% endfor %}
+  </ul>
+  
+  <hr/>
+  <h2>VOD</h2>
+  <h3>vod reco</h3>
+  <ul>
+  {% for reco in recos_vod|to_array %}
+    {% include 'SkreenHouseFactoryV3Bundle:User:_recommendchannels_details.html.twig' with {reco: reco } %}
+  {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

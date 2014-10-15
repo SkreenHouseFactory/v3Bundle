@@ -51,6 +51,7 @@ page:
             persons: Acteurs/réalisateurs | Mon compte
             category: Catégories | Mon compte
             channels: Chaînes | Mon compte
+            recommendchannels: Les chaines qui vous intéressent | Mon compte
             vod: Vidéos à la demande | Mon compte
             svod: Abonnements | Mon compte
             pass: Pass myskreen | Mon compte

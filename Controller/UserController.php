@@ -27,6 +27,35 @@ class UserController extends Controller
     /**
     *
     */
+    public function recommendchannelsAction(Request $request)
+    {
+      $session_uid = $request->cookies->get('myskreen_session_uid');
+      if (!$session_uid) {
+        return $this->redirect('http://www.myskreen.com');
+      }
+      $api   = $this->get('api');
+      $svod_channels = $api->fetch('channel', array(
+        'type' => 'svod'
+      ));
+      //echo $api->url;
+      $recos_svod = $api->fetch('recommend/channels/'.$session_uid, array(
+        'type' => 'svod'
+      ));
+      //echo $api->url;
+      $recos_vod = $api->fetch('recommend/channels/'.$session_uid, array(
+        'type' => 'vod'
+      ));
+      //echo $api->url;
+      return $this->render('SkreenHouseFactoryV3Bundle:User:recommendchannels.html.twig', array(
+        'svod_channels' => $svod_channels,
+        'recos_svod' => $recos_svod,
+        'recos_vod' => $recos_vod
+      ));
+    }
+
+    /**
+    *
+    */
     public function startAction(Request $request)
     {
 

@@ -1,0 +1,23 @@
+<li><img src="{{ reco.channel.img }}"/> 
+  <br/>
+  {% if reco.programs is defined and reco.programs|to_array|length %}
+  {{ reco.programs|to_array|length }} programs disponibles : 
+  {% for p in reco.programs|to_array %}
+  <br/>- <strong>{{ p.title }}</strong>, <em>{{ p.format.name }} {{ p.duration }}mn</em>
+  {% endfor %}
+  {% endif %}
+  <br/>
+  {% if reco.persons is defined and reco.persons|to_array|length %}
+  {{ reco.persons|to_array|length }} personnalités présentes au catalogue représentant {{ reco.person_program_ids|to_array|length }} programmes : 
+  {% for p in reco.persons|to_array %}
+  <br/>- <strong>{{ p.name }}</strong>
+  {% endfor %}
+  {% endif %}
+  <br/>
+  {% if reco.categories is defined and reco.categories|to_array|length %}
+  {{ reco.categories|to_array|length }} catégories présentes au catalogue représentant {{ reco.category_program_ids|to_array|length }} programmes : 
+  {% for c in reco.categories|to_array %}
+  <br/>- <strong>{{ c.name }}</strong>
+  {% endfor %}
+  {% endif %}
+</li>
