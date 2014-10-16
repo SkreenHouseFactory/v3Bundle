@@ -93,9 +93,15 @@ $(document).ready(function(){
    menuClassActive(this);
   });
 
-  $(document).on('click', "#menu-confirm", function() {
+  $(document).on('click', "#menu-amis", function() {
    // animate
    $('.forms-container').animate({'left': '-6740px'}, 500);
+   menuClassActive(this);
+  });
+
+  $(document).on('click', "#menu-confirm", function() {
+   // animate
+   $('.forms-container').animate({'left': '-7710px'}, 500);
    menuClassActive(this);
   });
 

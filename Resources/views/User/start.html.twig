@@ -14,6 +14,7 @@
         <li><a id="menu-persons">Mes personnalités <span id="count-persons" class="badge">0</span></a></li>
         <li><a id="menu-theaters">Mes cinémas <span id="count-theaters" class="badge">0</span></a></li>
         <li><a id="menu-categories">Mes catégories<span id="count-categories" class="badge">0</span></a></li>
+        <li><a id="menu-amis">Mes amis</a></li>
         <li class="confirm"><a id="menu-confirm">Enregistrer</a></li>
       </ul>
     </div>
@@ -78,7 +79,7 @@
         <div class="panel-start">
           <div class="relative">
             <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-theaters']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
-            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-confirm']">Terminé ! Vous n'avez plus qu'à enregistrez vos listes <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-amis']">Partagez vos listes avec vos amis... <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             <div class="form-container">
               {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'categories', title: 'Choisissez les catégories de programmes qui vous ressemblent...', placeholder: 'séries US, comédies dramatiques, téléréalités...', suggests: selection_pack.categories, favlike: 'fav-category'} %}
             </div>
@@ -87,6 +88,15 @@
         <div class="panel-start">
           <div class="relative">
             <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-categories']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
+            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-confirm']">Terminé ! Vous n'avez plus qu'à enregistrez vos listes <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <div class="form-container">
+              POUUUUEEEET FB !
+            </div>
+          </div>
+        </div>
+        <div class="panel-start">
+          <div class="relative">
+            <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-amis']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
             <a id="register" class="btn btn-default btn-primary btn-lg">Enregistrer mes listes&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></a>
             <div class="form-container confirmed scroll">
               <h2 id="confirm">Mes listes - Récapitulatif</h2>
