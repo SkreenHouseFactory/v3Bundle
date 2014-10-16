@@ -34,7 +34,10 @@ $(document).ready(function(){
   //load from session
   Skhf.session.callbackSignin['user-start'] = function() {
     if (Skhf.session.datas.email) {
+      // Inscription cookie
       API.cookie('start-mes-listes-' + $(this).data('step'), 0);
+      // Change of confirm button text
+      $('#register').html('Voir mes listes&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-list"></span>');
     } else {
       //count : init from cookie
       $('form[data-step]').each(function(){
@@ -273,45 +276,49 @@ $(document).ready(function(){
 
   //register
   $(document).on('click', '#register', function(){
-    UI.auth(function(){
-      lists_in_session = JSON.parse(API.cookie('start-mes-listes'));
-      console.log('scripts/user-start.js', '#register-click', lists_in_session);
-      if (Skhf.session.datas.email && lists_in_session) {
-        var nb_playlists_callback = 0;
-        for(k in UI.available_playlists) {
-          key = UI.available_playlists[k].replace('like', 'queue');
-          ids = typeof lists_in_session[key] != 'undefined' ? lists_in_session[key] : [];
-          if (Object.keys(ids).length) {
-            nb_playlists_callback ++;
+    if (Skhf.session.datas.email) { // User Connected
+      document.location = API.config.v3_root + '/user/programs';
+    } else { // User Not connected
+      UI.auth(function(){
+        lists_in_session = JSON.parse(API.cookie('start-mes-listes'));
+        console.log('scripts/user-start.js', '#register-click', lists_in_session);
+        if (Skhf.session.datas.email && lists_in_session) {
+          var nb_playlists_callback = 0;
+          for(k in UI.available_playlists) {
+            key = UI.available_playlists[k].replace('like', 'queue');
+            ids = typeof lists_in_session[key] != 'undefined' ? lists_in_session[key] : [];
+            if (Object.keys(ids).length) {
+              nb_playlists_callback ++;
+            }
           }
-        }
-        console.log('scripts/user-start.js', 'callback UI.auth', 'nb_playlists_callback Init', nb_playlists_callback);
-        for(k in UI.available_playlists) {
-          console.log('scripts/user-start.js', 'callback UI.auth', 'nb_playlists_callback', nb_playlists_callback);
-          key = UI.available_playlists[k].replace('like', 'queue');
-          ids = typeof lists_in_session[key] != 'undefined' ? lists_in_session[key] : [];
-          console.log('scripts/user-start.js', 'callback UI.auth', key, ids);
-          var nb_ids = 0;
-          if (Object.keys(ids).length > 0) {
-            console.log('scripts/user-start.js', 'callback UI.auth', 'Length of ids', Object.keys(ids).length);
-            nb_playlists_callback --;
-            for (j in ids) {
-              nb_ids ++;
-              if (nb_ids == Object.keys(ids).length && nb_playlists_callback == 0){
-                var callback = function(){
-                  document.location = API.config.v3_root + '/user/notifs/';
+          console.log('scripts/user-start.js', 'callback UI.auth', 'nb_playlists_callback Init', nb_playlists_callback);
+          for(k in UI.available_playlists) {
+            console.log('scripts/user-start.js', 'callback UI.auth', 'nb_playlists_callback', nb_playlists_callback);
+            key = UI.available_playlists[k].replace('like', 'queue');
+            ids = typeof lists_in_session[key] != 'undefined' ? lists_in_session[key] : [];
+            console.log('scripts/user-start.js', 'callback UI.auth', key, ids);
+            var nb_ids = 0;
+            if (Object.keys(ids).length > 0) {
+              console.log('scripts/user-start.js', 'callback UI.auth', 'Length of ids', Object.keys(ids).length);
+              nb_playlists_callback --;
+              for (j in ids) {
+                nb_ids ++;
+                if (nb_ids == Object.keys(ids).length && nb_playlists_callback == 0){
+                  var callback = function(){
+                    document.location = API.config.v3_root + '/user/notifs/';
+                  }
+                } else {
+                  var callback = null;
                 }
-              } else {
-                var callback = null;
+                console.log('scripts/user-start.js', 'callback UI.auth', 'nb_ids', nb_ids);
+                API.addPreference(UI.available_playlists[k], ids[j], callback);
+                console.log('scripts/user-start.js', 'callback UI.auth', 'Callback', callback);
               }
-              console.log('scripts/user-start.js', 'callback UI.auth', 'nb_ids', nb_ids);
-              API.addPreference(UI.available_playlists[k], ids[j], callback);
-              console.log('scripts/user-start.js', 'callback UI.auth', 'Callback', callback);
             }
           }
         }
-      }
-    });
+      });
+    }
   });
 
 
