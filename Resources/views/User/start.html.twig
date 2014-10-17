@@ -89,8 +89,21 @@
           <div class="relative">
             <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-categories']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
             <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-confirm']">Terminé ! Vous n'avez plus qu'à enregistrez vos listes <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
-            <div class="form-container">
-              FB Connect
+            <div class="form-container share-container">
+              <h2>Connexion et partage Facebook</h2>
+              <div class="share share-placeholder share-start">
+                <a class="text share-off" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook" data-modal-message="... et suivez ce que regardent vos amis !">Connectez vous avec Facebook et partagez avec vos amis vos listes de programmes préférés</a>
+                <a class="text share-on hide">
+                Partage Facebook&nbsp; 
+                  <span class="btn-group" data-toggle="buttons-radio">
+                  <span class="btn btn-xs btn-info" data-share="allow">{{ 'yes'|trans }}</span>
+                  <span class="btn btn-xs btn-default" data-share="disallow">{{ 'no'|trans }}</span>
+                </span>
+                </a>
+              </div>
+              <div class="user-friends-link">
+                <a href="{{ path('user_friends') }}" class="btn btn-lg btn-primary">Mes amis regardent...</a>
+              </div>
             </div>
           </div>
         </div>

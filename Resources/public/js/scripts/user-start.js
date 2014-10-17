@@ -38,6 +38,11 @@ $(document).ready(function(){
       API.cookie('start-mes-listes-' + $(this).data('step'), 0);
       // Change of confirm button text
       $('#register').html('Voir mes listes&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-list"></span>');
+      // Check for FB Connect or not
+      if (!Skhf.session.datas.disallow_share) { // Share FB Off
+        $('.panel-start .share-start').hide();
+        $('.panel-start .user-friends-link').show();
+      }
     } else {
       //count : init from cookie
       $('form[data-step]').each(function(){

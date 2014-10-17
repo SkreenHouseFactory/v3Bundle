@@ -144,10 +144,10 @@ body.view-user_start {
   #bandeau-listes.fond-bleu {
     ul.timeline {
       list-style: none;
-      padding: 10px 0 0;
+      padding: 0;
       color: white;
       position: relative;
-      margin-bottom: 70px;
+      margin-bottom: 50px;
       text-align: center;
       background-color: transparent;
       &:after {
@@ -256,7 +256,7 @@ body.view-user_start {
           color: @sk-blue;
         }
       }
-      .relative .btn-default {
+      .relative .btn-default:not(.btn-xs) {
         font-family: 'Raleway';
         padding: 10px 25px;
         top: 480px;
@@ -279,6 +279,12 @@ body.view-user_start {
         text-align: left;
         &.theater-container {
           height: 450px;
+        }
+        &.share-container {
+          background-color: #333;
+        }
+        .user-friends-link {
+          display: none;
         }
         img {
           margin-bottom: 0px;
