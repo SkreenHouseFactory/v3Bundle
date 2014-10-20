@@ -1,0 +1,84 @@
+@media (max-width:767px) {
+  body.view-user_start {
+  	#super-wrapper {
+  		#content-wrapper {
+        #bandeau-listes {
+          padding-top: 0;
+          > .container:first-child {
+            display: none;
+            & + .container {
+              padding-left: 0;
+            }
+          }
+          > .container {
+            height: 600px;
+          }
+          .panel-start {
+            &:first-child {
+              h1 {
+                padding: 0;
+              }
+              #intro-step-one, #intro-step-two, #intro-step-three {
+                position: static;
+                width: 100%;
+              }
+              #intro-step-one {
+                margin-left: 0;
+              }
+              #intro-ligne-one {
+                display: none;
+              }
+              #intro-ligne-two {
+                display: none;
+              }
+              #intro-ligne-three, #intro-ligne-four {
+                display: none;
+              }
+              .start-list {
+                left: 50%;
+                margin-left: -120px;
+                top: 315px;
+              }
+            }
+            > .relative {
+              height: 500px;
+              .btn-back {
+                top: 450px;
+              }
+              a.btn-primary {
+                top: 450px;
+                left: 100px;
+                white-space: normal;
+              }
+            }
+            .form-container {
+              height: 435px;
+              h2 {
+                padding: 10px 15px;
+              }
+              .form-inline {
+                padding: 0 15px;
+              }
+              .results {
+                padding: 0 15px;
+                .suggest {
+                  a.btn-suivre + .col-xs-1 {
+                    display: none;
+                    & + a {
+                      .col-xs-4 {
+                        display: none;
+                      }
+                      .col-xs-10 {
+                        width: 87%;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+  	}
+  }
+}
