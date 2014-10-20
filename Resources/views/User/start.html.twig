@@ -4,19 +4,18 @@
   Commencer Mes Listes
 {% endblock %}
 
-{% block body_attribute %} data-spy="scroll" data-target=".navbar-vertical" data-offset="50"{% endblock %}
-
 {% block content %}
   <div id="bandeau-listes" class="fond-bleu">
     <div class="container">
       <ul class="nav timeline sk-font">
-        <li><a href="#films">Mes films <span id="count-films" class="badge">0</span></a></li>
-        <li><a href="#emissions">Mes émissions <span id="count-emissions" class="badge">0</span></a></li>
-        <li><a href="#series">Mes séries <span id="count-series" class="badge">0</span></a></li>
-        <li><a href="#persons">Mes personnalités <span id="count-persons" class="badge">0</span></a></li>
-        <li><a href="#theaters">Mes cinémas <span id="count-theaters" class="badge">0</span></a></li>
-        <li><a href="#categories">Mes catégories<span id="count-categories" class="badge">0</span></a></li>
-        <li class="confirm"><a href="#confirm">Enregistrer</a></li>
+        <li><a id="menu-films">Mes films <span id="count-films" class="badge">0</span></a></li>
+        <li><a id="menu-emissions">Mes émissions <span id="count-emissions" class="badge">0</span></a></li>
+        <li><a id="menu-series">Mes séries <span id="count-series" class="badge">0</span></a></li>
+        <li><a id="menu-persons">Mes personnalités <span id="count-persons" class="badge">0</span></a></li>
+        <li><a id="menu-theaters">Mes cinémas <span id="count-theaters" class="badge">0</span></a></li>
+        <li><a id="menu-categories">Mes catégories<span id="count-categories" class="badge">0</span></a></li>
+        <li><a id="menu-amis">Mes amis</a></li>
+        <li class="confirm"><a id="menu-confirm">Enregistrer</a></li>
       </ul>
     </div>
     <div class="container">
@@ -30,11 +29,12 @@
             <p id="intro-step-three" class="sk-font">myskreen est le seul guide qui réunit la Télé, le Replay, la VOD, les Web TV et le Cinéma !</p>
             <div id="intro-ligne-three" class="intro-ligne"></div>
             <div id="intro-ligne-four" class="intro-ligne"><span></span></div>
-            <a href="#films" class="btn btn-default btn-primary btn-lg start-list">Commencer Mes listes <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <a class="btn btn-default btn-primary btn-lg start-list" data-trigger-click="a[id='menu-films']">Commencer Mes listes <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
         </div>
         <div class="panel-start">
           <div class="relative">
-            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#emissions']">Fini ? Passez aux émissions que vous ne voulez pas rater ! <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <button id="back-to-start" class="btn btn-default btn-primary btn-lg btn-back"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
+            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-emissions']">Fini ? Passez aux émissions que vous ne voulez pas rater ! <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             <div class="form-container">
               {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'films', title: 'Quels sont les films que vous voulez voir ?', placeholder: 'Avengers, Intouchables...', suggests: selection_pack.films.programs, favlike: 'fav-like'} %}
             </div>
@@ -42,7 +42,8 @@
         </div>
         <div class="panel-start">
           <div class="relative">
-            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#series']">On continue ? Ajoutez les séries que vous suivez ! <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-films']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
+            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-series']">On continue ? Ajoutez les séries que vous suivez ! <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             <div class="form-container">
               {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'emissions', title: 'Une émission manquée ? Ajoutez-la...', placeholder: 'The Voice, Le Petit Journal...', suggests: selection_pack.emissions.programs, favlike: 'fav-like'} %}
             </div>
@@ -50,7 +51,8 @@
         </div>
         <div class="panel-start">
           <div class="relative">
-            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#persons']">Fan d'un acteur, d'un réalisateur ? Par ici ! <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-emissions']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
+            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-persons']">Fan d'un acteur, d'un réalisateur ? Par ici ! <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             <div class="form-container">
               {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'series', title: 'Retrouvez et sélectionnez vos séries fétiches...', placeholder: 'How I Met Your Mother, House of Cards...', suggests: selection_pack.series.programs, favlike: 'fav-like'} %}
             </div>
@@ -58,7 +60,8 @@
         </div>
         <div class="panel-start">
           <div class="relative">
-            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#theaters']">Vous aimez les salles ? Ajoutez les cinémas près de chez vous ! <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-series']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
+            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-theaters']">Vous aimez les salles ? Ajoutez les cinémas près de chez vous ! <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             <div class="form-container">
               {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'persons', title: 'Toutes vos personnalités préférées à suivre...', placeholder: 'Leonardo DiCaprio, Steven Spielberg...', suggests: selection_pack.persons, favlike: 'fav-person'} %}
             </div>
@@ -66,15 +69,17 @@
         </div>
         <div class="panel-start">
           <div class="relative">
-            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[href='#categories']">Plutôt "Cht'i" ou "Superman" ? Ou les deux ? <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
-            <div class="form-container">
+            <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-persons']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
+            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-categories']">Plutôt "Cht'i" ou "Superman" ? Ou les deux ? <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <div class="form-container theater-container">
               {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'theaters', title: 'Quels sont les écrans que vous fréquentez ?', placeholder: 'Marseille, 75014, Le Palace...', suggests: null, favlike: 'fav-cinema'} %}
             </div>
           </div>
         </div>
         <div class="panel-start">
           <div class="relative">
-            <a class="btn btn-default btn-primary btn-lg user-off" data-trigger-click="a[href='#confirm']">Terminé ! Vous n'avez plus qu'à enregistrez vos listes <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-theaters']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
+            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-amis']">Partagez vos listes avec vos amis... <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             <div class="form-container">
               {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'categories', title: 'Choisissez les catégories de programmes qui vous ressemblent...', placeholder: 'séries US, comédies dramatiques, téléréalités...', suggests: selection_pack.categories, favlike: 'fav-category'} %}
             </div>
@@ -82,12 +87,39 @@
         </div>
         <div class="panel-start">
           <div class="relative">
-            <a id="register" class="btn btn-default btn-primary btn-lg hide">Enregistrer mes listes <span class="glyphicon glyphicon-floppy-disk"></span></a>
+            <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-categories']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
+            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-confirm']">Terminé ! Vous n'avez plus qu'à enregistrez vos listes <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <div class="form-container share-container">
+              <h2>Connexion et partage Facebook</h2>
+              <div class="share share-placeholder share-start">
+                <a class="text share-off" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook" data-modal-message="... et suivez ce que regardent vos amis !">Connectez vous avec Facebook et partagez avec vos amis vos listes de programmes préférés
+                  <div>
+                    <img src="{{ asset('bundles/skreenhousefactoryv3/images/fb-connect.png') }}"/>
+                  </div>
+                </a>
+                <a class="text share-on hide">
+                Partage Facebook&nbsp; 
+                  <span class="btn-group" data-toggle="buttons-radio">
+                  <span class="btn btn-xs btn-info" data-share="allow">{{ 'yes'|trans }}</span>
+                  <span class="btn btn-xs btn-default" data-share="disallow">{{ 'no'|trans }}</span>
+                </span>
+                </a>
+              </div>
+              <div class="user-friends-link">
+                <a href="{{ path('user_friends') }}" class="btn btn-lg btn-primary">Mes amis regardent...</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-start">
+          <div class="relative">
+            <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-amis']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
+            <a id="register" class="btn btn-default btn-primary btn-lg">Enregistrer mes listes&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></a>
             <div class="form-container confirmed scroll">
               <h2 id="confirm">Mes listes - Récapitulatif</h2>
               <div class="no-results bs-callout bs-callout-info">
                 <p class="h4">Vous n'avez pas encore fait vos listes</p>
-                <p><a class="btn btn-primary" href="#films">Commencer maintenant</a></p>
+                <p><a class="btn btn-primary" data-trigger-click="a[id='menu-films']">Commencer maintenant</a></p>
               </div>
               <div class="results hide">
                 <ul></ul>

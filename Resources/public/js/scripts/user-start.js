@@ -2,11 +2,11 @@ console.log('scripts/user-start.js', 'Avant Reset');
 API.cookie('start-mes-listes', null); //reset général
 console.log('scripts/user-start.js', 'Après Reset');
 
-// -- user start
-/*function parallax(){
-  var scrolled = $(window).scrollTop();
-  $('.bg').css('top', -(scrolled*0.5)+'px');
-}*/
+function menuClassActive(elmt){
+  $('.timeline li').removeClass('active');
+  $(elmt).parents('li').addClass('active');
+}
+
 dispos = {
   1: 'A la demande',
   2: 'A la demande',
@@ -34,7 +34,15 @@ $(document).ready(function(){
   //load from session
   Skhf.session.callbackSignin['user-start'] = function() {
     if (Skhf.session.datas.email) {
+      // Inscription cookie
       API.cookie('start-mes-listes-' + $(this).data('step'), 0);
+      // Change of confirm button text
+      $('#register').html('Voir mes listes&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-list"></span>');
+      // Check for FB Connect or not
+      if (!Skhf.session.datas.disallow_share) { // Share FB Off
+        $('.panel-start .share-start').hide();
+        $('.panel-start .user-friends-link').show();
+      }
     } else {
       //count : init from cookie
       $('form[data-step]').each(function(){
@@ -48,34 +56,58 @@ $(document).ready(function(){
     }
   }
 
-  //scrollspy
-  /*$(window).scroll(function(e){
-    parallax();
-  });
-  $('.forms-container').scrollspy({ target: '.navbar-vertical' });
-  $('.timeline').affix({
-    offset: {
-      top: 840, 
-      bottom: 250
-    }
-  });*/
-
-  /*$('.timeline li').removeClass('active');
-  $('.timeline li:first-child').addClass('active');*/
-
-  $(".navbar-vertical ul li a[href^='#']").on('click', function(e) {
-   // prevent default anchor click behavior
-   e.preventDefault();
-   // store hash
-   var hash = this.hash;
+  $(document).on('click', "#back-to-start", function() {
    // animate
-   /*$('html, body').animate({
-       scrollTop: $(this.hash).offset().top-15
-     }, 300, function(){
-       // when done, add hash to url
-       // (default click behaviour)
-       window.location.hash = hash;
-    });*/
+   $('.forms-container').animate({'left': '10px'}, 500);
+   $('.timeline li').removeClass('active');
+  });
+
+  $(document).on('click', "#menu-films", function() {
+   // animate
+   $('.forms-container').animate({'left': '-920px'}, 500);
+   menuClassActive(this);
+  });
+
+  $(document).on('click', "#menu-emissions", function() {
+   // animate
+   $('.forms-container').animate({'left': '-1890px'}, 500);
+   menuClassActive(this);
+  });
+
+  $(document).on('click', "#menu-series", function() {
+   // animate
+   $('.forms-container').animate({'left': '-2860px'}, 500);
+   menuClassActive(this);
+  });
+
+  $(document).on('click', "#menu-persons", function() {
+   // animate
+   $('.forms-container').animate({'left': '-3830px'}, 500);
+   menuClassActive(this);
+  });
+
+  $(document).on('click', "#menu-theaters", function() {
+   // animate
+   $('.forms-container').animate({'left': '-4800px'}, 500);
+   menuClassActive(this);
+  });
+
+  $(document).on('click', "#menu-categories", function() {
+   // animate
+   $('.forms-container').animate({'left': '-5770px'}, 500);
+   menuClassActive(this);
+  });
+
+  $(document).on('click', "#menu-amis", function() {
+   // animate
+   $('.forms-container').animate({'left': '-6740px'}, 500);
+   menuClassActive(this);
+  });
+
+  $(document).on('click', "#menu-confirm", function() {
+   // animate
+   $('.forms-container').animate({'left': '-7710px'}, 500);
+   menuClassActive(this);
   });
 
   //get notif
@@ -255,45 +287,49 @@ $(document).ready(function(){
 
   //register
   $(document).on('click', '#register', function(){
-    UI.auth(function(){
-      lists_in_session = JSON.parse(API.cookie('start-mes-listes'));
-      console.log('scripts/user-start.js', '#register-click', lists_in_session);
-      if (Skhf.session.datas.email && lists_in_session) {
-        var nb_playlists_callback = 0;
-        for(k in UI.available_playlists) {
-          key = UI.available_playlists[k].replace('like', 'queue');
-          ids = typeof lists_in_session[key] != 'undefined' ? lists_in_session[key] : [];
-          if (Object.keys(ids).length) {
-            nb_playlists_callback ++;
+    if (Skhf.session.datas.email) { // User Connected
+      document.location = API.config.v3_root + '/user/programs';
+    } else { // User Not connected
+      UI.auth(function(){
+        lists_in_session = JSON.parse(API.cookie('start-mes-listes'));
+        console.log('scripts/user-start.js', '#register-click', lists_in_session);
+        if (Skhf.session.datas.email && lists_in_session) {
+          var nb_playlists_callback = 0;
+          for(k in UI.available_playlists) {
+            key = UI.available_playlists[k].replace('like', 'queue');
+            ids = typeof lists_in_session[key] != 'undefined' ? lists_in_session[key] : [];
+            if (Object.keys(ids).length) {
+              nb_playlists_callback ++;
+            }
           }
-        }
-        console.log('scripts/user-start.js', 'callback UI.auth', 'nb_playlists_callback Init', nb_playlists_callback);
-        for(k in UI.available_playlists) {
-          console.log('scripts/user-start.js', 'callback UI.auth', 'nb_playlists_callback', nb_playlists_callback);
-          key = UI.available_playlists[k].replace('like', 'queue');
-          ids = typeof lists_in_session[key] != 'undefined' ? lists_in_session[key] : [];
-          console.log('scripts/user-start.js', 'callback UI.auth', key, ids);
-          var nb_ids = 0;
-          if (Object.keys(ids).length > 0) {
-            console.log('scripts/user-start.js', 'callback UI.auth', 'Length of ids', Object.keys(ids).length);
-            nb_playlists_callback --;
-            for (j in ids) {
-              nb_ids ++;
-              if (nb_ids == Object.keys(ids).length && nb_playlists_callback == 0){
-                var callback = function(){
-                  document.location = API.config.v3_root + '/user/notifs/';
+          console.log('scripts/user-start.js', 'callback UI.auth', 'nb_playlists_callback Init', nb_playlists_callback);
+          for(k in UI.available_playlists) {
+            console.log('scripts/user-start.js', 'callback UI.auth', 'nb_playlists_callback', nb_playlists_callback);
+            key = UI.available_playlists[k].replace('like', 'queue');
+            ids = typeof lists_in_session[key] != 'undefined' ? lists_in_session[key] : [];
+            console.log('scripts/user-start.js', 'callback UI.auth', key, ids);
+            var nb_ids = 0;
+            if (Object.keys(ids).length > 0) {
+              console.log('scripts/user-start.js', 'callback UI.auth', 'Length of ids', Object.keys(ids).length);
+              nb_playlists_callback --;
+              for (j in ids) {
+                nb_ids ++;
+                if (nb_ids == Object.keys(ids).length && nb_playlists_callback == 0){
+                  var callback = function(){
+                    document.location = API.config.v3_root + '/user/notifs/';
+                  }
+                } else {
+                  var callback = null;
                 }
-              } else {
-                var callback = null;
+                console.log('scripts/user-start.js', 'callback UI.auth', 'nb_ids', nb_ids);
+                API.addPreference(UI.available_playlists[k], ids[j], callback);
+                console.log('scripts/user-start.js', 'callback UI.auth', 'Callback', callback);
               }
-              console.log('scripts/user-start.js', 'callback UI.auth', 'nb_ids', nb_ids);
-              API.addPreference(UI.available_playlists[k], ids[j], callback);
-              console.log('scripts/user-start.js', 'callback UI.auth', 'Callback', callback);
             }
           }
         }
-      }
-    });
+      });
+    }
   });
 
 
@@ -360,7 +396,7 @@ $(document).ready(function(){
             var type = 'theaters'
           }
           title = typeof results[k].title != 'undefined' ? results[k].title : results[k].name;
-          container.append('<li class="row suggest"><a data-name="'+title+'" data-id="'+results[k].id+'" rel="popover" data-placement="left" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' col-xs-1" data-step="'+step+'"></a><a data-trigger-click="a[data-id=\''+results[k].id+'\']"><span class="col-xs-11">' + title + ((type == 'films&series' && typeof results[k].year != 'undefined') ? '<small> - ' + results[k].year + '</small>' : '') + ((type == 'theaters' && typeof results[k].ville != 'undefined') ? '<small> - '+results[k].ville+'</small>' : '') + '</span>' + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<span class="col-xs-4">suivi par  '+results[k].nb_followers+' personnes</span>' : '') + '</a></li>')
+          container.append('<li class="row suggest"><a data-name="'+title+'" data-id="'+results[k].id+'" rel="popover" data-placement="top" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' col-xs-1" data-step="'+step+'"></a>'+(typeof results[k].picture != 'undefined' ? '<div class="col-xs-1"><img src="'+results[k].picture+'" alt="Illustration de '+title+'" height="40" width="auto"></div>' : '' )+'<a data-trigger-click="a[data-id=\''+results[k].id+'\']"><span class="'+(typeof results[k].picture != 'undefined' ? 'col-xs-10' : 'col-xs-11' )+'">' + title + ((type == 'films&series' && typeof results[k].year != 'undefined') ? '<small> - ' + results[k].year + '</small>' : '') + ((type == 'theaters' && typeof results[k].ville != 'undefined') ? '<small> - '+results[k].ville+'</small>' : '') + '</span>' + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<span class="col-xs-4">suivi par  '+results[k].nb_followers+' personnes</span>' : '') + '</a></li>')
         }
     });
 
