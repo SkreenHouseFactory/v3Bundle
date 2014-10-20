@@ -131,7 +131,9 @@ if (screen.width > 767) {
     googletag.defineSlot('/22418486/Banniere_970x90', [[970, 90], [728, 90]], 'adsense-banner-program').addService(googletag.pubads());
     googletag.defineSlot('/22418486/Banniere_970x90', [[970, 90], [728, 90]], 'adsense-banner-footer').addService(googletag.pubads());
     googletag.defineSlot('/22418486/Banniere_colonne', [250, 250], 'adsense-banner-colonne').addService(googletag.pubads());
-    googletag.defineSlot('/22418486/Banniere_mobile', [[320, 50], [250, 250], [300, 100]], 'adsense-banner-mobile').addService(googletag.pubads());
+    googletag.defineSlot('/22418486/Banniere_mobile', [[320, 50], [300, 100], [250, 250]], 'adsense-banner-default-mobile').addService(googletag.pubads());
+    googletag.defineSlot('/22418486/Banniere_mobile', [[320, 50], [300, 100], [250, 250]], 'adsense-banner-program-mobile').addService(googletag.pubads());
+    googletag.defineSlot('/22418486/Banniere_mobile', [[320, 50], [300, 100], [250, 250]], 'adsense-banner-footer-mobile').addService(googletag.pubads());
     googletag.pubads().enableSingleRequest();
     googletag.enableServices();
     });
@@ -203,6 +205,12 @@ try{ var i=top.document.getElementsByTagName('script')[0];i.parentNode.insertBef
 {% block header_filters %}
 {% endblock %}
 
+{# adsense banner #}
+<div class="container">
+  {{ include ('SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig', {banner: 'footer'}) }}
+</div>
+
+{# footer #}
 <div id="footer">
   {% render(controller('SkreenHouseFactoryV3Bundle:Main:footer', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route')})) %}
   {#{ render_esi(controller('SkreenHouseFactoryV3Bundle:Main:footer', {q: app.request.get('q'), home: app.request.get('home'), route: app.request.attributes.get('_route')})) }#}
