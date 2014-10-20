@@ -6,7 +6,6 @@ console.log('adsense', 'adsense-banner-colonne', 'adsense-banner-colonne');
 </script>
 </div>
 {% else %}
-
 <div id="adsense-banner-{{ banner is defined ? banner : 'default' }}">
 <script type="text/javascript">
 var div_id = 'adsense-banner-{{ banner is defined ? banner : 'default' }}'
@@ -15,12 +14,12 @@ if ('matchMedia' in window && window.matchMedia('(min-width:500px)').matches) {
   document.getElementById(div_id).className = 'adsense-block-{{ banner is defined ? banner : 'default' }}';
   console.log('adsense', 'adsense-banner-{{ banner is defined ? banner : 'default' }}', div_id);
 } else {
-  document.getElementById(div_id).id = 'adsense-block-mobile';
-  googletag.cmd.push(function() { googletag.display('adsense-banner-mobile'); });
-  console.log('adsense', 'adsense-banner-mobile');
+  var new_id = 'adsense-banner-{{ banner is defined ? banner : 'default' }}-mobile';
+  document.getElementById(div_id).id = new_id;
+  googletag.cmd.push(function() { googletag.display(new_id); });
+  console.log('adsense', div_id, new_id);
 }
 </script>
 </div>
-
 {% endif %}
 {{ html is defined ? html|raw : '' }}
