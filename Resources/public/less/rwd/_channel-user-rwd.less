@@ -1,0 +1,94 @@
+@media (max-width:767px) {
+  body.view-channel-user {
+  	#super-wrapper {
+  		#content-wrapper {
+        .header-channel-user {
+          background: #428bca!important;
+          padding-top: 90px;
+          .header-infos {
+            > .container {
+              > .row {
+                > .col-xs-6:first-child {
+                  width: 100%;
+                  & + .col-xs-6 {
+                    display: none;
+                  }
+                }
+                > .col-xs-4 {
+                  width: 100%;
+                  .col-xs-16 {
+                    text-align: center;
+                    .btn-suivre {
+                      margin-top: 0;
+                      margin-bottom: 5px;
+                      padding-top: 5px;
+                      padding-bottom: 5px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        .user-player {
+          .col-xs-11 {
+            width: 100%;
+            padding: 10px 0 0;
+            .player-wrapper {
+              border-radius: 0;
+            }
+            .teaser-container {
+              .teaser-title {
+                display: none;
+              }
+              #player-user-ba {
+                width: 100%;
+                height: auto;
+                padding: 5px 0;
+              }
+            }
+            #user-queue-slider {
+              display: none;
+            }
+          }
+          .col-xs-5 {
+            width: 100%;
+            height: auto;
+            h2, #channel_prog-list1, .controlersbtn {
+              display: none;
+            }
+            .share-block {
+              margin: 15px auto 0;
+            }
+          }
+        }
+        .bande-favories {
+          .user-favories {
+            .user-persons, .user-channels, .user-theaters {
+              width: 100%;
+              &.well {
+                #map-user {
+                  display: none;
+                }
+              }
+            }
+          }
+          #anchor-programs {
+            margin-top: 0;
+          }
+          .user-programs-selector {
+            &.btn-group > .btn {
+              margin-bottom: 10px;
+            }
+          }
+          #user-programs {
+            .slider.slider-list ul.items li:not(.teaser-container) {
+              width: 48%!important;
+              max-width: 150px!important;
+            }
+          }
+        }
+  		}
+  	}
+  }
+}

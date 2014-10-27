@@ -2,8 +2,19 @@
   body.view-user_start {
   	#super-wrapper {
   		#content-wrapper {
+        #top-header {
+          position: static;
+          margin-bottom: 5px;
+        }
+        #main {
+          padding-top: 0px!important;
+          #content {
+            min-height: 600px;
+          }
+        }
         #bandeau-listes {
           padding-top: 0;
+          height: 600px;
           > .container:first-child {
             display: none;
             & + .container {
@@ -17,6 +28,7 @@
             &:first-child {
               h1 {
                 padding: 0;
+                margin-bottom: 5px;
               }
               #intro-step-one, #intro-step-two, #intro-step-three {
                 position: static;
@@ -37,30 +49,37 @@
               .start-list {
                 left: 50%;
                 margin-left: -120px;
-                top: 315px;
+                top: 300px;
               }
             }
             > .relative {
               height: 500px;
               .btn-back {
-                top: 450px;
+                top: 415px;
               }
               a.btn-primary {
-                top: 450px;
+                top: 415px;
                 left: 100px;
                 white-space: normal;
               }
             }
             .form-container {
-              height: 435px;
+              height: 400px;
               h2 {
-                padding: 10px 15px;
+                padding: 5px 10px;
+                margin-bottom: 5px;
               }
               .form-inline {
                 padding: 0 15px;
+                .form-group:first-child {
+                  margin-bottom: 5px;
+                }
               }
               .results {
                 padding: 0 15px;
+                .head-suggest {
+                  padding: 5px 0 5px 25px;
+                }
                 .suggest {
                   a.btn-suivre + .col-xs-1 {
                     display: none;
@@ -73,6 +92,17 @@
                       }
                     }
                   }
+                }
+              }
+              &.share-container {
+                .user-friends-link {
+                  margin-top: 180px;
+                }
+                .share-off > div > img {
+                  margin-top: 180px;
+                }
+                .share-on {
+                  margin-top: 180px;
                 }
               }
             }
