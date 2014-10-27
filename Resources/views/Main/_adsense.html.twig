@@ -1,18 +1,25 @@
-<div class="adsense-block">
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <div id="ins-adsense">
-    <script type="text/javascript">
-    if ('matchMedia' in window) {
-      document.getElementById("ins-adsense").innerHTML = '<ins class="adsbygoogle" '
-                  + (window.matchMedia('(min-width:500px)').matches ? 'style="display:inline-block;width:970px;height:90px"' : 'style="display:inline-block;width:290px;height:50px"' )
-                  + ' data-ad-client="ca-pub-4265768576048156" data-ad-slot="' + (window.matchMedia('(min-width:500px)').matches ? '3195548951' : '9874522159' )
-                  + '"></ins>';
-    } else {
-      document.getElementById("ins-adsense").innerHTML = '<ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px" data-ad-client="ca-pub-4265768576048156" data-ad-slot="3195548951"></ins>';
-    }
-  </script>
-  </div>
-  <script>
-  (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
+{% if banner is defined and banner == 'colonne' %}
+<div id="adsense-banner-colonne" class="adsense-block-colonne">
+<script type="text/javascript">
+googletag.cmd.push(function() { googletag.display('adsense-banner-colonne'); });
+console.log('adsense', 'adsense-banner-colonne', 'adsense-banner-colonne');
+</script>
 </div>
+{% else %}
+<div id="adsense-banner-{{ banner is defined ? banner : 'default' }}">
+<script type="text/javascript">
+var div_id = 'adsense-banner-{{ banner is defined ? banner : 'default' }}'
+if ('matchMedia' in window && window.matchMedia('(min-width:500px)').matches) {
+  googletag.cmd.push(function() { googletag.display('adsense-banner-{{ banner is defined ? banner : 'default' }}'); });
+  document.getElementById(div_id).className = 'adsense-block-{{ banner is defined ? banner : 'default' }}';
+  console.log('adsense', 'adsense-banner-{{ banner is defined ? banner : 'default' }}', div_id);
+} else {
+  var new_id = 'adsense-banner-{{ banner is defined ? banner : 'default' }}-mobile';
+  document.getElementById(div_id).id = new_id;
+  googletag.cmd.push(function() { googletag.display(new_id); });
+  console.log('adsense', div_id, new_id);
+}
+</script>
+</div>
+{% endif %}
+{{ html is defined ? html|raw : '' }}
