@@ -127,13 +127,16 @@ if (screen.width > 767) {
     </script>
     <script type='text/javascript'>
     googletag.cmd.push(function() {
-    googletag.defineSlot('/22418486/Banniere_970x90', [[970, 90], [728, 90]], 'adsense-banner-default').addService(googletag.pubads());
-    googletag.defineSlot('/22418486/Banniere_970x90', [[970, 90], [728, 90]], 'adsense-banner-program').addService(googletag.pubads());
-    googletag.defineSlot('/22418486/Banniere_970x90', [[970, 90], [728, 90]], 'adsense-banner-footer').addService(googletag.pubads());
-    googletag.defineSlot('/22418486/Banniere_colonne', [250, 250], 'adsense-banner-colonne').addService(googletag.pubads());
-    googletag.defineSlot('/22418486/Banniere_mobile', [[320, 50], [300, 100], [250, 250]], 'adsense-banner-default-mobile').addService(googletag.pubads());
-    googletag.defineSlot('/22418486/Banniere_mobile', [[320, 50], [300, 100], [250, 250]], 'adsense-banner-program-mobile').addService(googletag.pubads());
-    googletag.defineSlot('/22418486/Banniere_mobile', [[320, 50], [300, 100], [250, 250]], 'adsense-banner-footer-mobile').addService(googletag.pubads());
+      
+    {% if block('header_adsense') is empty %}
+      googletag.defineSlot('/22418486/Banniere_970x90', [[970, 90], [728, 90]], 'adsense-banner-default').addService(googletag.pubads());
+      googletag.defineSlot('/22418486/Banniere_mobile', [[320, 50], [300, 100], [250, 250]], 'adsense-banner-default-mobile').addService(googletag.pubads());
+      googletag.defineSlot('/22418486/Banniere_970x90', [[970, 90], [728, 90]], 'adsense-banner-footer').addService(googletag.pubads());
+      googletag.defineSlot('/22418486/Banniere_mobile', [[320, 50], [300, 100], [250, 250]], 'adsense-banner-footer-mobile').addService(googletag.pubads());
+    {% else %}
+      {% block header_adsense %}{% endblock %}
+    {% endif %}
+    
     googletag.pubads().enableSingleRequest();
     googletag.enableServices();
     });
