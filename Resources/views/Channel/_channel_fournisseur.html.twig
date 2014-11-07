@@ -3,12 +3,12 @@
 {% block customcontent %}
 
   {% if channel.fournisseur is defined and channel.fournisseur.type in  ['broadcast'] %}
-    {% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: channel, fournisseur: fournisseur,slug: app.request.get('slug')} %}
+    {% include 'SkreenHouseFactoryV3Bundle:Channel:_header-fournisseur.html.twig' with {channel: channel, sliders: sliders, fournisseur: fournisseur, slug: app.request.get('slug')} %}
   {% else %}
     {% include  'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data: fournisseur, fav: 'page', trigger_fav: channel.personne is defined ? 'Suivre ' ~ fournisseur.name : '', skip_content: true} %}
   {% endif %}
 
-  <div class="packfournisseur">
+  <div class="packfournisseur clear">
     <div id="view-fournisseur" data-id="{{ fournisseur.id }}" class="container{% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null %} container-seo-placement{% endif %}">
       <div class="description-seo description-seo-absolute">
         {% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null  %}
@@ -25,12 +25,12 @@
           </div>
         </div>
       {% endif %}
-      <h4>Les programmes {{ channel.fournisseur.has_replay is defined and channel.fournisseur.has_replay ? 'TV & Replay' : 'en Streaming' }}</h4>
+
       {# sliders #}
       {% if sliders|to_array|length %}
         <div class="row">
           <div class="col-xs-16">
-            {% for slider in sliders|to_array if slider.id is defined %}
+            {% for slider in sliders|to_array|slice(2, 10) if slider.id is defined %}
               <a name="{{ slider.name }}"></a>
               {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider, loop_index: loop.index} %}
             {% endfor %}

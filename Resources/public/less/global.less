@@ -853,3 +853,44 @@ ul.typeahead.dropdown-menu {
   }
 }
 
+.chaines-listing {
+  margin: -10px auto -10px;
+  width: 930px;
+  >div {
+    border-top: 1px solid #E9E9E9;
+    border-bottom: 1px solid #E9E9E9;
+    padding: 10px 0;
+    h2 {
+      font-family: 'Raleway', sans-serif;
+      color: #595959;
+      font-size: 14px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 5px;
+    }
+  }
+  .logo_chaine {
+    opacity: 0.5;
+    float: left;
+    width: 42px;
+    height: 42px;
+    /*border: 1px solid #ede8e8;*/
+    margin-right: 12px;
+    margin-bottom: 12px;
+    /*
+    .gradient(rgba(255,255,255,0), #EDEDED,  rgba(255,255,255,0));
+    .border-radius(5px, 5px, 5px, 5px);
+    */
+    &:hover {
+      opacity: 1;
+    }
+    img {
+      position: relative;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      padding: 5px;
+    }
+  }
+}

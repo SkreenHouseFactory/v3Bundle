@@ -1,5 +1,4 @@
 // -- home
 $(document).ready(function(){
-	
-	
+
 });

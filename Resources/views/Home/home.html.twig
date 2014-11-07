@@ -33,53 +33,64 @@
 {% block description %}{{ page_description|trans }}{% endblock %}
 {% block body_class %}view-homes home-{{ home.name }} cover{% endblock %}
 
+
+{% block pagestyles %}
+  {% stylesheets
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/start.less'
+      filter='lessphp,?yui_css'
+      output='css/start.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
+{% endblock %}
+{% block pagescripts %}
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-start.js'
+    filter='?yui_js' 
+    output='js/compiled/pages/user-start.js'  %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
 {% block content %}
 <div id="view-home">
+  <div class="description-seo description-seo-absolute">
+    <div class="container well scroll">
+      <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1> 
+      {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
+      {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
+    </div>
+  </div>
+
+  {% if app.request.get('home') == 'cinema' %}
+    {% include 'SkreenHouseFactoryV3Bundle:Cinema:_addtolist.html.twig' %}
+    <div class="bande_fonce">
+      <div class="container">
+        <h3>Chercher un cinéma :</h3>
+        {% include 'SkreenHouseFactoryV3Bundle:Cinema:_popin-search.html.twig' with {cinemas: {}} %}
+      </div> 
+    </div>
+  {% endif %}
+
   {% for slider in home.sliders|to_array if slider.id is defined %}
-    {% if loop.first %}
-      <div class="description-seo description-seo-absolute">
-        <div class="container well scroll">
-          <h1>{{ ('page.h1.home.' ~ home.name)|trans }}</h1> 
-          {% if home.description is defined %}<div>{{ home.description | raw }}</div>{% endif %}
-          {% if keywords is defined %}<p>{{ keywords }}</p>{% endif %}
-        </div>
-        {% if home.name != 'mixte' %}
-          <div class="container nopadding">
-            <hr/>
-            {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
-          </div>
-        {% endif %}
-      </div>
-      {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une transchange', force_size: '/1250/370'} %}
-      {# {% include 'SkreenHouseFactoryV3Bundle:Home:_promo_pass.html.twig' %} #}
-      {# {% if 'video-a-la-demande' in app.request.uri %}
-        {% include 'SkreenHouseFactoryV3Bundle:Home:_encartvod.html.twig' %}
-      {% endif %} #}
-      {% if app.request.get('home') == 'cinema' %}
-        {% include 'SkreenHouseFactoryV3Bundle:Cinema:_addtolist.html.twig' %}
-        <div class="bande_fonce">
-          <div class="container">
-            <h3>Chercher un cinéma :</h3>
-            {% include 'SkreenHouseFactoryV3Bundle:Cinema:_popin-search.html.twig' with {cinemas: {}} %}
-          </div>
-        </div>
+    {% if loop.first and home.name not in ['mixte', 'cinema'] %}
+      {% if home.name not in ['mixte','cinema'] %}
+        {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une transchange', force_size: '/1250/370'} %}
       {% endif %}
     {% else %}
-      {% if loop.index == 2 %}
-      {% if home.more is defined %}
-        {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more , loop_index: loop.index } %}
-      {% endif %}
+      {% if loop.first %}
+        {% if home.more is defined %}
+          {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more , loop_index: loop.index } %}
+        {% endif %}
         <div class="container">
           <div class="row">
             <div class="first-container">
+              {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index} %}
+
+      {% else %}
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index+1 } %}
       {% endif %}
-      {% if loop.index >= 2 %} 
-        {% if home.more is defined %}
-          {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index+1 } %}
-        {% else %}
-          {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: slider,h_title:"h2", loop_index: loop.index} %}
-        {% endif %}
-      {% endif %}
+
     {% endif %}
   {% endfor %}
   {% if home.more is defined %}
@@ -90,19 +101,8 @@
 </div>
 
 {# {% include 'SkreenHouseFactoryV3Bundle:Main:_passlabel.html.twig' %} #}
-{# Ancienne Slide-In (avant PASS)
-<div id="slide-in">
-  <div id="slide-in-text">
-    <div>
-      <a class="open-icon"><i class="glyphicon glyphicon-question-sign"></i></a>
-    </div>
-    <p><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo_bleu_transparent.png')}}" /></p>
-    <p></p>
-    <a href="{{ path('user_start') }}" class="user-off btn btn-primary btn-xs">Commencer mes listes</a>
-    <div class="clearfix"></div>
-  </div>
-  <div id="slide-in-share">
-    <div class="fb-like-box" data-href="https://www.facebook.com/myskreen" data-width="300" data-height="230" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="false"></div>
-  </div>
-</div> #}
+
+{% if home.name == 'mixte' %}
+  {{ render(controller('SkreenHouseFactoryV3Bundle:User:start')) }}
+{% endif %}
 {% endblock %}

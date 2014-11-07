@@ -4,7 +4,7 @@
       {% if btn_suivre is defined %}
         <div class="pull-right{{ tester is defined and tester ? ' hide credential-tester' : '' }}">{% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with btn_suivre %}</div>
       {% endif %}
-      <h2>{{ title is defined ? title : 'A voir en ce moment' }}</h2>
+      <{{ h is defined ? h : 'h2' }}>{{ title is defined ? title : 'A voir en ce moment' }}</{{ h is defined ? h : 'h2' }}>
       {% if notifications|to_array|length %}
       <ul class="notifications clearfix">
         {% for n in notifications|to_array %}

@@ -21,7 +21,7 @@
 {% elseif home == 'video-a-la-demande' %}
   <ul class="hover-menu vod hide">
     <div class="dropdown-borders vod-cine">
-      <li><a href="{{ header_base }}{{ path('homes', {home: 'video-a-la-demande'}) }}">Toute la vidéo à la demande</a></li>
+      {#<li><a href="{{ header_base }}{{ path('homes', {home: 'video-a-la-demande'}) }}">Toute la vidéo à la demande</a></li>#}
       <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'film'}) }}"><span>&nbsp;-></span> {{ 'nav.films'|trans }}</a></li>
       <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'documentaire'}) }}"><span>&nbsp;-></span> {{ 'nav.documentaires'|trans }}</a></li>
       <li><a href="{{ header_base }}{{ path('homes_vod', {home: 'serie'}) }}"><span>&nbsp;-></span> {{ 'nav.series'|trans }}</a></li>
@@ -37,10 +37,10 @@
         <a href="{{ header_base }}{{ path('tvgrid') }}">Programme TV</a>
       </li>
       <li>
-        <a href="{{ header_base }}{{ path('channel', {slug: 'itele'}) }}">La TV en direct</a>
+        <a href="{{ header_base }}{{ path('channel', {slug: 'replay'}) }}">Replay TV</a>
       </li>
       <li>
-        <a href="{{ header_base }}{{ path('channel', {slug: 'replay'}) }}">Replay TV</a>
+        <a href="{{ header_base }}{{ path('channel', {slug: 'itele'}) }}">TV en direct</a>
       </li>
     </div>
   </ul>

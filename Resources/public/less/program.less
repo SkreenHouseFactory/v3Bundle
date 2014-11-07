@@ -36,9 +36,42 @@ body[class*='view-program_'] {
  .marge-synopsis{
    padding-bottom: 290px;
  }
+ 
+ #affiche {
+   text-align: center;
+   display: table-cell;
+   vertical-align: middle;
+   background: #EEE;
+   .shadows-player-land();
+   .transition-shadows();
+
+   img.channel {
+     position: absolute;
+     right: 20px;
+     top: 20px;
+   }
+
+   a.btn {
+     color: white;
+     font-size: 1.5em;
+     opacity: 0.5;
+     bottom: 5px;
+     left: 10px;
+     position: absolute;
+     
+     &:hover {
+       opacity: 0.9;
+     }
+   }
+ }
+ 
   .panel-synopsis{
     color: #6D6D6D;
     margin-top: 5px;
+    min-height: 270px;
+    position: absolute;
+    bottom: 0px;
+
     h1, h2, h3, h4{
       color: #6D6D6D;
       margin-top: 5px;
@@ -55,11 +88,6 @@ body[class*='view-program_'] {
     h4{
       font-size: 13px;
     }
-    min-height: 270px;
-    position: absolute;
-    bottom: 0px;
-    margin-right: 15px;
-    width: 637px;
   }
   .forced-height{
     max-height: 270px;
@@ -71,37 +99,16 @@ body[class*='view-program_'] {
 
    /* colonne de droite */
    .col-xs-5 {
-
-    #affiche {
-      width: 273px;
-      height: 368px;
-      text-align: center;
-      display: table-cell;
-      vertical-align: middle;
-      background: #EEE;
-      .shadows-player-land();
-      .transition-shadows();
-
-      img.channel {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-      }
-
-      a.btn {
-        color: white;
-        font-size: 1.5em;
-        opacity: 0.5;
-        bottom: 5px;
-        left: 10px;
-        position: absolute;
-        
-        &:hover {
-          opacity: 0.9;
-        }
-      }
-    }
-
+     #videos-column {
+       background: white;
+       table {
+         margin: 0;
+         img {
+           width: 120px;
+           height: 70px;
+         }
+       }
+     }
     a[itemprop="url"], a[data-placement="right"]{
       &:hover {
        color: @bluemaincolor;
@@ -487,7 +494,7 @@ ul#episodes-list-saison li {
   height: 368px;
 }
 .playwrap {
-  width: 970px;
+  /*width: 970px;*/
   #program-teaser {
     height: 100%;
     width: 100%;
@@ -847,7 +854,7 @@ html .tab-pane {
   }
   .bande_offers {
     background: #f5f5f5;
-    margin-top: 20px;
+    margin: 0;
     padding: 15px 0;
     .contents {
       #onglets {
@@ -915,10 +922,6 @@ html .tab-pane {
         }
       }
       > .tab-content {
-        background: white;
-        margin-left: -15px;
-        margin-right: -15px;
-        padding: 15px 15px;
         .sous-menu {
           text-align: center;
           a {
@@ -985,9 +988,13 @@ html .tab-pane {
           }
         }
       }
-      .panel {
+      .panel:not(.panel-theater-list) {
         position: relative;
-        padding: 0 0 0px 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        margin: 15px 0;
+
         &.panel-more { 
           .tab-pane {
             padding-bottom: 30px;
@@ -1022,6 +1029,9 @@ html .tab-pane {
           line-height: 30px;
           padding: 4px 15px;
           color: #6D6D6D;
+          background-color: transparent;
+          border: none;
+          
           &.season {
             background-color: white;
           }
@@ -1036,6 +1046,10 @@ html .tab-pane {
         }
         .tab-pane {
           padding-bottom: 0px;
+          .bs-callout {
+            margin: 10px;
+            padding: 10px;
+          }
           .btn-reveal {
             position: absolute;
             bottom: 0;

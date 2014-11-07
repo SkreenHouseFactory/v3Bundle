@@ -27,17 +27,21 @@
           </div>
       {% endif %}
 
-      {% if tab is not defined %}
-
-          <div class="text">
-            {# <div class="gradient-hide"></div>  #}{# With show-more-height #}
-            {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis_text.html.twig' %}
-          </div>
-          {# <div class="show-all">
-            <span class="show-more">...</span><span class="show-more-text">Voir plus</span>
-          </div> #} 
-
-      {% endif %}
+      <div class="row">
+        {# Affiche #}
+        <div class="col-xs-6" id="affiche" itemprop="primaryImageOfPage" itemscope itemtype="http://schema.org/ImageObject">
+          <meta itemprop="name" content="{{ program.title }}" />
+          {% if 'missing' not in program.picture %}
+            <a class="btn" data-big-picture="{{ ('<img src="' ~ (program.picture|replace({'273/368/' : '450/'})) ~ '" alt="' ~ program.title ~ '" />')|escape }}"><i class="glyphicon glyphicon-zoom-in"></i></a>
+          {% endif %}
+          <img src="{{ program.picture }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" itemprop="contentURL"/>
+        </div>
+        {% if tab is not defined %}
+            <div class="text col-xs-10">
+              {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis_text.html.twig' %}
+            </div>
+        {% endif %}
+      </div>
 
     </div>
   </div>

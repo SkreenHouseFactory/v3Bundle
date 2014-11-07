@@ -62,21 +62,24 @@
         {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with { active: '', no_background: true } %}
       </div>
 
-      {# Player + Affiche + Meilleure offre #}
-      <div class="container">
-        <div class="row playwrapsub hide"></div>
-        {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_player.html.twig' %}
-      </div>      
-
       {# Onglets/Contenus + Chaînes #}
       <div class="bande_offers">
       <div class="container">
         <div class="row">
-          {# Onglets / Contenus #} 
-          <div class="col-xs-11 contents">
-            {# Onglets #}
+          {# Main column #} 
+          <div class="col-xs-11 contents nopadding">
+            
+            {# Player + Affiche + Meilleure offre #}
+            <div class="row playwrapsub hide"></div>
+            <div class="playwrap">
+              <div id="player">
+                {% include 'SkreenHouseFactoryV3Bundle:Program:_program-player.html.twig' %}
+              </div>
+            </div>
+            
+            {# Onglets 
             <ul class="row" id="onglets">
-              <li class="col-xs-5{% if voir.count > 0 or videos.count == 0 %} active{% endif %}">{# Voir #}
+              <li class="col-xs-5{% if voir.count > 0 or videos.count == 0 %} active{% endif %}">
                 <a href="#voir" data-toggle="tab">
                   <div class="row">
                     <div class="col-xs-16">VOIR
@@ -88,7 +91,7 @@
                   <div class="row">en entier</div>
                 </a>
               </li>
-              <li class="col-xs-6{% if voir.count == 0 and videos.count > 0 %} active{% endif %}{% if videos.count == 0 %} disabled{% endif %}">{# Vidéos #}
+              <li class="col-xs-6{% if voir.count == 0 and videos.count > 0 %} active{% endif %}{% if videos.count == 0 %} disabled{% endif %}">
                 <a{{ videos.count == 0 ? '' : ' href="#videos" data-toggle="tab"' }}>
                   <div class="row">
                     <div class="col-xs-16">+ DE VIDEOS
@@ -100,15 +103,8 @@
                   <div class="row">extraits & bonus</div>
                 </a>
               </li>
-              {# <li class="col-xs-5{% if voir.count == 0 and videos.count == 0 %} active{% endif %}">
-                <a href="#infos" data-toggle="tab">
-                  <div class="row">
-                    <div class="col-xs-16">INFOS</div>
-                  </div>
-                  <div class="row">résumé & casting</div>
-                </a>
-              </li> #}
             </ul>
+            #}
             {# Contenus #}
             <div class="tab-content">
               {# Contenu Voir & Infos #}
@@ -163,14 +159,17 @@
                     {% endif %}
                   {% endif %}
               </div>
-              {# Contenu Vidéos #}
+              {# Contenu Vidéos 
               <div class="tab-pane row{% if voir.count == 0 and videos.count > 0 %} active{% endif %}" id="videos">
                 {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_videos.html.twig' %}
               </div>
+              #}
             </div>
           </div>
           {# Chaînes #}
           <div class="col-xs-5 channel-side">
+            {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_videos-column.html.twig' %}
+            
             <div class="shareblock clearfix">
               {% include 'SkreenHouseFactoryV3Bundle:Main:_share.html.twig' with {url: 'http://www.myskreen.com' ~ program.seo_url, text: program.twitter_msg is defined ? program.twitter_msg : 'Je regarde ' ~ program.title ~ ' sur mySkreen et vous ?', fb_layout: 'box_count', tw_layout: 'vertical', g_size: 'tall', g_annotation: 'bubble' } %}
             </div>

@@ -1,3 +1,27 @@
+.player-encart {
+  position: relative;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+  margin-right: 10px;
+  padding: 15px 10px;
+  margin-top: 35px;
+  font-size: 1.5em;
+  text-align: center;
+  background-color: #FAFAFA;
+  &:before {
+    position: absolute;
+    content: " ";
+    top: -12px;
+    left: 50%;
+    width: 0px;
+    height: 0px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 12px solid #333;
+    margin-left: -6px;
+  }
+}
+
 #player.default-player{
   display: none;
   &.in{

@@ -8,7 +8,7 @@
     {% set combinaisons = {6: {'vertical': [[1,1,1,1,1,1]], 'horizontal': []}|to_array }|to_array %}
     {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: top_home.pack_live , h_title:"h2", loop_index: loop_index, slider_combinaisons: combinaisons, title: top_home.pack_live.name } %}
     <div class="col-xs-4 thema-home">
-      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels.html.twig' with { channels:top_home.pack_channel } %}
+      {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels.html.twig' with { channels: top_home.pack_channel } %}
     </div>
   </div>
 </div>

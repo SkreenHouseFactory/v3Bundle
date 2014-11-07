@@ -521,10 +521,10 @@ class ChannelController extends ChannelCustomController
       }
 
       $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_fournisseur.html.twig', array(
-        'data'=> $data,
-        'fournisseur'=>$data->channel->fournisseur,
-        'sliders'=>isset($data->sliders) ? $data->sliders : array(),
-        'channel'=>$data->channel
+        'data'        => $data,
+        'fournisseur' => $data->channel->fournisseur,
+        'sliders'     => isset($data->sliders) ? (array)$data->sliders : array(),
+        'channel'     => $data->channel
       ));
 
     } elseif ($data->channel->type == 'ChannelOnglet'){
@@ -557,9 +557,9 @@ class ChannelController extends ChannelCustomController
           $notifications = array_slice($notifications, 0, 30);
         }
         $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_user.html.twig', array(
-          'data' => $data,
+          'data'          => $data,
           'notifications' => $notifications,
-          'channel' => $data->channel
+          'channel'       => $data->channel
         ));
     }
 

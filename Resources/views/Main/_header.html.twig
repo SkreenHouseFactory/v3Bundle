@@ -5,15 +5,15 @@
         <a id="logo" href="{{ path('homes', {home: null})|replace({'//': '/'}) }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="mySkreen" ></a>
         <ul class="nav navbar-nav">
           <li{{ app.request.attributes.get('_route') in ['tvgrid_date','tvgrid'] ? ' class="active"' : '' }}>
-            <span data-link-to-replace="{{ path('tvgrid')|rot13 }}">TV &amp; Replay</span>
+            <span>TV &amp; Replay</span>
             {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "tv"} %}
           </li>
           <li{{ app.request.get('home') == 'video-a-la-demande' ? ' class="active"' : '' }}>
-            <a href="{{ path('homes', {home: 'video-a-la-demande'}) }}">A la demande</a>
+            <span>Streaming</span>
             {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "video-a-la-demande"} %}
           </li>
           <li{{ app.request.get('home') == 'cinema' ? ' class="active"' : '' }}>
-            <a href="{{ path('homes', {home: 'cinema'}) }}">En salles</a>
+            <span>En salles</span>
             {% include 'SkreenHouseFactoryV3Bundle:Main:_header-dropdown.html.twig' with {home: "cinema"} %}
           </li>
         </ul>
@@ -54,8 +54,8 @@
 
           {# SE CONNECTER #}
           <li class="user-off playlists">
-            <a class="auth btn btn-primary" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même playlist !">
-              Mes listes<br/><small>Se connecter / s'inscrire</small>
+            <a class="auth" data-modal-title="Connexion / inscription" data-modal-message="Tous vos programmes TV, Replay, Ciné, VOD et Web dans une même liste !">
+              <span class="glyphicon glyphicon-user"></span> Mes listes
             </a>
           </li>
 

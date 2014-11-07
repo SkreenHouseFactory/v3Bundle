@@ -466,6 +466,18 @@ $(document).ready(function(){
     }
   });
 
+  // -- chaines tnt
+  console.log('scritps/home.js', 'chaines-listing', $('.chaines-listing a img'));
+  $('.chaines-listing a img').hover(
+    function() {
+      console.log('scritps/home.js', 'chaines mouseover');
+      $(this).attr('src', $(this).attr('src').replace('?f=2', '?'));
+    }, function() {
+      console.log('scritps/home.js', 'chaines mouseout');
+      $(this).attr('src', $(this).attr('src').replace('?', '?f=2'));
+    }
+  )
+
   /*$(document).on('click', '.btn-pass-subscribe-modal', function(){
     $('.btn-pass-subscribe').trigger('click');
   });*/

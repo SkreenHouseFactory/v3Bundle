@@ -38,34 +38,42 @@
 
 {% block content %}
 
-<div class="bande_fonce">
-  <div class="container">  
-
-    <ul class="breadcrumb">
-      {% if app.request.get('format') %}
-        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('format', {category_slug: app.request.get('format')}) }}"><span itemprop="title">{{ ('format.singulier.'~app.request.get('format'))|trans|upper }}</span></a></li>
-      {% endif %}
-      <li{% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: app.request.get('format') ~ (category.root is defined ? category.root.seo_url : category.seo_url) })|replace({'//':'/'})  }}"><span itemprop="title">{{ category.root is defined ? category.root.name : category.name }}</span></a></li>
-      {% if app.request.get('facet') and subcategories[app.request.get('facet')] is defined %}
-        <li{% if app.request.get('page') is null and app.request.get('access') is null %} class="active"{% endif%} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})}) }}{{ app.request.get('facet') }}/"><span itemprop="title">{{ subcategories[app.request.get('facet')] }}</span></a></li>
-      {% endif %}
-      {% if app.request.get('page') %}
-        {% if app.request.get('format') %}
-          <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})})|replace({'//':'/'}) }}page-{{ app.request.get('page') }}/"><span itemprop="title">Page {{ app.request.get('page') }}</span></a></li>
-        {% endif %}
-      {% endif %}
-      {% if app.request.get('access') and app.request.get('access') != 'myskreen' and app.request.get('format') %}
-        <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})})|replace({'//':'/'}) }}/{{ app.request.get('access') }}/"><span itemprop="title">{{ ('access.' ~ app.request.get('access'))|trans }}</span></a></li>
-      {% endif %}
-    </ul>
-
-    <h1 class="clearfix">
+    {#<h1 class="clearfix">
       {% if app.request.get('format') %}{{ ('format.pluriel.'~app.request.get('format'))|trans|capitalize }} :{% endif %} la catégorie {{ category.name }}{% if app.request.get('access') and app.request.get('access') != 'myskreen' %} en {{ ('access.' ~ app.request.get('access'))|trans }}{% endif %}
-    </h1>
+    </h1>#}
+
+  <div class="bande_notifications nopadding">
+    <div class="container">
+      <ul class="breadcrumb">
+        {% if app.request.get('format') %}
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('format', {category_slug: app.request.get('format')}) }}"><span itemprop="title">{{ ('format.singulier.'~app.request.get('format'))|trans|upper }}</span></a></li>
+        {% endif %}
+        <li{% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null %} class="active"{% endif %} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('any_url', {url: app.request.get('format') ~ (category.root is defined ? category.root.seo_url : category.seo_url) })|replace({'//':'/'})  }}"><span itemprop="title">{{ category.root is defined ? category.root.name : category.name }}</span></a></li>
+        {% if app.request.get('facet') and subcategories[app.request.get('facet')] is defined %}
+          <li{% if app.request.get('page') is null and app.request.get('access') is null %} class="active"{% endif%} itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})}) }}{{ app.request.get('facet') }}/"><span itemprop="title">{{ subcategories[app.request.get('facet')] }}</span></a></li>
+        {% endif %}
+        {% if app.request.get('page') %}
+          {% if app.request.get('format') %}
+            <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})})|replace({'//':'/'}) }}page-{{ app.request.get('page') }}/"><span itemprop="title">Page {{ app.request.get('page') }}</span></a></li>
+          {% endif %}
+        {% endif %}
+        {% if app.request.get('access') and app.request.get('access') != 'myskreen' and app.request.get('format') %}
+          <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})})|replace({'//':'/'}) }}/{{ app.request.get('access') }}/"><span itemprop="title">{{ ('access.' ~ app.request.get('access'))|trans }}</span></a></li>
+        {% endif %}
+      </ul>
+      <h1>{{ category.name }} en streaming</h1>
+      {% if category.format is not defined %}
+      {% elseif category.format %}
+        <a data-id="{{ category.format.id~'+'~category.id }}" rel="popover" data-placement="left" class="btn btn-suivre btn-plus fav-format-category">Ajouter à mes listes </a>
+      {% else %}
+        <a data-id="{{ category.id }}" rel="popover" data-placement="left" class="btn btn-suivre btn-plus fav-format-category">Ajouter à mes listes </a>
+      {% endif %}
+    </div>
   </div>
-</div>
-<div class="bande_plus_fonce">
+    
+<div class="bande_fonce">
   <div class="container clearfix">
+    {#
     {% if app.request.get('format') and app.request.get('access') is null and app.request.get('facet') is null %}
         {% for k,a in access if a|replace({'vod': 'video-a-la-demande'}) in facet_access|keys %}
           {% if a == 'myskreen' %}
@@ -112,7 +120,7 @@
           </div>
         </div>
       {% endif %}  
-
+  #}
   {# facets<br/>
   route: {{ app.request.attributes.get('_route') }}<br/>
   categories: {{ categories|join(',') }}<br/>
@@ -137,7 +145,6 @@
         {{ s }}</span>
       {% endfor %}
     {% else %}
-      <p class="sk-font">Préciser</p>
       {% for k,s in subcategories if k %}
         <span data-link-to-replace="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'})|rot13 }}" class="label {% if app.request.get('facet') == k %}label-info{% else %}label-default{% endif %}">
         {{ s }}</span>
@@ -190,13 +197,18 @@
 </div>
 </div>
 
-{% if category.format is not defined %}
-  {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {origin: 'cette catégorie', notifications: category.notifications, title: 'Actualité des programmes ' ~ category.name } %}
-{% elseif category.format %}
-  {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {origin: 'cette catégorie', notifications: category.notifications, title: 'Actualité des programmes ' ~ category.name, btn_suivre: {id: category.format.id~'+'~category.id, class: 'fav-format-category', text: 'Ajouter à mes listes', placement: 'left'} } %}
-{% else %}
-  {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {origin: 'cette catégorie', notifications: category.notifications, title: 'Actualité des programmes ' ~ category.name, btn_suivre: {id: category.id, class: 'fav-category', text: 'Ajouter à mes listes', placement: 'left'} } %}
-{% endif %}
+
+
+{# NOTIFS
+  {% if category.format is not defined %}
+    {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {origin: 'cette catégorie', notifications: category.notifications, title: category.name ~ ' en streaming', h: 'h1' } %}
+  {% elseif category.format %}
+    {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {origin: 'cette catégorie', notifications: category.notifications, title: category.name ~ ' en streaming', h: 'h1', btn_suivre: {id: category.format.id~'+'~category.id, class: 'fav-format-category', text: 'Ajouter à mes listes', placement: 'left'} } %}
+  {% else %}
+    {% include  'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {origin: 'cette catégorie', notifications: category.notifications, title: category.name ~ ' en streaming', h: 'h1', btn_suivre: {id: category.id, class: 'fav-category', text: 'Ajouter à mes listes', placement: 'left'} } %}
+  {% endif %}
+  #}
+
 
 <div id="view-category" data-id="{{ category.id }}" class="container view-category-{{ app.request.get('format') }}">
   <div id="view-category-ajax">
@@ -205,10 +217,6 @@
         <h2>Programmes à voir</h2>
         <p>{% if app.request.get('access') %}{{ ('access.' ~ app.request.get('access'))|trans }} : {% endif %}{{ category.description|raw }}</p>
       </div>
-      <div class="container nopadding">
-    <hr/>
-    {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
-  </div>
     </div>
 
     <h3 class="pager-count">{{ category.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
@@ -231,7 +239,7 @@
           <div class="teaser-category" data-teaser-ids="{{ ids }}">
             <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
           </div>
-          <div class="teaser-title sk-font">Retrouvez ci-dessus les bandes-annonces de la catégorie {{ category.name }}{% if app.request.get('access') %} en {{ ('access.' ~ app.request.get('access'))|trans }}{% endif %}.</div>
+          <div class="teaser-title player-encart sk-font">Retrouvez ci-dessus les bandes-annonces de la catégorie {{ category.name }}{% if app.request.get('access') %} en {{ ('access.' ~ app.request.get('access'))|trans }}{% endif %}.</div>
         </li>
         {% for program in category.programs %}{% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}{% endfor %}
       </ul>
