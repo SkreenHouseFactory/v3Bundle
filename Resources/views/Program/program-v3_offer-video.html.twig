@@ -18,6 +18,7 @@
   </td>
 
   <td class="episode" colspan="2">
+    {% if key == 'bonus' %}Bonus : {% elseif key == 'cut' %}Extrait : {% endif %}
     {% if o.title is defined and o.title %}
       <p>{{ o.title }}<br><span>{% if o.description|length > 57 %}{{ o.description|slice(0, 56)}}...{% else %}{{ o.description}}{% endif %}</span></p>
     {% elseif o_episode and o_episode.title %}

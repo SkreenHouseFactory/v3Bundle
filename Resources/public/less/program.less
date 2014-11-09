@@ -41,7 +41,7 @@ body[class*='view-program_'] {
    text-align: center;
    display: table-cell;
    vertical-align: middle;
-   background: #EEE;
+   /*background: #EEE;*/
    .shadows-player-land();
    .transition-shadows();
 
@@ -71,6 +71,12 @@ body[class*='view-program_'] {
     min-height: 270px;
     position: absolute;
     bottom: 0px;
+    .row {
+      margin: 0;
+    }
+    .text-toggle-extend .show-more-height {
+      height: 300px;
+    }
 
     h1, h2, h3, h4{
       color: #6D6D6D;
@@ -89,26 +95,18 @@ body[class*='view-program_'] {
       font-size: 13px;
     }
   }
+  /*
   .forced-height{
     max-height: 270px;
     overflow-y: auto;
   }
+  */
   .ms-prog-rightback{
      // un jour peut être...
    }
 
    /* colonne de droite */
    .col-xs-5 {
-     #videos-column {
-       background: white;
-       table {
-         margin: 0;
-         img {
-           width: 120px;
-           height: 70px;
-         }
-       }
-     }
     a[itemprop="url"], a[data-placement="right"]{
       &:hover {
        color: @bluemaincolor;
@@ -282,7 +280,7 @@ body[class*='view-program_'] {
         width: 100%;
 
         tr {
-          height: 90px !important;
+          /*height: 90px !important;*/
           border-bottom: 1px solid #efefef;
           &.other-episodes, &.other-episodes:hover {
             background: #EEE;
@@ -300,10 +298,11 @@ body[class*='view-program_'] {
           }
 
           td {
-            padding: 5px;
+            padding: 5px 5px 5px 15px;
             vertical-align: middle;
             &.channel {
-              width: 120px;
+              width: 90px;
+              opacity: 0.9;
             }
             &.offers {
               text-align: center;
@@ -437,11 +436,9 @@ ul#episodes-list, ul#episodes-list-saison{
 
   li {
     display: block;
-    font-size: 15px;
-    margin-top: 7px;
+    font-size: 1.1em;
     overflow: hidden;
-    padding-left: 15px;
-    width: 98%;
+    padding: 5px 15px;
     &.bouton-saison {
       text-align: center;
       margin-top: 20px;
@@ -852,6 +849,118 @@ html .tab-pane {
       }
     }
   }
+  
+  #videos-column {
+    background: white;
+
+    table {
+      margin: 0;
+      tr {
+        td {
+          cursor: pointer;
+          &.episode {
+            font-size: 0.9em;
+            * {
+              font-family: 'Raleway';
+            }
+          }
+          &.price {
+            display:none;
+          }
+          img {
+            width: 120px;
+            height: 70px;
+          }
+          &.channel {
+            .glyphicon {
+              position: absolute;
+              top: 53px;
+              left: 100px;
+              background: black;
+              color: white;
+              opacity: 0.8;
+              padding: 3px;
+              width: 38px;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+    
+    .panel {
+      position: relative;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      margin: 0;
+
+      .panel-heading{
+        margin: 0;
+        min-height:auto;
+        line-height: 30px;
+        padding: 4px 8px;
+        color: #6D6D6D;
+        background-color: transparent;
+        background: #f5f5f5;
+        border-radius: 0;
+        border: none;
+        h3 {
+          font-size: 14px;
+          text-align: center;
+        }
+      }
+      
+      #carousel-youtube.carousel {
+        margin: 8px 0 0;
+        .carousel-inner {
+          padding-left: 0;
+        }
+        .carousel-indicators, .carousel-control {
+          display: none;
+        }
+        .grey {
+          padding: 8px;
+        }
+        .item a {
+          display: block;
+          margin: 0 0 8px 8px;
+          width: 95%;
+          height: auto;
+          img {
+            width: 120px;
+            height: 70px;
+          }
+          .title {
+            position: absolute;
+            top: 10px;
+            margin: 0;
+            left: 130px;
+            width: auto;
+            background: transparent;
+            color: black;
+            height: auto;
+            overflow: hidden;
+            padding: 0;
+            font-family: 'Raleway';
+            line-height: 1.1em;
+            font-size: 1.1em;
+          }
+          span {
+            position: absolute;
+            margin: 3px;
+            background: black;
+            color: white;
+            opacity: 0.8;
+            padding: 3px;
+            bottom: 0;
+            left: 70px;
+          }
+        }
+      }
+    }
+  }
+  
   .bande_offers {
     background: #f5f5f5;
     margin: 0;
@@ -1124,10 +1233,13 @@ html .tab-pane {
                 border-bottom: 0;
               }
               td {
-                padding: 5px;
+                padding: 5px 5px 5px 15px;
                 vertical-align: middle;
                 &.channel {
-                  width: 120px;
+                  width: 90px;
+                  img {
+                    width: 60px;
+                  }
                 }
                 &.offers {
                   text-align: center;
@@ -1166,7 +1278,6 @@ html .tab-pane {
                     text-transform: uppercase;
                     font-size: 1.2em;
                     color: @bluesecondarycolor;
-                    font-weight: bold;
                     a {
                       color: #dc2561;
                     }

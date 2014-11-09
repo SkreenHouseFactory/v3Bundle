@@ -73,7 +73,7 @@ body.view-channel, body.view-channel-selections {
       margin: 0 auto;
       padding: 0;
       &.cover-fournisseur {
-        background-color: #f5f5f5;
+        background-color: #e4e4e4;
         &.no-background {
           background: transparent;
         }
@@ -83,7 +83,13 @@ body.view-channel, body.view-channel-selections {
           .container {
             .fournisseurtop {
               min-height: inherit;
-              margin-bottom: 30px;
+              margin: 20px 0 30px;
+              .col-xs-8:first-child {
+                padding: 0;
+                .iframe-container {
+                  width: 100%;
+                }
+              }
               .prog-list {
                 min-height: inherit;
               }

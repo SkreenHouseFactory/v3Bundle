@@ -1,6 +1,29 @@
 $(document).ready(function(){
   
+  //scrollspy
+  /*
+  $('body').scrollspy({ target: '.teaser-container' })
+  $('.teaser-container').on('activate.bs.scrollspy', function () {
+    alert("spy");
+    $('.teaser-container').addClass('teaser-fixed');
+  })
+  */
+  
+  API.query(
+    'GET',
+    'category/' + $('#view-category').data('id') + '.json',
+    {
+      fields: 'programs,notifications',
+      facets: 'format:' + $('#view-category').data('format-facet'),
+      offset: 0,
+      nb_results: 100,
+      disable_search_by_format: 1
+    },
+    function(data){
+      console.log('scripts/category.js', 'notifications callback', data.notifications);
+  })
 
+  //player
   $('[data-play-program-id]').on('click', function(e){
     e.preventDefault();
     console.log('scripts/category.js', 'play program');

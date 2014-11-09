@@ -11,6 +11,38 @@ redirect_canal:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path: /canal/
         permanent: true
+redirect_home_vod_serie:
+    path: /video-a-la-demande/serie/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /serie/
+        permanent: true
+redirect_home_vod_film:
+    path: /video-a-la-demande/film/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /film/
+        permanent: true
+redirect_home_vod_documentaire:
+    path: /video-a-la-demande/documentaire/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /documentaire/
+        permanent: true
+redirect_home_vod_jeunesse:
+    path: /video-a-la-demande/jeunesse/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /jeunesse/
+        permanent: true
+redirect_home_vod_spectacle:
+    path: /video-a-la-demande/spectacle/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /spectacle/
+        permanent: true
+
+
 
 sitemap_general:
     pattern:  /sitemap.xml
@@ -128,6 +160,9 @@ user_start:
 user_recommend_channels:
     pattern:  /user/recommend-channels/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:recommendchannels }
+user_player:
+    pattern:  /user/player/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:User:player }
 user_settings:
     pattern:  /user/settings/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:User:settings }

@@ -27,6 +27,21 @@ class UserController extends Controller
     /**
     *
     */
+    public function playerAction(Request $request)
+    {
+      $session_uid = $request->cookies->get('myskreen_session_uid');
+      $api   = $this->get('api');
+      $session = $api->fetch('session/'.$session_uid, array(
+        'with_instant' => true
+      ));
+      return $this->render('SkreenHouseFactoryV3Bundle:User:player.html.twig', array(
+        'data' => (object)array('queue' => $session->queue_instants)
+      ));
+    }
+
+    /**
+    *
+    */
     public function recommendchannelsAction(Request $request)
     {
       $session_uid = $request->cookies->get('myskreen_session_uid');

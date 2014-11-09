@@ -31,6 +31,11 @@ $(document).ready(function(){
     Skhf.session.callbackSignin['cinema'] = function() {
       if (Skhf.session.datas.email) {
         $('a[href="#theater-playlist"]').trigger('click');
+      } else {
+        //si pas connecté, géoloc par defaut
+        if ($('#trigger-theaters-geoloc').length) {
+          $('#trigger-theaters-geoloc').trigger('click');
+        }
       }
     }
 

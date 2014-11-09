@@ -22,35 +22,52 @@
 {% endblock %}
 
 {% block content %}
+<style>
+.tab-content {
+  min-height: 500px;
+}
+.tab-content li  {
+  list-style: none;
+}
+</style>
 <div class="container">
   <h1>myskreen vous recommande</h1>
   <p class="bs-callout bs-callout-info">Ces recommandations sont faites à partir de <a href="{{ path('user_programs') }}">vos listes</a>. Pour avoir les meilleurs conseils complétez-les.</p>
 
-  <h2>SVOD</h2>
-  {#
-  <h3>svod dispo</h3>
-  {% for c in svod_channels|to_array %}
-  {{ c.name }},
-  {% endfor %}
-  #}
-  
-  <hr/>
-  <h3>svod reco</h3>
-  <div id="svod-chart"></div>
-  <ul>
-  {% for reco in recos_svod|to_array %}
-    {% include 'SkreenHouseFactoryV3Bundle:User:_recommendchannels_details.html.twig' with {reco: reco } %}
-  {% endfor %}
+
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#svod" role="tab" data-toggle="tab">SVOD</a></li>
+    <li role="presentation"><a href="#vod" role="tab" data-toggle="tab">VOD</a></li>
   </ul>
-  
-  <hr/>
-  <h2>VOD</h2>
-  <h3>vod reco</h3>
-  <ul>
-  {% for reco in recos_vod|to_array %}
-    {% include 'SkreenHouseFactoryV3Bundle:User:_recommendchannels_details.html.twig' with {reco: reco } %}
-  {% endfor %}
-  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="svod">
+      <h2>Abonnement Vidéo à la demande</h2>
+      <div class="row">
+        <div class="col-xs-8"><div id="svod-chart"></div></div>
+        <ul class="col-xs-8">
+        {% for reco in recos_svod|to_array %}
+          {% include 'SkreenHouseFactoryV3Bundle:User:_recommendchannels_details.html.twig' with {reco: reco } %}
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="vod">
+      <h2>Vidéo à la demande</h2>
+      <div class="row">
+        <div class="col-xs-8"><div id="vod-chart"></div></div>
+        <ul class="col-xs-8">
+        {% for reco in recos_vod|to_array %}
+          {% include 'SkreenHouseFactoryV3Bundle:User:_recommendchannels_details.html.twig' with {reco: reco } %}
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

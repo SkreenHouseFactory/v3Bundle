@@ -14,7 +14,7 @@
 {% block content %}
   <div id="bandeau-listes">
     <div class="container">
-      <h1 class="clearfix">Mes notifications<a class="pull-right" href="{{ path('user_programs') }}"><span class="sk-font">-></span> Consulter mes listes</a></h1>
+      <h1 class="clearfix">Mes notifications<a class="pull-right" href="{{ path('user_programs') }}"><span class="sk-font">-></span> Paramétrer ma chaîne</a></h1>
     </div>
   </div>
   <div class="container">
@@ -31,7 +31,7 @@
             <span class="glyphicon glyphicon-trash"></span>
           </span>
         </span>
-        <p class="empty {{ notifications|to_array|length == 0 ? '' : 'hide-first ' }}bs-callout bs-callout-info">Vous n'avez actuellement aucune notification correspondant à vos listes. N'hésitez pas à les compléter !</p>
+        <p class="empty {{ notifications|to_array|length == 0 ? '' : 'hide-first ' }}bs-callout bs-callout-info">Vous n'avez actuellement aucune notification correspondant à votre chaîne. N'hésitez pas à les compléter !</p>
         <table class="table table-striped">
           <tbody>
             {% for n in notifications %}

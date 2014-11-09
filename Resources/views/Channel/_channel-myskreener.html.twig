@@ -141,7 +141,7 @@
       {# if twitter #}
       {# <a class="twitter-timeline" href="https://twitter.com/bbergstorm" data-widget-id="342678547833446403">Tweets de @bbergstorm</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script> #}
-      <h2 id="anchor-programs">{{ nb_ids > 65 ? 'Une sélection de ses programmes' : 'Ses programmes' }}</h2>
+      <h2 id="anchor-programs">{{ nb_ids > 99 ? 'Une sélection de ses programmes' : 'Ses programmes' }}</h2>
       <div class="btn-group btn-group-sm user-programs-selector">
         <button type="button" class="btn btn-primary" data-show="all">Tous formats<span class="all-count"> ( - )</span></button>
         <button type="button" class="btn btn-default" data-show="films">Films<span class="films-count"> ( - )</span></button>
@@ -151,7 +151,7 @@
         <button type="button" class="btn btn-default" data-show="spectacles">Spectacles<span class="spectacles-count"> ( - )</span></button>
       </div>
       {% set program_ids = '' %}
-      {% for id in data.program_ids|to_array|slice(0,65) %}
+      {% for id in data.program_ids|to_array|slice(0,99) %}
         {% if loop.first %}
           {% set program_ids = id %}
         {% else %}

@@ -2,60 +2,6 @@
 
 {% block customcontent %}
 
-  {% if channel.categorie is defined and channel.categorie.type in  ['format'] %}
-    {% include 'SkreenHouseFactoryV3Bundle:Channel:_header-categorie.html.twig' with {channel: channel, fournisseur: fournisseur,slug: app.request.get('slug')} %}
-  {% else %}
-    {% include  'SkreenHouseFactoryV3Bundle:Channel:_header.html.twig' with {data: fournisseur, fav: 'page', trigger_fav: channel.personne is defined ? 'Suivre ' ~ fournisseur.name : '', skip_content: true} %}
-  {% endif %}
+  {% include 'SkreenHouseFactoryV3Bundle:Content:category.html.twig' with {data: data, category: category, sliders: sliders, channel: channel} %}
 
-  <div class="packcategorie">
-    <div id="view-categorie" data-id="{{ categorie.id }}" class="container{% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null %} container-seo-placement{% endif %}">
-      <div class="description-seo description-seo-absolute">
-        {% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null  %}
-          <div class="scroll well">
-            <h1>{{ categorie.name }}, tout le Replay</h1>
-            {{ channel.categorie.description is defined ? channel.categorie.description|raw : (categorie.description is defined ? categorie.description|raw : '') }}
-          </div>
-        {% endif %}
-      </div>
-      {% if channel.categorie is not defined or channel.categorie.type not in ['format'] %}
-        <div class="row ms-channelbiglogo" >
-          <div class="col-xs-16">
-            {% include 'SkreenHouseFactoryV3Bundle:Channel:_breadcrumb-categorie.html.twig' with {channel: categorie, skip_root: true} %}
-          </div>
-        </div>
-      {% endif %}
-      {# categorie #}
-      {% if sliders|to_array|length and
-            app.request.get('page') is null and 
-            app.request.get('format') is null and 
-            app.request.get('facet') is null %}
-        <h2>
-          {{ categorie.name }}, TV & Replay 
-          {% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}
-        </h2>
-      {% endif %}
-      {% include 'SkreenHouseFactoryV3Bundle:Channel:_pager.html.twig' with {data: categorie} %}
-      <div class="facets" style="height: 40px;">
-        {% if app.request.get('format') %}
-          {% for k,s in categorie.subcategories if k %}
-            <span data-link-to-replace="{{ path('channel_format_facet', {format: app.request.get('format'), slug: app.request.get('slug'), facet: k})|rot13 }}" class="label label-default {% if app.request.get('facet') == s %} label-info"{% endif %}">{{ s }}</span> 
-          {% endfor %}
-        {% else %}
-          {% for k,f in categorie.formats if k|length %}
-            <span data-link-to-replace="{{ path('channel_format', {format: k, slug: app.request.get('slug')})|rot13 }}" class="label{% if app.request.get('facet') == f %} label-info"{% endif %} label-default">{{ f }}</span> 
-          {% endfor %}
-        {% endif %}
-      </div>
-      <hr/>
-      <div id="channel-programs" class="slider slider-list">
-        <ul class="items">
-          {% for program in categorie.programs|to_array %}
-            {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program } %}
-          {% endfor %}
-        </ul>
-      </div>
-      {% include 'SkreenHouseFactoryV3Bundle:Channel:_pager.html.twig' with {data: categorie} %}
-    </div>
-  </div>
 {% endblock %}

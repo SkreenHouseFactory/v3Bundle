@@ -31,7 +31,7 @@
             </li>
           {% endfor %}
           <li class="pull-right">
-            <a class="btn btn-success btn-xs mychannel-link" href="{{ path('user_mychannel') }}">Créez votre chaîne !</a>
+            <a class="btn btn-success btn-xs mychannel-link" href="{{ path('user_mychannel') }}">Personnalisez votre chaîne !</a>
           </li>
         </ul>
         <table class="table table-striped">
@@ -58,7 +58,7 @@
         {% else %}
           Ajoutez les personnalités que vous appréciez avec facilité !
         {% endif %}
-        <a class="btn btn-primary pull-right" href="{{ path('user_start') }}#persons"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;{{ persons|length == 0 ? 'Commencer ' : 'Continuer ' }}mes listes</a>
+        <a class="btn btn-primary pull-right" href="{{ path('user_start') }}#persons"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;{{ persons|length == 0 ? 'Commencer ' : 'Continuer ' }}ma chaîne</a>
       </p>
     </div>
   </div>

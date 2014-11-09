@@ -3,7 +3,6 @@
     <div class="container">
       <div class="nopadding">
         {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
-        <hr/>
       </div>
 
       {% include 'SkreenHouseFactoryV3Bundle:Main:_list_tnt_channels.html.twig' with {id: 'carousel-chaine'} %}
@@ -38,8 +37,8 @@
             </div>
         </div>
 
-        <a name="{{ sliders|first.name }}"></a>
-        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: sliders|first, loop_index: 0} %}
+        <a name="{{ sliders|slice(0, 1)|first.name }}"></a>
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: sliders|slice(0, 1)|first, loop_index: 0} %}
 
       </div>
       <div class="row">
@@ -63,8 +62,8 @@
           </div>
         </div>
 
-        <a name="{{ sliders|first.name }}"></a>
-        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: sliders|first, loop_index: 0} %}
+        <a name="{{ sliders|slice(1, 1)|first.name }}"></a>
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: sliders|slice(1, 1)|first, loop_index: 0} %}
 
       </div>
     </div>

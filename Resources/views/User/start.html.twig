@@ -1,10 +1,11 @@
-{% extends "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
+{% extends app.request.isXmlHttpRequest or app.request.get('xhr') ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% block title %}
-  Commencer Mes Listes
+  Commencer ma chaîne
 {% endblock %}
 
 {% block content %}
+
   <div id="bandeau-listes" class="fond-bleu">
     <div class="container">
       <ul class="nav timeline sk-font">
@@ -21,15 +22,32 @@
     <div class="container">
       <div class="forms-container">
         <div class="panel-start">
-            <h1>Créer Mes listes</h1>
+          {% if app.request.get('goal') == 'vod' %}
+            <div class="container">
+              <div class="bs-callout bs-callout-warning">
+                <h3>Plutôt Netflix ou plutôt Canalplay ?</h3>
+                <p>Découvrez quel service propose les films et les séries qui vous intéressent le plus.
+                  <br/>
+                  Pour cela renseignez en quelques clics les programmes, les personnalités et les catégories qui vous intéressent le plus.
+                </p>
+              </div>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <a class="btn btn-default btn-warning btn-lg" data-trigger-click="a[id='menu-films']">Commencer <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+          {% else %}
+        
+            <h1>Créer votre chaîne</h1>
             <p id="intro-step-one" class="sk-font">vous permet de suivre les programmes, acteurs, réalisateurs, salles de cinémas et catégories que vous aimez !</p>
             <div id="intro-ligne-one" class="intro-ligne"><span></span></div>
-            <p id="intro-step-two" class="sk-font">Un programme correspondant à vos listes est diffusé ? <br/>myskreen vous le signale !</p>
+            <p id="intro-step-two" class="sk-font">Un programme correspondant à votre chaîne est diffusé ? <br/>myskreen vous le signale !</p>
             <div id="intro-ligne-two" class="intro-ligne"><span></span></div>
             <p id="intro-step-three" class="sk-font">myskreen est le seul guide qui réunit la Télé, le Replay, la VOD, les Web TV et le Cinéma !</p>
             <div id="intro-ligne-three" class="intro-ligne"></div>
             <div id="intro-ligne-four" class="intro-ligne"><span></span></div>
-            <a class="btn btn-default btn-primary btn-lg start-list" data-trigger-click="a[id='menu-films']">Commencer Mes listes <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+          {% endif %}
+          
         </div>
         <div class="panel-start">
           <div class="relative">
@@ -79,7 +97,7 @@
         <div class="panel-start">
           <div class="relative">
             <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-theaters']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
-            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-amis']">Partagez vos listes avec vos amis... <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-amis']">Partagez votre chaîne avec vos amis... <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             <div class="form-container">
               {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'categories', title: 'Choisissez les catégories de programmes qui vous ressemblent...', placeholder: 'séries US, comédies dramatiques, téléréalités...', suggests: selection_pack.categories, favlike: 'fav-category'} %}
             </div>
@@ -88,11 +106,11 @@
         <div class="panel-start">
           <div class="relative">
             <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-categories']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
-            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-confirm']">Terminé ! Vous n'avez plus qu'à enregistrez vos listes <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-confirm']">Terminé ! Vous n'avez plus qu'à enregistrez votre chaîne <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             <div class="form-container share-container">
               <h2>Connexion et partage Facebook</h2>
               <div class="share share-placeholder share-start">
-                <a class="text share-off" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook" data-modal-message="... et suivez ce que regardent vos amis !">Connectez vous avec Facebook et partagez avec vos amis vos listes de programmes préférés
+                <a class="text share-off" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook" data-modal-message="... et suivez ce que regardent vos amis !">Connectez vous avec Facebook et partagez votre chaîne avec vos amis
                   <div>
                     <img src="{{ asset('bundles/skreenhousefactoryv3/images/fb-connect.png') }}"/>
                   </div>
@@ -114,11 +132,11 @@
         <div class="panel-start">
           <div class="relative">
             <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-amis']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
-            <a id="register" class="btn btn-default btn-primary btn-lg">Enregistrer mes listes&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></a>
+            <a id="register" class="btn btn-default btn-primary btn-lg">Enregistrer ma chaîne&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></a>
             <div class="form-container confirmed scroll">
-              <h2 id="confirm">Mes listes - Récapitulatif</h2>
+              <h2 id="confirm">Récapitulatif de votre chaîne</h2>
               <div class="no-results bs-callout bs-callout-info">
-                <p class="h4">Vous n'avez pas encore fait vos listes</p>
+                <p class="h4">Vous n'avez pas encore fait votre chaîne</p>
                 <p><a class="btn btn-primary" data-trigger-click="a[id='menu-films']">Commencer maintenant</a></p>
               </div>
               <div class="results hide">

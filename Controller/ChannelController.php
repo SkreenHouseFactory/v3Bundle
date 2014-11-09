@@ -78,8 +78,7 @@ class ChannelCustomController extends MyskreenController
     $api   = $this->get('api');
     $params = array(
       'ids' => '3051395,95090,237196,261402,413119,110631,4817914,185960,369379',
-      'with_player' => true,
-      'with_teaser' => true,
+      'fields' => 'player,teaser',
       'allow_with'=> true
     );
     $programs = $api->fetch('program', $params);
@@ -236,7 +235,7 @@ class ChannelCustomController extends MyskreenController
       'nb_results' => 25,
       'channel_img_width' => 36,
       'force_best_offer' => true,
-      'with_best_offer' => true
+      'fields' => 'best_offer'
     ));
     //echo "\n l.".__LINE__.":".(microtime(true)-$start);
     //echo $api->url;
@@ -247,7 +246,7 @@ class ChannelCustomController extends MyskreenController
       'nb_results' => 25,
       'channel_img_width' => 36,
       'force_best_offer' => true,
-      'with_best_offer' => true
+      'fields' => 'best_offer'
     ));
     //echo $api->url;
     //echo "\n l.".__LINE__.":".(microtime(true)-$start);
@@ -457,8 +456,7 @@ class ChannelController extends ChannelCustomController
       'disable_search_by_format' => true,
       'sorter' => 'year',
       'preview' => $request->get('preview'),
-      'with_photo' => 1,
-      'fields' => 'description,programs,img_maxsize,notifications,replay_epg_tnt_only,live'
+      'fields' => 'description,programs,img_maxsize,replay_epg_tnt_only,live,photo' //,notifications
     );
     $data = $api->fetch('channel'.($request->get('id')?'/'.$request->get('id'):null), $params);
     echo $request->get('debug') ? $api->url : null;
@@ -527,6 +525,40 @@ class ChannelController extends ChannelCustomController
         'channel'     => $data->channel
       ));
 
+    } elseif ($data->channel->type == 'ChannelCategorie' || 
+          property_exists($data->channel, 'category')) {
+
+        if (isset($data->channel->category->facets)) {
+          $data->channel->category->channels = array_combine(explode(';', $data->channel->category->facets_seo_url->channel),explode(';', $data->channel->category->facets->channel));
+          $data->channel->category->access = array_combine(explode(';', $data->channel->category->facets_seo_url->access),explode(';', $data->channel->category->facets->access));
+          $data->channel->category->formats = array_combine(explode(';', $data->channel->category->facets_seo_url->format),explode(';', $data->channel->category->facets->format));
+          $data->channel->category->subcategories = array_combine(explode(';', $data->channel->category->facets_seo_url->subcategory),explode(';', $data->channel->category->facets->subcategory));
+          $data->channel->category->alpha_available = explode(';', $data->channel->category->facets->alpha);
+          $data->channel->category->alpha = array(
+            1,2,3,4,5,6,7,8,9,
+            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
+          );
+          //unset($data->channel->category->facets);
+          //unset($data->channel->category->facets_seo_url);
+        }
+        $request->attributes->set('format', $data->channel->category->is_format ? $data->channel->category->slug : null);
+        //$request->attributes->set('xhr', true);
+        $response = $this->render('SkreenHouseFactoryV3Bundle:Content:category.html.twig', array_merge(array(
+          'facet_access' => array(
+            'video-a-la-demande'=> 'Vidéo à la demande', 
+            'replay'=> 'Replay', 
+            'tv'=> 'TV', 
+            'cinema'=> 'Cinéma', 
+            'dvd'=> 'Dvd, Blu-Ray', 
+            'myskreen'=> 'Uniquement les vidéos et films visibles sur myskreen'
+          ),
+          'data'        => $data,
+          'category'    => $data->channel->category,
+          'sliders'     => isset($data->sliders) ? (array)$data->sliders : array(),
+          'channel'     => $data->channel
+        ), (array)$data->channel->category));
+
+
     } elseif ($data->channel->type == 'ChannelOnglet'){
 
       if (isset($data->channel->template) && $data->channel->template != null){
@@ -542,6 +574,7 @@ class ChannelController extends ChannelCustomController
         ));
       }
 
+
     } elseif ($data->channel->type == 'ChannelPersonne'){
         $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_personne.html.twig', array(
           'data'=>$data,
@@ -556,7 +589,7 @@ class ChannelController extends ChannelCustomController
           $notifications = (array)$data->notifications;
           $notifications = array_slice($notifications, 0, 30);
         }
-        $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel_user.html.twig', array(
+        $response = $this->render('SkreenHouseFactoryV3Bundle:Channel:_channel-myskreener.html.twig', array(
           'data'          => $data,
           'notifications' => $notifications,
           'channel'       => $data->channel

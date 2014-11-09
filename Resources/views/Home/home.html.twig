@@ -31,7 +31,7 @@
 {% endblock %}
 {% block title %}{{ page_title|trans }}{% endblock %}
 {% block description %}{{ page_description|trans }}{% endblock %}
-{% block body_class %}view-homes home-{{ home.name }} cover{% endblock %}
+{% block body_class %}view-homes home-{{ home.name }}{% if home.name == 'mixte' %} view-user_start{% endif %} cover{% endblock %}
 
 
 {% block pagestyles %}
@@ -103,6 +103,15 @@
 {# {% include 'SkreenHouseFactoryV3Bundle:Main:_passlabel.html.twig' %} #}
 
 {% if home.name == 'mixte' %}
-  {{ render(controller('SkreenHouseFactoryV3Bundle:User:start')) }}
+
+  <div class="container">
+    <div class="bs-callout bs-callout-warning">
+      <h3>Plutôt Netflix ou plutôt Canalplay ?</h3>
+      <p>Découvrez quel service propose les films et les séries qui vous intéressent le plus.
+        <br/>
+        <a class="btn btn-large btn-warning" href="{{ path('user_start', {goal: 'vod'}) }}#films">Commencer</a></p>
+    </div>
+  </div>
+  {{ render(controller('SkreenHouseFactoryV3Bundle:User:start', {'xhr': 1})) }}
 {% endif %}
 {% endblock %}

@@ -42,22 +42,22 @@ var Dialog = Class.extend({
 
   noItemInPlaylist: function(){
     this.title = 'Pas de playlist, pas de notifications&nbsp;?';
-    this.content = '<br/><a class="btn btn-primary" href="' + API.config.v3_root + '/start/">Créer mes listes</a><br/>';
+    this.content = '<br/><a class="btn btn-primary" href="' + API.config.v3_root + '/start/">Créer ma chaîne</a><br/>';
   },
 
   fewItemsInPlaylist: function(){
-    this.title = 'Vous avez %nbfavori% dans vos listes.';
-    this.content = '<br/><a class="btn btn-primary" href="' + API.config.v3_root + '/start/">Continuer mes listes</a><br/>';
+    this.title = 'Vous avez %nbfavori% dans votre chaîne.';
+    this.content = '<br/><a class="btn btn-primary" href="' + API.config.v3_root + '/start/">Continuer ma chaîne</a><br/>';
   },
 
   firstItemInPlaylist: function(){
     this.title = '%title%';
-    this.content = '<br/>Bravo, %content%c\'est le 1<sup>er</sup> favori dans vos listes&nbsp;!<br/>';
+    this.content = '<br/>Bravo, %content%c\'est le 1<sup>er</sup> favori dans votre chaîne&nbsp;!<br/>';
   },
 
   firstItemsInPlaylist: function(){
     this.title = '%title%';
-    this.content = '<br/>Bravo, %content%vous avez %nbfavori% dans vos listes&nbsp;!<br/>';
+    this.content = '<br/>Bravo, %content%vous avez %nbfavori% dans votre chaîne&nbsp;!<br/>';
   },  
 
   paymentPopinEnd: function(){
@@ -66,18 +66,18 @@ var Dialog = Class.extend({
   },
 
   relatedDirectorToFollow: function(){
-    this.title = 'Voulez-vous également ajouter à vos listes&nbsp;?';
+    this.title = 'Voulez-vous également ajouter à votre chaîne&nbsp;?';
     this.content = '<ul><li> - <a data-name="%dataname%" data-placement="left" data-id="%id%" class="fav fav-person underline">le réalisateur "%name%"</a></li>%more%</ul>';
   },
 
   relatedToFollow: function(){
-    this.title = 'Voulez-vous également ajouter à vos listes&nbsp;?';
+    this.title = 'Voulez-vous également ajouter à votre chaîne&nbsp;?';
     this.content = '<ul>%more%</ul>';
   },
 
   notConnectedOnProgram: function(){
     this.title = 'Vous souhaitez être averti des diffusions de ce programme&nbsp;?';
-    this.content = '<br/><a class="btn btn-primary" data-trigger-click=".bande_listes a.fav-like">Ajouter <i>%name%</i> à vos listes&nbsp;!</a>';
+    this.content = '<br/><a class="btn btn-primary" data-trigger-click=".bande_listes a.fav-like">Ajouter <i>%name%</i> à votre chaîne&nbsp;!</a>';
   },
   onDenyFacebookShare: function(){
     this.title = 'Partage Facebook';

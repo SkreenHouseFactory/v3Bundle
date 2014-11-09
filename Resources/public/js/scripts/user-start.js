@@ -1,7 +1,3 @@
-console.log('scripts/user-start.js', 'Avant Reset');
-API.cookie('start-mes-listes', null); //reset général
-console.log('scripts/user-start.js', 'Après Reset');
-
 function menuClassActive(elmt){
   $('.timeline li').removeClass('active');
   $(elmt).parents('li').addClass('active');
@@ -26,6 +22,10 @@ dispos = {
 }
 
 $(document).ready(function(){
+
+  console.log('scripts/user-start.js', 'Avant Reset');
+  API.cookie('start-mes-listes', null); //reset général
+  console.log('scripts/user-start.js', 'Après Reset');
 
   $('form[data-step]').each(function(){
     API.cookie('start-mes-listes-'+$(this).data('step'), null); //reset
@@ -365,6 +365,8 @@ $(document).ready(function(){
       document.location = API.config.v3_root + '/user/programs';
     } else { // User Not connected
       UI.auth(function(){
+        
+        //add to lists
         lists_in_session = JSON.parse(API.cookie('start-mes-listes'));
         console.log('scripts/user-start.js', '#register-click', lists_in_session);
         if (Skhf.session.datas.email && lists_in_session) {
@@ -446,11 +448,10 @@ $(document).ready(function(){
       'search/autosuggest/' + q + '.json', 
       {
         only: step,
-        img_width: 50,
-        img_height: 50,
+        img_width: 150,
+        img_height: 200,
         advanced: 1,
-        with_unvailable: 1,
-        with_nb_followers: 1,
+        fields: 'unvailable,nb_followers,photo',
         title_only: 1
       }, 
       function(results){
@@ -463,14 +464,23 @@ $(document).ready(function(){
         container.empty();
         console.log('scripts/user-start.js', 'callback form', container);
         for (k in results) {
-          //console.log(results[k]);
+          console.log('scripts/user-start.js', 'result', results[k]);
           if (container.selector.indexOf('films') != -1 || container.selector.indexOf('series') != -1) {
             var type = 'films&series';
           } else if (container.selector.indexOf('theaters') != -1) {
             var type = 'theaters'
           }
           title = typeof results[k].title != 'undefined' ? results[k].title : results[k].name;
-          container.append('<li class="row suggest"><a data-name="'+title+'" data-id="'+results[k].id+'" rel="popover" data-placement="top" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' col-xs-1" data-step="'+step+'"></a>'+(typeof results[k].picture != 'undefined' ? '<div class="col-xs-1"><img src="'+results[k].picture+'" alt="Illustration de '+title+'" height="40" width="auto"></div>' : '' )+'<a data-trigger-click="a[data-id=\''+results[k].id+'\']"><span class="'+(typeof results[k].picture != 'undefined' ? 'col-xs-10' : 'col-xs-11' )+'">' + title + ((type == 'films&series' && typeof results[k].year != 'undefined') ? '<small> - ' + results[k].year + '</small>' : '') + ((type == 'theaters' && typeof results[k].ville != 'undefined') ? '<small> - '+results[k].ville+'</small>' : '') + '</span>' + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<span class="col-xs-4">suivi par  '+results[k].nb_followers+' personnes</span>' : '') + '</a></li>')
+          
+          if (typeof results[k].picture != 'undefined') {
+            container.parent().addClass('slider slider-list');
+            container.addClass('items');
+            container.append('<li class="image-default root-'+results[k].id+'" data-id="'+results[k].id+'" data-play-program-id="'+results[k].id+'" style="background:url('+results[k].picture+') no-repeat center"><div class="tv-component"><a data-trigger-click=".root-'+results[k].id+' .btn-suivre" class="wrap-title size-default"><span class="title"><i class="icon-th icon-white"></i><span class="ms-prog-title">'+results[k].name+'</span><span class="ms-prog-desc"><span data-name="'+results[k].name+'" data-id="'+results[k].id+'" rel="popover" data-placement="top" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + '" data-step="'+step+'"> Ajouter</span></span></span></a></div></li>')
+          } else {
+            container.parent().removeClass('slider slider-list');
+            container.removeClass('items');
+            container.append('<li class="row suggest"><a data-name="'+title+'" data-id="'+results[k].id+'" rel="popover" data-placement="top" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' col-xs-2" data-step="'+step+'"> Ajouter</a>'+(typeof results[k].picture != 'undefined' ? '<div class="col-xs-1"><img src="'+results[k].picture+'" alt="Illustration de '+title+'" height="40" width="auto"></div>' : '' )+'<a data-trigger-click="a[data-id=\''+results[k].id+'\']"><span class="'+(typeof results[k].picture != 'undefined' ? 'col-xs-9' : 'col-xs-10' )+'">' + title + ((type == 'films&series' && typeof results[k].year != 'undefined') ? '<small> - ' + results[k].year + '</small>' : '') + ((type == 'theaters' && typeof results[k].ville != 'undefined') ? '<small> - '+results[k].ville+'</small>' : '') + '</span>' + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<span class="col-xs-4">suivi par  '+results[k].nb_followers+' personnes</span>' : '') + '</a></li>')
+        }
         }
     });
 

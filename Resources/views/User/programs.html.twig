@@ -26,7 +26,7 @@
           </li>
         {% endfor %}
         <li class="pull-right">
-          <a class="btn btn-success btn-xs mychannel-link" href="{{ path('user_mychannel') }}">Créez votre chaîne !</a>
+          <a class="btn btn-success btn-xs mychannel-link" href="{{ path('user_mychannel') }}">Publiez votre chaîne !</a>
         </li>
       </ul>
 
@@ -84,7 +84,7 @@
             Ajoutez les spectacles que vous aimez avec facilité !
           {% endif %}
         {% endif %}
-        <a class="btn btn-primary pull-right" href="{{ path('user_start') }}{% if app.request.get('onglet') in [null,'films','documentaires','spectacles'] %}#films{% elseif app.request.get('onglet') == 'series' %}#series{% elseif app.request.get('onglet') == 'emissions' %}#emissions{% endif %}"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;{{ programs|length == 0 ? 'Commencer ' : 'Continuer ' }}mes listes</a>
+        <a class="btn btn-primary pull-right" href="{{ path('user_start') }}{% if app.request.get('onglet') in [null,'films','documentaires','spectacles'] %}#films{% elseif app.request.get('onglet') == 'series' %}#series{% elseif app.request.get('onglet') == 'emissions' %}#emissions{% endif %}"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;{{ programs|length == 0 ? 'Commencer ' : 'Continuer ' }}ma chaîne</a>
       </p>
 
   </div>

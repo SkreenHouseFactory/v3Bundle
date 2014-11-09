@@ -36,6 +36,9 @@
   {% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}
   {{ category.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 
+{% block body_class %}view-category {{ sliders is defined ? ' with-sliders' : '' }}{% endblock %}
+
+
 {% block content %}
 
     {#<h1 class="clearfix">
@@ -77,10 +80,10 @@
     {% if app.request.get('format') and app.request.get('access') is null and app.request.get('facet') is null %}
         {% for k,a in access if a|replace({'vod': 'video-a-la-demande'}) in facet_access|keys %}
           {% if a == 'myskreen' %}
-            {% if app.request.get('category_slug') and app.request.get('format') %}
+            {% if category.slug and app.request.get('format') %}
               <div class="pull-right">
                 <div class="myskreen-visible">Visible sur myskreen</div>
-                <div class="onoffswitch" data-ajax="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a })|replace({'//':'/'}) }} #view-category-ajax" rel="#view-category">
+                <div class="onoffswitch" data-ajax="{{ path('category_access', {format: app.request.get('format'), category_slug: category.slug, access: a })|replace({'//':'/'}) }} #view-category-ajax" rel="#view-category">
                   <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
                   <label class="onoffswitch-label" for="myonoffswitch">
                     <div class="onoffswitch-inner"></div>
@@ -94,10 +97,10 @@
       {% elseif app.request.get('format') and app.request.get('facet') and app.request.get('access') is null %}
         {% for k,a in access if a|replace({'vod': 'video-a-la-demande'}) in facet_access|keys %}
           {% if a == 'myskreen' %}
-            {% if app.request.get('category_slug') and app.request.get('format') %}
+            {% if category.slug and app.request.get('format') %}
               <div class="pull-right">
                 <div class="myskreen-visible">Visible sur myskreen</div>
-                <div class="onoffswitch" data-ajax="{{ path('category_facet_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), access: a })|replace({'//':'/'}) }} #view-category-ajax" rel="#view-category">
+                <div class="onoffswitch" data-ajax="{{ path('category_facet_access', {format: app.request.get('format'), category_slug: category.slug, facet: app.request.get('facet'), access: a })|replace({'//':'/'}) }} #view-category-ajax" rel="#view-category">
                   <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
                   <label class="onoffswitch-label" for="myonoffswitch">
                     <div class="onoffswitch-inner"></div>
@@ -111,7 +114,7 @@
       {% elseif app.request.get('access') and app.request.get('access') == 'myskreen' %}
         <div class="pull-right">
           <div class="myskreen-visible">Visible sur myskreen</div>
-          <div class="onoffswitch" data-ajax="{% if app.request.get('facet') %}{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet')})|replace({'//':'/'}) }}{% elseif app.request.get('format') %}{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//':'/'}) }}{% else %}{{ path('format', {category_slug: app.request.get('category_slug')})|replace({'//':'/'}) }}{% endif %} #view-category-ajax" rel="#view-category">
+          <div class="onoffswitch" data-ajax="{% if app.request.get('facet') %}{{ path('category_facet', {format: app.request.get('format'), category_slug: category.slug, facet: app.request.get('facet')})|replace({'//':'/'}) }}{% elseif app.request.get('format') %}{{ path('category', {format: app.request.get('format'), category_slug: category.slug})|replace({'//':'/'}) }}{% else %}{{ path('format', {category_slug: category.slug})|replace({'//':'/'}) }}{% endif %} #view-category-ajax" rel="#view-category">
             <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked="checked">
             <label class="onoffswitch-label" for="myonoffswitch">
               <div class="onoffswitch-inner"></div>
@@ -126,27 +129,27 @@
   categories: {{ categories|join(',') }}<br/>
   facet: {{ app.request.get('facet') }}<br/>
   access: {{ app.request.get('access') }}<br/>
-  category_slug: {{ app.request.get('category_slug') }}<br/> #}
+  category_slug: {{ category.slug }}<br/> #}
 
     <div class="facets">
     {% if 'format' in app.request.attributes.get('_route') and categories|length > 1 %}
       <br/>
       <p class="sk-font">Tous les genres</p>
       {% for k,s in categories %}
-        <a href="{{ path('category', {format: app.request.get('category_slug'), category_slug: k})|replace({'//':'/'}) }}" class="label {% if app.request.get('category_slug') == k %}label-info{% else %}label-default{% endif %}">{{ s }}</a>
+        <a href="{{ path('category', {format: category.slug, category_slug: k})|replace({'//':'/'}) }}" class="label {% if category.slug == k %}label-info{% else %}label-default{% endif %}">{{ s }}</a>
       {% endfor %}
     {% elseif app.request.get('facet') or app.request.get('access') %}
       {% for k,s in facet_access if k|replace({'video-a-la-demande': 'vod', 'replay': 'catchup'}) in access and k != 'myskreen' %}
         {% if k not in facet_access|keys or app.request.get('facet') %}
-          <span data-link-to-replace="{{ path('category_facet_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: app.request.get('facet'), access: k})|replace({'//':'/'})|rot13 }}" class="label {% if app.request.get('access') == k %}label-warning{% else %}label-default{% endif %}">
+          <span data-link-to-replace="{{ path('category_facet_access', {format: app.request.get('format'), category_slug: category.slug, facet: app.request.get('facet'), access: k})|replace({'//':'/'})|rot13 }}" class="label {% if app.request.get('access') == k %}label-warning{% else %}label-default{% endif %}">
         {% else %}
-          <span data-link-to-replace="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: k})|replace({'//':'/'})|rot13 }}" class="label {% if app.request.get('access') == k %}label-warning{% else %}label-default{% endif %}">
+          <span data-link-to-replace="{{ path('category_access', {format: app.request.get('format'), category_slug: category.slug, access: k})|replace({'//':'/'})|rot13 }}" class="label {% if app.request.get('access') == k %}label-warning{% else %}label-default{% endif %}">
         {% endif %}
         {{ s }}</span>
       {% endfor %}
     {% else %}
       {% for k,s in subcategories if k %}
-        <span data-link-to-replace="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: k})|replace({'//':'/'})|rot13 }}" class="label {% if app.request.get('facet') == k %}label-info{% else %}label-default{% endif %}">
+        <span data-link-to-replace="{{ path('category_facet', {format: app.request.get('format'), category_slug: category.slug, facet: k})|replace({'//':'/'})|rot13 }}" class="label {% if app.request.get('facet') == k %}label-info{% else %}label-default{% endif %}">
         {{ s }}</span>
       {% endfor %}
     {% endif %}
@@ -159,24 +162,24 @@
       {# alpha #}
       <p class="sk-font">Ordre alphabétique</p>
       <ul class="pagination nomargin">
-        <li{% if app.request.get('facet') is null %} class="active"{% endif %}><span data-link-to-replace="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'})|rot13 }}">{{ 'nav.all'|trans }}</span></li>
+        <li{% if app.request.get('facet') is null %} class="active"{% endif %}><span data-link-to-replace="{{ path('category', {format: app.request.get('format'), category_slug: category.slug})|replace({'//': '/'})|rot13 }}">{{ 'nav.all'|trans }}</span></li>
         {# 
-          <li{% if app.request.get('access') == 'vod' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">En VOD</a></li>
-        <li{% if app.request.get('access') == 'cinema' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">Au cinéma</a></li>
-        <li{% if app.request.get('access') == 'tv' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: app.request.get('category_slug')})|replace({'//': '/'}) }}">TV & Replay</a></li>
+          <li{% if app.request.get('access') == 'vod' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: category.slug})|replace({'//': '/'}) }}">En VOD</a></li>
+        <li{% if app.request.get('access') == 'cinema' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: category.slug})|replace({'//': '/'}) }}">Au cinéma</a></li>
+        <li{% if app.request.get('access') == 'tv' %} class="active"{% endif %}><a href="{{ path('category', {format: app.request.get('format'), category_slug: category.slug})|replace({'//': '/'}) }}">TV & Replay</a></li>
         #}
         {% for l in alpha %}
-          <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><span data-link-to-replace="{{ path('category_facet', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), facet: l})|replace({'//': '/'})|rot13 }}">{{ l }}</span></li>
+          <li{% if app.request.get('facet') == l %} class="active"{% elseif l not in alpha_available %} class="disabled"{% endif %}><span data-link-to-replace="{{ path('category_facet', {format: app.request.get('format'), category_slug: category.slug, facet: l})|replace({'//': '/'})|rot13 }}">{{ l }}</span></li>
         {% endfor %}
       </ul>
     {% endif %}
     
     <p class="sk-font">Sur quelle chaîne ?</p>
     {% for k,c in channels if k %}
-      {% if app.request.get('category_slug') and app.request.get('format') %}
-        <span class="label label-default" data-link-to-replace="{{ path('channel_format_facet', {slug: k|replace({'-+': ''}), format: app.request.get('format'), facet: app.request.get('category_slug') })|rot13 }}">
-      {% elseif app.request.get('category_slug') %}
-        <span class="label label-default" data-link-to-replace="{{ path('channel_format', {slug: k|replace({'-+': ''}), format: app.request.get('category_slug')})|rot13 }}">
+      {% if category.slug and app.request.get('format') %}
+        <span class="label label-default" data-link-to-replace="{{ path('channel_format_facet', {slug: k|replace({'-+': ''}), format: app.request.get('format'), facet: category.slug })|rot13 }}">
+      {% elseif category.slug %}
+        <span class="label label-default" data-link-to-replace="{{ path('channel_format', {slug: k|replace({'-+': ''}), format: category.slug})|rot13 }}">
       {% endif %}
       {{ c }}</span>
     {% endfor %}
@@ -185,8 +188,8 @@
       <p class="sk-font">Quel support ?</p>
       {% for k,a in access if a|replace({'vod': 'video-a-la-demande'}) in facet_access|keys %}
         {% if a != 'myskreen' %}
-          {% if app.request.get('category_slug') and app.request.get('format') %}
-            <span class="label label-default" data-link-to-replace="{{ path('category_access', {format: app.request.get('format'), category_slug: app.request.get('category_slug'), access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'})|rot13 }}">
+          {% if category.slug and app.request.get('format') %}
+            <span class="label label-default" data-link-to-replace="{{ path('category_access', {format: app.request.get('format'), category_slug: category.slug, access: a|replace({'vod': 'video-a-la-demande'}) })|replace({'//':'/'})|rot13 }}">
           {% endif %}
           {{ facet_access[a|replace({'vod': 'video-a-la-demande'})] }}</span>
         {% endif %}
@@ -210,7 +213,7 @@
   #}
 
 
-<div id="view-category" data-id="{{ category.id }}" class="container view-category-{{ app.request.get('format') }}">
+<div id="view-category" data-id="{{ category.id }}" data-format-facet="{{ app.request.get('format', category.slug) }}" class="container view-category-{{ app.request.get('format') }}">
   <div id="view-category-ajax">
     <div class="description-seo description-seo-absolute">
       <div class="container scroll well">
@@ -221,30 +224,31 @@
 
     <h3 class="pager-count">{{ category.count }} programmes{% if app.request.get('page') %} <small> - page {{ app.request.get('page') }}</small>{% endif %}</h3>
 
+    {# pager #}
     {% include 'SkreenHouseFactoryV3Bundle:Content:_category-pager.html.twig' with {facet_access: facet_access} %}
 
+    {# sliders #}
+    {% if sliders is defined %}
+      {% for slider in sliders|to_array if slider.id is defined %}
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with { slider: slider, loop_index: loop.index} %}
+      {% endfor %}
+    {% endif %}
+
+    {# player #}
+    <div class="teaser-container">
+      <div class="teaser-category"><iframe src="" scrolling="no" frameborder="0"></iframe></div>
+      <div class="teaser-title player-encart sk-font"></div>
+    </div>
+
+    {# programs #}
     <div id="category-programs" class="slider slider-list">
       <ul class="items">
-        {% set ids = '' %}
-        {% set first_id = '' %}
-        {% for program in category.programs %}
-          {% if loop.first %}
-            {% set first_id = program.id %}
-            {% set ids = program.id %}
-          {% else %}
-            {% set ids = ids ~ ',' ~ program.id %}
-          {% endif %}
+        {% for program in category.programs|to_array %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}
         {% endfor %}
-        <li class="teaser-container">
-          <div class="teaser-category" data-teaser-ids="{{ ids }}">
-            <iframe src="http://api.myskreen.com/skPlayerPlugin/iframe.php?is_iframe=1&program_id={{ first_id }}&fromCategory=1&playlist={{ ids }}" scrolling="no" frameborder="0"></iframe>
-          </div>
-          <div class="teaser-title player-encart sk-font">Retrouvez ci-dessus les bandes-annonces de la catégorie {{ category.name }}{% if app.request.get('access') %} en {{ ('access.' ~ app.request.get('access'))|trans }}{% endif %}.</div>
-        </li>
-        {% for program in category.programs %}{% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program} %}{% endfor %}
       </ul>
       <ul class="pager_to_replace"></ul>
-      {% if app.request.get('category_slug') is not null and app.request.get('format') is not null and app.request.get('access') is null and app.request.get('facet') is null %}
+      {% if category.slug is not null and app.request.get('format') is not null and app.request.get('access') is null and app.request.get('facet') is null %}
         {% include 'SkreenHouseFactoryV3Bundle:Content:_category-pagination.html.twig' with {data: category.count, page :  app.request.get('page', 1)} %}
       {% endif %}
     </div>

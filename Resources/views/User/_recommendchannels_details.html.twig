@@ -1,4 +1,6 @@
-<li><img src="{{ reco.channel.img }}"/> 
+<li data-channel-recommend-name="{{ reco.channel.name }}" data-channel-recommend-score="{{ reco.score }}">
+  <img src="{{ reco.channel.img }}"/> 
+  <br/>
   <br/>
   {% if reco.programs is defined and reco.programs|to_array|length %}
   {{ reco.programs|to_array|length }} programs disponibles : 
@@ -7,12 +9,14 @@
   {% endfor %}
   {% endif %}
   <br/>
+  <br/>
   {% if reco.persons is defined and reco.persons|to_array|length %}
   {{ reco.persons|to_array|length }} personnalités présentes au catalogue représentant {{ reco.person_program_ids|to_array|length }} programmes : 
   {% for p in reco.persons|to_array %}
   <br/>- <strong>{{ p.name }}</strong>
   {% endfor %}
   {% endif %}
+  <br/>
   <br/>
   {% if reco.categories is defined and reco.categories|to_array|length %}
   {{ reco.categories|to_array|length }} catégories présentes au catalogue représentant {{ reco.category_program_ids|to_array|length }} programmes : 

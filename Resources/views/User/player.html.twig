@@ -1,0 +1,69 @@
+{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+
+{% block title %}{{ 'page.title.user.player'|trans }}{% endblock %}
+
+{#% block pagescripts %}
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-player.js'
+    filter='?yui_js' 
+    output='js/compiled/pages/user-player.js'  %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %#}
+
+{% block pagestyles %}
+  {% stylesheets
+    '@SkreenHouseFactoryV3Bundle/Resources/public/less/user.less'
+      filter='lessphp,?yui_css'
+      output='css/user.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+  {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+  <a class="btn btn-success btn-large pull-right" href="{{ path('user_programs') }}">Publier</a>
+  <a class="btn btn-primary btn-large pull-right" href="{{ path('user_recommend_channels') }}">Voir mes recommandations VOD</a>
+  <a class="btn btn-default btn-large pull-right" href="{{ path('user_programs') }}">Paramétrer</a>
+  <h1>Votre chaîne</h1>
+
+
+  <div id="top-playlist" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
+    <div class="container playlist">
+      {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
+    </div>
+  </div>
+  
+  <div class="player-wrapper">
+    <div class="teaser-container">
+      <div class="teaser-title sk-font">
+        <span class="glyphicon glyphicon-resize-full pull-right"></span>
+        Les dernières vidéos
+      </div>
+      {% set ids = '' %}
+      {% set first_id = '' %}
+      {% for program in data.queue|to_array %}
+        {% if loop.first %}
+          {% set first_id = program.id %}
+          {% set ids = program.id %}
+        {% else %}
+          {% set ids = ids ~ ',' ~ program.id %}
+        {% endif %}
+      {% endfor %}
+      <div id="player-user-ba" class="teaser-category" data-teaser-ids="{{ ids }}" {# data-autoplay="1" data-play-api="{{ {url: null, playId: first_id}|json_encode }}" #}>
+        <iframe class="teaser-user" src="http://player.myskreen.com/watch-program-{{ first_id }}?playlist={{ ids }}&no_controls=1" scrolling="no" frameborder="0"></iframe>
+      </div>
+    </div>
+    {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'user-queue-slider', programs: data.queue}, noheader: true, class: 'slider-user no-mousehidden', origin: 'ChannelMyskreener'} %}
+  </div>
+</div>
+
+<div class="clear">
+  <hr/>
+</div>
+
+
+{% endblock %}

@@ -26,7 +26,7 @@
             {% endif %}
           </div>
       {% endif %}
-
+      <br/>
       <div class="row">
         {# Affiche #}
         <div class="col-xs-6" id="affiche" itemprop="primaryImageOfPage" itemscope itemtype="http://schema.org/ImageObject">
@@ -36,11 +36,13 @@
           {% endif %}
           <img src="{{ program.picture }}" alt="{{ program.title }} {{ program.has_vod in [6,8] ? 'Replay' : 'bande annonce' }}" itemprop="contentURL"/>
         </div>
+        <div class="col-xs-10">
         {% if tab is not defined %}
-            <div class="text col-xs-10">
+            <div class="text">
               {% include 'SkreenHouseFactoryV3Bundle:Program:program-v3_synopsis_text.html.twig' %}
             </div>
         {% endif %}
+        </div>
       </div>
 
     </div>

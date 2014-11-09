@@ -2,11 +2,12 @@
 
 body.view-user_start {
   #bandeau-listes {
+    margin-top: 10px;
     margin-bottom: 0;
     height: 800px;
     background-color: white;
     .container {
-      height: 570px;
+      height: 590px;
       overflow: hidden;
       margin-top: 0;
       &:first-child {
@@ -139,7 +140,7 @@ body.view-user_start {
       padding: 0;
       color: white;
       position: relative;
-      margin-bottom: 50px;
+      margin-bottom: 30px;
       text-align: center;
       background-color: transparent;
       &:after {
@@ -247,11 +248,17 @@ body.view-user_start {
         &:first-child {
           color: @sk-blue;
         }
+        .results {
+          li a:not(.btn) {
+            color: @sk-blue;
+            font-size: 1.1em;
+          }
+        }
       }
       .relative .btn-default:not(.btn-xs) {
         font-family: 'Raleway';
         padding: 10px 25px;
-        top: 480px;
+        top: 530px;
         right: 0px;
         left: auto;
         position: absolute;
@@ -263,12 +270,15 @@ body.view-user_start {
       }
       .form-container {
         position: relative;
-        height: 460px;
+        height: 520px;
         background: white;
-        border-radius: 5px;
-        box-shadow: 0px 0px 10px rgba(0,0,0, 1);
+        border-radius: none;
+        box-shadow: none;
         overflow: hidden;
         text-align: left;
+        .form-control.input-lg {
+          border: none;
+        }
         &.theater-container {
           height: 450px;
         }
@@ -408,19 +418,19 @@ body.view-user_start {
               padding-right: 50px;
             }
           }
+          h3.head-suggest  {
+            color: #999;
+            border-top: 1px dashed #ccc;
+            padding: 10px 0;
+            margin-left: -25px;
+            padding-left: 25px;
+            margin-right: -25px;
+          }
           ul {
             list-style: none;
             padding-left: 0;
             li {
               margin-bottom: 0px;
-              &.head-suggest, &:not(.head-suggest) h3 {
-                color: #999;
-                border-top: 1px dashed #ccc;
-                padding: 10px 0;
-                margin-left: -25px;
-                padding-left: 25px;
-                margin-right: -25px;
-              }
               &.suggest, tr {
                 position: relative;
                 padding-top: 5px;
@@ -445,9 +455,10 @@ body.view-user_start {
                   visibility: hidden;
                 }
                 a[data-id] {
-                  font-size: 0px;
+                  visibility: hidden;
+                  /*font-size: 0px;*/
                   padding: 5px 0px;
-                  width: 30px;
+                  /*width: 30px;*/
                   height: 40px;
                   i, span {
                     font-size: 12px;
@@ -459,6 +470,9 @@ body.view-user_start {
                   background-color: rgba(124, 150, 232, 0.3);
                   td {
                     background-color: rgba(124, 150, 232, 0.3);
+                  }
+                  a[data-id] {
+                    visibility: visible;
                   }
                   .col-xs-4 {
                     font-size: 85%;

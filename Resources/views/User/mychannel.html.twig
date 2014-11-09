@@ -8,39 +8,37 @@
     {% set name_email = email[0]|split('.') %}
     <div id="bandeau-listes">
       <div class="container">
-        <h1>{{ datas.user_channel is defined and datas.user_channel ? 'Gérer ma chaîne myskreen' : 'Créer ma chaîne myskreen' }}</h1>
+        <h1>Publier ma chaîne myskreen</h1>
         <p>Publiez vos listes sur Facebook et twitter et diffusez en permanence vos contenus préférées sur votre chaine.</p>
-        <p>Vous choisissez le nom, par exemple {{ datas.user_channel is defined and datas.user_channel and datas.user_channel.slug is defined and datas.user_channel.slug ? 'www.myskreen.com/' ~ datas.user_channel.slug ~ '/' : 'www.myskreen.com/' ~ name_email[0] ~ '/' }}</p>
+        <p>Choisissez le nom, par exemple {{ datas.user_channel is defined and datas.user_channel and datas.user_channel.slug is defined and datas.user_channel.slug ? 'www.myskreen.com/' ~ datas.user_channel.slug ~ '/' : 'www.myskreen.com/' ~ name_email[0] ~ '/' }}</p>
       </div>
     </div>
     <div class="container">
       <div class="message-alert clearfix">
         {% if datas.user_channel is defined and datas.user_channel %}
+          <div class="well">
+            <div class="row">
+              <div class="col-xs-5">Nom de ma chaîne :</div>
+              <div class="col-xs-11 channel-name" data-value="{{ datas.user_channel.name is defined and datas.user_channel.name ? datas.user_channel.name : '' }}">{{ datas.user_channel.name is defined and datas.user_channel.name ? datas.user_channel.name : '' }}</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5">Description :</div>
+              <div class="col-xs-11 channel_description" data-value="{{ datas.user_channel.description is defined and datas.user_channel.description ? datas.user_channel.description : '' }}">{{ datas.user_channel.description is defined and datas.user_channel.description ? datas.user_channel.description : '' }}</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5">URL :</div>
+              <div class="col-xs-11 channel-slug" data-value="{{ datas.user_channel.slug is defined and datas.user_channel.slug ? datas.user_channel.slug : '' }}">{{ datas.user_channel.slug is defined and datas.user_channel.slug ? (datas.user_channel.slug ~ ' <small> (ce qui donne : www.myskreen.com/' ~ datas.user_channel.slug ~ '/)</small>')|raw : '' }}</div>
+            </div>
+          </div>
+
           {% if datas.user_channel.is_active is defined and datas.user_channel.is_active %}
-            <p class="alert alert-info">Votre chaîne personnelle existe déjà.</p>
+            <p class="alert alert-info">Votre chaîne personnelle est publiée.<br/>Vous pouvez la consulter : <a href="{{ path('any_url', {url: datas.user_channel.seo_url|replace({'/': ''})}) }}">www.myskreen.com/{{ datas.user_channel.slug }}/</a></p>
+            <p class="clearfix"><button class="col-xs-3 btn btn-default pull-right show-form">Modifier</button> <button class="col-xs-3 btn btn-warning pull-right depublish">Dépublier</button></p>
           {% else %}
-            <p class="alert alert-warning">Votre chaîne personnelle existe déjà, mais vous ne l'avez pas encore publiée.</p>
+            <p class="alert alert-warning">Votre chaîne personnelle existe, mais vous ne l'avez pas encore publiée.<br/>Vous pouvez la prévisualiser : <a href="{{ path('any_url', {url: datas.user_channel.seo_url|replace({'/': ''})}) }}/?preview=1">www.myskreen.com/{{ datas.user_channel.slug }}/</a></p>
+            <p class="clearfix"><button class="col-xs-3 btn btn-default pull-right show-form">Modifier</button> <button class="col-xs-3 btn btn-success pull-right publish">Publier</button></p>
           {% endif %}
-          <div class="row">
-            <div class="col-xs-5">Nom de ma chaîne :</div>
-            <div class="col-xs-11 channel-name" data-value="{{ datas.user_channel.name is defined and datas.user_channel.name ? datas.user_channel.name : '' }}">{{ datas.user_channel.name is defined and datas.user_channel.name ? datas.user_channel.name : '' }}</div>
-          </div>
-          <div class="row">
-            <div class="col-xs-5">Description :</div>
-            <div class="col-xs-11 channel_description" data-value="{{ datas.user_channel.description is defined and datas.user_channel.description ? datas.user_channel.description : '' }}">{{ datas.user_channel.description is defined and datas.user_channel.description ? datas.user_channel.description : '' }}</div>
-          </div>
-          <div class="row">
-            <div class="col-xs-5">URL :</div>
-            <div class="col-xs-11 channel-slug" data-value="{{ datas.user_channel.slug is defined and datas.user_channel.slug ? datas.user_channel.slug : '' }}">{{ datas.user_channel.slug is defined and datas.user_channel.slug ? (datas.user_channel.slug ~ ' <small> (ce qui donne : www.myskreen.com/' ~ datas.user_channel.slug ~ '/)</small>')|raw : '' }}</div>
-          </div>
-          {% if datas.user_channel.is_active is defined and datas.user_channel.is_active %}
-            <p class="clearfix">Vous pouvez la consulter : <a href="{{ path('any_url', {url: datas.user_channel.seo_url|replace({'/': ''})}) }}">www.myskreen.com/{{ datas.user_channel.slug }}/</a>
-            <button class="col-xs-3 btn btn-warning pull-right depublish">Dépublier</button></p>
-          {% else %}
-            <p class="clearfix">Vous pouvez la prévisualiser : <a href="{{ path('any_url', {url: datas.user_channel.seo_url|replace({'/': ''})}) }}/?preview=1">www.myskreen.com/{{ datas.user_channel.slug }}/</a>
-            <button class="col-xs-3 btn btn-success pull-right publish">Publier</button></p>
-          {% endif %}
-          <p>Si vous souhaitez la modifier, cliquez <a class="show-form">ici</a></p>
+
         {% else %}
           <p class="alert alert-danger">Vous n'avez pas encore créé votre chaîne personnelle.</p>
         {% endif %}
