@@ -15,7 +15,7 @@
    {% elseif o_access.name in ['TV'] %}
      {% if key == "live" %}
        {% if o.url is defined and o.url %}
-         <a class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir</a>
+         <a class="btn btn-voir"><i class="glyphicon glyphicon-play"></i>&nbsp;Voir le direct</a>
        {% endif %}
      {% endif %}
    {% elseif program.player and o.id == program.player.id %}
@@ -27,7 +27,7 @@
        {% elseif o.buy_id is defined and o.buy_id %}
          {{ o.cost is defined and o.cost != null ? 'A partir de ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }} 
        {% else %}
-         {{ o.cost is defined and o.cost != null ? 'Voir ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Voir' }}
+         {{ o.cost is defined and o.cost != null ? 'Streaming' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Streaming' }}
        {% endif %}
      </button>
      {% if o.tags.originalprice is defined and o.tags.originalprice and o.cost %}

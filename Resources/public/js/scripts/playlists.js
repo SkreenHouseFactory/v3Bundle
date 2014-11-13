@@ -78,13 +78,13 @@ $(document).ready(function(){
     var glyphicon_css_fontSize = '';
     var glyphicon_css_marginTop = '';
     // Css for col-xs-11
-    var col_xs_11_css_position = '';
-    var col_xs_11_css_zIndex = '';
-    var col_xs_11_css_backgroundColor = '';
-    var col_xs_11_css_height = '';
-    var col_xs_11_css_padding = '';
-    var col_xs_11_css_top = '';
-    var col_xs_11_css_left = '';
+    var conatiner_player_css_position = '';
+    var conatiner_player_css_zIndex = '';
+    var conatiner_player_css_backgroundColor = '';
+    var conatiner_player_css_height = '';
+    var conatiner_player_css_padding = '';
+    var conatiner_player_css_top = '';
+    var conatiner_player_css_left = '';
     // Css for player-wrapper
     var player_wrapper_css_backgroundColor = '';
     // Css for teaser-title
@@ -116,39 +116,39 @@ $(document).ready(function(){
         marginTop: '-5px'
       });
 
-      col_xs_11_css_left = $('.user-player .col-xs-11').css('left');
-      col_xs_11_css_top = $('.user-player .col-xs-11').css('top');
-      col_xs_11_css_padding = $('.user-player .col-xs-11').css('padding');
-      col_xs_11_css_height = $('.user-player .col-xs-11').css('height');
-      col_xs_11_css_position = $('.user-player .col-xs-11').css('position');
-      col_xs_11_css_backgroundColor = $('.user-player .col-xs-11').css('background-color');
-      col_xs_11_css_zIndex = $('.user-player .col-xs-11').css('z-index');
-      $('.user-player .col-xs-11').css({
+      conatiner_player_css_left = $('.container-player').css('left');
+      conatiner_player_css_top = $('.container-player').css('top');
+      conatiner_player_css_padding = $('.container-player').css('padding');
+      conatiner_player_css_height = $('.container-player').css('height');
+      conatiner_player_css_position = $('.container-player').css('position');
+      conatiner_player_css_backgroundColor = $('.container-player').css('background-color');
+      conatiner_player_css_zIndex = $('.container-player').css('z-index');
+      $('.container-player').css({
         position: 'fixed',
         zIndex: '2000',
         backgroundColor: 'rgba(0,0,0,0.9)'
       });
 
-      player_wrapper_css_backgroundColor = $('.user-player .col-xs-11 .player-wrapper').css('background-color');
-      $('.user-player .col-xs-11 .player-wrapper').css({
+      player_wrapper_css_backgroundColor = $('.player-wrapper').css('background-color');
+      $('.player-wrapper').css({
         backgroundColor: 'transparent'
       });
 
-      $('.user-player .col-xs-11 .teaser-container').css({
+      $('.teaser-container').css({
         height: '100%'
       });
 
-      teaser_title_css_marginTop = $('.user-player .col-xs-11 .teaser-title').css('margin-top');
-      teaser_title_css_position = $('.user-player .col-xs-11 .teaser-title').css('position');
-      teaser_title_css_top = $('.user-player .col-xs-11 .teaser-title').css('top');
-      teaser_title_css_right = $('.user-player .col-xs-11 .teaser-title').css('right');
-      $('.user-player .col-xs-11 .teaser-title p').hide();
-      $('.user-player .col-xs-11 .teaser-title').css({
+      teaser_title_css_marginTop = $('.teaser-title').css('margin-top');
+      teaser_title_css_position = $('.teaser-title').css('position');
+      teaser_title_css_top = $('.teaser-title').css('top');
+      teaser_title_css_right = $('.teaser-title').css('right');
+      $('.teaser-title p').hide();
+      $('.teaser-title').css({
         position: 'absolute',
         top: '0',
         right: '0'
       });
-      $('.user-player .col-xs-11 .teaser-title').animate({
+      $('.teaser-title').animate({
         marginTop: '15px'
       }, 500, function(){});
 
@@ -169,7 +169,7 @@ $(document).ready(function(){
       $('#user-queue-slider').addClass('large-view');
       $('#user-queue-slider').removeClass('no-mousehidden');
 
-      $('.user-player .col-xs-11').animate({
+      $('.container-player').animate({
         width: '100%',
         height: '100%',
         padding: '0',
@@ -250,32 +250,32 @@ $(document).ready(function(){
         marginTop: glyphicon_css_marginTop
       });
 
-      $('.user-player .col-xs-11').css({
-        position: col_xs_11_css_position,
-        zIndex: col_xs_11_css_zIndex,
-        backgroundColor: col_xs_11_css_backgroundColor,
+      $('.container-player').css({
+        position: conatiner_player_css_position,
+        zIndex: conatiner_player_css_zIndex,
+        backgroundColor: conatiner_player_css_backgroundColor,
         width: '68.7%',
-        height: col_xs_11_css_height,
-        padding: col_xs_11_css_padding,
-        top: col_xs_11_css_top,
-        left: col_xs_11_css_left
+        height: conatiner_player_css_height,
+        padding: conatiner_player_css_padding,
+        top: conatiner_player_css_top,
+        left: conatiner_player_css_left
       });
 
-      $('.user-player .col-xs-11 .player-wrapper').css({
+      $('.player-wrapper').css({
         backgroundColor: player_wrapper_css_backgroundColor
       });
 
-      $('.user-player .col-xs-11 .teaser-container').css({
+      $('.teaser-container').css({
         height: 'auto'
       });
 
-      $('.user-player .col-xs-11 .teaser-title').css({
+      $('.teaser-title').css({
         marginTop: teaser_title_css_marginTop,
         position: teaser_title_css_position,
         top: teaser_title_css_top,
         right : teaser_title_css_right
       });
-      $('.user-player .col-xs-11 .teaser-title p').show();
+      $('.teaser-title p').show();
 
       $('#user-queue-slider').css({
         margin: user_queue_slider_css_margin,

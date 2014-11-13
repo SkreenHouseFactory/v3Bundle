@@ -601,10 +601,9 @@ Player = {
   },
   minify: function() {
     $('#header').collapse('show');
-    $('#top-playlist').collapse('hide');
   },
   expand: function() {
-    $('#header, #top-playlist').collapse('hide');
+    $('#header').collapse('hide');
   },
   remove: function() {
     this.timeout = new Array();

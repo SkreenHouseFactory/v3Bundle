@@ -1,13 +1,16 @@
 @sk-blue: #428bca;
 
 body.view-user_start {
+  #main {
+    margin-bottom: 150px;
+  }
   #bandeau-listes {
     margin-top: 10px;
     margin-bottom: 0;
     height: 800px;
     background-color: white;
     .container {
-      height: 590px;
+      height: 660px;
       overflow: hidden;
       margin-top: 0;
       &:first-child {
@@ -247,6 +250,9 @@ body.view-user_start {
         position: relative;
         &:first-child {
           color: @sk-blue;
+          .bs-callout {
+            margin-right: 100px;
+          }
         }
         .results {
           li a:not(.btn) {
@@ -258,7 +264,7 @@ body.view-user_start {
       .relative .btn-default:not(.btn-xs) {
         font-family: 'Raleway';
         padding: 10px 25px;
-        top: 530px;
+        top: 580px;
         right: 0px;
         left: auto;
         position: absolute;
@@ -270,7 +276,7 @@ body.view-user_start {
       }
       .form-container {
         position: relative;
-        height: 520px;
+        height: 570px;
         background: white;
         border-radius: none;
         box-shadow: none;

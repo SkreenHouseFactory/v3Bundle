@@ -52,7 +52,7 @@ Facebook = {
       if (response.authResponse) {
         self.registerToken(response.authResponse['accessToken']);
         // connected
-        $('#fbconnect-infos, .fbconnect-infos').html('<span class="bs-callout bs-callout-success nowrap">Connexion à vos listes en cours...</span>');
+        $('#fbconnect-infos, .fbconnect-infos').html('<span class="bs-callout bs-callout-success nowrap">Connexion à votre chaîne en cours...</span>');
         if (typeof callback != 'undefined') {
           callback();
         } else {
@@ -175,7 +175,7 @@ Facebook = {
     FB.ui({
       app_id: API.config.fb.app_id,
       method: 'apprequests',
-      message: 'Inscris-toi sur myskreen.com, crée tes listes de favoris et partage-les avec moi !'
+      message: 'Inscris-toi sur myskreen.com, crée ta chaîne de favoris et partage-la avec moi !'
     });
   },
   publishStatus: function(message,link){

@@ -117,10 +117,11 @@
 
 .player-encart {
   position: relative;
-  border-top: 1px solid #333;
-  border-bottom: 1px solid #333;
-  padding: 15px 10px;
+  border-top: 1px solid #428bca;
+  border-bottom: 1px solid #428bca;
+  padding: 0px;
   margin-top: 15px;
+  margin-right: 10px;
   font-size: 1.5em;
   text-align: center;
   background-color: #FAFAFA;
@@ -133,8 +134,27 @@
     height: 0px;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-bottom: 12px solid #333;
+    border-bottom: 12px solid #428bca;
     margin-left: -6px;
+  }
+  .prog-actions {
+    padding: 10px;
+  }
+  .prog-title {
+    text-align: left;
+    background-color: #428bca;
+    padding: 5px;
+    color: white;
+    position: relative;
+    .btn-suivre {
+      position: absolute;
+      right: 5px;
+      color: white;
+    }
+    small {
+      font-size: 0.6em;
+      display: block;
+    }
   }
 }
 

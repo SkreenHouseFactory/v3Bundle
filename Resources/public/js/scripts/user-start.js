@@ -238,7 +238,7 @@ $(document).ready(function(){
     if ($(this).data('step') == 'theaters') {
       var like_title = '<span class="col-xs-11">' + like_name + '</span>';
     } else {
-      var like_title = $(this).parent('.suggest').children('a:not(.btn)').html();
+      var like_title = like_name;
     }
     // console.log('scripts/user-start.js', 'like_step', like_step);
     // console.log('scripts/user-start.js', 'like_id', like_id);
@@ -249,6 +249,7 @@ $(document).ready(function(){
     // populate confirmed div & Alert User
     var self = $(this)
     setTimeout(function(){ // wait 1500 ms for preference and fav-on to be added
+
       if (self.hasClass('fav-on')) {
         $('.no-results').addClass('hide');
         $('.results').removeClass('hide');
@@ -475,11 +476,11 @@ $(document).ready(function(){
           if (typeof results[k].picture != 'undefined') {
             container.parent().addClass('slider slider-list');
             container.addClass('items');
-            container.append('<li class="image-default root-'+results[k].id+'" data-id="'+results[k].id+'" data-play-program-id="'+results[k].id+'" style="background:url('+results[k].picture+') no-repeat center"><div class="tv-component"><a data-trigger-click=".root-'+results[k].id+' .btn-suivre" class="wrap-title size-default"><span class="title"><i class="icon-th icon-white"></i><span class="ms-prog-title">'+results[k].name+'</span><span class="ms-prog-desc"><span data-name="'+results[k].name+'" data-id="'+results[k].id+'" rel="popover" data-placement="top" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + '" data-step="'+step+'"> Ajouter</span></span></span></a></div></li>')
+            container.append('<li class="image-default root-'+results[k].id+'" data-id="'+results[k].id+'" data-name="' + title + '" data-play-program-id="'+results[k].id+'" style="background:url('+results[k].picture+') no-repeat center"><div class="tv-component"><a  data-trigger-click=".root-'+results[k].id+' .btn-suivre" class="wrap-title size-default"><span class="title"><i class="icon-th icon-white"></i><span class="ms-prog-title">'+ title +', '+results[k].year+'</span><span class="ms-prog-desc"><span data-name="'+ title +'" data-id="'+results[k].id+'" rel="popover" data-placement="top" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + '" data-step="'+step+'"> Ajouter</span></span></span></a></div></li>')
           } else {
             container.parent().removeClass('slider slider-list');
             container.removeClass('items');
-            container.append('<li class="row suggest"><a data-name="'+title+'" data-id="'+results[k].id+'" rel="popover" data-placement="top" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' col-xs-2" data-step="'+step+'"> Ajouter</a>'+(typeof results[k].picture != 'undefined' ? '<div class="col-xs-1"><img src="'+results[k].picture+'" alt="Illustration de '+title+'" height="40" width="auto"></div>' : '' )+'<a data-trigger-click="a[data-id=\''+results[k].id+'\']"><span class="'+(typeof results[k].picture != 'undefined' ? 'col-xs-9' : 'col-xs-10' )+'">' + title + ((type == 'films&series' && typeof results[k].year != 'undefined') ? '<small> - ' + results[k].year + '</small>' : '') + ((type == 'theaters' && typeof results[k].ville != 'undefined') ? '<small> - '+results[k].ville+'</small>' : '') + '</span>' + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<span class="col-xs-4">suivi par  '+results[k].nb_followers+' personnes</span>' : '') + '</a></li>')
+            container.append('<li class="row suggest"><a data-name="'+title+'" data-id="'+results[k].id+'" data-name="' + title + '" rel="popover" data-placement="top" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' col-xs-2" data-step="'+step+'"> Ajouter</a>'+(typeof results[k].picture != 'undefined' ? '<div class="col-xs-1"><img src="'+results[k].picture+'" alt="Illustration de '+title+'" height="40" width="auto"></div>' : '' )+'<a data-trigger-click="a[data-id=\''+results[k].id+'\']"><span class="'+(typeof results[k].picture != 'undefined' ? 'col-xs-9' : 'col-xs-10' )+'">' + title + ((type == 'films&series' && typeof results[k].year != 'undefined') ? '<small> - ' + results[k].year + '</small>' : '') + ((type == 'theaters' && typeof results[k].ville != 'undefined') ? '<small> - '+results[k].ville+'</small>' : '') + '</span>' + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<span class="col-xs-4">suivi par  '+results[k].nb_followers+' personnes</span>' : '') + '</a></li>')
         }
         }
     });

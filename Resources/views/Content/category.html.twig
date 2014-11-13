@@ -47,6 +47,7 @@
 
   <div class="bande_notifications nopadding">
     <div class="container">
+      {% if category.is_format != true %}
       <ul class="breadcrumb">
         {% if app.request.get('format') %}
           <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('format', {category_slug: app.request.get('format')}) }}"><span itemprop="title">{{ ('format.singulier.'~app.request.get('format'))|trans|upper }}</span></a></li>
@@ -64,6 +65,7 @@
           <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="{{ path('category', {format: app.request.get('format'), category_slug: category.seo_url|replace({'/': ''})})|replace({'//':'/'}) }}/{{ app.request.get('access') }}/"><span itemprop="title">{{ ('access.' ~ app.request.get('access'))|trans }}</span></a></li>
         {% endif %}
       </ul>
+      {% endif %}
       <h1>{{ category.name }} en streaming</h1>
       {% if category.format is not defined %}
       {% elseif category.format %}
@@ -213,7 +215,7 @@
   #}
 
 
-<div id="view-category" data-id="{{ category.id }}" data-format-facet="{{ app.request.get('format', category.slug) }}" class="container view-category-{{ app.request.get('format') }}">
+<div id="view-category" data-id="{{ category.id }}" data-format-facet="{{ app.request.get('format', category.slug) }}" class="container slider-player view-category-{{ app.request.get('format') }}">
   <div id="view-category-ajax">
     <div class="description-seo description-seo-absolute">
       <div class="container scroll well">
@@ -239,6 +241,7 @@
       <div class="teaser-category"><iframe src="" scrolling="no" frameborder="0"></iframe></div>
       <div class="teaser-title player-encart sk-font"></div>
     </div>
+    <div class="teaser-container-float"></div>
 
     {# programs #}
     <div id="category-programs" class="slider slider-list">

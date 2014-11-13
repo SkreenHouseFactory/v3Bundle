@@ -398,9 +398,6 @@ $(document).ready(function(){
 }
   
   //alert nouveau visiteur
-  if(!$.cookie('myskreen_new')){
-    //$('#main .help-sprite-ms_btn_help').trigger('click');
-  }
   $('#main .help-sprite-ms_btn_close').on('click', function(){
     API.cookie('new','true');
   });
@@ -434,14 +431,6 @@ $(document).ready(function(){
       $('.item.active .teaser-slider', this).prepend(node);
     }
   });
-
-   // -- beead selector & tab
-   /*
-   if ($('#program-teaser-player').length == 0) {
-     console.log('script', 'beead', 'load');
-     $('body').append('<script type="text/javascript" src="http://as.ebz.io/api/choixPubJS.htm?pid=305331&screenLayer=1&mode=NONE&home=http://www.myskreen.com"></script>');
-   }
-   */
 
   // -- playlist friends
   setTimeout(function(){
@@ -488,5 +477,37 @@ $(document).ready(function(){
     var url = $(this).attr('href');
     window.location.href = url;
   });*/
+
+
+    // Load of programs list and load of player
+    if ($('#player-user-ba').length) {
+      Player.elmt = $('#player-user-ba');
+      UI.appendLoader($('.user-loader'));
+      setTimeout(function(){
+        load_program_user();
+      }, 1500);
+    }
+
+    //player
+    $('.slider-player [data-play-program-id]').on('click', function(e){
+      e.preventDefault();
+      console.log('scripts/category.js', 'play program');
+      $('.teaser-category iframe').attr('src', 'http://player.myskreen.com/watch-program-'+$(this).data('play-program-id')+'/');
+    
+      API.query(
+        'GET', 
+        'program/' + $(this).data('play-program-id') + '.json', 
+        { no_metadata: 0 }, 
+        function(program){
+          console.log('scripts/category.js', 'update program info', program);
+          $('.teaser-title').html(
+            '<div class="prog-title"><small>' + program.format.name + ' - ' + program.duration + 'mn</small>' +
+            program.title + '<a class="btn btn-default btn-suivre btn-plus fav-program" data-id="' + program.id + '">Ajouter à ma chaîne</a></div>' + 
+            '<div class="prog-actions"><a class="btn btn-default" href="' + program.seo_url + '">Voir maintenant</a></div>'
+          );
+        });
+
+      return false;
+    });
 
 });

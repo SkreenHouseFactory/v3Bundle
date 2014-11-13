@@ -23,7 +23,7 @@ ProgramView = {
         container_friends.removeClass('hide'); //HACK : TODO appel après connexion
         UI.removeLoader(container_friends);
         if (typeof friends_programs[id] != 'undefined') {
-          $(container_friends).html('<div class="friends-title">Ils l\'ont ajouté à leurs listes</div>')
+          $(container_friends).html('<div class="friends-title">Ils l\'ont ajouté à leur chaîne</div>')
           UI.addFriends(container_friends, friends_programs[id])
         } else {
           container_friends.addClass('hide');
@@ -310,7 +310,7 @@ $(document).ready(function(){
           }
           //related channels
           if (return_data.channels) {
-            $('#skModal.modal .modal-header .modal-title').html('Le programme a été ajouté à vos listes !');
+            $('#skModal.modal .modal-header .modal-title').html('Le programme a été ajouté à votre chaîne !');
             $('#skModal.modal .modal-header .modal-message').html('<p><b>Voulez-vous suivre aussi ces chaînes ?</b><br/>Nous vous suggérons d\'ajouter ces chaînes également pour ne rater aucune de leurs diffusions (TV, Replay, VOD, Cinéma).</p>');
             $('#skModal.modal .modal-body').html('<div class="slider slider-list"><ul class="items"></ul></div>');
             new BaseSlider({
@@ -333,7 +333,7 @@ $(document).ready(function(){
           //related same_playlist
           } else if (return_data.programs) {
             //TODO : insert programs in modal
-            $('#skModal.modal .modal-header .modal-title').html('Le programme a été ajouté à vos listes !');
+            $('#skModal.modal .modal-header .modal-title').html('Le programme a été ajouté à votre chaîne !');
             $('#skModal.modal .modal-header .modal-message').html('<p><b>Programmes fréquemment suivis ensemble</b><br/>Nous vous suggérons d\'ajouter ces programmes également pour ne rater aucune de leurs diffusions (TV, Replay, VOD, Cinéma).</p>');
             $('#skModal.modal .modal-body').html('<div class="slider slider-list"><ul class="items"></ul></div>');
             new BaseSlider({

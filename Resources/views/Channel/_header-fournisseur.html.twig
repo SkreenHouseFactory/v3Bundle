@@ -26,13 +26,17 @@
             {% endif %}
             <div class="player-encart clear">
               {% if fournisseur.live.program is defined and fournisseur.live.program  %}
-                En direct sur {{ channel.name }} : 
-                <br/><a href="{{ fournisseur.live.program.seo_url }}">{{ fournisseur.live.program.title }}</a>
+                <div class="prog-title">
+                <a class="btn btn-default btn-suivre btn-plus fav-program" data-id="' + program.id + '">Ajouter à mes listes</a>
+                <small>{{ fournisseur.live.program.format ? fournisseur.live.program.format.name~' - ' : '' }}{{ fournisseur.live.program.year }} {{ fournisseur.live.program.duration }} mn</small>
+                <a href="{{ fournisseur.live.program.seo_url }}">{{ fournisseur.live.program.title }}</a>
+                </div>
+                <div class="prog-actions">En direct sur {{ channel.name }}</div>
               {% endif %}
               {% if redirect is defined %}
-                <br/><br/><a class="btn btn-suivre player-stop" data-redirect="{{ fournisseur.live.url }}"><i class="glyphicon glyphicon-play"></i> Voir le direct</a>
+                <div class="prog-actions"><a class="btn btn-suivre player-stop" data-redirect="{{ fournisseur.live.url }}"><i class="glyphicon glyphicon-play"></i> Voir le direct</a></div>
               {% elseif indisponible is defined %}
-                <br/><br/>Le direct n'est pas disponible.
+                <div class="prog-actions">Le direct n'est pas disponible.</div>
               {% endif %}
             </div>
         </div>

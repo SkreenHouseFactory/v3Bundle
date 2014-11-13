@@ -81,11 +81,16 @@ body.view-channel, body.view-channel-selections {
         .header-container {
           height: inherit;
           .container {
+            padding-top: 65px;
             .fournisseurtop {
               min-height: inherit;
-              margin: 20px 0 30px;
+              margin: 20px 0 0px;
               .col-xs-8:first-child {
                 padding: 0;
+                margin: 0;
+                .suggestion {
+                  display: none;
+                }
                 .iframe-container {
                   width: 100%;
                 }
@@ -144,7 +149,6 @@ body.view-channel, body.view-channel-selections {
                 }
               }
             }
-            padding-top: 80px;
             .well {
               top: 120px;
               width: 600px;
