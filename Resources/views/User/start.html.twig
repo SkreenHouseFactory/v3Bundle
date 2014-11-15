@@ -15,7 +15,7 @@
         <li><a id="menu-persons">Mes personnalités <span id="count-persons" class="badge">0</span></a></li>
         <li><a id="menu-theaters">Mes cinémas <span id="count-theaters" class="badge">0</span></a></li>
         <li><a id="menu-categories">Mes catégories<span id="count-categories" class="badge">0</span></a></li>
-        <li><a id="menu-amis">Mes amis</a></li>
+        <li class="user-on"><a id="menu-amis">Mes amis</a></li>
         <li class="confirm"><a id="menu-confirm">Enregistrer</a></li>
       </ul>
     </div>
@@ -39,11 +39,11 @@
           {% else %}
         
             <h1>Créer votre chaîne</h1>
-            <p id="intro-step-one" class="sk-font">vous permet de suivre les programmes, acteurs, réalisateurs, salles de cinémas et catégories que vous aimez !</p>
+            <p id="intro-step-one" class="sk-font">Suivez les programmes, acteurs, réalisateurs, salles de cinémas et catégories que vous aimez !</p>
             <div id="intro-ligne-one" class="intro-ligne"><span></span></div>
-            <p id="intro-step-two" class="sk-font">Un programme correspondant à votre chaîne est diffusé ? <br/>myskreen vous le signale !</p>
+            <p id="intro-step-two" class="sk-font">Un programme correspondant à votre chaîne est diffusé ? <br/>myskreen vous envoie une notification !</p>
             <div id="intro-ligne-two" class="intro-ligne"><span></span></div>
-            <p id="intro-step-three" class="sk-font">myskreen est le seul guide qui réunit la Télé, le Replay, la VOD, les Web TV et le Cinéma !</p>
+            <p id="intro-step-three" class="sk-font">myskreen est le seul guide qui réunit la Télé, le Replay, la VOD et le Cinéma !</p>
             <div id="intro-ligne-three" class="intro-ligne"></div>
             <div id="intro-ligne-four" class="intro-ligne"><span></span></div>
             
@@ -81,7 +81,7 @@
         <div class="panel-start">
           <div class="relative">
             <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-series']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
-            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-theaters']">Vous aimez les salles ? Ajoutez les cinémas près de chez vous ! <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-theaters']">Ajoutez les cinémas près de chez vous ! <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             <div class="form-container">
               {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'persons', title: 'Toutes vos personnalités préférées à suivre...', placeholder: 'Leonardo DiCaprio, Steven Spielberg...', suggests: selection_pack.persons, favlike: 'fav-person'} %}
             </div>
@@ -90,7 +90,7 @@
         <div class="panel-start">
           <div class="relative">
             <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-persons']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
-            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-categories']">Plutôt "Cht'i" ou "Superman" ? Ou les deux ? <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-categories']">Plutôt "Cinéma coréen" ou "Cinéma français" ? Ou les deux ? <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             <div class="form-container theater-container">
               {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'theaters', title: 'Quels sont les écrans que vous fréquentez ?', placeholder: 'Marseille, 75014, Le Palace...', suggests: null, favlike: 'fav-cinema'} %}
             </div>
@@ -98,27 +98,28 @@
         </div>
         <div class="panel-start">
           <div class="relative">
-            <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-theaters']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
-            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-amis']">Partagez votre chaîne avec vos amis... <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <button class="btn btn-default btn-primary btn-lg btn-back user-on" data-trigger-click="a[id='menu-theaters']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
+            <a class="btn btn-default btn-primary btn-lg user-on" data-trigger-click="a[id='menu-amis']">Partagez votre chaîne avec vos amis... <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <a class="btn btn-default btn-primary btn-lg user-off" data-trigger-click="a[id='menu-confirm']">Bravo ! Vous n'avez plus qu'à enregistrez votre chaîne <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             <div class="form-container">
               {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'categories', title: 'Choisissez les catégories de programmes qui vous ressemblent...', placeholder: 'séries US, comédies dramatiques, téléréalités...', suggests: selection_pack.categories, favlike: 'fav-category'} %}
             </div>
           </div>
         </div>
-        <div class="panel-start">
+        <div class="panel-start user-on">
           <div class="relative">
             <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-categories']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
-            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-confirm']">Terminé ! Vous n'avez plus qu'à enregistrez votre chaîne <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-confirm']">Bravo ! Vous n'avez plus qu'à enregistrez votre chaîne <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             <div class="form-container share-container">
               <h2>Connexion et partage Facebook</h2>
               <div class="share share-placeholder share-start">
-                <a class="text share-off" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook" data-modal-message="... et suivez ce que regardent vos amis !">Connectez vous avec Facebook et partagez votre chaîne avec vos amis
+                <a class="text share-off sk-font" data-modal="facebook" data-modal-title="Connectez mySkreen à votre compte Facebook" data-modal-message="... et suivez ce que regardent vos amis !">Connectez vous avec Facebook et partagez votre chaîne avec vos amis !
                   <div>
                     <img src="{{ asset('bundles/skreenhousefactoryv3/images/fb-connect.png') }}"/>
                   </div>
                 </a>
                 <a class="text share-on hide">
-                Partage Facebook&nbsp; 
+                  Partage Facebook&nbsp; 
                   <span class="btn-group" data-toggle="buttons-radio">
                   <span class="btn btn-xs btn-info" data-share="allow">{{ 'yes'|trans }}</span>
                   <span class="btn btn-xs btn-default" data-share="disallow">{{ 'no'|trans }}</span>
@@ -133,7 +134,8 @@
         </div>
         <div class="panel-start">
           <div class="relative">
-            <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-amis']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
+            <button class="btn btn-default btn-primary btn-lg btn-back user-on" data-trigger-click="a[id='menu-amis']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
+            <button class="btn btn-default btn-primary btn-lg btn-back user-off" data-trigger-click="a[id='menu-categories']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
             <a id="register" class="btn btn-default btn-primary btn-lg">Enregistrer ma chaîne&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></a>
             <div class="form-container confirmed scroll">
               <h2 id="confirm">Récapitulatif de votre chaîne</h2>

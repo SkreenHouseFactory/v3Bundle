@@ -153,6 +153,7 @@ user:
     settings.notification_email : Recevoir mes notifications par e-mails
     settings.newpassword: Nouveau mot de passe
     settings.confirmpassword: Confirmation
+playlists.yours: Votre chaîne
 notifications:
     empty: 
         title: Vous n'avez pas de notifications !
@@ -161,12 +162,12 @@ playlist:
     publish:
         private:
           link: Privée
-          popover.title: Playlist privée
-          popover.content: Votre playlist n'est pas partagée. Vous êtes le seul à pouvoir y accéder
+          popover.title: Chaîne privée
+          popover.content: Votre chaîne n'est pas partagée. Vous êtes le seul à pouvoir y accéder
         public:
           link: Publique
-          popover.title: Playlist publique
-          popover.content: Votre playlist est publique. Les autres utilisateurs peuvent y accéder et s'y abonner.
+          popover.title: Chaîne publique
+          popover.content: Votre chaîne est publique. Les autres utilisateurs peuvent y accéder et s'y abonner.
     name:
         cine: Sorties en salle
         tv: Diffusions TV

@@ -27,8 +27,8 @@
             <div class="player-encart clear">
               {% if fournisseur.live.program is defined and fournisseur.live.program  %}
                 <div class="prog-title">
-                <a class="btn btn-default btn-suivre btn-plus fav-program" data-id="' + program.id + '">Ajouter à mes listes</a>
-                <small>{{ fournisseur.live.program.format ? fournisseur.live.program.format.name~' - ' : '' }}{{ fournisseur.live.program.year }} {{ fournisseur.live.program.duration }} mn</small>
+                <a class="btn btn-default btn-suivre btn-plus fav-program" data-id="' + program.id + '">Ajouter</a>
+                <small>{{ fournisseur.live.program.format ? fournisseur.live.program.format.name~' - ' : '' }}{{ fournisseur.live.program.year }} {{ fournisseur.live.program.duration ? fournisseur.live.program.duration~'mn' : '' }}</small>
                 <a href="{{ fournisseur.live.program.seo_url }}">{{ fournisseur.live.program.title }}</a>
                 </div>
                 <div class="prog-actions">En direct sur {{ channel.name }}</div>

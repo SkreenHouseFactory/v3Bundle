@@ -92,8 +92,7 @@ UI = {
 
     if (Skhf.session.datas.email) {
       //on
-      
-      //self.loadSelector();
+      $('body').removeClass('disconnected');
       $('body').addClass('connected');
       if (!update) {
 
@@ -181,6 +180,7 @@ UI = {
     } else {
       //off
       $('body').removeClass('connected');
+      $('body').addClass('disconnected');
       $('.remove-on-signout').remove();
       $('.badge-placeholder').removeClass('badge badge-important')
                              .removeAttr('rel')

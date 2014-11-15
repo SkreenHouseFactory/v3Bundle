@@ -26,6 +26,7 @@ class ApiManager
   protected function getApiBase($version) {
     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https:' : 'http:';
     if (preg_match('/v3\.(\w+)\.myskreen\.net/', $_SERVER['SERVER_NAME'], $matches)) {
+      $protocol = 'http:';
       $this->host = '//'.$matches[1].'.myskreen.net';
     } elseif (isset($_SERVER['SERVER_NAME']) && 
               strstr($_SERVER['SERVER_NAME'], 'preprod')) {

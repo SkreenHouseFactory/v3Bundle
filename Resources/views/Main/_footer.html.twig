@@ -13,6 +13,42 @@
     </ul>
   </div>
   <hr/>
+  
+  
+  {% if app.request.get('route') == 'homes' and app.request.get('home') == '' %}
+
+  <div id="boost" class="row">
+    {% render(controller('SkreenHouseFactoryV3Bundle:Main:boost',{})) %}
+  </div>
+
+  <hr/>  
+  <div class="row" id="sitemap">
+    <div class="col-xs-16">
+      <strong class="pull-left">Tous les diffuseurs :&nbsp;&nbsp;&nbsp;</strong>
+      <p><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">Chaînes TV & Replay</a></p>
+      <p><a href="{{ path('sitemap_channels', {type: 'vod'}) }}">Chaînes VOD</a></p>
+      <p><a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Salles de cinéma</a></p>
+      <p><a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">Dvd et Blu-ray</a></p>
+      <div class="clear"></div>
+      <strong class="pull-left">Toutes les programmes :&nbsp;&nbsp;&nbsp;</strong>
+      <p><a href="/film/">Film</a></p>
+      <p><a href="/serie/">Série</a></p>
+      <p><a href="/telefilm/">Film TV</a></p>
+      <p><a href="/documentaire/">Documentaire</a></p>
+      <p><a href="/dessin-anime-et-manga/">Dessin animé</a></p>
+      <p><a href="/emission/">Emission</a></p>
+      <p><a href="/journal/">Journal TV</a></p>
+      <p><a href="/court-metrage/">Court-métrage</a></p>
+      <p><a href="/theatre/">Théatre</a></p>
+      <p><a href="/concert/">Concert</a></p>
+      <p><a href="/clip/">Clip</a></p>
+      <p><a href="/spectacle/">Spectacle</a></p>
+      <p><a href="/webserie/">Websérie</a></p>
+    </div>
+  </div>
+  {% endif %}
+
+  <hr/>
   <div class="row row_apps">
     <a class="footer_apps" href="{{ path('channel', {slug: 'apps'}) }}">
       <ul>
@@ -26,113 +62,4 @@
       {#<li><a class="pull-left" href="{{ app.environment == 'dev' ? '/m' : 'http://m.myskreen.com' }}">Site mobile</a></li>#}
     </ul>
   </div>
-
-  {% if app.request.get('route') == 'homes' and app.request.get('home') == '' %}
-
-  <div id="boost" class="row">
-    <div class="col-xs-16">
-      <p class="ms-surtitre">mySkreen c'est...</p>
-      <p>Un <strong>guide de programmes innovant</strong> qui réunit sur un seul site toutes les <strong>chaînes de télévision</strong>, tout le <strong>replay</strong>, tous les catalogues de <strong>VOD</strong>, le </strong>cinéma avec <strong>les horaires et les salles</strong>, et les <strong>web séries</strong> produites par les meilleurs sites médias. Suivez les programmes que vous aimez et soyez avertis à chaque diffusion ou nouvelle offre en streaming. Grâce à mySkreen, reprenez le pouvoir : mySkreen c’est <strong>votre télé à la carte et à la demande</strong>.</p>
-    </div>
-    <hr/>
-    {% render(controller('SkreenHouseFactoryV3Bundle:Main:boost',{})) %}
-  </div>
-
-  <hr/>  
-  <div class="row" id="sitemap">
-    <div class="col-xs-16">
-      <p class="ms-surtitre">Tous les programmes</p>
-      <strong class="pull-left">Par média :&nbsp;&nbsp;&nbsp;</strong>
-      <p><a href="/replay/">En Replay</a></p>
-      <p><a href="/programme-tv/">Guide TV</a></p>
-      <p><a href="/video-a-la-demande/">En Vidéo à la demande</a></p>
-      <p><a href="/cinema/">Au Cinéma</a></p>
-      <div class="clear"></div>
-      <strong class="pull-left">Par diffuseur :&nbsp;&nbsp;&nbsp;</strong>
-      <p><a href="{{ path('sitemap_channels', {type: 'broadcast'}) }}">Chaînes TV & Replay</a></p>
-      <p><a href="{{ path('sitemap_channels', {type: 'vod'}) }}">Chaînes Vidéo à la demande</a></p>
-      <p><a href="{{ path('sitemap_channels', {type: 'webcast'}) }}">Chaînes Web</a></p>
-      <p><a href="{{ path('sitemap_channels', {type: 'thematique'}) }}">Chaînes thématiques</a></p>
-      <p><a href="{{ path('sitemap_channels', {type: 'cinema'}) }}">Salles de cinéma</a></p>
-      <p><a href="{{ path('sitemap_channels', {type: 'dvd'}) }}">Dvd et Blu-ray</a></p>
-      <div class="clear"></div>
-      <hr>
-
-      <div class="container">
-       <div class="row">
-        <p class="ms-surtitre">Toutes les catégories</p>
-        <div class="col-xs-4">
-          <br><strong class="pull-left"><a href="/film/">Film</a> :&nbsp;&nbsp;&nbsp;</strong><br>
-          <p><a href="/film/action-aventure/">Film action</a></p><p><a href="/film/cinema-americain/">Film américain</a></p><p><a href="/film/cinema-asiatique/">Film asiatique</a></p><p><a href="/film/cinema-classique/">Film classique</a></p><p><a href="/film/cinema-du-monde/">Film monde</a></p><p><a href="/film/cinema-europeen/">Film européen</a></p><p><a href="/film/cinema-francais/">Film français</a></p><p><a href="/film/comedies/">Film comique</a></p><p><a href="/film/drames/">Film dramatique</a></p><p><a href="/film/epouvante-horreur/">Film horreur</a></p><p><a href="/film/fantastique/">Film fantastique</a></p><p><a href="/film/film-culte/">Film populaire</a></p><p><a href="/film/policier-thriller/">Film policier</a></p><p><a href="/film/romance/">Film d'amour</a></p><p><a href="/film/science-fiction/">Film science-fiction</a></p>
-        </div>
-        <div class="col-xs-4">
-          <br><strong class="pull-left"><a href="/serie/">Série</a> :&nbsp;&nbsp;&nbsp;</strong><br>
-          <p><a href="/serie/action-aventure/">Série action</a></p><p><a href="/serie/comedies/">Série comique</a></p><p><a href="/serie/drames/">Série dramatique</a></p><p><a href="/serie/fantastique/">Série fantastique</a></p><p><a href="/serie/jeunesse/">Série jeunesse</a></p><p><a href="/serie/policier-thriller/">Série policière</a></p><p><a href="/serie/romance/">Série romantique</a></p><p><a href="/serie/science-fiction/">Série science-fiction</a></p><p><a href="/serie/serie-animee/">Série animée</a></p><p><a href="/serie/series-americaines/">Série américaine</a></p><p><a href="/serie/series-francaises/">Série française</a></p>
-        </div>
-        <div class="col-xs-4">
-          <br><strong class="pull-left"><a href="/telefilm/">Film TV</a> :&nbsp;&nbsp;&nbsp;</strong><br>
-          <p><a href="/telefilm/action-aventure/">Film TV action</a></p><p><a href="/telefilm/biographie-biopic/">Film TV biographie</a></p><p><a href="/telefilm/comedies/">Film TV comique</a></p><p><a href="/telefilm/drames/">Film TV dramatique</a></p><p><a href="/telefilm/epouvante-horreur/">Film TV horreur</a></p><p><a href="/telefilm/fantastique/">Film TV fantastique</a></p><p><a href="/telefilm/histoire/">Film TV historique</a></p><p><a href="/telefilm/jeunesse/">Film TV jeunesse</a></p><p><a href="/telefilm/policier-thriller/">Film TV policier</a></p><p><a href="/telefilm/romance/">Film TV romantique</a></p><p><a href="/telefilm/science-fiction/">Film TV science-fiction</a></p>
-        <div class="clear"></div>
-      </div>
-      <div class="col-xs-4">
-         <br><strong class="pull-left"><a href="/documentaire/">Documentaire</a> :&nbsp;&nbsp;&nbsp;</strong><br>
-         <p><a href="/documentaire/arts/">Documentaire art</a></p><p><a href="/documentaire/biographie-biopic/">Documentaire biographie</a></p><p><a href="/documentaire/danse/">Documentaire danse</a></p><p><a href="/documentaire/decouverte/">Documentaire découverte</a></p><p><a href="/documentaire/equitation/">Documentaire cheval</a></p><p><a href="/documentaire/histoire/">Documentaire histoire</a></p><p><a href="/documentaire/loisirs-passions/">Documentaire loisirs</a></p><p><a href="/documentaire/sante-bien-etre/">Documentaire santé</a></p><p><a href="/documentaire/sciences/">Documentaire scientifique</a></p><p><a href="/documentaire/societe/">Documentaire société</a></p>
-          <div class="clear"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-4">
-          <br><strong class="pull-left"><a href="/dessin-anime-et-manga/">Dessin animé</a> :&nbsp;&nbsp;&nbsp;</strong><br>
-          <p><a href="/dessin-anime-et-manga/cinema-americain/">Film animation</a></p><p><a href="/dessin-anime-et-manga/cinema-asiatique/">Manga</a></p><p><a href="/dessin-anime-et-manga/serie-animee/">Série animée</a></p>
-        <div class="clear"></div>
-      </div>
-      <div class="col-xs-4">
-        <br><strong class="pull-left"><a href="/emission/">Emission</a> :&nbsp;&nbsp;&nbsp;</strong><br>
-        <p><a href="/emission/arts/">Emission arts</a></p><p><a href="/emission/athletisme/">Emission sport</a></p><p><a href="/emission/divertissement/">Emission divertissement</a></p><p><a href="/emission/decouverte/">Emission découverte</a></p><p><a href="/emission/histoire/">Emission histoire</a></p><p><a href="/emission/humour/">Mini-série</a></p><p><a href="/emission/jeunesse/">Emission jeunesse</a></p><p><a href="/emission/loisirs-passions/">Emission loisirs</a></p><p><a href="/emission/societe/">Emission société</a></p><p><a href="/emission/sports-d-equipe/">Emission sport</p>
-        <div class="clear"></div>
-      </div>
-      <div class="col-xs-4">
-        <br><strong class="pull-left"><a href="/journal/">Journal TV</a> :&nbsp;&nbsp;&nbsp;</strong><br>
-        <p><a href="/journal/societe/">JT info</a></p><p><a href="/journal/sports-d-equipe/">JT sport</a></p><p><a href="/journal/election-presidentielle-2012/">Emission politique</a></p>
-        <div class="clear"></div>
-      </div>
-      <div class="col-xs-4">
-        <br><strong class="pull-left"><a href="/court-metrage/">Court-métrage</a> :&nbsp;&nbsp;&nbsp;</strong><br>
-        <p><a href="/court-metrage/action-aventure/">Court-métrage action</a></p><p><a href="/court-metrage/comedies/">Court-métrage comique</a></p><p><a href="/court-metrage/drames/">Court-métrage dramatique</a></p><p><a href="/court-metrage/decouverte/">Court-métrage découverte</a></p><p><a href="/court-metrage/fiction/">Court-métrage fiction</a></p><p><a href="/court-metrage/jeunesse/">Court-métrage enfant</a></p><p><a href="/court-metrage/ovni-experimental/">OVNI / Court-métrage expérimental</a></p><p><a href="/court-metrage/romance/">Court-métrage romantique</a></p><p><a href="/court-metrage/societe/">Court-métrage société</a></p>
-        <div class="clear"></div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-4">
-        <br><strong class="pull-left"><a href="/theatre/">Théatre</a> :&nbsp;&nbsp;&nbsp;</strong><br>
-        <p><a href="/theatre/comedies/">Comédie</a></p><p><a href="/theatre/drames/">Tragédie</a></p>
-        <div class="clear"></div>
-      </div>
-      <div class="col-xs-4">
-        <br><strong class="pull-left"><a href="/concert/">Concert</a> :&nbsp;&nbsp;&nbsp;</strong><br>
-        <p><a href="/concert/arts/">Concert art</a></p>
-        <div class="clear"></div>
-      </div>
-      <div class="col-xs-4">
-        <br><strong class="pull-left"><a href="/clip/">Clip</a> :&nbsp;&nbsp;&nbsp;</strong><br>
-        <p><a href="/clip/arts/">Clip art</a></p>
-        <div class="clear"></div>
-      </div>
-      <div class="col-xs-4">
-        <br><strong class="pull-left"><a href="/spectacle/">Spectacle</a> :&nbsp;&nbsp;&nbsp;</strong><br>
-        <p><a href="/spectacle/comedies/">Comédie</a></p><p><a href="/spectacle/ceremonie/">Cérémonie</a></p><p><a href="/spectacle/danse/">Danse</a></p><p><a href="/spectacle/humour/">Show</a></p><p><a href="/spectacle/jeunesse/">Spectacle pour enfants</a></p>
-        <div class="clear"></div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-4">
-        <br><strong class="pull-left"><a href="/webserie/">Websérie</a> :&nbsp;&nbsp;&nbsp;</strong><br>
-        <p><a href="/webserie/comedies/">Websérie comédie</a></p><p><a href="/webserie/science-fiction/">Websérie science-fiction</a></p>
-        <div class="clear"></div>
-      </div>
-    </div>
-    </div>
-  </div>
-</div>
-  {% endif %}
 </div>

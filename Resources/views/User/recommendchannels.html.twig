@@ -28,11 +28,33 @@
 }
 .tab-content li  {
   list-style: none;
+  border-left-width: 1px; solid #333;
+  border-right-width: 1px; solid #333;
+  margin-right: 10px;
+  padding: 15px 10px;
+  margin-top: 35px;
+  background-color: rgb(250, 250, 250);
+  display: none;
+}
+.tab-content li:before {
+position: absolute;
+content: " ";
+left: -12px;
+bottom: 50%;
+width: 0;
+height: 0;
+border-right: 12px solid #333;
+border-top: 6px solid transparent;
+border-bottom: 6px solid transparent;
+margin-top: -6px;
+}
+.tab-content li:last-child {
+display: block;
 }
 </style>
 <div class="container">
   <h1>myskreen vous recommande</h1>
-  <p class="bs-callout bs-callout-info">Ces recommandations sont faites à partir de <a href="{{ path('user_programs') }}">vos listes</a>. Pour avoir les meilleurs conseils complétez-les.</p>
+  <p class="bs-callout bs-callout-info">Ces recommandations sont faites à partir de <a href="{{ path('user_programs') }}">votre chaîne</a>. Pour avoir les meilleurs conseils complétez-les.</p>
 
 
 

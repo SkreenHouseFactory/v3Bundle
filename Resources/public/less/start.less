@@ -1,11 +1,33 @@
 @sk-blue: #428bca;
 
 body.view-user_start {
+  
+  &.disconnected {
+    #bandeau-listes.fond-bleu {
+      ul.timeline li.user-on {
+        display: none;
+      }
+      .panel-start.user-on {
+        display: block;
+        visibility: hidden;
+      }
+    }
+  }
+  &.connected {
+    #bandeau-listes.fond-bleu {
+      ul.timeline li.user-off {
+        display: none;
+      }
+      .panel-start.user-off {
+        display: block;
+        visibility: hidden;
+      }
+    }
+  }
   #main {
     margin-bottom: 150px;
   }
   #bandeau-listes {
-    margin-top: 10px;
     margin-bottom: 0;
     height: 800px;
     background-color: white;
@@ -143,7 +165,7 @@ body.view-user_start {
       padding: 0;
       color: white;
       position: relative;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
       text-align: center;
       background-color: transparent;
       &:after {
@@ -241,12 +263,12 @@ body.view-user_start {
     .forms-container {
       position: absolute;
       width: 10000px;
-      padding-top: 10px;
+      padding-top: 0px;
       left: auto;
       .panel-start {
         float: left;
         width: 870px;
-        margin-right: 100px;
+        margin-right: 150px;
         position: relative;
         &:first-child {
           color: @sk-blue;
@@ -264,19 +286,20 @@ body.view-user_start {
       .relative .btn-default:not(.btn-xs) {
         font-family: 'Raleway';
         padding: 10px 25px;
-        top: 580px;
+        top: 550px;
+        z-index: 2;
         right: 0px;
         left: auto;
         position: absolute;
         box-shadow: 0px 0px 5px rgba(0,0,0,1);
         &.btn-back {
           right: auto;
-          left: 0px;
+          left: 15px;
         }
       }
       .form-container {
         position: relative;
-        height: 570px;
+        height: 540px;
         background: white;
         border-radius: none;
         box-shadow: none;
@@ -285,9 +308,9 @@ body.view-user_start {
         .form-control.input-lg {
           border: none;
         }
-        &.theater-container {
+/*        &.theater-container {
           height: 450px;
-        }
+        }*/
         &.share-container {
           background: #333 url('/bundles/skreenhousefactoryv3/images/start_friends.jpg') no-repeat top left;
           h2 {
@@ -424,12 +447,11 @@ body.view-user_start {
               padding-right: 50px;
             }
           }
-          h3.head-suggest  {
+          .head-suggest  {
             color: #999;
-            border-top: 1px dashed #ccc;
-            padding: 10px 0;
+            padding: 0 0 5px 0;
             margin-left: -25px;
-            padding-left: 25px;
+            padding-left: 350px;
             margin-right: -25px;
           }
           ul {
@@ -503,6 +525,7 @@ body.view-user_start {
               span.col-xs-11, span.col-xs-10 {
                 font-size: 1.1em;
                 color: @sk-blue;
+                font-family: 'Raleway';
                 margin-top: 10px;
                 small {
                   color: #666;
@@ -520,5 +543,7 @@ body.view-user_start {
 }
 
 html.touch body.view-user_start .fond-bleu .forms-container .form-container .results ul li a {
+  visibility: visible;
+}lts ul li a {
   visibility: visible;
 }

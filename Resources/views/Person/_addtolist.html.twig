@@ -20,7 +20,7 @@
         <div class="row">
           {# Bouton Ajout/Abo #}
           <div class="col-xs-16 ajout">
-            {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: person.id, class: 'fav-person', text: 'Ajouter à mes listes', placement: 'left', name: person.name, origin: 'person'} %}
+            {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: person.id, class: 'fav-person', text: 'Ajouter à ma chaîne', placement: 'left', name: person.name, origin: 'person'} %}
           </div>
           {# Textes Ajouts #}
           <div class="col-xs-16">
@@ -37,7 +37,7 @@
   <div class="container">
     <div class="row">
       <p>Soyez averti des prochaines diffusions (TV, Replay, Ciné, VOD) <br/> auxquelles participe &laquo; {{ person.name }} &raquo;.</p>
-      <p>Partagez vos listes avec vos amis et suivez ce qu'ils regardent.</p>
+      <p>Partagez votre chaîne avec vos amis et suivez la leur.</p>
     </div>
   </div>
   {% include 'SkreenHouseFactoryV3Bundle:User:bandeau-listes.html.twig' with { active: '', no_background: true } %}

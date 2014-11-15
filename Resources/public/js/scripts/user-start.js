@@ -37,7 +37,7 @@ $(document).ready(function(){
       // Inscription cookie
       API.cookie('start-mes-listes-' + $(this).data('step'), 0);
       // Change of confirm button text
-      $('#register').html('Voir mes listes&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-list"></span>');
+      $('#register').html('Voir ma chaîne');
       // Check for FB Connect or not
       if (!Skhf.session.datas.disallow_share) { // Share FB Off
         $('.panel-start .share-start').hide();
@@ -118,7 +118,7 @@ $(document).ready(function(){
     // animate
     if ('matchMedia' in window) {
       if (window.matchMedia('(min-width:768px)').matches) {
-        $('.forms-container').animate({'left': '-1890px'}, 500);
+        $('.forms-container').animate({'left': '-1990px'}, 500);
         menuClassActive(this);
       }
     }
@@ -128,7 +128,7 @@ $(document).ready(function(){
     // animate
     if ('matchMedia' in window) {
       if (window.matchMedia('(min-width:768px)').matches) {
-        $('.forms-container').animate({'left': '-2860px'}, 500);
+        $('.forms-container').animate({'left': '-3000px'}, 500);
         menuClassActive(this);
       }
     }
@@ -138,7 +138,7 @@ $(document).ready(function(){
     // animate
     if ('matchMedia' in window) {
       if (window.matchMedia('(min-width:768px)').matches) {
-        $('.forms-container').animate({'left': '-3830px'}, 500);
+        $('.forms-container').animate({'left': '-4030px'}, 500);
         menuClassActive(this);
       }
     }
@@ -148,7 +148,7 @@ $(document).ready(function(){
     // animate
     if ('matchMedia' in window) {
       if (window.matchMedia('(min-width:768px)').matches) {
-        $('.forms-container').animate({'left': '-4800px'}, 500);
+        $('.forms-container').animate({'left': '-5030px'}, 500);
         menuClassActive(this);
       }
     }
@@ -158,7 +158,7 @@ $(document).ready(function(){
     // animate
     if ('matchMedia' in window) {
       if (window.matchMedia('(min-width:768px)').matches) {
-        $('.forms-container').animate({'left': '-5770px'}, 500);
+        $('.forms-container').animate({'left': '-6070px'}, 500);
         menuClassActive(this);
       }
     }
@@ -168,7 +168,7 @@ $(document).ready(function(){
     // animate
     if ('matchMedia' in window) {
       if (window.matchMedia('(min-width:768px)').matches) {
-        $('.forms-container').animate({'left': '-6740px'}, 500);
+        $('.forms-container').animate({'left': '-7090px'}, 500);
         menuClassActive(this);
       }
     }
@@ -178,7 +178,7 @@ $(document).ready(function(){
     // animate
     if ('matchMedia' in window) {
       if (window.matchMedia('(min-width:768px)').matches) {
-        $('.forms-container').animate({'left': '-7710px'}, 500);
+        $('.forms-container').animate({'left': '-8110px'}, 500);
         menuClassActive(this);
       }
     }
@@ -218,33 +218,34 @@ $(document).ready(function(){
     switch ($(this).data('step')){
       case 'films':
         var like_step = 'ce film';
+        var confirm_type = 'film';
         break;
       case 'emissions':
         var like_step = 'cette émission';
+        var confirm_type = 'émission';
         break;
       case 'series':
         var like_step = 'cette série';
+        var confirm_type = 'série';
         break;
       case 'persons':
         var like_step = 'cette personnalité';
+        var confirm_type = 'personnalité';
         break;
       case 'theaters':
         var like_step = 'ce cinéma';
+        var confirm_type = 'salle de cinéma';
         break;
       case 'categories':
         var like_step = 'cette catégorie de programmes';
+        var confirm_type = 'catégorie de programmes';
         break;
     }
-    if ($(this).data('step') == 'theaters') {
-      var like_title = '<span class="col-xs-11">' + like_name + '</span>';
-    } else {
-      var like_title = like_name;
-    }
+
     // console.log('scripts/user-start.js', 'like_step', like_step);
     // console.log('scripts/user-start.js', 'like_id', like_id);
     // console.log('scripts/user-start.js', 'like-name', like_name);
     // console.log('scripts/user-start.js', 'like-name-episode', like_name_episode);
-    // console.log('scripts/user-start.js', 'like-title', like_title);
 
     // populate confirmed div & Alert User
     var self = $(this)
@@ -254,7 +255,7 @@ $(document).ready(function(){
         $('.no-results').addClass('hide');
         $('.results').removeClass('hide');
         $('.confirmed').addClass('populated');
-        $('.confirmed ul').append('<li class="suggest like_' + like_id + '">' + like_title + '</li>');
+        $('.confirmed ul').append('<li class="suggest like_' + like_id + '"><span class="col-xs-10">' + like_name + '</span> <em>'+confirm_type+'</em></li>');
         console.log('scripts/user-start.js', 'populate confirmed div :', 'Populate OK');
         // Alert User
         if ($('.confirmed .results ul li').length < 2) {

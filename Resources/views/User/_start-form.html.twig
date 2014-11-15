@@ -10,9 +10,9 @@
 </form>
 <div id="results-{{ step }}" class="results{{ step in ['films', 'series', 'emissions'] ? ' slider slider-list' : '' }}">
   {% if step == 'theaters' %}
-    <h3 class="head-suggest">Près d'ici :</h3>
+    <div class="head-suggest">Près d'ici :</div>
   {% else %}
-    <h3 class="head-suggest">Suggestions :</h3>
+    <div class="head-suggest">Suggestions :</div>
   {% endif %}
   <ul{{ step in ['films', 'series', 'emissions'] ? ' class="items"' : '' }}>
     {% if step == 'theaters' %}
