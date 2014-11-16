@@ -19,6 +19,34 @@
         %}
       <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}  
+
+  {# adsense #}
+  <script type='text/javascript'>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+  (function() {
+  var gads = document.createElement('script');
+  gads.async = true;
+  gads.type = 'text/javascript';
+  var useSSL = 'https:' == document.location.protocol;
+  gads.src = (useSSL ? 'https:' : 'http:') +
+  '//www.googletagservices.com/tag/js/gpt.js';
+  var node = document.getElementsByTagName('script')[0];
+  node.parentNode.insertBefore(gads, node);
+  })();
+  </script>
+  <script type='text/javascript'>
+  googletag.cmd.push(function() {
+  {% if block('header_adsense') is empty %}
+    googletag.defineSlot('/22418486/Banniere_colonne', [250, 250], 'adsense-banner-colonne').addService(googletag.pubads());
+  {% else %}
+    {% block header_adsense %}{% endblock %}
+  {% endif %}
+  
+  googletag.pubads().enableSingleRequest();
+  googletag.enableServices();
+  });
+  </script>
 </head>
 <body class="exit{{ app.request.get('timeout') == 1 ? ' hide' : '' }}" onload="ad();">
 
@@ -27,7 +55,7 @@
 
 {# analitycs #}
 {% if app.environment == 'prod' and block('nostats') is empty %}
-  {% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' with {tag: 'UA-6151896-8'} %}
+  {% include 'SkreenHouseFactoryV3Bundle::_ga.html.twig' with {tag: 'UA-6151896-17'} %}
   {% include 'SkreenHouseFactoryV3Bundle::_chartbeat.html.twig' %}
 {% endif %}
 

@@ -5,7 +5,8 @@
 {% block content %}
   <div class="well">
     <div id="ad">
-      <script src="http://ad.himediadx.com/ttj?id=971095&size=300x250"></script>
+      {# adsense banner #}
+      {{ include ('SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig', {banner: 'colonne'}) }}
     </div>
     <a href="http://www.myskreen.com" title="{{ 'service.name'|trans }}"><img src="{{ asset('bundles/skreenhousefactoryv3/images/logo.png') }}" alt="{{ 'service.name'|trans }}" /></a>
     <br/>
