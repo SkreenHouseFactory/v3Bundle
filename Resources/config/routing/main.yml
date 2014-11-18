@@ -562,7 +562,7 @@ format:
     pattern:  /{category_slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
-        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie|extrait|programme
+        category_slug: emission|journal|court-metrage|theatre|concert|clip|telefilm|dessin-anime-et-manga|webserie|extrait|programme
 
 #cms
 partenaires:

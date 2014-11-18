@@ -26,7 +26,7 @@ $(document).ready(function(){
   });
 
   // Deal with API call for creation, update, publishing and deletion of user-channel
-  $('button').click(function() {
+  $('button').on('click', function() {
     // Hide all error messages still displaying
     $('.error').hide();
 
