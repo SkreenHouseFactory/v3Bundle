@@ -145,7 +145,6 @@ html body {
       margin: 0;
     }
   }
-
   .teaser-container {
     height: 458px;
   }
@@ -157,6 +156,15 @@ html body {
   position: relative;
   &.view-category-cinema {
     padding-top: 50px;
+  }
+
+  &.with-sliders {
+    .col-xs-8.suggester .suggestion {
+      display: none;
+    }
+    #category-programs {
+      clear: both;
+    }
   }
   .category-description {
     position: absolute;

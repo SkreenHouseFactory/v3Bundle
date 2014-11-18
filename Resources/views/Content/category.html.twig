@@ -149,7 +149,7 @@
         {% endif %}
         {{ s }}</span>
       {% endfor %}
-    {% else %}
+    {% elseif app.request.get('format') and app.request.get('format') != 'jeunesse' %}
       {% for k,s in subcategories if k %}
         <span data-link-to-replace="{{ path('category_facet', {format: app.request.get('format'), category_slug: category.slug, facet: k})|replace({'//':'/'})|rot13 }}" class="label {% if app.request.get('facet') == k %}label-info{% else %}label-default{% endif %}">
         {{ s }}</span>
@@ -178,9 +178,9 @@
     
     <p class="sk-font">Sur quelle chaîne ?</p>
     {% for k,c in channels if k %}
-      {% if category.slug and app.request.get('format') %}
+      {% if category.slug and app.request.get('format') and category.slug != 'jeunesse' %}
         <span class="label label-default" data-link-to-replace="{{ path('channel_format_facet', {slug: k|replace({'-+': ''}), format: app.request.get('format'), facet: category.slug })|rot13 }}">
-      {% elseif category.slug %}
+      {% elseif category.slug and category.slug != 'jeunesse' %}
         <span class="label label-default" data-link-to-replace="{{ path('channel_format', {slug: k|replace({'-+': ''}), format: category.slug})|rot13 }}">
       {% endif %}
       {{ c }}</span>
@@ -215,7 +215,7 @@
   #}
 
 
-<div id="view-category" data-id="{{ category.id }}" data-format-facet="{{ app.request.get('format', category.slug) }}" class="container slider-player view-category-{{ app.request.get('format') }}">
+<div id="view-category" data-id="{{ category.id }}" data-format-facet="{{ app.request.get('format', category.slug) }}" class="container slider-player view-category-{{ app.request.get('format') }} {% if sliders is defined and sliders|length %} with-sliders{% endif %}">
   <div id="view-category-ajax">
     <div class="description-seo description-seo-absolute">
       <div class="container scroll well">
@@ -229,12 +229,6 @@
     {# pager #}
     {% include 'SkreenHouseFactoryV3Bundle:Content:_category-pager.html.twig' with {facet_access: facet_access} %}
 
-    {# sliders #}
-    {% if sliders is defined %}
-      {% for slider in sliders|to_array if slider.id is defined %}
-        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with { slider: slider, loop_index: loop.index} %}
-      {% endfor %}
-    {% endif %}
 
     {# player #}
     <div class="teaser-container">
@@ -242,6 +236,13 @@
       <div class="teaser-title player-encart sk-font"></div>
     </div>
     <div class="teaser-container-float"></div>
+
+    {# sliders #}
+    {% if sliders is defined %}
+      {% for slider in sliders|to_array if slider.id is defined and slider.programs|to_array|length %}
+        {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with { slider: slider, loop_index: loop.index} %}
+      {% endfor %}
+    {% endif %}
 
     {# programs #}
     <div id="category-programs" class="slider slider-list">

@@ -542,6 +542,7 @@ class ChannelController extends ChannelCustomController
           //unset($data->channel->category->facets_seo_url);
         }
         $request->attributes->set('format', $data->channel->category->is_format ? $data->channel->category->slug : null);
+        $data->channel->category->description = $data->description;
         //$request->attributes->set('xhr', true);
         $response = $this->render('SkreenHouseFactoryV3Bundle:Content:category.html.twig', array_merge(array(
           'facet_access' => array(

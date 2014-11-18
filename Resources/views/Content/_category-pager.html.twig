@@ -50,7 +50,7 @@
           <span data-link-to-replace="{{ path('format_access_page', {access: app.request.get('access'), category_slug: category.slug, page: app.request.get('page', 1) + 1})|replace({'//': '/'})|rot13 }}">30 suivants &rarr;</span>
         {% elseif (app.request.get('format')) %}
           <span data-link-to-replace="{{ path('category_page', {format: app.request.get('format'), category_slug: category.slug, page: app.request.get('page', 1) + 1})|replace({'//': '/'})|rot13 }}">30 suivants &rarr;</span>
-        {% else %}
+        {% elseif category.slug != 'jeunesse' %}
           <span data-link-to-replace="{{ path('format_page', {category_slug: category.slug, page: app.request.get('page', 1) + 1})|replace({'//': '/'})|rot13 }}">30 suivants &rarr;</span>
         {% endif %}
       </li>
