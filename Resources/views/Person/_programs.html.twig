@@ -30,14 +30,17 @@
     {% for decade,programs in programs %}
       <a name="{{ decade }}"></a>
       <br/>
-      <h3>Les années {{ decade ? decade : ' - autres' }} <small>{{ programs|to_array|length }} programme{{ programs|to_array|length > 1 ? 's' : '' }}</small></h3>
-      <hr/>
-      <div class="slider slider-list person-programs">
-        <ul class="items">
-          {% for program in programs|to_array %}
-            {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, origin: 'person'} %}
-          {% endfor %}
-        </ul>
+      <div class="row">
+      <div class="col-xs-16">
+        <h3>Les années {{ decade ? decade : ' - autres' }} <small>{{ programs|to_array|length }} programme{{ programs|to_array|length > 1 ? 's' : '' }}</small></h3>
+        <div class="slider slider-list person-programs">
+          <ul class="items">
+            {% for program in programs|to_array %}
+              {% include 'SkreenHouseFactoryV3Bundle:Main:_program.html.twig' with {p: program, origin: 'person'} %}
+            {% endfor %}
+          </ul>
+        </div>
+        </div>
       </div>
     {% endfor %}
   </div>

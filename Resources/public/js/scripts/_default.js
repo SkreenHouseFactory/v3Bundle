@@ -501,12 +501,12 @@ $(document).ready(function(){
         function(program){
           console.log('scripts/category.js', 'update program info', program);
           $('.teaser-title').html(
-            '<div class="prog-title"><small>' + program.format.name + ' - ' + program.duration + 'mn</small>' +
-            program.title + '<a class="btn btn-default btn-suivre btn-plus fav-program" data-id="' + program.id + '">Ajouter à ma chaîne</a></div>' + 
-            '<div class="prog-actions"><a class="btn btn-default" href="' + program.seo_url + '">Voir maintenant</a></div>'
+            '<div class="prog-title"><a class="btn btn-default btn-suivre btn-plus fav-program" data-id="' + program.id + '">Ajouter à ma chaîne</a><small>' + program.format.name + ' - ' + program.duration + 'mn</small><a href="' + API.config.v3_root + program.seo_url + '" class="ellipsis">' + program.title + '</a></div>' + 
+            '<div class="prog-actions"><a class="btn btn-default" href="' + program.seo_url + '">Détails</a></div>'
           );
         });
 
+      $('html, body').animate({scrollTop : 200}, 800);
       return false;
     });
 

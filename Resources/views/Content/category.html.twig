@@ -32,7 +32,7 @@
   {% if app.request.get('format') %}{{ app.request.get('format') }} {% endif %}
   {% if app.request.get('facet') %}{{ app.request.get('facet') }} {% endif %}
   {% if app.request.get('category.name') %}{{ app.request.get('category.name') }} {% endif %}
-  {% if app.request.get('access') %}{{ app.request.get('access') }} {% endif %}
+  {% if app.request.get('access') %}{{ app.request.get('access') }} {% else %}streaming {% endif %}
   {% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}
   {{ category.description|replace({"\n": ''})|striptags|slice(0, 165) }}{% endblock %}
 

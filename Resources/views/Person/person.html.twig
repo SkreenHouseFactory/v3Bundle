@@ -42,10 +42,6 @@
     {% if app.request.get('page') < 2 %}
       <div id="md-description" class="description-seo description-seo-absolute">
         <div itemprop="description" class="container well scroll">{{ person.description|raw }}</div>
-        <div class="container nopadding">
-          <hr/>
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig' %}
-        </div>
       </div>
     {% endif %}
     {% if person.notifications|to_array|length > 0 %}
@@ -59,11 +55,9 @@
     {% include  'SkreenHouseFactoryV3Bundle:Person:_programs.html.twig' with {programs: person.programs} %}
     {% if person.related|to_array|length > 0 %}
       <div id="person-related" class="container">
-        <div class="panel panel-default">
-          <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-16">
             <h2>Ils ont travaillé avec {{ person.name }}</h2>
-          </div>
-          <div class="tab-pane clearfix">
             {% for relation in person.related|to_array %}
               <div class="person-relations clearfix" data-id="{{ relation.id }}">
                 {% if relation.photo is defined and relation.photo %}

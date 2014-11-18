@@ -29,15 +29,16 @@
       {% if cinema.adress is defined and cinema.schedules is defined %}
         <div class="panel panel-default panel-theater panel-theater-list">
           <div class="panel-heading clearfix">
-            <a class="accordion-toggle bold" data-toggle="collapse" data-parent="#accordion-theaters" href="#theater-{{ cinema.id }}"><i class="glyphicon glyphicon-resize-vertical hover hover-fade"></i> {{ cinema.name }} ({{ cinema.zip_code }}{% if cinema.city is defined and cinema.city %} {{cinema.city}} {% endif %})</a>
+            <a class="accordion-toggle bold" data-toggle="collapse" data-parent="#accordion-theaters" href="#theater-{{ cinema.id }}">{#<i class="glyphicon glyphicon-resize-vertical hover hover-fade"></i> #}{{ cinema.name }} ({{ cinema.zip_code }}{% if cinema.city is defined and cinema.city %} {{cinema.city}} {% endif %})</a>
             {% if cinema.distance is defined %}
               <small class="grey">distance ≃ {{ cinema.distance < 1 ? (cinema.distance*100)|number_format ~'m' : cinema.distance|number_format(1) ~ 'km' }}</small>
             {% endif %}
-            <a class="btn btn-xs btn-default pull-right" href="{{path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1)}) }}">Films & horaires</a>
           </div>
           <div id="theater-{{ cinema.id }}" class="panel-collapse {{ loop.first ? 'in' : 'collapse' }}">
               {% include 'SkreenHouseFactoryV3Bundle:Cinema:_schedules.html.twig' with {cinema: cinema} %}
              <p align="center">
+               <a class="btn btn-default" href="{{path('any_url', {url: cinema.seo_url|slice(1, cinema.seo_url|length-1)}) }}">Films & horaires de ce cinéma</a>
+               &nbsp;
               {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: cinema.id, class: 'fav-cinema fav-remove', name: cinema.name, text: 'Ajouter à vos cinémas', placement: 'bottom'} %}
             </p>
           </div>

@@ -588,6 +588,7 @@ body.view-user_player {
   }
 }
 #view-mychannel {
+  background: #f5f5f5;
   #bandeau-listes {
     .container {
       text-align: left;
@@ -596,20 +597,27 @@ body.view-user_player {
   h1 {
     margin-bottom: 30px;
   }
-  .message-alert {
-    margin-bottom: 40px;
-    .col-xs-5 {
-      font-size: 1.2em;
-      font-weight: bold;
-      color: #428bca;
-    }
-    .alert {
-      margin-top: 15px;
-    }
-    p.clearfix {
-      margin-top: 15px;
-      & + hr {
-        margin: 20px 0;
+  .well {
+    margin: 15px 0;
+    border-color: #ddd;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 0;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+    
+    .message-alert {
+      margin-bottom: 40px;
+      .col-xs-5 {
+        font-size: 1.2em;
+      }
+      .alert {
+        margin-top: 15px;
+      }
+      p.clearfix {
+        margin-top: 15px;
+        & + hr {
+          margin: 20px 0;
+        }
       }
     }
   }

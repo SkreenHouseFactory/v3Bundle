@@ -178,6 +178,10 @@
                 }
                 .tab-content {
                   .tab-pane {
+                    &.row {
+                      margin-left: 0px;
+                      margin-right: 0px;
+                    }
                     > .col-xs-16, > div[data-autoload-episodes] > .col-xs-16 {
                       padding: 0 5px;
                     }
@@ -196,6 +200,7 @@
                               }
                             }
                             &.price {
+                              width: 80px;
                               .rent {
                                 font-size: 1em;
                               }
@@ -328,6 +333,9 @@
                     }
                     #program-synopsis {
                       width: 100%;
+                      #affiche img {
+                        width: 150px;
+                      }
                     }
                   }
                   #videos {

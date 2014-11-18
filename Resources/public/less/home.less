@@ -248,8 +248,28 @@
     padding-bottom: 0;
     .hometop {
       margin-top: 10px;
+      .suggester h2 {
+        height: 23px;
+        &:after {
+          top: 22px;
+        }
+      }
       h2 {
         margin-bottom: 10px;
+        border-bottom: 1px solid #999;
+        margin-right: 0px;
+        margin-left: 10px;
+        &:after {
+          position: absolute;
+          content: " ";
+          left: 50%;
+          width: 0;
+          height: 0;
+          border-left: 10px solid transparent;
+          border-right: 10px solid transparent;
+          border-top: 7px solid #999;
+          margin-left: -6px;
+        }
         a {
           color: #999;
         }

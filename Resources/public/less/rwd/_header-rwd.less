@@ -2,6 +2,7 @@
   body {
     #super-wrapper {
       #msk-menu {
+        background: #333;
         > ul {
           padding-top: 22px;
           padding-bottom: 50px;
@@ -39,18 +40,24 @@
             width: 80px;
             img {
               width: 75px;
-              margin-top: 10px;
+              margin-top: 0px;
             }
+          }
+          .nav.navbar-nav {
+            display: none;
           }
           .headertoprighticons {
             float: right;
             width: 180px;
             position: static;
-            margin-top: -75px;
+            margin-top: -5px;
             text-align: right;
             padding-right: 25px;
             &.nav {
               > li {
+                > span {
+                  display: none;
+                }
                 &.playlists {
                   margin-left: 0;
                   &.user-on {
@@ -60,8 +67,8 @@
                 > a {
                   &.auth {
                     padding: 5px 8px;
-                    margin-left: 35px;
-                    margin-top: -13px;
+                    margin-left: 10px;
+                    margin-top: 0px;
                   }
                 }
               }

@@ -264,7 +264,7 @@ class UserController extends Controller
         ))
         ->add('channel_img', 'file',  array(
           'constraints' => new FileConstraint(array(
-            'maxSize' => '50k',
+            'maxSize' => '2000k',
             'mimeTypes' => array('image/jpeg', 'image/png')
           )),
         ))
