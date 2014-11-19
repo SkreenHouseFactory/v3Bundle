@@ -154,7 +154,6 @@
 {% endblock %}
 
 {% block pagestyles %}
-{% if app.request.isXmlHttpRequest is null and app.request.get('xhr') is null %}
   {% stylesheets
     '@SkreenHouseFactoryV3Bundle/Resources/public/less/start.less'
       filter='lessphp,?yui_css'
@@ -162,16 +161,13 @@
     %}
     <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
-{% endif %}
 {% endblock %}
 
 {% block pagescripts %}
-{% if app.request.isXmlHttpRequest is null and app.request.get('xhr') is null %}
   {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-start.js'
     filter='?yui_js' 
     output='js/compiled/pages/user-start.js'  %}
     <script src="{{ asset_url }}"></script>
   {% endjavascripts %}
-{% endif %}
 {% endblock %}
