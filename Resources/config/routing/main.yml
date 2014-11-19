@@ -558,7 +558,7 @@ category:
     requirements:
         format: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie|extrait|programme
         category_slug: "[^/]+"
-format:
+format_filter:
     pattern:  /{category_slug}/
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
     requirements:
@@ -633,3 +633,8 @@ any_url:
     defaults: { _controller: SkreenHouseFactoryV3Bundle:Main:notfound }
     requirements:
         url: .*
+format:
+    pattern:  /{category_slug}/
+    defaults: { _controller: SkreenHouseFactoryV3Bundle:Content:category }
+    requirements:
+        category_slug: film|documentaire|serie|emission|journal|court-metrage|theatre|concert|clip|spectacle|telefilm|dessin-anime-et-manga|webserie|extrait|programme

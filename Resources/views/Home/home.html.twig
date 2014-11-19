@@ -43,7 +43,7 @@
     <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
 {% endblock %}
-{% block pagescripts %}
+{#% block pagescripts %}
   {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/home.js'
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-start.js'
@@ -51,7 +51,7 @@
     output='js/compiled/pages/user-home.js'  %}
     <script src="{{ asset_url }}"></script>
   {% endjavascripts %}
-{% endblock %}
+{% endblock %#}
 
 {% block content %}
 <div id="view-home">
@@ -103,7 +103,7 @@
 
 {# {% include 'SkreenHouseFactoryV3Bundle:Main:_passlabel.html.twig' %} #}
 
-{% if home.name == 'mixte' %}
+{#% if home.name == 'mixte' %}
   <div id="user-home">
     <div class="user-on"></div>
     <div class="user-off">
@@ -120,6 +120,6 @@
       </div>
     </div>
   </div>
-{% endif %}
+{% endif %#}
 
 {% endblock %}

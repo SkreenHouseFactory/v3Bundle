@@ -126,15 +126,18 @@
         </div>
       {% endif %}  
   #}
-  {# facets<br/>
+  {#
+  facets<br/>
   route: {{ app.request.attributes.get('_route') }}<br/>
-  categories: {{ categories|join(',') }}<br/>
+  categories: {{ categories is defined ? categories|join(',') : '' }}<br/>
+  format: {{ app.request.get('format') }}<br/>
   facet: {{ app.request.get('facet') }}<br/>
   access: {{ app.request.get('access') }}<br/>
-  category_slug: {{ category.slug }}<br/> #}
+  category_slug: {{ category.slug }}<br/> 
+  #}
 
     <div class="facets">
-    {% if 'format' in app.request.attributes.get('_route') and categories|length > 1 %}
+    {% if app.request.attributes.get('_route') in ['format','channel'] and categories|length > 1 %}
       <br/>
       <p class="sk-font">Tous les genres</p>
       {% for k,s in categories %}
@@ -149,7 +152,7 @@
         {% endif %}
         {{ s }}</span>
       {% endfor %}
-    {% elseif app.request.get('format') and app.request.get('format') != 'jeunesse' %}
+    {% elseif app.request.get('format') %}
       {% for k,s in subcategories if k %}
         <span data-link-to-replace="{{ path('category_facet', {format: app.request.get('format'), category_slug: category.slug, facet: k})|replace({'//':'/'})|rot13 }}" class="label {% if app.request.get('facet') == k %}label-info{% else %}label-default{% endif %}">
         {{ s }}</span>

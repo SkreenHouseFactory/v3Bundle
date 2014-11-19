@@ -532,6 +532,8 @@ class ChannelController extends ChannelCustomController
           $data->channel->category->channels = array_combine(explode(';', $data->channel->category->facets_seo_url->channel),explode(';', $data->channel->category->facets->channel));
           $data->channel->category->access = array_combine(explode(';', $data->channel->category->facets_seo_url->access),explode(';', $data->channel->category->facets->access));
           $data->channel->category->formats = array_combine(explode(';', $data->channel->category->facets_seo_url->format),explode(';', $data->channel->category->facets->format));
+
+          $data->channel->category->categories = array_combine(explode(';', $data->channel->category->facets_seo_url->category),explode(';', $data->channel->category->facets->category));
           $data->channel->category->subcategories = array_combine(explode(';', $data->channel->category->facets_seo_url->subcategory),explode(';', $data->channel->category->facets->subcategory));
           $data->channel->category->alpha_available = explode(';', $data->channel->category->facets->alpha);
           $data->channel->category->alpha = array(
@@ -541,7 +543,7 @@ class ChannelController extends ChannelCustomController
           //unset($data->channel->category->facets);
           //unset($data->channel->category->facets_seo_url);
         }
-        $request->attributes->set('format', $data->channel->category->is_format ? $data->channel->category->slug : null);
+        //$request->attributes->set('format', $data->channel->category->is_format ? $data->channel->category->slug : null);
         $data->channel->category->description = $data->description;
         //$request->attributes->set('xhr', true);
         $response = $this->render('SkreenHouseFactoryV3Bundle:Content:category.html.twig', array_merge(array(
@@ -556,7 +558,9 @@ class ChannelController extends ChannelCustomController
           'data'        => $data,
           'category'    => $data->channel->category,
           'sliders'     => isset($data->sliders) ? (array)$data->sliders : array(),
-          'channel'     => $data->channel
+          'channel'     => $data->channel,
+          'categories' => $data->channel->category->categories,
+          'subcategories' => $data->channel->category->subcategories
         ), (array)$data->channel->category));
 
 
