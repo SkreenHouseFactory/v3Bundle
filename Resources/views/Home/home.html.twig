@@ -43,15 +43,20 @@
     <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
   {% endstylesheets %}
 {% endblock %}
-{#% block pagescripts %}
+{% block pagescripts %}
   {% javascripts
     '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/home.js'
-    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-start.js'
     filter='?yui_js' 
-    output='js/compiled/pages/user-home.js'  %}
+    output='js/compiled/pages/home.js'  %}
     <script src="{{ asset_url }}"></script>
   {% endjavascripts %}
-{% endblock %#}
+  {% javascripts
+    '@SkreenHouseFactoryV3Bundle/Resources/public/js/scripts/user-start.js'
+    filter='?yui_js' 
+    output='js/compiled/pages/user-start.js'  %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
 
 {% block content %}
 <div id="view-home">
@@ -104,23 +109,28 @@
 
 {# {% include 'SkreenHouseFactoryV3Bundle:Main:_passlabel.html.twig' %} #}
 
-{#% if home.name == 'mixte' %}
+{% if home.name == 'mixte' %}
   <div id="user-home">
-    <div class="user-on"></div>
-    <div class="user-off">
-      <div class="bs-callout bs-callout-warning">
-        <div class="container">
-          <h3>Plutôt Netflix ou plutôt Canalplay ?</h3>
-          <p>Découvrez quel service propose les films et les séries qui vous intéressent le plus.
-            <br/>
-            <a class="btn btn-large btn-warning" href="{{ path('user_start', {goal: 'vod'}) }}#films">Commencer</a></p>
-        </div>
-      </div>
+    <div class="bs-callout bs-callout-warning">
       <div class="container">
-      {{ render(controller('SkreenHouseFactoryV3Bundle:User:start', {'xhr': 1})) }}
+        <h3>Plutôt Netflix ou plutôt Canalplay ?</h3>
+        <p>Découvrez quel service propose les films et les séries qui vous intéressent le plus.
+          <br/>
+          <a class="btn btn-large btn-warning" href="{{ path('user_start', {goal: 'vod'}) }}#films">Commencer</a></p>
       </div>
     </div>
+    <div class="user-off container">
+      {{ render(controller('SkreenHouseFactoryV3Bundle:User:start', {'xhr': 1})) }}
+    </div>
+    <div class="user-on container">
+      <a class="btn btn-default btn-large pull-right" href="{{ path('user_player') }}">Voir</a>
+      <h2>Votre chaîne</h2>
+      <div id="top-playlist" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
+        <div class="playlist">
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
+        </div>
+      </div>
   </div>
-{% endif %#}
+{% endif %}
 
 {% endblock %}

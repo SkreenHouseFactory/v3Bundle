@@ -106,6 +106,7 @@ $(document).ready(function(){
 
     // on Resize to Fullscreen
     $(document).on('click','.teaser-container .glyphicon-resize-full',function () {
+      console.log('scripts/playlists.js', '.teaser-container .glyphicon-resize-full');
 
       glyphicon_css_marginTop = $(this).css('margin-top');
       glyphicon_css_marginRight = $(this).css('margin-right');
@@ -243,6 +244,7 @@ $(document).ready(function(){
 
     // on Resize to small player
     $(document).on('click','.teaser-container .glyphicon-resize-small',function () {
+      console.log('scripts/playlists.js', '.teaser-container .glyphicon-resize-small');
 
       $(this).css({
         marginRight: glyphicon_css_marginRight,

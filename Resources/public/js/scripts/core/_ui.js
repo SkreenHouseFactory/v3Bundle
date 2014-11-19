@@ -542,7 +542,7 @@ UiView = {
     });
 
     // -- sliders autoload
-    $('.slider[data-autoload="1"]', elmt).each(function(){
+    $('.slider[data-autoload="1"]:not(.initialized)', elmt).each(function(){
       new BaseSlider({}, function(){}, $(this));
       //console.log('UI.init', 'autoload sliders', $(this));
     });

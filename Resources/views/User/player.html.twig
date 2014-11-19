@@ -1,4 +1,4 @@
-{% extends 'SkreenHouseFactoryV3Bundle::layout.html.twig' %}
+{% extends app.request.isXmlHttpRequest or app.request.get('xhr') ? "SkreenHouseFactoryV3Bundle::empty.html.twig" : "SkreenHouseFactoryV3Bundle::layout.html.twig" %}
 
 {% block title %}{{ 'page.title.user.player'|trans }}{% endblock %}
 
@@ -29,8 +29,6 @@
   <a class="btn btn-primary btn-large pull-right" href="{{ path('user_recommend_channels') }}">Voir mes recommandations VOD</a>
   <a class="btn btn-default btn-large pull-right" href="{{ path('user_programs') }}">Paramétrer</a>
   <h1>Votre chaîne</h1>
-
-
   <div id="top-playlist" data-selector-url="{{ path('playlist_load', {type:'selector', session_uid: 'session.uid'}) }}">
     <div class="container playlist">
       {% include 'SkreenHouseFactoryV3Bundle:Main:_selector.html.twig' %}
@@ -38,8 +36,9 @@
   </div>
 
 </div>
-<div class="container container-player">
-  
+
+{% if app.request.get('xhr') is null %}
+<div class="container container-player">  
   <div class="player-wrapper">
     <div class="teaser-container">
       <div class="teaser-title sk-font">
@@ -67,6 +66,6 @@
 <div class="clear">
   <hr/>
 </div>
-
+{% endif %}
 
 {% endblock %}

@@ -9,7 +9,7 @@
      <div id="carousel-channel" class="carousel slide  new-slider vertical" data-interval="false" >
       <div class="carousel-inner">
         <div class="item active">
-          {% for item in channels.programs | to_array %}
+          {% for item in channels.programs|to_array %}
             {% if loop.index0 is divisibleby(3) and loop.index0 != 0 %}
               </div>
               <div class="item">
@@ -20,6 +20,7 @@
       </div>
     </div>
   </div>
+  {% if channels.programs|to_array|length > 3 %}
   <div class="controlersbtn2">
     <a  href="#carousel-channel" data-slide="prev">
       <button type="button" class="btn btn-default fleches">  
@@ -32,4 +33,5 @@
       </button>
     </a>
   </div>
+  {% endif %}
 {% endif %}

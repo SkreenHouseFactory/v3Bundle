@@ -491,6 +491,7 @@ $(document).ready(function(){
 
 
   //geoloc onload
+  /*
 	API.geolocation(function(position){
 		$('#results-theaters li.load').load(API.config.v3_root+'/cinema/search?latlng=' + position + ' #table-theaters', function(){
       $('#table-theaters a[data-id]').attr('data-store-in-session', '1').attr('data-step', 'theaters');
@@ -505,4 +506,5 @@ $(document).ready(function(){
 	}, function(msg, code){
 		container.prepend('<p class="alert alert-error">' + msg + '</p>');
 	});
+  */
 });

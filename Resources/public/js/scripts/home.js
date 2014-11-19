@@ -6,8 +6,9 @@ $(document).ready(function(){
     console.log('scripts/home.js', 'callbackSignin');
 
     if (Skhf.session.datas.email) {
-      console.log('scripts/home.js', 'callbackSignin', 'load selector');
-      $('#user-home .user-on').load(API.config.v3_root+'/user/player/');
+      //console.log('scripts/home.js', 'callbackSignin', 'load user player');
+      //$('#user-home .user-on').load(API.config.v3_root+'/user/player/?xhr=1', function(){
+      //});
     }
   }
 
