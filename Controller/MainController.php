@@ -193,7 +193,7 @@ class MainController extends Controller
         //'slider_height' => 450,
         'slider_width' => 'auto',
         'channel_img_width' => 50,
-        'fields' => 'programs,teaser,footer,img_maxsize'
+        'fields' => 'programs,img_maxsize'
       ));
       //echo $api->url;exit;
       //print_r($datas);

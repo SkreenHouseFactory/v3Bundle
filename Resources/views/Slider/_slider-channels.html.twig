@@ -1,33 +1,35 @@
- {% set nb_indicator = 0  %}
+{% set nb_indicator = 0  %}
+{% if channels.programs is defined %}
  {% for item in channels.programs | to_array %}
-  {% set nb_indicator = nb_indicator + 1 %}
- {% endfor %}
- {% set nb_indicator = (nb_indicator / 3)|round_up %}
- <div class="channelselect">
-   <h2><a href="{{ channels.url }}">{{ channels.title }}</a></h2>
-   <div id="carousel-channel" class="carousel slide  new-slider vertical" data-interval="false" >
-    <div class="carousel-inner">
-      <div class="item active">
-        {% for item in channels.programs | to_array %}
-          {% if loop.index0 is divisibleby(3) and loop.index0 != 0 %}
-            </div>
-            <div class="item">
-          {% endif %}
-          {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels_item.html.twig' with { item: item } %}       
-        {% endfor %}
+   {% set nb_indicator = nb_indicator + 1 %}
+   {% endfor %}
+   {% set nb_indicator = (nb_indicator / 3)|round_up %}
+   <div class="channelselect">
+     <h2><a href="{{ channels.url }}">{{ channels.title }}</a></h2>
+     <div id="carousel-channel" class="carousel slide  new-slider vertical" data-interval="false" >
+      <div class="carousel-inner">
+        <div class="item active">
+          {% for item in channels.programs | to_array %}
+            {% if loop.index0 is divisibleby(3) and loop.index0 != 0 %}
+              </div>
+              <div class="item">
+            {% endif %}
+            {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-channels_item.html.twig' with { item: item } %}       
+          {% endfor %}
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="controlersbtn2">
-  <a  href="#carousel-channel" data-slide="prev">
-    <button type="button" class="btn btn-default fleches">  
-      <span class="glyphicon glyphicon-circle-arrow-up"></span>
-    </button>
-  </a>
-  <a href="#carousel-channel" data-slide="next">
-    <button type="button" class="btn btn-default fleches">  
-      <span class="glyphicon glyphicon-circle-arrow-down"></span>
-    </button>
-  </a>
-</div>
+  <div class="controlersbtn2">
+    <a  href="#carousel-channel" data-slide="prev">
+      <button type="button" class="btn btn-default fleches">  
+        <span class="glyphicon glyphicon-circle-arrow-up"></span>
+      </button>
+    </a>
+    <a href="#carousel-channel" data-slide="next">
+      <button type="button" class="btn btn-default fleches">  
+        <span class="glyphicon glyphicon-circle-arrow-down"></span>
+      </button>
+    </a>
+  </div>
+{% endif %}

@@ -73,6 +73,10 @@
     </div>
   {% endif %}
 
+  {% if home.more is defined %}
+    {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more } %}
+  {% endif %}
+
   {% for slider in home.sliders|to_array if slider.id is defined %}
     {% if loop.first and home.name not in ['mixte', 'cinema'] %}
       {% if home.name not in ['mixte','cinema'] %}
@@ -80,9 +84,6 @@
       {% endif %}
     {% else %}
       {% if loop.first %}
-        {% if home.more is defined %}
-          {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more , loop_index: loop.index } %}
-        {% endif %}
         <div class="container">
           <div class="row">
             <div class="first-container">

@@ -30,7 +30,7 @@
     </div>
     {% endif %}     
     <ul class="wrap-carousel-control">
-      {% if pages|length > 1 %}
+      {% if pages is defined and pages|length > 1 %}
       <li>
         <a class="right carousel-control" href="#carousel-{{loop_index}}" data-slide="next">
           <span class="glyphicon glyphicon-circle-arrow-right"></span>
