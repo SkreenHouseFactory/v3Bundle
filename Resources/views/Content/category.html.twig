@@ -137,7 +137,7 @@
   #}
 
     <div class="facets">
-    {% if app.request.attributes.get('_route') in ['format','channel'] and categories|length > 1 %}
+    {% if app.request.attributes.get('_route') in ['format','channel'] and category.slug != 'jeunesse' and categories|length > 1 %}
       <br/>
       <p class="sk-font">Tous les genres</p>
       {% for k,s in categories %}
