@@ -25,6 +25,7 @@
               {% set indisponible = 1 %}
             {% endif %}
             <div class="player-encart clear">
+              <div class="teaser-title">
               {% if fournisseur.live.program is defined and fournisseur.live.program  %}
                 <div class="prog-title">
                 <a class="btn btn-default btn-suivre btn-plus fav-program" data-id="' + program.id + '">Ajouter</a>
@@ -39,6 +40,7 @@
               {% else %}
                 <div class="prog-actions">En direct sur {{ channel.name }}</div>
               {% endif %}
+              </div>
             </div>
         </div>
 

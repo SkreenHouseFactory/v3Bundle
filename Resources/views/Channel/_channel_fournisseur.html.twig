@@ -9,7 +9,7 @@
   {% endif %}
 
   <div class="packfournisseur clear">
-    <div id="view-fournisseur" data-id="{{ fournisseur.id }}" class="slider-player container{% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null %} container-seo-placement{% endif %}">
+    <div id="view-fournisseur" data-id="{{ fournisseur.id }}" class="container{% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null %} container-seo-placement{% endif %}">
       <div class="description-seo description-seo-absolute">
         {% if app.request.get('page') is null and app.request.get('facet') is null and app.request.get('access') is null and app.request.get('format') is null  %}
           <div class="scroll well">

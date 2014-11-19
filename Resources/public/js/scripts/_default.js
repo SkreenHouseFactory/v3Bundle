@@ -491,7 +491,7 @@ $(document).ready(function(){
     //player
     $('.slider-player [data-play-program-id]').on('click', function(e){
       e.preventDefault();
-      console.log('scripts/category.js', 'play program');
+      console.log('scripts/_default.js', 'play program');
       $('.teaser-category iframe').attr('src', 'http://player.myskreen.com/watch-program-'+$(this).data('play-program-id')+'/');
     
       API.query(
@@ -499,7 +499,7 @@ $(document).ready(function(){
         'program/' + $(this).data('play-program-id') + '.json', 
         { no_metadata: 0 }, 
         function(program){
-          console.log('scripts/category.js', 'update program info', program);
+          console.log('scripts/_default.js', 'update program info', program);
           $('.teaser-title').html(
             '<div class="prog-title"><a class="btn btn-default btn-suivre btn-plus fav-program" data-id="' + program.id + '">Ajouter à ma chaîne</a><small>' + program.format.name + ' - ' + program.duration + 'mn</small><a href="' + API.config.v3_root + program.seo_url + '" class="ellipsis">' + program.title + '</a></div>' + 
             '<div class="prog-actions"><a class="btn btn-default" href="' + program.seo_url + '">Détails</a></div>'
