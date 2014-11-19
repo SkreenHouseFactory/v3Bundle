@@ -245,6 +245,10 @@
       {% for slider in sliders|to_array if slider.id is defined and slider.programs|to_array|length %}
         {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with { slider: slider, loop_index: loop.index} %}
       {% endfor %}
+      <br/>
+      <br/>
+      <hr/>
+      <h2 class="clear">{{ category.name }} : tout le streaming</h2>
     {% endif %}
 
     {# programs #}
