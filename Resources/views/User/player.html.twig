@@ -39,6 +39,7 @@
 
 {% if app.request.get('xhr') is null %}
 <div class="container container-player">  
+  {% if data.queue|length %}
   <div class="player-wrapper">
     <div class="teaser-container">
       <div class="teaser-title sk-font">
@@ -61,6 +62,9 @@
     </div>
     {% include 'SkreenHouseFactoryV3Bundle:Main:_slider.html.twig' with {slider: {id: 'user-queue-slider', programs: data.queue}, noheader: true, class: 'slider-user no-mousehidden', origin: 'ChannelMyskreener'} %}
   </div>
+  {% else %}
+  <div class="bs-callout bs-callout-info"><h3>Aucune vidéo</h3><p><a href="{{ path('user_programs') }}">Paramétrez votre chaîne</a></p></div>
+  {% endif %}
 </div>
 
 <div class="clear">

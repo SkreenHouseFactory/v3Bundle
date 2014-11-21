@@ -41,7 +41,12 @@ redirect_home_vod_spectacle:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path: /spectacle/
         permanent: true
-
+redirect_home_vod:
+    path: /video-a-la-demande/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /film/
+        permanent: true
 
 
 sitemap_general:

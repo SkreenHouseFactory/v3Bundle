@@ -27,7 +27,7 @@
        {% elseif o.buy_id is defined and o.buy_id %}
          {{ o.cost is defined and o.cost != null ? 'A partir de ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Streaming' }} 
        {% else %}
-         {{ o.cost is defined and o.cost != null ? 'Streaming ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : 'Streaming' }}
+         {{ o.cost is defined and o.cost != null ? 'Streaming ' ~ (o.cost == '-' ? '- ' : o.cost|number_format(2, ',')) ~ '€' : (o_access.name in ['Catchup', 'Replay'] ? 'Replay' : 'Streaming') }}
        {% endif %}
      </button>
      {% if o.tags.originalprice is defined and o.tags.originalprice and o.cost %}

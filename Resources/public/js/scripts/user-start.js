@@ -364,10 +364,11 @@ $(document).ready(function(){
   //register
   $(document).on('click', '#register', function(){
     if (Skhf.session.datas.email) { // User Connected
-      document.location = API.config.v3_root + '/user/programs';
+      document.location = document.location.href.indexOf('goal') != -1 ? API.config.v3_root + '/user/recommend-channels/' : API.config.v3_root + '/user/programs';
     } else { // User Not connected
       UI.auth(function(){
-        
+        alert('callbackAuth');
+        /*
         //add to lists
         lists_in_session = JSON.parse(API.cookie('start-mes-listes'));
         console.log('scripts/user-start.js', '#register-click', lists_in_session);
@@ -406,6 +407,7 @@ $(document).ready(function(){
             }
           }
         }
+        */
       });
     }
   });
@@ -483,12 +485,19 @@ $(document).ready(function(){
             container.removeClass('items');
             container.append('<li class="row suggest"><a data-name="'+title+'" data-id="'+results[k].id+'" data-name="' + title + '" rel="popover" data-placement="top" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' col-xs-2" data-step="'+step+'"> Ajouter</a>'+(typeof results[k].picture != 'undefined' ? '<div class="col-xs-1"><img src="'+results[k].picture+'" alt="Illustration de '+title+'" height="40" width="auto"></div>' : '' )+'<a data-trigger-click="a[data-id=\''+results[k].id+'\']"><span class="'+(typeof results[k].picture != 'undefined' ? 'col-xs-9' : 'col-xs-10' )+'">' + title + ((type == 'films&series' && typeof results[k].year != 'undefined') ? '<small> - ' + results[k].year + '</small>' : '') + ((type == 'theaters' && typeof results[k].ville != 'undefined') ? '<small> - '+results[k].ville+'</small>' : '') + '</span>' + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<span class="col-xs-4">suivi par  '+results[k].nb_followers+' personnes</span>' : '') + '</a></li>')
         }
-        }
+      }
     });
 
     return false;
   });
 
+
+  //add first flag
+  if ($('#addflag]')) {
+    API.addPreference($('#addflag').data('flag-type'), $('#addflag').data('flag-id'), function(){
+      console.log('script/user-start.js', 'autoflag added')
+    });
+  }
 
   //geoloc onload
   /*
