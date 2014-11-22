@@ -367,8 +367,7 @@ $(document).ready(function(){
       document.location = document.location.href.indexOf('goal') != -1 ? API.config.v3_root + '/user/recommend-channels/' : API.config.v3_root + '/user/programs';
     } else { // User Not connected
       UI.auth(function(){
-        alert('callbackAuth');
-        /*
+        //alert('callbackAuth');
         //add to lists
         lists_in_session = JSON.parse(API.cookie('start-mes-listes'));
         console.log('scripts/user-start.js', '#register-click', lists_in_session);
@@ -407,7 +406,6 @@ $(document).ready(function(){
             }
           }
         }
-        */
       });
     }
   });
@@ -517,3 +515,4 @@ $(document).ready(function(){
 	});
   */
 });
+
