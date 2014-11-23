@@ -212,7 +212,10 @@
             </div>
           </div>
         {% endif %}
+        
+        {% if channel.notifications is defined %}
         {% include 'SkreenHouseFactoryV3Bundle:Main:_notifications.html.twig' with {origin: 'cette chaîne', notifications: channel.notifications, title: 'Actualité des programmes ' ~ channel.name } %}
+        {% endif %}
         <div class="container">
       {% endif %}
       

@@ -182,11 +182,12 @@
     <p class="sk-font">Sur quelle chaîne ?</p>
     {% for k,c in channels if k %}
       {% if category.slug and app.request.get('format') and category.slug != 'jeunesse' %}
-        <span class="label label-default" data-link-to-replace="{{ path('channel_format_facet', {slug: k|replace({'-+': ''}), format: app.request.get('format'), facet: category.slug })|rot13 }}">
+        <span class="label label-default" data-link-to-replace="{{ path('channel_format_facet', {slug: k|replace({'-+': ''}), format: app.request.get('format'), facet: category.slug })|rot13 }}">{{ c }}</span>
       {% elseif category.slug and category.slug != 'jeunesse' %}
-        <span class="label label-default" data-link-to-replace="{{ path('channel_format', {slug: k|replace({'-+': ''}), format: category.slug})|rot13 }}">
+        <span class="label label-default" data-link-to-replace="{{ path('channel_format', {slug: k|replace({'-+': ''}), format: category.slug})|rot13 }}">{{ c }}</span>
+      {% else %}
+        <span class="label label-default" data-link-to-replace="{{ path('channel_format_facet', {slug: k|replace({'-+': ''}), format: 'film', facet: 'jeunesse' })|rot13 }}">{{ c }}</span>
       {% endif %}
-      {{ c }}</span>
     {% endfor %}
 
     {% if app.request.get('format') and app.request.get('access') is null and app.request.get('facet') is null %}
