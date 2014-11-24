@@ -284,6 +284,12 @@ $(document).ready(function(){
       UI.callbackTogglePlaylist = function(parameter, value, remove, trigger, return_data) {
         console.log('UI.callbackTogglePlaylist', 'return_data', return_data);
         if (!remove) {
+          if (typeof Skhf.session.datas.email != 'undefined' && Skhf.session.datas.email) {
+            if (Skhf.session.datas.queue.length < 2) {
+              document.location = Api.config.v3_root+'/start/?fromProgram'
+            }
+          }
+          /*
           real = $('[itemprop="director"]');
           if (real.length == 1) {
             more = '';
@@ -297,6 +303,7 @@ $(document).ready(function(){
               '%more%': more,
             },15000);
           }
+          */
         }
         /*
         if (typeof return_data != 'undefined') {

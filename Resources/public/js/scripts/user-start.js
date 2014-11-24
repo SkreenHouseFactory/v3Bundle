@@ -491,7 +491,7 @@ $(document).ready(function(){
 
 
   //add first flag
-  if ($('#addflag]')) {
+  if ($('#addflag')) {
     API.addPreference($('#addflag').data('flag-type'), $('#addflag').data('flag-id'), function(){
       console.log('script/user-start.js', 'autoflag added')
     });
