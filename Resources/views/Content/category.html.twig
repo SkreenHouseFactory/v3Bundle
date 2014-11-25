@@ -24,8 +24,7 @@
 {% block title %}
   {% if app.request.get('format') %}{{ app.request.get('format')|capitalize }} {% endif %}
   {% if app.request.get('facet') %}{% if app.request.get('facet')|length > 1 and subcategories[app.request.get('facet')] is defined %}{{ subcategories[app.request.get('facet')] }}{% else %}{{ app.request.get('facet') }}{% endif %}{% endif %}
-  {{ category.name }}
-  {% if app.request.get('access') %}{% if app.request.get('access') == 'video-a-la-demande' %} en {% endif %}{{ ('access.' ~ app.request.get('access'))|trans }} {% endif %}
+  {{ category.name }}, streaming
   {% if app.request.get('page') %}, page {{ app.request.get('page') }}{% endif %}
 {% endblock %}
 {% block description %}
