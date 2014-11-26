@@ -48,7 +48,7 @@ $(document).ready(function(){
   r.text(160, 10, "Recommandations VOD").attr(txtattr);
   r.barchart(10, 10, 470, 300, [coords], 0, {type: "sharp"});
   
-  var rectseries = $('#svod-chart svg rect');
+  var rectseries = $('#vod-chart svg rect');
   for (var i = 0; i < rectseries.length; i++) {
     $(rectseries[i]).attr('rel','tooltip');
     $(rectseries[i]).attr('data-placement','bottom');
