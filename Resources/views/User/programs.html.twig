@@ -84,7 +84,7 @@
             Ajoutez les spectacles que vous aimez avec facilité !
           {% endif %}
         {% endif %}
-        <a class="btn btn-primary pull-right" href="{{ path('user_start') }}{% if app.request.get('onglet') in [null,'films','documentaires','spectacles'] %}#films{% elseif app.request.get('onglet') == 'series' %}#series{% elseif app.request.get('onglet') == 'emissions' %}#emissions{% endif %}"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;{{ programs|length == 0 ? 'Commencer ' : 'Continuer ' }}ma chaîne</a>
+        <a class="btn btn-primary pull-right" href="{{ path('user_start') }}{% if app.request.get('onglet') in [null,'films','documentaires','spectacles'] %}#trigger=films{% elseif app.request.get('onglet') == 'series' %}#trigger=series{% elseif app.request.get('onglet') == 'emissions' %}#trigger=emissions{% endif %}"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;{{ programs|length == 0 ? 'Commencer ' : 'Continuer ' }}ma chaîne</a>
       </p>
 
   </div>

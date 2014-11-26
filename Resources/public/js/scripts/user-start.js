@@ -509,6 +509,11 @@ $(document).ready(function(){
       $('[data-step="'+hash[0]+'s"]').length) {
     $('form[data-step="'+hash[0]+'s"] input[type="text"]').attr('value', hash[1]);
     $('form[data-step="'+hash[0]+'s"] .glyphicon.glyphicon-search').trigger('click');
+  } else if (typeof hash[0] != 'undefined' && 
+             typeof hash[0] == 'trigger' && 
+             typeof hash[1] != 'undefined' && 
+             $('[data-step="'+hash[0]+'"]').length) {
+    $('#menu-'+hash[0]).trigger('click');
   }
 
   //geoloc onload
