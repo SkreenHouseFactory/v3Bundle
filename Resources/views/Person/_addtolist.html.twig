@@ -20,7 +20,8 @@
         <div class="row">
           {# Bouton Ajout/Abo #}
           <div class="col-xs-16 ajout">
-            {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: person.id, class: 'fav-person', text: 'Ajouter à ma chaîne', placement: 'left', name: person.name, origin: 'person'} %}
+            {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: person.id, class: 'fav-person user-on', text: 'Ajouter à ma chaîne', placement: 'left', name: person.name, origin: 'person'} %}
+            <a href="{{ path('user_start') }}#person={{ person.name|escape }}" rel="popover" data-placement="left" class="btn btn-suivre btn-plus fav-person user-off">Ajouter à ma chaîne</a>
           </div>
           {# Textes Ajouts #}
           <div class="col-xs-16">

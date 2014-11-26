@@ -79,14 +79,13 @@
       {# Bouton Ajout/Abo #}
       <div class="col-xs-16 ajout">
         {% if program.popular_channel is not defined or program.popular_channel.id not in [5573] %}
-          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.episodeof is defined ? program.episodeof.id : program.id, class: 'fav-like', text: 'Ajouter à ma chaîne', placement: 'left', onglet: program.onglet is defined and program.onglet ? program.onglet : '' } %}
+          {% include 'SkreenHouseFactoryV3Bundle:Main:_btn-suivre.html.twig' with {id: program.episodeof is defined ? program.episodeof.id : program.id, class: 'fav-like user-on', text: 'Ajouter à ma chaîne', placement: 'left', onglet: program.onglet is defined and program.onglet ? program.onglet : '' } %}
+          <a href="{{ path('user_start') }}#{{ program.format ? program.format.name|lower : 'film' }}={{ program.title|escape }}" rel="popover" data-onglet="{{ program.onglet }}" data-placement="left" class="btn btn-suivre btn-plus fav-like user-off">Ajouter à ma chaîne</a>
         {% endif %}
       </div>
       {# Textes Ajouts #}
-      <div class="col-xs-16">
-        <a class="meslistes-plus" href="{{ path('user_start') }}" {# data-toggle-text="<i class='glyphicon glyphicon-collapse-up'></i>&nbsp;Fermer" data-toggle-display=".bande_couleur_degrade" data-toggle-animation="slide" #}><i class="glyphicon glyphicon-collapse-down"></i>&nbsp;Plus d'infos...</a>
-        {# <p>Soyez averti des prochaines diffusions (Tv, Replay, Ciné, VOD).</p>
-        {# <p>Partagez vos playlists avec vos amis et suivez ce qu'ils regardent.</p> #}
+      <div class="col-xs-16 user-off">
+        <a class="meslistes-plus" href="{{ path('user_start') }}#{{ program.format ? program.format.name|lower : 'film' }}={{ program.title|escape }}" {# data-toggle-text="<i class='glyphicon glyphicon-collapse-up'></i>&nbsp;Fermer" data-toggle-display=".bande_couleur_degrade" data-toggle-animation="slide" #}><i class="glyphicon glyphicon-collapse-down"></i>&nbsp;Plus d'infos...</a>
       </div>
     </div>
   </div>

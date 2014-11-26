@@ -68,9 +68,11 @@
       <h1>{{ category.name }} en streaming</h1>
       {% if category.format is not defined %}
       {% elseif category.format %}
-        <a data-id="{{ category.format.id~'+'~category.id }}" rel="popover" data-placement="left" class="btn btn-suivre btn-plus fav-format-category">Ajouter à mes listes </a>
+        <a data-id="{{ category.format.id~'+'~category.id }}" rel="popover" data-placement="left" class="btn btn-suivre btn-plus fav-format-category user-on">Ajouter à mes listes </a>
+        <a href="{{ path('user_start') }}#categorie={{ category.name|escape }}" rel="popover" data-placement="left" class="btn btn-suivre btn-plus fav-format-category user-off">Ajouter à ma chaîne</a>
       {% else %}
-        <a data-id="{{ category.id }}" rel="popover" data-placement="left" class="btn btn-suivre btn-plus fav-format-category">Ajouter à mes listes </a>
+        <a data-id="{{ category.id }}" rel="popover" data-placement="left" class="btn btn-suivre btn-plus fav-format-category user-on">Ajouter à mes listes </a>
+        <a href="{{ path('user_start') }}#categorie={{ category.name|escape }}" rel="popover" data-placement="left" class="btn btn-suivre btn-plus fav-format-category user-off">Ajouter à ma chaîne</a>
       {% endif %}
     </div>
   </div>
