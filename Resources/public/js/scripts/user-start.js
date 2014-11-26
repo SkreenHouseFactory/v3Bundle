@@ -418,9 +418,13 @@ $(document).ready(function(){
   });
   //forms responding with suggestions depending on text input
   $('form[data-step] input[type="text"]').keyup(function() {
-    input = $(this);
+    $(this).parents('form:first').find('.glyphicon.glyphicon-search').trigger('click');
+  })
+  $('form[data-step] .glyphicon.glyphicon-search').on('click', function() {
+    input = $(this).parents('form:first').find('input[type="text"]');
     step = $(this).parents('form:first').data('step');
     container = $('#results-' + step + ' ul');
+    console.log('scripts/user-start.js', 'search', input, step, container);
     switch(step) {
       case 'persons':
         fav = 'person';
@@ -438,7 +442,7 @@ $(document).ready(function(){
         fav = 'like';
         break;
     }
-    q = $(this).val(); //$(this).find('input[type=text]').val();
+    q = input.val(); //$(this).find('input[type=text]').val();
     if (q.length < 3 || q == null) {
       console.warn('scripts/user-start.js', 'aborted : short query', q);
       return;
@@ -497,22 +501,33 @@ $(document).ready(function(){
     });
   }
 
+  //from hash
+  var hash = window.location.hash.replace('#','').split('=');
+  console.log('scripts/user-start.js', 'load hash', hash);
+  if (typeof hash[0] != 'undefined' && 
+      typeof hash[1] != 'undefined' && 
+      $('[data-step="'+hash[0]+'s"]').length) {
+    $('form[data-step="'+hash[0]+'s"] input[type="text"]').attr('value', hash[1]);
+    $('form[data-step="'+hash[0]+'s"] .glyphicon.glyphicon-search').trigger('click');
+  }
+
   //geoloc onload
-  /*
-	API.geolocation(function(position){
-		$('#results-theaters li.load').load(API.config.v3_root+'/cinema/search?latlng=' + position + ' #table-theaters', function(){
-      $('#table-theaters a[data-id]').attr('data-store-in-session', '1').attr('data-step', 'theaters');
-      if (Skhf.session.user) {
-        UI.loadPlaylistTriggers(
-          'cinema', 
-          Skhf.session.datas.cinema.split(','), 
-          $(this)
-        );
-      }
-		});
-	}, function(msg, code){
-		container.prepend('<p class="alert alert-error">' + msg + '</p>');
+  $('.trigger-geoloc').on('click', function(){
+  	API.geolocation(function(position){
+  		$('#results-theaters li.load').load(API.config.v3_root+'/cinema/search?latlng=' + position + ' #table-theaters', function(){
+        $('#table-theaters a[data-id]').attr('data-store-in-session', '1').attr('data-step', 'theaters');
+        if (Skhf.session.user) {
+          UI.loadPlaylistTriggers(
+            'cinema', 
+            Skhf.session.datas.cinema.split(','), 
+            $(this)
+          );
+        }
+  		});
+  	}, function(msg, code){
+  		container.prepend('<p class="alert alert-error">' + msg + '</p>');
+  	});
 	});
-  */
+
 });
 

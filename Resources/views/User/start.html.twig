@@ -15,9 +15,9 @@
         <li><a id="menu-emissions">Mes émissions <span id="count-emissions" class="badge">0</span></a></li>
         <li><a id="menu-series">Mes séries <span id="count-series" class="badge">0</span></a></li>
         <li><a id="menu-persons">Mes personnalités <span id="count-persons" class="badge">0</span></a></li>
-        <li><a id="menu-theaters">Mes cinémas <span id="count-theaters" class="badge">0</span></a></li>
+        <li><a id="menu-theaters" class="trigger-geoloc">Mes cinémas <span id="count-theaters" class="badge">0</span></a></li>
         <li><a id="menu-categories">Mes catégories<span id="count-categories" class="badge">0</span></a></li>
-        <li class="user-on"><a id="menu-amis">Mes amis</a></li>
+        {#<li class="user-on"><a id="menu-amis">Mes amis</a></li>#}
         <li class="confirm"><a id="menu-confirm">Enregistrer</a></li>
       </ul>
     </div>
@@ -83,7 +83,7 @@
         <div class="panel-start">
           <div class="relative">
             <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-series']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
-            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-theaters']">Ajoutez les cinémas près de chez vous ! <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <a class="btn btn-default btn-primary btn-lg trigger-geoloc" data-trigger-click="a[id='menu-theaters']">Ajoutez les cinémas près de chez vous ! <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             <div class="form-container">
               {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'persons', title: 'Toutes vos personnalités préférées à suivre...', placeholder: 'Leonardo DiCaprio, Steven Spielberg...', suggests: selection_pack.persons, favlike: 'fav-person'} %}
             </div>
@@ -108,6 +108,7 @@
             </div>
           </div>
         </div>
+        {#
         <div class="panel-start user-on">
           <div class="relative">
             <button class="btn btn-default btn-primary btn-lg btn-back" data-trigger-click="a[id='menu-categories']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
@@ -134,6 +135,7 @@
             </div>
           </div>
         </div>
+        #}
         <div class="panel-start">
           <div class="relative">
             <button class="btn btn-default btn-primary btn-lg btn-back user-on" data-trigger-click="a[id='menu-amis']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>

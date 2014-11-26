@@ -47,6 +47,92 @@ redirect_home_vod:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path: /film/
         permanent: true
+redirect_home_teva:
+    path: /teva/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /replay/
+        permanent: true
+redirect_home_teva:
+    path: /teva/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /replay/
+        permanent: true
+redirect_home_tv5:
+    path: /tv5-monde/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /replay/
+        permanent: true
+redirect_home_gameone:
+    path: /gameone/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /replay/
+        permanent: true
+redirect_home_kto:
+    path: /kto/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /replay/
+        permanent: true
+redirect_home_lci:
+    path: /lci/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /replay/
+        permanent: true
+redirect_home_euronews:
+    path: /euronews/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /replay/
+        permanent: true
+redirect_home_europacorp:
+    path: /europacorp/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /film/
+        permanent: true
+redirect_home_daylimotion:
+    path: /daylimotion/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /film/
+        permanent: true
+redirect_home_wildside:
+    path: /wildside/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /film/
+        permanent: true
+redirect_home_pathevod:
+    path: /pathe-vod/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /film/
+        permanent: true
+redirect_home_zylo:
+    path: /zylo/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /film/
+        permanent: true
+redirect_home_chrysalis:
+    path: /chrysalis/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /film/
+        permanent: true
+redirect_home_jour2fete:
+    path: /jour-2-fete/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /film/
+        permanent: true
+        
+        
 
 
 sitemap_general:
