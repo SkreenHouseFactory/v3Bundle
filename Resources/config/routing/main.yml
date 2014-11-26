@@ -131,6 +131,36 @@ redirect_home_jour2fete:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path: /film/
         permanent: true
+redirect_home_diaphana:
+    path: /diaphana/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /film/
+        permanent: true
+redirect_home_bacfilms:
+    path: /bac-films/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /film/
+        permanent: true
+redirect_home_bachfilms:
+    path: /bach-films/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /film/
+        permanent: true
+redirect_home_snd:
+    path: /snd/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /film/
+        permanent: true
+redirect_home_factoris:
+    path: /factoris-films/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /film/
+        permanent: true
         
         
 
