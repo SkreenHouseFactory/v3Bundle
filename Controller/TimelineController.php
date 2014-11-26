@@ -36,8 +36,16 @@ class TimelineController extends Controller
         break;
         default:
           if (is_numeric($request->get('date'))) {
+            if (!$request->isXmlHttpRequest()) {
+              return $this->redirect($this->generateUrl('tvgrid'));
+              exit();
+            }
             $timestamp = $request->get('date');
           } elseif ($request->get('date')) {
+            if (!$request->isXmlHttpRequest()) {
+              return $this->redirect($this->generateUrl('tvgrid'));
+              exit();
+            }
             $timestamp = strtotime(str_replace('_', ' ', $request->get('date')));
           } else {
             $timestamp = mktime(20,0,0,date('m'),date('d'),date('Y'));
@@ -66,7 +74,7 @@ class TimelineController extends Controller
       $template = $request->get('schedule-only') ? '_channels-schedule' : 'grid';
       $response = $this->render('SkreenHouseFactoryV3Bundle:Timeline:' . $template . '.html.twig', array(
         'data' => (array)$data,
-      'periode' => $request->get('date')
+        'periode' => $request->get('date')
 
       ));
 
