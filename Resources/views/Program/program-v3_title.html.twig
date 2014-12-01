@@ -22,4 +22,5 @@
   {% else %}
     {{ program.title }} {% if program.has_vod in [7,8] %} Replay {% endif %} {% if program.has_vod in [1,2,12] %} VOD {% endif %} {% if program.has_vod in [3] %} DVD {% endif %}
   {% endif %}
+  {% if program.year %}, {{ program.year }}{% endif %}
 {% endblock %}
