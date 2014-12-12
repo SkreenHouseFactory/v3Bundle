@@ -123,7 +123,7 @@ if (screen.width > 767) {
 
     <script src="{{ asset('bundles/skreenhousefactoryv3//js/vendors/modernizr.min.js') }}"></script>
 
-    {# adsense #}
+    {# adsense 
     <script type='text/javascript'>
     var googletag = googletag || {};
     googletag.cmd = googletag.cmd || [];
@@ -158,10 +158,11 @@ if (screen.width > 767) {
     googletag.enableServices();
     });
     </script>
+    #}
   </head>
   <body class="{% if block('body_class') %}{% block body_class %}{% endblock %}{% else %}view-{{ app.request.attributes.get('_route') }}{% endif %} disconnected"{% if block('body_background') %} style="background:{% block body_background %}{% endblock %};"{% endif %}{% if app.environment == 'dev' %} data-env="{{ app.request.host|split('.')|slice(1,1)|join('') }}"{% endif %}{% if block('body_attribute') %}{% block body_attribute %}{% endblock %}{% endif %}>
 
-{# adikteev #}
+{# adikteev }
 <script type='text/javascript'>
 setTimeout(function(){
 (function(e,t){
@@ -177,6 +178,7 @@ try{ var i=top.document.getElementsByTagName('script')[0];i.parentNode.insertBef
 })({desktop:'uQsa6rVPnQhZYYSPqlmXfQ=='});
 }, 5000);
 </script>
+#}
 
 <div id="interstitiel-mobile"><span class="glyphicon glyphicon-remove-circle"></span><div id="adsense-banner-interstitiel-mobile"></div></div>
 

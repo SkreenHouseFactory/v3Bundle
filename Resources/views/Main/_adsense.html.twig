@@ -1,4 +1,4 @@
-{% if banner is defined and banner == 'colonne' %}
+{#% if banner is defined and banner == 'colonne' %}
 <div id="adsense-banner-colonne" class="adsense-block-colonne">
 <script type="text/javascript">
 googletag.cmd.push(function() { googletag.display('adsense-banner-colonne'); });
@@ -22,4 +22,4 @@ if ('matchMedia' in window && window.matchMedia('(min-width:500px)').matches) {
 </script>
 </div>
 {% endif %}
-{{ html is defined ? html|raw : '' }}
+{{ html is defined ? html|raw : '' }#}
