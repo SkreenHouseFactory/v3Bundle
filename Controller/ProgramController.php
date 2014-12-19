@@ -76,11 +76,11 @@ class ProgramController extends Controller
         'channel_img_width' => 80,
         'channel_slider_width' => 300,
         'channel_slider_height' => 147,
-        'slider_width' => 1200,
-        'slider_height' => 630,
+        //'slider_width' => 1200,
+        //'slider_height' => 630,
         'season' => $request->get('season_number'),
-        'fields' => 'description_episode,metadata,related,related_programs,selections,offers,teaser,hashtags,empty_player,img_maxsize,coming_soon,homes,photo,reviews'
-      ));
+        'fields' => 'description_episode,metadata,selections,offers,teaser,hashtags,empty_player,img_maxsize,coming_soon,homes,photo,reviews'
+      ));//,related,related_programs
 
       //gestion og_picture
       if (isset($data->sliderPicture)) {
