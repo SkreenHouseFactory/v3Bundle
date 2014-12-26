@@ -164,7 +164,8 @@ $(document).ready(function(){
     }
   });
 
-  $(document).on('click', "#menu-amis", function() {
+ /*
+   $(document).on('click', "#menu-amis", function() {
     // animate
     if ('matchMedia' in window) {
       if (window.matchMedia('(min-width:768px)').matches) {
@@ -173,12 +174,13 @@ $(document).ready(function(){
       }
     }
   });
+  */
 
   $(document).on('click', "#menu-confirm", function() {
     // animate
     if ('matchMedia' in window) {
       if (window.matchMedia('(min-width:768px)').matches) {
-        $('.forms-container').animate({'left': '-8110px'}, 500);
+        $('.forms-container').animate({'left': '-7090px'}, 500);//'-8110px'}, 500);
         menuClassActive(this);
       }
     }
