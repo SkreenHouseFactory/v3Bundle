@@ -101,8 +101,10 @@
         <div class="panel-start">
           <div class="relative">
             <button class="btn btn-default btn-primary btn-lg btn-back user-on" data-trigger-click="a[id='menu-theaters']"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
+            {#
             <a class="btn btn-default btn-primary btn-lg user-on" data-trigger-click="a[id='menu-amis']">Partagez votre chaîne avec vos amis... <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
-            <a class="btn btn-default btn-primary btn-lg user-off" data-trigger-click="a[id='menu-confirm']">Bravo ! Vous n'avez plus qu'à enregistrez votre chaîne <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            #}
+            <a class="btn btn-default btn-primary btn-lg" data-trigger-click="a[id='menu-confirm']">Bravo ! Vous n'avez plus qu'à enregistrez votre chaîne <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             <div class="form-container">
               {% include 'SkreenHouseFactoryV3Bundle:User:_start-form.html.twig' with {step: 'categories', title: 'Choisissez les catégories de programmes qui vous ressemblent...', placeholder: 'séries US, comédies dramatiques, téléréalités...', suggests: selection_pack.categories, favlike: 'fav-category'} %}
             </div>
