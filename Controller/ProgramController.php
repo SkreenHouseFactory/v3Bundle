@@ -110,13 +110,14 @@ class ProgramController extends Controller
           isset($data->episodeof->id) && 
           in_array($data->episodeof->id, array(4941177,4938680,5300091,5300092,5300093,5300095,5300097,4941165,4941207))) {
         return $this->redirect('/l-integrale-des-inconnus/?click=[data-id=%22'.$data->id.'%22]', 301);
-      }*/
+      }
       //hack 301 sketch inconnus redirect sur FP 3 freres le retour
       if (isset($data->episodeof) && 
           isset($data->episodeof->id) && 
           in_array($data->episodeof->id, array(4941177,4938680,5300091,5300092,5300093,5300095,5300097,4941165,4941207))) {
         return $this->redirect('/film/comedies/5088919-les-trois-freres-le-retour/', 301);
       }
+      */
 
       //stop Adulte
       if (!$data || isset($data->error)) {
@@ -153,6 +154,10 @@ class ProgramController extends Controller
           }
           return $this->redirect($data->seo_url, 301);
         }
+      } elseif(isset($data->episodeof) && !$data->episodeof->id && 
+                $data->id != $request->get('id')) {
+        //echo $data->seo_url;exit();
+        return $this->redirect(str_replace('/saison-0', '/saison-', $data->seo_url), 301);
       }
 
       //hack img dev
