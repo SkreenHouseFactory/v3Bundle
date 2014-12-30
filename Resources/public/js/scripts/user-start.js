@@ -506,16 +506,21 @@ $(document).ready(function(){
   //from hash
   var hash = window.location.hash.replace('#','').split('=');
   console.log('scripts/user-start.js', 'load hash', hash);
-  if (typeof hash[0] != 'undefined' && 
-      typeof hash[1] != 'undefined' && 
-      $('[data-step="'+hash[0]+'s"]').length) {
-    $('form[data-step="'+hash[0]+'s"] input[type="text"]').attr('value', hash[1]);
-    $('form[data-step="'+hash[0]+'s"] .glyphicon.glyphicon-search').trigger('click');
-  } else if (typeof hash[0] != 'undefined' && 
-             typeof hash[0] == 'trigger' && 
-             typeof hash[1] != 'undefined' && 
-             $('[data-step="'+hash[0]+'"]').length) {
-    $('#menu-'+hash[0]).trigger('click');
+  if (typeof hash[0] != 'undefined' && typeof hash[1] != 'undefined') {
+    var fav = hash[0].replace('documentaire','film').replace('spectacle','film')
+    if ($('[data-step="'+fav+'s"]').length) {
+      console.log('scripts/user-start.js', 'trigger search', hash);
+      $('form[data-step="'+fav+'s"] input[type="text"]').attr('value', hash[1]);
+      $('form[data-step="'+fav+'s"] .glyphicon.glyphicon-search').trigger('click');
+      setTimeout(function(){
+        $('li.suggest a[data-name="'+hash[1]+'"]').trigger('click')
+        $('.start-list.btn').html('Continuer ma chaîne <span class="glyphicon glyphicon-circle-arrow-right"></span>')
+      }, 2000)
+    } else if (fav == 'trigger' && 
+               $('[data-step="'+fav+'"]').length) {
+      console.log('scripts/user-start.js', 'trigger menu', hash);
+      $('#menu-'+fav).trigger('click');
+    }
   }
 
   //geoloc onload
