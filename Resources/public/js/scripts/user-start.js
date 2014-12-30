@@ -469,7 +469,7 @@ $(document).ready(function(){
           return;
         }
         
-        container.empty();
+        container.empty().show();
         console.log('scripts/user-start.js', 'callback form', container);
         for (k in results) {
           console.log('scripts/user-start.js', 'result', results[k]);
