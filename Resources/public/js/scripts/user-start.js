@@ -507,13 +507,15 @@ $(document).ready(function(){
   var hash = window.location.hash.replace('#','').split('=');
   console.log('scripts/user-start.js', 'load hash', hash);
   if (typeof hash[0] != 'undefined' && typeof hash[1] != 'undefined') {
-    var fav = hash[0].replace('documentaire','film').replace('spectacle','film')
+    var fav = hash[0].replace('documentaire','film').replace('spectacle','film').replace('série','serie').replace('émission','emission')
     if ($('[data-step="'+fav+'s"]').length) {
-      console.log('scripts/user-start.js', 'trigger search', hash);
+      new Dialog('startLists',{},3000);
+      console.log('scripts/user-start.js', 'trigger search');
       $('form[data-step="'+fav+'s"] input[type="text"]').attr('value', hash[1]);
       $('form[data-step="'+fav+'s"] .glyphicon.glyphicon-search').trigger('click');
       setTimeout(function(){
-        $('li.suggest a[data-name="'+hash[1]+'"]').trigger('click')
+        console.log('scripts/user-start.js', 'trigger search', 'setTimeout');
+        $('li.suggest a[data-name="'+hash[1]+'"], li[data-name="'+hash[1]+'"] a').trigger('click');
         $('.start-list.btn').html('Continuer ma chaîne <span class="glyphicon glyphicon-circle-arrow-right"></span>')
       }, 2000)
     } else if (fav == 'trigger' && 

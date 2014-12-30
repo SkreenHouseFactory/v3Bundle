@@ -82,6 +82,10 @@ var Dialog = Class.extend({
   onDenyFacebookShare: function(){
     this.title = 'Partage Facebook';
     this.content = '<br/>Vous pouvez désactiver le partage Facebook automatique en allant dans vos préférences';
+  },
+  startLists: function() {
+    this.title = 'Patientez ...';
+    this.content = '<br/>Paramétrage de votre chaîne en cours';
   }
   
 });
