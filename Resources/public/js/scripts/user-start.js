@@ -425,8 +425,8 @@ $(document).ready(function(){
   $('form[data-step] .glyphicon.glyphicon-search').on('click', function() {
     input = $(this).parents('form:first').find('input[type="text"]');
     step = $(this).parents('form:first').data('step');
-    container = $('#results-' + step + ' ul');
-    console.log('scripts/user-start.js', 'search', input, step, container);
+    results_container = $('#results-' + step + ' ul');
+    console.log('scripts/user-start.js', 'search', input, step, results_container);
     switch(step) {
       case 'persons':
         fav = 'person';
@@ -450,7 +450,7 @@ $(document).ready(function(){
       return;
     }
 
-    container.empty();
+    results_container.empty();
     API.query(
       'GET', 
       'search/autosuggest/' + q + '.json', 
@@ -469,25 +469,25 @@ $(document).ready(function(){
           return;
         }
         
-        container.empty().show();
-        console.log('scripts/user-start.js', 'callback form', container);
+        results_container.empty().show();
+        console.log('scripts/user-start.js', 'callback form', results_container);
         for (k in results) {
           console.log('scripts/user-start.js', 'result', results[k]);
-          if (container.selector.indexOf('films') != -1 || container.selector.indexOf('series') != -1) {
+          if (results_container.selector.indexOf('films') != -1 || results_container.selector.indexOf('series') != -1) {
             var type = 'films&series';
-          } else if (container.selector.indexOf('theaters') != -1) {
+          } else if (results_container.selector.indexOf('theaters') != -1) {
             var type = 'theaters'
           }
           title = typeof results[k].title != 'undefined' ? results[k].title : results[k].name;
           
           if (typeof results[k].picture != 'undefined') {
-            container.parent().addClass('slider slider-list');
-            container.addClass('items');
-            container.append('<li class="image-default root-'+results[k].id+'" data-id="'+results[k].id+'" data-name="' + title + '" data-play-program-id="'+results[k].id+'" style="background:url('+results[k].picture+') no-repeat center"><div class="tv-component"><a  data-trigger-click=".root-'+results[k].id+' .btn-suivre" class="wrap-title size-default"><span class="title"><i class="icon-th icon-white"></i><span class="ms-prog-title">'+ title +', '+results[k].year+'</span><span class="ms-prog-desc"><span data-name="'+ title +'" data-id="'+results[k].id+'" rel="popover" data-placement="top" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + '" data-step="'+step+'"> Ajouter</span></span></span></a></div></li>')
+            results_container.parent().addClass('slider slider-list');
+            results_container.addClass('items');
+            results_container.append('<li class="image-default root-'+results[k].id+'" data-id="'+results[k].id+'" data-name="' + title + '" data-play-program-id="'+results[k].id+'" style="background:url('+results[k].picture+') no-repeat center"><div class="tv-component"><a  data-trigger-click=".root-'+results[k].id+' .btn-suivre" class="wrap-title size-default"><span class="title"><i class="icon-th icon-white"></i><span class="ms-prog-title">'+ title +', '+results[k].year+'</span><span class="ms-prog-desc"><span data-name="'+ title +'" data-id="'+results[k].id+'" rel="popover" data-placement="top" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + '" data-step="'+step+'"> Ajouter</span></span></span></a></div></li>')
           } else {
-            container.parent().removeClass('slider slider-list');
-            container.removeClass('items');
-            container.append('<li class="row suggest"><a data-name="'+title+'" data-id="'+results[k].id+'" data-name="' + title + '" rel="popover" data-placement="top" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' col-xs-2" data-step="'+step+'"> Ajouter</a>'+(typeof results[k].picture != 'undefined' ? '<div class="col-xs-1"><img src="'+results[k].picture+'" alt="Illustration de '+title+'" height="40" width="auto"></div>' : '' )+'<a data-trigger-click="a[data-id=\''+results[k].id+'\']"><span class="'+(typeof results[k].picture != 'undefined' ? 'col-xs-9' : 'col-xs-10' )+'">' + title + ((type == 'films&series' && typeof results[k].year != 'undefined') ? '<small> - ' + results[k].year + '</small>' : '') + ((type == 'theaters' && typeof results[k].ville != 'undefined') ? '<small> - '+results[k].ville+'</small>' : '') + '</span>' + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<span class="col-xs-4">suivi par  '+results[k].nb_followers+' personnes</span>' : '') + '</a></li>')
+            results_container.parent().removeClass('slider slider-list');
+            results_container.removeClass('items');
+            results_container.append('<li class="row suggest"><a data-name="'+title+'" data-id="'+results[k].id+'" data-name="' + title + '" rel="popover" data-placement="top" data-store-in-session="1" class="btn btn-suivre btn-plus fav-' + fav + ' col-xs-2" data-step="'+step+'"> Ajouter</a>'+(typeof results[k].picture != 'undefined' ? '<div class="col-xs-1"><img src="'+results[k].picture+'" alt="Illustration de '+title+'" height="40" width="auto"></div>' : '' )+'<a data-trigger-click="a[data-id=\''+results[k].id+'\']"><span class="'+(typeof results[k].picture != 'undefined' ? 'col-xs-9' : 'col-xs-10' )+'">' + title + ((type == 'films&series' && typeof results[k].year != 'undefined') ? '<small> - ' + results[k].year + '</small>' : '') + ((type == 'theaters' && typeof results[k].ville != 'undefined') ? '<small> - '+results[k].ville+'</small>' : '') + '</span>' + (typeof results[k].nb_followers != 'undefined' && results[k].nb_followers ? '<span class="col-xs-4">suivi par  '+results[k].nb_followers+' personnes</span>' : '') + '</a></li>')
         }
       }
     });
@@ -539,7 +539,7 @@ $(document).ready(function(){
         }
   		});
   	}, function(msg, code){
-  		container.prepend('<p class="alert alert-error">' + msg + '</p>');
+  		results_container.prepend('<p class="alert alert-error">' + msg + '</p>');
   	});
 	});
 
