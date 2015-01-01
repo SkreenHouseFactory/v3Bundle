@@ -507,15 +507,24 @@ $(document).ready(function(){
   var hash = window.location.hash.replace('#','').split('=');
   console.log('scripts/user-start.js', 'load hash', hash);
   if (typeof hash[0] != 'undefined' && typeof hash[1] != 'undefined') {
-    var fav = hash[0].replace('documentaire','film').replace('spectacle','film').replace('série','serie').replace('émission','emission')
+    var fav_name = hash[1];
+    if (fav_name.indexOf(',') != -1) {
+      var tmp = hash[1].split(',')
+      var fav_name = tmp[0];
+      var fav_id = tmp[0];
+    }
+    var fav = hash[0].replace('documentaire','film')
+                     .replace('spectacle','film')
+                     .replace('série','serie')
+                     .replace('émission','emission')
     if ($('[data-step="'+fav+'s"]').length) {
       new Dialog('startLists',{},3000);
       console.log('scripts/user-start.js', 'trigger search');
-      $('form[data-step="'+fav+'s"] input[type="text"]').attr('value', hash[1]);
+      $('form[data-step="'+fav+'s"] input[type="text"]').attr('value', fav_name);
       $('form[data-step="'+fav+'s"] .glyphicon.glyphicon-search').trigger('click');
       setTimeout(function(){
         console.log('scripts/user-start.js', 'trigger search', 'setTimeout');
-        $('li.suggest a[data-name="'+hash[1]+'"], li[data-name="'+hash[1]+'"] a').trigger('click');
+        $('li.suggest a[data-name="'+fav_name+'"], li[data-name="'+fav_name+'"] a').trigger('click');
         $('.start-list.btn').html('Continuer ma chaîne <span class="glyphicon glyphicon-circle-arrow-right"></span>')
       }, 2000)
     } else if (fav == 'trigger' && 
