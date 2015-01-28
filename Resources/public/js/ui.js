@@ -258,36 +258,36 @@ UI = {
   getPlaylistMessage: function(trigger) {
     if (trigger.hasClass('fav-cinema')) {
         return ['Ne ratez plus vos séances&nbsp;!', 
-                'En ajoutant ce cinéma à votre chaîne vous saurez averti de sa programmation.'];
+                'En ajoutant ce cinéma à votre chaîne vous serez averti de sa programmation.'];
     } else if (trigger.hasClass('fav-epg')) {
         return ['Faites-vous un programme TV sur mesure&nbsp;!', 
                 'En ajoutant cette chaîne à votre chaîne elle apparaîtra dans votre programme TV.'];
     } else if (trigger.hasClass('fav-page')) {
         return ['Ne ratez plus ' + trigger.data('channel-name') + '&nbsp;!',
-                'En ajoutant cette chaîne à votre chaîne vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.'];
+                'En ajoutant cette chaîne à votre chaîne vous serez averti dès qu\'une nouvelle vidéo sera mise en ligne.'];
     } else if (trigger.hasClass('fav-channel')) {
         return ['Ne ratez plus ' + trigger.data('channel-name') + '&nbsp;!',
-                'En ajoutant cette chaîne à votre chaîne vous saurez averti dès qu\'une nouvelle vidéo sera mise en ligne.'];
+                'En ajoutant cette chaîne à votre chaîne vous serez averti dès qu\'une nouvelle vidéo sera mise en ligne.'];
     } else if (trigger.hasClass('fav-user')) {
         return ['Suivre la chaîne de ' + trigger.data('channel-name') + ' &nbsp;!',
                 'En ajoutant cette chaine à votre chaîne vous serez averti lorsque ' + trigger.data('channel-name') + ' suis un programme.'];
     } else if (trigger.hasClass('fav-person')) {
       if (typeof trigger.data('name') != undefined) {
         return ['Ne ratez plus l\'actualité de ' + trigger.data('name') + '&nbsp;!',
-                'En ajoutant cette personne à votre chaîne vous saurez averti dès qu\'un de ses programmes sera disponible.'];
+                'En ajoutant cette personne à votre chaîne vous serez averti dès qu\'un de ses programmes sera disponible.'];
       } else {
         return ['Ne ratez plus vos acteurs préférés&nbsp;!',
-                'En ajoutant cette personne à votre chaîne vous saurez averti dès qu\'un de ses programmes sera disponible.'];
+                'En ajoutant cette personne à votre chaîne vous serez averti dès qu\'un de ses programmes sera disponible.'];
       }
     } else if (trigger.hasClass('fav-search')) {
         return ['Ne ratez plus les programmes qui vous intéressent&nbsp;!',
-                'En ajoutant cette recherche à votre chaîne vous saurez averti dès qu\'un programme correspondant sera disponible.'];
+                'En ajoutant cette recherche à votre chaîne vous serez averti dès qu\'un programme correspondant sera disponible.'];
     } else if (trigger.hasClass('fav-category')) {
         return ['Ne ratez plus les programmes qui vous intéressent&nbsp;!',
-                'En ajoutant cette catégorie à votre chaîne vous saurez averti dès qu\'un programme correspondant sera disponible.'];
+                'En ajoutant cette catégorie à votre chaîne vous serez averti dès qu\'un programme correspondant sera disponible.'];
     } else if (trigger.hasClass('fav-format-category')) {
         return ['Ne ratez plus les programmes qui vous intéressent&nbsp;!',
-                'En ajoutant cette catégorie à votre chaîne vous saurez averti dès qu\'un programme correspondant sera disponible.'];
+                'En ajoutant cette catégorie à votre chaîne vous serez averti dès qu\'un programme correspondant sera disponible.'];
     } else {
       if (trigger.data('onglet') == 'emissions' || 
           trigger.data('onglet') == 'series') {
