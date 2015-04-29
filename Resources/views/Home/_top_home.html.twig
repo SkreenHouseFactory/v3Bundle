@@ -1,10 +1,10 @@
 <div class="container">
   <div class="row hometop">
-    <div class="col-xs-4">
+    {#<div class="col-xs-4">
       <div class="prog-list">   
         {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-vertical.html.twig' with { live:top_home.live, name: 'Ce soir à la télé', link: 'tvgrid', name_link: 'Voir la grille télé complète', origin: 'hometop', list_number: '1' } %}
       </div>
-    </div>
+    </div>#}
     {% set combinaisons = {6: {'vertical': [[1,1,1,1,1,1]], 'horizontal': []}|to_array }|to_array %}
     {% include 'SkreenHouseFactoryV3Bundle:Slider:_slider-new.html.twig' with {slider: top_home.pack_live , h_title:"h2", loop_index: 1, slider_combinaisons: combinaisons, title: top_home.pack_live.name } %}
     <div class="col-xs-4 thema-home">
