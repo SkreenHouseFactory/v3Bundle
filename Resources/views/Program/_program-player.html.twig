@@ -1,15 +1,10 @@
-{% if program.player is defined and program.player %}
+{% if program.teaser.player is defined and program.teaser.player and program.teaser.player.url %}
   <a name="teaser"></a>
   <div id="program-teaser" itemscope itemtype="http://www.schema.org/VideoObject" itemref="md-about">  
     <meta itemprop="thumbnail" content="{{ program.picture }}" />
     <meta itemprop="thumbnailUrl" content="{{ program.picture }}" />
     <meta itemprop="duration" content="{{ program.duration|iso8601 }}" />
-    {% if program.player_fb is defined %}
-      <meta itemprop="embedURL" content="{{ program.player_fb|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
-    {% endif %}
-    {% if program.player_stream is defined and program.player_stream %}
-    <meta itemprop="contentUrl" content="{{ program.player_stream }}" />
-    {% endif %}
+    <meta itemprop="embedURL" content="{{ program.teaser.player.url|replace({'http://': 'https://', 'http%3A%2F%2': 'https%3A%2F%2'}) }}" />
     <meta itemprop="width" content="637" />
     <meta itemprop="height" content="368" />
     <meta itemprop="playerType" content="Flash" />
@@ -18,12 +13,8 @@
     <meta itemprop="isFamilyFriendly" content=true />
     <meta itemprop="description" content="{{ program.description_text|striptags|html_entity_decode|replace({"\n": ' '})|slice(0,400) }}..." />
     <div id="program-teaser-meta" class="player-meta"></div>
-    <div id="program-teaser-player" data-play-api="{{ {url: program.player.iframe is defined ? program.player.iframe : null, playId: program.player.id}|json_encode }}" data-autoplay="1">
-      {% if program.player_iframe is defined %}
-        <iframe src="{{ program.player_iframe }}{{ app.environment == 'dev' ? '&env=dev' : '' }}" scrolling="no" frameborder="0"></iframe>
-      {% else %}
-        <iframe src="{{ player_host }}/skPlayerPlugin/iframe.php?is_iframe=1&play={{ program.player.id }}&fromWebsite=1&default_version=VOST{{ app.environment == 'dev' ? '&env=dev' : '' }}" scrolling="no" frameborder="0"></iframe>
-      {% endif %}
+    <div id="program-teaser-player" data-play-api="{{ {url: program.teaser.player.url}|json_encode }}" data-autoplay="1">
+      <iframe src="{{ program.teaser.player.url }}" scrolling="no" frameborder="0"></iframe>
     </div>
   </div>
 {% else %}
