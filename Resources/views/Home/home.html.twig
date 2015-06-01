@@ -76,7 +76,7 @@
     {% include 'SkreenHouseFactoryV3Bundle:Home:_top_home.html.twig' with { top_home:home.more } %}
   {% endif %}
 
-  {% for slider in home.sliders|to_array if slider.id is defined %}
+  {#% for slider in home.sliders|to_array if slider.id is defined %}
     {% if loop.first and home.name not in ['mixte', 'cinema'] %}
       {% if home.name not in ['mixte','cinema'] %}
         {% include 'SkreenHouseFactoryV3Bundle:Main:_carousel.html.twig' with {slider: slider, class: 'carousel-a-la-une transchange', force_size: '/1250/370'} %}
@@ -93,7 +93,7 @@
       {% endif %}
 
     {% endif %}
-  {% endfor %}
+  {% endfor %#}
   {% if home.more is defined %}
       </div>
     </div>
@@ -103,7 +103,7 @@
 
 {# {% include 'SkreenHouseFactoryV3Bundle:Main:_passlabel.html.twig' %} #}
 
-{% if home.name == 'mixte' %}
+{#% if home.name == 'mixte' %}
   <div id="user-home">
     <div class="bs-callout bs-callout-warning">
       <div class="container">
@@ -125,8 +125,5 @@
         </div>
       </div>
   </div>
-{% endif %}
-<br/>
-<br/>
- <a title="Insdigbord" href="http://www.mlletarte.fr">Retrouvez des chroniques TV régulières sur le blog Insdigbord - MlleTarte</a> pour http://www.myskreen.com/ 
+{% endif %#}
 {% endblock %}
