@@ -15,12 +15,10 @@
   <hr/>
 
   {% if app.request.get('route') == 'homes' and app.request.get('home') == '' %}
-  {#
   <div id="boost" class="row">
     {% render(controller('SkreenHouseFactoryV3Bundle:Main:boost',{})) %}
   </div>
   <hr/> 
-  #}
   <div class="row" id="sitemap">
     <div class="col-xs-16">
       {#<strong class="pull-left">Tous les diffuseurs :&nbsp;&nbsp;&nbsp;</strong>
