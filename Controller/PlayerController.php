@@ -24,6 +24,7 @@ class PlayerController extends Controller
     */
     public function redirectAction(Request $request)
     {
+
       if ($request->get('url')) {
         $url = $request->get('url');
       } elseif (strstr('/redirection/', $request->get('target'))) {
@@ -33,6 +34,12 @@ class PlayerController extends Controller
         $url = $request->get('target');
       }
 
+      //!adulte
+      $occ = $this->get('doctrine')->getManager()->getRepository('MyskreenBoBundle:SkOccurrence')->findOneBy(array('url' => $url));
+      if ($occ && $occ->getProgramme() && $occ->getProgramme()->isAdulte()) {
+        throw $this->createNotFoundException('Contenu retiré');
+      }
+      die($occ);
       $response = $this->render('SkreenHouseFactoryV3Bundle:Player:' . $request->get('template') . '.html.twig', array(
         'url' => urldecode($url)
       ));
@@ -50,11 +57,13 @@ class PlayerController extends Controller
     public function liveAction(Request $request)
     {
 			$api = $this->get('api');
-      $channels = $api->fetch('channel', array('type' => 'broadcast', 
-                                               'with_live' => true, 
-                                               'player' => 'flash',
-                                               'player_width' => '99%',
-                                               'player_height' => '99%'));
+      $channels = $api->fetch('channel', array(
+        'type' => 'broadcast', 
+         'with_live' => true, 
+         'player' => 'flash',
+         'player_width' => '99%',
+         'player_height' => '99%'
+       ));
 
       return $this->render('SkreenHouseFactoryV3Bundle:Player:live.html.twig', array(
         'channels' => $channels,
