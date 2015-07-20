@@ -6,10 +6,10 @@
                   + (window.matchMedia('(min-width:500px)').matches ? 'style="display:inline-block;width:970px;height:90px"' : 'style="display:inline-block;width:290px;height:50px"' )
                   + ' data-ad-client="ca-pub-4265768576048156" data-ad-slot="' + (window.matchMedia('(min-width:500px)').matches && '{{banner}}' != 'colonne' ? '3195548951' : '6485200154' )
                   + '"></ins>';
-      alert('matchMedia - {{ banner }} - ' + (window.matchMedia('(min-width:500px)').matches && '{{banner}}' != 'colonne' ? '3195548951' : '6485200154' ));
+      //alert('matchMedia - {{ banner }} - ' + (window.matchMedia('(min-width:500px)').matches && '{{banner}}' != 'colonne' ? '3195548951' : '6485200154' ));
     } else {
       document.getElementById("ins-adsense").innerHTML = '<ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px" data-ad-client="ca-pub-4265768576048156" data-ad-slot="3195548951"></ins>';
-      alert('default - {{ banner }} - 3195548951' );
+      //alert('default - {{ banner }} - 3195548951' );
     }
   </script>
   </div>
