@@ -29,20 +29,24 @@
 {% block body_attribute %} {% endblock %}
 
 {# Header adsense #}
-{% block header_adsense %}
+{#% block header_adsense %}
     googletag.defineSlot('/22418486/Banniere_970x90', [[970, 90], [728, 90]], 'adsense-banner-program').addService(googletag.pubads());
     googletag.defineSlot('/22418486/Banniere_colonne', [250, 250], 'adsense-banner-colonne').addService(googletag.pubads());
     googletag.defineSlot('/22418486/Banniere_mobile', [[320, 50], [300, 100], [250, 250]], 'adsense-banner-program-mobile').addService(googletag.pubads());
-{% endblock %}
+{% endblock %#}
 
 {# Content #}
 {% block content %}
   <div id="view-program" data-id="{{ program.id }}">
 
     {# adsense banner #}
-    {#% if program.id|slice(0,1) != 5 %#}
+    {#% if program.id|slice(0,1) != 5 %}
     <div class="container">{{ include ('SkreenHouseFactoryV3Bundle:Main:_adsense.html.twig', {banner: 'program'}) }}</div>
-    {#% endif %#}
+    {% endif %#}
+    <div class="container">
+      <script type='text/javascript'>sas_pageid='65801/506752';  sas_formatid=26322;  sas_target=""; </script>
+      <script type='text/javascript' src='http://ads.themoneytizer.com/script'></script>
+    </div>
      
     <div class="scrollplayerzone">
       {# Titre + ShareBlock + AjoutListes #}
